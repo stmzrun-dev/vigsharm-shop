@@ -229,7 +229,7 @@
       }, type || 'image/webp', quality || 0.92);
     });
   }
-  function blobToJpegDataUrl(blob, maxSide) {
+  function blobToWebpDataUrl(blob, maxSide) {
     maxSide = maxSide || 1600;
     return new Promise(function (resolve, reject) {
       var url = URL.createObjectURL(blob);
@@ -245,10 +245,12 @@
         var canvas = document.createElement('canvas');
         canvas.width = tw; canvas.height = th;
         var ctx = canvas.getContext('2d');
+        ctx.imageSmoothingEnabled = true;
+        ctx.imageSmoothingQuality = 'high';
         ctx.fillStyle = '#FFFFFF';
         ctx.fillRect(0, 0, tw, th);
         ctx.drawImage(img, 0, 0, tw, th);
-        resolve(canvas.toDataURL('image/jpeg', 0.9));
+        resolve(canvas.toDataURL('image/webp', 0.92));
       };
       img.onerror = function () { URL.revokeObjectURL(url); reject(new Error('Не удалось открыть фото')); };
       img.src = url;
@@ -286,7 +288,7 @@
     var res = await fetch(path);
     if (!res.ok) throw new Error('Не удалось загрузить эталонный фон');
     var blob = await res.blob();
-    return blobToJpegDataUrl(blob, maxSide || 1024);
+    return blobToWebpDataUrl(blob, maxSide || 1024);
   }
 
   function applyCanvasCorrection(img) {
@@ -357,6 +359,23 @@
   }
 
   function extractImageFromResponse(data) {
+    // Gemini-native response: candidates[].content.parts[].inlineData / inline_data
+    var candidates = (data && data.candidates) || [];
+    for (var c = 0; c < candidates.length; c++) {
+      var content = (candidates[c] && candidates[c].content) || {};
+      var parts = content.parts || [];
+      for (var p = 0; p < parts.length; p++) {
+        var part = parts[p] || {};
+        var inline = part.inlineData || part.inline_data;
+        if (inline && inline.data) {
+          return 'data:' + (inline.mimeType || inline.mime_type || 'image/webp') + ';base64,' + inline.data;
+        }
+        var fd = part.fileData || part.file_data;
+        if (fd && (fd.fileUri || fd.file_uri)) return fd.fileUri || fd.file_uri;
+        if (typeof part.text === 'string' && part.text.indexOf('data:image/') === 0) return part.text;
+      }
+    }
+
     var choices = (data && data.choices) || [];
     for (var i = 0; i < choices.length; i++) {
       var msg = choices[i].message || {};
@@ -394,29 +413,37 @@
     return 'Первое изображение — товар (НЕПРИКОСНОВЕНЕН, PRODUCT IMMUTABLE). Второе изображение — эталонный фон. Перенеси товар целиком ' + placement + '. Сохрани товар пиксельно точным: цвета, форма, количество и расположение шаров, надписи и цифры без изменений. Верни только итоговую картинку.';
   }
 
+  function dataUrlToInlinePart(dataUrl) {
+    var m = /^data:(image\/[a-zA-Z0-9.+-]+);base64,(.*)$/.exec(String(dataUrl || ''));
+    if (!m) throw new Error('Не удалось разобрать изображение в base64');
+    return { mimeType: m[1], data: m[2] };
+  }
+
   async function callStudioApi(productDataUrl, bgDataUrl, scene) {
-    var body = {
+    var product = dataUrlToInlinePart(productDataUrl);
+    var bg = dataUrlToInlinePart(bgDataUrl);
+    var requestBody = {
       model: STUDIO_MODEL,
-      modalities: ['image', 'text'],
-      messages: [
-        { role: 'system', content: STUDIO_SYSTEM },
+      systemInstruction: { parts: [{ text: STUDIO_SYSTEM }] },
+      contents: [
         {
           role: 'user',
-          content: [
-            { type: 'text', text: studioPrompt(scene) },
-            { type: 'image_url', image_url: { url: productDataUrl } },
-            { type: 'image_url', image_url: { url: bgDataUrl } }
+          parts: [
+            { text: studioPrompt(scene) },
+            { inlineData: { mimeType: product.mimeType, data: product.data } },
+            { inlineData: { mimeType: bg.mimeType, data: bg.data } }
           ]
         }
       ]
     };
+    console.log('NordRouter request:', JSON.stringify(requestBody));
     var res = await fetch(STUDIO_ENDPOINT, {
       method: 'POST',
       headers: {
         'Authorization': 'Bearer ' + state.nordKey,
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(body)
+      body: JSON.stringify(requestBody)
     });
     var data = null;
     try { data = await res.json(); } catch (e) {}
@@ -809,7 +836,7 @@
       var sourceBlob = state.webpBlob || (await compressImage(state.imageBlob)).blob;
       if (state.nordKey && scene && scene.path) {
         setStatus($('studio-status'), 'Готовим фото и референс…', '');
-        var productDataUrl = await blobToJpegDataUrl(sourceBlob, 1600);
+        var productDataUrl = await blobToWebpDataUrl(sourceBlob, 1600);
         var bgDataUrl = await loadReferenceDataUrl(scene.path, 1024);
         setStatus($('studio-status'), 'Nano Banana переносит товар на эталонный фон…', '');
         var resultUrl = await callStudioApi(productDataUrl, bgDataUrl, scene);

@@ -26,7 +26,7 @@
   ];
 
   /* ---------- Studio Pro ---------- */
-  var STUDIO_MODEL = 'google/gemini-3.1-flash-image-preview'; // Nano Banana (editing)
+  var STUDIO_MODEL = 'google/gemini-3-pro-image'; // Nano Banana Pro: максимум качества и читаемый текст
   var STUDIO_ENDPOINT = 'https://nordrouter.com/v1/chat/completions';
   var SCENES = [
     { id: 'floor', label: 'Напольная сцена (студийный пол + стена)', path: 'assets/studio-bg-floor.jpg', mode: 'FLOOR' },
@@ -322,8 +322,7 @@
     ctx.fillRect(0, 0, W, H);
     drawContain(ctx, productImg, 0, 0, S);
     drawContain(ctx, bgImg, S, 0, S);
-    var dataUrl = canvas.toDataURL('image/webp', 0.92);
-    if (dataUrl.indexOf('data:image/webp') !== 0) dataUrl = canvas.toDataURL('image/jpeg', 0.92);
+    var dataUrl = canvas.toDataURL('image/jpeg', 0.90);
     return dataUrl;
   }
 
@@ -395,6 +394,13 @@
   }
 
   function extractImageFromResponse(data) {
+    // NordRouter (OpenAI-совместимый) ответ: choices[0].message.images[0].image_url.url
+    // либо сам элемент choices[0].message.images[0]
+    var nordImages = (data && data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.images) || null;
+    var nordFirst = nordImages && nordImages[0];
+    var nordVal = (nordFirst && nordFirst.image_url && nordFirst.image_url.url) || nordFirst;
+    if (typeof nordVal === 'string' && nordVal) return nordVal;
+
     // Gemini-native response: candidates[].content.parts[].inlineData / inline_data
     var candidates = (data && data.candidates) || [];
     for (var c = 0; c < candidates.length; c++) {
@@ -444,7 +450,7 @@
   async function callStudioApi(referenceDataUrl) {
     var requestBody = {
       model: STUDIO_MODEL,
-      // Nano Banana (Gemini image) — image-output chat model: обязателен поле modalities
+      // Nano Banana Pro (Gemini image) — image-output chat model: обязателен поле modalities
       modalities: ['image', 'text'],
       messages: [
         {
@@ -452,7 +458,7 @@
           content: [
             {
               type: 'text',
-              text: 'На прикреплённом изображении: слева — товар студии VigSharm (PRODUCT IMMUTABLE, неприкосновенен, форму, цвета, надписи, цифры и шары не менять), справа — утверждённый эталонный фон. Перенеси товар целиком на эталонный фон. Добавь реалистичную контактную тень. Верни только чистое готовое изображение 1:1.'
+              text: 'Ты — профессиональный ретушёр каталога воздушных шаров VigSharm. ПРАВИЛО PRODUCT IMMUTABLE: товар неприкосновенен. На прикреплённом изображении: слева — оригинальный товар, справа — утверждённый фирменный фон студии. Задача: аккуратно вырезать товар слева без малейших изменений (сохранить все надписи, цифры, персонажей, цвета латекса и количество шаров), перенести его на фон справа, убрать желтизну комнатного света и добавить реалистичную мягкую контактную тень на пол. Верни только готовое фото 1:1.'
             },
             {
               type: 'image_url',

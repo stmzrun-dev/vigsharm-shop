@@ -450,8 +450,6 @@
   async function callStudioApi(referenceDataUrl) {
     var requestBody = {
       model: STUDIO_MODEL,
-      // Nano Banana Pro (Gemini image) — image-output chat model: обязателен поле modalities
-      modalities: ['image', 'text'],
       messages: [
         {
           role: 'user',
@@ -469,7 +467,7 @@
       ]
     };
 
-    console.log('NordRouter request (chat + modalities):', JSON.stringify(requestBody));
+    console.log('NordRouter request (chat):', JSON.stringify(requestBody));
     var res = await fetch(STUDIO_ENDPOINT, {
       method: 'POST',
       headers: {

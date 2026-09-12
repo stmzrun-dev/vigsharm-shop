@@ -26,15 +26,17 @@
   ];
 
   /* ---------- Studio Pro ---------- */
-  var STUDIO_MODEL = 'google/gemini-3.1-flash-image-preview'; // Nano Banana Pro: максимум качества и читаемый текст
-  var STUDIO_ENDPOINT = 'https://nordrouter.com/v1/chat/completions';
+  var STUDIO_MODEL = 'image/nano-banana-pro';
+  var STUDIO_GENERATE_ENDPOINT = 'https://nordrouter.com/media/generate';
+  var STUDIO_JOB_ENDPOINT = 'https://nordrouter.com/media/job/';
+  var STUDIO_POLL_INTERVAL_MS = 2500;
+  var STUDIO_POLL_TIMEOUT_MS = 90000;
   var SCENES = [
     { id: 'floor', label: 'Напольная сцена (студийный пол + стена)', path: 'assets/studio-bg-floor.jpg', mode: 'FLOOR' },
     { id: 'wall', label: 'Только стена (WALL_ONLY, без пола и плинтуса)', path: 'assets/studio-bg-wall.jpg', mode: 'WALL_ONLY' },
     { id: 'photozone', label: 'Фотозона (просторный зал)', path: 'assets/studio-bg-photozone.jpg', mode: 'PHOTOZONE' },
     { id: 'original', label: 'Оставить оригинальный фон (только цветокоррекция и резкость)', path: '', mode: 'ORIGINAL' }
   ];
-  var STUDIO_SYSTEM = 'Ты — ретушёр товарных фото студии VigSharm. ЖЁСТКОЕ СИСТЕМНОЕ ПРАВИЛО PRODUCT IMMUTABLE: товар (букеты, композиции из шаров, цветы, цифры, надписи) неприкосновенен — запрещено перерисовывать, менять цвета, форму, количество, пропорции или расположение элементов товара. Единственная задача — перенести товар целиком на предоставленный эталонный фон и добавить естественную студийную тень, сохранив товар узнаваемым до мелочей. Не добавляй и не убирай элементы товара. Верни только итоговое изображение без текста, подписей и рамок.';
 
   var state = {
     owner: '', repo: '', branch: 'main', token: '', nordKey: '',
@@ -256,34 +258,6 @@
       img.src = url;
     });
   }
-  function imageUrlToWebpBlob(url, maxSide) {
-    maxSide = maxSide || 2000;
-    return new Promise(function (resolve, reject) {
-      var img = new Image();
-      img.onload = function () {
-        var w = img.naturalWidth || img.width || 1;
-        var h = img.naturalHeight || img.height || 1;
-        var longSide = Math.max(w, h);
-        var scale = longSide > maxSide ? maxSide / longSide : 1;
-        var tw = Math.max(1, Math.round(w * scale));
-        var th = Math.max(1, Math.round(h * scale));
-        var canvas = document.createElement('canvas');
-        canvas.width = tw; canvas.height = th;
-        var ctx = canvas.getContext('2d');
-        ctx.imageSmoothingEnabled = true;
-        ctx.imageSmoothingQuality = 'high';
-        ctx.fillStyle = '#FFFFFF';
-        ctx.fillRect(0, 0, tw, th);
-        ctx.drawImage(img, 0, 0, tw, th);
-        canvas.toBlob(function (blob) {
-          if (!blob) reject(new Error('Браузер не смог создать WebP'));
-          else resolve({ blob: blob, width: tw, height: th });
-        }, 'image/webp', 0.92);
-      };
-      img.onerror = function () { reject(new Error('Не удалось открыть изображение')); };
-      img.src = url;
-    });
-  }
   async function loadReferenceDataUrl(path, maxSide) {
     var res = await fetch(path);
     if (!res.ok) throw new Error('Не удалось загрузить эталонный фон');
@@ -393,82 +367,77 @@
     ctx.putImageData(src, 0, 0);
   }
 
-  function extractImageFromResponse(data) {
-    // NordRouter (OpenAI-совместимый) ответ: choices[0].message.images[0].image_url.url
-    // либо сам элемент choices[0].message.images[0]
-    var nordImages = (data && data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.images) || null;
-    var nordFirst = nordImages && nordImages[0];
-    var nordVal = (nordFirst && nordFirst.image_url && nordFirst.image_url.url) || nordFirst;
-    if (typeof nordVal === 'string' && nordVal) return nordVal;
-
-    // Gemini-native response: candidates[].content.parts[].inlineData / inline_data
-    var candidates = (data && data.candidates) || [];
-    for (var c = 0; c < candidates.length; c++) {
-      var content = (candidates[c] && candidates[c].content) || {};
-      var parts = content.parts || [];
-      for (var p = 0; p < parts.length; p++) {
-        var part = parts[p] || {};
-        var inline = part.inlineData || part.inline_data;
-        if (inline && inline.data) {
-          return 'data:' + (inline.mimeType || inline.mime_type || 'image/webp') + ';base64,' + inline.data;
-        }
-        var fd = part.fileData || part.file_data;
-        if (fd && (fd.fileUri || fd.file_uri)) return fd.fileUri || fd.file_uri;
-        if (typeof part.text === 'string' && part.text.indexOf('data:image/') === 0) return part.text;
-      }
-    }
-
-    var choices = (data && data.choices) || [];
-    for (var i = 0; i < choices.length; i++) {
-      var msg = choices[i].message || {};
-      if (Array.isArray(msg.images)) {
-        for (var j = 0; j < msg.images.length; j++) {
-          var im = msg.images[j];
-          if (im && im.image_url && im.image_url.url) return im.image_url.url;
-        }
-      }
-      if (Array.isArray(msg.content)) {
-        for (var k = 0; k < msg.content.length; k++) {
-          var part = msg.content[k];
-          if (part && part.image_url && part.image_url.url) return part.image_url.url;
-        }
-      }
-      if (typeof msg.content === 'string') {
-        var m = /(data:image\/[^)"\s]+)/.exec(msg.content);
-        if (m) return m[1];
-      }
-    }
-    if (Array.isArray(data && data.data)) {
-      for (var d = 0; d < data.data.length; d++) {
-        if (data.data[d].b64_json) return 'data:image/png;base64,' + data.data[d].b64_json;
-        if (data.data[d].url) return data.data[d].url;
-      }
-    }
-    return null;
+  function sleep(ms) {
+    return new Promise(function (resolve) { setTimeout(resolve, ms); });
   }
 
-  async function callStudioApi(referenceDataUrl) {
+  async function pollJob(url) {
+    var res = await fetch(url, {
+      method: 'GET',
+      headers: { 'Authorization': 'Bearer ' + state.nordKey }
+    });
+    var data = null;
+    try { data = await res.json(); } catch (e) {}
+    console.log('Poll response status:', res.status);
+    if (!res.ok) {
+      var msg = (data && data.error && (data.error.message || data.error)) || (data && data.message) || ('HTTP ' + res.status);
+      throw new Error(msg);
+    }
+    return data;
+  }
+
+  function blobToWebp(blob, maxSide) {
+    maxSide = maxSide || 2000;
+    var toWebp = function (source, w, h) {
+      var longSide = Math.max(w, h);
+      var scale = longSide > maxSide ? maxSide / longSide : 1;
+      var tw = Math.max(1, Math.round(w * scale));
+      var th = Math.max(1, Math.round(h * scale));
+      var canvas = document.createElement('canvas');
+      canvas.width = tw; canvas.height = th;
+      var ctx = canvas.getContext('2d');
+      ctx.imageSmoothingEnabled = true;
+      ctx.imageSmoothingQuality = 'high';
+      ctx.fillStyle = '#FFFFFF';
+      ctx.fillRect(0, 0, tw, th);
+      ctx.drawImage(source, 0, 0, tw, th);
+      return canvasToBlob(canvas, 'image/webp', 0.92).then(function (outBlob) {
+        return { blob: outBlob, width: tw, height: th };
+      });
+    };
+    if (typeof createImageBitmap === 'function') {
+      return createImageBitmap(blob).then(function (bitmap) {
+        var p = toWebp(bitmap, bitmap.width, bitmap.height);
+        p.then(function () { try { bitmap.close(); } catch (e) {} }, function () { try { bitmap.close(); } catch (e) {} });
+        return p;
+      });
+    }
+    return loadImageFromBlob(blob).then(function (img) {
+      return toWebp(img, img.naturalWidth || img.width || 1, img.naturalHeight || img.height || 1);
+    });
+  }
+
+  async function fetchResultToWebp(resultUrl) {
+    var res = await fetch(resultUrl);
+    if (!res.ok) throw new Error('Не удалось скачать готовое изображение (HTTP ' + res.status + ')');
+    var blob = await res.blob();
+    return blobToWebp(blob, 2000);
+  }
+
+  async function callStudioApi(referenceDataUrl, statusEl) {
+    // Шаг 1 — создание асинхронной задачи генерации.
     var requestBody = {
       model: STUDIO_MODEL,
-      messages: [
-        {
-          role: 'user',
-          content: [
-            {
-              type: 'text',
-              text: 'Ты — профессиональный ретушёр каталога воздушных шаров VigSharm. ПРАВИЛО PRODUCT IMMUTABLE: товар неприкосновенен. На прикреплённом изображении: слева — оригинальный товар, справа — утверждённый фирменный фон студии. Задача: аккуратно вырезать товар слева без малейших изменений (сохранить все надписи, цифры, персонажей, цвета латекса и количество шаров), перенести его на фон справа, убрать желтизну комнатного света и добавить реалистичную мягкую контактную тень на пол. Верни только готовое фото 1:1.'
-            },
-            {
-              type: 'image_url',
-              image_url: { url: referenceDataUrl }
-            }
-          ]
-        }
-      ]
+      input: {
+        prompt: 'Ты — профессиональный ретушёр каталога воздушных шаров VigSharm. ПРАВИЛО PRODUCT IMMUTABLE: товар неприкосновенен. На прикреплённом изображении: слева — оригинальный товар, справа — утверждённый фирменный фон студии. Задача: аккуратно вырезать товар слева без малейших изменений (сохранить все надписи, цифры, персонажей, цвета латекса и количество шаров), перенести его на фон справа, убрать желтизну комнатного света и добавить реалистичную мягкую контактную тень на пол. Верни только готовое фото 1:1.',
+        image: referenceDataUrl,
+        resolution: '2K',
+        aspect_ratio: '1:1'
+      }
     };
 
-    console.log('NordRouter request (chat):', JSON.stringify(requestBody));
-    var res = await fetch(STUDIO_ENDPOINT, {
+    console.log('NordRouter request (media/generate):', JSON.stringify(requestBody));
+    var res = await fetch(STUDIO_GENERATE_ENDPOINT, {
       method: 'POST',
       headers: {
         'Authorization': 'Bearer ' + state.nordKey,
@@ -476,17 +445,42 @@
       },
       body: JSON.stringify(requestBody)
     });
-    var data = null;
-    try { data = await res.json(); } catch (e) {}
-    console.log('Response status:', res.status);
-    console.log('Response body:', data);
+    var job = null;
+    try { job = await res.json(); } catch (e) {}
+    console.log('Create response status:', res.status);
+    console.log('Create response body:', job);
     if (!res.ok) {
-      var msg = (data && data.error && (data.error.message || data.error)) || (data && data.message) || ('HTTP ' + res.status);
-      throw new Error(msg);
+      var createMsg = (job && job.error && (job.error.message || job.error)) || (job && job.message) || ('HTTP ' + res.status);
+      throw new Error(createMsg);
     }
-    var imgUrl = extractImageFromResponse(data);
-    if (!imgUrl) throw new Error('Модель не вернула изображение');
-    return imgUrl;
+    if (!job || !job.id) throw new Error('Сервер не вернул идентификатор задачи');
+
+    // Шаг 2 — поллинг статуса задачи.
+    var pollUrl = job.poll || (STUDIO_JOB_ENDPOINT + job.id);
+    if (pollUrl.indexOf('http') !== 0) {
+      pollUrl = 'https://nordrouter.com' + (pollUrl.charAt(0) === '/' ? '' : '/') + pollUrl;
+    }
+    var startedAt = Date.now();
+    while (true) {
+      if (Date.now() - startedAt >= STUDIO_POLL_TIMEOUT_MS) {
+        throw new Error('Превышено время ожидания генерации (90 сек)');
+      }
+      var statusData = await pollJob(pollUrl);
+      var status = statusData && statusData.status;
+      if (status === 'done') {
+        var resultUrl = (statusData.data && statusData.data.result_url) || statusData.result_url;
+        if (!resultUrl) throw new Error('Генерация завершена, но ссылка на результат отсутствует');
+        // Шаг 3 — скачивание готового файла и конвертация в WebP для админки.
+        return await fetchResultToWebp(resultUrl);
+      }
+      if (status === 'failed') {
+        var failMsg = (statusData.data && statusData.data.error) || statusData.error || 'Ошибка генерации';
+        throw new Error(failMsg);
+      }
+      var elapsed = Math.round((Date.now() - startedAt) / 1000);
+      if (statusEl) setStatus(statusEl, 'Генерация... (' + elapsed + 'с)', 'info');
+      await sleep(STUDIO_POLL_INTERVAL_MS);
+    }
   }
 
   /* ---------- github api ---------- */
@@ -872,9 +866,8 @@
         var productDataUrl = await blobToWebpDataUrl(sourceBlob, 1600);
         var bgDataUrl = await loadReferenceDataUrl(scene.path, 1024);
         var referenceDataUrl = await buildStudioReference(productDataUrl, bgDataUrl);
-        setStatus($('studio-status'), 'Nano Banana переносит товар на эталонный фон…', '');
-        var resultUrl = await callStudioApi(referenceDataUrl);
-        var r = await imageUrlToWebpBlob(resultUrl, 2000);
+        setStatus($('studio-status'), 'Запускаем генерацию…', '');
+        var r = await callStudioApi(referenceDataUrl, $('studio-status'));
         state.studioBlob = r.blob;
         state.studioMeta = { width: r.width, height: r.height, method: 'Studio Pro · ' + scene.label };
       } else {

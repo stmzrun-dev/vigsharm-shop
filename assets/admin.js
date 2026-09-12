@@ -1,4 +1,4 @@
-/* VigSharm admin: publish products straight to the GitHub Pages repo via REST API */
+﻿/* VigSharm admin: publish products straight to the GitHub Pages repo via REST API */
 (function () {
   'use strict';
 
@@ -198,47 +198,50 @@
     });
   }
 
-  async function callStudioApi(imagePath, statusEl) {
+    async function callStudioApi(imageUrl, statusEl) {
     var settings = loadSettings() || {};
-    if (!settings.owner || !settings.repo || !settings.token) {
-      toast('Настройте GitHub API (Owner, Repo, Token) в Settings', 'err');
-      return;
-    }
+    var nordKey = (settings.settings && settings.settings.nordRouterKey) || '';
+    if (!nordKey) throw new Error('NordRouter API Key не задан. Откройте Настройки.');
 
-    setStatus(statusEl, 'Запуск обработки в GitHub...', 'info');
+    setStatus(statusEl, '⏳ Отправка в NordRouter...', 'info');
+    var prompt = 'аккуратно вырезать товар, перенести на студийный бежево-серый фон с белым плинтусом, мягкие тени, без искажения цвета латекса, без изменения формы шаров и надписей';
+    var reqBody = JSON.stringify({ model: 'image/nano-banana-edit', input: { prompt: prompt, image: imageUrl } });
+    console.log('[StudioPro] POST /media/generate', reqBody);
 
-    // URL для запуска Workflow
-    var url = 'https://api.github.com/repos/' + settings.owner + '/' + settings.repo + '/actions/workflows/studio-pro.yml/dispatches';
+    var jobResp = await fetch('https://nordrouter.com/media/generate', {
+      method: 'POST',
+      headers: { 'Authorization': 'Bearer ' + nordKey, 'Content-Type': 'application/json' },
+      body: reqBody
+    });
+    var job = await jobResp.json();
+    console.log('[StudioPro] Job:', job);
+    if (!job.id) throw new Error('NordRouter не создал задачу: ' + JSON.stringify(job));
 
-    var body = {
-      ref: 'main',
-      inputs: {
-        image_path: imagePath,
-        prompt: 'аккуратно вырезать товар, перенести на студийный фон, убрать лишнее'
-      }
-    };
-
-    try {
-      var res = await fetch(url, {
-        method: 'POST',
-        headers: {
-          'Authorization': 'token ' + settings.token,
-          'Accept': 'application/vnd.github.v3+json',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(body)
+    // Polling
+    setStatus(statusEl, '⏳ Обработка...', 'info');
+    var result, attempt = 0;
+    while (attempt < 60) {
+      await new Promise(function(r) { setTimeout(r, 3000); });
+      var res = await fetch('https://nordrouter.com/media/job/' + job.id, {
+        headers: { 'Authorization': 'Bearer ' + nordKey }
       });
-      if (res.ok) {
-        setStatus(statusEl, 'Задание отправлено! (проверка Actions...)', 'ok');
-        toast('Обработка запущена в облаке. Фото обновится через минуту.');
-      } else {
-        var text = await res.text();
-        console.error('GitHub API error:', text);
-        setStatus(statusEl, 'Ошибка запуска GitHub Action', 'err');
-      }
-    } catch (err) {
-      setStatus(statusEl, 'Ошибка сети: ' + err.message, 'err');
+      result = await res.json();
+      console.log('[StudioPro] Status:', result.status);
+      if (result.status === 'done') break;
+      if (result.status === 'failed') throw new Error('NordRouter: обработка не удалась');
+      attempt++;
+      setStatus(statusEl, '⏳ Обработка... (' + (attempt * 3) + ' сек)', 'info');
     }
+    if (!result || result.status !== 'done') throw new Error('NordRouter: таймаут ожидания (>3 мин)');
+
+    // Download result
+    setStatus(statusEl, '⏳ Скачивание результата...', 'info');
+    var imgResp = await fetch(result.result_url, { headers: { 'Authorization': 'Bearer ' + nordKey } });
+    if (!imgResp.ok) throw new Error('Не удалось скачать: HTTP ' + imgResp.status);
+    var blob = await imgResp.blob();
+    console.log('[StudioPro] Result:', blob.size, 'bytes', blob.type);
+    if (blob.size < 1000) throw new Error('Результат пустой (' + blob.size + ' bytes)');
+    return blob;
   }
 
   /* ---------- github api ---------- */
@@ -584,33 +587,44 @@
   }
 
   /* ---------- studio pro ---------- */
-  function processStudioPro() {
+  async function processStudioPro() {
+    var sEl = $('studio-status');
     if (!state.webpBlob && !state.imageBlob) {
       var noPhoto = 'Сначала загрузите фото.';
-      setStatus($('studio-status'), noPhoto, 'err'); toast(noPhoto, 'err'); return;
+      setStatus(sEl, noPhoto, 'err'); toast(noPhoto, 'err'); return;
     }
     if (!state.webpKey) {
-      toast('Сначала опубликуйте товар, чтобы у него появился путь в репозитории!', 'err');
+      toast('Сначала опубликуйте товар!', 'err');
       return;
     }
-    callStudioApi(imgSrc(state.webpKey), $('studio-status'));
-    setStatus($('studio-status'), 'Задание отправлено в GitHub Actions. Фото обновится автоматически через 1-2 минуты после завершения процесса.', 'ok');
-    toast('Задание отправлено в GitHub Actions.', 'ok');
-  }
-
-  /* ---------- settings ---------- */
-  function applySettings(s) {
-    if (!s) return;
-    state.owner = s.owner || ''; state.repo = s.repo || ''; state.branch = s.branch || 'main'; state.token = s.token || ''; state.nordKey = s.nordKey || '';
-    val('gh-owner', state.owner); val('gh-repo', state.repo); val('gh-branch', state.branch); val('gh-token', state.token); val('nord-key', state.nordKey);
-    renderConnection();
-  }
-  function renderConnection() {
-    var badge = $('gh-badge');
-    if (state.token && state.owner && state.repo) {
-      badge.className = 'badge on'; badge.textContent = 'Подключено';
-    } else {
-      badge.className = 'badge off'; badge.textContent = 'Не подключено';
+    if (!state.nordKey) {
+      toast('Введите NordRouter API Key в Настройках!', 'err');
+      return;
+    }
+    try {
+      var blob = await callStudioApi(imgSrc(state.webpKey), sEl);
+      var resized = await resizeImage(blob, 2048);
+      var webpBlob = await imageBlobToWebp(resized, 0.82);
+      setStatus(sEl, '⏳ Сохранение результата...', 'info');
+      var webpKey = 'api/images/products/' + state.webpKey + '.webp';
+      await ghPutFile(webpKey, webpBlob, 'Studio Pro: ' + state.webpKey);
+      state.webpBlob = webpBlob;
+      state.webpKey = webpKey;
+      var products = await fetchCatalog() || {};
+      if (!products[state.webpKey]) {
+        products[state.webpKey] = state.product || {};
+        products[state.webpKey].slug = state.webpKey.split('/').pop().replace(/\.webp$/, '');
+        products[state.webpKey].title = state.product.title || 'Товар';
+      }
+      products[state.webpKey].webp = webpKey;
+      await ghPutFile('api/products.json', JSON.stringify(products, null, 2), 'Update catalog');
+      renderProducts();
+      setStatus(sEl, '✅ Фото обработано и сохранено!', 'ok');
+      toast('Studio Pro готово!', 'ok');
+    } catch (e) {
+      console.error('[StudioPro]', e);
+      setStatus(sEl, '❌ ' + e.message, 'err');
+      toast('Ошибка: ' + e.message, 'err');
     }
   }
   async function connect() {

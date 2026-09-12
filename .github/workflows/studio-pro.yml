@@ -1,0 +1,55 @@
+name: Studio Pro Processing
+
+on:
+  workflow_dispatch:
+    inputs:
+      image_path:
+        description: 'Путь к фото для обработки (например: api/images/products/my-photo.jpg)'
+        required: true
+      prompt:
+        description: 'Промпт для ретуши'
+        required: true
+        default: 'аккуратно вырезать товар, перенести на студийный фон, убрать лишнее'
+
+jobs:
+  process:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v3
+      - name: Process with NordRouter
+        env:
+          NR_KEY: ${{ secrets.NORDROUTER_API_KEY }}
+          IMG: ${{ github.event.inputs.image_path }}
+        run: |
+          # 1. Запуск задачи
+          JOB=$(curl -s -X POST https://nordrouter.com/media/generate \
+            -H "Authorization: Bearer $NR_KEY" \
+            -H "Content-Type: application/json" \
+            -d "{\"model\":\"image/nano-banana-edit\",\"input\":{\"prompt\":\"${{ github.event.inputs.prompt }}\",\"image\":\"https://stmzrun-dev.github.io/vigsharm-shop/$IMG\"}}")
+          
+          JOB_ID=$(echo $JOB | jq -r '.id')
+          
+          # 2. Поллинг (ожидание)
+          echo "Job started: $JOB_ID"
+          while true; do
+            sleep 5
+            RES=$(curl -s -H "Authorization: Bearer $NR_KEY" https://nordrouter.com/media/job/$JOB_ID)
+            STATUS=$(echo $RES | jq -r '.status')
+            if [ "$STATUS" == "done" ]; then
+              RESULT_URL=$(echo $RES | jq -r '.result_url')
+              break
+            elif [ "$STATUS" == "failed" ]; then
+              echo "Generation failed"
+              exit 1
+            fi
+          done
+          
+          # 3. Скачивание и комит
+          curl -s $RESULT_URL -o $IMG
+          git config user.name "Studio Pro Bot"
+          git config user.email "bot@vigsharm.ru"
+          git add $IMG
+          git commit -m "Studio Pro: processed $IMG"
+          git push

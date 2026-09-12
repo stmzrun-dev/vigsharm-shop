@@ -90,23 +90,17 @@ legend{font-size:13px;font-weight:600;padding:0 6px;color:#1E1E1E}
 .product-tile .actions .btn{flex:1;width:auto;padding:10px 12px;font-size:13px}
 .btn.danger{border-color:#8E3E4B;color:#8E3E4B}
 .btn.danger:hover{background:#8E3E4B;color:#fff;border-color:#8E3E4B}
+.btn-studio{display:inline-flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:13px 18px;border:1px solid #2B4C3F;border-radius:12px;font:inherit;font-size:15px;font-weight:600;color:#2B4C3F;background:#fff;cursor:pointer;transition:.15s}
+.btn-studio:hover{background:#2B4C3F;color:#fff;border-color:#2B4C3F}
+.btn-studio:disabled{opacity:.55;cursor:not-allowed}
+.product-tile .actions .btn-studio{flex:1;width:auto;padding:10px 12px;font-size:13px}
 .products-empty{padding:22px;text-align:center;color:#71717A;font-size:14px;border:1px dashed #EBEBEB;border-radius:16px;margin-top:16px}
 .divider{border:none;border-top:1px solid #EBEBEB;margin:18px 0}
 .card h2{font-size:15px;margin:0 0 2px;letter-spacing:-.01em}
-.studio-scene{display:block}
-.studio-scene>span{display:block;font-size:13px;font-weight:600;color:#1E1E1E;margin-bottom:6px}
-.scene-preview{margin-top:12px;display:flex;gap:12px;align-items:center;padding:10px;border:1px solid #EBEBEB;border-radius:12px;background:#FBFBFA}
-.scene-preview img{width:84px;height:84px;object-fit:cover;border-radius:10px;border:1px solid #EBEBEB;flex-shrink:0}
-.scene-title{font-size:13px;font-weight:600;color:#1E1E1E}
-.scene-hint{font-size:12px;color:#71717A;margin-top:2px}
 .btn.studio{margin-top:10px;border-color:#8E3E4B;color:#8E3E4B;background:#fff}
 .btn.studio:hover{background:#8E3E4B;color:#fff;border-color:#8E3E4B}
 .btn.studio .spin{border-color:rgba(142,62,75,.3);border-top-color:#8E3E4B}
 .btn.studio:disabled{opacity:.55;cursor:not-allowed}
-.result-block{margin-top:16px;border:1px solid #EBEBEB;border-radius:16px;overflow:hidden;background:#fff}
-.result-block img{width:100%;display:block;max-height:560px;object-fit:contain;background:#fff}
-.result-head{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 14px;border-bottom:1px solid #EBEBEB;background:#FBFBFA}
-.result-head h2{font-size:14px;margin:0;font-weight:600}
 </style>
 </head>
 <body>
@@ -128,7 +122,7 @@ legend{font-size:13px;font-weight:600;padding:0 6px;color:#1E1E1E}
     <div class="card-head"><h2>Studio Pro</h2></div>
     <p class="lead">Автообработка фото (Nano Banana): перенос товара на утверждённый студийный фон, сам товар не изменяется.</p>
     <label>NordRouter API Key<input type="password" id="nord-key" placeholder="sk-nr-…" autocomplete="new-password"/></label>
-    <p class="hint">Ключ хранится только в этом браузере. Без ключа (или в режиме «оригинальный фон») выполняется быстрая цветокоррекция на Canvas.</p>
+    <p class="hint">Ключ хранится только в этом браузере. Без ключа выполняется быстрая цветокоррекция на Canvas.</p>
     <button id="gh-save" class="btn">Подключить и загрузить каталог</button>
     <button id="gh-clear" class="link-btn" type="button">Удалить сохранённый токен</button>
     <div id="gh-status" class="status" role="status"></div>
@@ -152,28 +146,12 @@ legend{font-size:13px;font-weight:600;padding:0 6px;color:#1E1E1E}
       <span>📷 Загрузить фото (камера / галерея / ПК)</span>
       <small>Сожмётся автоматически в WebP · до 2000 px · качество 0.92 · мягкое сглаживание</small>
     </label>
-    <label class="studio-scene">
-      <span>Сцена для обработки (Studio Pro)</span>
-      <select id="p-scene"></select>
-    </label>
-    <div id="scene-preview" class="scene-preview hidden">
-      <img id="scene-preview-img" alt="Эталонный фон"/>
-      <div>
-        <div id="scene-preview-title" class="scene-title"></div>
-        <div class="scene-hint">Референсный фон, на который Nano Banana перенесёт товар.</div>
-      </div>
-    </div>
     <div id="p-preview" class="preview hidden">
       <img id="p-preview-img" alt="Предпросмотр сжатого фото"/>
       <div id="p-preview-meta" class="preview-meta"></div>
     </div>
     <button id="studio-pro" class="btn studio" type="button">✨ Обработать фото в Studio Pro</button>
     <div id="studio-status" class="status" role="status"></div>
-    <div id="studio-result" class="result-block hidden">
-      <div class="result-head"><h2>Результат Studio Pro</h2><button type="button" class="link-btn" id="studio-revert">Вернуть исходное фото</button></div>
-      <img id="studio-result-img" alt="Обработанное фото"/>
-      <div id="studio-result-meta" class="preview-meta"></div>
-    </div>
     <button id="publish" class="btn primary">Опубликовать товар</button>
     <div id="publish-status" class="status" role="status"></div>
   </section>

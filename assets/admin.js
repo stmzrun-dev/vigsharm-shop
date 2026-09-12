@@ -25,24 +25,10 @@
     { key: 'opt-inscription', label: 'Индивидуальная надпись' }
   ];
 
-  /* ---------- Studio Pro ---------- */
-  var STUDIO_MODEL = 'image/nano-banana-pro';
-  var STUDIO_GENERATE_ENDPOINT = 'https://nordrouter.com/media/generate';
-  var STUDIO_JOB_ENDPOINT = 'https://nordrouter.com/media/job/';
-  var STUDIO_POLL_INTERVAL_MS = 2500;
-  var STUDIO_POLL_TIMEOUT_MS = 90000;
-  var SCENES = [
-    { id: 'floor', label: 'Напольная сцена (студийный пол + стена)', path: 'assets/studio-bg-floor.jpg', mode: 'FLOOR' },
-    { id: 'wall', label: 'Только стена (WALL_ONLY, без пола и плинтуса)', path: 'assets/studio-bg-wall.jpg', mode: 'WALL_ONLY' },
-    { id: 'photozone', label: 'Фотозона (просторный зал)', path: 'assets/studio-bg-photozone.jpg', mode: 'PHOTOZONE' },
-    { id: 'original', label: 'Оставить оригинальный фон (только цветокоррекция и резкость)', path: '', mode: 'ORIGINAL' }
-  ];
-
   var state = {
     owner: '', repo: '', branch: 'main', token: '', nordKey: '',
     nextId: 1, nextSku: 'BM-001',
     imageBlob: null, webpBlob: null, webpMeta: null, webpKey: '',
-    studioBlob: null, studioMeta: null,
     products: [], busy: false
   };
 
@@ -212,274 +198,46 @@
     });
   }
 
-  /* ---------- studio image helpers ---------- */
-  function clamp8(v) { return v < 0 ? 0 : (v > 255 ? 255 : Math.round(v)); }
-  function loadImageFromBlob(blob) {
-    return new Promise(function (resolve, reject) {
-      var url = URL.createObjectURL(blob);
-      var img = new Image();
-      img.onload = function () { URL.revokeObjectURL(url); resolve(img); };
-      img.onerror = function () { URL.revokeObjectURL(url); reject(new Error('Не удалось открыть фото')); };
-      img.src = url;
-    });
-  }
-  function canvasToBlob(canvas, type, quality) {
-    return new Promise(function (resolve, reject) {
-      canvas.toBlob(function (blob) {
-        if (!blob) reject(new Error('Браузер не смог создать изображение'));
-        else resolve(blob);
-      }, type || 'image/webp', quality || 0.92);
-    });
-  }
-  function blobToWebpDataUrl(blob, maxSide) {
-    maxSide = maxSide || 1600;
-    return new Promise(function (resolve, reject) {
-      var url = URL.createObjectURL(blob);
-      var img = new Image();
-      img.onload = function () {
-        URL.revokeObjectURL(url);
-        var w = img.naturalWidth || img.width || 1;
-        var h = img.naturalHeight || img.height || 1;
-        var longSide = Math.max(w, h);
-        var scale = longSide > maxSide ? maxSide / longSide : 1;
-        var tw = Math.max(1, Math.round(w * scale));
-        var th = Math.max(1, Math.round(h * scale));
-        var canvas = document.createElement('canvas');
-        canvas.width = tw; canvas.height = th;
-        var ctx = canvas.getContext('2d');
-        ctx.imageSmoothingEnabled = true;
-        ctx.imageSmoothingQuality = 'high';
-        ctx.fillStyle = '#FFFFFF';
-        ctx.fillRect(0, 0, tw, th);
-        ctx.drawImage(img, 0, 0, tw, th);
-        resolve(canvas.toDataURL('image/webp', 0.92));
-      };
-      img.onerror = function () { URL.revokeObjectURL(url); reject(new Error('Не удалось открыть фото')); };
-      img.src = url;
-    });
-  }
-  async function loadReferenceDataUrl(path, maxSide) {
-    var res = await fetch(path);
-    if (!res.ok) throw new Error('Не удалось загрузить эталонный фон');
-    var blob = await res.blob();
-    return blobToWebpDataUrl(blob, maxSide || 1024);
-  }
-
-  function loadImageFromUrl(url) {
-    return new Promise(function (resolve, reject) {
-      var img = new Image();
-      img.onload = function () { resolve(img); };
-      img.onerror = function () { reject(new Error('Не удалось открыть изображение')); };
-      img.src = url;
-    });
-  }
-
-  function drawContain(ctx, img, x, y, size) {
-    var w = img.naturalWidth || img.width || 1;
-    var h = img.naturalHeight || img.height || 1;
-    var scale = Math.min(size / w, size / h);
-    var dw = Math.max(1, Math.round(w * scale));
-    var dh = Math.max(1, Math.round(h * scale));
-    ctx.imageSmoothingEnabled = true;
-    ctx.imageSmoothingQuality = 'high';
-    ctx.drawImage(img, x + Math.round((size - dw) / 2), y + Math.round((size - dh) / 2), dw, dh);
-  }
-
-  async function buildStudioReference(productDataUrl, bgDataUrl) {
-    var W = 2048, H = 1024, S = 1024;
-    var productImg = await loadImageFromUrl(productDataUrl);
-    var bgImg = await loadImageFromUrl(bgDataUrl);
-    var canvas = document.createElement('canvas');
-    canvas.width = W; canvas.height = H;
-    var ctx = canvas.getContext('2d');
-    ctx.fillStyle = '#f7f7f5';
-    ctx.fillRect(0, 0, W, H);
-    drawContain(ctx, productImg, 0, 0, S);
-    drawContain(ctx, bgImg, S, 0, S);
-    var dataUrl = canvas.toDataURL('image/jpeg', 0.90);
-    return dataUrl;
-  }
-
-  function applyCanvasCorrection(img) {
-    var w = img.naturalWidth || img.width || 1;
-    var h = img.naturalHeight || img.height || 1;
-    var side = Math.min(w, h);
-    var sx = Math.max(0, Math.floor((w - side) / 2));
-    var sy = Math.max(0, Math.floor((h - side) / 2));
-
-    var canvas = document.createElement('canvas');
-    canvas.width = side; canvas.height = side;
-    var ctx = canvas.getContext('2d');
-    ctx.imageSmoothingEnabled = true;
-    ctx.imageSmoothingQuality = 'high';
-    ctx.drawImage(img, sx, sy, side, side, 0, 0, side, side);
-
-    var imageData = ctx.getImageData(0, 0, side, side);
-    var px = imageData.data;
-
-    // Auto white balance (gray world) with bounded channel gains.
-    var sumR = 0, sumG = 0, sumB = 0, count = px.length / 4;
-    for (var i = 0; i < px.length; i += 4) { sumR += px[i]; sumG += px[i + 1]; sumB += px[i + 2]; }
-    var gray = (sumR + sumG + sumB) / (3 * count);
-    var kr = gray / ((sumR / count) || 1), kg = gray / ((sumG / count) || 1), kb = gray / ((sumB / count) || 1);
-    kr = Math.max(0.8, Math.min(1.25, kr));
-    kg = Math.max(0.8, Math.min(1.25, kg));
-    kb = Math.max(0.8, Math.min(1.25, kb));
-
-    var contrast = 1.06;
-    for (var j = 0; j < px.length; j += 4) {
-      var r = px[j] * kr, g = px[j + 1] * kg, b = px[j + 2] * kb;
-      px[j] = clamp8((r - 128) * contrast + 128);
-      px[j + 1] = clamp8((g - 128) * contrast + 128);
-      px[j + 2] = clamp8((b - 128) * contrast + 128);
+  async function callStudioApi(imagePath, statusEl) {
+    var settings = loadSettings() || {};
+    if (!settings.owner || !settings.repo || !settings.token) {
+      toast('Настройте GitHub API (Owner, Repo, Token) в Settings', 'err');
+      return;
     }
-    ctx.putImageData(imageData, 0, 0);
 
-    sharpenCanvas(ctx, side, side);
-    return canvas;
-  }
+    setStatus(statusEl, 'Запуск обработки в GitHub...', 'info');
 
-  function sharpenCanvas(ctx, w, h) {
-    var src = ctx.getImageData(0, 0, w, h);
-    var blurred = new Uint8ClampedArray(src.data.length);
-    var half = 1;
-    for (var y = 0; y < h; y++) {
-      for (var x = 0; x < w; x++) {
-        var rs = 0, gs = 0, bs = 0, n = 0;
-        for (var dy = -half; dy <= half; dy++) {
-          for (var dx = -half; dx <= half; dx++) {
-            var yy = y + dy, xx = x + dx;
-            if (xx < 0 || yy < 0 || xx >= w || yy >= h) continue;
-            var idx = (yy * w + xx) * 4;
-            rs += src.data[idx]; gs += src.data[idx + 1]; bs += src.data[idx + 2]; n++;
-          }
-        }
-        var idx2 = (y * w + x) * 4;
-        blurred[idx2] = rs / n; blurred[idx2 + 1] = gs / n; blurred[idx2 + 2] = bs / n; blurred[idx2 + 3] = 255;
-      }
-    }
-    var amount = 0.6;
-    for (var k = 0; k < src.data.length; k += 4) {
-      for (var c = 0; c < 3; c++) {
-        src.data[k + c] = clamp8(src.data[k + c] + amount * (src.data[k + c] - blurred[k + c]));
-      }
-    }
-    ctx.putImageData(src, 0, 0);
-  }
+    // URL для запуска Workflow
+    var url = 'https://api.github.com/repos/' + settings.owner + '/' + settings.repo + '/actions/workflows/studio-pro.yml/dispatches';
 
-  function sleep(ms) {
-    return new Promise(function (resolve) { setTimeout(resolve, ms); });
-  }
-
-  async function pollJob(url) {
-    var res = await fetch(url, {
-      method: 'GET',
-      headers: { 'Authorization': 'Bearer ' + state.nordKey }
-    });
-    var data = null;
-    try { data = await res.json(); } catch (e) {}
-    console.log('Poll response status:', res.status);
-    if (!res.ok) {
-      var msg = (data && data.error && (data.error.message || data.error)) || (data && data.message) || ('HTTP ' + res.status);
-      throw new Error(msg);
-    }
-    return data;
-  }
-
-  function blobToWebp(blob, maxSide) {
-    maxSide = maxSide || 2000;
-    var toWebp = function (source, w, h) {
-      var longSide = Math.max(w, h);
-      var scale = longSide > maxSide ? maxSide / longSide : 1;
-      var tw = Math.max(1, Math.round(w * scale));
-      var th = Math.max(1, Math.round(h * scale));
-      var canvas = document.createElement('canvas');
-      canvas.width = tw; canvas.height = th;
-      var ctx = canvas.getContext('2d');
-      ctx.imageSmoothingEnabled = true;
-      ctx.imageSmoothingQuality = 'high';
-      ctx.fillStyle = '#FFFFFF';
-      ctx.fillRect(0, 0, tw, th);
-      ctx.drawImage(source, 0, 0, tw, th);
-      return canvasToBlob(canvas, 'image/webp', 0.92).then(function (outBlob) {
-        return { blob: outBlob, width: tw, height: th };
-      });
-    };
-    if (typeof createImageBitmap === 'function') {
-      return createImageBitmap(blob).then(function (bitmap) {
-        var p = toWebp(bitmap, bitmap.width, bitmap.height);
-        p.then(function () { try { bitmap.close(); } catch (e) {} }, function () { try { bitmap.close(); } catch (e) {} });
-        return p;
-      });
-    }
-    return loadImageFromBlob(blob).then(function (img) {
-      return toWebp(img, img.naturalWidth || img.width || 1, img.naturalHeight || img.height || 1);
-    });
-  }
-
-  async function fetchResultToWebp(resultUrl) {
-    var res = await fetch(resultUrl);
-    if (!res.ok) throw new Error('Не удалось скачать готовое изображение (HTTP ' + res.status + ')');
-    var blob = await res.blob();
-    return blobToWebp(blob, 2000);
-  }
-
-  async function callStudioApi(referenceDataUrl, statusEl) {
-    // Шаг 1 — создание асинхронной задачи генерации.
-    var requestBody = {
-      model: STUDIO_MODEL,
-      input: {
-        prompt: 'Ты — профессиональный ретушёр каталога воздушных шаров VigSharm. ПРАВИЛО PRODUCT IMMUTABLE: товар неприкосновенен. На прикреплённом изображении: слева — оригинальный товар, справа — утверждённый фирменный фон студии. Задача: аккуратно вырезать товар слева без малейших изменений (сохранить все надписи, цифры, персонажей, цвета латекса и количество шаров), перенести его на фон справа, убрать желтизну комнатного света и добавить реалистичную мягкую контактную тень на пол. Верни только готовое фото 1:1.',
-        image: referenceDataUrl,
-        resolution: '2K',
-        aspect_ratio: '1:1'
+    var body = {
+      ref: 'main',
+      inputs: {
+        image_path: imagePath,
+        prompt: 'аккуратно вырезать товар, перенести на студийный фон, убрать лишнее'
       }
     };
 
-    console.log('NordRouter request (media/generate):', JSON.stringify(requestBody));
-    var res = await fetch(STUDIO_GENERATE_ENDPOINT, {
-      method: 'POST',
-      headers: {
-        'Authorization': 'Bearer ' + state.nordKey,
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(requestBody)
-    });
-    var job = null;
-    try { job = await res.json(); } catch (e) {}
-    console.log('Create response status:', res.status);
-    console.log('Create response body:', job);
-    if (!res.ok) {
-      var createMsg = (job && job.error && (job.error.message || job.error)) || (job && job.message) || ('HTTP ' + res.status);
-      throw new Error(createMsg);
-    }
-    if (!job || !job.id) throw new Error('Сервер не вернул идентификатор задачи');
-
-    // Шаг 2 — поллинг статуса задачи.
-    var pollUrl = job.poll || (STUDIO_JOB_ENDPOINT + job.id);
-    if (pollUrl.indexOf('http') !== 0) {
-      pollUrl = 'https://nordrouter.com' + (pollUrl.charAt(0) === '/' ? '' : '/') + pollUrl;
-    }
-    var startedAt = Date.now();
-    while (true) {
-      if (Date.now() - startedAt >= STUDIO_POLL_TIMEOUT_MS) {
-        throw new Error('Превышено время ожидания генерации (90 сек)');
+    try {
+      var res = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Authorization': 'token ' + settings.token,
+          'Accept': 'application/vnd.github.v3+json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(body)
+      });
+      if (res.ok) {
+        setStatus(statusEl, 'Задание отправлено! (проверка Actions...)', 'ok');
+        toast('Обработка запущена в облаке. Фото обновится через минуту.');
+      } else {
+        var text = await res.text();
+        console.error('GitHub API error:', text);
+        setStatus(statusEl, 'Ошибка запуска GitHub Action', 'err');
       }
-      var statusData = await pollJob(pollUrl);
-      var status = statusData && statusData.status;
-      if (status === 'done') {
-        var resultUrl = (statusData.data && statusData.data.result_url) || statusData.result_url;
-        if (!resultUrl) throw new Error('Генерация завершена, но ссылка на результат отсутствует');
-        // Шаг 3 — скачивание готового файла и конвертация в WebP для админки.
-        return await fetchResultToWebp(resultUrl);
-      }
-      if (status === 'failed') {
-        var failMsg = (statusData.data && statusData.data.error) || statusData.error || 'Ошибка генерации';
-        throw new Error(failMsg);
-      }
-      var elapsed = Math.round((Date.now() - startedAt) / 1000);
-      if (statusEl) setStatus(statusEl, 'Генерация... (' + elapsed + 'с)', 'info');
-      await sleep(STUDIO_POLL_INTERVAL_MS);
+    } catch (err) {
+      setStatus(statusEl, 'Ошибка сети: ' + err.message, 'err');
     }
   }
 
@@ -601,9 +359,23 @@
       '</div>' +
       '<div class="actions">' +
         '<a class="btn" href="product.html?slug=' + encodeURIComponent(p.slug || p.id) + '" target="_blank" rel="noreferrer">Смотреть на сайте</a>' +
+        '<button type="button" class="btn-studio" onclick="retouchProduct(\'' + esc(p.sku) + '\')">Ретушировать</button>' +
         '<button type="button" class="btn danger" data-delete>Удалить</button>' +
       '</div>' +
     '</article>';
+  }
+
+  /* Retouch a published product's photo via the Studio Pro workflow */
+  function retouchProduct(sku) {
+    var items = state.products || [];
+    var product = null;
+    for (var i = 0; i < items.length; i++) {
+      if (items[i].sku === sku) { product = items[i]; break; }
+    }
+    if (!product) { toast('Товар с артикулом «' + sku + '» не найден', 'err'); return; }
+    var key = (product.image_keys && product.image_keys[0]) || product.image || product.src || '';
+    if (!key) { toast('У товара нет изображения для обработки', 'err'); return; }
+    callStudioApi(imgSrc(key), $('studio-status'));
   }
   async function savePrice(product, tile) {
     if (state.busy) return;
@@ -730,7 +502,7 @@
     setBusy(true);
     setStatus($('publish-status'), 'Сжимаем фото…', '');
     try {
-      var webpBlob = state.studioBlob || state.webpBlob;
+      var webpBlob = state.webpBlob;
       if (!webpBlob) { webpBlob = (await compressImage(state.imageBlob)).blob; }
       var imageB64 = await blobToB64(webpBlob);
       var imageName = uuid() + '.webp';
@@ -770,9 +542,6 @@
     ['opt-order', 'opt-digit', 'opt-inscription'].forEach(function (id) { $(id).checked = false; });
     document.querySelectorAll('#p-occasions input:checked').forEach(function (el) { el.checked = false; });
     state.imageBlob = null; state.webpBlob = null; state.webpMeta = null; state.webpKey = '';
-    val('p-scene', 'floor');
-    renderScenePreview();
-    clearStudioResult();
     $('p-preview').classList.add('hidden');
     $('p-preview-img').removeAttribute('src');
     val('p-sku', state.nextSku);
@@ -800,7 +569,6 @@
     if (!file) return;
     if (file.type && file.type.indexOf('image/') !== 0) { toast('Выберите файл изображения', 'err'); return; }
     state.imageBlob = file;
-    clearStudioResult();
     compressImage(file).then(function (r) {
       state.webpBlob = r.blob; state.webpMeta = r;
       var url = URL.createObjectURL(r.blob);
@@ -816,84 +584,18 @@
   }
 
   /* ---------- studio pro ---------- */
-  function currentScene() {
-    var id = val('p-scene') || 'floor';
-    for (var i = 0; i < SCENES.length; i++) if (SCENES[i].id === id) return SCENES[i];
-    return SCENES[0];
-  }
-  function renderScenes() {
-    $('p-scene').innerHTML = SCENES.map(function (s) {
-      return '<option value="' + s.id + '">' + s.label + '</option>';
-    }).join('');
-    renderScenePreview();
-  }
-  function renderScenePreview() {
-    var scene = currentScene();
-    var box = $('scene-preview');
-    if (scene && scene.path) {
-      $('scene-preview-img').src = scene.path;
-      $('scene-preview-title').textContent = scene.label;
-      box.classList.remove('hidden');
-    } else {
-      box.classList.add('hidden');
-    }
-  }
-  function clearStudioResult() {
-    state.studioBlob = null;
-    state.studioMeta = null;
-    $('studio-result').classList.add('hidden');
-    $('studio-result-img').removeAttribute('src');
-    setStatus($('studio-status'), '', '');
-  }
-  function revertStudio() {
-    clearStudioResult();
-    toast('Исходное фото восстановлено', '');
-  }
-  async function processStudioPro() {
+  function processStudioPro() {
     if (!state.webpBlob && !state.imageBlob) {
       var noPhoto = 'Сначала загрузите фото.';
       setStatus($('studio-status'), noPhoto, 'err'); toast(noPhoto, 'err'); return;
     }
-    var btn = $('studio-pro');
-    btn.disabled = true;
-    btn.innerHTML = '<span class="spin"></span> Обрабатываем…';
-    setStatus($('studio-status'), '', '');
-    try {
-      var scene = currentScene();
-      var sourceBlob = state.webpBlob || (await compressImage(state.imageBlob)).blob;
-      if (state.nordKey && scene && scene.path) {
-        setStatus($('studio-status'), 'Готовим фото и референс…', '');
-        var productDataUrl = await blobToWebpDataUrl(sourceBlob, 1600);
-        var bgDataUrl = await loadReferenceDataUrl(scene.path, 1024);
-        var referenceDataUrl = await buildStudioReference(productDataUrl, bgDataUrl);
-        setStatus($('studio-status'), 'Запускаем генерацию…', '');
-        var r = await callStudioApi(referenceDataUrl, $('studio-status'));
-        state.studioBlob = r.blob;
-        state.studioMeta = { width: r.width, height: r.height, method: 'Studio Pro · ' + scene.label };
-      } else {
-        setStatus($('studio-status'), 'Цветокоррекция на Canvas…', '');
-        var img = await loadImageFromBlob(sourceBlob);
-        var canvas = applyCanvasCorrection(img);
-        var blob = await canvasToBlob(canvas, 'image/webp', 0.92);
-        state.studioBlob = blob;
-        state.studioMeta = { width: canvas.width, height: canvas.height, method: 'Автокоррекция Canvas · ' + scene.label };
-      }
-      var url = URL.createObjectURL(state.studioBlob);
-      var rim = $('studio-result-img');
-      rim.onload = function () { URL.revokeObjectURL(url); };
-      rim.src = url;
-      $('studio-result-meta').innerHTML = '<span>' + state.studioMeta.width + '×' + state.studioMeta.height + 'px · WebP</span><span>' + state.studioMeta.method + '</span>';
-      $('studio-result').classList.remove('hidden');
-      setStatus($('studio-status'), 'Готово ✓', 'ok');
-      toast('Фото обработано в Studio Pro ✓', 'ok');
-    } catch (e) {
-      var msg = (e && e.message) || 'не удалось обработать';
-      setStatus($('studio-status'), 'Ошибка: ' + msg, 'err');
-      toast('Не удалось обработать: ' + msg, 'err');
-    } finally {
-      btn.disabled = false;
-      btn.innerHTML = '✨ Обработать фото в Studio Pro';
+    if (!state.webpKey) {
+      toast('Сначала опубликуйте товар, чтобы у него появился путь в репозитории!', 'err');
+      return;
     }
+    callStudioApi(imgSrc(state.webpKey), $('studio-status'));
+    setStatus($('studio-status'), 'Задание отправлено в GitHub Actions. Фото обновится автоматически через 1-2 минуты после завершения процесса.', 'ok');
+    toast('Задание отправлено в GitHub Actions.', 'ok');
   }
 
   /* ---------- settings ---------- */
@@ -938,9 +640,7 @@
     $('gh-clear').addEventListener('click', function () { clearToken(); renderConnection(); setStatus($('gh-status'), 'Токен удалён из этого браузера.', ''); });
     $('p-photo').addEventListener('change', function () { handlePhoto(this.files && this.files[0]); });
     $('nord-key').addEventListener('input', saveNordKey);
-    $('p-scene').addEventListener('change', renderScenePreview);
     $('studio-pro').addEventListener('click', processStudioPro);
-    $('studio-revert').addEventListener('click', revertStudio);
 
     var drop = $('drop');
     ['dragenter', 'dragover'].forEach(function (ev) {
@@ -972,7 +672,6 @@
     renderCategory();
     renderOccasions();
     renderOptions();
-    renderScenes();
     wireEvents();
     computeNext([]);
     renderProducts();
@@ -998,6 +697,8 @@
       }).catch(function () {});
     }
   }
+
+  window.retouchProduct = retouchProduct;
 
   init();
 })();

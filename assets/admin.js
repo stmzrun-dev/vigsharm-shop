@@ -422,14 +422,17 @@
   async function callStudioApi(productDataUrl, bgDataUrl, scene) {
     var product = dataUrlToInlinePart(productDataUrl);
     var bg = dataUrlToInlinePart(bgDataUrl);
+
+    // ПРОВЕРКА РАЗМЕРА: если больше 4MB, модель может падать (~3 млн символов в base64)
+    console.log('Image sizes:', product.data.length, bg.data.length);
+
     var requestBody = {
       model: STUDIO_MODEL,
-      systemInstruction: { parts: [{ text: STUDIO_SYSTEM }] },
       contents: [
         {
           role: 'user',
           parts: [
-            { text: studioPrompt(scene) },
+            { text: studioPrompt(scene) + ' ПРАВИЛО: PRODUCT IMMUTABLE. Товар неприкосновенен.' },
             { inlineData: { mimeType: product.mimeType, data: product.data } },
             { inlineData: { mimeType: bg.mimeType, data: bg.data } }
           ]

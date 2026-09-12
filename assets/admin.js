@@ -137,8 +137,11 @@
     if (bytes < 1048576) return (bytes / 1024).toFixed(0) + ' КБ';
     return (bytes / 1048576).toFixed(1) + ' МБ';
   }
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
 
-  /* ---------- image compression (WebP, max width 1400, quality 0.85) ---------- */
+  /* ---------- image compression (WebP, long side 2000, quality 0.92, soft bicubic) ---------- */
   function compressImage(file) {
     return new Promise(function (resolve, reject) {
       if (!file) { reject(new Error('Файл не выбран')); return; }
@@ -147,22 +150,42 @@
       img.onload = function () {
         var w = img.naturalWidth || img.width || 1;
         var h = img.naturalHeight || img.height || 1;
-        var MAX = 1400;
-        var scale = w > MAX ? MAX / w : 1;
+        var MAX = 2000;
+        var longSide = Math.max(w, h);
+        var scale = longSide > MAX ? MAX / longSide : 1;
         var tw = Math.max(1, Math.round(w * scale));
         var th = Math.max(1, Math.round(h * scale));
+
         var canvas = document.createElement('canvas');
         canvas.width = tw; canvas.height = th;
         var ctx = canvas.getContext('2d');
+        ctx.imageSmoothingEnabled = true;
         ctx.imageSmoothingQuality = 'high';
         ctx.fillStyle = '#FFFFFF';
         ctx.fillRect(0, 0, tw, th);
-        ctx.drawImage(img, 0, 0, tw, th);
+
+        // Progressive 50% downscale steps give softer, sharper bicubic results than one big jump.
+        var src = img, curW = w, curH = h;
+        while (curW * 0.5 >= tw && curH * 0.5 >= th) {
+          curW = Math.max(1, Math.round(curW * 0.5));
+          curH = Math.max(1, Math.round(curH * 0.5));
+          var step = document.createElement('canvas');
+          step.width = curW; step.height = curH;
+          var sctx = step.getContext('2d');
+          sctx.imageSmoothingEnabled = true;
+          sctx.imageSmoothingQuality = 'high';
+          sctx.fillStyle = '#FFFFFF';
+          sctx.fillRect(0, 0, curW, curH);
+          sctx.drawImage(src, 0, 0, curW, curH);
+          src = step;
+        }
+        ctx.drawImage(src, 0, 0, tw, th);
+
         URL.revokeObjectURL(url);
         canvas.toBlob(function (blob) {
           if (!blob) { reject(new Error('Браузер не смог создать WebP')); return; }
           resolve({ blob: blob, width: tw, height: th, original: file.size });
-        }, 'image/webp', 0.85);
+        }, 'image/webp', 0.92);
       };
       img.onerror = function () { URL.revokeObjectURL(url); reject(new Error('Не удалось открыть изображение')); };
       img.src = url;
@@ -202,11 +225,140 @@
     if (!r.ok) throw new Error((r.data && r.data.message) || ('HTTP ' + r.status));
     return r.data;
   }
+  async function ghDeleteFile(path, message) {
+    var file = await ghGetFile(path);
+    if (!file) return null;
+    var r = await ghRequest('/repos/' + state.owner + '/' + state.repo + '/contents/' + path, {
+      method: 'DELETE',
+      body: { message: message, sha: file.sha, branch: state.branch }
+    });
+    if (!r.ok) throw new Error((r.data && r.data.message) || ('HTTP ' + r.status));
+    return r.data;
+  }
   async function fetchCatalog() {
     var file = await ghGetFile(JSON_PATH);
     if (!file) return [];
     var data = JSON.parse(b64ToUtf8(file.content));
     return Array.isArray(data.products) ? data.products : [];
+  }
+  async function writeCatalog(products, message) {
+    var jsonText = JSON.stringify({ products: products }, null, 2);
+    var jsonB64 = utf8ToB64(jsonText);
+    var file = await ghGetFile(JSON_PATH);
+    await ghPutFile(JSON_PATH, message, jsonB64, file ? file.sha : null);
+  }
+
+  /* ---------- published products list ---------- */
+  function findProduct(id) {
+    var items = state.products || [];
+    for (var i = 0; i < items.length; i++) if (items[i].id === id) return items[i];
+    return null;
+  }
+  function imgSrc(key) {
+    if (!key) return '';
+    if (key.indexOf('http') === 0 || key.charAt(0) === '/') return key;
+    return 'api/images/' + key;
+  }
+  function productImageKeys(p) {
+    var out = [];
+    (p.image_keys || []).forEach(function (k) { if (k && out.indexOf(k) < 0) out.push(k); });
+    var dm = p.digit_images;
+    if (dm && typeof dm === 'object') {
+      Object.keys(dm).forEach(function (d) {
+        var k = dm[d];
+        if (k && out.indexOf(k) < 0) out.push(k);
+      });
+    }
+    return out;
+  }
+  async function deleteProductImages(product) {
+    var keys = productImageKeys(product);
+    var deleted = 0;
+    for (var i = 0; i < keys.length; i++) {
+      var key = keys[i];
+      if (key.indexOf('http') === 0) continue;
+      var path = (key.charAt(0) === '/' ? key : 'api/images/' + key).replace(/^\/+/, '');
+      try {
+        await ghDeleteFile(path, 'Удалить фото: ' + product.title + ' (' + product.sku + ')');
+        deleted++;
+      } catch (e) { /* ignore — an orphan file is harmless; keep going */ }
+    }
+    return deleted;
+  }
+  function renderProducts() {
+    var box = $('products-list');
+    var items = state.products || [];
+    $('products-count').textContent = items.length + ' шт.';
+    if (!items.length) {
+      box.innerHTML = '<div class="products-empty">Пока нет опубликованных товаров. Добавьте первую композицию выше — она появится здесь.</div>';
+      return;
+    }
+    box.innerHTML = '<div class="products-grid">' + items.map(productTile).join('') + '</div>';
+  }
+  function productTile(p) {
+    var key = (p.image_keys && p.image_keys[0]) || '';
+    var thumb = key
+      ? '<div class="thumb"><img src="' + esc(imgSrc(key)) + '" alt="' + esc(p.title) + '" loading="lazy" decoding="async"/></div>'
+      : '<div class="thumb"><span class="ph" aria-hidden="true">🎈</span></div>';
+    return '<article class="product-tile" data-id="' + esc(p.id) + '">' +
+      thumb +
+      '<h3>' + esc(p.title) + '</h3>' +
+      '<div class="meta"><b>' + esc(p.sku || '') + '</b><span>' + esc(p.category || '') + '</span></div>' +
+      '<div class="price-row">' +
+        '<label>Цена, ₽<input type="number" min="0" step="1" inputmode="numeric" value="' + esc(p.price) + '" data-price/></label>' +
+        '<button type="button" class="btn" data-save>Сохранить</button>' +
+      '</div>' +
+      '<div class="actions">' +
+        '<a class="btn" href="product.html?slug=' + encodeURIComponent(p.slug || p.id) + '" target="_blank" rel="noreferrer">Смотреть на сайте</a>' +
+        '<button type="button" class="btn danger" data-delete>Удалить</button>' +
+      '</div>' +
+    '</article>';
+  }
+  async function savePrice(product, tile) {
+    if (state.busy) return;
+    var input = tile.querySelector('[data-price]');
+    var price = parseInt(input.value, 10);
+    if (isNaN(price) || price < 0) { toast('Укажите корректную цену', 'err'); return; }
+    if (price === product.price) { toast('Цена не изменилась', ''); return; }
+    if (!state.owner || !state.repo || !state.token) { toast('Сначала подключитесь к GitHub', 'err'); return; }
+    var btn = tile.querySelector('[data-save]');
+    btn.disabled = true; btn.textContent = '…';
+    try {
+      var products = state.products.slice();
+      var target = null;
+      for (var i = 0; i < products.length; i++) if (products[i].id === product.id) { target = products[i]; break; }
+      if (!target) throw new Error('Товар не найден');
+      target.price = price;
+      target.budget_group = budgetGroup(price);
+      await writeCatalog(products, 'Обновить цену: ' + product.title + ' (' + product.sku + ')');
+      state.products = products;
+      renderProducts();
+      toast('Цена обновлена ✓', 'ok');
+    } catch (e) {
+      toast('Не удалось сохранить цену: ' + ((e && e.message) || 'ошибка'), 'err');
+      btn.disabled = false; btn.textContent = 'Сохранить';
+    }
+  }
+  async function deleteProduct(product, btn) {
+    if (!state.owner || !state.repo || !state.token) { toast('Сначала подключитесь к GitHub', 'err'); return; }
+    var imageKeys = productImageKeys(product);
+    var note = imageKeys.length ? ' Фото также будет удалено из репозитория.' : '';
+    if (!confirm('Удалить товар «' + product.title + '» (' + product.sku + ')?' + note)) return;
+    btn.disabled = true; btn.textContent = '…';
+    try {
+      var products = (state.products || []).filter(function (o) { return o.id !== product.id; });
+      await writeCatalog(products, 'Удалить товар: ' + product.title + ' (' + product.sku + ')');
+      state.products = products;
+      computeNext(products);
+      $('gh-count').textContent = products.length;
+      renderProducts();
+
+      var deletedPhotos = await deleteProductImages(product);
+      toast(deletedPhotos > 0 ? 'Товар и фото удалены ✓' : 'Товар удалён ✓', 'ok');
+    } catch (e) {
+      toast('Не удалось удалить: ' + ((e && e.message) || 'ошибка'), 'err');
+      btn.disabled = false; btn.textContent = 'Удалить';
+    }
   }
 
   /* ---------- build product ---------- */
@@ -301,16 +453,14 @@
       var products = await fetchCatalog();
       var product = buildProduct();
       products.push(product);
-      var jsonText = JSON.stringify({ products: products }, null, 2);
-      var jsonB64 = utf8ToB64(jsonText);
-      var file = await ghGetFile(JSON_PATH);
 
       setStatus($('publish-status'), 'Сохраняем ' + product.sku + '…', '');
-      await ghPutFile(JSON_PATH, 'Добавить товар: ' + product.title + ' (' + product.sku + ')', jsonB64, file ? file.sha : null);
+      await writeCatalog(products, 'Добавить товар: ' + product.title + ' (' + product.sku + ')');
 
       state.products = products;
       computeNext(products);
       $('gh-count').textContent = products.length;
+      renderProducts();
       setStatus($('publish-status'), 'Опубликовано ✓', 'ok');
       toast('Опубликовано: ' + product.title + ' (' + product.sku + ')', 'ok');
       resetForm();
@@ -395,6 +545,7 @@
       state.products = products;
       computeNext(products);
       $('gh-count').textContent = products.length;
+      renderProducts();
       renderConnection();
       setStatus($('gh-status'), 'Подключено · товаров: ' + products.length, 'ok');
       toast('Подключено к GitHub ✓', 'ok');
@@ -424,6 +575,17 @@
     });
 
     $('publish').addEventListener('click', publish);
+
+    $('products-list').addEventListener('click', function (e) {
+      var tile = e.target && e.target.closest ? e.target.closest('.product-tile') : null;
+      if (!tile) return;
+      var product = findProduct(parseInt(tile.getAttribute('data-id'), 10));
+      if (!product) return;
+      var btn = e.target && e.target.closest ? e.target.closest('button') : null;
+      if (!btn) return;
+      if (btn.hasAttribute('data-delete')) deleteProduct(product, btn);
+      else if (btn.hasAttribute('data-save')) savePrice(product, tile);
+    });
   }
 
   function init() {
@@ -432,6 +594,17 @@
     renderOptions();
     wireEvents();
     computeNext([]);
+    renderProducts();
+    document.addEventListener('error', function (e) {
+      var t = e.target;
+      if (t && t.tagName === 'IMG' && t.closest && t.closest('.product-tile .thumb')) {
+        var ph = document.createElement('span');
+        ph.className = 'ph';
+        ph.setAttribute('aria-hidden', 'true');
+        ph.textContent = '🎈';
+        if (t.parentNode) t.parentNode.replaceChild(ph, t);
+      }
+    }, true);
     var s = loadSettings();
     applySettings(s);
     if (s && s.token && s.owner && s.repo) {
@@ -439,6 +612,7 @@
         state.products = products;
         computeNext(products);
         $('gh-count').textContent = products.length;
+        renderProducts();
         setStatus($('gh-status'), 'Каталог загружен · товаров: ' + products.length, 'ok');
       }).catch(function () {});
     }

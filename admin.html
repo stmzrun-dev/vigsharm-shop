@@ -47,7 +47,7 @@ legend{font-size:13px;font-weight:600;padding:0 6px;color:#1E1E1E}
 .drop small{color:#71717A;font-size:12px;font-weight:400}
 .drop input{display:none}
 .preview{margin-top:14px;border:1px solid #EBEBEB;border-radius:16px;overflow:hidden;background:#FBFBFA}
-.preview img{width:100%;display:block;max-height:320px;object-fit:contain;background:#fff}
+.preview img{width:100%;display:block;max-height:560px;object-fit:contain;background:#fff}
 .preview-meta{padding:10px 14px;font-size:12px;color:#71717A;border-top:1px solid #EBEBEB;display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap}
 .hidden{display:none}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:13px 18px;border:1px solid #EBEBEB;border-radius:12px;font:inherit;font-size:15px;font-weight:600;color:#1E1E1E;background:#fff;cursor:pointer;transition:.15s}
@@ -72,6 +72,25 @@ legend{font-size:13px;font-weight:600;padding:0 6px;color:#1E1E1E}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 .toast.ok{background:#2B4C3F}
 .toast.err{background:#8E3E4B}
+.badge.neutral{background:#F3F6F4;color:#2B4C3F}
+.products-card{grid-column:1 / -1}
+.products-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:14px;margin-top:16px}
+.product-tile{display:flex;flex-direction:column;gap:10px;border:1px solid #EBEBEB;border-radius:16px;padding:14px;background:#fff}
+.product-tile .thumb{width:100%;aspect-ratio:1/1;border-radius:12px;overflow:hidden;background:#F3F6F4}
+.product-tile .thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.product-tile .thumb .ph{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:34px}
+.product-tile h3{font-size:15px;margin:0;font-weight:600;line-height:1.3;word-break:break-word}
+.product-tile .meta{font-size:12px;color:#71717A;display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.product-tile .meta b{color:#1E1E1E;font-weight:600}
+.price-row{display:flex;gap:8px;align-items:flex-end;margin-top:2px}
+.price-row label{margin-bottom:0;flex:1;font-size:12px}
+.price-row input{margin-top:4px;padding:9px 10px;font-size:14px}
+.price-row .btn{width:auto;flex-shrink:0;margin-top:0;padding:9px 14px;font-size:13px}
+.product-tile .actions{display:flex;gap:8px;margin-top:auto}
+.product-tile .actions .btn{flex:1;width:auto;padding:10px 12px;font-size:13px}
+.btn.danger{border-color:#8E3E4B;color:#8E3E4B}
+.btn.danger:hover{background:#8E3E4B;color:#fff;border-color:#8E3E4B}
+.products-empty{padding:22px;text-align:center;color:#71717A;font-size:14px;border:1px dashed #EBEBEB;border-radius:16px;margin-top:16px}
 </style>
 </head>
 <body>
@@ -110,7 +129,7 @@ legend{font-size:13px;font-weight:600;padding:0 6px;color:#1E1E1E}
     <label class="drop" id="drop">
       <input type="file" id="p-photo" accept="image/*"/>
       <span>📷 Загрузить фото (камера / галерея / ПК)</span>
-      <small>Сожмётся автоматически в WebP · до 1400 px · качество 0.85</small>
+      <small>Сожмётся автоматически в WebP · до 2000 px · качество 0.92 · мягкое сглаживание</small>
     </label>
     <div id="p-preview" class="preview hidden">
       <img id="p-preview-img" alt="Предпросмотр сжатого фото"/>
@@ -118,6 +137,11 @@ legend{font-size:13px;font-weight:600;padding:0 6px;color:#1E1E1E}
     </div>
     <button id="publish" class="btn primary">Опубликовать товар</button>
     <div id="publish-status" class="status" role="status"></div>
+  </section>
+  <section class="card products-card" id="products-section">
+    <div class="card-head"><h1>Опубликованные товары</h1><span class="badge neutral" id="products-count">0 шт.</span></div>
+    <p class="lead">Текущий каталог из assets/products.json. Цену можно изменить прямо в списке и сохранить в один клик.</p>
+    <div id="products-list"></div>
   </section>
 </main>
 <div id="toast" class="toast" role="status"></div>

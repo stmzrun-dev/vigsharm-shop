@@ -25,10 +25,22 @@
     { key: 'opt-inscription', label: 'Индивидуальная надпись' }
   ];
 
+  /* ---------- Studio Pro ---------- */
+  var STUDIO_MODEL = 'google/gemini-3.1-flash-image-preview'; // Nano Banana (editing)
+  var STUDIO_ENDPOINT = 'https://nordrouter.com/v1/chat/completions';
+  var SCENES = [
+    { id: 'floor', label: 'Напольная сцена (студийный пол + стена)', path: 'assets/studio-bg-floor.jpg', mode: 'FLOOR' },
+    { id: 'wall', label: 'Только стена (WALL_ONLY, без пола и плинтуса)', path: 'assets/studio-bg-wall.jpg', mode: 'WALL_ONLY' },
+    { id: 'photozone', label: 'Фотозона (просторный зал)', path: 'assets/studio-bg-photozone.jpg', mode: 'PHOTOZONE' },
+    { id: 'original', label: 'Оставить оригинальный фон (только цветокоррекция и резкость)', path: '', mode: 'ORIGINAL' }
+  ];
+  var STUDIO_SYSTEM = 'Ты — ретушёр товарных фото студии VigSharm. ЖЁСТКОЕ СИСТЕМНОЕ ПРАВИЛО PRODUCT IMMUTABLE: товар (букеты, композиции из шаров, цветы, цифры, надписи) неприкосновенен — запрещено перерисовывать, менять цвета, форму, количество, пропорции или расположение элементов товара. Единственная задача — перенести товар целиком на предоставленный эталонный фон и добавить естественную студийную тень, сохранив товар узнаваемым до мелочей. Не добавляй и не убирай элементы товара. Верни только итоговое изображение без текста, подписей и рамок.';
+
   var state = {
-    owner: '', repo: '', branch: 'main', token: '',
+    owner: '', repo: '', branch: 'main', token: '', nordKey: '',
     nextId: 1, nextSku: 'BM-001',
     imageBlob: null, webpBlob: null, webpMeta: null, webpKey: '',
+    studioBlob: null, studioMeta: null,
     products: [], busy: false
   };
 
@@ -59,9 +71,15 @@
 
   /* ---------- settings storage ---------- */
   function saveSettings() {
-    var s = { owner: val('gh-owner').trim(), repo: val('gh-repo').trim(), branch: val('gh-branch').trim() || 'main', token: val('gh-token').trim() };
+    var s = { owner: val('gh-owner').trim(), repo: val('gh-repo').trim(), branch: val('gh-branch').trim() || 'main', token: val('gh-token').trim(), nordKey: val('nord-key').trim() };
     try { localStorage.setItem('vigsharm.admin.settings', JSON.stringify(s)); } catch (e) {}
     return s;
+  }
+  function saveNordKey() {
+    var s = loadSettings() || {};
+    s.nordKey = val('nord-key').trim();
+    state.nordKey = s.nordKey;
+    try { localStorage.setItem('vigsharm.admin.settings', JSON.stringify(s)); } catch (e) {}
   }
   function loadSettings() {
     try {
@@ -190,6 +208,225 @@
       img.onerror = function () { URL.revokeObjectURL(url); reject(new Error('Не удалось открыть изображение')); };
       img.src = url;
     });
+  }
+
+  /* ---------- studio image helpers ---------- */
+  function clamp8(v) { return v < 0 ? 0 : (v > 255 ? 255 : Math.round(v)); }
+  function loadImageFromBlob(blob) {
+    return new Promise(function (resolve, reject) {
+      var url = URL.createObjectURL(blob);
+      var img = new Image();
+      img.onload = function () { URL.revokeObjectURL(url); resolve(img); };
+      img.onerror = function () { URL.revokeObjectURL(url); reject(new Error('Не удалось открыть фото')); };
+      img.src = url;
+    });
+  }
+  function canvasToBlob(canvas, type, quality) {
+    return new Promise(function (resolve, reject) {
+      canvas.toBlob(function (blob) {
+        if (!blob) reject(new Error('Браузер не смог создать изображение'));
+        else resolve(blob);
+      }, type || 'image/webp', quality || 0.92);
+    });
+  }
+  function blobToJpegDataUrl(blob, maxSide) {
+    maxSide = maxSide || 1600;
+    return new Promise(function (resolve, reject) {
+      var url = URL.createObjectURL(blob);
+      var img = new Image();
+      img.onload = function () {
+        URL.revokeObjectURL(url);
+        var w = img.naturalWidth || img.width || 1;
+        var h = img.naturalHeight || img.height || 1;
+        var longSide = Math.max(w, h);
+        var scale = longSide > maxSide ? maxSide / longSide : 1;
+        var tw = Math.max(1, Math.round(w * scale));
+        var th = Math.max(1, Math.round(h * scale));
+        var canvas = document.createElement('canvas');
+        canvas.width = tw; canvas.height = th;
+        var ctx = canvas.getContext('2d');
+        ctx.fillStyle = '#FFFFFF';
+        ctx.fillRect(0, 0, tw, th);
+        ctx.drawImage(img, 0, 0, tw, th);
+        resolve(canvas.toDataURL('image/jpeg', 0.9));
+      };
+      img.onerror = function () { URL.revokeObjectURL(url); reject(new Error('Не удалось открыть фото')); };
+      img.src = url;
+    });
+  }
+  function imageUrlToWebpBlob(url, maxSide) {
+    maxSide = maxSide || 2000;
+    return new Promise(function (resolve, reject) {
+      var img = new Image();
+      img.onload = function () {
+        var w = img.naturalWidth || img.width || 1;
+        var h = img.naturalHeight || img.height || 1;
+        var longSide = Math.max(w, h);
+        var scale = longSide > maxSide ? maxSide / longSide : 1;
+        var tw = Math.max(1, Math.round(w * scale));
+        var th = Math.max(1, Math.round(h * scale));
+        var canvas = document.createElement('canvas');
+        canvas.width = tw; canvas.height = th;
+        var ctx = canvas.getContext('2d');
+        ctx.imageSmoothingEnabled = true;
+        ctx.imageSmoothingQuality = 'high';
+        ctx.fillStyle = '#FFFFFF';
+        ctx.fillRect(0, 0, tw, th);
+        ctx.drawImage(img, 0, 0, tw, th);
+        canvas.toBlob(function (blob) {
+          if (!blob) reject(new Error('Браузер не смог создать WebP'));
+          else resolve({ blob: blob, width: tw, height: th });
+        }, 'image/webp', 0.92);
+      };
+      img.onerror = function () { reject(new Error('Не удалось открыть изображение')); };
+      img.src = url;
+    });
+  }
+  async function loadReferenceDataUrl(path, maxSide) {
+    var res = await fetch(path);
+    if (!res.ok) throw new Error('Не удалось загрузить эталонный фон');
+    var blob = await res.blob();
+    return blobToJpegDataUrl(blob, maxSide || 1024);
+  }
+
+  function applyCanvasCorrection(img) {
+    var w = img.naturalWidth || img.width || 1;
+    var h = img.naturalHeight || img.height || 1;
+    var side = Math.min(w, h);
+    var sx = Math.max(0, Math.floor((w - side) / 2));
+    var sy = Math.max(0, Math.floor((h - side) / 2));
+
+    var canvas = document.createElement('canvas');
+    canvas.width = side; canvas.height = side;
+    var ctx = canvas.getContext('2d');
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = 'high';
+    ctx.drawImage(img, sx, sy, side, side, 0, 0, side, side);
+
+    var imageData = ctx.getImageData(0, 0, side, side);
+    var px = imageData.data;
+
+    // Auto white balance (gray world) with bounded channel gains.
+    var sumR = 0, sumG = 0, sumB = 0, count = px.length / 4;
+    for (var i = 0; i < px.length; i += 4) { sumR += px[i]; sumG += px[i + 1]; sumB += px[i + 2]; }
+    var gray = (sumR + sumG + sumB) / (3 * count);
+    var kr = gray / ((sumR / count) || 1), kg = gray / ((sumG / count) || 1), kb = gray / ((sumB / count) || 1);
+    kr = Math.max(0.8, Math.min(1.25, kr));
+    kg = Math.max(0.8, Math.min(1.25, kg));
+    kb = Math.max(0.8, Math.min(1.25, kb));
+
+    var contrast = 1.06;
+    for (var j = 0; j < px.length; j += 4) {
+      var r = px[j] * kr, g = px[j + 1] * kg, b = px[j + 2] * kb;
+      px[j] = clamp8((r - 128) * contrast + 128);
+      px[j + 1] = clamp8((g - 128) * contrast + 128);
+      px[j + 2] = clamp8((b - 128) * contrast + 128);
+    }
+    ctx.putImageData(imageData, 0, 0);
+
+    sharpenCanvas(ctx, side, side);
+    return canvas;
+  }
+
+  function sharpenCanvas(ctx, w, h) {
+    var src = ctx.getImageData(0, 0, w, h);
+    var blurred = new Uint8ClampedArray(src.data.length);
+    var half = 1;
+    for (var y = 0; y < h; y++) {
+      for (var x = 0; x < w; x++) {
+        var rs = 0, gs = 0, bs = 0, n = 0;
+        for (var dy = -half; dy <= half; dy++) {
+          for (var dx = -half; dx <= half; dx++) {
+            var yy = y + dy, xx = x + dx;
+            if (xx < 0 || yy < 0 || xx >= w || yy >= h) continue;
+            var idx = (yy * w + xx) * 4;
+            rs += src.data[idx]; gs += src.data[idx + 1]; bs += src.data[idx + 2]; n++;
+          }
+        }
+        var idx2 = (y * w + x) * 4;
+        blurred[idx2] = rs / n; blurred[idx2 + 1] = gs / n; blurred[idx2 + 2] = bs / n; blurred[idx2 + 3] = 255;
+      }
+    }
+    var amount = 0.6;
+    for (var k = 0; k < src.data.length; k += 4) {
+      for (var c = 0; c < 3; c++) {
+        src.data[k + c] = clamp8(src.data[k + c] + amount * (src.data[k + c] - blurred[k + c]));
+      }
+    }
+    ctx.putImageData(src, 0, 0);
+  }
+
+  function extractImageFromResponse(data) {
+    var choices = (data && data.choices) || [];
+    for (var i = 0; i < choices.length; i++) {
+      var msg = choices[i].message || {};
+      if (Array.isArray(msg.images)) {
+        for (var j = 0; j < msg.images.length; j++) {
+          var im = msg.images[j];
+          if (im && im.image_url && im.image_url.url) return im.image_url.url;
+        }
+      }
+      if (Array.isArray(msg.content)) {
+        for (var k = 0; k < msg.content.length; k++) {
+          var part = msg.content[k];
+          if (part && part.image_url && part.image_url.url) return part.image_url.url;
+        }
+      }
+      if (typeof msg.content === 'string') {
+        var m = /(data:image\/[^)"\s]+)/.exec(msg.content);
+        if (m) return m[1];
+      }
+    }
+    if (Array.isArray(data && data.data)) {
+      for (var d = 0; d < data.data.length; d++) {
+        if (data.data[d].b64_json) return 'data:image/png;base64,' + data.data[d].b64_json;
+        if (data.data[d].url) return data.data[d].url;
+      }
+    }
+    return null;
+  }
+
+  function studioPrompt(scene) {
+    var placement;
+    if (scene.mode === 'WALL_ONLY') placement = 'на эталонном фоне «только стена»: ровная стена без пола и плинтуса, товар стоит/висит на фоне стены, мягкая контактная тень на стене';
+    else if (scene.mode === 'PHOTOZONE') placement = 'в просторном зале-фотозоне: товар красиво расположен в пространстве, естественная перспектива, мягкая студийная тень';
+    else placement = 'на эталонном фоне «студийный пол + стена»: товар стоит на полу, реалистичная контактная тень на полу, чистая стена позади';
+    return 'Первое изображение — товар (НЕПРИКОСНОВЕНЕН, PRODUCT IMMUTABLE). Второе изображение — эталонный фон. Перенеси товар целиком ' + placement + '. Сохрани товар пиксельно точным: цвета, форма, количество и расположение шаров, надписи и цифры без изменений. Верни только итоговую картинку.';
+  }
+
+  async function callStudioApi(productDataUrl, bgDataUrl, scene) {
+    var body = {
+      model: STUDIO_MODEL,
+      modalities: ['image', 'text'],
+      messages: [
+        { role: 'system', content: STUDIO_SYSTEM },
+        {
+          role: 'user',
+          content: [
+            { type: 'text', text: studioPrompt(scene) },
+            { type: 'image_url', image_url: { url: productDataUrl } },
+            { type: 'image_url', image_url: { url: bgDataUrl } }
+          ]
+        }
+      ]
+    };
+    var res = await fetch(STUDIO_ENDPOINT, {
+      method: 'POST',
+      headers: {
+        'Authorization': 'Bearer ' + state.nordKey,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(body)
+    });
+    var data = null;
+    try { data = await res.json(); } catch (e) {}
+    if (!res.ok) {
+      var msg = (data && data.error && (data.error.message || data.error)) || (data && data.message) || ('HTTP ' + res.status);
+      throw new Error(msg);
+    }
+    var imgUrl = extractImageFromResponse(data);
+    if (!imgUrl) throw new Error('Модель не вернула изображение');
+    return imgUrl;
   }
 
   /* ---------- github api ---------- */
@@ -439,7 +676,7 @@
     setBusy(true);
     setStatus($('publish-status'), 'Сжимаем фото…', '');
     try {
-      var webpBlob = state.webpBlob;
+      var webpBlob = state.studioBlob || state.webpBlob;
       if (!webpBlob) { webpBlob = (await compressImage(state.imageBlob)).blob; }
       var imageB64 = await blobToB64(webpBlob);
       var imageName = uuid() + '.webp';
@@ -479,6 +716,9 @@
     ['opt-order', 'opt-digit', 'opt-inscription'].forEach(function (id) { $(id).checked = false; });
     document.querySelectorAll('#p-occasions input:checked').forEach(function (el) { el.checked = false; });
     state.imageBlob = null; state.webpBlob = null; state.webpMeta = null; state.webpKey = '';
+    val('p-scene', 'floor');
+    renderScenePreview();
+    clearStudioResult();
     $('p-preview').classList.add('hidden');
     $('p-preview-img').removeAttribute('src');
     val('p-sku', state.nextSku);
@@ -506,6 +746,7 @@
     if (!file) return;
     if (file.type && file.type.indexOf('image/') !== 0) { toast('Выберите файл изображения', 'err'); return; }
     state.imageBlob = file;
+    clearStudioResult();
     compressImage(file).then(function (r) {
       state.webpBlob = r.blob; state.webpMeta = r;
       var url = URL.createObjectURL(r.blob);
@@ -520,11 +761,92 @@
     });
   }
 
+  /* ---------- studio pro ---------- */
+  function currentScene() {
+    var id = val('p-scene') || 'floor';
+    for (var i = 0; i < SCENES.length; i++) if (SCENES[i].id === id) return SCENES[i];
+    return SCENES[0];
+  }
+  function renderScenes() {
+    $('p-scene').innerHTML = SCENES.map(function (s) {
+      return '<option value="' + s.id + '">' + s.label + '</option>';
+    }).join('');
+    renderScenePreview();
+  }
+  function renderScenePreview() {
+    var scene = currentScene();
+    var box = $('scene-preview');
+    if (scene && scene.path) {
+      $('scene-preview-img').src = scene.path;
+      $('scene-preview-title').textContent = scene.label;
+      box.classList.remove('hidden');
+    } else {
+      box.classList.add('hidden');
+    }
+  }
+  function clearStudioResult() {
+    state.studioBlob = null;
+    state.studioMeta = null;
+    $('studio-result').classList.add('hidden');
+    $('studio-result-img').removeAttribute('src');
+    setStatus($('studio-status'), '', '');
+  }
+  function revertStudio() {
+    clearStudioResult();
+    toast('Исходное фото восстановлено', '');
+  }
+  async function processStudioPro() {
+    if (!state.webpBlob && !state.imageBlob) {
+      var noPhoto = 'Сначала загрузите фото.';
+      setStatus($('studio-status'), noPhoto, 'err'); toast(noPhoto, 'err'); return;
+    }
+    var btn = $('studio-pro');
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spin"></span> Обрабатываем…';
+    setStatus($('studio-status'), '', '');
+    try {
+      var scene = currentScene();
+      var sourceBlob = state.webpBlob || (await compressImage(state.imageBlob)).blob;
+      if (state.nordKey && scene && scene.path) {
+        setStatus($('studio-status'), 'Готовим фото и референс…', '');
+        var productDataUrl = await blobToJpegDataUrl(sourceBlob, 1600);
+        var bgDataUrl = await loadReferenceDataUrl(scene.path, 1024);
+        setStatus($('studio-status'), 'Nano Banana переносит товар на эталонный фон…', '');
+        var resultUrl = await callStudioApi(productDataUrl, bgDataUrl, scene);
+        var r = await imageUrlToWebpBlob(resultUrl, 2000);
+        state.studioBlob = r.blob;
+        state.studioMeta = { width: r.width, height: r.height, method: 'Studio Pro · ' + scene.label };
+      } else {
+        setStatus($('studio-status'), 'Цветокоррекция на Canvas…', '');
+        var img = await loadImageFromBlob(sourceBlob);
+        var canvas = applyCanvasCorrection(img);
+        var blob = await canvasToBlob(canvas, 'image/webp', 0.92);
+        state.studioBlob = blob;
+        state.studioMeta = { width: canvas.width, height: canvas.height, method: 'Автокоррекция Canvas · ' + scene.label };
+      }
+      var url = URL.createObjectURL(state.studioBlob);
+      var rim = $('studio-result-img');
+      rim.onload = function () { URL.revokeObjectURL(url); };
+      rim.src = url;
+      $('studio-result-meta').innerHTML = '<span>' + state.studioMeta.width + '×' + state.studioMeta.height + 'px · WebP</span><span>' + state.studioMeta.method + '</span>';
+      $('studio-result').classList.remove('hidden');
+      setStatus($('studio-status'), 'Готово ✓', 'ok');
+      toast('Фото обработано в Studio Pro ✓', 'ok');
+    } catch (e) {
+      var msg = (e && e.message) || 'не удалось обработать';
+      setStatus($('studio-status'), 'Ошибка: ' + msg, 'err');
+      toast('Не удалось обработать: ' + msg, 'err');
+    } finally {
+      btn.disabled = false;
+      btn.innerHTML = '✨ Обработать фото в Studio Pro';
+    }
+  }
+
   /* ---------- settings ---------- */
   function applySettings(s) {
     if (!s) return;
-    state.owner = s.owner || ''; state.repo = s.repo || ''; state.branch = s.branch || 'main'; state.token = s.token || '';
-    val('gh-owner', state.owner); val('gh-repo', state.repo); val('gh-branch', state.branch); val('gh-token', state.token);
+    state.owner = s.owner || ''; state.repo = s.repo || ''; state.branch = s.branch || 'main'; state.token = s.token || ''; state.nordKey = s.nordKey || '';
+    val('gh-owner', state.owner); val('gh-repo', state.repo); val('gh-branch', state.branch); val('gh-token', state.token); val('nord-key', state.nordKey);
     renderConnection();
   }
   function renderConnection() {
@@ -561,6 +883,10 @@
     $('gh-save').addEventListener('click', connect);
     $('gh-clear').addEventListener('click', function () { clearToken(); renderConnection(); setStatus($('gh-status'), 'Токен удалён из этого браузера.', ''); });
     $('p-photo').addEventListener('change', function () { handlePhoto(this.files && this.files[0]); });
+    $('nord-key').addEventListener('input', saveNordKey);
+    $('p-scene').addEventListener('change', renderScenePreview);
+    $('studio-pro').addEventListener('click', processStudioPro);
+    $('studio-revert').addEventListener('click', revertStudio);
 
     var drop = $('drop');
     ['dragenter', 'dragover'].forEach(function (ev) {
@@ -592,6 +918,7 @@
     renderCategory();
     renderOccasions();
     renderOptions();
+    renderScenes();
     wireEvents();
     computeNext([]);
     renderProducts();

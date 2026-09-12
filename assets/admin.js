@@ -26,7 +26,7 @@
   ];
 
   /* ---------- Studio Pro ---------- */
-  var STUDIO_MODEL = 'image/gemini-3.1-flash'; // Nano Banana Pro: максимум качества и читаемый текст
+  var STUDIO_MODEL = 'google/gemini-3.1-flash-image-preview'; // Nano Banana Pro: максимум качества и читаемый текст
   var STUDIO_ENDPOINT = 'https://nordrouter.com/v1/chat/completions';
   var SCENES = [
     { id: 'floor', label: 'Напольная сцена (студийный пол + стена)', path: 'assets/studio-bg-floor.jpg', mode: 'FLOOR' },

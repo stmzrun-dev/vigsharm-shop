@@ -1,41 +1,6 @@
 {
   "products": [
     {
-      "id": 1,
-      "slug": "set-s-tsifroy-i-zvezdami",
-      "sku": "BM-001",
-      "title": "Сет с цифрой и звёздами",
-      "price": 3456,
-      "short_description": "Сет с цифрой и звёздами",
-      "description": "Сет с цифрой и звёздами",
-      "composition": "• Персонажи;",
-      "category": "Персонажи",
-      "character_name": "",
-      "age_group": "",
-      "tags": [
-        "1 годик"
-      ],
-      "image_keys": [
-        "products/34381cc9-ac44-4918-8960-a6fd6c0149ff.webp"
-      ],
-      "budget_group": "2 000–3 500 ₽",
-      "has_digit_choice": false,
-      "digit_count_on_photo": 1,
-      "is_floor_composition": false,
-      "has_inscription": true,
-      "inscription_price": 0,
-      "has_rental": false,
-      "rental_days": 3,
-      "keep_price_delta": 500,
-      "rental_item": "",
-      "series": "",
-      "occasion": "1 годик",
-      "audience": "Для детей",
-      "seo_title": "Сет с цифрой и звёздами — заказать шары в Армавире | VigSharm",
-      "seo_description": "Сет с цифрой и звёздами",
-      "allow_color_change": false
-    },
-    {
       "id": 2,
       "slug": "aftsafap",
       "sku": "BM-002",

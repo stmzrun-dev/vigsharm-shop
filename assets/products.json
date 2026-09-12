@@ -1,28 +1,28 @@
 {
   "products": [
     {
-      "id": 1,
-      "slug": "set-s-tsifroy-i-zvezdami",
-      "sku": "BM-001",
-      "title": "Сет с цифрой и звёздами",
-      "price": 3456,
-      "short_description": "Сет с цифрой и звёздами",
-      "description": "Сет с цифрой и звёздами",
-      "composition": "• Персонажи;",
-      "category": "Персонажи",
+      "id": 2,
+      "slug": "aftsafap",
+      "sku": "BM-002",
+      "title": "афцафап",
+      "price": 4242,
+      "short_description": "афцафап",
+      "description": "афцафап",
+      "composition": "• Готовые решения;",
+      "category": "Готовые решения",
       "character_name": "",
       "age_group": "",
       "tags": [
         "1 годик"
       ],
       "image_keys": [
-        "products/34381cc9-ac44-4918-8960-a6fd6c0149ff.webp"
+        "products/7759435a-7e09-49fc-8ece-e0459c613ddf.webp"
       ],
-      "budget_group": "2 000–3 500 ₽",
+      "budget_group": "3 500–5 000 ₽",
       "has_digit_choice": false,
       "digit_count_on_photo": 1,
       "is_floor_composition": false,
-      "has_inscription": true,
+      "has_inscription": false,
       "inscription_price": 0,
       "has_rental": false,
       "rental_days": 3,
@@ -31,8 +31,8 @@
       "series": "",
       "occasion": "1 годик",
       "audience": "Для детей",
-      "seo_title": "Сет с цифрой и звёздами — заказать шары в Армавире | VigSharm",
-      "seo_description": "Сет с цифрой и звёздами",
+      "seo_title": "афцафап — заказать шары в Армавире | VigSharm",
+      "seo_description": "афцафап",
       "allow_color_change": false
     }
   ]

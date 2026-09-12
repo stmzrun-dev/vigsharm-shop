@@ -26,8 +26,8 @@
   ];
 
   /* ---------- Studio Pro ---------- */
-  var STUDIO_MODEL = 'google/gemini-3.1-flash-image-preview'; // Nano Banana (editing)
-  var STUDIO_ENDPOINT = 'https://nordrouter.com/v1/chat/completions';
+  var STUDIO_MODEL = 'image/seedream-5.0-pro-edit'; // Seedream 5.0 Pro Edit (приоритет №1)
+  var STUDIO_ENDPOINT = 'https://nordrouter.com';   // база Media API: /media/upload, /media/generate, /media/job
   var SCENES = [
     { id: 'floor', label: 'Напольная сцена (студийный пол + стена)', path: 'assets/studio-bg-floor.jpg', mode: 'FLOOR' },
     { id: 'wall', label: 'Только стена (WALL_ONLY, без пола и плинтуса)', path: 'assets/studio-bg-wall.jpg', mode: 'WALL_ONLY' },
@@ -405,57 +405,83 @@
     return null;
   }
 
-  function studioPrompt(scene) {
+  function sleep(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
+
+  function studioEditPrompt(scene) {
     var placement;
-    if (scene.mode === 'WALL_ONLY') placement = 'на эталонном фоне «только стена»: ровная стена без пола и плинтуса, товар стоит/висит на фоне стены, мягкая контактная тень на стене';
-    else if (scene.mode === 'PHOTOZONE') placement = 'в просторном зале-фотозоне: товар красиво расположен в пространстве, естественная перспектива, мягкая студийная тень';
-    else placement = 'на эталонном фоне «студийный пол + стена»: товар стоит на полу, реалистичная контактная тень на полу, чистая стена позади';
-    return 'Первое изображение — товар (НЕПРИКОСНОВЕНЕН, PRODUCT IMMUTABLE). Второе изображение — эталонный фон. Перенеси товар целиком ' + placement + '. Сохрани товар пиксельно точным: цвета, форма, количество и расположение шаров, надписи и цифры без изменений. Верни только итоговую картинку.';
+    if (scene.mode === 'WALL_ONLY') placement = 'на чистой ровной стене без пола и плинтуса, мягкая контактная тень на стене';
+    else if (scene.mode === 'PHOTOZONE') placement = 'в просторном зале-фотозоне, естественная перспектива, мягкая студийная тень';
+    else placement = 'на студийном полу у чистой стены, реалистичная контактная тень на полу';
+    return 'Убери исходный фон у товара целиком и поставь товар ' + placement + '. PRODUCT IMMUTABLE: товар (букеты, композиции из шаров, цветы, цифры, надписи) неприкосновенен — запрещено менять цвета, форму, количество, пропорции и расположение элементов. Верни только итоговую картинку без текста, подписей и рамок.';
   }
 
-  function dataUrlToInlinePart(dataUrl) {
-    var m = /^data:([^;]+);base64,(.*)$/.exec(dataUrl);
-    if (!m) throw new Error('Ожидается base64 data URL');
-    return { mimeType: m[1], data: m[2] };
-  }
-
+  // image/seedream-5.0-pro-edit — модель Media API (асинхронно):
+  // /media/upload -> /media/generate -> poll /media/job/:id -> скачать result_url.
   async function callStudioApi(productDataUrl, bgDataUrl, scene) {
-    var product = dataUrlToInlinePart(productDataUrl);
-    var bg = dataUrlToInlinePart(bgDataUrl);
+    // bgDataUrl (эталонный фон) НЕ используется: у -edit моделей один входной image.
+    // Фон задаётся текстом в studioEditPrompt(scene).
 
-    var requestBody = {
-      model: STUDIO_MODEL,
-      // Гибрид: структура 'messages' (OpenAI), но части изображения в Gemini-формате 'inline_data'
-      messages: [
-        {
-          role: 'user',
-          content: [
-            { type: 'text', text: studioPrompt(scene) + ' ПРАВИЛО: PRODUCT IMMUTABLE. Товар неприкосновенен.' },
-            { type: 'image', inline_data: { mime_type: product.mimeType, data: product.data } },
-            { type: 'image', inline_data: { mime_type: bg.mimeType, data: bg.data } }
-          ]
-        }
-      ]
-    };
-
-    console.log('NordRouter request (hybrid messages+inline_data):', JSON.stringify(requestBody));
-    var res = await fetch(STUDIO_ENDPOINT, {
+    // 1) Загружаем фото товара (data URL -> ссылка NordRouter)
+    var upRes = await fetch(STUDIO_ENDPOINT + '/media/upload', {
       method: 'POST',
-      headers: {
-        'Authorization': 'Bearer ' + state.nordKey,
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(requestBody)
+      headers: { 'Authorization': 'Bearer ' + state.nordKey, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ data: productDataUrl, name: 'product.webp' })
+    });
+    var upData = null;
+    try { upData = await upRes.json(); } catch (e) {}
+    console.log('Upload response status:', upRes.status);
+    console.log('Upload response body:', upData);
+    if (!upRes.ok) {
+      var upMsg = (upData && (upData.error || upData.message)) || ('HTTP ' + upRes.status);
+      throw new Error('Не удалось загрузить фото: ' + upMsg);
+    }
+
+    // 2) Создаём задачу редактирования
+    var genBody = {
+      model: STUDIO_MODEL,
+      input: {
+        prompt: studioEditPrompt(scene),
+        image: (upData && (upData.url || upData.file_url || upData.id)) || upData,
+        aspect_ratio: '1:1',
+        quality: 'high'
+      }
+    };
+    var res = await fetch(STUDIO_ENDPOINT + '/media/generate', {
+      method: 'POST',
+      headers: { 'Authorization': 'Bearer ' + state.nordKey, 'Content-Type': 'application/json' },
+      body: JSON.stringify(genBody)
     });
     var data = null;
     try { data = await res.json(); } catch (e) {}
+    console.log('Response status:', res.status);
+    console.log('Response body:', data);
     if (!res.ok) {
-      var msg = (data && data.error && (data.error.message || data.error)) || (data && data.message) || ('HTTP ' + res.status);
+      var msg = (data && (data.error || data.message)) || ('HTTP ' + res.status);
       throw new Error(msg);
     }
-    var imgUrl = extractImageFromResponse(data);
-    if (!imgUrl) throw new Error('Модель не вернула изображение');
-    return imgUrl;
+
+    // 3) Ожидаем завершения (poll каждые 4 c, до 3 минут)
+    var job = data;
+    var deadline = Date.now() + 180000;
+    while (job && job.status === 'processing' && Date.now() < deadline) {
+      await sleep(4000);
+      var pollUrl = job.poll || (STUDIO_ENDPOINT + '/media/job/' + job.id);
+      var pollRes = await fetch(pollUrl, { headers: { 'Authorization': 'Bearer ' + state.nordKey } });
+      job = null;
+      try { job = await pollRes.json(); } catch (e) {}
+      console.log('Poll status:', pollRes.status, job);
+      if (pollRes.ok && job && job.status === 'failed') throw new Error((job && job.error) || 'Генерация не удалась');
+    }
+    if (!job || job.status !== 'done' || !job.result_url) {
+      throw new Error('Не дождались результата генерации');
+    }
+
+    // 4) Скачиваем результат с авторизацией и отдаём object URL
+    var fileRes = await fetch(job.result_url, { headers: { 'Authorization': 'Bearer ' + state.nordKey } });
+    console.log('Result file status:', fileRes.status);
+    if (!fileRes.ok) throw new Error('Не удалось скачать результат (HTTP ' + fileRes.status + ')');
+    var fileBlob = await fileRes.blob();
+    return URL.createObjectURL(fileBlob);
   }
 
   /* ---------- github api ---------- */
@@ -840,7 +866,7 @@
         setStatus($('studio-status'), 'Готовим фото и референс…', '');
         var productDataUrl = await blobToWebpDataUrl(sourceBlob, 1600);
         var bgDataUrl = await loadReferenceDataUrl(scene.path, 1024);
-        setStatus($('studio-status'), 'Nano Banana переносит товар на эталонный фон…', '');
+        setStatus($('studio-status'), 'Seedream редактирует фото (может занять 1–2 мин)…', '');
         var resultUrl = await callStudioApi(productDataUrl, bgDataUrl, scene);
         var r = await imageUrlToWebpBlob(resultUrl, 2000);
         state.studioBlob = r.blob;

@@ -442,17 +442,33 @@
   }
 
   function refreshTotals() {
-    // light refresh: just re-render totals-dependent bits by full render but restore focus
-    var ae = document.activeElement;
-    var val = ae && ae.value, pos = ae && ae.selectionStart;
-    render();
-    if (ae && ae.getAttribute && ae.getAttribute('data-act') === 'inscription') {
-      var inp = root.querySelector('[data-act="inscription"]');
-      if (inp) {
-        inp.focus();
-        try { inp.setSelectionRange(pos, pos); } catch (e) {}
-      }
+    // Update only the price-dependent nodes in place. We must NOT call render()
+    // here: rebuilding the DOM would detach the inscription input and close the
+    // on-screen keyboard on mobile after every keystroke.
+    var ip = inscriptionPrice(), dp = digitDeltaPrice(), yp = deliveryPrice(), T = total();
+    var fulfilled = fulfillment, U = effDigits();
+    var totalLabel = fulfilled === 'nearby' ? 'Предварительная стоимость' : (fulfilled ? 'Итого' : 'Цена композиции');
+    var orderBtn = !digitsOk()
+      ? 'Выберите ' + (U === 2 ? 'обе цифры' : 'цифру')
+      : (!fulfilled ? 'Выберите способ получения' : (!fulfillmentOk() ? 'Укажите адрес доставки' : 'Заказать за ' + T.toLocaleString('ru-RU') + ' ₽ →'));
+
+    var totalEl = root.querySelector('.product-order-total');
+    if (totalEl) {
+      totalEl.innerHTML = '<span>' + totalLabel +
+        (ip > 0 ? '<small>Включая надпись: +' + ip.toLocaleString('ru-RU') + ' ₽</small>' : '') +
+        (dp !== 0 ? '<small>' + (dp > 0 ? 'Дополнительная цифра: +' : 'Без второй цифры: −') + Math.abs(dp).toLocaleString('ru-RU') + ' ₽</small>' : '') +
+        (yp > 0 ? '<small>Доставка по Армавиру: +' + yp.toLocaleString('ru-RU') + ' ₽</small>' : '') +
+        (fulfilled === 'nearby' ? '<small>Стоимость доставки уточним при подтверждении заказа</small>' : '') +
+        '</span><strong>' + (priceFrom() ? 'от ' : '') + T.toLocaleString('ru-RU') + ' ₽</strong>';
     }
+
+    var btn = root.querySelector('.product-order-button');
+    if (btn) btn.textContent = orderBtn;
+
+    var barSmall = root.querySelector('.mobile-order-bar div small');
+    if (barSmall) barSmall.textContent = fulfilled === 'nearby' ? 'От' : (fulfilled ? 'Итого' : 'Цена композиции');
+    var barStrong = root.querySelector('.mobile-order-bar div strong');
+    if (barStrong) barStrong.textContent = (priceFrom() ? 'от ' : '') + T.toLocaleString('ru-RU') + ' ₽';
   }
 
   function step(d) {
@@ -481,6 +497,47 @@
       navigator.clipboard.writeText(text).then(function () { done('copied'); }, function () { done('failed'); });
     } else {
       done('failed');
+    }
+  }
+
+  var COPY_HINT = 'Текст заказа скопирован! Если он не подставился автоматически — зажмите поле ввода и нажмите «Вставить».';
+
+  function showToast(text) {
+    var prev = document.querySelector('.order-toast');
+    if (prev) prev.remove();
+    var t = document.createElement('div');
+    t.className = 'order-toast';
+    t.setAttribute('role', 'status');
+    t.setAttribute('aria-live', 'polite');
+    t.textContent = text;
+    document.body.appendChild(t);
+    requestAnimationFrame(function () { t.classList.add('order-toast-show'); });
+    setTimeout(function () {
+      t.classList.remove('order-toast-show');
+      setTimeout(function () { if (t.parentNode) t.parentNode.removeChild(t); }, 300);
+    }, 2600);
+  }
+
+  function legacyCopy(text) {
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    ta.setAttribute('readonly', '');
+    ta.style.position = 'fixed';
+    ta.style.top = '0';
+    ta.style.left = '-9999px';
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand('copy'); } catch (e) {}
+    document.body.removeChild(ta);
+  }
+
+  function copyOrderText(text, done) {
+    function finish() { showToast(COPY_HINT); if (done) done(); }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(finish, function () { legacyCopy(text); finish(); });
+    } else {
+      legacyCopy(text);
+      finish();
     }
   }
 
@@ -523,23 +580,15 @@
     function doCopy() {
       var btn = wrap.querySelector('[data-copy]');
       var note = wrap.querySelector('.order-message-preview small');
-      if (navigator.clipboard) {
-        navigator.clipboard.writeText(msg).then(function () {
-          btn.textContent = 'Скопировано ✓';
-          note.textContent = 'Текст заказа сохранён в буфере обмена.';
-        }, function () {
-          note.textContent = 'Не удалось скопировать автоматически. Выделите текст выше.';
-        });
-      } else {
-        note.textContent = 'Не удалось скопировать автоматически. Выделите текст выше.';
-      }
+      copyOrderText(msg, function () {
+        btn.textContent = 'Скопировано ✓';
+        note.textContent = 'Текст заказа сохранён в буфере обмена.';
+      });
     }
     wrap.querySelector('[data-copy]').addEventListener('click', doCopy);
-    wrap.querySelector('.contact-option.telegram').addEventListener('click', function () {
-      if (navigator.clipboard) { try { navigator.clipboard.writeText(msg); } catch (e) {} }
-    });
-    wrap.querySelector('.contact-option.max').addEventListener('click', function () {
-      if (navigator.clipboard) { try { navigator.clipboard.writeText(msg); } catch (e) {} }
+    // Auto-copy the order text on any messenger tap and show a hint toast.
+    wrap.querySelectorAll('.contact-option.whatsapp, .contact-option.telegram, .contact-option.max').forEach(function (el) {
+      el.addEventListener('click', function () { copyOrderText(msg); });
     });
     document.body.appendChild(wrap);
     document.body.style.overflow = 'hidden';

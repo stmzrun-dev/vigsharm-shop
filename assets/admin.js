@@ -413,22 +413,32 @@
     return 'Первое изображение — товар (НЕПРИКОСНОВЕНЕН, PRODUCT IMMUTABLE). Второе изображение — эталонный фон. Перенеси товар целиком ' + placement + '. Сохрани товар пиксельно точным: цвета, форма, количество и расположение шаров, надписи и цифры без изменений. Верни только итоговую картинку.';
   }
 
+  function dataUrlToInlinePart(dataUrl) {
+    var m = /^data:([^;]+);base64,(.*)$/.exec(dataUrl);
+    if (!m) throw new Error('Ожидается base64 data URL');
+    return { mimeType: m[1], data: m[2] };
+  }
+
   async function callStudioApi(productDataUrl, bgDataUrl, scene) {
+    var product = dataUrlToInlinePart(productDataUrl);
+    var bg = dataUrlToInlinePart(bgDataUrl);
+
     var requestBody = {
       model: STUDIO_MODEL,
+      // Гибрид: структура 'messages' (OpenAI), но части изображения в Gemini-формате 'inline_data'
       messages: [
         {
           role: 'user',
           content: [
             { type: 'text', text: studioPrompt(scene) + ' ПРАВИЛО: PRODUCT IMMUTABLE. Товар неприкосновенен.' },
-            { type: 'image_url', image_url: { url: productDataUrl } },
-            { type: 'image_url', image_url: { url: bgDataUrl } }
+            { type: 'image', inline_data: { mime_type: product.mimeType, data: product.data } },
+            { type: 'image', inline_data: { mime_type: bg.mimeType, data: bg.data } }
           ]
         }
       ]
     };
 
-    console.log('NordRouter request (OpenAI format):', JSON.stringify(requestBody));
+    console.log('NordRouter request (hybrid messages+inline_data):', JSON.stringify(requestBody));
     var res = await fetch(STUDIO_ENDPOINT, {
       method: 'POST',
       headers: {

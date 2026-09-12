@@ -413,33 +413,22 @@
     return 'Первое изображение — товар (НЕПРИКОСНОВЕНЕН, PRODUCT IMMUTABLE). Второе изображение — эталонный фон. Перенеси товар целиком ' + placement + '. Сохрани товар пиксельно точным: цвета, форма, количество и расположение шаров, надписи и цифры без изменений. Верни только итоговую картинку.';
   }
 
-  function dataUrlToInlinePart(dataUrl) {
-    var m = /^data:(image\/[a-zA-Z0-9.+-]+);base64,(.*)$/.exec(String(dataUrl || ''));
-    if (!m) throw new Error('Не удалось разобрать изображение в base64');
-    return { mimeType: m[1], data: m[2] };
-  }
-
   async function callStudioApi(productDataUrl, bgDataUrl, scene) {
-    var product = dataUrlToInlinePart(productDataUrl);
-    var bg = dataUrlToInlinePart(bgDataUrl);
-
-    // ПРОВЕРКА РАЗМЕРА: если больше 4MB, модель может падать (~3 млн символов в base64)
-    console.log('Image sizes:', product.data.length, bg.data.length);
-
     var requestBody = {
       model: STUDIO_MODEL,
-      contents: [
+      messages: [
         {
           role: 'user',
-          parts: [
-            { text: studioPrompt(scene) + ' ПРАВИЛО: PRODUCT IMMUTABLE. Товар неприкосновенен.' },
-            { inlineData: { mimeType: product.mimeType, data: product.data } },
-            { inlineData: { mimeType: bg.mimeType, data: bg.data } }
+          content: [
+            { type: 'text', text: studioPrompt(scene) + ' ПРАВИЛО: PRODUCT IMMUTABLE. Товар неприкосновенен.' },
+            { type: 'image_url', image_url: { url: productDataUrl } },
+            { type: 'image_url', image_url: { url: bgDataUrl } }
           ]
         }
       ]
     };
-    console.log('NordRouter request:', JSON.stringify(requestBody));
+
+    console.log('NordRouter request (OpenAI format):', JSON.stringify(requestBody));
     var res = await fetch(STUDIO_ENDPOINT, {
       method: 'POST',
       headers: {

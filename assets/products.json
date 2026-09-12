@@ -34,6 +34,42 @@
       "seo_title": "Сет с цифрой и звёздами — заказать шары в Армавире | VigSharm",
       "seo_description": "Сет с цифрой и звёздами",
       "allow_color_change": false
+    },
+    {
+      "id": 2,
+      "slug": "pfpfp",
+      "sku": "BM-002",
+      "title": "пфпфп",
+      "price": 42424,
+      "short_description": "пфпфп",
+      "description": "пфпфп",
+      "composition": "• Персонажи;",
+      "category": "Персонажи",
+      "character_name": "",
+      "age_group": "",
+      "tags": [
+        "Для мамы",
+        "Под заказ"
+      ],
+      "image_keys": [
+        "products/24fd0f43-88c7-40a0-9364-36d6a51c03a5.webp"
+      ],
+      "budget_group": "От 8 000 ₽",
+      "has_digit_choice": false,
+      "digit_count_on_photo": 1,
+      "is_floor_composition": false,
+      "has_inscription": false,
+      "inscription_price": 0,
+      "has_rental": false,
+      "rental_days": 3,
+      "keep_price_delta": 500,
+      "rental_item": "",
+      "series": "",
+      "occasion": "Для мамы",
+      "audience": "Для мамы",
+      "seo_title": "пфпфп — заказать шары в Армавире | VigSharm",
+      "seo_description": "пфпфп",
+      "allow_color_change": false
     }
   ]
 }

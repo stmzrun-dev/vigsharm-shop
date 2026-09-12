@@ -34,6 +34,41 @@
       "seo_title": "афцафап — заказать шары в Армавире | VigSharm",
       "seo_description": "афцафап",
       "allow_color_change": false
+    },
+    {
+      "id": 3,
+      "slug": "pftsp",
+      "sku": "BM-003",
+      "title": "пфцп",
+      "price": 1314,
+      "short_description": "пфцп",
+      "description": "пфцп",
+      "composition": "• Оригинальные подарки;",
+      "category": "Оригинальные подарки",
+      "character_name": "",
+      "age_group": "",
+      "tags": [
+        "1 годик"
+      ],
+      "image_keys": [
+        "products/98c43aee-199c-44c4-89e1-f06189d3f8bc.webp"
+      ],
+      "budget_group": "1 000–2 000 ₽",
+      "has_digit_choice": false,
+      "digit_count_on_photo": 1,
+      "is_floor_composition": false,
+      "has_inscription": false,
+      "inscription_price": 0,
+      "has_rental": false,
+      "rental_days": 3,
+      "keep_price_delta": 500,
+      "rental_item": "",
+      "series": "",
+      "occasion": "1 годик",
+      "audience": "Для детей",
+      "seo_title": "пфцп — заказать шары в Армавире | VigSharm",
+      "seo_description": "пфцп",
+      "allow_color_change": false
     }
   ]
 }

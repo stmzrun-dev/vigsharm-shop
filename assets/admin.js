@@ -291,6 +291,42 @@
     return blobToWebpDataUrl(blob, maxSide || 1024);
   }
 
+  function loadImageFromUrl(url) {
+    return new Promise(function (resolve, reject) {
+      var img = new Image();
+      img.onload = function () { resolve(img); };
+      img.onerror = function () { reject(new Error('Не удалось открыть изображение')); };
+      img.src = url;
+    });
+  }
+
+  function drawContain(ctx, img, x, y, size) {
+    var w = img.naturalWidth || img.width || 1;
+    var h = img.naturalHeight || img.height || 1;
+    var scale = Math.min(size / w, size / h);
+    var dw = Math.max(1, Math.round(w * scale));
+    var dh = Math.max(1, Math.round(h * scale));
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = 'high';
+    ctx.drawImage(img, x + Math.round((size - dw) / 2), y + Math.round((size - dh) / 2), dw, dh);
+  }
+
+  async function buildStudioReference(productDataUrl, bgDataUrl) {
+    var W = 2048, H = 1024, S = 1024;
+    var productImg = await loadImageFromUrl(productDataUrl);
+    var bgImg = await loadImageFromUrl(bgDataUrl);
+    var canvas = document.createElement('canvas');
+    canvas.width = W; canvas.height = H;
+    var ctx = canvas.getContext('2d');
+    ctx.fillStyle = '#f7f7f5';
+    ctx.fillRect(0, 0, W, H);
+    drawContain(ctx, productImg, 0, 0, S);
+    drawContain(ctx, bgImg, S, 0, S);
+    var dataUrl = canvas.toDataURL('image/webp', 0.92);
+    if (dataUrl.indexOf('data:image/webp') !== 0) dataUrl = canvas.toDataURL('image/jpeg', 0.92);
+    return dataUrl;
+  }
+
   function applyCanvasCorrection(img) {
     var w = img.naturalWidth || img.width || 1;
     var h = img.naturalHeight || img.height || 1;
@@ -405,15 +441,7 @@
     return null;
   }
 
-  function studioPrompt(scene) {
-    var placement;
-    if (scene.mode === 'WALL_ONLY') placement = 'на эталонном фоне «только стена»: ровная стена без пола и плинтуса, товар стоит/висит на фоне стены, мягкая контактная тень на стене';
-    else if (scene.mode === 'PHOTOZONE') placement = 'в просторном зале-фотозоне: товар красиво расположен в пространстве, естественная перспектива, мягкая студийная тень';
-    else placement = 'на эталонном фоне «студийный пол + стена»: товар стоит на полу, реалистичная контактная тень на полу, чистая стена позади';
-    return 'Первое изображение — товар (НЕПРИКОСНОВЕНЕН, PRODUCT IMMUTABLE). Второе изображение — эталонный фон. Перенеси товар целиком ' + placement + '. Сохрани товар пиксельно точным: цвета, форма, количество и расположение шаров, надписи и цифры без изменений. Верни только итоговую картинку.';
-  }
-
-  async function callStudioApi(productDataUrl, bgDataUrl, scene) {
+  async function callStudioApi(referenceDataUrl) {
     var requestBody = {
       model: STUDIO_MODEL,
       // Nano Banana (Gemini image) — image-output chat model: обязателен поле modalities
@@ -422,9 +450,14 @@
         {
           role: 'user',
           content: [
-            { type: 'text', text: studioPrompt(scene) + ' ПРАВИЛО: PRODUCT IMMUTABLE. Товар неприкосновенен.' },
-            { type: 'image_url', image_url: { url: productDataUrl } },
-            { type: 'image_url', image_url: { url: bgDataUrl } }
+            {
+              type: 'text',
+              text: 'На прикреплённом изображении: слева — товар студии VigSharm (PRODUCT IMMUTABLE, неприкосновенен, форму, цвета, надписи, цифры и шары не менять), справа — утверждённый эталонный фон. Перенеси товар целиком на эталонный фон. Добавь реалистичную контактную тень. Верни только чистое готовое изображение 1:1.'
+            },
+            {
+              type: 'image_url',
+              image_url: { url: referenceDataUrl }
+            }
           ]
         }
       ]
@@ -834,8 +867,9 @@
         setStatus($('studio-status'), 'Готовим фото и референс…', '');
         var productDataUrl = await blobToWebpDataUrl(sourceBlob, 1600);
         var bgDataUrl = await loadReferenceDataUrl(scene.path, 1024);
+        var referenceDataUrl = await buildStudioReference(productDataUrl, bgDataUrl);
         setStatus($('studio-status'), 'Nano Banana переносит товар на эталонный фон…', '');
-        var resultUrl = await callStudioApi(productDataUrl, bgDataUrl, scene);
+        var resultUrl = await callStudioApi(referenceDataUrl);
         var r = await imageUrlToWebpBlob(resultUrl, 2000);
         state.studioBlob = r.blob;
         state.studioMeta = { width: r.width, height: r.height, method: 'Studio Pro · ' + scene.label };

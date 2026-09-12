@@ -1,0 +1,21 @@
+name = "vigsharm-api"
+main = "index.js"
+compatibility_date = "2026-09-01"
+
+# D1 Database
+[[d1_databases]]
+binding = "DB"
+database_name = "vigsharm-db"
+database_id = "YOUR_DATABASE_ID"  # замени после создания через wrangler d1 create vigsharm-db
+
+# R2 Bucket
+[[r2_buckets]]
+binding = "R2"
+bucket_name = "vigsharm-photos"
+
+# Environment variables
+[vars]
+R2_PUBLIC_URL = "https://pub-XXXX.r2.dev"  # замени на публичный URL бакета
+
+# Secrets (задаются через wrangler secret put)
+# NORDROUTER_API_KEY — ключ NordRouter

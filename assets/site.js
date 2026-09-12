@@ -51,6 +51,52 @@
   }
   window.vigPrice = formatPrice;
 
+  /* ---------- Shared clipboard + toast helpers ---------- */
+
+  function legacyExecCopy(text) {
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    ta.setAttribute('readonly', '');
+    ta.style.position = 'fixed';
+    ta.style.top = '0';
+    ta.style.left = '-9999px';
+    document.body.appendChild(ta);
+    ta.focus();
+    ta.select();
+    try { ta.setSelectionRange(0, ta.value.length); } catch (e) {}
+    var ok = false;
+    try { ok = document.execCommand('copy'); } catch (e) { ok = false; }
+    document.body.removeChild(ta);
+    return ok;
+  }
+
+  // Reliable clipboard write: async Clipboard API first (secure context),
+  // legacy execCommand fallback via a hidden textarea. Resolves to boolean.
+  window.vigCopy = function (text) {
+    if (navigator.clipboard && navigator.clipboard.writeText && window.isSecureContext) {
+      return navigator.clipboard.writeText(text)
+        .then(function () { return true; })
+        .catch(function () { return legacyExecCopy(text); });
+    }
+    return Promise.resolve(legacyExecCopy(text));
+  };
+
+  window.vigToast = function (text) {
+    var prev = document.querySelector('.order-toast');
+    if (prev) prev.remove();
+    var t = document.createElement('div');
+    t.className = 'order-toast';
+    t.setAttribute('role', 'status');
+    t.setAttribute('aria-live', 'polite');
+    t.textContent = text;
+    document.body.appendChild(t);
+    requestAnimationFrame(function () { t.classList.add('order-toast-show'); });
+    setTimeout(function () {
+      t.classList.remove('order-toast-show');
+      setTimeout(function () { if (t.parentNode) t.parentNode.removeChild(t); }, 300);
+    }, 2600);
+  };
+
   /* ---------- Mobile menu ---------- */
   var header = document.querySelector('.site-header');
   var nav = document.querySelector('.header .nav');

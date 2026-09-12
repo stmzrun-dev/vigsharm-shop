@@ -416,10 +416,12 @@
     wrap.addEventListener('mousedown', function (e) { if (e.target === wrap) close(); });
     wrap.querySelector('.modal-close').addEventListener('click', close);
     wrap.querySelector('.contact-option.telegram').addEventListener('click', function () {
-      try { if (navigator.clipboard) navigator.clipboard.writeText(msg); } catch (e) {}
+      window.vigCopy(msg);
     });
     wrap.querySelector('.contact-option.max').addEventListener('click', function () {
-      try { if (navigator.clipboard) navigator.clipboard.writeText(msg); } catch (e) {}
+      window.vigCopy(msg).then(function () {
+        window.vigToast('Текст обращения скопирован в буфер! Зажмите поле ввода в MAX и нажмите «Вставить».');
+      });
     });
     document.body.appendChild(wrap);
     document.body.style.overflow = 'hidden';

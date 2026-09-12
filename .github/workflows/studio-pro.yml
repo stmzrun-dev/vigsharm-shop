@@ -29,27 +29,47 @@ jobs:
             -H "Content-Type: application/json" \
             -d "{\"model\":\"image/nano-banana-edit\",\"input\":{\"prompt\":\"${{ github.event.inputs.prompt }}\",\"image\":\"https://stmzrun-dev.github.io/vigsharm-shop/$IMG\"}}")
           
+          echo "NordRouter response: $JOB"
           JOB_ID=$(echo $JOB | jq -r '.id')
+          
+          if [ -z "$JOB_ID" ] || [ "$JOB_ID" == "null" ]; then
+            echo "ERROR: Failed to create job. Response above."
+            exit 1
+          fi
           
           # 2. Поллинг (ожидание)
           echo "Job started: $JOB_ID"
           while true; do
             sleep 5
             RES=$(curl -s -H "Authorization: Bearer $NR_KEY" https://nordrouter.com/media/job/$JOB_ID)
+            echo "Status: $(echo $RES | jq -r '.status')"
             STATUS=$(echo $RES | jq -r '.status')
             if [ "$STATUS" == "done" ]; then
               RESULT_URL=$(echo $RES | jq -r '.result_url')
+              echo "Result URL: $RESULT_URL"
               break
             elif [ "$STATUS" == "failed" ]; then
-              echo "Generation failed"
+              echo "Generation failed. Full response:"
+              echo "$RES"
               exit 1
             fi
           done
           
-          # 3. Скачивание и комит
-          curl -s $RESULT_URL -o $IMG
+          # 3. Скачивание результата (с авторизацией!)
+          curl -s -L -H "Authorization: Bearer $NR_KEY" "$RESULT_URL" -o "$IMG"
+          
+          # Проверка что файл — действительно изображение
+          FILE_TYPE=$(file -b "$IMG")
+          echo "Downloaded file type: $FILE_TYPE"
+          if ! echo "$FILE_TYPE" | grep -qiE 'image|jpeg|png|webp'; then
+            echo "ERROR: Downloaded file is not an image. Content preview:"
+            head -c 500 "$IMG"
+            exit 1
+          fi
+          
+          # 4. Комит и пуш
           git config user.name "Studio Pro Bot"
           git config user.email "bot@vigsharm.ru"
-          git add $IMG
+          git add "$IMG"
           git commit -m "Studio Pro: processed $IMG"
           git push

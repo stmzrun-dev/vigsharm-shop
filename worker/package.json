@@ -1,0 +1,21 @@
+{
+  "name": "worker",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "deploy": "wrangler deploy",
+    "login": "wrangler login",
+    "d1:create": "wrangler d1 create vigsharm-db",
+    "d1:migrate": "wrangler d1 execute vigsharm-db --file=./schema.sql",
+    "r2:create": "wrangler r2 bucket create vigsharm-photos"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "wrangler": "^3.78.0"
+  }
+}

@@ -18,7 +18,7 @@ const SCENES = [
 ];
 
 const app = {
-  workerUrl: '',
+  workerUrl: 'https://vigsharm-api.vigsharm.workers.dev',
   currentStep: 1,
   products: [],
   currentProduct: { photos: [], scene: 'auto', tags: [], client_options: {} },

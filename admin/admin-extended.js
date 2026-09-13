@@ -410,3 +410,4 @@ app.loadProductToForm = function(product) {
 
 console.log('✓ VigSharm Admin Extended Functions loaded');
 
+

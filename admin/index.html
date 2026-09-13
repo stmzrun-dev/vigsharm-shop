@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="ru" translate="no">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Админ-панель — VigSharm</title>
+<meta name="robots" content="noindex, nofollow"/>
+<link rel="icon" href="../favicon.svg"/>
+<link rel="stylesheet" href="../assets/fonts.css"/>
+<link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+
+<header class="admin-header">
+  <div class="brand">
+    <span class="logo">ВигШарм</span>
+    <small>админ-панель</small>
+  </div>
+  <nav class="header-nav">
+    <a href="#products" class="header-link active" data-tab="products">Товары</a>
+    <a href="#create" class="header-link" data-tab="create">+ Создать</a>
+    <a href="#settings" class="header-link" data-tab="settings">Настройки</a>
+    <a href="../index.html" class="header-link">← Витрина</a>
+  </nav>
+</header>
+
+<main class="container">
+  <!-- Tab: Products List -->
+  <section id="tab-products" class="tab-content">
+    <div class="hero-section">
+      <h2>Каталог ВигШарм</h2>
+      <h1>Товары и цены</h1>
+      <p>Добавляйте композиции, фотографии и обновляйте стоимость самостоятельно.</p>
+    </div>
+    
+    <div class="card">
+      <div class="products-header">
+        <div>
+          <button class="btn primary" onclick="app.newProduct()">+ Добавить товар</button>
+        </div>
+      </div>
+      
+      <div class="products-filters">
+        <input type="search" id="search-products" placeholder="Поиск..."/>
+        <select id="filter-category"><option value="">Все категории</option></select>
+        <select id="filter-status">
+          <option value="">Все статусы</option>
+          <option value="draft">Черновик</option>
+          <option value="published">Опубликован</option>
+        </select>
+      </div>
+
+      <div id="products-list" class="products-grid">
+        <div class="loading"><div class="loading-spinner"></div><p>Загрузка...</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tab: Create Product -->
+  <section id="tab-create" class="tab-content hidden">
+    <div class="hero-section">
+      <h2>ИИ-помощник</h2>
+      <h1>Новая карточка за минуту</h1>
+      <p>Одно фото, точное название поставщика и упрощённая карточка.</p>
+    </div>
+    
+    <div class="card">
+      <div class="steps" id="steps-nav">
+        <div class="step active" data-step="1">1. Фото</div>
+        <div class="step" data-step="2">2. Сцена и ИИ</div>
+        <div class="step" data-step="3">3. Базовая информация</div>
+        <div class="step" data-step="4">4. Категория</div>
+        <div class="step" data-step="5">5. SEO</div>
+        <div class="step" data-step="6">6. Разделы</div>
+        <div class="step" data-step="7">7. Опции клиента</div>
+        <div class="step" data-step="8">8. Публикация</div>
+      </div>
+
+      <form id="product-form" novalidate>
+        <!-- Шаг 1: Фото -->
+        <div class="form-step active" data-step="1">
+          <h2>Загрузка фото</h2>
+          <p class="lead">Загрузите от 1 до 6 фото товара. Первое фото станет главным.</p>
+
+          <div class="photo-section" id="photo-dropzone">
+            <div class="upload-zone">
+              <div class="icon">📷</div>
+              <p>Перетащите фото сюда или нажмите для выбора</p>
+              <small>JPG, PNG, WebP · до 10 МБ · максимум 6 фото</small>
+              <input type="file" id="photo-input" accept="image/*" multiple/>
+            </div>
+            <div class="photo-grid" id="photos-grid"></div>
+          </div>
+
+          <div class="wizard-nav">
+            <button type="button" class="btn primary" onclick="app.nextStep()">Далее →</button>
+          </div>
+        </div>
+        <!-- Шаг 2: Сцена и ИИ -->
+        <div class="form-step" data-step="2">
+          <h2>Сцена и обработка</h2>
+          <p class="lead">Выберите сцену для Studio Pro и запустите обработку.</p>
+
+          <div class="scene-selector" id="scene-selector"></div>
+
+          <div class="info-panel">
+            <h4>🤖 ИИ-карточка</h4>
+            <p style="font-size:14px;color:#616161;margin:0">Сгенерирует название, описание и категорию по первому фото.</p>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Обработка фото</label>
+              <button type="button" class="btn secondary block" id="process-studio-btn">✨ Обработать фото через Studio Pro</button>
+              <div class="status" id="studio-status"></div>
+            </div>
+            <div class="form-group">
+              <label>Генерация карточки</label>
+              <button type="button" class="btn primary block" id="generate-ai-btn">🤖 Сгенерировать данные через ИИ</button>
+              <div class="status" id="ai-status"></div>
+            </div>
+          </div>
+
+          <div class="wizard-nav">
+            <div class="btn-group">
+              <button type="button" class="btn outline" onclick="app.prevStep()">← Назад</button>
+              <button type="button" class="btn primary" onclick="app.nextStep()">Далее →</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Шаг 3: Базовая информация -->
+        <div class="form-step" data-step="3">
+          <h2>Базовая информация</h2>
+          <p class="lead">Заполните данные о товаре.</p>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Название <span class="req">*</span></label>
+              <input id="product-title" placeholder="Например: Букет «Утренний восторг»" autocomplete="off"/>
+            </div>
+            <div class="form-group">
+              <label>Артикул (авто)</label>
+              <input id="product-article" readonly placeholder="DG-XXX"/>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Цена, ₽ <span class="req">*</span></label>
+            <input id="product-price" type="number" min="0" step="1" inputmode="numeric" placeholder="0"/>
+          </div>
+
+          <div class="form-group">
+            <label>Короткое описание</label>
+            <input id="product-short-desc" maxlength="140" placeholder="1-2 предложения для карточки"/>
+          </div>
+
+          <div class="form-group">
+            <label>Полное описание</label>
+            <textarea id="product-full-desc" rows="4" placeholder="3-5 предложений о товаре"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label>Состав (каждый пункт с новой строки)</label>
+            <textarea id="product-composition" rows="3" placeholder="• Шары латексные — 15 шт.&#10;• Цифра фольгированная — 1 шт."></textarea>
+          </div>
+
+          <div class="wizard-nav">
+            <div class="btn-group">
+              <button type="button" class="btn outline" onclick="app.prevStep()">← Назад</button>
+              <button type="button" class="btn primary" onclick="app.nextStep()">Далее →</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Шаг 4: Категория -->
+        <div class="form-step" data-step="4">
+          <h2>Категория и дополнительно</h2>
+          <p class="lead">Выберите основную категорию товара.</p>
+
+          <div class="form-group">
+            <label>Основная категория <span class="req">*</span></label>
+            <select id="product-category"></select>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Персонаж</label>
+              <input id="product-character" placeholder="Например: Человек-паук" autocomplete="off"/>
+            </div>
+            <div class="form-group">
+              <label>Возраст</label>
+              <select id="product-age">
+                <option>Для любого возраста</option>
+                <option>Для малышей</option>
+                <option>Для детей</option>
+                <option>Для подростков</option>
+                <option>Для взрослых</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Бюджет</label>
+              <input id="product-budget" placeholder="Например: 500–1500 ₽" autocomplete="off"/>
+            </div>
+            <div class="form-group">
+              <label>Тематическая серия</label>
+              <input id="product-series" placeholder="Например: Миньоны" autocomplete="off"/>
+            </div>
+          </div>
+
+          <div class="wizard-nav">
+            <div class="btn-group">
+              <button type="button" class="btn outline" onclick="app.prevStep()">← Назад</button>
+              <button type="button" class="btn primary" onclick="app.nextStep()">Далее →</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Шаг 5: SEO -->
+        <div class="form-step" data-step="5">
+          <h2>SEO-настройки</h2>
+          <p class="lead">Оптимизация для поисковых систем.</p>
+
+          <div class="form-group">
+            <label>SEO-заголовок</label>
+            <input id="product-seo-title" placeholder="Заголовок для поисковых систем"/>
+          </div>
+
+          <div class="form-group">
+            <label>SEO-описание</label>
+            <textarea id="product-seo-desc" rows="3" placeholder="Описание для поисковых систем"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label>URL товара (slug)</label>
+            <input id="product-slug" placeholder="naprimer-buket-utrenniy-vostorg"/>
+          </div>
+
+          <div class="wizard-nav">
+            <div class="btn-group">
+              <button type="button" class="btn outline" onclick="app.prevStep()">← Назад</button>
+              <button type="button" class="btn primary" onclick="app.nextStep()">Далее →</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Шаг 6: Разделы каталога -->
+        <div class="form-step" data-step="6">
+          <h2>Разделы каталога</h2>
+          <p class="lead">Товар может отображаться в нескольких разделах.</p>
+
+          <fieldset><legend>Для кого</legend><div class="chips" id="tags-for-who"></div></fieldset>
+          <fieldset><legend>Повод</legend><div class="chips" id="tags-occasion"></div></fieldset>
+          <fieldset><legend>Даты</legend><div class="chips" id="tags-dates"></div></fieldset>
+          <fieldset><legend>Тип товара</legend><div class="chips" id="tags-type"></div></fieldset>
+
+          <div class="wizard-nav">
+            <div class="btn-group">
+              <button type="button" class="btn outline" onclick="app.prevStep()">← Назад</button>
+              <button type="button" class="btn primary" onclick="app.nextStep()">Далее →</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Шаг 7: Опции клиента -->
+        <div class="form-step" data-step="7">
+          <h2>Опции для клиента</h2>
+          <p class="lead">Что сможет настроить покупатель при заказе.</p>
+
+          <div class="checkbox-group">
+            <label class="checkbox-label"><input type="checkbox" id="opt-available"/><span>Доступен под заказ</span></label>
+            <label class="checkbox-label"><input type="checkbox" id="opt-number"/><span>Выбор цифры (0–9)</span></label>
+            <label class="checkbox-label"><input type="checkbox" id="opt-inscription"/><span>Персональная надпись</span></label>
+            <label class="checkbox-label"><input type="checkbox" id="opt-rental"/><span>Аренда элементов фотозоны</span></label>
+          </div>
+
+          <div class="wizard-nav">
+            <div class="btn-group">
+              <button type="button" class="btn outline" onclick="app.prevStep()">← Назад</button>
+              <button type="button" class="btn primary" onclick="app.nextStep()">Далее →</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Шаг 8: Публикация -->
+        <div class="form-step" data-step="8">
+          <h2>Публикация</h2>
+          <p class="lead">Проверьте данные и опубликуйте товар.</p>
+
+          <div class="checkbox-group">
+            <label class="checkbox-label"><input type="checkbox" id="show-on-site"/><span>Показывать на сайте</span></label>
+          </div>
+
+          <div class="wizard-nav">
+            <div class="btn-group">
+              <button type="button" class="btn outline" onclick="app.prevStep()">← Назад</button>
+              <button type="button" class="btn secondary" onclick="app.saveDraft()">💾 Сохранить черновик</button>
+              <button type="button" class="btn primary" onclick="app.publishProduct()">🚀 Опубликовать товар</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- Tab: Settings -->
+  <section id="tab-settings" class="tab-content hidden">
+    <div class="hero-section">
+      <h2>Настройки</h2>
+      <h1>Подключение сервисов</h1>
+      <p>Настройте Cloudflare Worker и NordRouter для работы админ-панели.</p>
+    </div>
+    
+    <div class="card">
+
+      <div class="form-group">
+        <label>Worker API URL</label>
+        <input type="url" id="worker-url" placeholder="https://api.vigsharm.ru"/>
+        <small class="text-muted">URL вашего Cloudflare Worker</small>
+      </div>
+
+      <div class="form-group">
+        <label>NordRouter API Key <span class="hint">(опционально)</span></label>
+        <input type="password" id="nordrouter-key" placeholder="sk-nr-..."/>
+        <small class="text-muted">Для Studio Pro. Хранится в браузере</small>
+      </div>
+
+      <button class="btn primary" onclick="app.saveSettings()">Сохранить</button>
+      <button class="btn danger mt-2" onclick="app.clearSettings()">Очистить все</button>
+
+      <div class="divider"></div>
+      <h2>Статистика</h2>
+      <div class="stats-row">
+        <div class="badge neutral">Всего: <strong id="stats-total">0</strong></div>
+        <div class="badge success">Опубликовано: <strong id="stats-published">0</strong></div>
+        <div class="badge warning">Черновиков: <strong id="stats-drafts">0</strong></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div id="toast" class="toast"></div>
+<script src="admin.js"></script>
+<script src="admin-extended.js"></script>
+</body>
+</html>
+

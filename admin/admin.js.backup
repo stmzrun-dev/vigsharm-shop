@@ -1,0 +1,198 @@
+﻿// VigSharm Admin Panel - V3
+const CATEGORIES = ['Для девочки', 'Для мальчика', 'Для неё', 'Для мамы', 'Для него', 'Геймерам', 'Юбилей', '1 годик', 'Крещение', 'Гендер-пати', 'На выписку', 'Свадьба и девичник', 'Выпускной', 'Новый год', '14 февраля', '23 февраля', '8 марта', '1 сентября', 'Фигуры из шаров', 'Напольные композиции', 'Букет из шаров', 'Цветы из шаров', 'Крафтовый букет', 'Шар-сюрприз', 'Коробка-сюрприз', 'Фотозона', 'Арка из шаров', 'Шары поштучно'];
+
+const TAGS = {
+  forWho: ['Для девочки', 'Для мальчика', 'Для неё', 'Для мамы', 'Для него', 'Геймерам'],
+  occasion: ['Юбилей', '1 годик', 'Крещение', 'Гендер-пати', 'На выписку', 'Свадьба и девичник'],
+  dates: ['Выпускной', 'Новый год', '14 февраля', '23 февраля', '8 марта', '1 сентября'],
+  type: ['Фигуры из шаров', 'Напольные композиции', 'Букет из шаров', 'Цветы из шаров', 'Крафтовый букет', 'Шар-сюрприз', 'Коробка-сюрприз', 'Фотозона', 'Арка из шаров', 'Шары поштучно']
+};
+
+const SCENES = [
+  { value: 'auto', title: '🤖 Автоматически', desc: 'ИИ определит по содержимому' },
+  { value: 'unit_balloon', title: '🎈 Шар поштучно', desc: 'Только стена, без пола' },
+  { value: 'handheld_bouquet', title: '💐 Букет в руке', desc: 'Только стена, без пола' },
+  { value: 'wall_only', title: '🧱 Только стена', desc: 'Строгий запрет пола' },
+  { value: 'floor', title: '🏠 Напольная сцена', desc: 'Стена + плинтус + ламинат' },
+  { value: 'photozone', title: '📸 Фотозона', desc: 'Полный интерьер' }
+];
+
+const app = {
+  workerUrl: '',
+  currentStep: 1,
+  products: [],
+  currentProduct: { photos: [], scene: 'auto', tags: [], client_options: {} },
+
+  init() {
+    this.loadSettings();
+    this.setupTabs();
+    this.setupPhotoUpload();
+    this.setupSceneSelector();
+    this.setupFormEvents();
+    this.renderCategories();
+    this.renderTags();
+    this.loadProducts();
+  },
+
+  loadSettings() {
+    try {
+      const saved = localStorage.getItem('vigsharm_admin_settings');
+      if (saved) {
+        const settings = JSON.parse(saved);
+        this.workerUrl = settings.workerUrl || '';
+        if (document.getElementById('worker-url')) document.getElementById('worker-url').value = this.workerUrl;
+      }
+    } catch (e) {}
+  },
+
+  saveSettings() {
+    this.workerUrl = document.getElementById('worker-url').value.trim();
+    try {
+      localStorage.setItem('vigsharm_admin_settings', JSON.stringify({ workerUrl: this.workerUrl }));
+      this.toast('Настройки сохранены', 'success');
+    } catch (e) {
+      this.toast('Ошибка сохранения', 'error');
+    }
+  },
+
+  clearSettings() {
+    if (confirm('Удалить все настройки?')) {
+      localStorage.clear();
+      this.toast('Настройки очищены', 'success');
+    }
+  },
+
+  setupTabs() {
+    document.querySelectorAll('.header-link[data-tab]').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        this.switchTab(link.dataset.tab);
+      });
+    });
+  },
+
+  switchTab(tab) {
+    document.querySelectorAll('.header-link').forEach(l => l.classList.remove('active'));
+    document.querySelector(`[data-tab="${tab}"]`)?.classList.add('active');
+    document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
+    document.getElementById(`tab-${tab}`)?.classList.remove('hidden');
+  },
+
+  async loadProducts() {
+    if (!this.workerUrl) return;
+    try {
+      const res = await fetch(`${this.workerUrl}/api/products`);
+      const data = await res.json();
+      if (data.ok) {
+        this.products = data.products || [];
+        this.renderProducts();
+      }
+    } catch (e) {
+      console.error('Failed to load products', e);
+    }
+  },
+
+  renderProducts() {
+    const container = document.getElementById('products-list');
+    if (!container) return;
+    
+    if (this.products.length === 0) {
+      container.innerHTML = '<div class="empty-state"><div class="icon">🎈</div><div class="title">Нет товаров</div></div>';
+      return;
+    }
+
+    container.innerHTML = this.products.map(p => `
+      <div class="product-card">
+        <div class="thumb">${p.main_photo ? `<img src="${p.main_photo}" alt="${p.title}"/>` : '<div style="padding:40px;text-align:center">🎈</div>'}</div>
+        <div class="title">${p.title}</div>
+        <div class="meta"><span>${p.article}</span> <span>${p.category}</span></div>
+        <div class="price">${p.price} ₽</div>
+        <div class="actions">
+          <button class="btn sm primary" onclick="app.editProduct('${p.id}')">Редактировать</button>
+          <button class="btn sm danger" onclick="app.deleteProduct('${p.id}')">Удалить</button>
+        </div>
+      </div>
+    `).join('');
+  },
+
+  renderCategories() {
+    const select = document.getElementById('filter-category');
+    if (select) {
+      CATEGORIES.forEach(cat => {
+        const opt = document.createElement('option');
+        opt.value = cat;
+        opt.textContent = cat;
+        select.appendChild(opt);
+      });
+    }
+  },
+
+  toast(msg, type = '') {
+    const toast = document.getElementById('toast');
+    toast.textContent = msg;
+    toast.className = `toast show ${type}`;
+    setTimeout(() => toast.className = `toast ${type}`, 3000);
+  },
+
+  async publishProduct() {
+    this.toast('Публикация товара...', '');
+    // TODO: Implement
+  },
+
+  async saveDraft() {
+    this.toast('Сохранение черновика...', '');
+    // TODO: Implement
+  },
+
+  async editProduct(id) {
+    this.toast('Загрузка товара...', '');
+    // TODO: Implement
+  },
+
+  async deleteProduct(id) {
+    if (confirm('Удалить товар?')) {
+      try {
+        const res = await fetch(`${this.workerUrl}/api/products/${id}`, { method: 'DELETE' });
+        const data = await res.json();
+        if (data.ok) {
+          this.toast('Товар удалён', 'success');
+          this.loadProducts();
+        } else {
+          this.toast('Ошибка удаления', 'error');
+        }
+      } catch (e) {
+        this.toast('Ошибка удаления', 'error');
+      }
+    }
+  },
+
+  nextStep() {
+    if (this.currentStep < 8) {
+      this.currentStep++;
+      this.updateSteps();
+    }
+  },
+
+  prevStep() {
+    if (this.currentStep > 1) {
+      this.currentStep--;
+      this.updateSteps();
+    }
+  },
+
+  updateSteps() {
+    document.querySelectorAll('.form-step').forEach((step, i) => {
+      step.classList.toggle('active', i + 1 === this.currentStep);
+    });
+    document.querySelectorAll('.step').forEach((step, i) => {
+      step.classList.toggle('active', i + 1 === this.currentStep);
+      step.classList.toggle('completed', i + 1 < this.currentStep);
+    });
+  }
+};
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', () => app.init());
+} else {
+  app.init();
+}

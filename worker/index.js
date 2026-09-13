@@ -148,6 +148,12 @@ async function handleGenerateCard(request, env) {
     temperature: 0.3
   }, env);
 
+  // Проверяем ошибки от NordRouter API
+  if (aiResp.error) {
+    console.error('NordRouter API error:', aiResp.error);
+    return json({ ok: false, error: 'NordRouter API ошибка: ' + (aiResp.error.message || JSON.stringify(aiResp.error)) });
+  }
+
   const text = aiResp.choices?.[0]?.message?.content || '';
   let card;
   try {
@@ -191,6 +197,12 @@ async function handleSuggestCategory(request, env) {
     temperature: 0.2
   }, env);
 
+  // Проверяем ошибки от NordRouter API
+  if (aiResp.error) {
+    console.error('NordRouter API error:', aiResp.error);
+    return json({ ok: false, error: 'NordRouter API ошибка: ' + (aiResp.error.message || JSON.stringify(aiResp.error)) });
+  }
+
   const text = aiResp.choices?.[0]?.message?.content || '';
   try {
     const cleaned = text.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
@@ -204,27 +216,94 @@ async function handleSuggestCategory(request, env) {
 // ─── Studio Pro: Process ─────────────────────────────────
 
 const STUDIO_PROMPTS = {
-  floor: `Сцена: напольная. Стена — светлая нейтральная бежево-серая с мягкой текстурой. Белый аккуратный плинтус. Серо-бежевый ламинатный пол. Мягкие натуральные тени. Студийное освещение без желтизны.`,
-  wall_only: `Сцена: только стена. Строжайший запрет пола, плинтуса, ламината. Только бежево-серая стена с мягкой текстурой.`,
-  photozone: `Сцена: фотозона. Полный интерьер: бежево-серая стена со всех сторон (создаёт глубину), белый плинтус, серо-бежевый ламинат.`,
-  unit_balloon: `Сцена: один шар. Чистый бежево-серый фон. Убрать водяные знаки/лого поставщиков. Принт шара не трогать.`,
-  handheld_bouquet: `Сцена: букет в руках. Без пола. Не превращать в напольную стойку. Бежево-серый фон.`
+  floor: `РЕЖИМ: Напольная композиция (полная сцена для фотозон и букетов)
+
+ЭТАЛОННЫЙ ФОН VIGSHARM:
+- Стена: светлая тёплая beige-grey (бежево-серая) с мягкой текстурой
+- Плинтус: белый аккуратный
+- Пол: светлый серо-бежевый ламинат
+- Чистая студия без лишних предметов
+
+ВАЖНО: Мягкие натуральные тени. Студийное освещение без желтизны.`,
+
+  wall_only: `РЕЖИМ: Только стена (для настенных композиций)
+
+СТРОЖАЙШИЙ ЗАПРЕТ пола, плинтуса, ламината!
+Только светлая бежево-серая стена с мягкой текстурой.
+
+ВАЖНО: НЕ добавлять пол даже если его нет на оригинале.`,
+
+  photozone: `РЕЖИМ: Фотозона (полный интерьер)
+
+Полная сцена:
+- Бежево-серая стена со всех сторон (создаёт глубину)
+- Белый плинтус
+- Серо-бежевый ламинат
+
+ВАЖНО: НЕ переделывать фотозону. Сохранить ВСЕ элементы конструкции.`,
+
+  unit_balloon: `РЕЖИМ: Один шар (студийное фото)
+
+Чистый бежево-серый фон.
+Убрать водяные знаки/логотипы поставщиков (если есть).
+Принт шара НЕ трогать.
+
+ВАЖНО: НЕ менять форму товара. НЕ добавлять дополнительные элементы.`,
+
+  handheld_bouquet: `РЕЖИМ: Букет в руках
+
+Светлая нейтральная стена.
+НЕ показывать пол.
+НЕ превращать в напольную стойку.
+
+Можно добавить естественную руку (если нужно для презентации).
+Рука НЕ должна закрывать товар.`
 };
 
 async function handleStudioProcess(request, env) {
   const { image_url, scene, prompt: userPrompt } = await request.json();
 
   const basePrompt = STUDIO_PROMPTS[scene] || STUDIO_PROMPTS.floor;
-  const fullPrompt = `Профессиональная ретушь фото для каталога шаров VigSharm.
-${basePrompt}
+  
+  // Базовые правила (применяются ВСЕГДА)
+  const coreRules = `Профессиональная ретушь фото для каталога шаров VigSharm.
 
-СТРОГИЕ ПРАВИЛА:
-1. ТОВАР НЕИЗМЕНЕН: количество, форма, надписи, ленты, пропорции — ВСЁ как на фото. Обрезанное НЕ дорисовывать.
-2. НЕ добавлять элементов которых нет на оригинальном фото.
-3. Формат: квадрат или близкий к квадрату. НЕ обрезать товар.
-4. Глянец шаров естественный (не стекло/пластик).
-5. Тени мягкие натуральные, без 3D-рендера.
-${userPrompt ? '\nДополнительно: ' + userPrompt : ''}`;
+АБСОЛЮТНЫЕ ПРАВИЛА (НАРУШЕНИЕ НЕДОПУСТИМО):
+
+1. ТОВАР НЕИЗМЕНЕН:
+   - Количество элементов (шаров, цветов) - СТРОГО как на оригинале
+   - Цвета - СТРОГО как на оригинале
+   - Форма, размер, пропорции - СТРОГО как на оригинале
+   - Надписи, цифры, буквы - СТРОГО как на оригинале
+   - Персонажи, фигуры - СТРОГО как на оригинале
+   - Композиция, расположение - СТРОГО как на оригинале
+
+2. ЗАПРЕЩЕНО:
+   - Добавлять элементы которых нет на оригинале
+   - Удалять элементы
+   - Менять количество элементов
+   - Менять цвета
+   - Менять надписи/цифры/буквы
+   - Изменять композицию
+   - Растягивать/деформировать объекты
+   - Обрезанное НЕ дорисовывать
+
+3. РАЗРЕШЕНО МЕНЯТЬ ТОЛЬКО:
+   - Фон (стена, пол) согласно выбранному режиму
+   - Освещение (мягкое, естественное)
+   - Цветовой баланс (нейтральный, без желтизны)
+
+4. КАЧЕСТВО:
+   - Фотография должна выглядеть РЕАЛЬНО, а НЕ как 3D render
+   - Без пластикового глянца
+   - Глянец шаров естественный (не стекло/пластик)
+   - Тени мягкие, естественные, без 3D-рендера
+   - Формат: квадрат или близкий к квадрату
+   - НЕ обрезать товар`;
+
+  const fullPrompt = `${coreRules}
+
+${basePrompt}${userPrompt ? '\n\nДОПОЛНИТЕЛЬНО: ' + userPrompt : ''}`;
 
   const job = await nordRequest('/media/generate', 'POST', {
     model: 'image/nano-banana-edit',
@@ -251,13 +330,12 @@ async function handleStudioStatus(path, env) {
     });
     const blob = await imgResp.blob();
 
-    // Конвертируем в WebP через Cloudflare Image Resizing (или просто сохраняем как есть)
-    const id = crypto.randomUUID();
-    const key = 'products/' + id + '.webp';
-    await env.R2.put(key, blob, { contentType: 'image/webp' });
-
-    const r2Url = env.R2_PUBLIC_URL + '/' + key;
-    return json({ ok: true, status: 'done', result_url: r2Url, r2_key: key });
+    // R2 отключен — возвращаем результат как base64
+    const arrayBuffer = await blob.arrayBuffer();
+    const base64 = btoa(String.fromCharCode(...new Uint8Array(arrayBuffer)));
+    const dataUrl = 'data:image/webp;base64,' + base64;
+    
+    return json({ ok: true, status: 'done', result_url: dataUrl, format: 'base64' });
   }
 
   return json({ ok: true, status: result.status || 'processing' });
@@ -388,22 +466,28 @@ async function handleUploadPhoto(request, env) {
   const file = formData.get('file');
   if (!file) return json({ ok: false, error: 'No file' }, 400);
 
-  const id = crypto.randomUUID();
-  const ext = file.type.includes('webp') ? 'webp' : file.type.includes('png') ? 'png' : 'jpg';
-  const key = 'products/' + id + '.' + ext;
-
-  await env.R2.put(key, file, { contentType: file.type });
-
-  const url = env.R2_PUBLIC_URL + '/' + key;
-  return json({ ok: true, url, id });
+  // R2 отключен — конвертируем файл в data URL (временное решение)
+  // Для продакшена нужно настроить реальный хостинг изображений
+  try {
+    const arrayBuffer = await file.arrayBuffer();
+    const base64 = btoa(String.fromCharCode(...new Uint8Array(arrayBuffer)));
+    const mimeType = file.type || 'image/jpeg';
+    const dataUrl = `data:${mimeType};base64,${base64}`;
+    
+    const id = crypto.randomUUID();
+    console.log('Photo uploaded as data URL, size:', base64.length, 'bytes');
+    
+    return json({ ok: true, url: dataUrl, id });
+  } catch (error) {
+    console.error('Upload error:', error);
+    return json({ ok: false, error: 'Upload failed: ' + error.message }, 500);
+  }
 }
 
 async function handleDeletePhoto(path, env) {
   const id = path.split('/').pop();
-  // Удаляем все варианты файла
-  for (const ext of ['webp', 'jpg', 'png']) {
-    await env.R2.delete('products/' + id + '.' + ext);
-  }
+  // R2 отключен — NordRouter не поддерживает удаление файлов через API
+  // Просто возвращаем успех (файлы на NordRouter остаются, но это не критично)
   return json({ ok: true });
 }
 

@@ -1,0 +1,24 @@
+
+> worker@1.0.0 deploy
+> wrangler deploy
+
+
+ ⛅️ wrangler 3.78.0 (update available 4.131.1)
+----------------------------------------------
+
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mThe version of Wrangler you are using is now out-of-date.[0m
+
+  Please update to the latest version to prevent critical errors.
+  Run `npm install --save-dev wrangler@4` to update to the latest version.
+  After installation, run Wrangler with `npx wrangler`.
+
+
+Total Upload: 25.12 KiB / gzip: 5.26 KiB
+Worker Startup Time: 5 ms
+Your worker has access to the following bindings:
+- D1 Databases:
+  - DB: vigsharm-db (159f50ce-f89f-4ecb-8c4d-c4796276cfb7)
+Uploaded vigsharm-api (9.30 sec)
+Deployed vigsharm-api triggers (1.50 sec)
+  https://vigsharm-api.vigsharm.workers.dev
+Current Version ID: 22f00f37-2611-492b-ad4e-f3a3df6891e2

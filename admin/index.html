@@ -111,7 +111,7 @@
           <div class="form-row">
             <div class="form-group">
               <label>Обработка фото</label>
-              <button type="button" class="btn secondary block" id="process-studio-btn">✨ Обработать фото через Studio Pro</button>
+              <button type="button" class="btn secondary block" id="process-studio-btn" onclick="app.processStudioProNew()">✨ Обработать фото через Studio Pro</button>
               <div class="status" id="studio-status"></div>
             </div>
             <div class="form-group">
@@ -328,6 +328,22 @@
         <small class="text-muted">Для Studio Pro. Хранится в браузере</small>
       </div>
 
+
+      <div class="divider"></div>
+      <h3>☁️ Cloudinary (хранилище фото)</h3>
+      
+      <div class="form-group">
+        <label>Cloud Name <span style="color: #e74c3c;">*обязательно</span></label>
+        <input type="text" id="cloudinary-cloud-name" placeholder="dxxxxx"/>
+        <small class="text-muted">Найдите в Dashboard Cloudinary</small>
+      </div>
+
+      <div class="form-group">
+        <label>Upload Preset <span style="color: #e74c3c;">*обязательно</span></label>
+        <input type="text" id="cloudinary-upload-preset" placeholder="unsigned_preset"/>
+        <small class="text-muted">Settings → Upload → Upload Presets → Create unsigned</small>
+      </div>
+
       <button class="btn primary" onclick="app.saveSettings()">Сохранить</button>
       <button class="btn danger mt-2" onclick="app.clearSettings()">Очистить все</button>
 
@@ -345,6 +361,9 @@
 <div id="toast" class="toast"></div>
 <script src="admin.js"></script>
 <script src="admin-extended.js"></script>
+<script src="admin-studio-pro.js"></script>
+<script src="cloudinary-upload.js"></script>
+<script src="cloudinary-patch.js"></script>
 </body>
 </html>
 

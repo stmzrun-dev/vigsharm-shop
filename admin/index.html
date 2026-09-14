@@ -111,12 +111,12 @@
           <div class="form-row">
             <div class="form-group">
               <label>Обработка фото</label>
-              <button type="button" class="btn secondary block" id="process-studio-btn" onclick="app.processStudioProNew()">✨ Обработать фото через Studio Pro</button>
+              <button type="button" class="btn secondary block" id="process-studio-btn" onclick="app.processStudioProDirect()">✨ Обработать фото через Studio Pro</button>
               <div class="status" id="studio-status"></div>
             </div>
             <div class="form-group">
               <label>Генерация карточки</label>
-              <button type="button" class="btn primary block" id="generate-ai-btn" onclick="app.generateAIMetadata()">🤖 Сгенерировать данные через ИИ</button>
+              <button type="button" class="btn primary block" id="generate-ai-btn" onclick="app.generateAIMetadataDirect()">🤖 Сгенерировать данные через ИИ</button>
               <div class="status" id="ai-status"></div>
             </div>
           </div>
@@ -363,6 +363,8 @@
 <script src="admin-extended.js"></script>
 <script src="admin-studio-pro.js"></script>
 <script src="admin-ai.js"></script>
+<script src="admin-nordrouter-direct.js"></script>
+<script src="admin-nordrouter-ai.js"></script>
 <script src="cloudinary-upload.js"></script>
 <script src="cloudinary-patch.js"></script>
 </body>

@@ -19,6 +19,8 @@ const SCENES = [
 
 const app = {
   workerUrl: 'https://vigsharm-api.vigsharm.workers.dev',
+  nordrouterKey: '', // NordRouter API ключ (хранится в localStorage)
+
   currentStep: 1,
   products: [],
   currentProduct: { photos: [], scene: 'auto', tags: [], client_options: {} },

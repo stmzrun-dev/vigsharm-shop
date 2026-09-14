@@ -1,0 +1,80 @@
+
+ ⛅️ wrangler 3.78.0 (update available 4.131.2)
+----------------------------------------------
+
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mThe version of Wrangler you are using is now out-of-date.[0m
+
+  Please update to the latest version to prevent critical errors.
+  Run `npm install --save-dev wrangler@4` to update to the latest version.
+  After installation, run Wrangler with `npx wrangler`.
+
+
+Attaching additional modules:
+┌───────────────────────────────────────────────────────────────────────────────────┬───────────────┬────────────┐
+│ Name                                                                              │ Type          │ Size       │
+├───────────────────────────────────────────────────────────────────────────────────┼───────────────┼────────────┤
+│ deploy-error.txt                                                                  │ text          │ 0.00 KiB   │
+├───────────────────────────────────────────────────────────────────────────────────┼───────────────┼────────────┤
+│ deploy-output.txt                                                                 │ text          │ 2.23 KiB   │
+├───────────────────────────────────────────────────────────────────────────────────┼───────────────┼────────────┤
+│ deploy-output2.txt                                                                │ text          │ 2.23 KiB   │
+├───────────────────────────────────────────────────────────────────────────────────┼───────────────┼────────────┤
+│ deploy-result.txt                                                                 │ text          │ 0.40 KiB   │
+├───────────────────────────────────────────────────────────────────────────────────┼───────────────┼────────────┤
+│ node_modules/.get-source-rfYKLN9s/test/files/test.html                            │ text          │ 0.01 KiB   │
+├───────────────────────────────────────────────────────────────────────────────────┼───────────────┼────────────┤
+│ node_modules/.miniflare-uhO1W8Aw/dist/local-explorer-ui/index.html                │ text          │ 1.56 KiB   │
+├───────────────────────────────────────────────────────────────────────────────────┼───────────────┼────────────┤
+│ node_modules/.undici-IzdV2oV7/lib/llhttp/llhttp.wasm                              │ compiled-wasm │ 54.17 KiB  │
+├───────────────────────────────────────────────────────────────────────────────────┼───────────────┼────────────┤
+│ node_modules/.undici-IzdV2oV7/lib/llhttp/llhttp_simd.wasm                         │ compiled-wasm │ 54.15 KiB  │
+├───────────────────────────────────────────────────────────────────────────────────┼───────────────┼────────────┤
+│ node_modules/.undici-IzdV2oV7/lib/llhttp/wasm_build_env.txt                       │ text          │ 0.68 KiB   │
+├───────────────────────────────────────────────────────────────────────────────────┼───────────────┼────────────┤
+│ node_modules/blake3-wasm/dist/wasm/browser/blake3_js_bg.wasm                      │ compiled-wasm │ 33.59 KiB  │
+├───────────────────────────────────────────────────────────────────────────────────┼───────────────┼────────────┤
+│ node_modules/blake3-wasm/dist/wasm/nodejs/blake3_js_bg.wasm                       │ compiled-wasm │ 33.60 KiB  │
+├───────────────────────────────────────────────────────────────────────────────────┼───────────────┼────────────┤
+│ node_modules/blake3-wasm/dist/wasm/web/blake3_js_bg.wasm                          │ compiled-wasm │ 33.58 KiB  │
+├───────────────────────────────────────────────────────────────────────────────────┼───────────────┼────────────┤
+│ node_modules/get-source/test/files/test.html                                      │ text          │ 0.01 KiB   │
+├───────────────────────────────────────────────────────────────────────────────────┼───────────────┼────────────┤
+│ node_modules/rollup-plugin-node-polyfills/polyfills/LICENSE-browserify-fs.txt     │ text          │ 13.03 KiB  │
+├───────────────────────────────────────────────────────────────────────────────────┼───────────────┼────────────┤
+│ node_modules/rollup-plugin-node-polyfills/polyfills/LICENSE-buffer-es6.txt        │ text          │ 0.32 KiB   │
+├───────────────────────────────────────────────────────────────────────────────────┼───────────────┼────────────┤
+│ node_modules/rollup-plugin-node-polyfills/polyfills/LICENSE-crypto-browserify.txt │ text          │ 8.52 KiB   │
+├───────────────────────────────────────────────────────────────────────────────────┼───────────────┼────────────┤
+│ node_modules/rollup-plugin-node-polyfills/polyfills/LICENSE-process-es6.txt       │ text          │ 0.23 KiB   │
+├───────────────────────────────────────────────────────────────────────────────────┼───────────────┼────────────┤
+│ node_modules/tslib/CopyrightNotice.txt                                            │ text          │ 0.80 KiB   │
+├───────────────────────────────────────────────────────────────────────────────────┼───────────────┼────────────┤
+│ node_modules/tslib/LICENSE.txt                                                    │ text          │ 0.64 KiB   │
+├───────────────────────────────────────────────────────────────────────────────────┼───────────────┼────────────┤
+│ node_modules/tslib/tslib.es6.html                                                 │ text          │ 0.04 KiB   │
+├───────────────────────────────────────────────────────────────────────────────────┼───────────────┼────────────┤
+│ node_modules/tslib/tslib.html                                                     │ text          │ 0.03 KiB   │
+├───────────────────────────────────────────────────────────────────────────────────┼───────────────┼────────────┤
+│ node_modules/undici/lib/llhttp/llhttp.wasm                                        │ compiled-wasm │ 54.17 KiB  │
+├───────────────────────────────────────────────────────────────────────────────────┼───────────────┼────────────┤
+│ node_modules/undici/lib/llhttp/llhttp_simd.wasm                                   │ compiled-wasm │ 54.15 KiB  │
+├───────────────────────────────────────────────────────────────────────────────────┼───────────────┼────────────┤
+│ node_modules/undici/lib/llhttp/wasm_build_env.txt                                 │ text          │ 0.68 KiB   │
+├───────────────────────────────────────────────────────────────────────────────────┼───────────────┼────────────┤
+│ node_modules/wrangler/wrangler-dist/wasm-sync.wasm                                │ compiled-wasm │ 63.85 KiB  │
+├───────────────────────────────────────────────────────────────────────────────────┼───────────────┼────────────┤
+│ node_modules/xxhash-wasm/workerd/xxhash.wasm                                      │ compiled-wasm │ 3.03 KiB   │
+├───────────────────────────────────────────────────────────────────────────────────┼───────────────┼────────────┤
+│ Total (26 modules)                                                                │               │ 415.71 KiB │
+└───────────────────────────────────────────────────────────────────────────────────┴───────────────┴────────────┘
+Total Upload: 453.96 KiB / gzip: 155.77 KiB
+Worker Startup Time: 9 ms
+Your worker has access to the following bindings:
+- D1 Databases:
+  - DB: vigsharm-db (159f50ce-f89f-4ecb-8c4d-c4796276cfb7)
+Uploaded vigsharm-api (9.88 sec)
+Deployed vigsharm-api triggers (1.50 sec)
+  https://vigsharm-api.vigsharm.workers.dev
+Current Version ID: c25c6279-91e1-4a26-b25d-a917f39441ff
+
+c:\vigsharm-shop\worker>

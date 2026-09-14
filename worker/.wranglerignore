@@ -1,0 +1,14 @@
+node_modules/
+*.log
+*.txt
+*.bat
+*.ps1
+*.md
+*.backup
+*.new
+.wrangler/
+deploy-*.js
+quick-deploy.js
+index-fixed.js
+index.js.backup
+index.js.new

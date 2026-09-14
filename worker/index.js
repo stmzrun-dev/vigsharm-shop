@@ -152,7 +152,7 @@ ${image_url ? 'РР·РѕР±СЂР°Р¶РµРЅРёРµ РїСЂРµРґРѕ
   }
 
   const aiResp = await nordRequest('/v1/chat/completions', 'POST', {
-    model: 'anthropic/claude-sonnet-5',
+    model: 'claude-sonnet-5',
     messages,
     temperature: 0.7,
     response_format: { type: 'json_object' }
@@ -185,7 +185,7 @@ async function handleSuggestCategory(request, env) {
   const { description, title } = await request.json();
 
   const aiResp = await nordRequest('/v1/chat/completions', 'POST', {
-    model: 'anthropic/claude-sonnet-5',
+    model: 'claude-sonnet-5',
     messages: [
       {
         role: 'system',
@@ -330,8 +330,9 @@ ${basePrompt}${userPrompt ? '\n\nР”РћРџРћР›РќРРўР•Р›Р�
 
   // РРЎРџР РђР’Р›Р•РќРР•: РСЃРїРѕР»СЊР·СѓРµРј vision API С‡РµСЂРµР· chat completions СЃ multimodal content
   // Р’РјРµСЃС‚Рѕ /media/generate РёСЃРїРѕР»СЊР·СѓРµРј /v1/chat/completions СЃ РїСЂР°РІРёР»СЊРЅРѕР№ СЃС‚СЂСѓРєС‚СѓСЂРѕР№
+  // Р¨Р°Рі 1: РРЅР°Р»РёР· РёР·РѕР±СЂР°Р¶РµРЅРёСЏ С‡РµСЂРµР· vision API
   const aiResp = await nordRequest('/v1/chat/completions', 'POST', {
-    model: 'anthropic/claude-3.5-sonnet',
+    model: 'claude-sonnet-5',
     messages: [
       {
         role: 'user',
@@ -364,24 +365,44 @@ ${basePrompt}${userPrompt ? '\n\nР”РћРџРћР›РќРРўР•Р›Р�
     }, 500);
   }
 
-  // Vision API РІРѕР·РІСЂР°С‰Р°РµС‚ С‚РµРєСЃС‚РѕРІС‹Р№ Р°РЅР°Р»РёР·, Р° РЅРµ РіРѕС‚РѕРІРѕРµ РёР·РѕР±СЂР°Р¶РµРЅРёРµ
-  // РЎРѕР·РґР°РµРј РІСЂРµРјРµРЅРЅС‹Р№ job_id РґР»СЏ СЃРѕРІРјРµСЃС‚РёРјРѕСЃС‚Рё СЃ СЃСѓС‰РµСЃС‚РІСѓСЋС‰РµР№ Р»РѕРіРёРєРѕР№
   const analysisText = aiResp.choices[0].message.content;
-  const jobId = 'vision_' + Date.now();
-  
   console.log('Vision analysis (first 500 chars):', analysisText.substring(0, 500));
   
-  // TODO: Р—РґРµСЃСЊ РЅСѓР¶РЅРѕ РґРѕР±Р°РІРёС‚СЊ РІС‚РѕСЂРѕР№ Р·Р°РїСЂРѕСЃ Рє image generation API
-  // РёСЃРїРѕР»СЊР·СѓСЏ РїРѕР»СѓС‡РµРЅРЅС‹Р№ Р°РЅР°Р»РёР· РґР»СЏ РіРµРЅРµСЂР°С†РёРё СѓР»СѓС‡С€РµРЅРЅРѕРіРѕ РёР·РѕР±СЂР°Р¶РµРЅРёСЏ
+  // Р¨Р°Рі 2: Р"РµРЅРµСЂР°С†РёСЏ СѓР»СѓС‡С€РµРЅРЅРѕРіРѕ РёР·РѕР±СЂР°Р¶РµРЅРёСЏ С‡РµСЂРµР· /media/generate
+  const enhancedPrompt = `${analysisText}\n\n${basePrompt}${userPrompt ? '\n\nР"РћРџРћР›РќРРўР•Р›Р¬РќРћ: ' + userPrompt : ''}`;
+  
+  const generateResp = await nordRequest('/media/generate', 'POST', {
+    model: 'image/nano-banana-edit',
+    input: {
+      prompt: enhancedPrompt,
+      image: image_url,
+      scene: scene || 'wall_floor'
+    }
+  }, env);
+
+  console.log('Studio Pro: Generation started', {
+    job_id: generateResp.id,
+    model: generateResp.model
+  });
+
+  if (generateResp.error) {
+    return json({ 
+      ok: false, 
+      error: 'РћС€РёР±РєР° РіРµРЅРµСЂР°С†РёРё: ' + (generateResp.error.message || JSON.stringify(generateResp.error))
+    }, 500);
+  }
+
+  if (!generateResp.id) {
+    return json({ 
+      ok: false, 
+      error: 'NordRouter РЅРµ РІРµСЂРЅСѓР» job_id: ' + JSON.stringify(generateResp)
+    }, 500);
+  }
   
   return json({ 
     ok: true, 
-    job_id: jobId, 
-    status: 'processing',
-    debug: {
-      analysis_length: analysisText.length,
-      analysis_preview: analysisText.substring(0, 200)
-    }
+    job_id: generateResp.id, 
+    status: 'processing'
   });
 }
 

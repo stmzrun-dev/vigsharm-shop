@@ -84,6 +84,11 @@ Object.assign(app, {
       }
       
       if (data.status === 'done' && data.result_url) {
+        console.log('✅ Получен result_url:', {
+          length: data.result_url.length,
+          preview: data.result_url.substring(0, 100),
+          format: data.format
+        });
         return data.result_url; // Возвращаем Master Image
       }
       

@@ -412,12 +412,22 @@ async function handleStudioStatus(path, env) {
   const jobId = path.split('/').pop();
   const result = await nordRequest('/media/job/' + jobId, 'GET', null, env);
 
+  console.log('📊 Studio Status:', jobId, '→', result.status);
+
   if (result.status === 'done' && result.result_url) {
     // РЎРєР°С‡РёРІР°РµРј СЂРµР·СѓР»СЊС‚Р°С‚ Рё Р·Р°РіСЂСѓР¶Р°РµРј РІ R2
     const imgResp = await fetch(result.result_url, {
       headers: { 'Authorization': 'Bearer ' + env.NORDROUTER_API_KEY }
     });
+    
+    if (!imgResp.ok) {
+      console.error('❌ Не удалось скачать:', imgResp.status);
+      return json({ ok: false, error: `Ошибка скачивания: ${imgResp.status}` }, 500);
+    }
+    
     const blob = await imgResp.blob();
+    console.log('📥 Скачано:', blob.size, 'байт');
+
 
     // R2 РѕС‚РєР»СЋС‡РµРЅ вЂ” РІРѕР·РІСЂР°С‰Р°РµРј СЂРµР·СѓР»СЊС‚Р°С‚ РєР°Рє base64
     const arrayBuffer = await blob.arrayBuffer();

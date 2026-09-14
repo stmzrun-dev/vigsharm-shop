@@ -288,6 +288,10 @@ async function handleStudioProcess(request, env) {
   console.log('[Studio Pro] Input image URL:', isHttpsUrl ? image_url : `${image_url.substring(0, 50)}...`);
   console.log('[Studio Pro] Scene:', scene);
 
+  // Р’Р°Р»РёРґР°С†РёСЏ С„РѕСЂРјР°С‚Р° РёР·РѕР±СЂР°Р¶РµРЅРёСЏ
+  if (!image_url || !image_url.startsWith('data:image/')) {
+    return json({ ok: false, error: 'Invalid image format. Expected data:image/... URL' }, 400);
+  }
 
   const basePrompt = STUDIO_PROMPTS[scene] || STUDIO_PROMPTS.floor;
   
@@ -346,10 +350,6 @@ ${basePrompt}${userPrompt ? '\n\nР”РћРџРћР›РќРРўР•Р›Р�
   // РРЎРџР РђР’Р›Р•РќРР•: РСЃРїРѕР»СЊР·СѓРµРј vision API С‡РµСЂРµР· chat completions СЃ multimodal content
   // Р’РјРµСЃС‚Рѕ /media/generate РёСЃРїРѕР»СЊР·СѓРµРј /v1/chat/completions СЃ РїСЂР°РІРёР»СЊРЅРѕР№ СЃС‚СЂСѓРєС‚СѓСЂРѕР№
   // Р¨Р°Рі 1: РРЅР°Р»РёР· РёР·РѕР±СЂР°Р¶РµРЅРёСЏ С‡РµСЂРµР· vision API
-  console.log('[Studio Pro] Sending to Vision API (Step 1/2)');
-  console.log('[Studio Pro] Model: claude-sonnet-5');
-  console.log('[Studio Pro] Image URL type:', isHttpsUrl ? 'Cloudinary HTTPS URL' : 'data:image base64');
-
   const aiResp = await nordRequest('/v1/chat/completions', 'POST', {
     model: 'claude-sonnet-5',
     messages: [
@@ -408,10 +408,6 @@ IMPROVE:
 
 Keep it realistic, not 3D render. Natural balloon shine, soft shadows.${userPrompt ? '\n\nAdditional: ' + userPrompt : ''}`;
   
-  console.log('[Studio Pro] Sending ONE AI request to image generation (Step 2/2)');
-  console.log('[Studio Pro] Model: image/nano-banana-edit');
-  console.log('[Studio Pro] Image URL passed to model:', isHttpsUrl ? image_url : `data:image/... (${image_url.length} chars)`);
-
   const generateResp = await nordRequest('/media/generate', 'POST', {
     model: 'image/nano-banana-edit',
     input: {
@@ -439,9 +435,6 @@ Keep it realistic, not 3D render. Natural balloon shine, soft shadows.${userProm
       error: 'NordRouter РЅРµ РІРµСЂРЅСѓР» job_id: ' + JSON.stringify(generateResp)
     }, 500);
   }
-  console.log('[Studio Pro] ✅ AI request completed successfully');
-  console.log('[Studio Pro] Job ID:', generateResp.id);
-
   
   return json({ 
     ok: true, 

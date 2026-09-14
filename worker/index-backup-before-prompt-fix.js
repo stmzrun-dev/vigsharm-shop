@@ -269,25 +269,10 @@ const STUDIO_PROMPTS = {
 
 async function handleStudioProcess(request, env) {
   const { image_url, scene, prompt: userPrompt } = await request.json();
-  // Validation: accept both data:image/... and https:// URLs
-  if (!image_url) {
-    return json({ ok: false, error: 'Missing image_url parameter' }, 400);
+  // Р’Р°Р»РёРґР°С†РёСЏ С„РѕСЂРјР°С‚Р° РёР·РѕР±СЂР°Р¶РµРЅРёСЏ
+  if (!image_url || !image_url.startsWith('data:image/')) {
+    return json({ ok: false, error: 'Invalid image format. Expected data:image/... URL' }, 400);
   }
-  
-  const isDataUrl = image_url.startsWith('data:image/');
-  const isHttpsUrl = image_url.startsWith('https://');
-  
-  if (!isDataUrl && !isHttpsUrl) {
-    return json({ 
-      ok: false, 
-      error: 'Invalid image format. Expected data:image/... or https:// URL' 
-    }, 400);
-  }
-  
-  console.log('[Studio Pro] Input image type:', isDataUrl ? 'data-url' : 'cloudinary-url');
-  console.log('[Studio Pro] Input image URL:', isHttpsUrl ? image_url : `${image_url.substring(0, 50)}...`);
-  console.log('[Studio Pro] Scene:', scene);
-
 
   const basePrompt = STUDIO_PROMPTS[scene] || STUDIO_PROMPTS.floor;
   
@@ -346,10 +331,6 @@ ${basePrompt}${userPrompt ? '\n\nР”РћРџРћР›РќРРўР•Р›Р�
   // РРЎРџР РђР’Р›Р•РќРР•: РСЃРїРѕР»СЊР·СѓРµРј vision API С‡РµСЂРµР· chat completions СЃ multimodal content
   // Р’РјРµСЃС‚Рѕ /media/generate РёСЃРїРѕР»СЊР·СѓРµРј /v1/chat/completions СЃ РїСЂР°РІРёР»СЊРЅРѕР№ СЃС‚СЂСѓРєС‚СѓСЂРѕР№
   // Р¨Р°Рі 1: РРЅР°Р»РёР· РёР·РѕР±СЂР°Р¶РµРЅРёСЏ С‡РµСЂРµР· vision API
-  console.log('[Studio Pro] Sending to Vision API (Step 1/2)');
-  console.log('[Studio Pro] Model: claude-sonnet-5');
-  console.log('[Studio Pro] Image URL type:', isHttpsUrl ? 'Cloudinary HTTPS URL' : 'data:image base64');
-
   const aiResp = await nordRequest('/v1/chat/completions', 'POST', {
     model: 'claude-sonnet-5',
     messages: [
@@ -388,34 +369,12 @@ ${basePrompt}${userPrompt ? '\n\nР”РћРџРћР›РќРРўР•Р›Р�
   console.log('Vision analysis (first 500 chars):', analysisText.substring(0, 500));
   
   // Р¨Р°Рі 2: Р"РµРЅРµСЂР°С†РёСЏ СѓР»СѓС‡С€РµРЅРЅРѕРіРѕ РёР·РѕР±СЂР°Р¶РµРЅРёСЏ С‡РµСЂРµР· /media/generate
-  const simplePrompt = `Professional product photography retouching for balloon catalog.
-
-KEEP UNCHANGED:
-- All balloons, their colors, numbers, and designs (Marvel characters, football patterns, etc.)
-- All text and prints on balloons
-- Product composition and arrangement
-- Quantity of items
-
-REMOVE:
-- Store logos and watermarks (sharomem.ru, sharomen.ru, etc.)
-- Contact information
-- Background text that is not part of balloons
-
-IMPROVE:
-- ${scene === 'wall' ? 'Change background to clean white wall' : scene === 'floor' ? 'Change background to clean white floor and wall' : 'Change to neutral studio background'}
-- Natural lighting
-- Professional color balance
-
-Keep it realistic, not 3D render. Natural balloon shine, soft shadows.${userPrompt ? '\n\nAdditional: ' + userPrompt : ''}`;
+  const enhancedPrompt = `${analysisText}\n\n${basePrompt}${userPrompt ? '\n\nР"РћРџРћР›РќРРўР•Р›Р¬РќРћ: ' + userPrompt : ''}`;
   
-  console.log('[Studio Pro] Sending ONE AI request to image generation (Step 2/2)');
-  console.log('[Studio Pro] Model: image/nano-banana-edit');
-  console.log('[Studio Pro] Image URL passed to model:', isHttpsUrl ? image_url : `data:image/... (${image_url.length} chars)`);
-
   const generateResp = await nordRequest('/media/generate', 'POST', {
     model: 'image/nano-banana-edit',
     input: {
-      prompt: simplePrompt,
+      prompt: enhancedPrompt,
       image: image_url,
       scene: scene || 'wall_floor'
     }
@@ -439,9 +398,6 @@ Keep it realistic, not 3D render. Natural balloon shine, soft shadows.${userProm
       error: 'NordRouter РЅРµ РІРµСЂРЅСѓР» job_id: ' + JSON.stringify(generateResp)
     }, 500);
   }
-  console.log('[Studio Pro] ✅ AI request completed successfully');
-  console.log('[Studio Pro] Job ID:', generateResp.id);
-
   
   return json({ 
     ok: true, 

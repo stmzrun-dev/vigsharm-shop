@@ -19,29 +19,60 @@ Object.assign(app, {
       
       // 1. Берём ТОЛЬКО ПЕРВОЕ ФОТО (оригинал)
       const originalPhoto = this.currentProduct.photos[0];
-      statusEl.textContent = '📸 Отправка в Studio Pro...';
       
-      // 2. Отправляем на обработку
+      // 2. Если фото не загружено в Cloudinary - загружаем
+      let imageUrl = originalPhoto.url;
+      if (!originalPhoto.uploaded && originalPhoto.file) {
+        statusEl.textContent = '☁️ Загрузка в Cloudinary...';
+        console.log('📤 Загружаем фото в Cloudinary...');
+        
+        const uploadResult = await this.uploadPhoto(originalPhoto.file);
+        
+        if (!uploadResult.ok) {
+          throw new Error(`Cloudinary upload failed: ${uploadResult.error}`);
+        }
+        
+        imageUrl = uploadResult.url;
+        originalPhoto.url = imageUrl;
+        originalPhoto.uploaded = true;
+        
+        console.log('✅ Cloudinary upload successful:', imageUrl);
+      }
+      
+      statusEl.textContent = '📸 Отправка в Studio Pro...';
+      console.log('📸 Отправка в Studio Pro:', imageUrl);
+      
+      // 3. Отправляем на обработку
       const res = await fetch(`${this.workerUrl}/api/studio/process`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ 
-          image_url: originalPhoto.url,
+          image_url: imageUrl,
           scene: this.currentProduct.scene || 'floor',
           prompt: '' // Дополнительные инструкции (пока пусто)
         })
       });
+      
+      if (!res.ok) {
+        const errorText = await res.text();
+        console.error('❌ Studio Pro API error:', res.status, errorText);
+        throw new Error(`Studio Pro API error (${res.status}): ${errorText}`);
+      }
       
       const data = await res.json();
       if (!data.ok || !data.job_id) {
         throw new Error(data.error || 'Не удалось запустить обработку');
       }
       
-      // 3. Опрос статуса (используем старую функцию pollStudioStatus)
+      console.log('✅ Job created:', data.job_id);
+      
+      // 4. Опрос статуса (используем старую функцию pollStudioStatus)
       statusEl.textContent = '⏳ Обработка через AI... (это может занять 1-2 минуты)';
       const masterImageUrl = await this.pollStudioStatusSimple(data.job_id);
       
-      // 4. Создать Photo #2 и Photo #3 из Master (локально, без AI)
+      console.log('✅ Master image received:', masterImageUrl.substring(0, 100));
+      
+      // 5. Создать Photo #2 и Photo #3 из Master (локально, без AI)
       statusEl.textContent = '✂️ Создание crop-фотографий...';
       const { photo2, photo3 } = await this.createCropPhotos(masterImageUrl);
       

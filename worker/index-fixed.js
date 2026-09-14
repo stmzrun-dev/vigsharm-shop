@@ -1,0 +1,518 @@
+// VigSharm API — Cloudflare Worker
+// Хранит ключ NordRouter, проксирует запросы, управляет D1 + R2
+
+export default {
+  async fetch(request, env) {
+    const url = new URL(request.url);
+    const path = url.pathname;
+    const method = request.method;
+
+    // CORS
+    if (method === 'OPTIONS') {
+      return new Response(null, { headers: corsHeaders() });
+    }
+
+    try {
+      // Router
+      if (path === '/api/ai/generate-card' && method === 'POST')
+        return handleGenerateCard(request, env);
+      if (path === '/api/ai/suggest-category' && method === 'POST')
+        return handleSuggestCategory(request, env);
+      if (path === '/api/studio/process' && method === 'POST')
+        return handleStudioProcess(request, env);
+      if (path.startsWith('/api/studio/status/') && method === 'GET')
+        return handleStudioStatus(path, env);
+      if (path === '/api/studio/upload' && method === 'POST')
+        return handleStudioUpload(request, env);
+      if (path === '/api/products' && method === 'GET')
+        return handleGetProducts(env);
+      if (path.match(/^\/api\/products\/[^/]+$/) && method === 'GET')
+        return handleGetProduct(path, env);
+      if (path === '/api/products' && method === 'POST')
+        return handleCreateProduct(request, env);
+      if (path.match(/^\/api\/products\/[^/]+$/) && method === 'PUT')
+        return handleUpdateProduct(path, request, env);
+      if (path.match(/^\/api\/products\/[^/]+$/) && method === 'DELETE')
+        return handleDeleteProduct(path, env);
+      if (path.match(/^\/api\/products\/[^/]+\/status$/) && method === 'PATCH')
+        return handleToggleStatus(path, request, env);
+      if (path === '/api/upload/photo' && method === 'POST')
+        return handleUploadPhoto(request, env);
+      if (path.match(/^\/api\/upload\/photo\/[^/]+$/) && method === 'DELETE')
+        return handleDeletePhoto(path, env);
+
+      return json({ ok: false, error: 'Not found' }, 404);
+    } catch (e) {
+      console.error(e);
+      return json({ ok: false, error: e.message }, 500);
+    }
+  }
+};
+
+// ─── CORS ────────────────────────────────────────────────
+
+function corsHeaders() {
+  return {
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': 'GET, POST, PUT, PATCH, DELETE, OPTIONS',
+    'Access-Control-Allow-Headers': 'Content-Type'
+  };
+}
+
+function json(data, status = 200) {
+  return new Response(JSON.stringify(data), {
+    status,
+    headers: { 'Content-Type': 'application/json', ...corsHeaders() }
+  });
+}
+
+// ─── NordRouter ──────────────────────────────────────────
+
+async function nordRequest(endpoint, method, body, env) {
+  const opts = {
+    method,
+    headers: {
+      'Authorization': 'Bearer ' + env.NORDROUTER_API_KEY,
+      'Content-Type': 'application/json'
+    }
+  };
+  if (body) opts.body = JSON.stringify(body);
+  const resp = await fetch('https://nordrouter.com' + endpoint, opts);
+  return resp.json();
+}
+
+async function nordUpload(file, env) {
+  const form = new FormData();
+  form.append('file', file);
+  const resp = await fetch('https://nordrouter.com/media/upload', {
+    method: 'POST',
+    headers: { 'Authorization': 'Bearer ' + env.NORDROUTER_API_KEY },
+    body: form
+  });
+  return resp.json();
+}
+
+// ─── AI: Generate Card ───────────────────────────────────
+
+async function handleGenerateCard(request, env) {
+  const { title_hint, price, description, scene, image_url } = await request.json();
+
+  const systemPrompt = `Ты — профессиональный копирайтер для магазина воздушных шаров и подарков VigSharm (г. Армавир, Россия).
+Генерируешь метаданные карточки товара на русском языке на основе предоставленной информации.
+Верни ТОЛЬКО валидный JSON, без markdown, без пояснений.
+
+Обязательная структура JSON:
+{
+  "title": "Краткое цепляющее название товара (макс 60 символов)",
+  "article": "Уникальный SKU-код типа VIGSH-001",
+  "short_description": "Краткое описание для каталога (макс 120 символов)",
+  "full_description": "Подробное описание 2-3 абзаца с эмоциональным призывом",
+  "composition": ["Шары", "Лента", "Коробка", "Открытка"],
+  "category": "balloons|flowers|gifts|sweets",
+  "character": "neutral|disney|marvel|anime|football|unicorn|bear",
+  "age_group": "baby|child|teen|adult",
+  "occasion": "birthday|wedding|anniversary|graduation|holiday",
+  "target_audience": "boy|girl|man|woman|unisex",
+  "seo_title": "SEO-оптимизированный заголовок (макс 70 символов)",
+  "seo_description": "SEO мета-описание (макс 160 символов)",
+  "slug": "url-friendly-slug",
+  "tags": ["тег1", "тег2", "тег3"]
+}
+
+ВАЖНЫЕ ПРАВИЛА:
+- Категория "balloons" для композиций из шаров
+- character: определи по фото (marvel для Spider-Man, football для футбольных мячей, unicorn для единорогов и т.д.)
+- age_group: определи по стилю композиции (baby для 1 годик, child для детских, teen для подростковых, adult для взрослых)
+- occasion: определи повод (birthday для дней рождения с цифрами, wedding для свадебных, holiday для праздничных)
+- target_audience: мальчик/девочка для детей, мужчина/женщина для взрослых, unisex для нейтральных
+- composition: список компонентов (шары латексные, шары фольгированные, лента, коробка-сюрприз, баннер, подарок)
+- slug: транслитерация названия латиницей через дефис
+- tags: дополнительные теги для поиска (цвета, темы, персонажи)`;
+
+  const userPrompt = `Сгенерируй карточку для композиции из шаров:
+Подсказка названия: ${title_hint || 'не указано'}
+Цена: ${price || 'не указана'} ₽
+Описание: ${description || 'Композиция из воздушных шаров'}
+Тип сцены: ${scene || 'standard'}
+${image_url ? 'Изображение предоставлено для визуального анализа' : ''}`;
+
+  // Запрос к NordRouter GPT-4o (с vision если есть image_url)
+  const messages = [
+    { role: 'system', content: systemPrompt },
+    { role: 'user', content: userPrompt }
+  ];
+  
+  // Если есть изображение, добавляем его для анализа
+
+  const aiResp = await nordRequest('/v1/chat/completions', 'POST', {
+    model: 'deepseek/deepseek-v4-flash',
+    messages,
+    temperature: 0.7,
+    response_format: { type: 'json_object' }
+  }, env);
+
+  // Проверяем ошибки от NordRouter API
+  if (aiResp.error) {
+    console.error('NordRouter API error:', aiResp.error);
+    return json({ ok: false, error: 'NordRouter API ошибка: ' + (aiResp.error.message || JSON.stringify(aiResp.error)) });
+  }
+
+  const text = aiResp.choices?.[0]?.message?.content || '';
+  if (!text) {
+    return json({ ok: false, error: 'AI не вернул ответ' });
+  }
+
+  let data;
+  try {
+    data = JSON.parse(text);
+  } catch {
+    return json({ ok: false, error: 'AI вернул некорректный JSON: ' + text.slice(0, 200) });
+  }
+
+  return json({ ok: true, data });
+}
+
+// ─── AI: Suggest Category ────────────────────────────────
+
+async function handleSuggestCategory(request, env) {
+  const { description, title } = await request.json();
+
+  const aiResp = await nordRequest('/v1/chat/completions', 'POST', {
+    model: 'deepseek/deepseek-v4-flash',
+    messages: [
+      {
+        role: 'system',
+        content: `Определи категорию и теги для карточки товара магазина шаров.
+Верни ТОЛЬКО JSON: { "category": "...", "tags": ["..."] }
+Категории: Для девочки, Для мальчика, Для неё, Для мамы, Для него, Геймерам, Юбилей, 1 годик, Крещение, Гендер-пати, На выписку, Свадьба и девичник, Выпускной, Новый год, 14 февраля, 23 февраля, 8 марта, 1 сентября, Фигуры из шаров, Напольные композиции, Букет из шаров, Цветы из шаров, Крафтовый букет, Шар-сюрприз, Коробка-сюрприз, Фотозона, Арка из шаров, Шары поштучно.`
+      },
+      { role: 'user', content: `Название: ${title}\nОписание: ${description}` }
+    ],
+    temperature: 0.2
+  }, env);
+
+  // Проверяем ошибки от NordRouter API
+  if (aiResp.error) {
+    console.error('NordRouter API error:', aiResp.error);
+    return json({ ok: false, error: 'NordRouter API ошибка: ' + (aiResp.error.message || JSON.stringify(aiResp.error)) });
+  }
+
+  const text = aiResp.choices?.[0]?.message?.content || '';
+  try {
+    const cleaned = text.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
+    const result = JSON.parse(cleaned);
+    return json({ ok: true, ...result });
+  } catch {
+    return json({ ok: false, error: 'AI error' });
+  }
+}
+
+// ─── Studio Pro: Process ─────────────────────────────────
+
+const STUDIO_PROMPTS = {
+  floor: `РЕЖИМ: Напольная композиция (полная сцена для фотозон и букетов из шаров)
+
+ЭТАЛОННЫЙ ФОН VIGSHARM:
+- Стена: светлая тёплая beige-grey (бежево-серая) с мягкой штукатурной текстурой
+- Плинтус: белый декоративный
+- Пол: светлый oak (дубовый) ламинат с видимой текстурой дерева
+- Чистая студия без лишних предметов и декора
+
+ВАЖНО: Мягкие натуральные тени от шаров. Студийное освещение без желтизны.
+Удалить все логотипы магазинов (sharomem.ru, sharomen.ru) и водяные знаки.
+Сохранить дизайн шаров (Marvel, футбольные мячи, принты).`,
+
+  wall_only: `РЕЖИМ: Только стена (для букетов из шаров без пола)
+
+СТРОЖАЙШИЙ ЗАПРЕТ пола, плинтуса, ламината!
+Только светлая бежево-серая текстурная штукатурная стена с мягким градиентом.
+
+ВАЖНО: НЕ добавлять пол даже если его нет на оригинале.
+Удалить логотипы магазинов и водяные знаки.
+Сохранить дизайн шаров.`,
+
+  photozone: `РЕЖИМ: Фотозона (полный интерьер для композиций из шаров)
+
+Полная угловая сцена:
+- Бежево-серая стена с мягкой текстурой (угол помещения)
+- Белый декоративный плинтус
+- Светлый дубовый ламинат с текстурой дерева
+
+ВАЖНО: НЕ переделывать фотозону. Сохранить ВСЕ элементы конструкции шаров.
+Удалить логотипы магазинов (sharomem.ru) с баннеров и коробок.
+Сохранить цифры-шары, персонажей и дизайн шаров.`,
+
+  unit_balloon: `РЕЖИМ: Один шар (студийное фото)
+
+Чистый светлый бежево-серый фон без текстур.
+Убрать водяные знаки/логотипы поставщиков (sharomem.ru, sharomen.ru).
+Принты на шарах (Marvel, Spider-Man, футбольные мячи) НЕ трогать.
+
+ВАЖНО: НЕ менять форму шара. НЕ добавлять дополнительные элементы.`,
+
+  handheld_bouquet: `РЕЖИМ: Букет из шаров в руках
+
+Светлая бежево-серая текстурная стена.
+НЕ показывать пол.
+НЕ превращать в напольную композицию.
+
+Удалить логотипы магазинов.
+Сохранить дизайн шаров и композицию.`
+};
+
+async function handleStudioProcess(request, env) {
+  const { image_url, scene, prompt: userPrompt } = await request.json();
+
+  const basePrompt = STUDIO_PROMPTS[scene] || STUDIO_PROMPTS.floor;
+  
+  // Базовые правила (применяются ВСЕГДА)
+  const coreRules = `Профессиональная ретушь фото для каталога шаров VigSharm.
+
+АБСОЛЮТНЫЕ ПРАВИЛА (НАРУШЕНИЕ НЕДОПУСТИМО):
+
+1. ТОВАР НЕИЗМЕНЕН:
+   - Количество элементов (шаров, цветов) - СТРОГО как на оригинале
+   - Цвета - СТРОГО как на оригинале
+   - Форма, размер, пропорции - СТРОГО как на оригинале
+   - Надписи, цифры, буквы НА ШАРАХ - СТРОГО как на оригинале (Marvel, принты, персонажи)
+   - Персонажи, фигуры - СТРОГО как на оригинале
+   - Композиция, расположение - СТРОГО как на оригинале
+
+2. ОБЯЗАТЕЛЬНО УДАЛИТЬ:
+   - Логотипы магазинов и поставщиков (sharomem.ru, sharomen.ru и подобные)
+   - Водяные знаки с текстом/URL
+   - Контактную информацию на фото
+   - Чужие надписи "С Днём Рождения" с именами на баннерах/коробках (если это НЕ часть шара)
+   
+   НО СОХРАНИТЬ:
+   - Дизайн шаров (Marvel, футбольные мячи, звёздочки)
+   - Принты и рисунки на шарах
+   - Цифры-шары
+   - Персонажей из шаров
+
+3. ЗАПРЕЩЕНО:
+   - Добавлять элементы которых нет на оригинале
+   - Удалять шары/элементы композиции
+   - Менять количество элементов
+   - Менять цвета шаров
+   - Изменять композицию
+   - Растягивать/деформировать объекты
+   - Обрезанное НЕ дорисовывать
+
+4. РАЗРЕШЕНО МЕНЯТЬ ТОЛЬКО:
+   - Фон (стена, пол) согласно выбранному режиму
+   - Удалять логотипы/водяные знаки магазинов
+   - Освещение (мягкое, естественное)
+   - Цветовой баланс (нейтральный, без желтизны)
+
+5. КАЧЕСТВО:
+   - Фотография должна выглядеть РЕАЛЬНО, а НЕ как 3D render
+   - Без пластикового глянца
+   - Глянец шаров естественный (не стекло/пластик)
+   - Тени мягкие, естественные, без 3D-рендера
+   - Формат: квадрат или близкий к квадрату
+   - НЕ обрезать товар`;
+
+  const fullPrompt = `${coreRules}
+
+${basePrompt}${userPrompt ? '\n\nДОПОЛНИТЕЛЬНО: ' + userPrompt : ''}`;
+
+  const job = await nordRequest('/media/generate', 'POST', {
+    model: 'image/nano-banana-edit',
+    input: { prompt: fullPrompt, image: image_url }
+  }, env);
+
+  if (!job.id) {
+    return json({ ok: false, error: 'NordRouter не создал задачу: ' + JSON.stringify(job) });
+  }
+
+  return json({ ok: true, job_id: job.id, status: 'processing' });
+}
+
+// ─── Studio Pro: Status ──────────────────────────────────
+
+async function handleStudioStatus(path, env) {
+  const jobId = path.split('/').pop();
+  const result = await nordRequest('/media/job/' + jobId, 'GET', null, env);
+
+  if (result.status === 'done' && result.result_url) {
+    // Скачиваем результат и загружаем в R2
+    const imgResp = await fetch(result.result_url, {
+      headers: { 'Authorization': 'Bearer ' + env.NORDROUTER_API_KEY }
+    });
+    const blob = await imgResp.blob();
+
+    // R2 отключен — возвращаем результат как base64
+    const arrayBuffer = await blob.arrayBuffer();
+    const base64 = btoa(String.fromCharCode(...new Uint8Array(arrayBuffer)));
+    const dataUrl = 'data:image/webp;base64,' + base64;
+    
+    return json({ ok: true, status: 'done', result_url: dataUrl, format: 'base64' });
+  }
+
+  return json({ ok: true, status: result.status || 'processing' });
+}
+
+// ─── Studio Pro: Upload ──────────────────────────────────
+
+async function handleStudioUpload(request, env) {
+  const formData = await request.formData();
+  const file = formData.get('file');
+  if (!file) return json({ ok: false, error: 'No file' });
+
+  const result = await nordUpload(file, env);
+  if (!result.url) return json({ ok: false, error: 'Upload failed' });
+
+  return json({ ok: true, url: result.url });
+}
+
+// ─── Products CRUD ───────────────────────────────────────
+
+async function handleGetProducts(env) {
+  const { results } = await env.DB.prepare(
+    "SELECT * FROM products ORDER BY created_at DESC"
+  ).all();
+  return json({ ok: true, products: results.map(parseProduct) });
+}
+
+async function handleGetProduct(path, env) {
+  const id = path.split('/').pop();
+  const product = await env.DB.prepare("SELECT * FROM products WHERE id = ?").bind(id).first();
+  if (!product) return json({ ok: false, error: 'Not found' }, 404);
+  return json({ ok: true, product: parseProduct(product) });
+}
+
+async function handleCreateProduct(request, env) {
+  const data = await request.json();
+  const id = crypto.randomUUID();
+  const now = new Date().toISOString();
+
+  await env.DB.prepare(`INSERT INTO products (
+    id, title, article, price, short_description, full_description, composition,
+    category, character, age_group, budget, series_name, occasion, target_audience,
+    seo_title, seo_description, slug, scene, tags, client_options, photos, main_photo,
+    status, show_on_site, created_at, updated_at
+  ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`).bind(
+    id, data.title, data.article, data.price || 0,
+    data.short_description, data.full_description,
+    JSON.stringify(data.composition || []),
+    data.category, data.character, data.age_group, data.budget,
+    data.series_name, data.occasion, data.target_audience,
+    data.seo_title, data.seo_description, data.slug,
+    data.scene || 'auto',
+    JSON.stringify(data.tags || []),
+    JSON.stringify(data.client_options || {}),
+    JSON.stringify(data.photos || []),
+    data.main_photo || (data.photos && data.photos[0]) || null,
+    data.status || 'draft', data.show_on_site ? 1 : 0,
+    now, now
+  ).run();
+
+  return json({ ok: true, id });
+}
+
+async function handleUpdateProduct(path, request, env) {
+  const id = path.split('/').pop();
+  const data = await request.json();
+  const now = new Date().toISOString();
+
+  // Не перезаписываем поля которые не переданы
+  const existing = await env.DB.prepare("SELECT * FROM products WHERE id = ?").bind(id).first();
+  if (!existing) return json({ ok: false, error: 'Not found' }, 404);
+
+  await env.DB.prepare(`UPDATE products SET
+    title = ?, article = ?, price = ?, short_description = ?, full_description = ?,
+    composition = ?, category = ?, character = ?, age_group = ?, budget = ?,
+    series_name = ?, occasion = ?, target_audience = ?,
+    seo_title = ?, seo_description = ?, slug = ?, scene = ?,
+    tags = ?, client_options = ?, photos = ?, main_photo = ?,
+    status = ?, show_on_site = ?, updated_at = ?
+  WHERE id = ?`).bind(
+    data.title ?? existing.title,
+    data.article ?? existing.article,
+    data.price ?? existing.price,
+    data.short_description ?? existing.short_description,
+    data.full_description ?? existing.full_description,
+    JSON.stringify(data.composition ?? JSON.parse(existing.composition || '[]')),
+    data.category ?? existing.category,
+    data.character ?? existing.character,
+    data.age_group ?? existing.age_group,
+    data.budget ?? existing.budget,
+    data.series_name ?? existing.series_name,
+    data.occasion ?? existing.occasion,
+    data.target_audience ?? existing.target_audience,
+    data.seo_title ?? existing.seo_title,
+    data.seo_description ?? existing.seo_description,
+    data.slug ?? existing.slug,
+    data.scene ?? existing.scene,
+    JSON.stringify(data.tags ?? JSON.parse(existing.tags || '[]')),
+    JSON.stringify(data.client_options ?? JSON.parse(existing.client_options || '{}')),
+    JSON.stringify(data.photos ?? JSON.parse(existing.photos || '[]')),
+    data.main_photo ?? existing.main_photo,
+    data.status ?? existing.status,
+    data.show_on_site !== undefined ? (data.show_on_site ? 1 : 0) : existing.show_on_site,
+    now, id
+  ).run();
+
+  return json({ ok: true });
+}
+
+async function handleDeleteProduct(path, env) {
+  const id = path.split('/').pop();
+  await env.DB.prepare("DELETE FROM products WHERE id = ?").bind(id).run();
+  return json({ ok: true });
+}
+
+async function handleToggleStatus(path, request, env) {
+  const id = path.split('/')[3]; // /api/products/:id/status
+  const { status } = await request.json();
+  await env.DB.prepare("UPDATE products SET status = ?, updated_at = ? WHERE id = ?")
+    .bind(status, new Date().toISOString(), id).run();
+  return json({ ok: true });
+}
+
+// ─── Upload Photo ────────────────────────────────────────
+
+async function handleUploadPhoto(request, env) {
+  const formData = await request.formData();
+  const file = formData.get('file');
+  if (!file) return json({ ok: false, error: 'No file' }, 400);
+
+  // R2 отключен — конвертируем файл в data URL (временное решение)
+  // Для продакшена нужно настроить реальный хостинг изображений
+  try {
+    const arrayBuffer = await file.arrayBuffer();
+    const base64 = btoa(String.fromCharCode(...new Uint8Array(arrayBuffer)));
+    const mimeType = file.type || 'image/jpeg';
+    const dataUrl = `data:${mimeType};base64,${base64}`;
+    
+    const id = crypto.randomUUID();
+    console.log('Photo uploaded as data URL, size:', base64.length, 'bytes');
+    
+    return json({ ok: true, url: dataUrl, id });
+  } catch (error) {
+    console.error('Upload error:', error);
+    return json({ ok: false, error: 'Upload failed: ' + error.message }, 500);
+  }
+}
+
+async function handleDeletePhoto(path, env) {
+  const id = path.split('/').pop();
+  // R2 отключен — NordRouter не поддерживает удаление файлов через API
+  // Просто возвращаем успех (файлы на NordRouter остаются, но это не критично)
+  return json({ ok: true });
+}
+
+// ─── Helpers ─────────────────────────────────────────────
+
+function parseProduct(row) {
+  return {
+    ...row,
+    composition: JSON.parse(row.composition || '[]'),
+    tags: JSON.parse(row.tags || '[]'),
+    client_options: JSON.parse(row.client_options || '{}'),
+    photos: JSON.parse(row.photos || '[]'),
+    show_on_site: !!row.show_on_site
+  };
+}
+

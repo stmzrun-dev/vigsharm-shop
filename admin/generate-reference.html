@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Генератор эталонного фона VigSharm</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #f5f5f5;
+      padding: 40px 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    h1 { font-size: 32px; margin-bottom: 40px; color: #333; }
+    .card {
+      background: white;
+      border-radius: 12px;
+      padding: 30px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    .form-group { margin-bottom: 20px; }
+    label { display: block; font-weight: 600; margin-bottom: 8px; }
+    input, select {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 14px;
+    }
+    .variants {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+    .variant {
+      border: 2px solid #e0e0e0;
+      border-radius: 12px;
+      padding: 20px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .variant:hover { border-color: #FF6B9D; }
+    .variant.selected { border-color: #FF6B9D; background: #fff5f8; }
+    .btn {
+      background: #FF6B9D;
+      color: white;
+      border: none;
+      padding: 14px 32px;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .btn:disabled { background: #ccc; }
+    .status {
+      margin-top: 20px;
+      padding: 16px;
+      border-radius: 8px;
+    }
+    .result img {
+      width: 100%;
+      max-width: 600px;
+      border-radius: 12px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>🎨 Генератор эталонного фона VigSharm</h1>
+  
+  <div class="card">
+    <div class="form-group">
+      <label>NordRouter API Key</label>
+      <input type="password" id="api-key" placeholder="sk-nr-...">
+    </div>
+
+    <div class="form-group">
+      <label>Выберите композицию</label>
+      <div class="variants">
+        <div class="variant selected" data-type="full">
+          <h3>🏠 Полная сцена</h3>
+          <p>Стена + плинтус + пол</p>
+        </div>
+        <div class="variant" data-type="wall">
+          <h3>🧱 Только стена</h3>
+          <p>Без пола</p>
+        </div>
+        <div class="variant" data-type="corner">
+          <h3>📸 Угловая</h3>
+          <p>С перспективой</p>
+        </div>
+      </div>
+    </div>
+
+    <button class="btn" id="btn" onclick="generate()">Сгенерировать</button>
+    <div id="status"></div>
+    <div id="result"></div>
+  </div>
+
+  <script>
+    let type = 'full';
+    document.querySelectorAll('.variant').forEach(el => {
+      el.onclick = () => {
+        document.querySelectorAll('.variant').forEach(v => v.classList.remove('selected'));
+        el.classList.add('selected');
+        type = el.dataset.type;
+      };
+    });
+
+    const prompts = {
+      full: 'Professional studio: beige-grey wall 60%, white baseboard, grey-beige floor 30%. Soft lighting, NO yellow, 1:1 square, real photo.',
+      wall: 'Clean beige-grey studio wall 100%, soft lighting, NO yellow, 1:1 square, real texture.',
+      corner: 'Studio corner: beige-grey walls, white baseboard, grey-beige floor, depth, 1:1 square.'
+    };
+
+    async function generate() {
+      const key = document.getElementById('api-key').value.trim();
+      if (!key) { alert('Укажите API Key'); return; }
+      
+      const btn = document.getElementById('btn');
+      btn.disabled = true;
+      btn.textContent = 'Генерация...';
+      
+      try {
+        document.getElementById('status').textContent = '📸 Отправка...';
+        
+        const res = await fetch('https://api.nordrouter.com/media/generate', {
+          method: 'POST',
+          headers: {
+            'Authorization': 'Bearer ' + key,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            model: 'image/flux-pro',
+            input: { prompt: prompts[type], width: 1024, height: 1024 }
+          })
+        });
+        
+        const job = await res.json();
+        if (!job.id) throw new Error(JSON.stringify(job));
+        
+        document.getElementById('status').textContent = '⏳ Ожидание...';
+        const url = await poll(job.id, key);
+        
+        document.getElementById('status').textContent = '✅ Готово!';
+        document.getElementById('result').innerHTML = `<img src="${url}"><p>Скачайте и сохраните как эталон</p>`;
+      } catch(e) {
+        document.getElementById('status').textContent = '❌ ' + e.message;
+      } finally {
+        btn.disabled = false;
+        btn.textContent = 'Сгенерировать';
+      }
+    }
+
+    async function poll(id, key) {
+      for (let i = 0; i < 60; i++) {
+        await new Promise(r => setTimeout(r, 3000));
+        const res = await fetch('https://api.nordrouter.com/media/job/' + id, {
+          headers: { 'Authorization': 'Bearer ' + key }
+        });
+        const data = await res.json();
+        if (data.status === 'done' && data.result_url) return data.result_url;
+        if (data.status === 'failed') throw new Error('Failed');
+      }
+      throw new Error('Timeout');
+    }
+  </script>
+</body>
+</html>

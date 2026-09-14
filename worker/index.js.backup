@@ -143,13 +143,7 @@ ${image_url ? 'РР·РѕР±СЂР°Р¶РµРЅРёРµ РїСЂРµРґРѕ
   ];
   
   // Р•СЃР»Рё РµСЃС‚СЊ РёР·РѕР±СЂР°Р¶РµРЅРёРµ, РґРѕР±Р°РІР»СЏРµРј РµРіРѕ РґР»СЏ Р°РЅР°Р»РёР·Р°
-  // Claude Sonnet 5 supports vision - добавляем изображение для анализа
-  if (image_url) {
-    messages[1].content = [
-      { type: 'text', text: userPrompt },
-      { type: 'image_url', image_url: { url: image_url } }
-    ];
-  }
+  // Vision API not supported by DeepSeek - image analysis disabled
 
   const aiResp = await nordRequest('/v1/chat/completions', 'POST', {
     model: 'anthropic/claude-sonnet-5',

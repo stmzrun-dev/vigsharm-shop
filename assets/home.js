@@ -6,10 +6,11 @@
   var list = document.getElementById('popular-list');
   var section = document.getElementById('products');
   if (list) {
-    fetch('assets/products.json', { cache: 'no-store' })
+    fetch('https://vigsharm-api.vigsharm.workers.dev/api/products', { cache: 'no-store' })
       .then(function (r) { return r.json(); })
       .then(function (data) {
-        var products = Array.isArray(data.products) ? data.products : [];
+        // Worker API возвращает { ok: true, products: [...] }
+        var products = (data.ok && Array.isArray(data.products)) ? data.products : [];
         if (!products.length) {
           if (section) section.style.display = 'none';
           return;

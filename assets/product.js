@@ -568,10 +568,11 @@
   }
 
   // ---------- boot ----------
-  fetch('assets/products.json', { cache: 'no-store' })
+  fetch('https://vigsharm-api.vigsharm.workers.dev/api/products', { cache: 'no-store' })
     .then(function (r) { if (!r.ok) throw new Error('x'); return r.json(); })
     .then(function (data) {
-      allProducts = Array.isArray(data.products) ? data.products : [];
+      // Worker API возвращает { ok: true, products: [...] }
+      allProducts = (data.ok && Array.isArray(data.products)) ? data.products : [];
       var found = null;
       for (var i = 0; i < allProducts.length; i++) {
         var o = allProducts[i];

@@ -463,10 +463,11 @@
   function load() {
     loading = true; loadError = false;
     render();
-    fetch('assets/products.json', { cache: 'no-store' })
+    fetch('https://vigsharm-api.vigsharm.workers.dev/api/products', { cache: 'no-store' })
       .then(function (r) { if (!r.ok) throw new Error('x'); return r.json(); })
       .then(function (data) {
-        products = Array.isArray(data.products) ? data.products : [];
+        // Worker API возвращает { ok: true, products: [...] }
+        products = (data.ok && Array.isArray(data.products)) ? data.products : [];
         loading = false;
         render();
         updateCta();

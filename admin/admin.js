@@ -19,7 +19,6 @@ const SCENES = [
 
 const app = {
   workerUrl: 'https://vigsharm-api.vigsharm.workers.dev',
-  nordrouterKey: '', // NordRouter API ключ (хранится в localStorage)
 
   currentStep: 1,
   products: [],
@@ -98,20 +97,24 @@ const app = {
       if (saved) {
         const settings = JSON.parse(saved);
         this.workerUrl = settings.workerUrl || '';
-        this.nordrouterKey = settings.nordrouterKey || '';
+        
+        // Миграция: удаляем старый небезопасный ключ
+        if (settings.nordrouterKey) {
+          delete settings.nordrouterKey;
+          localStorage.setItem('vigsharm_admin_settings', JSON.stringify(settings));
+          console.warn('⚠️ NordRouter API ключ удалён из localStorage (теперь хранится в Worker secrets)');
+        }
+        
         if (document.getElementById('worker-url')) document.getElementById('worker-url').value = this.workerUrl;
-        if (document.getElementById('nordrouter-key')) document.getElementById('nordrouter-key').value = this.nordrouterKey;
       }
     } catch (e) {}
   },
 
   saveSettings() {
     this.workerUrl = document.getElementById('worker-url').value.trim();
-    this.nordrouterKey = document.getElementById('nordrouter-key')?.value.trim() || '';
     try {
       localStorage.setItem('vigsharm_admin_settings', JSON.stringify({
-        workerUrl: this.workerUrl,
-        nordrouterKey: this.nordrouterKey
+        workerUrl: this.workerUrl
       }));
       this.toast('Настройки сохранены', 'success');
     } catch (e) {

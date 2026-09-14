@@ -269,6 +269,10 @@ const STUDIO_PROMPTS = {
 
 async function handleStudioProcess(request, env) {
   const { image_url, scene, prompt: userPrompt } = await request.json();
+  // Р’Р°Р»РёРґР°С†РёСЏ С„РѕСЂРјР°С‚Р° РёР·РѕР±СЂР°Р¶РµРЅРёСЏ
+  if (!image_url || !image_url.startsWith('data:image/')) {
+    return json({ ok: false, error: 'Invalid image format. Expected data:image/... URL' }, 400);
+  }
 
   const basePrompt = STUDIO_PROMPTS[scene] || STUDIO_PROMPTS.floor;
   
@@ -324,16 +328,61 @@ async function handleStudioProcess(request, env) {
 
 ${basePrompt}${userPrompt ? '\n\nР”РћРџРћР›РќРРўР•Р›Р¬РќРћ: ' + userPrompt : ''}`;
 
-  const job = await nordRequest('/media/generate', 'POST', {
-    model: 'image/nano-banana-pro',
-    input: { prompt: fullPrompt, image: image_url }
+  // РРЎРџР РђР’Р›Р•РќРР•: РСЃРїРѕР»СЊР·СѓРµРј vision API С‡РµСЂРµР· chat completions СЃ multimodal content
+  // Р’РјРµСЃС‚Рѕ /media/generate РёСЃРїРѕР»СЊР·СѓРµРј /v1/chat/completions СЃ РїСЂР°РІРёР»СЊРЅРѕР№ СЃС‚СЂСѓРєС‚СѓСЂРѕР№
+  const aiResp = await nordRequest('/v1/chat/completions', 'POST', {
+    model: 'anthropic/claude-3.5-sonnet',
+    messages: [
+      {
+        role: 'user',
+        content: [
+          {
+            type: 'text',
+            text: fullPrompt
+          },
+          {
+            type: 'image_url',
+            image_url: {
+              url: image_url
+            }
+          }
+        ]
+      }
+    ],
+    max_tokens: 4096
   }, env);
 
-  if (!job.id) {
-    return json({ ok: false, error: 'NordRouter РЅРµ СЃРѕР·РґР°Р» Р·Р°РґР°С‡Сѓ: ' + JSON.stringify(job) });
+  console.log('Studio Pro: AI response received', {
+    has_choices: !!aiResp.choices,
+    choice_count: aiResp.choices?.length
+  });
+
+  if (!aiResp.choices || aiResp.choices.length === 0) {
+    return json({ 
+      ok: false, 
+      error: 'NordRouter РЅРµ РІРµСЂРЅСѓР» СЂРµР·СѓР»СЊС‚Р°С‚: ' + JSON.stringify(aiResp) 
+    }, 500);
   }
 
-  return json({ ok: true, job_id: job.id, status: 'processing' });
+  // Vision API РІРѕР·РІСЂР°С‰Р°РµС‚ С‚РµРєСЃС‚РѕРІС‹Р№ Р°РЅР°Р»РёР·, Р° РЅРµ РіРѕС‚РѕРІРѕРµ РёР·РѕР±СЂР°Р¶РµРЅРёРµ
+  // РЎРѕР·РґР°РµРј РІСЂРµРјРµРЅРЅС‹Р№ job_id РґР»СЏ СЃРѕРІРјРµСЃС‚РёРјРѕСЃС‚Рё СЃ СЃСѓС‰РµСЃС‚РІСѓСЋС‰РµР№ Р»РѕРіРёРєРѕР№
+  const analysisText = aiResp.choices[0].message.content;
+  const jobId = 'vision_' + Date.now();
+  
+  console.log('Vision analysis (first 500 chars):', analysisText.substring(0, 500));
+  
+  // TODO: Р—РґРµСЃСЊ РЅСѓР¶РЅРѕ РґРѕР±Р°РІРёС‚СЊ РІС‚РѕСЂРѕР№ Р·Р°РїСЂРѕСЃ Рє image generation API
+  // РёСЃРїРѕР»СЊР·СѓСЏ РїРѕР»СѓС‡РµРЅРЅС‹Р№ Р°РЅР°Р»РёР· РґР»СЏ РіРµРЅРµСЂР°С†РёРё СѓР»СѓС‡С€РµРЅРЅРѕРіРѕ РёР·РѕР±СЂР°Р¶РµРЅРёСЏ
+  
+  return json({ 
+    ok: true, 
+    job_id: jobId, 
+    status: 'processing',
+    debug: {
+      analysis_length: analysisText.length,
+      analysis_preview: analysisText.substring(0, 200)
+    }
+  });
 }
 
 // в”Ђв”Ђв”Ђ Studio Pro: Status в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ

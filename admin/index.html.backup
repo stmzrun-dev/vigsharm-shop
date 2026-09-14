@@ -111,12 +111,12 @@
           <div class="form-row">
             <div class="form-group">
               <label>Обработка фото</label>
-              <button type="button" class="btn secondary block" id="process-studio-btn" onclick="app.processStudioProNew()">✨ Обработать фото через Studio Pro</button>
+              <button type="button" class="btn secondary block" id="process-studio-btn" onclick="app.processStudioProDirect()">✨ Обработать фото через Studio Pro</button>
               <div class="status" id="studio-status"></div>
             </div>
             <div class="form-group">
               <label>Генерация карточки</label>
-              <button type="button" class="btn primary block" id="generate-ai-btn" onclick="app.generateAIMetadata()">🤖 Сгенерировать данные через ИИ</button>
+              <button type="button" class="btn primary block" id="generate-ai-btn" onclick="app.generateAIMetadataDirect()">🤖 Сгенерировать данные через ИИ</button>
               <div class="status" id="ai-status"></div>
             </div>
           </div>
@@ -319,8 +319,15 @@
       <div class="form-group">
         <label>Worker API URL</label>
         <input type="url" id="worker-url" placeholder="https://vigsharm-api.vigsharm.workers.dev" value="https://vigsharm-api.vigsharm.workers.dev"/>
-        <small class="text-muted">URL вашего Cloudflare Worker (API ключ хранится в Worker secrets)</small>
+        <small class="text-muted">URL вашего Cloudflare Worker</small>
       </div>
+
+      <div class="form-group">
+        <label>NordRouter API Key <span class="hint">(опционально)</span></label>
+        <input type="password" id="nordrouter-key" placeholder="sk-nr-..."/>
+        <small class="text-muted">Для Studio Pro. Хранится в браузере</small>
+      </div>
+
 
       <div class="divider"></div>
       <h3>☁️ Cloudinary (хранилище фото)</h3>
@@ -356,6 +363,8 @@
 <script src="admin-extended.js"></script>
 <script src="admin-studio-pro.js"></script>
 <script src="admin-ai.js"></script>
+<script src="admin-nordrouter-direct.js"></script>
+<script src="admin-nordrouter-ai.js"></script>
 <script src="cloudinary-upload.js"></script>
 <script src="cloudinary-patch.js"></script>
 </body>

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Тест товаров — VigSharm</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { 
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; 
+  background: #FBFBFA; 
+  color: #1E1E1E;
+  padding: 20px;
+  line-height: 1.6;
+}
+.container { max-width: 1200px; margin: 0 auto; }
+h1 { margin-bottom: 20px; color: #2B4C3F; }
+.status { 
+  padding: 15px; 
+  border-radius: 12px; 
+  margin-bottom: 20px;
+  border: 1px solid #EBEBEB;
+}
+.status.success { background: #F3F6F4; border-color: #2B4C3F; }
+.status.error { background: #FBF4F5; border-color: #8E3E4B; color: #8E3E4B; }
+.status.loading { background: #fff; }
+.products-grid { 
+  display: grid; 
+  gap: 20px; 
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+}
+.product-card {
+  background: #fff;
+  border: 1px solid #EBEBEB;
+  border-radius: 16px;
+  padding: 20px;
+  transition: transform 0.2s;
+}
+.product-card:hover { transform: translateY(-2px); }
+.product-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-bottom: 15px;
+  background: #F3F6F4;
+}
+.product-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #2B4C3F;
+}
+.product-price {
+  font-size: 24px;
+  font-weight: 700;
+  color: #2B4C3F;
+  margin-bottom: 10px;
+}
+.product-desc {
+  font-size: 14px;
+  color: #71717A;
+  margin-bottom: 15px;
+}
+.product-link {
+  display: inline-block;
+  padding: 10px 20px;
+  background: #2B4C3F;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 12px;
+  font-weight: 600;
+  transition: background 0.2s;
+}
+.product-link:hover { background: #1E3A2E; }
+.info { 
+  background: #FFF9E6; 
+  padding: 15px; 
+  border-radius: 12px; 
+  margin-bottom: 20px;
+  border: 1px solid #E8D7A0;
+}
+.error-details {
+  font-family: 'Courier New', monospace;
+  font-size: 12px;
+  background: #fff;
+  padding: 10px;
+  border-radius: 8px;
+  margin-top: 10px;
+  overflow-x: auto;
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>🎈 Тест карточек товаров VigSharm</h1>
+  
+  <div class="info">
+    <strong>Инструкция:</strong><br>
+    1. Эта страница загружает данные из <code>assets/products.json</code><br>
+    2. Проверяет корректность структуры данных<br>
+    3. Отображает все товары с фотографиями<br>
+    4. Клик на карточку откроет полную страницу товара
+  </div>
+
+  <div id="status" class="status loading">
+    ⏳ Загрузка данных из assets/products.json...
+  </div>
+
+  <div id="products" class="products-grid"></div>
+</div>
+
+<script>
+(function() {
+  const statusEl = document.getElementById('status');
+  const productsEl = document.getElementById('products');
+
+  fetch('assets/products.json', { cache: 'no-store' })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Не удалось загрузить products.json (статус: ' + response.status + ')');
+      }
+      return response.json();
+    })
+    .then(data => {
+      const products = data.products || [];
+      
+      if (products.length === 0) {
+        throw new Error('Массив products пуст');
+      }
+
+      // Проверка структуры
+      const requiredFields = ['id', 'slug', 'title', 'price', 'image_keys'];
+      products.forEach((p, i) => {
+        requiredFields.forEach(field => {
+          if (!p[field]) {
+            console.warn(`Товар #${i + 1}: отсутствует поле "${field}"`);
+          }
+        });
+      });
+
+      // Успешная загрузка
+      statusEl.className = 'status success';
+      statusEl.innerHTML = `
+        ✅ <strong>Успешно загружено товаров: ${products.length}</strong><br>
+        <small>Файл: assets/products.json | Кодировка: UTF-8 | Структура: валидна</small>
+      `;
+
+      // Отображение товаров
+      productsEl.innerHTML = products.map(p => {
+        const imageKey = (p.image_keys && p.image_keys[0]) || '';
+        const imagePath = imageKey ? imageKey.replace('../', '') : '';
+        const imageUrl = imagePath || 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200"><rect fill="%23f3fcfc" width="200" height="200"/><text x="50%" y="50%" text-anchor="middle" dy=".3em" font-size="40">🎈</text></svg>';
+
+        return `
+          <div class="product-card">
+            <img class="product-image" 
+                 src="${imageUrl}" 
+                 alt="${escapeHtml(p.title)}"
+                 onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\\"http://www.w3.org/2000/svg\\" width=\\"200\\" height=\\"200\\"><rect fill=\\"%23f3fcfc\\" width=\\"200\\" height=\\"200\\"/><text x=\\"50%\\" y=\\"50%\\" text-anchor=\\"middle\\" dy=\\".3em\\" font-size=\\"40\\">🎈</text></svg>'"/>
+            <div class="product-title">${escapeHtml(p.title)}</div>
+            <div class="product-price">${Number(p.price).toLocaleString('ru-RU')} ₽</div>
+            <div class="product-desc">${escapeHtml(p.short_description || '')}</div>
+            <a href="product.html?slug=${encodeURIComponent(p.slug)}" class="product-link">
+              Открыть карточку →
+            </a>
+          </div>
+        `;
+      }).join('');
+    })
+    .catch(error => {
+      statusEl.className = 'status error';
+      statusEl.innerHTML = `
+        ❌ <strong>Ошибка загрузки:</strong> ${escapeHtml(error.message)}<br>
+        <div class="error-details">${escapeHtml(error.stack || '')}</div>
+        <br>
+        <strong>Возможные причины:</strong><br>
+        • Файл assets/products.json не найден<br>
+        • Неправильная кодировка (должна быть UTF-8)<br>
+        • Невалидный JSON-формат<br>
+        • Страница открыта через file:// (запустите локальный сервер)
+      `;
+    });
+
+  function escapeHtml(str) {
+    const div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+  }
+})();
+</script>
+</body>
+</html>

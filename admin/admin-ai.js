@@ -69,7 +69,7 @@ Object.assign(app, {
       this.currentProduct.tags = data.tags || this.currentProduct.tags;
 
       // Обновляем UI
-      this.renderProductForm();
+      this.fillFormWithAIData(this.currentProduct);
       
       statusEl.innerHTML = '✅ Метаданные успешно сгенерированы!';
       this.toast('AI-метаданные применены', 'success');

@@ -283,20 +283,36 @@ const app = {
     this.toast(status === 'published' ? 'Публикация...' : 'Сохранение...', '');
 
     try {
-      // Сначала загружаем все фото, у которых ещё нет URL в R2
-      const pending = this.currentProduct.photos.filter(p => !p.uploaded && p.file);
-      for (const photo of pending) {
-        const uploadResult = await this.uploadPhoto(photo.file);
-        if (!uploadResult.ok) throw new Error('Не удалось загрузить фото');
-        photo.url = uploadResult.url;
+      // Загружаем локальные файлы И data:/blob: URL (после Studio Pro / AI)
+      for (let i = 0; i < this.currentProduct.photos.length; i++) {
+        const photo = this.currentProduct.photos[i];
+        const needsUpload = (!photo.uploaded && photo.file) ||
+          (photo.url && (photo.url.startsWith('data:') || photo.url.startsWith('blob:')));
+
+        if (!needsUpload) continue;
+
+        if (photo.file && !photo.url?.startsWith('https://')) {
+          const uploadResult = await this.uploadPhoto(photo.file);
+          if (!uploadResult.ok) throw new Error('Не удалось загрузить фото');
+          photo.url = uploadResult.url;
+        } else if (photo.url && (photo.url.startsWith('data:') || photo.url.startsWith('blob:'))) {
+          if (typeof this.ensureHttpsPhotoUrl === 'function') {
+            photo.url = await this.ensureHttpsPhotoUrl(photo.url, `product-${i + 1}.webp`);
+          } else {
+            throw new Error('Фото ещё в dataURL — перезапустите Studio Pro или обновите страницу');
+          }
+        }
         photo.uploaded = true;
       }
-      if (pending.length) {
-        this.renderPhotos();
-        // Пересобираем данные с актуальными URL фото из R2
-        data.photos = this.currentProduct.photos.map(p => p.url);
-        data.main_photo = this.currentProduct.photos[0]?.url || null;
+
+      data.photos = this.currentProduct.photos.map(p => p.url).filter(Boolean);
+      data.main_photo = data.photos[0] || null;
+
+      if (data.photos.some(u => String(u).startsWith('data:'))) {
+        throw new Error('Фото не загружены в облако (dataURL). Повторите Studio Pro или загрузите фото заново.');
       }
+
+      this.renderPhotos();
 
       const res = await fetch(
         isEdit ? `${this.workerUrl}/api/products/${this.currentProduct.id}` : `${this.workerUrl}/api/products`,
@@ -306,8 +322,16 @@ const app = {
           body: JSON.stringify({ ...data, status })
         }
       );
-      const result = await res.json();
-      if (!result.ok) throw new Error(result.error || 'Ошибка сохранения');
+
+      let result;
+      try {
+        result = await res.json();
+      } catch {
+        throw new Error(`Сервер ответил ${res.status} без JSON. Проверьте Admin API Key и Worker.`);
+      }
+      if (!res.ok || !result.ok) {
+        throw new Error(result.error || `Ошибка сохранения (HTTP ${res.status})`);
+      }
 
       this.toast(
         isEdit ? 'Товар обновлён' : (status === 'published' ? 'Товар опубликован!' : 'Черновик сохранён'),
@@ -318,6 +342,7 @@ const app = {
       this.loadProducts();
     } catch (e) {
       this.toast('Ошибка: ' + e.message, 'error');
+      console.error('[saveProduct]', e);
     }
   },
 

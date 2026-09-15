@@ -1,13 +1,20 @@
 // VigSharm API — Cloudflare Worker
 // Хранит ключ NordRouter, проксирует запросы, управляет D1 + R2
 
+// VigSharm API — Cloudflare Worker
+// Хранит ключ NordRouter, проксирует запросы, управляет D1 + R2
+
+/** Текущий request для CORS (file:// → Origin: null) */
+let _corsRequest = null;
+
 export default {
   async fetch(request, env) {
+    _corsRequest = request;
     const url = new URL(request.url);
     const path = url.pathname;
     const method = request.method;
 
-    // CORS
+    // CORS (в т.ч. file:// → Origin: null)
     if (method === 'OPTIONS') {
       return new Response(null, { headers: corsHeaders() });
     }
@@ -34,10 +41,14 @@ export default {
         return handleSuggestCategory(request, env);
       if (path === '/api/studio/process' && method === 'POST')
         return handleStudioProcess(request, env);
+      if (path === '/api/studio/enhance' && method === 'POST')
+        return handleStudioEnhance(request, env);
       if (path.startsWith('/api/studio/status/') && method === 'GET')
         return handleStudioStatus(path, env);
       if (path === '/api/studio/upload' && method === 'POST')
         return handleStudioUpload(request, env);
+      if (path === '/api/studio/generate-reference' && method === 'POST')
+        return handleGenerateReference(request, env);
       if (path === '/api/products' && method === 'GET')
         return handleGetProducts(env);
       if (path.match(/^\/api\/products\/[^/]+$/) && method === 'GET')
@@ -66,10 +77,18 @@ export default {
 // ─── CORS ────────────────────────────────────────────────
 
 function corsHeaders() {
+  const origin = _corsRequest?.headers?.get('Origin');
+  // Chrome: для file:// Origin === "null", нельзя отвечать "*"
+  let allowOrigin = '*';
+  if (origin === 'null') allowOrigin = 'null';
+  else if (origin) allowOrigin = origin;
+
   return {
-    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Origin': allowOrigin,
     'Access-Control-Allow-Methods': 'GET, POST, PUT, PATCH, DELETE, OPTIONS',
-    'Access-Control-Allow-Headers': 'Content-Type, Authorization'
+    'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+    'Access-Control-Max-Age': '86400',
+    'Vary': 'Origin'
   };
 }
 
@@ -123,53 +142,50 @@ async function nordUpload(file, env) {
 async function handleGenerateCard(request, env) {
   const { title_hint, price, description, scene, image_url } = await request.json();
 
-  const systemPrompt = `Ты — профессиональный копирайтер для магазина воздушных шаров и подарков VigSharm (г. Армавир, Россия).
-Генерируешь метаданные карточки товара на русском языке на основе предоставленной информации.
+  const systemPrompt = `Ты — копирайтер каталога VigSharm (воздушные шары, Армавир).
+Пиши коротко, по делу, как в карточке товара. Без маркетинговой воды.
 Верни ТОЛЬКО валидный JSON, без markdown, без пояснений.
 
 Обязательная структура JSON:
 {
-  "title": "Краткое цепляющее название товара (макс 60 символов)",
-  "article": "Уникальный SKU-код типа VIGSH-001",
-  "short_description": "Краткое описание для каталога (макс 120 символов)",
-  "full_description": "Подробное описание 2-3 абзаца с эмоциональным призывом",
-  "composition": ["Шары", "Лента", "Коробка", "Открытка"],
+  "title": "Короткое название товара (2-5 слов, макс 50 символов). Пример: Тёмный рыцарь",
+  "article": "SKU вида VIGSH001",
+  "short_description": "Одно предложение, факты с фото (макс 110 символов)",
+  "full_description": "1-2 коротких предложения: что на фото + для какого повода. Без призывов купить",
+  "composition": ["пункт состава", "пункт состава"],
   "category": "balloons|flowers|gifts|sweets",
-  "character": "neutral|disney|marvel|anime|football|unicorn|bear",
+  "character": "имя персонажа или нейтрально",
   "age_group": "baby|child|teen|adult",
   "occasion": "birthday|wedding|anniversary|graduation|holiday",
   "target_audience": "boy|girl|man|woman|unisex",
-  "seo_title": "SEO-оптимизированный заголовок (макс 70 символов)",
-  "seo_description": "SEO мета-описание (макс 160 символов)",
-  "slug": "url-friendly-slug",
+  "seo_title": "SEO-заголовок без эмодзи (макс 70 символов), можно с «Армавир»",
+  "seo_description": "SEO-описание без эмодзи (макс 155 символов)",
+  "slug": "url-friendly-slug-latin",
   "tags": ["тег1", "тег2", "тег3"]
 }
 
-ВАЖНЫЕ ПРАВИЛА:
-- Категория "balloons" для композиций из шаров
-- character: определи по фото (marvel для Spider-Man, football для футбольных мячей, unicorn для единорогов и т.д.)
-- age_group: определи по стилю композиции (baby для 1 годик, child для детских, teen для подростковых, adult для взрослых)
-- occasion: определи повод (birthday для дней рождения с цифрами, wedding для свадебных, holiday для праздничных)
-- target_audience: мальчик/девочка для детей, мужчина/женщина для взрослых, unisex для нейтральных
-- composition: список компонентов (шары латексные, шары фольгированные, лента, коробка-сюрприз, баннер, подарок)
-- slug: транслитерация названия латиницей через дефис
-- tags: дополнительные теги для поиска (цвета, темы, персонажи)`;
+ПРАВИЛА ТОНА:
+- Как эталон: «Тёмный рыцарь» / «Эффектная напольная композиция с Бэтменом и цифрой с надписью.»
+- НЕ пиши: «очаровательная», «нежная», «яркая эмоция», «заказать сейчас», «подарите радость»
+- НЕ используй эмодзи ни в одном поле
+- Не выдумывай цену
+- composition: только то, что видно на фото (цифра, персонаж, цвета шаров, надпись)
+- Если пользователь дал состав/описание — опирайся на него, не противоречь
+- slug: транслит латиницей через дефис
+- category для шаров: balloons`;
 
-  const userPrompt = `Сгенерируй карточку для композиции из шаров:
+  const userPrompt = `Сгенерируй карточку по данным:
 Подсказка названия: ${title_hint || 'не указано'}
-Цена: ${price || 'не указана'} ₽
-Описание: ${description || 'Композиция из воздушных шаров'}
-Тип сцены: ${scene || 'standard'}
-${image_url ? 'Изображение предоставлено для визуального анализа' : ''}`;
+Цена (не меняй, не выдумывай): ${price || 'не указана'} ₽
+Состав / детали от пользователя: ${description || 'не указано'}
+Тип сцены: ${scene || 'floor'}
+${image_url ? 'Фото приложено — опиши только то, что видно.' : ''}`;
 
-  // Запрос к NordRouter GPT-4o (с vision если есть image_url)
   const messages = [
     { role: 'system', content: systemPrompt },
     { role: 'user', content: userPrompt }
   ];
   
-  // Если есть изображение, добавляем его для анализа
-  // Claude Sonnet 5 supports vision - добавляем изображение при наличии
   if (image_url) {
     messages[1].content = [
       { type: 'text', text: userPrompt },
@@ -180,11 +196,10 @@ ${image_url ? 'Изображение предоставлено для визу
   const aiResp = await nordRequest('/v1/chat/completions', 'POST', {
     model: 'claude-sonnet-5',
     messages,
-    temperature: 0.7,
+    temperature: 0.35,
     response_format: { type: 'json_object' }
   }, env);
 
-  // Проверяем ошибки от NordRouter API
   if (aiResp.error) {
     console.error('NordRouter API error:', aiResp.error);
     return json({ ok: false, error: 'NordRouter API ошибка: ' + (aiResp.error.message || JSON.stringify(aiResp.error)) });
@@ -202,7 +217,31 @@ ${image_url ? 'Изображение предоставлено для визу
     return json({ ok: false, error: 'AI вернул некорректный JSON: ' + text.slice(0, 200) });
   }
 
+  data = sanitizeCardMetadata(data);
   return json({ ok: true, data });
+}
+
+/** Убрать эмодзи и лишние пробелы из текстовых полей карточки */
+function sanitizeCardMetadata(data) {
+  const stripEmoji = (s) => String(s || '')
+    .replace(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\u{FE0F}\u{200D}]/gu, '')
+    .replace(/\s{2,}/g, ' ')
+    .trim();
+
+  const fields = [
+    'title', 'short_description', 'full_description',
+    'seo_title', 'seo_description', 'character', 'slug', 'article'
+  ];
+  for (const key of fields) {
+    if (data[key] != null) data[key] = stripEmoji(data[key]);
+  }
+  if (Array.isArray(data.composition)) {
+    data.composition = data.composition.map(stripEmoji).filter(Boolean);
+  }
+  if (Array.isArray(data.tags)) {
+    data.tags = data.tags.map(stripEmoji).filter(Boolean);
+  }
+  return data;
 }
 
 // ─── AI: Suggest Category ────────────────────────────────
@@ -302,10 +341,161 @@ async function handleStudioProcess(request, env) {
     ok: true, 
     job_id: generateResp.id, 
     status: 'processing',
-    scene: scene // Pass scene to frontend for canvas positioning
+    scene: scene
   });
 }
 
+// ─── Studio Pro: Enhance (AI «как снято в студии») ───────
+
+function buildEnhancePrompt(scene) {
+  const base = `Commercial product photo finishing for VigSharm balloon catalog.
+
+This image already shows the REAL product on the VigSharm studio background.
+Make it look PHOTOGRAPHED in this room — not cut out and pasted.
+
+KEEP STRICTLY UNCHANGED:
+- All balloons, colors, counts, shapes, foil prints, text, numbers, characters
+- Product composition and arrangement
+- Background room identity (same wall / floor / baseboard)
+
+FIX / IMPROVE:
+- Remove cutout halo, white fringe, sticker edges
+- Natural soft contact shadows (floor and/or wall) matching the light
+- Match product lighting to the room: soft, natural, catalog quality
+- Photorealistic, sharp, high-end e-commerce look
+
+NO 3D render look. NO plastic HDR. NO changing the product.`;
+
+  if (scene === 'handheld_bouquet') {
+    return `${base}
+
+SCENE: handheld bouquet on WALL ONLY (no floor).
+Add one natural adult hand holding the ribbons/strings from below.
+Hand looks real, does not cover balloons, neutral skin tone.
+Keep wall background only.`;
+  }
+
+  if (scene === 'wall_only' || scene === 'unit_balloon') {
+    return `${base}
+
+SCENE: wall only — no floor visible.
+Soft natural shadow of the product on the wall behind it.`;
+  }
+
+  if (scene === 'photozone') {
+    return `${base}
+
+SCENE: large photozone standing in the studio on the floor against the wall.
+Keep the full structure. Soft contact shadow on the floor. Feels shot in this room.`;
+  }
+
+  return `${base}
+
+SCENE: floor composition standing on the laminate floor against the wall.
+Strong natural contact shadow under the product on the floor.`;
+}
+
+async function handleStudioEnhance(request, env) {
+  const { image_url, scene = 'floor' } = await request.json();
+
+  if (!image_url) {
+    return json({ ok: false, error: 'Missing image_url' }, 400);
+  }
+
+  const isDataUrl = String(image_url).startsWith('data:image/');
+  const isHttpsUrl = String(image_url).startsWith('https://');
+  if (!isDataUrl && !isHttpsUrl) {
+    return json({ ok: false, error: 'Invalid image_url' }, 400);
+  }
+
+  const prompt = buildEnhancePrompt(scene);
+  console.log('[Studio Enhance] scene=', scene, 'model try nano-banana-pro');
+
+  let generateResp = await nordRequest('/media/generate', 'POST', {
+    model: 'image/nano-banana-pro',
+    input: {
+      prompt,
+      image: image_url
+    }
+  }, env);
+
+  if (generateResp.error || !generateResp.id) {
+    console.warn('[Studio Enhance] pro failed, fallback edit:', generateResp.error || generateResp);
+    generateResp = await nordRequest('/media/generate', 'POST', {
+      model: 'image/nano-banana-edit',
+      input: {
+        prompt,
+        image: image_url
+      }
+    }, env);
+  }
+
+  if (generateResp.error) {
+    return json({
+      ok: false,
+      error: 'Ошибка AI-доводки: ' + (generateResp.error.message || JSON.stringify(generateResp.error))
+    }, 500);
+  }
+
+  if (!generateResp.id) {
+    return json({ ok: false, error: 'NordRouter не вернул job_id: ' + JSON.stringify(generateResp) }, 500);
+  }
+
+  console.log('[Studio Enhance] job_id=', generateResp.id);
+  return json({ ok: true, job_id: generateResp.id, status: 'processing', scene });
+}
+
+
+// ─── Studio Pro: Generate Reference Background ───────────
+
+async function handleGenerateReference(request, env) {
+  const { type = 'full' } = await request.json().catch(() => ({}));
+
+  const prompts = {
+    full: `Professional empty product photography studio, square 1:1.
+Upper 65%: soft warm beige-grey plaster wall with subtle real texture.
+Thin clean white baseboard.
+Lower 30-35%: light grey-beige oak laminate, planks running LEFT-RIGHT (horizontal), soft grain.
+Soft even daylight, neutral white balance, NO yellow/orange cast.
+Empty room — no furniture, no objects, no people.
+Photorealistic catalog backdrop, real photo NOT 3D render, high resolution.`,
+    wall: `Clean empty studio wall only, square 1:1. Soft warm beige-grey plaster texture, even soft light, NO floor, NO yellow cast, photorealistic backdrop.`,
+    corner: `Empty product studio corner, square 1:1. Beige-grey walls, white baseboard, light grey-beige laminate floor, soft depth, soft light, NO yellow cast, empty, photorealistic.`
+  };
+
+  const prompt = prompts[type] || prompts.full;
+  console.log('[Reference BG] Generating type:', type);
+
+  const generateResp = await nordRequest('/media/generate', 'POST', {
+    model: 'image/nano-banana-2',
+    input: {
+      prompt,
+      aspect_ratio: '1:1'
+    }
+  }, env);
+
+  if (generateResp.error) {
+    // fallback model
+    console.warn('[Reference BG] nano-banana-2 failed, trying flux:', generateResp.error);
+    const fluxResp = await nordRequest('/media/generate', 'POST', {
+      model: 'image/flux2-pro',
+      input: { prompt, aspect_ratio: '1:1' }
+    }, env);
+    if (fluxResp.error || !fluxResp.id) {
+      return json({
+        ok: false,
+        error: 'Ошибка генерации: ' + JSON.stringify(generateResp.error || fluxResp.error || fluxResp)
+      }, 500);
+    }
+    return json({ ok: true, job_id: fluxResp.id, status: 'processing' });
+  }
+
+  if (!generateResp.id) {
+    return json({ ok: false, error: 'NordRouter не вернул job_id: ' + JSON.stringify(generateResp) }, 500);
+  }
+
+  return json({ ok: true, job_id: generateResp.id, status: 'processing' });
+}
 
 // ─── Studio Pro: Status ──────────────────────────────────
 
@@ -400,6 +590,11 @@ async function handleStudioUpload(request, env) {
 
 // ─── Products CRUD ───────────────────────────────────────
 
+/** D1 не принимает undefined — только null / number / string / ArrayBuffer */
+function d1(v) {
+  return v === undefined ? null : v;
+}
+
 async function handleGetProducts(env) {
   const { results } = await env.DB.prepare(
     "SELECT * FROM products ORDER BY created_at DESC"
@@ -415,78 +610,124 @@ async function handleGetProduct(path, env) {
 }
 
 async function handleCreateProduct(request, env) {
-  const data = await request.json();
-  const id = crypto.randomUUID();
-  const now = new Date().toISOString();
+  try {
+    const data = await request.json();
 
-  await env.DB.prepare(`INSERT INTO products (
-    id, title, article, price, short_description, full_description, composition,
-    category, character, age_group, budget, series_name, occasion, target_audience,
-    seo_title, seo_description, slug, scene, tags, client_options, photos, main_photo,
-    status, show_on_site, created_at, updated_at
-  ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`).bind(
-    id, data.title, data.article, data.price || 0,
-    data.short_description, data.full_description,
-    JSON.stringify(data.composition || []),
-    data.category, data.character, data.age_group, data.budget,
-    data.series_name, data.occasion, data.target_audience,
-    data.seo_title, data.seo_description, data.slug,
-    data.scene || 'auto',
-    JSON.stringify(data.tags || []),
-    JSON.stringify(data.client_options || {}),
-    JSON.stringify(data.photos || []),
-    data.main_photo || (data.photos && data.photos[0]) || null,
-    data.status || 'draft', data.show_on_site ? 1 : 0,
-    now, now
-  ).run();
+    const photos = Array.isArray(data.photos) ? data.photos : [];
+    const hugeDataUrl = photos.find(u => typeof u === 'string' && u.startsWith('data:'));
+    if (hugeDataUrl) {
+      return json({
+        ok: false,
+        error: 'Фото пришли как dataURL (слишком большие для БД). Загрузите их в Cloudinary и сохраните снова.'
+      }, 400);
+    }
 
-  return json({ ok: true, id });
+    const id = crypto.randomUUID();
+    const now = new Date().toISOString();
+    const price = Number(data.price);
+    const priceSafe = Number.isFinite(price) ? price : 0;
+
+    await env.DB.prepare(`INSERT INTO products (
+      id, title, article, price, short_description, full_description, composition,
+      category, character, age_group, budget, series_name, occasion, target_audience,
+      seo_title, seo_description, slug, scene, tags, client_options, photos, main_photo,
+      status, show_on_site, created_at, updated_at
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`).bind(
+      id,
+      d1(data.title),
+      d1(data.article),
+      priceSafe,
+      d1(data.short_description),
+      d1(data.full_description),
+      JSON.stringify(data.composition || []),
+      d1(data.category),
+      d1(data.character),
+      d1(data.age_group),
+      d1(data.budget),
+      d1(data.series_name),
+      d1(data.occasion),
+      d1(data.target_audience),
+      d1(data.seo_title),
+      d1(data.seo_description),
+      d1(data.slug),
+      d1(data.scene) || 'auto',
+      JSON.stringify(data.tags || []),
+      JSON.stringify(data.client_options || {}),
+      JSON.stringify(photos),
+      d1(data.main_photo) || photos[0] || null,
+      d1(data.status) || 'draft',
+      data.show_on_site ? 1 : 0,
+      now,
+      now
+    ).run();
+
+    return json({ ok: true, id });
+  } catch (e) {
+    console.error('[CreateProduct]', e);
+    return json({ ok: false, error: 'Ошибка БД: ' + (e.message || String(e)) }, 500);
+  }
 }
 
 async function handleUpdateProduct(path, request, env) {
-  const id = path.split('/').pop();
-  const data = await request.json();
-  const now = new Date().toISOString();
+  try {
+    const id = path.split('/').pop();
+    const data = await request.json();
+    const now = new Date().toISOString();
 
-  // Не перезаписываем поля которые не переданы
-  const existing = await env.DB.prepare("SELECT * FROM products WHERE id = ?").bind(id).first();
-  if (!existing) return json({ ok: false, error: 'Not found' }, 404);
+    const existing = await env.DB.prepare("SELECT * FROM products WHERE id = ?").bind(id).first();
+    if (!existing) return json({ ok: false, error: 'Not found' }, 404);
 
-  await env.DB.prepare(`UPDATE products SET
-    title = ?, article = ?, price = ?, short_description = ?, full_description = ?,
-    composition = ?, category = ?, character = ?, age_group = ?, budget = ?,
-    series_name = ?, occasion = ?, target_audience = ?,
-    seo_title = ?, seo_description = ?, slug = ?, scene = ?,
-    tags = ?, client_options = ?, photos = ?, main_photo = ?,
-    status = ?, show_on_site = ?, updated_at = ?
-  WHERE id = ?`).bind(
-    data.title ?? existing.title,
-    data.article ?? existing.article,
-    data.price ?? existing.price,
-    data.short_description ?? existing.short_description,
-    data.full_description ?? existing.full_description,
-    JSON.stringify(data.composition ?? JSON.parse(existing.composition || '[]')),
-    data.category ?? existing.category,
-    data.character ?? existing.character,
-    data.age_group ?? existing.age_group,
-    data.budget ?? existing.budget,
-    data.series_name ?? existing.series_name,
-    data.occasion ?? existing.occasion,
-    data.target_audience ?? existing.target_audience,
-    data.seo_title ?? existing.seo_title,
-    data.seo_description ?? existing.seo_description,
-    data.slug ?? existing.slug,
-    data.scene ?? existing.scene,
-    JSON.stringify(data.tags ?? JSON.parse(existing.tags || '[]')),
-    JSON.stringify(data.client_options ?? JSON.parse(existing.client_options || '{}')),
-    JSON.stringify(data.photos ?? JSON.parse(existing.photos || '[]')),
-    data.main_photo ?? existing.main_photo,
-    data.status ?? existing.status,
-    data.show_on_site !== undefined ? (data.show_on_site ? 1 : 0) : existing.show_on_site,
-    now, id
-  ).run();
+    const photos = data.photos !== undefined
+      ? (Array.isArray(data.photos) ? data.photos : [])
+      : JSON.parse(existing.photos || '[]');
 
-  return json({ ok: true });
+    if (photos.some(u => typeof u === 'string' && u.startsWith('data:'))) {
+      return json({
+        ok: false,
+        error: 'Фото пришли как dataURL. Загрузите в Cloudinary и сохраните снова.'
+      }, 400);
+    }
+
+    await env.DB.prepare(`UPDATE products SET
+      title = ?, article = ?, price = ?, short_description = ?, full_description = ?,
+      composition = ?, category = ?, character = ?, age_group = ?, budget = ?,
+      series_name = ?, occasion = ?, target_audience = ?,
+      seo_title = ?, seo_description = ?, slug = ?, scene = ?,
+      tags = ?, client_options = ?, photos = ?, main_photo = ?,
+      status = ?, show_on_site = ?, updated_at = ?
+    WHERE id = ?`).bind(
+      d1(data.title ?? existing.title),
+      d1(data.article ?? existing.article),
+      Number.isFinite(Number(data.price ?? existing.price)) ? Number(data.price ?? existing.price) : 0,
+      d1(data.short_description ?? existing.short_description),
+      d1(data.full_description ?? existing.full_description),
+      JSON.stringify(data.composition ?? JSON.parse(existing.composition || '[]')),
+      d1(data.category ?? existing.category),
+      d1(data.character ?? existing.character),
+      d1(data.age_group ?? existing.age_group),
+      d1(data.budget ?? existing.budget),
+      d1(data.series_name ?? existing.series_name),
+      d1(data.occasion ?? existing.occasion),
+      d1(data.target_audience ?? existing.target_audience),
+      d1(data.seo_title ?? existing.seo_title),
+      d1(data.seo_description ?? existing.seo_description),
+      d1(data.slug ?? existing.slug),
+      d1(data.scene ?? existing.scene) || 'auto',
+      JSON.stringify(data.tags ?? JSON.parse(existing.tags || '[]')),
+      JSON.stringify(data.client_options ?? JSON.parse(existing.client_options || '{}')),
+      JSON.stringify(photos),
+      d1(data.main_photo ?? existing.main_photo) || photos[0] || null,
+      d1(data.status ?? existing.status) || 'draft',
+      data.show_on_site !== undefined ? (data.show_on_site ? 1 : 0) : (existing.show_on_site ? 1 : 0),
+      now,
+      id
+    ).run();
+
+    return json({ ok: true });
+  } catch (e) {
+    console.error('[UpdateProduct]', e);
+    return json({ ok: false, error: 'Ошибка БД: ' + (e.message || String(e)) }, 500);
+  }
 }
 
 async function handleDeleteProduct(path, env) {

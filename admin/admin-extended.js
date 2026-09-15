@@ -244,10 +244,12 @@ Object.assign(app, {
       age_group: document.getElementById('product-age')?.value || 'Для любого возраста',
       budget: document.getElementById('product-budget')?.value.trim() || null,
       series_name: document.getElementById('product-series')?.value.trim() || null,
+      occasion: document.getElementById('product-occasion')?.value.trim() || null,
+      target_audience: document.getElementById('product-audience')?.value.trim() || null,
       seo_title: document.getElementById('product-seo-title').value.trim(),
       seo_description: document.getElementById('product-seo-desc').value.trim(),
       slug: document.getElementById('product-slug').value.trim() || this.slugify(titleValue),
-      scene: this.currentProduct.scene,
+      scene: this.currentProduct.scene || 'floor',
       tags: tags,
       client_options: {
         available_on_request: document.getElementById('opt-available')?.checked || false,

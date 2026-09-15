@@ -159,7 +159,7 @@ Object.assign(app, {
       statusEl.textContent = 'Генерация через ИИ...';
       const res = await fetch(`${this.workerUrl}/api/ai/generate-card`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', ...this.authHeaders() },
         body: JSON.stringify({
           image_url: imageUrl,
           scene: this.currentProduct.scene,
@@ -217,7 +217,7 @@ Object.assign(app, {
   async uploadPhoto(file) {
     const formData = new FormData();
     formData.append('file', file);
-    const res = await fetch(`${this.workerUrl}/api/upload/photo`, { method: 'POST', body: formData });
+    const res = await fetch(`${this.workerUrl}/api/upload/photo`, { method: 'POST', headers: this.authHeaders(), body: formData });
     return await res.json();
   },
 

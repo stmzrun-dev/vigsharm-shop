@@ -1,4 +1,4 @@
-﻿﻿// VigSharm API вЂ” Cloudflare Worker
+﻿// VigSharm API вЂ” Cloudflare Worker
 // РҐСЂР°РЅРёС‚ РєР»СЋС‡ NordRouter, РїСЂРѕРєСЃРёСЂСѓРµС‚ Р·Р°РїСЂРѕСЃС‹, СѓРїСЂР°РІР»СЏРµС‚ D1 + R2
 
 export default {
@@ -13,6 +13,20 @@ export default {
     }
 
     try {
+      // Публичное чтение каталога — доступно витрине без авторизации.
+      // Всё остальное (создание/изменение/удаление товаров, загрузка фото,
+      // ИИ-генерация, Studio Pro) требует заголовок Authorization: Bearer <ADMIN_API_KEY>.
+      const isPublicRead = method === 'GET' && (
+        path === '/api/products' || /^\/api\/products\/[^/]+$/.test(path)
+      );
+      if (!isPublicRead) {
+        const authHeader = request.headers.get('Authorization') || '';
+        const expected = 'Bearer ' + (env.ADMIN_API_KEY || '');
+        if (!env.ADMIN_API_KEY || authHeader !== expected) {
+          return json({ ok: false, error: 'Unauthorized' }, 401);
+        }
+      }
+
       // Router
       if (path === '/api/ai/generate-card' && method === 'POST')
         return handleGenerateCard(request, env);

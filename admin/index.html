@@ -319,7 +319,13 @@
       <div class="form-group">
         <label>Worker API URL</label>
         <input type="url" id="worker-url" placeholder="https://vigsharm-api.vigsharm.workers.dev" value="https://vigsharm-api.vigsharm.workers.dev"/>
-        <small class="text-muted">URL вашего Cloudflare Worker (API ключ хранится в Worker secrets)</small>
+        <small class="text-muted">URL вашего Cloudflare Worker (API ключ NordRouter хранится в Worker secrets)</small>
+      </div>
+
+      <div class="form-group">
+        <label>Admin API Key <span style="color: #e74c3c;">*обязательно</span></label>
+        <input type="password" id="admin-api-key" placeholder="Вставьте ключ, заданный через wrangler secret put ADMIN_API_KEY"/>
+        <small class="text-muted">Тот же ключ, что установлен в Worker (ADMIN_API_KEY). Нужен для создания/изменения/удаления товаров, загрузки фото, ИИ-генерации и Studio Pro.</small>
       </div>
 
       <div class="divider"></div>

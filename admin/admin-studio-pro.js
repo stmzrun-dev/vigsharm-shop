@@ -233,7 +233,7 @@ Object.assign(app, {
       // 3. Отправляем на Remove BG
       const res = await fetch(`${this.workerUrl}/api/studio/process`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', ...this.authHeaders() },
         body: JSON.stringify({ 
           image_url: imageUrl,
           scene: this.currentProduct.scene || 'floor',
@@ -419,7 +419,7 @@ Object.assign(app, {
     const maxAttempts = 60;
     for (let i = 0; i < maxAttempts; i++) {
       await new Promise(resolve => setTimeout(resolve, 3000));
-      const res = await fetch(`${this.workerUrl}/api/studio/status/${jobId}`);
+      const res = await fetch(`${this.workerUrl}/api/studio/status/${jobId}`, { headers: this.authHeaders() });
       if (!res.ok) throw new Error(`Status check failed: ${res.status}`);
       const data = await res.json();
       if (!data.ok) throw new Error(data.error || 'Ошибка проверки статуса');

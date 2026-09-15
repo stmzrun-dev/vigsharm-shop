@@ -20,6 +20,14 @@ const SCENES = [
 const app = {
   workerUrl: 'https://vigsharm-api.vigsharm.workers.dev',
   studioReferenceBackgroundUrl: '',
+  adminApiKey: '',
+
+  // Заголовок авторизации для admin-only запросов к Worker (создание/изменение/удаление
+  // товаров, загрузка фото, ИИ-генерация, Studio Pro). Публичное чтение каталога
+  // (GET /api/products) авторизации не требует.
+  authHeaders() {
+    return this.adminApiKey ? { 'Authorization': 'Bearer ' + this.adminApiKey } : {};
+  },
 
   currentStep: 1,
   products: [],
@@ -98,6 +106,7 @@ const app = {
       if (saved) {
         const settings = JSON.parse(saved);
         this.workerUrl = settings.workerUrl || '';
+        this.adminApiKey = settings.adminApiKey || '';
         
         // Миграция: удаляем старый небезопасный ключ
         if (settings.nordrouterKey) {
@@ -110,15 +119,18 @@ const app = {
         this.studioReferenceBackgroundUrl = settings.studioReferenceBackgroundUrl || '';
         
         if (document.getElementById('worker-url')) document.getElementById('worker-url').value = this.workerUrl;
+        if (document.getElementById('admin-api-key')) document.getElementById('admin-api-key').value = this.adminApiKey;
       }
     } catch (e) {}
   },
 
   saveSettings() {
     this.workerUrl = document.getElementById('worker-url').value.trim();
+    this.adminApiKey = document.getElementById('admin-api-key')?.value.trim() || '';
     try {
       localStorage.setItem('vigsharm_admin_settings', JSON.stringify({
-        workerUrl: this.workerUrl
+        workerUrl: this.workerUrl,
+        adminApiKey: this.adminApiKey
       }));
       this.toast('Настройки сохранены', 'success');
     } catch (e) {
@@ -231,7 +243,7 @@ const app = {
     try {
       const res = await fetch(`${this.workerUrl}/api/products/${id}/status`, {
         method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', ...this.authHeaders() },
         body: JSON.stringify({ status })
       });
       const data = await res.json();
@@ -290,7 +302,7 @@ const app = {
         isEdit ? `${this.workerUrl}/api/products/${this.currentProduct.id}` : `${this.workerUrl}/api/products`,
         {
           method: isEdit ? 'PUT' : 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: { 'Content-Type': 'application/json', ...this.authHeaders() },
           body: JSON.stringify({ ...data, status })
         }
       );
@@ -326,7 +338,7 @@ const app = {
   async deleteProduct(id) {
     if (confirm('Удалить товар?')) {
       try {
-        const res = await fetch(`${this.workerUrl}/api/products/${id}`, { method: 'DELETE' });
+        const res = await fetch(`${this.workerUrl}/api/products/${id}`, { method: 'DELETE', headers: this.authHeaders() });
         const data = await res.json();
         if (data.ok) {
           this.toast('Товар удалён', 'success');

@@ -34,7 +34,7 @@ Object.assign(app, {
       // Запрос к Worker API
       const res = await fetch(`${this.workerUrl}/api/ai/generate-card`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', ...this.authHeaders() },
         body: JSON.stringify({
           image_url: imageUrl,
           title_hint: titleHint,

@@ -1,5 +1,5 @@
 // VigSharm Admin - Studio Pro
-// Remove BG → Canvas на эталон → AI-доводка (nano-banana) → Master → ручные рамки #2/#3 → Cloudinary
+// Remove BG → ручная постановка на эталон → AI «пересъёмка» (свет/тень) → Master → live-кропы #2/#3 → Cloudinary
 
 Object.assign(app, {
   MASTER_SIZE: 2048,
@@ -7,8 +7,14 @@ Object.assign(app, {
   DEFAULT_REFERENCE_BG: '../assets/reference/reference-background.png',
 
   studioMasterDataUrl: null,
+  studioCutoutDataUrl: null,
+  studioPlacement: null,
+  studioPlacementAspect: 1,
   cropFrames: null,
   _cropDrag: null,
+  _placementDrag: null,
+  _cropPreviewRaf: null,
+  _cropPreviewSrc: null,
 
   isWallOnlyScene(scene) {
     return ['wall_only', 'unit_balloon', 'handheld_bouquet'].includes(scene);
@@ -18,7 +24,7 @@ Object.assign(app, {
     return this.studioReferenceBackgroundUrl || this.DEFAULT_REFERENCE_BG;
   },
 
-  // === НАСТРОЙКИ ПОЗИЦИОНИРОВАНИЯ (ближе к стене / плинтусу) ===
+  // === НАСТРОЙКИ ПОЗИЦИОНИРОВАНИЯ (стартовые для ручной постановки) ===
   getProductPositioning(scene, productWidth, productHeight, canvasSize) {
     const positioning = {
       floor: {
@@ -29,7 +35,6 @@ Object.assign(app, {
         maxHeight: 0.88,
         description: 'Напольная — у стены у плинтуса'
       },
-
       unit_balloon: {
         targetWidth: 0.55,
         centerX: 0.5,
@@ -38,7 +43,6 @@ Object.assign(app, {
         maxHeight: 0.80,
         description: 'Шар поштучно - только стена'
       },
-
       handheld_bouquet: {
         targetWidth: 0.58,
         centerX: 0.5,
@@ -47,7 +51,6 @@ Object.assign(app, {
         maxHeight: 0.74,
         description: 'Букет в руке - стена, место снизу под руку'
       },
-
       wall_only: {
         targetWidth: 0.66,
         centerX: 0.5,
@@ -56,7 +59,6 @@ Object.assign(app, {
         maxHeight: 0.82,
         description: 'Только стена'
       },
-
       photozone: {
         targetWidth: 0.82,
         centerX: 0.5,
@@ -65,7 +67,6 @@ Object.assign(app, {
         maxHeight: 0.90,
         description: 'Фотозона у стены'
       },
-
       auto: {
         targetWidth: 0.70,
         centerX: 0.5,
@@ -77,12 +78,9 @@ Object.assign(app, {
     };
 
     const config = positioning[scene] || positioning.floor;
-
     const aspectRatio = productWidth / productHeight;
-    let drawWidth, drawHeight;
-
-    drawWidth = canvasSize * config.targetWidth;
-    drawHeight = drawWidth / aspectRatio;
+    let drawWidth = canvasSize * config.targetWidth;
+    let drawHeight = drawWidth / aspectRatio;
 
     const maxH = canvasSize * (config.maxHeight || 0.85);
     if (drawHeight > maxH) {
@@ -91,7 +89,6 @@ Object.assign(app, {
     }
 
     let drawX, drawY;
-
     if (config.useFloorAlignment && config.floorY !== undefined) {
       drawX = (canvasSize * config.centerX) - (drawWidth / 2);
       drawY = (canvasSize * config.floorY) - drawHeight;
@@ -178,6 +175,49 @@ Object.assign(app, {
     };
   },
 
+  /** Harden alpha + crop to opaque bbox → PNG data URL */
+  async prepareCutoutFromPng(transparentPngDataUrl) {
+    const productImg = await this.loadImage(transparentPngDataUrl);
+    const tempCanvas = document.createElement('canvas');
+    const tempCtx = tempCanvas.getContext('2d');
+    tempCanvas.width = productImg.width;
+    tempCanvas.height = productImg.height;
+    tempCtx.drawImage(productImg, 0, 0);
+
+    let imageData = tempCtx.getImageData(0, 0, productImg.width, productImg.height);
+    this.hardenAlphaChannel(imageData);
+    tempCtx.putImageData(imageData, 0, 0);
+
+    const boundingBox = this.getAlphaBoundingBox(imageData);
+    const croppedCanvas = document.createElement('canvas');
+    croppedCanvas.width = boundingBox.width;
+    croppedCanvas.height = boundingBox.height;
+    croppedCanvas.getContext('2d').drawImage(
+      tempCanvas,
+      boundingBox.x, boundingBox.y, boundingBox.width, boundingBox.height,
+      0, 0, boundingBox.width, boundingBox.height
+    );
+
+    return {
+      dataUrl: croppedCanvas.toDataURL('image/png'),
+      width: boundingBox.width,
+      height: boundingBox.height
+    };
+  },
+
+  async getDisplayBackgroundUrl(scene) {
+    const bgUrl = this.getReferenceBackgroundUrl();
+    if (!this.isWallOnlyScene(scene)) return bgUrl;
+
+    const bgImg = await this.loadImage(bgUrl);
+    const wallH = Math.round(bgImg.height * 0.58);
+    const c = document.createElement('canvas');
+    c.width = bgImg.width;
+    c.height = wallH;
+    c.getContext('2d').drawImage(bgImg, 0, 0, bgImg.width, wallH, 0, 0, bgImg.width, wallH);
+    return c.toDataURL('image/png');
+  },
+
   // === Studio Pro FLOW ===
   async processStudioProNew() {
     if (this.currentProduct.photos.length === 0) {
@@ -190,18 +230,16 @@ Object.assign(app, {
     btn.disabled = true;
     btn.innerHTML = '<span class="spinner"></span> Обработка...';
     this.hideCropEditor();
+    this.hidePlacementEditor();
 
     try {
       const scene = this.currentProduct.scene || 'floor';
       const bgUrl = this.getReferenceBackgroundUrl();
       console.log('[Studio Pro] ====== START ======', { scene, bgUrl });
 
-      if (!bgUrl) {
-        throw new Error('Эталонный фон не найден');
-      }
+      if (!bgUrl) throw new Error('Эталонный фон не найден');
 
       const originalPhoto = this.currentProduct.photos[0];
-
       let imageUrl = originalPhoto.url;
       if (!originalPhoto.uploaded && originalPhoto.file) {
         statusEl.textContent = '☁️ Загрузка в Cloudinary...';
@@ -214,7 +252,16 @@ Object.assign(app, {
         originalPhoto.uploaded = true;
       }
 
-      // 1) Remove BG
+      // 0) Restore phone photo (fail-soft)
+      try {
+        statusEl.textContent = '🔦 Улучшение исходника (свет, шум, резкость)...';
+        imageUrl = await this.restoreSourcePhoto(imageUrl, statusEl);
+        console.log('[Studio Pro] Restore OK');
+      } catch (restoreErr) {
+        console.warn('[Studio Pro] Restore skipped:', restoreErr);
+        statusEl.textContent = '⚠️ Restore пропущен — продолжаем с исходником';
+      }
+
       statusEl.textContent = '🎨 Удаление фона...';
       const res = await fetch(`${this.workerUrl}/api/studio/process`, {
         method: 'POST',
@@ -234,47 +281,207 @@ Object.assign(app, {
       statusEl.textContent = '⏳ Remove BG... (30–60 сек)';
       const transparentPngDataUrl = await this.pollStudioStatusSimple(data.job_id);
 
-      // 2) Canvas на эталон
-      statusEl.textContent = '🖼️ Композиция на эталонном фоне...';
-      let masterImageUrl = await this.composeWithBackground(
-        transparentPngDataUrl,
-        bgUrl,
-        scene
-      );
-      console.log('[Studio Pro] Canvas master ready');
+      statusEl.textContent = '✂️ Подготовка cutout...';
+      const cutout = await this.prepareCutoutFromPng(transparentPngDataUrl);
+      this.studioCutoutDataUrl = cutout.dataUrl;
+      this.studioPlacementAspect = cutout.width / cutout.height;
 
-      // 3) AI-доводка
-      statusEl.textContent = '✨ AI-доводка (свет, тени, без ореола)...';
-      try {
-        masterImageUrl = await this.enhanceMasterWithAI(masterImageUrl, scene, statusEl);
-        console.log('[Studio Pro] AI enhance done');
-      } catch (enhanceErr) {
-        console.warn('[Studio Pro] AI enhance failed, keep canvas master:', enhanceErr);
-        this.toast('AI-доводка не удалась — оставлен canvas. Задеплойте Worker, если 404.', 'error');
-      }
+      const MASTER_SIZE = this.MASTER_SIZE || 2048;
+      const pos = this.getProductPositioning(scene, cutout.width, cutout.height, MASTER_SIZE);
+      this.studioPlacement = {
+        x: pos.drawX / MASTER_SIZE,
+        y: pos.drawY / MASTER_SIZE,
+        w: pos.drawWidth / MASTER_SIZE,
+        h: pos.drawHeight / MASTER_SIZE
+      };
 
-      this.studioMasterDataUrl = masterImageUrl;
-      this.resetCropFrames(false);
-      this.showCropEditor(masterImageUrl);
-
-      // Превью Master сразу (кропы #2/#3 — после «Применить»)
-      this.currentProduct.photos = [
-        { id: Date.now() + '_master', url: masterImageUrl, uploaded: false, type: 'master' }
-      ];
-      this.renderPhotos();
-
-      statusEl.textContent = '✅ Master готов — настройте рамки #2/#3 и нажмите «Применить кропы»';
-      this.toast('Master готов — выберите рамки кропов', 'success');
-      document.getElementById('crop-editor')?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-
+      await this.showPlacementEditor(scene);
+      statusEl.textContent = '📐 Расставьте товар на эталоне → «Готово → AI-доводка»';
+      this.toast('Cutout готов — поставьте на эталон', 'success');
+      document.getElementById('placement-editor')?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     } catch (error) {
       console.error('[Studio Pro] ❌', error);
       statusEl.textContent = '❌ Ошибка: ' + error.message;
       this.toast(error.message, 'error');
     } finally {
       btn.disabled = false;
-      btn.textContent = '✨ Обработать фото через Studio Pro';
+      btn.textContent = '✨ Подготовить фото Studio Pro';
     }
+  },
+
+  async confirmPlacementAndEnhance() {
+    if (!this.studioCutoutDataUrl || !this.studioPlacement) {
+      this.toast('Сначала запустите Studio Pro', 'error');
+      return;
+    }
+
+    const btn = document.getElementById('confirm-placement-btn');
+    const statusEl = document.getElementById('studio-status');
+    const placeStatus = document.getElementById('placement-status');
+    if (btn) btn.disabled = true;
+
+    try {
+      const scene = this.currentProduct.scene || 'floor';
+      const bgUrl = this.getReferenceBackgroundUrl();
+
+      if (statusEl) statusEl.textContent = '🖼️ Композиция на эталоне...';
+      if (placeStatus) placeStatus.textContent = 'Композиция...';
+
+      let masterImageUrl = await this.composeWithBackground(
+        this.studioCutoutDataUrl,
+        bgUrl,
+        scene,
+        this.studioPlacement,
+        { alreadyCropped: true }
+      );
+
+      if (statusEl) statusEl.textContent = '✨ AI «переснимает» свет и тени...';
+      try {
+        masterImageUrl = await this.enhanceMasterWithAI(masterImageUrl, scene, statusEl);
+      } catch (enhanceErr) {
+        console.warn('[Studio Pro] AI enhance failed, keep canvas master:', enhanceErr);
+        this.toast('AI-доводка не удалась — оставлен canvas. Задеплойте Worker, если 404.', 'error');
+      }
+
+      this.studioMasterDataUrl = masterImageUrl;
+      this.hidePlacementEditor(false);
+      this.resetCropFrames(false);
+      this.showCropEditor(masterImageUrl);
+
+      this.currentProduct.photos = [
+        { id: Date.now() + '_master', url: masterImageUrl, uploaded: false, type: 'master' }
+      ];
+      this.renderPhotos();
+
+      if (statusEl) statusEl.textContent = '✅ Master готов — настройте рамки #2/#3';
+      if (placeStatus) placeStatus.textContent = '';
+      this.toast('Master готов — выберите рамки кропов', 'success');
+      document.getElementById('crop-editor')?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    } catch (error) {
+      console.error('[Studio Pro] placement→enhance', error);
+      if (statusEl) statusEl.textContent = '❌ ' + error.message;
+      if (placeStatus) placeStatus.textContent = '❌ ' + error.message;
+      this.toast(error.message, 'error');
+    } finally {
+      if (btn) btn.disabled = false;
+    }
+  },
+
+  // === Placement editor ===
+  async showPlacementEditor(scene) {
+    const editor = document.getElementById('placement-editor');
+    const bgEl = document.getElementById('placement-bg');
+    const cutEl = document.getElementById('placement-cutout');
+    const scaleEl = document.getElementById('placement-scale');
+    if (!editor || !bgEl || !cutEl) return;
+
+    const displayBg = await this.getDisplayBackgroundUrl(scene);
+    bgEl.src = displayBg;
+    cutEl.src = this.studioCutoutDataUrl;
+
+    editor.classList.remove('hidden');
+    this.syncPlacementDom();
+    this.setupPlacementInteractions();
+
+    if (scaleEl && this.studioPlacement) {
+      scaleEl.value = Math.round(this.studioPlacement.w * 100);
+    }
+  },
+
+  hidePlacementEditor(clearCutout = true) {
+    const editor = document.getElementById('placement-editor');
+    if (editor) editor.classList.add('hidden');
+    this._placementDrag = null;
+    if (clearCutout) {
+      this.studioCutoutDataUrl = null;
+      this.studioPlacement = null;
+    }
+  },
+
+  syncPlacementDom() {
+    const cutEl = document.getElementById('placement-cutout');
+    const p = this.studioPlacement;
+    if (!cutEl || !p) return;
+    cutEl.style.left = (p.x * 100) + '%';
+    cutEl.style.top = (p.y * 100) + '%';
+    cutEl.style.width = (p.w * 100) + '%';
+    cutEl.style.height = (p.h * 100) + '%';
+  },
+
+  resetPlacement() {
+    if (!this.studioCutoutDataUrl || !this.studioPlacementAspect) return;
+    const scene = this.currentProduct?.scene || 'floor';
+    const MASTER_SIZE = this.MASTER_SIZE || 2048;
+    const fakeW = 1000;
+    const fakeH = fakeW / this.studioPlacementAspect;
+    const pos = this.getProductPositioning(scene, fakeW, fakeH, MASTER_SIZE);
+    this.studioPlacement = {
+      x: pos.drawX / MASTER_SIZE,
+      y: pos.drawY / MASTER_SIZE,
+      w: pos.drawWidth / MASTER_SIZE,
+      h: pos.drawHeight / MASTER_SIZE
+    };
+    this.syncPlacementDom();
+    const scaleEl = document.getElementById('placement-scale');
+    if (scaleEl) scaleEl.value = Math.round(this.studioPlacement.w * 100);
+    const status = document.getElementById('placement-status');
+    if (status) status.textContent = 'Стартовая позиция восстановлена';
+  },
+
+  onPlacementScaleInput(value) {
+    if (!this.studioPlacement || !this.studioPlacementAspect) return;
+    let w = Math.max(0.25, Math.min(0.95, Number(value) / 100));
+    let h = w / this.studioPlacementAspect;
+    if (h > 0.95) {
+      h = 0.95;
+      w = h * this.studioPlacementAspect;
+    }
+    const cx = this.studioPlacement.x + this.studioPlacement.w / 2;
+    const cy = this.studioPlacement.y + this.studioPlacement.h / 2;
+    let x = cx - w / 2;
+    let y = cy - h / 2;
+    x = Math.max(0, Math.min(x, 1 - w));
+    y = Math.max(0, Math.min(y, 1 - h));
+    this.studioPlacement = { x, y, w, h };
+    this.syncPlacementDom();
+  },
+
+  setupPlacementInteractions() {
+    const stage = document.getElementById('placement-stage');
+    const cutEl = document.getElementById('placement-cutout');
+    if (!stage || !cutEl || stage.dataset.placeWired === '1') return;
+    stage.dataset.placeWired = '1';
+
+    const onMove = (clientX, clientY) => {
+      if (!this._placementDrag || !this.studioPlacement) return;
+      const rect = stage.getBoundingClientRect();
+      const dx = (clientX - this._placementDrag.startX) / rect.width;
+      const dy = (clientY - this._placementDrag.startY) / rect.height;
+      const start = this._placementDrag.start;
+      let x = start.x + dx;
+      let y = start.y + dy;
+      x = Math.max(0, Math.min(x, 1 - start.w));
+      y = Math.max(0, Math.min(y, 1 - start.h));
+      this.studioPlacement = { ...start, x, y };
+      this.syncPlacementDom();
+    };
+
+    const endDrag = () => { this._placementDrag = null; };
+
+    cutEl.addEventListener('pointerdown', (e) => {
+      if (!this.studioPlacement) return;
+      e.preventDefault();
+      this._placementDrag = {
+        startX: e.clientX,
+        startY: e.clientY,
+        start: { ...this.studioPlacement }
+      };
+      cutEl.setPointerCapture?.(e.pointerId);
+    });
+
+    stage.addEventListener('pointermove', (e) => onMove(e.clientX, e.clientY));
+    stage.addEventListener('pointerup', endDrag);
+    stage.addEventListener('pointercancel', endDrag);
   },
 
   async uploadDataUrlToCloudinary(dataUrl, filename = 'studio-master.webp') {
@@ -302,15 +509,43 @@ Object.assign(app, {
     return out;
   },
 
+  async restoreSourcePhoto(imageUrl, statusEl) {
+    const res = await fetch(`${this.workerUrl}/api/studio/restore`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', ...this.authHeaders() },
+      body: JSON.stringify({ image_url: imageUrl, resolution: '2K' })
+    });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok || !data.ok || !data.job_id) {
+      throw new Error(data.error || `Restore HTTP ${res.status}`);
+    }
+    if (statusEl) statusEl.textContent = '⏳ Restore исходника... (1–2 мин)';
+    return await this.pollStudioStatusSimple(data.job_id);
+  },
+
+  async upscaleCropPhoto(imageUrl, statusEl, label = 'кроп') {
+    const res = await fetch(`${this.workerUrl}/api/studio/upscale`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', ...this.authHeaders() },
+      body: JSON.stringify({ image_url: imageUrl, resolution: '2K' })
+    });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok || !data.ok || !data.job_id) {
+      throw new Error(data.error || `Upscale HTTP ${res.status}`);
+    }
+    if (statusEl) statusEl.textContent = `⏳ AI-upscale ${label}...`;
+    return await this.pollStudioStatusSimple(data.job_id);
+  },
+
   async enhanceMasterWithAI(masterDataUrl, scene, statusEl) {
     statusEl.textContent = '☁️ Загрузка Master для AI...';
     const httpsUrl = await this.uploadDataUrlToCloudinary(masterDataUrl, 'studio-compose.webp');
 
-    statusEl.textContent = '✨ AI делает «как снято в студии»...';
+    statusEl.textContent = '✨ AI переснимает в комнате (2K)...';
     const res = await fetch(`${this.workerUrl}/api/studio/enhance`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', ...this.authHeaders() },
-      body: JSON.stringify({ image_url: httpsUrl, scene })
+      body: JSON.stringify({ image_url: httpsUrl, scene, resolution: '2K' })
     });
 
     const data = await res.json().catch(() => ({}));
@@ -318,132 +553,83 @@ Object.assign(app, {
       throw new Error(data.error || `Enhance HTTP ${res.status}`);
     }
 
-    statusEl.textContent = '⏳ AI-доводка... (1–2 мин)';
+    statusEl.textContent = '⏳ AI-доводка 2K... (1–2 мин)';
     return await this.pollStudioStatusSimple(data.job_id);
   },
 
-  async composeWithBackground(transparentPngDataUrl, backgroundUrl, scene) {
-    return new Promise((resolve, reject) => {
-      const MASTER_SIZE = this.MASTER_SIZE || 2048;
+  /**
+   * @param placement normalized {x,y,w,h} optional — if set, used instead of auto floorY
+   * @param opts.alreadyCropped if true, skip harden+bbox (cutout already prepared)
+   */
+  async composeWithBackground(transparentPngDataUrl, backgroundUrl, scene, placement = null, opts = {}) {
+    const MASTER_SIZE = this.MASTER_SIZE || 2048;
+    const bgImg = await this.loadImage(backgroundUrl);
+    const productImg = await this.loadImage(transparentPngDataUrl);
 
-      const bgImg = new Image();
-      const productImg = new Image();
-      bgImg.crossOrigin = 'anonymous';
-      productImg.crossOrigin = 'anonymous';
+    let croppedCanvas;
+    let boxW, boxH;
 
-      let bgLoaded = false;
-      let productLoaded = false;
+    if (opts.alreadyCropped) {
+      croppedCanvas = document.createElement('canvas');
+      croppedCanvas.width = productImg.width;
+      croppedCanvas.height = productImg.height;
+      croppedCanvas.getContext('2d').drawImage(productImg, 0, 0);
+      boxW = productImg.width;
+      boxH = productImg.height;
+    } else {
+      const tempCanvas = document.createElement('canvas');
+      const tempCtx = tempCanvas.getContext('2d');
+      tempCanvas.width = productImg.width;
+      tempCanvas.height = productImg.height;
+      tempCtx.drawImage(productImg, 0, 0);
+      let imageData = tempCtx.getImageData(0, 0, productImg.width, productImg.height);
+      this.hardenAlphaChannel(imageData);
+      tempCtx.putImageData(imageData, 0, 0);
+      const boundingBox = this.getAlphaBoundingBox(imageData);
+      croppedCanvas = document.createElement('canvas');
+      croppedCanvas.width = boundingBox.width;
+      croppedCanvas.height = boundingBox.height;
+      croppedCanvas.getContext('2d').drawImage(
+        tempCanvas,
+        boundingBox.x, boundingBox.y, boundingBox.width, boundingBox.height,
+        0, 0, boundingBox.width, boundingBox.height
+      );
+      boxW = boundingBox.width;
+      boxH = boundingBox.height;
+    }
 
-      const tryCompose = () => {
-        if (!bgLoaded || !productLoaded) return;
-        try {
-          console.log('[Canvas] ====== НАЧАЛО КОМПОЗИЦИИ ======');
-          console.log(`[Canvas] Transparent PNG: ${productImg.width}x${productImg.height}`);
-          console.log(`[Canvas] Master size: ${MASTER_SIZE}x${MASTER_SIZE}`);
+    let drawX, drawY, drawWidth, drawHeight;
+    if (placement) {
+      drawX = placement.x * MASTER_SIZE;
+      drawY = placement.y * MASTER_SIZE;
+      drawWidth = placement.w * MASTER_SIZE;
+      drawHeight = placement.h * MASTER_SIZE;
+    } else {
+      const positioning = this.getProductPositioning(scene, boxW, boxH, MASTER_SIZE);
+      drawX = positioning.drawX;
+      drawY = positioning.drawY;
+      drawWidth = positioning.drawWidth;
+      drawHeight = positioning.drawHeight;
+    }
 
-          if (Math.min(productImg.width, productImg.height) < 600) {
-            console.warn('[Canvas] ⚠️ Исходник после Remove BG меньше 600px — возможна мягкость после апскейла');
-          }
+    console.log('[Canvas] placement', { drawX, drawY, drawWidth, drawHeight, manual: !!placement });
 
-          const tempCanvas = document.createElement('canvas');
-          const tempCtx = tempCanvas.getContext('2d');
-          tempCanvas.width = productImg.width;
-          tempCanvas.height = productImg.height;
-          tempCtx.drawImage(productImg, 0, 0);
+    const finalCanvas = document.createElement('canvas');
+    const finalCtx = finalCanvas.getContext('2d');
+    finalCanvas.width = MASTER_SIZE;
+    finalCanvas.height = MASTER_SIZE;
+    finalCtx.imageSmoothingEnabled = true;
+    finalCtx.imageSmoothingQuality = 'high';
 
-          let imageData = tempCtx.getImageData(0, 0, productImg.width, productImg.height);
+    if (this.isWallOnlyScene(scene)) {
+      const wallH = Math.round(bgImg.height * 0.58);
+      finalCtx.drawImage(bgImg, 0, 0, bgImg.width, wallH, 0, 0, MASTER_SIZE, MASTER_SIZE);
+    } else {
+      finalCtx.drawImage(bgImg, 0, 0, MASTER_SIZE, MASTER_SIZE);
+    }
 
-          console.log('[DIAGNOSTIC] 🔍 Alpha before harden...');
-          const alphaBefore = this.analyzeAlphaChannel(imageData);
-          console.log('  - percentageOpaque:', alphaBefore.percentageOpaque.toFixed(2) + '%');
-          console.log('  - percentagePartial:', alphaBefore.percentagePartial.toFixed(2) + '%');
-
-          this.hardenAlphaChannel(imageData);
-          tempCtx.putImageData(imageData, 0, 0);
-
-          const alphaStats = this.analyzeAlphaChannel(imageData);
-          console.log('[DIAGNOSTIC] 🔍 Alpha after harden:');
-          console.log('  - percentageOpaque:', alphaStats.percentageOpaque.toFixed(2) + '%');
-          console.log('  - percentagePartial:', alphaStats.percentagePartial.toFixed(2) + '%');
-          console.log('  - percentageTransparent:', alphaStats.percentageTransparent.toFixed(2) + '%');
-
-          if (alphaStats.percentageTransparent < 1) {
-            console.warn('[DIAGNOSTIC] ⚠️ WARNING: Less than 1% transparent pixels!');
-          }
-
-          const boundingBox = this.getAlphaBoundingBox(imageData);
-          console.log(`[Canvas] Alpha bounding box: x=${boundingBox.x} y=${boundingBox.y} width=${boundingBox.width} height=${boundingBox.height}`);
-
-          const croppedCanvas = document.createElement('canvas');
-          const croppedCtx = croppedCanvas.getContext('2d');
-          croppedCanvas.width = boundingBox.width;
-          croppedCanvas.height = boundingBox.height;
-
-          croppedCtx.drawImage(
-            tempCanvas,
-            boundingBox.x, boundingBox.y, boundingBox.width, boundingBox.height,
-            0, 0, boundingBox.width, boundingBox.height
-          );
-
-          const positioning = this.getProductPositioning(
-            scene,
-            boundingBox.width,
-            boundingBox.height,
-            MASTER_SIZE
-          );
-
-          console.log(`[Canvas] Final product: ${Math.round(positioning.drawWidth)}x${Math.round(positioning.drawHeight)}`);
-          console.log(`[Canvas] Position: x=${Math.round(positioning.drawX)} y=${Math.round(positioning.drawY)}`);
-          if (positioning.config.useFloorAlignment) {
-            console.log(`[Canvas] FloorY: ${Math.round(MASTER_SIZE * positioning.config.floorY)}`);
-          }
-          console.log('[Canvas] Scene config:', positioning.debug);
-
-          const finalCanvas = document.createElement('canvas');
-          const finalCtx = finalCanvas.getContext('2d');
-          finalCanvas.width = MASTER_SIZE;
-          finalCanvas.height = MASTER_SIZE;
-
-          finalCtx.imageSmoothingEnabled = true;
-          finalCtx.imageSmoothingQuality = 'high';
-
-          const wallOnly = this.isWallOnlyScene(scene);
-          if (wallOnly) {
-            const wallH = Math.round(bgImg.height * 0.58);
-            console.log(`[Canvas] Wall-only BG crop: 0,0,${bgImg.width}x${wallH}`);
-            finalCtx.drawImage(
-              bgImg,
-              0, 0, bgImg.width, wallH,
-              0, 0, MASTER_SIZE, MASTER_SIZE
-            );
-          } else {
-            finalCtx.drawImage(bgImg, 0, 0, MASTER_SIZE, MASTER_SIZE);
-          }
-
-          finalCtx.drawImage(
-            croppedCanvas,
-            positioning.drawX,
-            positioning.drawY,
-            positioning.drawWidth,
-            positioning.drawHeight
-          );
-
-          console.log('[Canvas] ====== КОМПОЗИЦИЯ ЗАВЕРШЕНА ======');
-          resolve(finalCanvas.toDataURL('image/webp', this.WEBP_QUALITY ?? 1.0));
-        } catch (error) {
-          console.error('[Canvas] Ошибка композиции:', error);
-          reject(error);
-        }
-      };
-
-      bgImg.onload = () => { bgLoaded = true; tryCompose(); };
-      bgImg.onerror = () => reject(new Error('Не удалось загрузить эталонный фон'));
-      productImg.onload = () => { productLoaded = true; tryCompose(); };
-      productImg.onerror = () => reject(new Error('Не удалось загрузить transparent PNG'));
-
-      bgImg.src = backgroundUrl;
-      productImg.src = transparentPngDataUrl;
-    });
+    finalCtx.drawImage(croppedCanvas, drawX, drawY, drawWidth, drawHeight);
+    return finalCanvas.toDataURL('image/webp', this.WEBP_QUALITY ?? 1.0);
   },
 
   async pollStudioStatusSimple(jobId) {
@@ -460,7 +646,7 @@ Object.assign(app, {
     throw new Error('Таймаут обработки');
   },
 
-  // === Авто-параметры рамок (нормализованные 0..1) ===
+  // === Crop frames + live preview ===
   getDefaultCropFrames(scene) {
     const wallOnly = this.isWallOnlyScene(scene);
     if (wallOnly) {
@@ -487,29 +673,41 @@ Object.assign(app, {
     if (!editor || !img) return;
 
     editor.classList.remove('hidden');
-    img.onload = () => {
+    this._cropPreviewSrc = null;
+    this._cropPreviewImg = null;
+
+    const onReady = () => {
       this.syncCropFrameDom();
       this.setupCropFrameInteractions();
+      this.scheduleCropPreviews();
     };
+
+    img.onload = onReady;
     img.src = masterUrl;
-    if (img.complete) {
-      this.syncCropFrameDom();
-      this.setupCropFrameInteractions();
-    }
+    if (img.complete && img.naturalWidth) onReady();
   },
 
-  hideCropEditor() {
+  hideCropEditor(clearMaster = true) {
     const editor = document.getElementById('crop-editor');
     if (editor) editor.classList.add('hidden');
-    this.studioMasterDataUrl = null;
+    if (clearMaster) this.studioMasterDataUrl = null;
     this.cropFrames = null;
     this._cropDrag = null;
+    this._cropPreviewImg = null;
+    this._cropPreviewSrc = null;
+    if (this._cropPreviewRaf) {
+      cancelAnimationFrame(this._cropPreviewRaf);
+      this._cropPreviewRaf = null;
+    }
   },
 
   resetCropFrames(syncDom = true) {
     const scene = this.currentProduct?.scene || 'floor';
     this.cropFrames = this.getDefaultCropFrames(scene);
-    if (syncDom) this.syncCropFrameDom();
+    if (syncDom) {
+      this.syncCropFrameDom();
+      this.scheduleCropPreviews();
+    }
     const status = document.getElementById('crop-status');
     if (status) status.textContent = 'Авто-рамки восстановлены';
   },
@@ -525,6 +723,49 @@ Object.assign(app, {
       el.style.width = (f.size * 100) + '%';
       el.style.height = (f.size * 100) + '%';
     });
+  },
+
+  scheduleCropPreviews() {
+    if (this._cropPreviewRaf) cancelAnimationFrame(this._cropPreviewRaf);
+    this._cropPreviewRaf = requestAnimationFrame(() => {
+      this._cropPreviewRaf = null;
+      this.updateCropPreviews();
+    });
+  },
+
+  async updateCropPreviews() {
+    if (!this.cropFrames || !this.studioMasterDataUrl) return;
+    const c2 = document.getElementById('crop-preview-2');
+    const c3 = document.getElementById('crop-preview-3');
+    if (!c2 || !c3) return;
+
+    try {
+      if (!this._cropPreviewImg || this._cropPreviewSrc !== this.studioMasterDataUrl) {
+        this._cropPreviewImg = await this.loadImage(this.studioMasterDataUrl);
+        this._cropPreviewSrc = this.studioMasterDataUrl;
+      }
+      const img = this._cropPreviewImg;
+      this.drawCropPreview(c2, img, this.cropFrames.photo2);
+      this.drawCropPreview(c3, img, this.cropFrames.photo3);
+    } catch (e) {
+      console.warn('[Crop preview]', e);
+    }
+  },
+
+  drawCropPreview(canvas, img, frame) {
+    const size = 160;
+    canvas.width = size;
+    canvas.height = size;
+    const w = img.naturalWidth || img.width;
+    const h = img.naturalHeight || img.height;
+    const cropSize = Math.min(w, h) * frame.size;
+    const sx = frame.x * w;
+    const sy = frame.y * h;
+    const ctx = canvas.getContext('2d');
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = 'high';
+    ctx.clearRect(0, 0, size, size);
+    ctx.drawImage(img, sx, sy, cropSize, cropSize, 0, 0, size, size);
   },
 
   setupCropFrameInteractions() {
@@ -556,6 +797,7 @@ Object.assign(app, {
         this.cropFrames[key] = { x, y, size };
       }
       this.syncCropFrameDom();
+      this.scheduleCropPreviews();
     };
 
     const endDrag = () => { this._cropDrag = null; };
@@ -582,25 +824,27 @@ Object.assign(app, {
     stage.addEventListener('pointercancel', endDrag);
   },
 
-  /**
-   * Вырезать квадрат по нормализованной рамке → WebP max quality, размер MASTER_SIZE
-   */
+  /** Экспорт кропа 1:1 из Master — без апскейла canvas. AI-upscale — отдельно. */
   cropFromFrame(img, frame) {
-    const MASTER_SIZE = this.MASTER_SIZE || 2048;
+    const MAX_SIZE = this.MASTER_SIZE || 2048;
     const w = img.naturalWidth || img.width;
     const h = img.naturalHeight || img.height;
-    const size = Math.min(w, h) * frame.size;
+    const cropPx = Math.round(Math.min(w, h) * frame.size);
     const sx = frame.x * w;
     const sy = frame.y * h;
+    const outSize = Math.min(cropPx, MAX_SIZE);
 
     const canvas = document.createElement('canvas');
-    canvas.width = MASTER_SIZE;
-    canvas.height = MASTER_SIZE;
+    canvas.width = outSize;
+    canvas.height = outSize;
     const ctx = canvas.getContext('2d');
-    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingEnabled = outSize < cropPx;
     ctx.imageSmoothingQuality = 'high';
-    ctx.drawImage(img, sx, sy, size, size, 0, 0, MASTER_SIZE, MASTER_SIZE);
-    return canvas.toDataURL('image/webp', this.WEBP_QUALITY ?? 1.0);
+    ctx.drawImage(img, sx, sy, cropPx, cropPx, 0, 0, outSize, outSize);
+    return {
+      dataUrl: canvas.toDataURL('image/webp', this.WEBP_QUALITY ?? 1.0),
+      size: outSize
+    };
   },
 
   async applyCropFrames() {
@@ -617,16 +861,44 @@ Object.assign(app, {
 
     try {
       const img = await this.loadImage(this.studioMasterDataUrl);
-      const photo2 = this.cropFromFrame(img, this.cropFrames.photo2);
-      const photo3 = this.cropFromFrame(img, this.cropFrames.photo3);
+      let crop2 = this.cropFromFrame(img, this.cropFrames.photo2);
+      let crop3 = this.cropFromFrame(img, this.cropFrames.photo3);
+
+      const UPSCALE_BELOW = 1600;
+      let photo2Url = crop2.dataUrl;
+      let photo3Url = crop3.dataUrl;
+
+      if (crop2.size < UPSCALE_BELOW || crop3.size < UPSCALE_BELOW) {
+        if (statusEl) statusEl.textContent = '☁️ Загрузка кропов для AI-upscale...';
+        const uploaded = await this.ensurePhotosOnCloudinary([photo2Url, photo3Url]);
+        photo2Url = uploaded[0];
+        photo3Url = uploaded[1];
+
+        if (crop2.size < UPSCALE_BELOW) {
+          try {
+            if (statusEl) statusEl.textContent = '✨ AI-upscale кропа #2 → 2K...';
+            photo2Url = await this.upscaleCropPhoto(photo2Url, statusEl, '#2');
+          } catch (e) {
+            console.warn('[Crops] upscale #2 skipped', e);
+          }
+        }
+        if (crop3.size < UPSCALE_BELOW) {
+          try {
+            if (statusEl) statusEl.textContent = '✨ AI-upscale кропа #3 → 2K...';
+            photo3Url = await this.upscaleCropPhoto(photo3Url, statusEl, '#3');
+          } catch (e) {
+            console.warn('[Crops] upscale #3 skipped', e);
+          }
+        }
+      }
 
       if (statusEl) statusEl.textContent = '☁️ Загрузка 3 фото в Cloudinary...';
       if (studioStatus) studioStatus.textContent = '☁️ Загрузка 3 фото в Cloudinary...';
 
       const urls = await this.ensurePhotosOnCloudinary([
         this.studioMasterDataUrl,
-        photo2,
-        photo3
+        photo2Url,
+        photo3Url
       ]);
 
       this.currentProduct.photos = [
@@ -636,7 +908,8 @@ Object.assign(app, {
       ];
 
       this.renderPhotos();
-      if (statusEl) statusEl.textContent = '✅ Кропы применены';
+      this.hideCropEditor(false);
+      if (statusEl) statusEl.textContent = '✅ Кропы готовы (натив + AI-upscale при необходимости)';
       if (studioStatus) studioStatus.textContent = '✅ Готово! 3 фото созданы';
       this.toast('Studio Pro: 3 фото созданы', 'success');
     } catch (error) {
@@ -658,13 +931,12 @@ Object.assign(app, {
     });
   },
 
-  // Совместимость: старый автокроп (если где-то ещё вызывается)
   async createCropPhotos(masterImageDataUrl) {
     const img = await this.loadImage(masterImageDataUrl);
     const frames = this.cropFrames || this.getDefaultCropFrames(this.currentProduct?.scene || 'floor');
     return {
-      photo2: this.cropFromFrame(img, frames.photo2),
-      photo3: this.cropFromFrame(img, frames.photo3)
+      photo2: this.cropFromFrame(img, frames.photo2).dataUrl,
+      photo3: this.cropFromFrame(img, frames.photo3).dataUrl
     };
   },
 
@@ -674,7 +946,7 @@ Object.assign(app, {
     let y;
     if (alignBottom) y = 1 - sizeNorm;
     else y = Math.max(0, Math.min(focusY - sizeNorm / 2, 1 - sizeNorm));
-    return this.cropFromFrame(img, { x, y, size: sizeNorm });
+    return this.cropFromFrame(img, { x, y, size: sizeNorm }).dataUrl;
   },
 
   cropImage(img, width, height, startYRatio = 0, heightRatio = 0.5) {
@@ -689,4 +961,4 @@ Object.assign(app, {
   }
 });
 
-console.log('✓ Studio Pro (Remove BG + Canvas + AI enhance + manual crops) loaded');
+console.log('✓ Studio Pro (manual placement + live crops + AI enhance) loaded');

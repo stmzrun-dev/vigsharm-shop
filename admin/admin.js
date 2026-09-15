@@ -44,6 +44,9 @@ const app = {
     this.wireFormHelpers();
     this.wireFilters();
     this.loadProducts();
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && typeof this.closeLightbox === 'function') this.closeLightbox();
+    });
   },
 
   // === Автозаполнение: артикул и slug ===

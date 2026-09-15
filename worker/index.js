@@ -43,6 +43,10 @@ export default {
         return handleStudioProcess(request, env);
       if (path === '/api/studio/enhance' && method === 'POST')
         return handleStudioEnhance(request, env);
+      if (path === '/api/studio/restore' && method === 'POST')
+        return handleStudioRestore(request, env);
+      if (path === '/api/studio/upscale' && method === 'POST')
+        return handleStudioUpscale(request, env);
       if (path.startsWith('/api/studio/status/') && method === 'GET')
         return handleStudioStatus(path, env);
       if (path === '/api/studio/upload' && method === 'POST')
@@ -348,56 +352,49 @@ async function handleStudioProcess(request, env) {
 // ─── Studio Pro: Enhance (AI «как снято в студии») ───────
 
 function buildEnhancePrompt(scene) {
-  const base = `Commercial product photo finishing for VigSharm balloon catalog.
+  const base = `Rephotograph this VigSharm balloon product in the studio room — make it look like ONE real catalog photo taken in this space, not a cutout pasted on top.
 
-This image already shows the REAL product on the VigSharm studio background.
-Make it look PHOTOGRAPHED in this room — not cut out and pasted.
+The product is ALREADY placed correctly. Do NOT move, resize, or recompose it.
 
-KEEP STRICTLY UNCHANGED:
-- All balloons, colors, counts, shapes, foil prints, text, numbers, characters
-- Product composition and arrangement
-- Background room identity (same wall / floor / baseboard)
+KEEP STRICTLY IDENTICAL:
+- Every balloon: exact colors, counts, shapes, foil prints, text, numbers, names, characters
+- Product arrangement and composition — pixel-accurate
+- Room layout (wall, baseboard, laminate) — same geometry
 
-FIX / IMPROVE:
-- Remove cutout halo, white fringe, sticker edges
-- Natural soft contact shadows (floor and/or wall) matching the light
-- Match product lighting to the room: soft, natural, catalog quality
-- Photorealistic, sharp, maximum detail, high-end e-commerce look
-- Keep the product CLOSE TO THE WALL (near the baseboard), not floating in the middle of the floor toward the camera
+REPHOTOGRAPH / INTEGRATE:
+- Remove cutout halo, white fringe, hard sticker edges
+- Match product lighting to soft daylight in the room (reduce harsh studio HDR on foil balloons)
+- Real contact shadows where balloons meet floor/wall — soft ambient occlusion under each sphere
+- Subtle bounce light from floor onto the bottom of the product
+- Natural edge blending so the product feels physically in the room
 
-NO 3D render look. NO plastic HDR. NO changing the product.`;
+Do NOT reposition to fix floating. Do NOT redesign the product. No plastic 3D render. No full background replacement.`;
 
   if (scene === 'handheld_bouquet') {
     return `${base}
 
-SCENE: handheld bouquet on WALL ONLY (no floor).
-Add one natural adult hand holding the ribbons/strings from below.
-Hand looks real, does not cover balloons, neutral skin tone.
-Keep wall background only.`;
+SCENE: wall only (no floor). If needed, add one natural adult hand holding ribbons from below — do not cover balloons. Soft wall contact shadow.`;
   }
 
   if (scene === 'wall_only' || scene === 'unit_balloon') {
     return `${base}
 
-SCENE: wall only — no floor visible.
-Product close to the wall plane. Soft natural shadow of the product on the wall behind it.`;
+SCENE: wall only. Soft natural shadow of the product on the wall plane behind it.`;
   }
 
   if (scene === 'photozone') {
     return `${base}
 
-SCENE: large photozone standing flush against the wall on the laminate floor near the baseboard.
-Keep the full structure. Soft contact shadow on the floor. Feels shot in this room.`;
+SCENE: large photozone on laminate near baseboard. Contact shadow under the base. Keep full structure.`;
   }
 
   return `${base}
 
-SCENE: floor composition standing flush against the wall on the laminate floor near the baseboard (not in the foreground).
-Strong natural contact shadow under the product on the floor.`;
+SCENE: floor composition on laminate near baseboard. Medium contact shadow under balloon cluster on the floor — not a flat oval, but shadows where spheres touch the surface.`;
 }
 
 async function handleStudioEnhance(request, env) {
-  const { image_url, scene = 'floor' } = await request.json();
+  const { image_url, scene = 'floor', resolution = '2K' } = await request.json();
 
   if (!image_url) {
     return json({ ok: false, error: 'Missing image_url' }, 400);
@@ -410,25 +407,30 @@ async function handleStudioEnhance(request, env) {
   }
 
   const prompt = buildEnhancePrompt(scene);
-  console.log('[Studio Enhance] scene=', scene, 'model try nano-banana-pro');
+  const res = ['1K', '2K', '4K'].includes(resolution) ? resolution : '2K';
 
-  let generateResp = await nordRequest('/media/generate', 'POST', {
-    model: 'image/nano-banana-pro',
-    input: {
-      prompt,
-      image: image_url
-    }
-  }, env);
+  // Models that accept resolution → try 2K first for catalog sharpness
+  const enhanceAttempts = [
+    { model: 'image/gpt-image-2-edit', input: { prompt, image: image_url, aspect_ratio: '1:1', resolution: res } },
+    { model: 'image/flux2-pro-edit', input: { prompt, image: image_url, aspect_ratio: '1:1', resolution: res === '4K' ? '2K' : res } },
+    { model: 'image/gpt-image-2-edit', input: { prompt, image: image_url } },
+    { model: 'image/nano-banana-pro', input: { prompt, image: image_url } },
+    { model: 'image/nano-banana-edit', input: { prompt, image: image_url } }
+  ];
 
-  if (generateResp.error || !generateResp.id) {
-    console.warn('[Studio Enhance] pro failed, fallback edit:', generateResp.error || generateResp);
+  let generateResp = null;
+  for (const attempt of enhanceAttempts) {
+    console.log('[Studio Enhance] scene=', scene, 'try model=', attempt.model, 'input keys=', Object.keys(attempt.input));
     generateResp = await nordRequest('/media/generate', 'POST', {
-      model: 'image/nano-banana-edit',
-      input: {
-        prompt,
-        image: image_url
-      }
+      model: attempt.model,
+      input: attempt.input
     }, env);
+
+    if (!generateResp.error && generateResp.id) {
+      console.log('[Studio Enhance] using model=', attempt.model, 'job_id=', generateResp.id);
+      break;
+    }
+    console.warn('[Studio Enhance] model failed:', attempt.model, generateResp.error || generateResp);
   }
 
   if (generateResp.error) {
@@ -443,7 +445,95 @@ async function handleStudioEnhance(request, env) {
   }
 
   console.log('[Studio Enhance] job_id=', generateResp.id);
-  return json({ ok: true, job_id: generateResp.id, status: 'processing', scene });
+  return json({ ok: true, job_id: generateResp.id, status: 'processing', scene, resolution: res });
+}
+
+/** Restore phone photo: exposure, noise, mild sharpen — keep product identical */
+async function handleStudioRestore(request, env) {
+  const { image_url, resolution = '2K' } = await request.json();
+
+  if (!image_url) {
+    return json({ ok: false, error: 'Missing image_url' }, 400);
+  }
+
+  const prompt = `Professional product photo restore for e-commerce balloons catalog.
+
+Fix a phone photo taken in poor lighting:
+- Correct exposure and white balance (neutral, not yellow)
+- Reduce noise and compression artifacts
+- Mild sharpening, recover detail in foil prints and latex texture
+- Keep the REAL product: same balloons, colors, counts, shapes, text, numbers, characters
+- Do NOT change composition, background content, or add objects
+- Do NOT restyle as CGI or plastic render
+- Output a clean, sharp catalog-ready source photo`;
+
+  const res = ['1K', '2K', '4K'].includes(resolution) ? resolution : '2K';
+  const attempts = [
+    { model: 'image/gpt-image-2-edit', input: { prompt, image: image_url, resolution: res } },
+    { model: 'image/gpt-image-2-edit', input: { prompt, image: image_url } },
+    { model: 'image/nano-banana-edit', input: { prompt, image: image_url } }
+  ];
+
+  let generateResp = null;
+  for (const attempt of attempts) {
+    console.log('[Studio Restore] try', attempt.model);
+    generateResp = await nordRequest('/media/generate', 'POST', {
+      model: attempt.model,
+      input: attempt.input
+    }, env);
+    if (!generateResp.error && generateResp.id) break;
+    console.warn('[Studio Restore] failed', attempt.model, generateResp.error || generateResp);
+  }
+
+  if (generateResp?.error || !generateResp?.id) {
+    return json({
+      ok: false,
+      error: 'Ошибка restore: ' + JSON.stringify(generateResp?.error || generateResp)
+    }, 500);
+  }
+
+  return json({ ok: true, job_id: generateResp.id, status: 'processing' });
+}
+
+/** Upscale crop to 2K for sharp catalog zooms */
+async function handleStudioUpscale(request, env) {
+  const { image_url, resolution = '2K' } = await request.json();
+
+  if (!image_url) {
+    return json({ ok: false, error: 'Missing image_url' }, 400);
+  }
+
+  const prompt = `Upscale this square product crop to high resolution for an e-commerce catalog.
+
+KEEP STRICTLY IDENTICAL: all balloons, colors, foil prints, text, numbers, characters, framing.
+Only increase sharpness and resolution. No restyling, no plastic CGI look, no recomposition.`;
+
+  const res = ['1K', '2K', '4K'].includes(resolution) ? resolution : '2K';
+  const attempts = [
+    { model: 'image/gpt-image-2-edit', input: { prompt, image: image_url, aspect_ratio: '1:1', resolution: res } },
+    { model: 'image/gpt-image-2-edit', input: { prompt, image: image_url, aspect_ratio: '1:1' } },
+    { model: 'image/nano-banana-edit', input: { prompt, image: image_url } }
+  ];
+
+  let generateResp = null;
+  for (const attempt of attempts) {
+    console.log('[Studio Upscale] try', attempt.model);
+    generateResp = await nordRequest('/media/generate', 'POST', {
+      model: attempt.model,
+      input: attempt.input
+    }, env);
+    if (!generateResp.error && generateResp.id) break;
+    console.warn('[Studio Upscale] failed', attempt.model, generateResp.error || generateResp);
+  }
+
+  if (generateResp?.error || !generateResp?.id) {
+    return json({
+      ok: false,
+      error: 'Ошибка upscale: ' + JSON.stringify(generateResp?.error || generateResp)
+    }, 500);
+  }
+
+  return json({ ok: true, job_id: generateResp.id, status: 'processing' });
 }
 
 

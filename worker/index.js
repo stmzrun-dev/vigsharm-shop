@@ -351,13 +351,42 @@ async function handleStudioProcess(request, env) {
 
 // ─── Studio Pro: Enhance (AI «как снято в студии») ───────
 
-function buildEnhancePrompt(scene) {
+function buildGentleEnhancePrompt(scene) {
+  return `LIGHT seam/shadow finish ONLY for VigSharm balloon catalog. Do NOT rephotograph or redraw the product.
+
+The balloons are ALREADY correctly placed on the studio wall. Touch only the silhouette edge and contact shadow.
+
+ABSOLUTE LOCK — leave these pixels unchanged:
+- Sphere outlines must stay ROUND (never flatten, clip, or straighten any balloon edge)
+- Exact chrome/metallic colors (rose gold, gold, pink) — no purple/blue recolor
+- Balloon counts, sizes, overlaps
+- ALL text/lettering on bubble balloons — every character identical
+- Ribbons, curls, butterfly stickers — keep separate strands, do not melt or smear
+- Product position and scale
+
+ONLY ALLOWED:
+- Soften cutout halo / white fringe along the outer silhouette
+- Soft natural contact shadow of the product on the wall behind it
+- Tiny light match at the very edge
+
+FORBIDDEN: reshaping balloons, straight vertical cuts on spheres, melting ribbons, changing text, chrome color shift, plastic CGI rewrite, moving the product.
+
+SCENE: ${scene === 'handheld_bouquet' ? 'wall only; optional real hand only if ribbons need holding — do not cover balloons' : 'wall only — no floor'}.`;
+}
+
+function buildEnhancePrompt(scene, mode = 'rephotograph') {
+  if (mode === 'gentle' || scene === 'wall_only' || scene === 'unit_balloon' || scene === 'handheld_bouquet') {
+    return buildGentleEnhancePrompt(scene);
+  }
+
   const base = `Rephotograph this VigSharm balloon product in the studio room — make it look like ONE real catalog photo taken in this space, not a cutout pasted on top.
 
 The product is ALREADY placed correctly. Do NOT move, resize, or recompose it.
 
 KEEP STRICTLY IDENTICAL:
 - Every balloon: exact colors, counts, shapes, foil prints, text, numbers, names, characters
+- Sphere edges must remain perfectly round — never clip or flatten
+- Ribbons must stay as separate strands — do not melt together
 - Product arrangement and composition — pixel-accurate
 - Room layout (wall, baseboard, laminate) — same geometry
 
@@ -369,18 +398,6 @@ REPHOTOGRAPH / INTEGRATE:
 - Natural edge blending so the product feels physically in the room
 
 Do NOT reposition to fix floating. Do NOT redesign the product. No plastic 3D render. No full background replacement.`;
-
-  if (scene === 'handheld_bouquet') {
-    return `${base}
-
-SCENE: wall only (no floor). If needed, add one natural adult hand holding ribbons from below — do not cover balloons. Soft wall contact shadow.`;
-  }
-
-  if (scene === 'wall_only' || scene === 'unit_balloon') {
-    return `${base}
-
-SCENE: wall only. Soft natural shadow of the product on the wall plane behind it.`;
-  }
 
   if (scene === 'photozone') {
     return `${base}
@@ -394,7 +411,14 @@ SCENE: floor composition on laminate near baseboard. Medium contact shadow under
 }
 
 async function handleStudioEnhance(request, env) {
-  const { image_url, scene = 'floor', resolution = '2K' } = await request.json();
+  const body = await request.json();
+  const { image_url, scene = 'floor', resolution = '2K' } = body;
+  let mode = body.mode || 'rephotograph';
+
+  // Wall / fountain / bubble-with-text → always gentle (protect chrome, text, ribbons, round edges)
+  if (['wall_only', 'unit_balloon', 'handheld_bouquet'].includes(scene)) {
+    mode = 'gentle';
+  }
 
   if (!image_url) {
     return json({ ok: false, error: 'Missing image_url' }, 400);
@@ -406,21 +430,28 @@ async function handleStudioEnhance(request, env) {
     return json({ ok: false, error: 'Invalid image_url' }, 400);
   }
 
-  const prompt = buildEnhancePrompt(scene);
+  const prompt = buildEnhancePrompt(scene, mode);
   const res = ['1K', '2K', '4K'].includes(resolution) ? resolution : '2K';
 
-  // Models that accept resolution → try 2K first for catalog sharpness
-  const enhanceAttempts = [
-    { model: 'image/gpt-image-2-edit', input: { prompt, image: image_url, aspect_ratio: '1:1', resolution: res } },
-    { model: 'image/flux2-pro-edit', input: { prompt, image: image_url, aspect_ratio: '1:1', resolution: res === '4K' ? '2K' : res } },
-    { model: 'image/gpt-image-2-edit', input: { prompt, image: image_url } },
-    { model: 'image/nano-banana-pro', input: { prompt, image: image_url } },
-    { model: 'image/nano-banana-edit', input: { prompt, image: image_url } }
-  ];
+  // Gentle: lighter models first (less rewrite). Rephotograph: gpt 2K first.
+  const enhanceAttempts = mode === 'gentle'
+    ? [
+        { model: 'image/nano-banana-edit', input: { prompt, image: image_url } },
+        { model: 'image/gpt-image-2-edit', input: { prompt, image: image_url, aspect_ratio: '1:1', resolution: res } },
+        { model: 'image/gpt-image-2-edit', input: { prompt, image: image_url } },
+        { model: 'image/nano-banana-pro', input: { prompt, image: image_url } }
+      ]
+    : [
+        { model: 'image/gpt-image-2-edit', input: { prompt, image: image_url, aspect_ratio: '1:1', resolution: res } },
+        { model: 'image/flux2-pro-edit', input: { prompt, image: image_url, aspect_ratio: '1:1', resolution: res === '4K' ? '2K' : res } },
+        { model: 'image/gpt-image-2-edit', input: { prompt, image: image_url } },
+        { model: 'image/nano-banana-pro', input: { prompt, image: image_url } },
+        { model: 'image/nano-banana-edit', input: { prompt, image: image_url } }
+      ];
 
   let generateResp = null;
   for (const attempt of enhanceAttempts) {
-    console.log('[Studio Enhance] scene=', scene, 'try model=', attempt.model, 'input keys=', Object.keys(attempt.input));
+    console.log('[Studio Enhance] scene=', scene, 'mode=', mode, 'try model=', attempt.model);
     generateResp = await nordRequest('/media/generate', 'POST', {
       model: attempt.model,
       input: attempt.input
@@ -445,7 +476,7 @@ async function handleStudioEnhance(request, env) {
   }
 
   console.log('[Studio Enhance] job_id=', generateResp.id);
-  return json({ ok: true, job_id: generateResp.id, status: 'processing', scene, resolution: res });
+  return json({ ok: true, job_id: generateResp.id, status: 'processing', scene, resolution: res, mode });
 }
 
 /** Restore phone photo: exposure, noise, mild sharpen — keep product identical */
@@ -503,10 +534,10 @@ async function handleStudioUpscale(request, env) {
     return json({ ok: false, error: 'Missing image_url' }, 400);
   }
 
-  const prompt = `Upscale this square product crop to high resolution for an e-commerce catalog.
+  const prompt = `Upscale this square product crop. KEEP geometry identical.
 
-KEEP STRICTLY IDENTICAL: all balloons, colors, foil prints, text, numbers, characters, framing.
-Only increase sharpness and resolution. No restyling, no plastic CGI look, no recomposition.`;
+LOCK: round balloon edges (no flat/clipped sides), exact colors, text lettering, separate ribbons (do not melt).
+Only increase resolution/sharpness. No restyle, no recolor, no recomposition.`;
 
   const res = ['1K', '2K', '4K'].includes(resolution) ? resolution : '2K';
   const attempts = [

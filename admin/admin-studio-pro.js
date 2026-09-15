@@ -36,27 +36,27 @@ Object.assign(app, {
         description: 'Напольная — у стены у плинтуса'
       },
       unit_balloon: {
-        targetWidth: 0.55,
+        targetWidth: 0.50,
         centerX: 0.5,
         centerY: 0.50,
         useFloorAlignment: false,
-        maxHeight: 0.80,
+        maxHeight: 0.75,
         description: 'Шар поштучно - только стена'
       },
       handheld_bouquet: {
-        targetWidth: 0.58,
+        targetWidth: 0.52,
         centerX: 0.5,
         centerY: 0.46,
         useFloorAlignment: false,
-        maxHeight: 0.74,
+        maxHeight: 0.70,
         description: 'Букет в руке - стена, место снизу под руку'
       },
       wall_only: {
-        targetWidth: 0.66,
+        targetWidth: 0.58,
         centerX: 0.5,
         centerY: 0.48,
         useFloorAlignment: false,
-        maxHeight: 0.82,
+        maxHeight: 0.76,
         description: 'Только стена'
       },
       photozone: {
@@ -133,7 +133,8 @@ Object.assign(app, {
     };
   },
 
-  hardenAlphaChannel(imageData, { solidAt = 48, killBelow = 24 } = {}) {
+  hardenAlphaChannel(imageData, { solidAt = 72, killBelow = 12 } = {}) {
+    // Softer than before: keep partial alpha for ribbons/chrome edges (was 48/24 → cut spheres flat)
     const { data } = imageData;
     for (let i = 3; i < data.length; i += 4) {
       const a = data[i];
@@ -148,7 +149,7 @@ Object.assign(app, {
     return imageData;
   },
 
-  getAlphaBoundingBox(imageData, threshold = 32) {
+  getAlphaBoundingBox(imageData, threshold = 16) {
     const { data, width, height } = imageData;
     let minX = width, minY = height, maxX = 0, maxY = 0, foundPixel = false;
 
@@ -167,6 +168,13 @@ Object.assign(app, {
 
     if (!foundPixel) return { x: 0, y: 0, width, height };
 
+    // Padding so sphere edges / ribbons aren't flush-cropped (straight-cut artifact)
+    const pad = Math.max(4, Math.round(Math.min(width, height) * 0.02));
+    minX = Math.max(0, minX - pad);
+    minY = Math.max(0, minY - pad);
+    maxX = Math.min(width - 1, maxX + pad);
+    maxY = Math.min(height - 1, maxY + pad);
+
     return {
       x: minX,
       y: minY,
@@ -175,7 +183,7 @@ Object.assign(app, {
     };
   },
 
-  /** Harden alpha + crop to opaque bbox → PNG data URL */
+  /** Soft alpha + padded bbox → PNG (preserve chrome edges & ribbons) */
   async prepareCutoutFromPng(transparentPngDataUrl) {
     const productImg = await this.loadImage(transparentPngDataUrl);
     const tempCanvas = document.createElement('canvas');
@@ -203,6 +211,45 @@ Object.assign(app, {
       width: boundingBox.width,
       height: boundingBox.height
     };
+  },
+
+  /** Keep product inset from canvas edges — prevents flat clipped sphere edges */
+  clampPlacementInset(placement, inset = 0.06) {
+    if (!placement) return placement;
+    let { x, y, w, h } = placement;
+    w = Math.min(w, 1 - inset * 2);
+    h = Math.min(h, 1 - inset * 2);
+    x = Math.max(inset, Math.min(x, 1 - inset - w));
+    y = Math.max(inset, Math.min(y, 1 - inset - h));
+    return { x, y, w, h };
+  },
+
+  /** Canvas contact shadow (no AI) — safe for text/chrome/ribbons */
+  drawSoftContactShadow(ctx, sourceCanvas, drawX, drawY, drawWidth, drawHeight, { wall = false } = {}) {
+    ctx.save();
+    ctx.globalAlpha = wall ? 0.22 : 0.28;
+    if (wall) {
+      ctx.shadowColor = 'rgba(40,35,30,0.45)';
+      ctx.shadowBlur = Math.max(12, drawWidth * 0.04);
+      ctx.shadowOffsetX = drawWidth * 0.012;
+      ctx.shadowOffsetY = drawHeight * 0.01;
+    } else {
+      ctx.shadowColor = 'rgba(30,25,20,0.55)';
+      ctx.shadowBlur = Math.max(18, drawWidth * 0.05);
+      ctx.shadowOffsetX = 0;
+      ctx.shadowOffsetY = Math.max(6, drawHeight * 0.015);
+    }
+    ctx.drawImage(sourceCanvas, drawX, drawY, drawWidth, drawHeight);
+    ctx.restore();
+  },
+
+  needsGentleEnhance(scene) {
+    return this.isWallOnlyScene(scene);
+  },
+
+  /** Wall/fountain/text: skip AI enhance — it destroys lettering & flattens chrome edges */
+  shouldSkipAiEnhance(scene) {
+    return this.isWallOnlyScene(scene);
   },
 
   async getDisplayBackgroundUrl(scene) {
@@ -252,14 +299,20 @@ Object.assign(app, {
         originalPhoto.uploaded = true;
       }
 
-      // 0) Restore phone photo (fail-soft)
-      try {
-        statusEl.textContent = '🔦 Улучшение исходника (свет, шум, резкость)...';
-        imageUrl = await this.restoreSourcePhoto(imageUrl, statusEl);
-        console.log('[Studio Pro] Restore OK');
-      } catch (restoreErr) {
-        console.warn('[Studio Pro] Restore skipped:', restoreErr);
-        statusEl.textContent = '⚠️ Restore пропущен — продолжаем с исходником';
+      // 0) Restore — skip for wall/fountain scenes (rewrites chrome colors & text)
+      const skipRestore = this.isWallOnlyScene(scene);
+      if (!skipRestore) {
+        try {
+          statusEl.textContent = '🔦 Улучшение исходника (свет, шум, резкость)...';
+          imageUrl = await this.restoreSourcePhoto(imageUrl, statusEl);
+          console.log('[Studio Pro] Restore OK');
+        } catch (restoreErr) {
+          console.warn('[Studio Pro] Restore skipped:', restoreErr);
+          statusEl.textContent = '⚠️ Restore пропущен — продолжаем с исходником';
+        }
+      } else {
+        console.log('[Studio Pro] Restore skipped for wall-only scene (protect chrome/text)');
+        statusEl.textContent = '🛡️ Wall-сцена: restore пропущен (сохраняем цвета и текст)';
       }
 
       statusEl.textContent = '🎨 Удаление фона...';
@@ -288,12 +341,12 @@ Object.assign(app, {
 
       const MASTER_SIZE = this.MASTER_SIZE || 2048;
       const pos = this.getProductPositioning(scene, cutout.width, cutout.height, MASTER_SIZE);
-      this.studioPlacement = {
+      this.studioPlacement = this.clampPlacementInset({
         x: pos.drawX / MASTER_SIZE,
         y: pos.drawY / MASTER_SIZE,
         w: pos.drawWidth / MASTER_SIZE,
         h: pos.drawHeight / MASTER_SIZE
-      };
+      });
 
       await this.showPlacementEditor(scene);
       statusEl.textContent = '📐 Расставьте товар на эталоне → «Готово → AI-доводка»';
@@ -323,6 +376,7 @@ Object.assign(app, {
     try {
       const scene = this.currentProduct.scene || 'floor';
       const bgUrl = this.getReferenceBackgroundUrl();
+      this.studioPlacement = this.clampPlacementInset(this.studioPlacement, this.isWallOnlyScene(scene) ? 0.07 : 0.05);
 
       if (statusEl) statusEl.textContent = '🖼️ Композиция на эталоне...';
       if (placeStatus) placeStatus.textContent = 'Композиция...';
@@ -335,12 +389,18 @@ Object.assign(app, {
         { alreadyCropped: true }
       );
 
-      if (statusEl) statusEl.textContent = '✨ AI «переснимает» свет и тени...';
-      try {
-        masterImageUrl = await this.enhanceMasterWithAI(masterImageUrl, scene, statusEl);
-      } catch (enhanceErr) {
-        console.warn('[Studio Pro] AI enhance failed, keep canvas master:', enhanceErr);
-        this.toast('AI-доводка не удалась — оставлен canvas. Задеплойте Worker, если 404.', 'error');
+      // Wall / bubble+fountain: NO AI enhance — preserves text, chrome colors, round edges
+      if (this.shouldSkipAiEnhance(scene)) {
+        if (statusEl) statusEl.textContent = '🛡️ Wall-сцена: AI-перерисовка отключена (текст/хром/края сохранены)';
+        this.toast('Wall: Master без AI — только эталон + тень canvas', 'info');
+      } else {
+        if (statusEl) statusEl.textContent = '✨ AI «переснимает» свет и тени...';
+        try {
+          masterImageUrl = await this.enhanceMasterWithAI(masterImageUrl, scene, statusEl, { gentle: false });
+        } catch (enhanceErr) {
+          console.warn('[Studio Pro] AI enhance failed, keep canvas master:', enhanceErr);
+          this.toast('AI-доводка не удалась — оставлен canvas. Задеплойте Worker, если 404.', 'error');
+        }
       }
 
       this.studioMasterDataUrl = masterImageUrl;
@@ -415,12 +475,12 @@ Object.assign(app, {
     const fakeW = 1000;
     const fakeH = fakeW / this.studioPlacementAspect;
     const pos = this.getProductPositioning(scene, fakeW, fakeH, MASTER_SIZE);
-    this.studioPlacement = {
+    this.studioPlacement = this.clampPlacementInset({
       x: pos.drawX / MASTER_SIZE,
       y: pos.drawY / MASTER_SIZE,
       w: pos.drawWidth / MASTER_SIZE,
       h: pos.drawHeight / MASTER_SIZE
-    };
+    });
     this.syncPlacementDom();
     const scaleEl = document.getElementById('placement-scale');
     if (scaleEl) scaleEl.value = Math.round(this.studioPlacement.w * 100);
@@ -430,19 +490,17 @@ Object.assign(app, {
 
   onPlacementScaleInput(value) {
     if (!this.studioPlacement || !this.studioPlacementAspect) return;
-    let w = Math.max(0.25, Math.min(0.95, Number(value) / 100));
+    let w = Math.max(0.25, Math.min(0.86, Number(value) / 100));
     let h = w / this.studioPlacementAspect;
-    if (h > 0.95) {
-      h = 0.95;
+    if (h > 0.86) {
+      h = 0.86;
       w = h * this.studioPlacementAspect;
     }
     const cx = this.studioPlacement.x + this.studioPlacement.w / 2;
     const cy = this.studioPlacement.y + this.studioPlacement.h / 2;
     let x = cx - w / 2;
     let y = cy - h / 2;
-    x = Math.max(0, Math.min(x, 1 - w));
-    y = Math.max(0, Math.min(y, 1 - h));
-    this.studioPlacement = { x, y, w, h };
+    this.studioPlacement = this.clampPlacementInset({ x, y, w, h });
     this.syncPlacementDom();
   },
 
@@ -458,11 +516,11 @@ Object.assign(app, {
       const dx = (clientX - this._placementDrag.startX) / rect.width;
       const dy = (clientY - this._placementDrag.startY) / rect.height;
       const start = this._placementDrag.start;
-      let x = start.x + dx;
-      let y = start.y + dy;
-      x = Math.max(0, Math.min(x, 1 - start.w));
-      y = Math.max(0, Math.min(y, 1 - start.h));
-      this.studioPlacement = { ...start, x, y };
+      this.studioPlacement = this.clampPlacementInset({
+        ...start,
+        x: start.x + dx,
+        y: start.y + dy
+      });
       this.syncPlacementDom();
     };
 
@@ -537,15 +595,23 @@ Object.assign(app, {
     return await this.pollStudioStatusSimple(data.job_id);
   },
 
-  async enhanceMasterWithAI(masterDataUrl, scene, statusEl) {
+  async enhanceMasterWithAI(masterDataUrl, scene, statusEl, opts = {}) {
+    const gentle = !!opts.gentle || this.isWallOnlyScene(scene);
     statusEl.textContent = '☁️ Загрузка Master для AI...';
     const httpsUrl = await this.uploadDataUrlToCloudinary(masterDataUrl, 'studio-compose.webp');
 
-    statusEl.textContent = '✨ AI переснимает в комнате (2K)...';
+    statusEl.textContent = gentle
+      ? '✨ AI: только шов и тень (геометрия locked)...'
+      : '✨ AI переснимает в комнате (2K)...';
     const res = await fetch(`${this.workerUrl}/api/studio/enhance`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', ...this.authHeaders() },
-      body: JSON.stringify({ image_url: httpsUrl, scene, resolution: '2K' })
+      body: JSON.stringify({
+        image_url: httpsUrl,
+        scene,
+        resolution: gentle ? '2K' : '2K',
+        mode: gentle ? 'gentle' : 'rephotograph'
+      })
     });
 
     const data = await res.json().catch(() => ({}));
@@ -553,7 +619,7 @@ Object.assign(app, {
       throw new Error(data.error || `Enhance HTTP ${res.status}`);
     }
 
-    statusEl.textContent = '⏳ AI-доводка 2K... (1–2 мин)';
+    statusEl.textContent = gentle ? '⏳ Лёгкая AI-доводка...' : '⏳ AI-доводка 2K... (1–2 мин)';
     return await this.pollStudioStatusSimple(data.job_id);
   },
 
@@ -624,8 +690,10 @@ Object.assign(app, {
     if (this.isWallOnlyScene(scene)) {
       const wallH = Math.round(bgImg.height * 0.58);
       finalCtx.drawImage(bgImg, 0, 0, bgImg.width, wallH, 0, 0, MASTER_SIZE, MASTER_SIZE);
+      this.drawSoftContactShadow(finalCtx, croppedCanvas, drawX, drawY, drawWidth, drawHeight, { wall: true });
     } else {
       finalCtx.drawImage(bgImg, 0, 0, MASTER_SIZE, MASTER_SIZE);
+      this.drawSoftContactShadow(finalCtx, croppedCanvas, drawX, drawY, drawWidth, drawHeight, { wall: false });
     }
 
     finalCtx.drawImage(croppedCanvas, drawX, drawY, drawWidth, drawHeight);
@@ -867,8 +935,11 @@ Object.assign(app, {
       const UPSCALE_BELOW = 1600;
       let photo2Url = crop2.dataUrl;
       let photo3Url = crop3.dataUrl;
+      const scene = this.currentProduct?.scene || 'floor';
+      // Wall/fountain: skip AI crop upscale — it melts ribbons and flattens sphere edges
+      const allowCropUpscale = !this.isWallOnlyScene(scene);
 
-      if (crop2.size < UPSCALE_BELOW || crop3.size < UPSCALE_BELOW) {
+      if (allowCropUpscale && (crop2.size < UPSCALE_BELOW || crop3.size < UPSCALE_BELOW)) {
         if (statusEl) statusEl.textContent = '☁️ Загрузка кропов для AI-upscale...';
         const uploaded = await this.ensurePhotosOnCloudinary([photo2Url, photo3Url]);
         photo2Url = uploaded[0];

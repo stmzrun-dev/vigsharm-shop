@@ -91,7 +91,7 @@
           <!-- Ручная постановка на эталоне -->
           <div id="placement-editor" class="placement-editor hidden">
             <h3>Постановка на эталоне</h3>
-            <p class="lead">Перетащите товар, масштаб — слайдером. AI переснимет свет и тени.</p>
+            <p class="lead">Перетащите товар, масштаб — слайдером. Не прижимайте к краю кадра. На сценах «стена» AI не перерисовывает товар (текст и хром сохраняются).</p>
             <div class="placement-stage" id="placement-stage">
               <img id="placement-bg" alt="Эталон" draggable="false"/>
               <img id="placement-cutout" alt="Cutout" draggable="false"/>
@@ -103,7 +103,7 @@
               </label>
               <div class="btn-group crop-actions">
                 <button type="button" class="btn outline" onclick="app.resetPlacement()">↺ Сброс</button>
-                <button type="button" class="btn primary" id="confirm-placement-btn" onclick="app.confirmPlacementAndEnhance()">Готово → AI-доводка</button>
+                <button type="button" class="btn primary" id="confirm-placement-btn" onclick="app.confirmPlacementAndEnhance()">Готово → Master</button>
               </div>
             </div>
             <div class="status" id="placement-status"></div>

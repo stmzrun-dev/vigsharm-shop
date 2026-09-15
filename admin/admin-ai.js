@@ -22,24 +22,27 @@ Object.assign(app, {
     statusEl.textContent = '🤖 Анализ фотографии через GPT-4V...';
 
     try {
-      // Берём первое фото для анализа
       const imageUrl = this.currentProduct.photos[0].url;
-      
-      // Собираем hints от пользователя (если есть)
-      const titleHint = this.currentProduct.title || '';
-      const priceHint = this.currentProduct.price || '';
-      const descHint = this.currentProduct.short_description || '';
+
+      const priceEl = document.getElementById('product-price');
+      const titleEl = document.getElementById('product-title');
+      const shortEl = document.getElementById('product-short-desc');
+      const compEl = document.getElementById('product-composition');
+
+      const titleHint = (titleEl?.value || this.currentProduct.title || '').trim();
+      const priceHint = priceEl?.value || this.currentProduct.price || '';
+      const descHint = (shortEl?.value || this.currentProduct.short_description || '').trim();
+      const userComposition = (compEl?.value || '').trim();
       const sceneHint = this.currentProduct.scene || 'floor';
 
-      // Запрос к Worker API
       const res = await fetch(`${this.workerUrl}/api/ai/generate-card`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', ...this.authHeaders() },
         body: JSON.stringify({
           image_url: imageUrl,
           title_hint: titleHint,
           price: priceHint,
-          description: descHint,
+          description: descHint || userComposition,
           scene: sceneHint
         })
       });
@@ -50,14 +53,16 @@ Object.assign(app, {
         throw new Error(result.error || 'Не удалось сгенерировать метаданные');
       }
 
-      // Применяем сгенерированные данные к текущему продукту
       const data = result.data;
       
       this.currentProduct.title = data.title || this.currentProduct.title;
       this.currentProduct.article = data.article || this.currentProduct.article;
       this.currentProduct.short_description = data.short_description || this.currentProduct.short_description;
       this.currentProduct.full_description = data.full_description || this.currentProduct.full_description;
-      this.currentProduct.composition = data.composition || this.currentProduct.composition;
+      // Состав, введённый вручную, не перезаписываем
+      if (!userComposition) {
+        this.currentProduct.composition = data.composition || this.currentProduct.composition;
+      }
       this.currentProduct.category = data.category || this.currentProduct.category;
       this.currentProduct.character = data.character || this.currentProduct.character;
       this.currentProduct.age_group = data.age_group || this.currentProduct.age_group;
@@ -68,8 +73,9 @@ Object.assign(app, {
       this.currentProduct.slug = data.slug || this.currentProduct.slug;
       this.currentProduct.tags = data.tags || this.currentProduct.tags;
 
-      // Обновляем UI
       this.fillFormWithAIData(this.currentProduct);
+      // Вернуть ручной состав после fill
+      if (userComposition && compEl) compEl.value = userComposition;
       
       statusEl.innerHTML = '✅ Метаданные успешно сгенерированы!';
       this.toast('AI-метаданные применены', 'success');
@@ -82,7 +88,7 @@ Object.assign(app, {
       this.toast('Ошибка AI: ' + e.message, 'error');
     } finally {
       btn.disabled = false;
-      btn.innerHTML = '🤖 Заполнить через AI';
+      btn.innerHTML = '🤖 ИИ заполнит карточку';
     }
   }
 });

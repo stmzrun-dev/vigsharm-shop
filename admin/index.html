@@ -56,138 +56,125 @@
     </div>
   </section>
 
-  <!-- Tab: Create Product -->
+  <!-- Tab: Create Product (layout как в старой админке) -->
   <section id="tab-create" class="tab-content hidden">
-    <div class="hero-section">
-      <h2>ИИ-помощник</h2>
-      <h1>Новая карточка за минуту</h1>
-      <p>Одно фото, точное название поставщика и упрощённая карточка.</p>
-    </div>
-    
-    <div class="card">
-      <div class="steps" id="steps-nav">
-        <div class="step active" data-step="1">1. Фото</div>
-        <div class="step" data-step="2">2. Сцена и ИИ</div>
-        <div class="step" data-step="3">3. Базовая информация</div>
-        <div class="step" data-step="4">4. Категория</div>
-        <div class="step" data-step="5">5. SEO</div>
-        <div class="step" data-step="6">6. Разделы</div>
-        <div class="step" data-step="7">7. Опции клиента</div>
-        <div class="step" data-step="8">8. Публикация</div>
+    <div class="card compact-card product-editor">
+      <div class="editor-header">
+        <div>
+          <div class="editor-label" id="editor-mode-label">СОЗДАНИЕ</div>
+          <h1 class="editor-title" id="editor-title">Новый товар</h1>
+        </div>
+        <button type="button" class="modal-close" onclick="app.cancelProductEdit()" title="Закрыть">×</button>
       </div>
 
       <form id="product-form" novalidate>
-        <!-- Шаг 1: Фото -->
-        <div class="form-step active" data-step="1">
-          <h2>Загрузка фото</h2>
-          <p class="lead">Загрузите от 1 до 6 фото товара. Первое фото станет главным.</p>
+
+        <!-- Фото + Studio -->
+        <section class="card-block" id="block-photos">
+          <div class="studio-toolbar">
+            <button type="button" class="btn secondary" id="process-studio-btn" onclick="app.processStudioProNew()">✨ Подготовить фото Studio Pro</button>
+            <div class="scene-selector scene-select-wrap" id="scene-selector"></div>
+            <button type="button" class="btn outline" id="photo-upload-btn" onclick="document.getElementById('photo-input').click()">+ Загрузить</button>
+          </div>
+          <div class="status" id="studio-status"></div>
 
           <div class="photo-section" id="photo-dropzone">
-            <div class="upload-zone">
+            <div class="upload-zone upload-zone-compact" id="upload-zone-empty">
               <div class="icon">📷</div>
-              <p>Перетащите фото сюда или нажмите для выбора</p>
-              <small>JPG, PNG, WebP · до 10 МБ · максимум 6 фото</small>
-              <input type="file" id="photo-input" accept="image/*" multiple/>
+              <p>Перетащите фото или нажмите «+ Загрузить»</p>
+              <small>JPG, PNG, WebP · до 10 МБ · максимум 6</small>
             </div>
+            <input type="file" id="photo-input" accept="image/*" multiple class="hidden-file"/>
             <div class="photo-grid" id="photos-grid"></div>
           </div>
 
-          <div class="wizard-nav">
-            <button type="button" class="btn primary" onclick="app.nextStep()">Далее →</button>
-          </div>
-        </div>
-        <!-- Шаг 2: Сцена и ИИ -->
-        <div class="form-step" data-step="2">
-          <h2>Сцена и обработка</h2>
-          <p class="lead">Выберите сцену для Studio Pro и запустите обработку.</p>
-
-          <div class="scene-selector" id="scene-selector"></div>
-
-          <div class="info-panel">
-            <h4>🤖 ИИ-карточка</h4>
-            <p style="font-size:14px;color:#616161;margin:0">Сгенерирует название, описание и категорию по первому фото.</p>
-          </div>
-
-          <div class="form-row">
-            <div class="form-group">
-              <label>Обработка фото</label>
-              <button type="button" class="btn secondary block" id="process-studio-btn" onclick="app.processStudioProNew()">✨ Обработать фото через Studio Pro</button>
-              <div class="status" id="studio-status"></div>
+          <!-- Ручная постановка на эталоне -->
+          <div id="placement-editor" class="placement-editor hidden">
+            <h3>Постановка на эталоне</h3>
+            <p class="lead">Перетащите товар, масштаб — слайдером. AI переснимет свет и тени.</p>
+            <div class="placement-stage" id="placement-stage">
+              <img id="placement-bg" alt="Эталон" draggable="false"/>
+              <img id="placement-cutout" alt="Cutout" draggable="false"/>
             </div>
-            <div class="form-group">
-              <label>Генерация карточки</label>
-              <button type="button" class="btn primary block" id="generate-ai-btn" onclick="app.generateAIMetadata()">🤖 Сгенерировать данные через ИИ</button>
-              <div class="status" id="ai-status"></div>
+            <div class="placement-controls">
+              <label class="placement-scale-label">Масштаб
+                <input type="range" id="placement-scale" min="25" max="95" value="70"
+                  oninput="app.onPlacementScaleInput(this.value)"/>
+              </label>
+              <div class="btn-group crop-actions">
+                <button type="button" class="btn outline" onclick="app.resetPlacement()">↺ Сброс</button>
+                <button type="button" class="btn primary" id="confirm-placement-btn" onclick="app.confirmPlacementAndEnhance()">Готово → AI-доводка</button>
+              </div>
             </div>
+            <div class="status" id="placement-status"></div>
           </div>
 
-          <div class="wizard-nav">
-            <div class="btn-group">
-              <button type="button" class="btn outline" onclick="app.prevStep()">← Назад</button>
-              <button type="button" class="btn primary" onclick="app.nextStep()">Далее →</button>
+          <!-- Кропы #2 / #3 + live preview -->
+          <div id="crop-editor" class="crop-editor hidden">
+            <h3>Кропы #2 и #3</h3>
+            <p class="lead">Рамки на Master · превью справа. Клик по превью — увеличить.</p>
+            <div class="crop-layout">
+              <div class="crop-stage" id="crop-stage">
+                <img id="crop-master-img" alt="Master" draggable="false" class="zoomable" onclick="app.openLightbox(this.src)"/>
+                <div class="crop-frame" data-frame="2" id="crop-frame-2">
+                  <span class="crop-frame-label">#2</span>
+                  <div class="crop-handle" data-handle="se"></div>
+                </div>
+                <div class="crop-frame" data-frame="3" id="crop-frame-3">
+                  <span class="crop-frame-label">#3</span>
+                  <div class="crop-handle" data-handle="se"></div>
+                </div>
+              </div>
+              <div class="crop-previews">
+                <div class="crop-preview" onclick="app.openLightboxFromCanvas('crop-preview-2')">
+                  <span class="crop-preview-label">#2</span>
+                  <canvas id="crop-preview-2" width="160" height="160"></canvas>
+                </div>
+                <div class="crop-preview" onclick="app.openLightboxFromCanvas('crop-preview-3')">
+                  <span class="crop-preview-label">#3</span>
+                  <canvas id="crop-preview-3" width="160" height="160"></canvas>
+                </div>
+              </div>
             </div>
+            <div class="btn-group crop-actions">
+              <button type="button" class="btn outline" onclick="app.resetCropFrames()">↺ Авто-рамки</button>
+              <button type="button" class="btn primary" id="apply-crops-btn" onclick="app.applyCropFrames()">Применить кропы</button>
+            </div>
+            <div class="status" id="crop-status"></div>
           </div>
-        </div>
+        </section>
 
-        <!-- Шаг 3: Базовая информация -->
-        <div class="form-step" data-step="3">
-          <h2>Базовая информация</h2>
-          <p class="lead">Заполните данные о товаре.</p>
+        <!-- Основные поля (2 колонки как в старой) -->
+        <section class="card-block" id="block-main">
+          <div class="form-group">
+            <label>Название <span class="req">*</span></label>
+            <input id="product-title" placeholder="Например: Букет «Утренний восторг»" autocomplete="off"
+              oninput="app.syncEditorTitle(this.value)"/>
+          </div>
 
-          <div class="form-row">
+          <div class="form-row form-row-2">
             <div class="form-group">
-              <label>Название <span class="req">*</span></label>
-              <input id="product-title" placeholder="Например: Букет «Утренний восторг»" autocomplete="off"/>
-            </div>
-            <div class="form-group">
-              <label>Артикул (авто)</label>
+              <label>Артикул</label>
               <input id="product-article" readonly placeholder="DG-XXX"/>
             </div>
-          </div>
-
-          <div class="form-group">
-            <label>Цена, ₽ <span class="req">*</span></label>
-            <input id="product-price" type="number" min="0" step="1" inputmode="numeric" placeholder="0"/>
-          </div>
-
-          <div class="form-group">
-            <label>Короткое описание</label>
-            <input id="product-short-desc" maxlength="140" placeholder="1-2 предложения для карточки"/>
-          </div>
-
-          <div class="form-group">
-            <label>Полное описание</label>
-            <textarea id="product-full-desc" rows="4" placeholder="3-5 предложений о товаре"></textarea>
-          </div>
-
-          <div class="form-group">
-            <label>Состав (каждый пункт с новой строки)</label>
-            <textarea id="product-composition" rows="3" placeholder="• Шары латексные — 15 шт.&#10;• Цифра фольгированная — 1 шт."></textarea>
-          </div>
-
-          <div class="wizard-nav">
-            <div class="btn-group">
-              <button type="button" class="btn outline" onclick="app.prevStep()">← Назад</button>
-              <button type="button" class="btn primary" onclick="app.nextStep()">Далее →</button>
+            <div class="form-group">
+              <label>Цена, ₽ <span class="req">*</span></label>
+              <input id="product-price" type="number" min="0" step="1" inputmode="numeric" placeholder="0"/>
             </div>
           </div>
-        </div>
 
-        <!-- Шаг 4: Категория -->
-        <div class="form-step" data-step="4">
-          <h2>Категория и дополнительно</h2>
-          <p class="lead">Выберите основную категорию товара.</p>
-
-          <div class="form-group">
-            <label>Основная категория <span class="req">*</span></label>
-            <select id="product-category"></select>
-          </div>
-
-          <div class="form-row">
+          <div class="form-row form-row-2">
+            <div class="form-group">
+              <label>Категория <span class="req">*</span></label>
+              <select id="product-category"></select>
+            </div>
             <div class="form-group">
               <label>Персонаж</label>
               <input id="product-character" placeholder="Например: Человек-паук" autocomplete="off"/>
             </div>
+          </div>
+
+          <div class="form-row form-row-2">
             <div class="form-group">
               <label>Возраст</label>
               <select id="product-age">
@@ -198,109 +185,123 @@
                 <option>Для взрослых</option>
               </select>
             </div>
-          </div>
-
-          <div class="form-row">
             <div class="form-group">
               <label>Бюджет</label>
-              <input id="product-budget" placeholder="Например: 500–1500 ₽" autocomplete="off"/>
+              <input id="product-budget" placeholder="Например: от 5 000 ₽" autocomplete="off"/>
             </div>
+          </div>
+
+          <div class="form-row form-row-2">
             <div class="form-group">
               <label>Тематическая серия</label>
               <input id="product-series" placeholder="Например: Миньоны" autocomplete="off"/>
             </div>
-          </div>
-
-          <div class="wizard-nav">
-            <div class="btn-group">
-              <button type="button" class="btn outline" onclick="app.prevStep()">← Назад</button>
-              <button type="button" class="btn primary" onclick="app.nextStep()">Далее →</button>
+            <div class="form-group">
+              <label>Целевая аудитория</label>
+              <input id="product-audience" placeholder="Например: Для детей" autocomplete="off"/>
             </div>
           </div>
-        </div>
 
-        <!-- Шаг 5: SEO -->
-        <div class="form-step" data-step="5">
-          <h2>SEO-настройки</h2>
-          <p class="lead">Оптимизация для поисковых систем.</p>
-
-          <div class="form-group">
-            <label>SEO-заголовок</label>
-            <input id="product-seo-title" placeholder="Заголовок для поисковых систем"/>
+          <div class="form-row form-row-2">
+            <div class="form-group">
+              <label>Повод</label>
+              <input id="product-occasion" placeholder="Например: День рождения" autocomplete="off"/>
+            </div>
+            <div class="form-group">
+              <label>Состав</label>
+              <textarea id="product-composition" rows="2" placeholder="• Шары — 15 шт."></textarea>
+            </div>
           </div>
 
           <div class="form-group">
-            <label>SEO-описание</label>
-            <textarea id="product-seo-desc" rows="3" placeholder="Описание для поисковых систем"></textarea>
+            <button type="button" class="btn primary block" id="generate-ai-btn" onclick="app.generateAIMetadata()">🤖 ИИ заполнит карточку</button>
+            <div class="status" id="ai-status"></div>
           </div>
 
-          <div class="form-group">
-            <label>URL товара (slug)</label>
-            <input id="product-slug" placeholder="naprimer-buket-utrenniy-vostorg"/>
-          </div>
-
-          <div class="wizard-nav">
-            <div class="btn-group">
-              <button type="button" class="btn outline" onclick="app.prevStep()">← Назад</button>
-              <button type="button" class="btn primary" onclick="app.nextStep()">Далее →</button>
+          <!-- AI-поля свёрнуты: заполняет ИИ, не раздувают скролл -->
+          <details class="ai-fields-fold" id="block-ai-text">
+            <summary>Текст и SEO (заполняет ИИ) — развернуть при необходимости</summary>
+            <div class="form-group">
+              <label>Краткое описание</label>
+              <textarea id="product-short-desc" maxlength="140" rows="2" placeholder="1-2 предложения для карточки"></textarea>
             </div>
-          </div>
-        </div>
-
-        <!-- Шаг 6: Разделы каталога -->
-        <div class="form-step" data-step="6">
-          <h2>Разделы каталога</h2>
-          <p class="lead">Товар может отображаться в нескольких разделах.</p>
-
-          <fieldset><legend>Для кого</legend><div class="chips" id="tags-for-who"></div></fieldset>
-          <fieldset><legend>Повод</legend><div class="chips" id="tags-occasion"></div></fieldset>
-          <fieldset><legend>Даты</legend><div class="chips" id="tags-dates"></div></fieldset>
-          <fieldset><legend>Тип товара</legend><div class="chips" id="tags-type"></div></fieldset>
-
-          <div class="wizard-nav">
-            <div class="btn-group">
-              <button type="button" class="btn outline" onclick="app.prevStep()">← Назад</button>
-              <button type="button" class="btn primary" onclick="app.nextStep()">Далее →</button>
+            <div class="form-group">
+              <label>Полное описание</label>
+              <textarea id="product-full-desc" rows="3" placeholder="3-5 предложений о товаре"></textarea>
             </div>
-          </div>
-        </div>
-
-        <!-- Шаг 7: Опции клиента -->
-        <div class="form-step" data-step="7">
-          <h2>Опции для клиента</h2>
-          <p class="lead">Что сможет настроить покупатель при заказе.</p>
-
-          <div class="checkbox-group">
-            <label class="checkbox-label"><input type="checkbox" id="opt-available"/><span>Доступен под заказ</span></label>
-            <label class="checkbox-label"><input type="checkbox" id="opt-number"/><span>Выбор цифры (0–9)</span></label>
-            <label class="checkbox-label"><input type="checkbox" id="opt-inscription"/><span>Персональная надпись</span></label>
-            <label class="checkbox-label"><input type="checkbox" id="opt-rental"/><span>Аренда элементов фотозоны</span></label>
-          </div>
-
-          <div class="wizard-nav">
-            <div class="btn-group">
-              <button type="button" class="btn outline" onclick="app.prevStep()">← Назад</button>
-              <button type="button" class="btn primary" onclick="app.nextStep()">Далее →</button>
+            <div class="form-group">
+              <label>SEO-заголовок</label>
+              <input id="product-seo-title" placeholder="Заголовок для поисковых систем"/>
             </div>
-          </div>
-        </div>
-
-        <!-- Шаг 8: Публикация -->
-        <div class="form-step" data-step="8">
-          <h2>Публикация</h2>
-          <p class="lead">Проверьте данные и опубликуйте товар.</p>
-
-          <div class="checkbox-group">
-            <label class="checkbox-label"><input type="checkbox" id="show-on-site"/><span>Показывать на сайте</span></label>
-          </div>
-
-          <div class="wizard-nav">
-            <div class="btn-group">
-              <button type="button" class="btn outline" onclick="app.prevStep()">← Назад</button>
-              <button type="button" class="btn secondary" onclick="app.saveDraft()">💾 Сохранить черновик</button>
-              <button type="button" class="btn primary" onclick="app.publishProduct()">🚀 Опубликовать товар</button>
+            <div class="form-group">
+              <label>SEO-описание</label>
+              <textarea id="product-seo-desc" rows="2" placeholder="Описание для поисковых систем"></textarea>
             </div>
+          </details>
+          <!-- slug скрыт: авто из названия при сохранении -->
+          <input type="hidden" id="product-slug" value=""/>
+        </section>
+
+        <!-- Разделы каталога — свёрнуты по умолчанию -->
+        <section class="card-block" id="block-tags">
+          <details class="ai-fields-fold">
+            <summary>Дополнительные разделы каталога</summary>
+            <div class="tags-grid">
+              <div class="chips chips-grid" id="tags-for-who"></div>
+              <div class="chips chips-grid" id="tags-occasion"></div>
+              <div class="chips chips-grid" id="tags-dates"></div>
+              <div class="chips chips-grid" id="tags-type"></div>
+            </div>
+          </details>
+        </section>
+
+        <!-- Варианты для клиента -->
+        <section class="card-block" id="block-options">
+          <h3 class="subsection-title">Варианты для клиента</h3>
+          <p class="lead">Включайте только настройки, подходящие этому товару.</p>
+          <div class="option-cards">
+            <label class="option-card">
+              <input type="checkbox" id="opt-available"/>
+              <span class="option-card-body">
+                <strong>Доступен под заказ</strong>
+                <small>Товар можно заказать, даже если нет в наличии сейчас</small>
+              </span>
+            </label>
+            <label class="option-card">
+              <input type="checkbox" id="opt-number"/>
+              <span class="option-card-body">
+                <strong>Выбор цифры (0–9)</strong>
+                <small>Клиент выбирает цифру на фольгированном шаре</small>
+              </span>
+            </label>
+            <label class="option-card">
+              <input type="checkbox" id="opt-inscription"/>
+              <span class="option-card-body">
+                <strong>Персональная надпись</strong>
+                <small>Имя или текст на шаре / табличке</small>
+              </span>
+            </label>
+            <label class="option-card">
+              <input type="checkbox" id="opt-rental"/>
+              <span class="option-card-body">
+                <strong>Аренда элементов фотозоны</strong>
+                <small>Стойки, арки и декор сдаются в аренду</small>
+              </span>
+            </label>
+            <label class="option-card">
+              <input type="checkbox" id="show-on-site"/>
+              <span class="option-card-body">
+                <strong>Показывать товар на сайте</strong>
+                <small>Можно сохранить черновиком и опубликовать позже</small>
+              </span>
+            </label>
           </div>
+        </section>
+
+        <div class="action-bar">
+          <button type="button" class="btn outline" onclick="app.cancelProductEdit()">Отмена</button>
+          <button type="button" class="btn secondary" onclick="app.saveDraft()">Сохранить черновиком</button>
+          <button type="button" class="btn primary" onclick="app.publishProduct()">Опубликовать товар</button>
         </div>
       </form>
     </div>
@@ -319,7 +320,13 @@
       <div class="form-group">
         <label>Worker API URL</label>
         <input type="url" id="worker-url" placeholder="https://vigsharm-api.vigsharm.workers.dev" value="https://vigsharm-api.vigsharm.workers.dev"/>
-        <small class="text-muted">URL вашего Cloudflare Worker (API ключ хранится в Worker secrets)</small>
+        <small class="text-muted">URL вашего Cloudflare Worker (API ключ NordRouter хранится в Worker secrets)</small>
+      </div>
+
+      <div class="form-group">
+        <label>Admin API Key <span style="color: #e74c3c;">*обязательно</span></label>
+        <input type="password" id="admin-api-key" placeholder="Вставьте ключ, заданный через wrangler secret put ADMIN_API_KEY"/>
+        <small class="text-muted">Тот же ключ, что установлен в Worker (ADMIN_API_KEY). Нужен для создания/изменения/удаления товаров, загрузки фото, ИИ-генерации и Studio Pro.</small>
       </div>
 
       <div class="divider"></div>
@@ -341,6 +348,38 @@
       <button class="btn danger mt-2" onclick="app.clearSettings()">Очистить все</button>
 
       <div class="divider"></div>
+      <h3>🎨 Эталонный фон Studio Pro</h3>
+      <p class="text-muted" style="margin-bottom: 16px;">
+        Загрузите постоянный эталонный фон для композиции товаров в Studio Pro.
+        Если не загружен — используется локальный <code>assets/reference/reference-background.png</code>.
+      </p>
+      
+      <div id="reference-bg-container">
+        <div id="reference-bg-preview" style="display: none; margin-bottom: 16px;"></div>
+        
+        <div id="reference-bg-status" style="margin-bottom: 16px; font-size: 14px;">
+          ⚠️ Эталонный фон ещё не загружен
+        </div>
+        
+        <div class="form-group">
+          <input type="file" id="reference-bg-file" accept="image/*" style="display: none;"/>
+          <button type="button" class="btn secondary" id="upload-reference-bg-btn">
+            📤 Выбрать и загрузить фон
+          </button>
+          <button type="button" class="btn outline" id="replace-reference-bg-btn" onclick="app.replaceReferenceBackground()" style="display: none; margin-left: 8px;">
+            🔄 Заменить фон
+          </button>
+          <button type="button" class="btn danger outline" onclick="app.removeReferenceBackground()" style="margin-left: 8px;">
+            🗑️ Удалить
+          </button>
+        </div>
+        
+        <small class="text-muted">
+          JPG, PNG, WebP · до 10 МБ · Рекомендуется высокое разрешение
+        </small>
+      </div>
+
+      <div class="divider"></div>
       <h2>Статистика</h2>
       <div class="stats-row">
         <div class="badge neutral">Всего: <strong id="stats-total">0</strong></div>
@@ -352,13 +391,19 @@
 </main>
 
 <div id="toast" class="toast"></div>
+
+<!-- Lightbox просмотр фото -->
+<div id="photo-lightbox" class="photo-lightbox hidden" onclick="app.closeLightbox(event)">
+  <button type="button" class="lightbox-close" aria-label="Закрыть" onclick="app.closeLightbox()">×</button>
+  <img id="lightbox-img" alt="Просмотр" onclick="event.stopPropagation()"/>
+</div>
+
 <script src="admin.js"></script>
 <script src="admin-extended.js"></script>
 <script src="admin-studio-pro.js"></script>
 <script src="admin-ai.js"></script>
 <script src="cloudinary-upload.js"></script>
 <script src="cloudinary-patch.js"></script>
+<script src="admin-reference-background.js"></script>
 </body>
 </html>
-
-

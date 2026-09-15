@@ -25,3 +25,16 @@ fix-admin.js
 .dev.vars*
 !.dev.vars.example
 !.env.example
+
+# Dependencies (устанавливаются через npm install, не должны попадать в git)
+node_modules/
+
+# Debug/backup файлы из ручных сессий отладки (не часть продакшн-кода)
+*-backup.js
+*-old.js
+*.backup
+*.old
+deploy-output*.txt
+deploy.log
+models-response.json
+edit-models-report.txt

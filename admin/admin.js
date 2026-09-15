@@ -19,6 +19,15 @@ const SCENES = [
 
 const app = {
   workerUrl: 'https://vigsharm-api.vigsharm.workers.dev',
+  studioReferenceBackgroundUrl: '',
+  adminApiKey: '',
+
+  // Заголовок авторизации для admin-only запросов к Worker (создание/изменение/удаление
+  // товаров, загрузка фото, ИИ-генерация, Studio Pro). Публичное чтение каталога
+  // (GET /api/products) авторизации не требует.
+  authHeaders() {
+    return this.adminApiKey ? { 'Authorization': 'Bearer ' + this.adminApiKey } : {};
+  },
 
   currentStep: 1,
   products: [],
@@ -27,7 +36,6 @@ const app = {
   init() {
     this.loadSettings();
     this.setupTabs();
-    this.setupSteps();
     this.setupPhotoUpload();
     this.setupSceneSelector();
     this.setupFormEvents();
@@ -35,17 +43,9 @@ const app = {
     this.renderTags();
     this.wireFormHelpers();
     this.wireFilters();
-    this.updateSteps();
     this.loadProducts();
-  },
-
-  // === Навигация по шагам визарда ===
-  setupSteps() {
-    document.querySelectorAll('#steps-nav .step').forEach(step => {
-      step.addEventListener('click', () => {
-        this.currentStep = parseInt(step.dataset.step, 10) || 1;
-        this.updateSteps();
-      });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && typeof this.closeLightbox === 'function') this.closeLightbox();
     });
   },
 
@@ -97,6 +97,7 @@ const app = {
       if (saved) {
         const settings = JSON.parse(saved);
         this.workerUrl = settings.workerUrl || '';
+        this.adminApiKey = settings.adminApiKey || '';
         
         // Миграция: удаляем старый небезопасный ключ
         if (settings.nordrouterKey) {
@@ -105,16 +106,22 @@ const app = {
           console.warn('⚠️ NordRouter API ключ удалён из localStorage (теперь хранится в Worker secrets)');
         }
         
+        // Загружаем эталонный фон
+        this.studioReferenceBackgroundUrl = settings.studioReferenceBackgroundUrl || '';
+        
         if (document.getElementById('worker-url')) document.getElementById('worker-url').value = this.workerUrl;
+        if (document.getElementById('admin-api-key')) document.getElementById('admin-api-key').value = this.adminApiKey;
       }
     } catch (e) {}
   },
 
   saveSettings() {
     this.workerUrl = document.getElementById('worker-url').value.trim();
+    this.adminApiKey = document.getElementById('admin-api-key')?.value.trim() || '';
     try {
       localStorage.setItem('vigsharm_admin_settings', JSON.stringify({
-        workerUrl: this.workerUrl
+        workerUrl: this.workerUrl,
+        adminApiKey: this.adminApiKey
       }));
       this.toast('Настройки сохранены', 'success');
     } catch (e) {
@@ -143,7 +150,6 @@ const app = {
     document.querySelector(`[data-tab="${tab}"]`)?.classList.add('active');
     document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
     document.getElementById(`tab-${tab}`)?.classList.remove('hidden');
-    if (tab === 'create') this.updateSteps();
   },
 
   async loadProducts() {
@@ -227,7 +233,7 @@ const app = {
     try {
       const res = await fetch(`${this.workerUrl}/api/products/${id}/status`, {
         method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', ...this.authHeaders() },
         body: JSON.stringify({ status })
       });
       const data = await res.json();
@@ -259,39 +265,76 @@ const app = {
   async saveProduct(status) {
     const data = this.collectFormData();
 
-    if (!data.title) { this.toast('Введите название', 'error'); this.showStep(3); return; }
-    if (this.currentProduct.photos.length === 0) { this.toast('Загрузите фото', 'error'); this.showStep(1); return; }
-    if (!data.category) { this.toast('Выберите категорию', 'error'); this.showStep(4); return; }
+    if (this.currentProduct.photos.length === 0) {
+      this.toast('Загрузите фото', 'error');
+      document.getElementById('block-photos')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      return;
+    }
+    if (!data.title) {
+      this.toast('Введите название', 'error');
+      document.getElementById('product-title')?.focus();
+      document.getElementById('block-main')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      return;
+    }
+    if (!data.category) {
+      this.toast('Выберите категорию', 'error');
+      document.getElementById('product-category')?.focus();
+      return;
+    }
 
     const isEdit = !!this.currentProduct.id;
     this.toast(status === 'published' ? 'Публикация...' : 'Сохранение...', '');
 
     try {
-      // Сначала загружаем все фото, у которых ещё нет URL в R2
-      const pending = this.currentProduct.photos.filter(p => !p.uploaded && p.file);
-      for (const photo of pending) {
-        const uploadResult = await this.uploadPhoto(photo.file);
-        if (!uploadResult.ok) throw new Error('Не удалось загрузить фото');
-        photo.url = uploadResult.url;
+      // Загружаем локальные файлы И data:/blob: URL (после Studio Pro / AI)
+      for (let i = 0; i < this.currentProduct.photos.length; i++) {
+        const photo = this.currentProduct.photos[i];
+        const needsUpload = (!photo.uploaded && photo.file) ||
+          (photo.url && (photo.url.startsWith('data:') || photo.url.startsWith('blob:')));
+
+        if (!needsUpload) continue;
+
+        if (photo.file && !photo.url?.startsWith('https://')) {
+          const uploadResult = await this.uploadPhoto(photo.file);
+          if (!uploadResult.ok) throw new Error('Не удалось загрузить фото');
+          photo.url = uploadResult.url;
+        } else if (photo.url && (photo.url.startsWith('data:') || photo.url.startsWith('blob:'))) {
+          if (typeof this.ensureHttpsPhotoUrl === 'function') {
+            photo.url = await this.ensureHttpsPhotoUrl(photo.url, `product-${i + 1}.webp`);
+          } else {
+            throw new Error('Фото ещё в dataURL — перезапустите Studio Pro или обновите страницу');
+          }
+        }
         photo.uploaded = true;
       }
-      if (pending.length) {
-        this.renderPhotos();
-        // Пересобираем данные с актуальными URL фото из R2
-        data.photos = this.currentProduct.photos.map(p => p.url);
-        data.main_photo = this.currentProduct.photos[0]?.url || null;
+
+      data.photos = this.currentProduct.photos.map(p => p.url).filter(Boolean);
+      data.main_photo = data.photos[0] || null;
+
+      if (data.photos.some(u => String(u).startsWith('data:'))) {
+        throw new Error('Фото не загружены в облако (dataURL). Повторите Studio Pro или загрузите фото заново.');
       }
+
+      this.renderPhotos();
 
       const res = await fetch(
         isEdit ? `${this.workerUrl}/api/products/${this.currentProduct.id}` : `${this.workerUrl}/api/products`,
         {
           method: isEdit ? 'PUT' : 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: { 'Content-Type': 'application/json', ...this.authHeaders() },
           body: JSON.stringify({ ...data, status })
         }
       );
-      const result = await res.json();
-      if (!result.ok) throw new Error(result.error || 'Ошибка сохранения');
+
+      let result;
+      try {
+        result = await res.json();
+      } catch {
+        throw new Error(`Сервер ответил ${res.status} без JSON. Проверьте Admin API Key и Worker.`);
+      }
+      if (!res.ok || !result.ok) {
+        throw new Error(result.error || `Ошибка сохранения (HTTP ${res.status})`);
+      }
 
       this.toast(
         isEdit ? 'Товар обновлён' : (status === 'published' ? 'Товар опубликован!' : 'Черновик сохранён'),
@@ -302,6 +345,7 @@ const app = {
       this.loadProducts();
     } catch (e) {
       this.toast('Ошибка: ' + e.message, 'error');
+      console.error('[saveProduct]', e);
     }
   },
 
@@ -313,16 +357,10 @@ const app = {
     return this.saveProduct('draft');
   },
 
-  showStep(n) {
-    this.currentStep = n;
-    this.updateSteps();
-    document.querySelector('#tab-create .card')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  },
-
   async deleteProduct(id) {
     if (confirm('Удалить товар?')) {
       try {
-        const res = await fetch(`${this.workerUrl}/api/products/${id}`, { method: 'DELETE' });
+        const res = await fetch(`${this.workerUrl}/api/products/${id}`, { method: 'DELETE', headers: this.authHeaders() });
         const data = await res.json();
         if (data.ok) {
           this.toast('Товар удалён', 'success');
@@ -336,25 +374,6 @@ const app = {
     }
   },
 
-  nextStep() {
-    if (this.currentStep < 8) this.showStep(this.currentStep + 1);
-  },
-
-  prevStep() {
-    if (this.currentStep > 1) this.showStep(this.currentStep - 1);
-  },
-
-  updateSteps() {
-    document.querySelectorAll('.form-step').forEach(step => {
-      const n = parseInt(step.dataset.step, 10) || 0;
-      step.classList.toggle('active', n === this.currentStep);
-    });
-    document.querySelectorAll('#steps-nav .step').forEach(step => {
-      const n = parseInt(step.dataset.step, 10) || 0;
-      step.classList.toggle('active', n === this.currentStep);
-      step.classList.toggle('completed', n < this.currentStep);
-    });
-  }
 };
 
 if (document.readyState === 'loading') {

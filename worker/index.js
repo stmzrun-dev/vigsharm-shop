@@ -1,18 +1,39 @@
-﻿// VigSharm API вЂ” Cloudflare Worker
-// РҐСЂР°РЅРёС‚ РєР»СЋС‡ NordRouter, РїСЂРѕРєСЃРёСЂСѓРµС‚ Р·Р°РїСЂРѕСЃС‹, СѓРїСЂР°РІР»СЏРµС‚ D1 + R2
+// VigSharm API — Cloudflare Worker
+// Хранит ключ NordRouter, проксирует запросы, управляет D1 + R2
+
+// VigSharm API — Cloudflare Worker
+// Хранит ключ NordRouter, проксирует запросы, управляет D1 + R2
+
+/** Текущий request для CORS (file:// → Origin: null) */
+let _corsRequest = null;
 
 export default {
   async fetch(request, env) {
+    _corsRequest = request;
     const url = new URL(request.url);
     const path = url.pathname;
     const method = request.method;
 
-    // CORS
+    // CORS (в т.ч. file:// → Origin: null)
     if (method === 'OPTIONS') {
       return new Response(null, { headers: corsHeaders() });
     }
 
     try {
+      // Публичное чтение каталога — доступно витрине без авторизации.
+      // Всё остальное (создание/изменение/удаление товаров, загрузка фото,
+      // ИИ-генерация, Studio Pro) требует заголовок Authorization: Bearer <ADMIN_API_KEY>.
+      const isPublicRead = method === 'GET' && (
+        path === '/api/products' || /^\/api\/products\/[^/]+$/.test(path)
+      );
+      if (!isPublicRead) {
+        const authHeader = request.headers.get('Authorization') || '';
+        const expected = 'Bearer ' + (env.ADMIN_API_KEY || '');
+        if (!env.ADMIN_API_KEY || authHeader !== expected) {
+          return json({ ok: false, error: 'Unauthorized' }, 401);
+        }
+      }
+
       // Router
       if (path === '/api/ai/generate-card' && method === 'POST')
         return handleGenerateCard(request, env);
@@ -20,10 +41,18 @@ export default {
         return handleSuggestCategory(request, env);
       if (path === '/api/studio/process' && method === 'POST')
         return handleStudioProcess(request, env);
+      if (path === '/api/studio/enhance' && method === 'POST')
+        return handleStudioEnhance(request, env);
+      if (path === '/api/studio/restore' && method === 'POST')
+        return handleStudioRestore(request, env);
+      if (path === '/api/studio/upscale' && method === 'POST')
+        return handleStudioUpscale(request, env);
       if (path.startsWith('/api/studio/status/') && method === 'GET')
         return handleStudioStatus(path, env);
       if (path === '/api/studio/upload' && method === 'POST')
         return handleStudioUpload(request, env);
+      if (path === '/api/studio/generate-reference' && method === 'POST')
+        return handleGenerateReference(request, env);
       if (path === '/api/products' && method === 'GET')
         return handleGetProducts(env);
       if (path.match(/^\/api\/products\/[^/]+$/) && method === 'GET')
@@ -49,13 +78,21 @@ export default {
   }
 };
 
-// в”Ђв”Ђв”Ђ CORS в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
+// ─── CORS ────────────────────────────────────────────────
 
 function corsHeaders() {
+  const origin = _corsRequest?.headers?.get('Origin');
+  // Chrome: для file:// Origin === "null", нельзя отвечать "*"
+  let allowOrigin = '*';
+  if (origin === 'null') allowOrigin = 'null';
+  else if (origin) allowOrigin = origin;
+
   return {
-    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Origin': allowOrigin,
     'Access-Control-Allow-Methods': 'GET, POST, PUT, PATCH, DELETE, OPTIONS',
-    'Access-Control-Allow-Headers': 'Content-Type'
+    'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+    'Access-Control-Max-Age': '86400',
+    'Vary': 'Origin'
   };
 }
 
@@ -66,7 +103,7 @@ function json(data, status = 200) {
   });
 }
 
-// в”Ђв”Ђв”Ђ NordRouter в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
+// ─── NordRouter ──────────────────────────────────────────
 
 async function nordRequest(endpoint, method, body, env) {
   const opts = {
@@ -78,7 +115,19 @@ async function nordRequest(endpoint, method, body, env) {
   };
   if (body) opts.body = JSON.stringify(body);
   const resp = await fetch('https://nordrouter.com' + endpoint, opts);
-  return resp.json();
+  
+  const responseText = await resp.text();
+  
+  if (!resp.ok) {
+    console.error('[NordRouter] HTTP ERROR', {
+      endpoint,
+      status: resp.status,
+      body: responseText
+    });
+    throw new Error(`NordRouter HTTP ${resp.status}: ${responseText}`);
+  }
+  
+  return JSON.parse(responseText);
 }
 
 async function nordUpload(file, env) {
@@ -92,58 +141,55 @@ async function nordUpload(file, env) {
   return resp.json();
 }
 
-// в”Ђв”Ђв”Ђ AI: Generate Card в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
+// ─── AI: Generate Card ───────────────────────────────────
 
 async function handleGenerateCard(request, env) {
   const { title_hint, price, description, scene, image_url } = await request.json();
 
-  const systemPrompt = `РўС‹ вЂ” РїСЂРѕС„РµСЃСЃРёРѕРЅР°Р»СЊРЅС‹Р№ РєРѕРїРёСЂР°Р№С‚РµСЂ РґР»СЏ РјР°РіР°Р·РёРЅР° РІРѕР·РґСѓС€РЅС‹С… С€Р°СЂРѕРІ Рё РїРѕРґР°СЂРєРѕРІ VigSharm (Рі. РђСЂРјР°РІРёСЂ, Р РѕСЃСЃРёСЏ).
-Р“РµРЅРµСЂРёСЂСѓРµС€СЊ РјРµС‚Р°РґР°РЅРЅС‹Рµ РєР°СЂС‚РѕС‡РєРё С‚РѕРІР°СЂР° РЅР° СЂСѓСЃСЃРєРѕРј СЏР·С‹РєРµ РЅР° РѕСЃРЅРѕРІРµ РїСЂРµРґРѕСЃС‚Р°РІР»РµРЅРЅРѕР№ РёРЅС„РѕСЂРјР°С†РёРё.
-Р’РµСЂРЅРё РўРћР›Р¬РљРћ РІР°Р»РёРґРЅС‹Р№ JSON, Р±РµР· markdown, Р±РµР· РїРѕСЏСЃРЅРµРЅРёР№.
+  const systemPrompt = `Ты — копирайтер каталога VigSharm (воздушные шары, Армавир).
+Пиши коротко, по делу, как в карточке товара. Без маркетинговой воды.
+Верни ТОЛЬКО валидный JSON, без markdown, без пояснений.
 
-РћР±СЏР·Р°С‚РµР»СЊРЅР°СЏ СЃС‚СЂСѓРєС‚СѓСЂР° JSON:
+Обязательная структура JSON:
 {
-  "title": "РљСЂР°С‚РєРѕРµ С†РµРїР»СЏСЋС‰РµРµ РЅР°Р·РІР°РЅРёРµ С‚РѕРІР°СЂР° (РјР°РєСЃ 60 СЃРёРјРІРѕР»РѕРІ)",
-  "article": "РЈРЅРёРєР°Р»СЊРЅС‹Р№ SKU-РєРѕРґ С‚РёРїР° VIGSH-001",
-  "short_description": "РљСЂР°С‚РєРѕРµ РѕРїРёСЃР°РЅРёРµ РґР»СЏ РєР°С‚Р°Р»РѕРіР° (РјР°РєСЃ 120 СЃРёРјРІРѕР»РѕРІ)",
-  "full_description": "РџРѕРґСЂРѕР±РЅРѕРµ РѕРїРёСЃР°РЅРёРµ 2-3 Р°Р±Р·Р°С†Р° СЃ СЌРјРѕС†РёРѕРЅР°Р»СЊРЅС‹Рј РїСЂРёР·С‹РІРѕРј",
-  "composition": ["РЁР°СЂС‹", "Р›РµРЅС‚Р°", "РљРѕСЂРѕР±РєР°", "РћС‚РєСЂС‹С‚РєР°"],
+  "title": "Короткое название товара (2-5 слов, макс 50 символов). Пример: Тёмный рыцарь",
+  "article": "SKU вида VIGSH001",
+  "short_description": "Одно предложение, факты с фото (макс 110 символов)",
+  "full_description": "1-2 коротких предложения: что на фото + для какого повода. Без призывов купить",
+  "composition": ["пункт состава", "пункт состава"],
   "category": "balloons|flowers|gifts|sweets",
-  "character": "neutral|disney|marvel|anime|football|unicorn|bear",
+  "character": "имя персонажа или нейтрально",
   "age_group": "baby|child|teen|adult",
   "occasion": "birthday|wedding|anniversary|graduation|holiday",
   "target_audience": "boy|girl|man|woman|unisex",
-  "seo_title": "SEO-РѕРїС‚РёРјРёР·РёСЂРѕРІР°РЅРЅС‹Р№ Р·Р°РіРѕР»РѕРІРѕРє (РјР°РєСЃ 70 СЃРёРјРІРѕР»РѕРІ)",
-  "seo_description": "SEO РјРµС‚Р°-РѕРїРёСЃР°РЅРёРµ (РјР°РєСЃ 160 СЃРёРјРІРѕР»РѕРІ)",
-  "slug": "url-friendly-slug",
-  "tags": ["С‚РµРі1", "С‚РµРі2", "С‚РµРі3"]
+  "seo_title": "SEO-заголовок без эмодзи (макс 70 символов), можно с «Армавир»",
+  "seo_description": "SEO-описание без эмодзи (макс 155 символов)",
+  "slug": "url-friendly-slug-latin",
+  "tags": ["тег1", "тег2", "тег3"]
 }
 
-Р’РђР–РќР«Р• РџР РђР’РР›Рђ:
-- РљР°С‚РµРіРѕСЂРёСЏ "balloons" РґР»СЏ РєРѕРјРїРѕР·РёС†РёР№ РёР· С€Р°СЂРѕРІ
-- character: РѕРїСЂРµРґРµР»Рё РїРѕ С„РѕС‚Рѕ (marvel РґР»СЏ Spider-Man, football РґР»СЏ С„СѓС‚Р±РѕР»СЊРЅС‹С… РјСЏС‡РµР№, unicorn РґР»СЏ РµРґРёРЅРѕСЂРѕРіРѕРІ Рё С‚.Рґ.)
-- age_group: РѕРїСЂРµРґРµР»Рё РїРѕ СЃС‚РёР»СЋ РєРѕРјРїРѕР·РёС†РёРё (baby РґР»СЏ 1 РіРѕРґРёРє, child РґР»СЏ РґРµС‚СЃРєРёС…, teen РґР»СЏ РїРѕРґСЂРѕСЃС‚РєРѕРІС‹С…, adult РґР»СЏ РІР·СЂРѕСЃР»С‹С…)
-- occasion: РѕРїСЂРµРґРµР»Рё РїРѕРІРѕРґ (birthday РґР»СЏ РґРЅРµР№ СЂРѕР¶РґРµРЅРёСЏ СЃ С†РёС„СЂР°РјРё, wedding РґР»СЏ СЃРІР°РґРµР±РЅС‹С…, holiday РґР»СЏ РїСЂР°Р·РґРЅРёС‡РЅС‹С…)
-- target_audience: РјР°Р»СЊС‡РёРє/РґРµРІРѕС‡РєР° РґР»СЏ РґРµС‚РµР№, РјСѓР¶С‡РёРЅР°/Р¶РµРЅС‰РёРЅР° РґР»СЏ РІР·СЂРѕСЃР»С‹С…, unisex РґР»СЏ РЅРµР№С‚СЂР°Р»СЊРЅС‹С…
-- composition: СЃРїРёСЃРѕРє РєРѕРјРїРѕРЅРµРЅС‚РѕРІ (С€Р°СЂС‹ Р»Р°С‚РµРєСЃРЅС‹Рµ, С€Р°СЂС‹ С„РѕР»СЊРіРёСЂРѕРІР°РЅРЅС‹Рµ, Р»РµРЅС‚Р°, РєРѕСЂРѕР±РєР°-СЃСЋСЂРїСЂРёР·, Р±Р°РЅРЅРµСЂ, РїРѕРґР°СЂРѕРє)
-- slug: С‚СЂР°РЅСЃР»РёС‚РµСЂР°С†РёСЏ РЅР°Р·РІР°РЅРёСЏ Р»Р°С‚РёРЅРёС†РµР№ С‡РµСЂРµР· РґРµС„РёСЃ
-- tags: РґРѕРїРѕР»РЅРёС‚РµР»СЊРЅС‹Рµ С‚РµРіРё РґР»СЏ РїРѕРёСЃРєР° (С†РІРµС‚Р°, С‚РµРјС‹, РїРµСЂСЃРѕРЅР°Р¶Рё)`;
+ПРАВИЛА ТОНА:
+- Как эталон: «Тёмный рыцарь» / «Эффектная напольная композиция с Бэтменом и цифрой с надписью.»
+- НЕ пиши: «очаровательная», «нежная», «яркая эмоция», «заказать сейчас», «подарите радость»
+- НЕ используй эмодзи ни в одном поле
+- Не выдумывай цену
+- composition: только то, что видно на фото (цифра, персонаж, цвета шаров, надпись)
+- Если пользователь дал состав/описание — опирайся на него, не противоречь
+- slug: транслит латиницей через дефис
+- category для шаров: balloons`;
 
-  const userPrompt = `РЎРіРµРЅРµСЂРёСЂСѓР№ РєР°СЂС‚РѕС‡РєСѓ РґР»СЏ РєРѕРјРїРѕР·РёС†РёРё РёР· С€Р°СЂРѕРІ:
-РџРѕРґСЃРєР°Р·РєР° РЅР°Р·РІР°РЅРёСЏ: ${title_hint || 'РЅРµ СѓРєР°Р·Р°РЅРѕ'}
-Р¦РµРЅР°: ${price || 'РЅРµ СѓРєР°Р·Р°РЅР°'} в‚Ѕ
-РћРїРёСЃР°РЅРёРµ: ${description || 'РљРѕРјРїРѕР·РёС†РёСЏ РёР· РІРѕР·РґСѓС€РЅС‹С… С€Р°СЂРѕРІ'}
-РўРёРї СЃС†РµРЅС‹: ${scene || 'standard'}
-${image_url ? 'РР·РѕР±СЂР°Р¶РµРЅРёРµ РїСЂРµРґРѕСЃС‚Р°РІР»РµРЅРѕ РґР»СЏ РІРёР·СѓР°Р»СЊРЅРѕРіРѕ Р°РЅР°Р»РёР·Р°' : ''}`;
+  const userPrompt = `Сгенерируй карточку по данным:
+Подсказка названия: ${title_hint || 'не указано'}
+Цена (не меняй, не выдумывай): ${price || 'не указана'} ₽
+Состав / детали от пользователя: ${description || 'не указано'}
+Тип сцены: ${scene || 'floor'}
+${image_url ? 'Фото приложено — опиши только то, что видно.' : ''}`;
 
-  // Р—Р°РїСЂРѕСЃ Рє NordRouter GPT-4o (СЃ vision РµСЃР»Рё РµСЃС‚СЊ image_url)
   const messages = [
     { role: 'system', content: systemPrompt },
     { role: 'user', content: userPrompt }
   ];
   
-  // Р•СЃР»Рё РµСЃС‚СЊ РёР·РѕР±СЂР°Р¶РµРЅРёРµ, РґРѕР±Р°РІР»СЏРµРј РµРіРѕ РґР»СЏ Р°РЅР°Р»РёР·Р°
-  // Claude Sonnet 5 supports vision - добавляем изображение для анализа
   if (image_url) {
     messages[1].content = [
       { type: 'text', text: userPrompt },
@@ -154,32 +200,55 @@ ${image_url ? 'РР·РѕР±СЂР°Р¶РµРЅРёРµ РїСЂРµРґРѕ
   const aiResp = await nordRequest('/v1/chat/completions', 'POST', {
     model: 'claude-sonnet-5',
     messages,
-    temperature: 0.7,
+    temperature: 0.35,
     response_format: { type: 'json_object' }
   }, env);
 
-  // РџСЂРѕРІРµСЂСЏРµРј РѕС€РёР±РєРё РѕС‚ NordRouter API
   if (aiResp.error) {
     console.error('NordRouter API error:', aiResp.error);
-    return json({ ok: false, error: 'NordRouter API РѕС€РёР±РєР°: ' + (aiResp.error.message || JSON.stringify(aiResp.error)) });
+    return json({ ok: false, error: 'NordRouter API ошибка: ' + (aiResp.error.message || JSON.stringify(aiResp.error)) });
   }
 
   const text = aiResp.choices?.[0]?.message?.content || '';
   if (!text) {
-    return json({ ok: false, error: 'AI РЅРµ РІРµСЂРЅСѓР» РѕС‚РІРµС‚' });
+    return json({ ok: false, error: 'AI не вернул ответ' });
   }
 
   let data;
   try {
     data = JSON.parse(text);
   } catch {
-    return json({ ok: false, error: 'AI РІРµСЂРЅСѓР» РЅРµРєРѕСЂСЂРµРєС‚РЅС‹Р№ JSON: ' + text.slice(0, 200) });
+    return json({ ok: false, error: 'AI вернул некорректный JSON: ' + text.slice(0, 200) });
   }
 
+  data = sanitizeCardMetadata(data);
   return json({ ok: true, data });
 }
 
-// в”Ђв”Ђв”Ђ AI: Suggest Category в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
+/** Убрать эмодзи и лишние пробелы из текстовых полей карточки */
+function sanitizeCardMetadata(data) {
+  const stripEmoji = (s) => String(s || '')
+    .replace(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\u{FE0F}\u{200D}]/gu, '')
+    .replace(/\s{2,}/g, ' ')
+    .trim();
+
+  const fields = [
+    'title', 'short_description', 'full_description',
+    'seo_title', 'seo_description', 'character', 'slug', 'article'
+  ];
+  for (const key of fields) {
+    if (data[key] != null) data[key] = stripEmoji(data[key]);
+  }
+  if (Array.isArray(data.composition)) {
+    data.composition = data.composition.map(stripEmoji).filter(Boolean);
+  }
+  if (Array.isArray(data.tags)) {
+    data.tags = data.tags.map(stripEmoji).filter(Boolean);
+  }
+  return data;
+}
+
+// ─── AI: Suggest Category ────────────────────────────────
 
 async function handleSuggestCategory(request, env) {
   const { description, title } = await request.json();
@@ -189,19 +258,19 @@ async function handleSuggestCategory(request, env) {
     messages: [
       {
         role: 'system',
-        content: `РћРїСЂРµРґРµР»Рё РєР°С‚РµРіРѕСЂРёСЋ Рё С‚РµРіРё РґР»СЏ РєР°СЂС‚РѕС‡РєРё С‚РѕРІР°СЂР° РјР°РіР°Р·РёРЅР° С€Р°СЂРѕРІ.
-Р’РµСЂРЅРё РўРћР›Р¬РљРћ JSON: { "category": "...", "tags": ["..."] }
-РљР°С‚РµРіРѕСЂРёРё: Р”Р»СЏ РґРµРІРѕС‡РєРё, Р”Р»СЏ РјР°Р»СЊС‡РёРєР°, Р”Р»СЏ РЅРµС‘, Р”Р»СЏ РјР°РјС‹, Р”Р»СЏ РЅРµРіРѕ, Р“РµР№РјРµСЂР°Рј, Р®Р±РёР»РµР№, 1 РіРѕРґРёРє, РљСЂРµС‰РµРЅРёРµ, Р“РµРЅРґРµСЂ-РїР°С‚Рё, РќР° РІС‹РїРёСЃРєСѓ, РЎРІР°РґСЊР±Р° Рё РґРµРІРёС‡РЅРёРє, Р’С‹РїСѓСЃРєРЅРѕР№, РќРѕРІС‹Р№ РіРѕРґ, 14 С„РµРІСЂР°Р»СЏ, 23 С„РµРІСЂР°Р»СЏ, 8 РјР°СЂС‚Р°, 1 СЃРµРЅС‚СЏР±СЂСЏ, Р¤РёРіСѓСЂС‹ РёР· С€Р°СЂРѕРІ, РќР°РїРѕР»СЊРЅС‹Рµ РєРѕРјРїРѕР·РёС†РёРё, Р‘СѓРєРµС‚ РёР· С€Р°СЂРѕРІ, Р¦РІРµС‚С‹ РёР· С€Р°СЂРѕРІ, РљСЂР°С„С‚РѕРІС‹Р№ Р±СѓРєРµС‚, РЁР°СЂ-СЃСЋСЂРїСЂРёР·, РљРѕСЂРѕР±РєР°-СЃСЋСЂРїСЂРёР·, Р¤РѕС‚РѕР·РѕРЅР°, РђСЂРєР° РёР· С€Р°СЂРѕРІ, РЁР°СЂС‹ РїРѕС€С‚СѓС‡РЅРѕ.`
+        content: `Определи категорию и теги для карточки товара магазина шаров.
+Верни ТОЛЬКО JSON: { "category": "...", "tags": ["..."] }
+Категории: Для девочки, Для мальчика, Для неё, Для мамы, Для него, Геймерам, Юбилей, 1 годик, Крещение, Гендер-пати, На выписку, Свадьба и девичник, Выпускной, Новый год, 14 февраля, 23 февраля, 8 марта, 1 сентября, Фигуры из шаров, Напольные композиции, Букет из шаров, Цветы из шаров, Крафтовый букет, Шар-сюрприз, Коробка-сюрприз, Фотозона, Арка из шаров, Шары поштучно.`
       },
-      { role: 'user', content: `РќР°Р·РІР°РЅРёРµ: ${title}\nРћРїРёСЃР°РЅРёРµ: ${description}` }
+      { role: 'user', content: `Название: ${title}\nОписание: ${description}` }
     ],
     temperature: 0.2
   }, env);
 
-  // РџСЂРѕРІРµСЂСЏРµРј РѕС€РёР±РєРё РѕС‚ NordRouter API
+  // Проверяем ошибки от NordRouter API
   if (aiResp.error) {
     console.error('NordRouter API error:', aiResp.error);
-    return json({ ok: false, error: 'NordRouter API РѕС€РёР±РєР°: ' + (aiResp.error.message || JSON.stringify(aiResp.error)) });
+    return json({ ok: false, error: 'NordRouter API ошибка: ' + (aiResp.error.message || JSON.stringify(aiResp.error)) });
   }
 
   const text = aiResp.choices?.[0]?.message?.content || '';
@@ -214,61 +283,11 @@ async function handleSuggestCategory(request, env) {
   }
 }
 
-// в”Ђв”Ђв”Ђ Studio Pro: Process в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
-
-const STUDIO_PROMPTS = {
-  floor: `Р Р•Р–РРњ: РќР°РїРѕР»СЊРЅР°СЏ РєРѕРјРїРѕР·РёС†РёСЏ (РїРѕР»РЅР°СЏ СЃС†РµРЅР° РґР»СЏ С„РѕС‚РѕР·РѕРЅ Рё Р±СѓРєРµС‚РѕРІ РёР· С€Р°СЂРѕРІ)
-
-Р­РўРђР›РћРќРќР«Р™ Р¤РћРќ VIGSHARM:
-- РЎС‚РµРЅР°: СЃРІРµС‚Р»Р°СЏ С‚С‘РїР»Р°СЏ beige-grey (Р±РµР¶РµРІРѕ-СЃРµСЂР°СЏ) СЃ РјСЏРіРєРѕР№ С€С‚СѓРєР°С‚СѓСЂРЅРѕР№ С‚РµРєСЃС‚СѓСЂРѕР№
-- РџР»РёРЅС‚СѓСЃ: Р±РµР»С‹Р№ РґРµРєРѕСЂР°С‚РёРІРЅС‹Р№
-- РџРѕР»: СЃРІРµС‚Р»С‹Р№ oak (РґСѓР±РѕРІС‹Р№) Р»Р°РјРёРЅР°С‚ СЃ РІРёРґРёРјРѕР№ С‚РµРєСЃС‚СѓСЂРѕР№ РґРµСЂРµРІР°
-- Р§РёСЃС‚Р°СЏ СЃС‚СѓРґРёСЏ Р±РµР· Р»РёС€РЅРёС… РїСЂРµРґРјРµС‚РѕРІ Рё РґРµРєРѕСЂР°
-
-Р’РђР–РќРћ: РњСЏРіРєРёРµ РЅР°С‚СѓСЂР°Р»СЊРЅС‹Рµ С‚РµРЅРё РѕС‚ С€Р°СЂРѕРІ. РЎС‚СѓРґРёР№РЅРѕРµ РѕСЃРІРµС‰РµРЅРёРµ Р±РµР· Р¶РµР»С‚РёР·РЅС‹.
-РЈРґР°Р»РёС‚СЊ РІСЃРµ Р»РѕРіРѕС‚РёРїС‹ РјР°РіР°Р·РёРЅРѕРІ (sharomem.ru, sharomen.ru) Рё РІРѕРґСЏРЅС‹Рµ Р·РЅР°РєРё.
-РЎРѕС…СЂР°РЅРёС‚СЊ РґРёР·Р°Р№РЅ С€Р°СЂРѕРІ (Marvel, С„СѓС‚Р±РѕР»СЊРЅС‹Рµ РјСЏС‡Рё, РїСЂРёРЅС‚С‹).`,
-
-  wall_only: `Р Р•Р–РРњ: РўРѕР»СЊРєРѕ СЃС‚РµРЅР° (РґР»СЏ Р±СѓРєРµС‚РѕРІ РёР· С€Р°СЂРѕРІ Р±РµР· РїРѕР»Р°)
-
-РЎРўР РћР–РђР™РЁРР™ Р—РђРџР Р•Рў РїРѕР»Р°, РїР»РёРЅС‚СѓСЃР°, Р»Р°РјРёРЅР°С‚Р°!
-РўРѕР»СЊРєРѕ СЃРІРµС‚Р»Р°СЏ Р±РµР¶РµРІРѕ-СЃРµСЂР°СЏ С‚РµРєСЃС‚СѓСЂРЅР°СЏ С€С‚СѓРєР°С‚СѓСЂРЅР°СЏ СЃС‚РµРЅР° СЃ РјСЏРіРєРёРј РіСЂР°РґРёРµРЅС‚РѕРј.
-
-Р’РђР–РќРћ: РќР• РґРѕР±Р°РІР»СЏС‚СЊ РїРѕР» РґР°Р¶Рµ РµСЃР»Рё РµРіРѕ РЅРµС‚ РЅР° РѕСЂРёРіРёРЅР°Р»Рµ.
-РЈРґР°Р»РёС‚СЊ Р»РѕРіРѕС‚РёРїС‹ РјР°РіР°Р·РёРЅРѕРІ Рё РІРѕРґСЏРЅС‹Рµ Р·РЅР°РєРё.
-РЎРѕС…СЂР°РЅРёС‚СЊ РґРёР·Р°Р№РЅ С€Р°СЂРѕРІ.`,
-
-  photozone: `Р Р•Р–РРњ: Р¤РѕС‚РѕР·РѕРЅР° (РїРѕР»РЅС‹Р№ РёРЅС‚РµСЂСЊРµСЂ РґР»СЏ РєРѕРјРїРѕР·РёС†РёР№ РёР· С€Р°СЂРѕРІ)
-
-РџРѕР»РЅР°СЏ СѓРіР»РѕРІР°СЏ СЃС†РµРЅР°:
-- Р‘РµР¶РµРІРѕ-СЃРµСЂР°СЏ СЃС‚РµРЅР° СЃ РјСЏРіРєРѕР№ С‚РµРєСЃС‚СѓСЂРѕР№ (СѓРіРѕР» РїРѕРјРµС‰РµРЅРёСЏ)
-- Р‘РµР»С‹Р№ РґРµРєРѕСЂР°С‚РёРІРЅС‹Р№ РїР»РёРЅС‚СѓСЃ
-- РЎРІРµС‚Р»С‹Р№ РґСѓР±РѕРІС‹Р№ Р»Р°РјРёРЅР°С‚ СЃ С‚РµРєСЃС‚СѓСЂРѕР№ РґРµСЂРµРІР°
-
-Р’РђР–РќРћ: РќР• РїРµСЂРµРґРµР»С‹РІР°С‚СЊ С„РѕС‚РѕР·РѕРЅСѓ. РЎРѕС…СЂР°РЅРёС‚СЊ Р’РЎР• СЌР»РµРјРµРЅС‚С‹ РєРѕРЅСЃС‚СЂСѓРєС†РёРё С€Р°СЂРѕРІ.
-РЈРґР°Р»РёС‚СЊ Р»РѕРіРѕС‚РёРїС‹ РјР°РіР°Р·РёРЅРѕРІ (sharomem.ru) СЃ Р±Р°РЅРЅРµСЂРѕРІ Рё РєРѕСЂРѕР±РѕРє.
-РЎРѕС…СЂР°РЅРёС‚СЊ С†РёС„СЂС‹-С€Р°СЂС‹, РїРµСЂСЃРѕРЅР°Р¶РµР№ Рё РґРёР·Р°Р№РЅ С€Р°СЂРѕРІ.`,
-
-  unit_balloon: `Р Р•Р–РРњ: РћРґРёРЅ С€Р°СЂ (СЃС‚СѓРґРёР№РЅРѕРµ С„РѕС‚Рѕ)
-
-Р§РёСЃС‚С‹Р№ СЃРІРµС‚Р»С‹Р№ Р±РµР¶РµРІРѕ-СЃРµСЂС‹Р№ С„РѕРЅ Р±РµР· С‚РµРєСЃС‚СѓСЂ.
-РЈР±СЂР°С‚СЊ РІРѕРґСЏРЅС‹Рµ Р·РЅР°РєРё/Р»РѕРіРѕС‚РёРїС‹ РїРѕСЃС‚Р°РІС‰РёРєРѕРІ (sharomem.ru, sharomen.ru).
-РџСЂРёРЅС‚С‹ РЅР° С€Р°СЂР°С… (Marvel, Spider-Man, С„СѓС‚Р±РѕР»СЊРЅС‹Рµ РјСЏС‡Рё) РќР• С‚СЂРѕРіР°С‚СЊ.
-
-Р’РђР–РќРћ: РќР• РјРµРЅСЏС‚СЊ С„РѕСЂРјСѓ С€Р°СЂР°. РќР• РґРѕР±Р°РІР»СЏС‚СЊ РґРѕРїРѕР»РЅРёС‚РµР»СЊРЅС‹Рµ СЌР»РµРјРµРЅС‚С‹.`,
-
-  handheld_bouquet: `Р Р•Р–РРњ: Р‘СѓРєРµС‚ РёР· С€Р°СЂРѕРІ РІ СЂСѓРєР°С…
-
-РЎРІРµС‚Р»Р°СЏ Р±РµР¶РµРІРѕ-СЃРµСЂР°СЏ С‚РµРєСЃС‚СѓСЂРЅР°СЏ СЃС‚РµРЅР°.
-РќР• РїРѕРєР°Р·С‹РІР°С‚СЊ РїРѕР».
-РќР• РїСЂРµРІСЂР°С‰Р°С‚СЊ РІ РЅР°РїРѕР»СЊРЅСѓСЋ РєРѕРјРїРѕР·РёС†РёСЋ.
-
-РЈРґР°Р»РёС‚СЊ Р»РѕРіРѕС‚РёРїС‹ РјР°РіР°Р·РёРЅРѕРІ.
-РЎРѕС…СЂР°РЅРёС‚СЊ РґРёР·Р°Р№РЅ С€Р°СЂРѕРІ Рё РєРѕРјРїРѕР·РёС†РёСЋ.`
-};
+// ─── Studio Pro: Process (NEW FLOW - Remove BG + Canvas) ───────────────────
 
 async function handleStudioProcess(request, env) {
   const { image_url, scene, prompt: userPrompt } = await request.json();
+  
   // Validation: accept both data:image/... and https:// URLs
   if (!image_url) {
     return json({ ok: false, error: 'Missing image_url parameter' }, 400);
@@ -284,144 +303,23 @@ async function handleStudioProcess(request, env) {
     }, 400);
   }
   
-  console.log('[Studio Pro] Input image type:', isDataUrl ? 'data-url' : 'cloudinary-url');
-  console.log('[Studio Pro] Input image URL:', isHttpsUrl ? image_url : `${image_url.substring(0, 50)}...`);
-  console.log('[Studio Pro] Scene:', scene);
-
-
-  const basePrompt = STUDIO_PROMPTS[scene] || STUDIO_PROMPTS.floor;
+  console.log('[Studio Pro NEW] ====== NEW REMOVE BG FLOW ======');
+  console.log('[Studio Pro NEW] Input image type:', isDataUrl ? 'data-url' : 'cloudinary-url');
+  console.log('[Studio Pro NEW] Input image URL:', isHttpsUrl ? image_url : `${image_url.substring(0, 50)}...`);
+  console.log('[Studio Pro NEW] Scene:', scene);
   
-  // Р‘Р°Р·РѕРІС‹Рµ РїСЂР°РІРёР»Р° (РїСЂРёРјРµРЅСЏСЋС‚СЃСЏ Р’РЎР•Р“Р”Рђ)
-  const coreRules = `РџСЂРѕС„РµСЃСЃРёРѕРЅР°Р»СЊРЅР°СЏ СЂРµС‚СѓС€СЊ С„РѕС‚Рѕ РґР»СЏ РєР°С‚Р°Р»РѕРіР° С€Р°СЂРѕРІ VigSharm.
-
-РђР‘РЎРћР›Р®РўРќР«Р• РџР РђР’РР›Рђ (РќРђР РЈРЁР•РќРР• РќР•Р”РћРџРЈРЎРўРРњРћ):
-
-1. РўРћР’РђР  РќР•РР—РњР•РќР•Рќ:
-   - РљРѕР»РёС‡РµСЃС‚РІРѕ СЌР»РµРјРµРЅС‚РѕРІ (С€Р°СЂРѕРІ, С†РІРµС‚РѕРІ) - РЎРўР РћР“Рћ РєР°Рє РЅР° РѕСЂРёРіРёРЅР°Р»Рµ
-   - Р¦РІРµС‚Р° - РЎРўР РћР“Рћ РєР°Рє РЅР° РѕСЂРёРіРёРЅР°Р»Рµ
-   - Р¤РѕСЂРјР°, СЂР°Р·РјРµСЂ, РїСЂРѕРїРѕСЂС†РёРё - РЎРўР РћР“Рћ РєР°Рє РЅР° РѕСЂРёРіРёРЅР°Р»Рµ
-   - РќР°РґРїРёСЃРё, С†РёС„СЂС‹, Р±СѓРєРІС‹ РќРђ РЁРђР РђРҐ - РЎРўР РћР“Рћ РєР°Рє РЅР° РѕСЂРёРіРёРЅР°Р»Рµ (Marvel, РїСЂРёРЅС‚С‹, РїРµСЂСЃРѕРЅР°Р¶Рё)
-   - РџРµСЂСЃРѕРЅР°Р¶Рё, С„РёРіСѓСЂС‹ - РЎРўР РћР“Рћ РєР°Рє РЅР° РѕСЂРёРіРёРЅР°Р»Рµ
-   - РљРѕРјРїРѕР·РёС†РёСЏ, СЂР°СЃРїРѕР»РѕР¶РµРЅРёРµ - РЎРўР РћР“Рћ РєР°Рє РЅР° РѕСЂРёРіРёРЅР°Р»Рµ
-
-2. РћР‘РЇР—РђРўР•Р›Р¬РќРћ РЈР”РђР›РРўР¬:
-   - Р›РѕРіРѕС‚РёРїС‹ РјР°РіР°Р·РёРЅРѕРІ Рё РїРѕСЃС‚Р°РІС‰РёРєРѕРІ (sharomem.ru, sharomen.ru Рё РїРѕРґРѕР±РЅС‹Рµ)
-   - Р’РѕРґСЏРЅС‹Рµ Р·РЅР°РєРё СЃ С‚РµРєСЃС‚РѕРј/URL
-   - РљРѕРЅС‚Р°РєС‚РЅСѓСЋ РёРЅС„РѕСЂРјР°С†РёСЋ РЅР° С„РѕС‚Рѕ
-   - Р§СѓР¶РёРµ РЅР°РґРїРёСЃРё "РЎ Р”РЅС‘Рј Р РѕР¶РґРµРЅРёСЏ" СЃ РёРјРµРЅР°РјРё РЅР° Р±Р°РЅРЅРµСЂР°С…/РєРѕСЂРѕР±РєР°С… (РµСЃР»Рё СЌС‚Рѕ РќР• С‡Р°СЃС‚СЊ С€Р°СЂР°)
-   
-   РќРћ РЎРћРҐР РђРќРРўР¬:
-   - Р”РёР·Р°Р№РЅ С€Р°СЂРѕРІ (Marvel, С„СѓС‚Р±РѕР»СЊРЅС‹Рµ РјСЏС‡Рё, Р·РІС‘Р·РґРѕС‡РєРё)
-   - РџСЂРёРЅС‚С‹ Рё СЂРёСЃСѓРЅРєРё РЅР° С€Р°СЂР°С…
-   - Р¦РёС„СЂС‹-С€Р°СЂС‹
-   - РџРµСЂСЃРѕРЅР°Р¶РµР№ РёР· С€Р°СЂРѕРІ
-
-3. Р—РђРџР Р•Р©Р•РќРћ:
-   - Р”РѕР±Р°РІР»СЏС‚СЊ СЌР»РµРјРµРЅС‚С‹ РєРѕС‚РѕСЂС‹С… РЅРµС‚ РЅР° РѕСЂРёРіРёРЅР°Р»Рµ
-   - РЈРґР°Р»СЏС‚СЊ С€Р°СЂС‹/СЌР»РµРјРµРЅС‚С‹ РєРѕРјРїРѕР·РёС†РёРё
-   - РњРµРЅСЏС‚СЊ РєРѕР»РёС‡РµСЃС‚РІРѕ СЌР»РµРјРµРЅС‚РѕРІ
-   - РњРµРЅСЏС‚СЊ С†РІРµС‚Р° С€Р°СЂРѕРІ
-   - РР·РјРµРЅСЏС‚СЊ РєРѕРјРїРѕР·РёС†РёСЋ
-   - Р Р°СЃС‚СЏРіРёРІР°С‚СЊ/РґРµС„РѕСЂРјРёСЂРѕРІР°С‚СЊ РѕР±СЉРµРєС‚С‹
-   - РћР±СЂРµР·Р°РЅРЅРѕРµ РќР• РґРѕСЂРёСЃРѕРІС‹РІР°С‚СЊ
-
-4. Р РђР—Р Р•РЁР•РќРћ РњР•РќРЇРўР¬ РўРћР›Р¬РљРћ:
-   - Р¤РѕРЅ (СЃС‚РµРЅР°, РїРѕР») СЃРѕРіР»Р°СЃРЅРѕ РІС‹Р±СЂР°РЅРЅРѕРјСѓ СЂРµР¶РёРјСѓ
-   - РЈРґР°Р»СЏС‚СЊ Р»РѕРіРѕС‚РёРїС‹/РІРѕРґСЏРЅС‹Рµ Р·РЅР°РєРё РјР°РіР°Р·РёРЅРѕРІ
-   - РћСЃРІРµС‰РµРЅРёРµ (РјСЏРіРєРѕРµ, РµСЃС‚РµСЃС‚РІРµРЅРЅРѕРµ)
-   - Р¦РІРµС‚РѕРІРѕР№ Р±Р°Р»Р°РЅСЃ (РЅРµР№С‚СЂР°Р»СЊРЅС‹Р№, Р±РµР· Р¶РµР»С‚РёР·РЅС‹)
-
-5. РљРђР§Р•РЎРўР’Рћ:
-   - Р¤РѕС‚РѕРіСЂР°С„РёСЏ РґРѕР»Р¶РЅР° РІС‹РіР»СЏРґРµС‚СЊ Р Р•РђР›Р¬РќРћ, Р° РќР• РєР°Рє 3D render
-   - Р‘РµР· РїР»Р°СЃС‚РёРєРѕРІРѕРіРѕ РіР»СЏРЅС†Р°
-   - Р“Р»СЏРЅРµС† С€Р°СЂРѕРІ РµСЃС‚РµСЃС‚РІРµРЅРЅС‹Р№ (РЅРµ СЃС‚РµРєР»Рѕ/РїР»Р°СЃС‚РёРє)
-   - РўРµРЅРё РјСЏРіРєРёРµ, РµСЃС‚РµСЃС‚РІРµРЅРЅС‹Рµ, Р±РµР· 3D-СЂРµРЅРґРµСЂР°
-   - Р¤РѕСЂРјР°С‚: РєРІР°РґСЂР°С‚ РёР»Рё Р±Р»РёР·РєРёР№ Рє РєРІР°РґСЂР°С‚Сѓ
-   - РќР• РѕР±СЂРµР·Р°С‚СЊ С‚РѕРІР°СЂ`;
-
-  const fullPrompt = `${coreRules}
-
-${basePrompt}${userPrompt ? '\n\nР”РћРџРћР›РќРРўР•Р›Р¬РќРћ: ' + userPrompt : ''}`;
-
-  // РРЎРџР РђР’Р›Р•РќРР•: РСЃРїРѕР»СЊР·СѓРµРј vision API С‡РµСЂРµР· chat completions СЃ multimodal content
-  // Р’РјРµСЃС‚Рѕ /media/generate РёСЃРїРѕР»СЊР·СѓРµРј /v1/chat/completions СЃ РїСЂР°РІРёР»СЊРЅРѕР№ СЃС‚СЂСѓРєС‚СѓСЂРѕР№
-  // Р¨Р°Рі 1: РРЅР°Р»РёР· РёР·РѕР±СЂР°Р¶РµРЅРёСЏ С‡РµСЂРµР· vision API
-  console.log('[Studio Pro] Sending to Vision API (Step 1/2)');
-  console.log('[Studio Pro] Model: claude-sonnet-5');
-  console.log('[Studio Pro] Image URL type:', isHttpsUrl ? 'Cloudinary HTTPS URL' : 'data:image base64');
-
-  const aiResp = await nordRequest('/v1/chat/completions', 'POST', {
-    model: 'claude-sonnet-5',
-    messages: [
-      {
-        role: 'user',
-        content: [
-          {
-            type: 'text',
-            text: fullPrompt
-          },
-          {
-            type: 'image_url',
-            image_url: {
-              url: image_url
-            }
-          }
-        ]
-      }
-    ],
-    max_tokens: 4096
-  }, env);
-
-  console.log('Studio Pro: AI response received', {
-    has_choices: !!aiResp.choices,
-    choice_count: aiResp.choices?.length
-  });
-
-  if (!aiResp.choices || aiResp.choices.length === 0) {
-    return json({ 
-      ok: false, 
-      error: 'NordRouter РЅРµ РІРµСЂРЅСѓР» СЂРµР·СѓР»СЊС‚Р°С‚: ' + JSON.stringify(aiResp) 
-    }, 500);
-  }
-
-  const analysisText = aiResp.choices[0].message.content;
-  console.log('Vision analysis (first 500 chars):', analysisText.substring(0, 500));
+  // NEW FLOW: Remove background only, no AI editing
+  console.log('[Studio Pro NEW] Sending Remove BG request');
+  console.log('[Studio Pro NEW] Model: image/recraft-remove-bg');
   
-  // Р¨Р°Рі 2: Р"РµРЅРµСЂР°С†РёСЏ СѓР»СѓС‡С€РµРЅРЅРѕРіРѕ РёР·РѕР±СЂР°Р¶РµРЅРёСЏ С‡РµСЂРµР· /media/generate
-  const simplePrompt = `Professional product photography retouching for balloon catalog.
-
-KEEP UNCHANGED:
-- All balloons, their colors, numbers, and designs (Marvel characters, football patterns, etc.)
-- All text and prints on balloons
-- Product composition and arrangement
-- Quantity of items
-
-REMOVE:
-- Store logos and watermarks (sharomem.ru, sharomen.ru, etc.)
-- Contact information
-- Background text that is not part of balloons
-
-IMPROVE:
-- ${scene === 'wall' ? 'Change background to clean white wall' : scene === 'floor' ? 'Change background to clean white floor and wall' : 'Change to neutral studio background'}
-- Natural lighting
-- Professional color balance
-
-Keep it realistic, not 3D render. Natural balloon shine, soft shadows.${userPrompt ? '\n\nAdditional: ' + userPrompt : ''}`;
-  
-  console.log('[Studio Pro] Sending ONE AI request to image generation (Step 2/2)');
-  console.log('[Studio Pro] Model: image/nano-banana-edit');
-  console.log('[Studio Pro] Image URL passed to model:', isHttpsUrl ? image_url : `data:image/... (${image_url.length} chars)`);
-
   const generateResp = await nordRequest('/media/generate', 'POST', {
-    model: 'image/nano-banana-edit',
+    model: 'image/recraft-remove-bg',
     input: {
-      prompt: simplePrompt,
-      image: image_url,
-      scene: scene || 'wall_floor'
+      image: image_url
     }
   }, env);
 
-  console.log('Studio Pro: Generation started', {
+  console.log('[Studio Pro NEW] Remove BG job started', {
     job_id: generateResp.id,
     model: generateResp.model
   });
@@ -429,62 +327,346 @@ Keep it realistic, not 3D render. Natural balloon shine, soft shadows.${userProm
   if (generateResp.error) {
     return json({ 
       ok: false, 
-      error: 'РћС€РёР±РєР° РіРµРЅРµСЂР°С†РёРё: ' + (generateResp.error.message || JSON.stringify(generateResp.error))
+      error: 'Ошибка Remove BG: ' + (generateResp.error.message || JSON.stringify(generateResp.error))
     }, 500);
   }
 
   if (!generateResp.id) {
     return json({ 
       ok: false, 
-      error: 'NordRouter РЅРµ РІРµСЂРЅСѓР» job_id: ' + JSON.stringify(generateResp)
+      error: 'NordRouter не вернул job_id: ' + JSON.stringify(generateResp)
     }, 500);
   }
-  console.log('[Studio Pro] ✅ AI request completed successfully');
-  console.log('[Studio Pro] Job ID:', generateResp.id);
-
+  
+  console.log('[Studio Pro NEW] ? Remove BG job created:', generateResp.id);
+  console.log('[Studio Pro NEW] ? Returning job_id to frontend:', generateResp.id);
   
   return json({ 
     ok: true, 
     job_id: generateResp.id, 
-    status: 'processing'
+    status: 'processing',
+    scene: scene
   });
 }
 
-// в”Ђв”Ђв”Ђ Studio Pro: Status в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
+// ─── Studio Pro: Enhance (AI «как снято в студии») ───────
+
+function buildEnhancePrompt(scene) {
+  const base = `Rephotograph this VigSharm balloon product in the studio room — make it look like ONE real catalog photo taken in this space, not a cutout pasted on top.
+
+The product is ALREADY placed correctly. Do NOT move, resize, or recompose it.
+
+KEEP STRICTLY IDENTICAL:
+- Every balloon: exact colors, counts, shapes, foil prints, text, numbers, names, characters
+- Product arrangement and composition — pixel-accurate
+- Room layout (wall, baseboard, laminate) — same geometry
+
+REPHOTOGRAPH / INTEGRATE:
+- Remove cutout halo, white fringe, hard sticker edges
+- Match product lighting to soft daylight in the room (reduce harsh studio HDR on foil balloons)
+- Real contact shadows where balloons meet floor/wall — soft ambient occlusion under each sphere
+- Subtle bounce light from floor onto the bottom of the product
+- Natural edge blending so the product feels physically in the room
+
+Do NOT reposition to fix floating. Do NOT redesign the product. No plastic 3D render. No full background replacement.`;
+
+  if (scene === 'handheld_bouquet') {
+    return `${base}
+
+SCENE: wall only (no floor). If needed, add one natural adult hand holding ribbons from below — do not cover balloons. Soft wall contact shadow.`;
+  }
+
+  if (scene === 'wall_only' || scene === 'unit_balloon') {
+    return `${base}
+
+SCENE: wall only. Soft natural shadow of the product on the wall plane behind it.`;
+  }
+
+  if (scene === 'photozone') {
+    return `${base}
+
+SCENE: large photozone on laminate near baseboard. Contact shadow under the base. Keep full structure.`;
+  }
+
+  return `${base}
+
+SCENE: floor composition on laminate near baseboard. Medium contact shadow under balloon cluster on the floor — not a flat oval, but shadows where spheres touch the surface.`;
+}
+
+async function handleStudioEnhance(request, env) {
+  const { image_url, scene = 'floor', resolution = '2K' } = await request.json();
+
+  if (!image_url) {
+    return json({ ok: false, error: 'Missing image_url' }, 400);
+  }
+
+  const isDataUrl = String(image_url).startsWith('data:image/');
+  const isHttpsUrl = String(image_url).startsWith('https://');
+  if (!isDataUrl && !isHttpsUrl) {
+    return json({ ok: false, error: 'Invalid image_url' }, 400);
+  }
+
+  const prompt = buildEnhancePrompt(scene);
+  const res = ['1K', '2K', '4K'].includes(resolution) ? resolution : '2K';
+
+  // Models that accept resolution → try 2K first for catalog sharpness
+  const enhanceAttempts = [
+    { model: 'image/gpt-image-2-edit', input: { prompt, image: image_url, aspect_ratio: '1:1', resolution: res } },
+    { model: 'image/flux2-pro-edit', input: { prompt, image: image_url, aspect_ratio: '1:1', resolution: res === '4K' ? '2K' : res } },
+    { model: 'image/gpt-image-2-edit', input: { prompt, image: image_url } },
+    { model: 'image/nano-banana-pro', input: { prompt, image: image_url } },
+    { model: 'image/nano-banana-edit', input: { prompt, image: image_url } }
+  ];
+
+  let generateResp = null;
+  for (const attempt of enhanceAttempts) {
+    console.log('[Studio Enhance] scene=', scene, 'try model=', attempt.model, 'input keys=', Object.keys(attempt.input));
+    generateResp = await nordRequest('/media/generate', 'POST', {
+      model: attempt.model,
+      input: attempt.input
+    }, env);
+
+    if (!generateResp.error && generateResp.id) {
+      console.log('[Studio Enhance] using model=', attempt.model, 'job_id=', generateResp.id);
+      break;
+    }
+    console.warn('[Studio Enhance] model failed:', attempt.model, generateResp.error || generateResp);
+  }
+
+  if (generateResp.error) {
+    return json({
+      ok: false,
+      error: 'Ошибка AI-доводки: ' + (generateResp.error.message || JSON.stringify(generateResp.error))
+    }, 500);
+  }
+
+  if (!generateResp.id) {
+    return json({ ok: false, error: 'NordRouter не вернул job_id: ' + JSON.stringify(generateResp) }, 500);
+  }
+
+  console.log('[Studio Enhance] job_id=', generateResp.id);
+  return json({ ok: true, job_id: generateResp.id, status: 'processing', scene, resolution: res });
+}
+
+/** Restore phone photo: exposure, noise, mild sharpen — keep product identical */
+async function handleStudioRestore(request, env) {
+  const { image_url, resolution = '2K' } = await request.json();
+
+  if (!image_url) {
+    return json({ ok: false, error: 'Missing image_url' }, 400);
+  }
+
+  const prompt = `Professional product photo restore for e-commerce balloons catalog.
+
+Fix a phone photo taken in poor lighting:
+- Correct exposure and white balance (neutral, not yellow)
+- Reduce noise and compression artifacts
+- Mild sharpening, recover detail in foil prints and latex texture
+- Keep the REAL product: same balloons, colors, counts, shapes, text, numbers, characters
+- Do NOT change composition, background content, or add objects
+- Do NOT restyle as CGI or plastic render
+- Output a clean, sharp catalog-ready source photo`;
+
+  const res = ['1K', '2K', '4K'].includes(resolution) ? resolution : '2K';
+  const attempts = [
+    { model: 'image/gpt-image-2-edit', input: { prompt, image: image_url, resolution: res } },
+    { model: 'image/gpt-image-2-edit', input: { prompt, image: image_url } },
+    { model: 'image/nano-banana-edit', input: { prompt, image: image_url } }
+  ];
+
+  let generateResp = null;
+  for (const attempt of attempts) {
+    console.log('[Studio Restore] try', attempt.model);
+    generateResp = await nordRequest('/media/generate', 'POST', {
+      model: attempt.model,
+      input: attempt.input
+    }, env);
+    if (!generateResp.error && generateResp.id) break;
+    console.warn('[Studio Restore] failed', attempt.model, generateResp.error || generateResp);
+  }
+
+  if (generateResp?.error || !generateResp?.id) {
+    return json({
+      ok: false,
+      error: 'Ошибка restore: ' + JSON.stringify(generateResp?.error || generateResp)
+    }, 500);
+  }
+
+  return json({ ok: true, job_id: generateResp.id, status: 'processing' });
+}
+
+/** Upscale crop to 2K for sharp catalog zooms */
+async function handleStudioUpscale(request, env) {
+  const { image_url, resolution = '2K' } = await request.json();
+
+  if (!image_url) {
+    return json({ ok: false, error: 'Missing image_url' }, 400);
+  }
+
+  const prompt = `Upscale this square product crop to high resolution for an e-commerce catalog.
+
+KEEP STRICTLY IDENTICAL: all balloons, colors, foil prints, text, numbers, characters, framing.
+Only increase sharpness and resolution. No restyling, no plastic CGI look, no recomposition.`;
+
+  const res = ['1K', '2K', '4K'].includes(resolution) ? resolution : '2K';
+  const attempts = [
+    { model: 'image/gpt-image-2-edit', input: { prompt, image: image_url, aspect_ratio: '1:1', resolution: res } },
+    { model: 'image/gpt-image-2-edit', input: { prompt, image: image_url, aspect_ratio: '1:1' } },
+    { model: 'image/nano-banana-edit', input: { prompt, image: image_url } }
+  ];
+
+  let generateResp = null;
+  for (const attempt of attempts) {
+    console.log('[Studio Upscale] try', attempt.model);
+    generateResp = await nordRequest('/media/generate', 'POST', {
+      model: attempt.model,
+      input: attempt.input
+    }, env);
+    if (!generateResp.error && generateResp.id) break;
+    console.warn('[Studio Upscale] failed', attempt.model, generateResp.error || generateResp);
+  }
+
+  if (generateResp?.error || !generateResp?.id) {
+    return json({
+      ok: false,
+      error: 'Ошибка upscale: ' + JSON.stringify(generateResp?.error || generateResp)
+    }, 500);
+  }
+
+  return json({ ok: true, job_id: generateResp.id, status: 'processing' });
+}
+
+
+// ─── Studio Pro: Generate Reference Background ───────────
+
+async function handleGenerateReference(request, env) {
+  const { type = 'full' } = await request.json().catch(() => ({}));
+
+  const prompts = {
+    full: `Professional empty product photography studio, square 1:1.
+Upper 65%: soft warm beige-grey plaster wall with subtle real texture.
+Thin clean white baseboard.
+Lower 30-35%: light grey-beige oak laminate, planks running LEFT-RIGHT (horizontal), soft grain.
+Soft even daylight, neutral white balance, NO yellow/orange cast.
+Empty room — no furniture, no objects, no people.
+Photorealistic catalog backdrop, real photo NOT 3D render, high resolution.`,
+    wall: `Clean empty studio wall only, square 1:1. Soft warm beige-grey plaster texture, even soft light, NO floor, NO yellow cast, photorealistic backdrop.`,
+    corner: `Empty product studio corner, square 1:1. Beige-grey walls, white baseboard, light grey-beige laminate floor, soft depth, soft light, NO yellow cast, empty, photorealistic.`
+  };
+
+  const prompt = prompts[type] || prompts.full;
+  console.log('[Reference BG] Generating type:', type);
+
+  const generateResp = await nordRequest('/media/generate', 'POST', {
+    model: 'image/nano-banana-2',
+    input: {
+      prompt,
+      aspect_ratio: '1:1'
+    }
+  }, env);
+
+  if (generateResp.error) {
+    // fallback model
+    console.warn('[Reference BG] nano-banana-2 failed, trying flux:', generateResp.error);
+    const fluxResp = await nordRequest('/media/generate', 'POST', {
+      model: 'image/flux2-pro',
+      input: { prompt, aspect_ratio: '1:1' }
+    }, env);
+    if (fluxResp.error || !fluxResp.id) {
+      return json({
+        ok: false,
+        error: 'Ошибка генерации: ' + JSON.stringify(generateResp.error || fluxResp.error || fluxResp)
+      }, 500);
+    }
+    return json({ ok: true, job_id: fluxResp.id, status: 'processing' });
+  }
+
+  if (!generateResp.id) {
+    return json({ ok: false, error: 'NordRouter не вернул job_id: ' + JSON.stringify(generateResp) }, 500);
+  }
+
+  return json({ ok: true, job_id: generateResp.id, status: 'processing' });
+}
+
+// ─── Studio Pro: Status ──────────────────────────────────
 
 async function handleStudioStatus(path, env) {
   const jobId = path.split('/').pop();
-  const result = await nordRequest('/media/job/' + jobId, 'GET', null, env);
+  console.log('[Studio Status] ?? Checking job:', jobId);
+  
+  try {
+    const result = await nordRequest('/media/job/' + jobId, 'GET', null, env);
 
-  console.log('📊 Studio Status:', jobId, '→', result.status);
+  console.log('[Studio Status] ?? Job:', jobId, '? Status:', result.status);
 
   if (result.status === 'done' && result.result_url) {
-    // РЎРєР°С‡РёРІР°РµРј СЂРµР·СѓР»СЊС‚Р°С‚ Рё Р·Р°РіСЂСѓР¶Р°РµРј РІ R2
+    // Скачиваем результат и загружаем в R2
     const imgResp = await fetch(result.result_url, {
       headers: { 'Authorization': 'Bearer ' + env.NORDROUTER_API_KEY }
     });
     
     if (!imgResp.ok) {
-      console.error('❌ Не удалось скачать:', imgResp.status);
+      console.error('[Studio Status] ? Failed to download result:', imgResp.status);
       return json({ ok: false, error: `Ошибка скачивания: ${imgResp.status}` }, 500);
     }
     
-    const blob = await imgResp.blob();
-    console.log('📥 Скачано:', blob.size, 'байт');
-
-
-    // R2 РѕС‚РєР»СЋС‡РµРЅ вЂ” РІРѕР·РІСЂР°С‰Р°РµРј СЂРµР·СѓР»СЊС‚Р°С‚ РєР°Рє base64
-    const arrayBuffer = await blob.arrayBuffer();
-    const base64 = btoa(String.fromCharCode(...new Uint8Array(arrayBuffer)));
-    const dataUrl = 'data:image/webp;base64,' + base64;
+    // === Диагностика 1: Content-Type от NordRouter ===
+    const contentType = imgResp.headers.get('Content-Type') || 'unknown';
+    console.log('[DIAGNOSTIC] ?? Content-Type from NordRouter:', contentType);
     
+    const blob = await imgResp.blob();
+    console.log('[Studio Status] ?? Downloaded:', blob.size, 'bytes');
+    console.log('[DIAGNOSTIC] ?? Blob type:', blob.type);
+
+
+    // R2 отключен — возвращаем результат как base64
+    const arrayBuffer = await blob.arrayBuffer();
+    
+    // === Диагностика 2: размер и сигнатура файла ===
+    console.log('[DIAGNOSTIC] ?? ArrayBuffer size:', arrayBuffer.byteLength);
+    
+    const bytes = new Uint8Array(arrayBuffer);
+    
+    // Первые 16 байт (сигнатура файла)
+    const signature = Array.from(bytes.slice(0, 16))
+      .map(b => b.toString(16).padStart(2, '0'))
+      .join(' ');
+    console.log('[DIAGNOSTIC] ?? File signature (first 16 bytes):', signature);
+    
+    // Проверяем PNG сигнатуру: 89 50 4E 47 0D 0A 1A 0A
+    const isPNG = bytes[0] === 0x89 && bytes[1] === 0x50 && bytes[2] === 0x4E && bytes[3] === 0x47;
+    const isWebP = bytes[8] === 0x57 && bytes[9] === 0x45 && bytes[10] === 0x42 && bytes[11] === 0x50;
+    console.log('[DIAGNOSTIC] ?? Format detection: PNG=' + isPNG + ', WebP=' + isWebP);
+    
+    // Определяем правильный MIME type
+    let detectedMimeType = 'image/png';
+    if (isWebP) {
+      detectedMimeType = 'image/webp';
+    } else if (!isPNG) {
+      console.warn('[DIAGNOSTIC] ?? Unknown image format! Using PNG as fallback');
+    }
+    console.log('[DIAGNOSTIC] ?? Detected MIME type:', detectedMimeType);
+    
+    let binaryString = '';
+    for (let i = 0; i < bytes.length; i++) {
+      binaryString += String.fromCharCode(bytes[i]);
+    }
+    const base64 = btoa(binaryString);
+    const dataUrl = 'data:' + detectedMimeType + ';base64,' + base64;
+    
+    console.log('[Studio Status] ? Returning result for job:', jobId);
+    console.log('[DIAGNOSTIC] ?? Data URL MIME:', detectedMimeType);
     return json({ ok: true, status: 'done', result_url: dataUrl, format: 'base64' });
   }
 
   return json({ ok: true, status: result.status || 'processing' });
+  } catch (error) {
+    console.error('[Studio Status] ? Error checking job:', jobId, error);
+    return json({ ok: false, error: error.message || 'Status check failed' }, 500);
+  }
 }
 
-// в”Ђв”Ђв”Ђ Studio Pro: Upload в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
+// ─── Studio Pro: Upload ──────────────────────────────────
 
 async function handleStudioUpload(request, env) {
   const formData = await request.formData();
@@ -497,7 +679,12 @@ async function handleStudioUpload(request, env) {
   return json({ ok: true, url: result.url });
 }
 
-// в”Ђв”Ђв”Ђ Products CRUD в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
+// ─── Products CRUD ───────────────────────────────────────
+
+/** D1 не принимает undefined — только null / number / string / ArrayBuffer */
+function d1(v) {
+  return v === undefined ? null : v;
+}
 
 async function handleGetProducts(env) {
   const { results } = await env.DB.prepare(
@@ -514,78 +701,124 @@ async function handleGetProduct(path, env) {
 }
 
 async function handleCreateProduct(request, env) {
-  const data = await request.json();
-  const id = crypto.randomUUID();
-  const now = new Date().toISOString();
+  try {
+    const data = await request.json();
 
-  await env.DB.prepare(`INSERT INTO products (
-    id, title, article, price, short_description, full_description, composition,
-    category, character, age_group, budget, series_name, occasion, target_audience,
-    seo_title, seo_description, slug, scene, tags, client_options, photos, main_photo,
-    status, show_on_site, created_at, updated_at
-  ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`).bind(
-    id, data.title, data.article, data.price || 0,
-    data.short_description, data.full_description,
-    JSON.stringify(data.composition || []),
-    data.category, data.character, data.age_group, data.budget,
-    data.series_name, data.occasion, data.target_audience,
-    data.seo_title, data.seo_description, data.slug,
-    data.scene || 'auto',
-    JSON.stringify(data.tags || []),
-    JSON.stringify(data.client_options || {}),
-    JSON.stringify(data.photos || []),
-    data.main_photo || (data.photos && data.photos[0]) || null,
-    data.status || 'draft', data.show_on_site ? 1 : 0,
-    now, now
-  ).run();
+    const photos = Array.isArray(data.photos) ? data.photos : [];
+    const hugeDataUrl = photos.find(u => typeof u === 'string' && u.startsWith('data:'));
+    if (hugeDataUrl) {
+      return json({
+        ok: false,
+        error: 'Фото пришли как dataURL (слишком большие для БД). Загрузите их в Cloudinary и сохраните снова.'
+      }, 400);
+    }
 
-  return json({ ok: true, id });
+    const id = crypto.randomUUID();
+    const now = new Date().toISOString();
+    const price = Number(data.price);
+    const priceSafe = Number.isFinite(price) ? price : 0;
+
+    await env.DB.prepare(`INSERT INTO products (
+      id, title, article, price, short_description, full_description, composition,
+      category, character, age_group, budget, series_name, occasion, target_audience,
+      seo_title, seo_description, slug, scene, tags, client_options, photos, main_photo,
+      status, show_on_site, created_at, updated_at
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`).bind(
+      id,
+      d1(data.title),
+      d1(data.article),
+      priceSafe,
+      d1(data.short_description),
+      d1(data.full_description),
+      JSON.stringify(data.composition || []),
+      d1(data.category),
+      d1(data.character),
+      d1(data.age_group),
+      d1(data.budget),
+      d1(data.series_name),
+      d1(data.occasion),
+      d1(data.target_audience),
+      d1(data.seo_title),
+      d1(data.seo_description),
+      d1(data.slug),
+      d1(data.scene) || 'auto',
+      JSON.stringify(data.tags || []),
+      JSON.stringify(data.client_options || {}),
+      JSON.stringify(photos),
+      d1(data.main_photo) || photos[0] || null,
+      d1(data.status) || 'draft',
+      data.show_on_site ? 1 : 0,
+      now,
+      now
+    ).run();
+
+    return json({ ok: true, id });
+  } catch (e) {
+    console.error('[CreateProduct]', e);
+    return json({ ok: false, error: 'Ошибка БД: ' + (e.message || String(e)) }, 500);
+  }
 }
 
 async function handleUpdateProduct(path, request, env) {
-  const id = path.split('/').pop();
-  const data = await request.json();
-  const now = new Date().toISOString();
+  try {
+    const id = path.split('/').pop();
+    const data = await request.json();
+    const now = new Date().toISOString();
 
-  // РќРµ РїРµСЂРµР·Р°РїРёСЃС‹РІР°РµРј РїРѕР»СЏ РєРѕС‚РѕСЂС‹Рµ РЅРµ РїРµСЂРµРґР°РЅС‹
-  const existing = await env.DB.prepare("SELECT * FROM products WHERE id = ?").bind(id).first();
-  if (!existing) return json({ ok: false, error: 'Not found' }, 404);
+    const existing = await env.DB.prepare("SELECT * FROM products WHERE id = ?").bind(id).first();
+    if (!existing) return json({ ok: false, error: 'Not found' }, 404);
 
-  await env.DB.prepare(`UPDATE products SET
-    title = ?, article = ?, price = ?, short_description = ?, full_description = ?,
-    composition = ?, category = ?, character = ?, age_group = ?, budget = ?,
-    series_name = ?, occasion = ?, target_audience = ?,
-    seo_title = ?, seo_description = ?, slug = ?, scene = ?,
-    tags = ?, client_options = ?, photos = ?, main_photo = ?,
-    status = ?, show_on_site = ?, updated_at = ?
-  WHERE id = ?`).bind(
-    data.title ?? existing.title,
-    data.article ?? existing.article,
-    data.price ?? existing.price,
-    data.short_description ?? existing.short_description,
-    data.full_description ?? existing.full_description,
-    JSON.stringify(data.composition ?? JSON.parse(existing.composition || '[]')),
-    data.category ?? existing.category,
-    data.character ?? existing.character,
-    data.age_group ?? existing.age_group,
-    data.budget ?? existing.budget,
-    data.series_name ?? existing.series_name,
-    data.occasion ?? existing.occasion,
-    data.target_audience ?? existing.target_audience,
-    data.seo_title ?? existing.seo_title,
-    data.seo_description ?? existing.seo_description,
-    data.slug ?? existing.slug,
-    data.scene ?? existing.scene,
-    JSON.stringify(data.tags ?? JSON.parse(existing.tags || '[]')),
-    JSON.stringify(data.client_options ?? JSON.parse(existing.client_options || '{}')),
-    JSON.stringify(data.photos ?? JSON.parse(existing.photos || '[]')),
-    data.main_photo ?? existing.main_photo,
-    data.status ?? existing.status,
-    data.show_on_site !== undefined ? (data.show_on_site ? 1 : 0) : existing.show_on_site,
-    now, id
-  ).run();
+    const photos = data.photos !== undefined
+      ? (Array.isArray(data.photos) ? data.photos : [])
+      : JSON.parse(existing.photos || '[]');
 
-  return json({ ok: true });
+    if (photos.some(u => typeof u === 'string' && u.startsWith('data:'))) {
+      return json({
+        ok: false,
+        error: 'Фото пришли как dataURL. Загрузите в Cloudinary и сохраните снова.'
+      }, 400);
+    }
+
+    await env.DB.prepare(`UPDATE products SET
+      title = ?, article = ?, price = ?, short_description = ?, full_description = ?,
+      composition = ?, category = ?, character = ?, age_group = ?, budget = ?,
+      series_name = ?, occasion = ?, target_audience = ?,
+      seo_title = ?, seo_description = ?, slug = ?, scene = ?,
+      tags = ?, client_options = ?, photos = ?, main_photo = ?,
+      status = ?, show_on_site = ?, updated_at = ?
+    WHERE id = ?`).bind(
+      d1(data.title ?? existing.title),
+      d1(data.article ?? existing.article),
+      Number.isFinite(Number(data.price ?? existing.price)) ? Number(data.price ?? existing.price) : 0,
+      d1(data.short_description ?? existing.short_description),
+      d1(data.full_description ?? existing.full_description),
+      JSON.stringify(data.composition ?? JSON.parse(existing.composition || '[]')),
+      d1(data.category ?? existing.category),
+      d1(data.character ?? existing.character),
+      d1(data.age_group ?? existing.age_group),
+      d1(data.budget ?? existing.budget),
+      d1(data.series_name ?? existing.series_name),
+      d1(data.occasion ?? existing.occasion),
+      d1(data.target_audience ?? existing.target_audience),
+      d1(data.seo_title ?? existing.seo_title),
+      d1(data.seo_description ?? existing.seo_description),
+      d1(data.slug ?? existing.slug),
+      d1(data.scene ?? existing.scene) || 'auto',
+      JSON.stringify(data.tags ?? JSON.parse(existing.tags || '[]')),
+      JSON.stringify(data.client_options ?? JSON.parse(existing.client_options || '{}')),
+      JSON.stringify(photos),
+      d1(data.main_photo ?? existing.main_photo) || photos[0] || null,
+      d1(data.status ?? existing.status) || 'draft',
+      data.show_on_site !== undefined ? (data.show_on_site ? 1 : 0) : (existing.show_on_site ? 1 : 0),
+      now,
+      id
+    ).run();
+
+    return json({ ok: true });
+  } catch (e) {
+    console.error('[UpdateProduct]', e);
+    return json({ ok: false, error: 'Ошибка БД: ' + (e.message || String(e)) }, 500);
+  }
 }
 
 async function handleDeleteProduct(path, env) {
@@ -602,15 +835,15 @@ async function handleToggleStatus(path, request, env) {
   return json({ ok: true });
 }
 
-// в”Ђв”Ђв”Ђ Upload Photo в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
+// ─── Upload Photo ────────────────────────────────────────
 
 async function handleUploadPhoto(request, env) {
   const formData = await request.formData();
   const file = formData.get('file');
   if (!file) return json({ ok: false, error: 'No file' }, 400);
 
-  // R2 РѕС‚РєР»СЋС‡РµРЅ вЂ” РєРѕРЅРІРµСЂС‚РёСЂСѓРµРј С„Р°Р№Р» РІ data URL (РІСЂРµРјРµРЅРЅРѕРµ СЂРµС€РµРЅРёРµ)
-  // Р”Р»СЏ РїСЂРѕРґР°РєС€РµРЅР° РЅСѓР¶РЅРѕ РЅР°СЃС‚СЂРѕРёС‚СЊ СЂРµР°Р»СЊРЅС‹Р№ С…РѕСЃС‚РёРЅРі РёР·РѕР±СЂР°Р¶РµРЅРёР№
+  // R2 отключен — конвертируем файл в data URL (временное решение)
+  // Для продакшена нужно настроить реальный хостинг изображений
   try {
     const arrayBuffer = await file.arrayBuffer();
     const base64 = btoa(String.fromCharCode(...new Uint8Array(arrayBuffer)));
@@ -629,12 +862,12 @@ async function handleUploadPhoto(request, env) {
 
 async function handleDeletePhoto(path, env) {
   const id = path.split('/').pop();
-  // R2 РѕС‚РєР»СЋС‡РµРЅ вЂ” NordRouter РЅРµ РїРѕРґРґРµСЂР¶РёРІР°РµС‚ СѓРґР°Р»РµРЅРёРµ С„Р°Р№Р»РѕРІ С‡РµСЂРµР· API
-  // РџСЂРѕСЃС‚Рѕ РІРѕР·РІСЂР°С‰Р°РµРј СѓСЃРїРµС… (С„Р°Р№Р»С‹ РЅР° NordRouter РѕСЃС‚Р°СЋС‚СЃСЏ, РЅРѕ СЌС‚Рѕ РЅРµ РєСЂРёС‚РёС‡РЅРѕ)
+  // R2 отключен — NordRouter не поддерживает удаление файлов через API
+  // Просто возвращаем успех (файлы на NordRouter остаются, но это не критично)
   return json({ ok: true });
 }
 
-// в”Ђв”Ђв”Ђ Helpers в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
+// ─── Helpers ─────────────────────────────────────────────
 
 function parseProduct(row) {
   return {

@@ -14,3 +14,7 @@ database_id = "159f50ce-f89f-4ecb-8c4d-c4796276cfb7"
 [vars]
 # Secrets (задаются через wrangler secret put)
 # NORDROUTER_API_KEY — ключ NordRouter
+# ADMIN_API_KEY — общий ключ авторизации админ-панели (Authorization: Bearer <ключ>).
+#   Без него ВСЕ admin-only запросы (создание/изменение/удаление товаров, загрузка фото,
+#   ИИ-генерация, Studio Pro) будут отклоняться с 401. Установить: wrangler secret put ADMIN_API_KEY
+#   и вписать тот же ключ в админке → Настройки → Admin API Key.

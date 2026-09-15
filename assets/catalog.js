@@ -467,7 +467,7 @@
       .then(function (r) { if (!r.ok) throw new Error('x'); return r.json(); })
       .then(function (data) {
         // Worker API возвращает { ok: true, products: [...] }
-        products = (data.ok && Array.isArray(data.products)) ? data.products : [];
+        products = window.vigNormalizeProducts((data.ok && Array.isArray(data.products)) ? data.products : []);
         loading = false;
         render();
         updateCta();

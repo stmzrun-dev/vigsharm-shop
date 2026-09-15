@@ -9,8 +9,8 @@ Object.assign(app, {
     if (!dropzone || !input) return;
     const zone = dropzone.querySelector('.upload-zone') || dropzone;
 
-    dropzone.addEventListener('click', (e) => {
-      if (e.target.closest('button')) return;
+    zone.addEventListener('click', (e) => {
+      if (e.target.closest('button') || e.target.closest('.photo-item')) return;
       input.click();
     });
     input.addEventListener('change', (e) => this.handlePhotoFiles(Array.from(e.target.files)));
@@ -50,19 +50,97 @@ Object.assign(app, {
 
   renderPhotos() {
     const container = document.getElementById('photos-grid');
+    const emptyZone = document.getElementById('upload-zone-empty');
     if (!container) return;
-    if (this.currentProduct.photos.length === 0) { container.innerHTML = ''; return; }
-    
+
+    if (this.currentProduct.photos.length === 0) {
+      container.innerHTML = '';
+      if (emptyZone) emptyZone.classList.remove('hidden');
+      return;
+    }
+
+    if (emptyZone) emptyZone.classList.add('hidden');
+
     container.innerHTML = this.currentProduct.photos.map((photo, index) => `
       <div class="photo-item ${index === 0 ? 'main' : ''}">
-        <img src="${photo.url}" alt="Фото ${index + 1}"/>
-        ${index === 0 ? '<span class="badge-main">Главное</span>' : ''}
+        <img src="${photo.url}" alt="Фото ${index + 1}" class="zoomable" data-photo-index="${index}"/>
+        ${index === 0 ? '<span class="badge-main">Главное</span>' : `<span class="badge-main">Фото ${index + 1}</span>`}
         <div class="actions">
-          <button onclick="app.setMainPhoto(${index})" title="Сделать главным">★</button>
-          <button onclick="app.removePhoto(${index})" title="Удалить">✕</button>
+          ${index > 0 ? `<button type="button" data-move="-1" data-idx="${index}" title="Влево">←</button>` : ''}
+          ${index < this.currentProduct.photos.length - 1 ? `<button type="button" data-move="1" data-idx="${index}" title="Вправо">→</button>` : ''}
+          <button type="button" data-main="${index}" title="Сделать главным">★</button>
+          <button type="button" class="delete" data-remove="${index}" title="Удалить">✕</button>
         </div>
       </div>
     `).join('');
+
+    container.querySelectorAll('img.zoomable').forEach(img => {
+      img.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const i = Number(img.dataset.photoIndex);
+        const url = this.currentProduct.photos[i]?.url;
+        if (url) this.openLightbox(url);
+      });
+    });
+    container.querySelectorAll('[data-main]').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        this.setMainPhoto(Number(btn.dataset.main));
+      });
+    });
+    container.querySelectorAll('[data-remove]').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        this.removePhoto(Number(btn.dataset.remove));
+      });
+    });
+    container.querySelectorAll('[data-move]').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        this.movePhoto(Number(btn.dataset.idx), Number(btn.dataset.move));
+      });
+    });
+  },
+
+  movePhoto(index, dir) {
+    const next = index + dir;
+    if (next < 0 || next >= this.currentProduct.photos.length) return;
+    const arr = this.currentProduct.photos;
+    [arr[index], arr[next]] = [arr[next], arr[index]];
+    this.renderPhotos();
+  },
+
+  openLightbox(src) {
+    if (!src) return;
+    const box = document.getElementById('photo-lightbox');
+    const img = document.getElementById('lightbox-img');
+    if (!box || !img) return;
+    img.src = src;
+    box.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+  },
+
+  openLightboxFromCanvas(canvasId) {
+    const canvas = document.getElementById(canvasId);
+    if (!canvas) return;
+    this.openLightbox(canvas.toDataURL('image/webp', 0.95));
+  },
+
+  closeLightbox(event) {
+    if (event && event.target && event.target.id === 'lightbox-img') return;
+    const box = document.getElementById('photo-lightbox');
+    if (box) box.classList.add('hidden');
+    document.body.style.overflow = '';
+  },
+
+  syncEditorTitle(value) {
+    const el = document.getElementById('editor-title');
+    if (el) el.textContent = (value && value.trim()) || 'Новый товар';
+  },
+
+  cancelProductEdit() {
+    this.resetForm();
+    this.switchTab('products');
   },
 
   setMainPhoto(index) {
@@ -80,33 +158,41 @@ Object.assign(app, {
     this.toast('Фото удалено', 'success');
   },
 
-  // === Scene Selector ===
+  // === Scene Selector (компактный select как в старой админке) ===
   setupSceneSelector() {
     const container = document.getElementById('scene-selector');
     if (!container) return;
-    
-    container.innerHTML = SCENES.map(scene => `
-      <div class="scene-option">
-        <input type="radio" name="scene" value="${scene.value}" id="scene-${scene.value}" ${scene.value === 'auto' ? 'checked' : ''}/>
-        <label for="scene-${scene.value}">
-          <span class="title">${scene.title}</span>
-          <span class="desc">${scene.desc}</span>
-        </label>
-      </div>
-    `).join('');
-    
-    container.querySelectorAll('input[name="scene"]').forEach(input => {
-      input.addEventListener('change', () => { this.currentProduct.scene = input.value; });
-    });
+
+    const current = this.currentProduct?.scene || 'auto';
+    container.innerHTML = `
+      <label class="scene-select-label">Сцена Studio Pro
+        <select id="scene-select">
+          ${SCENES.map(s => `<option value="${s.value}" ${s.value === current ? 'selected' : ''}>${s.title}</option>`).join('')}
+        </select>
+      </label>
+    `;
+
+    const select = container.querySelector('#scene-select');
+    if (select) {
+      select.addEventListener('change', () => {
+        this.currentProduct.scene = select.value;
+      });
+    }
   },
 
   // === Form Events ===
   setupFormEvents() {
-    const aiBtn = document.getElementById('generate-ai-btn');
-    if (aiBtn) aiBtn.addEventListener('click', () => this.generateAICard());
-    
-    const studioBtn = document.getElementById('process-studio-btn');
-    if (studioBtn) studioBtn.addEventListener('click', () => this.processStudioPro());
+    // ОТКЛЮЧЕНО: кнопка "Сгенерировать данные через ИИ" использует onclick="app.generateAIMetadata()"
+    // из HTML (admin-ai.js). Раньше здесь же вешался ещё и addEventListener на generateAICard(),
+    // из-за чего один клик отправлял ДВА запроса к ИИ одновременно (нарушение "1 карточка = 1 запрос").
+
+    // const aiBtn = document.getElementById('generate-ai-btn');
+    // if (aiBtn) aiBtn.addEventListener('click', () => this.generateAICard());
+
+    // ОТКЛЮЧЕНО: теперь кнопка Studio Pro использует onclick="app.processStudioProNew()" из HTML
+
+    // const studioBtn = document.getElementById('process-studio-btn');
+    // if (studioBtn) studioBtn.addEventListener('click', () => this.processStudioPro());
   },
 
   // === Tags ===
@@ -153,7 +239,7 @@ Object.assign(app, {
       statusEl.textContent = 'Генерация через ИИ...';
       const res = await fetch(`${this.workerUrl}/api/ai/generate-card`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', ...this.authHeaders() },
         body: JSON.stringify({
           image_url: imageUrl,
           scene: this.currentProduct.scene,
@@ -182,7 +268,10 @@ Object.assign(app, {
     if (card.price) document.getElementById('product-price').value = card.price;
     if (card.short_description) document.getElementById('product-short-desc').value = card.short_description;
     if (card.full_description) document.getElementById('product-full-desc').value = card.full_description;
-    if (card.composition) document.getElementById('product-composition').value = card.composition.join('\n');
+    if (card.composition) {
+      const comp = Array.isArray(card.composition) ? card.composition.join('\n') : String(card.composition);
+      document.getElementById('product-composition').value = comp;
+    }
     if (card.category) document.getElementById('product-category').value = card.category;
     if (card.seo_title) document.getElementById('product-seo-title').value = card.seo_title;
     if (card.seo_description) document.getElementById('product-seo-desc').value = card.seo_description;
@@ -201,73 +290,35 @@ Object.assign(app, {
       if (card.client_options.personal_inscription) document.getElementById('opt-inscription').checked = true;
       if (card.client_options.photozone_rental) document.getElementById('opt-rental').checked = true;
     }
+
+    if (card.character) {
+      const el = document.getElementById('product-character');
+      if (el) el.value = card.character;
+    }
+    if (card.age_group) {
+      const el = document.getElementById('product-age');
+      if (el) el.value = card.age_group;
+    }
+    if (card.occasion) {
+      const el = document.getElementById('product-occasion');
+      if (el) el.value = card.occasion;
+    }
+    if (card.target_audience) {
+      const el = document.getElementById('product-audience');
+      if (el) el.value = card.target_audience;
+    }
+    if (card.title) this.syncEditorTitle(card.title);
   },
 
   // === Studio Pro ===
-  async processStudioPro() {
-    if (this.currentProduct.photos.length === 0) { this.toast('Загрузите фото', 'error'); return; }
-    
-    const btn = document.getElementById('process-studio-btn');
-    const statusEl = document.getElementById('studio-status');
-    btn.disabled = true;
-    btn.innerHTML = '<span class="spinner"></span> Обработка...';
-    
-    try {
-      for (let i = 0; i < this.currentProduct.photos.length; i++) {
-        const photo = this.currentProduct.photos[i];
-        statusEl.textContent = `Обработка ${i + 1}/${this.currentProduct.photos.length}...`;
-        
-        let imageUrl = photo.url;
-        if (!photo.uploaded) {
-          const uploadResult = await this.uploadPhoto(photo.file);
-          if (uploadResult.ok) {
-            imageUrl = uploadResult.url;
-            photo.url = imageUrl;
-            photo.uploaded = true;
-          }
-        }
-        
-        const res = await fetch(`${this.workerUrl}/api/studio/process`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ image_url: imageUrl, scene: this.currentProduct.scene })
-        });
-        
-        const data = await res.json();
-        if (data.ok && data.job_id) {
-          const result = await this.pollStudioStatus(data.job_id, statusEl, i + 1);
-          if (result) { photo.url = result; photo.uploaded = true; }
-        }
-      }
-      
-      this.renderPhotos();
-      statusEl.textContent = '✓ Все фото обработаны';
-      this.toast('Фото обработаны', 'success');
-    } catch (e) {
-      statusEl.textContent = '✗ ' + e.message;
-      this.toast('Ошибка: ' + e.message, 'error');
-    } finally {
-      btn.disabled = false;
-      btn.innerHTML = '✨ Обработать фото через Studio Pro';
-    }
-  },
-
-  async pollStudioStatus(jobId, statusEl, current) {
-    for (let i = 0; i < 60; i++) {
-      await new Promise(r => setTimeout(r, 3000));
-      const res = await fetch(`${this.workerUrl}/api/studio/status/${jobId}`);
-      const data = await res.json();
-      if (data.ok && data.status === 'done' && data.result_url) return data.result_url;
-      if (data.status === 'failed') throw new Error('Обработка не удалась');
-      statusEl.textContent = `Обработка ${current}... (${i * 3}с)`;
-    }
-    throw new Error('Таймаут обработки');
-  },
+  // Актуальная реализация — processStudioProNew() в admin-studio-pro.js (вызывается через
+  // onclick="app.processStudioProNew()" из HTML). Старый цикл processStudioPro()/pollStudioStatus()
+  // (обрабатывал фото по одному через /api/studio/process) был не задействован и удалён как мёртвый код.
 
   async uploadPhoto(file) {
     const formData = new FormData();
     formData.append('file', file);
-    const res = await fetch(`${this.workerUrl}/api/upload/photo`, { method: 'POST', body: formData });
+    const res = await fetch(`${this.workerUrl}/api/upload/photo`, { method: 'POST', headers: this.authHeaders(), body: formData });
     return await res.json();
   },
 
@@ -294,10 +345,12 @@ Object.assign(app, {
       age_group: document.getElementById('product-age')?.value || 'Для любого возраста',
       budget: document.getElementById('product-budget')?.value.trim() || null,
       series_name: document.getElementById('product-series')?.value.trim() || null,
+      occasion: document.getElementById('product-occasion')?.value.trim() || null,
+      target_audience: document.getElementById('product-audience')?.value.trim() || null,
       seo_title: document.getElementById('product-seo-title').value.trim(),
       seo_description: document.getElementById('product-seo-desc').value.trim(),
       slug: document.getElementById('product-slug').value.trim() || this.slugify(titleValue),
-      scene: this.currentProduct.scene,
+      scene: this.currentProduct.scene || 'floor',
       tags: tags,
       client_options: {
         available_on_request: document.getElementById('opt-available')?.checked || false,
@@ -312,23 +365,25 @@ Object.assign(app, {
   },
 
   resetForm() {
-    this.currentStep = 1;
     this.currentProduct = { photos: [], scene: 'auto', tags: [], client_options: {} };
+    if (typeof this.hideCropEditor === 'function') this.hideCropEditor();
+    if (typeof this.hidePlacementEditor === 'function') this.hidePlacementEditor();
 
     const form = document.getElementById('product-form');
     if (form) form.reset();
 
-    const autoScene = document.querySelector('input[name="scene"][value="auto"]');
-    if (autoScene) autoScene.checked = true;
+    const sceneSelect = document.getElementById('scene-select');
+    if (sceneSelect) sceneSelect.value = 'auto';
 
     const articleEl = document.getElementById('product-article');
     if (articleEl) articleEl.value = this.nextArticle();
 
-    const hero = document.querySelector('#tab-create .hero-section h1');
-    if (hero) hero.textContent = 'Новая карточка за минуту';
+    const modeLabel = document.getElementById('editor-mode-label');
+    if (modeLabel) modeLabel.textContent = 'СОЗДАНИЕ';
+    const titleEl = document.getElementById('editor-title');
+    if (titleEl) titleEl.textContent = 'Новый товар';
 
     this.renderPhotos();
-    this.updateSteps();
   }
 });
 
@@ -344,11 +399,11 @@ app.editProduct = async function(id) {
     this.resetForm();
     this.loadProductToForm(data.product);
     this.switchTab('create');
-    this.currentStep = 1;
-    this.updateSteps();
 
-    const hero = document.querySelector('#tab-create .hero-section h1');
-    if (hero) hero.textContent = 'Редактирование — ' + (data.product.title || '');
+    const modeLabel = document.getElementById('editor-mode-label');
+    if (modeLabel) modeLabel.textContent = 'РЕДАКТИРОВАНИЕ';
+    const titleEl = document.getElementById('editor-title');
+    if (titleEl) titleEl.textContent = data.product.title || 'Товар';
     this.toast('Товар загружен для редактирования', 'success');
   } catch (e) { this.toast('Ошибка: ' + e.message, 'error'); }
 };
@@ -367,9 +422,8 @@ app.loadProductToForm = function(product) {
 
   // Сцена
   this.currentProduct.scene = product.scene || 'auto';
-  document.querySelectorAll('input[name="scene"]').forEach(input => {
-    input.checked = input.value === this.currentProduct.scene;
-  });
+  const sceneSelect = document.getElementById('scene-select');
+  if (sceneSelect) sceneSelect.value = this.currentProduct.scene;
 
   // Основные данные
   const set = (id, value) => {
@@ -387,6 +441,8 @@ app.loadProductToForm = function(product) {
   set('product-age', product.age_group);
   set('product-budget', product.budget);
   set('product-series', product.series_name);
+  set('product-occasion', product.occasion);
+  set('product-audience', product.target_audience);
 
   // SEO
   set('product-seo-title', product.seo_title);

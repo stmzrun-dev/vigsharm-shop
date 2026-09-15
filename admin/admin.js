@@ -19,6 +19,7 @@ const SCENES = [
 
 const app = {
   workerUrl: 'https://vigsharm-api.vigsharm.workers.dev',
+  studioReferenceBackgroundUrl: '',
 
   currentStep: 1,
   products: [],
@@ -104,6 +105,9 @@ const app = {
           localStorage.setItem('vigsharm_admin_settings', JSON.stringify(settings));
           console.warn('⚠️ NordRouter API ключ удалён из localStorage (теперь хранится в Worker secrets)');
         }
+        
+        // Загружаем эталонный фон
+        this.studioReferenceBackgroundUrl = settings.studioReferenceBackgroundUrl || '';
         
         if (document.getElementById('worker-url')) document.getElementById('worker-url').value = this.workerUrl;
       }

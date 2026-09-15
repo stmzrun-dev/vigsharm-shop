@@ -41,6 +41,17 @@ export default {
       if (path.match(/^\/api\/upload\/photo\/[^/]+$/) && method === 'DELETE')
         return handleDeletePhoto(path, env);
 
+      
+      // TEMPORARY: Check model configuration (read-only, no generation)
+      if (path === '/check-model' && method === 'GET')
+        return handleCheckModel(env);
+
+      // TEMPORARY: Proxy to NordRouter /media/generate (for testing)
+      if (path === '/media/generate' && method === 'POST')
+        return handleMediaGenerate(request, env);
+      if (path.startsWith('/media/job/') && method === 'GET')
+        return handleMediaJobStatus(path, env);
+
       return json({ ok: false, error: 'Not found' }, 404);
     } catch (e) {
       console.error(e);
@@ -78,7 +89,19 @@ async function nordRequest(endpoint, method, body, env) {
   };
   if (body) opts.body = JSON.stringify(body);
   const resp = await fetch('https://nordrouter.com' + endpoint, opts);
-  return resp.json();
+  
+  const responseText = await resp.text();
+  
+  if (!resp.ok) {
+    console.error('[NordRouter] HTTP ERROR', {
+      endpoint,
+      status: resp.status,
+      body: responseText
+    });
+    throw new Error(`NordRouter HTTP ${resp.status}: ${responseText}`);
+  }
+  
+  return JSON.parse(responseText);
 }
 
 async function nordUpload(file, env) {
@@ -267,8 +290,11 @@ const STUDIO_PROMPTS = {
 РЎРѕС…СЂР°РЅРёС‚СЊ РґРёР·Р°Р№РЅ С€Р°СЂРѕРІ Рё РєРѕРјРїРѕР·РёС†РёСЋ.`
 };
 
+// ─── Studio Pro: Process (NEW FLOW - Remove BG + Canvas) ───────────────────────────────────────
+
 async function handleStudioProcess(request, env) {
   const { image_url, scene, prompt: userPrompt } = await request.json();
+  
   // Validation: accept both data:image/... and https:// URLs
   if (!image_url) {
     return json({ ok: false, error: 'Missing image_url parameter' }, 400);
@@ -284,9 +310,77 @@ async function handleStudioProcess(request, env) {
     }, 400);
   }
   
-  console.log('[Studio Pro] Input image type:', isDataUrl ? 'data-url' : 'cloudinary-url');
-  console.log('[Studio Pro] Input image URL:', isHttpsUrl ? image_url : `${image_url.substring(0, 50)}...`);
-  console.log('[Studio Pro] Scene:', scene);
+  console.log('[Studio Pro NEW] ====== NEW REMOVE BG FLOW ======');
+  console.log('[Studio Pro NEW] Input image type:', isDataUrl ? 'data-url' : 'cloudinary-url');
+  console.log('[Studio Pro NEW] Input image URL:', isHttpsUrl ? image_url : `${image_url.substring(0, 50)}...`);
+  console.log('[Studio Pro NEW] Scene:', scene);
+  
+  // NEW FLOW: Remove background only, no AI editing
+  console.log('[Studio Pro NEW] Sending Remove BG request');
+  console.log('[Studio Pro NEW] Model: image/recraft-remove-bg');
+  
+  const generateResp = await nordRequest('/media/generate', 'POST', {
+    model: 'image/recraft-remove-bg',
+    input: {
+      image: image_url
+    }
+  }, env);
+
+  console.log('[Studio Pro NEW] Remove BG job started', {
+    job_id: generateResp.id,
+    model: generateResp.model
+  });
+
+  if (generateResp.error) {
+    return json({ 
+      ok: false, 
+      error: 'Ошибка Remove BG: ' + (generateResp.error.message || JSON.stringify(generateResp.error))
+    }, 500);
+  }
+
+  if (!generateResp.id) {
+    return json({ 
+      ok: false, 
+      error: 'NordRouter не вернул job_id: ' + JSON.stringify(generateResp)
+    }, 500);
+  }
+  
+  console.log('[Studio Pro NEW] ✅ Remove BG job created:', generateResp.id);
+  console.log('[Studio Pro NEW] ✅ Returning job_id to frontend:', generateResp.id);
+  
+  return json({ 
+    ok: true, 
+    job_id: generateResp.id, 
+    status: 'processing',
+    scene: scene // Pass scene to frontend for canvas positioning
+  });
+}
+
+
+// ─── Studio Pro: Process OLD (DEPRECATED - Nano Banana Flow) ───────────────────────────────────────
+// NOTE: This is the OLD flow using Nano Banana Edit + Vision API
+// Kept for reference but NOT used in new flow
+
+async function handleStudioProcess_OLD_NANO_BANANA(request, env) {
+  const { image_url, scene, prompt: userPrompt } = await request.json();
+  
+  if (!image_url) {
+    return json({ ok: false, error: 'Missing image_url parameter' }, 400);
+  }
+  
+  const isDataUrl = image_url.startsWith('data:image/');
+  const isHttpsUrl = image_url.startsWith('https://');
+  
+  if (!isDataUrl && !isHttpsUrl) {
+    return json({ 
+      ok: false, 
+      error: 'Invalid image format. Expected data:image/... or https:// URL' 
+    }, 400);
+  }
+  
+  console.log('[Studio Pro OLD] Input image type:', isDataUrl ? 'data-url' : 'cloudinary-url');
+  console.log('[Studio Pro OLD] Input image URL:', isHttpsUrl ? image_url : `${image_url.substring(0, 50)}...`);
+  console.log('[Studio Pro OLD] Scene:', scene);
 
 
   const basePrompt = STUDIO_PROMPTS[scene] || STUDIO_PROMPTS.floor;
@@ -372,7 +466,7 @@ ${basePrompt}${userPrompt ? '\n\nР”РћРџРћР›РќРРўР•Р›Р�
     max_tokens: 4096
   }, env);
 
-  console.log('Studio Pro: AI response received', {
+  console.log('Studio Pro OLD: AI response received', {
     has_choices: !!aiResp.choices,
     choice_count: aiResp.choices?.length
   });
@@ -408,20 +502,19 @@ IMPROVE:
 
 Keep it realistic, not 3D render. Natural balloon shine, soft shadows.${userPrompt ? '\n\nAdditional: ' + userPrompt : ''}`;
   
-  console.log('[Studio Pro] Sending ONE AI request to image generation (Step 2/2)');
-  console.log('[Studio Pro] Model: image/nano-banana-edit');
-  console.log('[Studio Pro] Image URL passed to model:', isHttpsUrl ? image_url : `data:image/... (${image_url.length} chars)`);
+  console.log('[Studio Pro OLD] Sending ONE AI request to image generation (Step 2/2)');
+  console.log('[Studio Pro OLD] Model: image/nano-banana-edit');
+  console.log('[Studio Pro OLD] Image URL passed to model:', isHttpsUrl ? image_url : `data:image/... (${image_url.length} chars)`);
 
   const generateResp = await nordRequest('/media/generate', 'POST', {
     model: 'image/nano-banana-edit',
     input: {
       prompt: simplePrompt,
-      image: image_url,
-      scene: scene || 'wall_floor'
+      image: image_url
     }
   }, env);
 
-  console.log('Studio Pro: Generation started', {
+  console.log('Studio Pro OLD: Generation started', {
     job_id: generateResp.id,
     model: generateResp.model
   });
@@ -439,8 +532,9 @@ Keep it realistic, not 3D render. Natural balloon shine, soft shadows.${userProm
       error: 'NordRouter РЅРµ РІРµСЂРЅСѓР» job_id: ' + JSON.stringify(generateResp)
     }, 500);
   }
-  console.log('[Studio Pro] ✅ AI request completed successfully');
-  console.log('[Studio Pro] Job ID:', generateResp.id);
+  console.log('[Studio Pro OLD] ✅ AI request completed successfully');
+  console.log('[Studio Pro OLD] ✅ Job created:', generateResp.id);
+  console.log('[Studio Pro OLD] ✅ Returning job_id to frontend:', generateResp.id);
 
   
   return json({ 
@@ -454,9 +548,12 @@ Keep it realistic, not 3D render. Natural balloon shine, soft shadows.${userProm
 
 async function handleStudioStatus(path, env) {
   const jobId = path.split('/').pop();
-  const result = await nordRequest('/media/job/' + jobId, 'GET', null, env);
+  console.log('[Studio Status] 📊 Checking job:', jobId);
+  
+  try {
+    const result = await nordRequest('/media/job/' + jobId, 'GET', null, env);
 
-  console.log('📊 Studio Status:', jobId, '→', result.status);
+  console.log('[Studio Status] 📊 Job:', jobId, '→ Status:', result.status);
 
   if (result.status === 'done' && result.result_url) {
     // РЎРєР°С‡РёРІР°РµРј СЂРµР·СѓР»СЊС‚Р°С‚ Рё Р·Р°РіСЂСѓР¶Р°РµРј РІ R2
@@ -465,23 +562,64 @@ async function handleStudioStatus(path, env) {
     });
     
     if (!imgResp.ok) {
-      console.error('❌ Не удалось скачать:', imgResp.status);
+      console.error('[Studio Status] ❌ Failed to download result:', imgResp.status);
       return json({ ok: false, error: `Ошибка скачивания: ${imgResp.status}` }, 500);
     }
     
+    // === ДИАГНОСТИКА 1: Content-Type ответа NordRouter ===
+    const contentType = imgResp.headers.get('Content-Type') || 'unknown';
+    console.log('[DIAGNOSTIC] 📦 Content-Type from NordRouter:', contentType);
+    
     const blob = await imgResp.blob();
-    console.log('📥 Скачано:', blob.size, 'байт');
+    console.log('[Studio Status] 📥 Downloaded:', blob.size, 'bytes');
+    console.log('[DIAGNOSTIC] 📦 Blob type:', blob.type);
 
 
     // R2 РѕС‚РєР»СЋС‡РµРЅ вЂ” РІРѕР·РІСЂР°С‰Р°РµРј СЂРµР·СѓР»СЊС‚Р°С‚ РєР°Рє base64
     const arrayBuffer = await blob.arrayBuffer();
-    const base64 = btoa(String.fromCharCode(...new Uint8Array(arrayBuffer)));
-    const dataUrl = 'data:image/webp;base64,' + base64;
     
+    // === ДИАГНОСТИКА 2: Размер и сигнатура файла ===
+    console.log('[DIAGNOSTIC] 📦 ArrayBuffer size:', arrayBuffer.byteLength);
+    
+    const bytes = new Uint8Array(arrayBuffer);
+    
+    // Выводим первые 16 байт (сигнатура файла)
+    const signature = Array.from(bytes.slice(0, 16))
+      .map(b => b.toString(16).padStart(2, '0'))
+      .join(' ');
+    console.log('[DIAGNOSTIC] 📦 File signature (first 16 bytes):', signature);
+    
+    // Проверяем PNG сигнатуру: 89 50 4E 47 0D 0A 1A 0A
+    const isPNG = bytes[0] === 0x89 && bytes[1] === 0x50 && bytes[2] === 0x4E && bytes[3] === 0x47;
+    const isWebP = bytes[8] === 0x57 && bytes[9] === 0x45 && bytes[10] === 0x42 && bytes[11] === 0x50;
+    console.log('[DIAGNOSTIC] 📦 Format detection: PNG=' + isPNG + ', WebP=' + isWebP);
+    
+    // Определяем правильный MIME type
+    let detectedMimeType = 'image/png';
+    if (isWebP) {
+      detectedMimeType = 'image/webp';
+    } else if (!isPNG) {
+      console.warn('[DIAGNOSTIC] ⚠️ Unknown image format! Using PNG as fallback');
+    }
+    console.log('[DIAGNOSTIC] 📦 Detected MIME type:', detectedMimeType);
+    
+    let binaryString = '';
+    for (let i = 0; i < bytes.length; i++) {
+      binaryString += String.fromCharCode(bytes[i]);
+    }
+    const base64 = btoa(binaryString);
+    const dataUrl = 'data:' + detectedMimeType + ';base64,' + base64;
+    
+    console.log('[Studio Status] ✅ Returning result for job:', jobId);
+    console.log('[DIAGNOSTIC] 📦 Data URL MIME:', detectedMimeType);
     return json({ ok: true, status: 'done', result_url: dataUrl, format: 'base64' });
   }
 
   return json({ ok: true, status: result.status || 'processing' });
+  } catch (error) {
+    console.error('[Studio Status] ❌ Error checking job:', jobId, error);
+    return json({ ok: false, error: error.message || 'Status check failed' }, 500);
+  }
 }
 
 // в”Ђв”Ђв”Ђ Studio Pro: Upload в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
@@ -633,6 +771,161 @@ async function handleDeletePhoto(path, env) {
   // РџСЂРѕСЃС‚Рѕ РІРѕР·РІСЂР°С‰Р°РµРј СѓСЃРїРµС… (С„Р°Р№Р»С‹ РЅР° NordRouter РѕСЃС‚Р°СЋС‚СЃСЏ, РЅРѕ СЌС‚Рѕ РЅРµ РєСЂРёС‚РёС‡РЅРѕ)
   return json({ ok: true });
 }
+
+// TEMPORARY: Check model configuration (read-only, no generation)
+async function handleCheckModel(env) {
+  try {
+    console.log('[Check Model] Fetching models list from NordRouter...');
+    
+    const resp = await fetch('https://nordrouter.com/media/models', {
+      method: 'GET',
+      headers: {
+        'Authorization': 'Bearer ' + env.NORDROUTER_API_KEY,
+        'Content-Type': 'application/json'
+      }
+    });
+
+    if (!resp.ok) {
+      const errorText = await resp.text();
+      console.error('[Check Model] Error:', resp.status, errorText);
+      return json({ 
+        ok: false, 
+        error: `HTTP ${resp.status}: ${errorText}` 
+      }, resp.status);
+    }
+
+    const data = await resp.json();
+    console.log('[Check Model] Received models data');
+
+    // Список целевых edit-моделей для проверки
+    const targetModelIds = [
+      'image/gpt-image-2-edit',
+      'image/gpt-image-1.5-edit',
+      'image/flux2-pro-edit',
+      'image/seedream-5.0-pro-edit',
+      'image/seedream-4.5-edit',
+      'image/seedream-edit',
+      'image/qwen3-pro-edit',
+      'image/qwen3-edit',
+      'image/qwen-edit',
+      'image/grok-edit'
+    ];
+
+    // Определить структуру ответа
+    let modelsList = [];
+    if (Array.isArray(data)) {
+      modelsList = data;
+    } else if (data.models && Array.isArray(data.models)) {
+      modelsList = data.models;
+    }
+
+    // Найти все целевые модели
+    const foundModels = {};
+    for (const modelId of targetModelIds) {
+      const model = modelsList.find(m => m.id === modelId);
+      if (model) {
+        foundModels[modelId] = {
+          id: model.id,
+          name: model.name || modelId,
+          fields: model.fields || {},
+          full_record: model
+        };
+      } else {
+        foundModels[modelId] = null;
+      }
+    }
+
+    console.log('[Check Model] Found models:', Object.keys(foundModels).filter(k => foundModels[k]).length);
+
+    return json({
+      ok: true,
+      total_models: modelsList.length,
+      searched_models: targetModelIds.length,
+      found_count: Object.values(foundModels).filter(m => m !== null).length,
+      models: foundModels
+    });
+
+  } catch (error) {
+    console.error('[Check Model] Exception:', error.message);
+    return json({ 
+      ok: false, 
+      error: error.message 
+    }, 500);
+  }
+}
+
+// TEMPORARY: Proxy to NordRouter /media/generate
+async function handleMediaGenerate(request, env) {
+  try {
+    const body = await request.json();
+    console.log('[Media Generate] Request:', JSON.stringify(body, null, 2));
+    
+    const resp = await fetch('https://nordrouter.com/media/generate', {
+      method: 'POST',
+      headers: {
+        'Authorization': 'Bearer ' + env.NORDROUTER_API_KEY,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(body)
+    });
+
+    const responseText = await resp.text();
+    console.log('[Media Generate] Response:', responseText);
+
+    if (!resp.ok) {
+      return json({ 
+        ok: false, 
+        error: `NordRouter error: ${resp.status} ${responseText}` 
+      }, resp.status);
+    }
+
+    const data = JSON.parse(responseText);
+    return json(data);
+
+  } catch (error) {
+    console.error('[Media Generate] Exception:', error.message);
+    return json({ 
+      ok: false, 
+      error: error.message 
+    }, 500);
+  }
+}
+
+// TEMPORARY: Proxy to NordRouter /media/job/:id
+async function handleMediaJobStatus(path, env) {
+  try {
+    const jobId = path.split('/').pop();
+    console.log('[Media Job Status] Checking:', jobId);
+    
+    const resp = await fetch(`https://nordrouter.com/media/job/${jobId}`, {
+      method: 'GET',
+      headers: {
+        'Authorization': 'Bearer ' + env.NORDROUTER_API_KEY,
+        'Content-Type': 'application/json'
+      }
+    });
+
+    const responseText = await resp.text();
+
+    if (!resp.ok) {
+      return json({ 
+        ok: false, 
+        error: `NordRouter error: ${resp.status} ${responseText}` 
+      }, resp.status);
+    }
+
+    const data = JSON.parse(responseText);
+    return json(data);
+
+  } catch (error) {
+    console.error('[Media Job Status] Exception:', error.message);
+    return json({ 
+      ok: false, 
+      error: error.message 
+    }, 500);
+  }
+}
+
 
 // в”Ђв”Ђв”Ђ Helpers в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
 

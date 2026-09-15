@@ -341,6 +341,38 @@
       <button class="btn danger mt-2" onclick="app.clearSettings()">Очистить все</button>
 
       <div class="divider"></div>
+      <h3>🎨 Эталонный фон Studio Pro</h3>
+      <p class="text-muted" style="margin-bottom: 16px;">
+        Загрузите постоянный эталонный фон для композиции товаров в Studio Pro. 
+        Этот фон будет использоваться на следующем этапе обработки.
+      </p>
+      
+      <div id="reference-bg-container">
+        <div id="reference-bg-preview" style="display: none; margin-bottom: 16px;"></div>
+        
+        <div id="reference-bg-status" style="margin-bottom: 16px; font-size: 14px;">
+          ⚠️ Эталонный фон ещё не загружен
+        </div>
+        
+        <div class="form-group">
+          <input type="file" id="reference-bg-file" accept="image/*" style="display: none;"/>
+          <button type="button" class="btn secondary" id="upload-reference-bg-btn">
+            📤 Выбрать и загрузить фон
+          </button>
+          <button type="button" class="btn outline" id="replace-reference-bg-btn" onclick="app.replaceReferenceBackground()" style="display: none; margin-left: 8px;">
+            🔄 Заменить фон
+          </button>
+          <button type="button" class="btn danger outline" onclick="app.removeReferenceBackground()" style="margin-left: 8px;">
+            🗑️ Удалить
+          </button>
+        </div>
+        
+        <small class="text-muted">
+          JPG, PNG, WebP · до 10 МБ · Рекомендуется высокое разрешение
+        </small>
+      </div>
+
+      <div class="divider"></div>
       <h2>Статистика</h2>
       <div class="stats-row">
         <div class="badge neutral">Всего: <strong id="stats-total">0</strong></div>
@@ -358,6 +390,7 @@
 <script src="admin-ai.js"></script>
 <script src="cloudinary-upload.js"></script>
 <script src="cloudinary-patch.js"></script>
+<script src="admin-reference-background.js"></script>
 </body>
 </html>
 

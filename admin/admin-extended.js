@@ -105,8 +105,10 @@ Object.assign(app, {
     const aiBtn = document.getElementById('generate-ai-btn');
     if (aiBtn) aiBtn.addEventListener('click', () => this.generateAICard());
     
-    const studioBtn = document.getElementById('process-studio-btn');
-    if (studioBtn) studioBtn.addEventListener('click', () => this.processStudioPro());
+    // ОТКЛЮЧЕНО: теперь кнопка Studio Pro использует onclick="app.processStudioProNew()" из HTML
+
+    // const studioBtn = document.getElementById('process-studio-btn');
+    // if (studioBtn) studioBtn.addEventListener('click', () => this.processStudioPro());
   },
 
   // === Tags ===

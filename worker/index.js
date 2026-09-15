@@ -1,5 +1,5 @@
-﻿// VigSharm API вЂ” Cloudflare Worker
-// РҐСЂР°РЅРёС‚ РєР»СЋС‡ NordRouter, РїСЂРѕРєСЃРёСЂСѓРµС‚ Р·Р°РїСЂРѕСЃС‹, СѓРїСЂР°РІР»СЏРµС‚ D1 + R2
+// VigSharm API — Cloudflare Worker
+// Хранит ключ NordRouter, проксирует запросы, управляет D1 + R2
 
 export default {
   async fetch(request, env) {
@@ -63,7 +63,7 @@ export default {
   }
 };
 
-// в”Ђв”Ђв”Ђ CORS в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
+// ─── CORS ────────────────────────────────────────────────
 
 function corsHeaders() {
   return {
@@ -80,7 +80,7 @@ function json(data, status = 200) {
   });
 }
 
-// в”Ђв”Ђв”Ђ NordRouter в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
+// ─── NordRouter ──────────────────────────────────────────
 
 async function nordRequest(endpoint, method, body, env) {
   const opts = {
@@ -118,58 +118,58 @@ async function nordUpload(file, env) {
   return resp.json();
 }
 
-// в”Ђв”Ђв”Ђ AI: Generate Card в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
+// ─── AI: Generate Card ───────────────────────────────────
 
 async function handleGenerateCard(request, env) {
   const { title_hint, price, description, scene, image_url } = await request.json();
 
-  const systemPrompt = `РўС‹ вЂ” РїСЂРѕС„РµСЃСЃРёРѕРЅР°Р»СЊРЅС‹Р№ РєРѕРїРёСЂР°Р№С‚РµСЂ РґР»СЏ РјР°РіР°Р·РёРЅР° РІРѕР·РґСѓС€РЅС‹С… С€Р°СЂРѕРІ Рё РїРѕРґР°СЂРєРѕРІ VigSharm (Рі. РђСЂРјР°РІРёСЂ, Р РѕСЃСЃРёСЏ).
-Р“РµРЅРµСЂРёСЂСѓРµС€СЊ РјРµС‚Р°РґР°РЅРЅС‹Рµ РєР°СЂС‚РѕС‡РєРё С‚РѕРІР°СЂР° РЅР° СЂСѓСЃСЃРєРѕРј СЏР·С‹РєРµ РЅР° РѕСЃРЅРѕРІРµ РїСЂРµРґРѕСЃС‚Р°РІР»РµРЅРЅРѕР№ РёРЅС„РѕСЂРјР°С†РёРё.
-Р’РµСЂРЅРё РўРћР›Р¬РљРћ РІР°Р»РёРґРЅС‹Р№ JSON, Р±РµР· markdown, Р±РµР· РїРѕСЏСЃРЅРµРЅРёР№.
+  const systemPrompt = `Ты — профессиональный копирайтер для магазина воздушных шаров и подарков VigSharm (г. Армавир, Россия).
+Генерируешь метаданные карточки товара на русском языке на основе предоставленной информации.
+Верни ТОЛЬКО валидный JSON, без markdown, без пояснений.
 
-РћР±СЏР·Р°С‚РµР»СЊРЅР°СЏ СЃС‚СЂСѓРєС‚СѓСЂР° JSON:
+Обязательная структура JSON:
 {
-  "title": "РљСЂР°С‚РєРѕРµ С†РµРїР»СЏСЋС‰РµРµ РЅР°Р·РІР°РЅРёРµ С‚РѕРІР°СЂР° (РјР°РєСЃ 60 СЃРёРјРІРѕР»РѕРІ)",
-  "article": "РЈРЅРёРєР°Р»СЊРЅС‹Р№ SKU-РєРѕРґ С‚РёРїР° VIGSH-001",
-  "short_description": "РљСЂР°С‚РєРѕРµ РѕРїРёСЃР°РЅРёРµ РґР»СЏ РєР°С‚Р°Р»РѕРіР° (РјР°РєСЃ 120 СЃРёРјРІРѕР»РѕРІ)",
-  "full_description": "РџРѕРґСЂРѕР±РЅРѕРµ РѕРїРёСЃР°РЅРёРµ 2-3 Р°Р±Р·Р°С†Р° СЃ СЌРјРѕС†РёРѕРЅР°Р»СЊРЅС‹Рј РїСЂРёР·С‹РІРѕРј",
-  "composition": ["РЁР°СЂС‹", "Р›РµРЅС‚Р°", "РљРѕСЂРѕР±РєР°", "РћС‚РєСЂС‹С‚РєР°"],
+  "title": "Краткое цепляющее название товара (макс 60 символов)",
+  "article": "Уникальный SKU-код типа VIGSH-001",
+  "short_description": "Краткое описание для каталога (макс 120 символов)",
+  "full_description": "Подробное описание 2-3 абзаца с эмоциональным призывом",
+  "composition": ["Шары", "Лента", "Коробка", "Открытка"],
   "category": "balloons|flowers|gifts|sweets",
   "character": "neutral|disney|marvel|anime|football|unicorn|bear",
   "age_group": "baby|child|teen|adult",
   "occasion": "birthday|wedding|anniversary|graduation|holiday",
   "target_audience": "boy|girl|man|woman|unisex",
-  "seo_title": "SEO-РѕРїС‚РёРјРёР·РёСЂРѕРІР°РЅРЅС‹Р№ Р·Р°РіРѕР»РѕРІРѕРє (РјР°РєСЃ 70 СЃРёРјРІРѕР»РѕРІ)",
-  "seo_description": "SEO РјРµС‚Р°-РѕРїРёСЃР°РЅРёРµ (РјР°РєСЃ 160 СЃРёРјРІРѕР»РѕРІ)",
+  "seo_title": "SEO-оптимизированный заголовок (макс 70 символов)",
+  "seo_description": "SEO мета-описание (макс 160 символов)",
   "slug": "url-friendly-slug",
-  "tags": ["С‚РµРі1", "С‚РµРі2", "С‚РµРі3"]
+  "tags": ["тег1", "тег2", "тег3"]
 }
 
-Р’РђР–РќР«Р• РџР РђР’РР›Рђ:
-- РљР°С‚РµРіРѕСЂРёСЏ "balloons" РґР»СЏ РєРѕРјРїРѕР·РёС†РёР№ РёР· С€Р°СЂРѕРІ
-- character: РѕРїСЂРµРґРµР»Рё РїРѕ С„РѕС‚Рѕ (marvel РґР»СЏ Spider-Man, football РґР»СЏ С„СѓС‚Р±РѕР»СЊРЅС‹С… РјСЏС‡РµР№, unicorn РґР»СЏ РµРґРёРЅРѕСЂРѕРіРѕРІ Рё С‚.Рґ.)
-- age_group: РѕРїСЂРµРґРµР»Рё РїРѕ СЃС‚РёР»СЋ РєРѕРјРїРѕР·РёС†РёРё (baby РґР»СЏ 1 РіРѕРґРёРє, child РґР»СЏ РґРµС‚СЃРєРёС…, teen РґР»СЏ РїРѕРґСЂРѕСЃС‚РєРѕРІС‹С…, adult РґР»СЏ РІР·СЂРѕСЃР»С‹С…)
-- occasion: РѕРїСЂРµРґРµР»Рё РїРѕРІРѕРґ (birthday РґР»СЏ РґРЅРµР№ СЂРѕР¶РґРµРЅРёСЏ СЃ С†РёС„СЂР°РјРё, wedding РґР»СЏ СЃРІР°РґРµР±РЅС‹С…, holiday РґР»СЏ РїСЂР°Р·РґРЅРёС‡РЅС‹С…)
-- target_audience: РјР°Р»СЊС‡РёРє/РґРµРІРѕС‡РєР° РґР»СЏ РґРµС‚РµР№, РјСѓР¶С‡РёРЅР°/Р¶РµРЅС‰РёРЅР° РґР»СЏ РІР·СЂРѕСЃР»С‹С…, unisex РґР»СЏ РЅРµР№С‚СЂР°Р»СЊРЅС‹С…
-- composition: СЃРїРёСЃРѕРє РєРѕРјРїРѕРЅРµРЅС‚РѕРІ (С€Р°СЂС‹ Р»Р°С‚РµРєСЃРЅС‹Рµ, С€Р°СЂС‹ С„РѕР»СЊРіРёСЂРѕРІР°РЅРЅС‹Рµ, Р»РµРЅС‚Р°, РєРѕСЂРѕР±РєР°-СЃСЋСЂРїСЂРёР·, Р±Р°РЅРЅРµСЂ, РїРѕРґР°СЂРѕРє)
-- slug: С‚СЂР°РЅСЃР»РёС‚РµСЂР°С†РёСЏ РЅР°Р·РІР°РЅРёСЏ Р»Р°С‚РёРЅРёС†РµР№ С‡РµСЂРµР· РґРµС„РёСЃ
-- tags: РґРѕРїРѕР»РЅРёС‚РµР»СЊРЅС‹Рµ С‚РµРіРё РґР»СЏ РїРѕРёСЃРєР° (С†РІРµС‚Р°, С‚РµРјС‹, РїРµСЂСЃРѕРЅР°Р¶Рё)`;
+ВАЖНЫЕ ПРАВИЛА:
+- Категория "balloons" для композиций из шаров
+- character: определи по фото (marvel для Spider-Man, football для футбольных мячей, unicorn для единорогов и т.д.)
+- age_group: определи по стилю композиции (baby для 1 годик, child для детских, teen для подростковых, adult для взрослых)
+- occasion: определи повод (birthday для дней рождения с цифрами, wedding для свадебных, holiday для праздничных)
+- target_audience: мальчик/девочка для детей, мужчина/женщина для взрослых, unisex для нейтральных
+- composition: список компонентов (шары латексные, шары фольгированные, лента, коробка-сюрприз, баннер, подарок)
+- slug: транслитерация названия латиницей через дефис
+- tags: дополнительные теги для поиска (цвета, темы, персонажи)`;
 
-  const userPrompt = `РЎРіРµРЅРµСЂРёСЂСѓР№ РєР°СЂС‚РѕС‡РєСѓ РґР»СЏ РєРѕРјРїРѕР·РёС†РёРё РёР· С€Р°СЂРѕРІ:
-РџРѕРґСЃРєР°Р·РєР° РЅР°Р·РІР°РЅРёСЏ: ${title_hint || 'РЅРµ СѓРєР°Р·Р°РЅРѕ'}
-Р¦РµРЅР°: ${price || 'РЅРµ СѓРєР°Р·Р°РЅР°'} в‚Ѕ
-РћРїРёСЃР°РЅРёРµ: ${description || 'РљРѕРјРїРѕР·РёС†РёСЏ РёР· РІРѕР·РґСѓС€РЅС‹С… С€Р°СЂРѕРІ'}
-РўРёРї СЃС†РµРЅС‹: ${scene || 'standard'}
-${image_url ? 'РР·РѕР±СЂР°Р¶РµРЅРёРµ РїСЂРµРґРѕСЃС‚Р°РІР»РµРЅРѕ РґР»СЏ РІРёР·СѓР°Р»СЊРЅРѕРіРѕ Р°РЅР°Р»РёР·Р°' : ''}`;
+  const userPrompt = `Сгенерируй карточку для композиции из шаров:
+Подсказка названия: ${title_hint || 'не указано'}
+Цена: ${price || 'не указана'} ₽
+Описание: ${description || 'Композиция из воздушных шаров'}
+Тип сцены: ${scene || 'standard'}
+${image_url ? 'Изображение предоставлено для визуального анализа' : ''}`;
 
-  // Р—Р°РїСЂРѕСЃ Рє NordRouter GPT-4o (СЃ vision РµСЃР»Рё РµСЃС‚СЊ image_url)
+  // Запрос к NordRouter GPT-4o (с vision если есть image_url)
   const messages = [
     { role: 'system', content: systemPrompt },
     { role: 'user', content: userPrompt }
   ];
   
-  // Р•СЃР»Рё РµСЃС‚СЊ РёР·РѕР±СЂР°Р¶РµРЅРёРµ, РґРѕР±Р°РІР»СЏРµРј РµРіРѕ РґР»СЏ Р°РЅР°Р»РёР·Р°
-  // Claude Sonnet 5 supports vision - добавляем изображение для анализа
+  // Если есть изображение, добавляем его для анализа
+  // Claude Sonnet 5 supports vision - добавляем изображение при наличии
   if (image_url) {
     messages[1].content = [
       { type: 'text', text: userPrompt },
@@ -184,28 +184,28 @@ ${image_url ? 'РР·РѕР±СЂР°Р¶РµРЅРёРµ РїСЂРµРґРѕ
     response_format: { type: 'json_object' }
   }, env);
 
-  // РџСЂРѕРІРµСЂСЏРµРј РѕС€РёР±РєРё РѕС‚ NordRouter API
+  // Проверяем ошибки от NordRouter API
   if (aiResp.error) {
     console.error('NordRouter API error:', aiResp.error);
-    return json({ ok: false, error: 'NordRouter API РѕС€РёР±РєР°: ' + (aiResp.error.message || JSON.stringify(aiResp.error)) });
+    return json({ ok: false, error: 'NordRouter API ошибка: ' + (aiResp.error.message || JSON.stringify(aiResp.error)) });
   }
 
   const text = aiResp.choices?.[0]?.message?.content || '';
   if (!text) {
-    return json({ ok: false, error: 'AI РЅРµ РІРµСЂРЅСѓР» РѕС‚РІРµС‚' });
+    return json({ ok: false, error: 'AI не вернул ответ' });
   }
 
   let data;
   try {
     data = JSON.parse(text);
   } catch {
-    return json({ ok: false, error: 'AI РІРµСЂРЅСѓР» РЅРµРєРѕСЂСЂРµРєС‚РЅС‹Р№ JSON: ' + text.slice(0, 200) });
+    return json({ ok: false, error: 'AI вернул некорректный JSON: ' + text.slice(0, 200) });
   }
 
   return json({ ok: true, data });
 }
 
-// в”Ђв”Ђв”Ђ AI: Suggest Category в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
+// ─── AI: Suggest Category ────────────────────────────────
 
 async function handleSuggestCategory(request, env) {
   const { description, title } = await request.json();
@@ -215,19 +215,19 @@ async function handleSuggestCategory(request, env) {
     messages: [
       {
         role: 'system',
-        content: `РћРїСЂРµРґРµР»Рё РєР°С‚РµРіРѕСЂРёСЋ Рё С‚РµРіРё РґР»СЏ РєР°СЂС‚РѕС‡РєРё С‚РѕРІР°СЂР° РјР°РіР°Р·РёРЅР° С€Р°СЂРѕРІ.
-Р’РµСЂРЅРё РўРћР›Р¬РљРћ JSON: { "category": "...", "tags": ["..."] }
-РљР°С‚РµРіРѕСЂРёРё: Р”Р»СЏ РґРµРІРѕС‡РєРё, Р”Р»СЏ РјР°Р»СЊС‡РёРєР°, Р”Р»СЏ РЅРµС‘, Р”Р»СЏ РјР°РјС‹, Р”Р»СЏ РЅРµРіРѕ, Р“РµР№РјРµСЂР°Рј, Р®Р±РёР»РµР№, 1 РіРѕРґРёРє, РљСЂРµС‰РµРЅРёРµ, Р“РµРЅРґРµСЂ-РїР°С‚Рё, РќР° РІС‹РїРёСЃРєСѓ, РЎРІР°РґСЊР±Р° Рё РґРµРІРёС‡РЅРёРє, Р’С‹РїСѓСЃРєРЅРѕР№, РќРѕРІС‹Р№ РіРѕРґ, 14 С„РµРІСЂР°Р»СЏ, 23 С„РµРІСЂР°Р»СЏ, 8 РјР°СЂС‚Р°, 1 СЃРµРЅС‚СЏР±СЂСЏ, Р¤РёРіСѓСЂС‹ РёР· С€Р°СЂРѕРІ, РќР°РїРѕР»СЊРЅС‹Рµ РєРѕРјРїРѕР·РёС†РёРё, Р‘СѓРєРµС‚ РёР· С€Р°СЂРѕРІ, Р¦РІРµС‚С‹ РёР· С€Р°СЂРѕРІ, РљСЂР°С„С‚РѕРІС‹Р№ Р±СѓРєРµС‚, РЁР°СЂ-СЃСЋСЂРїСЂРёР·, РљРѕСЂРѕР±РєР°-СЃСЋСЂРїСЂРёР·, Р¤РѕС‚РѕР·РѕРЅР°, РђСЂРєР° РёР· С€Р°СЂРѕРІ, РЁР°СЂС‹ РїРѕС€С‚СѓС‡РЅРѕ.`
+        content: `Определи категорию и теги для карточки товара магазина шаров.
+Верни ТОЛЬКО JSON: { "category": "...", "tags": ["..."] }
+Категории: Для девочки, Для мальчика, Для неё, Для мамы, Для него, Геймерам, Юбилей, 1 годик, Крещение, Гендер-пати, На выписку, Свадьба и девичник, Выпускной, Новый год, 14 февраля, 23 февраля, 8 марта, 1 сентября, Фигуры из шаров, Напольные композиции, Букет из шаров, Цветы из шаров, Крафтовый букет, Шар-сюрприз, Коробка-сюрприз, Фотозона, Арка из шаров, Шары поштучно.`
       },
-      { role: 'user', content: `РќР°Р·РІР°РЅРёРµ: ${title}\nРћРїРёСЃР°РЅРёРµ: ${description}` }
+      { role: 'user', content: `Название: ${title}\nОписание: ${description}` }
     ],
     temperature: 0.2
   }, env);
 
-  // РџСЂРѕРІРµСЂСЏРµРј РѕС€РёР±РєРё РѕС‚ NordRouter API
+  // Проверяем ошибки от NordRouter API
   if (aiResp.error) {
     console.error('NordRouter API error:', aiResp.error);
-    return json({ ok: false, error: 'NordRouter API РѕС€РёР±РєР°: ' + (aiResp.error.message || JSON.stringify(aiResp.error)) });
+    return json({ ok: false, error: 'NordRouter API ошибка: ' + (aiResp.error.message || JSON.stringify(aiResp.error)) });
   }
 
   const text = aiResp.choices?.[0]?.message?.content || '';
@@ -240,7 +240,7 @@ async function handleSuggestCategory(request, env) {
   }
 }
 
-// ─── Studio Pro: Process (NEW FLOW - Remove BG + Canvas) ───────────────────────────────────────
+// ─── Studio Pro: Process (NEW FLOW - Remove BG + Canvas) ───────────────────
 
 async function handleStudioProcess(request, env) {
   const { image_url, scene, prompt: userPrompt } = await request.json();
@@ -295,8 +295,8 @@ async function handleStudioProcess(request, env) {
     }, 500);
   }
   
-  console.log('[Studio Pro NEW] ✅ Remove BG job created:', generateResp.id);
-  console.log('[Studio Pro NEW] ✅ Returning job_id to frontend:', generateResp.id);
+  console.log('[Studio Pro NEW] ? Remove BG job created:', generateResp.id);
+  console.log('[Studio Pro NEW] ? Returning job_id to frontend:', generateResp.id);
   
   return json({ 
     ok: true, 
@@ -307,64 +307,64 @@ async function handleStudioProcess(request, env) {
 }
 
 
-// в”Ђв”Ђв”Ђ Studio Pro: Status в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
+// ─── Studio Pro: Status ──────────────────────────────────
 
 async function handleStudioStatus(path, env) {
   const jobId = path.split('/').pop();
-  console.log('[Studio Status] 📊 Checking job:', jobId);
+  console.log('[Studio Status] ?? Checking job:', jobId);
   
   try {
     const result = await nordRequest('/media/job/' + jobId, 'GET', null, env);
 
-  console.log('[Studio Status] 📊 Job:', jobId, '→ Status:', result.status);
+  console.log('[Studio Status] ?? Job:', jobId, '? Status:', result.status);
 
   if (result.status === 'done' && result.result_url) {
-    // РЎРєР°С‡РёРІР°РµРј СЂРµР·СѓР»СЊС‚Р°С‚ Рё Р·Р°РіСЂСѓР¶Р°РµРј РІ R2
+    // Скачиваем результат и загружаем в R2
     const imgResp = await fetch(result.result_url, {
       headers: { 'Authorization': 'Bearer ' + env.NORDROUTER_API_KEY }
     });
     
     if (!imgResp.ok) {
-      console.error('[Studio Status] ❌ Failed to download result:', imgResp.status);
+      console.error('[Studio Status] ? Failed to download result:', imgResp.status);
       return json({ ok: false, error: `Ошибка скачивания: ${imgResp.status}` }, 500);
     }
     
-    // === ДИАГНОСТИКА 1: Content-Type ответа NordRouter ===
+    // === Диагностика 1: Content-Type от NordRouter ===
     const contentType = imgResp.headers.get('Content-Type') || 'unknown';
-    console.log('[DIAGNOSTIC] 📦 Content-Type from NordRouter:', contentType);
+    console.log('[DIAGNOSTIC] ?? Content-Type from NordRouter:', contentType);
     
     const blob = await imgResp.blob();
-    console.log('[Studio Status] 📥 Downloaded:', blob.size, 'bytes');
-    console.log('[DIAGNOSTIC] 📦 Blob type:', blob.type);
+    console.log('[Studio Status] ?? Downloaded:', blob.size, 'bytes');
+    console.log('[DIAGNOSTIC] ?? Blob type:', blob.type);
 
 
-    // R2 РѕС‚РєР»СЋС‡РµРЅ вЂ” РІРѕР·РІСЂР°С‰Р°РµРј СЂРµР·СѓР»СЊС‚Р°С‚ РєР°Рє base64
+    // R2 отключен — возвращаем результат как base64
     const arrayBuffer = await blob.arrayBuffer();
     
-    // === ДИАГНОСТИКА 2: Размер и сигнатура файла ===
-    console.log('[DIAGNOSTIC] 📦 ArrayBuffer size:', arrayBuffer.byteLength);
+    // === Диагностика 2: размер и сигнатура файла ===
+    console.log('[DIAGNOSTIC] ?? ArrayBuffer size:', arrayBuffer.byteLength);
     
     const bytes = new Uint8Array(arrayBuffer);
     
-    // Выводим первые 16 байт (сигнатура файла)
+    // Первые 16 байт (сигнатура файла)
     const signature = Array.from(bytes.slice(0, 16))
       .map(b => b.toString(16).padStart(2, '0'))
       .join(' ');
-    console.log('[DIAGNOSTIC] 📦 File signature (first 16 bytes):', signature);
+    console.log('[DIAGNOSTIC] ?? File signature (first 16 bytes):', signature);
     
     // Проверяем PNG сигнатуру: 89 50 4E 47 0D 0A 1A 0A
     const isPNG = bytes[0] === 0x89 && bytes[1] === 0x50 && bytes[2] === 0x4E && bytes[3] === 0x47;
     const isWebP = bytes[8] === 0x57 && bytes[9] === 0x45 && bytes[10] === 0x42 && bytes[11] === 0x50;
-    console.log('[DIAGNOSTIC] 📦 Format detection: PNG=' + isPNG + ', WebP=' + isWebP);
+    console.log('[DIAGNOSTIC] ?? Format detection: PNG=' + isPNG + ', WebP=' + isWebP);
     
     // Определяем правильный MIME type
     let detectedMimeType = 'image/png';
     if (isWebP) {
       detectedMimeType = 'image/webp';
     } else if (!isPNG) {
-      console.warn('[DIAGNOSTIC] ⚠️ Unknown image format! Using PNG as fallback');
+      console.warn('[DIAGNOSTIC] ?? Unknown image format! Using PNG as fallback');
     }
-    console.log('[DIAGNOSTIC] 📦 Detected MIME type:', detectedMimeType);
+    console.log('[DIAGNOSTIC] ?? Detected MIME type:', detectedMimeType);
     
     let binaryString = '';
     for (let i = 0; i < bytes.length; i++) {
@@ -373,19 +373,19 @@ async function handleStudioStatus(path, env) {
     const base64 = btoa(binaryString);
     const dataUrl = 'data:' + detectedMimeType + ';base64,' + base64;
     
-    console.log('[Studio Status] ✅ Returning result for job:', jobId);
-    console.log('[DIAGNOSTIC] 📦 Data URL MIME:', detectedMimeType);
+    console.log('[Studio Status] ? Returning result for job:', jobId);
+    console.log('[DIAGNOSTIC] ?? Data URL MIME:', detectedMimeType);
     return json({ ok: true, status: 'done', result_url: dataUrl, format: 'base64' });
   }
 
   return json({ ok: true, status: result.status || 'processing' });
   } catch (error) {
-    console.error('[Studio Status] ❌ Error checking job:', jobId, error);
+    console.error('[Studio Status] ? Error checking job:', jobId, error);
     return json({ ok: false, error: error.message || 'Status check failed' }, 500);
   }
 }
 
-// в”Ђв”Ђв”Ђ Studio Pro: Upload в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
+// ─── Studio Pro: Upload ──────────────────────────────────
 
 async function handleStudioUpload(request, env) {
   const formData = await request.formData();
@@ -398,7 +398,7 @@ async function handleStudioUpload(request, env) {
   return json({ ok: true, url: result.url });
 }
 
-// в”Ђв”Ђв”Ђ Products CRUD в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
+// ─── Products CRUD ───────────────────────────────────────
 
 async function handleGetProducts(env) {
   const { results } = await env.DB.prepare(
@@ -448,7 +448,7 @@ async function handleUpdateProduct(path, request, env) {
   const data = await request.json();
   const now = new Date().toISOString();
 
-  // РќРµ РїРµСЂРµР·Р°РїРёСЃС‹РІР°РµРј РїРѕР»СЏ РєРѕС‚РѕСЂС‹Рµ РЅРµ РїРµСЂРµРґР°РЅС‹
+  // Не перезаписываем поля которые не переданы
   const existing = await env.DB.prepare("SELECT * FROM products WHERE id = ?").bind(id).first();
   if (!existing) return json({ ok: false, error: 'Not found' }, 404);
 
@@ -503,15 +503,15 @@ async function handleToggleStatus(path, request, env) {
   return json({ ok: true });
 }
 
-// в”Ђв”Ђв”Ђ Upload Photo в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
+// ─── Upload Photo ────────────────────────────────────────
 
 async function handleUploadPhoto(request, env) {
   const formData = await request.formData();
   const file = formData.get('file');
   if (!file) return json({ ok: false, error: 'No file' }, 400);
 
-  // R2 РѕС‚РєР»СЋС‡РµРЅ вЂ” РєРѕРЅРІРµСЂС‚РёСЂСѓРµРј С„Р°Р№Р» РІ data URL (РІСЂРµРјРµРЅРЅРѕРµ СЂРµС€РµРЅРёРµ)
-  // Р”Р»СЏ РїСЂРѕРґР°РєС€РµРЅР° РЅСѓР¶РЅРѕ РЅР°СЃС‚СЂРѕРёС‚СЊ СЂРµР°Р»СЊРЅС‹Р№ С…РѕСЃС‚РёРЅРі РёР·РѕР±СЂР°Р¶РµРЅРёР№
+  // R2 отключен — конвертируем файл в data URL (временное решение)
+  // Для продакшена нужно настроить реальный хостинг изображений
   try {
     const arrayBuffer = await file.arrayBuffer();
     const base64 = btoa(String.fromCharCode(...new Uint8Array(arrayBuffer)));
@@ -530,12 +530,12 @@ async function handleUploadPhoto(request, env) {
 
 async function handleDeletePhoto(path, env) {
   const id = path.split('/').pop();
-  // R2 РѕС‚РєР»СЋС‡РµРЅ вЂ” NordRouter РЅРµ РїРѕРґРґРµСЂР¶РёРІР°РµС‚ СѓРґР°Р»РµРЅРёРµ С„Р°Р№Р»РѕРІ С‡РµСЂРµР· API
-  // РџСЂРѕСЃС‚Рѕ РІРѕР·РІСЂР°С‰Р°РµРј СѓСЃРїРµС… (С„Р°Р№Р»С‹ РЅР° NordRouter РѕСЃС‚Р°СЋС‚СЃСЏ, РЅРѕ СЌС‚Рѕ РЅРµ РєСЂРёС‚РёС‡РЅРѕ)
+  // R2 отключен — NordRouter не поддерживает удаление файлов через API
+  // Просто возвращаем успех (файлы на NordRouter остаются, но это не критично)
   return json({ ok: true });
 }
 
-// в”Ђв”Ђв”Ђ Helpers в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
+// ─── Helpers ─────────────────────────────────────────────
 
 function parseProduct(row) {
   return {

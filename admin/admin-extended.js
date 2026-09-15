@@ -102,9 +102,13 @@ Object.assign(app, {
 
   // === Form Events ===
   setupFormEvents() {
-    const aiBtn = document.getElementById('generate-ai-btn');
-    if (aiBtn) aiBtn.addEventListener('click', () => this.generateAICard());
-    
+    // ОТКЛЮЧЕНО: кнопка "Сгенерировать данные через ИИ" использует onclick="app.generateAIMetadata()"
+    // из HTML (admin-ai.js). Раньше здесь же вешался ещё и addEventListener на generateAICard(),
+    // из-за чего один клик отправлял ДВА запроса к ИИ одновременно (нарушение "1 карточка = 1 запрос").
+
+    // const aiBtn = document.getElementById('generate-ai-btn');
+    // if (aiBtn) aiBtn.addEventListener('click', () => this.generateAICard());
+
     // ОТКЛЮЧЕНО: теперь кнопка Studio Pro использует onclick="app.processStudioProNew()" из HTML
 
     // const studioBtn = document.getElementById('process-studio-btn');

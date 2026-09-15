@@ -362,7 +362,8 @@ FIX / IMPROVE:
 - Remove cutout halo, white fringe, sticker edges
 - Natural soft contact shadows (floor and/or wall) matching the light
 - Match product lighting to the room: soft, natural, catalog quality
-- Photorealistic, sharp, high-end e-commerce look
+- Photorealistic, sharp, maximum detail, high-end e-commerce look
+- Keep the product CLOSE TO THE WALL (near the baseboard), not floating in the middle of the floor toward the camera
 
 NO 3D render look. NO plastic HDR. NO changing the product.`;
 
@@ -379,19 +380,19 @@ Keep wall background only.`;
     return `${base}
 
 SCENE: wall only — no floor visible.
-Soft natural shadow of the product on the wall behind it.`;
+Product close to the wall plane. Soft natural shadow of the product on the wall behind it.`;
   }
 
   if (scene === 'photozone') {
     return `${base}
 
-SCENE: large photozone standing in the studio on the floor against the wall.
+SCENE: large photozone standing flush against the wall on the laminate floor near the baseboard.
 Keep the full structure. Soft contact shadow on the floor. Feels shot in this room.`;
   }
 
   return `${base}
 
-SCENE: floor composition standing on the laminate floor against the wall.
+SCENE: floor composition standing flush against the wall on the laminate floor near the baseboard (not in the foreground).
 Strong natural contact shadow under the product on the floor.`;
 }
 

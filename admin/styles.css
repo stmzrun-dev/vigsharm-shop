@@ -217,6 +217,27 @@ legend{font-size:15px;font-weight:600;padding:0 12px;color:#212121}
 /* Section Headers */
 .section-header{font-size:18px;font-weight:600;color:#212121;margin:32px 0 16px;padding-bottom:12px;border-bottom:2px solid #F5F5F5}
 
+/* Compact card (single-screen form) */
+.compact-card .card-block{margin-bottom:8px}
+.compact-card .lead{color:#616161;font-size:14px;margin:0 0 16px;line-height:1.5}
+.card-extra{margin:24px 0;padding:16px 18px;border:1px solid #E0E0E0;border-radius:12px;background:#FAFAFA}
+.card-extra summary{cursor:pointer;font-weight:600;font-size:15px;color:#424242;outline:none}
+.card-extra[open] summary{margin-bottom:16px}
+.card-extra fieldset{margin:12px 0;border:1px solid #E0E0E0;border-radius:10px;padding:12px}
+.card-extra legend{font-size:13px;font-weight:600;color:#616161;padding:0 6px}
+
+/* Crop editor */
+.crop-editor{margin-top:20px;padding:16px;border:1px solid #90CAF9;border-radius:12px;background:#F5FBFF}
+.crop-editor h3{margin:0 0 8px;font-size:16px;color:#1565C0}
+.crop-stage{position:relative;width:100%;max-width:520px;aspect-ratio:1;margin:0 auto 16px;background:#111;border-radius:10px;overflow:hidden;touch-action:none;user-select:none}
+.crop-stage img{display:block;width:100%;height:100%;object-fit:contain;pointer-events:none}
+.crop-frame{position:absolute;border:2px solid #FFC107;background:rgba(255,193,7,.10);cursor:move;box-sizing:border-box}
+.crop-frame[data-frame="2"]{border-color:#42A5F5;background:rgba(66,165,245,.12);z-index:2}
+.crop-frame[data-frame="3"]{border-color:#FFC107;background:rgba(255,193,7,.10);z-index:3}
+.crop-frame-label{position:absolute;top:4px;left:4px;font-size:11px;font-weight:700;color:#fff;background:rgba(0,0,0,.65);padding:2px 6px;border-radius:4px;pointer-events:none}
+.crop-handle{position:absolute;right:-6px;bottom:-6px;width:14px;height:14px;background:#fff;border:2px solid #1976D2;border-radius:2px;cursor:nwse-resize;z-index:4}
+.crop-actions{display:flex;gap:12px;flex-wrap:wrap;justify-content:flex-start}
+
 @media(max-width:768px){
   .products-header{flex-direction:column;align-items:stretch}
   .form-row{grid-template-columns:1fr}
@@ -244,4 +265,5 @@ legend{font-size:15px;font-weight:600;padding:0 12px;color:#212121}
   .photo-grid{grid-template-columns:1fr}
   .action-bar{flex-direction:column-reverse}
   .action-bar .btn{width:100%}
+  .crop-stage{max-width:100%}
 }

@@ -36,7 +36,6 @@ const app = {
   init() {
     this.loadSettings();
     this.setupTabs();
-    this.setupSteps();
     this.setupPhotoUpload();
     this.setupSceneSelector();
     this.setupFormEvents();
@@ -44,18 +43,7 @@ const app = {
     this.renderTags();
     this.wireFormHelpers();
     this.wireFilters();
-    this.updateSteps();
     this.loadProducts();
-  },
-
-  // === Навигация по шагам визарда ===
-  setupSteps() {
-    document.querySelectorAll('#steps-nav .step').forEach(step => {
-      step.addEventListener('click', () => {
-        this.currentStep = parseInt(step.dataset.step, 10) || 1;
-        this.updateSteps();
-      });
-    });
   },
 
   // === Автозаполнение: артикул и slug ===
@@ -159,7 +147,6 @@ const app = {
     document.querySelector(`[data-tab="${tab}"]`)?.classList.add('active');
     document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
     document.getElementById(`tab-${tab}`)?.classList.remove('hidden');
-    if (tab === 'create') this.updateSteps();
   },
 
   async loadProducts() {
@@ -275,9 +262,22 @@ const app = {
   async saveProduct(status) {
     const data = this.collectFormData();
 
-    if (!data.title) { this.toast('Введите название', 'error'); this.showStep(3); return; }
-    if (this.currentProduct.photos.length === 0) { this.toast('Загрузите фото', 'error'); this.showStep(1); return; }
-    if (!data.category) { this.toast('Выберите категорию', 'error'); this.showStep(4); return; }
+    if (this.currentProduct.photos.length === 0) {
+      this.toast('Загрузите фото', 'error');
+      document.getElementById('block-photos')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      return;
+    }
+    if (!data.title) {
+      this.toast('Введите название', 'error');
+      document.getElementById('product-title')?.focus();
+      document.getElementById('block-main')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      return;
+    }
+    if (!data.category) {
+      this.toast('Выберите категорию', 'error');
+      document.getElementById('product-category')?.focus();
+      return;
+    }
 
     const isEdit = !!this.currentProduct.id;
     this.toast(status === 'published' ? 'Публикация...' : 'Сохранение...', '');
@@ -354,12 +354,6 @@ const app = {
     return this.saveProduct('draft');
   },
 
-  showStep(n) {
-    this.currentStep = n;
-    this.updateSteps();
-    document.querySelector('#tab-create .card')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  },
-
   async deleteProduct(id) {
     if (confirm('Удалить товар?')) {
       try {
@@ -377,25 +371,6 @@ const app = {
     }
   },
 
-  nextStep() {
-    if (this.currentStep < 8) this.showStep(this.currentStep + 1);
-  },
-
-  prevStep() {
-    if (this.currentStep > 1) this.showStep(this.currentStep - 1);
-  },
-
-  updateSteps() {
-    document.querySelectorAll('.form-step').forEach(step => {
-      const n = parseInt(step.dataset.step, 10) || 0;
-      step.classList.toggle('active', n === this.currentStep);
-    });
-    document.querySelectorAll('#steps-nav .step').forEach(step => {
-      const n = parseInt(step.dataset.step, 10) || 0;
-      step.classList.toggle('active', n === this.currentStep);
-      step.classList.toggle('completed', n < this.currentStep);
-    });
-  }
 };
 
 if (document.readyState === 'loading') {

@@ -188,7 +188,10 @@ Object.assign(app, {
     if (card.price) document.getElementById('product-price').value = card.price;
     if (card.short_description) document.getElementById('product-short-desc').value = card.short_description;
     if (card.full_description) document.getElementById('product-full-desc').value = card.full_description;
-    if (card.composition) document.getElementById('product-composition').value = card.composition.join('\n');
+    if (card.composition) {
+      const comp = Array.isArray(card.composition) ? card.composition.join('\n') : String(card.composition);
+      document.getElementById('product-composition').value = comp;
+    }
     if (card.category) document.getElementById('product-category').value = card.category;
     if (card.seo_title) document.getElementById('product-seo-title').value = card.seo_title;
     if (card.seo_description) document.getElementById('product-seo-desc').value = card.seo_description;
@@ -206,6 +209,15 @@ Object.assign(app, {
       if (card.client_options.number_choice) document.getElementById('opt-number').checked = true;
       if (card.client_options.personal_inscription) document.getElementById('opt-inscription').checked = true;
       if (card.client_options.photozone_rental) document.getElementById('opt-rental').checked = true;
+    }
+
+    if (card.character) {
+      const el = document.getElementById('product-character');
+      if (el) el.value = card.character;
+    }
+    if (card.age_group) {
+      const el = document.getElementById('product-age');
+      if (el) el.value = card.age_group;
     }
   },
 
@@ -264,8 +276,8 @@ Object.assign(app, {
   },
 
   resetForm() {
-    this.currentStep = 1;
     this.currentProduct = { photos: [], scene: 'auto', tags: [], client_options: {} };
+    if (typeof this.hideCropEditor === 'function') this.hideCropEditor();
 
     const form = document.getElementById('product-form');
     if (form) form.reset();
@@ -277,10 +289,9 @@ Object.assign(app, {
     if (articleEl) articleEl.value = this.nextArticle();
 
     const hero = document.querySelector('#tab-create .hero-section h1');
-    if (hero) hero.textContent = 'Новая карточка за минуту';
+    if (hero) hero.textContent = 'Создать за минуту';
 
     this.renderPhotos();
-    this.updateSteps();
   }
 });
 
@@ -296,8 +307,6 @@ app.editProduct = async function(id) {
     this.resetForm();
     this.loadProductToForm(data.product);
     this.switchTab('create');
-    this.currentStep = 1;
-    this.updateSteps();
 
     const hero = document.querySelector('#tab-create .hero-section h1');
     if (hero) hero.textContent = 'Редактирование — ' + (data.product.title || '');

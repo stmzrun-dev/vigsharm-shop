@@ -143,14 +143,17 @@ Object.assign(app, {
         replaceBtn.style.display = 'inline-block';
       }
     } else {
-      // Фон не установлен
-      preview.innerHTML = '';
-      preview.style.display = 'none';
+      // Фон не установлен — Studio Pro возьмёт локальный эталон
+      const fallback = this.DEFAULT_REFERENCE_BG || '../assets/reference/reference-background.png';
+      preview.innerHTML = `
+        <img src="${fallback}" alt="Локальный эталон" style="max-width: 100%; height: auto; border-radius: 8px; border: 1px solid #ddd;"/>
+        <p class="text-muted" style="margin:8px 0 0;font-size:13px">Локальный fallback (загрузите в Cloudinary для стабильности)</p>
+      `;
+      preview.style.display = 'block';
       
-      status.innerHTML = '⚠️ Эталонный фон ещё не загружен';
-      status.style.color = '#95a5a6';
+      status.innerHTML = 'ℹ️ Используется локальный <code>reference-background.png</code>';
+      status.style.color = '#616161';
       
-      // Скрыть кнопку замены
       if (replaceBtn) {
         replaceBtn.style.display = 'none';
       }

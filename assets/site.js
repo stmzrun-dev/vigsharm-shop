@@ -9,6 +9,24 @@
   var WA_TEXT = 'Здравствуйте! Хочу сделать заказ в Вигшарм.';
   var REMOTE = 'https://vigsharm-new.stmzrun.chatgpt.site';
 
+  // Приводит товар из Worker API (схема D1: article/full_description/character/photos/composition[])
+  // к плоским полям, которые ожидает старый код витрины (sku/description/character_name/image_keys/
+  // composition-строка). Конфигуратор цифр/надписи/аренды НЕ восстанавливается —
+  // админка пока не собирает эти данные (has_digit_choice, digit_images, inscription_price,
+  // rental_item и т.д.), поэтому карточки без него, но фото/название/цена/описание корректны.
+  window.vigNormalizeProduct = function (p) {
+    if (!p) return p;
+    p.sku = p.sku || p.article || '';
+    p.description = p.description || p.full_description || '';
+    p.character_name = p.character_name || p.character || '';
+    p.image_keys = p.image_keys || p.photos || [];
+    if (Array.isArray(p.composition)) p.composition = p.composition.join('\n');
+    return p;
+  };
+  window.vigNormalizeProducts = function (list) {
+    return (list || []).map(window.vigNormalizeProduct);
+  };
+
   // Resolves a product image key to a local path, with remote fallback handled via onerror.
   window.vigImage = function (key) {
     if (!key) return '';

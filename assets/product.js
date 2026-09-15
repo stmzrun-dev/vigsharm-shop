@@ -572,7 +572,7 @@
     .then(function (r) { if (!r.ok) throw new Error('x'); return r.json(); })
     .then(function (data) {
       // Worker API возвращает { ok: true, products: [...] }
-      allProducts = (data.ok && Array.isArray(data.products)) ? data.products : [];
+      allProducts = window.vigNormalizeProducts((data.ok && Array.isArray(data.products)) ? data.products : []);
       var found = null;
       for (var i = 0; i < allProducts.length; i++) {
         var o = allProducts[i];

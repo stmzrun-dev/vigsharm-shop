@@ -10,7 +10,7 @@
       .then(function (r) { return r.json(); })
       .then(function (data) {
         // Worker API возвращает { ok: true, products: [...] }
-        var products = (data.ok && Array.isArray(data.products)) ? data.products : [];
+        var products = window.vigNormalizeProducts((data.ok && Array.isArray(data.products)) ? data.products : []);
         if (!products.length) {
           if (section) section.style.display = 'none';
           return;

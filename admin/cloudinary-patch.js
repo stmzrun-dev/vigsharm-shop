@@ -73,8 +73,10 @@
         settings.cloudinaryCloudName = this.cloudinaryCloudName;
         settings.cloudinaryUploadPreset = this.cloudinaryUploadPreset;
         settings.workerUrl = this.workerUrl;
-        settings.nordrouterKey = this.nordrouterKey;
-        
+        // Примечание: NordRouter-ключ больше НЕ хранится в localStorage — он живёт только
+        // в Worker secrets (см. миграцию в admin.js loadSettings()). Поле nordrouterKey
+        // на app отсутствует, поэтому строка settings.nordrouterKey = ... была удалена.
+
         localStorage.setItem('vigsharm_admin_settings', JSON.stringify(settings));
         this.toast('Настройки сохранены', 'success');
       } catch (e) {

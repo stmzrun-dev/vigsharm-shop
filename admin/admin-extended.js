@@ -210,65 +210,9 @@ Object.assign(app, {
   },
 
   // === Studio Pro ===
-  async processStudioPro() {
-    if (this.currentProduct.photos.length === 0) { this.toast('Загрузите фото', 'error'); return; }
-    
-    const btn = document.getElementById('process-studio-btn');
-    const statusEl = document.getElementById('studio-status');
-    btn.disabled = true;
-    btn.innerHTML = '<span class="spinner"></span> Обработка...';
-    
-    try {
-      for (let i = 0; i < this.currentProduct.photos.length; i++) {
-        const photo = this.currentProduct.photos[i];
-        statusEl.textContent = `Обработка ${i + 1}/${this.currentProduct.photos.length}...`;
-        
-        let imageUrl = photo.url;
-        if (!photo.uploaded) {
-          const uploadResult = await this.uploadPhoto(photo.file);
-          if (uploadResult.ok) {
-            imageUrl = uploadResult.url;
-            photo.url = imageUrl;
-            photo.uploaded = true;
-          }
-        }
-        
-        const res = await fetch(`${this.workerUrl}/api/studio/process`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ image_url: imageUrl, scene: this.currentProduct.scene })
-        });
-        
-        const data = await res.json();
-        if (data.ok && data.job_id) {
-          const result = await this.pollStudioStatus(data.job_id, statusEl, i + 1);
-          if (result) { photo.url = result; photo.uploaded = true; }
-        }
-      }
-      
-      this.renderPhotos();
-      statusEl.textContent = '✓ Все фото обработаны';
-      this.toast('Фото обработаны', 'success');
-    } catch (e) {
-      statusEl.textContent = '✗ ' + e.message;
-      this.toast('Ошибка: ' + e.message, 'error');
-    } finally {
-      btn.disabled = false;
-      btn.innerHTML = '✨ Обработать фото через Studio Pro';
-    }
-  },
-
-  async pollStudioStatus(jobId, statusEl, current) {
-    for (let i = 0; i < 60; i++) {
-      await new Promise(r => setTimeout(r, 3000));
-      const res = await fetch(`${this.workerUrl}/api/studio/status/${jobId}`);
-      const data = await res.json();
-      if (data.ok && data.status === 'done' && data.result_url) return data.result_url;
-      if (data.status === 'failed') throw new Error('Обработка не удалась');
-      statusEl.textContent = `Обработка ${current}... (${i * 3}с)`;
-    }
-    throw new Error('Таймаут обработки');
-  },
+  // Актуальная реализация — processStudioProNew() в admin-studio-pro.js (вызывается через
+  // onclick="app.processStudioProNew()" из HTML). Старый цикл processStudioPro()/pollStudioStatus()
+  // (обрабатывал фото по одному через /api/studio/process) был не задействован и удалён как мёртвый код.
 
   async uploadPhoto(file) {
     const formData = new FormData();

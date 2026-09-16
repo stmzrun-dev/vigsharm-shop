@@ -10,9 +10,9 @@ const TAGS = {
 
 const SCENES = [
   { value: 'auto', title: '🤖 Автоматически', desc: 'ИИ определит по содержимому' },
-  { value: 'unit_balloon', title: '🎈 Шар поштучно', desc: 'Только стена, без пола' },
-  { value: 'handheld_bouquet', title: '💐 Букет в руке', desc: 'Только стена, без пола' },
-  { value: 'wall_only', title: '🧱 Только стена', desc: 'Строгий запрет пола' },
+  { value: 'unit_balloon', title: '🎈 Шар поштучно', desc: 'Manus: стена, без пола' },
+  { value: 'handheld_bouquet', title: '💐 Букет в руке', desc: 'Manus: AI, стена + рука' },
+  { value: 'wall_only', title: '🧱 Только стена', desc: 'Manus: стена, без пола' },
   { value: 'floor', title: '🏠 Напольная сцена', desc: 'Стена + плинтус + ламинат' },
   { value: 'photozone', title: '📸 Фотозона', desc: 'Полный интерьер' }
 ];
@@ -20,6 +20,7 @@ const SCENES = [
 const app = {
   workerUrl: 'https://vigsharm-api.vigsharm.workers.dev',
   studioReferenceBackgroundUrl: '',
+  studioReferenceHandUrl: '',
   adminApiKey: '',
 
   // Заголовок авторизации для admin-only запросов к Worker (создание/изменение/удаление
@@ -107,8 +108,10 @@ const app = {
           console.warn('⚠️ NordRouter API ключ удалён из localStorage (теперь хранится в Worker secrets)');
         }
         
-        // Загружаем эталонный фон
+        // Загружаем эталонный фон и руку
         this.studioReferenceBackgroundUrl = settings.studioReferenceBackgroundUrl || '';
+        this.studioReferenceHandUrl = settings.studioReferenceHandUrl || '';
+        this.studioReferenceHandVersion = settings.studioReferenceHandVersion || '';
         
         if (document.getElementById('worker-url')) document.getElementById('worker-url').value = this.workerUrl;
         if (document.getElementById('admin-api-key')) document.getElementById('admin-api-key').value = this.adminApiKey;

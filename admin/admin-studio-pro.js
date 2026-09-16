@@ -1,13 +1,19 @@
 // VigSharm Admin - Studio Pro
-// Стена / бабл / хром: эталон + cutout. Напольная / фотозона: AI-пересъёмка → Master.
+// Manus AI-пересъёмка: стена / бабл / букет в руке / напольная / фотозона → Master.
+// Букет в руке: стена без пола + рука. Стена/бабл: стена без пола, без руки.
 // Кривой текст на табличке: программный слой (Canvas) поверх Master Base — буквы из полей, без AI.
 
 Object.assign(app, {
   MASTER_SIZE: 2048,
   WEBP_QUALITY: 1.0,
   DEFAULT_REFERENCE_BG: '../assets/reference/reference-background.png',
+  /** Chroma-green plate: fist gripping bouquet base (composited under ribbons) */
+  DEFAULT_REFERENCE_HAND: '../assets/reference/reference-hand-bouquet.png',
+  /** Bump when replacing hand PNG — forces Cloudinary re-upload */
+  REFERENCE_HAND_VERSION: 'v4',
   STUDIO_CHECKPOINT_DB: 'vigsharm_studio_pro',
   STUDIO_CHECKPOINT_STORE: 'checkpoints',
+  _handPlateCanvas: null,
 
   studioMasterDataUrl: null,
   studioCutoutDataUrl: null,
@@ -31,31 +37,84 @@ Object.assign(app, {
     return ['wall_only', 'unit_balloon', 'handheld_bouquet'].includes(scene);
   },
 
-  /** Wall/bubble/chrome: composite on YOUR reference (stable background, no AI rewrite) */
+  /** Legacy cutout path — unused while all scenes use Manus rephotograph */
   usesCompositeMode(scene) {
-    return this.isWallOnlyScene(scene);
+    return false;
   },
 
-  /** Floor/photozone: AI rephotograph in studio */
+  /** All catalog scenes: AI rephotograph (Manus-style) against studio reference */
   usesRephotographMode(scene) {
-    return ['floor', 'photozone', 'auto'].includes(scene || 'floor');
+    return ['floor', 'photozone', 'auto', 'handheld_bouquet', 'wall_only', 'unit_balloon'].includes(scene || 'floor');
   },
 
   syncStudioModeHint() {
     const el = document.getElementById('studio-mode-hint');
     if (!el) return;
     const scene = this.currentProduct?.scene || 'floor';
-    if (this.usesCompositeMode(scene)) {
-      el.textContent = 'Режим: эталон + cutout (текст/хром/ленты сохраняются, фон = ваш файл).';
+    if (scene === 'handheld_bouquet') {
+      el.textContent = 'Режим Manus: AI-пересъёмка — стена без пола + рука держит букет. Товар LOCK.';
+    } else if (scene === 'wall_only' || scene === 'unit_balloon') {
+      el.textContent = 'Режим Manus: AI-пересъёмка — только стена (без пола, без руки). Товар LOCK, без cutout.';
     } else if (scene === 'photozone') {
-      el.textContent = 'Режим: AI-пересъёмка фотозоны. Кривые буквы — блок «Надпись»: текст из полей, без AI.';
+      el.textContent = 'Режим Manus: AI-пересъёмка фотозоны. Кривые буквы — блок «Надпись» из полей.';
     } else {
-      el.textContent = 'Режим: AI-пересъёмка напольной сцены. Кривые буквы — «Надпись» из полей (без AI).';
+      el.textContent = 'Режим Manus: AI-пересъёмка напольной сцены. Кривые буквы — «Надпись» из полей.';
     }
   },
 
   getReferenceBackgroundUrl() {
     return this.studioReferenceBackgroundUrl || this.DEFAULT_REFERENCE_BG;
+  },
+
+  getReferenceHandUrl() {
+    return this.studioReferenceHandUrl || this.DEFAULT_REFERENCE_HAND;
+  },
+
+  saveReferenceHandUrl() {
+    try {
+      const saved = localStorage.getItem('vigsharm_admin_settings');
+      const settings = saved ? JSON.parse(saved) : {};
+      settings.studioReferenceHandUrl = this.studioReferenceHandUrl || '';
+      settings.studioReferenceHandVersion = this.studioReferenceHandVersion || '';
+      localStorage.setItem('vigsharm_admin_settings', JSON.stringify(settings));
+    } catch (e) {
+      console.error('Ошибка сохранения эталона руки:', e);
+    }
+  },
+
+  /** HTTPS URL for hand plate (Cloudinary) — required for canvas on file:// */
+  async ensureReferenceHandHttpsUrl(statusEl) {
+    const ver = this.REFERENCE_HAND_VERSION || 'v1';
+    if (this.studioReferenceHandVersion && this.studioReferenceHandVersion !== ver) {
+      this.studioReferenceHandUrl = '';
+      this._handPlateCanvas = null;
+    }
+
+    let url = this.getReferenceHandUrl();
+    if (url && (url.startsWith('https://') || url.startsWith('http://')) && this.studioReferenceHandVersion === ver) {
+      return url;
+    }
+
+    if (location.protocol === 'file:') {
+      throw new Error(
+        'Новый эталон руки v4: Настройки → удалите старую руку → загрузите assets/reference/reference-hand-bouquet.png'
+      );
+    }
+
+    if (statusEl) statusEl.textContent = '✋ Загрузка эталона руки v4 в Cloudinary...';
+    const blobRes = await fetch(this.DEFAULT_REFERENCE_HAND);
+    if (!blobRes.ok) throw new Error('Не удалось прочитать reference-hand-bouquet.png');
+    const blob = await blobRes.blob();
+    const file = new File([blob], 'vigsharm-reference-hand-v4.png', { type: blob.type || 'image/png' });
+    const uploadResult = await this.uploadPhoto(file);
+    if (!uploadResult.ok) {
+      throw new Error(uploadResult.error || 'Не удалось загрузить эталон руки в Cloudinary');
+    }
+    this.studioReferenceHandUrl = uploadResult.url;
+    this.studioReferenceHandVersion = ver;
+    this._handPlateCanvas = null;
+    this.saveReferenceHandUrl();
+    return uploadResult.url;
   },
 
   // === НАСТРОЙКИ ПОЗИЦИОНИРОВАНИЯ (стартовые для ручной постановки) ===
@@ -78,12 +137,12 @@ Object.assign(app, {
         description: 'Шар поштучно - только стена'
       },
       handheld_bouquet: {
-        targetWidth: 0.52,
+        targetWidth: 0.54,
         centerX: 0.5,
-        centerY: 0.46,
+        centerY: 0.42,
         useFloorAlignment: false,
-        maxHeight: 0.70,
-        description: 'Букет в руке - стена, место снизу под руку'
+        maxHeight: 0.72,
+        description: 'Букет в руке — стена + плита руки снизу'
       },
       wall_only: {
         targetWidth: 0.58,
@@ -277,6 +336,96 @@ Object.assign(app, {
     ctx.restore();
   },
 
+  /** Green-screen plate → transparent canvas (runtime, no AI) */
+  chromaKeyGreenPlate(imageData) {
+    const { data } = imageData;
+    for (let i = 0; i < data.length; i += 4) {
+      const r = data[i];
+      const g = data[i + 1];
+      const b = data[i + 2];
+      const isGreen = g > 90 && g > r * 1.25 && g > b * 1.25 && (g - Math.max(r, b)) > 28;
+      if (isGreen) {
+        data[i + 3] = 0;
+        data[i] = 0;
+        data[i + 1] = 0;
+        data[i + 2] = 0;
+        continue;
+      }
+      // Spill kill on edges: pull green toward skin/neutral
+      if (g > r + 18 && g > b + 18) {
+        data[i + 1] = Math.min(g, Math.round((r + b) / 2 + 8));
+      }
+    }
+    return imageData;
+  },
+
+  async loadHandPlateCanvas() {
+    if (this._handPlateCanvas) return this._handPlateCanvas;
+    const url = await this.ensureReferenceHandHttpsUrl();
+    const img = await this.loadImage(url);
+    const c = document.createElement('canvas');
+    c.width = img.width;
+    c.height = img.height;
+    const ctx = c.getContext('2d');
+    ctx.drawImage(img, 0, 0);
+    let imageData = ctx.getImageData(0, 0, c.width, c.height);
+
+    // Already transparent PNG → skip chroma; green-screen JPEG/PNG → key out
+    let transparent = 0;
+    const sample = Math.min(imageData.data.length, 4000);
+    for (let i = 3; i < sample; i += 4) {
+      if (imageData.data[i] < 8) transparent++;
+    }
+    if (transparent < 20) {
+      this.chromaKeyGreenPlate(imageData);
+    }
+    this.hardenAlphaChannel(imageData, { solidAt: 64, killBelow: 10 });
+    ctx.putImageData(imageData, 0, 0);
+
+    const box = this.getAlphaBoundingBox(imageData, 18);
+    if (!box || box.width < 8 || box.height < 8) {
+      throw new Error('Эталон руки: после chroma-key пусто — проверьте reference-hand-bouquet.png');
+    }
+    const cropped = document.createElement('canvas');
+    cropped.width = box.width;
+    cropped.height = box.height;
+    cropped.getContext('2d').drawImage(
+      c, box.x, box.y, box.width, box.height, 0, 0, box.width, box.height
+    );
+    this._handPlateCanvas = cropped;
+    return cropped;
+  },
+
+  /** Place hand under ribbon knot — bouquet sits in the grip */
+  getHandDrawRect(drawX, drawY, drawWidth, drawHeight, handW, handH) {
+    const targetW = drawWidth * 0.38;
+    const scale = targetW / handW;
+    const w = handW * scale;
+    const h = handH * scale;
+    // Top of fist aligns with gathered ribbons; most of hand below bouquet
+    const gripY = drawY + drawHeight * 0.88;
+    const x = drawX + drawWidth / 2 - w / 2;
+    const y = gripY - h * 0.22;
+    return { x, y, w, h };
+  },
+
+  /** Soft fade at forearm bottom — kills hard plate crop */
+  drawHandPlateFaded(ctx, handCanvas, x, y, w, h) {
+    const tmp = document.createElement('canvas');
+    tmp.width = Math.max(1, Math.round(w));
+    tmp.height = Math.max(1, Math.round(h));
+    const tctx = tmp.getContext('2d');
+    tctx.drawImage(handCanvas, 0, 0, tmp.width, tmp.height);
+    const fadeFrom = tmp.height * 0.55;
+    const grad = tctx.createLinearGradient(0, fadeFrom, 0, tmp.height);
+    grad.addColorStop(0, 'rgba(0,0,0,1)');
+    grad.addColorStop(1, 'rgba(0,0,0,0)');
+    tctx.globalCompositeOperation = 'destination-in';
+    tctx.fillStyle = grad;
+    tctx.fillRect(0, fadeFrom, tmp.width, tmp.height - fadeFrom);
+    ctx.drawImage(tmp, x, y, w, h);
+  },
+
   needsGentleEnhance(scene) {
     return this.isWallOnlyScene(scene);
   },
@@ -415,26 +564,61 @@ Object.assign(app, {
   async callRephotographMaster(imageUrl, scene, statusEl) {
     // Без restore: лишний шаг (часто content-policy на персонажах) и +1–3 мин.
     const referenceUrl = await this.ensureReferenceHttpsUrl();
-    if (statusEl) statusEl.textContent = '📸 AI переснимает в студии (яркий свет, крупный кадр)...';
+    const startJob = async (prefer) => {
+      const res = await fetch(`${this.workerUrl}/api/studio/rephotograph`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', ...this.authHeaders() },
+        body: JSON.stringify({
+          image_url: imageUrl,
+          reference_url: referenceUrl,
+          scene,
+          resolution: '2K',
+          prefer
+        })
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || !data.ok || !data.job_id) {
+        throw new Error(data.error || `Rephotograph HTTP ${res.status}`);
+      }
+      return data;
+    };
 
-    const res = await fetch(`${this.workerUrl}/api/studio/rephotograph`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', ...this.authHeaders() },
-      body: JSON.stringify({
-        image_url: imageUrl,
-        reference_url: referenceUrl,
-        scene,
-        resolution: '2K'
-      })
-    });
-
-    const data = await res.json().catch(() => ({}));
-    if (!res.ok || !data.ok || !data.job_id) {
-      throw new Error(data.error || `Rephotograph HTTP ${res.status}`);
+    if (statusEl) {
+      statusEl.textContent = scene === 'handheld_bouquet'
+        ? '✋ Manus: AI переснимает букет — стена + рука...'
+        : (scene === 'wall_only' || scene === 'unit_balloon')
+          ? '🧱 Manus: gpt/flux → при сбое banana...'
+          : '📸 AI переснимает в студии (gpt → banana)...';
     }
 
-    if (statusEl) statusEl.textContent = '⏳ Master... (1–2 мин, nano-banana-2 → fallback)';
-    return await this.pollStudioStatusSimple(data.job_id);
+    // 1) quality (gpt/flux). Short poll — if hang/fail → banana with longer wait.
+    const preferFirst = 'quality';
+    let data = await startJob(preferFirst);
+    if (statusEl) {
+      statusEl.textContent = `⏳ Master (${data.model || preferFirst})...`;
+    }
+    try {
+      return await this.pollStudioStatusSimple(data.job_id, {
+        maxAttempts: 40,
+        statusEl,
+        label: data.model || 'quality'
+      });
+    } catch (err) {
+      const msg = String(err?.message || err);
+      const genFail = /не удалось сгенерировать|возвращены на баланс|обработка не удалась|модель отклонила|таймаут обработки/i.test(msg);
+      // Do NOT match bare "failed" — that catches "Failed to fetch" (503/CORS) incorrectly
+      if (!genFail) throw err;
+      console.warn('[Studio Pro] quality job failed, fallback banana:', msg);
+      if (statusEl) statusEl.textContent = '↻ gpt/flux упал/таймаут — fallback nano-banana (до ~5 мин)...';
+      this.toast('Дорогая модель не выдала кадр — пробуем banana', 'info');
+      data = await startJob('banana');
+      if (statusEl) statusEl.textContent = `⏳ Master fallback (${data.model || 'banana'})...`;
+      return await this.pollStudioStatusSimple(data.job_id, {
+        maxAttempts: 100,
+        statusEl,
+        label: data.model || 'banana'
+      });
+    }
   },
 
   finishMasterWorkflow(masterImageUrl, statusEl) {
@@ -912,23 +1096,46 @@ Object.assign(app, {
       this.drawSoftContactShadow(finalCtx, croppedCanvas, drawX, drawY, drawWidth, drawHeight, { wall: false });
     }
 
+    // Hand plate composite disabled — handheld uses Manus AI rephotograph instead
     finalCtx.drawImage(croppedCanvas, drawX, drawY, drawWidth, drawHeight);
+
     return finalCanvas.toDataURL('image/webp', this.WEBP_QUALITY ?? 1.0);
   },
 
-  async pollStudioStatusSimple(jobId) {
-    const maxAttempts = 60;
+  async pollStudioStatusSimple(jobId, opts = {}) {
+    const maxAttempts = opts.maxAttempts || 90; // ~4.5 min default
+    const statusEl = opts.statusEl || null;
+    const label = opts.label || 'Master';
+    let netFails = 0;
     for (let i = 0; i < maxAttempts; i++) {
       await new Promise(resolve => setTimeout(resolve, 3000));
-      const res = await fetch(`${this.workerUrl}/api/studio/status/${jobId}`, { headers: this.authHeaders() });
+      if (statusEl && i > 0 && i % 10 === 0) {
+        const min = Math.round((i * 3) / 60 * 10) / 10;
+        statusEl.textContent = `⏳ ${label}... (~${min} мин)`;
+      }
+      let res;
+      try {
+        res = await fetch(`${this.workerUrl}/api/studio/status/${jobId}`, { headers: this.authHeaders() });
+        netFails = 0;
+      } catch (netErr) {
+        netFails++;
+        console.warn('[Studio Pro] status network error', netFails, netErr?.message);
+        if (netFails >= 5) throw new Error(netErr?.message || 'Failed to fetch status');
+        continue;
+      }
+      if (res.status === 503 || res.status === 502 || res.status === 504) {
+        netFails++;
+        console.warn('[Studio Pro] status', res.status, '— retry', netFails);
+        if (netFails >= 8) throw new Error(`Status check failed: ${res.status}`);
+        continue;
+      }
       if (!res.ok) throw new Error(`Status check failed: ${res.status}`);
       const data = await res.json();
-      if (!data.ok) throw new Error(data.error || 'Ошибка проверки статуса');
+      if (!data.ok && data.status !== 'failed') throw new Error(data.error || 'Ошибка проверки статуса');
       if (data.status === 'done' && data.result_url) return data.result_url;
       if (data.status === 'failed') {
         throw new Error(data.error || 'Обработка не удалась (модель отклонила задачу)');
       }
-      if (!data.ok && data.error) throw new Error(data.error);
     }
     throw new Error('Таймаут обработки');
   },
@@ -1513,7 +1720,9 @@ Object.assign(app, {
   loadImage(src) {
     return new Promise((resolve, reject) => {
       const img = new Image();
-      img.crossOrigin = 'anonymous';
+      const absoluteHttp = /^https?:\/\//i.test(src);
+      // crossOrigin only for remote URLs — on file:// it breaks local assets
+      if (absoluteHttp) img.crossOrigin = 'anonymous';
       img.onload = () => resolve(img);
       img.onerror = () => reject(new Error('Не удалось загрузить изображение'));
       img.src = src;

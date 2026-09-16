@@ -107,6 +107,16 @@ function json(data, status = 200) {
   });
 }
 
+/** Chunked base64 — avoids O(n²) string concat that kills Worker CPU on 2K images */
+function bytesToBase64(bytes) {
+  const chunk = 0x8000;
+  let binary = '';
+  for (let i = 0; i < bytes.length; i += chunk) {
+    binary += String.fromCharCode.apply(null, bytes.subarray(i, Math.min(i + chunk, bytes.length)));
+  }
+  return btoa(binary);
+}
+
 // ─── NordRouter ──────────────────────────────────────────
 
 async function nordRequest(endpoint, method, body, env) {
@@ -356,7 +366,7 @@ async function handleStudioProcess(request, env) {
 // ─── Studio Pro: Rephotograph (Manus-style: original + room reference → Master) ───────
 
 function isWallOnlyScene(scene) {
-  return ['wall_only', 'unit_balloon', 'handheld_bouquet'].includes(scene);
+  return ['wall_only', 'unit_balloon'].includes(scene);
 }
 
 function buildRephotographPrompt(scene) {
@@ -379,34 +389,60 @@ function buildRephotographPrompt(scene) {
 - Soft diffuse studio light; no dramatic shadows, no moody cinematic grade`;
 
   if (scene === 'handheld_bouquet') {
-    return `Edit the provided hand-held balloon bouquet photo for a square VigSharm catalog card. Change ONLY the surrounding background and lighting.
+    return `Rephotograph this VigSharm balloon BOUQUET for a square catalog card — Manus style: one real photo of a person holding the bouquet against the studio wall.
+
+TASK:
+1. Replace the background with the SECOND reference image — VigSharm studio WALL ONLY (warm beige-grey plaster). NO floor, NO baseboard, NO laminate, NO furniture.
+2. The bouquet must be HELD by a realistic adult hand (and short forearm if needed) gripping the ribbon / wrapping base — natural catalog pose, like a gift bouquet photo.
+3. If a real hand is already in the original, keep that hand and only fix background/lighting.
+4. If there is NO hand in the original, ADD one photoreal hand holding the bouquet base. Hand must look physically gripping the ribbons, same light as the product — NOT a sticker, NOT a separate cutout plate, NOT floating.
 
 ${lock}
 
-Use the SECOND reference image as the real VigSharm studio wall section ONLY — no floor, no baseboard.
-If a real hand is visible in the original, keep it — do not cover balloons.
+HAND (allowed exception — only this may be added):
+- One natural hand at the bottom gripping ribbons/wrap; fingers wrap around the stem area
+- Match skin lighting to soft studio daylight on the balloons
+- Do not cover balloon faces or text with fingers
+- Optional plain sleeve at wrist OK; no logos
 
 ${light}
-Do NOT add artificial balloon shadows on the wall.
+Do NOT add artificial balloon shadows on the wall. Soft natural contact only where hand/ribbons need grounding.
 
-${forbidden}
+FORBIDDEN: floor, baseboard, laminate, sticker/cutout look, white halo, invented balloon text, changed balloon colors/counts, extra balloons, plastic CGI, collage of a pasted fist, dark moody grade.
 
-OUTPUT: one square 1:1 catalog photo, full bouquet visible with comfortable margins.`;
+OUTPUT: one square 1:1 catalog photo — wall background, bouquet large in frame, hand holding it, bright and sharp.`;
   }
 
   if (isWallOnlyScene(scene)) {
-    return `Edit the provided balloon product photo for a square VigSharm catalog card. Change ONLY the surrounding background and lighting.
+    const unit = scene === 'unit_balloon';
+    return `Rephotograph this VigSharm balloon product for a square catalog card — Manus style: one REAL photograph shot by a professional product photographer in a commercial catalog studio (NOT a cutout/sticker composite, NOT a phone snap in a dark room).
+
+TASK:
+1. Replace ONLY the room/background with the SECOND reference image — VigSharm studio WALL section (warm light beige-grey plaster).
+2. NO floor, NO baseboard, NO laminate, NO furniture, NO LED strips from the original room.
+3. Keep the product as one continuous photograph in the new room — remove cutout halo, white fringe, hard sticker edges.
+4. Do NOT add a hand. Do NOT add balloons, bows, or ribbons that were not in the original.
+
+STUDIO LOOK (critical — fix dark muddy walls):
+- Shoot like a pro e-commerce session: softboxes + large soft daylight, high-key bright catalog lighting
+- Wall must read as LIGHT bright beige-grey — lift wall exposure to match (or brighter than) the reference plaster; NOT taupe, NOT grey-brown, NOT underexposed
+- Even illumination across the whole wall; no vignette, no muddy patches, no dirty fill artifacts
+- Neutral white balance; foil/chrome stay vivid; bubble balloons stay clear and bright
+- Clean commercial finish — as if for a premium balloon shop lookbook
 
 ${lock}
 
-Use the SECOND reference image as the real VigSharm studio wall ONLY — wall section from the reference file, NO floor, NO baseboard, NO laminate for this wall-only scene.
+EXTRA LOCK for bubble / chrome / tulle sets:
+- Exact count of balloons INSIDE any clear bubble balloon
+- Exact lettering on bubble balloons — every character identical
+- Black tulle bows, mesh ribbons, curls — keep separate strands, do not melt or smear
+- Sphere edges stay round — never flatten or clip
 
-${light}
-Do NOT add artificial balloon shadows on the wall. Minimal soft edge integration only — no graphic drop shadow.
+Minimal soft edge integration only — no graphic drop shadow on the wall.
 
-${forbidden}
+FORBIDDEN: dark/muddy/taupe wall, underexposed background, floor, baseboard, laminate, sticker/cutout look, white/dark halo, invented text, changed balloon counts (including inside bubbles), melting tulle, plastic CGI, adding a hand, dark moody cinematic grade.
 
-OUTPUT: one square 1:1 catalog photo, full product visible with comfortable margins.`;
+OUTPUT: one square 1:1 bright professional catalog photo — ${unit ? 'single balloon / small set' : 'full product'} large in frame on a LIGHT studio wall only.`;
   }
 
   if (scene === 'photozone') {
@@ -448,7 +484,7 @@ ${forbidden}
 OUTPUT: one square 1:1 professional catalog photo, composition large and bright in frame.`;
 }
 
-function buildRephotographAttempts(imageUrl, referenceUrl, prompt, resolution = '2K') {
+function buildRephotographAttempts(imageUrl, referenceUrl, prompt, resolution = '2K', prefer = 'quality') {
   const res = ['1K', '2K', '4K'].includes(resolution) ? resolution : '2K';
   const refFields = [
     { reference_image: referenceUrl },
@@ -456,53 +492,63 @@ function buildRephotographAttempts(imageUrl, referenceUrl, prompt, resolution = 
     { image2: referenceUrl },
     { reference_images: [referenceUrl] }
   ];
-
+  const wallHint = '\n\nTarget room: VigSharm studio wall from the SECOND reference — LIGHT bright beige-grey plaster, high-key professional catalog studio lighting (softboxes). Copy reference wall luminance; do NOT darken into taupe/muddy grey. NO invented mottled/smudged wall.';
   const attempts = [];
 
-  for (const ref of refFields) {
-    attempts.push({
-      model: 'image/nano-banana-2',
-      input: { prompt, image: imageUrl, aspect_ratio: '1:1', ...ref }
-    });
+  const pushBanana = () => {
+    for (const ref of refFields) {
+      attempts.push({
+        model: 'image/nano-banana-2',
+        input: { prompt, image: imageUrl, aspect_ratio: '1:1', ...ref }
+      });
+    }
+    for (const ref of refFields.slice(0, 2)) {
+      attempts.push({
+        model: 'image/nano-banana-pro',
+        input: { prompt, image: imageUrl, ...ref }
+      });
+      attempts.push({
+        model: 'image/nano-banana-edit',
+        input: { prompt, image: imageUrl, ...ref }
+      });
+    }
+  };
+
+  // Job-level fallback path: only proven banana (after gpt/flux failed mid-run)
+  if (prefer === 'banana' || prefer === 'fast') {
+    pushBanana();
+    return attempts;
   }
 
-  for (const ref of refFields.slice(0, 2)) {
-    attempts.push({
-      model: 'image/nano-banana-edit',
-      input: { prompt, image: imageUrl, ...ref }
-    });
-    attempts.push({
-      model: 'image/nano-banana-pro',
-      input: { prompt, image: imageUrl, ...ref }
-    });
-  }
-
+  // quality: one clean gpt + one flux (single ref field), then banana for submit-fallback
   attempts.push({
     model: 'image/gpt-image-2-edit',
     input: {
-      prompt: prompt + '\n\nTarget room: VigSharm studio (beige wall, white baseboard, grey laminate) as in brand reference.',
+      prompt: prompt + wallHint,
       image: imageUrl,
+      reference_image: referenceUrl,
       aspect_ratio: '1:1',
       resolution: res
     }
   });
-
   attempts.push({
     model: 'image/flux2-pro-edit',
     input: {
-      prompt,
+      prompt: prompt + wallHint,
       image: imageUrl,
+      reference_image: referenceUrl,
       aspect_ratio: '1:1',
       resolution: res === '4K' ? '2K' : res
     }
   });
-
+  pushBanana();
   return attempts;
 }
 
 async function handleStudioRephotograph(request, env) {
   const body = await request.json();
   const { image_url, reference_url, scene = 'floor', resolution = '2K' } = body;
+  const prefer = body.prefer === 'banana' || body.prefer === 'fast' ? 'banana' : 'quality';
 
   if (!image_url || !reference_url) {
     return json({ ok: false, error: 'Missing image_url or reference_url' }, 400);
@@ -516,13 +562,13 @@ async function handleStudioRephotograph(request, env) {
   }
 
   const prompt = buildRephotographPrompt(scene);
-  const attempts = buildRephotographAttempts(image_url, reference_url, prompt, resolution);
+  const attempts = buildRephotographAttempts(image_url, reference_url, prompt, resolution, prefer);
 
   let generateResp = null;
   let usedModel = null;
 
   for (const attempt of attempts) {
-    console.log('[Studio Rephotograph] scene=', scene, 'try model=', attempt.model);
+    console.log('[Studio Rephotograph] scene=', scene, 'prefer=', prefer, 'try model=', attempt.model);
     generateResp = await nordRequest('/media/generate', 'POST', {
       model: attempt.model,
       input: attempt.input
@@ -554,6 +600,7 @@ async function handleStudioRephotograph(request, env) {
     scene,
     resolution,
     model: usedModel,
+    prefer,
     pipeline: 'rephotograph'
   });
 }
@@ -584,7 +631,7 @@ SCENE: ${scene === 'handheld_bouquet' ? 'wall only; optional real hand only if r
 }
 
 function buildEnhancePrompt(scene, mode = 'rephotograph') {
-  if (mode === 'gentle' || scene === 'wall_only' || scene === 'unit_balloon' || scene === 'handheld_bouquet') {
+  if (mode === 'gentle') {
     return buildGentleEnhancePrompt(scene);
   }
 
@@ -624,10 +671,7 @@ async function handleStudioEnhance(request, env) {
   const { image_url, scene = 'floor', resolution = '2K' } = body;
   let mode = body.mode || 'rephotograph';
 
-  // Wall / fountain / bubble-with-text → always gentle (protect chrome, text, ribbons, round edges)
-  if (['wall_only', 'unit_balloon', 'handheld_bouquet'].includes(scene)) {
-    mode = 'gentle';
-  }
+  // wall_only / unit_balloon / handheld use full enhance/rephotograph prompts (Manus), not gentle-only
 
   if (!image_url) {
     return json({ ok: false, error: 'Missing image_url' }, 400);
@@ -929,62 +973,34 @@ async function handleStudioStatus(path, env) {
   console.log('[Studio Status] ?? Job:', jobId, '? Status:', result.status);
 
   if (result.status === 'done' && result.result_url) {
-    // Скачиваем результат и загружаем в R2
-    const imgResp = await fetch(result.result_url, {
+    const remoteUrl = String(result.result_url);
+    // Always fetch with Nord auth and return dataURL — raw Nord https URLs
+    // often need Bearer and show as black/broken <img> in admin.
+    const imgResp = await fetch(remoteUrl, {
       headers: { 'Authorization': 'Bearer ' + env.NORDROUTER_API_KEY }
     });
-    
     if (!imgResp.ok) {
-      console.error('[Studio Status] ? Failed to download result:', imgResp.status);
+      console.error('[Studio Status] download failed:', imgResp.status);
       return json({ ok: false, error: `Ошибка скачивания: ${imgResp.status}` }, 500);
     }
-    
-    // === Диагностика 1: Content-Type от NordRouter ===
-    const contentType = imgResp.headers.get('Content-Type') || 'unknown';
-    console.log('[DIAGNOSTIC] ?? Content-Type from NordRouter:', contentType);
-    
-    const blob = await imgResp.blob();
-    console.log('[Studio Status] ?? Downloaded:', blob.size, 'bytes');
-    console.log('[DIAGNOSTIC] ?? Blob type:', blob.type);
 
-
-    // R2 отключен — возвращаем результат как base64
-    const arrayBuffer = await blob.arrayBuffer();
-    
-    // === Диагностика 2: размер и сигнатура файла ===
-    console.log('[DIAGNOSTIC] ?? ArrayBuffer size:', arrayBuffer.byteLength);
-    
+    const arrayBuffer = await imgResp.arrayBuffer();
     const bytes = new Uint8Array(arrayBuffer);
-    
-    // Первые 16 байт (сигнатура файла)
-    const signature = Array.from(bytes.slice(0, 16))
-      .map(b => b.toString(16).padStart(2, '0'))
-      .join(' ');
-    console.log('[DIAGNOSTIC] ?? File signature (first 16 bytes):', signature);
-    
-    // Проверяем PNG сигнатуру: 89 50 4E 47 0D 0A 1A 0A
     const isPNG = bytes[0] === 0x89 && bytes[1] === 0x50 && bytes[2] === 0x4E && bytes[3] === 0x47;
-    const isWebP = bytes[8] === 0x57 && bytes[9] === 0x45 && bytes[10] === 0x42 && bytes[11] === 0x50;
-    console.log('[DIAGNOSTIC] ?? Format detection: PNG=' + isPNG + ', WebP=' + isWebP);
-    
-    // Определяем правильный MIME type
+    const isWebP = bytes.length > 11 && bytes[8] === 0x57 && bytes[9] === 0x45 && bytes[10] === 0x42 && bytes[11] === 0x50;
+    const isJPEG = bytes[0] === 0xFF && bytes[1] === 0xD8;
     let detectedMimeType = 'image/png';
-    if (isWebP) {
-      detectedMimeType = 'image/webp';
-    } else if (!isPNG) {
-      console.warn('[DIAGNOSTIC] ?? Unknown image format! Using PNG as fallback');
+    if (isWebP) detectedMimeType = 'image/webp';
+    else if (isJPEG) detectedMimeType = 'image/jpeg';
+    else if (!isPNG) {
+      const ct = (imgResp.headers.get('Content-Type') || '').split(';')[0].trim();
+      detectedMimeType = ct.startsWith('image/') ? ct : 'image/png';
     }
-    console.log('[DIAGNOSTIC] ?? Detected MIME type:', detectedMimeType);
-    
-    let binaryString = '';
-    for (let i = 0; i < bytes.length; i++) {
-      binaryString += String.fromCharCode(bytes[i]);
-    }
-    const base64 = btoa(binaryString);
+
+    // Chunked base64 — no O(n²) concat (that caused Worker 503 on 2K masters)
+    const base64 = bytesToBase64(bytes);
     const dataUrl = 'data:' + detectedMimeType + ';base64,' + base64;
-    
-    console.log('[Studio Status] ? Returning result for job:', jobId);
-    console.log('[DIAGNOSTIC] ?? Data URL MIME:', detectedMimeType);
+    console.log('[Studio Status] done → dataURL', jobId, bytes.length, detectedMimeType);
     return json({ ok: true, status: 'done', result_url: dataUrl, format: 'base64' });
   }
 

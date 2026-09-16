@@ -178,6 +178,102 @@ Object.assign(app, {
     this.saveReferenceBackgroundUrl();
     this.updateReferenceBackgroundUI();
     this.toast('Эталонный фон удалён', 'info');
+  },
+
+  initReferenceHand() {
+    const fileInput = document.getElementById('reference-hand-file');
+    const uploadBtn = document.getElementById('upload-reference-hand-btn');
+    if (!fileInput || !uploadBtn) return;
+
+    this.updateReferenceHandUI();
+
+    uploadBtn.addEventListener('click', () => fileInput.click());
+    fileInput.addEventListener('change', async (e) => {
+      const file = e.target.files[0];
+      if (file) await this.uploadReferenceHand(file);
+    });
+  },
+
+  async uploadReferenceHand(file) {
+    const uploadBtn = document.getElementById('upload-reference-hand-btn');
+    const status = document.getElementById('reference-hand-status');
+    const fileInput = document.getElementById('reference-hand-file');
+
+    if (!this.cloudinaryCloudName || !this.cloudinaryUploadPreset) {
+      this.toast('Сначала настройте Cloudinary (Cloud Name и Upload Preset)', 'error');
+      return;
+    }
+
+    uploadBtn.disabled = true;
+    uploadBtn.innerHTML = '<span class="spinner"></span> Загрузка...';
+    if (status) status.textContent = '☁️ Загрузка руки в Cloudinary...';
+
+    try {
+      if (!file.type.startsWith('image/')) throw new Error('Нужно изображение (PNG предпочтительно)');
+      if (file.size > 10 * 1024 * 1024) throw new Error('Максимум 10 МБ');
+
+      const result = await window.CloudinaryUploader.uploadPhoto(
+        file,
+        this.cloudinaryCloudName,
+        this.cloudinaryUploadPreset
+      );
+      if (!result.ok) throw new Error(result.error || 'Ошибка Cloudinary');
+
+      this.studioReferenceHandUrl = result.url;
+      this.studioReferenceHandVersion = this.REFERENCE_HAND_VERSION || 'v4';
+      this._handPlateCanvas = null;
+      this.saveReferenceHandUrl();
+      this.updateReferenceHandUI();
+      if (status) status.textContent = '✅ Эталон руки сохранён';
+      this.toast('Эталон руки сохранён — можно создавать Master', 'success');
+      if (fileInput) fileInput.value = '';
+    } catch (error) {
+      console.error(error);
+      if (status) status.textContent = '✗ ' + error.message;
+      this.toast('Ошибка: ' + error.message, 'error');
+    } finally {
+      uploadBtn.disabled = false;
+      uploadBtn.textContent = '📤 Выбрать и загрузить руку';
+    }
+  },
+
+  updateReferenceHandUI() {
+    const preview = document.getElementById('reference-hand-preview');
+    const status = document.getElementById('reference-hand-status');
+    const replaceBtn = document.getElementById('replace-reference-hand-btn');
+    if (!preview || !status) return;
+
+    if (this.studioReferenceHandUrl) {
+      preview.innerHTML = `<img src="${this.studioReferenceHandUrl}" alt="Эталон руки" style="max-width: 220px; height: auto; border-radius: 8px; border: 1px solid #ddd; background: repeating-conic-gradient(#eee 0% 25%, #fff 0% 50%) 50% / 16px 16px;"/>`;
+      preview.style.display = 'block';
+      status.innerHTML = '✅ <strong>Эталон руки в Cloudinary</strong>';
+      status.style.color = '#27ae60';
+      if (replaceBtn) replaceBtn.style.display = 'inline-block';
+    } else {
+      const fallback = this.DEFAULT_REFERENCE_HAND || '../assets/reference/reference-hand-bouquet.png';
+      preview.innerHTML = `
+        <img src="${fallback}" alt="Локальный эталон руки" style="max-width: 220px; height: auto; border-radius: 8px; border: 1px solid #ddd; background: #ddd;"/>
+        <p class="text-muted" style="margin:8px 0 0;font-size:13px">Локальный файл — для file:// загрузите в Cloudinary</p>
+      `;
+      preview.style.display = 'block';
+      status.innerHTML = 'ℹ️ Нужна загрузка в Cloudinary при работе с <code>file://</code>';
+      status.style.color = '#616161';
+      if (replaceBtn) replaceBtn.style.display = 'none';
+    }
+  },
+
+  replaceReferenceHand() {
+    document.getElementById('reference-hand-file')?.click();
+  },
+
+  removeReferenceHand() {
+    if (!confirm('Удалить URL эталона руки из настроек?')) return;
+    this.studioReferenceHandUrl = '';
+    this.studioReferenceHandVersion = '';
+    this._handPlateCanvas = null;
+    this.saveReferenceHandUrl();
+    this.updateReferenceHandUI();
+    this.toast('Эталон руки сброшен', 'info');
   }
 });
 
@@ -187,6 +283,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (typeof app !== 'undefined') {
     app.loadReferenceBackgroundUrl();
     app.initReferenceBackground();
-    console.log('✓ Reference Background Manager loaded');
+    app.initReferenceHand();
+    console.log('✓ Reference Background + Hand Manager loaded');
   }
 });

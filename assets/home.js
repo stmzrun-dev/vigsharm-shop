@@ -10,7 +10,9 @@
       .then(function (r) { return r.json(); })
       .then(function (data) {
         // Worker API возвращает { ok: true, products: [...] }
-        var products = window.vigNormalizeProducts((data.ok && Array.isArray(data.products)) ? data.products : []);
+        var products = (window.vigStorefrontProducts || window.vigNormalizeProducts)(
+          (data.ok && Array.isArray(data.products)) ? data.products : []
+        );
         if (!products.length) {
           if (section) section.style.display = 'none';
           return;
@@ -20,9 +22,10 @@
           var img = key
             ? '<img src="' + window.vigImage(key) + '" data-key="' + key + '" alt="' + escapeHtml(p.title) + '" loading="lazy" decoding="async"/>'
             : (window.vigEmoji ? window.vigEmoji('balloon') : '<img class="vig-emoji" src="icons/vigsharm-toons/emoji-balloon.png" alt="" width="24" height="24" decoding="async" aria-hidden="true"/>');
+          var requestBadge = p.available_on_request ? '<em class="product-request-badge">Под заказ</em>' : '';
           return (
             '<a class="live-product-card" href="product.html?slug=' + encodeURIComponent(p.slug || p.id) + '" aria-label="Подробнее: ' + escapeHtml(p.title) + '">' +
-            '<span class="live-product-image">' + img + '</span>' +
+            '<span class="live-product-image">' + img + requestBadge + '</span>' +
             '<span class="live-product-copy">' +
             '<small>' + escapeHtml(p.category || 'Композиция') + '</small>' +
             '<strong>' + escapeHtml(p.title) + '</strong>' +

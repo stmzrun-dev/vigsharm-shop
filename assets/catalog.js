@@ -168,8 +168,9 @@
       : window.vigEmoji('balloon');
     var from = (p.tags || []).indexOf('Цена от') >= 0 ? 'от ' : '';
     var priceNote = p.category === 'Шары поштучно' ? 'Цена за штуку' : 'Цена за композицию';
+    var requestBadge = p.available_on_request ? '<em class="product-request-badge">Под заказ</em>' : '';
     return '<a class="catalog-card color-' + (i % 5) + '" href="product.html?slug=' + encodeURIComponent(p.slug || p.id) + '" aria-label="Подробнее: ' + esc(p.title) + '">' +
-      '<span class="catalog-card-image">' + img + '</span>' +
+      '<span class="catalog-card-image">' + img + requestBadge + '</span>' +
       '<span class="catalog-card-copy"><small>' + esc(p.category || 'Композиция') + '</small>' +
       '<strong>' + esc(p.title) + '</strong>' +
       '<span>' + esc(p.short_description || '') + '</span>' +
@@ -467,7 +468,9 @@
       .then(function (r) { if (!r.ok) throw new Error('x'); return r.json(); })
       .then(function (data) {
         // Worker API возвращает { ok: true, products: [...] }
-        products = window.vigNormalizeProducts((data.ok && Array.isArray(data.products)) ? data.products : []);
+        products = (window.vigStorefrontProducts || window.vigNormalizeProducts)(
+          (data.ok && Array.isArray(data.products)) ? data.products : []
+        );
         loading = false;
         render();
         updateCta();

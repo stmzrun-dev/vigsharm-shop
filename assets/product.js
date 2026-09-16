@@ -200,7 +200,8 @@
   }
 
   /* ---------------- render ---------------- */
-  var detailsState = { params: false, date: false };
+  // Open client-option params by default so digit/inscription/rental are visible immediately
+  var detailsState = { params: true, date: false };
 
   function render() {
     if (!p) return;
@@ -298,8 +299,13 @@
           }).join('') + '</div>'
         : '') +
       '</div><div class="product-page-info">' +
-      '<span class="product-tag">' + esc(p.category || 'Композиция Вигшарм') + '</span><h1>' + esc(p.title) + '</h1>' +
+      '<span class="product-tag">' + esc(p.category || 'Композиция Вигшарм') + '</span>' +
+      (p.available_on_request ? '<span class="product-tag product-tag-request">Под заказ</span>' : '') +
+      '<h1>' + esc(p.title) + '</h1>' +
       '<p class="sku">Артикул ' + esc(p.sku || '') + '</p>' +
+      (p.available_on_request
+        ? '<p class="product-request-note">Можно заказать даже если сейчас нет в наличии — согласуем срок в мессенджере.</p>'
+        : '') +
       '<div class="product-base-price"><small>' + (isUnit() ? (isPerMeter() ? 'Цена за метр' : 'Цена за штуку') : 'Цена за композицию') + '</small><strong>' + (priceFrom() ? 'от ' : '') + Number(p.price).toLocaleString('ru-RU') + ' ₽</strong></div>' +
       '<div class="product-lead">' + window.vigEmoji('balloon') + '<p>' + esc(p.short_description || '') + '</p></div>' +
       '<div class="product-mobile-highlights" aria-label="Преимущества композиции"><span>✨ Вау-эффект</span><span>🧾 Понятный состав</span><span>' + window.vigEmoji('car') + ' Доставим ко времени</span></div>' +
@@ -333,7 +339,7 @@
       '<div class="related-products-actions"><a href="catalog.html?max=' + p.price + '">Не дороже ' + Number(p.price).toLocaleString('ru-RU') + ' ₽</a><a href="catalog.html">Весь каталог <span>→</span></a></div></div>' +
       (rel.length
         ? '<div class="related-products-grid">' + rel.map(function (o, i) {
-          var k = (o.image_keys && o.image_keys[0]) || '';
+          var k = (window.vigProductPhoto ? window.vigProductPhoto(o) : '') || (o.image_keys && o.image_keys[0]) || '';
           var img = k ? '<img src="' + window.vigImage(k) + '" data-key="' + esc(k) + '" alt="' + esc(o.title) + '" loading="lazy" decoding="async" width="800" height="800"/>' : window.vigEmoji('balloon');
           return '<a class="catalog-card color-' + ((i + 1) % 5) + '" href="product.html?slug=' + encodeURIComponent(o.slug || o.id) + '" aria-label="Подробнее: ' + esc(o.title) + '">' +
             '<span class="catalog-card-image">' + img + '</span>' +
@@ -572,13 +578,18 @@
     .then(function (r) { if (!r.ok) throw new Error('x'); return r.json(); })
     .then(function (data) {
       // Worker API возвращает { ok: true, products: [...] }
-      allProducts = window.vigNormalizeProducts((data.ok && Array.isArray(data.products)) ? data.products : []);
+      var raw = (data.ok && Array.isArray(data.products)) ? data.products : [];
+      var normalized = window.vigNormalizeProducts(raw);
       var found = null;
-      for (var i = 0; i < allProducts.length; i++) {
-        var o = allProducts[i];
+      for (var i = 0; i < normalized.length; i++) {
+        var o = normalized[i];
         if (String(o.slug) === slug || String(o.id) === slug) { found = o; break; }
       }
       if (!found) { renderNotFound('Композиция не найдена'); return; }
+      // Related: only storefront-visible items (current product kept even if draft)
+      allProducts = (window.vigIsStorefrontVisible
+        ? normalized.filter(window.vigIsStorefrontVisible)
+        : normalized);
       p = found;
       loadDraft();
       pushRecent();

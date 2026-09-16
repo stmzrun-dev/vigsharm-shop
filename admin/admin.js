@@ -359,6 +359,11 @@ const app = {
     }
 
     const isEdit = !!this.currentProduct.id;
+    if (status === 'published') {
+      data.show_on_site = true;
+      const showEl = document.getElementById('show-on-site');
+      if (showEl) showEl.checked = true;
+    }
     this.toast(status === 'published' ? 'Публикация...' : 'Сохранение...', '');
 
     try {

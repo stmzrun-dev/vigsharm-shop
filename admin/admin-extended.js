@@ -516,13 +516,14 @@ app.loadProductToForm = function(product) {
   document.querySelectorAll('#tags-for-who input, #tags-occasion input, #tags-dates input, #tags-type input')
     .forEach(cb => { cb.checked = tags.includes(cb.value); });
 
-  // Опции клиента
+  // Опции клиента (новый flat + legacy nested)
   const opts = product.client_options || {};
   const opt = (id, val) => { const el = document.getElementById(id); if (el) el.checked = !!val; };
-  opt('opt-available', opts.available_on_request);
-  opt('opt-number', opts.number_choice);
-  opt('opt-inscription', opts.personal_inscription);
-  opt('opt-rental', opts.photozone_rental);
+  const nestedOn = (v) => !!(v === true || v === 1 || (v && typeof v === 'object' && v.enabled));
+  opt('opt-available', opts.available_on_request || nestedOn(opts.available_on_request));
+  opt('opt-number', opts.number_choice || nestedOn(opts.digit_choice));
+  opt('opt-inscription', opts.personal_inscription || nestedOn(opts.inscription));
+  opt('opt-rental', opts.photozone_rental || nestedOn(opts.rental));
   opt('show-on-site', product.show_on_site);
   this.syncAIFillGate?.();
 };

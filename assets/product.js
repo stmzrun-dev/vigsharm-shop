@@ -200,7 +200,8 @@
   }
 
   /* ---------------- render ---------------- */
-  var detailsState = { params: false, date: false };
+  // Open client-option params by default so digit/inscription/rental are visible immediately
+  var detailsState = { params: true, date: false };
 
   function render() {
     if (!p) return;

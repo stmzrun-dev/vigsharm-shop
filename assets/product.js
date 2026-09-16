@@ -301,8 +301,12 @@
       '</div><div class="product-page-info">' +
       '<span class="product-tag">' + esc(p.category || 'Композиция Вигшарм') + '</span>' +
       (p.available_on_request ? '<span class="product-tag product-tag-request">Под заказ</span>' : '') +
+      (p.needs_advance_order ? '<span class="product-tag product-tag-advance">За 1–2 дня</span>' : '') +
       '<h1>' + esc(p.title) + '</h1>' +
       '<p class="sku">Артикул ' + esc(p.sku || '') + '</p>' +
+      (p.needs_advance_order
+        ? '<p class="product-advance-note">Такую композицию лучше заказывать заранее — за <strong>1–2 дня</strong>. Так успеем собрать всё аккуратно и вовремя.</p>'
+        : '') +
       (p.available_on_request
         ? '<p class="product-request-note">Можно заказать даже если сейчас нет в наличии — согласуем срок в мессенджере.</p>'
         : '') +

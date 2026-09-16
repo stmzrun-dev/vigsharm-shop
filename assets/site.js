@@ -59,6 +59,20 @@
     var inscriptionOn = vigTruthy(opts.personal_inscription) || vigOptEnabled(opts.inscription);
     var rentalOn = vigTruthy(opts.photozone_rental) || vigOptEnabled(opts.rental);
     var availableOn = vigTruthy(opts.available_on_request) || vigOptEnabled(opts.available_on_request);
+    var advanceOn = vigTruthy(opts.advance_order_1_2_days) || vigOptEnabled(opts.advance_order)
+      || vigTruthy(opts.advance_order);
+    var isBouquet = p.scene === 'handheld_bouquet'
+      || p.category === 'Букет из шаров'
+      || p.category === 'Крафтовый букет'
+      || p.category === 'Цветы из шаров';
+    // Fallback: напольные / букеты без явного флага — тоже заранее
+    if (!advanceOn && (p.scene === 'floor' || p.category === 'Напольные композиции' || isBouquet)) {
+      advanceOn = true;
+    }
+    // Букеты без явного флага — персональная надпись
+    if (!inscriptionOn && isBouquet) {
+      inscriptionOn = true;
+    }
 
     if (digitOn) {
       p.has_digit_choice = true;
@@ -94,6 +108,7 @@
     }
 
     p.available_on_request = availableOn || !!p.available_on_request;
+    p.needs_advance_order = advanceOn || !!p.needs_advance_order;
     return p;
   };
   window.vigNormalizeProducts = function (list) {

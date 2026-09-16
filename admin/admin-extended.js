@@ -179,8 +179,29 @@ Object.assign(app, {
       select.addEventListener('change', () => {
         this.currentProduct.scene = select.value;
         this.syncStudioModeHint?.();
+        this.syncUnitBalloonForm?.(true);
+        this.syncAdvanceOrderFromScene?.();
       });
     }
+    this.syncUnitBalloonForm?.(false);
+  },
+
+  syncAdvanceOrderFromScene() {
+    const scene = this.currentProduct?.scene || document.getElementById('scene-select')?.value || '';
+    const cat = document.getElementById('product-category')?.value || '';
+    const isFloor = scene === 'floor' || cat === 'Напольные композиции';
+    const isBouquet = scene === 'handheld_bouquet'
+      || cat === 'Букет из шаров'
+      || cat === 'Крафтовый букет'
+      || cat === 'Цветы из шаров';
+
+    const advanceEl = document.getElementById('opt-advance');
+    const inscriptionEl = document.getElementById('opt-inscription');
+
+    // Напольные и букеты — заранее за 1–2 дня
+    if ((isFloor || isBouquet) && advanceEl) advanceEl.checked = true;
+    // Букеты — персональная надпись (текст на сердцах / по желанию клиента)
+    if (isBouquet && inscriptionEl) inscriptionEl.checked = true;
   },
 
   // === Form Events ===
@@ -365,38 +386,55 @@ Object.assign(app, {
       .forEach(cb => tags.push(cb.value));
 
     const titleValue = document.getElementById('product-title').value.trim();
-    const composition = document.getElementById('product-composition').value
-      .split('\n').filter(l => l.trim()).map(l => l.trim());
+    const unit = this.isUnitBalloonMode?.() || false;
+    const composition = unit
+      ? []
+      : document.getElementById('product-composition').value
+          .split('\n').filter(l => l.trim()).map(l => l.trim());
+
+    let shortDesc = document.getElementById('product-short-desc').value.trim();
+    if (unit && !shortDesc && titleValue) shortDesc = titleValue.slice(0, 110);
+
+    const category = document.getElementById('product-category').value || (unit ? 'Шары поштучно' : '');
+    const scene = unit ? 'unit_balloon' : (this.currentProduct.scene || 'floor');
+    if (unit && !tags.includes('Шары поштучно')) tags.push('Шары поштучно');
 
     return {
       id: this.currentProduct.id || undefined,
       title: titleValue,
-      article: document.getElementById('product-article').value.trim() || this.nextArticle(),
+      article: document.getElementById('product-article').value.trim() || this.nextArticle(category),
       price: parseInt(document.getElementById('product-price').value) || 0,
-      short_description: document.getElementById('product-short-desc').value.trim(),
-      full_description: document.getElementById('product-full-desc').value.trim(),
+      short_description: shortDesc,
+      full_description: unit ? '' : document.getElementById('product-full-desc').value.trim(),
       composition: composition,
-      category: document.getElementById('product-category').value,
-      character: document.getElementById('product-character')?.value.trim() || null,
-      age_group: document.getElementById('product-age')?.value || 'Для любого возраста',
-      budget: document.getElementById('product-budget')?.value.trim() || null,
-      series_name: document.getElementById('product-series')?.value.trim() || null,
-      occasion: document.getElementById('product-occasion')?.value.trim() || null,
-      target_audience: document.getElementById('product-audience')?.value.trim() || null,
-      seo_title: document.getElementById('product-seo-title').value.trim(),
-      seo_description: document.getElementById('product-seo-desc').value.trim(),
+      category,
+      character: unit ? null : (document.getElementById('product-character')?.value.trim() || null),
+      age_group: unit ? 'Для любого возраста' : (document.getElementById('product-age')?.value || 'Для любого возраста'),
+      budget: unit ? null : (document.getElementById('product-budget')?.value.trim() || null),
+      series_name: unit ? null : (document.getElementById('product-series')?.value.trim() || null),
+      occasion: unit ? null : (document.getElementById('product-occasion')?.value.trim() || null),
+      target_audience: unit ? null : (document.getElementById('product-audience')?.value.trim() || null),
+      seo_title: unit ? '' : document.getElementById('product-seo-title').value.trim(),
+      seo_description: unit ? '' : document.getElementById('product-seo-desc').value.trim(),
       slug: document.getElementById('product-slug').value.trim() || this.slugify(titleValue),
-      scene: this.currentProduct.scene || 'floor',
+      scene,
       tags: tags,
-      client_options: {
+      client_options: unit ? {
+        available_on_request: false,
+        advance_order_1_2_days: false,
+        number_choice: false,
+        personal_inscription: false,
+        photozone_rental: false
+      } : {
         available_on_request: document.getElementById('opt-available')?.checked || false,
+        advance_order_1_2_days: document.getElementById('opt-advance')?.checked || false,
         number_choice: document.getElementById('opt-number')?.checked || false,
         personal_inscription: document.getElementById('opt-inscription')?.checked || false,
         photozone_rental: document.getElementById('opt-rental')?.checked || false
       },
       photos: this.currentProduct.photos.map(p => p.url),
       main_photo: this.currentProduct.photos[0]?.url || null,
-      show_on_site: document.getElementById('show-on-site')?.checked || false
+      show_on_site: unit ? true : (document.getElementById('show-on-site')?.checked || false)
     };
   },
 
@@ -435,6 +473,7 @@ Object.assign(app, {
     this.syncStudioModeHint?.();
     this.refreshStudioCheckpointUi?.();
     this.syncAIFillGate?.();
+    this.syncUnitBalloonForm?.(false);
   }
 });
 
@@ -521,11 +560,15 @@ app.loadProductToForm = function(product) {
   const opt = (id, val) => { const el = document.getElementById(id); if (el) el.checked = !!val; };
   const nestedOn = (v) => !!(v === true || v === 1 || (v && typeof v === 'object' && v.enabled));
   opt('opt-available', opts.available_on_request || nestedOn(opts.available_on_request));
+  opt('opt-advance', opts.advance_order_1_2_days || nestedOn(opts.advance_order));
   opt('opt-number', opts.number_choice || nestedOn(opts.digit_choice));
   opt('opt-inscription', opts.personal_inscription || nestedOn(opts.inscription));
   opt('opt-rental', opts.photozone_rental || nestedOn(opts.rental));
   opt('show-on-site', product.show_on_site);
   this.syncAIFillGate?.();
+  this.syncUnitBalloonForm?.(false);
+  // Если сцена floor, а галочка ещё не сохранялась — подсветим дефолт только для новых?
+  // При редактировании уважаем сохранённое значение (уже выставлено opt выше).
 };
 
 console.log('✓ VigSharm Admin Extended Functions loaded');

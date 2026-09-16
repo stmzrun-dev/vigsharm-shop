@@ -49,7 +49,7 @@ Object.assign(app, {
     if (!el) return;
     const scene = this.currentProduct?.scene || 'floor';
     if (scene === 'handheld_bouquet') {
-      el.textContent = 'Режим Manus: AI-пересъёмка — стена без пола + рука держит букет. Товар LOCK.';
+      el.textContent = 'Режим Manus: букет + женская рука (короткое запястье). Бирки/логотипы на лентах снимаются.';
     } else if (scene === 'wall_only' || scene === 'unit_balloon') {
       el.textContent = 'Режим Manus: AI-пересъёмка — только стена (без пола, без руки). Товар LOCK, без cutout.';
     } else if (scene === 'photozone') {
@@ -123,7 +123,7 @@ Object.assign(app, {
         floorY: 0.74,
         useFloorAlignment: true,
         maxHeight: 0.88,
-        description: 'Напольная — у стены у плинтуса'
+        description: 'Напольная композиция — у стены у плинтуса'
       },
       unit_balloon: {
         targetWidth: 0.50,

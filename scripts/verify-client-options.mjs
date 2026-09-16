@@ -40,6 +40,7 @@ const adminFlat = vigNormalizeProduct({
   show_on_site: true,
   client_options: {
     available_on_request: true,
+    advance_order_1_2_days: true,
     number_choice: true,
     personal_inscription: true,
     photozone_rental: true
@@ -51,7 +52,16 @@ assert(adminFlat.has_inscription === true, 'personal_inscription → has_inscrip
 assert(adminFlat.inscription_price === 0, 'default inscription_price = 0');
 assert(adminFlat.has_rental === true, 'photozone_rental → has_rental');
 assert(adminFlat.available_on_request === true, 'available_on_request mapped');
+assert(adminFlat.needs_advance_order === true, 'advance_order_1_2_days mapped');
 assert(/фотозон/i.test(adminFlat.rental_item || ''), 'rental default item');
+
+const floorFallback = vigNormalizeProduct({
+  title: 'Floor',
+  scene: 'floor',
+  status: 'published',
+  client_options: {}
+});
+assert(floorFallback.needs_advance_order === true, 'floor scene implies advance order');
 
 const legacy = vigNormalizeProduct({
   title: 'B',

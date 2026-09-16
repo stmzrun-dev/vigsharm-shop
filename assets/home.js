@@ -27,9 +27,10 @@
             ? '<img src="' + window.vigImage(key) + '" data-key="' + escapeHtml(key) + '" alt="' + escapeHtml(p.title) + '" loading="lazy" decoding="async"/>'
             : (window.vigEmoji ? window.vigEmoji('balloon') : '<img class="vig-emoji" src="icons/vigsharm-toons/emoji-balloon.png" alt="" width="24" height="24" decoding="async" aria-hidden="true"/>');
           var requestBadge = p.available_on_request ? '<em class="product-request-badge">Под заказ</em>' : '';
+          var advanceBadge = (!requestBadge && p.needs_advance_order) ? '<em class="product-advance-badge">За 1–2 дня</em>' : '';
           return (
             '<a class="live-product-card" href="product.html?slug=' + encodeURIComponent(p.slug || p.id) + '" aria-label="Подробнее: ' + escapeHtml(p.title) + '">' +
-            '<span class="live-product-image">' + img + requestBadge + '</span>' +
+            '<span class="live-product-image">' + img + requestBadge + advanceBadge + '</span>' +
             '<span class="live-product-copy">' +
             '<small>' + escapeHtml(p.category || 'Композиция') + '</small>' +
             '<strong>' + escapeHtml(p.title) + '</strong>' +

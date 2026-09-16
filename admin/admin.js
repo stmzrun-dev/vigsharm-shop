@@ -11,9 +11,9 @@ const TAGS = {
 const SCENES = [
   { value: 'auto', title: '🤖 Автоматически', desc: 'ИИ определит по содержимому' },
   { value: 'unit_balloon', title: '🎈 Шар поштучно', desc: 'Manus: стена, без пола' },
-  { value: 'handheld_bouquet', title: '💐 Букет в руке', desc: 'Manus: AI, стена + рука' },
+  { value: 'handheld_bouquet', title: '💐 Букет в руке', desc: 'Женская рука, без бирок' },
   { value: 'wall_only', title: '🧱 Только стена', desc: 'Manus: стена, без пола' },
-  { value: 'floor', title: '🏠 Напольная сцена', desc: 'Стена + плинтус + ламинат' },
+  { value: 'floor', title: '🏠 Напольная композиция', desc: 'Стена + плинтус + ламинат' },
   { value: 'photozone', title: '📸 Фотозона', desc: 'Полный интерьер' }
 ];
 
@@ -32,6 +32,8 @@ const app = {
 
   currentStep: 1,
   products: [],
+  listPageSize: 60,
+  listVisible: 60,
   currentProduct: { photos: [], scene: 'auto', tags: [], client_options: {} },
 
   init() {
@@ -46,9 +48,13 @@ const app = {
     this.renderTags();
     this.wireFormHelpers();
     this.wireFilters();
+    this.switchTab('products');
     this.loadProducts();
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && typeof this.closeLightbox === 'function') this.closeLightbox();
+      if (e.key === 'Escape') {
+        if (typeof this.closeLightbox === 'function') this.closeLightbox();
+        if (document.body.classList.contains('admin-editor-open')) this.cancelProductEdit();
+      }
     });
   },
 
@@ -69,6 +75,8 @@ const app = {
       catEl.dataset.articleWired = '1';
       catEl.addEventListener('change', () => {
         if (!this.currentProduct?.id) this.assignFreshArticle();
+        this.syncUnitBalloonForm?.(true);
+        this.syncAdvanceOrderFromScene?.();
       });
     }
 
@@ -78,15 +86,70 @@ const app = {
       priceEl.addEventListener('change', () => this.syncBudgetFromPrice?.());
       priceEl.addEventListener('input', () => this.syncBudgetFromPrice?.());
     }
+
+    this.syncUnitBalloonForm?.(false);
+  },
+
+  isUnitBalloonMode() {
+    return (document.getElementById('product-category')?.value || '') === 'Шары поштучно';
+  },
+
+  syncUnitBalloonForm(fromUser = false) {
+    const form = document.getElementById('product-form');
+    const banner = document.getElementById('unit-mode-banner');
+    const titleEl = document.getElementById('product-title');
+    const catEl = document.getElementById('product-category');
+    const sceneEl = document.getElementById('scene-select');
+
+    // Сцена «Шар поштучно» → категория
+    if (fromUser && sceneEl?.value === 'unit_balloon' && catEl && catEl.value !== 'Шары поштучно') {
+      catEl.value = 'Шары поштучно';
+      if (!this.currentProduct?.id) this.assignFreshArticle?.();
+    }
+
+    const unit = this.isUnitBalloonMode();
+    if (form) form.classList.toggle('is-unit-balloon', unit);
+    if (banner) banner.classList.toggle('hidden', !unit);
+
+    if (unit) {
+      if (this.currentProduct) this.currentProduct.scene = 'unit_balloon';
+      if (sceneEl && sceneEl.value !== 'unit_balloon') sceneEl.value = 'unit_balloon';
+      if (titleEl) titleEl.placeholder = 'Точное название как у поставщика';
+      if (!this.currentProduct?.id) this.assignFreshArticle?.();
+      this.syncStudioModeHint?.();
+    } else {
+      if (fromUser && sceneEl?.value === 'unit_balloon') {
+        if (this.currentProduct) this.currentProduct.scene = 'auto';
+        sceneEl.value = 'auto';
+      }
+      if (titleEl) titleEl.placeholder = 'Например: Тёмный рыцарь';
+    }
   },
 
   wireFilters() {
     ['search-products', 'filter-category', 'filter-status'].forEach(id => {
       const el = document.getElementById(id);
       if (!el) return;
-      el.addEventListener('input', () => this.renderProducts());
-      el.addEventListener('change', () => this.renderProducts());
+      const resetAndRender = () => {
+        this.listVisible = this.listPageSize;
+        this.renderProducts();
+      };
+      el.addEventListener('input', resetAndRender);
+      el.addEventListener('change', resetAndRender);
     });
+  },
+
+  showMoreProducts() {
+    this.listVisible += this.listPageSize;
+    this.renderProducts();
+  },
+
+  escapeHtml(str) {
+    return String(str ?? '')
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
   },
 
   nextArticle(category) {
@@ -216,10 +279,23 @@ const app = {
   },
 
   switchTab(tab) {
-    document.querySelectorAll('.header-link').forEach(l => l.classList.remove('active'));
-    document.querySelector(`[data-tab="${tab}"]`)?.classList.add('active');
-    document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
-    document.getElementById(`tab-${tab}`)?.classList.remove('hidden');
+    document.querySelectorAll('.header-link[data-tab]').forEach(l => {
+      l.classList.toggle('active', l.dataset.tab === tab);
+    });
+    document.querySelectorAll('.tab-content').forEach(c => {
+      const on = c.id === `tab-${tab}`;
+      c.classList.toggle('hidden', !on);
+      // native [hidden] — страховка, если CSS-класс .hidden перебьют
+      if (on) c.removeAttribute('hidden');
+      else c.setAttribute('hidden', '');
+      c.setAttribute('aria-hidden', on ? 'false' : 'true');
+    });
+    if (tab !== 'create') {
+      document.body.classList.remove('admin-editor-open');
+    } else {
+      document.body.classList.add('admin-editor-open');
+      window.scrollTo(0, 0);
+    }
   },
 
   async loadProducts() {
@@ -259,6 +335,8 @@ const app = {
     const container = document.getElementById('products-list');
     if (!container) return;
     const list = this.getFilteredProducts();
+    const countEl = document.getElementById('products-count');
+    if (countEl) countEl.textContent = `${list.length} из ${this.products.length}`;
 
     if (list.length === 0) {
       container.innerHTML = this.products.length === 0
@@ -268,25 +346,43 @@ const app = {
       return;
     }
 
-    container.innerHTML = list.map(p => {
+    const visible = list.slice(0, this.listVisible);
+    const rows = visible.map(p => {
       const published = p.status === 'published';
+      const idJs = String(p.id ?? '').replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+      const title = this.escapeHtml(p.title || 'Без названия');
+      const article = this.escapeHtml(p.article || '—');
+      const category = this.escapeHtml(p.category || '—');
+      const price = Number(p.price || 0).toLocaleString('ru-RU');
+      const photo = p.main_photo || (Array.isArray(p.photos) && p.photos[0]) || '';
+      const thumb = photo
+        ? `<img src="${this.escapeHtml(photo)}" alt="" loading="lazy" decoding="async"/>`
+        : '<span class="thumb-fallback" aria-hidden="true">🎈</span>';
       return `
-      <div class="product-card">
-        <div class="thumb">${p.main_photo ? `<img src="${p.main_photo}" alt="${p.title}"/>` : '<div style="padding:40px;text-align:center">🎈</div>'}</div>
-        <div class="title">${p.title}</div>
-        <div class="meta"><span>${p.article || '—'}</span> <span>${p.category || '—'}</span></div>
-        <div class="price">${p.price} ₽</div>
-        <div class="status-row">
-          <span class="badge ${published ? 'success' : 'warning'}">${published ? 'Опубликован' : 'Черновик'}</span>
+      <article class="product-row">
+        <div class="product-row-thumb">${thumb}</div>
+        <div class="product-row-info">
+          <div class="product-row-title">${title}</div>
+          <div class="product-row-meta">${article} · ${category}</div>
         </div>
-        <div class="actions">
-          <button class="btn sm primary" onclick="app.editProduct('${p.id}')">Редактировать</button>
-          <button class="btn sm outline" onclick="app.toggleStatus('${p.id}', '${published ? 'draft' : 'published'}')">${published ? 'Снять' : 'Опубликовать'}</button>
-          <button class="btn sm danger" onclick="app.deleteProduct('${p.id}')">Удалить</button>
+        <div class="product-row-price">${price} ₽</div>
+        <div class="product-row-status">
+          <span class="badge ${published ? 'success' : 'warning'}">${published ? 'На сайте' : 'Черновик'}</span>
         </div>
-      </div>`;
+        <div class="product-row-actions">
+          <button type="button" class="btn sm primary" onclick="app.editProduct('${idJs}')">Изменить</button>
+          <button type="button" class="btn sm outline" onclick="app.toggleStatus('${idJs}', '${published ? 'draft' : 'published'}')">${published ? 'Снять' : 'Опубл.'}</button>
+          <button type="button" class="btn sm danger" onclick="app.deleteProduct('${idJs}')">Удалить</button>
+        </div>
+      </article>`;
     }).join('');
 
+    const remaining = list.length - visible.length;
+    const more = remaining > 0
+      ? `<button type="button" class="btn outline block products-more" onclick="app.showMoreProducts()">Показать ещё ${Math.min(remaining, this.listPageSize)} из ${remaining}</button>`
+      : '';
+
+    container.innerHTML = rows + more;
     this.renderStats();
   },
 
@@ -344,6 +440,11 @@ const app = {
       this.toast('Введите название', 'error');
       document.getElementById('product-title')?.focus();
       document.getElementById('block-main')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      return;
+    }
+    if (!data.price || data.price <= 0) {
+      this.toast('Укажите цену', 'error');
+      document.getElementById('product-price')?.focus();
       return;
     }
     if (!data.category) {

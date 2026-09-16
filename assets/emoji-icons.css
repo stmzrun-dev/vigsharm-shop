@@ -1,0 +1,81 @@
+/* Toon-эмодзи пилот. Откат: в assets/site.js поставь window.VIG_TOON_EMOJI = false */
+
+/* Pilot emoji icons — Vigsharm toon set */
+.vig-emoji {
+  display: inline-block;
+  width: 1.25em;
+  height: 1.25em;
+  object-fit: contain;
+  vertical-align: -0.2em;
+  flex-shrink: 0;
+}
+
+.vig-emoji-text {
+  display: inline;
+  line-height: 1;
+}
+
+.vig-emoji-lg {
+  width: 1.75em;
+  height: 1.75em;
+}
+
+.vig-emoji-xl {
+  width: 2.5em;
+  height: 2.5em;
+}
+
+.header-phone .vig-emoji,
+.mobile-phone .vig-emoji,
+.footer-phone .vig-emoji {
+  width: 1.15em;
+  height: 1.15em;
+}
+
+.homepage-mobile-cta .vig-emoji {
+  width: 1.6em;
+  height: 1.6em;
+}
+
+.info-hero-emoji .vig-emoji {
+  width: 2.75rem;
+  height: 2.75rem;
+}
+
+.info-card-icon .vig-emoji,
+.price-group-heading .vig-emoji {
+  width: 2rem;
+  height: 2rem;
+}
+
+.contact-option > span .vig-emoji,
+.contact-option > .vig-emoji {
+  width: 1.75rem;
+  height: 1.75rem;
+}
+
+.story-link .vig-emoji {
+  width: 1.2em;
+  height: 1.2em;
+  margin-left: 0.15em;
+}
+
+.product-lead > .vig-emoji,
+.related-custom-card > .vig-emoji,
+.catalog-empty > .vig-emoji,
+.live-product-image > .vig-emoji {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+.product-mobile-highlights .vig-emoji,
+.product-highlights .vig-emoji {
+  width: 1.15em;
+  height: 1.15em;
+  margin-right: 0.2em;
+}
+
+.description-decoration .vig-emoji {
+  width: 1.5em;
+  height: 1.5em;
+}

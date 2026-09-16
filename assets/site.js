@@ -33,6 +33,40 @@
     if (key.indexOf('http') === 0 || key.charAt(0) === '/') return key;
     return 'api/images/' + key;
   };
+
+  /* Pilot toon emojis. Откат: поставь false — вернутся обычные эмодзи. */
+  window.VIG_TOON_EMOJI = true;
+  var VIG_EMOJI_FALLBACK = {
+    phone: '☎',
+    balloon: '🎈',
+    heart: '💕',
+    pin: '📍',
+    car: '🚗',
+    chat: '💬'
+  };
+  window.vigEmoji = function (name, extraClass) {
+    if (!window.VIG_TOON_EMOJI) {
+      return '<span class="vig-emoji-text" aria-hidden="true">' + (VIG_EMOJI_FALLBACK[name] || '') + '</span>';
+    }
+    var cls = 'vig-emoji' + (extraClass ? ' ' + extraClass : '');
+    return '<img class="' + cls + '" src="icons/vigsharm-toons/emoji-' + name + '.png" alt="" width="24" height="24" decoding="async" aria-hidden="true" data-emoji="' + name + '"/>';
+  };
+  function applyToonEmojiMode() {
+    if (window.VIG_TOON_EMOJI) return;
+    document.querySelectorAll('img.vig-emoji[data-emoji]').forEach(function (img) {
+      var name = img.getAttribute('data-emoji');
+      var span = document.createElement('span');
+      span.className = 'vig-emoji-text';
+      span.setAttribute('aria-hidden', 'true');
+      span.textContent = VIG_EMOJI_FALLBACK[name] || '';
+      img.parentNode.replaceChild(span, img);
+    });
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', applyToonEmojiMode);
+  } else {
+    applyToonEmojiMode();
+  }
   window.vigRemote = function (key) {
     if (!key) return '';
     if (key.indexOf('http') === 0) return key;
@@ -57,9 +91,7 @@
       } else if (stage === '1') {
         t.setAttribute('data-fb', '2');
         t.removeAttribute('data-key');
-        t.src = 'data:image/svg+xml;utf8,' + encodeURIComponent(
-          '<svg xmlns="http://www.w3.org/2000/svg" width="800" height="800"><rect width="100%" height="100%" rx="48" fill="#f3fcfc"/><text x="50%" y="47%" font-size="140" text-anchor="middle">🎈</text><text x="50%" y="60%" font-size="34" text-anchor="middle" fill="#68727e" font-family="sans-serif">VigSharm</text></svg>'
-        );
+        t.src = 'icons/vigsharm-toons/emoji-balloon.png';
       }
     }
   }, true);
@@ -169,7 +201,7 @@
       '<a class="contact-option whatsapp" target="_blank" rel="noreferrer" href="https://wa.me/' + PHONE + '?text=' + encodeURIComponent(WA_TEXT) + '"><span>' + WA_SVG + '</span><div><strong>WhatsApp</strong><small>Написать сообщение</small></div><b>→</b></a>' +
       '<a class="contact-option telegram" target="_blank" rel="noreferrer" href="' + TG_URL + '?text=' + encodeURIComponent(WA_TEXT) + '"><span>' + TG_SVG + '</span><div><strong>Telegram</strong><small>Написать в личный чат</small></div><b>→</b></a>' +
       '<a class="contact-option max" target="_blank" rel="noreferrer" href="' + MAX_URL + '"><span><img src="icons/max-official.png" alt="" aria-hidden="true"/></span><div><strong>MAX</strong><small>Открыть переписку с Вигшарм</small></div><b>→</b></a>' +
-      '<a class="contact-option phone" href="tel:+' + PHONE + '"><span>☎</span><div><strong>Позвонить</strong><small>' + PHONE_LABEL + '</small></div><b>→</b></a>' +
+      '<a class="contact-option phone" href="tel:+' + PHONE + '"><span>' + window.vigEmoji('phone') + '</span><div><strong>Позвонить</strong><small>' + PHONE_LABEL + '</small></div><b>→</b></a>' +
       '</div>' +
       '<p class="modal-note">Нажатие откроет выбранный способ связи. Заказ оформляется только после нашего подтверждения.</p>' +
       '</section>';

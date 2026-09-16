@@ -226,11 +226,13 @@ async function handleGenerateCard(request, env) {
     scene,
     image_url,
     price,
-    composition_raw
+    composition_raw,
+    existing_titles
   } = body;
   const rawComposition = String(composition_raw || description || '').trim();
   const typeHint = sceneTypeHint(scene || 'floor');
   const priceNum = Number(price) || 0;
+  const takenTitles = normalizeExistingTitlesList(existing_titles);
 
   const systemPrompt = `Ты — копирайтер каталога VigSharm (воздушные шары, Армавир).
 Пиши коротко. Без маркетинговой воды и эмодзи.
@@ -275,6 +277,7 @@ ${BUDGET_OPTIONS.join(' | ')}
 - ЗАПРЕЩЕНО: «Набор с…», «Композиция …», «… с зайчиком», «… на крестины», «Фонтан из шаров…», просто имя героя одним словом без крючка
 - Персонаж и повод — в character / category / tags, не в title
 - title_alts: ещё 1–2 крючка в том же духе, не пересказ состава
+- УНИКАЛЬНОСТЬ: title и title_alts НЕ должны совпадать и НЕ должны быть похожи на уже занятые названия каталога (другой порядок слов, синоним-близнец, «почти то же» — тоже запрещены). Придумай свежие крючки.
 - ЦИФРА НА ФОТО (1, 2, 6… на фольге) — это ПРИМЕР. Клиент выберет любую цифру 0–9.
   • ЗАПРЕЩЕНО в title и title_alts любая привязка к конкретной цифре или возрасту:
     «шестилетка», «на 6 лет», «Модный шестой», «Стильная шестёрка», «1 годик», «пятёрка», цифры 0–9 в тексте и т.п.
@@ -308,12 +311,17 @@ ${BUDGET_OPTIONS.join(' | ')}
 - budget: только из BUDGET по цене пользователя
 - НЕ возвращай article и price`;
 
+  const takenBlock = takenTitles.length
+    ? `Уже занятые названия в каталоге (НЕ предлагай эти и похожие):\n${takenTitles.slice(0, 80).map((t) => `• ${t}`).join('\n')}`
+    : 'Занятых названий пока нет.';
+
   const userPrompt = `Сгенерируй карточку:
 Подсказка названия: ${title_hint || 'не указано'}
 Цена (₽): ${priceNum > 0 ? priceNum : 'не указана'}
 Сырой состав от пользователя (оформи красиво, исправь орфографию, числа сохрани): ${rawComposition || 'не указан'}
 Сцена Studio Pro: ${scene || 'floor'}
 Подсказка типа изделия для tags: ${typeHint || 'по фото'}
+${takenBlock}
 ${image_url ? 'Фото приложено — ОБЯЗАТЕЛЬНО определи персонажа и тематическую серию по визуальным признакам (цвета, паутина, фигуры, принты). Если сомневаешься — confidence medium/low и дай alts. Логотипы магазинов игнорируй. Имена/возраст на табличке — пример персонализации, не в title.' : ''}`;
 
   const messages = [
@@ -352,7 +360,7 @@ ${image_url ? 'Фото приложено — ОБЯЗАТЕЛЬНО опред
     return json({ ok: false, error: 'AI вернул некорректный JSON: ' + text.slice(0, 200) });
   }
 
-  data = sanitizeCardMetadata(data, scene || 'floor', priceNum, rawComposition);
+  data = sanitizeCardMetadata(data, scene || 'floor', priceNum, rawComposition, takenTitles);
   return json({ ok: true, data });
 }
 
@@ -404,6 +412,64 @@ function titleLocksToDigit(title) {
   return false;
 }
 
+function normalizeTitleKey(title) {
+  return String(title || '')
+    .toLowerCase()
+    .replace(/ё/g, 'е')
+    .replace(/[^\p{L}\p{N}\s]+/gu, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function normalizeExistingTitlesList(list) {
+  const raw = Array.isArray(list) ? list : [];
+  const out = [];
+  const seen = new Set();
+  for (const item of raw) {
+    const t = String(item || '').trim();
+    if (!t) continue;
+    const key = normalizeTitleKey(t);
+    if (!key || seen.has(key)) continue;
+    seen.add(key);
+    out.push(t);
+  }
+  return out;
+}
+
+/** Точное совпадение или «почти то же» (общие слова / одно содержит другое). */
+function titlesTooSimilar(a, b) {
+  const na = normalizeTitleKey(a);
+  const nb = normalizeTitleKey(b);
+  if (!na || !nb) return false;
+  if (na === nb) return true;
+
+  const shorter = na.length <= nb.length ? na : nb;
+  const longer = na.length <= nb.length ? nb : na;
+  if (shorter.length >= 6 && longer.includes(shorter) && shorter.length / longer.length >= 0.55) {
+    return true;
+  }
+
+  const wa = na.split(' ').filter((w) => w.length > 1);
+  const wb = nb.split(' ').filter((w) => w.length > 1);
+  if (!wa.length || !wb.length) return false;
+  if (wa.length === 1 && wb.length === 1) return wa[0] === wb[0];
+
+  const setB = new Set(wb);
+  let inter = 0;
+  for (const w of wa) if (setB.has(w)) inter++;
+  const union = wa.length + wb.length - inter;
+  if (union > 0 && inter / union >= 0.75 && inter >= 2) return true;
+  // Одинаковый набор слов в другом порядке
+  if (wa.length === wb.length && inter === wa.length) return true;
+  return false;
+}
+
+function titleCollidesWithTaken(title, takenTitles) {
+  const t = String(title || '').trim();
+  if (!t) return false;
+  return (takenTitles || []).some((ex) => titlesTooSimilar(t, ex));
+}
+
 function sanitizeTitleAgainstDigitLock(data) {
   const charHint = String(data.character || data.series_name || '').trim();
   const fallback = charHint
@@ -426,7 +492,38 @@ function sanitizeTitleAgainstDigitLock(data) {
   data.title_alts = [];
 }
 
-function sanitizeCardMetadata(data, scene = 'floor', price = 0, rawComposition = '') {
+/** Убрать title/alts, которые уже есть или похожи на каталог. */
+function sanitizeTitleAgainstExisting(data, takenTitles = []) {
+  if (!takenTitles.length) return;
+
+  const charHint = String(data.character || data.series_name || '').trim();
+  const fallbacks = [
+    charHint,
+    charHint ? `${charHint} стиль` : '',
+    'Яркий акцент',
+    'Праздничный вайб',
+    'Цветной момент'
+  ].map((t) => String(t || '').trim()).filter(Boolean);
+
+  let pool = [data.title, ...(Array.isArray(data.title_alts) ? data.title_alts : [])]
+    .map((t) => String(t || '').trim())
+    .filter(Boolean);
+  pool = [...new Set(pool)];
+
+  const free = pool.filter((t) => !titleCollidesWithTaken(t, takenTitles));
+  if (free.length) {
+    data.title = free[0];
+    data.title_alts = free.slice(1, 3).filter((t) => !titlesTooSimilar(t, data.title));
+    return;
+  }
+
+  const rescue = fallbacks.find((t) => !titleCollidesWithTaken(t, takenTitles) && !titleLocksToDigit(t));
+  data.title = rescue || '';
+  data.title_alts = [];
+  if (!data.title) data.ask_title = true;
+}
+
+function sanitizeCardMetadata(data, scene = 'floor', price = 0, rawComposition = '', takenTitles = []) {
   const stripEmoji = (s) => String(s || '')
     .replace(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\u{FE0F}\u{200D}]/gu, '')
     .replace(/\s{2,}/g, ' ')
@@ -448,6 +545,7 @@ function sanitizeCardMetadata(data, scene = 'floor', price = 0, rawComposition =
     .slice(0, 2);
 
   sanitizeTitleAgainstDigitLock(data);
+  sanitizeTitleAgainstExisting(data, takenTitles);
 
   const normAlts = (list, primary) => {
     const main = String(primary || '').trim().toLowerCase();
@@ -802,28 +900,33 @@ OUTPUT: one square 1:1 professional catalog photo — round Ø3 m photozone fram
   }
 
   if (scene === 'balloon_figures') {
-    return `Edit the provided balloon FIGURE / sculpture photo (скрутка «фигуры из шаров») for a square VigSharm catalog card. Change ONLY the room background and lighting.
+    return `Edit the provided balloon FIGURE / sculpture photo (скрутка «фигуры из шаров») for a square VigSharm catalog card. Change the room background/lighting AND fix posture/support as specified below.
 
 ${lock}
 
 ${logoClean}
 
-Use the SECOND reference image as the real VigSharm studio environment — match it as closely as possible: warm beige-grey wall, white baseboard, grey-beige laminate floor with horizontal planks.
+ALLOWED EXCEPTION — POSTURE & SUPPORT (critical for catalog):
+- STRAIGHTEN the figure so it stands VERTICALLY upright: head–body–base on one plumb axis. Correct lean/tilt/fall to the side.
+- REMOVE any non-balloon support under or around the sculpture: small table, stolik, wire stand, metal rack, stool, chair, crate, box, furniture legs — as if never there.
+- Place the balloon BASE / feet / green cluster DIRECTLY on the laminate floor with a soft realistic contact shadow.
+- Do NOT invent a new stand. The figure must look self-supporting on the floor.
+- Keep ALL balloon parts (head, body, arms, bouquet, number foil, colors, counts) — only fix orientation and remove furniture support.
 
-Keep the real base/feet and natural floor position from the original. Only minimal soft contact shadow where the figure genuinely touches the floor.
+Use the SECOND reference image as the real VigSharm studio environment — match it as closely as possible: warm beige-grey wall, white baseboard, grey-beige laminate floor with horizontal planks.
 
 SCALE — CRITICAL for balloon figures (typically 1 m tall and taller):
 - This is a LARGE human-scale balloon sculpture standing on the floor — NOT a small toy, NOT a tabletop prop
 - The figure must fill approximately 80–92% of the frame HEIGHT — dominate the catalog card
 - Minimal empty wall above the head/top; do NOT shrink the figure into a tiny object in the middle of the room
 - Preserve real proportions: a person standing next to it would see a figure about 1–1.5+ meters tall
-- FORBIDDEN: miniaturizing, floating tiny figure, excessive empty floor/wall that makes it look under ~1 m
+- FORBIDDEN: miniaturizing, floating tiny figure, excessive empty floor/wall that makes it look under ~1 m, leaving the figure leaning, keeping a table/stand under the base
 
 ${brightLight}
 
 ${forbidden}
 
-OUTPUT: one square 1:1 professional catalog photo — balloon figure LARGE and bright in frame, human scale ≥1 m.`;
+OUTPUT: one square 1:1 professional catalog photo — balloon figure LARGE, VERTICAL, on the floor (no table/stand), bright, human scale ≥1 m.`;
   }
 
   return `Edit the provided floor-standing balloon composition photo for a square VigSharm catalog card. Change ONLY the room background and lighting.
@@ -1026,7 +1129,7 @@ SCENE: large photozone on laminate near baseboard. Contact shadow under the base
   if (scene === 'balloon_figures') {
     return `${base}
 
-SCENE: large balloon FIGURE sculpture (≥1 m tall) on laminate near baseboard. Keep LARGE human scale in frame — do not shrink. Medium contact shadow under feet/base.`;
+SCENE: large balloon FIGURE sculpture (≥1 m tall) standing VERTICALLY on laminate near baseboard — no table, no wire stand, no furniture under the base. Straighten any lean. Keep LARGE human scale — do not shrink. Medium contact shadow under balloon feet/base on the floor.`;
   }
 
   return `${base}

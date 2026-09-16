@@ -548,6 +548,13 @@ const app = {
       document.getElementById('block-main')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
       return;
     }
+    const titleClash = this.findSimilarCatalogTitle?.(data.title);
+    if (titleClash) {
+      this.toast(`Название похоже на «${titleClash.title}» — придумайте другое`, 'error');
+      document.getElementById('product-title')?.focus();
+      document.getElementById('block-main')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      return;
+    }
     if (!data.price || data.price <= 0) {
       this.toast('Укажите цену', 'error');
       document.getElementById('product-price')?.focus();

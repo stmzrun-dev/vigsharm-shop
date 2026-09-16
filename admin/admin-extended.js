@@ -176,7 +176,6 @@ Object.assign(app, {
     if (select) {
       select.addEventListener('change', () => {
         this.currentProduct.scene = select.value;
-        this.syncStudioAiToggleUi?.();
       });
     }
   },
@@ -370,7 +369,8 @@ Object.assign(app, {
     this.resetStudioDraftKey?.();
     this.studioCutoutDataUrl = null;
     this.studioPlacement = null;
-    this.studioCompare = { original: null, canvas: null, ai: null };
+    this.studioCompare = { original: null, master: null };
+    this.studioSourceUrl = null;
     if (typeof this.hideCropEditor === 'function') this.hideCropEditor();
     if (typeof this.hidePlacementEditor === 'function') this.hidePlacementEditor(true);
     if (typeof this.renderStudioCompare === 'function') this.renderStudioCompare();
@@ -390,7 +390,6 @@ Object.assign(app, {
     if (titleEl) titleEl.textContent = 'Новый товар';
 
     this.renderPhotos();
-    this.syncStudioAiToggleUi?.();
     this.refreshStudioCheckpointUi?.();
   }
 });
@@ -421,7 +420,8 @@ app.loadProductToForm = function(product) {
   this.resetStudioDraftKey?.();
   this.studioCutoutDataUrl = null;
   this.studioPlacement = null;
-  this.studioCompare = { original: null, canvas: null, ai: null };
+  this.studioCompare = { original: null, master: null };
+  this.studioSourceUrl = null;
   if (typeof this.hidePlacementEditor === 'function') this.hidePlacementEditor(true);
   if (typeof this.hideCropEditor === 'function') this.hideCropEditor();
   if (typeof this.renderStudioCompare === 'function') this.renderStudioCompare();
@@ -440,7 +440,6 @@ app.loadProductToForm = function(product) {
   this.currentProduct.scene = product.scene || 'auto';
   const sceneSelect = document.getElementById('scene-select');
   if (sceneSelect) sceneSelect.value = this.currentProduct.scene;
-  this.syncStudioAiToggleUi?.();
   this.refreshStudioCheckpointUi?.();
 
   // Основные данные

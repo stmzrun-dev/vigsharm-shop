@@ -41,6 +41,8 @@ export default {
         return handleSuggestCategory(request, env);
       if (path === '/api/studio/process' && method === 'POST')
         return handleStudioProcess(request, env);
+      if (path === '/api/studio/rephotograph' && method === 'POST')
+        return handleStudioRephotograph(request, env);
       if (path === '/api/studio/enhance' && method === 'POST')
         return handleStudioEnhance(request, env);
       if (path === '/api/studio/restore' && method === 'POST')
@@ -349,7 +351,181 @@ async function handleStudioProcess(request, env) {
   });
 }
 
-// ─── Studio Pro: Enhance (AI «как снято в студии») ───────
+// ─── Studio Pro: Rephotograph (Manus-style: original + room reference → Master) ───────
+
+function isWallOnlyScene(scene) {
+  return ['wall_only', 'unit_balloon', 'handheld_bouquet'].includes(scene);
+}
+
+function buildRephotographPrompt(scene) {
+  const lock = `LOCKED — preserve without any change:
+- entire original product; exact balloon count, shapes, sizes, colors, positions, overlaps
+- ALL text, letters, numbers, names, spelling, punctuation — copy exactly, never retype or autocorrect
+- characters, foil figures, chrome/metallic surfaces, ribbons, knots, stickers, accessories
+- do NOT add, remove, redraw, simplify or beautify any product element
+- when uncertain, keep the original detail — do NOT guess`;
+
+  const forbidden = `FORBIDDEN: sticker/cutout appearance, white or dark halo, invented text, changed colors, plastic CGI look, furniture, window, curtains from the original room, melting ribbons, harsh cast shadows, yellow/orange color cast, duplicate objects, collage`;
+
+  const light = `LIGHTING: soft even professional studio product photography. Remove harsh window backlight. Match exposure and white balance to the studio room. Real photograph, not CGI render.`;
+
+  if (scene === 'handheld_bouquet') {
+    return `Edit the provided hand-held balloon bouquet photo for a square VigSharm catalog card. Change ONLY the surrounding background and lighting.
+
+${lock}
+
+Use the SECOND reference image as the real VigSharm studio wall section ONLY — no floor, no baseboard.
+If a real hand is visible in the original, keep it — do not cover balloons.
+
+${light}
+Do NOT add artificial balloon shadows on the wall.
+
+${forbidden}
+
+OUTPUT: one square 1:1 catalog photo, full bouquet visible with comfortable margins.`;
+  }
+
+  if (isWallOnlyScene(scene)) {
+    return `Edit the provided balloon product photo for a square VigSharm catalog card. Change ONLY the surrounding background and lighting.
+
+${lock}
+
+Use the SECOND reference image as the real VigSharm studio wall ONLY — wall section from the reference file, NO floor, NO baseboard, NO laminate for this wall-only scene.
+
+${light}
+Do NOT add artificial balloon shadows on the wall. Minimal soft edge integration only — no graphic drop shadow.
+
+${forbidden}
+
+OUTPUT: one square 1:1 catalog photo, full product visible with comfortable margins.`;
+  }
+
+  return `Edit the provided floor-standing balloon composition photo for a square VigSharm catalog card. Change ONLY the room background and lighting.
+
+${lock}
+
+Use the SECOND reference image as the real VigSharm studio environment: warm beige-grey wall, white baseboard, grey-beige laminate floor with horizontal planks.
+
+Keep the real base/support and natural floor position from the original. Only minimal soft contact shadow where the product genuinely touches the floor.
+
+${light}
+
+${forbidden}
+
+OUTPUT: one square 1:1 professional catalog photo, full composition visible with comfortable margins.`;
+}
+
+function buildRephotographAttempts(imageUrl, referenceUrl, prompt, resolution = '2K') {
+  const res = ['1K', '2K', '4K'].includes(resolution) ? resolution : '2K';
+  const refFields = [
+    { reference_image: referenceUrl },
+    { reference: referenceUrl },
+    { image2: referenceUrl },
+    { reference_images: [referenceUrl] }
+  ];
+
+  const attempts = [];
+
+  for (const ref of refFields) {
+    attempts.push({
+      model: 'image/nano-banana-2',
+      input: { prompt, image: imageUrl, aspect_ratio: '1:1', ...ref }
+    });
+  }
+
+  for (const ref of refFields.slice(0, 2)) {
+    attempts.push({
+      model: 'image/nano-banana-edit',
+      input: { prompt, image: imageUrl, ...ref }
+    });
+    attempts.push({
+      model: 'image/nano-banana-pro',
+      input: { prompt, image: imageUrl, ...ref }
+    });
+  }
+
+  attempts.push({
+    model: 'image/gpt-image-2-edit',
+    input: {
+      prompt: prompt + '\n\nTarget room: VigSharm studio (beige wall, white baseboard, grey laminate) as in brand reference.',
+      image: imageUrl,
+      aspect_ratio: '1:1',
+      resolution: res
+    }
+  });
+
+  attempts.push({
+    model: 'image/flux2-pro-edit',
+    input: {
+      prompt,
+      image: imageUrl,
+      aspect_ratio: '1:1',
+      resolution: res === '4K' ? '2K' : res
+    }
+  });
+
+  return attempts;
+}
+
+async function handleStudioRephotograph(request, env) {
+  const body = await request.json();
+  const { image_url, reference_url, scene = 'floor', resolution = '2K' } = body;
+
+  if (!image_url || !reference_url) {
+    return json({ ok: false, error: 'Missing image_url or reference_url' }, 400);
+  }
+
+  for (const url of [image_url, reference_url]) {
+    const ok = String(url).startsWith('data:image/') || String(url).startsWith('https://');
+    if (!ok) {
+      return json({ ok: false, error: 'Images must be data:image/... or https:// URLs' }, 400);
+    }
+  }
+
+  const prompt = buildRephotographPrompt(scene);
+  const attempts = buildRephotographAttempts(image_url, reference_url, prompt, resolution);
+
+  let generateResp = null;
+  let usedModel = null;
+
+  for (const attempt of attempts) {
+    console.log('[Studio Rephotograph] scene=', scene, 'try model=', attempt.model);
+    generateResp = await nordRequest('/media/generate', 'POST', {
+      model: attempt.model,
+      input: attempt.input
+    }, env);
+
+    if (!generateResp.error && generateResp.id) {
+      usedModel = attempt.model;
+      console.log('[Studio Rephotograph] using model=', usedModel, 'job_id=', generateResp.id);
+      break;
+    }
+    console.warn('[Studio Rephotograph] model failed:', attempt.model, generateResp.error || generateResp);
+  }
+
+  if (generateResp?.error) {
+    return json({
+      ok: false,
+      error: 'Ошибка rephotograph: ' + (generateResp.error.message || JSON.stringify(generateResp.error))
+    }, 500);
+  }
+
+  if (!generateResp?.id) {
+    return json({ ok: false, error: 'NordRouter не вернул job_id: ' + JSON.stringify(generateResp) }, 500);
+  }
+
+  return json({
+    ok: true,
+    job_id: generateResp.id,
+    status: 'processing',
+    scene,
+    resolution,
+    model: usedModel,
+    pipeline: 'rephotograph'
+  });
+}
+
+// ─── Studio Pro: Enhance (legacy / fallback) ───────
 
 function buildGentleEnhancePrompt(scene) {
   return `LIGHT seam/shadow finish ONLY for VigSharm balloon catalog. Do NOT rephotograph or redraw the product.

@@ -72,12 +72,12 @@
         <!-- Фото + Studio -->
         <section class="card-block" id="block-photos">
           <div class="studio-toolbar">
-            <button type="button" class="btn secondary" id="process-studio-btn" onclick="app.processStudioProNew()">✨ Подготовить фото Studio Pro</button>
-            <button type="button" class="btn outline hidden" id="studio-continue-btn" onclick="app.continueFromStudioCheckpoint()">↩ Продолжить с последнего</button>
-            <button type="button" class="btn outline hidden" id="studio-clear-checkpoint-btn" onclick="app.clearStudioCheckpoint()">Сбросить cutout</button>
+            <button type="button" class="btn secondary" id="process-studio-btn" onclick="app.processStudioProNew()">✨ Создать Master</button>
+            <button type="button" class="btn outline hidden" id="studio-retry-btn" onclick="app.retryStudioMaster()">↻ Пересоздать Master</button>
             <div class="scene-selector scene-select-wrap" id="scene-selector"></div>
             <button type="button" class="btn outline" id="photo-upload-btn" onclick="document.getElementById('photo-input').click()">+ Загрузить</button>
           </div>
+          <p class="studio-lead">Оригинал + эталон комнаты → AI-пересъёмка в студии VigSharm → кропы #2/#3. Эталон — в «Настройки».</p>
           <div class="status" id="studio-status"></div>
 
           <div class="photo-section" id="photo-dropzone">
@@ -90,50 +90,20 @@
             <div class="photo-grid" id="photos-grid"></div>
           </div>
 
-          <!-- Ручная постановка на эталоне -->
-          <div id="placement-editor" class="placement-editor hidden">
-            <h3>Постановка на эталоне</h3>
-            <p class="lead">Перетащите товар, масштаб — слайдером. Не прижимайте к краю кадра. На сценах «стена» AI не перерисовывает товар (текст и хром сохраняются).</p>
-            <div class="placement-stage" id="placement-stage">
-              <img id="placement-bg" alt="Эталон" draggable="false"/>
-              <img id="placement-cutout" alt="Cutout" draggable="false"/>
-            </div>
-            <div class="placement-controls">
-              <label class="placement-scale-label">Масштаб
-                <input type="range" id="placement-scale" min="25" max="95" value="70"
-                  oninput="app.onPlacementScaleInput(this.value)"/>
-              </label>
-              <label class="studio-ai-toggle" id="studio-ai-toggle-wrap">
-                <input type="checkbox" id="studio-ai-enhance" checked onchange="app.onStudioAiToggle()"/>
-                <span>С AI-пересъёмкой <small>(floor / photozone)</small></span>
-              </label>
-              <div class="btn-group crop-actions">
-                <button type="button" class="btn outline" onclick="app.resetPlacement()">↺ Сброс позиции</button>
-                <button type="button" class="btn primary" id="confirm-placement-btn" onclick="app.confirmPlacementAndEnhance()">Готово → Master</button>
-              </div>
-            </div>
-            <div class="status" id="placement-status"></div>
-          </div>
-
-          <!-- Сравнение: оригинал | canvas | AI -->
+          <!-- Сравнение: оригинал | Master -->
           <div id="studio-compare" class="studio-compare hidden">
             <h3>Сравнение</h3>
-            <p class="lead">Оригинал · canvas (эталон + cutout) · AI. Клик — увеличить.</p>
-            <div class="studio-compare-grid">
+            <p class="lead">Оригинал · Master (студия). Клик — увеличить.</p>
+            <div class="studio-compare-grid studio-compare-grid-2">
               <button type="button" class="studio-compare-slot" id="studio-compare-original-btn" onclick="app.openStudioCompareSlot('original')">
                 <span class="studio-compare-label">Оригинал</span>
                 <img id="studio-compare-original" alt="Оригинал"/>
                 <span class="studio-compare-empty hidden" id="studio-compare-original-empty">—</span>
               </button>
-              <button type="button" class="studio-compare-slot" id="studio-compare-canvas-btn" onclick="app.openStudioCompareSlot('canvas')">
-                <span class="studio-compare-label">Canvas</span>
-                <img id="studio-compare-canvas" alt="Canvas"/>
-                <span class="studio-compare-empty hidden" id="studio-compare-canvas-empty">—</span>
-              </button>
-              <button type="button" class="studio-compare-slot" id="studio-compare-ai-btn" onclick="app.openStudioCompareSlot('ai')">
-                <span class="studio-compare-label">AI</span>
-                <img id="studio-compare-ai" alt="AI"/>
-                <span class="studio-compare-empty hidden" id="studio-compare-ai-empty">откл</span>
+              <button type="button" class="studio-compare-slot" id="studio-compare-master-btn" onclick="app.openStudioCompareSlot('master')">
+                <span class="studio-compare-label">Master</span>
+                <img id="studio-compare-master" alt="Master"/>
+                <span class="studio-compare-empty hidden" id="studio-compare-master-empty">—</span>
               </button>
             </div>
           </div>

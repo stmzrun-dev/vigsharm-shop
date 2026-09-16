@@ -260,6 +260,8 @@ legend{font-size:15px;font-weight:600;padding:0 12px;color:#212121}
 .studio-compare{margin-top:20px;padding:16px;border:1px solid #BDBDBD;border-radius:12px;background:#FAFAFA}
 .studio-compare h3{margin:0 0 8px;font-size:16px;color:#424242}
 .studio-compare-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;max-width:560px}
+.studio-compare-grid-2{grid-template-columns:repeat(2,minmax(0,1fr));max-width:420px}
+.studio-lead{font-size:13px;color:#616161;margin:0 0 10px;line-height:1.45}
 .studio-compare-slot{position:relative;display:block;width:100%;padding:0;border:1px solid #E0E0E0;border-radius:10px;overflow:hidden;background:#111;cursor:pointer;aspect-ratio:1}
 .studio-compare-slot img{display:block;width:100%;height:100%;object-fit:contain}
 .studio-compare-slot img:not([src]),.studio-compare-slot img[src=""]{display:none}

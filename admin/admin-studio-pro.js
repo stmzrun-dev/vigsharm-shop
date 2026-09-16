@@ -1,5 +1,5 @@
 // VigSharm Admin - Studio Pro
-// Remove BG → ручная постановка на эталон → AI «пересъёмка» (свет/тень) → Master → live-кропы #2/#3 → Cloudinary
+// Manus-style: оригинал + эталон комнаты → AI rephotograph → Master → кропы #2/#3 → Cloudinary
 
 Object.assign(app, {
   MASTER_SIZE: 2048,
@@ -13,8 +13,8 @@ Object.assign(app, {
   studioPlacement: null,
   studioPlacementAspect: 1,
   studioCanvasMasterDataUrl: null,
-  studioCompare: { original: null, canvas: null, ai: null },
-  studioAiEnhanceEnabled: true,
+  studioCompare: { original: null, master: null },
+  studioSourceUrl: null,
   _studioDraftKey: null,
   cropFrames: null,
   _cropDrag: null,
@@ -253,43 +253,6 @@ Object.assign(app, {
     return this.isWallOnlyScene(scene);
   },
 
-  /** Wall always off; floor/photozone follow toggle */
-  shouldSkipAiEnhance(scene) {
-    if (this.isWallOnlyScene(scene)) return true;
-    return !this.isStudioAiEnhanceEnabled();
-  },
-
-  isStudioAiEnhanceEnabled() {
-    const el = document.getElementById('studio-ai-enhance');
-    if (el) return !!el.checked;
-    return this.studioAiEnhanceEnabled !== false;
-  },
-
-  onStudioAiToggle() {
-    const el = document.getElementById('studio-ai-enhance');
-    if (this.isWallOnlyScene(this.currentProduct?.scene || 'floor')) {
-      this.syncStudioAiToggleUi();
-      return;
-    }
-    this.studioAiEnhanceEnabled = el ? !!el.checked : true;
-  },
-
-  syncStudioAiToggleUi() {
-    const scene = this.currentProduct?.scene || 'floor';
-    const wrap = document.getElementById('studio-ai-toggle-wrap');
-    const el = document.getElementById('studio-ai-enhance');
-    const wall = this.isWallOnlyScene(scene);
-    if (wrap) {
-      wrap.classList.toggle('hidden', wall);
-      wrap.classList.toggle('is-disabled', wall);
-    }
-    if (el) {
-      el.disabled = wall;
-      // Wall forces UI off without changing saved preference
-      el.checked = wall ? false : (this.studioAiEnhanceEnabled !== false);
-    }
-  },
-
   getStudioProductKey() {
     if (this.currentProduct?.id) return 'id:' + this.currentProduct.id;
     if (!this._studioDraftKey) this._studioDraftKey = 'draft:' + Date.now();
@@ -323,7 +286,7 @@ Object.assign(app, {
       cutoutDataUrl: this.studioCutoutDataUrl,
       aspect: this.studioPlacementAspect,
       placement: this.studioPlacement ? { ...this.studioPlacement } : null,
-      originalUrl: this.studioCompare?.original || this.currentProduct?.photos?.[0]?.url || null,
+      originalUrl: this.studioSourceUrl || this.studioCompare?.original || this.currentProduct?.photos?.[0]?.url || null,
       ts: Date.now(),
       ...extra
     };
@@ -382,7 +345,8 @@ Object.assign(app, {
     this.studioPlacementAspect = 1;
     this.studioCanvasMasterDataUrl = null;
     this.studioMasterDataUrl = null;
-    this.studioCompare = { original: null, canvas: null, ai: null };
+    this.studioCompare = { original: null, master: null };
+    this.studioSourceUrl = null;
     this.hidePlacementEditor(true);
     this.hideCropEditor?.();
     this.renderStudioCompare();
@@ -393,77 +357,94 @@ Object.assign(app, {
   },
 
   async refreshStudioCheckpointUi() {
-    const contBtn = document.getElementById('studio-continue-btn');
-    const clearBtn = document.getElementById('studio-clear-checkpoint-btn');
-    const hasMemory = !!this.studioCutoutDataUrl;
-    let hasStored = false;
-    try {
-      const cp = await this.loadStudioCheckpoint();
-      hasStored = !!(cp && cp.cutoutDataUrl);
-    } catch (_) { /* ignore */ }
-    const show = hasMemory || hasStored;
-    contBtn?.classList.toggle('hidden', !show);
-    clearBtn?.classList.toggle('hidden', !show);
+    const retryBtn = document.getElementById('studio-retry-btn');
+    const src = this.studioSourceUrl || this.studioCompare?.original;
+    retryBtn?.classList.toggle('hidden', !src);
   },
 
-  async continueFromStudioCheckpoint() {
+  async ensureReferenceHttpsUrl() {
+    let url = this.getReferenceBackgroundUrl();
+    if (!url) throw new Error('Эталонный фон не найден');
+    if (url.startsWith('https://') || url.startsWith('http://')) return url;
+
+    const blobRes = await fetch(url);
+    if (!blobRes.ok) throw new Error('Не удалось загрузить эталонный фон');
+    const blob = await blobRes.blob();
+    const file = new File([blob], 'vigsharm-reference.webp', { type: blob.type || 'image/webp' });
+    const uploadResult = await this.uploadPhoto(file);
+    if (!uploadResult.ok) {
+      throw new Error(uploadResult.error || 'Не удалось загрузить эталон в Cloudinary');
+    }
+    this.studioReferenceBackgroundUrl = uploadResult.url;
+    this.saveReferenceBackgroundUrl?.();
+    return uploadResult.url;
+  },
+
+  async callRephotographMaster(imageUrl, scene, statusEl) {
+    const referenceUrl = await this.ensureReferenceHttpsUrl();
+    if (statusEl) statusEl.textContent = '📸 AI переснимает в студии VigSharm...';
+
+    const res = await fetch(`${this.workerUrl}/api/studio/rephotograph`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', ...this.authHeaders() },
+      body: JSON.stringify({
+        image_url: imageUrl,
+        reference_url: referenceUrl,
+        scene,
+        resolution: '2K'
+      })
+    });
+
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok || !data.ok || !data.job_id) {
+      throw new Error(data.error || `Rephotograph HTTP ${res.status}`);
+    }
+
+    if (statusEl) statusEl.textContent = '⏳ Master... (1–2 мин, nano-banana-2 → fallback)';
+    return await this.pollStudioStatusSimple(data.job_id);
+  },
+
+  finishMasterWorkflow(masterImageUrl, statusEl) {
+    this.studioMasterDataUrl = masterImageUrl;
+    this.studioCompare.master = masterImageUrl;
+    this.renderStudioCompare();
+    this.hidePlacementEditor(true);
+    this.resetCropFrames(false);
+    this.showCropEditor(masterImageUrl);
+
+    this.currentProduct.photos = [
+      { id: Date.now() + '_master', url: masterImageUrl, uploaded: false, type: 'master' }
+    ];
+    this.renderPhotos();
+
+    if (statusEl) statusEl.textContent = '✅ Master готов — настройте рамки #2/#3';
+    this.toast('Master готов — выберите рамки кропов', 'success');
+    document.getElementById('studio-compare')?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  },
+
+  async retryStudioMaster() {
+    const src = this.studioSourceUrl || this.studioCompare?.original;
+    if (!src) {
+      this.toast('Сначала создайте Master', 'error');
+      return;
+    }
+
+    const btn = document.getElementById('studio-retry-btn');
     const statusEl = document.getElementById('studio-status');
+    if (btn) btn.disabled = true;
+
     try {
-      let cutout = this.studioCutoutDataUrl;
-      let aspect = this.studioPlacementAspect;
-      let placement = this.studioPlacement;
-      let originalUrl = this.studioCompare?.original;
-
-      if (!cutout) {
-        const cp = await this.loadStudioCheckpoint();
-        if (!cp?.cutoutDataUrl) {
-          this.toast('Нет сохранённого cutout', 'error');
-          return;
-        }
-        cutout = cp.cutoutDataUrl;
-        aspect = cp.aspect || 1;
-        placement = cp.placement || null;
-        originalUrl = cp.originalUrl || originalUrl;
-        if (cp.scene && this.currentProduct) {
-          this.currentProduct.scene = cp.scene;
-          const sceneSelect = document.getElementById('scene-select');
-          if (sceneSelect) sceneSelect.value = cp.scene;
-        }
-      }
-
-      this.studioCutoutDataUrl = cutout;
-      this.studioPlacementAspect = aspect || 1;
-      this.studioCompare = {
-        original: originalUrl || this.currentProduct?.photos?.[0]?.url || null,
-        canvas: null,
-        ai: null
-      };
-
       const scene = this.currentProduct?.scene || 'floor';
-      if (!placement) {
-        const MASTER_SIZE = this.MASTER_SIZE || 2048;
-        const fakeW = 1000;
-        const fakeH = fakeW / this.studioPlacementAspect;
-        const pos = this.getProductPositioning(scene, fakeW, fakeH, MASTER_SIZE);
-        placement = this.clampPlacementInset({
-          x: pos.drawX / MASTER_SIZE,
-          y: pos.drawY / MASTER_SIZE,
-          w: pos.drawWidth / MASTER_SIZE,
-          h: pos.drawHeight / MASTER_SIZE
-        });
-      }
-      this.studioPlacement = placement;
-
-      this.syncStudioAiToggleUi();
-      await this.showPlacementEditor(scene);
-      if (statusEl) statusEl.textContent = '↩ Cutout из checkpoint — расставьте и «Готово → Master» (без Remove BG)';
-      this.toast('Продолжаем с последнего cutout', 'success');
-      document.getElementById('placement-editor')?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-      await this.refreshStudioCheckpointUi();
+      this.hideCropEditor();
+      const masterImageUrl = await this.callRephotographMaster(src, scene, statusEl);
+      this.finishMasterWorkflow(masterImageUrl, statusEl);
     } catch (err) {
-      console.error('[Studio Pro] continue checkpoint', err);
+      console.error('[Studio Pro] retry', err);
       if (statusEl) statusEl.textContent = '❌ ' + err.message;
       this.toast(err.message, 'error');
+    } finally {
+      if (btn) btn.disabled = false;
+      await this.refreshStudioCheckpointUi();
     }
   },
 
@@ -472,8 +453,7 @@ Object.assign(app, {
     if (!root) return;
     const slots = [
       { key: 'original', imgId: 'studio-compare-original', emptyId: 'studio-compare-original-empty', emptyText: '—' },
-      { key: 'canvas', imgId: 'studio-compare-canvas', emptyId: 'studio-compare-canvas-empty', emptyText: '—' },
-      { key: 'ai', imgId: 'studio-compare-ai', emptyId: 'studio-compare-ai-empty', emptyText: 'откл' }
+      { key: 'master', imgId: 'studio-compare-master', emptyId: 'studio-compare-master-empty', emptyText: '—' }
     ];
     let any = false;
     for (const s of slots) {
@@ -520,7 +500,7 @@ Object.assign(app, {
     return c.toDataURL('image/png');
   },
 
-  // === Studio Pro FLOW ===
+  // === Studio Pro FLOW (Manus-style rephotograph) ===
   async processStudioProNew() {
     if (this.currentProduct.photos.length === 0) {
       this.toast('Загрузите хотя бы одно фото', 'error');
@@ -533,17 +513,12 @@ Object.assign(app, {
     btn.innerHTML = '<span class="spinner"></span> Обработка...';
     this.hideCropEditor();
     this.hidePlacementEditor(true);
-    this.studioCanvasMasterDataUrl = null;
-    this.studioCompare = { original: null, canvas: null, ai: null };
+    this.studioCompare = { original: null, master: null };
     this.renderStudioCompare();
-    this.syncStudioAiToggleUi();
 
     try {
       const scene = this.currentProduct.scene || 'floor';
-      const bgUrl = this.getReferenceBackgroundUrl();
-      console.log('[Studio Pro] ====== START ======', { scene, bgUrl });
-
-      if (!bgUrl) throw new Error('Эталонный фон не найден');
+      console.log('[Studio Pro] ====== REPHOTOGRAPH ======', { scene });
 
       const originalPhoto = this.currentProduct.photos[0];
       let imageUrl = originalPhoto.url;
@@ -558,156 +533,18 @@ Object.assign(app, {
         originalPhoto.uploaded = true;
       }
 
-      // True original for compare strip (before restore/AI)
+      this.studioSourceUrl = imageUrl;
       this.studioCompare.original = imageUrl;
 
-      // 0) Restore — skip for wall/fountain scenes (rewrites chrome colors & text)
-      const skipRestore = this.isWallOnlyScene(scene);
-      if (!skipRestore && this.isStudioAiEnhanceEnabled()) {
-        try {
-          statusEl.textContent = '🔦 Улучшение исходника (свет, шум, резкость)...';
-          imageUrl = await this.restoreSourcePhoto(imageUrl, statusEl);
-          console.log('[Studio Pro] Restore OK');
-        } catch (restoreErr) {
-          console.warn('[Studio Pro] Restore skipped:', restoreErr);
-          statusEl.textContent = '⚠️ Restore пропущен — продолжаем с исходником';
-        }
-      } else if (skipRestore) {
-        console.log('[Studio Pro] Restore skipped for wall-only scene (protect chrome/text)');
-        statusEl.textContent = '🛡️ Wall-сцена: restore пропущен (сохраняем цвета и текст)';
-      } else {
-        console.log('[Studio Pro] Restore skipped (AI toggle off)');
-        statusEl.textContent = 'AI выкл — restore пропущен';
-      }
-
-      statusEl.textContent = '🎨 Удаление фона...';
-      const res = await fetch(`${this.workerUrl}/api/studio/process`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', ...this.authHeaders() },
-        body: JSON.stringify({ image_url: imageUrl, scene, prompt: '' })
-      });
-
-      if (!res.ok) {
-        throw new Error(`Remove BG API error (${res.status}): ${await res.text()}`);
-      }
-
-      const data = await res.json();
-      if (!data.ok || !data.job_id) {
-        throw new Error(data.error || 'Не удалось запустить Remove BG');
-      }
-
-      statusEl.textContent = '⏳ Remove BG... (30–60 сек)';
-      const transparentPngDataUrl = await this.pollStudioStatusSimple(data.job_id);
-
-      statusEl.textContent = '✂️ Подготовка cutout...';
-      const cutout = await this.prepareCutoutFromPng(transparentPngDataUrl);
-      this.studioCutoutDataUrl = cutout.dataUrl;
-      this.studioPlacementAspect = cutout.width / cutout.height;
-
-      const MASTER_SIZE = this.MASTER_SIZE || 2048;
-      const pos = this.getProductPositioning(scene, cutout.width, cutout.height, MASTER_SIZE);
-      this.studioPlacement = this.clampPlacementInset({
-        x: pos.drawX / MASTER_SIZE,
-        y: pos.drawY / MASTER_SIZE,
-        w: pos.drawWidth / MASTER_SIZE,
-        h: pos.drawHeight / MASTER_SIZE
-      });
-
-      await this.saveStudioCheckpoint();
-      await this.showPlacementEditor(scene);
-      statusEl.textContent = '📐 Cutout сохранён — расставьте на эталоне → «Готово → Master»';
-      this.toast('Cutout готов — поставьте на эталон', 'success');
-      document.getElementById('placement-editor')?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      const masterImageUrl = await this.callRephotographMaster(imageUrl, scene, statusEl);
+      this.finishMasterWorkflow(masterImageUrl, statusEl);
     } catch (error) {
       console.error('[Studio Pro] ❌', error);
       statusEl.textContent = '❌ Ошибка: ' + error.message;
       this.toast(error.message, 'error');
     } finally {
       btn.disabled = false;
-      btn.textContent = '✨ Подготовить фото Studio Pro';
-      await this.refreshStudioCheckpointUi();
-    }
-  },
-
-  async confirmPlacementAndEnhance() {
-    if (!this.studioCutoutDataUrl || !this.studioPlacement) {
-      this.toast('Сначала запустите Studio Pro', 'error');
-      return;
-    }
-
-    const btn = document.getElementById('confirm-placement-btn');
-    const statusEl = document.getElementById('studio-status');
-    const placeStatus = document.getElementById('placement-status');
-    if (btn) btn.disabled = true;
-
-    try {
-      const scene = this.currentProduct.scene || 'floor';
-      const bgUrl = this.getReferenceBackgroundUrl();
-      this.studioPlacement = this.clampPlacementInset(this.studioPlacement, this.isWallOnlyScene(scene) ? 0.07 : 0.05);
-
-      if (statusEl) statusEl.textContent = '🖼️ Композиция на эталоне...';
-      if (placeStatus) placeStatus.textContent = 'Композиция...';
-
-      const canvasMasterUrl = await this.composeWithBackground(
-        this.studioCutoutDataUrl,
-        bgUrl,
-        scene,
-        this.studioPlacement,
-        { alreadyCropped: true }
-      );
-
-      this.studioCanvasMasterDataUrl = canvasMasterUrl;
-      this.studioCompare = {
-        original: this.studioCompare?.original || this.currentProduct?.photos?.[0]?.url || null,
-        canvas: canvasMasterUrl,
-        ai: null
-      };
-
-      let masterImageUrl = canvasMasterUrl;
-      const skipAi = this.shouldSkipAiEnhance(scene);
-
-      if (skipAi) {
-        const reason = this.isWallOnlyScene(scene)
-          ? 'Wall-сцена: AI отключён (текст/хром/края)'
-          : 'AI выкл — Master = canvas';
-        if (statusEl) statusEl.textContent = '🛡️ ' + reason;
-        this.toast(reason, 'info');
-      } else {
-        if (statusEl) statusEl.textContent = '✨ AI «переснимает» свет и тени...';
-        try {
-          masterImageUrl = await this.enhanceMasterWithAI(canvasMasterUrl, scene, statusEl, { gentle: false });
-          this.studioCompare.ai = masterImageUrl;
-        } catch (enhanceErr) {
-          console.warn('[Studio Pro] AI enhance failed, keep canvas master:', enhanceErr);
-          this.toast('AI-доводка не удалась — оставлен canvas. Задеплойте Worker, если 404.', 'error');
-          this.studioCompare.ai = null;
-        }
-      }
-
-      this.renderStudioCompare();
-      await this.saveStudioCheckpoint({ placement: { ...this.studioPlacement } });
-
-      this.studioMasterDataUrl = masterImageUrl;
-      this.hidePlacementEditor(false);
-      this.resetCropFrames(false);
-      this.showCropEditor(masterImageUrl);
-
-      this.currentProduct.photos = [
-        { id: Date.now() + '_master', url: masterImageUrl, uploaded: false, type: 'master' }
-      ];
-      this.renderPhotos();
-
-      if (statusEl) statusEl.textContent = '✅ Master готов — настройте рамки #2/#3 · сравнение выше';
-      if (placeStatus) placeStatus.textContent = '';
-      this.toast('Master готов — выберите рамки кропов', 'success');
-      document.getElementById('studio-compare')?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    } catch (error) {
-      console.error('[Studio Pro] placement→enhance', error);
-      if (statusEl) statusEl.textContent = '❌ ' + error.message;
-      if (placeStatus) placeStatus.textContent = '❌ ' + error.message;
-      this.toast(error.message, 'error');
-    } finally {
-      if (btn) btn.disabled = false;
+      btn.textContent = '✨ Создать Master';
       await this.refreshStudioCheckpointUi();
     }
   },
@@ -725,7 +562,6 @@ Object.assign(app, {
     cutEl.src = this.studioCutoutDataUrl;
 
     editor.classList.remove('hidden');
-    this.syncStudioAiToggleUi();
     this.syncPlacementDom();
     this.setupPlacementInteractions();
 
@@ -1221,9 +1057,8 @@ Object.assign(app, {
       const UPSCALE_BELOW = 1600;
       let photo2Url = crop2.dataUrl;
       let photo3Url = crop3.dataUrl;
-      const scene = this.currentProduct?.scene || 'floor';
-      // Wall/fountain: skip AI crop upscale — it melts ribbons and flattens sphere edges
-      const allowCropUpscale = !this.isWallOnlyScene(scene);
+      // Manus: кропы только deterministic resize из Master — без AI-upscale
+      const allowCropUpscale = false;
 
       if (allowCropUpscale && (crop2.size < UPSCALE_BELOW || crop3.size < UPSCALE_BELOW)) {
         if (statusEl) statusEl.textContent = '☁️ Загрузка кропов для AI-upscale...';

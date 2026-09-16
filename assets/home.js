@@ -10,15 +10,21 @@
       .then(function (r) { return r.json(); })
       .then(function (data) {
         // Worker API возвращает { ok: true, products: [...] }
-        var products = (data.ok && Array.isArray(data.products)) ? data.products : [];
+        var raw = (data.ok && Array.isArray(data.products)) ? data.products : [];
+        var products = (window.vigNormalizeProducts || function (x) { return x; })(raw)
+          .filter(function (p) { return !p.status || p.status === 'published'; });
         if (!products.length) {
           if (section) section.style.display = 'none';
           return;
         }
         list.innerHTML = products.slice(0, 6).map(function (p) {
-          var key = (p.image_keys && p.image_keys[0]) || '';
+          var key = (window.vigProductPhoto ? window.vigProductPhoto(p) : '') ||
+            (p.image_keys && p.image_keys[0]) ||
+            (p.photos && p.photos[0]) ||
+            p.main_photo ||
+            '';
           var img = key
-            ? '<img src="' + window.vigImage(key) + '" data-key="' + key + '" alt="' + escapeHtml(p.title) + '" loading="lazy" decoding="async"/>'
+            ? '<img src="' + window.vigImage(key) + '" data-key="' + escapeHtml(key) + '" alt="' + escapeHtml(p.title) + '" loading="lazy" decoding="async"/>'
             : '<span aria-hidden="true">🎈</span>';
           return (
             '<a class="live-product-card" href="product.html?slug=' + encodeURIComponent(p.slug || p.id) + '" aria-label="Подробнее: ' + escapeHtml(p.title) + '">' +

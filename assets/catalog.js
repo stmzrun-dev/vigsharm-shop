@@ -162,7 +162,11 @@
   }
 
   function cardHtml(p, i) {
-    var key = (p.image_keys && p.image_keys[0]) || '';
+    var key = (window.vigProductPhoto ? window.vigProductPhoto(p) : '') ||
+      (p.image_keys && p.image_keys[0]) ||
+      (p.photos && p.photos[0]) ||
+      p.main_photo ||
+      '';
     var img = key
       ? '<img src="' + window.vigImage(key) + '" data-key="' + esc(key) + '" alt="' + esc(p.title) + '" loading="' + (i < 4 ? 'eager' : 'lazy') + '" decoding="async" width="800" height="800"/>'
       : '<span>🎈</span>';
@@ -467,7 +471,9 @@
       .then(function (r) { if (!r.ok) throw new Error('x'); return r.json(); })
       .then(function (data) {
         // Worker API возвращает { ok: true, products: [...] }
-        products = (data.ok && Array.isArray(data.products)) ? data.products : [];
+        var raw = (data.ok && Array.isArray(data.products)) ? data.products : [];
+        products = (window.vigNormalizeProducts || function (x) { return x; })(raw)
+          .filter(function (p) { return !p.status || p.status === 'published'; });
         loading = false;
         render();
         updateCta();

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Remove-BG Test Result</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #0B0E14;
+      color: #F8FAFC;
+      padding: 40px 20px;
+      line-height: 1.6;
+    }
+    .container { max-width: 1400px; margin: 0 auto; }
+    h1 { 
+      font-size: 32px; 
+      margin-bottom: 10px;
+      background: linear-gradient(135deg, #38BDF8 0%, #22D3EE 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .subtitle { color: #94A3B8; margin-bottom: 40px; }
+    .comparison {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      gap: 30px;
+      margin-bottom: 40px;
+    }
+    .image-block {
+      background: #1E293B;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid #334155;
+    }
+    .image-header {
+      padding: 20px;
+      border-bottom: 1px solid #334155;
+    }
+    .image-header h2 { font-size: 18px; margin-bottom: 8px; }
+    .image-header p { font-size: 14px; color: #94A3B8; }
+    .image-container {
+      padding: 20px;
+      min-height: 400px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .checkered {
+      background-image: 
+        linear-gradient(45deg, #334155 25%, transparent 25%),
+        linear-gradient(-45deg, #334155 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, #334155 75%),
+        linear-gradient(-45deg, transparent 75%, #334155 75%);
+      background-size: 20px 20px;
+      background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+    }
+    .image-container img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+    .report {
+      background: #1E293B;
+      border-radius: 12px;
+      padding: 30px;
+      border: 1px solid #334155;
+    }
+    .report h2 { font-size: 24px; margin-bottom: 20px; }
+    .report-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+    .report-item {
+      background: #0F172A;
+      padding: 16px;
+      border-radius: 8px;
+      border: 1px solid #334155;
+    }
+    .report-item .label {
+      font-size: 12px;
+      color: #94A3B8;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+    }
+    .report-item .value {
+      font-size: 18px;
+      color: #F8FAFC;
+      font-weight: 600;
+    }
+    .status-ok { color: #22D3EE; }
+    .footer {
+      text-align: center;
+      margin-top: 40px;
+      color: #64748B;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🧪 Тест Remove-BG — Результат</h1>
+    <p class="subtitle">Модель: image/recraft-remove-bg | 15.09.2026</p>
+
+    <div class="comparison">
+      <div class="image-block">
+        <div class="image-header">
+          <h2>Исходное изображение</h2>
+          <p>Размер: 107.10 KB | Формат: JPG</p>
+        </div>
+        <div class="image-container">
+          <img src="original.jpg" alt="Original">
+        </div>
+      </div>
+
+      <div class="image-block">
+        <div class="image-header">
+          <h2>Результат (без фона)</h2>
+          <p>Формат: PNG (с прозрачностью)</p>
+        </div>
+        <div class="image-container checkered">
+          <img src="result-no-bg.png" alt="Result">
+        </div>
+      </div>
+    </div>
+
+    <div class="report">
+      <h2>📊 Детальный отчёт</h2>
+      <div class="report-grid">
+        <div class="report-item">
+          <div class="label">Job ID</div>
+          <div class="value">b2ceebe5-...</div>
+        </div>
+        <div class="report-item">
+          <div class="label">Стоимость</div>
+          <div class="value status-ok">$0.00625</div>
+        </div>
+        <div class="report-item">
+          <div class="label">Формат результата</div>
+          <div class="value status-ok">PNG ✅</div>
+        </div>
+        <div class="report-item">
+          <div class="label">Модель</div>
+          <div class="value">recraft-remove-bg</div>
+        </div>
+        <div class="report-item">
+          <div class="label">Исходный размер</div>
+          <div class="value">107.10 KB</div>
+        </div>
+        <div class="report-item">
+          <div class="label">Статус</div>
+          <div class="value status-ok">DONE ✅</div>
+        </div>
+        <div class="report-item">
+          <div class="label">Result URL</div>
+          <div class="value" style="font-size: 12px;">nordrouter.com/media/file/...</div>
+        </div>
+        <div class="report-item">
+          <div class="label">Время обработки</div>
+          <div class="value">~10-15 сек</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      VigSharm Shop — Remove-BG Test | 15.09.2026
+    </div>
+  </div>
+</body>
+</html>

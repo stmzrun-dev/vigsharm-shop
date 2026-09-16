@@ -13,7 +13,8 @@
       max-width: 1200px;
       margin: 0 auto;
     }
-    h1 { font-size: 32px; margin-bottom: 40px; color: #333; }
+    h1 { font-size: 28px; margin-bottom: 12px; color: #333; }
+    .hint { color: #666; margin-bottom: 28px; line-height: 1.45; }
     .card {
       background: white;
       border-radius: 12px;
@@ -23,7 +24,7 @@
     }
     .form-group { margin-bottom: 20px; }
     label { display: block; font-weight: 600; margin-bottom: 8px; }
-    input, select {
+    input {
       width: 100%;
       padding: 12px;
       border: 1px solid #ddd;
@@ -32,13 +33,13 @@
     }
     .variants {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
     }
     .variant {
       border: 2px solid #e0e0e0;
       border-radius: 12px;
-      padding: 20px;
+      padding: 18px;
       cursor: pointer;
       transition: all 0.2s;
     }
@@ -54,54 +55,77 @@
       font-weight: 600;
       cursor: pointer;
     }
-    .btn:disabled { background: #ccc; }
-    .status {
-      margin-top: 20px;
-      padding: 16px;
-      border-radius: 8px;
-    }
+    .btn:disabled { background: #ccc; cursor: not-allowed; }
+    .status { margin-top: 20px; padding: 14px; border-radius: 8px; background: #f8f8f8; }
     .result img {
       width: 100%;
-      max-width: 600px;
+      max-width: 640px;
       border-radius: 12px;
-      margin-top: 20px;
+      margin-top: 16px;
+      border: 1px solid #eee;
+    }
+    .note {
+      margin-top: 12px;
+      font-size: 13px;
+      color: #888;
     }
   </style>
 </head>
 <body>
-  <h1>🎨 Генератор эталонного фона VigSharm</h1>
-  
+  <h1>Генератор эталонного фона VigSharm</h1>
+  <p class="hint">
+    Запросы идут через Cloudflare Worker (как в админке) — так нет ошибки Failed to fetch с file://.
+    Ключ NordRouter вводить не нужно: он уже в Worker secrets.
+  </p>
+
   <div class="card">
     <div class="form-group">
-      <label>NordRouter API Key</label>
-      <input type="password" id="api-key" placeholder="sk-nr-...">
+      <label>Worker URL</label>
+      <input type="text" id="worker-url" placeholder="https://vigsharm-api.vigsharm.workers.dev">
+    </div>
+    <div class="form-group">
+      <label>Admin API Key</label>
+      <input type="password" id="admin-key" placeholder="тот же, что в админке → Настройки">
     </div>
 
     <div class="form-group">
-      <label>Выберите композицию</label>
+      <label>Композиция</label>
       <div class="variants">
         <div class="variant selected" data-type="full">
-          <h3>🏠 Полная сцена</h3>
+          <h3>Полная сцена</h3>
           <p>Стена + плинтус + пол</p>
         </div>
         <div class="variant" data-type="wall">
-          <h3>🧱 Только стена</h3>
+          <h3>Только стена</h3>
           <p>Без пола</p>
         </div>
         <div class="variant" data-type="corner">
-          <h3>📸 Угловая</h3>
+          <h3>Угловая</h3>
           <p>С перспективой</p>
         </div>
       </div>
     </div>
 
     <button class="btn" id="btn" onclick="generate()">Сгенерировать</button>
-    <div id="status"></div>
-    <div id="result"></div>
+    <div class="status" id="status">Готов к генерации</div>
+    <div class="result" id="result"></div>
+    <p class="note">После генерации скачай картинку → Админка → Настройки → Эталонный фон.</p>
   </div>
 
   <script>
     let type = 'full';
+
+    // Подтянуть настройки из админки
+    try {
+      const s = JSON.parse(localStorage.getItem('vigsharm_admin_settings') || '{}');
+      if (s.workerUrl) document.getElementById('worker-url').value = s.workerUrl;
+      if (s.adminApiKey) document.getElementById('admin-key').value = s.adminApiKey;
+    } catch (_) {}
+
+    if (!document.getElementById('worker-url').value) {
+      document.getElementById('worker-url').value = 'https://vigsharm-api.vigsharm.workers.dev';
+    }
+
     document.querySelectorAll('.variant').forEach(el => {
       el.onclick = () => {
         document.querySelectorAll('.variant').forEach(v => v.classList.remove('selected'));
@@ -110,62 +134,62 @@
       };
     });
 
-    const prompts = {
-      full: 'Professional studio: beige-grey wall 60%, white baseboard, grey-beige floor 30%. Soft lighting, NO yellow, 1:1 square, real photo.',
-      wall: 'Clean beige-grey studio wall 100%, soft lighting, NO yellow, 1:1 square, real texture.',
-      corner: 'Studio corner: beige-grey walls, white baseboard, grey-beige floor, depth, 1:1 square.'
-    };
-
     async function generate() {
-      const key = document.getElementById('api-key').value.trim();
-      if (!key) { alert('Укажите API Key'); return; }
-      
+      const workerUrl = document.getElementById('worker-url').value.trim().replace(/\/$/, '');
+      const adminKey = document.getElementById('admin-key').value.trim();
+      if (!workerUrl) { alert('Укажите Worker URL'); return; }
+      if (!adminKey) { alert('Укажите Admin API Key из настроек админки'); return; }
+
       const btn = document.getElementById('btn');
+      const status = document.getElementById('status');
       btn.disabled = true;
       btn.textContent = 'Генерация...';
-      
+      status.textContent = 'Отправка в Worker...';
+
       try {
-        document.getElementById('status').textContent = '📸 Отправка...';
-        
-        const res = await fetch('https://api.nordrouter.com/media/generate', {
+        const res = await fetch(workerUrl + '/api/studio/generate-reference', {
           method: 'POST',
           headers: {
-            'Authorization': 'Bearer ' + key,
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + adminKey
           },
-          body: JSON.stringify({
-            model: 'image/flux-pro',
-            input: { prompt: prompts[type], width: 1024, height: 1024 }
-          })
+          body: JSON.stringify({ type })
         });
-        
         const job = await res.json();
-        if (!job.id) throw new Error(JSON.stringify(job));
-        
-        document.getElementById('status').textContent = '⏳ Ожидание...';
-        const url = await poll(job.id, key);
-        
-        document.getElementById('status').textContent = '✅ Готово!';
-        document.getElementById('result').innerHTML = `<img src="${url}"><p>Скачайте и сохраните как эталон</p>`;
-      } catch(e) {
-        document.getElementById('status').textContent = '❌ ' + e.message;
+        if (!res.ok || !job.ok || !job.job_id) {
+          throw new Error(job.error || ('HTTP ' + res.status));
+        }
+
+        status.textContent = 'Ожидание результата (30–90 сек)...';
+        const url = await poll(workerUrl, adminKey, job.job_id);
+
+        status.textContent = 'Готово! Скачайте и загрузите в Настройки → Эталонный фон.';
+        document.getElementById('result').innerHTML =
+          '<img src="' + url + '" alt="Эталонный фон">' +
+          '<p><a download="vigsharm-reference-background.webp" href="' + url + '">Скачать эталон</a></p>';
+      } catch (e) {
+        status.textContent = 'Ошибка: ' + e.message;
+        console.error(e);
       } finally {
         btn.disabled = false;
         btn.textContent = 'Сгенерировать';
       }
     }
 
-    async function poll(id, key) {
+    async function poll(workerUrl, adminKey, jobId) {
       for (let i = 0; i < 60; i++) {
         await new Promise(r => setTimeout(r, 3000));
-        const res = await fetch('https://api.nordrouter.com/media/job/' + id, {
-          headers: { 'Authorization': 'Bearer ' + key }
+        const res = await fetch(workerUrl + '/api/studio/status/' + jobId, {
+          headers: { 'Authorization': 'Bearer ' + adminKey }
         });
         const data = await res.json();
+        if (!data.ok) throw new Error(data.error || 'Status error');
         if (data.status === 'done' && data.result_url) return data.result_url;
-        if (data.status === 'failed') throw new Error('Failed');
+        if (data.status === 'failed') throw new Error('Генерация не удалась');
+        document.getElementById('status').textContent =
+          'Ожидание... попытка ' + (i + 1) + '/60';
       }
-      throw new Error('Timeout');
+      throw new Error('Таймаут');
     }
   </script>
 </body>

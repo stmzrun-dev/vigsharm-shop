@@ -10,7 +10,7 @@
       .then(function (r) { return r.json(); })
       .then(function (data) {
         // Worker API возвращает { ok: true, products: [...] }
-        var products = (data.ok && Array.isArray(data.products)) ? data.products : [];
+        var products = window.vigNormalizeProducts((data.ok && Array.isArray(data.products)) ? data.products : []);
         if (!products.length) {
           if (section) section.style.display = 'none';
           return;
@@ -19,7 +19,7 @@
           var key = (p.image_keys && p.image_keys[0]) || '';
           var img = key
             ? '<img src="' + window.vigImage(key) + '" data-key="' + key + '" alt="' + escapeHtml(p.title) + '" loading="lazy" decoding="async"/>'
-            : '<span aria-hidden="true">🎈</span>';
+            : (window.vigEmoji ? window.vigEmoji('balloon') : '<img class="vig-emoji" src="icons/vigsharm-toons/emoji-balloon.png" alt="" width="24" height="24" decoding="async" aria-hidden="true"/>');
           return (
             '<a class="live-product-card" href="product.html?slug=' + encodeURIComponent(p.slug || p.id) + '" aria-label="Подробнее: ' + escapeHtml(p.title) + '">' +
             '<span class="live-product-image">' + img + '</span>' +

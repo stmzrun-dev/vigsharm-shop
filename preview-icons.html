@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<meta name="robots" content="noindex,nofollow"/>
+<title>Превью иконок final — Вигшарм</title>
+<link rel="icon" href="favicon.svg"/>
+<style>
+  :root { --ink:#1e1e1e; --muted:#71717a; --bg:#fbfbfa; --line:#ebebeb; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    color: var(--ink);
+    background: var(--bg);
+    padding: 20px 16px 56px;
+  }
+  .wrap { max-width: 980px; margin: 0 auto; }
+  .banner {
+    display: flex; flex-wrap: wrap; gap: 10px;
+    justify-content: space-between; align-items: center;
+    padding: 12px 16px; border-radius: 16px;
+    background: #143d3d; color: #fff; margin-bottom: 22px;
+  }
+  .banner a { color: #fff; }
+  h1 { margin: 0 0 8px; font-size: 28px; letter-spacing: -.02em; }
+  .lead { margin: 0 0 20px; color: var(--muted); line-height: 1.45; max-width: 60ch; }
+  .note {
+    background: #eef7f5; border: 1px solid #cfe8e4; border-radius: 14px;
+    padding: 12px 14px; color: #0f5f5f; font-size: 14px; line-height: 1.4; margin-bottom: 18px;
+  }
+  h2 { margin: 28px 0 12px; font-size: 18px; }
+  .ref {
+    display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 12px; margin-bottom: 8px;
+  }
+  .ref .card { padding-bottom: 12px; }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(148px, 1fr));
+    gap: 12px;
+  }
+  .card {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: 12px;
+    text-align: center;
+  }
+  .stage {
+    height: 120px;
+    border-radius: 14px;
+    margin-bottom: 10px;
+    display: grid;
+    place-items: center;
+    background-color: #eee;
+    background-image:
+      linear-gradient(45deg, #ddd 25%, transparent 25%),
+      linear-gradient(-45deg, #ddd 25%, transparent 25%),
+      linear-gradient(45deg, transparent 75%, #ddd 75%),
+      linear-gradient(-45deg, transparent 75%, #ddd 75%);
+    background-size: 16px 16px;
+    background-position: 0 0, 0 8px, 8px -8px, -8px 0;
+  }
+  .stage.on-white { background: #fff; background-image: none; border: 1px solid #f0eeea; }
+  .stage.on-site { background: #fbfbfa; background-image: none; border: 1px solid #f0eeea; }
+  .card img {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    display: block;
+  }
+  .card strong { display: block; font-size: 13px; }
+  .card small { color: var(--muted); font-size: 12px; }
+  .toggles { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+  .toggles button {
+    border: 1px solid var(--line); background: #fff; border-radius: 999px;
+    padding: 8px 14px; cursor: pointer; font: 600 13px/1 inherit;
+  }
+  .toggles button.is-on { background: #143d3d; color: #fff; border-color: #143d3d; }
+  .ui-row {
+    display: flex; flex-wrap: wrap; gap: 10px; align-items: center;
+    background: #fff; border: 1px solid var(--line); border-radius: 18px; padding: 14px;
+  }
+  .ui-row img { width: 28px; height: 28px; object-fit: contain; }
+  .chip {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: #f6f4f1; border-radius: 999px; padding: 8px 12px; font-size: 13px;
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="banner">
+      <div>
+        <strong>Final набор · прозрачный фон · в сайт ещё не вставлено</strong><br/>
+        <span style="opacity:.9;font-size:13px">Стиль подогнан под ваши catalog / delivery / about</span>
+      </div>
+      <a href="index.html">← К главной</a>
+    </div>
+
+    <h1>Иконки под стиль Вигшарм</h1>
+    <p class="lead">Эталон сверху — ваши текущие toons. Ниже новый набор: один визуальный язык, без цветных квадратов, нормализовано 512×512.</p>
+    <div class="note">Если ок — напишите «вставляй», и заменю эмодзи на витрине. Пока боевые страницы не трогал.</div>
+
+    <h2>Эталон (уже на сайте)</h2>
+    <div class="ref">
+      <div class="card"><div class="stage on-white"><img src="icons/vigsharm-toons/catalog.webp" alt=""/></div><strong>catalog</strong><small>эталон</small></div>
+      <div class="card"><div class="stage on-white"><img src="icons/vigsharm-toons/delivery.webp" alt=""/></div><strong>delivery</strong><small>эталон</small></div>
+      <div class="card"><div class="stage on-white"><img src="icons/vigsharm-toons/about.webp" alt=""/></div><strong>about</strong><small>эталон</small></div>
+    </div>
+
+    <div class="toggles" role="group" aria-label="Фон превью">
+      <button type="button" class="is-on" data-bg="check">Клетка</button>
+      <button type="button" data-bg="white">Белый</button>
+      <button type="button" data-bg="site">Фон сайта</button>
+    </div>
+
+    <h2>Новый набор</h2>
+    <div class="grid" id="icon-grid">
+      <div class="card"><div class="stage"><img src="icons/vigsharm-toons/emoji-balloon.png?v=final" alt=""/></div><strong>balloon</strong><small>🎈</small></div>
+      <div class="card"><div class="stage"><img src="icons/vigsharm-toons/emoji-phone.png?v=final" alt=""/></div><strong>phone</strong><small>☎</small></div>
+      <div class="card"><div class="stage"><img src="icons/vigsharm-toons/emoji-heart.png?v=final" alt=""/></div><strong>heart</strong><small>💕</small></div>
+      <div class="card"><div class="stage"><img src="icons/vigsharm-toons/emoji-pin.png?v=final" alt=""/></div><strong>pin</strong><small>📍</small></div>
+      <div class="card"><div class="stage"><img src="icons/vigsharm-toons/emoji-map.png?v=final" alt=""/></div><strong>map</strong><small>🗺️</small></div>
+      <div class="card"><div class="stage"><img src="icons/vigsharm-toons/emoji-card.png?v=final" alt=""/></div><strong>card</strong><small>💳</small></div>
+      <div class="card"><div class="stage"><img src="icons/vigsharm-toons/emoji-house.png?v=final" alt=""/></div><strong>house</strong><small>🏠</small></div>
+      <div class="card"><div class="stage"><img src="icons/vigsharm-toons/emoji-check.png?v=final" alt=""/></div><strong>check</strong><small>✓</small></div>
+      <div class="card"><div class="stage"><img src="icons/vigsharm-toons/emoji-sparkles.png?v=final" alt=""/></div><strong>sparkles</strong><small>✨</small></div>
+      <div class="card"><div class="stage"><img src="icons/vigsharm-toons/emoji-star.png?v=final" alt=""/></div><strong>star</strong><small>✦</small></div>
+      <div class="card"><div class="stage"><img src="icons/vigsharm-toons/emoji-receipt.png?v=final" alt=""/></div><strong>receipt</strong><small>🧾</small></div>
+      <div class="card"><div class="stage"><img src="icons/vigsharm-toons/emoji-wow.png?v=final" alt=""/></div><strong>wow</strong><small>😍</small></div>
+      <div class="card"><div class="stage"><img src="icons/vigsharm-toons/emoji-chat.png?v=final" alt=""/></div><strong>chat</strong><small>мессенджер</small></div>
+      <div class="card"><div class="stage"><img src="icons/vigsharm-toons/emoji-car.png?v=final" alt=""/></div><strong>car</strong><small>🚗</small></div>
+    </div>
+
+    <h2>Как будут выглядеть мелко в UI</h2>
+    <div class="ui-row">
+      <span class="chip"><img src="icons/vigsharm-toons/emoji-phone.png?v=final" alt=""/> Позвонить</span>
+      <span class="chip"><img src="icons/vigsharm-toons/emoji-pin.png?v=final" alt=""/> Армавир</span>
+      <span class="chip"><img src="icons/vigsharm-toons/emoji-check.png?v=final" alt=""/> Цены в каталоге</span>
+      <span class="chip"><img src="icons/vigsharm-toons/emoji-car.png?v=final" alt=""/> Доставка</span>
+      <span class="chip"><img src="icons/vigsharm-toons/emoji-chat.png?v=final" alt=""/> Написать</span>
+      <span class="chip"><img src="icons/vigsharm-toons/emoji-heart.png?v=final" alt=""/> С любовью</span>
+    </div>
+  </div>
+  <script>
+    (function () {
+      var stages = document.querySelectorAll('.stage');
+      var buttons = document.querySelectorAll('.toggles button');
+      buttons.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var mode = btn.getAttribute('data-bg');
+          buttons.forEach(function (b) { b.classList.toggle('is-on', b === btn); });
+          stages.forEach(function (s) {
+            s.classList.toggle('on-white', mode === 'white');
+            s.classList.toggle('on-site', mode === 'site');
+          });
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

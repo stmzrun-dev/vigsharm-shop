@@ -165,7 +165,7 @@
     var key = (p.image_keys && p.image_keys[0]) || '';
     var img = key
       ? '<img src="' + window.vigImage(key) + '" data-key="' + esc(key) + '" alt="' + esc(p.title) + '" loading="' + (i < 4 ? 'eager' : 'lazy') + '" decoding="async" width="800" height="800"/>'
-      : '<span>🎈</span>';
+      : window.vigEmoji('balloon');
     var from = (p.tags || []).indexOf('Цена от') >= 0 ? 'от ' : '';
     var priceNote = p.category === 'Шары поштучно' ? 'Цена за штуку' : 'Цена за композицию';
     return '<a class="catalog-card color-' + (i % 5) + '" href="product.html?slug=' + encodeURIComponent(p.slug || p.id) + '" aria-label="Подробнее: ' + esc(p.title) + '">' +
@@ -316,22 +316,22 @@
     }
     var body = '';
     if (loading) {
-      body = '<div class="catalog-empty">Загружаем воздушное настроение… 🎈</div>';
+      body = '<div class="catalog-empty">Загружаем воздушное настроение…</div>';
     } else if (loadError) {
-      body = '<div class="catalog-empty" role="alert"><span>🎈</span><h3>Каталог не загрузился</h3><p>Проверьте соединение и попробуйте ещё раз. Выбранные фильтры сохранятся.</p><button type="button" data-retry>Попробовать ещё раз</button></div>';
+      body = '<div class="catalog-empty" role="alert">' + window.vigEmoji('balloon') + '<h3>Каталог не загрузился</h3><p>Проверьте соединение и попробуйте ещё раз. Выбранные фильтры сохранятся.</p><button type="button" data-retry>Попробовать ещё раз</button></div>';
     } else if (list.length) {
       body = '<div class="catalog-grid">' + list.map(cardHtml).join('') + '</div>';
     } else {
       var pr = PRICES[priceIdx];
       var sugg = products.filter(function (p) { return group === 'all' || inGroup(p, group); })
         .filter(function (p) { return priceIdx === 0 || (p.price >= pr.min && p.price <= pr.max); }).slice(0, 4);
-      body = '<div class="catalog-empty"><span>🎈</span><h3>Пока ничего не нашли</h3><p>Попробуйте изменить запрос или напишите нам — подберём композицию под ваш праздник и бюджет.</p>' +
+      body = '<div class="catalog-empty">' + window.vigEmoji('balloon') + '<h3>Пока ничего не нашли</h3><p>Попробуйте изменить запрос или напишите нам — подберём композицию под ваш праздник и бюджет.</p>' +
         '<div class="catalog-empty-actions"><button type="button" class="secondary" data-reset>Сбросить поиск и фильтры</button><button type="button" data-help>Помочь с выбором</button></div></div>';
       if (sugg.length) {
         body += '<section class="catalog-empty-suggestions" aria-labelledby="empty-suggestions-title"><div><p class="eyebrow">Возможно, вам подойдёт</p><h3 id="empty-suggestions-title">Популярные варианты из этого раздела</h3></div>' +
           '<div class="catalog-grid">' + sugg.map(function (p, i) {
             var key = (p.image_keys && p.image_keys[0]) || '';
-            var img = key ? '<img src="' + window.vigImage(key) + '" data-key="' + esc(key) + '" alt="' + esc(p.title) + '" loading="lazy" decoding="async" width="800" height="800"/>' : '<span>🎈</span>';
+            var img = key ? '<img src="' + window.vigImage(key) + '" data-key="' + esc(key) + '" alt="' + esc(p.title) + '" loading="lazy" decoding="async" width="800" height="800"/>' : window.vigEmoji('balloon');
             var from = (p.tags || []).indexOf('Цена от') >= 0 ? 'от ' : '';
             return '<a class="catalog-card color-' + (i % 5) + '" href="product.html?slug=' + encodeURIComponent(p.slug || p.id) + '" aria-label="Подробнее: ' + esc(p.title) + '">' +
               '<span class="catalog-card-image">' + img + '</span>' +
@@ -340,7 +340,7 @@
           }).join('') + '</div></section>';
       }
     }
-    var custom = !loading ? '<div class="related-custom-card catalog-custom-order"><span aria-hidden="true">🎈</span><div><strong>Не нашли подходящую композицию?</strong><p>Напишите, для какого праздника и на какой бюджет нужен вариант — поможем подобрать.</p></div><button type="button" data-help>Подобрать вариант</button></div>' : '';
+    var custom = !loading ? '<div class="related-custom-card catalog-custom-order">' + window.vigEmoji('balloon') + '<div><strong>Не нашли подходящую композицию?</strong><p>Напишите, для какого праздника и на какой бюджет нужен вариант — поможем подобрать.</p></div><button type="button" data-help>Подобрать вариант</button></div>' : '';
     resultsSection.innerHTML = head + budget + collections + body + custom;
 
     // wire buttons
@@ -374,7 +374,7 @@
     sec.innerHTML = '<div class="recent-products-heading"><div><p class="eyebrow">Можно вернуться</p><h2 id="recent-products-title">Недавно смотрели</h2></div><button type="button">Очистить</button></div>' +
       '<div class="recent-products-list">' + items.map(function (p) {
         var key = (p.image_keys && p.image_keys[0]) || '';
-        var img = key ? '<img src="' + window.vigImage(key) + '" data-key="' + esc(key) + '" alt="' + esc(p.title) + '" loading="lazy" decoding="async"/>' : '🎈';
+        var img = key ? '<img src="' + window.vigImage(key) + '" data-key="' + esc(key) + '" alt="' + esc(p.title) + '" loading="lazy" decoding="async"/>' : window.vigEmoji('balloon');
         return '<a href="product.html?slug=' + encodeURIComponent(p.slug || p.id) + '"><span>' + img + '</span><span><strong>' + esc(p.title) + '</strong><small>' + Number(p.price).toLocaleString('ru-RU') + ' ₽</small></span></a>';
       }).join('') + '</div>';
     sec.querySelector('button').addEventListener('click', function () {
@@ -410,7 +410,7 @@
       '<a class="contact-option whatsapp" target="_blank" rel="noreferrer" href="https://wa.me/' + PHONE + '?text=' + encodeURIComponent(msg) + '"><span>' + WA_SVG + '</span><div><strong>WhatsApp</strong><small>Сообщение уже подготовлено</small></div><b>→</b></a>' +
       '<a class="contact-option telegram" target="_blank" rel="noreferrer" href="' + TG_URL + '?text=' + encodeURIComponent(msg) + '"><span>' + TG_SVG + '</span><div><strong>Telegram</strong><small>Текст скопируется · личный чат</small></div><b>→</b></a>' +
       '<a class="contact-option max" target="_blank" rel="noreferrer" href="' + MAX_URL + '"><span><img src="icons/max-official.png" alt="" aria-hidden="true"/></span><div><strong>MAX</strong><small>Текст обращения скопируется</small></div><b>→</b></a>' +
-      '<a class="contact-option phone" href="tel:+' + PHONE + '"><span>☎</span><div><strong>Позвонить</strong><small>' + PHONE_LABEL + '</small></div><b>→</b></a>' +
+      '<a class="contact-option phone" href="tel:+' + PHONE + '"><span>' + window.vigEmoji('phone') + '</span><div><strong>Позвонить</strong><small>' + PHONE_LABEL + '</small></div><b>→</b></a>' +
       '</div><p class="modal-note">Заказ оформляется только после нашего подтверждения.</p></section>';
     function close() { wrap.remove(); document.body.style.overflow = ''; }
     wrap.addEventListener('mousedown', function (e) { if (e.target === wrap) close(); });
@@ -467,7 +467,7 @@
       .then(function (r) { if (!r.ok) throw new Error('x'); return r.json(); })
       .then(function (data) {
         // Worker API возвращает { ok: true, products: [...] }
-        products = (data.ok && Array.isArray(data.products)) ? data.products : [];
+        products = window.vigNormalizeProducts((data.ok && Array.isArray(data.products)) ? data.products : []);
         loading = false;
         render();
         updateCta();

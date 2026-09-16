@@ -56,6 +56,7 @@ Object.assign(app, {
     if (this.currentProduct.photos.length === 0) {
       container.innerHTML = '';
       if (emptyZone) emptyZone.classList.remove('hidden');
+      this.syncAIFillGate?.();
       return;
     }
 
@@ -100,6 +101,7 @@ Object.assign(app, {
         this.movePhoto(Number(btn.dataset.idx), Number(btn.dataset.move));
       });
     });
+    this.syncAIFillGate?.();
   },
 
   movePhoto(index, dir) {
@@ -264,51 +266,84 @@ Object.assign(app, {
   },
 
   fillFormWithAIData(card) {
-    if (card.title) document.getElementById('product-title').value = card.title;
-    if (card.article) document.getElementById('product-article').value = card.article;
-    if (card.price) document.getElementById('product-price').value = card.price;
-    if (card.short_description) document.getElementById('product-short-desc').value = card.short_description;
-    if (card.full_description) document.getElementById('product-full-desc').value = card.full_description;
+    if (card.title) {
+      const el = document.getElementById('product-title');
+      if (el) el.value = card.title;
+    }
+    // article / price — только вручную (артикул DG-XXX ставит generateAIMetadata через nextArticle)
+    if (card.short_description) {
+      const el = document.getElementById('product-short-desc');
+      if (el) el.value = card.short_description;
+    }
+    if (card.full_description) {
+      const el = document.getElementById('product-full-desc');
+      if (el) el.value = card.full_description;
+    }
     if (card.composition) {
       const comp = Array.isArray(card.composition) ? card.composition.join('\n') : String(card.composition);
-      document.getElementById('product-composition').value = comp;
+      const el = document.getElementById('product-composition');
+      if (el) el.value = comp;
     }
-    if (card.category) document.getElementById('product-category').value = card.category;
-    if (card.seo_title) document.getElementById('product-seo-title').value = card.seo_title;
-    if (card.seo_description) document.getElementById('product-seo-desc').value = card.seo_description;
-    if (card.slug) document.getElementById('product-slug').value = card.slug;
-    
+    if (card.category) {
+      const el = document.getElementById('product-category');
+      if (el) el.value = card.category;
+    }
+    if (card.seo_title) {
+      const el = document.getElementById('product-seo-title');
+      if (el) el.value = card.seo_title;
+    }
+    if (card.seo_description) {
+      const el = document.getElementById('product-seo-desc');
+      if (el) el.value = card.seo_description;
+    }
+    if (card.slug) {
+      const el = document.getElementById('product-slug');
+      if (el) el.value = card.slug;
+    }
+
     if (card.tags) {
-      card.tags.forEach(tag => {
-        const cb = document.querySelector(`input[type="checkbox"][value="${tag}"]`);
+      if (card._replaceTags) {
+        document.querySelectorAll('#tags-for-who input, #tags-occasion input, #tags-dates input, #tags-type input')
+          .forEach((cb) => { cb.checked = false; });
+      }
+      card.tags.forEach((tag) => {
+        const cb = document.querySelector(
+          `#tags-for-who input[value="${CSS.escape(tag)}"], #tags-occasion input[value="${CSS.escape(tag)}"], #tags-dates input[value="${CSS.escape(tag)}"], #tags-type input[value="${CSS.escape(tag)}"]`
+        ) || document.querySelector(`input[type="checkbox"][value="${CSS.escape(tag)}"]`);
         if (cb) cb.checked = true;
       });
     }
-    
-    if (card.client_options) {
-      if (card.client_options.available_on_request) document.getElementById('opt-available').checked = true;
-      if (card.client_options.number_choice) document.getElementById('opt-number').checked = true;
-      if (card.client_options.personal_inscription) document.getElementById('opt-inscription').checked = true;
-      if (card.client_options.photozone_rental) document.getElementById('opt-rental').checked = true;
-    }
 
-    if (card.character) {
+    if (card.character != null) {
       const el = document.getElementById('product-character');
-      if (el) el.value = card.character;
+      if (el) el.value = card.character || '';
     }
     if (card.age_group) {
       const el = document.getElementById('product-age');
       if (el) el.value = card.age_group;
     }
-    if (card.occasion) {
+    if ('occasion' in card) {
       const el = document.getElementById('product-occasion');
-      if (el) el.value = card.occasion;
+      if (el) el.value = card.occasion || '';
     }
     if (card.target_audience) {
       const el = document.getElementById('product-audience');
       if (el) el.value = card.target_audience;
     }
+    if (card.series_name != null) {
+      const el = document.getElementById('product-series');
+      if (el) el.value = card.series_name || '';
+    }
+    if (card.budget) {
+      const el = document.getElementById('product-budget');
+      if (el) {
+        const opts = [...el.options].map((o) => o.value);
+        el.value = opts.includes(card.budget) ? card.budget : '';
+        if (!el.value) this.syncBudgetFromPrice?.();
+      }
+    }
     if (card.title) this.syncEditorTitle(card.title);
+    this.syncAIFillGate?.();
   },
 
   // === Studio Pro ===
@@ -379,11 +414,17 @@ Object.assign(app, {
     const form = document.getElementById('product-form');
     if (form) form.reset();
 
+    const alts = document.getElementById('title-alts');
+    if (alts) { alts.classList.add('hidden'); alts.innerHTML = ''; }
+
     const sceneSelect = document.getElementById('scene-select');
     if (sceneSelect) sceneSelect.value = 'auto';
 
     const articleEl = document.getElementById('product-article');
-    if (articleEl) articleEl.value = this.nextArticle();
+    if (articleEl) {
+      if (typeof this.assignFreshArticle === 'function') this.assignFreshArticle();
+      else articleEl.value = this.nextArticle();
+    }
 
     const modeLabel = document.getElementById('editor-mode-label');
     if (modeLabel) modeLabel.textContent = 'СОЗДАНИЕ';
@@ -393,6 +434,7 @@ Object.assign(app, {
     this.renderPhotos();
     this.syncStudioModeHint?.();
     this.refreshStudioCheckpointUi?.();
+    this.syncAIFillGate?.();
   }
 });
 
@@ -482,6 +524,7 @@ app.loadProductToForm = function(product) {
   opt('opt-inscription', opts.personal_inscription);
   opt('opt-rental', opts.photozone_rental);
   opt('show-on-site', product.show_on_site);
+  this.syncAIFillGate?.();
 };
 
 console.log('✓ VigSharm Admin Extended Functions loaded');

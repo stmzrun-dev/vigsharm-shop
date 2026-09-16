@@ -157,53 +157,147 @@ async function nordUpload(file, env) {
 
 // ─── AI: Generate Card ───────────────────────────────────
 
-async function handleGenerateCard(request, env) {
-  const { title_hint, price, description, scene, image_url } = await request.json();
+const CARD_CATEGORIES = [
+  'Для девочки', 'Для мальчика', 'Для неё', 'Для мамы', 'Для него', 'Геймерам',
+  'Юбилей', '1 годик', 'Крещение', 'Гендер-пати', 'На выписку', 'Свадьба и девичник',
+  'Выпускной', 'Новый год', '14 февраля', '23 февраля', '8 марта', '1 сентября',
+  'Фигуры из шаров', 'Напольные композиции', 'Букет из шаров', 'Цветы из шаров',
+  'Крафтовый букет', 'Шар-сюрприз', 'Коробка-сюрприз', 'Фотозона', 'Арка из шаров',
+  'Шары поштучно'
+];
 
-  const systemPrompt = `Ты — копирайтер каталога VigSharm (воздушные шары, Армавир).
-Пиши коротко, по делу, как в карточке товара. Без маркетинговой воды.
-Верни ТОЛЬКО валидный JSON, без markdown, без пояснений.
+/** Основная категория карточки — аудитория / явный повод (не тип изделия) */
+const AUDIENCE_CATEGORIES = [
+  'Для девочки', 'Для мальчика', 'Для неё', 'Для мамы', 'Для него', 'Геймерам',
+  'Юбилей', '1 годик', 'Крещение', 'Гендер-пати', 'На выписку', 'Свадьба и девичник',
+  'Выпускной', 'Новый год', '14 февраля', '23 февраля', '8 марта', '1 сентября'
+];
 
-Обязательная структура JSON:
-{
-  "title": "Короткое название товара (2-5 слов, макс 50 символов). Пример: Тёмный рыцарь",
-  "article": "SKU вида VIGSH001",
-  "short_description": "Одно предложение, факты с фото (макс 110 символов)",
-  "full_description": "1-2 коротких предложения: что на фото + для какого повода. Без призывов купить",
-  "composition": ["пункт состава", "пункт состава"],
-  "category": "balloons|flowers|gifts|sweets",
-  "character": "имя персонажа или нейтрально",
-  "age_group": "baby|child|teen|adult",
-  "occasion": "birthday|wedding|anniversary|graduation|holiday",
-  "target_audience": "boy|girl|man|woman|unisex",
-  "seo_title": "SEO-заголовок без эмодзи (макс 70 символов), можно с «Армавир»",
-  "seo_description": "SEO-описание без эмодзи (макс 155 символов)",
-  "slug": "url-friendly-slug-latin",
-  "tags": ["тег1", "тег2", "тег3"]
+const TYPE_TAGS = [
+  'Фигуры из шаров', 'Напольные композиции', 'Букет из шаров', 'Цветы из шаров',
+  'Крафтовый букет', 'Шар-сюрприз', 'Коробка-сюрприз', 'Фотозона', 'Арка из шаров',
+  'Шары поштучно'
+];
+
+const CARD_TAGS = [...AUDIENCE_CATEGORIES, ...TYPE_TAGS];
+
+const GENERIC_OCCASIONS = new Set([
+  'день рождения', 'др', 'birthday', 'праздник', 'любой повод', 'без повода'
+]);
+
+function sceneTypeHint(scene) {
+  switch (scene) {
+    case 'unit_balloon': return 'Шары поштучно';
+    case 'photozone': return 'Фотозона';
+    case 'handheld_bouquet': return 'Букет из шаров';
+    // wall_only: foil-герой / бабл / фонтан — НЕ «Фигуры из шаров» (это скрутки на полу)
+    case 'wall_only': return 'Букет из шаров';
+    case 'floor': return 'Напольные композиции';
+    default: return '';
+  }
 }
 
-ПРАВИЛА ТОНА:
-- Как эталон: «Тёмный рыцарь» / «Эффектная напольная композиция с Бэтменом и цифрой с надписью.»
-- НЕ пиши: «очаровательная», «нежная», «яркая эмоция», «заказать сейчас», «подарите радость»
-- НЕ используй эмодзи ни в одном поле
-- Не выдумывай цену
-- composition: только то, что видно на фото (цифра, персонаж, цвета шаров, надпись)
-- Если пользователь дал состав/описание — опирайся на него, не противоречь
-- slug: транслит латиницей через дефис
-- category для шаров: balloons`;
+function budgetFromPrice(price) {
+  const n = Number(price);
+  if (!Number.isFinite(n) || n <= 0) return '';
+  if (n < 1000) return 'до 1 000 ₽';
+  if (n < 2000) return '1 000–2 000 ₽';
+  if (n < 3500) return '2 000–3 500 ₽';
+  if (n < 5000) return '3 500–5 000 ₽';
+  if (n < 8000) return '5 000–8 000 ₽';
+  return 'от 8 000 ₽';
+}
 
-  const userPrompt = `Сгенерируй карточку по данным:
+const BUDGET_OPTIONS = [
+  'до 1 000 ₽',
+  '1 000–2 000 ₽',
+  '2 000–3 500 ₽',
+  '3 500–5 000 ₽',
+  '5 000–8 000 ₽',
+  'от 8 000 ₽'
+];
+
+async function handleGenerateCard(request, env) {
+  const body = await request.json();
+  const {
+    title_hint,
+    description,
+    scene,
+    image_url,
+    price,
+    composition_raw
+  } = body;
+  const rawComposition = String(composition_raw || description || '').trim();
+  const typeHint = sceneTypeHint(scene || 'floor');
+  const priceNum = Number(price) || 0;
+
+  const systemPrompt = `Ты — копирайтер каталога VigSharm (воздушные шары, Армавир).
+Пиши коротко. Без маркетинговой воды и эмодзи.
+Верни ТОЛЬКО валидный JSON.
+
+Структура JSON:
+{
+  "title": "Крючковое название 1–4 слова. НЕ описание фото",
+  "title_alts": ["запасной крючок 1", "запасной крючок 2"],
+  "short_description": "Одно предложение по фото (макс 110)",
+  "full_description": "1–2 предложения: что на фото. Без «заказать»",
+  "composition": ["оформленный пункт 1", "пункт 2"],
+  "category": "ОДНА аудитория/повод из списка AUDIENCE",
+  "character": "имя героя с фото или пустая строка",
+  "age_group": "Для малышей|Для детей|Для подростков|Для взрослых|Для любого возраста",
+  "occasion": "только ЯВНЫЙ узкий повод или пустая строка",
+  "target_audience": "Для мальчика / Для девочки / …",
+  "series_name": "франшиза если видна или пустая строка",
+  "budget": "РОВНО одно значение из BUDGET",
+  "seo_title": "SEO макс 70, можно «Армавир»",
+  "seo_description": "SEO макс 155",
+  "slug": "url-slug-latin",
+  "tags": ["1–4 тега из списка"]
+}
+
+AUDIENCE (поле category):
+${AUDIENCE_CATEGORIES.join(', ')}
+
+TYPE (только tags, НЕ category):
+${TYPE_TAGS.join(', ')}
+
+BUDGET (ровно одно):
+${BUDGET_OPTIONS.join(' | ')}
+
+НАЗВАНИЯ — критично:
+- Стиль эталона: «Герой Готэма», «Тёмный рыцарь», «Качок», «Готик-шифр», «Выше облаков», «Большая прогулка»
+- Это бренд-крючок / настроение / шутка / метафора — НЕ перечень того, что на фото
+- ЗАПРЕЩЕНО: «Набор с…», «Композиция …», «… с зайчиком», «… на крестины», «Фонтан из шаров…», просто имя героя одним словом без крючка
+- Персонаж и повод — в character / category / tags, не в title
+- title_alts: ещё 1–2 крючка в том же духе, не пересказ состава
+
+ПРОЧИЕ ПРАВИЛА:
+- category = аудитория (Для мальчика…), НЕ тип изделия
+- тип изделия — только в tags
+- «Фигуры из шаров» — ТОЛЬКО скрутка/лепка из множества шаров, стоящая на полу. НЕ ставь этот тег для фольгированных персонажей (Пикачу, Гонщик, зайчик), баблов, фонтанов и букетов на стене
+- character: по фото (Зайчик, Гонщик, Пикачу…)
+- occasion: НЕ «День рождения». Пусто, если повод не узкий
+- composition: оформи ТОЛЬКО сырой состав пользователя.
+  • НЕ добавляй позиции, которых нет во входе
+  • НЕ добавляй цвет (жёлтых/синих…), если пользователь цвет не написал → «5 латексных шаров», не «5 жёлтых шаров»
+  • фольгированный персонаж: «фольгированная фигура Пикачу» — ок; это НЕ «фигура из шаров»
+  • НЕ считай и НЕ дополняй с фото
+- budget: только из BUDGET по цене пользователя
+- НЕ возвращай article и price`;
+
+  const userPrompt = `Сгенерируй карточку:
 Подсказка названия: ${title_hint || 'не указано'}
-Цена (не меняй, не выдумывай): ${price || 'не указана'} ₽
-Состав / детали от пользователя: ${description || 'не указано'}
-Тип сцены: ${scene || 'floor'}
-${image_url ? 'Фото приложено — опиши только то, что видно.' : ''}`;
+Цена (₽): ${priceNum > 0 ? priceNum : 'не указана'}
+Сырой состав от пользователя (оформи красиво, числа сохрани): ${rawComposition || 'не указан'}
+Сцена Studio Pro: ${scene || 'floor'}
+Подсказка типа изделия для tags: ${typeHint || 'по фото'}
+${image_url ? 'Фото приложено — персонаж/серия/аудитория по фото. Логотипы магазинов игнорируй.' : ''}`;
 
   const messages = [
     { role: 'system', content: systemPrompt },
     { role: 'user', content: userPrompt }
   ];
-  
+
   if (image_url) {
     messages[1].content = [
       { type: 'text', text: userPrompt },
@@ -214,7 +308,7 @@ ${image_url ? 'Фото приложено — опиши только то, ч�
   const aiResp = await nordRequest('/v1/chat/completions', 'POST', {
     model: 'claude-sonnet-5',
     messages,
-    temperature: 0.35,
+    temperature: 0.4,
     response_format: { type: 'json_object' }
   }, env);
 
@@ -235,12 +329,34 @@ ${image_url ? 'Фото приложено — опиши только то, ч�
     return json({ ok: false, error: 'AI вернул некорректный JSON: ' + text.slice(0, 200) });
   }
 
-  data = sanitizeCardMetadata(data);
+  data = sanitizeCardMetadata(data, scene || 'floor', priceNum, rawComposition);
   return json({ ok: true, data });
 }
 
-/** Убрать эмодзи и лишние пробелы из текстовых полей карточки */
-function sanitizeCardMetadata(data) {
+function sanitizeCompositionColors(lines, rawComposition) {
+  const raw = String(rawComposition || '').toLowerCase();
+  const colorRe = /жёлт\w*|желт\w*|син\w*|голуб\w*|роз\w*|красн\w*|зелён\w*|зелен\w*|фиолет\w*|оранж\w*|бел\w*|чёрн\w*|черн\w*|золот\w*|серебр\w*|хром\w*/gi;
+  const rawHasColor = colorRe.test(raw);
+  colorRe.lastIndex = 0;
+  if (rawHasColor) return lines;
+
+  return lines.map((line) => {
+    let s = String(line || '');
+    // «5 жёлтых шаров» → «5 латексных шаров»
+    s = s.replace(
+      /(\d+)\s+(?:жёлт\w*|желт\w*|син\w*|голуб\w*|роз\w*|красн\w*|зелён\w*|зелен\w*|фиолет\w*|оранж\w*|бел\w*|чёрн\w*|черн\w*|золот\w*|серебр\w*)\s+шаров/gi,
+      '$1 латексных шаров'
+    );
+    // «жёлтых шаров» без числа → «латексных шаров»
+    s = s.replace(
+      /(?:жёлт\w*|желт\w*|син\w*|голуб\w*|роз\w*|красн\w*|зелён\w*|зелен\w*|фиолет\w*|оранж\w*)\s+шаров/gi,
+      'латексных шаров'
+    );
+    return s.replace(/\s{2,}/g, ' ').trim();
+  }).filter(Boolean);
+}
+
+function sanitizeCardMetadata(data, scene = 'floor', price = 0, rawComposition = '') {
   const stripEmoji = (s) => String(s || '')
     .replace(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\u{FE0F}\u{200D}]/gu, '')
     .replace(/\s{2,}/g, ' ')
@@ -248,19 +364,90 @@ function sanitizeCardMetadata(data) {
 
   const fields = [
     'title', 'short_description', 'full_description',
-    'seo_title', 'seo_description', 'character', 'slug', 'article'
+    'seo_title', 'seo_description', 'character', 'slug',
+    'age_group', 'occasion', 'target_audience', 'series_name', 'budget'
   ];
   for (const key of fields) {
     if (data[key] != null) data[key] = stripEmoji(data[key]);
   }
+
+  let alts = Array.isArray(data.title_alts) ? data.title_alts : [];
+  if (!alts.length && data.title_alt) alts = [data.title_alt];
+  data.title_alts = alts.map(stripEmoji).filter(Boolean)
+    .filter((t) => t.toLowerCase() !== String(data.title || '').toLowerCase())
+    .slice(0, 2);
+
   if (Array.isArray(data.composition)) {
     data.composition = data.composition.map(stripEmoji).filter(Boolean);
+  } else if (typeof data.composition === 'string') {
+    data.composition = data.composition.split(/\n|•|;/).map(stripEmoji).filter(Boolean);
+  } else {
+    data.composition = [];
   }
-  if (Array.isArray(data.tags)) {
-    data.tags = data.tags.map(stripEmoji).filter(Boolean);
+  if (!data.composition.length && rawComposition) {
+    data.composition = rawComposition.split(/[\n,;]+/).map(stripEmoji).filter(Boolean);
   }
+
+  delete data.article;
+  delete data.price;
+  delete data.client_options;
+
+  const tagSet = new Set(CARD_TAGS);
+  let tags = Array.isArray(data.tags) ? data.tags.map(stripEmoji).filter((t) => tagSet.has(t)) : [];
+
+  let category = stripEmoji(data.category);
+  if (TYPE_TAGS.includes(category)) {
+    if (!tags.includes(category)) tags.unshift(category);
+    category = '';
+  }
+  if (!AUDIENCE_CATEGORIES.includes(category)) {
+    const fromAudience = stripEmoji(data.target_audience);
+    const hit = AUDIENCE_CATEGORIES.find((a) =>
+      a === fromAudience || tags.includes(a) || (fromAudience && fromAudience.includes(a.replace(/^Для /, '')))
+    );
+    category = hit || AUDIENCE_CATEGORIES.find((a) => tags.includes(a)) || 'Для девочки';
+  }
+  data.category = category;
+
+  const typeHint = sceneTypeHint(scene);
+  // Не навязываем «Фигуры из шаров» со сцены — только явная скрутка на полу (ИИ сам)
+  if (typeHint && typeHint !== 'Фигуры из шаров' && !tags.includes(typeHint)) {
+    tags.push(typeHint);
+  }
+  // Фольга на стене / букет / поштучно — тег скруток запрещён
+  if (['wall_only', 'unit_balloon', 'handheld_bouquet'].includes(scene)) {
+    tags = tags.filter((t) => t !== 'Фигуры из шаров');
+  }
+  if (category && !tags.includes(category)) tags.unshift(category);
+  data.tags = [...new Set(tags)].slice(0, 5);
+
+  // Состав: убрать цвет шаров, если в сыром тексте цвета не было
+  if (Array.isArray(data.composition) && rawComposition) {
+    data.composition = sanitizeCompositionColors(data.composition, rawComposition);
+  }
+
+  const occ = String(data.occasion || '').toLowerCase();
+  if (!data.occasion || GENERIC_OCCASIONS.has(occ)) {
+    data.occasion = '';
+  }
+
+  if (!data.budget || !BUDGET_OPTIONS.includes(data.budget)) {
+    data.budget = budgetFromPrice(price);
+  }
+
+  const ages = ['Для малышей', 'Для детей', 'Для подростков', 'Для взрослых', 'Для любого возраста'];
+  if (data.age_group && !ages.includes(data.age_group)) {
+    const low = data.age_group.toLowerCase();
+    if (/малыш|0-3|ясел/.test(low)) data.age_group = 'Для малышей';
+    else if (/подрост/.test(low)) data.age_group = 'Для подростков';
+    else if (/взросл/.test(low)) data.age_group = 'Для взрослых';
+    else if (/дет/.test(low)) data.age_group = 'Для детей';
+    else data.age_group = 'Для любого возраста';
+  }
+
   return data;
 }
+
 
 // ─── AI: Suggest Category ────────────────────────────────
 
@@ -372,12 +559,17 @@ function isWallOnlyScene(scene) {
 function buildRephotographPrompt(scene) {
   const lock = `LOCKED — preserve without any change:
 - entire original product; exact balloon count, shapes, sizes, colors, positions, overlaps
-- ALL text, letters, numbers, names, spelling, punctuation — copy exactly, never retype or autocorrect
+- ALL text, letters, numbers, names, spelling, punctuation printed ON the balloons/product — copy exactly, never retype or autocorrect
 - characters, foil figures, chrome/metallic surfaces, ribbons, knots, stickers, accessories
 - do NOT add, remove, redraw, simplify or beautify any product element
 - when uncertain, keep the original detail — do NOT guess`;
 
-  const forbidden = `FORBIDDEN: sticker/cutout appearance, white or dark halo, invented text, changed colors, plastic CGI look, furniture, window, curtains from the original room, melting ribbons, harsh cast shadows, yellow/orange color cast, duplicate objects, collage, dark moody look, evening lighting, underexposure, extra balloons, new foreground balloon clusters, objects not present in the original`;
+  const logoClean = `ALLOWED EXCEPTION — remove shop/supplier branding that sits ON THE PHOTO, not on the balloons:
+- Corner or overlay watermarks, translucent stamps, store URLs (sharomem.ru, sharomen.ru and similar), shop names, Instagram/VK handles, banners
+- Inpaint the wall/floor/product surface underneath as if the stamp was never there
+KEEP: foil character prints (Spider-Man etc.), latex prints, bubble lettering, custom names/numbers ON balloons, product stickers`;
+
+  const forbidden = `FORBIDDEN: sticker/cutout appearance, white or dark halo, invented text, changed colors, plastic CGI look, furniture, window, curtains from the original room, melting ribbons, harsh cast shadows, yellow/orange color cast, duplicate objects, collage, dark moody look, evening lighting, underexposure, extra balloons, new foreground balloon clusters, objects not present in the original, store watermarks, supplier logos, shop URL overlays`;
 
   const light = `LIGHTING: soft even professional studio product photography. Remove harsh window backlight. Match exposure and white balance to the studio room. Real photograph, not CGI render.`;
 
@@ -399,6 +591,8 @@ TASK:
 
 ${lock}
 
+${logoClean}
+
 HAND (allowed exception — only this may be added):
 - One natural hand at the bottom gripping ribbons/wrap; fingers wrap around the stem area
 - Match skin lighting to soft studio daylight on the balloons
@@ -408,7 +602,7 @@ HAND (allowed exception — only this may be added):
 ${light}
 Do NOT add artificial balloon shadows on the wall. Soft natural contact only where hand/ribbons need grounding.
 
-FORBIDDEN: floor, baseboard, laminate, sticker/cutout look, white halo, invented balloon text, changed balloon colors/counts, extra balloons, plastic CGI, collage of a pasted fist, dark moody grade.
+FORBIDDEN: floor, baseboard, laminate, sticker/cutout look, white halo, invented balloon text, changed balloon colors/counts, extra balloons, plastic CGI, collage of a pasted fist, dark moody grade, store watermarks, supplier logos.
 
 OUTPUT: one square 1:1 catalog photo — wall background, bouquet large in frame, hand holding it, bright and sharp.`;
   }
@@ -432,6 +626,8 @@ STUDIO LOOK (critical — fix dark muddy walls):
 
 ${lock}
 
+${logoClean}
+
 EXTRA LOCK for bubble / chrome / tulle sets:
 - Exact count of balloons INSIDE any clear bubble balloon
 - Exact lettering on bubble balloons — every character identical
@@ -440,7 +636,7 @@ EXTRA LOCK for bubble / chrome / tulle sets:
 
 Minimal soft edge integration only — no graphic drop shadow on the wall.
 
-FORBIDDEN: dark/muddy/taupe wall, underexposed background, floor, baseboard, laminate, sticker/cutout look, white/dark halo, invented text, changed balloon counts (including inside bubbles), melting tulle, plastic CGI, adding a hand, dark moody cinematic grade.
+FORBIDDEN: dark/muddy/taupe wall, underexposed background, floor, baseboard, laminate, sticker/cutout look, white/dark halo, invented text, changed balloon counts (including inside bubbles), melting tulle, plastic CGI, adding a hand, dark moody cinematic grade, store watermarks, supplier logos.
 
 OUTPUT: one square 1:1 bright professional catalog photo — ${unit ? 'single balloon / small set' : 'full product'} large in frame on a LIGHT studio wall only.`;
   }
@@ -449,6 +645,8 @@ OUTPUT: one square 1:1 bright professional catalog photo — ${unit ? 'single ba
     return `Edit the provided large photozone / floor balloon installation photo for a square VigSharm catalog card. Change ONLY the room background and lighting.
 
 ${lock}
+
+${logoClean}
 
 Use the SECOND reference image as the real VigSharm photozone studio — full room: warm beige-grey wall, white baseboard, grey-beige laminate floor with horizontal planks. Match that reference background as closely as possible.
 
@@ -470,6 +668,8 @@ OUTPUT: one square 1:1 professional catalog photo, tall photozone large in frame
   return `Edit the provided floor-standing balloon composition photo for a square VigSharm catalog card. Change ONLY the room background and lighting.
 
 ${lock}
+
+${logoClean}
 
 Use the SECOND reference image as the real VigSharm studio environment — match it as closely as possible: warm beige-grey wall, white baseboard, grey-beige laminate floor with horizontal planks.
 

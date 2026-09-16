@@ -2,6 +2,7 @@
 // Manus AI-пересъёмка: стена / бабл / букет в руке / напольная / фотозона → Master.
 // Букет в руке: стена без пола + рука. Стена/бабл: стена без пола, без руки.
 // Кривой текст на табличке: программный слой (Canvas) поверх Master Base — буквы из полей, без AI.
+// После Master — одно фото. Кропы #2/#3 отключены.
 
 Object.assign(app, {
   MASTER_SIZE: 2048,
@@ -27,11 +28,7 @@ Object.assign(app, {
   signTextFrame: null,
   _signDrag: null,
   _studioDraftKey: null,
-  cropFrames: null,
-  _cropDrag: null,
   _placementDrag: null,
-  _cropPreviewRaf: null,
-  _cropPreviewSrc: null,
 
   isWallOnlyScene(scene) {
     return ['wall_only', 'unit_balloon', 'handheld_bouquet'].includes(scene);
@@ -628,17 +625,16 @@ Object.assign(app, {
     this.studioCompare.master = masterImageUrl;
     this.renderStudioCompare();
     this.hidePlacementEditor(true);
-    this.resetCropFrames(false);
-    this.showCropEditor(masterImageUrl);
-    this.showSignTextEditor();
+    // Блок «Надпись на табличку» отключён
 
     this.currentProduct.photos = [
       { id: Date.now() + '_master', url: masterImageUrl, uploaded: false, type: 'master' }
     ];
     this.renderPhotos();
 
-    if (statusEl) statusEl.textContent = '✅ Master готов — проверьте текст, при необходимости «Надпись»';
-    this.toast('Master готов — проверьте надпись на табличке', 'success');
+    if (statusEl) statusEl.textContent = '✅ Master готов — укажите цену и состав, затем ИИ';
+    this.toast('Master готов — одно фото в карточке', 'success');
+    this.syncAIFillGate?.();
     document.getElementById('studio-compare')?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   },
 
@@ -707,8 +703,6 @@ Object.assign(app, {
         this.studioMasterDataUrl = keptMaster;
         this.studioCompare.master = keptMaster;
         this.renderStudioCompare();
-        this.showCropEditor(keptMaster);
-        this.showSignTextEditor();
         if (statusEl) statusEl.textContent = '❌ Новый Master не вышел — оставлен предыдущий';
         this.toast('Ошибка — предыдущий Master сохранён', 'error');
       } else {
@@ -981,20 +975,6 @@ Object.assign(app, {
     return await this.pollStudioStatusSimple(data.job_id);
   },
 
-  async upscaleCropPhoto(imageUrl, statusEl, label = 'кроп') {
-    const res = await fetch(`${this.workerUrl}/api/studio/upscale`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', ...this.authHeaders() },
-      body: JSON.stringify({ image_url: imageUrl, resolution: '2K' })
-    });
-    const data = await res.json().catch(() => ({}));
-    if (!res.ok || !data.ok || !data.job_id) {
-      throw new Error(data.error || `Upscale HTTP ${res.status}`);
-    }
-    if (statusEl) statusEl.textContent = `⏳ AI-upscale ${label}...`;
-    return await this.pollStudioStatusSimple(data.job_id);
-  },
-
   async enhanceMasterWithAI(masterDataUrl, scene, statusEl, opts = {}) {
     const gentle = !!opts.gentle || this.isWallOnlyScene(scene);
     statusEl.textContent = '☁️ Загрузка Master для AI...';
@@ -1140,86 +1120,13 @@ Object.assign(app, {
     throw new Error('Таймаут обработки');
   },
 
-  // === Crop frames + live preview ===
-  getDefaultCropFrames(scene) {
-    const wallOnly = this.isWallOnlyScene(scene);
-    if (wallOnly) {
-      return {
-        photo2: { x: 0.225, y: 0.18, size: 0.55 },
-        photo3: { x: 0.15, y: 0.20, size: 0.70 }
-      };
-    }
-    if (scene === 'photozone') {
-      return {
-        photo2: { x: 0.04, y: 0.10, size: 0.54 },
-        photo3: { x: 0.36, y: 0.05, size: 0.44 }
-      };
-    }
-    return {
-      photo2: { x: 0.03, y: 0.12, size: 0.56 },
-      photo3: { x: 0.38, y: 0.06, size: 0.42 }
-    };
-  },
-
-  showCropEditor(masterUrl) {
-    const editor = document.getElementById('crop-editor');
-    const img = document.getElementById('crop-master-img');
-    if (!editor || !img) return;
-
-    editor.classList.remove('hidden');
-    this._cropPreviewSrc = null;
-    this._cropPreviewImg = null;
-
-    const onReady = () => {
-      this.syncCropFrameDom();
-      this.setupCropFrameInteractions();
-      this.scheduleCropPreviews();
-    };
-
-    img.onload = onReady;
-    img.src = masterUrl;
-    if (img.complete && img.naturalWidth) onReady();
-  },
-
   hideCropEditor(clearMaster = true) {
-    const editor = document.getElementById('crop-editor');
-    if (editor) editor.classList.add('hidden');
     if (clearMaster) this.studioMasterDataUrl = null;
-    this.cropFrames = null;
-    this._cropDrag = null;
-    this._cropPreviewImg = null;
-    this._cropPreviewSrc = null;
-    if (this._cropPreviewRaf) {
-      cancelAnimationFrame(this._cropPreviewRaf);
-      this._cropPreviewRaf = null;
-    }
     if (clearMaster) this.hideSignTextEditor();
   },
 
-  getDefaultSignTextFrame() {
-    return { x: 0.36, y: 0.20, size: 0.28 };
-  },
-
   showSignTextEditor() {
-    const editor = document.getElementById('sign-text-editor');
-    const img = document.getElementById('sign-text-master-img');
-    const masterUrl = this.studioMasterDataUrl || this.studioCompare?.master;
-    if (!editor || !img || !masterUrl) return;
-    if (this.usesCompositeMode(this.currentProduct?.scene || 'floor')) {
-      editor.classList.add('hidden');
-      return;
-    }
-
-    if (!this.signTextFrame) this.signTextFrame = this.getDefaultSignTextFrame();
-    editor.classList.remove('hidden');
-
-    const sync = () => {
-      this.syncSignTextDom();
-      this.setupSignTextInteractions();
-    };
-    img.onload = sync;
-    img.src = masterUrl;
-    if (img.complete && img.naturalWidth) sync();
+    this.hideSignTextEditor();
   },
 
   hideSignTextEditor() {
@@ -1228,253 +1135,18 @@ Object.assign(app, {
     this._signDrag = null;
   },
 
-  syncSignTextDom() {
-    const el = document.getElementById('sign-text-frame');
-    const f = this.signTextFrame;
-    if (!el || !f) return;
-    el.style.left = (f.x * 100) + '%';
-    el.style.top = (f.y * 100) + '%';
-    el.style.width = (f.size * 100) + '%';
-    el.style.height = (f.size * 100) + '%';
-  },
-
-  resetSignTextFrame() {
-    this.signTextFrame = this.getDefaultSignTextFrame();
-    this.syncSignTextDom();
-    const status = document.getElementById('sign-text-status');
-    if (status) status.textContent = 'Рамка таблички сброшена';
-  },
-
-  setupSignTextInteractions() {
-    const stage = document.getElementById('sign-text-stage');
-    const frame = document.getElementById('sign-text-frame');
-    if (!stage || !frame || frame.dataset.signWired === '1') return;
-    frame.dataset.signWired = '1';
-
-    const onMove = (clientX, clientY) => {
-      if (!this._signDrag || !this.signTextFrame) return;
-      const rect = stage.getBoundingClientRect();
-      const dx = (clientX - this._signDrag.startX) / rect.width;
-      const dy = (clientY - this._signDrag.startY) / rect.height;
-      const start = this._signDrag.startFrame;
-      if (this._signDrag.mode === 'resize') {
-        const size = Math.max(0.12, Math.min(0.55, start.size + Math.max(dx, dy)));
-        this.signTextFrame = { x: start.x, y: start.y, size };
-      } else {
-        let x = start.x + dx;
-        let y = start.y + dy;
-        const size = start.size;
-        x = Math.max(0, Math.min(x, 1 - size));
-        y = Math.max(0, Math.min(y, 1 - size));
-        this.signTextFrame = { x, y, size };
-      }
-      this.syncSignTextDom();
-    };
-
-    frame.addEventListener('pointerdown', (e) => {
-      if (!this.signTextFrame) return;
-      e.preventDefault();
-      const handle = e.target.closest('.crop-handle');
-      this._signDrag = {
-        mode: handle ? 'resize' : 'move',
-        startX: e.clientX,
-        startY: e.clientY,
-        startFrame: { ...this.signTextFrame }
-      };
-      frame.setPointerCapture?.(e.pointerId);
-    });
-    frame.addEventListener('pointermove', (e) => onMove(e.clientX, e.clientY));
-    frame.addEventListener('pointerup', () => { this._signDrag = null; });
-    frame.addEventListener('pointercancel', () => { this._signDrag = null; });
-  },
-
-  getSignTextLines() {
-    const line1 = (document.getElementById('sign-text-line1')?.value || '').trim();
-    const line2 = (document.getElementById('sign-text-line2')?.value || '').trim();
-    return { line1, line2 };
-  },
-
-  getInscriptionStyle() {
-    const sizePct = Number(document.getElementById('sign-text-size')?.value ?? 16);
-    const rotation = Number(document.getElementById('sign-text-rotation')?.value ?? -3);
-    const color = document.getElementById('sign-text-color')?.value || '#8B1A1A';
-    return {
-      sizePct: Math.max(8, Math.min(28, sizePct)),
-      rotation: Math.max(-20, Math.min(20, rotation)),
-      color
-    };
-  },
-
   commitMasterImage(dataUrl, statusMsg) {
     this.studioMasterDataUrl = dataUrl;
     this.studioMasterBackupUrl = dataUrl;
     this.studioCompare.master = dataUrl;
     this.renderStudioCompare();
-    this.showCropEditor(dataUrl);
-    this.showSignTextEditor();
     this.currentProduct.photos = [
       { id: Date.now() + '_master', url: dataUrl, uploaded: false, type: 'master' }
     ];
     this.renderPhotos();
     const studioStatus = document.getElementById('studio-status');
     if (studioStatus) studioStatus.textContent = statusMsg;
-  },
-
-  /** Soft-wash lettering inside circular plaque — keep disk lighting, no hard white sticker */
-  softWashPlaqueDisk(ctx, sourceCanvas, cx, cy, r) {
-    const dpr = 1;
-    const size = Math.max(32, Math.ceil(r * 2 * dpr));
-    const tmp = document.createElement('canvas');
-    tmp.width = size;
-    tmp.height = size;
-    const tctx = tmp.getContext('2d');
-    tctx.drawImage(sourceCanvas, cx - r, cy - r, r * 2, r * 2, 0, 0, size, size);
-
-    // Multi-pass blur to dissolve glyphs while keeping warm disk tone
-    const blur = document.createElement('canvas');
-    blur.width = size;
-    blur.height = size;
-    const bctx = blur.getContext('2d');
-    bctx.filter = `blur(${Math.max(6, Math.round(size * 0.045))}px)`;
-    bctx.drawImage(tmp, 0, 0);
-    bctx.filter = 'none';
-    bctx.globalAlpha = 0.55;
-    bctx.fillStyle = 'rgba(255, 252, 247, 0.85)';
-    bctx.beginPath();
-    bctx.arc(size / 2, size / 2, size * 0.42, 0, Math.PI * 2);
-    bctx.fill();
-    bctx.globalAlpha = 1;
-
-    ctx.save();
-    ctx.beginPath();
-    ctx.arc(cx, cy, r * 0.97, 0, Math.PI * 2);
-    ctx.closePath();
-    ctx.clip();
-    ctx.drawImage(blur, cx - r, cy - r, r * 2, r * 2);
-    ctx.restore();
-  },
-
-  drawInscriptionLines(ctx, lines, cx, cy, diskR, style) {
-    const maxW = diskR * 2 * 0.72;
-    let fontSize = Math.round(diskR * 2 * (style.sizePct / 100));
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
-
-    const fitFont = (text, startSize) => {
-      let size = startSize;
-      do {
-        ctx.font = `600 ${size}px "Georgia", "Times New Roman", "PT Serif", serif`;
-        if (ctx.measureText(text).width <= maxW) return size;
-        size -= 2;
-      } while (size > 14);
-      return size;
-    };
-
-    const sizes = lines.map((t) => fitFont(t, fontSize));
-    const lineGap = Math.round(Math.max(...sizes) * 1.18);
-    const blockH = lineGap * (lines.length - 1);
-    const y0 = cy - blockH / 2;
-
-    ctx.save();
-    ctx.translate(cx, cy);
-    ctx.rotate((style.rotation * Math.PI) / 180);
-    ctx.translate(-cx, -cy);
-    lines.forEach((text, i) => {
-      const size = sizes[i];
-      const y = y0 + i * lineGap;
-      ctx.font = `600 ${size}px "Georgia", "Times New Roman", "PT Serif", serif`;
-      ctx.fillStyle = 'rgba(60,30,20,0.16)';
-      ctx.fillText(text, cx + 1.5, y + 1.5);
-      ctx.fillStyle = style.color;
-      ctx.fillText(text, cx, y);
-    });
-    ctx.restore();
-  },
-
-  async restoreMasterBaseWithoutText() {
-    const base = this.studioMasterBaseUrl;
-    if (!base) {
-      this.toast('Нет Master Base — сначала создайте Master', 'error');
-      return;
-    }
-    this.commitMasterImage(base, '✅ Master без программной надписи');
-    if (this.currentProduct) this.currentProduct.inscription = null;
-    const statusEl = document.getElementById('sign-text-status');
-    if (statusEl) statusEl.textContent = 'Сброшено к Master Base';
-    this.toast('Надпись снята — снова Master Base', 'info');
-  },
-
-  async applySignTextOnMaster() {
-    const baseUrl = this.studioMasterBaseUrl || this.studioMasterDataUrl || this.studioCompare?.master;
-    const { line1, line2 } = this.getSignTextLines();
-    if (!baseUrl || !this.signTextFrame) {
-      this.toast('Сначала создайте Master', 'error');
-      return;
-    }
-    if (!line1 && !line2) {
-      this.toast('Введите имя и/или строку возраста', 'error');
-      return;
-    }
-
-    const btn = document.getElementById('apply-sign-text-btn');
-    const statusEl = document.getElementById('sign-text-status');
-    if (btn) btn.disabled = true;
-    if (statusEl) statusEl.textContent = '🖍 Надпись поверх Master Base...';
-
-    try {
-      if (!this.studioMasterBaseUrl) this.studioMasterBaseUrl = baseUrl;
-
-      const masterImg = await this.loadImage(baseUrl);
-      const MASTER_SIZE = this.MASTER_SIZE || 2048;
-      const out = document.createElement('canvas');
-      out.width = MASTER_SIZE;
-      out.height = MASTER_SIZE;
-      const ctx = out.getContext('2d');
-      ctx.imageSmoothingEnabled = true;
-      ctx.imageSmoothingQuality = 'high';
-      ctx.drawImage(masterImg, 0, 0, MASTER_SIZE, MASTER_SIZE);
-
-      const rect = this.stageFrameToImageRect({ width: MASTER_SIZE, height: MASTER_SIZE }, this.signTextFrame);
-      const dw = Math.max(8, Math.round(rect.sw));
-      const dx = Math.round(rect.sx);
-      const dy = Math.round(rect.sy);
-      const cx = dx + dw / 2;
-      const cy = dy + dw / 2;
-      const r = dw / 2;
-
-      this.softWashPlaqueDisk(ctx, out, cx, cy, r);
-
-      const lines = [line1, line2].filter(Boolean);
-      const style = this.getInscriptionStyle();
-      this.drawInscriptionLines(ctx, lines, cx, cy, r, style);
-
-      const inscription = {
-        enabled: true,
-        target: 'plaque',
-        text: lines.join('\n'),
-        line1,
-        line2,
-        font: 'Georgia',
-        fontSizePct: style.sizePct,
-        color: style.color,
-        rotation: style.rotation,
-        x: this.signTextFrame.x,
-        y: this.signTextFrame.y,
-        size: this.signTextFrame.size
-      };
-      if (this.currentProduct) this.currentProduct.inscription = inscription;
-
-      const merged = out.toDataURL('image/webp', this.WEBP_QUALITY ?? 1.0);
-      this.commitMasterImage(merged, '✅ Master Final: надпись из полей (без AI)');
-      if (statusEl) statusEl.textContent = '✅ Надпись нанесена — можно кропать или править и нанести снова';
-      this.toast('Надпись нанесена программно', 'success');
-    } catch (err) {
-      console.error('[Inscription]', err);
-      if (statusEl) statusEl.textContent = '❌ ' + err.message;
-      this.toast(err.message, 'error');
-    } finally {
-      if (btn) btn.disabled = false;
-    }
+    this.syncAIFillGate?.();
   },
 
   /** Map square-stage frame (object-fit:contain) → image pixel rect */
@@ -1495,228 +1167,6 @@ Object.assign(app, {
     return { sx, sy, sw, sh };
   },
 
-  resetCropFrames(syncDom = true) {
-    const scene = this.currentProduct?.scene || 'floor';
-    this.cropFrames = this.getDefaultCropFrames(scene);
-    if (syncDom) {
-      this.syncCropFrameDom();
-      this.scheduleCropPreviews();
-    }
-    const status = document.getElementById('crop-status');
-    if (status) status.textContent = 'Авто-рамки восстановлены';
-  },
-
-  syncCropFrameDom() {
-    if (!this.cropFrames) return;
-    ['2', '3'].forEach(n => {
-      const el = document.getElementById(`crop-frame-${n}`);
-      const f = this.cropFrames[`photo${n}`];
-      if (!el || !f) return;
-      el.style.left = (f.x * 100) + '%';
-      el.style.top = (f.y * 100) + '%';
-      el.style.width = (f.size * 100) + '%';
-      el.style.height = (f.size * 100) + '%';
-    });
-  },
-
-  scheduleCropPreviews() {
-    if (this._cropPreviewRaf) cancelAnimationFrame(this._cropPreviewRaf);
-    this._cropPreviewRaf = requestAnimationFrame(() => {
-      this._cropPreviewRaf = null;
-      this.updateCropPreviews();
-    });
-  },
-
-  async updateCropPreviews() {
-    if (!this.cropFrames || !this.studioMasterDataUrl) return;
-    const c2 = document.getElementById('crop-preview-2');
-    const c3 = document.getElementById('crop-preview-3');
-    if (!c2 || !c3) return;
-
-    try {
-      if (!this._cropPreviewImg || this._cropPreviewSrc !== this.studioMasterDataUrl) {
-        this._cropPreviewImg = await this.loadImage(this.studioMasterDataUrl);
-        this._cropPreviewSrc = this.studioMasterDataUrl;
-      }
-      const img = this._cropPreviewImg;
-      this.drawCropPreview(c2, img, this.cropFrames.photo2);
-      this.drawCropPreview(c3, img, this.cropFrames.photo3);
-    } catch (e) {
-      console.warn('[Crop preview]', e);
-    }
-  },
-
-  drawCropPreview(canvas, img, frame) {
-    const size = 160;
-    canvas.width = size;
-    canvas.height = size;
-    const w = img.naturalWidth || img.width;
-    const h = img.naturalHeight || img.height;
-    const cropSize = Math.min(w, h) * frame.size;
-    const sx = frame.x * w;
-    const sy = frame.y * h;
-    const ctx = canvas.getContext('2d');
-    ctx.imageSmoothingEnabled = true;
-    ctx.imageSmoothingQuality = 'high';
-    ctx.clearRect(0, 0, size, size);
-    ctx.drawImage(img, sx, sy, cropSize, cropSize, 0, 0, size, size);
-  },
-
-  setupCropFrameInteractions() {
-    const stage = document.getElementById('crop-stage');
-    if (!stage || stage.dataset.cropWired === '1') return;
-    stage.dataset.cropWired = '1';
-
-    const onMove = (clientX, clientY) => {
-      if (!this._cropDrag || !this.cropFrames) return;
-      const rect = stage.getBoundingClientRect();
-      const dx = (clientX - this._cropDrag.startX) / rect.width;
-      const dy = (clientY - this._cropDrag.startY) / rect.height;
-      const key = `photo${this._cropDrag.frame}`;
-      const start = this._cropDrag.startFrame;
-
-      if (this._cropDrag.mode === 'move') {
-        let x = start.x + dx;
-        let y = start.y + dy;
-        x = Math.max(0, Math.min(x, 1 - start.size));
-        y = Math.max(0, Math.min(y, 1 - start.size));
-        this.cropFrames[key] = { ...start, x, y };
-      } else if (this._cropDrag.mode === 'resize') {
-        const delta = Math.max(dx, dy);
-        let size = Math.max(0.25, Math.min(1, start.size + delta));
-        let x = start.x;
-        let y = start.y;
-        if (x + size > 1) size = 1 - x;
-        if (y + size > 1) size = 1 - y;
-        this.cropFrames[key] = { x, y, size };
-      }
-      this.syncCropFrameDom();
-      this.scheduleCropPreviews();
-    };
-
-    const endDrag = () => { this._cropDrag = null; };
-
-    stage.addEventListener('pointerdown', (e) => {
-      const handle = e.target.closest('.crop-handle');
-      const frameEl = e.target.closest('.crop-frame');
-      if (!frameEl || !this.cropFrames) return;
-      e.preventDefault();
-      const frame = frameEl.dataset.frame;
-      const key = `photo${frame}`;
-      this._cropDrag = {
-        frame,
-        mode: handle ? 'resize' : 'move',
-        startX: e.clientX,
-        startY: e.clientY,
-        startFrame: { ...this.cropFrames[key] }
-      };
-      frameEl.setPointerCapture?.(e.pointerId);
-    });
-
-    stage.addEventListener('pointermove', (e) => onMove(e.clientX, e.clientY));
-    stage.addEventListener('pointerup', endDrag);
-    stage.addEventListener('pointercancel', endDrag);
-  },
-
-  /** Экспорт кропа 1:1 из Master — без апскейла canvas. AI-upscale — отдельно. */
-  cropFromFrame(img, frame) {
-    const MAX_SIZE = this.MASTER_SIZE || 2048;
-    const w = img.naturalWidth || img.width;
-    const h = img.naturalHeight || img.height;
-    const cropPx = Math.round(Math.min(w, h) * frame.size);
-    const sx = frame.x * w;
-    const sy = frame.y * h;
-    const outSize = Math.min(cropPx, MAX_SIZE);
-
-    const canvas = document.createElement('canvas');
-    canvas.width = outSize;
-    canvas.height = outSize;
-    const ctx = canvas.getContext('2d');
-    ctx.imageSmoothingEnabled = outSize < cropPx;
-    ctx.imageSmoothingQuality = 'high';
-    ctx.drawImage(img, sx, sy, cropPx, cropPx, 0, 0, outSize, outSize);
-    return {
-      dataUrl: canvas.toDataURL('image/webp', this.WEBP_QUALITY ?? 1.0),
-      size: outSize
-    };
-  },
-
-  async applyCropFrames() {
-    if (!this.studioMasterDataUrl || !this.cropFrames) {
-      this.toast('Сначала запустите Studio Pro', 'error');
-      return;
-    }
-
-    const btn = document.getElementById('apply-crops-btn');
-    const statusEl = document.getElementById('crop-status');
-    const studioStatus = document.getElementById('studio-status');
-    if (btn) btn.disabled = true;
-    if (statusEl) statusEl.textContent = '✂️ Экспорт кропов...';
-
-    try {
-      const img = await this.loadImage(this.studioMasterDataUrl);
-      let crop2 = this.cropFromFrame(img, this.cropFrames.photo2);
-      let crop3 = this.cropFromFrame(img, this.cropFrames.photo3);
-
-      const UPSCALE_BELOW = 1600;
-      let photo2Url = crop2.dataUrl;
-      let photo3Url = crop3.dataUrl;
-      // Manus: кропы только deterministic resize из Master — без AI-upscale
-      const allowCropUpscale = false;
-
-      if (allowCropUpscale && (crop2.size < UPSCALE_BELOW || crop3.size < UPSCALE_BELOW)) {
-        if (statusEl) statusEl.textContent = '☁️ Загрузка кропов для AI-upscale...';
-        const uploaded = await this.ensurePhotosOnCloudinary([photo2Url, photo3Url]);
-        photo2Url = uploaded[0];
-        photo3Url = uploaded[1];
-
-        if (crop2.size < UPSCALE_BELOW) {
-          try {
-            if (statusEl) statusEl.textContent = '✨ AI-upscale кропа #2 → 2K...';
-            photo2Url = await this.upscaleCropPhoto(photo2Url, statusEl, '#2');
-          } catch (e) {
-            console.warn('[Crops] upscale #2 skipped', e);
-          }
-        }
-        if (crop3.size < UPSCALE_BELOW) {
-          try {
-            if (statusEl) statusEl.textContent = '✨ AI-upscale кропа #3 → 2K...';
-            photo3Url = await this.upscaleCropPhoto(photo3Url, statusEl, '#3');
-          } catch (e) {
-            console.warn('[Crops] upscale #3 skipped', e);
-          }
-        }
-      }
-
-      if (statusEl) statusEl.textContent = '☁️ Загрузка 3 фото в Cloudinary...';
-      if (studioStatus) studioStatus.textContent = '☁️ Загрузка 3 фото в Cloudinary...';
-
-      const urls = await this.ensurePhotosOnCloudinary([
-        this.studioMasterDataUrl,
-        photo2Url,
-        photo3Url
-      ]);
-
-      this.currentProduct.photos = [
-        { id: Date.now() + '_master', url: urls[0], uploaded: true, type: 'master' },
-        { id: Date.now() + '_crop2', url: urls[1], uploaded: true, type: 'crop' },
-        { id: Date.now() + '_crop3', url: urls[2], uploaded: true, type: 'crop' }
-      ];
-
-      this.renderPhotos();
-      this.hideCropEditor(false);
-      if (statusEl) statusEl.textContent = '✅ Кропы готовы (натив + AI-upscale при необходимости)';
-      if (studioStatus) studioStatus.textContent = '✅ Готово! 3 фото созданы';
-      this.toast('Studio Pro: 3 фото созданы', 'success');
-    } catch (error) {
-      console.error('[Crops]', error);
-      if (statusEl) statusEl.textContent = '❌ ' + error.message;
-      this.toast(error.message, 'error');
-    } finally {
-      if (btn) btn.disabled = false;
-    }
-  },
-
   loadImage(src) {
     return new Promise((resolve, reject) => {
       const img = new Image();
@@ -1729,34 +1179,6 @@ Object.assign(app, {
     });
   },
 
-  async createCropPhotos(masterImageDataUrl) {
-    const img = await this.loadImage(masterImageDataUrl);
-    const frames = this.cropFrames || this.getDefaultCropFrames(this.currentProduct?.scene || 'floor');
-    return {
-      photo2: this.cropFromFrame(img, frames.photo2).dataUrl,
-      photo3: this.cropFromFrame(img, frames.photo3).dataUrl
-    };
-  },
-
-  cropSquareAt(img, width, height, { focusY = 0.5, scale = 0.6, alignBottom = false } = {}) {
-    const sizeNorm = scale;
-    let x = (1 - sizeNorm) / 2;
-    let y;
-    if (alignBottom) y = 1 - sizeNorm;
-    else y = Math.max(0, Math.min(focusY - sizeNorm / 2, 1 - sizeNorm));
-    return this.cropFromFrame(img, { x, y, size: sizeNorm }).dataUrl;
-  },
-
-  cropImage(img, width, height, startYRatio = 0, heightRatio = 0.5) {
-    const cropHeight = height * heightRatio;
-    const size = Math.min(width, cropHeight);
-    const focusY = startYRatio + (size / height) / 2;
-    return this.cropSquareAt(img, width, height, {
-      focusY,
-      scale: size / Math.min(width, height),
-      alignBottom: false
-    });
-  }
 });
 
-console.log('✓ Studio Pro (manual placement + live crops + AI enhance) loaded');
+console.log('✓ Studio Pro (Manus rephotograph → one Master photo) loaded');

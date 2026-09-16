@@ -40,6 +40,7 @@ const app = {
     this.setupPhotoUpload();
     this.setupSceneSelector();
     this.syncStudioModeHint?.();
+    this.setupAIFillGate?.();
     this.setupFormEvents();
     this.renderCategories();
     this.renderTags();
@@ -61,7 +62,22 @@ const app = {
       });
     }
     const articleEl = document.getElementById('product-article');
-    if (articleEl && !articleEl.value) articleEl.value = this.nextArticle();
+    if (articleEl && !articleEl.value) this.assignFreshArticle();
+
+    const catEl = document.getElementById('product-category');
+    if (catEl && !catEl.dataset.articleWired) {
+      catEl.dataset.articleWired = '1';
+      catEl.addEventListener('change', () => {
+        if (!this.currentProduct?.id) this.assignFreshArticle();
+      });
+    }
+
+    const priceEl = document.getElementById('product-price');
+    if (priceEl && !priceEl.dataset.budgetWired) {
+      priceEl.dataset.budgetWired = '1';
+      priceEl.addEventListener('change', () => this.syncBudgetFromPrice?.());
+      priceEl.addEventListener('input', () => this.syncBudgetFromPrice?.());
+    }
   },
 
   wireFilters() {
@@ -73,11 +89,61 @@ const app = {
     });
   },
 
-  nextArticle() {
-    const used = this.products.map(p => p.article).filter(Boolean);
-    let n = this.products.length + 1;
-    while (used.includes('DG-' + String(n).padStart(3, '0'))) n++;
-    return 'DG-' + String(n).padStart(3, '0');
+  nextArticle(category) {
+    const prefix = this.articlePrefixFor(category || document.getElementById('product-category')?.value);
+    const used = new Set(
+      (this.products || []).map((p) => String(p.article || '').trim().toUpperCase()).filter(Boolean)
+    );
+    let n = 1;
+    let candidate;
+    do {
+      candidate = `${prefix}-${String(n).padStart(3, '0')}`;
+      n += 1;
+    } while (used.has(candidate) && n < 10000);
+    return candidate;
+  },
+
+  articlePrefixFor(category) {
+    const map = {
+      'Для мальчика': 'BOY',
+      'Для девочки': 'GRL',
+      'Для неё': 'HER',
+      'Для мамы': 'MOM',
+      'Для него': 'HIM',
+      'Геймерам': 'GMR',
+      'Юбилей': 'JUB',
+      '1 годик': 'Y1',
+      'Крещение': 'CHR',
+      'Гендер-пати': 'GND',
+      'На выписку': 'BAB',
+      'Свадьба и девичник': 'WED',
+      'Выпускной': 'GRD',
+      'Новый год': 'NY',
+      '14 февраля': 'V14',
+      '23 февраля': 'F23',
+      '8 марта': 'M8',
+      '1 сентября': 'S1',
+      'Фигуры из шаров': 'FIG',
+      'Напольные композиции': 'FLR',
+      'Букет из шаров': 'BQT',
+      'Цветы из шаров': 'FLW',
+      'Крафтовый букет': 'CRF',
+      'Шар-сюрприз': 'SUR',
+      'Коробка-сюрприз': 'BOX',
+      'Фотозона': 'PHT',
+      'Арка из шаров': 'ARK',
+      'Шары поштучно': 'UNT'
+    };
+    return map[category] || 'DG';
+  },
+
+  assignFreshArticle() {
+    const articleEl = document.getElementById('product-article');
+    if (!articleEl) return;
+    // При редактировании существующего — не меняем артикул
+    if (this.currentProduct?.id && articleEl.value.trim()) return;
+    const cat = document.getElementById('product-category')?.value || '';
+    articleEl.value = this.nextArticle(cat);
   },
 
   slugify(str) {
@@ -284,6 +350,12 @@ const app = {
       this.toast('Выберите категорию', 'error');
       document.getElementById('product-category')?.focus();
       return;
+    }
+
+    // Новый товар: всегда свежий свободный артикул (избегаем UNIQUE)
+    if (!this.currentProduct.id) {
+      this.assignFreshArticle();
+      data.article = document.getElementById('product-article')?.value.trim() || this.nextArticle(data.category);
     }
 
     const isEdit = !!this.currentProduct.id;

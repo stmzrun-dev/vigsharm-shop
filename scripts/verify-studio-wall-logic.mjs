@@ -10,6 +10,8 @@ const root = path.join(__dirname, '..');
 const studio = fs.readFileSync(path.join(root, 'admin', 'admin-studio-pro.js'), 'utf8');
 const html = fs.readFileSync(path.join(root, 'admin', 'index.html'), 'utf8');
 const worker = fs.readFileSync(path.join(root, 'worker', 'index.js'), 'utf8');
+const ai = fs.readFileSync(path.join(root, 'admin', 'admin-ai.js'), 'utf8');
+const adminJs = fs.readFileSync(path.join(root, 'admin', 'admin.js'), 'utf8');
 
 let failed = 0;
 function assert(cond, msg) {
@@ -23,11 +25,10 @@ assert(worker.includes('1.8 m easel'), 'tall photozone scale hint');
 assert(!studio.includes('prepareSourceForRephotograph'), 'no restore before rephotograph');
 assert(!studio.includes('applySignPatchFromOriginal'), 'old sign patch removed');
 assert(!studio.includes('/api/studio/sign-text'), 'admin does not call AI sign-text');
-assert(studio.includes('softWashPlaqueDisk'), 'soft plaque wash');
-assert(studio.includes('drawInscriptionLines'), 'programmatic inscription');
+assert(!studio.includes('softWashPlaqueDisk'), 'plaque wash removed with sign UI');
 assert(studio.includes('studioMasterBaseUrl'), 'Master Base kept for re-render');
-assert(studio.includes('restoreMasterBaseWithoutText'), 'reset to Master Base');
-assert(studio.includes('applySignTextOnMaster'), 'apply inscription');
+assert(!studio.includes('async applySignTextOnMaster'), 'sign apply removed');
+assert(studio.includes('showSignTextEditor'), 'sign editor stub remains');
 assert(worker.includes('extra balloons'), 'rephotograph forbids extra balloons');
 assert(studio.includes('studioMasterBackupUrl'), 'keep Master on failed retry');
 assert(worker.includes("status === 'failed'"), 'status returns failure detail');
@@ -56,12 +57,27 @@ assert(studio.includes('fallback banana') || studio.includes('fallback nano-bana
 assert(!studio.includes('drawHandPlateFaded(finalCtx'), 'hand plate not used in compose');
 
 assert(html.includes('studio-mode-hint'), 'mode hint in HTML');
-assert(html.includes('sign-text-editor'), 'sign text UI');
-assert(html.includes('Нанести надпись'), 'programmatic apply button');
-assert(!html.includes('AI: переписать надпись'), 'AI rewrite button removed');
+assert(!html.includes('Надпись на табличку'), 'sign-text UI removed');
+assert(!html.includes('Нанести надпись'), 'sign apply button removed');
+assert(html.includes('до 1 000 ₽ — Небольшой сюрприз'), 'budget select 6 options');
+assert(adminJs.includes('articlePrefixFor'), 'article prefixes by category');
+assert(adminJs.includes('assignFreshArticle'), 'fresh article on save');
+assert(worker.includes('Герой Готэма') || worker.includes('Тёмный рыцарь'), 'creative title examples');
+assert(worker.includes('BUDGET_OPTIONS'), 'budget options in worker');
 assert(html.includes('Manus'), 'Manus mentioned in UI');
-
-assert(studio.includes('allowCropUpscale = false'), 'no crop AI upscale');
+assert(!html.includes('id="crop-editor"') && !html.includes('Применить кропы'), 'crop editor UI removed');
+assert(!studio.includes('showCropEditor') && !studio.includes('applyCropFrames'), 'studio does not apply crops');
+assert(worker.includes('sharomem.ru'), 'supplier watermark removal');
+assert(worker.includes('KEEP: foil character prints'), 'keep balloon prints, not shop logos');
+assert(worker.includes('AUDIENCE_CATEGORIES'), 'AI card audience categories');
+assert(worker.includes('title_alts'), 'AI card title alternatives');
+assert(worker.includes('Сырой состав'), 'AI formats user composition');
+assert(worker.includes('GENERIC_OCCASIONS'), 'generic occasion stripped');
+assert(worker.includes('delete data.article'), 'AI card does not invent article');
+assert(worker.includes('sanitizeCompositionColors'), 'composition color strip');
+assert(worker.includes('фольгированных персонажей'), 'foil ≠ фигуры из шаров');
+assert(worker.includes("case 'wall_only': return 'Букет из шаров'"), 'wall scene not фигуры tag');
+assert(ai.includes('assignFreshArticle'), 'article after AI fill');
 
 console.log('\n---');
 if (failed) { console.error(`RESULT: ${failed} failed`); process.exit(1); }

@@ -162,7 +162,11 @@
   }
 
   function cardHtml(p, i) {
-    var key = (p.image_keys && p.image_keys[0]) || '';
+    var key = (window.vigProductPhoto ? window.vigProductPhoto(p) : '') ||
+      (p.image_keys && p.image_keys[0]) ||
+      (p.photos && p.photos[0]) ||
+      p.main_photo ||
+      '';
     var img = key
       ? '<img src="' + window.vigImage(key) + '" data-key="' + esc(key) + '" alt="' + esc(p.title) + '" loading="' + (i < 4 ? 'eager' : 'lazy') + '" decoding="async" width="800" height="800"/>'
       : window.vigEmoji('balloon');
@@ -307,7 +311,7 @@
         var items = products.filter(function (p) { return p.category === name; });
         if (!items.length) return '';
         var imgs = items.slice(0, 3).map(function (p) {
-          var k = (p.image_keys && p.image_keys[0]) || '';
+          var k = (window.vigProductPhoto ? window.vigProductPhoto(p) : '') || (p.image_keys && p.image_keys[0]) || '';
           return k ? '<img src="' + window.vigImage(k) + '" data-key="' + esc(k) + '" alt="" loading="lazy" decoding="async"/>' : '';
         }).join('');
         return '<button type="button" class="catalog-collection-card" data-coll="' + esc(name) + '"><span class="catalog-collection-images" aria-hidden="true">' + imgs + '</span>' +
@@ -331,7 +335,7 @@
       if (sugg.length) {
         body += '<section class="catalog-empty-suggestions" aria-labelledby="empty-suggestions-title"><div><p class="eyebrow">Возможно, вам подойдёт</p><h3 id="empty-suggestions-title">Популярные варианты из этого раздела</h3></div>' +
           '<div class="catalog-grid">' + sugg.map(function (p, i) {
-            var key = (p.image_keys && p.image_keys[0]) || '';
+            var key = (window.vigProductPhoto ? window.vigProductPhoto(p) : '') || (p.image_keys && p.image_keys[0]) || '';
             var img = key ? '<img src="' + window.vigImage(key) + '" data-key="' + esc(key) + '" alt="' + esc(p.title) + '" loading="lazy" decoding="async" width="800" height="800"/>' : window.vigEmoji('balloon');
             var from = (p.tags || []).indexOf('Цена от') >= 0 ? 'от ' : '';
             return '<a class="catalog-card color-' + (i % 5) + '" href="product.html?slug=' + encodeURIComponent(p.slug || p.id) + '" aria-label="Подробнее: ' + esc(p.title) + '">' +
@@ -374,7 +378,7 @@
     sec.setAttribute('aria-labelledby', 'recent-products-title');
     sec.innerHTML = '<div class="recent-products-heading"><div><p class="eyebrow">Можно вернуться</p><h2 id="recent-products-title">Недавно смотрели</h2></div><button type="button">Очистить</button></div>' +
       '<div class="recent-products-list">' + items.map(function (p) {
-        var key = (p.image_keys && p.image_keys[0]) || '';
+        var key = (window.vigProductPhoto ? window.vigProductPhoto(p) : '') || (p.image_keys && p.image_keys[0]) || '';
         var img = key ? '<img src="' + window.vigImage(key) + '" data-key="' + esc(key) + '" alt="' + esc(p.title) + '" loading="lazy" decoding="async"/>' : window.vigEmoji('balloon');
         return '<a href="product.html?slug=' + encodeURIComponent(p.slug || p.id) + '"><span>' + img + '</span><span><strong>' + esc(p.title) + '</strong><small>' + Number(p.price).toLocaleString('ru-RU') + ' ₽</small></span></a>';
       }).join('') + '</div>';

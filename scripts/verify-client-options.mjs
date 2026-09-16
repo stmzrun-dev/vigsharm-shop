@@ -69,14 +69,26 @@ assert(legacy.has_rental && legacy.rental_item === 'Арка' && legacy.rental_d
 
 assert(vigIsStorefrontVisible({ status: 'published', show_on_site: true }) === true, 'visible published+on');
 assert(vigIsStorefrontVisible({ status: 'draft', show_on_site: true }) === false, 'hide draft');
-assert(vigIsStorefrontVisible({ status: 'published', show_on_site: false }) === false, 'hide unpublished-on-site');
+assert(vigIsStorefrontVisible({ status: 'published', show_on_site: false }) === true, 'published still visible if show_on_site false');
+
+const withPhotos = vigNormalizeProduct({
+  title: 'C',
+  status: 'published',
+  photos: ['https://res.cloudinary.com/example/a.png'],
+  main_photo: 'https://res.cloudinary.com/example/a.png'
+});
+assert(withPhotos.image_keys[0].indexOf('cloudinary') > 0, 'photos → image_keys');
+assert(sandbox.window.vigProductPhoto(withPhotos).indexOf('cloudinary') > 0, 'vigProductPhoto');
+assert(sandbox.window.vigImage('../images/category-girl.png') === 'images/category-girl.png', 'relative image path');
+assert(sandbox.window.vigImage('https://cdn.example/x.webp') === 'https://cdn.example/x.webp', 'https passthrough');
 
 const list = vigStorefrontProducts([
-  { id: 1, status: 'published', show_on_site: true, client_options: { number_choice: true } },
+  { id: 1, status: 'published', show_on_site: true, client_options: { number_choice: true }, photos: ['https://x/1.png'] },
   { id: 2, status: 'draft', show_on_site: true, client_options: {} },
-  { id: 3, status: 'published', show_on_site: false, client_options: {} }
+  { id: 3, status: 'published', show_on_site: false, client_options: {}, photos: ['https://x/3.png'] }
 ]);
-assert(list.length === 1 && list[0].id === 1, 'vigStorefrontProducts filters');
+assert(list.length === 2, 'vigStorefrontProducts keeps published even if show_on_site false');
 assert(list[0].has_digit_choice === true, 'storefront list still maps options');
+assert(list.every(function (p) { return !!sandbox.window.vigProductPhoto(p); }), 'photos resolved');
 
 console.log('✓ client options normalize + visibility OK');

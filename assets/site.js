@@ -21,17 +21,31 @@
   }
   window.vigIsStorefrontVisible = function (p) {
     if (!p) return false;
+    // Hide drafts only. Many published rows still have show_on_site=0 from older saves.
     if (p.status && p.status !== 'published') return false;
-    if (p.show_on_site === false || p.show_on_site === 0 || p.show_on_site === '0') return false;
-    // Legacy rows without the flag: published is enough.
     return true;
+  };
+  /** First usable product photo from D1 (photos/main_photo) or legacy image_keys. */
+  window.vigProductPhoto = function (p) {
+    if (!p) return '';
+    var keys = p.image_keys;
+    if ((!keys || !keys.length) && Array.isArray(p.photos) && p.photos.length) keys = p.photos;
+    if (keys && keys.length && keys[0]) return keys[0];
+    return p.main_photo || '';
   };
   window.vigNormalizeProduct = function (p) {
     if (!p) return p;
     p.sku = p.sku || p.article || '';
     p.description = p.description || p.full_description || '';
     p.character_name = p.character_name || p.character || '';
-    p.image_keys = p.image_keys || p.photos || [];
+    var photos = Array.isArray(p.photos) ? p.photos.filter(Boolean) : [];
+    if (p.main_photo && photos.indexOf(p.main_photo) < 0) photos.unshift(p.main_photo);
+    if (Array.isArray(p.image_keys) && p.image_keys.length) {
+      p.image_keys = p.image_keys.filter(Boolean);
+    } else {
+      p.image_keys = photos;
+    }
+    if (!p.image_keys.length && p.main_photo) p.image_keys = [p.main_photo];
     if (Array.isArray(p.composition)) p.composition = p.composition.join('\n');
 
     var opts = p.client_options;
@@ -89,10 +103,22 @@
     return window.vigNormalizeProducts(list).filter(window.vigIsStorefrontVisible);
   };
 
-  // Resolves a product image key to a local path, with remote fallback handled via onerror.
+  // Resolves a product image key/URL for the storefront (Cloudinary, local images, legacy keys).
   window.vigImage = function (key) {
     if (!key) return '';
-    if (key.indexOf('http') === 0 || key.charAt(0) === '/') return key;
+    if (key.indexOf('http') === 0 || key.indexOf('data:') === 0) return key;
+    // Admin/legacy relative paths: ../images/foo.png → images/foo.png (GH Pages / local)
+    if (key.indexOf('../') === 0) key = key.replace(/^(\.\.\/)+/, '');
+    if (key.indexOf('./') === 0) key = key.slice(2);
+    if (key.charAt(0) === '/') return key;
+    if (
+      key.indexOf('images/') === 0 ||
+      key.indexOf('icons/') === 0 ||
+      key.indexOf('assets/') === 0 ||
+      key.indexOf('api/images/') === 0
+    ) {
+      return key;
+    }
     return 'api/images/' + key;
   };
 

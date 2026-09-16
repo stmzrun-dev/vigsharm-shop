@@ -63,6 +63,108 @@ const floorFallback = vigNormalizeProduct({
 });
 assert(floorFallback.needs_advance_order === true, 'floor scene implies advance order');
 
+const figuresAdvance = vigNormalizeProduct({
+  title: 'Figure',
+  scene: 'balloon_figures',
+  status: 'published',
+  client_options: {}
+});
+assert(figuresAdvance.needs_advance_order === true, 'balloon_figures implies advance order');
+
+const wallInscription = vigNormalizeProduct({
+  title: 'Wall bubble',
+  scene: 'wall_only',
+  status: 'published',
+  composition: ['10 шаров', '1 баблс с надписью', '1 звезда с надписью'],
+  client_options: {}
+});
+assert(wallInscription.has_inscription === true, 'wall_only + «с надписью» in composition → has_inscription');
+
+const floorInscription = vigNormalizeProduct({
+  title: 'Floor set',
+  scene: 'floor',
+  status: 'published',
+  composition: ['1 сердце с надписью', 'арка'],
+  client_options: {}
+});
+assert(floorInscription.has_inscription === true, 'floor + «с надписью» in composition → has_inscription');
+
+const wallNoInscription = vigNormalizeProduct({
+  title: 'Wall plain',
+  scene: 'wall_only',
+  status: 'published',
+  composition: ['1 баблс с перьями', '5 латексных'],
+  client_options: {}
+});
+assert(wallNoInscription.has_inscription === false, 'wall_only without надпись stays off');
+
+const boxInscription = vigNormalizeProduct({
+  title: 'Box',
+  scene: 'floor',
+  status: 'published',
+  composition: ['коробка 70x70x70 с индивидуальной надписью', 'шары'],
+  client_options: {}
+});
+assert(boxInscription.has_inscription === true, 'коробка с индивидуальной надписью → has_inscription');
+
+const floorOneDigit = vigNormalizeProduct({
+  title: 'Floor 1',
+  scene: 'floor',
+  status: 'published',
+  composition: ['10 шаров', '1 цифра', 'звезда'],
+  client_options: {}
+});
+assert(floorOneDigit.has_digit_choice === true, 'floor + «1 цифра» → digit choice');
+assert(floorOneDigit.digit_count_on_photo === 1, 'floor one digit count');
+assert(floorOneDigit.digit_count_locked === true, 'floor digit count locked');
+
+const floorTwoDigits = vigNormalizeProduct({
+  title: 'Floor 2',
+  scene: 'floor',
+  status: 'published',
+  composition: ['2 фольгированные цифры', 'арка'],
+  client_options: { number_choice: true, digit_choice: { enabled: true, count_on_photo: 2 } }
+});
+assert(floorTwoDigits.digit_count_on_photo === 2, 'floor two digits');
+assert(floorTwoDigits.digit_count_locked === true, 'floor two digits locked');
+
+const wallTwoDigits = vigNormalizeProduct({
+  title: 'Wall 2',
+  scene: 'wall_only',
+  status: 'published',
+  composition: ['две цифры', 'баблс'],
+  client_options: {}
+});
+assert(wallTwoDigits.has_digit_choice === true, 'wall + «две цифры» → digit choice');
+assert(wallTwoDigits.digit_count_on_photo === 2, 'wall two digits');
+assert(wallTwoDigits.digit_count_locked === true, 'wall digit count locked');
+
+const pzFrame = vigNormalizeProduct({
+  title: 'PZ frame',
+  scene: 'photozone',
+  status: 'published',
+  client_options: { photozone_type: 'frame' }
+});
+assert(pzFrame.needs_advance_order === true, 'photozone implies advance');
+assert(pzFrame.has_rental === true, 'photozone implies rental');
+assert(pzFrame.rental_item === 'Каркас фотозоны', 'frame rental item');
+assert(pzFrame.rental_days === 3, 'photozone free days = 3');
+assert(pzFrame.keep_price_delta === 500, 'photozone extra = 500/day');
+
+const pzEasel = vigNormalizeProduct({
+  title: 'PZ easel',
+  scene: 'photozone',
+  status: 'published',
+  client_options: {
+    photozone_type: 'easel',
+    rental: { enabled: true, item: 'Мольберт с кругом из полистирола', days: 3, keep_price_delta: 500 }
+  }
+});
+assert(pzEasel.has_rental === true, 'easel rental on');
+assert(pzEasel.has_inscription === true, 'easel implies inscription');
+assert(/мольбер/i.test(pzEasel.rental_item || ''), 'easel rental item');
+assert(pzEasel.keep_price_delta === 500, 'easel keep_price_delta');
+
 const legacy = vigNormalizeProduct({
   title: 'B',
   status: 'published',

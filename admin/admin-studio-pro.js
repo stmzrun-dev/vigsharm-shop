@@ -41,7 +41,7 @@ Object.assign(app, {
 
   /** All catalog scenes: AI rephotograph (Manus-style) against studio reference */
   usesRephotographMode(scene) {
-    return ['floor', 'photozone', 'auto', 'handheld_bouquet', 'wall_only', 'unit_balloon'].includes(scene || 'floor');
+    return ['floor', 'balloon_figures', 'photozone', 'auto', 'handheld_bouquet', 'wall_only', 'unit_balloon'].includes(scene || 'floor');
   },
 
   syncStudioModeHint() {
@@ -54,6 +54,8 @@ Object.assign(app, {
       el.textContent = 'Режим Manus: AI-пересъёмка — только стена (без пола, без руки). Товар LOCK, без cutout.';
     } else if (scene === 'photozone') {
       el.textContent = 'Режим Manus: AI-пересъёмка фотозоны. Кривые буквы — блок «Надпись» из полей.';
+    } else if (scene === 'balloon_figures') {
+      el.textContent = 'Режим Manus: фигуры из шаров — как напольная, но крупный масштаб (≥1 м, не мельчить).';
     } else {
       el.textContent = 'Режим Manus: AI-пересъёмка напольной сцены. Кривые буквы — «Надпись» из полей.';
     }
@@ -124,6 +126,14 @@ Object.assign(app, {
         useFloorAlignment: true,
         maxHeight: 0.88,
         description: 'Напольная композиция — у стены у плинтуса'
+      },
+      balloon_figures: {
+        targetWidth: 0.78,
+        centerX: 0.5,
+        floorY: 0.78,
+        useFloorAlignment: true,
+        maxHeight: 0.94,
+        description: 'Фигура из шаров ≥1 м — крупно в кадре'
       },
       unit_balloon: {
         targetWidth: 0.50,

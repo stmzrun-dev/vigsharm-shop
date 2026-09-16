@@ -193,6 +193,7 @@ function sceneTypeHint(scene) {
     // wall_only: foil-герой / бабл / фонтан — НЕ «Фигуры из шаров» (это скрутки на полу)
     case 'wall_only': return 'Букет из шаров';
     case 'floor': return 'Напольные композиции';
+    case 'balloon_figures': return 'Фигуры из шаров';
     default: return '';
   }
 }
@@ -244,10 +245,14 @@ async function handleGenerateCard(request, env) {
   "composition": ["оформленный пункт 1", "пункт 2"],
   "category": "ОДНА аудитория/повод из списка AUDIENCE",
   "character": "имя героя с фото или пустая строка",
+  "character_alts": ["запасной персонаж 1", "запасной персонаж 2"],
+  "character_confidence": "high|medium|low",
   "age_group": "Для малышей|Для детей|Для подростков|Для взрослых|Для любого возраста",
   "occasion": "только ЯВНЫЙ узкий повод или пустая строка",
   "target_audience": "Для мальчика / Для девочки / …",
-  "series_name": "франшиза если видна или пустая строка",
+  "series_name": "тематическая серия/франшиза если видна или пустая строка",
+  "series_alts": ["запасная серия 1"],
+  "series_confidence": "high|medium|low",
   "budget": "РОВНО одно значение из BUDGET",
   "seo_title": "SEO макс 70, можно «Армавир»",
   "seo_description": "SEO макс 155",
@@ -279,23 +284,34 @@ ${BUDGET_OPTIONS.join(' | ')}
 - category = аудитория (Для мальчика…), НЕ тип изделия
 - тип изделия — только в tags
 - «Фигуры из шаров» — ТОЛЬКО скрутка/лепка из множества шаров, стоящая на полу. НЕ ставь этот тег для фольгированных персонажей (Пикачу, Гонщик, зайчик), баблов, фонтанов и букетов на стене
-- character: по фото (Зайчик, Гонщик, Пикачу…)
+- ПЕРСОНАЖ И СЕРИЯ — критично, определяй по фото:
+  • Смотри фигуры, принты, цвета, декор, паутину, логотипы, типичные сочетания
+  • Примеры: красно-синие шары + паутина / звезда → character «Человек-паук», series_name «Человек-паук»
+  • Миньоны, Единорог, LOL, Холодное сердце, Гонщик, Пикачу, Барби — по узнаваемым признакам
+  • series_name = франшиза/тематика (Человек-паук, Marvel, Миньоны…), не «День рождения»
+  • character = конкретный герой по-русски («Человек-паук», не Spider-Man), если героя нет — пустая строка
+  • character_confidence / series_confidence: high если уверен, medium если вероятнее всего, low если сомневаешься
+  • При medium/low ОБЯЗАТЕЛЬНО заполни character_alts / series_alts (2–3 варианта для выбора оператором)
+  • При high тоже можно дать 1 alt, если есть близкий синоним
+  • НЕ выдумывай героя без признаков на фото
 - occasion: НЕ «День рождения». Пусто, если повод не узкий
 - composition: оформи ТОЛЬКО сырой состав пользователя.
   • НЕ добавляй позиции, которых нет во входе
   • НЕ добавляй цвет (жёлтых/синих…), если пользователь цвет не написал → «5 латексных шаров», не «5 жёлтых шаров»
   • фольгированный персонаж: «фольгированная фигура Пикачу» — ок; это НЕ «фигура из шаров»
   • НЕ считай и НЕ дополняй с фото
+  • ОРФОГРАФИЯ: исправь опечатки и ошибки в словах пользователя (падежи, «надписью», «звезда», «сердце», «баблс/бабл»), смысл и числа не меняй
+- Во всех текстовых полях (title, descriptions, composition, seo): грамотный русский, без орфографических ошибок
 - budget: только из BUDGET по цене пользователя
 - НЕ возвращай article и price`;
 
   const userPrompt = `Сгенерируй карточку:
 Подсказка названия: ${title_hint || 'не указано'}
 Цена (₽): ${priceNum > 0 ? priceNum : 'не указана'}
-Сырой состав от пользователя (оформи красиво, числа сохрани): ${rawComposition || 'не указан'}
+Сырой состав от пользователя (оформи красиво, исправь орфографию, числа сохрани): ${rawComposition || 'не указан'}
 Сцена Studio Pro: ${scene || 'floor'}
 Подсказка типа изделия для tags: ${typeHint || 'по фото'}
-${image_url ? 'Фото приложено — персонаж/серия/аудитория по фото. Логотипы магазинов игнорируй.' : ''}`;
+${image_url ? 'Фото приложено — ОБЯЗАТЕЛЬНО определи персонажа и тематическую серию по визуальным признакам (цвета, паутина, фигуры, принты). Если сомневаешься — confidence medium/low и дай alts. Логотипы магазинов игнорируй. Имена/возраст на табличке — пример персонализации, не в title.' : ''}`;
 
   const messages = [
     { role: 'system', content: systemPrompt },
@@ -417,6 +433,29 @@ function sanitizeCardMetadata(data, scene = 'floor', price = 0, rawComposition =
 
   sanitizeTitleAgainstDigitLock(data);
 
+  const normAlts = (list, primary) => {
+    const main = String(primary || '').trim().toLowerCase();
+    return (Array.isArray(list) ? list : [])
+      .map(stripEmoji)
+      .filter(Boolean)
+      .filter((t) => t.toLowerCase() !== main)
+      .filter((t, i, arr) => arr.findIndex((x) => x.toLowerCase() === t.toLowerCase()) === i)
+      .slice(0, 3);
+  };
+  data.character_alts = normAlts(data.character_alts, data.character);
+  data.series_alts = normAlts(data.series_alts, data.series_name);
+
+  const normConf = (v) => {
+    const c = String(v || '').toLowerCase();
+    return c === 'high' || c === 'medium' || c === 'low' ? c : '';
+  };
+  data.character_confidence = normConf(data.character_confidence)
+    || (data.character_alts.length ? 'medium' : (data.character ? 'high' : ''));
+  data.series_confidence = normConf(data.series_confidence)
+    || (data.series_alts.length ? 'medium' : (data.series_name ? 'high' : ''));
+  data.ask_character = data.character_confidence === 'medium' || data.character_confidence === 'low'
+    || data.series_confidence === 'medium' || data.series_confidence === 'low';
+
   if (Array.isArray(data.composition)) {
     data.composition = data.composition.map(stripEmoji).filter(Boolean);
   } else if (typeof data.composition === 'string') {
@@ -450,9 +489,11 @@ function sanitizeCardMetadata(data, scene = 'floor', price = 0, rawComposition =
   data.category = category;
 
   const typeHint = sceneTypeHint(scene);
-  // Не навязываем «Фигуры из шаров» со сцены — только явная скрутка на полу (ИИ сам)
-  if (typeHint && typeHint !== 'Фигуры из шаров' && !tags.includes(typeHint)) {
-    tags.push(typeHint);
+  // «Фигуры из шаров» — только со сцены balloon_figures (не навязывать с floor/wall)
+  if (typeHint && !tags.includes(typeHint)) {
+    if (typeHint !== 'Фигуры из шаров' || scene === 'balloon_figures') {
+      tags.push(typeHint);
+    }
   }
   // Фольга на стене / букет / поштучно — тег скруток запрещён
   if (['wall_only', 'unit_balloon', 'handheld_bouquet'].includes(scene)) {
@@ -715,6 +756,31 @@ ${forbidden}
 OUTPUT: one square 1:1 professional catalog photo, tall photozone large in frame, bright and vivid.`;
   }
 
+  if (scene === 'balloon_figures') {
+    return `Edit the provided balloon FIGURE / sculpture photo (скрутка «фигуры из шаров») for a square VigSharm catalog card. Change ONLY the room background and lighting.
+
+${lock}
+
+${logoClean}
+
+Use the SECOND reference image as the real VigSharm studio environment — match it as closely as possible: warm beige-grey wall, white baseboard, grey-beige laminate floor with horizontal planks.
+
+Keep the real base/feet and natural floor position from the original. Only minimal soft contact shadow where the figure genuinely touches the floor.
+
+SCALE — CRITICAL for balloon figures (typically 1 m tall and taller):
+- This is a LARGE human-scale balloon sculpture standing on the floor — NOT a small toy, NOT a tabletop prop
+- The figure must fill approximately 80–92% of the frame HEIGHT — dominate the catalog card
+- Minimal empty wall above the head/top; do NOT shrink the figure into a tiny object in the middle of the room
+- Preserve real proportions: a person standing next to it would see a figure about 1–1.5+ meters tall
+- FORBIDDEN: miniaturizing, floating tiny figure, excessive empty floor/wall that makes it look under ~1 m
+
+${brightLight}
+
+${forbidden}
+
+OUTPUT: one square 1:1 professional catalog photo — balloon figure LARGE and bright in frame, human scale ≥1 m.`;
+  }
+
   return `Edit the provided floor-standing balloon composition photo for a square VigSharm catalog card. Change ONLY the room background and lighting.
 
 ${lock}
@@ -909,6 +975,12 @@ Do NOT reposition to fix floating. Do NOT redesign the product. No plastic 3D re
     return `${base}
 
 SCENE: large photozone on laminate near baseboard. Contact shadow under the base. Keep full structure.`;
+  }
+
+  if (scene === 'balloon_figures') {
+    return `${base}
+
+SCENE: large balloon FIGURE sculpture (≥1 m tall) on laminate near baseboard. Keep LARGE human scale in frame — do not shrink. Medium contact shadow under feet/base.`;
   }
 
   return `${base}

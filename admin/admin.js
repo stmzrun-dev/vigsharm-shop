@@ -14,8 +14,28 @@ const SCENES = [
   { value: 'handheld_bouquet', title: '💐 Букет в руке', desc: 'Женская рука, без бирок' },
   { value: 'wall_only', title: '🧱 Только стена', desc: 'Manus: стена, без пола' },
   { value: 'floor', title: '🏠 Напольная композиция', desc: 'Стена + плинтус + ламинат' },
-  { value: 'photozone', title: '📸 Фотозона', desc: 'Полный интерьер' }
+  { value: 'balloon_figures', title: '🧍 Фигуры из шаров', desc: 'Как напольная, масштаб ≥1 м' },
+  { value: 'photozone', title: '📸 Фотозона', desc: 'Каркас или мольберт' }
 ];
+
+/** Типы фотозоны → что в аренде */
+const PHOTOZONE_TYPES = {
+  frame: {
+    value: 'frame',
+    title: 'На каркасе',
+    hint: 'Каркас сдаётся только в аренду',
+    rental_item: 'Каркас фотозоны'
+  },
+  easel: {
+    value: 'easel',
+    title: 'На мольберте с кругом',
+    hint: 'Мольберт + круг из полистирола (с надписью) — только аренда',
+    rental_item: 'Мольберт с кругом из полистирола',
+    has_inscription: true
+  }
+};
+const PHOTOZONE_RENTAL_DAYS = 3;
+const PHOTOZONE_RENTAL_EXTRA_PER_DAY = 500;
 
 const app = {
   workerUrl: 'https://vigsharm-api.vigsharm.workers.dev',
@@ -85,6 +105,14 @@ const app = {
       priceEl.dataset.budgetWired = '1';
       priceEl.addEventListener('change', () => this.syncBudgetFromPrice?.());
       priceEl.addEventListener('input', () => this.syncBudgetFromPrice?.());
+    }
+
+    const compEl = document.getElementById('product-composition');
+    if (compEl && !compEl.dataset.optsWired) {
+      compEl.dataset.optsWired = '1';
+      const syncOpts = () => this.syncAdvanceOrderFromScene?.();
+      compEl.addEventListener('input', syncOpts);
+      compEl.addEventListener('change', syncOpts);
     }
 
     this.syncUnitBalloonForm?.(false);

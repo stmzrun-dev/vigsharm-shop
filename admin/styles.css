@@ -384,6 +384,7 @@ body.admin-editor-open{overflow:hidden}
 .title-alt-btn{border:1px solid #BDBDBD;background:#fff;border-radius:8px;padding:6px 10px;font-size:13px;cursor:pointer;text-align:left;max-width:100%}
 .title-alt-btn:hover{border-color:#FF7043;color:#E64A19}
 .title-alt-btn.is-active{border-color:#FF7043;background:#FFF3E0;color:#E65100;font-weight:600}
+.title-alt-btn-clear{border-style:dashed;color:#757575}
 .editor-header{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid #F0F0F0;position:relative}
 .editor-label{font-size:12px;font-weight:700;color:#0288D1;letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px}
 .editor-title{font-size:26px;font-weight:700;color:#212121;margin:0;line-height:1.2}
@@ -411,6 +412,12 @@ body.admin-editor-open{overflow:hidden}
 .option-card-body{display:flex;flex-direction:column;gap:2px}
 .option-card-body strong{font-size:14px;color:#212121}
 .option-card-body small{font-size:12px;color:#757575;line-height:1.4}
+.photozone-type-block{margin:0 0 14px;padding:12px;border:1px solid #FFE0B2;border-radius:12px;background:#FFFBF5}
+.photozone-type-title{margin:0 0 10px;font-size:14px;font-weight:600;color:#E65100}
+.photozone-type-cards{margin-bottom:10px}
+.photozone-rental-summary{margin:0}
+.photozone-rental-summary label{display:block;margin-bottom:6px;font-size:13px;font-weight:600}
+.photozone-type-block.hidden{display:none!important}
 .photo-lightbox{position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,.88);display:flex;align-items:center;justify-content:center;padding:24px}
 .photo-lightbox.hidden{display:none!important}
 .photo-lightbox img{max-width:min(96vw,1200px);max-height:90vh;object-fit:contain;border-radius:8px;box-shadow:0 20px 60px rgba(0,0,0,.5)}

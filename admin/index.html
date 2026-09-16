@@ -145,6 +145,7 @@
             <div class="form-group unit-hide">
               <label>Персонаж</label>
               <input id="product-character" placeholder="Например: Человек-паук" autocomplete="off"/>
+              <div id="character-alts" class="title-alts hidden"></div>
             </div>
           </div>
 
@@ -176,7 +177,8 @@
           <div class="form-row form-row-2 unit-hide">
             <div class="form-group">
               <label>Тематическая серия</label>
-              <input id="product-series" placeholder="Например: Миньоны" autocomplete="off"/>
+              <input id="product-series" placeholder="Например: Человек-паук / Миньоны" autocomplete="off"/>
+              <div id="series-alts" class="title-alts hidden"></div>
             </div>
             <div class="form-group">
               <label>Целевая аудитория</label>
@@ -191,8 +193,8 @@
             </div>
             <div class="form-group">
               <label>Состав <span class="req">*</span></label>
-              <textarea id="product-composition" rows="2" placeholder="Сырой состав, напр.: 10 шаров, 2 фигуры, 1 баблс с перьями"></textarea>
-              <small class="text-muted">Сначала напишите состав сами — ИИ только оформит красиво.</small>
+              <textarea id="product-composition" rows="2" placeholder="Сырой состав, напр.: коробка 70x70x70 с индивидуальной надписью, 1 цифра"></textarea>
+              <small class="text-muted">Сначала напишите состав сами — ИИ оформит и поправит орфографию. «1 цифра» / «2 цифры», «… с надписью», «коробка 70x70x70 с индивидуальной надписью» включат нужные варианты.</small>
             </div>
           </div>
 
@@ -245,6 +247,32 @@
         <section class="card-block unit-hide" id="block-options">
           <h3 class="subsection-title">Варианты для клиента</h3>
           <p class="lead">Включайте только настройки, подходящие этому товару.</p>
+
+          <div id="photozone-type-block" class="photozone-type-block hidden">
+            <h4 class="photozone-type-title">Тип фотозоны</h4>
+            <div class="option-cards photozone-type-cards">
+              <label class="option-card">
+                <input type="radio" name="photozone-type" id="pz-type-frame" value="frame" checked/>
+                <span class="option-card-body">
+                  <strong>На каркасе</strong>
+                  <small>В аренду: каркас фотозоны</small>
+                </span>
+              </label>
+              <label class="option-card">
+                <input type="radio" name="photozone-type" id="pz-type-easel" value="easel"/>
+                <span class="option-card-body">
+                  <strong>На мольберте с кругом</strong>
+                  <small>В аренду: мольберт + круг из полистирола (с надписью)</small>
+                </span>
+              </label>
+            </div>
+            <div class="form-group photozone-rental-summary">
+              <label for="rental-item">Что сдаётся в аренду</label>
+              <input id="rental-item" type="text" autocomplete="off" placeholder="Каркас фотозоны"/>
+              <small class="text-muted" id="rental-terms-hint">До 3 суток — бесплатно, далее 500 ₽/сутки. Клиент увидит это в карточке.</small>
+            </div>
+          </div>
+
           <div class="option-cards">
             <label class="option-card">
               <input type="checkbox" id="opt-available"/>
@@ -264,21 +292,21 @@
               <input type="checkbox" id="opt-number"/>
               <span class="option-card-body">
                 <strong>Выбор цифры (0–9)</strong>
-                <small>Клиент выбирает цифру на фольгированном шаре</small>
+                <small id="opt-number-hint">Клиент выбирает цифру на фольгированном шаре</small>
               </span>
             </label>
             <label class="option-card">
               <input type="checkbox" id="opt-inscription"/>
               <span class="option-card-body">
                 <strong>Персональная надпись</strong>
-                <small>Имя или текст на шаре / табличке</small>
+                <small>Имя или текст: баблс / звезда / сердце / коробка / круг на мольберте</small>
               </span>
             </label>
             <label class="option-card">
               <input type="checkbox" id="opt-rental"/>
               <span class="option-card-body">
                 <strong>Аренда элементов фотозоны</strong>
-                <small>Стойки, арки и декор сдаются в аренду</small>
+                <small>Каркас или мольберт — только аренда; до 3 суток бесплатно, далее 500 ₽/сутки</small>
               </span>
             </label>
             <label class="option-card">

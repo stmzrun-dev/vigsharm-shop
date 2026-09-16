@@ -1,5 +1,5 @@
 /**
- * Offline checks for Studio Pro wall-only safeguards.
+ * Offline checks for Studio Pro wall-only safeguards + checkpoint / AI toggle / compare.
  * Does not call NordRouter — verifies code contracts we can assert locally.
  */
 import fs from 'fs';
@@ -26,7 +26,6 @@ function assert(cond, msg) {
   }
 }
 
-// --- Extract & eval helper methods from admin-studio-pro via Function ---
 function clampPlacementInset(placement, inset = 0.06) {
   if (!placement) return placement;
   let { x, y, w, h } = placement;
@@ -41,27 +40,54 @@ function isWallOnlyScene(scene) {
   return ['wall_only', 'unit_balloon', 'handheld_bouquet'].includes(scene);
 }
 
-function shouldSkipAiEnhance(scene) {
-  return isWallOnlyScene(scene);
+function shouldSkipAiEnhance(scene, aiEnabled = true) {
+  if (isWallOnlyScene(scene)) return true;
+  return !aiEnabled;
 }
 
-// Code presence
+// Code presence — wall
 assert(studio.includes('shouldSkipAiEnhance'), 'shouldSkipAiEnhance exists');
 assert(studio.includes('drawSoftContactShadow'), 'drawSoftContactShadow exists');
 assert(studio.includes('this.shouldSkipAiEnhance(scene)'), 'confirm path calls shouldSkipAiEnhance');
-assert(studio.includes('AI-перерисовка отключена') || studio.includes('AI-перерисовка отключена'), 'wall skip status message');
 assert(studio.includes('skipRestore'), 'restore skip for wall');
 assert(studio.includes('allowCropUpscale = !this.isWallOnlyScene'), 'crop upscale skipped on wall');
 assert(html.includes('AI не перерисовывает товар'), 'UI lead mentions wall no-AI');
 assert(html.includes('Готово → Master'), 'button says Master not AI-доводка');
 assert(worker.includes('buildGentleEnhancePrompt'), 'worker still has gentle prompt for floor fallback path');
 
+// Checkpoints
+assert(studio.includes('saveStudioCheckpoint'), 'saveStudioCheckpoint exists');
+assert(studio.includes('loadStudioCheckpoint'), 'loadStudioCheckpoint exists');
+assert(studio.includes('continueFromStudioCheckpoint'), 'continueFromStudioCheckpoint exists');
+assert(studio.includes('clearStudioCheckpoint'), 'clearStudioCheckpoint exists');
+assert(studio.includes('indexedDB.open'), 'checkpoint uses IndexedDB');
+assert(html.includes('studio-continue-btn'), 'continue button in HTML');
+assert(html.includes('Продолжить с последнего'), 'continue label');
+assert(html.includes('studio-clear-checkpoint-btn'), 'clear checkpoint button');
+
+// AI toggle
+assert(html.includes('studio-ai-enhance'), 'AI toggle checkbox in HTML');
+assert(studio.includes('isStudioAiEnhanceEnabled'), 'isStudioAiEnhanceEnabled exists');
+assert(studio.includes('syncStudioAiToggleUi'), 'syncStudioAiToggleUi exists');
+assert(studio.includes('!this.isStudioAiEnhanceEnabled()'), 'shouldSkip respects toggle');
+
+// Compare strip
+assert(html.includes('studio-compare'), 'compare strip in HTML');
+assert(html.includes('studio-compare-original'), 'compare original slot');
+assert(html.includes('studio-compare-canvas'), 'compare canvas slot');
+assert(html.includes('studio-compare-ai'), 'compare AI slot');
+assert(studio.includes('renderStudioCompare'), 'renderStudioCompare exists');
+assert(studio.includes('studioCanvasMasterDataUrl'), 'canvas master kept separately');
+assert(studio.includes('this.studioCompare.ai'), 'AI compare slot populated');
+
 // Logic: wall scenes skip AI
 for (const s of ['wall_only', 'unit_balloon', 'handheld_bouquet']) {
-  assert(shouldSkipAiEnhance(s) === true, `skip AI for ${s}`);
+  assert(shouldSkipAiEnhance(s, true) === true, `skip AI for ${s} even if toggle on`);
+  assert(shouldSkipAiEnhance(s, false) === true, `skip AI for ${s} if toggle off`);
 }
 for (const s of ['floor', 'photozone', 'auto']) {
-  assert(shouldSkipAiEnhance(s) === false, `keep AI for ${s}`);
+  assert(shouldSkipAiEnhance(s, true) === false, `keep AI for ${s} when toggle on`);
+  assert(shouldSkipAiEnhance(s, false) === true, `skip AI for ${s} when toggle off`);
 }
 
 // Logic: clamp keeps inset — never flush to edge (prevents flat clip)
@@ -83,7 +109,7 @@ assert(/unit_balloon:\s*\{[^}]*targetWidth:\s*0\.50/s.test(studio), 'unit_balloo
 const composeIdx = studio.indexOf('async composeWithBackground');
 const composeChunk = studio.slice(composeIdx, composeIdx + 3500);
 assert(composeChunk.includes('drawSoftContactShadow'), 'compose draws soft shadow');
-assert(composeChunk.includes("wall: true"), 'wall shadow mode');
+assert(composeChunk.includes('wall: true'), 'wall shadow mode');
 
 console.log('\n---');
 if (failed) {

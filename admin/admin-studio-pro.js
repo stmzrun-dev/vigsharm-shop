@@ -5,11 +5,17 @@ Object.assign(app, {
   MASTER_SIZE: 2048,
   WEBP_QUALITY: 1.0,
   DEFAULT_REFERENCE_BG: '../assets/reference/reference-background.png',
+  STUDIO_CHECKPOINT_DB: 'vigsharm_studio_pro',
+  STUDIO_CHECKPOINT_STORE: 'checkpoints',
 
   studioMasterDataUrl: null,
   studioCutoutDataUrl: null,
   studioPlacement: null,
   studioPlacementAspect: 1,
+  studioCanvasMasterDataUrl: null,
+  studioCompare: { original: null, canvas: null, ai: null },
+  studioAiEnhanceEnabled: true,
+  _studioDraftKey: null,
   cropFrames: null,
   _cropDrag: null,
   _placementDrag: null,
@@ -247,9 +253,258 @@ Object.assign(app, {
     return this.isWallOnlyScene(scene);
   },
 
-  /** Wall/fountain/text: skip AI enhance — it destroys lettering & flattens chrome edges */
+  /** Wall always off; floor/photozone follow toggle */
   shouldSkipAiEnhance(scene) {
-    return this.isWallOnlyScene(scene);
+    if (this.isWallOnlyScene(scene)) return true;
+    return !this.isStudioAiEnhanceEnabled();
+  },
+
+  isStudioAiEnhanceEnabled() {
+    const el = document.getElementById('studio-ai-enhance');
+    if (el) return !!el.checked;
+    return this.studioAiEnhanceEnabled !== false;
+  },
+
+  onStudioAiToggle() {
+    const el = document.getElementById('studio-ai-enhance');
+    if (this.isWallOnlyScene(this.currentProduct?.scene || 'floor')) {
+      this.syncStudioAiToggleUi();
+      return;
+    }
+    this.studioAiEnhanceEnabled = el ? !!el.checked : true;
+  },
+
+  syncStudioAiToggleUi() {
+    const scene = this.currentProduct?.scene || 'floor';
+    const wrap = document.getElementById('studio-ai-toggle-wrap');
+    const el = document.getElementById('studio-ai-enhance');
+    const wall = this.isWallOnlyScene(scene);
+    if (wrap) {
+      wrap.classList.toggle('hidden', wall);
+      wrap.classList.toggle('is-disabled', wall);
+    }
+    if (el) {
+      el.disabled = wall;
+      // Wall forces UI off without changing saved preference
+      el.checked = wall ? false : (this.studioAiEnhanceEnabled !== false);
+    }
+  },
+
+  getStudioProductKey() {
+    if (this.currentProduct?.id) return 'id:' + this.currentProduct.id;
+    if (!this._studioDraftKey) this._studioDraftKey = 'draft:' + Date.now();
+    return this._studioDraftKey;
+  },
+
+  resetStudioDraftKey() {
+    this._studioDraftKey = null;
+  },
+
+  openStudioCheckpointDb() {
+    return new Promise((resolve, reject) => {
+      const req = indexedDB.open(this.STUDIO_CHECKPOINT_DB, 1);
+      req.onupgradeneeded = () => {
+        const db = req.result;
+        if (!db.objectStoreNames.contains(this.STUDIO_CHECKPOINT_STORE)) {
+          db.createObjectStore(this.STUDIO_CHECKPOINT_STORE, { keyPath: 'key' });
+        }
+      };
+      req.onsuccess = () => resolve(req.result);
+      req.onerror = () => reject(req.error || new Error('IndexedDB open failed'));
+    });
+  },
+
+  async saveStudioCheckpoint(extra = {}) {
+    if (!this.studioCutoutDataUrl) return null;
+    const record = {
+      key: this.getStudioProductKey(),
+      productId: this.currentProduct?.id || null,
+      scene: this.currentProduct?.scene || 'floor',
+      cutoutDataUrl: this.studioCutoutDataUrl,
+      aspect: this.studioPlacementAspect,
+      placement: this.studioPlacement ? { ...this.studioPlacement } : null,
+      originalUrl: this.studioCompare?.original || this.currentProduct?.photos?.[0]?.url || null,
+      ts: Date.now(),
+      ...extra
+    };
+    try {
+      const db = await this.openStudioCheckpointDb();
+      await new Promise((resolve, reject) => {
+        const tx = db.transaction(this.STUDIO_CHECKPOINT_STORE, 'readwrite');
+        tx.objectStore(this.STUDIO_CHECKPOINT_STORE).put(record);
+        tx.oncomplete = () => resolve();
+        tx.onerror = () => reject(tx.error);
+      });
+      db.close();
+      await this.refreshStudioCheckpointUi();
+      return record;
+    } catch (err) {
+      console.warn('[Studio Pro] checkpoint save failed:', err);
+      this.toast('Cutout в памяти, но checkpoint не сохранился', 'error');
+      return null;
+    }
+  },
+
+  async loadStudioCheckpoint(key = null) {
+    const k = key || this.getStudioProductKey();
+    try {
+      const db = await this.openStudioCheckpointDb();
+      const record = await new Promise((resolve, reject) => {
+        const tx = db.transaction(this.STUDIO_CHECKPOINT_STORE, 'readonly');
+        const req = tx.objectStore(this.STUDIO_CHECKPOINT_STORE).get(k);
+        req.onsuccess = () => resolve(req.result || null);
+        req.onerror = () => reject(req.error);
+      });
+      db.close();
+      return record;
+    } catch (err) {
+      console.warn('[Studio Pro] checkpoint load failed:', err);
+      return null;
+    }
+  },
+
+  async clearStudioCheckpoint() {
+    const k = this.getStudioProductKey();
+    try {
+      const db = await this.openStudioCheckpointDb();
+      await new Promise((resolve, reject) => {
+        const tx = db.transaction(this.STUDIO_CHECKPOINT_STORE, 'readwrite');
+        tx.objectStore(this.STUDIO_CHECKPOINT_STORE).delete(k);
+        tx.oncomplete = () => resolve();
+        tx.onerror = () => reject(tx.error);
+      });
+      db.close();
+    } catch (err) {
+      console.warn('[Studio Pro] checkpoint clear failed:', err);
+    }
+    this.studioCutoutDataUrl = null;
+    this.studioPlacement = null;
+    this.studioPlacementAspect = 1;
+    this.studioCanvasMasterDataUrl = null;
+    this.studioMasterDataUrl = null;
+    this.studioCompare = { original: null, canvas: null, ai: null };
+    this.hidePlacementEditor(true);
+    this.hideCropEditor?.();
+    this.renderStudioCompare();
+    await this.refreshStudioCheckpointUi();
+    const statusEl = document.getElementById('studio-status');
+    if (statusEl) statusEl.textContent = 'Cutout сброшен — запустите Studio Pro заново';
+    this.toast('Checkpoint cutout очищен', 'info');
+  },
+
+  async refreshStudioCheckpointUi() {
+    const contBtn = document.getElementById('studio-continue-btn');
+    const clearBtn = document.getElementById('studio-clear-checkpoint-btn');
+    const hasMemory = !!this.studioCutoutDataUrl;
+    let hasStored = false;
+    try {
+      const cp = await this.loadStudioCheckpoint();
+      hasStored = !!(cp && cp.cutoutDataUrl);
+    } catch (_) { /* ignore */ }
+    const show = hasMemory || hasStored;
+    contBtn?.classList.toggle('hidden', !show);
+    clearBtn?.classList.toggle('hidden', !show);
+  },
+
+  async continueFromStudioCheckpoint() {
+    const statusEl = document.getElementById('studio-status');
+    try {
+      let cutout = this.studioCutoutDataUrl;
+      let aspect = this.studioPlacementAspect;
+      let placement = this.studioPlacement;
+      let originalUrl = this.studioCompare?.original;
+
+      if (!cutout) {
+        const cp = await this.loadStudioCheckpoint();
+        if (!cp?.cutoutDataUrl) {
+          this.toast('Нет сохранённого cutout', 'error');
+          return;
+        }
+        cutout = cp.cutoutDataUrl;
+        aspect = cp.aspect || 1;
+        placement = cp.placement || null;
+        originalUrl = cp.originalUrl || originalUrl;
+        if (cp.scene && this.currentProduct) {
+          this.currentProduct.scene = cp.scene;
+          const sceneSelect = document.getElementById('scene-select');
+          if (sceneSelect) sceneSelect.value = cp.scene;
+        }
+      }
+
+      this.studioCutoutDataUrl = cutout;
+      this.studioPlacementAspect = aspect || 1;
+      this.studioCompare = {
+        original: originalUrl || this.currentProduct?.photos?.[0]?.url || null,
+        canvas: null,
+        ai: null
+      };
+
+      const scene = this.currentProduct?.scene || 'floor';
+      if (!placement) {
+        const MASTER_SIZE = this.MASTER_SIZE || 2048;
+        const fakeW = 1000;
+        const fakeH = fakeW / this.studioPlacementAspect;
+        const pos = this.getProductPositioning(scene, fakeW, fakeH, MASTER_SIZE);
+        placement = this.clampPlacementInset({
+          x: pos.drawX / MASTER_SIZE,
+          y: pos.drawY / MASTER_SIZE,
+          w: pos.drawWidth / MASTER_SIZE,
+          h: pos.drawHeight / MASTER_SIZE
+        });
+      }
+      this.studioPlacement = placement;
+
+      this.syncStudioAiToggleUi();
+      await this.showPlacementEditor(scene);
+      if (statusEl) statusEl.textContent = '↩ Cutout из checkpoint — расставьте и «Готово → Master» (без Remove BG)';
+      this.toast('Продолжаем с последнего cutout', 'success');
+      document.getElementById('placement-editor')?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      await this.refreshStudioCheckpointUi();
+    } catch (err) {
+      console.error('[Studio Pro] continue checkpoint', err);
+      if (statusEl) statusEl.textContent = '❌ ' + err.message;
+      this.toast(err.message, 'error');
+    }
+  },
+
+  renderStudioCompare() {
+    const root = document.getElementById('studio-compare');
+    if (!root) return;
+    const slots = [
+      { key: 'original', imgId: 'studio-compare-original', emptyId: 'studio-compare-original-empty', emptyText: '—' },
+      { key: 'canvas', imgId: 'studio-compare-canvas', emptyId: 'studio-compare-canvas-empty', emptyText: '—' },
+      { key: 'ai', imgId: 'studio-compare-ai', emptyId: 'studio-compare-ai-empty', emptyText: 'откл' }
+    ];
+    let any = false;
+    for (const s of slots) {
+      const url = this.studioCompare?.[s.key] || null;
+      const img = document.getElementById(s.imgId);
+      const empty = document.getElementById(s.emptyId);
+      if (url) {
+        any = true;
+        if (img) {
+          img.src = url;
+          img.classList.remove('hidden');
+        }
+        empty?.classList.add('hidden');
+      } else {
+        if (img) {
+          img.removeAttribute('src');
+          img.classList.add('hidden');
+        }
+        if (empty) {
+          empty.textContent = s.emptyText;
+          empty.classList.remove('hidden');
+        }
+      }
+    }
+    root.classList.toggle('hidden', !any);
+  },
+
+  openStudioCompareSlot(key) {
+    const url = this.studioCompare?.[key];
+    if (!url) return;
+    this.openLightbox(url);
   },
 
   async getDisplayBackgroundUrl(scene) {
@@ -277,7 +532,11 @@ Object.assign(app, {
     btn.disabled = true;
     btn.innerHTML = '<span class="spinner"></span> Обработка...';
     this.hideCropEditor();
-    this.hidePlacementEditor();
+    this.hidePlacementEditor(true);
+    this.studioCanvasMasterDataUrl = null;
+    this.studioCompare = { original: null, canvas: null, ai: null };
+    this.renderStudioCompare();
+    this.syncStudioAiToggleUi();
 
     try {
       const scene = this.currentProduct.scene || 'floor';
@@ -299,9 +558,12 @@ Object.assign(app, {
         originalPhoto.uploaded = true;
       }
 
+      // True original for compare strip (before restore/AI)
+      this.studioCompare.original = imageUrl;
+
       // 0) Restore — skip for wall/fountain scenes (rewrites chrome colors & text)
       const skipRestore = this.isWallOnlyScene(scene);
-      if (!skipRestore) {
+      if (!skipRestore && this.isStudioAiEnhanceEnabled()) {
         try {
           statusEl.textContent = '🔦 Улучшение исходника (свет, шум, резкость)...';
           imageUrl = await this.restoreSourcePhoto(imageUrl, statusEl);
@@ -310,9 +572,12 @@ Object.assign(app, {
           console.warn('[Studio Pro] Restore skipped:', restoreErr);
           statusEl.textContent = '⚠️ Restore пропущен — продолжаем с исходником';
         }
-      } else {
+      } else if (skipRestore) {
         console.log('[Studio Pro] Restore skipped for wall-only scene (protect chrome/text)');
         statusEl.textContent = '🛡️ Wall-сцена: restore пропущен (сохраняем цвета и текст)';
+      } else {
+        console.log('[Studio Pro] Restore skipped (AI toggle off)');
+        statusEl.textContent = 'AI выкл — restore пропущен';
       }
 
       statusEl.textContent = '🎨 Удаление фона...';
@@ -348,8 +613,9 @@ Object.assign(app, {
         h: pos.drawHeight / MASTER_SIZE
       });
 
+      await this.saveStudioCheckpoint();
       await this.showPlacementEditor(scene);
-      statusEl.textContent = '📐 Расставьте товар на эталоне → «Готово → AI-доводка»';
+      statusEl.textContent = '📐 Cutout сохранён — расставьте на эталоне → «Готово → Master»';
       this.toast('Cutout готов — поставьте на эталон', 'success');
       document.getElementById('placement-editor')?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     } catch (error) {
@@ -359,6 +625,7 @@ Object.assign(app, {
     } finally {
       btn.disabled = false;
       btn.textContent = '✨ Подготовить фото Studio Pro';
+      await this.refreshStudioCheckpointUi();
     }
   },
 
@@ -381,7 +648,7 @@ Object.assign(app, {
       if (statusEl) statusEl.textContent = '🖼️ Композиция на эталоне...';
       if (placeStatus) placeStatus.textContent = 'Композиция...';
 
-      let masterImageUrl = await this.composeWithBackground(
+      const canvasMasterUrl = await this.composeWithBackground(
         this.studioCutoutDataUrl,
         bgUrl,
         scene,
@@ -389,19 +656,36 @@ Object.assign(app, {
         { alreadyCropped: true }
       );
 
-      // Wall / bubble+fountain: NO AI enhance — preserves text, chrome colors, round edges
-      if (this.shouldSkipAiEnhance(scene)) {
-        if (statusEl) statusEl.textContent = '🛡️ Wall-сцена: AI-перерисовка отключена (текст/хром/края сохранены)';
-        this.toast('Wall: Master без AI — только эталон + тень canvas', 'info');
+      this.studioCanvasMasterDataUrl = canvasMasterUrl;
+      this.studioCompare = {
+        original: this.studioCompare?.original || this.currentProduct?.photos?.[0]?.url || null,
+        canvas: canvasMasterUrl,
+        ai: null
+      };
+
+      let masterImageUrl = canvasMasterUrl;
+      const skipAi = this.shouldSkipAiEnhance(scene);
+
+      if (skipAi) {
+        const reason = this.isWallOnlyScene(scene)
+          ? 'Wall-сцена: AI отключён (текст/хром/края)'
+          : 'AI выкл — Master = canvas';
+        if (statusEl) statusEl.textContent = '🛡️ ' + reason;
+        this.toast(reason, 'info');
       } else {
         if (statusEl) statusEl.textContent = '✨ AI «переснимает» свет и тени...';
         try {
-          masterImageUrl = await this.enhanceMasterWithAI(masterImageUrl, scene, statusEl, { gentle: false });
+          masterImageUrl = await this.enhanceMasterWithAI(canvasMasterUrl, scene, statusEl, { gentle: false });
+          this.studioCompare.ai = masterImageUrl;
         } catch (enhanceErr) {
           console.warn('[Studio Pro] AI enhance failed, keep canvas master:', enhanceErr);
           this.toast('AI-доводка не удалась — оставлен canvas. Задеплойте Worker, если 404.', 'error');
+          this.studioCompare.ai = null;
         }
       }
+
+      this.renderStudioCompare();
+      await this.saveStudioCheckpoint({ placement: { ...this.studioPlacement } });
 
       this.studioMasterDataUrl = masterImageUrl;
       this.hidePlacementEditor(false);
@@ -413,10 +697,10 @@ Object.assign(app, {
       ];
       this.renderPhotos();
 
-      if (statusEl) statusEl.textContent = '✅ Master готов — настройте рамки #2/#3';
+      if (statusEl) statusEl.textContent = '✅ Master готов — настройте рамки #2/#3 · сравнение выше';
       if (placeStatus) placeStatus.textContent = '';
       this.toast('Master готов — выберите рамки кропов', 'success');
-      document.getElementById('crop-editor')?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      document.getElementById('studio-compare')?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     } catch (error) {
       console.error('[Studio Pro] placement→enhance', error);
       if (statusEl) statusEl.textContent = '❌ ' + error.message;
@@ -424,6 +708,7 @@ Object.assign(app, {
       this.toast(error.message, 'error');
     } finally {
       if (btn) btn.disabled = false;
+      await this.refreshStudioCheckpointUi();
     }
   },
 
@@ -440,6 +725,7 @@ Object.assign(app, {
     cutEl.src = this.studioCutoutDataUrl;
 
     editor.classList.remove('hidden');
+    this.syncStudioAiToggleUi();
     this.syncPlacementDom();
     this.setupPlacementInteractions();
 

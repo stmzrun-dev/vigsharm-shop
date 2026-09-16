@@ -176,6 +176,7 @@ Object.assign(app, {
     if (select) {
       select.addEventListener('change', () => {
         this.currentProduct.scene = select.value;
+        this.syncStudioAiToggleUi?.();
       });
     }
   },
@@ -366,8 +367,13 @@ Object.assign(app, {
 
   resetForm() {
     this.currentProduct = { photos: [], scene: 'auto', tags: [], client_options: {} };
+    this.resetStudioDraftKey?.();
+    this.studioCutoutDataUrl = null;
+    this.studioPlacement = null;
+    this.studioCompare = { original: null, canvas: null, ai: null };
     if (typeof this.hideCropEditor === 'function') this.hideCropEditor();
-    if (typeof this.hidePlacementEditor === 'function') this.hidePlacementEditor();
+    if (typeof this.hidePlacementEditor === 'function') this.hidePlacementEditor(true);
+    if (typeof this.renderStudioCompare === 'function') this.renderStudioCompare();
 
     const form = document.getElementById('product-form');
     if (form) form.reset();
@@ -384,6 +390,8 @@ Object.assign(app, {
     if (titleEl) titleEl.textContent = 'Новый товар';
 
     this.renderPhotos();
+    this.syncStudioAiToggleUi?.();
+    this.refreshStudioCheckpointUi?.();
   }
 });
 
@@ -410,6 +418,14 @@ app.editProduct = async function(id) {
 
 // === Load Product to Form ===
 app.loadProductToForm = function(product) {
+  this.resetStudioDraftKey?.();
+  this.studioCutoutDataUrl = null;
+  this.studioPlacement = null;
+  this.studioCompare = { original: null, canvas: null, ai: null };
+  if (typeof this.hidePlacementEditor === 'function') this.hidePlacementEditor(true);
+  if (typeof this.hideCropEditor === 'function') this.hideCropEditor();
+  if (typeof this.renderStudioCompare === 'function') this.renderStudioCompare();
+
   this.currentProduct.id = product.id || null;
 
   // Фото
@@ -424,6 +440,8 @@ app.loadProductToForm = function(product) {
   this.currentProduct.scene = product.scene || 'auto';
   const sceneSelect = document.getElementById('scene-select');
   if (sceneSelect) sceneSelect.value = this.currentProduct.scene;
+  this.syncStudioAiToggleUi?.();
+  this.refreshStudioCheckpointUi?.();
 
   // Основные данные
   const set = (id, value) => {

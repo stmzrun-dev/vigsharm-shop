@@ -250,6 +250,22 @@ legend{font-size:15px;font-weight:600;padding:0 12px;color:#212121}
 .placement-controls{max-width:360px;margin:0 auto}
 .placement-scale-label{display:flex;align-items:center;gap:10px;font-size:13px;font-weight:600;color:#424242;margin-bottom:10px}
 .placement-scale-label input[type=range]{flex:1}
+.studio-ai-toggle{display:flex;align-items:flex-start;gap:8px;font-size:13px;font-weight:600;color:#424242;margin:0 0 12px;cursor:pointer}
+.studio-ai-toggle.hidden{display:none}
+.studio-ai-toggle input{margin-top:2px}
+.studio-ai-toggle small{display:block;font-weight:500;color:#757575}
+.studio-ai-toggle.is-disabled{opacity:.55;cursor:not-allowed}
+
+/* Studio compare: original | canvas | AI */
+.studio-compare{margin-top:20px;padding:16px;border:1px solid #BDBDBD;border-radius:12px;background:#FAFAFA}
+.studio-compare h3{margin:0 0 8px;font-size:16px;color:#424242}
+.studio-compare-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;max-width:560px}
+.studio-compare-slot{position:relative;display:block;width:100%;padding:0;border:1px solid #E0E0E0;border-radius:10px;overflow:hidden;background:#111;cursor:pointer;aspect-ratio:1}
+.studio-compare-slot img{display:block;width:100%;height:100%;object-fit:contain}
+.studio-compare-slot img:not([src]),.studio-compare-slot img[src=""]{display:none}
+.studio-compare-label{position:absolute;top:6px;left:6px;z-index:1;font-size:11px;font-weight:700;color:#fff;background:rgba(0,0,0,.65);padding:2px 6px;border-radius:4px}
+.studio-compare-empty{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:14px;font-weight:600;background:#1a1a1a}
+.studio-compare-empty.hidden{display:none}
 
 /* Crop editor */
 .crop-editor{margin-top:20px;padding:16px;border:1px solid #90CAF9;border-radius:12px;background:#F5FBFF}
@@ -280,6 +296,7 @@ legend{font-size:15px;font-weight:600;padding:0 12px;color:#212121}
   .crop-preview{flex:1;width:auto}
   .crop-preview canvas{width:100%;height:auto;aspect-ratio:1}
   .crop-stage,.placement-stage{max-width:100%}
+  .studio-compare-grid{grid-template-columns:1fr;max-width:280px}
 }
 
 /* Modal */

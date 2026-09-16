@@ -312,11 +312,19 @@
 
   function setMenu(open) {
     if (!nav) return;
+    var wasOpen = nav.classList.contains('nav-open');
     nav.classList.toggle('nav-open', open);
     if (header) header.classList.toggle('menu-active', open);
     if (backdrop) backdrop.classList.toggle('menu-backdrop-open', open);
     if (menuBtn) menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
     document.body.style.overflow = open ? 'hidden' : '';
+    if (open) {
+      requestAnimationFrame(function () {
+        if (closeBtn) closeBtn.focus();
+      });
+    } else if (wasOpen && menuBtn) {
+      menuBtn.focus();
+    }
   }
   if (menuBtn) menuBtn.addEventListener('click', function () { setMenu(true); });
   if (closeBtn) closeBtn.addEventListener('click', function () { setMenu(false); });

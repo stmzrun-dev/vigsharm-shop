@@ -44,7 +44,10 @@
   function priceFrom() { return !!(p && (p.tags || []).indexOf('Цена от') >= 0); }
   function hasParams() { return !!(p && (p.has_digit_choice || p.has_inscription || p.has_rental || isUnit())); }
   function digitBase() { return p && p.has_digit_choice ? (p.digit_count_on_photo || 0) : 0; }
-  function canChangeCount() { return !!(p && p.has_digit_choice && !p.is_floor_composition); }
+  function canChangeCount() {
+    // Напольные и «только стена»: количество цифр из состава, клиент не меняет
+    return !!(p && p.has_digit_choice && !p.digit_count_locked && !p.is_floor_composition);
+  }
   function canAdd() { return canChangeCount() && digitBase() === 1; }
   function canRemove() { return canChangeCount() && digitBase() === 2; }
   function effDelta() {
@@ -139,7 +142,7 @@
       var t = (p.inscription_price || 0) > 0 ? ' (+' + p.inscription_price + ' ₽)' : ' (входит в стоимость)';
       lines.push('Надпись: ' + (inscription.trim() ? inscription.trim() + t : 'не указана'));
     }
-    if (p.has_rental) lines.push('Аренда: ' + (p.rental_item || 'арендный элемент уточнить') + ', до ' + (p.rental_days || 3) + ' суток; продление ' + (p.keep_price_delta || 0) + ' ₽/сутки');
+    if (p.has_rental) lines.push('Аренда: ' + (p.rental_item || 'арендный элемент уточнить') + ' — бесплатно до ' + (p.rental_days || 3) + ' суток, далее ' + (p.keep_price_delta || 500) + ' ₽/сутки');
     lines.push('Дата: ' + dateLabel());
     lines.push('Желаемое время: ' + (orderTime || 'уточнить'));
     var fmap = { pickup: 'самовывоз из студии', armavir: 'доставка по Армавиру (+200 ₽)', nearby: 'доставка за пределы Армавира (стоимость уточним при подтверждении заказа)' };
@@ -226,6 +229,11 @@
         inner += '<fieldset><legend>' + (U === 2 ? 'Какая первая цифра нужна?' : 'Какая цифра нужна?') + '</legend><div class="digit-options">' +
           digits.map(function (d) { return '<button type="button" class="' + (digit === d ? 'selected' : '') + '" data-act="digit" data-v="' + d + '" aria-label="Выбрать цифру ' + d + '" aria-pressed="' + (digit === d) + '">' + d + '</button>'; }).join('') +
           '</div></fieldset>';
+        if (p.digit_count_locked || p.is_floor_composition) {
+          inner += '<p class="digit-count-note">' + (U === 2
+            ? 'В этой композиции две цифры — выберите обе. Количество менять нельзя.'
+            : 'В этой композиции одна цифра. Количество менять нельзя.') + '</p>';
+        }
       }
       if (canAdd() || canRemove()) {
         var B = canAdd();
@@ -248,8 +256,8 @@
           '<input value="' + esc(inscription) + '" maxlength="60" data-act="inscription" placeholder="Например: Любимой Дашеньке!"/></label>';
       }
       if (p.has_rental) {
-        inner += '<fieldset><legend>Условия аренды</legend><div class="config-choice selected"><span><strong>' + esc(p.rental_item || 'Арендный элемент нужно уточнить') + '</strong>' +
-          '<small>До ' + (p.rental_days || 3) + ' суток входит в стоимость. Продление — ' + Number(p.keep_price_delta || 0).toLocaleString('ru-RU') + ' ₽/сутки.</small></span><b>включено</b></div></fieldset>';
+        inner += '<fieldset><legend>Условия аренды</legend><div class="config-choice selected"><span><strong>В аренду: ' + esc(p.rental_item || 'элемент фотозоны') + '</strong>' +
+          '<small>Бесплатно до ' + (p.rental_days || 3) + ' суток. Далее — ' + Number(p.keep_price_delta != null ? p.keep_price_delta : 500).toLocaleString('ru-RU') + ' ₽/сутки.</small></span><b>включено</b></div></fieldset>';
       }
       paramsDetails = '<details class="product-configurator product-step" data-details="params"' + (detailsState.params ? ' open' : '') + '>' +
         '<summary class="config-title"><span>✨</span><div><strong>1. Выбрать параметры</strong><small>' + esc(paramsTitle()) + '</small></div><b aria-hidden="true">+</b></summary>' +
@@ -301,8 +309,12 @@
       '</div><div class="product-page-info">' +
       '<span class="product-tag">' + esc(p.category || 'Композиция Вигшарм') + '</span>' +
       (p.available_on_request ? '<span class="product-tag product-tag-request">Под заказ</span>' : '') +
+      (p.needs_advance_order ? '<span class="product-tag product-tag-advance">За 1–2 дня</span>' : '') +
       '<h1>' + esc(p.title) + '</h1>' +
       '<p class="sku">Артикул ' + esc(p.sku || '') + '</p>' +
+      (p.needs_advance_order
+        ? '<p class="product-advance-note">Такую композицию лучше заказывать заранее — за <strong>1–2 дня</strong>. Так успеем собрать всё аккуратно и вовремя.</p>'
+        : '') +
       (p.available_on_request
         ? '<p class="product-request-note">Можно заказать даже если сейчас нет в наличии — согласуем срок в мессенджере.</p>'
         : '') +

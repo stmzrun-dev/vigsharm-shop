@@ -11,11 +11,40 @@ const TAGS = {
 const SCENES = [
   { value: 'auto', title: '🤖 Автоматически', desc: 'ИИ определит по содержимому' },
   { value: 'unit_balloon', title: '🎈 Шар поштучно', desc: 'Manus: стена, без пола' },
-  { value: 'handheld_bouquet', title: '💐 Букет в руке', desc: 'Manus: AI, стена + рука' },
+  { value: 'handheld_bouquet', title: '💐 Букет в руке', desc: 'Женская рука, без бирок' },
   { value: 'wall_only', title: '🧱 Только стена', desc: 'Manus: стена, без пола' },
-  { value: 'floor', title: '🏠 Напольная сцена', desc: 'Стена + плинтус + ламинат' },
-  { value: 'photozone', title: '📸 Фотозона', desc: 'Полный интерьер' }
+  { value: 'floor', title: '🏠 Напольная композиция', desc: 'Стена + плинтус + ламинат' },
+  { value: 'balloon_figures', title: '🧍 Фигуры из шаров', desc: 'Как напольная, масштаб ≥1 м' },
+  { value: 'photozone', title: '📸 Фотозона', desc: 'Каркас или мольберт' }
 ];
+
+/** Типы фотозоны → что в аренде */
+const PHOTOZONE_TYPES = {
+  frame: {
+    value: 'frame',
+    title: 'На каркасе',
+    hint: 'Каркас сдаётся только в аренду',
+    rental_item: 'Каркас фотозоны'
+  },
+  easel: {
+    value: 'easel',
+    title: 'На мольберте с кругом',
+    hint: 'Мольберт + круг из полистирола (с надписью) — только аренда',
+    rental_item: 'Мольберт с кругом из полистирола',
+    has_inscription: true
+  }
+};
+const PHOTOZONE_RENTAL_DAYS = 3;
+const PHOTOZONE_RENTAL_EXTRA_PER_DAY = 500;
+
+/** Группы списка товаров (как в старой админке / витрине) — свёрнуты по умолчанию */
+const LIST_GROUPS = [
+  { id: 'ready', title: 'Готовые решения', note: 'Композиции для любого повода', icon: '🎁' },
+  { id: 'characters', title: 'Персонажи', note: 'Любимые герои детей', icon: '🦸' },
+  { id: 'unit', title: 'Шары поштучно', note: 'Отдельные шары и фигуры', icon: '🎈' },
+  { id: 'holidays', title: 'Праздники', note: 'Сезонные коллекции', icon: '✨' }
+];
+const LIST_HOLIDAYS = ['Новый год', '14 февраля', '23 февраля', '8 марта', '9 мая', 'Выпускной', '1 сентября', 'День учителя', 'Хэллоуин'];
 
 const app = {
   workerUrl: 'https://vigsharm-api.vigsharm.workers.dev',
@@ -32,6 +61,12 @@ const app = {
 
   currentStep: 1,
   products: [],
+  listPageSize: 60,
+  listVisible: 60,
+  /** Какие группы раскрыты: { ready: true, ... } — по умолчанию все свёрнуты */
+  listExpandedGroups: {},
+  /** Лимит строк внутри раскрытой группы */
+  listGroupVisible: {},
   currentProduct: { photos: [], scene: 'auto', tags: [], client_options: {} },
 
   init() {
@@ -46,9 +81,13 @@ const app = {
     this.renderTags();
     this.wireFormHelpers();
     this.wireFilters();
+    this.switchTab('products');
     this.loadProducts();
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && typeof this.closeLightbox === 'function') this.closeLightbox();
+      if (e.key === 'Escape') {
+        if (typeof this.closeLightbox === 'function') this.closeLightbox();
+        if (document.body.classList.contains('admin-editor-open')) this.cancelProductEdit();
+      }
     });
   },
 
@@ -69,6 +108,8 @@ const app = {
       catEl.dataset.articleWired = '1';
       catEl.addEventListener('change', () => {
         if (!this.currentProduct?.id) this.assignFreshArticle();
+        this.syncUnitBalloonForm?.(true);
+        this.syncAdvanceOrderFromScene?.();
       });
     }
 
@@ -78,15 +119,104 @@ const app = {
       priceEl.addEventListener('change', () => this.syncBudgetFromPrice?.());
       priceEl.addEventListener('input', () => this.syncBudgetFromPrice?.());
     }
+
+    const compEl = document.getElementById('product-composition');
+    if (compEl && !compEl.dataset.optsWired) {
+      compEl.dataset.optsWired = '1';
+      const syncOpts = () => this.syncAdvanceOrderFromScene?.();
+      compEl.addEventListener('input', syncOpts);
+      compEl.addEventListener('change', syncOpts);
+    }
+
+    this.syncUnitBalloonForm?.(false);
+  },
+
+  isUnitBalloonMode() {
+    return (document.getElementById('product-category')?.value || '') === 'Шары поштучно';
+  },
+
+  syncUnitBalloonForm(fromUser = false) {
+    const form = document.getElementById('product-form');
+    const banner = document.getElementById('unit-mode-banner');
+    const titleEl = document.getElementById('product-title');
+    const catEl = document.getElementById('product-category');
+    const sceneEl = document.getElementById('scene-select');
+
+    // Сцена «Шар поштучно» → категория
+    if (fromUser && sceneEl?.value === 'unit_balloon' && catEl && catEl.value !== 'Шары поштучно') {
+      catEl.value = 'Шары поштучно';
+      if (!this.currentProduct?.id) this.assignFreshArticle?.();
+    }
+
+    const unit = this.isUnitBalloonMode();
+    if (form) form.classList.toggle('is-unit-balloon', unit);
+    if (banner) banner.classList.toggle('hidden', !unit);
+
+    if (unit) {
+      if (this.currentProduct) this.currentProduct.scene = 'unit_balloon';
+      if (sceneEl && sceneEl.value !== 'unit_balloon') sceneEl.value = 'unit_balloon';
+      if (titleEl) titleEl.placeholder = 'Точное название как у поставщика';
+      if (!this.currentProduct?.id) this.assignFreshArticle?.();
+      this.syncStudioModeHint?.();
+    } else {
+      if (fromUser && sceneEl?.value === 'unit_balloon') {
+        if (this.currentProduct) this.currentProduct.scene = 'auto';
+        sceneEl.value = 'auto';
+      }
+      if (titleEl) titleEl.placeholder = 'Например: Тёмный рыцарь';
+    }
   },
 
   wireFilters() {
     ['search-products', 'filter-category', 'filter-status'].forEach(id => {
       const el = document.getElementById(id);
       if (!el) return;
-      el.addEventListener('input', () => this.renderProducts());
-      el.addEventListener('change', () => this.renderProducts());
+      const resetAndRender = () => {
+        this.listVisible = this.listPageSize;
+        this.listGroupVisible = {};
+        this.renderProducts();
+      };
+      el.addEventListener('input', resetAndRender);
+      el.addEventListener('change', resetAndRender);
     });
+  },
+
+  showMoreProducts(groupId) {
+    if (groupId) {
+      const cur = this.listGroupVisible[groupId] || this.listPageSize;
+      this.listGroupVisible[groupId] = cur + this.listPageSize;
+    } else {
+      this.listVisible += this.listPageSize;
+    }
+    this.renderProducts();
+  },
+
+  toggleListGroup(groupId) {
+    this.listExpandedGroups = this.listExpandedGroups || {};
+    this.listExpandedGroups[groupId] = !this.listExpandedGroups[groupId];
+    if (this.listExpandedGroups[groupId] && !this.listGroupVisible[groupId]) {
+      this.listGroupVisible[groupId] = this.listPageSize;
+    }
+    this.renderProducts();
+  },
+
+  productListGroupId(p) {
+    const tags = [p.category].concat(p.tags || []).filter(Boolean);
+    const isUnit = p.category === 'Шары поштучно' || tags.includes('Шары поштучно');
+    const isHoliday = tags.some((t) => LIST_HOLIDAYS.includes(t));
+    const hasChar = !!(String(p.character || p.character_name || '').trim());
+    if (isUnit) return 'unit';
+    if (isHoliday) return 'holidays';
+    if (hasChar) return 'characters';
+    return 'ready';
+  },
+
+  escapeHtml(str) {
+    return String(str ?? '')
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
   },
 
   nextArticle(category) {
@@ -216,10 +346,23 @@ const app = {
   },
 
   switchTab(tab) {
-    document.querySelectorAll('.header-link').forEach(l => l.classList.remove('active'));
-    document.querySelector(`[data-tab="${tab}"]`)?.classList.add('active');
-    document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
-    document.getElementById(`tab-${tab}`)?.classList.remove('hidden');
+    document.querySelectorAll('.header-link[data-tab]').forEach(l => {
+      l.classList.toggle('active', l.dataset.tab === tab);
+    });
+    document.querySelectorAll('.tab-content').forEach(c => {
+      const on = c.id === `tab-${tab}`;
+      c.classList.toggle('hidden', !on);
+      // native [hidden] — страховка, если CSS-класс .hidden перебьют
+      if (on) c.removeAttribute('hidden');
+      else c.setAttribute('hidden', '');
+      c.setAttribute('aria-hidden', on ? 'false' : 'true');
+    });
+    if (tab !== 'create') {
+      document.body.classList.remove('admin-editor-open');
+    } else {
+      document.body.classList.add('admin-editor-open');
+      window.scrollTo(0, 0);
+    }
   },
 
   async loadProducts() {
@@ -255,10 +398,42 @@ const app = {
     });
   },
 
+  renderProductRow(p) {
+    const published = p.status === 'published';
+    const idJs = String(p.id ?? '').replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+    const title = this.escapeHtml(p.title || 'Без названия');
+    const article = this.escapeHtml(p.article || '—');
+    const category = this.escapeHtml(p.category || '—');
+    const price = Number(p.price || 0).toLocaleString('ru-RU');
+    const photo = p.main_photo || (Array.isArray(p.photos) && p.photos[0]) || '';
+    const thumb = photo
+      ? `<img src="${this.escapeHtml(photo)}" alt="" loading="lazy" decoding="async"/>`
+      : '<span class="thumb-fallback" aria-hidden="true">🎈</span>';
+    return `
+      <article class="product-row">
+        <div class="product-row-thumb">${thumb}</div>
+        <div class="product-row-info">
+          <div class="product-row-title">${title}</div>
+          <div class="product-row-meta">${article} · ${category}</div>
+        </div>
+        <div class="product-row-price">${price} ₽</div>
+        <div class="product-row-status">
+          <span class="badge ${published ? 'success' : 'warning'}">${published ? 'На сайте' : 'Черновик'}</span>
+        </div>
+        <div class="product-row-actions">
+          <button type="button" class="btn sm primary" onclick="app.editProduct('${idJs}')">Изменить</button>
+          <button type="button" class="btn sm outline" onclick="app.toggleStatus('${idJs}', '${published ? 'draft' : 'published'}')">${published ? 'Снять' : 'Опубл.'}</button>
+          <button type="button" class="btn sm danger" onclick="app.deleteProduct('${idJs}')">Удалить</button>
+        </div>
+      </article>`;
+  },
+
   renderProducts() {
     const container = document.getElementById('products-list');
     if (!container) return;
     const list = this.getFilteredProducts();
+    const countEl = document.getElementById('products-count');
+    if (countEl) countEl.textContent = `${list.length} из ${this.products.length}`;
 
     if (list.length === 0) {
       container.innerHTML = this.products.length === 0
@@ -268,25 +443,52 @@ const app = {
       return;
     }
 
-    container.innerHTML = list.map(p => {
-      const published = p.status === 'published';
-      return `
-      <div class="product-card">
-        <div class="thumb">${p.main_photo ? `<img src="${p.main_photo}" alt="${p.title}"/>` : '<div style="padding:40px;text-align:center">🎈</div>'}</div>
-        <div class="title">${p.title}</div>
-        <div class="meta"><span>${p.article || '—'}</span> <span>${p.category || '—'}</span></div>
-        <div class="price">${p.price} ₽</div>
-        <div class="status-row">
-          <span class="badge ${published ? 'success' : 'warning'}">${published ? 'Опубликован' : 'Черновик'}</span>
-        </div>
-        <div class="actions">
-          <button class="btn sm primary" onclick="app.editProduct('${p.id}')">Редактировать</button>
-          <button class="btn sm outline" onclick="app.toggleStatus('${p.id}', '${published ? 'draft' : 'published'}')">${published ? 'Снять' : 'Опубликовать'}</button>
-          <button class="btn sm danger" onclick="app.deleteProduct('${p.id}')">Удалить</button>
-        </div>
-      </div>`;
-    }).join('');
+    const q = (document.getElementById('search-products')?.value || '').trim();
+    const byGroup = {};
+    LIST_GROUPS.forEach((g) => { byGroup[g.id] = []; });
+    list.forEach((p) => {
+      const gid = this.productListGroupId(p);
+      if (!byGroup[gid]) byGroup[gid] = [];
+      byGroup[gid].push(p);
+    });
 
+    // При поиске — сразу раскрываем группы, где есть совпадения
+    if (q) {
+      this.listExpandedGroups = this.listExpandedGroups || {};
+      LIST_GROUPS.forEach((g) => {
+        if ((byGroup[g.id] || []).length) this.listExpandedGroups[g.id] = true;
+      });
+    }
+
+    const html = LIST_GROUPS.map((g) => {
+      const items = byGroup[g.id] || [];
+      if (!items.length && q) return '';
+      const open = !!(this.listExpandedGroups && this.listExpandedGroups[g.id]);
+      const limit = this.listGroupVisible[g.id] || this.listPageSize;
+      const visible = open ? items.slice(0, limit) : [];
+      const remaining = open ? Math.max(0, items.length - visible.length) : 0;
+      const rows = visible.map((p) => this.renderProductRow(p)).join('');
+      const more = remaining > 0
+        ? `<button type="button" class="btn outline block products-more" onclick="app.showMoreProducts('${g.id}')">Показать ещё ${Math.min(remaining, this.listPageSize)} из ${remaining}</button>`
+        : '';
+      return `
+        <section class="product-group${open ? ' is-open' : ''}" data-group="${g.id}">
+          <button type="button" class="product-group-header" onclick="app.toggleListGroup('${g.id}')" aria-expanded="${open}">
+            <span class="product-group-icon" aria-hidden="true">${g.icon}</span>
+            <span class="product-group-text">
+              <strong>${this.escapeHtml(g.title)}</strong>
+              <small>${this.escapeHtml(g.note)}</small>
+            </span>
+            <span class="product-group-count">${items.length}</span>
+            <span class="product-group-toggle" aria-hidden="true">${open ? '−' : '+'}</span>
+          </button>
+          <div class="product-group-body${open ? '' : ' hidden'}">
+            ${open ? (rows || '<p class="product-group-empty">Пока пусто</p>') + more : ''}
+          </div>
+        </section>`;
+    }).filter(Boolean).join('');
+
+    container.innerHTML = html || '<div class="empty-state"><div class="icon">🔍</div><div class="title">Ничего не найдено</div></div>';
     this.renderStats();
   },
 
@@ -344,6 +546,11 @@ const app = {
       this.toast('Введите название', 'error');
       document.getElementById('product-title')?.focus();
       document.getElementById('block-main')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      return;
+    }
+    if (!data.price || data.price <= 0) {
+      this.toast('Укажите цену', 'error');
+      document.getElementById('product-price')?.focus();
       return;
     }
     if (!data.category) {

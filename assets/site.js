@@ -19,6 +19,22 @@
     if (opt && typeof opt === 'object') return vigTruthy(opt.enabled);
     return false;
   }
+  /** Сколько фольгированных цифр упомянуто в составе (1/2/0). */
+  function vigCompositionDigitCount(composition) {
+    var t = Array.isArray(composition) ? composition.join(' ') : String(composition || '');
+    t = t.toLowerCase().replace(/ё/g, 'е');
+    if (!t) return 0;
+    if (/(?:^|[^\d])2\s+(?:[а-яa-z-]+\s+){0,3}цифр/.test(t)
+      || /(?:^|[^а-яa-z0-9])две\s+(?:[а-яa-z-]+\s+){0,2}цифр/.test(t)) {
+      return 2;
+    }
+    if (/(?:^|[^\d])1\s+(?:[а-яa-z-]+\s+){0,3}цифр/.test(t)
+      || /(?:^|[^а-яa-z0-9])одн[аоуы]\s+(?:[а-яa-z-]+\s+){0,2}цифр/.test(t)) {
+      return 1;
+    }
+    if (/(?:^|[^а-яa-z0-9])цифр[ау](?:[^а-яa-z0-9]|$)/.test(t) && !/цифры/.test(t)) return 1;
+    return 0;
+  }
   window.vigIsStorefrontVisible = function (p) {
     if (!p) return false;
     // Hide drafts only. Many published rows still have show_on_site=0 from older saves.
@@ -59,11 +75,54 @@
     var inscriptionOn = vigTruthy(opts.personal_inscription) || vigOptEnabled(opts.inscription);
     var rentalOn = vigTruthy(opts.photozone_rental) || vigOptEnabled(opts.rental);
     var availableOn = vigTruthy(opts.available_on_request) || vigOptEnabled(opts.available_on_request);
+    var advanceOn = vigTruthy(opts.advance_order_1_2_days) || vigOptEnabled(opts.advance_order)
+      || vigTruthy(opts.advance_order);
+    var isBouquet = p.scene === 'handheld_bouquet'
+      || p.category === 'Букет из шаров'
+      || p.category === 'Крафтовый букет'
+      || p.category === 'Цветы из шаров';
+    var isPhotozone = p.scene === 'photozone' || p.category === 'Фотозона';
+    var isFloor = p.scene === 'floor' || p.category === 'Напольные композиции';
+    var isFigures = p.scene === 'balloon_figures' || p.category === 'Фигуры из шаров';
+    var isWallOnly = p.scene === 'wall_only';
+    var pzType = opts.photozone_type || '';
+    var compJoined = Array.isArray(p.composition) ? p.composition.join(' ') : String(p.composition || '');
+    // Fallback: напольные / фигуры / букеты без явного флага — тоже заранее
+    if (!advanceOn && (isFloor || isFigures || isBouquet)) {
+      advanceOn = true;
+    }
+    // Фотозоны — всегда заранее и аренда
+    if (isPhotozone) {
+      advanceOn = true;
+      rentalOn = true;
+      if (!pzType) {
+        var hintItem = (opts.rental && opts.rental.item) || '';
+        pzType = /мольбер/i.test(hintItem) ? 'easel' : 'frame';
+      }
+      if (pzType === 'easel' && !inscriptionOn) inscriptionOn = true;
+    }
+    // Букеты без явного флага — персональная надпись
+    if (!inscriptionOn && isBouquet) {
+      inscriptionOn = true;
+    }
+    // В составе «коробка» / «… с надписью» / «с индивидуальной надписью»
+    if (!inscriptionOn && /надпис|индивидуальн|коробк/i.test(compJoined)) {
+      inscriptionOn = true;
+    }
+
+    // Напольные / стена: «1 цифра» / «2 цифры» в составе → выбор цифры
+    var compDigits = vigCompositionDigitCount(p.composition);
+    if (!digitOn && (isFloor || isWallOnly || isFigures) && compDigits > 0) {
+      digitOn = true;
+    }
 
     if (digitOn) {
       p.has_digit_choice = true;
-      var digitCount = (opts.digit_choice && opts.digit_choice.count_on_photo) || p.digit_count_on_photo || 1;
-      p.digit_count_on_photo = Math.max(1, Number(digitCount) || 1);
+      var digitCount = (opts.digit_choice && opts.digit_choice.count_on_photo) || p.digit_count_on_photo || compDigits || 1;
+      p.digit_count_on_photo = Math.min(2, Math.max(1, Number(digitCount) || 1));
+      // Напольные, фигуры и «только стена»: количество цифр фиксировано
+      p.digit_count_locked = !!(isFloor || isWallOnly || isFigures);
+      p.is_floor_composition = !!(isFloor || isFigures);
     } else if (p.has_digit_choice == null) {
       p.has_digit_choice = false;
     }
@@ -83,17 +142,26 @@
       p.has_rental = true;
       var rental = opts.rental && typeof opts.rental === 'object' ? opts.rental : {};
       if (!p.rental_item) {
-        p.rental_item = rental.item || 'Стойки, арки и декор фотозоны';
+        if (rental.item) p.rental_item = rental.item;
+        else if (pzType === 'easel') p.rental_item = 'Мольберт с кругом из полистирола';
+        else if (isPhotozone || pzType === 'frame') p.rental_item = 'Каркас фотозоны';
+        else p.rental_item = 'Стойки, арки и декор фотозоны';
       }
-      if (p.rental_days == null) p.rental_days = rental.days != null ? Number(rental.days) || 3 : 3;
+      if (p.rental_days == null) {
+        p.rental_days = rental.days != null ? Number(rental.days) || 3 : 3;
+      }
       if (p.keep_price_delta == null) {
-        p.keep_price_delta = rental.keep_price_delta != null ? Number(rental.keep_price_delta) || 0 : 0;
+        if (rental.keep_price_delta != null) p.keep_price_delta = Number(rental.keep_price_delta) || 0;
+        else if (isPhotozone) p.keep_price_delta = 500;
+        else p.keep_price_delta = 0;
       }
+      p.photozone_type = pzType || p.photozone_type || '';
     } else if (p.has_rental == null) {
       p.has_rental = false;
     }
 
     p.available_on_request = availableOn || !!p.available_on_request;
+    p.needs_advance_order = advanceOn || !!p.needs_advance_order;
     return p;
   };
   window.vigNormalizeProducts = function (list) {

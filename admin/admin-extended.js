@@ -179,6 +179,129 @@ Object.assign(app, {
       select.addEventListener('change', () => {
         this.currentProduct.scene = select.value;
         this.syncStudioModeHint?.();
+        this.syncUnitBalloonForm?.(true);
+        this.syncAdvanceOrderFromScene?.();
+      });
+    }
+    this.syncUnitBalloonForm?.(false);
+    this.wirePhotozoneTypeControls?.();
+    this.syncAdvanceOrderFromScene?.();
+  },
+
+  /** В составе: «коробка», «… с надписью», «с индивидуальной надписью» и т.п. */
+  compositionHasPersonalInscription(text) {
+    const t = String(text || '').toLowerCase().replace(/ё/g, 'е');
+    return /надпис|индивидуальн|коробк/.test(t);
+  },
+
+  /** Сколько фольгированных цифр в составе: 1 / 2 / 0 если не указано. */
+  compositionDigitCount(text) {
+    const t = String(text || '').toLowerCase().replace(/ё/g, 'е');
+    if (!t) return 0;
+    // «2 цифры», «2 фольгированные цифры», «две цифры»
+    if (/(?:^|[^\d])2\s+(?:[а-яa-z-]+\s+){0,3}цифр/.test(t)
+      || /(?:^|[^а-яa-z0-9])две\s+(?:[а-яa-z-]+\s+){0,2}цифр/.test(t)) {
+      return 2;
+    }
+    // «1 цифра», «1 фольгированная цифра», «одна/одну цифру»
+    if (/(?:^|[^\d])1\s+(?:[а-яa-z-]+\s+){0,3}цифр/.test(t)
+      || /(?:^|[^а-яa-z0-9])одн[аоуы]\s+(?:[а-яa-z-]+\s+){0,2}цифр/.test(t)) {
+      return 1;
+    }
+    // просто «цифра» / «цифру» без числа → одна
+    if (/(?:^|[^а-яa-z0-9])цифр[ау](?:[^а-яa-z0-9]|$)/.test(t) && !/цифры/.test(t)) return 1;
+    return 0;
+  },
+
+  syncAdvanceOrderFromScene() {
+    const scene = this.currentProduct?.scene || document.getElementById('scene-select')?.value || '';
+    const cat = document.getElementById('product-category')?.value || '';
+    const composition = document.getElementById('product-composition')?.value || '';
+    const isFloor = scene === 'floor' || cat === 'Напольные композиции';
+    const isFigures = scene === 'balloon_figures' || cat === 'Фигуры из шаров';
+    const isBouquet = scene === 'handheld_bouquet'
+      || cat === 'Букет из шаров'
+      || cat === 'Крафтовый букет'
+      || cat === 'Цветы из шаров';
+    const isPhotozone = scene === 'photozone' || cat === 'Фотозона';
+    const isWallOnly = scene === 'wall_only';
+    const isWallOrFloor = isFloor || isWallOnly || isFigures;
+    const hasInscriptionInComp = this.compositionHasPersonalInscription(composition);
+    const digitCount = this.compositionDigitCount(composition);
+    const pzType = this.getPhotozoneType?.() || 'frame';
+    const pzMeta = (typeof PHOTOZONE_TYPES !== 'undefined' && PHOTOZONE_TYPES[pzType]) || null;
+
+    const advanceEl = document.getElementById('opt-advance');
+    const inscriptionEl = document.getElementById('opt-inscription');
+    const numberEl = document.getElementById('opt-number');
+    const numberHint = document.getElementById('opt-number-hint');
+    const rentalEl = document.getElementById('opt-rental');
+    const rentalItemEl = document.getElementById('rental-item');
+    const pzBlock = document.getElementById('photozone-type-block');
+
+    if (pzBlock) pzBlock.classList.toggle('hidden', !isPhotozone);
+
+    // Напольные, фигуры и букеты — заранее за 1–2 дня
+    if ((isFloor || isFigures || isBouquet) && advanceEl) advanceEl.checked = true;
+    // Букеты — персональная надпись (текст на сердцах / по желанию клиента)
+    if (isBouquet && inscriptionEl) inscriptionEl.checked = true;
+    // В составе «… с надписью» / «коробка … с индивидуальной надписью» → «Персональная надпись»
+    if (hasInscriptionInComp && inscriptionEl) inscriptionEl.checked = true;
+
+    // Напольные / стена: «1 цифра» или «2 цифры» в составе → выбор цифры, количество фиксировано
+    if (isWallOrFloor && digitCount > 0 && numberEl) {
+      numberEl.checked = true;
+    }
+    if (numberHint) {
+      if (isWallOrFloor && digitCount === 2) {
+        numberHint.textContent = 'По составу: 2 цифры. Клиент выбирает обе, менять количество нельзя.';
+      } else if (isWallOrFloor && digitCount === 1) {
+        numberHint.textContent = 'По составу: 1 цифра. Клиент выбирает одну, менять количество нельзя.';
+      } else if (isWallOrFloor) {
+        numberHint.textContent = 'Укажите в составе «1 цифра» или «2 цифры» — галочка и количество подставятся сами.';
+      } else {
+        numberHint.textContent = 'Клиент выбирает цифру на фольгированном шаре';
+      }
+    }
+
+    // Фотозоны: всегда заранее + аренда; тип задаёт предмет аренды и надпись на круге
+    if (isPhotozone) {
+      if (advanceEl) advanceEl.checked = true;
+      if (rentalEl) rentalEl.checked = true;
+      if (pzMeta?.has_inscription && inscriptionEl) inscriptionEl.checked = true;
+      if (rentalItemEl && (!rentalItemEl.value.trim() || rentalItemEl.dataset.autoFill === '1')) {
+        rentalItemEl.value = pzMeta?.rental_item || 'Каркас фотозоны';
+        rentalItemEl.dataset.autoFill = '1';
+      }
+    }
+  },
+
+  getPhotozoneType() {
+    const checked = document.querySelector('input[name="photozone-type"]:checked');
+    return checked?.value || 'frame';
+  },
+
+  setPhotozoneType(type) {
+    const value = PHOTOZONE_TYPES[type] ? type : 'frame';
+    const el = document.querySelector(`input[name="photozone-type"][value="${value}"]`);
+    if (el) el.checked = true;
+  },
+
+  wirePhotozoneTypeControls() {
+    if (this._photozoneTypeWired) return;
+    this._photozoneTypeWired = true;
+    document.querySelectorAll('input[name="photozone-type"]').forEach((el) => {
+      el.addEventListener('change', () => {
+        const rentalItemEl = document.getElementById('rental-item');
+        if (rentalItemEl) rentalItemEl.dataset.autoFill = '1';
+        this.syncAdvanceOrderFromScene?.();
+        this.syncStudioModeHint?.();
+      });
+    });
+    const rentalItemEl = document.getElementById('rental-item');
+    if (rentalItemEl) {
+      rentalItemEl.addEventListener('input', () => {
+        rentalItemEl.dataset.autoFill = '0';
       });
     }
   },
@@ -344,6 +467,7 @@ Object.assign(app, {
     }
     if (card.title) this.syncEditorTitle(card.title);
     this.syncAIFillGate?.();
+    this.syncAdvanceOrderFromScene?.();
   },
 
   // === Studio Pro ===
@@ -365,38 +489,96 @@ Object.assign(app, {
       .forEach(cb => tags.push(cb.value));
 
     const titleValue = document.getElementById('product-title').value.trim();
-    const composition = document.getElementById('product-composition').value
-      .split('\n').filter(l => l.trim()).map(l => l.trim());
+    const unit = this.isUnitBalloonMode?.() || false;
+    const composition = unit
+      ? []
+      : document.getElementById('product-composition').value
+          .split('\n').filter(l => l.trim()).map(l => l.trim());
+
+    let shortDesc = document.getElementById('product-short-desc').value.trim();
+    if (unit && !shortDesc && titleValue) shortDesc = titleValue.slice(0, 110);
+
+    const category = document.getElementById('product-category').value || (unit ? 'Шары поштучно' : '');
+    const scene = unit ? 'unit_balloon' : (this.currentProduct.scene || 'floor');
+    if (unit && !tags.includes('Шары поштучно')) tags.push('Шары поштучно');
+
+    // Перед сохранением ещё раз синкнем опции (стена/напольные/фотозона)
+    if (!unit) this.syncAdvanceOrderFromScene?.();
+
+    const isPhotozone = !unit && (scene === 'photozone' || category === 'Фотозона');
+    const pzType = isPhotozone ? (this.getPhotozoneType?.() || 'frame') : null;
+    const pzMeta = pzType && typeof PHOTOZONE_TYPES !== 'undefined' ? PHOTOZONE_TYPES[pzType] : null;
+    const rentalChecked = !unit && (document.getElementById('opt-rental')?.checked || false);
+    const rentalItem = (document.getElementById('rental-item')?.value || '').trim()
+      || pzMeta?.rental_item
+      || '';
+
+    const clientOptions = unit ? {
+      available_on_request: false,
+      advance_order_1_2_days: false,
+      number_choice: false,
+      personal_inscription: false,
+      photozone_rental: false
+    } : {
+      available_on_request: document.getElementById('opt-available')?.checked || false,
+      advance_order_1_2_days: document.getElementById('opt-advance')?.checked || false,
+      number_choice: document.getElementById('opt-number')?.checked || false,
+      personal_inscription: document.getElementById('opt-inscription')?.checked || false,
+      photozone_rental: rentalChecked
+    };
+
+    if (isPhotozone && pzType) {
+      clientOptions.photozone_type = pzType;
+    }
+    if (rentalChecked) {
+      clientOptions.rental = {
+        enabled: true,
+        item: rentalItem || 'Элемент фотозоны',
+        days: typeof PHOTOZONE_RENTAL_DAYS !== 'undefined' ? PHOTOZONE_RENTAL_DAYS : 3,
+        keep_price_delta: typeof PHOTOZONE_RENTAL_EXTRA_PER_DAY !== 'undefined' ? PHOTOZONE_RENTAL_EXTRA_PER_DAY : 500
+      };
+    }
+
+    if (clientOptions.number_choice) {
+      const fromComp = this.compositionDigitCount?.(
+        Array.isArray(composition) ? composition.join('\n') : String(composition || '')
+      ) || 0;
+      const count = Math.min(2, Math.max(1, fromComp || 1));
+      clientOptions.digit_choice = {
+        enabled: true,
+        count_on_photo: count
+      };
+    }
+
+    if (isPhotozone && !tags.includes('Фотозона')) tags.push('Фотозона');
+    if (!unit && scene === 'balloon_figures' && !tags.includes('Фигуры из шаров')) {
+      tags.push('Фигуры из шаров');
+    }
 
     return {
       id: this.currentProduct.id || undefined,
       title: titleValue,
-      article: document.getElementById('product-article').value.trim() || this.nextArticle(),
+      article: document.getElementById('product-article').value.trim() || this.nextArticle(category),
       price: parseInt(document.getElementById('product-price').value) || 0,
-      short_description: document.getElementById('product-short-desc').value.trim(),
-      full_description: document.getElementById('product-full-desc').value.trim(),
+      short_description: shortDesc,
+      full_description: unit ? '' : document.getElementById('product-full-desc').value.trim(),
       composition: composition,
-      category: document.getElementById('product-category').value,
-      character: document.getElementById('product-character')?.value.trim() || null,
-      age_group: document.getElementById('product-age')?.value || 'Для любого возраста',
-      budget: document.getElementById('product-budget')?.value.trim() || null,
-      series_name: document.getElementById('product-series')?.value.trim() || null,
-      occasion: document.getElementById('product-occasion')?.value.trim() || null,
-      target_audience: document.getElementById('product-audience')?.value.trim() || null,
-      seo_title: document.getElementById('product-seo-title').value.trim(),
-      seo_description: document.getElementById('product-seo-desc').value.trim(),
+      category: isPhotozone && !category ? 'Фотозона' : category,
+      character: unit ? null : (document.getElementById('product-character')?.value.trim() || null),
+      age_group: unit ? 'Для любого возраста' : (document.getElementById('product-age')?.value || 'Для любого возраста'),
+      budget: unit ? null : (document.getElementById('product-budget')?.value.trim() || null),
+      series_name: unit ? null : (document.getElementById('product-series')?.value.trim() || null),
+      occasion: unit ? null : (document.getElementById('product-occasion')?.value.trim() || null),
+      target_audience: unit ? null : (document.getElementById('product-audience')?.value.trim() || null),
+      seo_title: unit ? '' : document.getElementById('product-seo-title').value.trim(),
+      seo_description: unit ? '' : document.getElementById('product-seo-desc').value.trim(),
       slug: document.getElementById('product-slug').value.trim() || this.slugify(titleValue),
-      scene: this.currentProduct.scene || 'floor',
+      scene,
       tags: tags,
-      client_options: {
-        available_on_request: document.getElementById('opt-available')?.checked || false,
-        number_choice: document.getElementById('opt-number')?.checked || false,
-        personal_inscription: document.getElementById('opt-inscription')?.checked || false,
-        photozone_rental: document.getElementById('opt-rental')?.checked || false
-      },
+      client_options: clientOptions,
       photos: this.currentProduct.photos.map(p => p.url),
       main_photo: this.currentProduct.photos[0]?.url || null,
-      show_on_site: document.getElementById('show-on-site')?.checked || false
+      show_on_site: unit ? true : (document.getElementById('show-on-site')?.checked || false)
     };
   },
 
@@ -416,6 +598,10 @@ Object.assign(app, {
 
     const alts = document.getElementById('title-alts');
     if (alts) { alts.classList.add('hidden'); alts.innerHTML = ''; }
+    ['character-alts', 'series-alts'].forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) { el.classList.add('hidden'); el.innerHTML = ''; }
+    });
 
     const sceneSelect = document.getElementById('scene-select');
     if (sceneSelect) sceneSelect.value = 'auto';
@@ -435,6 +621,15 @@ Object.assign(app, {
     this.syncStudioModeHint?.();
     this.refreshStudioCheckpointUi?.();
     this.syncAIFillGate?.();
+    this.syncUnitBalloonForm?.(false);
+    this.setPhotozoneType?.('frame');
+    const rentalItemEl = document.getElementById('rental-item');
+    if (rentalItemEl) {
+      rentalItemEl.value = '';
+      rentalItemEl.dataset.autoFill = '1';
+    }
+    this.wirePhotozoneTypeControls?.();
+    this.syncAdvanceOrderFromScene?.();
   }
 });
 
@@ -521,11 +716,28 @@ app.loadProductToForm = function(product) {
   const opt = (id, val) => { const el = document.getElementById(id); if (el) el.checked = !!val; };
   const nestedOn = (v) => !!(v === true || v === 1 || (v && typeof v === 'object' && v.enabled));
   opt('opt-available', opts.available_on_request || nestedOn(opts.available_on_request));
+  opt('opt-advance', opts.advance_order_1_2_days || nestedOn(opts.advance_order));
   opt('opt-number', opts.number_choice || nestedOn(opts.digit_choice));
   opt('opt-inscription', opts.personal_inscription || nestedOn(opts.inscription));
   opt('opt-rental', opts.photozone_rental || nestedOn(opts.rental));
   opt('show-on-site', product.show_on_site);
+
+  const rental = opts.rental && typeof opts.rental === 'object' ? opts.rental : {};
+  const rentalItemEl = document.getElementById('rental-item');
+  if (rentalItemEl) {
+    rentalItemEl.value = rental.item || opts.rental_item || '';
+    rentalItemEl.dataset.autoFill = rentalItemEl.value ? '0' : '1';
+  }
+  this.setPhotozoneType?.(opts.photozone_type || (String(rental.item || '').toLowerCase().includes('мольбер') ? 'easel' : 'frame'));
+  this.wirePhotozoneTypeControls?.();
   this.syncAIFillGate?.();
+  this.syncUnitBalloonForm?.(false);
+  this.syncAdvanceOrderFromScene?.();
+  // При редактировании уважаем сохранённый текст аренды, если он был
+  if (rentalItemEl && rental.item) {
+    rentalItemEl.value = rental.item;
+    rentalItemEl.dataset.autoFill = '0';
+  }
 };
 
 console.log('✓ VigSharm Admin Extended Functions loaded');

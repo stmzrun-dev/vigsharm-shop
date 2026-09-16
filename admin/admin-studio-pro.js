@@ -41,7 +41,7 @@ Object.assign(app, {
 
   /** All catalog scenes: AI rephotograph (Manus-style) against studio reference */
   usesRephotographMode(scene) {
-    return ['floor', 'photozone', 'auto', 'handheld_bouquet', 'wall_only', 'unit_balloon'].includes(scene || 'floor');
+    return ['floor', 'balloon_figures', 'photozone', 'auto', 'handheld_bouquet', 'wall_only', 'unit_balloon'].includes(scene || 'floor');
   },
 
   syncStudioModeHint() {
@@ -49,11 +49,16 @@ Object.assign(app, {
     if (!el) return;
     const scene = this.currentProduct?.scene || 'floor';
     if (scene === 'handheld_bouquet') {
-      el.textContent = 'Режим Manus: AI-пересъёмка — стена без пола + рука держит букет. Товар LOCK.';
+      el.textContent = 'Режим Manus: букет + женская рука (короткое запястье). Бирки/логотипы на лентах снимаются.';
     } else if (scene === 'wall_only' || scene === 'unit_balloon') {
       el.textContent = 'Режим Manus: AI-пересъёмка — только стена (без пола, без руки). Товар LOCK, без cutout.';
     } else if (scene === 'photozone') {
-      el.textContent = 'Режим Manus: AI-пересъёмка фотозоны. Кривые буквы — блок «Надпись» из полей.';
+      const pz = this.getPhotozoneType?.() || 'frame';
+      el.textContent = pz === 'easel'
+        ? 'Режим Manus: фотозона на мольберте (~180 см) — крупно в кадре, не мельчить.'
+        : 'Режим Manus: круглая фотозона на каркасе (Ø ~3 м) — почти во весь кадр, максимальный масштаб.';
+    } else if (scene === 'balloon_figures') {
+      el.textContent = 'Режим Manus: фигуры из шаров — как напольная, но крупный масштаб (≥1 м, не мельчить).';
     } else {
       el.textContent = 'Режим Manus: AI-пересъёмка напольной сцены. Кривые буквы — «Надпись» из полей.';
     }
@@ -123,7 +128,15 @@ Object.assign(app, {
         floorY: 0.74,
         useFloorAlignment: true,
         maxHeight: 0.88,
-        description: 'Напольная — у стены у плинтуса'
+        description: 'Напольная композиция — у стены у плинтуса'
+      },
+      balloon_figures: {
+        targetWidth: 0.78,
+        centerX: 0.5,
+        floorY: 0.78,
+        useFloorAlignment: true,
+        maxHeight: 0.94,
+        description: 'Фигура из шаров ≥1 м — крупно в кадре'
       },
       unit_balloon: {
         targetWidth: 0.50,
@@ -150,12 +163,28 @@ Object.assign(app, {
         description: 'Только стена'
       },
       photozone: {
-        targetWidth: 0.88,
+        targetWidth: 0.94,
+        centerX: 0.5,
+        floorY: 0.82,
+        useFloorAlignment: true,
+        maxHeight: 0.97,
+        description: 'Фотозона на каркасе Ø3 м — почти во весь кадр'
+      },
+      photozone_frame: {
+        targetWidth: 0.96,
+        centerX: 0.5,
+        floorY: 0.84,
+        useFloorAlignment: true,
+        maxHeight: 0.98,
+        description: 'Круглая фотозона на каркасе Ø3 м'
+      },
+      photozone_easel: {
+        targetWidth: 0.86,
         centerX: 0.5,
         floorY: 0.78,
         useFloorAlignment: true,
         maxHeight: 0.92,
-        description: 'Фотозона ~180 см — крупно в кадре'
+        description: 'Фотозона на мольберте ~180 см'
       },
       auto: {
         targetWidth: 0.70,
@@ -167,7 +196,10 @@ Object.assign(app, {
       }
     };
 
-    const config = positioning[scene] || positioning.floor;
+    const posKey = scene === 'photozone'
+      ? ((this.getPhotozoneType?.() || 'frame') === 'easel' ? 'photozone_easel' : 'photozone_frame')
+      : scene;
+    const config = positioning[posKey] || positioning[scene] || positioning.floor;
     const aspectRatio = productWidth / productHeight;
     let drawWidth = canvasSize * config.targetWidth;
     let drawHeight = drawWidth / aspectRatio;
@@ -569,6 +601,7 @@ Object.assign(app, {
           image_url: imageUrl,
           reference_url: referenceUrl,
           scene,
+          photozone_type: scene === 'photozone' ? (this.getPhotozoneType?.() || 'frame') : undefined,
           resolution: '2K',
           prefer
         })

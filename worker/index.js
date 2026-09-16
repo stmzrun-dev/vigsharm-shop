@@ -193,6 +193,7 @@ function sceneTypeHint(scene) {
     // wall_only: foil-герой / бабл / фонтан — НЕ «Фигуры из шаров» (это скрутки на полу)
     case 'wall_only': return 'Букет из шаров';
     case 'floor': return 'Напольные композиции';
+    case 'balloon_figures': return 'Фигуры из шаров';
     default: return '';
   }
 }
@@ -244,10 +245,14 @@ async function handleGenerateCard(request, env) {
   "composition": ["оформленный пункт 1", "пункт 2"],
   "category": "ОДНА аудитория/повод из списка AUDIENCE",
   "character": "имя героя с фото или пустая строка",
+  "character_alts": ["запасной персонаж 1", "запасной персонаж 2"],
+  "character_confidence": "high|medium|low",
   "age_group": "Для малышей|Для детей|Для подростков|Для взрослых|Для любого возраста",
   "occasion": "только ЯВНЫЙ узкий повод или пустая строка",
   "target_audience": "Для мальчика / Для девочки / …",
-  "series_name": "франшиза если видна или пустая строка",
+  "series_name": "тематическая серия/франшиза если видна или пустая строка",
+  "series_alts": ["запасная серия 1"],
+  "series_confidence": "high|medium|low",
   "budget": "РОВНО одно значение из BUDGET",
   "seo_title": "SEO макс 70, можно «Армавир»",
   "seo_description": "SEO макс 155",
@@ -270,28 +275,46 @@ ${BUDGET_OPTIONS.join(' | ')}
 - ЗАПРЕЩЕНО: «Набор с…», «Композиция …», «… с зайчиком», «… на крестины», «Фонтан из шаров…», просто имя героя одним словом без крючка
 - Персонаж и повод — в character / category / tags, не в title
 - title_alts: ещё 1–2 крючка в том же духе, не пересказ состава
+- ЦИФРА НА ФОТО (1, 2, 6… на фольге) — это ПРИМЕР. Клиент выберет любую цифру 0–9.
+  • ЗАПРЕЩЕНО в title и title_alts любая привязка к конкретной цифре или возрасту:
+    «шестилетка», «на 6 лет», «Модный шестой», «Стильная шестёрка», «1 годик», «пятёрка», цифры 0–9 в тексте и т.п.
+  • Крючок про героя / стиль / настроение (LOL, дива, модница) — БЕЗ числа и возраста
 
 ПРОЧИЕ ПРАВИЛА:
 - category = аудитория (Для мальчика…), НЕ тип изделия
 - тип изделия — только в tags
 - «Фигуры из шаров» — ТОЛЬКО скрутка/лепка из множества шаров, стоящая на полу. НЕ ставь этот тег для фольгированных персонажей (Пикачу, Гонщик, зайчик), баблов, фонтанов и букетов на стене
-- character: по фото (Зайчик, Гонщик, Пикачу…)
+- ПЕРСОНАЖ И СЕРИЯ — критично, определяй по фото:
+  • Смотри фигуры, принты, цвета, декор, паутину, логотипы, типичные сочетания
+  • Примеры: красно-синие шары + паутина / звезда → character «Человек-паук», series_name «Человек-паук»
+  • Миньоны, Единорог, LOL, Холодное сердце, Гонщик, Пикачу, Барби — по узнаваемым признакам
+  • series_name = франшиза/тематика (Человек-паук, Marvel, Миньоны…), не «День рождения»
+  • character = конкретный герой по-русски («Человек-паук», не Spider-Man), если героя нет — пустая строка
+  • character_confidence / series_confidence: high если уверен, medium если вероятнее всего, low если сомневаешься
+  • При medium/low ОБЯЗАТЕЛЬНО заполни character_alts / series_alts (2–3 варианта для выбора оператором)
+  • При high тоже можно дать 1 alt, если есть близкий синоним
+  • НЕ выдумывай героя без признаков на фото
 - occasion: НЕ «День рождения». Пусто, если повод не узкий
 - composition: оформи ТОЛЬКО сырой состав пользователя.
   • НЕ добавляй позиции, которых нет во входе
   • НЕ добавляй цвет (жёлтых/синих…), если пользователь цвет не написал → «5 латексных шаров», не «5 жёлтых шаров»
   • фольгированный персонаж: «фольгированная фигура Пикачу» — ок; это НЕ «фигура из шаров»
   • НЕ считай и НЕ дополняй с фото
+  • КОРОБКА: если в составе есть «коробка» / «коробка-сюрприз» — оформи пункт так:
+    «коробка 70x70x70 с индивидуальной надписью и декором»
+    (если пользователь указал другой размер — сохрани его, напр. «коробка 60x60x60 с индивидуальной надписью и декором»)
+  • ОРФОГРАФИЯ: исправь опечатки и ошибки в словах пользователя (падежи, «надписью», «звезда», «сердце», «баблс/бабл»), смысл и числа не меняй
+- Во всех текстовых полях (title, descriptions, composition, seo): грамотный русский, без орфографических ошибок
 - budget: только из BUDGET по цене пользователя
 - НЕ возвращай article и price`;
 
   const userPrompt = `Сгенерируй карточку:
 Подсказка названия: ${title_hint || 'не указано'}
 Цена (₽): ${priceNum > 0 ? priceNum : 'не указана'}
-Сырой состав от пользователя (оформи красиво, числа сохрани): ${rawComposition || 'не указан'}
+Сырой состав от пользователя (оформи красиво, исправь орфографию, числа сохрани): ${rawComposition || 'не указан'}
 Сцена Studio Pro: ${scene || 'floor'}
 Подсказка типа изделия для tags: ${typeHint || 'по фото'}
-${image_url ? 'Фото приложено — персонаж/серия/аудитория по фото. Логотипы магазинов игнорируй.' : ''}`;
+${image_url ? 'Фото приложено — ОБЯЗАТЕЛЬНО определи персонажа и тематическую серию по визуальным признакам (цвета, паутина, фигуры, принты). Если сомневаешься — confidence medium/low и дай alts. Логотипы магазинов игнорируй. Имена/возраст на табличке — пример персонализации, не в title.' : ''}`;
 
   const messages = [
     { role: 'system', content: systemPrompt },
@@ -356,6 +379,53 @@ function sanitizeCompositionColors(lines, rawComposition) {
   }).filter(Boolean);
 }
 
+/** «коробка» → «коробка 70x70x70 с индивидуальной надписью и декором» (размер сохраняем, если указан). */
+function sanitizeCompositionBoxes(lines) {
+  return (lines || []).map((line) => {
+    const s = String(line || '').trim();
+    if (!/коробк/i.test(s)) return s;
+    const sizeM = s.match(/(\d+)\s*[xх×]\s*(\d+)\s*[xх×]\s*(\d+)/i);
+    const size = sizeM ? `${sizeM[1]}x${sizeM[2]}x${sizeM[3]}` : '70x70x70';
+    const countM = s.match(/^(\d+)\s+/);
+    const count = countM ? `${countM[1]} ` : '';
+    return `${count}коробка ${size} с индивидуальной надписью и декором`;
+  }).filter(Boolean);
+}
+
+/** Названия не должны цепляться к цифре на фото — клиент меняет 0–9. */
+function titleLocksToDigit(title) {
+  const t = String(title || '').toLowerCase().replace(/ё/g, 'е');
+  if (!t) return false;
+  if (/\d/.test(t)) return true;
+  if (/(^|[^а-я])(ноль|один|одна|два|две|три|четыре|пять|шесть|семь|восемь|девять)([^а-я]|$)/.test(t)) return true;
+  // шестилетка, модный шестой, стильная шестерка, пятерка… (\w не ловит кириллицу)
+  if (/(нулев|перв|втор|трет|четверт|пят|шест|седьм|восьм|девят)[а-я]*?(летк|ерк|ый|ая|ое|ой|ому|ого)/.test(t)) return true;
+  if (/годик/.test(t) || /на\s+\d+\s*лет/.test(t)) return true;
+  return false;
+}
+
+function sanitizeTitleAgainstDigitLock(data) {
+  const charHint = String(data.character || data.series_name || '').trim();
+  const fallback = charHint
+    ? (charHint.length <= 24 ? charHint : charHint.slice(0, 24))
+    : 'Яркий праздник';
+
+  let pool = [data.title, ...(Array.isArray(data.title_alts) ? data.title_alts : [])]
+    .map((t) => String(t || '').trim())
+    .filter(Boolean);
+  pool = [...new Set(pool)];
+
+  const good = pool.filter((t) => !titleLocksToDigit(t));
+  if (good.length) {
+    data.title = good[0];
+    data.title_alts = good.slice(1, 3);
+    return;
+  }
+  // Все варианты привязаны к цифре — сбрасываем крючок без числа
+  data.title = fallback;
+  data.title_alts = [];
+}
+
 function sanitizeCardMetadata(data, scene = 'floor', price = 0, rawComposition = '') {
   const stripEmoji = (s) => String(s || '')
     .replace(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\u{FE0F}\u{200D}]/gu, '')
@@ -376,6 +446,31 @@ function sanitizeCardMetadata(data, scene = 'floor', price = 0, rawComposition =
   data.title_alts = alts.map(stripEmoji).filter(Boolean)
     .filter((t) => t.toLowerCase() !== String(data.title || '').toLowerCase())
     .slice(0, 2);
+
+  sanitizeTitleAgainstDigitLock(data);
+
+  const normAlts = (list, primary) => {
+    const main = String(primary || '').trim().toLowerCase();
+    return (Array.isArray(list) ? list : [])
+      .map(stripEmoji)
+      .filter(Boolean)
+      .filter((t) => t.toLowerCase() !== main)
+      .filter((t, i, arr) => arr.findIndex((x) => x.toLowerCase() === t.toLowerCase()) === i)
+      .slice(0, 3);
+  };
+  data.character_alts = normAlts(data.character_alts, data.character);
+  data.series_alts = normAlts(data.series_alts, data.series_name);
+
+  const normConf = (v) => {
+    const c = String(v || '').toLowerCase();
+    return c === 'high' || c === 'medium' || c === 'low' ? c : '';
+  };
+  data.character_confidence = normConf(data.character_confidence)
+    || (data.character_alts.length ? 'medium' : (data.character ? 'high' : ''));
+  data.series_confidence = normConf(data.series_confidence)
+    || (data.series_alts.length ? 'medium' : (data.series_name ? 'high' : ''));
+  data.ask_character = data.character_confidence === 'medium' || data.character_confidence === 'low'
+    || data.series_confidence === 'medium' || data.series_confidence === 'low';
 
   if (Array.isArray(data.composition)) {
     data.composition = data.composition.map(stripEmoji).filter(Boolean);
@@ -410,9 +505,11 @@ function sanitizeCardMetadata(data, scene = 'floor', price = 0, rawComposition =
   data.category = category;
 
   const typeHint = sceneTypeHint(scene);
-  // Не навязываем «Фигуры из шаров» со сцены — только явная скрутка на полу (ИИ сам)
-  if (typeHint && typeHint !== 'Фигуры из шаров' && !tags.includes(typeHint)) {
-    tags.push(typeHint);
+  // «Фигуры из шаров» — только со сцены balloon_figures (не навязывать с floor/wall)
+  if (typeHint && !tags.includes(typeHint)) {
+    if (typeHint !== 'Фигуры из шаров' || scene === 'balloon_figures') {
+      tags.push(typeHint);
+    }
   }
   // Фольга на стене / букет / поштучно — тег скруток запрещён
   if (['wall_only', 'unit_balloon', 'handheld_bouquet'].includes(scene)) {
@@ -424,6 +521,9 @@ function sanitizeCardMetadata(data, scene = 'floor', price = 0, rawComposition =
   // Состав: убрать цвет шаров, если в сыром тексте цвета не было
   if (Array.isArray(data.composition) && rawComposition) {
     data.composition = sanitizeCompositionColors(data.composition, rawComposition);
+  }
+  if (Array.isArray(data.composition)) {
+    data.composition = sanitizeCompositionBoxes(data.composition);
   }
 
   const occ = String(data.occasion || '').toLowerCase();
@@ -556,20 +656,26 @@ function isWallOnlyScene(scene) {
   return ['wall_only', 'unit_balloon'].includes(scene);
 }
 
-function buildRephotographPrompt(scene) {
+function buildRephotographPrompt(scene, opts = {}) {
+  const photozoneType = opts.photozone_type === 'easel' ? 'easel' : 'frame';
   const lock = `LOCKED — preserve without any change:
 - entire original product; exact balloon count, shapes, sizes, colors, positions, overlaps
-- ALL text, letters, numbers, names, spelling, punctuation printed ON the balloons/product — copy exactly, never retype or autocorrect
-- characters, foil figures, chrome/metallic surfaces, ribbons, knots, stickers, accessories
-- do NOT add, remove, redraw, simplify or beautify any product element
-- when uncertain, keep the original detail — do NOT guess`;
+- ALL decorative text that is PART OF THE PRODUCT PRINT on balloons (character art, foil prints, custom names/numbers meant to stay on the item) — copy exactly, never retype or autocorrect
+- characters, foil figures, chrome/metallic surfaces, ribbons, knots, product stickers that belong to the item
+- do NOT add, remove, redraw, simplify or beautify any product element (except the ALLOWED EXCEPTION below)
+- when uncertain about a product print, keep it — do NOT guess`;
 
-  const logoClean = `ALLOWED EXCEPTION — remove shop/supplier branding that sits ON THE PHOTO, not on the balloons:
-- Corner or overlay watermarks, translucent stamps, store URLs (sharomem.ru, sharomen.ru and similar), shop names, Instagram/VK handles, banners
-- Inpaint the wall/floor/product surface underneath as if the stamp was never there
-KEEP: foil character prints (Spider-Man etc.), latex prints, bubble lettering, custom names/numbers ON balloons, product stickers`;
+  const logoClean = `ALLOWED EXCEPTION — REMOVE supplier / marketplace packaging overlays and watermarks (critical for catalog photos, especially «шары поштучно» / unit balloons from Sima-land and similar):
+REMOVE completely (inpaint as if never there):
+- Corner and floating badges/boxes: brand logos (MARVEL, Disney, etc. as separate rectangular stickers on the photo), size labels («12" / 30 CM», «18"», diameter), usage labels («ДЛЯ ГЕЛИЯ И ВОЗДУХА», «для гелия», «воздух», helium/air icons)
+- Marketplace / shop watermarks and URLs anywhere on the image: sima-land.ru, wildberries, ozon, sharomem.ru, sharomen.ru, Instagram/VK handles, translucent stamps, shop names, banners
+- Small © copyright stamps and supplier URL text overlaid on or near balloons that are NOT part of the balloon's own printed design
+- Any colored pill/rectangle with white text glued onto the catalog photo (packaging chrome), not printed into the latex/foil artwork
+- Circular / round hang tags and brand discs on ribbons or wrap (shop logos like «МАИК», heart+name discs, cardboard circle tags, plastic logo badges dangling from the bouquet)
+Inpaint the wall / balloon / ribbon surface underneath cleanly — no blur blotches, no leftover letters or half a circle.
+KEEP: Spider-Man / character art printed ON the balloon latex or foil; decorative words that are clearly part of that print (e.g. «HERO» baked into the balloon design); bubble lettering and custom personalization on the product itself; foil heart texts that are printed ON the balloon face.`;
 
-  const forbidden = `FORBIDDEN: sticker/cutout appearance, white or dark halo, invented text, changed colors, plastic CGI look, furniture, window, curtains from the original room, melting ribbons, harsh cast shadows, yellow/orange color cast, duplicate objects, collage, dark moody look, evening lighting, underexposure, extra balloons, new foreground balloon clusters, objects not present in the original, store watermarks, supplier logos, shop URL overlays`;
+  const forbidden = `FORBIDDEN: sticker/cutout appearance, white or dark halo, invented text, changed colors, plastic CGI look, furniture, window, curtains from the original room, melting ribbons, harsh cast shadows, yellow/orange color cast, duplicate objects, collage, dark moody look, evening lighting, underexposure, extra balloons, new foreground balloon clusters, objects not present in the original, store watermarks, supplier packaging badges, size/helium labels, marketplace URL overlays (sima-land.ru etc.), leftover half-erased text, circular shop hang-tags on ribbons`;
 
   const light = `LIGHTING: soft even professional studio product photography. Remove harsh window backlight. Match exposure and white balance to the studio room. Real photograph, not CGI render.`;
 
@@ -581,30 +687,34 @@ KEEP: foil character prints (Spider-Man etc.), latex prints, bubble lettering, c
 - Soft diffuse studio light; no dramatic shadows, no moody cinematic grade`;
 
   if (scene === 'handheld_bouquet') {
-    return `Rephotograph this VigSharm balloon BOUQUET for a square catalog card — Manus style: one real photo of a person holding the bouquet against the studio wall.
+    return `Rephotograph this VigSharm balloon BOUQUET for a square catalog card — Manus style: one real photo of a WOMAN holding the bouquet against the studio wall.
 
 TASK:
 1. Replace the background with the SECOND reference image — VigSharm studio WALL ONLY (warm beige-grey plaster). NO floor, NO baseboard, NO laminate, NO furniture.
-2. The bouquet must be HELD by a realistic adult hand (and short forearm if needed) gripping the ribbon / wrapping base — natural catalog pose, like a gift bouquet photo.
-3. If a real hand is already in the original, keep that hand and only fix background/lighting.
-4. If there is NO hand in the original, ADD one photoreal hand holding the bouquet base. Hand must look physically gripping the ribbons, same light as the product — NOT a sticker, NOT a separate cutout plate, NOT floating.
+2. The bouquet must be HELD by ONE realistic adult FEMALE hand (woman's hand only — never male, never child's) gripping the ribbon / wrapping base — natural gift-bouquet catalog pose.
+3. If a hand is already in the original: keep the grip idea but REPLACE with a correct female hand/wrist if the original looks male, CGI, or stretched. Fix lighting to match the studio.
+4. If there is NO hand in the original, ADD one photoreal female hand holding the bouquet base — physically gripping the ribbons, same light as the product — NOT a sticker, NOT a separate cutout plate, NOT floating.
+5. REMOVE any circular hang-tag / logo disc on the ribbons or wrap (shop brand tags). Replace with clean ribbons only.
 
 ${lock}
 
 ${logoClean}
 
-HAND (allowed exception — only this may be added):
-- One natural hand at the bottom gripping ribbons/wrap; fingers wrap around the stem area
+HAND — critical anatomy (allowed exception — only this may be added/replaced):
+- ONE woman's hand only: feminine proportions, natural nails, soft skin — NEVER a man's hand
+- Show mainly the HAND + short wrist; forearm must be SHORT and natural — NEVER a long stretched / elongated / warped arm entering from the corner
+- Correct perspective: hand size matches bouquet base; fingers wrap around the stem/wrap naturally
+- No rubbery stretch, no liquid morphing, no extra-long forearm diagonally across the frame
 - Match skin lighting to soft studio daylight on the balloons
-- Do not cover balloon faces or text with fingers
-- Optional plain sleeve at wrist OK; no logos
+- Do not cover balloon faces or printed foil text with fingers
+- Optional plain sleeve at wrist OK; no logos on sleeve
 
 ${light}
 Do NOT add artificial balloon shadows on the wall. Soft natural contact only where hand/ribbons need grounding.
 
-FORBIDDEN: floor, baseboard, laminate, sticker/cutout look, white halo, invented balloon text, changed balloon colors/counts, extra balloons, plastic CGI, collage of a pasted fist, dark moody grade, store watermarks, supplier logos.
+FORBIDDEN: floor, baseboard, laminate, sticker/cutout look, white halo, invented balloon text, changed balloon colors/counts, extra balloons, plastic CGI, collage of a pasted fist, dark moody grade, store watermarks, supplier logos, circular hang-tags, male hand, child's hand, stretched/elongated forearm, warped anatomy.
 
-OUTPUT: one square 1:1 catalog photo — wall background, bouquet large in frame, hand holding it, bright and sharp.`;
+OUTPUT: one square 1:1 catalog photo — wall background, bouquet large in frame, natural female hand holding it (short wrist, no stretch), no hang-tags, bright and sharp.`;
   }
 
   if (isWallOnlyScene(scene)) {
@@ -616,6 +726,7 @@ TASK:
 2. NO floor, NO baseboard, NO laminate, NO furniture, NO LED strips from the original room.
 3. Keep the product as one continuous photograph in the new room — remove cutout halo, white fringe, hard sticker edges.
 4. Do NOT add a hand. Do NOT add balloons, bows, or ribbons that were not in the original.
+${unit ? `5. UNIT / «шары поштучно» SOURCE PHOTOS often come from marketplace catalogs (Sima-land etc.) with heavy packaging overlays — you MUST strip ALL of them (MARVEL/Disney badge boxes, «ДЛЯ ГЕЛИЯ И ВОЗДУХА», size «12" / 30 CM», sima-land.ru / © stamps) while keeping the balloon artwork itself.` : ''}
 
 STUDIO LOOK (critical — fix dark muddy walls):
 - Shoot like a pro e-commerce session: softboxes + large soft daylight, high-key bright catalog lighting
@@ -636,13 +747,14 @@ EXTRA LOCK for bubble / chrome / tulle sets:
 
 Minimal soft edge integration only — no graphic drop shadow on the wall.
 
-FORBIDDEN: dark/muddy/taupe wall, underexposed background, floor, baseboard, laminate, sticker/cutout look, white/dark halo, invented text, changed balloon counts (including inside bubbles), melting tulle, plastic CGI, adding a hand, dark moody cinematic grade, store watermarks, supplier logos.
+FORBIDDEN: dark/muddy/taupe wall, underexposed background, floor, baseboard, laminate, sticker/cutout look, white/dark halo, invented text, changed balloon counts (including inside bubbles), melting tulle, plastic CGI, adding a hand, dark moody cinematic grade, store watermarks, supplier packaging badges, size/helium labels, marketplace URLs, leftover half-erased text.
 
-OUTPUT: one square 1:1 bright professional catalog photo — ${unit ? 'single balloon / small set' : 'full product'} large in frame on a LIGHT studio wall only.`;
+OUTPUT: one square 1:1 bright professional catalog photo — ${unit ? 'single balloon / small set' : 'full product'} large in frame on a LIGHT studio wall only${unit ? ', with zero packaging badges or marketplace watermarks' : ''}.`;
   }
 
   if (scene === 'photozone') {
-    return `Edit the provided large photozone / floor balloon installation photo for a square VigSharm catalog card. Change ONLY the room background and lighting.
+    if (photozoneType === 'easel') {
+      return `Edit the provided photozone on an EASEL (~1.8 m tall) with polystyrene circle for a square VigSharm catalog card. Change ONLY the room background and lighting.
 
 ${lock}
 
@@ -650,11 +762,11 @@ ${logoClean}
 
 Use the SECOND reference image as the real VigSharm photozone studio — full room: warm beige-grey wall, white baseboard, grey-beige laminate floor with horizontal planks. Match that reference background as closely as possible.
 
-SCALE — tall installation (~1.8 m easel / photozone height):
-- This is a LARGE tall floor installation, not a small tabletop item
-- The product must fill approximately 78–88% of the frame HEIGHT — minimal empty wall above
-- Keep full width of the composition visible; do NOT shrink the set into a tiny object in the center
-- Preserve human-scale proportions: easel and balloon cluster should dominate the catalog frame
+SCALE — easel photozone height ~1.8 meters:
+- Tall floor installation on a wooden easel with a round board — NOT a small tabletop prop
+- Product must fill approximately 78–90% of the frame HEIGHT — minimal empty wall above
+- Keep full width visible; do NOT shrink into a tiny object in the center
+- Preserve human-scale proportions: a person standing next to it would see ~180 cm height
 
 Only minimal soft contact shadows where objects genuinely touch the floor.
 
@@ -662,7 +774,56 @@ ${brightLight}
 
 ${forbidden}
 
-OUTPUT: one square 1:1 professional catalog photo, tall photozone large in frame, bright and vivid.`;
+OUTPUT: one square 1:1 professional catalog photo, easel photozone (~1.8 m) large in frame, bright and vivid.`;
+    }
+
+    return `Edit the provided ROUND FRAME photozone (circular arch / hoop on a metal frame) for a square VigSharm catalog card. Change ONLY the room background and lighting.
+
+${lock}
+
+${logoClean}
+
+Use the SECOND reference image as the real VigSharm photozone studio — full room: warm beige-grey wall, white baseboard, grey-beige laminate floor with horizontal planks. Match that reference background as closely as possible.
+
+SCALE — CRITICAL: round frame diameter is about 3 METERS (huge party installation):
+- This is a MASSIVE circular photozone frame filling most of a room — NOT a small wreath, NOT a 1 m hoop
+- The circle/arch must dominate the catalog frame: fill approximately 88–96% of WIDTH and HEIGHT
+- Minimal empty wall/floor around the ring; edges of the frame may come close to the photo borders
+- Preserve real 3 m human scale — two adults could stand inside the circle comfortably
+- FORBIDDEN: miniaturizing the hoop, floating small ring in empty room, making it look under ~2 m
+
+Only minimal soft contact shadows where the frame base genuinely touches the floor.
+
+${brightLight}
+
+${forbidden}
+
+OUTPUT: one square 1:1 professional catalog photo — round Ø3 m photozone frame nearly filling the frame, bright and vivid.`;
+  }
+
+  if (scene === 'balloon_figures') {
+    return `Edit the provided balloon FIGURE / sculpture photo (скрутка «фигуры из шаров») for a square VigSharm catalog card. Change ONLY the room background and lighting.
+
+${lock}
+
+${logoClean}
+
+Use the SECOND reference image as the real VigSharm studio environment — match it as closely as possible: warm beige-grey wall, white baseboard, grey-beige laminate floor with horizontal planks.
+
+Keep the real base/feet and natural floor position from the original. Only minimal soft contact shadow where the figure genuinely touches the floor.
+
+SCALE — CRITICAL for balloon figures (typically 1 m tall and taller):
+- This is a LARGE human-scale balloon sculpture standing on the floor — NOT a small toy, NOT a tabletop prop
+- The figure must fill approximately 80–92% of the frame HEIGHT — dominate the catalog card
+- Minimal empty wall above the head/top; do NOT shrink the figure into a tiny object in the middle of the room
+- Preserve real proportions: a person standing next to it would see a figure about 1–1.5+ meters tall
+- FORBIDDEN: miniaturizing, floating tiny figure, excessive empty floor/wall that makes it look under ~1 m
+
+${brightLight}
+
+${forbidden}
+
+OUTPUT: one square 1:1 professional catalog photo — balloon figure LARGE and bright in frame, human scale ≥1 m.`;
   }
 
   return `Edit the provided floor-standing balloon composition photo for a square VigSharm catalog card. Change ONLY the room background and lighting.
@@ -749,6 +910,7 @@ async function handleStudioRephotograph(request, env) {
   const body = await request.json();
   const { image_url, reference_url, scene = 'floor', resolution = '2K' } = body;
   const prefer = body.prefer === 'banana' || body.prefer === 'fast' ? 'banana' : 'quality';
+  const photozone_type = body.photozone_type === 'easel' ? 'easel' : 'frame';
 
   if (!image_url || !reference_url) {
     return json({ ok: false, error: 'Missing image_url or reference_url' }, 400);
@@ -761,14 +923,14 @@ async function handleStudioRephotograph(request, env) {
     }
   }
 
-  const prompt = buildRephotographPrompt(scene);
+  const prompt = buildRephotographPrompt(scene, { photozone_type });
   const attempts = buildRephotographAttempts(image_url, reference_url, prompt, resolution, prefer);
 
   let generateResp = null;
   let usedModel = null;
 
   for (const attempt of attempts) {
-    console.log('[Studio Rephotograph] scene=', scene, 'prefer=', prefer, 'try model=', attempt.model);
+    console.log('[Studio Rephotograph] scene=', scene, 'photozone_type=', photozone_type, 'prefer=', prefer, 'try model=', attempt.model);
     generateResp = await nordRequest('/media/generate', 'POST', {
       model: attempt.model,
       input: attempt.input
@@ -827,7 +989,7 @@ ONLY ALLOWED:
 
 FORBIDDEN: reshaping balloons, straight vertical cuts on spheres, melting ribbons, changing text, chrome color shift, plastic CGI rewrite, moving the product.
 
-SCENE: ${scene === 'handheld_bouquet' ? 'wall only; optional real hand only if ribbons need holding — do not cover balloons' : 'wall only — no floor'}.`;
+SCENE: ${scene === 'handheld_bouquet' ? 'wall only; FEMALE hand only, short natural wrist (no stretched arm); remove circular hang-tags on ribbons' : 'wall only — no floor'}.`;
 }
 
 function buildEnhancePrompt(scene, mode = 'rephotograph') {
@@ -858,7 +1020,13 @@ Do NOT reposition to fix floating. Do NOT redesign the product. No plastic 3D re
   if (scene === 'photozone') {
     return `${base}
 
-SCENE: large photozone on laminate near baseboard. Contact shadow under the base. Keep full structure.`;
+SCENE: large photozone on laminate near baseboard. Contact shadow under the base. Keep full structure and LARGE real-world scale (round frame ~3 m diameter OR easel ~1.8 m — do not miniaturize).`;
+  }
+
+  if (scene === 'balloon_figures') {
+    return `${base}
+
+SCENE: large balloon FIGURE sculpture (≥1 m tall) on laminate near baseboard. Keep LARGE human scale in frame — do not shrink. Medium contact shadow under feet/base.`;
   }
 
   return `${base}
@@ -1238,6 +1406,59 @@ function d1(v) {
   return v === undefined ? null : v;
 }
 
+function slugifyServer(str) {
+  const map = { а: 'a', б: 'b', в: 'v', г: 'g', д: 'd', е: 'e', ё: 'e', ж: 'zh', з: 'z', и: 'i', й: 'y', к: 'k', л: 'l', м: 'm', н: 'n', о: 'o', п: 'p', р: 'r', с: 's', т: 't', у: 'u', ф: 'f', х: 'h', ц: 'c', ч: 'ch', ш: 'sh', щ: 'sch', ъ: '', ы: 'y', ь: '', э: 'e', ю: 'yu', я: 'ya' };
+  return String(str || '').toLowerCase().split('')
+    .map((ch) => (map[ch] !== undefined ? map[ch] : ch)).join('')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '')
+    .slice(0, 60) || 'tovar';
+}
+
+/** Гарантирует уникальный slug (products.slug UNIQUE). */
+async function ensureUniqueSlug(env, desired, excludeId = null) {
+  let base = slugifyServer(desired);
+  if (!base) base = 'tovar';
+
+  const taken = async (slug) => {
+    const row = excludeId
+      ? await env.DB.prepare('SELECT id FROM products WHERE slug = ? AND id != ?').bind(slug, excludeId).first()
+      : await env.DB.prepare('SELECT id FROM products WHERE slug = ?').bind(slug).first();
+    return !!row;
+  };
+
+  if (!(await taken(base))) return base;
+
+  for (let n = 2; n < 1000; n++) {
+    const candidate = `${base}-${n}`.slice(0, 70);
+    if (!(await taken(candidate))) return candidate;
+  }
+  return `${base}-${Date.now().toString(36)}`;
+}
+
+/** Гарантирует уникальный артикул (products.article UNIQUE). */
+async function ensureUniqueArticle(env, desired, excludeId = null) {
+  let base = String(desired || '').trim().toUpperCase() || 'DG-001';
+
+  const taken = async (article) => {
+    const row = excludeId
+      ? await env.DB.prepare('SELECT id FROM products WHERE article = ? AND id != ?').bind(article, excludeId).first()
+      : await env.DB.prepare('SELECT id FROM products WHERE article = ?').bind(article).first();
+    return !!row;
+  };
+
+  if (!(await taken(base))) return base;
+
+  const m = base.match(/^(.*?)[-_]?(\d+)$/);
+  const prefix = m ? m[1].replace(/[-_]$/, '') : base;
+  let n = m ? (parseInt(m[2], 10) + 1) : 2;
+  for (; n < 10000; n++) {
+    const candidate = `${prefix}-${String(n).padStart(3, '0')}`;
+    if (!(await taken(candidate))) return candidate;
+  }
+  return `${prefix}-${Date.now().toString(36).toUpperCase()}`;
+}
+
 async function handleGetProducts(env) {
   const { results } = await env.DB.prepare(
     "SELECT * FROM products ORDER BY created_at DESC"
@@ -1269,6 +1490,8 @@ async function handleCreateProduct(request, env) {
     const now = new Date().toISOString();
     const price = Number(data.price);
     const priceSafe = Number.isFinite(price) ? price : 0;
+    const slug = await ensureUniqueSlug(env, data.slug || data.title || data.article || id);
+    const article = await ensureUniqueArticle(env, data.article || 'DG-001');
 
     await env.DB.prepare(`INSERT INTO products (
       id, title, article, price, short_description, full_description, composition,
@@ -1278,7 +1501,7 @@ async function handleCreateProduct(request, env) {
     ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`).bind(
       id,
       d1(data.title),
-      d1(data.article),
+      article,
       priceSafe,
       d1(data.short_description),
       d1(data.full_description),
@@ -1292,7 +1515,7 @@ async function handleCreateProduct(request, env) {
       d1(data.target_audience),
       d1(data.seo_title),
       d1(data.seo_description),
-      d1(data.slug),
+      slug,
       d1(data.scene) || 'auto',
       JSON.stringify(data.tags || []),
       JSON.stringify(data.client_options || {}),
@@ -1331,6 +1554,17 @@ async function handleUpdateProduct(path, request, env) {
       }, 400);
     }
 
+    const nextSlug = await ensureUniqueSlug(
+      env,
+      data.slug ?? existing.slug ?? data.title ?? existing.title ?? id,
+      id
+    );
+    const nextArticle = await ensureUniqueArticle(
+      env,
+      data.article ?? existing.article ?? 'DG-001',
+      id
+    );
+
     await env.DB.prepare(`UPDATE products SET
       title = ?, article = ?, price = ?, short_description = ?, full_description = ?,
       composition = ?, category = ?, character = ?, age_group = ?, budget = ?,
@@ -1340,7 +1574,7 @@ async function handleUpdateProduct(path, request, env) {
       status = ?, show_on_site = ?, updated_at = ?
     WHERE id = ?`).bind(
       d1(data.title ?? existing.title),
-      d1(data.article ?? existing.article),
+      nextArticle,
       Number.isFinite(Number(data.price ?? existing.price)) ? Number(data.price ?? existing.price) : 0,
       d1(data.short_description ?? existing.short_description),
       d1(data.full_description ?? existing.full_description),
@@ -1354,7 +1588,7 @@ async function handleUpdateProduct(path, request, env) {
       d1(data.target_audience ?? existing.target_audience),
       d1(data.seo_title ?? existing.seo_title),
       d1(data.seo_description ?? existing.seo_description),
-      d1(data.slug ?? existing.slug),
+      nextSlug,
       d1(data.scene ?? existing.scene) || 'auto',
       JSON.stringify(data.tags ?? JSON.parse(existing.tags || '[]')),
       JSON.stringify(data.client_options ?? JSON.parse(existing.client_options || '{}')),

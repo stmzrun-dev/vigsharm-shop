@@ -51,26 +51,54 @@ Object.assign(app, {
   },
 
   renderTitleAlts(title, alts = []) {
-    const box = document.getElementById('title-alts');
+    this.renderFieldAlts('title-alts', 'product-title', 'Варианты названия — выберите:', title, alts, (val) => {
+      this.syncEditorTitle?.(val);
+    });
+  },
+
+  renderCharacterAlts(character, alts = [], confidence = '') {
+    const label = confidence === 'low' || confidence === 'medium'
+      ? `Персонаж (${confidence === 'low' ? 'неуверен' : 'уточните'}) — выберите:`
+      : 'Варианты персонажа — выберите:';
+    this.renderFieldAlts('character-alts', 'product-character', label, character, alts);
+  },
+
+  renderSeriesAlts(series, alts = [], confidence = '') {
+    const label = confidence === 'low' || confidence === 'medium'
+      ? `Серия (${confidence === 'low' ? 'неуверен' : 'уточните'}) — выберите:`
+      : 'Варианты серии — выберите:';
+    this.renderFieldAlts('series-alts', 'product-series', label, series, alts);
+  },
+
+  renderFieldAlts(boxId, inputId, label, primary, alts = [], onPick) {
+    const box = document.getElementById(boxId);
     if (!box) return;
-    const options = [title, ...(alts || [])].map((t) => String(t || '').trim()).filter(Boolean);
+    const options = [primary, ...(alts || [])].map((t) => String(t || '').trim()).filter(Boolean);
     const uniq = [...new Set(options)];
-    if (uniq.length <= 1) {
+    if (uniq.length <= 1 && !(label.includes('уточните') || label.includes('неуверен'))) {
+      box.classList.add('hidden');
+      box.innerHTML = '';
+      return;
+    }
+    if (!uniq.length) {
       box.classList.add('hidden');
       box.innerHTML = '';
       return;
     }
     box.classList.remove('hidden');
-    box.innerHTML = '<span class="title-alts-label">Варианты названия — выберите:</span>' +
+    box.innerHTML = `<span class="title-alts-label">${this.escapeHtml(label)}</span>` +
       uniq.map((t, i) =>
-        `<button type="button" class="title-alt-btn${i === 0 ? ' is-active' : ''}" data-title="${this.escapeAttr(t)}">${this.escapeHtml(t)}</button>`
-      ).join('');
+        `<button type="button" class="title-alt-btn${i === 0 ? ' is-active' : ''}" data-val="${this.escapeAttr(t)}">${this.escapeHtml(t)}</button>`
+      ).join('') +
+      ((label.includes('уточните') || label.includes('неуверен'))
+        ? `<button type="button" class="title-alt-btn title-alt-btn-clear" data-val="">Нет / очистить</button>`
+        : '');
     box.querySelectorAll('.title-alt-btn').forEach((btn) => {
       btn.addEventListener('click', () => {
-        const val = btn.getAttribute('data-title') || '';
-        const titleEl = document.getElementById('product-title');
-        if (titleEl) titleEl.value = val;
-        this.syncEditorTitle?.(val);
+        const val = btn.getAttribute('data-val') || '';
+        const input = document.getElementById(inputId);
+        if (input) input.value = val;
+        if (typeof onPick === 'function') onPick(val);
         box.querySelectorAll('.title-alt-btn').forEach((b) => b.classList.toggle('is-active', b === btn));
       });
     });
@@ -191,9 +219,16 @@ Object.assign(app, {
       }
 
       this.renderTitleAlts(data.title, data.title_alts || []);
+      this.renderCharacterAlts(data.character, data.character_alts || [], data.character_confidence || '');
+      this.renderSeriesAlts(data.series_name, data.series_alts || [], data.series_confidence || '');
 
-      statusEl.innerHTML = '✅ Карточка заполнена — выберите название при необходимости и сохраните';
-      this.toast('ИИ заполнил карточку', 'success');
+      if (data.ask_character) {
+        statusEl.innerHTML = '✅ Карточка заполнена — <strong>уточните персонажа/серию</strong> (кнопки под полями) и название, затем сохраните';
+        this.toast('ИИ просит уточнить персонажа или серию', '');
+      } else {
+        statusEl.innerHTML = '✅ Карточка заполнена — выберите название при необходимости и сохраните';
+        this.toast('ИИ заполнил карточку', 'success');
+      }
       console.log('Generated metadata:', data);
     } catch (e) {
       console.error('AI generation error:', e);

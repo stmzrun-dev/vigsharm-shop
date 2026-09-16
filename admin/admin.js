@@ -38,6 +38,7 @@ const app = {
     this.setupTabs();
     this.setupPhotoUpload();
     this.setupSceneSelector();
+    this.syncStudioModeHint?.();
     this.setupFormEvents();
     this.renderCategories();
     this.renderTags();

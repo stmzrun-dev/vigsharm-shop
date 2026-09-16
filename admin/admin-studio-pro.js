@@ -1,5 +1,6 @@
 // VigSharm Admin - Studio Pro
-// Manus-style: оригинал + эталон комнаты → AI rephotograph → Master → кропы #2/#3 → Cloudinary
+// Стена / бабл / хром: эталон + cutout. Напольная / фотозона: AI-пересъёмка → Master.
+// Кривой текст на табличке: программный слой (Canvas) поверх Master Base — буквы из полей, без AI.
 
 Object.assign(app, {
   MASTER_SIZE: 2048,
@@ -15,6 +16,10 @@ Object.assign(app, {
   studioCanvasMasterDataUrl: null,
   studioCompare: { original: null, master: null },
   studioSourceUrl: null,
+  studioMasterBackupUrl: null,
+  studioMasterBaseUrl: null,
+  signTextFrame: null,
+  _signDrag: null,
   _studioDraftKey: null,
   cropFrames: null,
   _cropDrag: null,
@@ -24,6 +29,29 @@ Object.assign(app, {
 
   isWallOnlyScene(scene) {
     return ['wall_only', 'unit_balloon', 'handheld_bouquet'].includes(scene);
+  },
+
+  /** Wall/bubble/chrome: composite on YOUR reference (stable background, no AI rewrite) */
+  usesCompositeMode(scene) {
+    return this.isWallOnlyScene(scene);
+  },
+
+  /** Floor/photozone: AI rephotograph in studio */
+  usesRephotographMode(scene) {
+    return ['floor', 'photozone', 'auto'].includes(scene || 'floor');
+  },
+
+  syncStudioModeHint() {
+    const el = document.getElementById('studio-mode-hint');
+    if (!el) return;
+    const scene = this.currentProduct?.scene || 'floor';
+    if (this.usesCompositeMode(scene)) {
+      el.textContent = 'Режим: эталон + cutout (текст/хром/ленты сохраняются, фон = ваш файл).';
+    } else if (scene === 'photozone') {
+      el.textContent = 'Режим: AI-пересъёмка фотозоны. Кривые буквы — блок «Надпись»: текст из полей, без AI.';
+    } else {
+      el.textContent = 'Режим: AI-пересъёмка напольной сцены. Кривые буквы — «Надпись» из полей (без AI).';
+    }
   },
 
   getReferenceBackgroundUrl() {
@@ -66,12 +94,12 @@ Object.assign(app, {
         description: 'Только стена'
       },
       photozone: {
-        targetWidth: 0.82,
+        targetWidth: 0.88,
         centerX: 0.5,
-        floorY: 0.76,
+        floorY: 0.78,
         useFloorAlignment: true,
-        maxHeight: 0.90,
-        description: 'Фотозона у стены'
+        maxHeight: 0.92,
+        description: 'Фотозона ~180 см — крупно в кадре'
       },
       auto: {
         targetWidth: 0.70,
@@ -345,10 +373,14 @@ Object.assign(app, {
     this.studioPlacementAspect = 1;
     this.studioCanvasMasterDataUrl = null;
     this.studioMasterDataUrl = null;
+    this.studioMasterBackupUrl = null;
+    this.studioMasterBaseUrl = null;
+    this.signTextFrame = null;
     this.studioCompare = { original: null, master: null };
     this.studioSourceUrl = null;
     this.hidePlacementEditor(true);
     this.hideCropEditor?.();
+    this.hideSignTextEditor?.();
     this.renderStudioCompare();
     await this.refreshStudioCheckpointUi();
     const statusEl = document.getElementById('studio-status');
@@ -381,8 +413,9 @@ Object.assign(app, {
   },
 
   async callRephotographMaster(imageUrl, scene, statusEl) {
+    // Без restore: лишний шаг (часто content-policy на персонажах) и +1–3 мин.
     const referenceUrl = await this.ensureReferenceHttpsUrl();
-    if (statusEl) statusEl.textContent = '📸 AI переснимает в студии VigSharm...';
+    if (statusEl) statusEl.textContent = '📸 AI переснимает в студии (яркий свет, крупный кадр)...';
 
     const res = await fetch(`${this.workerUrl}/api/studio/rephotograph`, {
       method: 'POST',
@@ -405,21 +438,64 @@ Object.assign(app, {
   },
 
   finishMasterWorkflow(masterImageUrl, statusEl) {
+    this.studioMasterBackupUrl = masterImageUrl;
+    this.studioMasterBaseUrl = masterImageUrl;
     this.studioMasterDataUrl = masterImageUrl;
     this.studioCompare.master = masterImageUrl;
     this.renderStudioCompare();
     this.hidePlacementEditor(true);
     this.resetCropFrames(false);
     this.showCropEditor(masterImageUrl);
+    this.showSignTextEditor();
 
     this.currentProduct.photos = [
       { id: Date.now() + '_master', url: masterImageUrl, uploaded: false, type: 'master' }
     ];
     this.renderPhotos();
 
-    if (statusEl) statusEl.textContent = '✅ Master готов — настройте рамки #2/#3';
-    this.toast('Master готов — выберите рамки кропов', 'success');
+    if (statusEl) statusEl.textContent = '✅ Master готов — проверьте текст, при необходимости «Надпись»';
+    this.toast('Master готов — проверьте надпись на табличке', 'success');
     document.getElementById('studio-compare')?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  },
+
+  async callCompositeMaster(imageUrl, scene, statusEl) {
+    if (statusEl) statusEl.textContent = '🎨 Удаление фона...';
+    const res = await fetch(`${this.workerUrl}/api/studio/process`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', ...this.authHeaders() },
+      body: JSON.stringify({ image_url: imageUrl, scene, prompt: '' })
+    });
+    if (!res.ok) {
+      throw new Error(`Remove BG API error (${res.status}): ${await res.text()}`);
+    }
+    const data = await res.json();
+    if (!data.ok || !data.job_id) {
+      throw new Error(data.error || 'Не удалось запустить Remove BG');
+    }
+
+    if (statusEl) statusEl.textContent = '⏳ Remove BG... (30–60 сек)';
+    const transparentPng = await this.pollStudioStatusSimple(data.job_id);
+
+    if (statusEl) statusEl.textContent = '✂️ Cutout + ваш эталон...';
+    const cutout = await this.prepareCutoutFromPng(transparentPng);
+    const MASTER_SIZE = this.MASTER_SIZE || 2048;
+    const pos = this.getProductPositioning(scene, cutout.width, cutout.height, MASTER_SIZE);
+    const placement = this.clampPlacementInset({
+      x: pos.drawX / MASTER_SIZE,
+      y: pos.drawY / MASTER_SIZE,
+      w: pos.drawWidth / MASTER_SIZE,
+      h: pos.drawHeight / MASTER_SIZE
+    }, this.isWallOnlyScene(scene) ? 0.07 : 0.05);
+
+    const bgUrl = await this.ensureReferenceHttpsUrl();
+    return await this.composeWithBackground(cutout.dataUrl, bgUrl, scene, placement, { alreadyCropped: true });
+  },
+
+  async createMasterForScene(imageUrl, scene, statusEl) {
+    if (this.usesCompositeMode(scene)) {
+      return await this.callCompositeMaster(imageUrl, scene, statusEl);
+    }
+    return await this.callRephotographMaster(imageUrl, scene, statusEl);
   },
 
   async retryStudioMaster() {
@@ -433,15 +509,28 @@ Object.assign(app, {
     const statusEl = document.getElementById('studio-status');
     if (btn) btn.disabled = true;
 
+    const keptMaster = this.studioMasterDataUrl || this.studioMasterBackupUrl || this.studioCompare?.master;
+    this.studioMasterBackupUrl = keptMaster || this.studioMasterBackupUrl;
+
     try {
       const scene = this.currentProduct?.scene || 'floor';
-      this.hideCropEditor();
-      const masterImageUrl = await this.callRephotographMaster(src, scene, statusEl);
+      if (statusEl) statusEl.textContent = '↻ Новый Master… предыдущий сохранён до успеха';
+      const masterImageUrl = await this.createMasterForScene(src, scene, statusEl);
       this.finishMasterWorkflow(masterImageUrl, statusEl);
     } catch (err) {
       console.error('[Studio Pro] retry', err);
-      if (statusEl) statusEl.textContent = '❌ ' + err.message;
-      this.toast(err.message, 'error');
+      if (keptMaster) {
+        this.studioMasterDataUrl = keptMaster;
+        this.studioCompare.master = keptMaster;
+        this.renderStudioCompare();
+        this.showCropEditor(keptMaster);
+        this.showSignTextEditor();
+        if (statusEl) statusEl.textContent = '❌ Новый Master не вышел — оставлен предыдущий';
+        this.toast('Ошибка — предыдущий Master сохранён', 'error');
+      } else {
+        if (statusEl) statusEl.textContent = '❌ ' + err.message;
+        this.toast(err.message, 'error');
+      }
     } finally {
       if (btn) btn.disabled = false;
       await this.refreshStudioCheckpointUi();
@@ -513,12 +602,17 @@ Object.assign(app, {
     btn.innerHTML = '<span class="spinner"></span> Обработка...';
     this.hideCropEditor();
     this.hidePlacementEditor(true);
+    this.hideSignTextEditor?.();
+    this.signTextFrame = null;
+    this.studioMasterBaseUrl = null;
     this.studioCompare = { original: null, master: null };
     this.renderStudioCompare();
 
     try {
       const scene = this.currentProduct.scene || 'floor';
-      console.log('[Studio Pro] ====== REPHOTOGRAPH ======', { scene });
+      const mode = this.usesCompositeMode(scene) ? 'composite' : 'rephotograph';
+      console.log('[Studio Pro] ====== START ======', { scene, mode });
+      this.syncStudioModeHint();
 
       const originalPhoto = this.currentProduct.photos[0];
       let imageUrl = originalPhoto.url;
@@ -536,7 +630,7 @@ Object.assign(app, {
       this.studioSourceUrl = imageUrl;
       this.studioCompare.original = imageUrl;
 
-      const masterImageUrl = await this.callRephotographMaster(imageUrl, scene, statusEl);
+      const masterImageUrl = await this.createMasterForScene(imageUrl, scene, statusEl);
       this.finishMasterWorkflow(masterImageUrl, statusEl);
     } catch (error) {
       console.error('[Studio Pro] ❌', error);
@@ -831,7 +925,10 @@ Object.assign(app, {
       const data = await res.json();
       if (!data.ok) throw new Error(data.error || 'Ошибка проверки статуса');
       if (data.status === 'done' && data.result_url) return data.result_url;
-      if (data.status === 'failed') throw new Error('Обработка не удалась');
+      if (data.status === 'failed') {
+        throw new Error(data.error || 'Обработка не удалась (модель отклонила задачу)');
+      }
+      if (!data.ok && data.error) throw new Error(data.error);
     }
     throw new Error('Таймаут обработки');
   },
@@ -847,13 +944,13 @@ Object.assign(app, {
     }
     if (scene === 'photozone') {
       return {
-        photo2: { x: 0.225, y: 0.12, size: 0.55 },
-        photo3: { x: 0.14, y: 0.28, size: 0.72 }
+        photo2: { x: 0.04, y: 0.10, size: 0.54 },
+        photo3: { x: 0.36, y: 0.05, size: 0.44 }
       };
     }
     return {
-      photo2: { x: 0.24, y: 0.12, size: 0.52 },
-      photo3: { x: 0.14, y: 0.28, size: 0.72 }
+      photo2: { x: 0.03, y: 0.12, size: 0.56 },
+      photo3: { x: 0.38, y: 0.06, size: 0.42 }
     };
   },
 
@@ -889,6 +986,306 @@ Object.assign(app, {
       cancelAnimationFrame(this._cropPreviewRaf);
       this._cropPreviewRaf = null;
     }
+    if (clearMaster) this.hideSignTextEditor();
+  },
+
+  getDefaultSignTextFrame() {
+    return { x: 0.36, y: 0.20, size: 0.28 };
+  },
+
+  showSignTextEditor() {
+    const editor = document.getElementById('sign-text-editor');
+    const img = document.getElementById('sign-text-master-img');
+    const masterUrl = this.studioMasterDataUrl || this.studioCompare?.master;
+    if (!editor || !img || !masterUrl) return;
+    if (this.usesCompositeMode(this.currentProduct?.scene || 'floor')) {
+      editor.classList.add('hidden');
+      return;
+    }
+
+    if (!this.signTextFrame) this.signTextFrame = this.getDefaultSignTextFrame();
+    editor.classList.remove('hidden');
+
+    const sync = () => {
+      this.syncSignTextDom();
+      this.setupSignTextInteractions();
+    };
+    img.onload = sync;
+    img.src = masterUrl;
+    if (img.complete && img.naturalWidth) sync();
+  },
+
+  hideSignTextEditor() {
+    const editor = document.getElementById('sign-text-editor');
+    if (editor) editor.classList.add('hidden');
+    this._signDrag = null;
+  },
+
+  syncSignTextDom() {
+    const el = document.getElementById('sign-text-frame');
+    const f = this.signTextFrame;
+    if (!el || !f) return;
+    el.style.left = (f.x * 100) + '%';
+    el.style.top = (f.y * 100) + '%';
+    el.style.width = (f.size * 100) + '%';
+    el.style.height = (f.size * 100) + '%';
+  },
+
+  resetSignTextFrame() {
+    this.signTextFrame = this.getDefaultSignTextFrame();
+    this.syncSignTextDom();
+    const status = document.getElementById('sign-text-status');
+    if (status) status.textContent = 'Рамка таблички сброшена';
+  },
+
+  setupSignTextInteractions() {
+    const stage = document.getElementById('sign-text-stage');
+    const frame = document.getElementById('sign-text-frame');
+    if (!stage || !frame || frame.dataset.signWired === '1') return;
+    frame.dataset.signWired = '1';
+
+    const onMove = (clientX, clientY) => {
+      if (!this._signDrag || !this.signTextFrame) return;
+      const rect = stage.getBoundingClientRect();
+      const dx = (clientX - this._signDrag.startX) / rect.width;
+      const dy = (clientY - this._signDrag.startY) / rect.height;
+      const start = this._signDrag.startFrame;
+      if (this._signDrag.mode === 'resize') {
+        const size = Math.max(0.12, Math.min(0.55, start.size + Math.max(dx, dy)));
+        this.signTextFrame = { x: start.x, y: start.y, size };
+      } else {
+        let x = start.x + dx;
+        let y = start.y + dy;
+        const size = start.size;
+        x = Math.max(0, Math.min(x, 1 - size));
+        y = Math.max(0, Math.min(y, 1 - size));
+        this.signTextFrame = { x, y, size };
+      }
+      this.syncSignTextDom();
+    };
+
+    frame.addEventListener('pointerdown', (e) => {
+      if (!this.signTextFrame) return;
+      e.preventDefault();
+      const handle = e.target.closest('.crop-handle');
+      this._signDrag = {
+        mode: handle ? 'resize' : 'move',
+        startX: e.clientX,
+        startY: e.clientY,
+        startFrame: { ...this.signTextFrame }
+      };
+      frame.setPointerCapture?.(e.pointerId);
+    });
+    frame.addEventListener('pointermove', (e) => onMove(e.clientX, e.clientY));
+    frame.addEventListener('pointerup', () => { this._signDrag = null; });
+    frame.addEventListener('pointercancel', () => { this._signDrag = null; });
+  },
+
+  getSignTextLines() {
+    const line1 = (document.getElementById('sign-text-line1')?.value || '').trim();
+    const line2 = (document.getElementById('sign-text-line2')?.value || '').trim();
+    return { line1, line2 };
+  },
+
+  getInscriptionStyle() {
+    const sizePct = Number(document.getElementById('sign-text-size')?.value ?? 16);
+    const rotation = Number(document.getElementById('sign-text-rotation')?.value ?? -3);
+    const color = document.getElementById('sign-text-color')?.value || '#8B1A1A';
+    return {
+      sizePct: Math.max(8, Math.min(28, sizePct)),
+      rotation: Math.max(-20, Math.min(20, rotation)),
+      color
+    };
+  },
+
+  commitMasterImage(dataUrl, statusMsg) {
+    this.studioMasterDataUrl = dataUrl;
+    this.studioMasterBackupUrl = dataUrl;
+    this.studioCompare.master = dataUrl;
+    this.renderStudioCompare();
+    this.showCropEditor(dataUrl);
+    this.showSignTextEditor();
+    this.currentProduct.photos = [
+      { id: Date.now() + '_master', url: dataUrl, uploaded: false, type: 'master' }
+    ];
+    this.renderPhotos();
+    const studioStatus = document.getElementById('studio-status');
+    if (studioStatus) studioStatus.textContent = statusMsg;
+  },
+
+  /** Soft-wash lettering inside circular plaque — keep disk lighting, no hard white sticker */
+  softWashPlaqueDisk(ctx, sourceCanvas, cx, cy, r) {
+    const dpr = 1;
+    const size = Math.max(32, Math.ceil(r * 2 * dpr));
+    const tmp = document.createElement('canvas');
+    tmp.width = size;
+    tmp.height = size;
+    const tctx = tmp.getContext('2d');
+    tctx.drawImage(sourceCanvas, cx - r, cy - r, r * 2, r * 2, 0, 0, size, size);
+
+    // Multi-pass blur to dissolve glyphs while keeping warm disk tone
+    const blur = document.createElement('canvas');
+    blur.width = size;
+    blur.height = size;
+    const bctx = blur.getContext('2d');
+    bctx.filter = `blur(${Math.max(6, Math.round(size * 0.045))}px)`;
+    bctx.drawImage(tmp, 0, 0);
+    bctx.filter = 'none';
+    bctx.globalAlpha = 0.55;
+    bctx.fillStyle = 'rgba(255, 252, 247, 0.85)';
+    bctx.beginPath();
+    bctx.arc(size / 2, size / 2, size * 0.42, 0, Math.PI * 2);
+    bctx.fill();
+    bctx.globalAlpha = 1;
+
+    ctx.save();
+    ctx.beginPath();
+    ctx.arc(cx, cy, r * 0.97, 0, Math.PI * 2);
+    ctx.closePath();
+    ctx.clip();
+    ctx.drawImage(blur, cx - r, cy - r, r * 2, r * 2);
+    ctx.restore();
+  },
+
+  drawInscriptionLines(ctx, lines, cx, cy, diskR, style) {
+    const maxW = diskR * 2 * 0.72;
+    let fontSize = Math.round(diskR * 2 * (style.sizePct / 100));
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+
+    const fitFont = (text, startSize) => {
+      let size = startSize;
+      do {
+        ctx.font = `600 ${size}px "Georgia", "Times New Roman", "PT Serif", serif`;
+        if (ctx.measureText(text).width <= maxW) return size;
+        size -= 2;
+      } while (size > 14);
+      return size;
+    };
+
+    const sizes = lines.map((t) => fitFont(t, fontSize));
+    const lineGap = Math.round(Math.max(...sizes) * 1.18);
+    const blockH = lineGap * (lines.length - 1);
+    const y0 = cy - blockH / 2;
+
+    ctx.save();
+    ctx.translate(cx, cy);
+    ctx.rotate((style.rotation * Math.PI) / 180);
+    ctx.translate(-cx, -cy);
+    lines.forEach((text, i) => {
+      const size = sizes[i];
+      const y = y0 + i * lineGap;
+      ctx.font = `600 ${size}px "Georgia", "Times New Roman", "PT Serif", serif`;
+      ctx.fillStyle = 'rgba(60,30,20,0.16)';
+      ctx.fillText(text, cx + 1.5, y + 1.5);
+      ctx.fillStyle = style.color;
+      ctx.fillText(text, cx, y);
+    });
+    ctx.restore();
+  },
+
+  async restoreMasterBaseWithoutText() {
+    const base = this.studioMasterBaseUrl;
+    if (!base) {
+      this.toast('Нет Master Base — сначала создайте Master', 'error');
+      return;
+    }
+    this.commitMasterImage(base, '✅ Master без программной надписи');
+    if (this.currentProduct) this.currentProduct.inscription = null;
+    const statusEl = document.getElementById('sign-text-status');
+    if (statusEl) statusEl.textContent = 'Сброшено к Master Base';
+    this.toast('Надпись снята — снова Master Base', 'info');
+  },
+
+  async applySignTextOnMaster() {
+    const baseUrl = this.studioMasterBaseUrl || this.studioMasterDataUrl || this.studioCompare?.master;
+    const { line1, line2 } = this.getSignTextLines();
+    if (!baseUrl || !this.signTextFrame) {
+      this.toast('Сначала создайте Master', 'error');
+      return;
+    }
+    if (!line1 && !line2) {
+      this.toast('Введите имя и/или строку возраста', 'error');
+      return;
+    }
+
+    const btn = document.getElementById('apply-sign-text-btn');
+    const statusEl = document.getElementById('sign-text-status');
+    if (btn) btn.disabled = true;
+    if (statusEl) statusEl.textContent = '🖍 Надпись поверх Master Base...';
+
+    try {
+      if (!this.studioMasterBaseUrl) this.studioMasterBaseUrl = baseUrl;
+
+      const masterImg = await this.loadImage(baseUrl);
+      const MASTER_SIZE = this.MASTER_SIZE || 2048;
+      const out = document.createElement('canvas');
+      out.width = MASTER_SIZE;
+      out.height = MASTER_SIZE;
+      const ctx = out.getContext('2d');
+      ctx.imageSmoothingEnabled = true;
+      ctx.imageSmoothingQuality = 'high';
+      ctx.drawImage(masterImg, 0, 0, MASTER_SIZE, MASTER_SIZE);
+
+      const rect = this.stageFrameToImageRect({ width: MASTER_SIZE, height: MASTER_SIZE }, this.signTextFrame);
+      const dw = Math.max(8, Math.round(rect.sw));
+      const dx = Math.round(rect.sx);
+      const dy = Math.round(rect.sy);
+      const cx = dx + dw / 2;
+      const cy = dy + dw / 2;
+      const r = dw / 2;
+
+      this.softWashPlaqueDisk(ctx, out, cx, cy, r);
+
+      const lines = [line1, line2].filter(Boolean);
+      const style = this.getInscriptionStyle();
+      this.drawInscriptionLines(ctx, lines, cx, cy, r, style);
+
+      const inscription = {
+        enabled: true,
+        target: 'plaque',
+        text: lines.join('\n'),
+        line1,
+        line2,
+        font: 'Georgia',
+        fontSizePct: style.sizePct,
+        color: style.color,
+        rotation: style.rotation,
+        x: this.signTextFrame.x,
+        y: this.signTextFrame.y,
+        size: this.signTextFrame.size
+      };
+      if (this.currentProduct) this.currentProduct.inscription = inscription;
+
+      const merged = out.toDataURL('image/webp', this.WEBP_QUALITY ?? 1.0);
+      this.commitMasterImage(merged, '✅ Master Final: надпись из полей (без AI)');
+      if (statusEl) statusEl.textContent = '✅ Надпись нанесена — можно кропать или править и нанести снова';
+      this.toast('Надпись нанесена программно', 'success');
+    } catch (err) {
+      console.error('[Inscription]', err);
+      if (statusEl) statusEl.textContent = '❌ ' + err.message;
+      this.toast(err.message, 'error');
+    } finally {
+      if (btn) btn.disabled = false;
+    }
+  },
+
+  /** Map square-stage frame (object-fit:contain) → image pixel rect */
+  stageFrameToImageRect(img, frame) {
+    const iw = img.naturalWidth || img.width;
+    const ih = img.naturalHeight || img.height;
+    const scale = Math.min(1 / iw, 1 / ih);
+    const ox = (1 - iw * scale) / 2;
+    const oy = (1 - ih * scale) / 2;
+    let sx = (frame.x - ox) / scale;
+    let sy = (frame.y - oy) / scale;
+    let sw = frame.size / scale;
+    let sh = frame.size / scale;
+    sx = Math.max(0, Math.min(sx, iw - 1));
+    sy = Math.max(0, Math.min(sy, ih - 1));
+    sw = Math.max(1, Math.min(sw, iw - sx));
+    sh = Math.max(1, Math.min(sh, ih - sy));
+    return { sx, sy, sw, sh };
   },
 
   resetCropFrames(syncDom = true) {

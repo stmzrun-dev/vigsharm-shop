@@ -49,6 +49,8 @@ export default {
         return handleStudioRestore(request, env);
       if (path === '/api/studio/upscale' && method === 'POST')
         return handleStudioUpscale(request, env);
+      if (path === '/api/studio/sign-text' && method === 'POST')
+        return handleStudioSignText(request, env);
       if (path.startsWith('/api/studio/status/') && method === 'GET')
         return handleStudioStatus(path, env);
       if (path === '/api/studio/upload' && method === 'POST')
@@ -365,9 +367,16 @@ function buildRephotographPrompt(scene) {
 - do NOT add, remove, redraw, simplify or beautify any product element
 - when uncertain, keep the original detail — do NOT guess`;
 
-  const forbidden = `FORBIDDEN: sticker/cutout appearance, white or dark halo, invented text, changed colors, plastic CGI look, furniture, window, curtains from the original room, melting ribbons, harsh cast shadows, yellow/orange color cast, duplicate objects, collage`;
+  const forbidden = `FORBIDDEN: sticker/cutout appearance, white or dark halo, invented text, changed colors, plastic CGI look, furniture, window, curtains from the original room, melting ribbons, harsh cast shadows, yellow/orange color cast, duplicate objects, collage, dark moody look, evening lighting, underexposure, extra balloons, new foreground balloon clusters, objects not present in the original`;
 
   const light = `LIGHTING: soft even professional studio product photography. Remove harsh window backlight. Match exposure and white balance to the studio room. Real photograph, not CGI render.`;
+
+  const brightLight = `LIGHTING — BRIGHT DAYLIGHT STUDIO (critical):
+- Bright, well-lit catalog photo — NOT dark, NOT evening, NOT underexposed
+- High-key soft daylight; lift exposure on the product so balloons and foil look vivid
+- Neutral white balance; wall and floor must read as light beige-grey, not taupe or muddy
+- Remove window backlight but KEEP the product bright — do not darken the whole scene
+- Soft diffuse studio light; no dramatic shadows, no moody cinematic grade`;
 
   if (scene === 'handheld_bouquet') {
     return `Edit the provided hand-held balloon bouquet photo for a square VigSharm catalog card. Change ONLY the surrounding background and lighting.
@@ -400,19 +409,43 @@ ${forbidden}
 OUTPUT: one square 1:1 catalog photo, full product visible with comfortable margins.`;
   }
 
+  if (scene === 'photozone') {
+    return `Edit the provided large photozone / floor balloon installation photo for a square VigSharm catalog card. Change ONLY the room background and lighting.
+
+${lock}
+
+Use the SECOND reference image as the real VigSharm photozone studio — full room: warm beige-grey wall, white baseboard, grey-beige laminate floor with horizontal planks. Match that reference background as closely as possible.
+
+SCALE — tall installation (~1.8 m easel / photozone height):
+- This is a LARGE tall floor installation, not a small tabletop item
+- The product must fill approximately 78–88% of the frame HEIGHT — minimal empty wall above
+- Keep full width of the composition visible; do NOT shrink the set into a tiny object in the center
+- Preserve human-scale proportions: easel and balloon cluster should dominate the catalog frame
+
+Only minimal soft contact shadows where objects genuinely touch the floor.
+
+${brightLight}
+
+${forbidden}
+
+OUTPUT: one square 1:1 professional catalog photo, tall photozone large in frame, bright and vivid.`;
+  }
+
   return `Edit the provided floor-standing balloon composition photo for a square VigSharm catalog card. Change ONLY the room background and lighting.
 
 ${lock}
 
-Use the SECOND reference image as the real VigSharm studio environment: warm beige-grey wall, white baseboard, grey-beige laminate floor with horizontal planks.
+Use the SECOND reference image as the real VigSharm studio environment — match it as closely as possible: warm beige-grey wall, white baseboard, grey-beige laminate floor with horizontal planks.
 
 Keep the real base/support and natural floor position from the original. Only minimal soft contact shadow where the product genuinely touches the floor.
 
-${light}
+SCALE: floor composition should fill approximately 70–85% of frame height — not a small object floating in empty room.
+
+${brightLight}
 
 ${forbidden}
 
-OUTPUT: one square 1:1 professional catalog photo, full composition visible with comfortable margins.`;
+OUTPUT: one square 1:1 professional catalog photo, composition large and bright in frame.`;
 }
 
 function buildRephotographAttempts(imageUrl, referenceUrl, prompt, resolution = '2K') {
@@ -702,6 +735,95 @@ Fix a phone photo taken in poor lighting:
   return json({ ok: true, job_id: generateResp.id, status: 'processing' });
 }
 
+/**
+ * Rewrite ONLY the plaque/sign lettering on an existing Master.
+ * Text comes from the operator (line1/line2) — model must not invent spelling.
+ */
+async function handleStudioSignText(request, env) {
+  const body = await request.json();
+  const {
+    image_url,
+    line1 = '',
+    line2 = '',
+    region = null,
+    resolution = '2K'
+  } = body;
+
+  if (!image_url) {
+    return json({ ok: false, error: 'Missing image_url' }, 400);
+  }
+
+  const l1 = String(line1 || '').trim();
+  const l2 = String(line2 || '').trim();
+  if (!l1 && !l2) {
+    return json({ ok: false, error: 'Укажите текст для таблички (line1 и/или line2)' }, 400);
+  }
+
+  const exactText = [l1, l2].filter(Boolean).join('\n');
+  let regionHint = 'Focus on the white circular plaque / sign board already in the photo (usually among the balloons).';
+  if (region && typeof region.x === 'number' && typeof region.y === 'number' && typeof region.size === 'number') {
+    const cx = Math.round((region.x + region.size / 2) * 100);
+    const cy = Math.round((region.y + region.size / 2) * 100);
+    const sz = Math.round(region.size * 100);
+    regionHint = `The plaque is near ${cx}% from left, ${cy}% from top, roughly ${sz}% of frame size — edit ONLY that white disk.`;
+  }
+
+  const prompt = `Edit this square VigSharm catalog photo. Change ONLY the lettering on the existing white circular plaque/sign.
+
+TASK:
+1. Erase the old wrong text on that white disk (wrong name/spelling/age).
+2. Paint the NEW text EXACTLY as given below — same language, letters, punctuation, line breaks.
+3. Keep the same white circular board, wood easel/frame if visible, perspective, lighting, soft shadows.
+
+NEW TEXT (copy exactly, do NOT autocorrect or invent):
+---
+${exactText}
+---
+
+${regionHint}
+
+LOCKED — do not change:
+- Spider-Man / character foil figures, chrome, latex balloons, balloon COUNT and positions
+- foil number balloons (e.g. red "3") — leave number foil as-is
+- floor, wall, baseboard, overall composition and camera framing
+- do NOT add balloons, stars, or any new objects
+- do NOT replace the plaque with a flat digital sticker or perfect vector circle
+- text must look hand-lettered / printed ON the physical plaque, not a floating overlay
+
+FORBIDDEN: changing the room, inventing different name/age, extra foreground balloons, CGI plaque, cropping the product out.
+
+OUTPUT: same square 1:1 photo, only plaque lettering corrected.`;
+
+  const res = ['1K', '2K', '4K'].includes(resolution) ? resolution : '2K';
+  const attempts = [
+    { model: 'image/gpt-image-2-edit', input: { prompt, image: image_url, aspect_ratio: '1:1', resolution: res } },
+    { model: 'image/gpt-image-2-edit', input: { prompt, image: image_url, aspect_ratio: '1:1' } },
+    { model: 'image/nano-banana-edit', input: { prompt, image: image_url } },
+    { model: 'image/nano-banana-2', input: { prompt, image: image_url, resolution: res } }
+  ];
+
+  let generateResp = null;
+  for (const attempt of attempts) {
+    console.log('[Studio SignText] try', attempt.model);
+    generateResp = await nordRequest('/media/generate', 'POST', {
+      model: attempt.model,
+      input: attempt.input
+    }, env);
+    if (!generateResp.error && generateResp.id) break;
+    console.warn('[Studio SignText] failed', attempt.model, generateResp.error || generateResp);
+  }
+
+  if (generateResp?.error || !generateResp?.id) {
+    return json({
+      ok: false,
+      error: 'Ошибка sign-text: ' + JSON.stringify(generateResp?.error || generateResp)
+    }, 500);
+  }
+
+  console.log('[Studio SignText] job_id=', generateResp.id, 'text=', exactText);
+  return json({ ok: true, job_id: generateResp.id, status: 'processing' });
+}
+
 /** Upscale crop to 2K for sharp catalog zooms */
 async function handleStudioUpscale(request, env) {
   const { image_url, resolution = '2K' } = await request.json();
@@ -864,6 +986,13 @@ async function handleStudioStatus(path, env) {
     console.log('[Studio Status] ? Returning result for job:', jobId);
     console.log('[DIAGNOSTIC] ?? Data URL MIME:', detectedMimeType);
     return json({ ok: true, status: 'done', result_url: dataUrl, format: 'base64' });
+  }
+
+  if (result.status === 'failed') {
+    const errDetail = result.error?.message || result.error || result.message || 'Модель отклонила задачу';
+    const errText = typeof errDetail === 'string' ? errDetail : JSON.stringify(errDetail);
+    console.error('[Studio Status] failed job:', jobId, errText);
+    return json({ ok: false, status: 'failed', error: errText });
   }
 
   return json({ ok: true, status: result.status || 'processing' });

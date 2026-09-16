@@ -261,7 +261,8 @@ legend{font-size:15px;font-weight:600;padding:0 12px;color:#212121}
 .studio-compare h3{margin:0 0 8px;font-size:16px;color:#424242}
 .studio-compare-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;max-width:560px}
 .studio-compare-grid-2{grid-template-columns:repeat(2,minmax(0,1fr));max-width:420px}
-.studio-lead{font-size:13px;color:#616161;margin:0 0 10px;line-height:1.45}
+.studio-lead{font-size:13px;color:#616161;margin:0 0 6px;line-height:1.45}
+.studio-mode-hint{font-size:12px;color:#2E7D32;margin:0 0 10px;line-height:1.4;font-weight:600}
 .studio-compare-slot{position:relative;display:block;width:100%;padding:0;border:1px solid #E0E0E0;border-radius:10px;overflow:hidden;background:#111;cursor:pointer;aspect-ratio:1}
 .studio-compare-slot img{display:block;width:100%;height:100%;object-fit:contain}
 .studio-compare-slot img:not([src]),.studio-compare-slot img[src=""]{display:none}
@@ -285,6 +286,18 @@ legend{font-size:15px;font-weight:600;padding:0 12px;color:#212121}
 .crop-preview canvas{display:block;width:140px;height:140px}
 .crop-preview-label{position:absolute;top:4px;left:4px;z-index:1;font-size:11px;font-weight:700;color:#fff;background:rgba(0,0,0,.65);padding:2px 6px;border-radius:4px}
 .crop-actions{display:flex;gap:12px;flex-wrap:wrap;justify-content:flex-start}
+
+/* Sign text: clear disk + canvas label */
+.sign-text-editor{margin-top:20px;padding:16px;border:1px solid #CE93D8;border-radius:12px;background:#FAF5FC}
+.sign-text-editor h3{margin:0 0 8px;font-size:16px;color:#7B1FA2}
+.sign-text-fields{max-width:520px;margin-bottom:12px}
+.sign-text-style{max-width:520px;margin-bottom:12px}
+.sign-text-style input[type=range]{width:100%;padding:0;background:transparent}
+.sign-text-style input[type=color]{height:40px;padding:4px;cursor:pointer}
+.form-row-3{grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:12px}
+.sign-text-layout{display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap;margin-bottom:16px}
+.sign-text-layout .crop-stage{flex:1 1 220px;max-width:340px}
+.sign-text-frame{border-color:#AB47BC!important;background:rgba(171,71,188,.12)!important;border-radius:50%}
 
 @media(max-width:768px){
   .products-header{flex-direction:column;align-items:stretch}
@@ -367,6 +380,7 @@ legend{font-size:15px;font-weight:600;padding:0 12px;color:#212121}
 .crop-stage img.zoomable{pointer-events:auto;cursor:zoom-in;z-index:1}
 @media(max-width:768px){
   .form-row-2{grid-template-columns:1fr}
+  .form-row-3{grid-template-columns:1fr}
   .chips-grid{grid-template-columns:1fr 1fr}
   .option-cards{grid-template-columns:1fr}
   .studio-toolbar{flex-direction:column;align-items:stretch}

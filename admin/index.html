@@ -77,7 +77,8 @@
             <div class="scene-selector scene-select-wrap" id="scene-selector"></div>
             <button type="button" class="btn outline" id="photo-upload-btn" onclick="document.getElementById('photo-input').click()">+ Загрузить</button>
           </div>
-          <p class="studio-lead">Оригинал + эталон комнаты → AI-пересъёмка в студии VigSharm → кропы #2/#3. Эталон — в «Настройки».</p>
+          <p class="studio-lead">Напольная / фотозона — AI-пересъёмка → Master Base. Надпись — отдельным слоем из полей (без AI). Стена — эталон + cutout. Эталон — в «Настройки».</p>
+          <p class="studio-mode-hint" id="studio-mode-hint"></p>
           <div class="status" id="studio-status"></div>
 
           <div class="photo-section" id="photo-dropzone">
@@ -106,6 +107,51 @@
                 <span class="studio-compare-empty hidden" id="studio-compare-master-empty">—</span>
               </button>
             </div>
+          </div>
+
+          <!-- Надпись: программный слой на Master Base -->
+          <div id="sign-text-editor" class="sign-text-editor hidden">
+            <h3>Надпись на табличку</h3>
+            <p class="lead">AI не пишет буквы. Круг на диске → смыть старый текст → нанести ваш. Повтор «Нанести» всегда от Master Base.</p>
+            <div class="sign-text-fields form-row form-row-2">
+              <div class="form-group">
+                <label>Имя на табличке</label>
+                <input id="sign-text-line1" placeholder="Марку" autocomplete="off"/>
+              </div>
+              <div class="form-group">
+                <label>Вторая строка</label>
+                <input id="sign-text-line2" placeholder="3 года!" autocomplete="off"/>
+              </div>
+            </div>
+            <div class="sign-text-style form-row form-row-3">
+              <div class="form-group">
+                <label>Размер %</label>
+                <input id="sign-text-size" type="range" min="10" max="24" value="16"/>
+              </div>
+              <div class="form-group">
+                <label>Угол °</label>
+                <input id="sign-text-rotation" type="range" min="-15" max="15" value="-3"/>
+              </div>
+              <div class="form-group">
+                <label>Цвет</label>
+                <input id="sign-text-color" type="color" value="#8B1A1A"/>
+              </div>
+            </div>
+            <div class="sign-text-layout">
+              <div class="crop-stage" id="sign-text-stage">
+                <img id="sign-text-master-img" alt="Master" draggable="false" class="zoomable" onclick="app.openLightbox(this.src)"/>
+                <div class="crop-frame sign-text-frame" id="sign-text-frame">
+                  <span class="crop-frame-label">Табличка</span>
+                  <div class="crop-handle" data-handle="se"></div>
+                </div>
+              </div>
+            </div>
+            <div class="btn-group crop-actions">
+              <button type="button" class="btn outline" onclick="app.resetSignTextFrame()">↺ Рамка</button>
+              <button type="button" class="btn outline" onclick="app.restoreMasterBaseWithoutText()">Без надписи</button>
+              <button type="button" class="btn secondary" id="apply-sign-text-btn" onclick="app.applySignTextOnMaster()">Нанести надпись</button>
+            </div>
+            <div class="status" id="sign-text-status"></div>
           </div>
 
           <!-- Кропы #2 / #3 + live preview -->

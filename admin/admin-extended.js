@@ -176,6 +176,7 @@ Object.assign(app, {
     if (select) {
       select.addEventListener('change', () => {
         this.currentProduct.scene = select.value;
+        this.syncStudioModeHint?.();
       });
     }
   },
@@ -390,6 +391,7 @@ Object.assign(app, {
     if (titleEl) titleEl.textContent = 'Новый товар';
 
     this.renderPhotos();
+    this.syncStudioModeHint?.();
     this.refreshStudioCheckpointUi?.();
   }
 });
@@ -440,6 +442,7 @@ app.loadProductToForm = function(product) {
   this.currentProduct.scene = product.scene || 'auto';
   const sceneSelect = document.getElementById('scene-select');
   if (sceneSelect) sceneSelect.value = this.currentProduct.scene;
+  this.syncStudioModeHint?.();
   this.refreshStudioCheckpointUi?.();
 
   // Основные данные

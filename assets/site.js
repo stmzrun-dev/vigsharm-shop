@@ -9,28 +9,116 @@
   var WA_TEXT = 'Здравствуйте! Хочу сделать заказ в Вигшарм.';
   var REMOTE = 'https://vigsharm-new.stmzrun.chatgpt.site';
 
-  // Приводит товар из Worker API (схема D1: article/full_description/character/photos/composition[])
-  // к плоским полям, которые ожидает старый код витрины (sku/description/character_name/image_keys/
-  // composition-строка). Конфигуратор цифр/надписи/аренды НЕ восстанавливается —
-  // админка пока не собирает эти данные (has_digit_choice, digit_images, inscription_price,
-  // rental_item и т.д.), поэтому карточки без него, но фото/название/цена/описание корректны.
+  // Приводит товар из Worker API (схема D1) к плоским полям витрины.
+  // client_options (админка + legacy) → has_digit_choice / has_inscription / has_rental.
+  function vigTruthy(v) {
+    return v === true || v === 1 || v === '1';
+  }
+  function vigOptEnabled(opt) {
+    if (opt === true || opt === 1 || opt === '1') return true;
+    if (opt && typeof opt === 'object') return vigTruthy(opt.enabled);
+    return false;
+  }
+  window.vigIsStorefrontVisible = function (p) {
+    if (!p) return false;
+    // Hide drafts only. Many published rows still have show_on_site=0 from older saves.
+    if (p.status && p.status !== 'published') return false;
+    return true;
+  };
+  /** First usable product photo from D1 (photos/main_photo) or legacy image_keys. */
+  window.vigProductPhoto = function (p) {
+    if (!p) return '';
+    var keys = p.image_keys;
+    if ((!keys || !keys.length) && Array.isArray(p.photos) && p.photos.length) keys = p.photos;
+    if (keys && keys.length && keys[0]) return keys[0];
+    return p.main_photo || '';
+  };
   window.vigNormalizeProduct = function (p) {
     if (!p) return p;
     p.sku = p.sku || p.article || '';
     p.description = p.description || p.full_description || '';
     p.character_name = p.character_name || p.character || '';
-    p.image_keys = p.image_keys || p.photos || [];
+    var photos = Array.isArray(p.photos) ? p.photos.filter(Boolean) : [];
+    if (p.main_photo && photos.indexOf(p.main_photo) < 0) photos.unshift(p.main_photo);
+    if (Array.isArray(p.image_keys) && p.image_keys.length) {
+      p.image_keys = p.image_keys.filter(Boolean);
+    } else {
+      p.image_keys = photos;
+    }
+    if (!p.image_keys.length && p.main_photo) p.image_keys = [p.main_photo];
     if (Array.isArray(p.composition)) p.composition = p.composition.join('\n');
+
+    var opts = p.client_options;
+    if (typeof opts === 'string') {
+      try { opts = JSON.parse(opts || '{}'); } catch (e) { opts = {}; }
+    }
+    opts = opts || {};
+
+    // New admin flags + legacy nested objects from migration
+    var digitOn = vigTruthy(opts.number_choice) || vigOptEnabled(opts.digit_choice);
+    var inscriptionOn = vigTruthy(opts.personal_inscription) || vigOptEnabled(opts.inscription);
+    var rentalOn = vigTruthy(opts.photozone_rental) || vigOptEnabled(opts.rental);
+    var availableOn = vigTruthy(opts.available_on_request) || vigOptEnabled(opts.available_on_request);
+
+    if (digitOn) {
+      p.has_digit_choice = true;
+      var digitCount = (opts.digit_choice && opts.digit_choice.count_on_photo) || p.digit_count_on_photo || 1;
+      p.digit_count_on_photo = Math.max(1, Number(digitCount) || 1);
+    } else if (p.has_digit_choice == null) {
+      p.has_digit_choice = false;
+    }
+
+    if (inscriptionOn) {
+      p.has_inscription = true;
+      if (p.inscription_price == null) {
+        p.inscription_price = (opts.inscription && opts.inscription.price != null)
+          ? Number(opts.inscription.price) || 0
+          : 0;
+      }
+    } else if (p.has_inscription == null) {
+      p.has_inscription = false;
+    }
+
+    if (rentalOn) {
+      p.has_rental = true;
+      var rental = opts.rental && typeof opts.rental === 'object' ? opts.rental : {};
+      if (!p.rental_item) {
+        p.rental_item = rental.item || 'Стойки, арки и декор фотозоны';
+      }
+      if (p.rental_days == null) p.rental_days = rental.days != null ? Number(rental.days) || 3 : 3;
+      if (p.keep_price_delta == null) {
+        p.keep_price_delta = rental.keep_price_delta != null ? Number(rental.keep_price_delta) || 0 : 0;
+      }
+    } else if (p.has_rental == null) {
+      p.has_rental = false;
+    }
+
+    p.available_on_request = availableOn || !!p.available_on_request;
     return p;
   };
   window.vigNormalizeProducts = function (list) {
     return (list || []).map(window.vigNormalizeProduct);
   };
+  window.vigStorefrontProducts = function (list) {
+    return window.vigNormalizeProducts(list).filter(window.vigIsStorefrontVisible);
+  };
 
-  // Resolves a product image key to a local path, with remote fallback handled via onerror.
+  // Resolves a product image key/URL for the storefront (Cloudinary, local images, legacy keys).
   window.vigImage = function (key) {
     if (!key) return '';
-    if (key.indexOf('http') === 0 || key.charAt(0) === '/') return key;
+    if (key.indexOf('http') === 0 || key.indexOf('data:') === 0) return key;
+    // Admin/legacy relative paths: ../images/foo.png → images/foo.png (GH Pages / local)
+    if (key.indexOf('../') === 0) key = key.replace(/^(\.\.\/)+/, '');
+    if (key.indexOf('./') === 0) key = key.slice(2);
+    if (key.charAt(0) === '/') return key;
+    if (
+      key.indexOf('images/') === 0 ||
+      key.indexOf('icons/') === 0 ||
+      key.indexOf('assets/') === 0 ||
+      key.indexOf('api/images/') === 0
+    ) {
+      return key;
+    }
     return 'api/images/' + key;
   };
 

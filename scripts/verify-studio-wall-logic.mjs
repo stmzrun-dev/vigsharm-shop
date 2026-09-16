@@ -19,9 +19,11 @@ function assert(cond, msg) {
 }
 
 assert(worker.includes('/api/studio/rephotograph'), 'rephotograph route');
-assert(worker.includes('photozone / floor balloon installation'), 'photozone prompt distinct');
+assert(worker.includes('photozone / floor balloon installation') || worker.includes('ROUND FRAME photozone') || worker.includes('photozone on an EASEL'), 'photozone prompt distinct');
 assert(worker.includes('BRIGHT DAYLIGHT STUDIO'), 'bright light in rephotograph prompt');
-assert(worker.includes('1.8 m easel'), 'tall photozone scale hint');
+assert(worker.includes('1.8 m easel') || worker.includes('~1.8 m') || worker.includes('1.8 meters'), 'tall photozone scale hint');
+assert(worker.includes('3 METERS') || worker.includes('Ø3 m') || worker.includes('3 meters'), 'round frame 3m scale');
+assert(worker.includes('photozone_type'), 'photozone_type passed to rephotograph');
 assert(worker.includes('balloon_figures'), 'balloon_figures scene in worker');
 assert(worker.includes('human-scale balloon sculpture'), 'figures scale prompt');
 assert(adminJs.includes("value: 'balloon_figures'"), 'balloon_figures in SCENES');
@@ -79,6 +81,8 @@ assert(worker.includes('Сырой состав'), 'AI formats user composition'
 assert(worker.includes('GENERIC_OCCASIONS'), 'generic occasion stripped');
 assert(worker.includes('delete data.article'), 'AI card does not invent article');
 assert(worker.includes('sanitizeCompositionColors'), 'composition color strip');
+assert(worker.includes('sanitizeCompositionBoxes'), 'box composition normalize');
+assert(worker.includes('с индивидуальной надписью и декором'), 'box inscription phrase');
 assert(worker.includes('фольгированных персонажей'), 'foil ≠ фигуры из шаров');
 assert(worker.includes("case 'wall_only': return 'Букет из шаров'"), 'wall scene not фигуры tag');
 assert(ai.includes('assignFreshArticle'), 'article after AI fill');

@@ -188,10 +188,10 @@ Object.assign(app, {
     this.syncAdvanceOrderFromScene?.();
   },
 
-  /** В составе: «… с надписью», «коробка … с индивидуальной надписью» и т.п. */
+  /** В составе: «коробка», «… с надписью», «с индивидуальной надписью» и т.п. */
   compositionHasPersonalInscription(text) {
     const t = String(text || '').toLowerCase().replace(/ё/g, 'е');
-    return /надпис|индивидуальн/.test(t);
+    return /надпис|индивидуальн|коробк/.test(t);
   },
 
   /** Сколько фольгированных цифр в составе: 1 / 2 / 0 если не указано. */
@@ -295,6 +295,7 @@ Object.assign(app, {
         const rentalItemEl = document.getElementById('rental-item');
         if (rentalItemEl) rentalItemEl.dataset.autoFill = '1';
         this.syncAdvanceOrderFromScene?.();
+        this.syncStudioModeHint?.();
       });
     });
     const rentalItemEl = document.getElementById('rental-item');

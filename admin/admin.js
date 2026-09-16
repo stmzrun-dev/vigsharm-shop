@@ -37,6 +37,15 @@ const PHOTOZONE_TYPES = {
 const PHOTOZONE_RENTAL_DAYS = 3;
 const PHOTOZONE_RENTAL_EXTRA_PER_DAY = 500;
 
+/** Группы списка товаров (как в старой админке / витрине) — свёрнуты по умолчанию */
+const LIST_GROUPS = [
+  { id: 'ready', title: 'Готовые решения', note: 'Композиции для любого повода', icon: '🎁' },
+  { id: 'characters', title: 'Персонажи', note: 'Любимые герои детей', icon: '🦸' },
+  { id: 'unit', title: 'Шары поштучно', note: 'Отдельные шары и фигуры', icon: '🎈' },
+  { id: 'holidays', title: 'Праздники', note: 'Сезонные коллекции', icon: '✨' }
+];
+const LIST_HOLIDAYS = ['Новый год', '14 февраля', '23 февраля', '8 марта', '9 мая', 'Выпускной', '1 сентября', 'День учителя', 'Хэллоуин'];
+
 const app = {
   workerUrl: 'https://vigsharm-api.vigsharm.workers.dev',
   studioReferenceBackgroundUrl: '',
@@ -54,6 +63,10 @@ const app = {
   products: [],
   listPageSize: 60,
   listVisible: 60,
+  /** Какие группы раскрыты: { ready: true, ... } — по умолчанию все свёрнуты */
+  listExpandedGroups: {},
+  /** Лимит строк внутри раскрытой группы */
+  listGroupVisible: {},
   currentProduct: { photos: [], scene: 'auto', tags: [], client_options: {} },
 
   init() {
@@ -160,6 +173,7 @@ const app = {
       if (!el) return;
       const resetAndRender = () => {
         this.listVisible = this.listPageSize;
+        this.listGroupVisible = {};
         this.renderProducts();
       };
       el.addEventListener('input', resetAndRender);
@@ -167,9 +181,34 @@ const app = {
     });
   },
 
-  showMoreProducts() {
-    this.listVisible += this.listPageSize;
+  showMoreProducts(groupId) {
+    if (groupId) {
+      const cur = this.listGroupVisible[groupId] || this.listPageSize;
+      this.listGroupVisible[groupId] = cur + this.listPageSize;
+    } else {
+      this.listVisible += this.listPageSize;
+    }
     this.renderProducts();
+  },
+
+  toggleListGroup(groupId) {
+    this.listExpandedGroups = this.listExpandedGroups || {};
+    this.listExpandedGroups[groupId] = !this.listExpandedGroups[groupId];
+    if (this.listExpandedGroups[groupId] && !this.listGroupVisible[groupId]) {
+      this.listGroupVisible[groupId] = this.listPageSize;
+    }
+    this.renderProducts();
+  },
+
+  productListGroupId(p) {
+    const tags = [p.category].concat(p.tags || []).filter(Boolean);
+    const isUnit = p.category === 'Шары поштучно' || tags.includes('Шары поштучно');
+    const isHoliday = tags.some((t) => LIST_HOLIDAYS.includes(t));
+    const hasChar = !!(String(p.character || p.character_name || '').trim());
+    if (isUnit) return 'unit';
+    if (isHoliday) return 'holidays';
+    if (hasChar) return 'characters';
+    return 'ready';
   },
 
   escapeHtml(str) {
@@ -359,34 +398,18 @@ const app = {
     });
   },
 
-  renderProducts() {
-    const container = document.getElementById('products-list');
-    if (!container) return;
-    const list = this.getFilteredProducts();
-    const countEl = document.getElementById('products-count');
-    if (countEl) countEl.textContent = `${list.length} из ${this.products.length}`;
-
-    if (list.length === 0) {
-      container.innerHTML = this.products.length === 0
-        ? '<div class="empty-state"><div class="icon">🎈</div><div class="title">Нет товаров</div></div>'
-        : '<div class="empty-state"><div class="icon">🔍</div><div class="title">Ничего не найдено</div></div>';
-      this.renderStats();
-      return;
-    }
-
-    const visible = list.slice(0, this.listVisible);
-    const rows = visible.map(p => {
-      const published = p.status === 'published';
-      const idJs = String(p.id ?? '').replace(/\\/g, '\\\\').replace(/'/g, "\\'");
-      const title = this.escapeHtml(p.title || 'Без названия');
-      const article = this.escapeHtml(p.article || '—');
-      const category = this.escapeHtml(p.category || '—');
-      const price = Number(p.price || 0).toLocaleString('ru-RU');
-      const photo = p.main_photo || (Array.isArray(p.photos) && p.photos[0]) || '';
-      const thumb = photo
-        ? `<img src="${this.escapeHtml(photo)}" alt="" loading="lazy" decoding="async"/>`
-        : '<span class="thumb-fallback" aria-hidden="true">🎈</span>';
-      return `
+  renderProductRow(p) {
+    const published = p.status === 'published';
+    const idJs = String(p.id ?? '').replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+    const title = this.escapeHtml(p.title || 'Без названия');
+    const article = this.escapeHtml(p.article || '—');
+    const category = this.escapeHtml(p.category || '—');
+    const price = Number(p.price || 0).toLocaleString('ru-RU');
+    const photo = p.main_photo || (Array.isArray(p.photos) && p.photos[0]) || '';
+    const thumb = photo
+      ? `<img src="${this.escapeHtml(photo)}" alt="" loading="lazy" decoding="async"/>`
+      : '<span class="thumb-fallback" aria-hidden="true">🎈</span>';
+    return `
       <article class="product-row">
         <div class="product-row-thumb">${thumb}</div>
         <div class="product-row-info">
@@ -403,14 +426,69 @@ const app = {
           <button type="button" class="btn sm danger" onclick="app.deleteProduct('${idJs}')">Удалить</button>
         </div>
       </article>`;
-    }).join('');
+  },
 
-    const remaining = list.length - visible.length;
-    const more = remaining > 0
-      ? `<button type="button" class="btn outline block products-more" onclick="app.showMoreProducts()">Показать ещё ${Math.min(remaining, this.listPageSize)} из ${remaining}</button>`
-      : '';
+  renderProducts() {
+    const container = document.getElementById('products-list');
+    if (!container) return;
+    const list = this.getFilteredProducts();
+    const countEl = document.getElementById('products-count');
+    if (countEl) countEl.textContent = `${list.length} из ${this.products.length}`;
 
-    container.innerHTML = rows + more;
+    if (list.length === 0) {
+      container.innerHTML = this.products.length === 0
+        ? '<div class="empty-state"><div class="icon">🎈</div><div class="title">Нет товаров</div></div>'
+        : '<div class="empty-state"><div class="icon">🔍</div><div class="title">Ничего не найдено</div></div>';
+      this.renderStats();
+      return;
+    }
+
+    const q = (document.getElementById('search-products')?.value || '').trim();
+    const byGroup = {};
+    LIST_GROUPS.forEach((g) => { byGroup[g.id] = []; });
+    list.forEach((p) => {
+      const gid = this.productListGroupId(p);
+      if (!byGroup[gid]) byGroup[gid] = [];
+      byGroup[gid].push(p);
+    });
+
+    // При поиске — сразу раскрываем группы, где есть совпадения
+    if (q) {
+      this.listExpandedGroups = this.listExpandedGroups || {};
+      LIST_GROUPS.forEach((g) => {
+        if ((byGroup[g.id] || []).length) this.listExpandedGroups[g.id] = true;
+      });
+    }
+
+    const html = LIST_GROUPS.map((g) => {
+      const items = byGroup[g.id] || [];
+      if (!items.length && q) return '';
+      const open = !!(this.listExpandedGroups && this.listExpandedGroups[g.id]);
+      const limit = this.listGroupVisible[g.id] || this.listPageSize;
+      const visible = open ? items.slice(0, limit) : [];
+      const remaining = open ? Math.max(0, items.length - visible.length) : 0;
+      const rows = visible.map((p) => this.renderProductRow(p)).join('');
+      const more = remaining > 0
+        ? `<button type="button" class="btn outline block products-more" onclick="app.showMoreProducts('${g.id}')">Показать ещё ${Math.min(remaining, this.listPageSize)} из ${remaining}</button>`
+        : '';
+      return `
+        <section class="product-group${open ? ' is-open' : ''}" data-group="${g.id}">
+          <button type="button" class="product-group-header" onclick="app.toggleListGroup('${g.id}')" aria-expanded="${open}">
+            <span class="product-group-icon" aria-hidden="true">${g.icon}</span>
+            <span class="product-group-text">
+              <strong>${this.escapeHtml(g.title)}</strong>
+              <small>${this.escapeHtml(g.note)}</small>
+            </span>
+            <span class="product-group-count">${items.length}</span>
+            <span class="product-group-toggle" aria-hidden="true">${open ? '−' : '+'}</span>
+          </button>
+          <div class="product-group-body${open ? '' : ' hidden'}">
+            ${open ? (rows || '<p class="product-group-empty">Пока пусто</p>') + more : ''}
+          </div>
+        </section>`;
+    }).filter(Boolean).join('');
+
+    container.innerHTML = html || '<div class="empty-state"><div class="icon">🔍</div><div class="title">Ничего не найдено</div></div>';
     this.renderStats();
   },
 

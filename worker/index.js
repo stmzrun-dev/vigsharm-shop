@@ -300,6 +300,9 @@ ${BUDGET_OPTIONS.join(' | ')}
   • НЕ добавляй цвет (жёлтых/синих…), если пользователь цвет не написал → «5 латексных шаров», не «5 жёлтых шаров»
   • фольгированный персонаж: «фольгированная фигура Пикачу» — ок; это НЕ «фигура из шаров»
   • НЕ считай и НЕ дополняй с фото
+  • КОРОБКА: если в составе есть «коробка» / «коробка-сюрприз» — оформи пункт так:
+    «коробка 70x70x70 с индивидуальной надписью и декором»
+    (если пользователь указал другой размер — сохрани его, напр. «коробка 60x60x60 с индивидуальной надписью и декором»)
   • ОРФОГРАФИЯ: исправь опечатки и ошибки в словах пользователя (падежи, «надписью», «звезда», «сердце», «баблс/бабл»), смысл и числа не меняй
 - Во всех текстовых полях (title, descriptions, composition, seo): грамотный русский, без орфографических ошибок
 - budget: только из BUDGET по цене пользователя
@@ -373,6 +376,19 @@ function sanitizeCompositionColors(lines, rawComposition) {
       'латексных шаров'
     );
     return s.replace(/\s{2,}/g, ' ').trim();
+  }).filter(Boolean);
+}
+
+/** «коробка» → «коробка 70x70x70 с индивидуальной надписью и декором» (размер сохраняем, если указан). */
+function sanitizeCompositionBoxes(lines) {
+  return (lines || []).map((line) => {
+    const s = String(line || '').trim();
+    if (!/коробк/i.test(s)) return s;
+    const sizeM = s.match(/(\d+)\s*[xх×]\s*(\d+)\s*[xх×]\s*(\d+)/i);
+    const size = sizeM ? `${sizeM[1]}x${sizeM[2]}x${sizeM[3]}` : '70x70x70';
+    const countM = s.match(/^(\d+)\s+/);
+    const count = countM ? `${countM[1]} ` : '';
+    return `${count}коробка ${size} с индивидуальной надписью и декором`;
   }).filter(Boolean);
 }
 
@@ -506,6 +522,9 @@ function sanitizeCardMetadata(data, scene = 'floor', price = 0, rawComposition =
   if (Array.isArray(data.composition) && rawComposition) {
     data.composition = sanitizeCompositionColors(data.composition, rawComposition);
   }
+  if (Array.isArray(data.composition)) {
+    data.composition = sanitizeCompositionBoxes(data.composition);
+  }
 
   const occ = String(data.occasion || '').toLowerCase();
   if (!data.occasion || GENERIC_OCCASIONS.has(occ)) {
@@ -637,7 +656,8 @@ function isWallOnlyScene(scene) {
   return ['wall_only', 'unit_balloon'].includes(scene);
 }
 
-function buildRephotographPrompt(scene) {
+function buildRephotographPrompt(scene, opts = {}) {
+  const photozoneType = opts.photozone_type === 'easel' ? 'easel' : 'frame';
   const lock = `LOCKED — preserve without any change:
 - entire original product; exact balloon count, shapes, sizes, colors, positions, overlaps
 - ALL decorative text that is PART OF THE PRODUCT PRINT on balloons (character art, foil prints, custom names/numbers meant to stay on the item) — copy exactly, never retype or autocorrect
@@ -733,7 +753,8 @@ OUTPUT: one square 1:1 bright professional catalog photo — ${unit ? 'single ba
   }
 
   if (scene === 'photozone') {
-    return `Edit the provided large photozone / floor balloon installation photo for a square VigSharm catalog card. Change ONLY the room background and lighting.
+    if (photozoneType === 'easel') {
+      return `Edit the provided photozone on an EASEL (~1.8 m tall) with polystyrene circle for a square VigSharm catalog card. Change ONLY the room background and lighting.
 
 ${lock}
 
@@ -741,11 +762,11 @@ ${logoClean}
 
 Use the SECOND reference image as the real VigSharm photozone studio — full room: warm beige-grey wall, white baseboard, grey-beige laminate floor with horizontal planks. Match that reference background as closely as possible.
 
-SCALE — tall installation (~1.8 m easel / photozone height):
-- This is a LARGE tall floor installation, not a small tabletop item
-- The product must fill approximately 78–88% of the frame HEIGHT — minimal empty wall above
-- Keep full width of the composition visible; do NOT shrink the set into a tiny object in the center
-- Preserve human-scale proportions: easel and balloon cluster should dominate the catalog frame
+SCALE — easel photozone height ~1.8 meters:
+- Tall floor installation on a wooden easel with a round board — NOT a small tabletop prop
+- Product must fill approximately 78–90% of the frame HEIGHT — minimal empty wall above
+- Keep full width visible; do NOT shrink into a tiny object in the center
+- Preserve human-scale proportions: a person standing next to it would see ~180 cm height
 
 Only minimal soft contact shadows where objects genuinely touch the floor.
 
@@ -753,7 +774,31 @@ ${brightLight}
 
 ${forbidden}
 
-OUTPUT: one square 1:1 professional catalog photo, tall photozone large in frame, bright and vivid.`;
+OUTPUT: one square 1:1 professional catalog photo, easel photozone (~1.8 m) large in frame, bright and vivid.`;
+    }
+
+    return `Edit the provided ROUND FRAME photozone (circular arch / hoop on a metal frame) for a square VigSharm catalog card. Change ONLY the room background and lighting.
+
+${lock}
+
+${logoClean}
+
+Use the SECOND reference image as the real VigSharm photozone studio — full room: warm beige-grey wall, white baseboard, grey-beige laminate floor with horizontal planks. Match that reference background as closely as possible.
+
+SCALE — CRITICAL: round frame diameter is about 3 METERS (huge party installation):
+- This is a MASSIVE circular photozone frame filling most of a room — NOT a small wreath, NOT a 1 m hoop
+- The circle/arch must dominate the catalog frame: fill approximately 88–96% of WIDTH and HEIGHT
+- Minimal empty wall/floor around the ring; edges of the frame may come close to the photo borders
+- Preserve real 3 m human scale — two adults could stand inside the circle comfortably
+- FORBIDDEN: miniaturizing the hoop, floating small ring in empty room, making it look under ~2 m
+
+Only minimal soft contact shadows where the frame base genuinely touches the floor.
+
+${brightLight}
+
+${forbidden}
+
+OUTPUT: one square 1:1 professional catalog photo — round Ø3 m photozone frame nearly filling the frame, bright and vivid.`;
   }
 
   if (scene === 'balloon_figures') {
@@ -865,6 +910,7 @@ async function handleStudioRephotograph(request, env) {
   const body = await request.json();
   const { image_url, reference_url, scene = 'floor', resolution = '2K' } = body;
   const prefer = body.prefer === 'banana' || body.prefer === 'fast' ? 'banana' : 'quality';
+  const photozone_type = body.photozone_type === 'easel' ? 'easel' : 'frame';
 
   if (!image_url || !reference_url) {
     return json({ ok: false, error: 'Missing image_url or reference_url' }, 400);
@@ -877,14 +923,14 @@ async function handleStudioRephotograph(request, env) {
     }
   }
 
-  const prompt = buildRephotographPrompt(scene);
+  const prompt = buildRephotographPrompt(scene, { photozone_type });
   const attempts = buildRephotographAttempts(image_url, reference_url, prompt, resolution, prefer);
 
   let generateResp = null;
   let usedModel = null;
 
   for (const attempt of attempts) {
-    console.log('[Studio Rephotograph] scene=', scene, 'prefer=', prefer, 'try model=', attempt.model);
+    console.log('[Studio Rephotograph] scene=', scene, 'photozone_type=', photozone_type, 'prefer=', prefer, 'try model=', attempt.model);
     generateResp = await nordRequest('/media/generate', 'POST', {
       model: attempt.model,
       input: attempt.input
@@ -974,7 +1020,7 @@ Do NOT reposition to fix floating. Do NOT redesign the product. No plastic 3D re
   if (scene === 'photozone') {
     return `${base}
 
-SCENE: large photozone on laminate near baseboard. Contact shadow under the base. Keep full structure.`;
+SCENE: large photozone on laminate near baseboard. Contact shadow under the base. Keep full structure and LARGE real-world scale (round frame ~3 m diameter OR easel ~1.8 m — do not miniaturize).`;
   }
 
   if (scene === 'balloon_figures') {

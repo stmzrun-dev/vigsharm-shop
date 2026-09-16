@@ -105,8 +105,8 @@
     if (!inscriptionOn && isBouquet) {
       inscriptionOn = true;
     }
-    // В составе «… с надписью» / «коробка … с индивидуальной надписью»
-    if (!inscriptionOn && /надпис|индивидуальн/i.test(compJoined)) {
+    // В составе «коробка» / «… с надписью» / «с индивидуальной надписью»
+    if (!inscriptionOn && /надпис|индивидуальн|коробк/i.test(compJoined)) {
       inscriptionOn = true;
     }
 

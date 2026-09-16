@@ -107,6 +107,15 @@ const boxInscription = vigNormalizeProduct({
 });
 assert(boxInscription.has_inscription === true, 'коробка с индивидуальной надписью → has_inscription');
 
+const boxShort = vigNormalizeProduct({
+  title: 'Box short',
+  scene: 'floor',
+  status: 'published',
+  composition: ['коробка', 'шары'],
+  client_options: {}
+});
+assert(boxShort.has_inscription === true, 'просто «коробка» → has_inscription');
+
 const floorOneDigit = vigNormalizeProduct({
   title: 'Floor 1',
   scene: 'floor',

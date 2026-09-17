@@ -13,6 +13,10 @@
   window.VIG_API = 'https://vigsharm-api.vigsharm.workers.dev';
   window.VIG_PRODUCTS_FALLBACK = 'data/products.json';
 
+  // В РФ Worker часто недоступен/висит. Витрина сначала берёт снимок с хоста сайта
+  // (быстро), Worker — только если снимка нет. Обновление снимка: admin / export-скрипт.
+  window.VIG_API_TIMEOUT_MS = 2500;
+
   window.vigFetchProducts = function () {
     function listFrom(data) {
       if (!data) return [];
@@ -20,8 +24,9 @@
       if (Array.isArray(data.products)) return data.products;
       return [];
     }
-    function load(url) {
-      return fetch(url, { cache: 'no-store' }).then(function (r) {
+    function load(url, opts) {
+      opts = opts || {};
+      return fetch(url, { cache: 'no-store', signal: opts.signal }).then(function (r) {
         if (!r.ok) throw new Error('HTTP ' + r.status);
         return r.json();
       }).then(function (data) {
@@ -30,8 +35,22 @@
         return list;
       });
     }
-    return load(window.VIG_API + '/api/products').catch(function () {
-      return load(window.VIG_PRODUCTS_FALLBACK);
+    function loadApiWithTimeout() {
+      var ms = Number(window.VIG_API_TIMEOUT_MS) || 2500;
+      var ctrl = typeof AbortController !== 'undefined' ? new AbortController() : null;
+      var timer = null;
+      if (ctrl) {
+        timer = setTimeout(function () {
+          try { ctrl.abort(); } catch (e) { /* ignore */ }
+        }, ms);
+      }
+      return load(window.VIG_API + '/api/products', ctrl ? { signal: ctrl.signal } : {})
+        .finally(function () {
+          if (timer) clearTimeout(timer);
+        });
+    }
+    return load(window.VIG_PRODUCTS_FALLBACK).catch(function () {
+      return loadApiWithTimeout();
     });
   };
 

@@ -1937,11 +1937,13 @@ body:has(.product-page) footer .footer-cta{
   font-size:0!important;
 }
 
-/* ========== price page polish (parity with delivery) ========== */
+/* ========== price page polish ========== */
 .price-page .footer-cta{display:none!important}
+.price-page .footer-contacts>button{display:none!important}
 .price-page .info-page{padding-top:12px;padding-bottom:48px}
 .price-page .price-info-hero{margin-top:12px!important}
 .price-page .price-group:hover{transform:none!important}
+.price-page .price-group{scroll-margin-top:88px}
 .price-page .price-group-heading>span img{
   width:28px!important;
   height:28px!important;
@@ -1960,6 +1962,9 @@ body:has(.product-page) footer .footer-cta{
 .price-page .price-group>div:last-child strong{
   color:#1E1E1E!important;
   font-weight:800!important;
+  font-size:17px!important;
+  font-variant-numeric:tabular-nums;
+  letter-spacing:-.02em;
 }
 .price-page .price-explanation>span{
   font-size:0!important;
@@ -1973,10 +1978,82 @@ body:has(.product-page) footer .footer-cta{
   height:32px!important;
   object-fit:contain!important;
 }
+.price-jump{
+  display:flex;
+  flex-wrap:nowrap;
+  gap:8px;
+  overflow-x:auto;
+  -webkit-overflow-scrolling:touch;
+  scrollbar-width:none;
+  width:min(1320px,100% - 72px);
+  margin:14px auto 0;
+  padding:0 2px 4px;
+}
+.price-jump::-webkit-scrollbar{display:none}
+.price-jump a{
+  flex:0 0 auto;
+  display:inline-flex;
+  align-items:center;
+  min-height:36px;
+  padding:0 14px;
+  border-radius:999px;
+  border:1px solid #EBEBEB;
+  background:#fff;
+  color:#1E1E1E;
+  font:650 13px/1.2 system-ui,sans-serif;
+  text-decoration:none;
+  white-space:nowrap;
+}
+.price-includes{
+  width:min(1320px,100% - 72px);
+  margin:12px auto 0;
+  padding:10px 14px;
+  border-radius:12px;
+  background:#FBFBFA;
+  border:1px solid #EBEBEB;
+  font-size:13px;
+  line-height:1.4;
+  color:#71717A;
+  font-weight:600;
+}
+.price-ask{
+  grid-column:1 / -1;
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  align-items:center;
+  margin:0;
+}
+.price-ask .button{
+  min-height:48px;
+  text-decoration:none;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:0 18px;
+  font-weight:800;
+}
+.price-subhead{
+  grid-column:1 / -1;
+  margin:14px 0 4px;
+  padding:0 2px;
+  font:750 12px/1.3 system-ui,sans-serif;
+  letter-spacing:.04em;
+  text-transform:uppercase;
+  color:#71717A;
+}
+
+@media (width>650px) and (width<=1020px){
+  .price-page .price-groups{
+    grid-template-columns:1fr!important;
+    width:calc(100% - 40px)!important;
+  }
+  .price-jump,.price-includes{width:calc(100% - 40px)}
+}
 
 @media (width<=1020px){
   .price-page .info-page{padding-top:8px}
-  .price-page .price-groups{margin-top:20px!important}
+  .price-page .price-groups{margin-top:16px!important}
 }
 
 @media (width<=650px){
@@ -2011,6 +2088,8 @@ body:has(.product-page) footer .footer-cta{
     height:32px!important;
   }
   .price-page .info-hero-emoji>span{display:none!important}
+  .price-jump,.price-includes{width:calc(100% - 20px)}
+  .price-includes{font-size:12px;padding:9px 12px}
   .price-page .price-groups{
     margin-top:14px!important;
     gap:12px!important;
@@ -2030,12 +2109,22 @@ body:has(.product-page) footer .footer-cta{
   }
   .price-page .price-group h2{font-size:20px!important}
   .price-page .price-group>div:last-child a{
+    grid-template-columns:1fr auto!important;
     min-height:44px!important;
     padding:8px 2px!important;
     gap:6px!important;
   }
-  .price-page .price-group>div:last-child a>span{font-size:14px!important}
+  .price-page .price-group>div:last-child a>span{
+    font-size:14px!important;
+    color:#71717A!important;
+  }
   .price-page .price-group>div:last-child strong{font-size:16px!important}
+  .price-page .price-group>div:last-child b{display:none!important}
+  .price-ask{
+    flex-direction:column;
+    align-items:stretch;
+  }
+  .price-ask .button{width:100%}
   .price-page .price-explanation{
     margin-top:18px!important;
     width:calc(100% - 20px)!important;

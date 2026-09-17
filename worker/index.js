@@ -907,26 +907,32 @@ ${lock}
 ${logoClean}
 
 ALLOWED EXCEPTION — POSTURE & SUPPORT (critical for catalog):
-- STRAIGHTEN the figure so it stands VERTICALLY upright: head–body–base on one plumb axis. Correct lean/tilt/fall to the side.
+- STRAIGHTEN aggressively: head, body and green base on ONE vertical plumb line, parallel to the side edges of the frame / wall corners.
+- Correct ANY remaining lean/tilt left or right — even a slight list. The sculpture must look perfectly upright and balanced.
+- If bouquet / number foil weight makes it lean, rotate/rebalance the WHOLE figure upright without changing balloon counts or colors.
 - REMOVE any non-balloon support under or around the sculpture: small table, stolik, wire stand, metal rack, stool, chair, crate, box, furniture legs — as if never there.
-- Place the balloon BASE / feet / green cluster DIRECTLY on the laminate floor with a soft realistic contact shadow.
+- Place the balloon BASE / feet / green cluster DIRECTLY on the laminate floor. Soft contact shadow ONLY under the spheres that touch the floor — no large dark pool across the floor.
 - Do NOT invent a new stand. The figure must look self-supporting on the floor.
 - Keep ALL balloon parts (head, body, arms, bouquet, number foil, colors, counts) — only fix orientation and remove furniture support.
 
-Use the SECOND reference image as the real VigSharm studio environment — match it as closely as possible: warm beige-grey wall, white baseboard, grey-beige laminate floor with horizontal planks.
+ROOM / FLOOR (critical — fix dark laminate):
+- Use the SECOND reference image as the real VigSharm studio — warm LIGHT beige-grey wall, white baseboard, LIGHT grey-beige oak laminate with horizontal planks.
+- Match reference FLOOR luminance: lift floor exposure — laminate must look LIGHT bright beige-grey / light oak, NOT dark brown, NOT charcoal, NOT muddy grey.
+- Even bright daylight on wall AND floor; no underexposed floor band, no heavy vignette, no large cast shadow darkening half the laminate.
+- Wall and floor white-balance like the reference (high-key catalog studio), not cooler/darker than the balloons.
 
 SCALE — CRITICAL for balloon figures (typically 1 m tall and taller):
 - This is a LARGE human-scale balloon sculpture standing on the floor — NOT a small toy, NOT a tabletop prop
 - The figure must fill approximately 80–92% of the frame HEIGHT — dominate the catalog card
 - Minimal empty wall above the head/top; do NOT shrink the figure into a tiny object in the middle of the room
 - Preserve real proportions: a person standing next to it would see a figure about 1–1.5+ meters tall
-- FORBIDDEN: miniaturizing, floating tiny figure, excessive empty floor/wall that makes it look under ~1 m, leaving the figure leaning, keeping a table/stand under the base
+- FORBIDDEN: miniaturizing, floating tiny figure, excessive empty floor/wall that makes it look under ~1 m, leaving the figure leaning (even slightly), keeping a table/stand under the base, dark/muddy laminate floor
 
 ${brightLight}
 
 ${forbidden}
 
-OUTPUT: one square 1:1 professional catalog photo — balloon figure LARGE, VERTICAL, on the floor (no table/stand), bright, human scale ≥1 m.`;
+OUTPUT: one square 1:1 professional catalog photo — balloon figure LARGE, perfectly VERTICAL, on a LIGHT bright laminate floor (no table/stand), human scale ≥1 m.`;
   }
 
   return `Edit the provided floor-standing balloon composition photo for a square VigSharm catalog card. Change ONLY the room background and lighting.
@@ -1129,7 +1135,7 @@ SCENE: large photozone on laminate near baseboard. Contact shadow under the base
   if (scene === 'balloon_figures') {
     return `${base}
 
-SCENE: large balloon FIGURE sculpture (≥1 m tall) standing VERTICALLY on laminate near baseboard — no table, no wire stand, no furniture under the base. Straighten any lean. Keep LARGE human scale — do not shrink. Medium contact shadow under balloon feet/base on the floor.`;
+SCENE: large balloon FIGURE sculpture (≥1 m tall) standing PERFECTLY VERTICAL on LIGHT bright beige-grey laminate near baseboard — no lean, no table/stand. Soft contact shadow only under base balloons (no dark floor wash). Match reference floor luminance — NOT dark brown laminate. Keep LARGE human scale — do not shrink.`;
   }
 
   return `${base}

@@ -26,8 +26,10 @@ assert(worker.includes('3 METERS') || worker.includes('Ø3 m') || worker.include
 assert(worker.includes('photozone_type'), 'photozone_type passed to rephotograph');
 assert(worker.includes('balloon_figures'), 'balloon_figures scene in worker');
 assert(worker.includes('human-scale balloon sculpture'), 'figures scale prompt');
-assert(worker.includes('STRAIGHTEN the figure') || worker.includes('standing VERTICALLY'), 'figures straighten upright');
+assert(worker.includes('STRAIGHTEN the figure') || worker.includes('standing VERTICALLY') || worker.includes('STRAIGHTEN aggressively'), 'figures straighten upright');
 assert(worker.includes('REMOVE any non-balloon support') || worker.includes('no table, no wire stand'), 'figures remove stand/table');
+assert(worker.includes('fix dark laminate') || worker.includes('LIGHT bright laminate'), 'figures bright laminate floor');
+assert(worker.includes('even slightly') || worker.includes('PERFECTLY VERTICAL'), 'figures no slight lean');
 assert(adminJs.includes("value: 'balloon_figures'"), 'balloon_figures in SCENES');
 assert(studio.includes("'balloon_figures'"), 'balloon_figures in studio modes');
 assert(!studio.includes('prepareSourceForRephotograph'), 'no restore before rephotograph');

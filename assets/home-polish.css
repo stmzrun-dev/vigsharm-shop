@@ -67,60 +67,138 @@ body{
   }
 }
 
-/* «Для кого» — stronger navy card + softer pillows */
+/* «Для кого» — catalog language (not soft-clay pillows) */
 .quick-recipient-card{
-  border:0!important;
-  border-radius:28px!important;
-  box-shadow:0 14px 30px rgba(0,0,0,.04)!important;
+  background:#fff!important;
+  border:1.5px solid #eadfce!important;
+  border-radius:18px!important;
+  box-shadow:0 4px 14px rgba(61,50,41,.04)!important;
+  transform:none!important;
+}
+.quick-recipient-card:hover{
+  transform:translateY(-2px)!important;
+  box-shadow:0 8px 20px rgba(61,50,41,.07)!important;
+  border-color:#e0d3be!important;
+}
+/* Soft color identity via light wash only */
+.quick-recipient-card.pink{
+  background:linear-gradient(180deg,#fff9f8 0%,#fff 70%)!important;
+}
+.quick-recipient-card.blue{
+  background:linear-gradient(180deg,#f7fbff 0%,#fff 70%)!important;
+}
+.quick-recipient-card.purple{
+  background:linear-gradient(180deg,#faf8ff 0%,#fff 70%)!important;
 }
 .quick-recipient-card.navy{
-  background:linear-gradient(135deg,#e8f0ff,#d4e2f8)!important;
+  background:linear-gradient(180deg,#f6f8fc 0%,#fff 70%)!important;
 }
+/* Arrow as text cue — no white circle pillow (desktop) */
 .quick-recipient-card>b{
-  width:36px!important;
-  height:36px!important;
-  background:#fff!important;
-  box-shadow:0 4px 12px rgba(0,0,0,.06)!important;
+  width:auto!important;
+  height:auto!important;
+  min-width:0!important;
+  padding:0!important;
+  background:transparent!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+  font-size:18px!important;
+  font-weight:800!important;
+  line-height:1!important;
+  color:#5a9ea3!important;
 }
 
-/* Mobile: denser 2×2 */
+/* Tablet + phone: 2×2 — avoid cramped 4-col truncation */
+@media (max-width:1100px){
+  .quick-recipient-section{
+    padding-top:28px!important;
+  }
+  .quick-recipient-heading{
+    flex-wrap:wrap!important;
+    align-items:flex-start!important;
+    margin-bottom:14px!important;
+    gap:6px 12px!important;
+    padding:0 16px!important;
+  }
+  .quick-recipient-heading h2{
+    font-size:clamp(24px,4.2vw,30px)!important;
+    line-height:1.15!important;
+  }
+  .quick-recipient-list{
+    display:grid!important;
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:10px!important;
+    padding:0 16px 6px!important;
+    overflow:visible!important;
+    overflow-x:visible!important;
+    scroll-snap-type:none!important;
+  }
+  .quick-recipient-card{
+    flex:none!important;
+    flex-basis:auto!important;
+    width:auto!important;
+    max-width:none!important;
+    min-width:0!important;
+    min-height:0!important;
+    scroll-snap-align:none!important;
+    grid-template-columns:1fr!important;
+    grid-template-rows:auto auto!important;
+    justify-items:center!important;
+    text-align:center!important;
+    gap:8px!important;
+    padding:14px 12px 16px!important;
+    border-radius:18px!important;
+  }
+  .quick-recipient-card img{
+    width:80px!important;
+    height:80px!important;
+  }
+  .quick-recipient-card>span{
+    justify-items:center!important;
+  }
+  .quick-recipient-card strong{
+    font-size:15px!important;
+    line-height:1.2!important;
+  }
+  .quick-recipient-card small{
+    display:none!important;
+  }
+  .quick-recipient-card>b{
+    display:none!important;
+  }
+}
+
+/* Phone: no arrows, larger icons */
 @media (max-width:720px){
   .quick-recipient-section{
     padding-top:24px!important;
   }
   .quick-recipient-heading{
     margin-bottom:12px!important;
-    gap:6px 12px!important;
   }
   .quick-recipient-heading h2{
     font-size:24px!important;
-    line-height:1.15!important;
   }
   .quick-recipient-list{
     gap:8px!important;
     padding:0 16px 4px!important;
   }
   .quick-recipient-card{
-    gap:6px!important;
-    padding:12px 10px 34px!important;
-    border-radius:24px!important;
+    gap:8px!important;
+    padding:14px 10px 14px!important;
   }
   .quick-recipient-card img{
-    width:64px!important;
-    height:64px!important;
+    width:96px!important;
+    height:96px!important;
   }
   .quick-recipient-card strong{
     font-size:14px!important;
-    line-height:1.2!important;
   }
   .quick-recipient-card>b{
-    width:32px!important;
-    height:32px!important;
-    bottom:8px!important;
-    font-size:14px!important;
+    display:none!important;
   }
 
-  /* Popular: clearer swipe hint */
+  /* Popular: clearer swipe hint + light catalog bridge */
   .popular-footer{
     padding-inline:16px!important;
   }
@@ -132,8 +210,263 @@ body{
   }
   .live-products a,
   .live-product{
-    border-radius:22px!important;
+    border-radius:18px!important;
+    border:1.5px solid #eadfce!important;
+    box-shadow:0 4px 14px rgba(61,50,41,.04)!important;
+  }
+}
+
+/* «Бюджет» — catalog language (same recipe as «Для кого») */
+.budget-section{
+  background:#fff!important;
+  border:1.5px solid #eadfce!important;
+  border-radius:22px!important;
+  box-shadow:0 4px 14px rgba(61,50,41,.04)!important;
+}
+.budget-card{
+  background:#fff!important;
+  border:1.5px solid #eadfce!important;
+  border-radius:18px!important;
+  box-shadow:0 4px 14px rgba(61,50,41,.04)!important;
+  transform:none!important;
+}
+.budget-card:hover{
+  transform:translateY(-2px)!important;
+  box-shadow:0 8px 20px rgba(61,50,41,.07)!important;
+  border-color:#e0d3be!important;
+}
+.budget-card.budget-red{
+  background:linear-gradient(90deg,#fff8f8 0%,#fff 55%)!important;
+}
+.budget-card.budget-orange{
+  background:linear-gradient(90deg,#fffaf5 0%,#fff 55%)!important;
+}
+.budget-card.budget-yellow{
+  background:linear-gradient(90deg,#fffcef 0%,#fff 55%)!important;
+}
+.budget-card.budget-green{
+  background:linear-gradient(90deg,#f6fbf5 0%,#fff 55%)!important;
+}
+.budget-card.budget-blue{
+  background:linear-gradient(90deg,#f5faff 0%,#fff 55%)!important;
+}
+.budget-card.budget-purple{
+  background:linear-gradient(90deg,#faf8ff 0%,#fff 55%)!important;
+}
+.budget-icon{
+  background:transparent!important;
+  border:0!important;
+  border-radius:0!important;
+  animation:none!important;
+  width:52px!important;
+  height:52px!important;
+}
+.budget-icon img{
+  width:48px!important;
+  height:48px!important;
+}
+.budget-card>b{
+  color:#5a9ea3!important;
+  font-size:18px!important;
+  font-weight:800!important;
+}
+
+@media (max-width:1100px){
+  .budget-section{
+    margin-top:28px!important;
+    padding:22px 16px!important;
+    border-radius:20px!important;
+  }
+  .budget-card{
+    grid-template-columns:64px 1fr!important;
+    gap:12px!important;
+    padding:14px 14px!important;
+  }
+  .budget-card>b{
+    display:none!important;
+  }
+  .budget-icon{
+    width:64px!important;
+    height:64px!important;
+  }
+  .budget-icon img{
+    width:60px!important;
+    height:60px!important;
+  }
+}
+
+@media (max-width:720px){
+  .budget-section{
+    margin-inline:0!important;
+    padding:20px 14px!important;
+  }
+  .budget-card{
+    grid-template-columns:72px 1fr!important;
+    padding:14px 12px!important;
+  }
+  .budget-icon{
+    width:72px!important;
+    height:72px!important;
+  }
+  .budget-icon img{
+    width:68px!important;
+    height:68px!important;
+  }
+  .budget-card strong{
+    font-size:16px!important;
+  }
+}
+
+/* «Другие поводы» / #catalog — remove soft-clay island (PC) */
+#catalog{
+  background:transparent!important;
+  background-image:none!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+  width:min(1320px,100% - 72px)!important;
+  padding:48px 0 24px!important;
+  overflow:visible!important;
+}
+#catalog:before,
+#catalog:after{
+  display:none!important;
+  content:none!important;
+}
+#catalog .section-heading h2{
+  animation:none!important;
+}
+#catalog .section-heading h2:after{
+  display:none!important;
+  content:none!important;
+}
+#catalog .section-heading>p{
+  background:#fff!important;
+  border:1.5px solid #eadfce!important;
+  border-radius:14px!important;
+  box-shadow:none!important;
+  transform:none!important;
+  padding:14px 18px!important;
+}
+
+.category{
+  border:1.5px solid #eadfce!important;
+  border-radius:18px!important;
+  box-shadow:0 4px 14px rgba(61,50,41,.04)!important;
+  transform:none!important;
+  background:#fff!important;
+}
+.category:hover{
+  transform:translateY(-2px)!important;
+  box-shadow:0 8px 20px rgba(61,50,41,.07)!important;
+  border-color:#e0d3be!important;
+}
+.category.green,
+.category.yellow,
+.category.coral,
+.category.rainbow{
+  background:#fff!important;
+}
+.category-copy{
+  background:#fff!important;
+  border:1.5px solid #eadfce!important;
+  border-radius:14px!important;
+  box-shadow:0 4px 12px rgba(61,50,41,.06)!important;
+  transform:none!important;
+}
+.category-arrow{
+  display:none!important;
+}
+
+/* «Герои» — catalog language */
+.character-card{
+  background:#fff!important;
+  border:1.5px solid #eadfce!important;
+  border-radius:18px!important;
+  box-shadow:0 4px 14px rgba(61,50,41,.04)!important;
+  animation:none!important;
+  transform:none!important;
+}
+.character-card:hover{
+  transform:translateY(-2px)!important;
+  box-shadow:0 8px 20px rgba(61,50,41,.07)!important;
+  border-color:#e0d3be!important;
+}
+.character-picture{
+  background:#faf7f2!important;
+  border-radius:14px!important;
+}
+.character-go{
+  background:transparent!important;
+  background-image:none!important;
+  border:0!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+  animation:none!important;
+  width:auto!important;
+  height:auto!important;
+  color:#5a9ea3!important;
+  font-size:16px!important;
+  font-weight:800!important;
+}
+.character-card>small{
+  background:rgba(255,255,255,.92)!important;
+  border:1px solid #eadfce!important;
+  color:#8a7a6c!important;
+}
+.all-characters{
+  background:#fff!important;
+  background-image:none!important;
+  border:1.5px solid #eadfce!important;
+  border-radius:999px!important;
+  box-shadow:0 4px 14px rgba(61,50,41,.04)!important;
+  color:#3d3229!important;
+  transform:none!important;
+}
+.all-characters:hover{
+  transform:translateY(-1px)!important;
+  border-color:#e0d3be!important;
+}
+
+@media (max-width:1100px){
+  #catalog{
+    width:100%!important;
+    padding:28px 16px 16px!important;
+  }
+  #catalog .section-heading>p{
+    padding:0!important;
     border:0!important;
-    box-shadow:0 12px 28px rgba(0,0,0,.05)!important;
+    background:transparent!important;
+  }
+  .category-arrow,
+  .character-go{
+    display:none!important;
+  }
+  .category-copy{
+    left:10px!important;
+    right:10px!important;
+    bottom:10px!important;
+    min-height:0!important;
+    padding:12px!important;
+  }
+  .character-card{
+    padding:8px 8px 12px!important;
+    border-radius:16px!important;
+  }
+  .character-picture{
+    border-radius:12px!important;
+  }
+}
+
+@media (max-width:720px){
+  .categories{
+    gap:10px!important;
+  }
+  .category{
+    min-height:280px!important;
+    border-radius:16px!important;
+  }
+  .all-characters{
+    min-height:48px!important;
+    margin-top:20px!important;
   }
 }

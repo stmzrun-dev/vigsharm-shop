@@ -35,8 +35,9 @@
     
     <div class="card">
       <div class="products-header">
-        <div>
+        <div class="products-header-actions">
           <button class="btn primary" onclick="app.newProduct()">+ Добавить товар</button>
+          <button type="button" class="btn outline" id="export-storefront-btn" onclick="app.exportStorefrontSnapshot()" title="Скачать data/products.json для сайта (РФ без VPN)">Обновить каталог для сайта</button>
         </div>
         <div class="stats-row" aria-label="Статистика">
           <div class="badge neutral">Всего: <strong id="stats-total">0</strong></div>

@@ -383,6 +383,58 @@ const app = {
     }
   },
 
+  /**
+   * Снимок каталога для витрины (data/products.json).
+   * Браузер не пишет в репозиторий — скачивает файл; дальше положить в data/ или:
+   *   node scripts/export-products-snapshot.mjs
+   */
+  async exportStorefrontSnapshot() {
+    const btn = document.getElementById('export-storefront-btn');
+    const prev = btn ? btn.textContent : '';
+    if (!this.workerUrl) {
+      alert('Укажите Worker API URL во вкладке «Настройки».');
+      return;
+    }
+    if (btn) {
+      btn.disabled = true;
+      btn.textContent = 'Выгрузка…';
+    }
+    try {
+      const res = await fetch(`${this.workerUrl}/api/products`, { cache: 'no-store' });
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      const data = await res.json();
+      if (!data || data.ok !== true || !Array.isArray(data.products) || !data.products.length) {
+        throw new Error('Пустой или неверный ответ API');
+      }
+      const blob = new Blob(
+        [JSON.stringify({ ok: true, products: data.products }, null, 2) + '\n'],
+        { type: 'application/json;charset=utf-8' }
+      );
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'products.json';
+      a.click();
+      URL.revokeObjectURL(a.href);
+      alert(
+        `Скачан products.json (${data.products.length} товаров).\n\n` +
+          'Положите файл в data/products.json в репозитории и задеплойте сайт.\n' +
+          'Или из корня проекта: node scripts/export-products-snapshot.mjs'
+      );
+    } catch (e) {
+      console.error(e);
+      alert(
+        'Не удалось выгрузить каталог.\n' +
+          (e.message || e) +
+          '\nЕсли Worker недоступен (РФ) — включите VPN или запустите скрипт с машины с доступом.'
+      );
+    } finally {
+      if (btn) {
+        btn.disabled = false;
+        btn.textContent = prev || 'Обновить каталог для сайта';
+      }
+    }
+  },
+
   getFilteredProducts() {
     const q = (document.getElementById('search-products')?.value || '').trim().toLowerCase();
     const cat = document.getElementById('filter-category')?.value || '';

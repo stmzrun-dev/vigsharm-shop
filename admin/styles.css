@@ -160,6 +160,7 @@ legend{font-size:15px;font-weight:600;padding:0 12px;color:#212121}
 
 /* Products */
 .products-header{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:16px;flex-wrap:wrap}
+.products-header-actions{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
 .products-filters{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:16px;align-items:center}
 .products-filters input{max-width:320px;flex:1}
 .products-filters select{max-width:200px}

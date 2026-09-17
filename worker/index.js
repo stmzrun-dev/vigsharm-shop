@@ -179,8 +179,87 @@ const TYPE_TAGS = [
   'Шары поштучно'
 ];
 
+const HOLIDAY_CATEGORIES = [
+  'Выпускной', 'Новый год', '14 февраля', '23 февраля', '8 марта', '1 сентября'
+];
+
 const CARD_TAGS = [...AUDIENCE_CATEGORIES, ...TYPE_TAGS];
 
+function normalizeHolidayKey(raw) {
+  return String(raw || '')
+    .toLowerCase()
+    .replace(/ё/g, 'е')
+    .replace(/[.\u00a0]/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function matchHolidayCategory(raw) {
+  const key = normalizeHolidayKey(raw);
+  if (!key) return null;
+  const aliases = {
+    '1 сентября': '1 сентября',
+    '1сентября': '1 сентября',
+    '1 сент': '1 сентября',
+    'первое сентября': '1 сентября',
+    'новый год': 'Новый год',
+    'новогод': 'Новый год',
+    'нг': 'Новый год',
+    '14 февраля': '14 февраля',
+    '14февраля': '14 февраля',
+    'валентин': '14 февраля',
+    '23 февраля': '23 февраля',
+    '23февраля': '23 февраля',
+    '8 марта': '8 марта',
+    '8марта': '8 марта',
+    'выпускной': 'Выпускной'
+  };
+  for (const [alias, canon] of Object.entries(aliases)) {
+    if (key === alias || key.includes(alias)) return canon;
+  }
+  for (const h of HOLIDAY_CATEGORIES) {
+    const hk = normalizeHolidayKey(h);
+    if (key === hk || key.includes(hk) || hk.includes(key)) return h;
+  }
+  return null;
+}
+
+/** Метка в скобках «(1 сентября)» — не пункт состава. */
+function parseCompositionHolidayMeta(text) {
+  const src = String(text || '');
+  let holiday = null;
+  const clean = src.replace(/\(([^)]{1,40})\)/g, (full, inner) => {
+    const hit = matchHolidayCategory(inner);
+    if (hit) {
+      holiday = hit;
+      return ' ';
+    }
+    return full;
+  })
+    .replace(/[ \t]{2,}/g, ' ')
+    .replace(/\n{3,}/g, '\n\n')
+    .trim();
+  return { holiday, cleanText: clean };
+}
+
+function applyHolidayOnlyCard(data, holiday) {
+  if (!holiday) return data;
+  data.category = holiday;
+  data.character = '';
+  data.character_alts = [];
+  data.character_confidence = '';
+  data.age_group = '';
+  data.occasion = '';
+  data.target_audience = '';
+  data.series_name = '';
+  data.series_alts = [];
+  data.series_confidence = '';
+  data.ask_character = false;
+  // Доп. разделы: только тематика-праздник
+  data.tags = [holiday];
+  data.holiday_only = holiday;
+  return data;
+}
 const GENERIC_OCCASIONS = new Set([
   'день рождения', 'др', 'birthday', 'праздник', 'любой повод', 'без повода'
 ]);
@@ -227,12 +306,24 @@ async function handleGenerateCard(request, env) {
     image_url,
     price,
     composition_raw,
-    existing_titles
+    existing_titles,
+    holiday_only
   } = body;
-  const rawComposition = String(composition_raw || description || '').trim();
+  const rawIn = String(composition_raw || description || '').trim();
+  const holidayMeta = parseCompositionHolidayMeta(rawIn);
+  const holidayOnly = matchHolidayCategory(holiday_only) || holidayMeta.holiday || null;
+  const rawComposition = holidayMeta.cleanText || rawIn;
   const typeHint = sceneTypeHint(scene || 'floor');
   const priceNum = Number(price) || 0;
   const takenTitles = normalizeExistingTitlesList(existing_titles);
+
+  const holidayRule = holidayOnly
+    ? `
+ПРАЗДНИЧНАЯ КАРТОЧКА (метка в составе уже снята): category = РОВНО «${holidayOnly}».
+- НЕ заполняй character, age_group, target_audience, series_name, occasion (оставь пустыми)
+- tags: ТОЛЬКО «${holidayOnly}» — без type-тегов, без «Для мальчика/девочки» и прочих разделов
+- composition: БЕЗ скобок и БЕЗ текста праздника — только физический состав шаров`
+    : '';
 
   const systemPrompt = `Ты — копирайтер каталога VigSharm (воздушные шары, Армавир).
 Пиши коротко. Без маркетинговой воды и эмодзи.
@@ -309,7 +400,7 @@ ${BUDGET_OPTIONS.join(' | ')}
   • ОРФОГРАФИЯ: исправь опечатки и ошибки в словах пользователя (падежи, «надписью», «звезда», «сердце», «баблс/бабл»), смысл и числа не меняй
 - Во всех текстовых полях (title, descriptions, composition, seo): грамотный русский, без орфографических ошибок
 - budget: только из BUDGET по цене пользователя
-- НЕ возвращай article и price`;
+- НЕ возвращай article и price${holidayRule}`;
 
   const takenBlock = takenTitles.length
     ? `Уже занятые названия в каталоге (НЕ предлагай эти и похожие):\n${takenTitles.slice(0, 80).map((t) => `• ${t}`).join('\n')}`
@@ -318,11 +409,16 @@ ${BUDGET_OPTIONS.join(' | ')}
   const userPrompt = `Сгенерируй карточку:
 Подсказка названия: ${title_hint || 'не указано'}
 Цена (₽): ${priceNum > 0 ? priceNum : 'не указана'}
-Сырой состав от пользователя (оформи красиво, исправь орфографию, числа сохрани): ${rawComposition || 'не указан'}
+Сырой состав от пользователя (оформи красиво, исправь орфографию, числа сохрани; скобки-праздники уже убраны): ${rawComposition || 'не указан'}
 Сцена Studio Pro: ${scene || 'floor'}
 Подсказка типа изделия для tags: ${typeHint || 'по фото'}
+${holidayOnly ? `Праздничная категория (обязательно): ${holidayOnly}` : ''}
 ${takenBlock}
-${image_url ? 'Фото приложено — ОБЯЗАТЕЛЬНО определи персонажа и тематическую серию по визуальным признакам (цвета, паутина, фигуры, принты). Если сомневаешься — confidence medium/low и дай alts. Логотипы магазинов игнорируй. Имена/возраст на табличке — пример персонализации, не в title.' : ''}`;
+${image_url
+    ? (holidayOnly
+      ? 'Фото приложено — опиши товар в short/full description. НЕ заполняй character, age_group, target_audience, series_name.'
+      : 'Фото приложено — ОБЯЗАТЕЛЬНО определи персонажа и тематическую серию по визуальным признакам (цвета, паутина, фигуры, принты). Если сомневаешься — confidence medium/low и дай alts. Логотипы магазинов игнорируй. Имена/возраст на табличке — пример персонализации, не в title.')
+    : ''}`;
 
   const messages = [
     { role: 'system', content: systemPrompt },
@@ -361,6 +457,13 @@ ${image_url ? 'Фото приложено — ОБЯЗАТЕЛЬНО опред
   }
 
   data = sanitizeCardMetadata(data, scene || 'floor', priceNum, rawComposition, takenTitles);
+  if (holidayOnly) applyHolidayOnlyCard(data, holidayOnly);
+  // Убрать случайно оставшиеся скобки-праздники из состава
+  if (Array.isArray(data.composition)) {
+    data.composition = data.composition
+      .map((line) => parseCompositionHolidayMeta(line).cleanText)
+      .filter(Boolean);
+  }
   return json({ ok: true, data });
 }
 
@@ -757,11 +860,12 @@ function isWallOnlyScene(scene) {
 function buildRephotographPrompt(scene, opts = {}) {
   const photozoneType = opts.photozone_type === 'easel' ? 'easel' : 'frame';
   const lock = `LOCKED — preserve without any change:
-- entire original product; exact balloon count, shapes, sizes, colors, positions, overlaps
+- entire original product; exact balloon count, shapes, sizes, colors, positions, overlaps, clustering density
 - ALL decorative text that is PART OF THE PRODUCT PRINT on balloons (character art, foil prints, custom names/numbers meant to stay on the item) — copy exactly, never retype or autocorrect
 - characters, foil figures, chrome/metallic surfaces, ribbons, knots, product stickers that belong to the item
-- do NOT add, remove, redraw, simplify or beautify any product element (except the ALLOWED EXCEPTION below)
-- when uncertain about a product print, keep it — do NOT guess`;
+- do NOT add, remove, redraw, densify, beautify, or “improve” any product element (except the ALLOWED EXCEPTION below)
+- do NOT invent extra small filler balloons between larger ones; keep the original sparsity/density of every column and cluster
+- when uncertain about a product print or balloon count, keep the original — do NOT guess or embellish`;
 
   const logoClean = `ALLOWED EXCEPTION — REMOVE supplier / marketplace packaging overlays and watermarks (critical for catalog photos, especially «шары поштучно» / unit balloons from Sima-land and similar):
 REMOVE completely (inpaint as if never there):
@@ -773,16 +877,31 @@ REMOVE completely (inpaint as if never there):
 Inpaint the wall / balloon / ribbon surface underneath cleanly — no blur blotches, no leftover letters or half a circle.
 KEEP: Spider-Man / character art printed ON the balloon latex or foil; decorative words that are clearly part of that print (e.g. «HERO» baked into the balloon design); bubble lettering and custom personalization on the product itself; foil heart texts that are printed ON the balloon face.`;
 
-  const forbidden = `FORBIDDEN: sticker/cutout appearance, white or dark halo, invented text, changed colors, plastic CGI look, furniture, window, curtains from the original room, melting ribbons, harsh cast shadows, yellow/orange color cast, duplicate objects, collage, dark moody look, evening lighting, underexposure, extra balloons, new foreground balloon clusters, objects not present in the original, store watermarks, supplier packaging badges, size/helium labels, marketplace URL overlays (sima-land.ru etc.), leftover half-erased text, circular shop hang-tags on ribbons`;
+  const forbidden = `FORBIDDEN: sticker/cutout appearance, white or dark halo, invented text, changed colors, plastic CGI look, furniture, window, curtains from the original room, melting ribbons, harsh cast shadows, yellow/orange color cast, duplicate objects, collage, dark moody look, evening lighting, underexposure, extra balloons, denser balloon columns than the original, new mini filler balloons, new foreground balloon clusters, objects not present in the original, store watermarks, supplier packaging badges, size/helium labels, marketplace URL overlays (sima-land.ru etc.), leftover half-erased text, circular shop hang-tags on ribbons`;
 
   const light = `LIGHTING: soft even professional studio product photography. Remove harsh window backlight. Match exposure and white balance to the studio room. Real photograph, not CGI render.`;
 
-  const brightLight = `LIGHTING — BRIGHT DAYLIGHT STUDIO (critical):
-- Bright, well-lit catalog photo — NOT dark, NOT evening, NOT underexposed
-- High-key soft daylight; lift exposure on the product so balloons and foil look vivid
-- Neutral white balance; wall and floor must read as light beige-grey, not taupe or muddy
-- Remove window backlight but KEEP the product bright — do not darken the whole scene
-- Soft diffuse studio light; no dramatic shadows, no moody cinematic grade`;
+  const brightLight = `LIGHTING — NATURAL CATALOG DAYLIGHT (critical):
+- Well-lit professional catalog photo — clear and clean, NOT dark, NOT evening, NOT underexposed
+- Soft daylight / softbox look — NATURAL brightness, not overexposed high-key wash
+- Do NOT blow out whites: white balloons, white signs, pale wall stay detailed (no clipped highlights)
+- Neutral white balance; wall reads as warm light beige-grey (like the reference), not blown pure white
+- Soft diffuse light; gentle contact shadows OK — no dramatic cinematic grade, no muddy underexposure`;
+
+  const brightFloor = `FLOOR LUMINANCE — CRITICAL (catalog floors go too dark OR too washed):
+- Laminate MUST match the SECOND reference floor — LIGHT pale oak / light grey-beige planks
+- Floor brightness ≈ reference (not darker charcoal, not glowing white wash)
+- FORBIDDEN: dark brown, walnut, charcoal, muddy grey, cool slate laminate
+- Soft contact shadow only under product contact points — no large dark wash across the floor
+- Do NOT copy dark floor tones from the source photo; replace with the reference laminate`;
+
+  const nearWall = `PLACEMENT — CLOSE TO THE WALL (move as a RIGID photo — do not rebuild):
+- Translate the WHOLE original product closer to the white baseboard as one locked unit (same internal layout)
+- Only a SHORT strip of laminate between product base and baseboard (about 1–3 plank widths)
+- Change ONLY room, lighting, and distance to wall — NEVER redraw balloons while moving
+- FORBIDDEN while placing: adding balloons, densifying garlands/columns, inventing mini fillers, reshaping clusters, “beautifying” the arrangement
+- Soft contact shadow under the original base only; tiny soft wall-contact shadow OK
+- Camera still shows full product; do not crop tops`;
 
   if (scene === 'handheld_bouquet') {
     return `Rephotograph this VigSharm balloon BOUQUET for a square catalog card — Manus style: one real photo of a WOMAN holding the bouquet against the studio wall.
@@ -852,11 +971,16 @@ OUTPUT: one square 1:1 bright professional catalog photo — ${unit ? 'single ba
 
   if (scene === 'photozone') {
     if (photozoneType === 'easel') {
-      return `Edit the provided photozone on an EASEL (~1.8 m tall) with polystyrene circle for a square VigSharm catalog card. Change ONLY the room background and lighting.
+      return `Edit the provided photozone on an EASEL (~1.8 m tall) with polystyrene circle for a square VigSharm catalog card. Change ONLY the room background, lighting, and distance to the wall.
 
 ${lock}
 
 ${logoClean}
+
+PHOTOZONE PRODUCT LOCK (critical — do not rebuild the set):
+- Keep the easel, round board, text on the board, giraffe/foil figures, and EVERY balloon column/cluster EXACTLY as in the source
+- Same balloon count and density — no extra pink/white/gold mini balloons stuffed into the column
+- Do NOT redesign, densify, or “upgrade” the garland while moving it nearer the wall
 
 Use the SECOND reference image as the real VigSharm photozone studio — full room: warm beige-grey wall, white baseboard, grey-beige laminate floor with horizontal planks. Match that reference background as closely as possible.
 
@@ -866,20 +990,28 @@ SCALE — easel photozone height ~1.8 meters:
 - Keep full width visible; do NOT shrink into a tiny object in the center
 - Preserve human-scale proportions: a person standing next to it would see ~180 cm height
 
+${nearWall}
+
 Only minimal soft contact shadows where objects genuinely touch the floor.
 
 ${brightLight}
 
+${brightFloor}
+
 ${forbidden}
 
-OUTPUT: one square 1:1 professional catalog photo, easel photozone (~1.8 m) large in frame, bright and vivid.`;
+OUTPUT: one square 1:1 professional catalog photo, easel photozone (~1.8 m) unchanged product, near the wall, natural catalog light.`;
     }
 
-    return `Edit the provided ROUND FRAME photozone (circular arch / hoop on a metal frame) for a square VigSharm catalog card. Change ONLY the room background and lighting.
+    return `Edit the provided ROUND FRAME photozone (circular arch / hoop on a metal frame) for a square VigSharm catalog card. Change ONLY the room background, lighting, and distance to the wall.
 
 ${lock}
 
 ${logoClean}
+
+PHOTOZONE PRODUCT LOCK (critical — do not rebuild the set):
+- Keep the round frame and EVERY balloon on it EXACTLY as in the source — same count, colors, density, attachments
+- Do NOT add filler balloons, densify arcs, or invent new clusters while moving nearer the wall
 
 Use the SECOND reference image as the real VigSharm photozone studio — full room: warm beige-grey wall, white baseboard, grey-beige laminate floor with horizontal planks. Match that reference background as closely as possible.
 
@@ -890,13 +1022,17 @@ SCALE — CRITICAL: round frame diameter is about 3 METERS (huge party installat
 - Preserve real 3 m human scale — two adults could stand inside the circle comfortably
 - FORBIDDEN: miniaturizing the hoop, floating small ring in empty room, making it look under ~2 m
 
+${nearWall}
+
 Only minimal soft contact shadows where the frame base genuinely touches the floor.
 
 ${brightLight}
 
+${brightFloor}
+
 ${forbidden}
 
-OUTPUT: one square 1:1 professional catalog photo — round Ø3 m photozone frame nearly filling the frame, bright and vivid.`;
+OUTPUT: one square 1:1 professional catalog photo — round Ø3 m photozone frame nearly filling the frame, near the wall, natural catalog light.`;
   }
 
   if (scene === 'balloon_figures') {
@@ -910,29 +1046,36 @@ ALLOWED EXCEPTION — POSTURE & SUPPORT (critical for catalog):
 - STRAIGHTEN aggressively: head, body and green base on ONE vertical plumb line, parallel to the side edges of the frame / wall corners.
 - Correct ANY remaining lean/tilt left or right — even a slight list. The sculpture must look perfectly upright and balanced.
 - If bouquet / number foil weight makes it lean, rotate/rebalance the WHOLE figure upright without changing balloon counts or colors.
-- REMOVE any non-balloon support under or around the sculpture: small table, stolik, wire stand, metal rack, stool, chair, crate, box, furniture legs — as if never there.
-- Place the balloon BASE / feet / green cluster DIRECTLY on the laminate floor. Soft contact shadow ONLY under the spheres that touch the floor — no large dark pool across the floor.
-- Do NOT invent a new stand. The figure must look self-supporting on the floor.
-- Keep ALL balloon parts (head, body, arms, bouquet, number foil, colors, counts) — only fix orientation and remove furniture support.
+- REMOVE any non-balloon support under or around the sculpture: small table, stolik, glass table, wire stand, metal rack, stool, chair, crate, box, furniture legs, mirrors, vanity lights — as if never there.
+- Place the EXISTING balloon BASE (usually the large green / bottom cluster already in the photo) DIRECTLY on the laminate floor.
+- Soft contact shadow ONLY under those original base spheres that touch the floor — no large dark pool.
+- Do NOT invent a new stand. Do NOT invent NEW balloons under the base (no extra white, clear, translucent, “feet”, “shoes”, filler spheres, or stabilizer cluster that was not in the original).
+- After removing the table: the lowest balloons that already existed in the sculpture must sit on the floor unchanged — zero added balloons below them.
+- Keep ALL original balloon parts (head, body, arms, bouquet, number foil, colors, counts) — only fix orientation and remove furniture. ZERO new balloons anywhere.
 
-ROOM / FLOOR (critical — fix dark laminate):
-- Use the SECOND reference image as the real VigSharm studio — warm LIGHT beige-grey wall, white baseboard, LIGHT grey-beige oak laminate with horizontal planks.
-- Match reference FLOOR luminance: lift floor exposure — laminate must look LIGHT bright beige-grey / light oak, NOT dark brown, NOT charcoal, NOT muddy grey.
-- Even bright daylight on wall AND floor; no underexposed floor band, no heavy vignette, no large cast shadow darkening half the laminate.
-- Wall and floor white-balance like the reference (high-key catalog studio), not cooler/darker than the balloons.
+ROOM / FLOOR (critical — match reference, not wash out):
+- Use the SECOND reference image as the real VigSharm studio — warm LIGHT beige-grey wall, white baseboard, LIGHT pale oak laminate with horizontal planks.
+- Floor brightness ≈ reference pale oak — not darker charcoal, not glowing white wash.
+- Explicitly REPLACE any dark/grey/brown floor from the source photo with the reference laminate.
+- FORBIDDEN floor look: dark brown, walnut, charcoal, muddy grey, cool slate.
+- Soft contact shadow ONLY under the original base balloons that touch the floor — tiny soft spots, not a dark pool.
+
+${nearWall}
 
 SCALE — CRITICAL for balloon figures (typically 1 m tall and taller):
 - This is a LARGE human-scale balloon sculpture standing on the floor — NOT a small toy, NOT a tabletop prop
 - The figure must fill approximately 80–92% of the frame HEIGHT — dominate the catalog card
 - Minimal empty wall above the head/top; do NOT shrink the figure into a tiny object in the middle of the room
 - Preserve real proportions: a person standing next to it would see a figure about 1–1.5+ meters tall
-- FORBIDDEN: miniaturizing, floating tiny figure, excessive empty floor/wall that makes it look under ~1 m, leaving the figure leaning (even slightly), keeping a table/stand under the base, dark/muddy laminate floor
+- FORBIDDEN: miniaturizing, floating tiny figure, excessive empty floor/wall that makes it look under ~1 m, leaving the figure leaning (even slightly), keeping a table/stand under the base, dark/muddy laminate floor, inventing extra balloons under the base
 
 ${brightLight}
 
+${brightFloor}
+
 ${forbidden}
 
-OUTPUT: one square 1:1 professional catalog photo — balloon figure LARGE, perfectly VERTICAL, on a LIGHT bright laminate floor (no table/stand), human scale ≥1 m.`;
+OUTPUT: one square 1:1 professional catalog photo — balloon figure LARGE, perfectly VERTICAL, near the wall on LIGHT pale-oak laminate (no table, no invented feet balloons), natural catalog light, human scale ≥1 m.`;
   }
 
   return `Edit the provided floor-standing balloon composition photo for a square VigSharm catalog card. Change ONLY the room background and lighting.
@@ -941,20 +1084,24 @@ ${lock}
 
 ${logoClean}
 
-Use the SECOND reference image as the real VigSharm studio environment — match it as closely as possible: warm beige-grey wall, white baseboard, grey-beige laminate floor with horizontal planks.
+Use the SECOND reference image as the real VigSharm studio environment — match it as closely as possible: warm beige-grey wall, white baseboard, LIGHT pale-oak / light grey-beige laminate floor with horizontal planks.
 
 Keep the real base/support and natural floor position from the original. Only minimal soft contact shadow where the product genuinely touches the floor.
+
+${nearWall}
 
 SCALE: floor composition should fill approximately 70–85% of frame height — not a small object floating in empty room.
 
 ${brightLight}
 
+${brightFloor}
+
 ${forbidden}
 
-OUTPUT: one square 1:1 professional catalog photo, composition large and bright in frame.`;
+OUTPUT: one square 1:1 professional catalog photo, composition large near the wall on LIGHT laminate, natural catalog light.`;
 }
 
-function buildRephotographAttempts(imageUrl, referenceUrl, prompt, resolution = '2K', prefer = 'quality') {
+function buildRephotographAttempts(imageUrl, referenceUrl, prompt, resolution = '2K', prefer = 'quality', scene = 'floor') {
   const res = ['1K', '2K', '4K'].includes(resolution) ? resolution : '2K';
   const refFields = [
     { reference_image: referenceUrl },
@@ -962,24 +1109,27 @@ function buildRephotographAttempts(imageUrl, referenceUrl, prompt, resolution = 
     { image2: referenceUrl },
     { reference_images: [referenceUrl] }
   ];
-  const wallHint = '\n\nTarget room: VigSharm studio wall from the SECOND reference — LIGHT bright beige-grey plaster, high-key professional catalog studio lighting (softboxes). Copy reference wall luminance; do NOT darken into taupe/muddy grey. NO invented mottled/smudged wall.';
+  const wallOnly = ['wall_only', 'unit_balloon', 'handheld_bouquet'].includes(scene);
+  const wallHint = '\n\nTarget room: VigSharm studio wall from the SECOND reference — warm light beige-grey plaster, natural catalog softbox daylight (not overexposed wash). Copy reference wall tone; do NOT darken into taupe/muddy grey and do NOT blow out to pure white. NO invented mottled/smudged wall.';
+  const floorHint = '\n\nTarget FLOOR from the SECOND reference — LIGHT pale oak / light grey-beige laminate matching reference brightness. Place product CLOSE to the white baseboard (short floor strip only — not mid-room). Soft contact shadows only under product feet. FORBIDDEN: dark brown/charcoal laminate; large empty floor toward the wall.';
+  const roomHint = wallOnly ? wallHint : (wallHint + floorHint);
   const attempts = [];
 
   const pushBanana = () => {
     for (const ref of refFields) {
       attempts.push({
         model: 'image/nano-banana-2',
-        input: { prompt, image: imageUrl, aspect_ratio: '1:1', ...ref }
+        input: { prompt: prompt + (wallOnly ? '' : floorHint), image: imageUrl, aspect_ratio: '1:1', ...ref }
       });
     }
     for (const ref of refFields.slice(0, 2)) {
       attempts.push({
         model: 'image/nano-banana-pro',
-        input: { prompt, image: imageUrl, ...ref }
+        input: { prompt: prompt + (wallOnly ? '' : floorHint), image: imageUrl, ...ref }
       });
       attempts.push({
         model: 'image/nano-banana-edit',
-        input: { prompt, image: imageUrl, ...ref }
+        input: { prompt: prompt + (wallOnly ? '' : floorHint), image: imageUrl, ...ref }
       });
     }
   };
@@ -994,7 +1144,7 @@ function buildRephotographAttempts(imageUrl, referenceUrl, prompt, resolution = 
   attempts.push({
     model: 'image/gpt-image-2-edit',
     input: {
-      prompt: prompt + wallHint,
+      prompt: prompt + roomHint,
       image: imageUrl,
       reference_image: referenceUrl,
       aspect_ratio: '1:1',
@@ -1004,7 +1154,7 @@ function buildRephotographAttempts(imageUrl, referenceUrl, prompt, resolution = 
   attempts.push({
     model: 'image/flux2-pro-edit',
     input: {
-      prompt: prompt + wallHint,
+      prompt: prompt + roomHint,
       image: imageUrl,
       reference_image: referenceUrl,
       aspect_ratio: '1:1',
@@ -1033,7 +1183,7 @@ async function handleStudioRephotograph(request, env) {
   }
 
   const prompt = buildRephotographPrompt(scene, { photozone_type });
-  const attempts = buildRephotographAttempts(image_url, reference_url, prompt, resolution, prefer);
+  const attempts = buildRephotographAttempts(image_url, reference_url, prompt, resolution, prefer, scene);
 
   let generateResp = null;
   let usedModel = null;
@@ -1129,18 +1279,18 @@ Do NOT reposition to fix floating. Do NOT redesign the product. No plastic 3D re
   if (scene === 'photozone') {
     return `${base}
 
-SCENE: large photozone on laminate near baseboard. Contact shadow under the base. Keep full structure and LARGE real-world scale (round frame ~3 m diameter OR easel ~1.8 m — do not miniaturize).`;
+SCENE: large photozone on laminate NEAR baseboard (short floor strip only — not mid-room). Contact shadow under the base. Keep full structure and LARGE real-world scale (round frame ~3 m diameter OR easel ~1.8 m — do not miniaturize). Natural catalog light, not overexposed.`;
   }
 
   if (scene === 'balloon_figures') {
     return `${base}
 
-SCENE: large balloon FIGURE sculpture (≥1 m tall) standing PERFECTLY VERTICAL on LIGHT bright beige-grey laminate near baseboard — no lean, no table/stand. Soft contact shadow only under base balloons (no dark floor wash). Match reference floor luminance — NOT dark brown laminate. Keep LARGE human scale — do not shrink.`;
+SCENE: large balloon FIGURE sculpture (≥1 m tall) standing PERFECTLY VERTICAL on LIGHT pale-oak laminate NEAR baseboard — no lean, no table/stand, not mid-room. Soft contact shadow only under ORIGINAL base balloons. Do NOT invent extra white/clear/feet balloons under the base. Natural catalog light (not washed out). Keep LARGE human scale — do not shrink.`;
   }
 
   return `${base}
 
-SCENE: floor composition on laminate near baseboard. Medium contact shadow under balloon cluster on the floor — not a flat oval, but shadows where spheres touch the surface.`;
+SCENE: floor composition on laminate NEAR baseboard (short floor strip — not floating mid-room). Soft contact shadow under balloon cluster on the floor. Natural catalog light.`;
 }
 
 async function handleStudioEnhance(request, env) {

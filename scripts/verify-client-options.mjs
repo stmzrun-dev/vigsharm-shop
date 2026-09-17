@@ -148,6 +148,27 @@ assert(wallTwoDigits.has_digit_choice === true, 'wall + «две цифры» �
 assert(wallTwoDigits.digit_count_on_photo === 2, 'wall two digits');
 assert(wallTwoDigits.digit_count_locked === true, 'wall digit count locked');
 
+const bouquetOneDigit = vigNormalizeProduct({
+  title: 'Bouquet digit',
+  scene: 'handheld_bouquet',
+  status: 'published',
+  composition: ['5 шаров', '1 цифра'],
+  client_options: {}
+});
+assert(bouquetOneDigit.has_digit_choice === true, 'bouquet + «1 цифра» → digit choice anywhere');
+assert(bouquetOneDigit.digit_count_on_photo === 1, 'bouquet one digit count');
+assert(bouquetOneDigit.digit_count_locked !== true, 'bouquet digit count not locked');
+
+const bareDigitsWord = vigNormalizeProduct({
+  title: 'Bare цифры',
+  scene: 'floor',
+  status: 'published',
+  composition: ['шары', 'цифры', 'звезда'],
+  client_options: {}
+});
+assert(bareDigitsWord.has_digit_choice === true, 'просто «цифры» → digit choice');
+assert(bareDigitsWord.digit_count_on_photo === 2, 'просто «цифры» → count 2');
+
 const pzFrame = vigNormalizeProduct({
   title: 'PZ frame',
   scene: 'photozone',
@@ -173,6 +194,26 @@ assert(pzEasel.has_rental === true, 'easel rental on');
 assert(pzEasel.has_inscription === true, 'easel implies inscription');
 assert(/мольбер/i.test(pzEasel.rental_item || ''), 'easel rental item');
 assert(pzEasel.keep_price_delta === 500, 'easel keep_price_delta');
+
+const pzFromCompEasel = vigNormalizeProduct({
+  title: 'PZ from text',
+  scene: 'photozone',
+  status: 'published',
+  composition: ['фотозона на мольберте', 'круг полистирол'],
+  client_options: {}
+});
+assert(pzFromCompEasel.has_rental === true, 'photozone from composition still rental');
+assert(pzFromCompEasel.has_inscription === true, 'мольберте in composition → inscription');
+
+const pzFromCompFrame = vigNormalizeProduct({
+  title: 'PZ frame text',
+  scene: 'photozone',
+  status: 'published',
+  composition: ['фотозона на каркасе'],
+  client_options: {}
+});
+assert(pzFromCompFrame.has_rental === true, 'каркасе composition → rental');
+assert(pzFromCompFrame.has_inscription !== true, 'каркас without easel → no auto inscription');
 
 const legacy = vigNormalizeProduct({
   title: 'B',

@@ -195,7 +195,7 @@
             <div class="form-group">
               <label>Состав <span class="req">*</span></label>
               <textarea id="product-composition" rows="2" placeholder="Сырой состав, напр.: коробка, 10 шаров, 1 цифра"></textarea>
-              <small class="text-muted">Сначала напишите состав сами — ИИ оформит. «коробка» → «коробка 70x70x70 с индивидуальной надписью и декором» + галочка надписи. Также: «1 цифра» / «2 цифры», «… с надписью».</small>
+              <small class="text-muted">Сначала напишите состав сами — ИИ оформит. «1 цифра» / «2 цифры» → выбор цифры. «коробка» / «… с надписью» → надпись. Праздник: добавьте в конце <code>(1 сентября)</code> или <code>(Новый год)</code> — категория только праздник, в состав клиенту скобки не попадут.</small>
             </div>
           </div>
 
@@ -251,6 +251,7 @@
 
           <div id="photozone-type-block" class="photozone-type-block hidden">
             <h4 class="photozone-type-title">Тип фотозоны</h4>
+            <p class="text-muted" style="margin:0 0 8px;font-size:13px;">Подставится из состава: «на каркасе» или «на мольберте».</p>
             <div class="option-cards photozone-type-cards">
               <label class="option-card">
                 <input type="radio" name="photozone-type" id="pz-type-frame" value="frame" checked/>

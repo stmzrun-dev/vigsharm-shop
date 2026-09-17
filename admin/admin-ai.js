@@ -234,7 +234,14 @@ Object.assign(app, {
       const articleEl = document.getElementById('product-article');
 
       const titleHint = (titleEl?.value || this.currentProduct.title || '').trim();
-      const userComposition = (compEl?.value || '').trim();
+      const rawComposition = (compEl?.value || '').trim();
+      const holidayMeta = this.parseCompositionHolidayMeta?.(rawComposition) || { holiday: null, cleanText: rawComposition };
+      const userComposition = holidayMeta.cleanText || rawComposition;
+      if (holidayMeta.holiday) {
+        this.currentProduct.holiday_only = holidayMeta.holiday;
+        if (compEl && compEl.value !== userComposition) compEl.value = userComposition;
+        this.applyHolidayOnlyMode?.(holidayMeta.holiday);
+      }
       const priceHint = parseInt(priceEl?.value, 10) || 0;
       const sceneHint = this.currentProduct.scene || 'floor';
       const existingTitles = this.getExistingCatalogTitles?.() || [];
@@ -251,7 +258,8 @@ Object.assign(app, {
           composition_raw: userComposition,
           description: userComposition,
           scene: sceneHint,
-          existing_titles: existingTitles
+          existing_titles: existingTitles,
+          holiday_only: holidayMeta.holiday || this.currentProduct.holiday_only || ''
         })
       });
 

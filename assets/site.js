@@ -77,7 +77,8 @@
       || /(?:^|[^а-яa-z0-9])одн[аоуы]\s+(?:[а-яa-z-]+\s+){0,2}цифр/.test(t)) {
       return 1;
     }
-    if (/(?:^|[^а-яa-z0-9])цифр[ау](?:[^а-яa-z0-9]|$)/.test(t) && !/цифры/.test(t)) return 1;
+    if (/(?:^|[^а-яa-z0-9])цифры(?:[^а-яa-z0-9]|$)/.test(t)) return 2;
+    if (/цифр[ауы]/.test(t)) return 1;
     return 0;
   }
   window.vigIsStorefrontVisible = function (p) {
@@ -142,7 +143,11 @@
       rentalOn = true;
       if (!pzType) {
         var hintItem = (opts.rental && opts.rental.item) || '';
-        pzType = /мольбер/i.test(hintItem) ? 'easel' : 'frame';
+        var compHint = Array.isArray(p.composition) ? p.composition.join(' ') : String(p.composition || '');
+        var compLow = compHint.toLowerCase().replace(/ё/g, 'е');
+        if (/мольбер|полистирол/.test(compLow) || /мольбер/i.test(hintItem)) pzType = 'easel';
+        else if (/каркас|кругл|обруч/.test(compLow) || /каркас/i.test(hintItem)) pzType = 'frame';
+        else pzType = /мольбер/i.test(hintItem) ? 'easel' : 'frame';
       }
       if (pzType === 'easel' && !inscriptionOn) inscriptionOn = true;
     }
@@ -155,9 +160,9 @@
       inscriptionOn = true;
     }
 
-    // Напольные / стена: «1 цифра» / «2 цифры» в составе → выбор цифры
+    // «1 цифра» / «2 цифры» в составе (любая сцена) → выбор цифры
     var compDigits = vigCompositionDigitCount(p.composition);
-    if (!digitOn && (isFloor || isWallOnly || isFigures) && compDigits > 0) {
+    if (!digitOn && compDigits > 0) {
       digitOn = true;
     }
 

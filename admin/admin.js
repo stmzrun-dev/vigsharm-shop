@@ -8,6 +8,9 @@ const TAGS = {
   type: ['Фигуры из шаров', 'Напольные композиции', 'Букет из шаров', 'Цветы из шаров', 'Крафтовый букет', 'Шар-сюрприз', 'Коробка-сюрприз', 'Фотозона', 'Арка из шаров', 'Шары поштучно']
 };
 
+/** Праздничные категории: в составе пишите метку в скобках, напр. (1 сентября) — в состав клиенту не попадёт. */
+const HOLIDAY_CATEGORIES = ['Выпускной', 'Новый год', '14 февраля', '23 февраля', '8 марта', '1 сентября'];
+
 const SCENES = [
   { value: 'auto', title: '🤖 Автоматически', desc: 'ИИ определит по содержимому' },
   { value: 'unit_balloon', title: '🎈 Шар поштучно', desc: 'Manus: стена, без пола' },
@@ -127,6 +130,15 @@ const app = {
       compEl.addEventListener('input', syncOpts);
       compEl.addEventListener('change', syncOpts);
     }
+
+    ['product-title', 'product-short-desc', 'product-full-desc'].forEach((id) => {
+      const el = document.getElementById(id);
+      if (!el || el.dataset.optsWired) return;
+      el.dataset.optsWired = '1';
+      const syncOpts = () => this.syncAdvanceOrderFromScene?.();
+      el.addEventListener('input', syncOpts);
+      el.addEventListener('change', syncOpts);
+    });
 
     this.syncUnitBalloonForm?.(false);
   },

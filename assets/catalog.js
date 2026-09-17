@@ -640,17 +640,30 @@
   }
   function updateCta() {
     if (!cta) return;
-    var past = window.scrollY > 520;
     var customVisible = false;
+    var nearListEnd = false;
     try {
       var el = document.querySelector('.catalog-custom-order');
       if (el) {
         var r = el.getBoundingClientRect();
         customVisible = r.top < window.innerHeight - 90 && r.bottom > 0;
       }
+      // Ближе к концу сетки/«показать ещё», а не посередине витрины
+      var grid = document.querySelector('.catalog-grid');
+      var loadMore = document.querySelector('.catalog-load-more');
+      var anchor = loadMore || grid;
+      if (anchor) {
+        var ar = anchor.getBoundingClientRect();
+        var vh = window.innerHeight || 0;
+        nearListEnd = ar.bottom < vh + 160 && ar.top < vh * 0.42;
+      } else {
+        var docH = document.documentElement.scrollHeight || 0;
+        var winH = window.innerHeight || 0;
+        nearListEnd = window.scrollY + winH > docH - Math.max(winH * 0.5, 480);
+      }
     } catch (e) {}
     var modalOpen = !!document.querySelector('.catalog-modal-wrap');
-    var visible = past && !customVisible && !modalOpen;
+    var visible = nearListEnd && !customVisible && !modalOpen;
     cta.classList.toggle('homepage-mobile-cta-visible', visible);
     cta.setAttribute('aria-hidden', visible ? 'false' : 'true');
     cta.setAttribute('tabindex', visible ? '0' : '-1');

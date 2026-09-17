@@ -550,10 +550,10 @@
       '<details class="order-message-preview"><summary>Проверить текст заказа</summary><pre>' + esc(msg) + '</pre>' +
       '<button type="button" data-copy>Скопировать заказ</button><small role="status" aria-live="polite"></small></details>' +
       '<div class="contact-options">' +
-      '<a class="contact-option whatsapp" target="_blank" rel="noreferrer" href="https://wa.me/' + PHONE + '?text=' + encodeURIComponent(msg) + '"><span>' + WA_SVG + '</span><div><strong>WhatsApp</strong><small>Отправить готовый заказ</small></div><b>→</b></a>' +
-      '<a class="contact-option telegram" target="_blank" rel="noreferrer" href="' + TG_URL + '?text=' + encodeURIComponent(msg) + '"><span>' + TG_SVG + '</span><div><strong>Telegram</strong><small>Текст скопируется · личный чат</small></div><b>→</b></a>' +
-      '<a class="contact-option max" target="_blank" rel="noreferrer" href="' + MAX_URL + '"><span><img src="icons/max-official.png" alt="" aria-hidden="true"/></span><div><strong>MAX</strong><small>Заказ скопируется — вставьте его в чат</small></div><b>→</b></a>' +
-      '<a class="contact-option phone" href="tel:+' + PHONE + '"><span>' + window.vigEmoji('phone') + '</span><div><strong>Позвонить</strong><small>' + PHONE_LABEL + '</small></div><b>→</b></a>' +
+      '<a class="contact-option whatsapp" target="_blank" rel="noreferrer" href="https://wa.me/' + PHONE + '?text=' + encodeURIComponent(msg) + '"><span>' + WA_SVG + '</span><div><strong>WhatsApp</strong><small>Отправить готовый заказ</small></div></a>' +
+      '<a class="contact-option telegram" target="_blank" rel="noreferrer" href="' + TG_URL + '?text=' + encodeURIComponent(msg) + '"><span>' + TG_SVG + '</span><div><strong>Telegram</strong><small>Текст скопируется · личный чат</small></div></a>' +
+      '<a class="contact-option max" target="_blank" rel="noreferrer" href="' + MAX_URL + '"><span><img src="icons/max-official.png" alt="" aria-hidden="true"/></span><div><strong>MAX</strong><small>Заказ скопируется — вставьте в чат</small></div></a>' +
+      '<a class="contact-option phone" href="tel:+' + PHONE + '"><span>' + window.vigEmoji('phone') + '</span><div><strong>Позвонить</strong><small>' + PHONE_LABEL + '</small></div></a>' +
       '</div><p class="modal-note">' + (needsConfirm ? 'Итоговую стоимость уточним до подтверждения заказа. ' : '') + 'Оплата не списывается автоматически: сначала подтвердим наличие и свободное время.</p></section>';
     function close() { wrap.remove(); document.body.style.overflow = ''; }
     wrap.addEventListener('mousedown', function (e) { if (e.target === wrap) close(); });

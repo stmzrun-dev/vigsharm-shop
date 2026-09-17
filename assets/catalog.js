@@ -578,14 +578,14 @@
     wrap.innerHTML =
       '<section class="contact-modal" role="dialog" aria-modal="true" aria-labelledby="catalog-contact-title">' +
       '<button class="modal-close" type="button" aria-label="Закрыть">×</button>' +
-      '<p class="eyebrow">Поможем с выбором</p><h2 id="catalog-contact-title">Как вам удобнее связаться?</h2>' +
-      '<p>Расскажите о празднике и примерном бюджете — подберём подходящую композицию.</p>' +
+      '<h2 id="catalog-contact-title">Как удобнее написать?</h2>' +
+      '<p>Расскажите о празднике и бюджете — подберём композицию.</p>' +
       (parts.length ? '<div class="contact-request-summary"><strong>Ваш выбор сохранён</strong><span>' + esc(parts.join(' · ')) + '</span></div>' : '') +
       '<div class="contact-options">' +
-      '<a class="contact-option whatsapp" target="_blank" rel="noreferrer" href="https://wa.me/' + PHONE + '?text=' + encodeURIComponent(msg) + '"><span>' + WA_SVG + '</span><div><strong>WhatsApp</strong><small>Сообщение уже подготовлено</small></div><b>→</b></a>' +
-      '<a class="contact-option telegram" target="_blank" rel="noreferrer" href="' + TG_URL + '?text=' + encodeURIComponent(msg) + '"><span>' + TG_SVG + '</span><div><strong>Telegram</strong><small>Текст скопируется · личный чат</small></div><b>→</b></a>' +
-      '<a class="contact-option max" target="_blank" rel="noreferrer" href="' + MAX_URL + '"><span><img src="icons/max-official.png" alt="" aria-hidden="true"/></span><div><strong>MAX</strong><small>Текст обращения скопируется</small></div><b>→</b></a>' +
-      '<a class="contact-option phone" href="tel:+' + PHONE + '"><span>' + window.vigEmoji('phone') + '</span><div><strong>Позвонить</strong><small>' + PHONE_LABEL + '</small></div><b>→</b></a>' +
+      '<a class="contact-option whatsapp" target="_blank" rel="noreferrer" href="https://wa.me/' + PHONE + '?text=' + encodeURIComponent(msg) + '"><span>' + WA_SVG + '</span><div><strong>WhatsApp</strong><small>Сообщение уже подготовлено</small></div></a>' +
+      '<a class="contact-option telegram" target="_blank" rel="noreferrer" href="' + TG_URL + '?text=' + encodeURIComponent(msg) + '"><span>' + TG_SVG + '</span><div><strong>Telegram</strong><small>Текст скопируется · личный чат</small></div></a>' +
+      '<a class="contact-option max" target="_blank" rel="noreferrer" href="' + MAX_URL + '"><span><img src="icons/max-official.png" alt="" aria-hidden="true"/></span><div><strong>MAX</strong><small>Текст обращения скопируется</small></div></a>' +
+      '<a class="contact-option phone" href="tel:+' + PHONE + '"><span>' + window.vigEmoji('phone') + '</span><div><strong>Позвонить</strong><small>' + PHONE_LABEL + '</small></div></a>' +
       '</div><p class="modal-note">Заказ оформляется только после нашего подтверждения.</p></section>';
     function close() { wrap.remove(); document.body.style.overflow = ''; }
     wrap.addEventListener('mousedown', function (e) { if (e.target === wrap) close(); });

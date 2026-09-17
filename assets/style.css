@@ -265,4 +265,158 @@
   .catalog-hero:hover .catalog-hero-illustration{
     transform:none!important;
   }
+  .contact-modal,
+  .contact-option,
+  .modal-backdrop{
+    animation:none!important;
+    transition:none!important;
+  }
+  .contact-option:active{transform:none!important}
 }
+
+/* contact modal polish — fit phone, no arrows, unified icons */
+.contact-option{
+  grid-template-columns:40px 1fr!important;
+  gap:12px;
+}
+.contact-option>b{display:none!important}
+.contact-option>span{
+  width:40px!important;
+  height:40px!important;
+  border-radius:12px!important;
+  place-items:center;
+}
+.contact-option>span svg,
+.contact-option>span img,
+.contact-option>span .vig-emoji{
+  width:24px!important;
+  height:24px!important;
+  object-fit:contain;
+  display:block;
+}
+/* toon-телефон: без цветной заливки (rose ломал картинку) */
+.contact-option.phone>span{
+  background:#fff!important;
+  box-shadow:inset 0 0 0 1.5px #e6ebf2!important;
+}
+.contact-option.phone>span .vig-emoji{
+  width:28px!important;
+  height:28px!important;
+}
+.contact-option:active{
+  transform:scale(.98);
+}
+.contact-modal .modal-close{
+  top:12px!important;
+  right:12px!important;
+  width:42px!important;
+  height:42px!important;
+  padding:0!important;
+  color:#414958!important;
+  background:#fff0ee!important;
+  border:2px solid #fff!important;
+  border-radius:14px!important;
+  font-size:26px!important;
+  line-height:1!important;
+  box-shadow:0 3px #f0dfe4!important;
+  display:grid!important;
+  place-items:center;
+}
+
+@media (width<=650px){
+.modal-backdrop{
+  align-items:end!important;
+  padding:10px 10px max(10px, env(safe-area-inset-bottom))!important;
+}
+.contact-modal{
+  width:100%!important;
+  max-height:min(100dvh - 20px, 100vh - 20px)!important;
+  margin:0!important;
+  padding:18px 14px 14px!important;
+  border-radius:22px 22px 16px 16px!important;
+  overflow:auto;
+  overscroll-behavior:contain;
+  animation:.28s ease-out contactSheetIn!important;
+}
+.contact-modal h2{
+  font-size:22px!important;
+  line-height:1.15!important;
+  letter-spacing:-.03em;
+  margin:0 4px 6px 0!important;
+  padding-right:36px;
+}
+.contact-modal>p:not(.eyebrow):not(.modal-note){
+  margin:0 0 4px!important;
+  font-size:13px!important;
+  line-height:1.35!important;
+}
+.contact-modal .eyebrow{display:none!important}
+.contact-options{
+  gap:7px!important;
+  margin-top:12px!important;
+}
+.contact-option{
+  min-height:52px;
+  padding:9px 11px!important;
+  border-radius:14px!important;
+  gap:10px!important;
+  transition:transform .15s ease, border-color .15s ease, background .15s ease;
+}
+.contact-option:hover{transform:none}
+.contact-option strong{font-size:15px;line-height:1.15}
+.contact-option small{font-size:11px;line-height:1.25}
+.contact-option>span{
+  width:36px!important;
+  height:36px!important;
+  border-radius:10px!important;
+}
+.contact-option>span svg,
+.contact-option>span img,
+.contact-option>span .vig-emoji{
+  width:22px!important;
+  height:22px!important;
+}
+.contact-request-summary{
+  margin-top:10px!important;
+  padding:10px 12px!important;
+  border-radius:12px!important;
+  gap:3px!important;
+}
+.modal-note{
+  margin:10px 0 0!important;
+  font-size:11px!important;
+  line-height:1.35!important;
+}
+.modal-close{
+  top:10px!important;
+  right:10px!important;
+  width:42px!important;
+  height:42px!important;
+  font-size:26px!important;
+}
+.contact-option.phone>span{
+  width:36px!important;
+  height:36px!important;
+}
+.contact-option.phone>span .vig-emoji{
+  width:26px!important;
+  height:26px!important;
+}
+/* product order sheet: denser extras so contact list still fits */
+.product-order-modal .order-modal-summary,
+.product-order-modal .order-confirmation-list{
+  margin-top:10px!important;
+  gap:6px!important;
+}
+.product-order-modal .order-message-preview{margin-top:8px!important}
+.product-order-modal>p:not(.modal-note){
+  font-size:12px!important;
+  margin:8px 0 0!important;
+}
+}
+
+@keyframes contactSheetIn{
+  from{opacity:0;transform:translateY(18px)}
+  to{opacity:1;transform:translateY(0)}
+}
+

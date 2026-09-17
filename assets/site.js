@@ -403,16 +403,15 @@
     wrap.innerHTML =
       '<section class="contact-modal" role="dialog" aria-modal="true" aria-labelledby="contact-title">' +
       '<button class="modal-close" type="button" aria-label="Закрыть">×</button>' +
-      '<p class="eyebrow">Мы на связи</p>' +
-      '<h2 id="contact-title">Как вам удобнее?</h2>' +
-      '<p>Выберите мессенджер или позвоните — обсудим композицию и свободное время доставки.</p>' +
+      '<h2 id="contact-title">Как удобнее написать?</h2>' +
+      '<p>Выберите мессенджер или позвоните — обсудим композицию и доставку.</p>' +
       '<div class="contact-options">' +
-      '<a class="contact-option whatsapp" target="_blank" rel="noreferrer" href="https://wa.me/' + PHONE + '?text=' + encodeURIComponent(WA_TEXT) + '"><span>' + WA_SVG + '</span><div><strong>WhatsApp</strong><small>Написать сообщение</small></div><b>→</b></a>' +
-      '<a class="contact-option telegram" target="_blank" rel="noreferrer" href="' + TG_URL + '?text=' + encodeURIComponent(WA_TEXT) + '"><span>' + TG_SVG + '</span><div><strong>Telegram</strong><small>Написать в личный чат</small></div><b>→</b></a>' +
-      '<a class="contact-option max" target="_blank" rel="noreferrer" href="' + MAX_URL + '"><span><img src="icons/max-official.png" alt="" aria-hidden="true"/></span><div><strong>MAX</strong><small>Открыть переписку с Вигшарм</small></div><b>→</b></a>' +
-      '<a class="contact-option phone" href="tel:+' + PHONE + '"><span>' + window.vigEmoji('phone') + '</span><div><strong>Позвонить</strong><small>' + PHONE_LABEL + '</small></div><b>→</b></a>' +
+      '<a class="contact-option whatsapp" target="_blank" rel="noreferrer" href="https://wa.me/' + PHONE + '?text=' + encodeURIComponent(WA_TEXT) + '"><span>' + WA_SVG + '</span><div><strong>WhatsApp</strong><small>Написать сообщение</small></div></a>' +
+      '<a class="contact-option telegram" target="_blank" rel="noreferrer" href="' + TG_URL + '?text=' + encodeURIComponent(WA_TEXT) + '"><span>' + TG_SVG + '</span><div><strong>Telegram</strong><small>Написать в личный чат</small></div></a>' +
+      '<a class="contact-option max" target="_blank" rel="noreferrer" href="' + MAX_URL + '"><span><img src="icons/max-official.png" alt="" aria-hidden="true"/></span><div><strong>MAX</strong><small>Открыть переписку с Вигшарм</small></div></a>' +
+      '<a class="contact-option phone" href="tel:+' + PHONE + '"><span>' + window.vigEmoji('phone') + '</span><div><strong>Позвонить</strong><small>' + PHONE_LABEL + '</small></div></a>' +
       '</div>' +
-      '<p class="modal-note">Нажатие откроет выбранный способ связи. Заказ оформляется только после нашего подтверждения.</p>' +
+      '<p class="modal-note">Заказ оформляется только после нашего подтверждения.</p>' +
       '</section>';
     wrap.addEventListener('mousedown', function (e) {
       if (e.target === wrap) closeModal();

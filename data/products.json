@@ -2,6 +2,47 @@
   "ok": true,
   "products": [
     {
+      "id": "f0a39fcd-3e66-45c9-be80-c98ec0bf46b3",
+      "title": "Железный характер",
+      "article": "BOY-006",
+      "price": 2500,
+      "short_description": "Фигура из шаров в виде улыбчивого силача с гантелей.",
+      "full_description": "Напольная фигура из воздушных шаров изображает весёлого спортсмена с мускулистыми руками и гантелей. Отличный подарок для юного любителя спорта и активных игр.",
+      "composition": [
+        "фигура из шаров"
+      ],
+      "category": "Для мальчика",
+      "character": null,
+      "age_group": "Для подростков",
+      "budget": "2 000–3 500 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": "Для мальчика",
+      "seo_title": "Фигура из шаров Силач — Армавир | VigSharm",
+      "seo_description": "Напольная фигура из воздушных шаров в виде улыбчивого спортсмена с гантелей. Яркий подарок для активного мальчика. Доставка по Армавиру.",
+      "slug": "zheleznyy-kharakter",
+      "scene": "balloon_figures",
+      "tags": [
+        "Для мальчика",
+        "Фигуры из шаров"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1789672796/vigsharm-products/ujlymdqkpom6s1jiokcq.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789672796/vigsharm-products/ujlymdqkpom6s1jiokcq.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-17T19:25:52.345Z",
+      "updated_at": "2026-09-17T19:25:52.345Z"
+    },
+    {
       "id": "ae5f08f9-ae2a-4fe8-824d-c54ba92c3b32",
       "title": "Школьный мольберт",
       "article": "S1-001",

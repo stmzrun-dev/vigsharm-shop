@@ -173,7 +173,7 @@
       '<section class="catalog-filter-sheet-panel" role="dialog" aria-modal="true" aria-labelledby="catalog-filter-title">' +
       '<div class="catalog-filter-sheet-handle" aria-hidden="true"></div>' +
       '<header class="catalog-filter-sheet-head">' +
-      '<div><p class="eyebrow">Подбор</p><h2 id="catalog-filter-title">Фильтры</h2></div>' +
+      '<div><h2 id="catalog-filter-title">Фильтры</h2></div>' +
       '<button type="button" class="catalog-filter-sheet-close" aria-label="Закрыть">×</button>' +
       '</header>' +
       '<div class="catalog-filter-sheet-body"></div>' +

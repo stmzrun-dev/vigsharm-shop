@@ -260,7 +260,7 @@
           '<small>Бесплатно до ' + (p.rental_days || 3) + ' суток. Далее — ' + Number(p.keep_price_delta != null ? p.keep_price_delta : 500).toLocaleString('ru-RU') + ' ₽/сутки.</small></span><b>включено</b></div></fieldset>';
       }
       paramsDetails = '<details class="product-configurator product-step" data-details="params"' + (detailsState.params ? ' open' : '') + '>' +
-        '<summary class="config-title"><span>✨</span><div><strong>1. Выбрать параметры</strong><small>' + esc(paramsTitle()) + '</small></div><b aria-hidden="true">+</b></summary>' +
+        '<summary class="config-title"><div><strong>1. Выбрать параметры</strong><small>' + esc(paramsTitle()) + '</small></div><b aria-hidden="true">+</b></summary>' +
         '<div class="product-step-content">' + inner + '</div></details>';
     }
 
@@ -276,8 +276,8 @@
       (fulfilled && fulfilled !== 'pickup'
         ? '<label class="config-input"><span>Адрес доставки</span><input value="' + esc(address) + '" maxlength="140" data-act="address" placeholder="' + (fulfilled === 'armavir' ? 'Улица, дом, квартира' : 'Населённый пункт и адрес') + '"/>' + (!address.trim() ? '<small>Укажите адрес доставки</small>' : '') + '</label>'
         : '') +
-      (!fulfilled ? '<p class="order-details-note">Выберите самовывоз или подходящий вариант доставки.</p>' : '') +
-      '<p class="order-details-note">💬 Дата, время и адрес попадут в сообщение. Мы подтвердим свободное время.</p>';
+      (!fulfilled ? '<p class="order-details-note">Выберите самовывоз или доставку.</p>' : '') +
+      '<p class="order-details-note order-details-note-quiet">Дата и адрес попадут в сообщение — время подтвердим.</p>';
 
     var dp = digitDeltaPrice(), ip = inscriptionPrice(), yp = deliveryPrice(), T = total();
     var totalLabel = fulfilled === 'nearby' ? 'Предварительная стоимость' : (fulfilled ? 'Итого' : 'Цена композиции');
@@ -307,47 +307,44 @@
           }).join('') + '</div>'
         : '') +
       '</div><div class="product-page-info">' +
+      '<div class="product-page-tags">' +
       '<span class="product-tag">' + esc(p.category || 'Композиция Вигшарм') + '</span>' +
       (p.available_on_request ? '<span class="product-tag product-tag-request">Под заказ</span>' : '') +
       (p.needs_advance_order ? '<span class="product-tag product-tag-advance">За 1–2 дня</span>' : '') +
+      '</div>' +
       '<h1>' + esc(p.title) + '</h1>' +
       '<p class="sku">Артикул ' + esc(p.sku || '') + '</p>' +
-      (p.needs_advance_order
-        ? '<p class="product-advance-note">Такую композицию лучше заказывать заранее — за <strong>1–2 дня</strong>. Так успеем собрать всё аккуратно и вовремя.</p>'
-        : '') +
-      (p.available_on_request
-        ? '<p class="product-request-note">Можно заказать даже если сейчас нет в наличии — согласуем срок в мессенджере.</p>'
-        : '') +
       '<div class="product-base-price"><small>' + (isUnit() ? (isPerMeter() ? 'Цена за метр' : 'Цена за штуку') : 'Цена за композицию') + '</small><strong>' + (priceFrom() ? 'от ' : '') + Number(p.price).toLocaleString('ru-RU') + ' ₽</strong></div>' +
-      '<div class="product-lead">' + window.vigEmoji('balloon') + '<p>' + esc(p.short_description || '') + '</p></div>' +
-      '<div class="product-mobile-highlights" aria-label="Преимущества композиции"><span>✨ Вау-эффект</span><span>🧾 Понятный состав</span><span>' + window.vigEmoji('car') + ' Доставим ко времени</span></div>' +
+      (p.short_description
+        ? '<div class="product-lead"><p>' + esc(p.short_description) + '</p></div>'
+        : '') +
       paramsDetails +
       '<details class="order-details product-step" data-details="date"' + (detailsState.date ? ' open' : '') + '>' +
-      '<summary class="config-title"><span>🚚</span><div><strong>' + stepNum + '. Дата и получение</strong><small>' + esc(fulfillmentTitle()) + '</small></div><b aria-hidden="true">+</b></summary>' +
+      '<summary class="config-title"><div><strong>' + stepNum + '. Дата и получение</strong><small>' + esc(fulfillmentTitle()) + '</small></div><b aria-hidden="true">+</b></summary>' +
       '<div class="product-step-content">' + dateInner + '</div></details>' +
       '<div class="product-order-total"><span>' + totalLabel +
       (ip > 0 ? '<small>Включая надпись: +' + ip.toLocaleString('ru-RU') + ' ₽</small>' : '') +
       (dp !== 0 ? '<small>' + (dp > 0 ? 'Дополнительная цифра: +' : 'Без второй цифры: −') + Math.abs(dp).toLocaleString('ru-RU') + ' ₽</small>' : '') +
       (yp > 0 ? '<small>Доставка по Армавиру: +' + yp.toLocaleString('ru-RU') + ' ₽</small>' : '') +
-      (fulfilled === 'nearby' ? '<small>Стоимость доставки уточним при подтверждении заказа</small>' : '') +
+      (fulfilled === 'nearby' ? '<small>Доставку за город уточним при подтверждении</small>' : '') +
       '</span><strong>' + (priceFrom() ? 'от ' : '') + T.toLocaleString('ru-RU') + ' ₽</strong></div>' +
       '<button type="button" class="button button-primary product-order-button" data-act="order">' + esc(orderBtn) + '</button>' +
-      '<p class="product-order-explainer">Оплачивать сейчас не нужно. Мы получим выбранный вариант, подтвердим наличие и согласуем время.</p>' +
-      '<p class="product-draft-note" role="status" aria-live="polite">' + (draftRestored ? 'Черновик заказа восстановлен и сохраняется на этом устройстве.' : 'Выбранные параметры сохраняются на этом устройстве.') + '</p>' +
+      '<p class="product-order-explainer">Оплата позже — сначала подтвердим наличие и время.</p>' +
+      (draftRestored
+        ? '<p class="product-draft-note" role="status" aria-live="polite">Черновик восстановлен на этом устройстве.</p>'
+        : '') +
       '</div></section>' +
       '<section class="product-page-description"><article class="product-story-card">' +
-      '<span class="description-decoration decoration-one" aria-hidden="true">✨</span><span class="description-decoration decoration-two" aria-hidden="true">' + window.vigEmoji('balloon') + '</span>' +
-      '<p class="eyebrow">О композиции</p><h2>Праздник, который хочется фотографировать</h2>' +
-      '<p class="product-story-text">' + desc + '</p>' +
-      '<div class="product-highlights"><span>😍 Вау-эффект</span><span>🧾 Понятный состав</span><span>' + window.vigEmoji('car') + ' Доставим ко времени</span></div></article>' +
-      '<article class="product-composition-card"><span class="description-decoration decoration-three" aria-hidden="true">💫</span>' +
-      '<p class="eyebrow">Что входит</p><h2>Всё уже собрано в один праздник</h2>' +
+      '<p class="eyebrow">О композиции</p><h2>Описание</h2>' +
+      '<p class="product-story-text">' + desc + '</p></article>' +
+      '<article class="product-composition-card">' +
+      '<p class="eyebrow">Состав</p><h2>Что входит</h2>' +
       '<div class="composition-list">' + compItems.map(function (t, i) {
         return '<div class="composition-item tone-' + (i % 4) + '"><span aria-hidden="true">' + compIcon(t) + '</span><strong>' + esc(t) + '</strong><b aria-hidden="true">✓</b></div>';
       }).join('') + '</div></article></section>' +
       '<section class="related-products"><div class="related-products-heading"><div>' +
-      '<p class="eyebrow">Ещё немного праздника</p><h2>' + (rel.length ? 'Похожие композиции' : 'Не нашли тот самый вариант?') + '</h2>' +
-      '<p>' + (rel.length ? 'Подобрали варианты из близкой категории и примерно того же бюджета.' : 'Покажите нам пример или расскажите идею — соберём композицию специально для вас.') + '</p></div>' +
+      '<h2>' + (rel.length ? 'Похожие композиции' : 'Нужен другой вариант?') + '</h2>' +
+      '</div>' +
       '<div class="related-products-actions"><a href="catalog.html?max=' + p.price + '">Не дороже ' + Number(p.price).toLocaleString('ru-RU') + ' ₽</a><a href="catalog.html">Весь каталог <span>→</span></a></div></div>' +
       (rel.length
         ? '<div class="related-products-grid">' + rel.map(function (o, i) {
@@ -355,10 +352,10 @@
           var img = k ? '<img src="' + window.vigImage(k) + '" data-key="' + esc(k) + '" alt="' + esc(o.title) + '" loading="lazy" decoding="async" width="800" height="800"/>' : window.vigEmoji('balloon');
           return '<a class="catalog-card color-' + ((i + 1) % 5) + '" href="product.html?slug=' + encodeURIComponent(o.slug || o.id) + '" aria-label="Подробнее: ' + esc(o.title) + '">' +
             '<span class="catalog-card-image">' + img + '</span>' +
-            '<span class="catalog-card-copy"><small>' + esc(o.category || 'Композиция Вигшарм') + '</small><strong>' + esc(o.title) + '</strong><span>' + esc(o.short_description || '') + '</span>' +
+            '<span class="catalog-card-copy"><small>' + esc(o.category || 'Композиция Вигшарм') + '</small><strong>' + esc(o.title) + '</strong>' +
             '<b>' + Number(o.price).toLocaleString('ru-RU') + ' ₽ <i>→</i></b></span></a>';
         }).join('') + '</div>'
-        : '<div class="related-custom-card">' + window.vigEmoji('balloon') + '<div><strong>Сделаем из шаров всё!</strong><p>Напишите, для кого праздник, какой повод и бюджет — предложим несколько идей.</p></div><button type="button" data-act="order">Обсудить идею</button></div>') +
+        : '<div class="related-custom-card">' + window.vigEmoji('balloon') + '<div><strong>Сделаем под ваш праздник</strong><p>Напишите повод и бюджет — предложим идеи.</p></div><button type="button" data-act="order">Обсудить идею</button></div>') +
       '</section>' +
       '<aside class="mobile-order-bar" aria-label="Быстрый заказ"><div><small>' + (fulfilled === 'nearby' ? 'От' : fulfilled ? 'Итого' : 'Цена композиции') + '</small><strong>' + (priceFrom() ? 'от ' : '') + T.toLocaleString('ru-RU') + ' ₽</strong></div>' +
       '<button type="button" data-act="order">' + (!digitsOk() ? 'Выберите цифры' : !fulfilled ? 'Выберите получение' : !fulfillmentOk() ? 'Укажите адрес' : 'Заказать') + ' <span>→</span></button></aside>' +

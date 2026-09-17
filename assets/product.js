@@ -260,7 +260,7 @@
           '<small>Бесплатно до ' + (p.rental_days || 3) + ' суток. Далее — ' + Number(p.keep_price_delta != null ? p.keep_price_delta : 500).toLocaleString('ru-RU') + ' ₽/сутки.</small></span><b>включено</b></div></fieldset>';
       }
       paramsDetails = '<details class="product-configurator product-step" data-details="params"' + (detailsState.params ? ' open' : '') + '>' +
-        '<summary class="config-title"><div><strong>1. Выбрать параметры</strong><small>' + esc(paramsTitle()) + '</small></div><b aria-hidden="true">+</b></summary>' +
+        '<summary class="config-title"><div><strong>1. Выбрать параметры</strong><small>' + esc(paramsTitle()) + '</small></div><b class="step-chevron" aria-hidden="true"></b></summary>' +
         '<div class="product-step-content">' + inner + '</div></details>';
     }
 
@@ -281,13 +281,27 @@
 
     var dp = digitDeltaPrice(), ip = inscriptionPrice(), yp = deliveryPrice(), T = total();
     var totalLabel = fulfilled === 'nearby' ? 'Предварительная стоимость' : (fulfilled ? 'Итого' : 'Цена композиции');
+    var hasPriceExtras = ip > 0 || dp !== 0 || yp > 0 || fulfilled === 'nearby';
+    var orderReady = digitsOk() && fulfillmentOk();
     var orderBtn = !digitsOk()
       ? 'Выберите ' + (U === 2 ? 'обе цифры' : 'цифру')
-      : (!fulfilled ? 'Выберите способ получения' : (!fulfillmentOk() ? 'Укажите адрес доставки' : 'Заказать за ' + T.toLocaleString('ru-RU') + ' ₽ →'));
+      : (!fulfilled ? 'Выберите способ получения' : (!fulfillmentOk() ? 'Укажите адрес доставки' : 'Заказать в мессенджер →'));
 
-    var desc = String(p.description || '').replace(/\n/g, '<br/>');
+    var desc = String(p.description || '').trim();
     var compItems = String(p.composition || '').split(/\n+/).map(function (s) { return s.trim(); }).filter(Boolean);
     var rel = related();
+    var leadText = p.short_description || (desc ? desc.split(/\n+/)[0] : '');
+    var msgPreview = orderReady ? orderMessage() : '';
+    var mobileBarActions = orderReady
+      ? ('<nav class="mobile-order-contacts" aria-label="Отправить заказ">' +
+        '<a class="mobile-order-msg whatsapp" data-msg="wa" target="_blank" rel="noreferrer" href="https://wa.me/' + PHONE + '?text=' + encodeURIComponent(msgPreview) + '" aria-label="Отправить заказ в WhatsApp"><span aria-hidden="true">' + WA_SVG + '</span><small>WhatsApp</small></a>' +
+        '<a class="mobile-order-msg telegram" data-msg="tg" target="_blank" rel="noreferrer" href="' + TG_URL + '?text=' + encodeURIComponent(msgPreview) + '" aria-label="Открыть Telegram с заказом"><span aria-hidden="true">' + TG_SVG + '</span><small>Telegram</small></a>' +
+        '<a class="mobile-order-msg max" data-msg="max" target="_blank" rel="noreferrer" href="' + MAX_URL + '" aria-label="Открыть MAX с заказом"><span aria-hidden="true"><img src="icons/max-official.png" alt=""/></span><small>MAX</small></a>' +
+        '<a class="mobile-order-msg phone" href="tel:+' + PHONE + '" aria-label="Позвонить ' + PHONE_LABEL + '"><span aria-hidden="true">' + window.vigEmoji('phone') + '</span><small>Звонок</small></a>' +
+        '</nav>')
+      : ('<button type="button" class="mobile-order-cta" data-act="order">' +
+        (!digitsOk() ? 'Выберите цифры' : !fulfilled ? 'Выберите получение' : 'Укажите адрес') +
+        ' <span aria-hidden="true">→</span></button>');
 
     root.innerHTML =
       '<main class="product-page">' +
@@ -315,14 +329,14 @@
       '<h1>' + esc(p.title) + '</h1>' +
       '<p class="sku">Артикул ' + esc(p.sku || '') + '</p>' +
       '<div class="product-base-price"><small>' + (isUnit() ? (isPerMeter() ? 'Цена за метр' : 'Цена за штуку') : 'Цена за композицию') + '</small><strong>' + (priceFrom() ? 'от ' : '') + Number(p.price).toLocaleString('ru-RU') + ' ₽</strong></div>' +
-      (p.short_description
-        ? '<div class="product-lead"><p>' + esc(p.short_description) + '</p></div>'
+      (leadText
+        ? '<div class="product-lead"><p>' + esc(leadText) + '</p></div>'
         : '') +
       paramsDetails +
       '<details class="order-details product-step" data-details="date"' + (detailsState.date ? ' open' : '') + '>' +
-      '<summary class="config-title"><div><strong>' + stepNum + '. Дата и получение</strong><small>' + esc(fulfillmentTitle()) + '</small></div><b aria-hidden="true">+</b></summary>' +
+      '<summary class="config-title"><div><strong>' + stepNum + '. Дата и получение</strong><small>' + esc(fulfillmentTitle()) + '</small></div><b class="step-chevron" aria-hidden="true"></b></summary>' +
       '<div class="product-step-content">' + dateInner + '</div></details>' +
-      '<div class="product-order-total"><span>' + totalLabel +
+      '<div class="product-order-total' + (hasPriceExtras ? ' is-detailed' : '') + '"><span>' + totalLabel +
       (ip > 0 ? '<small>Включая надпись: +' + ip.toLocaleString('ru-RU') + ' ₽</small>' : '') +
       (dp !== 0 ? '<small>' + (dp > 0 ? 'Дополнительная цифра: +' : 'Без второй цифры: −') + Math.abs(dp).toLocaleString('ru-RU') + ' ₽</small>' : '') +
       (yp > 0 ? '<small>Доставка по Армавиру: +' + yp.toLocaleString('ru-RU') + ' ₽</small>' : '') +
@@ -334,14 +348,13 @@
         ? '<p class="product-draft-note" role="status" aria-live="polite">Черновик восстановлен на этом устройстве.</p>'
         : '') +
       '</div></section>' +
-      '<section class="product-page-description"><article class="product-story-card">' +
-      '<p class="eyebrow">О композиции</p><h2>Описание</h2>' +
-      '<p class="product-story-text">' + desc + '</p></article>' +
-      '<article class="product-composition-card">' +
-      '<p class="eyebrow">Состав</p><h2>Что входит</h2>' +
-      '<div class="composition-list">' + compItems.map(function (t, i) {
-        return '<div class="composition-item tone-' + (i % 4) + '"><span aria-hidden="true">' + compIcon(t) + '</span><strong>' + esc(t) + '</strong><b aria-hidden="true">✓</b></div>';
-      }).join('') + '</div></article></section>' +
+      (compItems.length
+        ? ('<section class="product-page-description product-page-description--solo" aria-label="Состав композиции"><article class="product-composition-card">' +
+          '<p class="eyebrow">Состав</p><h2>Что входит</h2>' +
+          '<div class="composition-list">' + compItems.map(function (t, i) {
+            return '<div class="composition-item tone-' + (i % 4) + '"><span aria-hidden="true">' + compIcon(t) + '</span><strong>' + esc(t) + '</strong><b aria-hidden="true">✓</b></div>';
+          }).join('') + '</div></article></section>')
+        : '') +
       '<section class="related-products"><div class="related-products-heading"><div>' +
       '<h2>' + (rel.length ? 'Похожие композиции' : 'Нужен другой вариант?') + '</h2>' +
       '</div>' +
@@ -353,12 +366,12 @@
           return '<a class="catalog-card color-' + ((i + 1) % 5) + '" href="product.html?slug=' + encodeURIComponent(o.slug || o.id) + '" aria-label="Подробнее: ' + esc(o.title) + '">' +
             '<span class="catalog-card-image">' + img + '</span>' +
             '<span class="catalog-card-copy"><small>' + esc(o.category || 'Композиция Вигшарм') + '</small><strong>' + esc(o.title) + '</strong>' +
-            '<b>' + Number(o.price).toLocaleString('ru-RU') + ' ₽ <i>→</i></b></span></a>';
+            '<b><em>' + Number(o.price).toLocaleString('ru-RU') + ' ₽</em><span class="related-cta">Подробнее <i aria-hidden="true">→</i></span></b></span></a>';
         }).join('') + '</div>'
         : '<div class="related-custom-card">' + window.vigEmoji('balloon') + '<div><strong>Сделаем под ваш праздник</strong><p>Напишите повод и бюджет — предложим идеи.</p></div><button type="button" data-act="order">Обсудить идею</button></div>') +
       '</section>' +
-      '<aside class="mobile-order-bar" aria-label="Быстрый заказ"><div><small>' + (fulfilled === 'nearby' ? 'От' : fulfilled ? 'Итого' : 'Цена композиции') + '</small><strong>' + (priceFrom() ? 'от ' : '') + T.toLocaleString('ru-RU') + ' ₽</strong></div>' +
-      '<button type="button" data-act="order">' + (!digitsOk() ? 'Выберите цифры' : !fulfilled ? 'Выберите получение' : !fulfillmentOk() ? 'Укажите адрес' : 'Заказать') + ' <span>→</span></button></aside>' +
+      '<aside class="mobile-order-bar' + (orderReady ? ' is-ready' : '') + '" aria-label="Быстрый заказ"><div><small>' + (fulfilled === 'nearby' ? 'От' : fulfilled ? 'Итого' : 'Цена композиции') + '</small><strong>' + (priceFrom() ? 'от ' : '') + T.toLocaleString('ru-RU') + ' ₽</strong></div>' +
+      mobileBarActions + '</aside>' +
       '</main>';
 
     document.title = (p.seo_title || (p.title + ' — заказать шары в Армавире | VigSharm'));
@@ -440,6 +453,13 @@
         el.addEventListener('click', order);
       }
     });
+    root.querySelectorAll('.mobile-order-msg[data-msg]').forEach(function (el) {
+      el.addEventListener('click', function () {
+        var kind = el.getAttribute('data-msg');
+        if (kind === 'max') copyOrderText(orderMessage(), null, MAX_COPY_HINT);
+        else if (kind === 'wa' || kind === 'tg') copyOrderText(orderMessage());
+      });
+    });
     var gal = root.querySelector('[data-gallery]');
     if (gal) {
       gal.addEventListener('keydown', function (e) {
@@ -463,12 +483,14 @@
     var ip = inscriptionPrice(), dp = digitDeltaPrice(), yp = deliveryPrice(), T = total();
     var fulfilled = fulfillment, U = effDigits();
     var totalLabel = fulfilled === 'nearby' ? 'Предварительная стоимость' : (fulfilled ? 'Итого' : 'Цена композиции');
+    var hasPriceExtras = ip > 0 || dp !== 0 || yp > 0 || fulfilled === 'nearby';
     var orderBtn = !digitsOk()
       ? 'Выберите ' + (U === 2 ? 'обе цифры' : 'цифру')
-      : (!fulfilled ? 'Выберите способ получения' : (!fulfillmentOk() ? 'Укажите адрес доставки' : 'Заказать за ' + T.toLocaleString('ru-RU') + ' ₽ →'));
+      : (!fulfilled ? 'Выберите способ получения' : (!fulfillmentOk() ? 'Укажите адрес доставки' : 'Заказать в мессенджер →'));
 
     var totalEl = root.querySelector('.product-order-total');
     if (totalEl) {
+      totalEl.classList.toggle('is-detailed', hasPriceExtras);
       totalEl.innerHTML = '<span>' + totalLabel +
         (ip > 0 ? '<small>Включая надпись: +' + ip.toLocaleString('ru-RU') + ' ₽</small>' : '') +
         (dp !== 0 ? '<small>' + (dp > 0 ? 'Дополнительная цифра: +' : 'Без второй цифры: −') + Math.abs(dp).toLocaleString('ru-RU') + ' ₽</small>' : '') +
@@ -484,6 +506,12 @@
     if (barSmall) barSmall.textContent = fulfilled === 'nearby' ? 'От' : (fulfilled ? 'Итого' : 'Цена композиции');
     var barStrong = root.querySelector('.mobile-order-bar div strong');
     if (barStrong) barStrong.textContent = (priceFrom() ? 'от ' : '') + T.toLocaleString('ru-RU') + ' ₽';
+
+    var cta = root.querySelector('.mobile-order-cta');
+    if (cta) {
+      cta.innerHTML = (!digitsOk() ? 'Выберите цифры' : !fulfilled ? 'Выберите получение' : 'Укажите адрес') +
+        ' <span aria-hidden="true">→</span>';
+    }
   }
 
   function step(d) {

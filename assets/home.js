@@ -28,13 +28,16 @@
             ? '<img src="' + window.vigImage(key) + '" data-key="' + escapeHtml(key) + '" alt="' + escapeHtml(p.title) + '" loading="lazy" decoding="async"/>'
             : (window.vigEmoji ? window.vigEmoji('balloon') : '<img class="vig-emoji" src="icons/vigsharm-toons/emoji-balloon.png" alt="" width="24" height="24" decoding="async" aria-hidden="true"/>');
           var requestBadge = p.available_on_request ? '<em class="product-request-badge">Под заказ</em>' : '';
-          var advanceBadge = (!requestBadge && p.needs_advance_order) ? '<em class="product-advance-badge">За 1–2 дня</em>' : '';
+          var cat = String(p.category || '').trim();
+          var advanceBadge = (!requestBadge && p.needs_advance_order && !cat)
+            ? '<em class="product-advance-badge">За 1–2 дня</em>'
+            : '';
           var badge = requestBadge || advanceBadge;
           return (
             '<a class="live-product-card" href="product.html?slug=' + encodeURIComponent(p.slug || p.id) + '" aria-label="Подробнее: ' + escapeHtml(p.title) + '">' +
             '<span class="live-product-image">' + img + '</span>' +
             '<span class="live-product-copy">' +
-            '<span class="live-product-meta"><small>' + escapeHtml(p.category || 'Композиция') + '</small>' + badge + '</span>' +
+            '<span class="live-product-meta"><small>' + escapeHtml(cat || 'Композиция') + '</small>' + badge + '</span>' +
             '<strong>' + escapeHtml(p.title) + '</strong>' +
             '<span>' + escapeHtml(p.short_description || '') + '</span>' +
             '<b>' + Number(p.price).toLocaleString('ru-RU') + ' ₽ <i aria-hidden="true">Подробнее&nbsp; →</i></b>' +
@@ -69,9 +72,15 @@
 
   /* ---------- Mobile CTA visibility ---------- */
   var cta = document.querySelector('.homepage-mobile-cta');
+  var heroActions = document.querySelector('.hero-actions');
   function updateCta() {
     if (!cta) return;
-    var show = window.scrollY > Math.min(window.innerHeight * 0.72, 620);
+    var show = window.scrollY > Math.min(window.innerHeight * 0.9, 760);
+    /* keep hidden while primary hero CTAs are still on screen */
+    if (heroActions) {
+      var hr = heroActions.getBoundingClientRect();
+      if (hr.bottom > 48) show = false;
+    }
     // hide when footer CTA / footer in view
     var footerVisible = false;
     try {

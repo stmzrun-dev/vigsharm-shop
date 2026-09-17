@@ -294,12 +294,16 @@
       : window.vigEmoji('balloon');
     var from = (p.tags || []).indexOf('Цена от') >= 0 ? 'от ' : '';
     var priceNote = p.category === 'Шары поштучно' ? 'Цена за штуку' : 'Цена за композицию';
+    var cat = String(p.category || '').trim();
     var requestBadge = p.available_on_request ? '<em class="product-request-badge">Под заказ</em>' : '';
-    var advanceBadge = (!requestBadge && p.needs_advance_order) ? '<em class="product-advance-badge">За 1–2 дня</em>' : '';
+    /* Advance badge only when category is missing — avoid noisy repeat on every card */
+    var advanceBadge = (!requestBadge && p.needs_advance_order && !cat)
+      ? '<em class="product-advance-badge">За 1–2 дня</em>'
+      : '';
     var badge = requestBadge || advanceBadge;
     return '<a class="catalog-card color-' + (i % 5) + '" href="product.html?slug=' + encodeURIComponent(p.slug || p.id) + '" aria-label="Подробнее: ' + esc(p.title) + '">' +
       '<span class="catalog-card-image">' + img + '</span>' +
-      '<span class="catalog-card-copy"><span class="catalog-card-meta"><small>' + esc(p.category || 'Композиция') + '</small>' + badge + '</span>' +
+      '<span class="catalog-card-copy"><span class="catalog-card-meta"><small>' + esc(cat || 'Композиция') + '</small>' + badge + '</span>' +
       '<strong>' + esc(p.title) + '</strong>' +
       '<span>' + esc(p.short_description || '') + '</span>' +
       '<span class="catalog-card-price"><small>' + priceNote + '</small><b>' + from + Number(p.price).toLocaleString('ru-RU') + ' ₽</b><i aria-hidden="true">Подробнее&nbsp; →</i></span>' +

@@ -247,10 +247,10 @@
         "number_choice": true,
         "personal_inscription": true,
         "photozone_rental": true,
-        "photozone_type": "easel",
+        "photozone_type": "frame",
         "rental": {
           "enabled": true,
-          "item": "Мольберт с кругом из полистирола",
+          "item": "Каркас фотозоны",
           "days": 3,
           "keep_price_delta": 500
         },
@@ -266,13 +266,13 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-17T11:20:18.803Z",
-      "updated_at": "2026-09-17T11:20:18.803Z"
+      "updated_at": "2026-09-17T22:49:24.285Z"
     },
     {
       "id": "0be64ab3-0e4e-4f80-b944-5cb3eb982b26",
       "title": "Золотой жираф",
       "article": "GRL-006",
-      "price": 5996,
+      "price": 6000,
       "short_description": "Фотозона на мольберте с гирляндой из розовых, белых и золотых шаров и фольгированным жирафом.",
       "full_description": "Фотозона на деревянном мольберте с асимметричной гирляндой из розовых, белых и золотых шаров. В композицию входит фольгированный жираф и напольные группы шаров.",
       "composition": [
@@ -314,7 +314,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-17T11:08:37.440Z",
-      "updated_at": "2026-09-17T11:08:37.440Z"
+      "updated_at": "2026-09-17T22:46:47.733Z"
     },
     {
       "id": "19d37ecc-28d5-44b4-8200-702904d0c6f5",
@@ -506,7 +506,7 @@
       "category": "Для мальчика",
       "character": "Медведь",
       "age_group": "Для малышей",
-      "budget": "1 000–2 000 ₽",
+      "budget": "2 000–3 500 ₽",
       "series_name": null,
       "occasion": null,
       "target_audience": "Для мальчика",
@@ -532,35 +532,34 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-16T21:48:55.654Z",
-      "updated_at": "2026-09-16T21:48:55.654Z"
+      "updated_at": "2026-09-17T22:41:18.614Z"
     },
     {
       "id": "0528656c-ff22-43c4-99d7-dea88d030176",
       "title": "Радужный праздник",
       "article": "GRL-004",
-      "price": 4242,
-      "short_description": "Розовая коробка-сюрприз с пони, яркими шарами и большой цифрой.",
-      "full_description": "Напольная композиция с розовой коробкой-сюрпризом, фольгированными пони и цифрой, дополненная разноцветными латексными шарами.",
+      "price": 5380,
+      "short_description": "Коробка-сюрприз с пони Радугой Дэш и Пинки Пай, цифрой и яркими шарами.",
+      "full_description": "Коробка с двумя любимыми героинями My Little Pony, фольгированной цифрой и радужными латексными шарами. Надпись на коробке персонализируется под получателя.",
       "composition": [
-        "Коробка-сюрприз 70×70×70",
-        "Фольгированная цифра",
+        "коробка 70x70x70 с индивидуальной надписью и декором",
+        "фольгированная цифра",
         "2 фольгированные фигуры пони",
         "7 латексных шаров"
       ],
       "category": "Для девочки",
-      "character": "Пони",
+      "character": "Радуга Дэш и Пинки Пай",
       "age_group": "Для детей",
-      "budget": "3 500–5 000 ₽",
+      "budget": "5 000–8 000 ₽",
       "series_name": "My Little Pony",
       "occasion": null,
       "target_audience": "Для девочки",
-      "seo_title": "Коробка-сюрприз с пони и шарами в Армавире",
-      "seo_description": "Напольная композиция с коробкой-сюрпризом, фольгированными пони My Little Pony и яркими шарами. Доставка по Армавиру.",
+      "seo_title": "Коробка-сюрприз My Little Pony с шарами в Армавире",
+      "seo_description": "Коробка с Радугой Дэш и Пинки Пай, цифрой и яркими шарами. Персонализированная надпись. Доставка по Армавиру от VigSharm.",
       "slug": "raduzhniy-prazdnik",
       "scene": "floor",
       "tags": [
         "Для девочки",
-        "Напольные композиции",
         "Коробка-сюрприз"
       ],
       "client_options": {
@@ -575,23 +574,23 @@
         }
       },
       "photos": [
-        "https://res.cloudinary.com/saiuc42a/image/upload/v1789594850/vigsharm-products/evh7mu5dxpzzdmz33bst.png"
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1789686309/vigsharm-products/r1mkwmeixjxjd66uxemr.png"
       ],
-      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789594850/vigsharm-products/evh7mu5dxpzzdmz33bst.png",
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789686309/vigsharm-products/r1mkwmeixjxjd66uxemr.png",
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-16T21:44:35.023Z",
-      "updated_at": "2026-09-16T21:44:35.023Z"
+      "updated_at": "2026-09-17T23:06:11.535Z"
     },
     {
       "id": "59cbcb25-e44f-4953-b8e8-64c75b27f199",
-      "title": "Супергеройский стиль",
+      "title": "Паутина событий",
       "article": "BOY-003",
-      "price": 6000,
-      "short_description": "Фотозона на мольберте с гирляндой синих и красных шаров с серебряными акцентами.",
-      "full_description": "Фотозона на белом мольберте с персональным постером, окружённая гирляндами из синих и красных шаров с серебряными акцентами. Яркое решение для супергеройской вечеринки.",
+      "price": 5500,
+      "short_description": "Фотозона на мольберте в красно-синей гамме с паутиной и серебряными акцентами.",
+      "full_description": "Фотозона на белом мольберте с круглой табличкой, украшенной паутиной. Красные и синие шары с серебряными акцентами создают яркую композицию.",
       "composition": [
-        "Фотозона на мольберте"
+        "фотозона на мольберте"
       ],
       "category": "Для мальчика",
       "character": "Человек-паук",
@@ -600,12 +599,11 @@
       "series_name": "Человек-паук",
       "occasion": null,
       "target_audience": "Для мальчика",
-      "seo_title": "Фотозона на мольберте для мальчика — Армавир",
-      "seo_description": "Яркая фотозона на мольберте с синими и красными шарами. Идеально для супергеройской вечеринки. Доставка по Армавиру.",
-      "slug": "geroj-gotema-fotozona-molbert",
+      "seo_title": "Фотозона Человек-паук на мольберте — Армавир | VigSharm",
+      "seo_description": "Фотозона с паутиной на мольберте в красно-синих тонах. Оформление дня рождения в стиле Человек-паук. Доставка по Армавиру.",
+      "slug": "pautina-sobytiy",
       "scene": "photozone",
       "tags": [
-        "Для мальчика",
         "Фотозона"
       ],
       "client_options": {
@@ -623,41 +621,40 @@
         }
       },
       "photos": [
-        "https://res.cloudinary.com/saiuc42a/image/upload/v1789594165/vigsharm-products/umhmsgdgqx6nzdk4tyuh.png"
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1789684496/vigsharm-products/svavwn6j4ujjqpal6myi.png"
       ],
-      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789594165/vigsharm-products/umhmsgdgqx6nzdk4tyuh.png",
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789684496/vigsharm-products/svavwn6j4ujjqpal6myi.png",
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-16T21:34:05.805Z",
-      "updated_at": "2026-09-16T21:34:05.805Z"
+      "updated_at": "2026-09-17T22:38:38.146Z"
     },
     {
       "id": "4b23dbd8-6175-47b5-a46a-2d9b254aa6c9",
       "title": "Письмо из Хогвартса",
       "article": "BOY-002",
-      "price": 4232,
-      "short_description": "Напольная композиция в стиле Гарри Поттера с гербом Хогвартса, совой и фигурой волшебника.",
-      "full_description": "Композиция объединяет культовые символы волшебного мира: герб факультета, именную звезду, белую сову и фигуру главного героя. Яркие шары в цветах Гриффindора дополняют магическую атмосферу.",
+      "price": 5680,
+      "short_description": "Букет с Гарри Поттером, совой Хедвиг и гербом Хогвартса на золотой звезде с персональной надписью.",
+      "full_description": "Волшебная композиция для поклонников Гарри Поттера. В букете три фольгированные фигуры, золотая звезда с именем и возрастом, кубический шар с тематическим рисунком и семь латексных шаров.",
       "composition": [
         "3 фольгированные фигуры",
-        "Большая звезда с надписью",
-        "Квадратный шар с рисунком",
+        "большая звезда с надписью",
+        "квадратный шар с рисунком",
         "7 латексных шаров"
       ],
       "category": "Для мальчика",
       "character": "Гарри Поттер",
       "age_group": "Для детей",
-      "budget": "3 500–5 000 ₽",
+      "budget": "5 000–8 000 ₽",
       "series_name": "Гарри Поттер",
       "occasion": null,
       "target_audience": "Для мальчика",
-      "seo_title": "Шары Гарри Поттер Хогвартс — Армавир | VigSharm",
-      "seo_description": "Напольная композиция с Гарри Поттером, гербом Хогвартса и совой. Именная звезда и шары в стиле волшебного мира. Доставка в Армавире.",
+      "seo_title": "Шары Гарри Поттер с совой и гербом Хогвартса в Армавире",
+      "seo_description": "Букет шаров в стиле Гарри Поттера: фигуры персонажей, сова Хедвиг, герб Хогвартса, золотая звезда с именем. Доставка в Армавире.",
       "slug": "pismo-iz-hogvartsa",
       "scene": "floor",
       "tags": [
-        "Для мальчика",
-        "Напольные композиции"
+        "Для мальчика"
       ],
       "client_options": {
         "available_on_request": false,
@@ -667,13 +664,13 @@
         "photozone_rental": false
       },
       "photos": [
-        "https://res.cloudinary.com/saiuc42a/image/upload/v1789593314/vigsharm-products/p1haxobuqbvijr779lii.jpg"
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1789684165/vigsharm-products/mx16mddr6svhpkfk4aer.jpg"
       ],
-      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789593314/vigsharm-products/p1haxobuqbvijr779lii.jpg",
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789684165/vigsharm-products/mx16mddr6svhpkfk4aer.jpg",
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-16T21:15:48.060Z",
-      "updated_at": "2026-09-16T21:15:48.060Z"
+      "updated_at": "2026-09-17T22:31:42.432Z"
     },
     {
       "id": "c6b50c91-82f2-4cf3-afec-185269d543f2",
@@ -798,35 +795,39 @@
     },
     {
       "id": "501ce24d-4727-4578-ad79-79e3c9024e8e",
-      "title": "Дива-шестилетка",
+      "title": "Яркая модница",
       "article": "GRL-002",
-      "price": 4000,
-      "short_description": "Две напольные композиции с цифрой 6 и куклой LOL в розово-мятной гамме.",
-      "full_description": "Композиции включают большую фольгированную цифру 6 и фигуру куклы LOL на подставках из латексных шаров. Яркое оформление в розовых, мятных и белых тонах.",
+      "price": 3500,
+      "short_description": "Розово-бирюзовые композиции с куклой LOL и цифрой.",
+      "full_description": "Две напольные композиции с фольгированной цифрой и фигурой популярной куклы. Яркое сочетание розового, белого и бирюзового.",
       "composition": [
-        "2 напольные композиции"
+        "2 напольные композиции из латексных шаров",
+        "фольгированная цифра"
       ],
       "category": "Для девочки",
-      "character": "LOL Surprise",
+      "character": "Дива",
       "age_group": "Для детей",
       "budget": "3 500–5 000 ₽",
       "series_name": "LOL Surprise",
       "occasion": null,
       "target_audience": "Для девочки",
-      "seo_title": "Шары LOL с цифрой 6 на день рождения девочки в Армавире",
-      "seo_description": "Напольные композиции с цифрой 6 и куклой LOL Surprise. Яркое оформление дня рождения для девочки. Доставка по Армавиру от VigSharm.",
-      "slug": "diva-shestiletka-lol",
-      "scene": "auto",
+      "seo_title": "Шары с куклой LOL и цифрой в Армавире — Яркая модница",
+      "seo_description": "Две напольные композиции с фольгированной цифрой и фигурой куклы LOL. Розово-бирюзовое оформление для девочки. Доставка в Армавире.",
+      "slug": "yarkaya-modnitsa",
+      "scene": "floor",
       "tags": [
-        "Для девочки",
-        "Напольные композиции"
+        "Для девочки"
       ],
       "client_options": {
         "available_on_request": false,
         "advance_order_1_2_days": true,
         "number_choice": true,
         "personal_inscription": false,
-        "photozone_rental": false
+        "photozone_rental": false,
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
       },
       "photos": [
         "https://res.cloudinary.com/saiuc42a/image/upload/v1789590828/vigsharm-products/tgw3jx4l5hv1wukiq3f5.png"
@@ -835,7 +836,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-16T20:36:56.247Z",
-      "updated_at": "2026-09-16T20:36:56.247Z"
+      "updated_at": "2026-09-17T22:19:08.815Z"
     },
     {
       "id": "8a0c5e88-8252-45c0-b4ef-b14ac5398156",
@@ -878,44 +879,45 @@
       "id": "7e464cb6-d7fb-484e-8584-792c948a5538",
       "title": "Ледяное королевство",
       "article": "GRL-001",
-      "price": 2424,
-      "short_description": "Две напольные композиции с героинями Холодного сердца, цифрой 6 и яркими шарами.",
-      "full_description": "Напольные композиции с Анной, Эльзой и Олафом на шестилетие. Голубая цифра, хромированные и латексные шары создают атмосферу зимней сказки.",
+      "price": 6180,
+      "short_description": "Напольные композиции с героями Холодного сердца в бело-голубых и розовых тонах.",
+      "full_description": "Две напольные композиции с фольгированными фигурами Эльзы, Анны и Олафа из Холодного сердца. Цифра и яркие шары в бело-голубых и розовых тонах.",
       "composition": [
-        "2 напольные композиции",
-        "1 цифра",
-        "2 хромированных шара",
-        "3 латексных шара"
+        "2 напольные композиции, 2 звезды с надписью, цифра, 2 шара хром с рисунком, 3 шара"
       ],
       "category": "Для девочки",
-      "character": "Эльза, Анна, Олаф",
+      "character": "Эльза",
       "age_group": "Для детей",
-      "budget": "2 000–3 500 ₽",
+      "budget": "5 000–8 000 ₽",
       "series_name": "Холодное сердце",
       "occasion": null,
       "target_audience": "Для девочки",
-      "seo_title": "Шары Холодное сердце на 6 лет Армавир",
-      "seo_description": "Напольные композиции с Эльзой и Анной на день рождения. Цифра 6, хромированные и латексные шары. Доставка по Армавиру.",
+      "seo_title": "Воздушные шары Холодное сердце — Армавир | VigSharm",
+      "seo_description": "Напольные композиции с героями Холодного сердца: Эльза, Анна и Олаф. Идеально для детского праздника. Доставка по Армавиру.",
       "slug": "ledyanoe-korolevstvo",
       "scene": "floor",
       "tags": [
-        "Для девочки",
-        "Напольные композиции"
+        "Для девочки"
       ],
       "client_options": {
         "available_on_request": false,
-        "number_choice": false,
-        "personal_inscription": false,
-        "photozone_rental": false
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
       },
       "photos": [
         "https://res.cloudinary.com/saiuc42a/image/upload/v1789577358/vigsharm-products/s0qjy813t07lr3rqcbjv.png"
       ],
       "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789577358/vigsharm-products/s0qjy813t07lr3rqcbjv.png",
       "status": "published",
-      "show_on_site": false,
+      "show_on_site": true,
       "created_at": "2026-09-16T16:49:55.644Z",
-      "updated_at": "2026-09-16T16:50:00.828Z"
+      "updated_at": "2026-09-17T22:14:13.458Z"
     },
     {
       "id": "2073c129-a6e2-4ab4-8df4-5d2366d02565",

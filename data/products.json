@@ -2,6 +2,129 @@
   "ok": true,
   "products": [
     {
+      "id": "4633f3e1-1974-4725-aa0c-74b56a5d4eb9",
+      "title": "Кавалер сердец",
+      "article": "HER-003",
+      "price": 6000,
+      "short_description": "Фигура из шаров с усами, розой и звездой с персональной надписью.",
+      "full_description": "Романтичная фигура джентльмена с розой в красном костюме с сердечками и золотой звездой с индивидуальной надписью.",
+      "composition": [
+        "фигура из шаров",
+        "фольгированная звезда с индивидуальной надписью"
+      ],
+      "category": "Для неё",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "5 000–8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": "Для неё",
+      "seo_title": "Кавалер сердец — романтичная фигура из шаров в Армавире",
+      "seo_description": "Фигура из шаров с розой и звездой с надписью. Оригинальный романтический подарок на День влюблённых. Доставка по Армавиру.",
+      "slug": "kavaler-serdets",
+      "scene": "balloon_figures",
+      "tags": [
+        "Фигуры из шаров"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1789681617/vigsharm-products/pelyb7mritwiixgmnyw2.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789681617/vigsharm-products/pelyb7mritwiixgmnyw2.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-17T21:46:58.051Z",
+      "updated_at": "2026-09-17T21:46:58.051Z"
+    },
+    {
+      "id": "5409a3c0-6ef9-4499-adfb-8a1a277f7b66",
+      "title": "Облачная метрика",
+      "article": "BAB-001",
+      "price": 3700,
+      "short_description": "Букет из бело-голубых шаров с большим фольгированным сердцем для памятной надписи.",
+      "full_description": "Композиция из 10 латексных шаров в нежных бело-голубых тонах и крупного фольгированного сердца с индивидуальной надписью. Подходит для выписки из роддома или первого праздника малыша.",
+      "composition": [
+        "10 латексных шаров",
+        "большое фольгированное сердце с индивидуальной надписью"
+      ],
+      "category": "На выписку",
+      "character": null,
+      "age_group": "Для малышей",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": "Для мальчика",
+      "seo_title": "Букет из шаров с большим сердцем для мальчика — Армавир",
+      "seo_description": "Нежный букет из 10 бело-голубых шаров и фольгированного сердца с надписью. Идеально для выписки из роддома и первых праздников малыша.",
+      "slug": "oblachnaya-metrika",
+      "scene": "wall_only",
+      "tags": [
+        "На выписку",
+        "Букет из шаров"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1789680163/vigsharm-products/lqlmnxhi1ol1yfesa87j.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789680163/vigsharm-products/lqlmnxhi1ol1yfesa87j.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-17T21:25:27.244Z",
+      "updated_at": "2026-09-17T21:25:27.244Z"
+    },
+    {
+      "id": "e8898967-fc33-4b2b-9a54-bf62db21af39",
+      "title": "Тропический привет",
+      "article": "FIG-001",
+      "price": 3000,
+      "short_description": "Пальма из шаров с пышной зелёной кроной и яркими цветами у основания.",
+      "full_description": "Высокая пальма, скрученная из воздушных шаров. Коричневый ствол, многоярусная зелёная крона и цветочный декор у основания.",
+      "composition": [
+        "фигура пальмы из шаров"
+      ],
+      "category": "Фигуры из шаров",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": "2 000–3 500 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": "Для любого возраста",
+      "seo_title": "Пальма из шаров в Армавире — тропический декор на праздник",
+      "seo_description": "Фигура пальмы из воздушных шаров с зелёной кроной и цветочным декором. Эффектное украшение для праздника в тропическом стиле. Армавир.",
+      "slug": "rajskij-ostrov",
+      "scene": "balloon_figures",
+      "tags": [
+        "Фигуры из шаров"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1789678743/vigsharm-products/ooqnew9yn93tpc4crwiq.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789678743/vigsharm-products/ooqnew9yn93tpc4crwiq.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-17T21:19:59.515Z",
+      "updated_at": "2026-09-17T21:19:59.515Z"
+    },
+    {
       "id": "f0a39fcd-3e66-45c9-be80-c98ec0bf46b3",
       "title": "Железный характер",
       "article": "BOY-006",
@@ -88,7 +211,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-17T11:41:05.381Z",
-      "updated_at": "2026-09-17T11:41:05.381Z"
+      "updated_at": "2026-09-17T21:55:16.114Z"
     },
     {
       "id": "4e9fdb5e-8498-4407-abf4-046fde5a3d0a",
@@ -798,14 +921,14 @@
       "id": "2073c129-a6e2-4ab4-8df4-5d2366d02565",
       "title": "Электрический заряд",
       "article": "BOY-001",
-      "price": 41137,
-      "short_description": "Композиция с фигурой Пикачу, баблс-шаром с надписью и жёлтыми шарами для яркого праздника.",
-      "full_description": "В набор входит большая фольгированная фигура Пикачу, прозрачный баблс с надписью и жёлтыми перьями внутри, маленький баблс и 5 жёлтых шаров. Композиция создаёт атмосферу весёлого праздника для фанатов покемонов.",
+      "price": 4200,
+      "short_description": "Фольгированная фигура Пикачу с прозрачным баблсом и фонтаном жёлтых шаров.",
+      "full_description": "Яркая композиция с культовым персонажем. Баблс с индивидуальной надписью и жёлтыми перьями дополнен фольгированной фигурой Пикачу и связкой жёлтых шаров.",
       "composition": [
-        "Фольгированная фигура Пикачу",
-        "Баблс с индивидуальной надписью и жёлтыми перьями",
-        "Маленький баблс",
-        "5 жёлтых шаров"
+        "фольгированная фигура Пикачу",
+        "баблс с индивидуальной надписью и жёлтыми перьями",
+        "маленький баблс",
+        "5 латексных шаров"
       ],
       "category": "Для мальчика",
       "character": "Пикачу",
@@ -814,16 +937,16 @@
       "series_name": "Покемон",
       "occasion": null,
       "target_audience": "Для мальчика",
-      "seo_title": "Шары с Пикачу на день рождения в Армавире | VigSharm",
-      "seo_description": "Композиция с фигурой Пикачу, баблс-шаром с надписью и жёлтыми шарами. Яркое оформление праздника для фанатов покемонов. Доставка в Армавире.",
-      "slug": "elektricheskiy-zaryad-pikach",
+      "seo_title": "Букет из шаров с Пикачу — Покемон в Армавире",
+      "seo_description": "Яркий букет с фольгированной фигурой Пикачу, баблсом с надписью и жёлтыми шарами. Доставка воздушных шаров в Армавире.",
+      "slug": "elektricheskiy-zaryad-pikachu",
       "scene": "wall_only",
       "tags": [
-        "Для мальчика",
-        "Фигуры из шаров"
+        "Для мальчика"
       ],
       "client_options": {
         "available_on_request": false,
+        "advance_order_1_2_days": false,
         "number_choice": false,
         "personal_inscription": true,
         "photozone_rental": false
@@ -833,38 +956,38 @@
       ],
       "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789575381/vigsharm-products/rcum6fftcpmydwxa5jvk.png",
       "status": "published",
-      "show_on_site": false,
+      "show_on_site": true,
       "created_at": "2026-09-16T16:30:44.804Z",
-      "updated_at": "2026-09-16T19:53:54.923Z"
+      "updated_at": "2026-09-17T22:04:50.644Z"
     },
     {
       "id": "a0716d6a-4984-4045-8ec4-b09b0feae008",
-      "title": "Гонщик",
+      "title": "На патруле",
       "article": "DG-001",
-      "price": 0,
-      "short_description": "Фольгированная фигура щенка-полицейского с фонтаном из хромированных шаров.",
-      "full_description": "Фольгированная фигура щенка в полицейской форме и фонтан из 10 хромированных шаров разных цветов. Для детского дня рождения.",
+      "price": 2800,
+      "short_description": "Букет из хромированных шаров и фольгированная фигура щенка-полицейского.",
+      "full_description": "Яркий букет из 10 хромированных шаров дополняет фольгированная фигура Чейза из Щенячьего патруля в полицейской форме.",
       "composition": [
-        "Фольгированная фигура щенка-полицейского",
-        "10 хромированных шаров: голубой, розовый, золотой, персиковый, фиолетовый, бирюзовый, зеленый"
+        "10 хромированных шаров",
+        "фольгированная фигура Чейза"
       ],
-      "category": "Фигуры из шаров",
-      "character": "Гонщик",
+      "category": "Для мальчика",
+      "character": "Чейз",
       "age_group": "Для детей",
-      "budget": null,
+      "budget": "2 000–3 500 ₽",
       "series_name": "Щенячий патруль",
       "occasion": "День рождения",
       "target_audience": "Для мальчика",
-      "seo_title": "Шары Гонщик Щенячий патруль с фонтаном | Армавир",
-      "seo_description": "Фольгированная фигура щенка-полицейского Гонщика с фонтаном из 10 хромированных шаров. Доставка воздушных шаров в Армавире.",
-      "slug": "gonschik-schenachiy-patrul-s-fontanom",
+      "seo_title": "Букет из шаров Щенячий патруль с Чейзом в Армавире",
+      "seo_description": "Букет из 10 хромированных шаров и фольгированная фигура Чейза из Щенячьего патруля. Доставка воздушных шаров в Армавире.",
+      "slug": "na-patrule",
       "scene": "wall_only",
       "tags": [
-        "Для мальчика",
-        "Фигуры из шаров"
+        "Для мальчика"
       ],
       "client_options": {
         "available_on_request": false,
+        "advance_order_1_2_days": false,
         "number_choice": false,
         "personal_inscription": false,
         "photozone_rental": false
@@ -874,44 +997,54 @@
       ],
       "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789571999/vigsharm-products/kloqevxouftwowbqmkyn.png",
       "status": "published",
-      "show_on_site": false,
+      "show_on_site": true,
       "created_at": "2026-09-16T15:41:44.216Z",
-      "updated_at": "2026-09-16T16:39:37.985Z"
+      "updated_at": "2026-09-17T22:00:22.640Z"
     },
     {
       "id": "ae93cdea-894c-49c0-9363-8097f2ec0509",
-      "title": "пвып",
+      "title": "Защитник Готэма",
       "article": "DG-004",
-      "price": 0,
-      "short_description": "",
-      "full_description": "",
-      "composition": [],
-      "category": "Новый год",
-      "character": null,
-      "age_group": "Для любого возраста",
-      "budget": null,
-      "series_name": null,
+      "price": 4000,
+      "short_description": "Напольная композиция с фигурой Бэтмена и чёрной цифрой с индивидуальной надписью.",
+      "full_description": "Эффектная композиция в стиле Бэтмена с крупной фольгированной фигурой супергероя, чёрной цифрой и круглым шаром с изображением персонажа.",
+      "composition": [
+        "напольная композиция",
+        "цифра с индивидуальной надписью"
+      ],
+      "category": "Для мальчика",
+      "character": "Бэтмен",
+      "age_group": "Для детей",
+      "budget": "3 500–5 000 ₽",
+      "series_name": "Бэтмен",
       "occasion": null,
-      "target_audience": null,
-      "seo_title": "",
-      "seo_description": "",
-      "slug": "pvyp",
-      "scene": "auto",
-      "tags": [],
+      "target_audience": "Для мальчика",
+      "seo_title": "Композиция с Бэтменом на день рождения мальчика в Армавире",
+      "seo_description": "Напольная композиция с фигурой Бэтмена и цифрой с индивидуальной надписью. Стильное оформление для юного поклонника супергероев.",
+      "slug": "zashchitnik-gotema",
+      "scene": "floor",
+      "tags": [
+        "Для мальчика"
+      ],
       "client_options": {
         "available_on_request": false,
-        "number_choice": false,
-        "personal_inscription": false,
-        "photozone_rental": false
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
       },
       "photos": [
-        "https://res.cloudinary.com/saiuc42a/image/upload/v1789503620/vigsharm-products/ihq4h33nxusphvnez16s.jpg"
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1789681859/vigsharm-products/gk0vw7nm5y47xwjbq1k5.jpg"
       ],
-      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789503620/vigsharm-products/ihq4h33nxusphvnez16s.jpg",
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789681859/vigsharm-products/gk0vw7nm5y47xwjbq1k5.jpg",
       "status": "published",
-      "show_on_site": false,
+      "show_on_site": true,
       "created_at": "2026-09-15T20:20:21.324Z",
-      "updated_at": "2026-09-15T20:20:21.324Z"
+      "updated_at": "2026-09-17T21:53:32.903Z"
     }
   ]
 }

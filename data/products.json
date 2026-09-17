@@ -2,6 +2,202 @@
   "ok": true,
   "products": [
     {
+      "id": "ae5f08f9-ae2a-4fe8-824d-c54ba92c3b32",
+      "title": "Школьный мольберт",
+      "article": "S1-001",
+      "price": 8000,
+      "short_description": "Фотозона на мольберте с круглой табличкой и декоративными блоками, заполненными шарами.",
+      "full_description": "Фотозона на белом мольберте с круглой табличкой, украшенной золотой цифрой и школьными символами. Композиция дополнена декоративными блоками и гирляндой из шаров в коралловых, золотых, бежевых и зелёных оттенках.",
+      "composition": [
+        "фотозона на мольберте"
+      ],
+      "category": "1 сентября",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": "от 8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Фотозона на мольберте к 1 сентября — Армавир | VigSharm",
+      "seo_description": "Фотозона на мольберте с декоративными блоками и гирляндой из шаров. Стильное оформление для первого звонка в Армавире. Заказать в VigSharm.",
+      "slug": "shkolnyy-molbert-1-sentyabrya",
+      "scene": "photozone",
+      "tags": [
+        "1 сентября",
+        "Фотозона"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": true,
+        "photozone_type": "easel",
+        "rental": {
+          "enabled": true,
+          "item": "Мольберт с кругом из полистирола",
+          "days": 3,
+          "keep_price_delta": 500
+        }
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1789645074/vigsharm-products/auaywjnwnq5vdxzalfpt.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789645074/vigsharm-products/auaywjnwnq5vdxzalfpt.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-17T11:41:05.381Z",
+      "updated_at": "2026-09-17T11:41:05.381Z"
+    },
+    {
+      "id": "4e9fdb5e-8498-4407-abf4-046fde5a3d0a",
+      "title": "Мышка с букетом",
+      "article": "GRL-007",
+      "price": 8000,
+      "short_description": "Фотозона с Минни Маус, аркой из шаров в горошек и цифрой.",
+      "full_description": "Фотозона на каркасе с фольгированной фигурой Минни Маус, держащей букет из шаров. Арка из красных, чёрных и белых шаров в горошек, цифра и персонализированная табличка.",
+      "composition": [
+        "фотозона на каркасе",
+        "фигура",
+        "цифра"
+      ],
+      "category": "Для девочки",
+      "character": "Минни Маус",
+      "age_group": "Для малышей",
+      "budget": "от 8 000 ₽",
+      "series_name": "Микки Маус и друзья",
+      "occasion": null,
+      "target_audience": "Для девочки",
+      "seo_title": "Фотозона с Минни Маус в горошек — Армавир | VigSharm",
+      "seo_description": "Фотозона на каркасе с фигурой Минни Маус, аркой из красных и чёрных шаров в горошек и цифрой. Яркое оформление для малышки в Армавире.",
+      "slug": "myshka-s-buketom",
+      "scene": "photozone",
+      "tags": [
+        "Для девочки",
+        "Фигуры из шаров",
+        "Фотозона"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": true,
+        "photozone_rental": true,
+        "photozone_type": "easel",
+        "rental": {
+          "enabled": true,
+          "item": "Мольберт с кругом из полистирола",
+          "days": 3,
+          "keep_price_delta": 500
+        },
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1789643492/vigsharm-products/cryxia8scdpqlcbltb9k.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789643492/vigsharm-products/cryxia8scdpqlcbltb9k.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-17T11:20:18.803Z",
+      "updated_at": "2026-09-17T11:20:18.803Z"
+    },
+    {
+      "id": "0be64ab3-0e4e-4f80-b944-5cb3eb982b26",
+      "title": "Золотой жираф",
+      "article": "GRL-006",
+      "price": 5996,
+      "short_description": "Фотозона на мольберте с гирляндой из розовых, белых и золотых шаров и фольгированным жирафом.",
+      "full_description": "Фотозона на деревянном мольберте с асимметричной гирляндой из розовых, белых и золотых шаров. В композицию входит фольгированный жираф и напольные группы шаров.",
+      "composition": [
+        "фотозона на мольберте"
+      ],
+      "category": "Для девочки",
+      "character": "Жираф",
+      "age_group": "Для малышей",
+      "budget": "5 000–8 000 ₽",
+      "series_name": "Сафари",
+      "occasion": null,
+      "target_audience": "Для девочки",
+      "seo_title": "Фотозона на мольберте с жирафом Армавир — VigSharm",
+      "seo_description": "Нежная фотозона на мольберте с розовыми, белыми и золотыми шарами и фольгированным жирафом. Идеально для девочки. Заказать в Армавире.",
+      "slug": "zolotoy-zhiraf",
+      "scene": "photozone",
+      "tags": [
+        "Для девочки",
+        "Фотозона"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": true,
+        "photozone_type": "easel",
+        "rental": {
+          "enabled": true,
+          "item": "Мольберт с кругом из полистирола",
+          "days": 3,
+          "keep_price_delta": 500
+        }
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1789643218/vigsharm-products/uduzsgdqg8ezupk3xcdg.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789643218/vigsharm-products/uduzsgdqg8ezupk3xcdg.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-17T11:08:37.440Z",
+      "updated_at": "2026-09-17T11:08:37.440Z"
+    },
+    {
+      "id": "19d37ecc-28d5-44b4-8200-702904d0c6f5",
+      "title": "Божья коровка с букетом",
+      "article": "GRL-005",
+      "price": 2000,
+      "short_description": "Яркая фигура божьей коровки из шаров с букетом цветов и радужной цифрой.",
+      "full_description": "Напольная композиция в виде божьей коровки с жёлтым букетом и радужной цифрой. Идеальный подарок для маленьких именинников.",
+      "composition": [
+        "фигура из шаров"
+      ],
+      "category": "Для девочки",
+      "character": null,
+      "age_group": "Для детей",
+      "budget": "2 000–3 500 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": "Для любого возраста",
+      "seo_title": "Фигура божьей коровки из шаров с цифрой — Армавир",
+      "seo_description": "Яркая напольная фигура божьей коровки из шаров с букетом цветов и радужной цифрой. Оригинальный подарок на детский день рождения в Армавире.",
+      "slug": "bozhya-korovka-s-buketom",
+      "scene": "balloon_figures",
+      "tags": [
+        "Для девочки",
+        "Фигуры из шаров"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1789641603/vigsharm-products/df7br9ith1ntyptvzztv.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789641603/vigsharm-products/df7br9ith1ntyptvzztv.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-17T10:40:56.149Z",
+      "updated_at": "2026-09-17T10:40:56.149Z"
+    },
+    {
       "id": "c27b77e6-1178-4d5f-b0c4-fb555935741a",
       "title": "Изумрудный комплимент",
       "article": "HER-002",

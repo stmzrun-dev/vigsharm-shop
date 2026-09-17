@@ -1,0 +1,46 @@
+name: Sync products snapshot
+
+on:
+  schedule:
+    # Every hour (UTC)
+    - cron: "0 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-products
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Export catalog from Worker
+        env:
+          VIG_API: https://vigsharm-api.vigsharm.workers.dev
+        run: node scripts/export-products-snapshot.mjs
+
+      - name: Commit and push if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/products.json
+          if git diff --staged --quiet; then
+            echo "No catalog changes — skip commit"
+          else
+            git commit -m "chore: sync storefront products snapshot"
+            git push origin main
+          fi

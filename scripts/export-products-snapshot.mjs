@@ -75,7 +75,11 @@ async function main() {
   writeFileSync(OUT, body, 'utf8');
 
   console.log(`OK: ${data.products.length} товаров → ${OUT}`);
-  console.log('Дальше: закоммитить data/products.json и задеплоить сайт.');
+  if (process.env.CI) {
+    console.log('CI: commit data/products.json if changed (workflow step).');
+  } else {
+    console.log('Дальше: закоммитить data/products.json и задеплоить сайт.');
+  }
 }
 
 main();

@@ -1936,3 +1936,54 @@ body:has(.product-page) footer .footer-cta{
 .delivery-page .info-card-icon{
   font-size:0!important;
 }
+
+/* ========== price page polish (parity with delivery) ========== */
+.price-page .footer-cta{display:none!important}
+.price-page .info-page{padding-top:12px;padding-bottom:48px}
+.price-page .price-info-hero{margin-top:12px!important}
+.price-page .price-group:hover{transform:none!important}
+
+@media (width<=650px){
+  .price-page .price-info-hero{
+    min-height:0!important;
+    padding:16px 14px 14px!important;
+    margin-top:8px!important;
+    border-width:3px!important;
+    border-radius:22px!important;
+    box-shadow:0 6px #ebe8f3!important;
+  }
+  .price-page .price-info-hero h1{
+    font-size:clamp(22px,6.2vw,28px)!important;
+    line-height:1.12!important;
+  }
+  .price-page .price-info-hero>div:first-child>p:last-child{
+    margin:10px 0 0!important;
+    font-size:14px!important;
+    line-height:1.4!important;
+  }
+  .price-page .info-hero-emoji{
+    display:flex!important;
+    gap:8px!important;
+    min-height:0!important;
+    margin-top:8px!important;
+    font-size:0!important;
+    place-items:start!important;
+    animation:none!important;
+  }
+  .price-page .info-hero-emoji .vig-emoji{
+    width:32px!important;
+    height:32px!important;
+  }
+  .price-page .info-hero-emoji>span{display:none!important}
+  .price-page .price-groups{
+    margin-top:14px!important;
+    gap:12px!important;
+    width:calc(100% - 20px)!important;
+  }
+  .price-page .price-group{
+    padding:16px 14px!important;
+    border-width:3px!important;
+    border-radius:20px!important;
+  }
+  .price-page .info-cta{margin-top:22px!important}
+}

@@ -420,3 +420,115 @@
   to{opacity:1;transform:translateY(0)}
 }
 
+/* footer mobile polish — denser, quieter logo card */
+@media (width<=650px){
+footer{
+  padding-top:28px!important;
+  padding-bottom:calc(28px + env(safe-area-inset-bottom))!important;
+}
+.footer-cta{
+  margin-bottom:18px!important;
+  gap:10px!important;
+  padding:16px 14px!important;
+  border-radius:20px 24px 18px 22px!important;
+}
+.footer-cta h2{font-size:20px!important;line-height:1.15!important}
+.footer-cta p{font-size:13px!important;line-height:1.35!important;margin:0!important}
+.footer-cta button{min-height:46px!important}
+.footer-content{gap:16px!important;padding:0 6px!important}
+.footer-logo{
+  width:auto!important;
+  max-width:200px!important;
+  height:auto!important;
+  min-height:0!important;
+  padding:6px 8px!important;
+  border-radius:14px!important;
+  background:#ffffffeb!important;
+}
+.footer-logo img{width:100%;height:auto;display:block}
+.footer-main>p{font-size:14px!important;line-height:1.4!important;margin:8px 0 0!important}
+.footer-main>span{font-size:12px!important;opacity:.85;margin-top:4px!important}
+.footer-social-label{margin-top:12px!important;font-size:12px!important}
+.footer-socials{gap:8px!important;margin-top:6px!important}
+.footer-socials a{width:40px!important;height:40px!important;border-radius:12px!important}
+.footer-contacts{gap:8px!important}
+.footer-contacts strong{font-size:12px!important;letter-spacing:.06em}
+.footer-phone{
+  max-width:100%;
+  width:100%!important;
+  box-sizing:border-box;
+  min-height:52px;
+  padding:8px 12px!important;
+  border-radius:14px!important;
+  gap:10px!important;
+  grid-template-columns:36px 1fr!important;
+  align-items:center!important;
+  font-size:17px!important;
+}
+.footer-phone .vig-emoji{
+  width:28px!important;
+  height:28px!important;
+  object-fit:contain;
+  display:block;
+}
+.footer-contacts>button .vig-emoji{
+  width:18px!important;
+  height:18px!important;
+  vertical-align:-.2em;
+}
+/* на каталоге sticky уже ведёт в связь — дубль «Написать в мессенджер» прячем */
+.catalog-footer .footer-contacts>button{display:none!important}
+.catalog-footer .footer-contacts>p,
+.catalog-footer .footer-contacts small{
+  display:none!important;
+}
+
+/* catalog «Не нашли…» — quieter, no rainbow CTA */
+.catalog-page .catalog-custom-order.related-custom-card,
+.catalog-page .related-custom-card.catalog-custom-order{
+  margin-top:22px!important;
+  margin-bottom:8px!important;
+  min-height:0!important;
+  gap:10px!important;
+  padding:16px 14px!important;
+  border-width:3px!important;
+  border-radius:20px 24px 18px 22px!important;
+  box-shadow:0 5px #ebe8f3!important;
+  background:linear-gradient(125deg,#fff8e8,#eefbfc 55%,#f4f0ff)!important;
+}
+.catalog-page .related-custom-card>.vig-emoji{
+  width:36px!important;
+  height:36px!important;
+  margin:0 auto;
+}
+.catalog-page .related-custom-card>span{
+  font-size:36px!important;
+  animation:none!important;
+}
+.catalog-page .related-custom-card strong{
+  font-size:17px!important;
+  line-height:1.2!important;
+}
+.catalog-page .related-custom-card p{
+  margin:6px 0 0!important;
+  font-size:13px!important;
+  line-height:1.35!important;
+}
+.catalog-page .related-custom-card>button,
+.catalog-page .related-custom-card>a{
+  width:100%;
+  min-height:46px!important;
+  margin-top:4px;
+  border-radius:14px!important;
+  background:var(--teal,#63c4c9)!important;
+  box-shadow:0 3px #4aa8ad33!important;
+  color:#fff!important;
+  font-size:15px!important;
+}
+.catalog-page .related-custom-card>button:active,
+.catalog-page .related-custom-card>a:active{
+  transform:scale(.98);
+  filter:brightness(.97);
+}
+}
+

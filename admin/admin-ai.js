@@ -2,6 +2,78 @@
 // Кнопка доступна только после: фото + цена > 0 + состав
 
 Object.assign(app, {
+  normalizeTitleKey(title) {
+    return String(title || '')
+      .toLowerCase()
+      .replace(/ё/g, 'е')
+      .replace(/[^\p{L}\p{N}\s]+/gu, ' ')
+      .replace(/\s+/g, ' ')
+      .trim();
+  },
+
+  titlesTooSimilar(a, b) {
+    const na = this.normalizeTitleKey(a);
+    const nb = this.normalizeTitleKey(b);
+    if (!na || !nb) return false;
+    if (na === nb) return true;
+    const shorter = na.length <= nb.length ? na : nb;
+    const longer = na.length <= nb.length ? nb : na;
+    if (shorter.length >= 6 && longer.includes(shorter) && shorter.length / longer.length >= 0.55) {
+      return true;
+    }
+    const wa = na.split(' ').filter((w) => w.length > 1);
+    const wb = nb.split(' ').filter((w) => w.length > 1);
+    if (!wa.length || !wb.length) return false;
+    if (wa.length === 1 && wb.length === 1) return wa[0] === wb[0];
+    const setB = new Set(wb);
+    let inter = 0;
+    for (const w of wa) if (setB.has(w)) inter++;
+    const union = wa.length + wb.length - inter;
+    if (union > 0 && inter / union >= 0.75 && inter >= 2) return true;
+    if (wa.length === wb.length && inter === wa.length) return true;
+    return false;
+  },
+
+  /** Названия других карточек (текущую при редактировании пропускаем). */
+  getExistingCatalogTitles() {
+    const currentId = this.currentProduct?.id;
+    const seen = new Set();
+    const out = [];
+    for (const p of this.products || []) {
+      if (currentId && p.id === currentId) continue;
+      const t = String(p.title || '').trim();
+      if (!t) continue;
+      const key = this.normalizeTitleKey(t);
+      if (!key || seen.has(key)) continue;
+      seen.add(key);
+      out.push(t);
+    }
+    return out;
+  },
+
+  findSimilarCatalogTitle(title) {
+    const t = String(title || '').trim();
+    if (!t) return null;
+    const currentId = this.currentProduct?.id;
+    for (const p of this.products || []) {
+      if (currentId && p.id === currentId) continue;
+      if (this.titlesTooSimilar(t, p.title)) return p;
+    }
+    return null;
+  },
+
+  filterTitlesAgainstCatalog(primary, alts = []) {
+    const taken = this.getExistingCatalogTitles();
+    const pool = [primary, ...(alts || [])].map((t) => String(t || '').trim()).filter(Boolean);
+    const free = [];
+    for (const t of pool) {
+      if (taken.some((ex) => this.titlesTooSimilar(t, ex))) continue;
+      if (free.some((f) => this.titlesTooSimilar(t, f))) continue;
+      free.push(t);
+    }
+    return { title: free[0] || '', title_alts: free.slice(1, 3) };
+  },
+
   syncBudgetFromPrice() {
     const price = parseInt(document.getElementById('product-price')?.value, 10) || 0;
     const budgetEl = document.getElementById('product-budget');
@@ -165,6 +237,7 @@ Object.assign(app, {
       const userComposition = (compEl?.value || '').trim();
       const priceHint = parseInt(priceEl?.value, 10) || 0;
       const sceneHint = this.currentProduct.scene || 'floor';
+      const existingTitles = this.getExistingCatalogTitles?.() || [];
 
       statusEl.textContent = '🤖 ИИ заполняет карточку...';
 
@@ -177,7 +250,8 @@ Object.assign(app, {
           price: priceHint,
           composition_raw: userComposition,
           description: userComposition,
-          scene: sceneHint
+          scene: sceneHint,
+          existing_titles: existingTitles
         })
       });
 
@@ -188,6 +262,15 @@ Object.assign(app, {
       }
 
       const data = result.data;
+      const filtered = this.filterTitlesAgainstCatalog?.(data.title, data.title_alts || []) || {
+        title: data.title,
+        title_alts: data.title_alts || []
+      };
+      data.title = filtered.title;
+      data.title_alts = filtered.title_alts;
+      if (!data.title && (result.data.title || result.data.ask_title)) {
+        data.ask_title = true;
+      }
 
       this.currentProduct.title = data.title || this.currentProduct.title;
       this.currentProduct.short_description = data.short_description || this.currentProduct.short_description;
@@ -222,7 +305,11 @@ Object.assign(app, {
       this.renderCharacterAlts(data.character, data.character_alts || [], data.character_confidence || '');
       this.renderSeriesAlts(data.series_name, data.series_alts || [], data.series_confidence || '');
 
-      if (data.ask_character) {
+      if (data.ask_title || !data.title) {
+        statusEl.innerHTML = '✅ Карточка заполнена — <strong>придумайте уникальное название</strong> (похожие в каталоге уже заняты), затем сохраните';
+        this.toast('Нужно уникальное название', '');
+        document.getElementById('product-title')?.focus();
+      } else if (data.ask_character) {
         statusEl.innerHTML = '✅ Карточка заполнена — <strong>уточните персонажа/серию</strong> (кнопки под полями) и название, затем сохраните';
         this.toast('ИИ просит уточнить персонажа или серию', '');
       } else {

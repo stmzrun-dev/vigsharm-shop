@@ -389,9 +389,9 @@ Object.assign(app, {
   },
 
   fillFormWithAIData(card) {
-    if (card.title) {
+    if (card.title != null) {
       const el = document.getElementById('product-title');
-      if (el) el.value = card.title;
+      if (el) el.value = card.title || '';
     }
     // article / price — только вручную (артикул DG-XXX ставит generateAIMetadata через nextArticle)
     if (card.short_description) {

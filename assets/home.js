@@ -28,11 +28,12 @@
             : (window.vigEmoji ? window.vigEmoji('balloon') : '<img class="vig-emoji" src="icons/vigsharm-toons/emoji-balloon.png" alt="" width="24" height="24" decoding="async" aria-hidden="true"/>');
           var requestBadge = p.available_on_request ? '<em class="product-request-badge">Под заказ</em>' : '';
           var advanceBadge = (!requestBadge && p.needs_advance_order) ? '<em class="product-advance-badge">За 1–2 дня</em>' : '';
+          var badge = requestBadge || advanceBadge;
           return (
             '<a class="live-product-card" href="product.html?slug=' + encodeURIComponent(p.slug || p.id) + '" aria-label="Подробнее: ' + escapeHtml(p.title) + '">' +
-            '<span class="live-product-image">' + img + requestBadge + advanceBadge + '</span>' +
+            '<span class="live-product-image">' + img + '</span>' +
             '<span class="live-product-copy">' +
-            '<small>' + escapeHtml(p.category || 'Композиция') + '</small>' +
+            '<span class="live-product-meta"><small>' + escapeHtml(p.category || 'Композиция') + '</small>' + badge + '</span>' +
             '<strong>' + escapeHtml(p.title) + '</strong>' +
             '<span>' + escapeHtml(p.short_description || '') + '</span>' +
             '<b>' + Number(p.price).toLocaleString('ru-RU') + ' ₽ <i aria-hidden="true">Подробнее&nbsp; →</i></b>' +

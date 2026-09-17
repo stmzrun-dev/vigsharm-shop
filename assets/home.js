@@ -6,13 +6,14 @@
   var list = document.getElementById('popular-list');
   var section = document.getElementById('products');
   if (list) {
-    fetch('https://vigsharm-api.vigsharm.workers.dev/api/products', { cache: 'no-store' })
-      .then(function (r) { return r.json(); })
-      .then(function (data) {
-        // Worker API возвращает { ok: true, products: [...] }
-        var products = (window.vigStorefrontProducts || window.vigNormalizeProducts)(
-          (data.ok && Array.isArray(data.products)) ? data.products : []
-        );
+    (window.vigFetchProducts
+      ? window.vigFetchProducts()
+      : fetch('https://vigsharm-api.vigsharm.workers.dev/api/products', { cache: 'no-store' })
+          .then(function (r) { return r.json(); })
+          .then(function (data) { return (data.ok && Array.isArray(data.products)) ? data.products : []; })
+    )
+      .then(function (raw) {
+        var products = (window.vigStorefrontProducts || window.vigNormalizeProducts)(raw || []);
         if (!products.length) {
           if (section) section.style.display = 'none';
           return;

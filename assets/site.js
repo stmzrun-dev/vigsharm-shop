@@ -8,6 +8,32 @@
   var TG_URL = 'https://t.me/Olgamzz';
   var WA_TEXT = 'Здравствуйте! Хочу сделать заказ в Вигшарм.';
   var REMOTE = 'https://vigsharm-new.stmzrun.chatgpt.site';
+  // Worker API (Cloudflare). В РФ *.workers.dev часто недоступен без VPN —
+  // тогда витрина берёт снимок data/products.json с того же хоста, что и сайт.
+  window.VIG_API = 'https://vigsharm-api.vigsharm.workers.dev';
+  window.VIG_PRODUCTS_FALLBACK = 'data/products.json';
+
+  window.vigFetchProducts = function () {
+    function listFrom(data) {
+      if (!data) return [];
+      if (Array.isArray(data)) return data;
+      if (Array.isArray(data.products)) return data.products;
+      return [];
+    }
+    function load(url) {
+      return fetch(url, { cache: 'no-store' }).then(function (r) {
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+        return r.json();
+      }).then(function (data) {
+        var list = listFrom(data);
+        if (!list.length) throw new Error('empty products');
+        return list;
+      });
+    }
+    return load(window.VIG_API + '/api/products').catch(function () {
+      return load(window.VIG_PRODUCTS_FALLBACK);
+    });
+  };
 
   // Приводит товар из Worker API (схема D1) к плоским полям витрины.
   // client_options (админка + legacy) → has_digit_choice / has_inscription / has_rental.

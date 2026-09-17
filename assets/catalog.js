@@ -662,12 +662,14 @@
     loading = true; loadError = false;
     navSignature = '';
     render();
-    fetch('https://vigsharm-api.vigsharm.workers.dev/api/products', { cache: 'no-store' })
-      .then(function (r) { if (!r.ok) throw new Error('x'); return r.json(); })
-      .then(function (data) {
-        products = (window.vigStorefrontProducts || window.vigNormalizeProducts)(
-          (data.ok && Array.isArray(data.products)) ? data.products : []
-        );
+    (window.vigFetchProducts
+      ? window.vigFetchProducts()
+      : fetch('https://vigsharm-api.vigsharm.workers.dev/api/products', { cache: 'no-store' })
+          .then(function (r) { if (!r.ok) throw new Error('x'); return r.json(); })
+          .then(function (data) { return (data.ok && Array.isArray(data.products)) ? data.products : []; })
+    )
+      .then(function (raw) {
+        products = (window.vigStorefrontProducts || window.vigNormalizeProducts)(raw || []);
         loading = false;
         navSignature = '';
         render();

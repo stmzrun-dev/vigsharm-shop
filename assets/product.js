@@ -586,12 +586,14 @@
   }
 
   // ---------- boot ----------
-  fetch('https://vigsharm-api.vigsharm.workers.dev/api/products', { cache: 'no-store' })
-    .then(function (r) { if (!r.ok) throw new Error('x'); return r.json(); })
-    .then(function (data) {
-      // Worker API возвращает { ok: true, products: [...] }
-      var raw = (data.ok && Array.isArray(data.products)) ? data.products : [];
-      var normalized = window.vigNormalizeProducts(raw);
+  (window.vigFetchProducts
+    ? window.vigFetchProducts()
+    : fetch('https://vigsharm-api.vigsharm.workers.dev/api/products', { cache: 'no-store' })
+        .then(function (r) { if (!r.ok) throw new Error('x'); return r.json(); })
+        .then(function (data) { return (data.ok && Array.isArray(data.products)) ? data.products : []; })
+  )
+    .then(function (raw) {
+      var normalized = window.vigNormalizeProducts(raw || []);
       var found = null;
       for (var i = 0; i < normalized.length; i++) {
         var o = normalized[i];

@@ -1,0 +1,139 @@
+/* Homepage polish — CSS only, no structure/JS changes */
+
+html{
+  background:#faf7f2;
+}
+body{
+  background:#faf7f2!important;
+}
+
+/* Quieter section labels */
+.eyebrow,
+.quick-recipient-heading .eyebrow,
+.section-heading .eyebrow,
+.character-heading .eyebrow,
+.faq-heading .eyebrow,
+.budget-heading .eyebrow{
+  color:#9a8b7c!important;
+  letter-spacing:.06em!important;
+  font-weight:700!important;
+}
+
+/* Hero CTAs: calm capsules, no tilt/neon gradient */
+.hero .hero-actions{
+  gap:10px!important;
+}
+.hero .hero-actions .button-primary{
+  background:#ff8b66!important;
+  background-image:none!important;
+  border:0!important;
+  border-radius:999px!important;
+  min-height:52px!important;
+  box-shadow:0 10px 22px rgba(255,139,102,.28)!important;
+  transform:none!important;
+  animation:none!important;
+}
+.hero .hero-actions .button-primary:after{
+  display:inline!important;
+  content:" →"!important;
+  font-weight:700;
+}
+.hero .hero-actions .button-primary:hover{
+  transform:translateY(-1px)!important;
+  filter:brightness(1.03);
+}
+.hero .hero-actions .button-outline{
+  background:#fff!important;
+  border:1.5px solid #eadfce!important;
+  border-radius:999px!important;
+  box-shadow:0 6px 16px rgba(0,0,0,.04)!important;
+  color:#3d3229!important;
+  transform:none!important;
+  min-height:50px!important;
+}
+.hero .hero-actions .button-outline:hover{
+  transform:translateY(-1px)!important;
+}
+
+@media (max-width:650px){
+  .hero .hero-actions{
+    flex-direction:column!important;
+  }
+  .hero .hero-actions .button,
+  .hero .hero-actions .button-primary,
+  .hero .hero-actions .button-outline{
+    width:100%!important;
+    transform:none!important;
+  }
+}
+
+/* «Для кого» — stronger navy card + softer pillows */
+.quick-recipient-card{
+  border:0!important;
+  border-radius:28px!important;
+  box-shadow:0 14px 30px rgba(0,0,0,.04)!important;
+}
+.quick-recipient-card.navy{
+  background:linear-gradient(135deg,#e8f0ff,#d4e2f8)!important;
+}
+.quick-recipient-card>b{
+  width:36px!important;
+  height:36px!important;
+  background:#fff!important;
+  box-shadow:0 4px 12px rgba(0,0,0,.06)!important;
+}
+
+/* Mobile: denser 2×2 */
+@media (max-width:720px){
+  .quick-recipient-section{
+    padding-top:24px!important;
+  }
+  .quick-recipient-heading{
+    margin-bottom:12px!important;
+    gap:6px 12px!important;
+  }
+  .quick-recipient-heading h2{
+    font-size:24px!important;
+    line-height:1.15!important;
+  }
+  .quick-recipient-list{
+    gap:8px!important;
+    padding:0 16px 4px!important;
+  }
+  .quick-recipient-card{
+    gap:6px!important;
+    padding:12px 10px 34px!important;
+    border-radius:24px!important;
+  }
+  .quick-recipient-card img{
+    width:64px!important;
+    height:64px!important;
+  }
+  .quick-recipient-card strong{
+    font-size:14px!important;
+    line-height:1.2!important;
+  }
+  .quick-recipient-card>b{
+    width:32px!important;
+    height:32px!important;
+    bottom:8px!important;
+    font-size:14px!important;
+  }
+
+  /* Popular: clearer swipe hint */
+  .popular-footer{
+    padding-inline:16px!important;
+  }
+  .popular-footer>span{
+    display:inline-block!important;
+    color:#8a7a6c!important;
+    font-size:12px!important;
+    font-weight:600!important;
+  }
+  .live-products a,
+  .live-product{
+    border-radius:22px!important;
+    border:0!important;
+    box-shadow:0 12px 28px rgba(0,0,0,.05)!important;
+  }
+}

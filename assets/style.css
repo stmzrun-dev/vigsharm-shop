@@ -1787,28 +1787,48 @@ body:has(.product-page) footer .footer-cta{
 .hero .playful-title{
   display:block!important;
 }
+.hero .playful-title:after{
+  display:none!important;
+  content:none!important;
+}
+.hero .hero-message{
+  background:transparent!important;
+  border:0!important;
+  box-shadow:none!important;
+  padding:0!important;
+  margin:14px 0 24px!important;
+  font-size:16px!important;
+  line-height:1.5!important;
+  color:#475569!important;
+  max-width:520px!important;
+  border-radius:0!important;
+}
 .hero .playful-title>span{
   display:inline!important;
 }
 .hero .playful-title>b{
-  background:none!important;
-  color:#FF5A5F!important;
+  display:inline-block!important;
+  background:linear-gradient(120deg, #FF2E80 0%, #FF6B00 100%)!important;
+  -webkit-background-clip:text!important;
+  background-clip:text!important;
+  -webkit-text-fill-color:transparent!important;
+  color:transparent!important;
   border:0!important;
   border-radius:0!important;
   box-shadow:none!important;
-  display:inline!important;
   width:auto!important;
   max-width:none!important;
-  margin:0 0 0 0.12em!important;
+  margin:0 0 0 0.15em!important;
   padding:0!important;
-  font-size:1em!important;
+  font-size:1.05em!important;
+  font-weight:800!important;
   line-height:inherit!important;
-  letter-spacing:-0.02em!important;
+  letter-spacing:-0.01em!important;
   white-space:nowrap!important;
-  transform:none!important;
+  transform:rotate(-2deg)!important;
   overflow:visible!important;
   box-sizing:border-box!important;
-  -webkit-text-fill-color:#FF5A5F!important;
+  filter:drop-shadow(0 2px 8px rgba(255,46,128,0.25))!important;
 }
 .hero .hero-actions{
   gap:12px!important;
@@ -1817,7 +1837,7 @@ body:has(.product-page) footer .footer-cta{
   border:0!important;
   border-radius:19px 28px 18px 26px!important;
   min-height:54px!important;
-  transform:rotate(-1.2deg)!important;
+  transform:rotate(-2deg)!important;
   box-shadow:0 10px 24px rgba(255,90,95,0.28)!important;
   background:linear-gradient(105deg,#FF5A5F,#FF8708)!important;
   animation:none!important;
@@ -1826,7 +1846,7 @@ body:has(.product-page) footer .footer-cta{
   display:none!important;
 }
 .hero .hero-actions .button-primary:hover{
-  transform:rotate(-1.2deg) translateY(-2px)!important;
+  transform:rotate(-2deg) translateY(-2px)!important;
 }
 .hero .hero-actions .button-outline{
   background:#fff!important;
@@ -1836,14 +1856,14 @@ body:has(.product-page) footer .footer-cta{
   color:#1E1E1E!important;
   min-height:50px!important;
   font-size:15px!important;
-  transform:rotate(0.8deg)!important;
+  transform:rotate(1.4deg)!important;
 }
 .hero .hero-actions .button-outline:after{
   content:none!important;
   display:none!important;
 }
 .hero .hero-actions .button-outline:hover{
-  transform:rotate(0.8deg) translateY(-2px)!important;
+  transform:rotate(1.4deg) translateY(-2px)!important;
 }
 .hero .hero-trust{
   display:none!important;
@@ -1904,7 +1924,7 @@ body:has(.product-page) footer .footer-cta{
   }
   .hero .hero-actions{
     order:5!important;
-    margin-top:12px!important;
+    margin-top:20px!important;
   }
 }
 
@@ -1948,10 +1968,10 @@ body:has(.product-page) footer .footer-cta{
     min-height:50px!important;
   }
   .hero .hero-actions .button-primary{
-    transform:rotate(-1deg)!important;
+    transform:rotate(-2deg)!important;
   }
   .hero .hero-actions .button-outline{
-    transform:rotate(0.6deg)!important;
+    transform:rotate(1.2deg)!important;
   }
   .hero .hero-media{
     width:100%!important;
@@ -1974,7 +1994,7 @@ body:has(.product-page) footer .footer-cta{
     box-shadow:none!important;
   }
   .hero .playful-title>b{
-    font-size:1em!important;
+    font-size:1.05em!important;
     padding:0!important;
   }
 }
@@ -2339,3 +2359,65 @@ body:has(.product-page) footer .footer-cta{
   .price-page .price-explanation p{font-size:13px!important;color:#71717A!important}
   .price-page .info-cta{margin-top:22px!important}
 }
+
+/* Quick recipient cards: transparent category PNGs on pastel cards */
+.quick-recipient-card img{
+  background:transparent!important;
+  object-fit:contain!important;
+  object-position:center!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+}
+
+/* Mobile: 2x2 grid instead of horizontal peek-scroll */
+@media (max-width: 720px){
+  .quick-recipient-heading{
+    flex-wrap:wrap!important;
+    align-items:flex-start!important;
+    gap:8px 14px!important;
+  }
+  .quick-recipient-list{
+    display:grid!important;
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:10px!important;
+    padding:4px 16px 8px!important;
+    overflow:visible!important;
+    overflow-x:visible!important;
+    scroll-snap-type:none!important;
+  }
+  .quick-recipient-card{
+    flex:none!important;
+    flex-basis:auto!important;
+    width:auto!important;
+    max-width:none!important;
+    min-width:0!important;
+    scroll-snap-align:none!important;
+    grid-template-columns:1fr!important;
+    grid-template-rows:auto 1fr!important;
+    justify-items:center!important;
+    text-align:center!important;
+    gap:8px!important;
+    min-height:0!important;
+    padding:14px 12px 40px!important;
+  }
+  .quick-recipient-card img{
+    width:72px!important;
+    height:72px!important;
+  }
+  .quick-recipient-card>span{
+    justify-items:center!important;
+  }
+  .quick-recipient-card strong{
+    font-size:15px!important;
+  }
+  .quick-recipient-card small{
+    display:none!important;
+  }
+  .quick-recipient-card>b{
+    left:50%!important;
+    right:auto!important;
+    bottom:10px!important;
+    transform:translateX(-50%)!important;
+  }
+}
+

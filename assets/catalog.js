@@ -454,13 +454,11 @@
     var searching = !!q.trim();
     var shown = list.slice(0, visibleCount);
     var hasMore = list.length > visibleCount;
-    var inSection = group === 'all' ? products.length : products.filter(function (p) { return inGroup(p, group); }).length;
     var head =
-      '<div class="catalog-results-heading"><div><p class="eyebrow">Выбор для праздника</p><h2>' + esc(groupTitle()) + '</h2>' +
+      '<div class="catalog-results-heading"><div><h2>' + esc(groupTitle()) + '</h2>' +
       (searching ? '<p class="catalog-search-scope">Ищем по всему каталогу</p>' : '') +
       '</div>' +
       '<div class="catalog-results-counts"><span role="status" aria-live="polite">' + (loading ? 'Загружаем варианты…' : list.length + ' ' + plural(list.length)) + '</span>' +
-      (!loading ? '<small>' + inSection + ' в ' + (group === 'all' ? 'ассортименте' : 'текущем разделе') + ' · ' + products.length + ' всего опубликовано</small>' : '') +
       (!loading && group !== 'all' ? '<button type="button" data-showall>Показать весь ассортимент</button>' : '') +
       '</div></div>';
     var budget = '';

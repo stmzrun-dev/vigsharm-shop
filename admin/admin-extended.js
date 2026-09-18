@@ -294,7 +294,7 @@ Object.assign(app, {
     );
     if (themeCb) themeCb.checked = true;
 
-    const clearIds = ['product-character', 'product-age', 'product-occasion', 'product-audience', 'product-series'];
+    const clearIds = ['product-character', 'product-age', 'product-series'];
     clearIds.forEach((id) => {
       const el = document.getElementById(id);
       if (el) el.value = '';
@@ -306,7 +306,7 @@ Object.assign(app, {
   },
 
   /** XOR тип изделия без тематики в скобках: только этот type-тег. */
-  applyTypeOnlyMode(typeTag, { clearAudience = true } = {}) {
+  applyTypeOnlyMode(typeTag) {
     if (!typeTag || this.currentProduct?.holiday_only) return;
     const catEl = document.getElementById('product-category');
     if (catEl) catEl.value = typeTag;
@@ -314,18 +314,13 @@ Object.assign(app, {
       .forEach((cb) => { cb.checked = false; });
     const typeCb = document.querySelector(`#tags-type input[value="${CSS.escape(typeTag)}"]`);
     if (typeCb) typeCb.checked = true;
-    if (clearAudience) {
-      const audienceEl = document.getElementById('product-audience');
-      if (audienceEl) audienceEl.value = '';
-      const occasionEl = document.getElementById('product-occasion');
-      if (occasionEl) occasionEl.value = '';
-    }
   },
 
   applyBouquetOnlyMode() { this.applyTypeOnlyMode('Букет из шаров'); },
   applyFiguresOnlyMode() { this.applyTypeOnlyMode('Фигуры из шаров'); },
+  applyBoxOnlyMode() { this.applyTypeOnlyMode('Коробка-сюрприз'); },
   applyPhotozoneOnlyMode() {
-    this.applyTypeOnlyMode('Фотозона', { clearAudience: false });
+    this.applyTypeOnlyMode('Фотозона');
     // Сохранить выбранный тип каркас/мольберт в обоих блоках UI
     this.setPhotozoneType?.(this.getPhotozoneType?.() || 'frame');
   },
@@ -344,6 +339,12 @@ Object.assign(app, {
     if (/фольг\w*\s+фигур/.test(t)) return false;
     return /фигур[аыуе]?(?:\s+\w+){0,2}\s+из\s+шар/.test(t)
       || /скрутк\w*\s+из\s+шар/.test(t);
+  },
+
+  compositionLooksLikeSurpriseBox(text) {
+    const t = String(text || '').toLowerCase().replace(/ё/g, 'е');
+    if (!t) return false;
+    return /коробк/.test(t);
   },
 
   syncHolidayFromComposition() {
@@ -719,14 +720,6 @@ Object.assign(app, {
         else el.value = '';
       }
     }
-    if ('occasion' in card && !holidayOnly) {
-      const el = document.getElementById('product-occasion');
-      if (el) el.value = card.occasion || '';
-    }
-    if (card.target_audience && !holidayOnly) {
-      const el = document.getElementById('product-audience');
-      if (el) el.value = card.target_audience;
-    }
     if (card.series_name != null && !holidayOnly) {
       const el = document.getElementById('product-series');
       if (el) el.value = card.series_name || '';
@@ -740,6 +733,14 @@ Object.assign(app, {
         ? card.composition.join('\n')
         : String(card.composition || document.getElementById('product-composition')?.value || '');
       if (
+        card.category === 'Коробка-сюрприз'
+        || tags.includes('Коробка-сюрприз')
+        || this.compositionLooksLikeSurpriseBox?.(compText)
+      ) {
+        this.applyBoxOnlyMode?.();
+        const ageEl = document.getElementById('product-age');
+        if (ageEl && !ageEl.value) ageEl.value = 'Для детей';
+      } else if (
         scene === 'handheld_bouquet'
         || card.category === 'Букет из шаров'
         || (tags.includes('Букет из шаров') && (scene === 'handheld_bouquet' || this.compositionLooksLikeBouquet?.(compText)))
@@ -818,17 +819,21 @@ Object.assign(app, {
     if (!unit) this.syncAdvanceOrderFromScene?.();
 
     const compText = Array.isArray(composition) ? composition.join('\n') : String(composition || '');
-    const isBouquet = !unit && !holidayOnly && (
+    const isBox = !unit && !holidayOnly && (
+      category === 'Коробка-сюрприз'
+      || this.compositionLooksLikeSurpriseBox?.(compText)
+    );
+    const isBouquet = !unit && !holidayOnly && !isBox && (
       scene === 'handheld_bouquet'
       || category === 'Букет из шаров'
       || this.compositionLooksLikeBouquet?.(compText)
     );
-    const isFigures = !unit && !holidayOnly && (
+    const isFigures = !unit && !holidayOnly && !isBox && (
       scene === 'balloon_figures'
       || category === 'Фигуры из шаров'
       || this.compositionLooksLikeBalloonFigure?.(compText)
     );
-    const isPhotozone = !unit && !holidayOnly && (
+    const isPhotozone = !unit && !holidayOnly && !isBox && (
       scene === 'photozone'
       || category === 'Фотозона'
     );
@@ -874,11 +879,14 @@ Object.assign(app, {
       };
     }
 
-    // XOR: тематика из скобок ИЛИ один тип (букет / фигуры / фотозона) — не смешивать с аудиторией
+    // XOR: тематика из скобок ИЛИ один тип (коробка / букет / фигуры / фотозона) — не смешивать с аудиторией
     let finalTags = [...tags];
     if (holidayOnly) {
       category = holidayOnly;
       finalTags = [holidayOnly];
+    } else if (isBox) {
+      category = 'Коробка-сюрприз';
+      finalTags = ['Коробка-сюрприз'];
     } else if (isBouquet) {
       category = 'Букет из шаров';
       finalTags = ['Букет из шаров'];
@@ -912,12 +920,8 @@ Object.assign(app, {
       age_group: unit ? 'Для любого возраста' : (document.getElementById('product-age')?.value || 'Для любого возраста'),
       budget: unit ? null : (document.getElementById('product-budget')?.value.trim() || null),
       series_name: unit || holidayOnly ? null : (document.getElementById('product-series')?.value.trim() || null),
-      occasion: unit || holidayOnly || isBouquet || isFigures || isPhotozone
-        ? null
-        : (document.getElementById('product-occasion')?.value.trim() || null),
-      target_audience: unit || holidayOnly || isBouquet || isFigures || isPhotozone
-        ? null
-        : (document.getElementById('product-audience')?.value.trim() || null),
+      occasion: null,
+      target_audience: null,
       seo_title: unit ? '' : document.getElementById('product-seo-title').value.trim(),
       seo_description: unit ? '' : document.getElementById('product-seo-desc').value.trim(),
       slug: document.getElementById('product-slug').value.trim() || this.slugify(titleValue),
@@ -1058,8 +1062,6 @@ app.loadProductToForm = function(product) {
   set('product-age', product.age_group);
   set('product-budget', product.budget);
   set('product-series', product.series_name);
-  set('product-occasion', product.occasion);
-  set('product-audience', product.target_audience);
 
   // SEO
   set('product-seo-title', product.seo_title);

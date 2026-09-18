@@ -255,13 +255,11 @@ Object.assign(app, {
     const shortDesc = (document.getElementById('product-short-desc')?.value || '').trim();
     const budget = (document.getElementById('product-budget')?.value || '').trim();
     const age = (document.getElementById('product-age')?.value || '').trim();
-    const occasion = (document.getElementById('product-occasion')?.value || '').trim();
 
     if (!unit && !composition) gaps.push('состав');
     if (!unit && !shortDesc) gaps.push('краткое описание');
     if (!unit && !budget) gaps.push('бюджет');
     if (!unit && (!age || age === 'Для любого возраста')) gaps.push('возраст');
-    if (!unit && !occasion) gaps.push('повод');
     return gaps;
   },
 
@@ -277,8 +275,7 @@ Object.assign(app, {
       composition: !unit && !(document.getElementById('product-composition')?.value || '').trim(),
       short: !unit && !(document.getElementById('product-short-desc')?.value || '').trim(),
       budget: !unit && !(document.getElementById('product-budget')?.value || '').trim(),
-      age: !unit && (!age || age === 'Для любого возраста'),
-      occasion: !unit && !(document.getElementById('product-occasion')?.value || '').trim()
+      age: !unit && (!age || age === 'Для любого возраста')
     };
   },
 
@@ -301,7 +298,7 @@ Object.assign(app, {
     this._requiredHighlightsWired = true;
     const ids = [
       'product-title', 'product-category', 'product-price', 'product-composition',
-      'product-short-desc', 'product-budget', 'product-age', 'product-occasion'
+      'product-short-desc', 'product-budget', 'product-age'
     ];
     ids.forEach((id) => {
       const el = document.getElementById(id);
@@ -492,8 +489,8 @@ Object.assign(app, {
       this.currentProduct.category = data.category || this.currentProduct.category;
       this.currentProduct.character = data.character || this.currentProduct.character;
       this.currentProduct.age_group = data.age_group || this.currentProduct.age_group;
-      this.currentProduct.occasion = data.occasion || '';
-      this.currentProduct.target_audience = data.target_audience || this.currentProduct.target_audience;
+      this.currentProduct.occasion = '';
+      this.currentProduct.target_audience = '';
       this.currentProduct.series_name = data.series_name || this.currentProduct.series_name;
       this.currentProduct.budget = data.budget || this.currentProduct.budget;
       this.currentProduct.seo_title = data.seo_title || this.currentProduct.seo_title;

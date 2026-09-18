@@ -103,6 +103,8 @@ assert(adminExt.includes('parseCompositionHolidayMeta'), 'admin parses holiday p
 assert(adminExt.includes('applyHolidayOnlyMode'), 'admin holiday-only mode');
 assert(adminJs.includes('findSimilarCatalogTitle'), 'save blocks similar titles');
 assert(worker.includes('Сырой состав'), 'AI formats user composition');assert(worker.includes('GENERIC_OCCASIONS'), 'generic occasion stripped');
+assert(worker.includes('compositionLooksLikeSurpriseBox'), 'box composition detector');
+assert(worker.includes('Коробка-сюрприз'), 'box type-only category');
 assert(worker.includes('delete data.article'), 'AI card does not invent article');
 assert(worker.includes('sanitizeCompositionColors'), 'composition color strip');
 assert(worker.includes('sanitizeCompositionBoxes'), 'box composition normalize');

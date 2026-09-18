@@ -307,6 +307,13 @@ function compositionLooksLikeBalloonFigure(text) {
     || /скрутк\w*\s+из\s+шар/.test(t);
 }
 
+/** Коробка / коробка-сюрприз в составе → тип «Коробка-сюрприз». */
+function compositionLooksLikeSurpriseBox(text) {
+  const t = String(text || '').toLowerCase().replace(/ё/g, 'е');
+  if (!t) return false;
+  return /коробк/.test(t);
+}
+
 const GENERIC_OCCASIONS = new Set([
   'день рождения', 'др', 'birthday', 'праздник', 'любой повод', 'без повода'
 ]);
@@ -381,16 +388,25 @@ async function handleGenerateCard(request, env) {
 - composition: БЕЗ скобок и БЕЗ текста тематики — только физический состав шаров`
     : '';
 
-  const bouquetOnly = !holidayOnly && (
+  const boxOnly = !holidayOnly && compositionLooksLikeSurpriseBox(rawComposition);
+  const bouquetOnly = !holidayOnly && !boxOnly && (
     (scene || '') === 'handheld_bouquet'
     || compositionLooksLikeBouquet(rawComposition)
   );
-  const figuresOnly = !holidayOnly && !bouquetOnly && (
+  const figuresOnly = !holidayOnly && !boxOnly && !bouquetOnly && (
     (scene || '') === 'balloon_figures'
     || compositionLooksLikeBalloonFigure(rawComposition)
   );
-  const photozoneOnly = !holidayOnly && !bouquetOnly && !figuresOnly && (scene || '') === 'photozone';
+  const photozoneOnly = !holidayOnly && !boxOnly && !bouquetOnly && !figuresOnly
+    && (scene || '') === 'photozone';
 
+  const boxRule = boxOnly
+    ? `
+КОРОБКА-СЮРПРИЗ (в составе есть «коробка»; без тематики в скобках): category = РОВНО «Коробка-сюрприз».
+- tags: ТОЛЬКО «Коробка-сюрприз» — БЕЗ «Для неё/него/девочки/мальчика» и прочих аудиторий/поводов
+- ОБЯЗАТЕЛЬНО заполни age_group по фото (герои/цифры/дети → «Для детей»)
+- target_audience и occasion оставь пустыми (пол/повод — не в этих полях)`
+    : '';
   const bouquetRule = bouquetOnly
     ? `
 БУКЕТ ИЗ ШАРОВ (без тематики в скобках): category = РОВНО «Букет из шаров».
@@ -408,8 +424,7 @@ async function handleGenerateCard(request, env) {
 ФОТОЗОНА (без тематики в скобках): category = РОВНО «Фотозона».
 - tags: ТОЛЬКО «Фотозона» (пол/повод не дублируй в tags)
 - ОБЯЗАТЕЛЬНО заполни age_group по фото (дети/малыши/…)
-- ОБЯЗАТЕЛЬНО заполни target_audience (Для мальчика / Для девочки / …) по имени, цветам, герою
-- ОБЯЗАТЕЛЬНО заполни occasion узким поводом (НЕ «День рождения») — например по надписи на круге; если только ДР ребёнка — оставь occasion пустым, но age_group = «Для детей»
+- target_audience и occasion оставь пустыми
 - character / series_name — по герою на фото (Человек-паук и т.п.)`
     : '';
 
@@ -483,7 +498,7 @@ ${BUDGET_OPTIONS.join(' | ')}
   • НЕ выдумывай героя без признаков на фото
   • Мишка/зайчик/сердце на выписке — НЕ character франшизы; character и series_name оставь пустыми
 - age_group: ОБЯЗАТЕЛЬНО одно значение из списка по стилю фото/категории (выписка/1 годик → «Для малышей»; герои/цифры/для девочки|мальчика → «Для детей»; для неё/него/юбилей → «Для взрослых»). Не оставляй пустым; «Для любого возраста» — только если совсем неоднозначно
-- occasion: ОБЯЗАТЕЛЬНО заполни узкий повод по фото/category (На выписку, Крещение, Гендер-пати, Юбилей, 1 годик, Свадьба и девичник, 8 марта…). ЗАПРЕЩЕНО «День рождения», «ДР», «праздник», «любой повод». Если category уже узкий повод — скопируй его в occasion. Если узкого повода нет — оставь пустым
+- occasion и target_audience: ВСЕГДА оставляй пустыми (повод/аудитория — только category и tags; свободные поля в админке убраны)
 - composition: оформи ТОЛЬКО сырой состав пользователя.
   • НЕ добавляй позиции, которых нет во входе
   • НЕ добавляй цвет (жёлтых/синих…), если пользователь цвет не написал → «5 латексных шаров», не «5 жёлтых шаров»
@@ -496,7 +511,7 @@ ${BUDGET_OPTIONS.join(' | ')}
   • ОРФОГРАФИЯ: исправь опечатки и ошибки в словах пользователя (падежи, «надписью», «звезда», «сердце», «баблс/бабл»), смысл и числа не меняй
 - Во всех текстовых полях (title, descriptions, composition, seo): грамотный русский, без орфографических ошибок
 - budget: только из BUDGET по цене пользователя
-- НЕ возвращай article и price${holidayRule}${bouquetRule}${figuresRule}${photozoneRule}`;
+- НЕ возвращай article и price${holidayRule}${boxRule}${bouquetRule}${figuresRule}${photozoneRule}`;
 
   const takenBlock = takenTitles.length
     ? `Уже занятые названия в каталоге (НЕ предлагай эти и похожие):\n${takenTitles.slice(0, 80).map((t) => `• ${t}`).join('\n')}`
@@ -510,16 +525,17 @@ ${hintsBlock}
 Сцена Studio Pro: ${scene || 'floor'}
 Подсказка типа изделия для tags: ${typeHint || 'по фото'}
 ${holidayOnly ? `Праздничная/тематическая категория (обязательно): ${holidayOnly}` : ''}
+${boxOnly ? 'В составе коробка — category и tags только «Коробка-сюрприз». age_group обязателен.' : ''}
 ${bouquetOnly ? 'Это букет из шаров без тематики в скобках — category и tags только «Букет из шаров».' : ''}
 ${figuresOnly ? 'Это фигура из шаров без тематики в скобках — category и tags только «Фигуры из шаров».' : ''}
 ${photozoneOnly ? 'Это фотозона без тематики в скобках — category и tags только «Фотозона».' : ''}
 ${takenBlock}
 ${image_url
-    ? (holidayOnly || bouquetOnly || figuresOnly
-      ? 'Фото приложено — опиши товар в short/full description. НЕ заполняй target_audience и occasion под другие разделы.'
+    ? (holidayOnly || boxOnly || bouquetOnly || figuresOnly
+      ? 'Фото приложено — опиши товар в short/full description. ОБЯЗАТЕЛЬНО age_group. НЕ заполняй target_audience и occasion.'
       : (photozoneOnly
-        ? 'Фото приложено — category/tags только «Фотозона». ОБЯЗАТЕЛЬНО заполни age_group, target_audience, character/series по фото. occasion — узкий повод без «День рождения». Имена/цифры на круге — пример персонализации, не в title.'
-        : 'Фото приложено — ОБЯЗАТЕЛЬНО определи category (с приоритетом «На выписку» при метриках рождения / «добро пожаловать домой»), персонажа и тематическую серию по визуальным признакам. Если сомневаешься — confidence medium/low и дай alts. Логотипы магазинов игнорируй. Имена на табличке — пример персонализации, не в title; но дата+вес+рост / выписка → category «На выписку».'))
+        ? 'Фото приложено — category/tags только «Фотозона». ОБЯЗАТЕЛЬНО age_group и character/series по фото. target_audience и occasion пустые. Имена/цифры на круге — пример персонализации, не в title.'
+        : 'Фото приложено — ОБЯЗАТЕЛЬНО определи category (с приоритетом «На выписку» при метриках рождения / «добро пожаловать домой»), age_group, персонажа и тематическую серию по визуальным признакам. target_audience и occasion пустые. Если сомневаешься — confidence medium/low и дай alts. Логотипы магазинов игнорируй. Имена на табличке — пример персонализации, не в title; но дата+вес+рост / выписка → category «На выписку».'))
     : ''}`;
 
   const messages = [
@@ -561,6 +577,11 @@ ${image_url
   data = sanitizeCardMetadata(data, scene || 'floor', priceNum, rawComposition, takenTitles);
   if (holidayOnly) {
     applyHolidayOnlyCard(data, holidayOnly);
+  } else if (boxOnly) {
+    applyTypeOnlyCard(data, 'Коробка-сюрприз');
+    if (!data.age_group || data.age_group === 'Для любого возраста') {
+      data.age_group = 'Для детей';
+    }
   } else if (bouquetOnly) {
     applyTypeOnlyCard(data, 'Букет из шаров');
   } else if (figuresOnly) {
@@ -570,6 +591,9 @@ ${image_url
   } else {
     applyDischargeCategoryPriority(data, rawComposition);
   }
+  // Свободные поля occasion / target_audience в админке убраны
+  data.occasion = '';
+  data.target_audience = '';
   // Убрать случайно оставшиеся скобки-подсказки из состава
   if (Array.isArray(data.composition)) {
     data.composition = data.composition
@@ -925,11 +949,16 @@ function sanitizeCardMetadata(data, scene = 'floor', price = 0, rawComposition =
     else if (/дет/.test(low)) data.age_group = 'Для детей';
     else data.age_group = '';
   }
-  // Дозаполнение возраста по category, если ИИ оставил пусто / «любой»
+  // Дозаполнение возраста по category / тегам, если ИИ оставил пусто / «любой»
   if (!data.age_group || data.age_group === 'Для любого возраста') {
     const cat = String(data.category || '');
+    const tagBlob = (Array.isArray(data.tags) ? data.tags : []).join(' ');
     if (cat === 'На выписку' || cat === '1 годик' || cat === 'Крещение') data.age_group = 'Для малышей';
-    else if (cat === 'Для девочки' || cat === 'Для мальчика' || cat === 'Гендер-пати' || cat === 'Фотозона') {
+    else if (
+      cat === 'Для девочки' || cat === 'Для мальчика' || cat === 'Гендер-пати'
+      || cat === 'Фотозона' || cat === 'Коробка-сюрприз'
+      || /Для девочки|Для мальчика|Коробка-сюрприз|Фотозона/.test(tagBlob)
+    ) {
       data.age_group = 'Для детей';
     } else if (cat === 'Для неё' || cat === 'Для него' || cat === 'Для мамы' || cat === 'Юбилей' || cat === 'Свадьба и девичник') {
       data.age_group = 'Для взрослых';

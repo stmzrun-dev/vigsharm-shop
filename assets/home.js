@@ -40,7 +40,7 @@
             '<span class="live-product-meta"><small>' + escapeHtml(cat || 'Композиция') + '</small>' + badge + '</span>' +
             '<strong>' + escapeHtml(p.title) + '</strong>' +
             '<span>' + escapeHtml(p.short_description || '') + '</span>' +
-            '<b>' + Number(p.price).toLocaleString('ru-RU') + ' ₽ <i aria-hidden="true">Подробнее&nbsp; →</i></b>' +
+            '<b>' + Number(p.price).toLocaleString('ru-RU') + ' ₽ <i aria-hidden="true">Подробнее</i></b>' +
             '</span></a>'
           );
         }).join('');

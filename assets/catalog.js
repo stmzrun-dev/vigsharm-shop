@@ -306,7 +306,7 @@
       '<span class="catalog-card-copy"><span class="catalog-card-meta"><small>' + esc(cat || 'Композиция') + '</small>' + badge + '</span>' +
       '<strong>' + esc(p.title) + '</strong>' +
       '<span>' + esc(p.short_description || '') + '</span>' +
-      '<span class="catalog-card-price"><small>' + priceNote + '</small><b>' + from + Number(p.price).toLocaleString('ru-RU') + ' ₽</b><i aria-hidden="true">Подробнее&nbsp; →</i></span>' +
+      '<span class="catalog-card-price"><small>' + priceNote + '</small><b>' + from + Number(p.price).toLocaleString('ru-RU') + ' ₽</b><i aria-hidden="true">Подробнее</i></span>' +
       '</span></a>';
   }
 
@@ -509,7 +509,7 @@
             return '<a class="catalog-card color-' + (i % 5) + '" href="product.html?slug=' + encodeURIComponent(p.slug || p.id) + '" aria-label="Подробнее: ' + esc(p.title) + '">' +
               '<span class="catalog-card-image">' + img + '</span>' +
               '<span class="catalog-card-copy"><small>' + esc(p.category || 'Композиция') + '</small><strong>' + esc(p.title) + '</strong>' +
-              '<span class="catalog-card-price"><b>' + from + Number(p.price).toLocaleString('ru-RU') + ' ₽</b><i aria-hidden="true">Подробнее&nbsp; →</i></span></span></a>';
+              '<span class="catalog-card-price"><b>' + from + Number(p.price).toLocaleString('ru-RU') + ' ₽</b><i aria-hidden="true">Подробнее</i></span></span></a>';
           }).join('') + '</div></section>';
       }
     }

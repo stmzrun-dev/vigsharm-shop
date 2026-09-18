@@ -2,6 +2,101 @@
   "ok": true,
   "products": [
     {
+      "id": "700e3716-eaf8-44bc-8502-1e5dcdc6d138",
+      "title": "Гоночный экипаж",
+      "article": "BOY-009",
+      "price": 4000,
+      "short_description": "Яркий букет с красной цифрой, двумя машинками и разноцветными шарами.",
+      "full_description": "Букет включает красную фольгированную цифру, фигуры красной и синей машинок, синюю звезду, шар с конфетти и 8 латексных шаров.",
+      "composition": [
+        "фольгированная цифра",
+        "2 фольгированные фигуры машинок",
+        "фольгированная звезда",
+        "шар с конфетти",
+        "8 латексных шаров"
+      ],
+      "category": "Для мальчика",
+      "character": "Молния Маккуин",
+      "age_group": "Для детей",
+      "budget": "3 500–5 000 ₽",
+      "series_name": "Тачки",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Букет из шаров с Молнией Маккуином — Армавир",
+      "seo_description": "Яркий букет из шаров с персонажами Тачек, цифрой и разноцветными шарами. Доставка воздушных шаров в Армавире.",
+      "slug": "gonochnyy-ekipazh",
+      "scene": "wall_only",
+      "tags": [
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1789735181/vigsharm-products/mo0ne9tzdnuymioznpgn.jpg"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789735181/vigsharm-products/mo0ne9tzdnuymioznpgn.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-18T12:57:04.255Z",
+      "updated_at": "2026-09-18T12:57:04.255Z"
+    },
+    {
+      "id": "c37e64bb-3d9d-470c-b4b6-5872053f5c44",
+      "title": "Ушастый сюрприз",
+      "article": "GRL-009",
+      "price": 2920,
+      "short_description": "Нежная композиция с милым зайчиком в пастельных тонах для маленькой именинницы.",
+      "full_description": "Букет из шаров с фольгированной фигурой зайчика, цифрой и латексными шарами в бежево-розовой гамме. Идеально для детского праздника.",
+      "composition": [
+        "фольгированная цифра",
+        "фольгированная фигура зайчика",
+        "шар с конфетти",
+        "6 латексных шаров"
+      ],
+      "category": "Для девочки",
+      "character": null,
+      "age_group": "Для малышей",
+      "budget": "2 000–3 500 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Букет из шаров с зайчиком для девочки в Армавире",
+      "seo_description": "Нежный букет из шаров с фольгированным зайчиком, цифрой и латексными шарами в пастельных тонах. Доставка воздушных шаров по Армавиру от VigSharm.",
+      "slug": "ushastyj-syurpriz",
+      "scene": "wall_only",
+      "tags": [
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1789734229/vigsharm-products/klwijppmaaoxkequm9ks.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789734229/vigsharm-products/klwijppmaaoxkequm9ks.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-18T12:24:34.967Z",
+      "updated_at": "2026-09-18T12:24:34.967Z"
+    },
+    {
       "id": "a6a5d533-7386-40cb-aee7-414613b6e55d",
       "title": "Веселая проказница",
       "article": "GRL-008",

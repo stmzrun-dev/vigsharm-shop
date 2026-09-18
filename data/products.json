@@ -2,6 +2,46 @@
   "ok": true,
   "products": [
     {
+      "id": "58c7c8e0-7cf8-4e29-83d2-84563ac570da",
+      "title": "Весёлый клоун",
+      "article": "FIG-002",
+      "price": 3000,
+      "short_description": "Клоун из шаров с яркими кудряшками и букетом разноцветных цветов.",
+      "full_description": "Фигура клоуна с рыжими кудрями, красным носом и букетом ярких цветов из шаров. Выполнена в технике скрутки на устойчивом основании.",
+      "composition": [
+        "фигура из шаров"
+      ],
+      "category": "Фигуры из шаров",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": "2 000–3 500 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Клоун из шаров в Армавире — фигура на праздник",
+      "seo_description": "Яркая фигура клоуна из воздушных шаров с букетом цветов. Оригинальное украшение для детского праздника. Доставка по Армавиру.",
+      "slug": "veselyy-kloun",
+      "scene": "balloon_figures",
+      "tags": [
+        "Фигуры из шаров"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1789726375/vigsharm-products/ln7gvojjfvlfl95dzmxm.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789726375/vigsharm-products/ln7gvojjfvlfl95dzmxm.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-18T10:13:44.957Z",
+      "updated_at": "2026-09-18T10:13:44.957Z"
+    },
+    {
       "id": "4633f3e1-1974-4725-aa0c-74b56a5d4eb9",
       "title": "Кавалер сердец",
       "article": "HER-003",

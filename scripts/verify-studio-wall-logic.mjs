@@ -89,6 +89,8 @@ assert(!studio.includes('showCropEditor') && !studio.includes('applyCropFrames')
 assert(worker.includes('sharomem.ru'), 'supplier watermark removal');
 assert(worker.includes('KEEP: Spider-Man / character art printed ON the balloon'), 'keep balloon prints, not shop logos');
 assert(worker.includes('AUDIENCE_CATEGORIES'), 'AI card audience categories');
+assert(worker.includes('Универсальные'), 'universal audience category');
+assert(!/case 'wall_only': return 'Букет из шаров'/.test(worker), 'wall_only does not force bouquet tag');
 assert(worker.includes('title_alts'), 'AI card title alternatives');
 assert(worker.includes('existing_titles'), 'AI receives existing titles');
 assert(worker.includes('sanitizeTitleAgainstExisting'), 'filter duplicate titles');
@@ -110,7 +112,8 @@ assert(worker.includes('sanitizeCompositionColors'), 'composition color strip');
 assert(worker.includes('sanitizeCompositionBoxes'), 'box composition normalize');
 assert(worker.includes('с индивидуальной надписью и декором'), 'box inscription phrase');
 assert(worker.includes('фольгированных персонажей'), 'foil ≠ фигуры из шаров');
-assert(worker.includes("case 'wall_only': return 'Букет из шаров'"), 'wall scene not фигуры tag');
+assert(worker.includes("case 'wall_only': return ''"), 'wall scene no auto type tag');
+assert(!/case 'wall_only':[\s\S]{0,80}Фигуры из шаров/.test(worker), 'wall scene not фигуры tag');
 assert(ai.includes('assignFreshArticle'), 'article after AI fill');
 
 console.log('\n---');

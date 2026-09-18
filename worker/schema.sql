@@ -72,4 +72,5 @@ INSERT OR IGNORE INTO categories (id, name, slug, sort_order) VALUES
   ('cat-25', 'Коробка-сюрприз', 'korobka-syurpriz', 25),
   ('cat-26', 'Фотозона', 'fotozona', 26),
   ('cat-27', 'Арка из шаров', 'arka-iz-sharov', 27),
-  ('cat-28', 'Шары поштучно', 'shary-poshtuchno', 28);
+  ('cat-28', 'Шары поштучно', 'shary-poshtuchno', 28),
+  ('cat-29', 'Универсальные', 'universalnye', 2);

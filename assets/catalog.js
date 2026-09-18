@@ -2,7 +2,7 @@
 (function () {
   'use strict';
 
-  var READY_SUBCATS = ['Для девочки', 'Для мальчика', 'Для неё', 'Для мамы', 'Для него', 'На выписку', 'День рождения', 'Оригинальные подарки', 'Оформление праздника', 'Фигуры из шаров', 'Цветы из шаров', 'Арки', 'Шар-сюрприз', 'Крафтовый букет', 'Коробка-сюрприз', 'Гендер-пати'];
+  var READY_SUBCATS = ['Для девочки', 'Для мальчика', 'Универсальные', 'Для неё', 'Для мамы', 'Для него', 'На выписку', 'День рождения', 'Оригинальные подарки', 'Оформление праздника', 'Фигуры из шаров', 'Цветы из шаров', 'Арки', 'Шар-сюрприз', 'Крафтовый букет', 'Коробка-сюрприз', 'Гендер-пати'];
   var UNIT_SUBCATS = ['Латексные шары', 'Шары с рисунком', 'Фольгированные фигуры', 'Ходячие фигуры', 'Круги, звёзды и сердца', 'Шары с конфетти', 'Шары хром', 'Шары Brush', 'Шары Super Agate', 'Шары Bubble', 'Фольгированные цифры', 'Именные шары'];
   var UNIT_COLLECTIONS = ['Шары с рисунком', 'Латексные шары', 'Фольгированные фигуры', 'Ходячие фигуры', 'Круги, звёзды и сердца', 'Шары с конфетти', 'Шары хром', 'Шары Brush', 'Шары Super Agate', 'Шары Bubble', 'Фольгированные цифры'];
   var DETAIL_FILTERS = ['Для мальчика', 'Для девочки', 'Детские', 'Для него', 'Для неё', 'На выписку', 'День рождения', 'Праздники', 'Персонажи', 'Универсальные'];
@@ -276,7 +276,7 @@
       var matchQ = terms.every(function (t) { return hay.indexOf(t) >= 0; });
       var matchC = category === 'Все товары' || p.category === category || (p.tags || []).indexOf(category) >= 0;
       var matchP = p.price >= pr.min && p.price <= pr.max;
-      var matchF = !filter || (p.tags || []).indexOf(filter) >= 0;
+      var matchF = !filter || p.category === filter || (p.tags || []).indexOf(filter) >= 0;
       var matchCh = !character || (p.character_name || '').toLowerCase().indexOf(character.toLowerCase()) >= 0 || (p.title || '').toLowerCase().indexOf(character.toLowerCase()) >= 0;
       var matchA = !age || p.age_group === age;
       return !excludedUnitRoot && inG && matchQ && matchC && matchP && matchF && matchCh && matchA;

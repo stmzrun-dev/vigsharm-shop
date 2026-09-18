@@ -2,6 +2,185 @@
   "ok": true,
   "products": [
     {
+      "id": "b58f4690-2596-4999-959c-ed79635d3509",
+      "title": "Звёздный герой",
+      "article": "BOY-011",
+      "price": 4000,
+      "short_description": "Напольная композиция с Человеком-пауком, цифрой и золотой звездой.",
+      "full_description": "Яркая напольная композиция в красно-сине-чёрной гамме с фигурой Человека-паука, фольгированной цифрой с надписью и золотой звездой.",
+      "composition": [
+        "напольная композиция",
+        "цифра с надписью"
+      ],
+      "category": "Для мальчика",
+      "character": null,
+      "age_group": "Для детей",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Композиция со Человеком-пауком и цифрой — VigSharm Армавир",
+      "seo_description": "Напольная композиция с Человеком-пауком, цифрой и золотой звездой в красно-синих тонах. Доставка шаров в Армавире.",
+      "slug": "zvezdnyy-geroy",
+      "scene": "floor",
+      "tags": [
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1789765713/vigsharm-products/r9luxjchirawpoub80ty.jpg"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789765713/vigsharm-products/r9luxjchirawpoub80ty.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-18T21:09:21.236Z",
+      "updated_at": "2026-09-18T21:09:21.236Z"
+    },
+    {
+      "id": "1790ebfa-f27c-4009-86b4-987add9e4392",
+      "title": "Лесная компания",
+      "article": "BOY-010",
+      "price": 3850,
+      "short_description": "Три лесных жителя с букетом шаров и праздничным кругом.",
+      "full_description": "Композиция с фольгированными фигурами оленёнка, лисички и енота, дополненная букетом в нежных тонах и круглым шаром с лесными персонажами.",
+      "composition": [
+        "3 фольгированные фигуры",
+        "круг с рисунком",
+        "10 латексных шаров"
+      ],
+      "category": "Для мальчика",
+      "character": null,
+      "age_group": "Для детей",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Букет из шаров с лесными зверями в Армавире — VigSharm",
+      "seo_description": "Букет с фольгированными фигурами оленёнка, лисички и енота. Лесная композиция для детского праздника. Доставка по Армавиру.",
+      "slug": "lesnaya-kompaniya",
+      "scene": "wall_only",
+      "tags": [
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1789764809/vigsharm-products/bjvboyfytaityvyurwst.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789764809/vigsharm-products/bjvboyfytaityvyurwst.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-18T20:56:51.540Z",
+      "updated_at": "2026-09-18T20:56:51.540Z"
+    },
+    {
+      "id": "3e25ebe1-0614-4f4b-8ba9-43f0d9d5e502",
+      "title": "Дива в короне",
+      "article": "GRL-012",
+      "price": 3000,
+      "short_description": "Две напольные композиции с куклой LOL, короной и розово-белыми шарами.",
+      "full_description": "На фото две напольные композиции: крупная цифра с короной Princess и фигура куклы LOL на подставке из шаров в розово-бело-серебристой гамме.",
+      "composition": [
+        "2 напольные композиции"
+      ],
+      "category": "Для девочки",
+      "character": "LOL",
+      "age_group": "Для детей",
+      "budget": "2 000–3 500 ₽",
+      "series_name": "LOL Surprise",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Напольные композиции с куклой LOL и короной — Армавир",
+      "seo_description": "Две напольные композиции для девочки: цифра с короной Princess и кукла LOL на подставке из розово-серебристых шаров. Закажите в VigSharm, Армавир.",
+      "slug": "diva-v-korone",
+      "scene": "floor",
+      "tags": [
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1789764145/vigsharm-products/qq7i1xdjwfv7emusfbmp.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789764145/vigsharm-products/qq7i1xdjwfv7emusfbmp.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-18T20:45:28.271Z",
+      "updated_at": "2026-09-18T20:45:28.271Z"
+    },
+    {
+      "id": "73fad62f-21ba-48ca-bde8-e9fa5625f5a8",
+      "title": "Сияющие дивы",
+      "article": "GRL-011",
+      "price": 5000,
+      "short_description": "Коробка-сюрприз с фольгированными куклами LOL, золотой цифрой и воздушными шарами.",
+      "full_description": "Композиция с двумя фольгированными фигурами кукол LOL в золотисто-розовой гамме, фольгированной цифрой и шарами с конфетти. Коробка украшена индивидуальной надписью и декором.",
+      "composition": [
+        "коробка 70x70x70 с индивидуальной надписью и декором",
+        "2 фольгированные фигуры",
+        "фольгированная цифра",
+        "2 шара с конфетти",
+        "6 латексных шаров"
+      ],
+      "category": "Для девочки",
+      "character": null,
+      "age_group": "Для детей",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Коробка-сюрприз с куклами LOL и шарами в Армавире",
+      "seo_description": "Композиция с фольгированными фигурами LOL, золотой цифрой и шарами. Коробка с индивидуальной надписью. Доставка по Армавиру.",
+      "slug": "siyayushchie-divy",
+      "scene": "floor",
+      "tags": [
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 2
+        }
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1789763177/vigsharm-products/smxghxle4npkxxsdpuq1.jpg"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789763177/vigsharm-products/smxghxle4npkxxsdpuq1.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-18T20:37:43.425Z",
+      "updated_at": "2026-09-18T20:37:43.425Z"
+    },
+    {
       "id": "6c775540-8849-4b5a-a640-4faf1a6e1081",
       "title": "Герой в кадре",
       "article": "PHT-001",

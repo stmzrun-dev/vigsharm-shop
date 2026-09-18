@@ -92,7 +92,131 @@ Object.assign(app, {
     const hasPhoto = (this.currentProduct?.photos || []).length > 0;
     const price = parseInt(document.getElementById('product-price')?.value, 10) || 0;
     const composition = (document.getElementById('product-composition')?.value || '').trim();
-    return hasPhoto && price > 0 && composition.length > 0;
+    const unit = this.isUnitBalloonMode?.();
+    if (unit) return hasPhoto && price > 0;
+    const hasMaster = !!(this.studioMasterDataUrl
+      || (this.currentProduct?.photos || []).some((p) => p.type === 'master'));
+    return hasMaster && price > 0 && composition.length > 0;
+  },
+
+  hasStudioMasterReady() {
+    return !!(this.studioMasterDataUrl
+      || (this.currentProduct?.photos || []).some((p) => p.type === 'master'));
+  },
+
+  canUnlockEditorStep2() {
+    if (this.currentProduct?.id) return true;
+    const hasPhoto = (this.currentProduct?.photos || []).length > 0;
+    const price = parseInt(document.getElementById('product-price')?.value, 10) || 0;
+    const composition = (document.getElementById('product-composition')?.value || '').trim();
+    if (this.isUnitBalloonMode?.()) return hasPhoto && price > 0;
+    return this.hasStudioMasterReady() && price > 0 && composition.length > 0;
+  },
+
+  syncEditorSteps() {
+    const form = document.getElementById('product-form');
+    if (!form) return;
+    const step2 = this.canUnlockEditorStep2();
+    form.classList.toggle('is-editor-step-1', !step2);
+    form.classList.toggle('is-editor-step-2', step2);
+    const hint = document.getElementById('step-1-hint');
+    if (hint) {
+      if (this.isUnitBalloonMode?.()) {
+        hint.textContent = 'Шаг 1: фото и цена. Для «поштучно» остальное почти не нужно.';
+      } else {
+        hint.textContent = 'Шаг 1: фото → Master → цена и состав. Остальные поля откроются после этого.';
+      }
+    }
+    if (step2) {
+      this.hideSourceWorkPreview?.();
+    } else {
+      this.refreshSourceWorkPreview?.();
+    }
+  },
+
+  showSourceWorkPreview(url, label) {
+    const panel = document.getElementById('source-work-preview');
+    const img = document.getElementById('source-work-preview-img');
+    const labelEl = document.getElementById('source-work-preview-label');
+    if (!panel || !img || !url) return;
+    img.src = url;
+    this._sourceWorkPreviewUrl = url;
+    if (labelEl) labelEl.textContent = label || 'Оригинал — смотрите состав';
+    panel.classList.remove('hidden');
+    this.syncSourceWorkPreviewExpandUi?.();
+  },
+
+  hideSourceWorkPreview() {
+    const panel = document.getElementById('source-work-preview');
+    const img = document.getElementById('source-work-preview-img');
+    if (panel) {
+      panel.classList.add('hidden');
+      panel.classList.remove('is-expanded');
+    }
+    if (img) img.removeAttribute('src');
+    this._sourceWorkPreviewUrl = null;
+    document.getElementById('product-form')?.classList.remove('is-studio-busy');
+    document.getElementById('block-essentials')
+      ?.querySelector('.essentials-layout')
+      ?.classList.remove('is-preview-expanded');
+    this.syncSourceWorkPreviewExpandUi?.();
+  },
+
+  refreshSourceWorkPreview() {
+    if (this.canUnlockEditorStep2()) {
+      this.hideSourceWorkPreview();
+      return;
+    }
+    const master = this.studioMasterDataUrl
+      || (this.currentProduct?.photos || []).find((p) => p.type === 'master')?.url;
+    const original = this.studioCompare?.original
+      || this.studioSourceUrl
+      || this.currentProduct?.photos?.[0]?.url;
+    if (master) {
+      this.showSourceWorkPreview(master, 'Master — сверьте состав');
+    } else if (original) {
+      const busy = document.getElementById('product-form')?.classList.contains('is-studio-busy');
+      this.showSourceWorkPreview(
+        original,
+        busy ? 'Оригинал (идёт Master) — пишите состав' : 'Оригинал — смотрите состав'
+      );
+    } else {
+      this.hideSourceWorkPreview();
+    }
+  },
+
+  isSourceWorkPreviewExpanded() {
+    return !!document.getElementById('source-work-preview')?.classList.contains('is-expanded');
+  },
+
+  syncSourceWorkPreviewExpandUi() {
+    const panel = document.getElementById('source-work-preview');
+    const btn = document.getElementById('source-work-preview-zoom');
+    const layout = document.querySelector('#block-essentials .essentials-layout');
+    const expanded = !!panel?.classList.contains('is-expanded');
+    if (layout) layout.classList.toggle('is-preview-expanded', expanded && !panel.classList.contains('hidden'));
+    if (btn) btn.textContent = expanded ? 'Свернуть' : 'Увеличить';
+  },
+
+  toggleSourceWorkPreviewExpand(force) {
+    const panel = document.getElementById('source-work-preview');
+    if (!panel || panel.classList.contains('hidden')) return;
+    const next = typeof force === 'boolean' ? force : !panel.classList.contains('is-expanded');
+    panel.classList.toggle('is-expanded', next);
+    this.syncSourceWorkPreviewExpandUi();
+    if (next) {
+      panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      // Фокус на состав — можно сразу печатать, глядя на крупное фото
+      document.getElementById('product-composition')?.focus({ preventScroll: true });
+    }
+  },
+
+  setStudioBusy(busy) {
+    const form = document.getElementById('product-form');
+    if (form) form.classList.toggle('is-studio-busy', !!busy);
+    this.refreshSourceWorkPreview?.();
+    // Во время генерации сразу крупно — писать состав удобнее без лишнего клика
+    if (busy) this.toggleSourceWorkPreviewExpand?.(true);
   },
 
   syncAIFillGate() {
@@ -105,6 +229,8 @@ Object.assign(app, {
     if (btn && !btn.classList.contains('is-busy')) {
       btn.disabled = !ready;
     }
+    this.syncEditorSteps?.();
+    this.syncRequiredFieldHighlights?.();
   },
 
   setupAIFillGate() {
@@ -120,6 +246,70 @@ Object.assign(app, {
       el.addEventListener('change', () => this.syncAIFillGate());
     });
     this.syncAIFillGate();
+  },
+
+  getPublishSoftGaps() {
+    const gaps = [];
+    const unit = this.isUnitBalloonMode?.();
+    const composition = (document.getElementById('product-composition')?.value || '').trim();
+    const shortDesc = (document.getElementById('product-short-desc')?.value || '').trim();
+    const budget = (document.getElementById('product-budget')?.value || '').trim();
+    const age = (document.getElementById('product-age')?.value || '').trim();
+    const occasion = (document.getElementById('product-occasion')?.value || '').trim();
+
+    if (!unit && !composition) gaps.push('состав');
+    if (!unit && !shortDesc) gaps.push('краткое описание');
+    if (!unit && !budget) gaps.push('бюджет');
+    if (!unit && (!age || age === 'Для любого возраста')) gaps.push('возраст');
+    if (!unit && !occasion) gaps.push('повод');
+    return gaps;
+  },
+
+  /** Пустые обязательные поля — коралловая обводка (персонаж/серия не входят). */
+  getRequiredFieldStates() {
+    const unit = this.isUnitBalloonMode?.();
+    const price = parseInt(document.getElementById('product-price')?.value, 10) || 0;
+    const age = (document.getElementById('product-age')?.value || '').trim();
+    return {
+      title: !(document.getElementById('product-title')?.value || '').trim(),
+      category: !(document.getElementById('product-category')?.value || '').trim(),
+      price: price <= 0,
+      composition: !unit && !(document.getElementById('product-composition')?.value || '').trim(),
+      short: !unit && !(document.getElementById('product-short-desc')?.value || '').trim(),
+      budget: !unit && !(document.getElementById('product-budget')?.value || '').trim(),
+      age: !unit && (!age || age === 'Для любого возраста'),
+      occasion: !unit && !(document.getElementById('product-occasion')?.value || '').trim()
+    };
+  },
+
+  syncRequiredFieldHighlights() {
+    const states = this.getRequiredFieldStates?.() || {};
+    document.querySelectorAll('[data-required-field]').forEach((el) => {
+      const key = el.getAttribute('data-required-field');
+      const empty = !!states[key];
+      const group = el.closest('.form-group');
+      if (group) group.classList.toggle('is-empty-required', empty);
+      else el.classList.toggle('is-empty-required', empty);
+    });
+  },
+
+  setupRequiredFieldHighlights() {
+    if (this._requiredHighlightsWired) {
+      this.syncRequiredFieldHighlights();
+      return;
+    }
+    this._requiredHighlightsWired = true;
+    const ids = [
+      'product-title', 'product-category', 'product-price', 'product-composition',
+      'product-short-desc', 'product-budget', 'product-age', 'product-occasion'
+    ];
+    ids.forEach((id) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.addEventListener('input', () => this.syncRequiredFieldHighlights());
+      el.addEventListener('change', () => this.syncRequiredFieldHighlights());
+    });
+    this.syncRequiredFieldHighlights();
   },
 
   renderTitleAlts(title, alts = []) {
@@ -235,12 +425,25 @@ Object.assign(app, {
 
       const titleHint = (titleEl?.value || this.currentProduct.title || '').trim();
       const rawComposition = (compEl?.value || '').trim();
-      const holidayMeta = this.parseCompositionHolidayMeta?.(rawComposition) || { holiday: null, cleanText: rawComposition };
+      const holidayMeta = this.parseCompositionHolidayMeta?.(rawComposition) || {
+        holiday: null, cleanText: rawComposition, hints: [], digitCount: 0
+      };
       const userComposition = holidayMeta.cleanText || rawComposition;
+      const compositionHints = (holidayMeta.hints && holidayMeta.hints.length)
+        ? holidayMeta.hints
+        : (this.currentProduct.composition_hints || []);
+      if (holidayMeta.digitCount > 0) {
+        this.currentProduct.digit_from_marker = holidayMeta.digitCount;
+      }
+      if (holidayMeta.hints?.length) {
+        this.currentProduct.composition_hints = holidayMeta.hints;
+      }
       if (holidayMeta.holiday) {
         this.currentProduct.holiday_only = holidayMeta.holiday;
         if (compEl && compEl.value !== userComposition) compEl.value = userComposition;
         this.applyHolidayOnlyMode?.(holidayMeta.holiday);
+      } else if (compEl && userComposition !== rawComposition) {
+        compEl.value = userComposition;
       }
       const priceHint = parseInt(priceEl?.value, 10) || 0;
       const sceneHint = this.currentProduct.scene || 'floor';
@@ -256,6 +459,7 @@ Object.assign(app, {
           title_hint: titleHint,
           price: priceHint,
           composition_raw: userComposition,
+          composition_hints: compositionHints,
           description: userComposition,
           scene: sceneHint,
           existing_titles: existingTitles,

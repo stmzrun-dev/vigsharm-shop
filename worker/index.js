@@ -51,6 +51,8 @@ export default {
         return handleStudioUpscale(request, env);
       if (path === '/api/studio/sign-text' && method === 'POST')
         return handleStudioSignText(request, env);
+      if (path === '/api/studio/sign-detect' && method === 'POST')
+        return handleStudioSignDetect(request, env);
       if (path.startsWith('/api/studio/status/') && method === 'GET')
         return handleStudioStatus(path, env);
       if (path === '/api/studio/upload' && method === 'POST')
@@ -179,9 +181,15 @@ const TYPE_TAGS = [
   'Шары поштучно'
 ];
 
+/** Пока не ставим на карточки — отдельный раздел позже */
+const DEFERRED_TYPE_TAGS = ['Шар-сюрприз'];
+
 const HOLIDAY_CATEGORIES = [
   'Выпускной', 'Новый год', '14 февраля', '23 февраля', '8 марта', '1 сентября'
 ];
+
+/** Тематики в скобках состава: аудитория / повод / праздник */
+const THEME_CATEGORIES = [...AUDIENCE_CATEGORIES];
 
 const CARD_TAGS = [...AUDIENCE_CATEGORIES, ...TYPE_TAGS];
 
@@ -212,34 +220,45 @@ function matchHolidayCategory(raw) {
     '23февраля': '23 февраля',
     '8 марта': '8 марта',
     '8марта': '8 марта',
-    'выпускной': 'Выпускной'
+    'выпускной': 'Выпускной',
+    'для нее': 'Для неё',
+    'для него': 'Для него',
+    'для девочки': 'Для девочки',
+    'для мальчика': 'Для мальчика',
+    'для мамы': 'Для мамы',
+    'на выписку': 'На выписку',
+    'выписка': 'На выписку',
+    'выписку': 'На выписку',
+    'из роддома': 'На выписку',
+    'роддом': 'На выписку'
   };
   for (const [alias, canon] of Object.entries(aliases)) {
     if (key === alias || key.includes(alias)) return canon;
   }
-  for (const h of HOLIDAY_CATEGORIES) {
+  for (const h of THEME_CATEGORIES) {
     const hk = normalizeHolidayKey(h);
     if (key === hk || key.includes(hk) || hk.includes(key)) return h;
   }
   return null;
 }
 
-/** Метка в скобках «(1 сентября)» — не пункт состава. */
+/** Всё в скобках — подсказки (не состав). Спец: тематика → holiday; (цифра) снимается. */
 function parseCompositionHolidayMeta(text) {
   const src = String(text || '');
   let holiday = null;
-  const clean = src.replace(/\(([^)]{1,40})\)/g, (full, inner) => {
+  const hints = [];
+  const clean = src.replace(/\(([^)]{1,80})\)/g, (full, inner) => {
+    const raw = String(inner || '').trim();
+    if (!raw) return ' ';
+    hints.push(raw);
     const hit = matchHolidayCategory(inner);
-    if (hit) {
-      holiday = hit;
-      return ' ';
-    }
-    return full;
+    if (hit) holiday = hit;
+    return ' ';
   })
     .replace(/[ \t]{2,}/g, ' ')
     .replace(/\n{3,}/g, '\n\n')
     .trim();
-  return { holiday, cleanText: clean };
+  return { holiday, hints, cleanText: clean };
 }
 
 function applyHolidayOnlyCard(data, holiday) {
@@ -255,11 +274,39 @@ function applyHolidayOnlyCard(data, holiday) {
   data.series_alts = [];
   data.series_confidence = '';
   data.ask_character = false;
-  // Доп. разделы: только тематика-праздник
+  // Доп. разделы: только тематика
   data.tags = [holiday];
   data.holiday_only = holiday;
   return data;
 }
+
+function applyTypeOnlyCard(data, typeTag) {
+  data.category = typeTag;
+  data.tags = [typeTag];
+  // Букет/фигуры — без аудитории в полях. Фотозона — аудиторию/повод/возраст сохраняем.
+  if (typeTag !== 'Фотозона') {
+    data.target_audience = '';
+    data.occasion = '';
+  }
+  return data;
+}
+
+function compositionLooksLikeBouquet(text) {
+  const t = String(text || '').toLowerCase().replace(/ё/g, 'е');
+  if (!t) return false;
+  if (/крафтов/.test(t)) return false;
+  if (/цвет\w*\s+из\s+шар/.test(t)) return false;
+  return /букет/.test(t);
+}
+
+function compositionLooksLikeBalloonFigure(text) {
+  const t = String(text || '').toLowerCase().replace(/ё/g, 'е');
+  if (!t) return false;
+  if (/фольг\w*\s+фигур/.test(t)) return false;
+  return /фигур[аыуе]?(?:\s+\w+){0,2}\s+из\s+шар/.test(t)
+    || /скрутк\w*\s+из\s+шар/.test(t);
+}
+
 const GENERIC_OCCASIONS = new Set([
   'день рождения', 'др', 'birthday', 'праздник', 'любой повод', 'без повода'
 ]);
@@ -306,6 +353,7 @@ async function handleGenerateCard(request, env) {
     image_url,
     price,
     composition_raw,
+    composition_hints,
     existing_titles,
     holiday_only
   } = body;
@@ -313,16 +361,56 @@ async function handleGenerateCard(request, env) {
   const holidayMeta = parseCompositionHolidayMeta(rawIn);
   const holidayOnly = matchHolidayCategory(holiday_only) || holidayMeta.holiday || null;
   const rawComposition = holidayMeta.cleanText || rawIn;
+  const hintsFromBody = Array.isArray(composition_hints)
+    ? composition_hints.map((h) => String(h || '').trim()).filter(Boolean)
+    : [];
+  const compositionHints = [...new Set([...(holidayMeta.hints || []), ...hintsFromBody])];
   const typeHint = sceneTypeHint(scene || 'floor');
   const priceNum = Number(price) || 0;
   const takenTitles = normalizeExistingTitlesList(existing_titles);
 
+  const hintsBlock = compositionHints.length
+    ? `Подсказки оператора (из скобок в составе — НЕ пункты состава, учти при category/audience/occasion/age/опциях):\n${compositionHints.map((h) => `• ${h}`).join('\n')}`
+    : '';
+
   const holidayRule = holidayOnly
     ? `
-ПРАЗДНИЧНАЯ КАРТОЧКА (метка в составе уже снята): category = РОВНО «${holidayOnly}».
+ТЕМАТИЧЕСКАЯ КАРТОЧКА (метка в скобках уже снята из состава; правило для ЛЮБОЙ сцены): category = РОВНО «${holidayOnly}».
 - НЕ заполняй character, age_group, target_audience, series_name, occasion (оставь пустыми)
-- tags: ТОЛЬКО «${holidayOnly}» — без type-тегов, без «Для мальчика/девочки» и прочих разделов
-- composition: БЕЗ скобок и БЕЗ текста праздника — только физический состав шаров`
+- tags: ТОЛЬКО «${holidayOnly}» — без type-тегов («Букет из шаров», «Фигуры…» и т.п.), без других разделов
+- composition: БЕЗ скобок и БЕЗ текста тематики — только физический состав шаров`
+    : '';
+
+  const bouquetOnly = !holidayOnly && (
+    (scene || '') === 'handheld_bouquet'
+    || compositionLooksLikeBouquet(rawComposition)
+  );
+  const figuresOnly = !holidayOnly && !bouquetOnly && (
+    (scene || '') === 'balloon_figures'
+    || compositionLooksLikeBalloonFigure(rawComposition)
+  );
+  const photozoneOnly = !holidayOnly && !bouquetOnly && !figuresOnly && (scene || '') === 'photozone';
+
+  const bouquetRule = bouquetOnly
+    ? `
+БУКЕТ ИЗ ШАРОВ (без тематики в скобках): category = РОВНО «Букет из шаров».
+- tags: ТОЛЬКО «Букет из шаров» — БЕЗ «Для неё/него/девочки/мальчика» и прочих аудиторий/поводов
+- target_audience и occasion оставь пустыми`
+    : '';
+  const figuresRule = figuresOnly
+    ? `
+ФИГУРА ИЗ ШАРОВ (скрутка; без тематики в скобках): category = РОВНО «Фигуры из шаров».
+- tags: ТОЛЬКО «Фигуры из шаров» — БЕЗ «Для неё/него/девочки/мальчика» и прочих аудиторий/поводов
+- target_audience и occasion оставь пустыми`
+    : '';
+  const photozoneRule = photozoneOnly
+    ? `
+ФОТОЗОНА (без тематики в скобках): category = РОВНО «Фотозона».
+- tags: ТОЛЬКО «Фотозона» (пол/повод не дублируй в tags)
+- ОБЯЗАТЕЛЬНО заполни age_group по фото (дети/малыши/…)
+- ОБЯЗАТЕЛЬНО заполни target_audience (Для мальчика / Для девочки / …) по имени, цветам, герою
+- ОБЯЗАТЕЛЬНО заполни occasion узким поводом (НЕ «День рождения») — например по надписи на круге; если только ДР ребёнка — оставь occasion пустым, но age_group = «Для детей»
+- character / series_name — по герою на фото (Человек-паук и т.п.)`
     : '';
 
   const systemPrompt = `Ты — копирайтер каталога VigSharm (воздушные шары, Армавир).
@@ -357,7 +445,7 @@ AUDIENCE (поле category):
 ${AUDIENCE_CATEGORIES.join(', ')}
 
 TYPE (только tags, НЕ category):
-${TYPE_TAGS.join(', ')}
+${TYPE_TAGS.filter((t) => !DEFERRED_TYPE_TAGS.includes(t)).join(', ')}
 
 BUDGET (ровно одно):
 ${BUDGET_OPTIONS.join(' | ')}
@@ -375,8 +463,13 @@ ${BUDGET_OPTIONS.join(' | ')}
   • Крючок про героя / стиль / настроение (LOL, дива, модница) — БЕЗ числа и возраста
 
 ПРОЧИЕ ПРАВИЛА:
-- category = аудитория (Для мальчика…), НЕ тип изделия
+- category = ОДНА главная полка из AUDIENCE (аудитория ИЛИ явный повод), НЕ тип изделия
+- ПРИОРИТЕТ category (важнее цвета и пола):
+  1) «На выписку» — если на фото/в тексте признаки выписки из роддома: бабл/таблица с датой+временем+весом (гр)+ростом (см), следы ножек, «Добро пожаловать домой», «выписка», «из роддома», метрики новорождённого. Розовый/голубой и имя малыша НЕ отменяют выписку: category = «На выписку»; пол можно в tags («Для девочки»/«Для мальчика»), не вместо category
+  2) Узкий повод из списка (Крещение, Гендер-пати, 1 годик, Юбилей…) — если явно виден
+  3) Иначе аудитория по стилю (Для девочки / мальчика / неё / него…)
 - тип изделия — только в tags
+- ЗАПРЕЩЕНО: тег и категория «Шар-сюрприз» — раздел пока не используется, не ставь никуда
 - «Фигуры из шаров» — ТОЛЬКО скрутка/лепка из множества шаров, стоящая на полу. НЕ ставь этот тег для фольгированных персонажей (Пикачу, Гонщик, зайчик), баблов, фонтанов и букетов на стене
 - ПЕРСОНАЖ И СЕРИЯ — критично, определяй по фото:
   • Смотри фигуры, принты, цвета, декор, паутину, логотипы, типичные сочетания
@@ -388,19 +481,22 @@ ${BUDGET_OPTIONS.join(' | ')}
   • При medium/low ОБЯЗАТЕЛЬНО заполни character_alts / series_alts (2–3 варианта для выбора оператором)
   • При high тоже можно дать 1 alt, если есть близкий синоним
   • НЕ выдумывай героя без признаков на фото
-- occasion: НЕ «День рождения». Пусто, если повод не узкий
+  • Мишка/зайчик/сердце на выписке — НЕ character франшизы; character и series_name оставь пустыми
+- age_group: ОБЯЗАТЕЛЬНО одно значение из списка по стилю фото/категории (выписка/1 годик → «Для малышей»; герои/цифры/для девочки|мальчика → «Для детей»; для неё/него/юбилей → «Для взрослых»). Не оставляй пустым; «Для любого возраста» — только если совсем неоднозначно
+- occasion: ОБЯЗАТЕЛЬНО заполни узкий повод по фото/category (На выписку, Крещение, Гендер-пати, Юбилей, 1 годик, Свадьба и девичник, 8 марта…). ЗАПРЕЩЕНО «День рождения», «ДР», «праздник», «любой повод». Если category уже узкий повод — скопируй его в occasion. Если узкого повода нет — оставь пустым
 - composition: оформи ТОЛЬКО сырой состав пользователя.
   • НЕ добавляй позиции, которых нет во входе
   • НЕ добавляй цвет (жёлтых/синих…), если пользователь цвет не написал → «5 латексных шаров», не «5 жёлтых шаров»
   • фольгированный персонаж: «фольгированная фигура Пикачу» — ок; это НЕ «фигура из шаров»
   • НЕ считай и НЕ дополняй с фото
+  • НЕ включай в composition текст из скобок/подсказок оператора (пол, повод, «цифра», тематика) — это не пункты состава
   • КОРОБКА: если в составе есть «коробка» / «коробка-сюрприз» — оформи пункт так:
     «коробка 70x70x70 с индивидуальной надписью и декором»
     (если пользователь указал другой размер — сохрани его, напр. «коробка 60x60x60 с индивидуальной надписью и декором»)
   • ОРФОГРАФИЯ: исправь опечатки и ошибки в словах пользователя (падежи, «надписью», «звезда», «сердце», «баблс/бабл»), смысл и числа не меняй
 - Во всех текстовых полях (title, descriptions, composition, seo): грамотный русский, без орфографических ошибок
 - budget: только из BUDGET по цене пользователя
-- НЕ возвращай article и price${holidayRule}`;
+- НЕ возвращай article и price${holidayRule}${bouquetRule}${figuresRule}${photozoneRule}`;
 
   const takenBlock = takenTitles.length
     ? `Уже занятые названия в каталоге (НЕ предлагай эти и похожие):\n${takenTitles.slice(0, 80).map((t) => `• ${t}`).join('\n')}`
@@ -409,15 +505,21 @@ ${BUDGET_OPTIONS.join(' | ')}
   const userPrompt = `Сгенерируй карточку:
 Подсказка названия: ${title_hint || 'не указано'}
 Цена (₽): ${priceNum > 0 ? priceNum : 'не указана'}
-Сырой состав от пользователя (оформи красиво, исправь орфографию, числа сохрани; скобки-праздники уже убраны): ${rawComposition || 'не указан'}
+Сырой состав от пользователя (оформи красиво, исправь орфографию, числа сохрани; скобки-подсказки уже убраны): ${rawComposition || 'не указан'}
+${hintsBlock}
 Сцена Studio Pro: ${scene || 'floor'}
 Подсказка типа изделия для tags: ${typeHint || 'по фото'}
-${holidayOnly ? `Праздничная категория (обязательно): ${holidayOnly}` : ''}
+${holidayOnly ? `Праздничная/тематическая категория (обязательно): ${holidayOnly}` : ''}
+${bouquetOnly ? 'Это букет из шаров без тематики в скобках — category и tags только «Букет из шаров».' : ''}
+${figuresOnly ? 'Это фигура из шаров без тематики в скобках — category и tags только «Фигуры из шаров».' : ''}
+${photozoneOnly ? 'Это фотозона без тематики в скобках — category и tags только «Фотозона».' : ''}
 ${takenBlock}
 ${image_url
-    ? (holidayOnly
-      ? 'Фото приложено — опиши товар в short/full description. НЕ заполняй character, age_group, target_audience, series_name.'
-      : 'Фото приложено — ОБЯЗАТЕЛЬНО определи персонажа и тематическую серию по визуальным признакам (цвета, паутина, фигуры, принты). Если сомневаешься — confidence medium/low и дай alts. Логотипы магазинов игнорируй. Имена/возраст на табличке — пример персонализации, не в title.')
+    ? (holidayOnly || bouquetOnly || figuresOnly
+      ? 'Фото приложено — опиши товар в short/full description. НЕ заполняй target_audience и occasion под другие разделы.'
+      : (photozoneOnly
+        ? 'Фото приложено — category/tags только «Фотозона». ОБЯЗАТЕЛЬНО заполни age_group, target_audience, character/series по фото. occasion — узкий повод без «День рождения». Имена/цифры на круге — пример персонализации, не в title.'
+        : 'Фото приложено — ОБЯЗАТЕЛЬНО определи category (с приоритетом «На выписку» при метриках рождения / «добро пожаловать домой»), персонажа и тематическую серию по визуальным признакам. Если сомневаешься — confidence medium/low и дай alts. Логотипы магазинов игнорируй. Имена на табличке — пример персонализации, не в title; но дата+вес+рост / выписка → category «На выписку».'))
     : ''}`;
 
   const messages = [
@@ -457,14 +559,78 @@ ${image_url
   }
 
   data = sanitizeCardMetadata(data, scene || 'floor', priceNum, rawComposition, takenTitles);
-  if (holidayOnly) applyHolidayOnlyCard(data, holidayOnly);
-  // Убрать случайно оставшиеся скобки-праздники из состава
+  if (holidayOnly) {
+    applyHolidayOnlyCard(data, holidayOnly);
+  } else if (bouquetOnly) {
+    applyTypeOnlyCard(data, 'Букет из шаров');
+  } else if (figuresOnly) {
+    applyTypeOnlyCard(data, 'Фигуры из шаров');
+  } else if (photozoneOnly) {
+    applyTypeOnlyCard(data, 'Фотозона');
+  } else {
+    applyDischargeCategoryPriority(data, rawComposition);
+  }
+  // Убрать случайно оставшиеся скобки-подсказки из состава
   if (Array.isArray(data.composition)) {
     data.composition = data.composition
       .map((line) => parseCompositionHolidayMeta(line).cleanText)
       .filter(Boolean);
   }
   return json({ ok: true, data });
+}
+
+function looksLikeDischargeText(...parts) {
+  const t = normalizeHolidayKey(parts.filter(Boolean).join(' '));
+  if (!t) return false;
+  if (/на выписку|выписк|из роддома|роддом|новорожден|новорожд|добро пожаловать домой|welcome home/.test(t)) {
+    return true;
+  }
+  // Метрики рождения: вес + рост и/или дата+время рядом с гр/см
+  const hasWeight = /\d{3,4}\s*(г|гр|грамм)/.test(t) || /\bвес\b/.test(t);
+  const hasHeight = /\d{2}\s*(см|сантиметр)/.test(t) || /\bрост\b/.test(t);
+  const hasBirthDate = /\d{1,2}[./]\d{1,2}[./]\d{2,4}/.test(t);
+  const hasFootprints = /след(ы|ов)?\s*(ножек|малыша)|отпечатк\w*\s*ножек|footprint/.test(t);
+  if ((hasWeight && hasHeight) || (hasBirthDate && (hasWeight || hasHeight)) || hasFootprints) {
+    return true;
+  }
+  return false;
+}
+
+function applyDischargeCategoryPriority(data, rawComposition = '') {
+  const blob = [
+    rawComposition,
+    data.title,
+    data.short_description,
+    data.full_description,
+    data.occasion,
+    data.seo_description,
+    ...(Array.isArray(data.composition) ? data.composition : [])
+  ].join(' ');
+  if (!looksLikeDischargeText(blob)) return data;
+
+  const prev = String(data.category || '').trim();
+  data.category = 'На выписку';
+  let tags = Array.isArray(data.tags) ? [...data.tags] : [];
+  // Пол оставляем в тегах, если ИИ уже угадал
+  if (prev === 'Для девочки' || prev === 'Для мальчика') {
+    if (!tags.includes(prev)) tags.push(prev);
+  }
+  tags = tags.filter((t) => t !== 'На выписку');
+  tags.unshift('На выписку');
+  data.tags = [...new Set(tags)].slice(0, 5);
+  if (!data.occasion || GENERIC_OCCASIONS.has(String(data.occasion).toLowerCase())) {
+    data.occasion = 'На выписку';
+  }
+  if (!data.age_group || data.age_group === 'Для любого возраста') {
+    data.age_group = 'Для малышей';
+  }
+  // Мягкие игрушки на выписке — не франшиза
+  const ch = normalizeHolidayKey(data.character || '');
+  if (/мишка|медвед|зайчик|зайка|сердечк/.test(ch)) {
+    data.character = '';
+    data.character_alts = [];
+  }
+  return data;
 }
 
 function sanitizeCompositionColors(lines, rawComposition) {
@@ -701,7 +867,7 @@ function sanitizeCardMetadata(data, scene = 'floor', price = 0, rawComposition =
     const hit = AUDIENCE_CATEGORIES.find((a) =>
       a === fromAudience || tags.includes(a) || (fromAudience && fromAudience.includes(a.replace(/^Для /, '')))
     );
-    category = hit || AUDIENCE_CATEGORIES.find((a) => tags.includes(a)) || 'Для девочки';
+    category = hit || AUDIENCE_CATEGORIES.find((a) => tags.includes(a)) || '';
   }
   data.category = category;
 
@@ -716,7 +882,13 @@ function sanitizeCardMetadata(data, scene = 'floor', price = 0, rawComposition =
   if (['wall_only', 'unit_balloon', 'handheld_bouquet'].includes(scene)) {
     tags = tags.filter((t) => t !== 'Фигуры из шаров');
   }
+  // Отложенные разделы (пока без карточек)
+  tags = tags.filter((t) => !DEFERRED_TYPE_TAGS.includes(t));
+  if (DEFERRED_TYPE_TAGS.includes(category)) {
+    category = AUDIENCE_CATEGORIES.find((a) => tags.includes(a)) || '';
+  }
   if (category && !tags.includes(category)) tags.unshift(category);
+  data.category = category;
   data.tags = [...new Set(tags)].slice(0, 5);
 
   // Состав: убрать цвет шаров, если в сыром тексте цвета не было
@@ -731,6 +903,14 @@ function sanitizeCardMetadata(data, scene = 'floor', price = 0, rawComposition =
   if (!data.occasion || GENERIC_OCCASIONS.has(occ)) {
     data.occasion = '';
   }
+  // Если повод пуст, а category — узкий повод из списка, подставь category
+  const occasionFromCategory = [
+    'На выписку', 'Крещение', 'Гендер-пати', 'Юбилей', '1 годик', 'Свадьба и девичник',
+    'Выпускной', 'Новый год', '14 февраля', '23 февраля', '8 марта', '1 сентября'
+  ];
+  if (!data.occasion && occasionFromCategory.includes(data.category)) {
+    data.occasion = data.category;
+  }
 
   if (!data.budget || !BUDGET_OPTIONS.includes(data.budget)) {
     data.budget = budgetFromPrice(price);
@@ -743,7 +923,24 @@ function sanitizeCardMetadata(data, scene = 'floor', price = 0, rawComposition =
     else if (/подрост/.test(low)) data.age_group = 'Для подростков';
     else if (/взросл/.test(low)) data.age_group = 'Для взрослых';
     else if (/дет/.test(low)) data.age_group = 'Для детей';
-    else data.age_group = 'Для любого возраста';
+    else data.age_group = '';
+  }
+  // Дозаполнение возраста по category, если ИИ оставил пусто / «любой»
+  if (!data.age_group || data.age_group === 'Для любого возраста') {
+    const cat = String(data.category || '');
+    if (cat === 'На выписку' || cat === '1 годик' || cat === 'Крещение') data.age_group = 'Для малышей';
+    else if (cat === 'Для девочки' || cat === 'Для мальчика' || cat === 'Гендер-пати' || cat === 'Фотозона') {
+      data.age_group = 'Для детей';
+    } else if (cat === 'Для неё' || cat === 'Для него' || cat === 'Для мамы' || cat === 'Юбилей' || cat === 'Свадьба и девичник') {
+      data.age_group = 'Для взрослых';
+    }
+  }
+
+  applyDischargeCategoryPriority(data, rawComposition);
+  // Если категория всё ещё пуста — не подставляем «Для девочки» наугад
+  if (!data.category) {
+    const fromTags = (data.tags || []).find((t) => AUDIENCE_CATEGORIES.includes(t));
+    data.category = fromTags || '';
   }
 
   return data;
@@ -762,7 +959,8 @@ async function handleSuggestCategory(request, env) {
         role: 'system',
         content: `Определи категорию и теги для карточки товара магазина шаров.
 Верни ТОЛЬКО JSON: { "category": "...", "tags": ["..."] }
-Категории: Для девочки, Для мальчика, Для неё, Для мамы, Для него, Геймерам, Юбилей, 1 годик, Крещение, Гендер-пати, На выписку, Свадьба и девичник, Выпускной, Новый год, 14 февраля, 23 февраля, 8 марта, 1 сентября, Фигуры из шаров, Напольные композиции, Букет из шаров, Цветы из шаров, Крафтовый букет, Шар-сюрприз, Коробка-сюрприз, Фотозона, Арка из шаров, Шары поштучно.`
+Категории: Для девочки, Для мальчика, Для неё, Для мамы, Для него, Геймерам, Юбилей, 1 годик, Крещение, Гендер-пати, На выписку, Свадьба и девичник, Выпускной, Новый год, 14 февраля, 23 февраля, 8 марта, 1 сентября, Фигуры из шаров, Напольные композиции, Букет из шаров, Цветы из шаров, Крафтовый букет, Коробка-сюрприз, Фотозона, Арка из шаров, Шары поштучно.
+Приоритет: выписка/метрики рождения/«добро пожаловать домой» → category «На выписку» (пол — в tags). Не используй «Шар-сюрприз».`
       },
       { role: 'user', content: `Название: ${title}\nОписание: ${description}` }
     ],
@@ -981,6 +1179,8 @@ PHOTOZONE PRODUCT LOCK (critical — do not rebuild the set):
 - Keep the easel, round board, text on the board, giraffe/foil figures, and EVERY balloon column/cluster EXACTLY as in the source
 - Same balloon count and density — no extra pink/white/gold mini balloons stuffed into the column
 - Do NOT redesign, densify, or “upgrade” the garland while moving it nearer the wall
+- FORBIDDEN: inventing a round metal hoop / circular arch frame if the source has an easel (or no frame)
+- If the source has no easel, do NOT invent one — only rephotograph what is already there against the studio
 
 Use the SECOND reference image as the real VigSharm photozone studio — full room: warm beige-grey wall, white baseboard, grey-beige laminate floor with horizontal planks. Match that reference background as closely as possible.
 
@@ -1011,7 +1211,10 @@ ${logoClean}
 
 PHOTOZONE PRODUCT LOCK (critical — do not rebuild the set):
 - Keep the round frame and EVERY balloon on it EXACTLY as in the source — same count, colors, density, attachments
-- Do NOT add filler balloons, densify arcs, or invent new clusters while moving nearer the wall
+- Do NOT redesign, densify, or invent new balloon clusters
+- FORBIDDEN: inventing a round metal hoop / circular arch if the source does NOT already have that frame
+- FORBIDDEN: turning an easel photozone into a round hoop, or adding a hoop behind a freestanding balloon set
+- If the source has no circular frame, do NOT add one — only rephotograph the existing product against the studio
 
 Use the SECOND reference image as the real VigSharm photozone studio — full room: warm beige-grey wall, white baseboard, grey-beige laminate floor with horizontal planks. Match that reference background as closely as possible.
 
@@ -1019,8 +1222,6 @@ SCALE — CRITICAL: round frame diameter is about 3 METERS (huge party installat
 - This is a MASSIVE circular photozone frame filling most of a room — NOT a small wreath, NOT a 1 m hoop
 - The circle/arch must dominate the catalog frame: fill approximately 88–96% of WIDTH and HEIGHT
 - Minimal empty wall/floor around the ring; edges of the frame may come close to the photo borders
-- Preserve real 3 m human scale — two adults could stand inside the circle comfortably
-- FORBIDDEN: miniaturizing the hoop, floating small ring in empty room, making it look under ~2 m
 
 ${nearWall}
 
@@ -1407,80 +1608,230 @@ Fix a phone photo taken in poor lighting:
 }
 
 /**
- * Rewrite ONLY the plaque/sign lettering on an existing Master.
- * Text comes from the operator (line1/line2) — model must not invent spelling.
+ * Vision: найти область надписи (звезда/сердце/бабл/коробка/табличка) — нормализованный bbox 0–1.
+ */
+async function handleStudioSignDetect(request, env) {
+  const body = await request.json();
+  const image_url = body.image_url;
+  if (!image_url) {
+    return json({ ok: false, error: 'Missing image_url' }, 400);
+  }
+
+  const aiResp = await nordRequest('/v1/chat/completions', 'POST', {
+    model: 'claude-sonnet-5',
+    temperature: 0.1,
+    response_format: { type: 'json_object' },
+    messages: [
+      {
+        role: 'system',
+        content: `You locate personalization lettering on VigSharm balloon catalog photos.
+Return ONLY JSON: {"x":0,"y":0,"w":0,"h":0,"surface":"star|heart|bubble|box|plaque|other"}
+Coordinates are normalized 0–1 relative to full image width/height.
+Box must cover the FULL foil STAR / heart / bubble / plaque that has personalization text (include the whole gold star face, not only the letters, and not the whole balloon man).
+Prefer the gold foil STAR if present.`
+      },
+      {
+        role: 'user',
+        content: [
+          {
+            type: 'text',
+            text: 'Find the foil star (or other lettering surface) and return a box around that whole surface.'
+          },
+          { type: 'image_url', image_url: { url: image_url } }
+        ]
+      }
+    ]
+  }, env);
+
+  if (aiResp.error) {
+    return json({
+      ok: false,
+      error: 'Sign-detect API: ' + (aiResp.error.message || JSON.stringify(aiResp.error))
+    }, 500);
+  }
+
+  const raw = aiResp.choices?.[0]?.message?.content || '';
+  let parsed;
+  try {
+    parsed = JSON.parse(raw);
+  } catch {
+    const m = String(raw).match(/\{[\s\S]*\}/);
+    if (!m) {
+      return json({ ok: false, error: 'Sign-detect: неверный JSON', raw: String(raw).slice(0, 200) }, 500);
+    }
+    try {
+      parsed = JSON.parse(m[0]);
+    } catch {
+      return json({ ok: false, error: 'Sign-detect: не разобрать JSON', raw: String(raw).slice(0, 200) }, 500);
+    }
+  }
+
+  let x = Number(parsed.x);
+  let y = Number(parsed.y);
+  let w = Number(parsed.w);
+  let h = Number(parsed.h);
+  if (![x, y, w, h].every((n) => Number.isFinite(n))) {
+    return json({ ok: false, error: 'Sign-detect: нет bbox', parsed }, 500);
+  }
+
+  // clamp + pad; не даём боксу съесть весь кадр (иначе вклейка сотрёт фигуру)
+  const pad = 0.04;
+  x = Math.max(0, Math.min(1, x - pad));
+  y = Math.max(0, Math.min(1, y - pad));
+  w = Math.max(0.06, Math.min(1 - x, w + pad * 2));
+  h = Math.max(0.06, Math.min(1 - y, h + pad * 2));
+  if (w > 0.42 || h > 0.42) {
+    const cx = x + w / 2;
+    const cy = y + h / 2;
+    w = Math.min(w, 0.36);
+    h = Math.min(h, 0.36);
+    x = Math.max(0, Math.min(1 - w, cx - w / 2));
+    y = Math.max(0, Math.min(1 - h, cy - h / 2));
+  }
+
+  return json({
+    ok: true,
+    region: { x, y, w, h },
+    surface: String(parsed.surface || 'other')
+  });
+}
+
+/**
+ * Rewrite ONLY personalization lettering on an existing Master.
+ * mode=erase — fully clear letters; mode=print — paint exact text on blank surface.
+ * Admin runs erase → canvas print for sharp exact Cyrillic.
  */
 async function handleStudioSignText(request, env) {
   const body = await request.json();
   const {
     image_url,
+    text = '',
     line1 = '',
     line2 = '',
+    line3 = '',
     region = null,
-    resolution = '2K'
+    resolution = '2K',
+    mode: rawMode = 'print'
   } = body;
 
   if (!image_url) {
     return json({ ok: false, error: 'Missing image_url' }, 400);
   }
 
+  const mode = rawMode === 'erase' ? 'erase' : (rawMode === 'fix' ? 'fix' : 'print');
+  const fromText = String(text || '').replace(/\r\n/g, '\n').trim();
   const l1 = String(line1 || '').trim();
   const l2 = String(line2 || '').trim();
-  if (!l1 && !l2) {
-    return json({ ok: false, error: 'Укажите текст для таблички (line1 и/или line2)' }, 400);
+  const l3 = String(line3 || '').trim();
+  const exactText = fromText || [l1, l2, l3].filter(Boolean).join('\n');
+  if ((mode === 'print' || mode === 'fix') && !exactText) {
+    return json({ ok: false, error: 'Укажите правильный текст надписи' }, 400);
   }
 
-  const exactText = [l1, l2].filter(Boolean).join('\n');
-  let regionHint = 'Focus on the white circular plaque / sign board already in the photo (usually among the balloons).';
+  let regionHint = `This image is often a CLOSE-UP crop of the lettering surface (gold foil star / heart / bubble / plaque).
+Edit ONLY the lettering on that foil/plaque. Keep the foil material.`;
   if (region && typeof region.x === 'number' && typeof region.y === 'number' && typeof region.size === 'number') {
     const cx = Math.round((region.x + region.size / 2) * 100);
     const cy = Math.round((region.y + region.size / 2) * 100);
     const sz = Math.round(region.size * 100);
-    regionHint = `The plaque is near ${cx}% from left, ${cy}% from top, roughly ${sz}% of frame size — edit ONLY that white disk.`;
+    regionHint = `The lettering surface is near ${cx}% from left, ${cy}% from top, roughly ${sz}% of frame size — edit ONLY that area.`;
   }
 
-  const prompt = `Edit this square VigSharm catalog photo. Change ONLY the lettering on the existing white circular plaque/sign.
+  const locked = `LOCKED — do not change:
+- foil star/heart/bubble outer silhouette and chrome material
+- wrinkles and lighting of the foil (except where letters sit)
+- do NOT add balloons, hands, or background objects
+- do NOT replace the foil with a flat gray sticker or rectangle plaque`;
 
-TASK:
-1. Erase the old wrong text on that white disk (wrong name/spelling/age).
-2. Paint the NEW text EXACTLY as given below — same language, letters, punctuation, line breaks.
-3. Keep the same white circular board, wood easel/frame if visible, perspective, lighting, soft shadows.
+  const printRules = `Typography: clean simple sans-serif, sharp edges, even baseline, uniform size, high-contrast white (or matching original ink color) on foil.
+Letters must be CRISP — NEVER melt, warp, smear, liquify, or scramble Cyrillic.
+Copy NEW TEXT character-by-character — do NOT autocorrect, translate, or invent (keep exact spelling).
 
-NEW TEXT (copy exactly, do NOT autocorrect or invent):
+NEW TEXT:
 ---
 ${exactText}
----
+---`;
+
+  let prompt;
+  if (mode === 'erase') {
+    prompt = `Edit this photo. ERASE lettering ONLY — blank clean foil/plaque.
+
+TASK: remove every letter/glyph from the personalization surface; inpaint matching foil. Zero ghost letters.
 
 ${regionHint}
 
-LOCKED — do not change:
-- Spider-Man / character foil figures, chrome, latex balloons, balloon COUNT and positions
-- foil number balloons (e.g. red "3") — leave number foil as-is
-- floor, wall, baseboard, overall composition and camera framing
-- do NOT add balloons, stars, or any new objects
-- do NOT replace the plaque with a flat digital sticker or perfect vector circle
-- text must look hand-lettered / printed ON the physical plaque, not a floating overlay
+${locked}
 
-FORBIDDEN: changing the room, inventing different name/age, extra foreground balloons, CGI plaque, cropping the product out.
+OUTPUT: same framing, blank lettering surface.`;
+  } else if (mode === 'fix') {
+    prompt = `IN-PLACE LETTERING EDIT of a CLOSE-UP CROP. This is NOT a new catalog photo.
 
-OUTPUT: same square 1:1 photo, only plaque lettering corrected.`;
+CRITICAL — SAME PIXELS / SAME FRAMING:
+- Keep the EXACT same crop framing, camera, scale, and background fragments already in this crop
+- Do NOT rephotograph, do NOT center the star alone on a clean studio wall
+- Do NOT remove hands, ribbons, figure parts, or room bits visible at the edges of this crop
+- Do NOT turn this into a "product shot of only the star"
+- Output must match the input composition — only the letters on the foil change
+
+TASK:
+1. Erase distorted letters on the foil star/heart/bubble/plaque in this crop.
+2. Print NEW TEXT exactly on that same foil surface.
+
+${printRules}
+
+${regionHint}
+
+${locked}
+
+FORBIDDEN: full-bleed star on empty beige wall, gray sticker plaques, recomposing the scene, scrambled Cyrillic.
+
+OUTPUT: same crop framing as input, foil intact, crisp exact NEW TEXT only.`;
+  } else {
+    prompt = `Edit this photo. The inscription surface is blank (or nearly). PRINT new lettering ONLY.
+
+${printRules}
+
+${regionHint}
+
+${locked}
+
+OUTPUT: same framing, only crisp exact NEW TEXT on the blank surface.`;
+  }
 
   const res = ['1K', '2K', '4K'].includes(resolution) ? resolution : '2K';
-  const attempts = [
-    { model: 'image/gpt-image-2-edit', input: { prompt, image: image_url, aspect_ratio: '1:1', resolution: res } },
-    { model: 'image/gpt-image-2-edit', input: { prompt, image: image_url, aspect_ratio: '1:1' } },
+  const prefer = body.prefer === 'banana' || body.prefer === 'fast' ? 'banana' : 'quality';
+
+  const bananaAttempts = [
     { model: 'image/nano-banana-edit', input: { prompt, image: image_url } },
-    { model: 'image/nano-banana-2', input: { prompt, image: image_url, resolution: res } }
+    { model: 'image/nano-banana-2', input: { prompt, image: image_url, resolution: res } },
+    { model: 'image/nano-banana-pro', input: { prompt, image: image_url } }
   ];
+  // fix-кроп: НЕ форсировать aspect_ratio 1:1 — иначе модель делает «звезду на бежевом» вместо in-place
+  const gptAttempts = mode === 'fix'
+    ? [
+      { model: 'image/gpt-image-2-edit', input: { prompt, image: image_url, resolution: res } },
+      { model: 'image/gpt-image-2-edit', input: { prompt, image: image_url } }
+    ]
+    : [
+      { model: 'image/gpt-image-2-edit', input: { prompt, image: image_url, aspect_ratio: '1:1', resolution: res } },
+      { model: 'image/gpt-image-2-edit', input: { prompt, image: image_url, aspect_ratio: '1:1' } }
+    ];
+  const attempts = prefer === 'banana'
+    ? [...bananaAttempts, ...gptAttempts]
+    : [...gptAttempts, ...bananaAttempts];
 
   let generateResp = null;
+  let usedModel = '';
   for (const attempt of attempts) {
-    console.log('[Studio SignText] try', attempt.model);
+    console.log('[Studio SignText] try', attempt.model, 'mode=', mode, 'prefer=', prefer);
     generateResp = await nordRequest('/media/generate', 'POST', {
       model: attempt.model,
       input: attempt.input
     }, env);
-    if (!generateResp.error && generateResp.id) break;
+    if (!generateResp.error && generateResp.id) {
+      usedModel = attempt.model;
+      break;
+    }
     console.warn('[Studio SignText] failed', attempt.model, generateResp.error || generateResp);
   }
 
@@ -1491,8 +1842,16 @@ OUTPUT: same square 1:1 photo, only plaque lettering corrected.`;
     }, 500);
   }
 
-  console.log('[Studio SignText] job_id=', generateResp.id, 'text=', exactText);
-  return json({ ok: true, job_id: generateResp.id, status: 'processing' });
+  console.log('[Studio SignText] job_id=', generateResp.id, 'mode=', mode, 'model=', usedModel,
+    mode === 'print' ? ('text=' + exactText.replace(/\n/g, ' | ')) : 'erase');
+  return json({
+    ok: true,
+    job_id: generateResp.id,
+    status: 'processing',
+    model: usedModel,
+    prefer,
+    mode
+  });
 }
 
 /** Upscale crop to 2K for sharp catalog zooms */

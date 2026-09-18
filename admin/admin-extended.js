@@ -57,6 +57,7 @@ Object.assign(app, {
       container.innerHTML = '';
       if (emptyZone) emptyZone.classList.remove('hidden');
       this.syncAIFillGate?.();
+      this.refreshSourceWorkPreview?.();
       return;
     }
 
@@ -102,6 +103,7 @@ Object.assign(app, {
       });
     });
     this.syncAIFillGate?.();
+    this.refreshSourceWorkPreview?.();
   },
 
   movePhoto(index, dir) {
@@ -181,6 +183,7 @@ Object.assign(app, {
         this.syncStudioModeHint?.();
         this.syncUnitBalloonForm?.(true);
         this.syncAdvanceOrderFromScene?.();
+        this.scheduleSaveActiveStudioDraft?.();
       });
     }
     this.syncUnitBalloonForm?.(false);
@@ -206,9 +209,11 @@ Object.assign(app, {
   matchHolidayCategory(raw) {
     const key = this.normalizeHolidayKey(raw);
     if (!key) return null;
-    const list = (typeof HOLIDAY_CATEGORIES !== 'undefined' && HOLIDAY_CATEGORIES.length)
-      ? HOLIDAY_CATEGORIES
-      : ['Выпускной', 'Новый год', '14 февраля', '23 февраля', '8 марта', '1 сентября'];
+    const list = (typeof THEME_CATEGORIES !== 'undefined' && THEME_CATEGORIES.length)
+      ? THEME_CATEGORIES
+      : (typeof HOLIDAY_CATEGORIES !== 'undefined' && HOLIDAY_CATEGORIES.length)
+        ? HOLIDAY_CATEGORIES
+        : ['Выпускной', 'Новый год', '14 февраля', '23 февраля', '8 марта', '1 сентября'];
     const aliases = {
       '1 сентября': '1 сентября',
       '1сентября': '1 сентября',
@@ -224,7 +229,17 @@ Object.assign(app, {
       '23февраля': '23 февраля',
       '8 марта': '8 марта',
       '8марта': '8 марта',
-      'выпускной': 'Выпускной'
+      'выпускной': 'Выпускной',
+      'для нее': 'Для неё',
+      'для него': 'Для него',
+      'для девочки': 'Для девочки',
+      'для мальчика': 'Для мальчика',
+      'для мамы': 'Для мамы',
+      'на выписку': 'На выписку',
+      'выписка': 'На выписку',
+      'выписку': 'На выписку',
+      'из роддома': 'На выписку',
+      'роддом': 'На выписку'
     };
     for (const [alias, canon] of Object.entries(aliases)) {
       if (key === alias || key.includes(alias)) return canon;
@@ -237,25 +252,33 @@ Object.assign(app, {
   },
 
   /**
-   * Метка праздника в скобках: «(1 сентября)», «(Новый год)».
-   * В клиентский состав не входит — только категория/тег.
+   * Всё в скобках состава — подсказки для ИИ, в клиентский состав не входят.
+   * Спец.авто: (цифра)/(1|2 цифры) → галочка; (На выписку)/(1 сентября)… → категория.
    */
   parseCompositionHolidayMeta(text) {
     const src = String(text || '');
     let holiday = null;
-    const clean = src.replace(/\(([^)]{1,40})\)/g, (full, inner) => {
-      const hit = this.matchHolidayCategory(inner);
-      if (hit) {
-        holiday = hit;
-        return ' ';
+    let digitCount = 0;
+    const hints = [];
+    const clean = src.replace(/\(([^)]{1,80})\)/g, (full, inner) => {
+      const raw = String(inner || '').trim();
+      if (!raw) return ' ';
+      const key = raw.toLowerCase().replace(/ё/g, 'е');
+      hints.push(raw);
+      // (цифра) | (1 цифра) | (2 цифры) | (цифры)
+      if (/^(?:\d\s*)?цифр/.test(key) || /^две\s+цифр/.test(key) || /^одн[аоуы]\s+цифр/.test(key)) {
+        if (/^2\b/.test(key) || /^две\b/.test(key) || /^цифры/.test(key)) digitCount = 2;
+        else digitCount = digitCount === 2 ? 2 : 1;
       }
-      return full;
+      const hit = this.matchHolidayCategory(raw);
+      if (hit) holiday = hit;
+      return ' ';
     })
       .replace(/[ \t]{2,}/g, ' ')
       .replace(/\n{3,}/g, '\n\n')
       .replace(/^[,\s;]+|[,\s;]+$/gm, '')
       .trim();
-    return { holiday, cleanText: clean };
+    return { holiday, digitCount, hints, cleanText: clean };
   },
 
   applyHolidayOnlyMode(holiday) {
@@ -263,11 +286,13 @@ Object.assign(app, {
     const catEl = document.getElementById('product-category');
     if (catEl) catEl.value = holiday;
 
-    // Доп. разделы: только тематика-праздник, без аудитории/повода/типа
+    // Доп. разделы: только тематика, без других аудиторий/поводов/типов
     document.querySelectorAll('#tags-for-who input, #tags-occasion input, #tags-dates input, #tags-type input')
       .forEach((cb) => { cb.checked = false; });
-    const dateCb = document.querySelector(`#tags-dates input[value="${CSS.escape(holiday)}"]`);
-    if (dateCb) dateCb.checked = true;
+    const themeCb = document.querySelector(
+      `#tags-for-who input[value="${CSS.escape(holiday)}"], #tags-occasion input[value="${CSS.escape(holiday)}"], #tags-dates input[value="${CSS.escape(holiday)}"]`
+    );
+    if (themeCb) themeCb.checked = true;
 
     const clearIds = ['product-character', 'product-age', 'product-occasion', 'product-audience', 'product-series'];
     clearIds.forEach((id) => {
@@ -280,43 +305,103 @@ Object.assign(app, {
     this.currentProduct.holiday_only = holiday;
   },
 
+  /** XOR тип изделия без тематики в скобках: только этот type-тег. */
+  applyTypeOnlyMode(typeTag, { clearAudience = true } = {}) {
+    if (!typeTag || this.currentProduct?.holiday_only) return;
+    const catEl = document.getElementById('product-category');
+    if (catEl) catEl.value = typeTag;
+    document.querySelectorAll('#tags-for-who input, #tags-occasion input, #tags-dates input, #tags-type input')
+      .forEach((cb) => { cb.checked = false; });
+    const typeCb = document.querySelector(`#tags-type input[value="${CSS.escape(typeTag)}"]`);
+    if (typeCb) typeCb.checked = true;
+    if (clearAudience) {
+      const audienceEl = document.getElementById('product-audience');
+      if (audienceEl) audienceEl.value = '';
+      const occasionEl = document.getElementById('product-occasion');
+      if (occasionEl) occasionEl.value = '';
+    }
+  },
+
+  applyBouquetOnlyMode() { this.applyTypeOnlyMode('Букет из шаров'); },
+  applyFiguresOnlyMode() { this.applyTypeOnlyMode('Фигуры из шаров'); },
+  applyPhotozoneOnlyMode() {
+    this.applyTypeOnlyMode('Фотозона', { clearAudience: false });
+    // Сохранить выбранный тип каркас/мольберт в обоих блоках UI
+    this.setPhotozoneType?.(this.getPhotozoneType?.() || 'frame');
+  },
+
+  compositionLooksLikeBouquet(text) {
+    const t = String(text || '').toLowerCase().replace(/ё/g, 'е');
+    if (!t) return false;
+    if (/крафтов/.test(t)) return false;
+    if (/цвет\w*\s+из\s+шар/.test(t)) return false;
+    return /букет/.test(t);
+  },
+
+  compositionLooksLikeBalloonFigure(text) {
+    const t = String(text || '').toLowerCase().replace(/ё/g, 'е');
+    if (!t) return false;
+    if (/фольг\w*\s+фигур/.test(t)) return false;
+    return /фигур[аыуе]?(?:\s+\w+){0,2}\s+из\s+шар/.test(t)
+      || /скрутк\w*\s+из\s+шар/.test(t);
+  },
+
   syncHolidayFromComposition() {
     const el = document.getElementById('product-composition');
     if (!el) return null;
-    const { holiday, cleanText } = this.parseCompositionHolidayMeta(el.value);
-    if (!holiday) {
-      if (this.currentProduct) this.currentProduct.holiday_only = '';
-      return null;
+    const before = el.value;
+    const { holiday, digitCount, hints, cleanText } = this.parseCompositionHolidayMeta(before);
+    this.currentProduct = this.currentProduct || {};
+    // Скобки уже сняты с прошлого ввода — не затираем сохранённые подсказки
+    if (hints.length) {
+      this.currentProduct.composition_hints = hints;
+    } else if (!String(before || '').trim()) {
+      this.currentProduct.composition_hints = [];
+      this.currentProduct.digit_from_marker = 0;
     }
-    this.applyHolidayOnlyMode(holiday);
-    // Убрать метку из поля состава, чтобы не ушла клиенту
-    if (cleanText !== el.value.trim()) {
+    if (digitCount > 0) {
+      this.currentProduct.digit_from_marker = digitCount;
+    }
+    if (holiday) {
+      this.applyHolidayOnlyMode(holiday);
+    } else if (hints.length) {
+      // Новые скобки без тематики — сбросить holiday_only только если явно не тематика
+      const stillTheme = (this.currentProduct.composition_hints || [])
+        .some((h) => this.matchHolidayCategory?.(h));
+      if (!stillTheme) this.currentProduct.holiday_only = '';
+    }
+    // Убрать ВСЕ скобки из поля состава — клиенту не уходят
+    if (cleanText !== String(before || '').trim()) {
       const pos = el.selectionStart;
       el.value = cleanText;
       try { el.setSelectionRange(Math.min(pos, cleanText.length), Math.min(pos, cleanText.length)); } catch (_) { /* ignore */ }
     }
-    return holiday;
+    // Не вызывать syncAdvanceOrderFromScene здесь — он сам зовёт этот метод (иначе stack overflow)
+    this.syncRequiredFieldHighlights?.();
+    return holiday || this.currentProduct.holiday_only || null;
   },
 
   /** Сколько фольгированных цифр в составе: 1 / 2 / 0 если не указано. */
   compositionDigitCount(text) {
+    const fromMarker = Number(this.currentProduct?.digit_from_marker) || 0;
     const t = String(text || '').toLowerCase().replace(/ё/g, 'е');
-    if (!t) return 0;
-    // «2 цифры», «2 фольгированные цифры», «две цифры»
-    if (/(?:^|[^\d])2\s+(?:[а-яa-z-]+\s+){0,3}цифр/.test(t)
-      || /(?:^|[^а-яa-z0-9])две\s+(?:[а-яa-z-]+\s+){0,2}цифр/.test(t)) {
-      return 2;
+    let fromText = 0;
+    if (t) {
+      // «2 цифры», «2 фольгированные цифры», «две цифры»
+      if (/(?:^|[^\d])2\s+(?:[а-яa-z-]+\s+){0,3}цифр/.test(t)
+        || /(?:^|[^а-яa-z0-9])две\s+(?:[а-яa-z-]+\s+){0,2}цифр/.test(t)) {
+        fromText = 2;
+      } else if (/(?:^|[^\d])1\s+(?:[а-яa-z-]+\s+){0,3}цифр/.test(t)
+        || /(?:^|[^а-яa-z0-9])одн[аоуы]\s+(?:[а-яa-z-]+\s+){0,2}цифр/.test(t)) {
+        fromText = 1;
+      } else if (/(?:^|[^а-яa-z0-9])цифры(?:[^а-яa-z0-9]|$)/.test(t)) {
+        fromText = 2;
+      } else if (/(?:^|[^а-яa-z0-9])цифр[ауы](?:[^а-яa-z0-9]|$)/.test(t)
+        || /фольг\w*\s+цифр/.test(t)) {
+        fromText = 1;
+      }
     }
-    // «1 цифра», «1 фольгированная цифра», «одна/одну цифру»
-    if (/(?:^|[^\d])1\s+(?:[а-яa-z-]+\s+){0,3}цифр/.test(t)
-      || /(?:^|[^а-яa-z0-9])одн[аоуы]\s+(?:[а-яa-z-]+\s+){0,2}цифр/.test(t)) {
-      return 1;
-    }
-    // просто «цифры» (мн.ч. без числа) → две
-    if (/(?:^|[^а-яa-z0-9])цифры(?:[^а-яa-z0-9]|$)/.test(t)) return 2;
-    // «цифра» / «цифру» / «фольгированная цифра» без числа → одна
-    if (/цифр[ауы]/.test(t)) return 1;
-    return 0;
+    return Math.max(fromMarker, fromText);
   },
 
   /** Тип фотозоны из состава/описания: easel | frame | null. */
@@ -329,106 +414,136 @@ Object.assign(app, {
   },
 
   syncAdvanceOrderFromScene() {
-    this.syncHolidayFromComposition?.();
+    if (this._syncingClientOpts) return;
+    this._syncingClientOpts = true;
+    try {
+      this.syncHolidayFromComposition?.();
 
-    const scene = this.currentProduct?.scene || document.getElementById('scene-select')?.value || '';
-    const cat = document.getElementById('product-category')?.value || '';
-    const composition = document.getElementById('product-composition')?.value || '';
-    const titleText = document.getElementById('product-title')?.value || '';
-    const shortDesc = document.getElementById('product-short-desc')?.value || '';
-    const fullDesc = document.getElementById('product-full-desc')?.value || '';
-    const isFloor = scene === 'floor' || cat === 'Напольные композиции';
-    const isFigures = scene === 'balloon_figures' || cat === 'Фигуры из шаров';
-    const isBouquet = scene === 'handheld_bouquet'
-      || cat === 'Букет из шаров'
-      || cat === 'Крафтовый букет'
-      || cat === 'Цветы из шаров';
-    const isPhotozone = scene === 'photozone' || cat === 'Фотозона';
-    const isWallOnly = scene === 'wall_only';
-    const isWallOrFloor = isFloor || isWallOnly || isFigures;
-    const hasInscriptionInComp = this.compositionHasPersonalInscription(composition);
-    const digitCount = this.compositionDigitCount(composition);
-    const pzHintText = [composition, titleText, shortDesc, fullDesc].join(' ');
-    const pzFromComp = this.compositionPhotozoneType(pzHintText);
+      const scene = this.currentProduct?.scene || document.getElementById('scene-select')?.value || '';
+      const cat = document.getElementById('product-category')?.value || '';
+      const composition = document.getElementById('product-composition')?.value || '';
+      const titleText = document.getElementById('product-title')?.value || '';
+      const shortDesc = document.getElementById('product-short-desc')?.value || '';
+      const fullDesc = document.getElementById('product-full-desc')?.value || '';
+      const isFloor = scene === 'floor' || cat === 'Напольные композиции';
+      const isFigures = scene === 'balloon_figures' || cat === 'Фигуры из шаров';
+      const isBouquet = scene === 'handheld_bouquet'
+        || cat === 'Букет из шаров'
+        || cat === 'Крафтовый букет'
+        || cat === 'Цветы из шаров';
+      const isPhotozone = scene === 'photozone' || cat === 'Фотозона';
+      const isWallOnly = scene === 'wall_only';
+      const isWallOrFloor = isFloor || isWallOnly || isFigures;
+      const hasInscriptionInComp = this.compositionHasPersonalInscription(composition);
+      const digitCount = this.compositionDigitCount(composition);
+      const pzHintText = [composition, titleText, shortDesc, fullDesc].join(' ');
+      const pzFromComp = this.compositionPhotozoneType(pzHintText);
 
-    // Тип фотозоны из состава («на мольберте» / «на каркасе»)
-    if (isPhotozone && pzFromComp) {
-      this.setPhotozoneType?.(pzFromComp);
+      // Тип фотозоны из состава («на мольберте» / «на каркасе»)
+      if (isPhotozone && pzFromComp) {
+        this.setPhotozoneType?.(pzFromComp);
+        const rentalItemEl = document.getElementById('rental-item');
+        if (rentalItemEl) rentalItemEl.dataset.autoFill = '1';
+      }
+
+      const pzType = this.getPhotozoneType?.() || 'frame';
+      const pzMeta = (typeof PHOTOZONE_TYPES !== 'undefined' && PHOTOZONE_TYPES[pzType]) || null;
+
+      const advanceEl = document.getElementById('opt-advance');
+      const inscriptionEl = document.getElementById('opt-inscription');
+      const numberEl = document.getElementById('opt-number');
+      const numberHint = document.getElementById('opt-number-hint');
+      const rentalEl = document.getElementById('opt-rental');
       const rentalItemEl = document.getElementById('rental-item');
-      if (rentalItemEl) rentalItemEl.dataset.autoFill = '1';
-    }
+      const pzBlock = document.getElementById('photozone-type-block');
 
-    const pzType = this.getPhotozoneType?.() || 'frame';
-    const pzMeta = (typeof PHOTOZONE_TYPES !== 'undefined' && PHOTOZONE_TYPES[pzType]) || null;
+      if (pzBlock) pzBlock.classList.toggle('hidden', !isPhotozone);
 
-    const advanceEl = document.getElementById('opt-advance');
-    const inscriptionEl = document.getElementById('opt-inscription');
-    const numberEl = document.getElementById('opt-number');
-    const numberHint = document.getElementById('opt-number-hint');
-    const rentalEl = document.getElementById('opt-rental');
-    const rentalItemEl = document.getElementById('rental-item');
-    const pzBlock = document.getElementById('photozone-type-block');
+      // Напольные, фигуры и букеты — заранее за 1–2 дня
+      if ((isFloor || isFigures || isBouquet) && advanceEl) advanceEl.checked = true;
+      // Букеты — персональная надпись (текст на сердцах / по желанию клиента)
+      if (isBouquet && inscriptionEl) inscriptionEl.checked = true;
+      // В составе «… с надписью» / «коробка … с индивидуальной надписью» → «Персональная надпись»
+      if (hasInscriptionInComp && inscriptionEl) inscriptionEl.checked = true;
 
-    if (pzBlock) pzBlock.classList.toggle('hidden', !isPhotozone);
-
-    // Напольные, фигуры и букеты — заранее за 1–2 дня
-    if ((isFloor || isFigures || isBouquet) && advanceEl) advanceEl.checked = true;
-    // Букеты — персональная надпись (текст на сердцах / по желанию клиента)
-    if (isBouquet && inscriptionEl) inscriptionEl.checked = true;
-    // В составе «… с надписью» / «коробка … с индивидуальной надписью» → «Персональная надпись»
-    if (hasInscriptionInComp && inscriptionEl) inscriptionEl.checked = true;
-
-    // В составе «1 цифра» / «2 цифры» (любая сцена) → галочка «Выбор цифры»
-    if (digitCount > 0 && numberEl) {
-      numberEl.checked = true;
-    }
-    if (numberHint) {
-      if (digitCount === 2) {
-        numberHint.textContent = isWallOrFloor
-          ? 'По составу: 2 цифры. Клиент выбирает обе, менять количество нельзя.'
-          : 'По составу: 2 цифры. Клиент выбирает обе.';
-      } else if (digitCount === 1) {
-        numberHint.textContent = isWallOrFloor
-          ? 'По составу: 1 цифра. Клиент выбирает одну, менять количество нельзя.'
-          : 'По составу: 1 цифра. Клиент выбирает цифру.';
-      } else {
-        numberHint.textContent = 'Укажите в составе «1 цифра» или «2 цифры» — галочка поставится сама.';
+      // В составе «1 цифра» / «2 цифры» (любая сцена) → галочка «Выбор цифры» + бейдж
+      const numberBadge = document.getElementById('opt-number-badge');
+      const numberCard = document.getElementById('opt-number-card');
+      if (digitCount > 0 && numberEl) {
+        numberEl.checked = true;
       }
-    }
-
-    // Фотозоны: всегда заранее + аренда; тип задаёт предмет аренды и надпись на круге
-    if (isPhotozone) {
-      if (advanceEl) advanceEl.checked = true;
-      if (rentalEl) rentalEl.checked = true;
-      if (pzMeta?.has_inscription && inscriptionEl) inscriptionEl.checked = true;
-      if (rentalItemEl && (!rentalItemEl.value.trim() || rentalItemEl.dataset.autoFill === '1')) {
-        rentalItemEl.value = pzMeta?.rental_item || 'Каркас фотозоны';
-        rentalItemEl.dataset.autoFill = '1';
+      if (numberHint) {
+        if (digitCount === 2) {
+          numberHint.textContent = isWallOrFloor
+            ? 'По составу: 2 цифры. Клиент выбирает обе, менять количество нельзя.'
+            : 'По составу: 2 цифры. Клиент выбирает обе.';
+        } else if (digitCount === 1) {
+          numberHint.textContent = isWallOrFloor
+            ? 'По составу: 1 цифра. Клиент выбирает одну, менять количество нельзя.'
+            : 'По составу: 1 цифра. Клиент выбирает цифру.';
+        } else {
+          numberHint.textContent = 'Укажите в составе «1 цифра» или «2 цифры» — галочка и бейдж появятся сами.';
+        }
       }
+      if (numberBadge) {
+        if (digitCount === 2) {
+          numberBadge.textContent = '2 цифры';
+          numberBadge.classList.remove('hidden');
+          numberBadge.classList.add('is-two');
+        } else if (digitCount === 1) {
+          numberBadge.textContent = '1 цифра';
+          numberBadge.classList.remove('hidden');
+          numberBadge.classList.remove('is-two');
+        } else {
+          numberBadge.textContent = '';
+          numberBadge.classList.add('hidden');
+          numberBadge.classList.remove('is-two');
+        }
+      }
+      if (numberCard) numberCard.classList.toggle('is-digit-active', digitCount > 0);
+
+      // Фотозоны: всегда заранее + аренда; тип задаёт предмет аренды и надпись на круге
+      if (isPhotozone) {
+        if (advanceEl) advanceEl.checked = true;
+        if (rentalEl) rentalEl.checked = true;
+        if (pzMeta?.has_inscription && inscriptionEl) inscriptionEl.checked = true;
+        if (rentalItemEl && (!rentalItemEl.value.trim() || rentalItemEl.dataset.autoFill === '1')) {
+          rentalItemEl.value = pzMeta?.rental_item || 'Каркас фотозоны';
+          rentalItemEl.dataset.autoFill = '1';
+        }
+      }
+      this.syncRequiredFieldHighlights?.();
+    } finally {
+      this._syncingClientOpts = false;
     }
   },
 
   getPhotozoneType() {
-    const checked = document.querySelector('input[name="photozone-type"]:checked');
+    const checked = document.querySelector('input[name="photozone-type"]:checked')
+      || document.querySelector('input[name="photozone-type-early"]:checked');
     return checked?.value || 'frame';
   },
 
   setPhotozoneType(type) {
-    const value = PHOTOZONE_TYPES[type] ? type : 'frame';
-    const el = document.querySelector(`input[name="photozone-type"][value="${value}"]`);
-    if (el) el.checked = true;
+    const value = (typeof PHOTOZONE_TYPES !== 'undefined' && PHOTOZONE_TYPES[type]) ? type : (type === 'easel' ? 'easel' : 'frame');
+    document.querySelectorAll('input[name="photozone-type"], input[name="photozone-type-early"]').forEach((el) => {
+      el.checked = el.value === value;
+    });
   },
 
   wirePhotozoneTypeControls() {
     if (this._photozoneTypeWired) return;
     this._photozoneTypeWired = true;
-    document.querySelectorAll('input[name="photozone-type"]').forEach((el) => {
-      el.addEventListener('change', () => {
-        const rentalItemEl = document.getElementById('rental-item');
-        if (rentalItemEl) rentalItemEl.dataset.autoFill = '1';
-        this.syncAdvanceOrderFromScene?.();
-        this.syncStudioModeHint?.();
-      });
+    const sync = (e) => {
+      const val = e?.target?.value || this.getPhotozoneType();
+      this.setPhotozoneType(val);
+      const rentalItemEl = document.getElementById('rental-item');
+      if (rentalItemEl) rentalItemEl.dataset.autoFill = '1';
+      this.syncAdvanceOrderFromScene?.();
+      this.syncStudioModeHint?.();
+    };
+    document.querySelectorAll('input[name="photozone-type"], input[name="photozone-type-early"]').forEach((el) => {
+      el.addEventListener('change', sync);
     });
     const rentalItemEl = document.getElementById('rental-item');
     if (rentalItemEl) {
@@ -458,7 +573,8 @@ Object.assign(app, {
     this.renderTagGroup('tags-for-who', TAGS.forWho);
     this.renderTagGroup('tags-occasion', TAGS.occasion);
     this.renderTagGroup('tags-dates', TAGS.dates);
-    this.renderTagGroup('tags-type', TAGS.type);
+    const deferred = (typeof DEFERRED_TYPE_TAGS !== 'undefined' && DEFERRED_TYPE_TAGS) || ['Шар-сюрприз'];
+    this.renderTagGroup('tags-type', TAGS.type.filter((t) => !deferred.includes(t)));
   },
 
   renderTagGroup(containerId, tags) {
@@ -536,11 +652,17 @@ Object.assign(app, {
     }
     if (card.composition) {
       const comp = Array.isArray(card.composition) ? card.composition.join('\n') : String(card.composition);
-      const meta = this.parseCompositionHolidayMeta?.(comp) || { cleanText: comp, holiday: null };
+      const meta = this.parseCompositionHolidayMeta?.(comp) || { cleanText: comp, holiday: null, hints: [], digitCount: 0 };
       const el = document.getElementById('product-composition');
       if (el) el.value = meta.cleanText;
+      this.currentProduct = this.currentProduct || {};
+      if (meta.hints?.length) {
+        this.currentProduct.composition_hints = meta.hints;
+      }
+      if (meta.digitCount > 0) {
+        this.currentProduct.digit_from_marker = meta.digitCount;
+      }
       if (meta.holiday) {
-        this.currentProduct = this.currentProduct || {};
         this.currentProduct.holiday_only = meta.holiday;
       }
     }
@@ -570,8 +692,10 @@ Object.assign(app, {
           .forEach((cb) => { cb.checked = false; });
       }
       const typeSet = new Set((typeof TAGS !== 'undefined' && TAGS.type) || []);
+      const deferred = (typeof DEFERRED_TYPE_TAGS !== 'undefined' && DEFERRED_TYPE_TAGS) || ['Шар-сюрприз'];
       card.tags.forEach((tag) => {
-        // Праздник: в доп. разделах только тематика (сам праздник), без типов/аудитории
+        if (deferred.includes(tag)) return;
+        // Праздник/тематика: в доп. разделах только она, без типов/аудитории
         if (holidayOnly && tag !== holidayOnly) return;
         if (holidayOnly && typeSet.has(tag)) return;
         const cb = document.querySelector(
@@ -587,7 +711,13 @@ Object.assign(app, {
     }
     if (card.age_group && !holidayOnly) {
       const el = document.getElementById('product-age');
-      if (el) el.value = card.age_group;
+      if (el) {
+        const v = String(card.age_group || '').trim();
+        const opts = [...el.options].map((o) => o.value || o.textContent);
+        if (v && opts.includes(v) && v !== 'Для любого возраста') el.value = v;
+        else if (v === 'Для любого возраста') el.value = 'Для любого возраста';
+        else el.value = '';
+      }
     }
     if ('occasion' in card && !holidayOnly) {
       const el = document.getElementById('product-occasion');
@@ -601,7 +731,31 @@ Object.assign(app, {
       const el = document.getElementById('product-series');
       if (el) el.value = card.series_name || '';
     }
-    if (holidayOnly) this.applyHolidayOnlyMode(holidayOnly);
+    if (holidayOnly) {
+      this.applyHolidayOnlyMode(holidayOnly);
+    } else {
+      const scene = this.currentProduct?.scene || '';
+      const tags = Array.isArray(card.tags) ? card.tags : [];
+      const compText = Array.isArray(card.composition)
+        ? card.composition.join('\n')
+        : String(card.composition || document.getElementById('product-composition')?.value || '');
+      if (
+        scene === 'handheld_bouquet'
+        || card.category === 'Букет из шаров'
+        || (tags.includes('Букет из шаров') && (scene === 'handheld_bouquet' || this.compositionLooksLikeBouquet?.(compText)))
+        || this.compositionLooksLikeBouquet?.(compText)
+      ) {
+        this.applyBouquetOnlyMode?.();
+      } else if (
+        scene === 'balloon_figures'
+        || card.category === 'Фигуры из шаров'
+        || this.compositionLooksLikeBalloonFigure?.(compText)
+      ) {
+        this.applyFiguresOnlyMode?.();
+      } else if (scene === 'photozone' || card.category === 'Фотозона' || tags.includes('Фотозона')) {
+        this.applyPhotozoneOnlyMode?.();
+      }
+    }
     if (card.budget) {
       const el = document.getElementById('product-budget');
       if (el) {
@@ -613,12 +767,8 @@ Object.assign(app, {
     if (card.title) this.syncEditorTitle(card.title);
     this.syncAIFillGate?.();
     this.syncAdvanceOrderFromScene?.();
+    this.syncRequiredFieldHighlights?.();
   },
-
-  // === Studio Pro ===
-  // Актуальная реализация — processStudioProNew() в admin-studio-pro.js (вызывается через
-  // onclick="app.processStudioProNew()" из HTML). Старый цикл processStudioPro()/pollStudioStatus()
-  // (обрабатывал фото по одному через /api/studio/process) был не задействован и удалён как мёртвый код.
 
   async uploadPhoto(file) {
     const formData = new FormData();
@@ -635,27 +785,53 @@ Object.assign(app, {
 
     const titleValue = document.getElementById('product-title').value.trim();
     const unit = this.isUnitBalloonMode?.() || false;
+    let holidayOnly = null;
     const composition = unit
       ? []
       : (() => {
           const raw = document.getElementById('product-composition').value;
-          const meta = this.parseCompositionHolidayMeta?.(raw) || { cleanText: raw, holiday: null };
+          const meta = this.parseCompositionHolidayMeta?.(raw) || {
+            cleanText: raw, holiday: null, hints: [], digitCount: 0
+          };
+          holidayOnly = meta.holiday || null;
+          this.currentProduct = this.currentProduct || {};
+          if (meta.hints?.length) {
+            this.currentProduct.composition_hints = meta.hints;
+          }
+          if (meta.digitCount > 0) {
+            this.currentProduct.digit_from_marker = meta.digitCount;
+          }
           if (meta.holiday) this.applyHolidayOnlyMode?.(meta.holiday);
           return String(meta.cleanText || '')
             .split('\n').filter((l) => l.trim()).map((l) => l.trim());
         })();
+    if (!holidayOnly) holidayOnly = this.currentProduct?.holiday_only || null;
 
     let shortDesc = document.getElementById('product-short-desc').value.trim();
     if (unit && !shortDesc && titleValue) shortDesc = titleValue.slice(0, 110);
 
-    const category = document.getElementById('product-category').value || (unit ? 'Шары поштучно' : '');
+    let category = document.getElementById('product-category').value || (unit ? 'Шары поштучно' : '');
     const scene = unit ? 'unit_balloon' : (this.currentProduct.scene || 'floor');
     if (unit && !tags.includes('Шары поштучно')) tags.push('Шары поштучно');
 
     // Перед сохранением ещё раз синкнем опции (стена/напольные/фотозона)
     if (!unit) this.syncAdvanceOrderFromScene?.();
 
-    const isPhotozone = !unit && (scene === 'photozone' || category === 'Фотозона');
+    const compText = Array.isArray(composition) ? composition.join('\n') : String(composition || '');
+    const isBouquet = !unit && !holidayOnly && (
+      scene === 'handheld_bouquet'
+      || category === 'Букет из шаров'
+      || this.compositionLooksLikeBouquet?.(compText)
+    );
+    const isFigures = !unit && !holidayOnly && (
+      scene === 'balloon_figures'
+      || category === 'Фигуры из шаров'
+      || this.compositionLooksLikeBalloonFigure?.(compText)
+    );
+    const isPhotozone = !unit && !holidayOnly && (
+      scene === 'photozone'
+      || category === 'Фотозона'
+    );
     const pzType = isPhotozone ? (this.getPhotozoneType?.() || 'frame') : null;
     const pzMeta = pzType && typeof PHOTOZONE_TYPES !== 'undefined' ? PHOTOZONE_TYPES[pzType] : null;
     const rentalChecked = !unit && (document.getElementById('opt-rental')?.checked || false);
@@ -670,7 +846,7 @@ Object.assign(app, {
       personal_inscription: false,
       photozone_rental: false
     } : {
-      available_on_request: document.getElementById('opt-available')?.checked || false,
+      available_on_request: false,
       advance_order_1_2_days: document.getElementById('opt-advance')?.checked || false,
       number_choice: document.getElementById('opt-number')?.checked || false,
       personal_inscription: document.getElementById('opt-inscription')?.checked || false,
@@ -690,9 +866,7 @@ Object.assign(app, {
     }
 
     if (clientOptions.number_choice) {
-      const fromComp = this.compositionDigitCount?.(
-        Array.isArray(composition) ? composition.join('\n') : String(composition || '')
-      ) || 0;
+      const fromComp = this.compositionDigitCount?.(compText) || 0;
       const count = Math.min(2, Math.max(1, fromComp || 1));
       clientOptions.digit_choice = {
         enabled: true,
@@ -700,10 +874,30 @@ Object.assign(app, {
       };
     }
 
-    if (isPhotozone && !tags.includes('Фотозона')) tags.push('Фотозона');
-    if (!unit && scene === 'balloon_figures' && !tags.includes('Фигуры из шаров')) {
-      tags.push('Фигуры из шаров');
+    // XOR: тематика из скобок ИЛИ один тип (букет / фигуры / фотозона) — не смешивать с аудиторией
+    let finalTags = [...tags];
+    if (holidayOnly) {
+      category = holidayOnly;
+      finalTags = [holidayOnly];
+    } else if (isBouquet) {
+      category = 'Букет из шаров';
+      finalTags = ['Букет из шаров'];
+    } else if (isFigures) {
+      category = 'Фигуры из шаров';
+      finalTags = ['Фигуры из шаров'];
+    } else if (isPhotozone) {
+      category = 'Фотозона';
+      finalTags = ['Фотозона'];
+    } else {
+      if (isPhotozone && !finalTags.includes('Фотозона')) finalTags.push('Фотозона');
+      if (!unit && scene === 'balloon_figures' && !finalTags.includes('Фигуры из шаров')) {
+        finalTags.push('Фигуры из шаров');
+      }
     }
+
+    const deferred = (typeof DEFERRED_TYPE_TAGS !== 'undefined' && DEFERRED_TYPE_TAGS) || ['Шар-сюрприз'];
+    finalTags = finalTags.filter((t) => !deferred.includes(t));
+    if (deferred.includes(category)) category = finalTags[0] || '';
 
     return {
       id: this.currentProduct.id || undefined,
@@ -713,18 +907,22 @@ Object.assign(app, {
       short_description: shortDesc,
       full_description: unit ? '' : document.getElementById('product-full-desc').value.trim(),
       composition: composition,
-      category: isPhotozone && !category ? 'Фотозона' : category,
-      character: unit ? null : (document.getElementById('product-character')?.value.trim() || null),
+      category: category || (isPhotozone ? 'Фотозона' : category),
+      character: unit || holidayOnly ? null : (document.getElementById('product-character')?.value.trim() || null),
       age_group: unit ? 'Для любого возраста' : (document.getElementById('product-age')?.value || 'Для любого возраста'),
       budget: unit ? null : (document.getElementById('product-budget')?.value.trim() || null),
-      series_name: unit ? null : (document.getElementById('product-series')?.value.trim() || null),
-      occasion: unit ? null : (document.getElementById('product-occasion')?.value.trim() || null),
-      target_audience: unit ? null : (document.getElementById('product-audience')?.value.trim() || null),
+      series_name: unit || holidayOnly ? null : (document.getElementById('product-series')?.value.trim() || null),
+      occasion: unit || holidayOnly || isBouquet || isFigures || isPhotozone
+        ? null
+        : (document.getElementById('product-occasion')?.value.trim() || null),
+      target_audience: unit || holidayOnly || isBouquet || isFigures || isPhotozone
+        ? null
+        : (document.getElementById('product-audience')?.value.trim() || null),
       seo_title: unit ? '' : document.getElementById('product-seo-title').value.trim(),
       seo_description: unit ? '' : document.getElementById('product-seo-desc').value.trim(),
       slug: document.getElementById('product-slug').value.trim() || this.slugify(titleValue),
       scene,
-      tags: tags,
+      tags: finalTags,
       client_options: clientOptions,
       photos: this.currentProduct.photos.map(p => p.url),
       main_photo: this.currentProduct.photos[0]?.url || null,
@@ -734,17 +932,27 @@ Object.assign(app, {
 
   resetForm() {
     this.currentProduct = { photos: [], scene: 'auto', tags: [], client_options: {} };
+    this._publishGapsAck = false;
     this.resetStudioDraftKey?.();
+    this.clearActiveStudioDraft?.();
     this.studioCutoutDataUrl = null;
     this.studioPlacement = null;
     this.studioCompare = { original: null, master: null };
     this.studioSourceUrl = null;
+    this.studioMasterDataUrl = null;
+    this.studioMasterBaseUrl = null;
+    this.studioMasterBackupUrl = null;
     if (typeof this.hideCropEditor === 'function') this.hideCropEditor();
     if (typeof this.hidePlacementEditor === 'function') this.hidePlacementEditor(true);
     if (typeof this.renderStudioCompare === 'function') this.renderStudioCompare();
+    this.hideSourceWorkPreview?.();
 
     const form = document.getElementById('product-form');
-    if (form) form.reset();
+    if (form) {
+      form.reset();
+      form.classList.remove('is-studio-busy', 'is-editor-step-2');
+      form.classList.add('is-editor-step-1');
+    }
 
     const alts = document.getElementById('title-alts');
     if (alts) { alts.classList.add('hidden'); alts.innerHTML = ''; }
@@ -772,6 +980,7 @@ Object.assign(app, {
     this.refreshStudioCheckpointUi?.();
     this.syncAIFillGate?.();
     this.syncUnitBalloonForm?.(false);
+    this.syncEditorSteps?.();
     this.setPhotozoneType?.('frame');
     const rentalItemEl = document.getElementById('rental-item');
     if (rentalItemEl) {
@@ -780,6 +989,7 @@ Object.assign(app, {
     }
     this.wirePhotozoneTypeControls?.();
     this.syncAdvanceOrderFromScene?.();
+    this.syncRequiredFieldHighlights?.();
   }
 });
 
@@ -865,7 +1075,6 @@ app.loadProductToForm = function(product) {
   const opts = product.client_options || {};
   const opt = (id, val) => { const el = document.getElementById(id); if (el) el.checked = !!val; };
   const nestedOn = (v) => !!(v === true || v === 1 || (v && typeof v === 'object' && v.enabled));
-  opt('opt-available', opts.available_on_request || nestedOn(opts.available_on_request));
   opt('opt-advance', opts.advance_order_1_2_days || nestedOn(opts.advance_order));
   opt('opt-number', opts.number_choice || nestedOn(opts.digit_choice));
   opt('opt-inscription', opts.personal_inscription || nestedOn(opts.inscription));
@@ -883,6 +1092,9 @@ app.loadProductToForm = function(product) {
   this.syncAIFillGate?.();
   this.syncUnitBalloonForm?.(false);
   this.syncAdvanceOrderFromScene?.();
+  this._publishGapsAck = false;
+  this.syncEditorSteps?.();
+  this.syncRequiredFieldHighlights?.();
   // При редактировании уважаем сохранённый текст аренды, если он был
   if (rentalItemEl && rental.item) {
     rentalItemEl.value = rental.item;

@@ -74,7 +74,7 @@
         <button type="button" class="modal-close" onclick="app.cancelProductEdit()" title="Закрыть">×</button>
       </div>
 
-      <form id="product-form" novalidate>
+      <form id="product-form" class="is-editor-step-1" novalidate>
 
         <!-- Фото + Studio -->
         <section class="card-block" id="block-photos">
@@ -84,8 +84,28 @@
             <div class="scene-selector scene-select-wrap" id="scene-selector"></div>
             <button type="button" class="btn outline" id="photo-upload-btn" onclick="document.getElementById('photo-input').click()">+ Загрузить</button>
           </div>
-          <p class="studio-lead">Manus AI-пересъёмка → одно фото Master. Снимаются водяные знаки и бейджи поставщика (sima-land.ru, MARVEL-коробка, «для гелия», размер). Рисунок на шаре остаётся. Эталон фона — в «Настройки». Дальше: цена + состав → ИИ заполнит карточку.</p>
+          <p class="studio-lead">Manus AI-пересъёмка → одно фото Master. Снимаются водяные знаки и бейджи поставщика (sima-land.ru, MARVEL-коробка, «для гелия», размер). Рисунок на шаре остаётся. Эталон фона — в «Настройки». Пока идёт генерация — справа крупный оригинал, по нему пишите состав. Потом: цена + состав → откроются остальные поля и ИИ.</p>
           <p class="studio-mode-hint" id="studio-mode-hint"></p>
+          <div id="photozone-type-early" class="photozone-type-early hidden">
+            <p class="photozone-type-early-title">Тип фотозоны <span class="req">*</span></p>
+            <p class="text-muted" style="margin:0 0 8px;font-size:12px;">Выберите <strong>до</strong> «Создать Master» — от типа зависит промпт ИИ.</p>
+            <div class="option-cards photozone-type-cards">
+              <label class="option-card">
+                <input type="radio" name="photozone-type-early" id="pz-type-frame-early" value="frame" checked/>
+                <span class="option-card-body">
+                  <strong>Круглый каркас</strong>
+                  <small>Обруч / арка Ø ~3 м — если каркас уже на фото</small>
+                </span>
+              </label>
+              <label class="option-card">
+                <input type="radio" name="photozone-type-early" id="pz-type-easel-early" value="easel"/>
+                <span class="option-card-body">
+                  <strong>Мольберт с кругом</strong>
+                  <small>Мольберт + круг ~180 см с надписью</small>
+                </span>
+              </label>
+            </div>
+          </div>
           <div class="status" id="studio-status"></div>
 
           <div class="photo-section" id="photo-dropzone">
@@ -115,14 +135,59 @@
               </button>
             </div>
           </div>
+
+          <!-- Правка надписи на Master (фольга / бабл / табличка) — свёрнуто по умолчанию -->
+          <details id="sign-text-editor" class="sign-text-editor hidden">
+            <summary>Исправить надпись</summary>
+            <p class="lead" style="margin:0 0 10px;font-size:13px;color:#616161;line-height:1.45">
+              Если буквы на Master кривые — впишите <strong>правильный текст</strong> (с переносами).
+              ИИ найдёт звезду, вырежет, поправит буквы <strong>только на кропе</strong> и вклеит обратно
+              в полную фигуру (Master целиком не переснимается). Обычно 4–7 минут.
+            </p>
+            <div class="sign-text-fields">
+              <label for="sign-text-exact">Правильный текст</label>
+              <textarea id="sign-text-exact" rows="4" placeholder="Дорогой,&#10;я сегодня&#10;весь твой" autocomplete="off"></textarea>
+            </div>
+            <div class="crop-actions">
+              <button type="button" class="btn primary" id="sign-text-apply-btn" onclick="app.fixBalloonInscription()">✨ Исправить надпись</button>
+              <button type="button" class="btn outline" onclick="app.collapseSignTextEditor()">Свернуть</button>
+            </div>
+          </details>
         </section>
 
-        <!-- Основные поля (2 колонки как в старой) -->
-        <section class="card-block" id="block-main">
+        <!-- Шаг 1: цена + состав (+ крупный оригинал во время генерации) -->
+        <section class="card-block" id="block-essentials">
+          <p class="step-1-hint" id="step-1-hint">Шаг 1: фото → Master → цена и состав. Остальные поля откроются после этого.</p>
+          <div class="essentials-layout">
+            <div id="source-work-preview" class="source-work-preview hidden">
+              <div class="source-work-preview-head">
+                <span id="source-work-preview-label">Оригинал — смотрите состав</span>
+                <button type="button" class="btn outline btn-sm" id="source-work-preview-zoom" onclick="app.toggleSourceWorkPreviewExpand()">Увеличить</button>
+              </div>
+              <button type="button" class="source-work-preview-frame" onclick="app.toggleSourceWorkPreviewExpand()" title="Клик — увеличить / свернуть. Поля справа остаются доступны.">
+                <img id="source-work-preview-img" alt="Оригинал для состава"/>
+              </button>
+            </div>
+            <div class="essentials-fields">
+              <div class="form-group unit-hide" id="essentials-composition-wrap">
+                <label>Состав <span class="req">*</span></label>
+                <textarea id="product-composition" data-required-field="composition" rows="5" placeholder="Сырой состав, напр.: коробка, 10 шаров, 1 цифра"></textarea>
+                <small class="text-muted">Сырой состав шаров. Всё в <code>(скобках)</code> — подсказка для ИИ, клиенту не попадёт. Примеры: <code>(цифра)</code>, <code>(для мальчика)</code>, <code>(На выписку)</code>, <code>(1 сентября)</code>.</small>
+              </div>
+              <div class="form-group">
+                <label>Цена, ₽ <span class="req">*</span></label>
+                <input id="product-price" data-required-field="price" type="number" min="0" step="1" inputmode="numeric" placeholder="0"/>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Шаг 2: остальные поля (после Master + цена + состав) -->
+        <section class="card-block editor-step-2" id="block-main">
           <p class="unit-mode-banner hidden" id="unit-mode-banner">Режим «Шары поштучно»: название как у поставщика + цена. Остальное не нужно.</p>
           <div class="form-group">
             <label>Название <span class="req">*</span></label>
-            <input id="product-title" placeholder="Например: Тёмный рыцарь" autocomplete="off"
+            <input id="product-title" data-required-field="title" placeholder="Например: Тёмный рыцарь" autocomplete="off"
               oninput="app.syncEditorTitle(this.value)"/>
             <div id="title-alts" class="title-alts hidden"></div>
           </div>
@@ -133,37 +198,34 @@
               <input id="product-article" readonly placeholder="DG-XXX"/>
             </div>
             <div class="form-group">
-              <label>Цена, ₽ <span class="req">*</span></label>
-              <input id="product-price" type="number" min="0" step="1" inputmode="numeric" placeholder="0"/>
+              <label>Категория <span class="req">*</span></label>
+              <select id="product-category" data-required-field="category"></select>
             </div>
           </div>
 
           <div class="form-row form-row-2">
-            <div class="form-group">
-              <label>Категория <span class="req">*</span></label>
-              <select id="product-category"></select>
-            </div>
             <div class="form-group unit-hide">
-              <label>Персонаж</label>
+              <label>Персонаж <small class="text-muted">(необязательно — ИИ)</small></label>
               <input id="product-character" placeholder="Например: Человек-паук" autocomplete="off"/>
               <div id="character-alts" class="title-alts hidden"></div>
+            </div>
+            <div class="form-group unit-hide">
+              <label>Возраст <span class="req">*</span></label>
+              <select id="product-age" data-required-field="age">
+                <option value="">— выберите —</option>
+                <option>Для малышей</option>
+                <option>Для детей</option>
+                <option>Для подростков</option>
+                <option>Для взрослых</option>
+                <option>Для любого возраста</option>
+              </select>
             </div>
           </div>
 
           <div class="form-row form-row-2 unit-hide">
             <div class="form-group">
-              <label>Возраст</label>
-              <select id="product-age">
-                <option>Для любого возраста</option>
-                <option>Для малышей</option>
-                <option>Для детей</option>
-                <option>Для подростков</option>
-                <option>Для взрослых</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label>Бюджет</label>
-              <select id="product-budget">
+              <label>Бюджет <span class="req">*</span></label>
+              <select id="product-budget" data-required-field="budget">
                 <option value="">— выберите —</option>
                 <option value="до 1 000 ₽">до 1 000 ₽ — Небольшой сюрприз</option>
                 <option value="1 000–2 000 ₽">1 000–2 000 ₽ — Знак внимания</option>
@@ -173,29 +235,21 @@
                 <option value="от 8 000 ₽">от 8 000 ₽ — Оформление и масштаб</option>
               </select>
             </div>
-          </div>
-
-          <div class="form-row form-row-2 unit-hide">
             <div class="form-group">
-              <label>Тематическая серия</label>
+              <label>Тематическая серия <small class="text-muted">(необязательно — ИИ)</small></label>
               <input id="product-series" placeholder="Например: Человек-паук / Миньоны" autocomplete="off"/>
               <div id="series-alts" class="title-alts hidden"></div>
             </div>
+          </div>
+
+          <div class="form-row form-row-2 unit-hide">
             <div class="form-group">
               <label>Целевая аудитория</label>
               <input id="product-audience" placeholder="Например: Для детей" autocomplete="off"/>
             </div>
-          </div>
-
-          <div class="form-row form-row-2 unit-hide">
             <div class="form-group">
-              <label>Повод</label>
-              <input id="product-occasion" placeholder="Например: День рождения" autocomplete="off"/>
-            </div>
-            <div class="form-group">
-              <label>Состав <span class="req">*</span></label>
-              <textarea id="product-composition" rows="2" placeholder="Сырой состав, напр.: коробка, 10 шаров, 1 цифра"></textarea>
-              <small class="text-muted">Сначала напишите состав сами — ИИ оформит. «1 цифра» / «2 цифры» → выбор цифры. «коробка» / «… с надписью» → надпись. Праздник: добавьте в конце <code>(1 сентября)</code> или <code>(Новый год)</code> — категория только праздник, в состав клиенту скобки не попадут.</small>
+              <label>Повод <span class="req">*</span></label>
+              <input id="product-occasion" data-required-field="occasion" placeholder="Напр.: На выписку / Крещение / Юбилей" autocomplete="off"/>
             </div>
           </div>
 
@@ -211,8 +265,8 @@
           <details class="ai-fields-fold unit-hide" id="block-ai-text">
             <summary>Текст и SEO (заполняет ИИ) — развернуть при необходимости</summary>
             <div class="form-group">
-              <label>Краткое описание</label>
-              <textarea id="product-short-desc" maxlength="140" rows="2" placeholder="1-2 предложения для карточки"></textarea>
+              <label>Краткое описание <span class="req">*</span></label>
+              <textarea id="product-short-desc" data-required-field="short" maxlength="140" rows="2" placeholder="1-2 предложения для карточки"></textarea>
             </div>
             <div class="form-group">
               <label>Полное описание</label>
@@ -232,7 +286,7 @@
         </section>
 
         <!-- Разделы каталога — свёрнуты по умолчанию -->
-        <section class="card-block unit-hide" id="block-tags">
+        <section class="card-block unit-hide editor-step-2" id="block-tags">
           <details class="ai-fields-fold">
             <summary>Дополнительные разделы каталога</summary>
             <div class="tags-grid">
@@ -245,13 +299,13 @@
         </section>
 
         <!-- Варианты для клиента -->
-        <section class="card-block unit-hide" id="block-options">
+        <section class="card-block unit-hide editor-step-2" id="block-options">
           <h3 class="subsection-title">Варианты для клиента</h3>
           <p class="lead">Включайте только настройки, подходящие этому товару.</p>
 
           <div id="photozone-type-block" class="photozone-type-block hidden">
             <h4 class="photozone-type-title">Тип фотозоны</h4>
-            <p class="text-muted" style="margin:0 0 8px;font-size:13px;">Подставится из состава: «на каркасе» или «на мольберте».</p>
+            <p class="text-muted" style="margin:0 0 8px;font-size:13px;">Тот же выбор, что выше у Studio (каркас / мольберт). Можно уточнить по составу.</p>
             <div class="option-cards photozone-type-cards">
               <label class="option-card">
                 <input type="radio" name="photozone-type" id="pz-type-frame" value="frame" checked/>
@@ -277,24 +331,17 @@
 
           <div class="option-cards">
             <label class="option-card">
-              <input type="checkbox" id="opt-available"/>
-              <span class="option-card-body">
-                <strong>Доступен под заказ</strong>
-                <small>Товар можно заказать, даже если нет в наличии сейчас</small>
-              </span>
-            </label>
-            <label class="option-card">
               <input type="checkbox" id="opt-advance"/>
               <span class="option-card-body">
                 <strong>Заказ заранее за 1–2 дня</strong>
                 <small>Клиент увидит: такую композицию лучше заказывать заранее</small>
               </span>
             </label>
-            <label class="option-card">
+            <label class="option-card" id="opt-number-card">
               <input type="checkbox" id="opt-number"/>
               <span class="option-card-body">
-                <strong>Выбор цифры (0–9)</strong>
-                <small id="opt-number-hint">Клиент выбирает цифру на фольгированном шаре</small>
+                <strong>Выбор цифры (0–9) <span id="opt-number-badge" class="opt-digit-badge hidden"></span></strong>
+                <small id="opt-number-hint">Укажите в составе «1 цифра» или «2 цифры» — галочка и бейдж появятся сами.</small>
               </span>
             </label>
             <label class="option-card">
@@ -323,8 +370,8 @@
 
         <div class="action-bar">
           <button type="button" class="btn outline" onclick="app.cancelProductEdit()">Отмена</button>
-          <button type="button" class="btn secondary" onclick="app.saveDraft()">Сохранить черновиком</button>
-          <button type="button" class="btn primary" onclick="app.publishProduct()">Опубликовать товар</button>
+          <button type="button" class="btn secondary editor-step-2" onclick="app.saveDraft()">Сохранить черновиком</button>
+          <button type="button" class="btn primary editor-step-2" onclick="app.publishProduct()">Опубликовать товар</button>
         </div>
       </form>
     </div>

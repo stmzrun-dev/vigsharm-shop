@@ -14,6 +14,8 @@ Object.assign(app, {
   REFERENCE_HAND_VERSION: 'v4',
   STUDIO_CHECKPOINT_DB: 'vigsharm_studio_pro',
   STUDIO_CHECKPOINT_STORE: 'checkpoints',
+  /** Один незавершённый Master при создании (переживает F5) */
+  STUDIO_ACTIVE_DRAFT_KEY: 'active-create',
   _handPlateCanvas: null,
 
   studioMasterDataUrl: null,
@@ -48,6 +50,9 @@ Object.assign(app, {
     const el = document.getElementById('studio-mode-hint');
     if (!el) return;
     const scene = this.currentProduct?.scene || 'floor';
+    const earlyPz = document.getElementById('photozone-type-early');
+    if (earlyPz) earlyPz.classList.toggle('hidden', scene !== 'photozone');
+
     if (scene === 'handheld_bouquet') {
       el.textContent = 'Режим Manus: букет + женская рука (короткое запястье). Бирки/логотипы на лентах снимаются.';
     } else if (scene === 'wall_only' || scene === 'unit_balloon') {
@@ -55,12 +60,12 @@ Object.assign(app, {
     } else if (scene === 'photozone') {
       const pz = this.getPhotozoneType?.() || 'frame';
       el.textContent = pz === 'easel'
-        ? 'Режим Manus: фотозона на мольберте (~180 см) — крупно в кадре, не мельчить.'
-        : 'Режим Manus: круглая фотозона на каркасе (Ø ~3 м) — почти во весь кадр, максимальный масштаб.';
+        ? 'Режим Manus: фотозона на мольберте (~180 см) — крупно в кадре, не мельчить. Не добавляй мольберт, если его нет на фото.'
+        : 'Режим Manus: круглая фотозона на каркасе (Ø ~3 м) — почти во весь кадр. Не добавляй каркас, если его нет на фото.';
     } else if (scene === 'balloon_figures') {
-      el.textContent = 'Режим Manus: фигуры из шаров — как напольная, но крупный масштаб (≥1 м, не мельчить).';
+      el.textContent = 'Режим Manus: фигуры из шаров — крупный масштаб (≥1 м). Кривые буквы на фольге — блок «Исправить надпись» после Master.';
     } else {
-      el.textContent = 'Режим Manus: AI-пересъёмка напольной сцены. Кривые буквы — «Надпись» из полей.';
+      el.textContent = 'Режим Manus: AI-пересъёмка напольной сцены. Кривые буквы — блок «Исправить надпись» после Master.';
     }
   },
 
@@ -566,6 +571,178 @@ Object.assign(app, {
     this.toast('Checkpoint cutout очищен', 'info');
   },
 
+  collectActiveStudioDraftPayload(extra = {}) {
+    const masterUrl = this.studioMasterDataUrl
+      || this.studioCompare?.master
+      || this.studioMasterBackupUrl
+      || this.currentProduct?.photos?.[0]?.url
+      || null;
+    if (!masterUrl) return null;
+    const priceEl = document.getElementById('product-price');
+    const compEl = document.getElementById('product-composition');
+    return {
+      key: this.STUDIO_ACTIVE_DRAFT_KEY,
+      masterUrl,
+      originalUrl: this.studioSourceUrl || this.studioCompare?.original || null,
+      scene: this.currentProduct?.scene || document.getElementById('scene-select')?.value || 'floor',
+      price: priceEl?.value || '',
+      composition: compEl?.value || '',
+      composition_hints: Array.isArray(this.currentProduct?.composition_hints)
+        ? this.currentProduct.composition_hints
+        : [],
+      digit_from_marker: Number(this.currentProduct?.digit_from_marker) || 0,
+      holiday_only: this.currentProduct?.holiday_only || '',
+      photozone_type: this.getPhotozoneType?.() || 'frame',
+      ts: Date.now(),
+      ...extra
+    };
+  },
+
+  async saveActiveStudioDraft(extra = {}) {
+    if (this._restoringStudioDraft || this._clearingStudioDraft) return null;
+    if (this.currentProduct?.id) return null;
+    const record = this.collectActiveStudioDraftPayload(extra);
+    if (!record) return null;
+    try {
+      const db = await this.openStudioCheckpointDb();
+      await new Promise((resolve, reject) => {
+        const tx = db.transaction(this.STUDIO_CHECKPOINT_STORE, 'readwrite');
+        tx.objectStore(this.STUDIO_CHECKPOINT_STORE).put(record);
+        tx.oncomplete = () => resolve();
+        tx.onerror = () => reject(tx.error);
+      });
+      db.close();
+      return record;
+    } catch (err) {
+      console.warn('[Studio Pro] active draft save failed:', err);
+      return null;
+    }
+  },
+
+  scheduleSaveActiveStudioDraft() {
+    if (this._restoringStudioDraft || this.currentProduct?.id) return;
+    if (!(this.studioMasterDataUrl || this.studioCompare?.master || this.currentProduct?.photos?.[0]?.url)) {
+      return;
+    }
+    clearTimeout(this._activeDraftSaveTimer);
+    this._activeDraftSaveTimer = setTimeout(() => {
+      this.saveActiveStudioDraft?.();
+    }, 400);
+  },
+
+  async loadActiveStudioDraft() {
+    try {
+      const db = await this.openStudioCheckpointDb();
+      const record = await new Promise((resolve, reject) => {
+        const tx = db.transaction(this.STUDIO_CHECKPOINT_STORE, 'readonly');
+        const req = tx.objectStore(this.STUDIO_CHECKPOINT_STORE).get(this.STUDIO_ACTIVE_DRAFT_KEY);
+        req.onsuccess = () => resolve(req.result || null);
+        req.onerror = () => reject(req.error);
+      });
+      db.close();
+      return record;
+    } catch (err) {
+      console.warn('[Studio Pro] active draft load failed:', err);
+      return null;
+    }
+  },
+
+  async clearActiveStudioDraft() {
+    clearTimeout(this._activeDraftSaveTimer);
+    this._clearingStudioDraft = true;
+    try {
+      const db = await this.openStudioCheckpointDb();
+      await new Promise((resolve, reject) => {
+        const tx = db.transaction(this.STUDIO_CHECKPOINT_STORE, 'readwrite');
+        tx.objectStore(this.STUDIO_CHECKPOINT_STORE).delete(this.STUDIO_ACTIVE_DRAFT_KEY);
+        tx.oncomplete = () => resolve();
+        tx.onerror = () => reject(tx.error);
+      });
+      db.close();
+    } catch (err) {
+      console.warn('[Studio Pro] active draft clear failed:', err);
+    } finally {
+      this._clearingStudioDraft = false;
+    }
+  },
+
+  async restoreActiveStudioDraftIfAny() {
+    if (this.currentProduct?.id) return false;
+    const draft = await this.loadActiveStudioDraft();
+    if (!draft?.masterUrl) return false;
+
+    this._restoringStudioDraft = true;
+    try {
+      this.currentProduct = this.currentProduct || {
+        photos: [], scene: 'floor', tags: [], client_options: {}
+      };
+      const scene = draft.scene || 'floor';
+      this.currentProduct.scene = scene;
+      this.currentProduct.composition_hints = Array.isArray(draft.composition_hints)
+        ? draft.composition_hints
+        : [];
+      this.currentProduct.digit_from_marker = Number(draft.digit_from_marker) || 0;
+      this.currentProduct.holiday_only = draft.holiday_only || '';
+
+      const sceneSelect = document.getElementById('scene-select');
+      if (sceneSelect) sceneSelect.value = scene;
+
+      const isRemote = /^https?:\/\//i.test(draft.masterUrl);
+      this.studioMasterDataUrl = draft.masterUrl;
+      this.studioMasterBackupUrl = draft.masterUrl;
+      this.studioMasterBaseUrl = draft.masterUrl;
+      this.studioSourceUrl = draft.originalUrl || null;
+      this.studioCompare = {
+        original: draft.originalUrl || null,
+        master: draft.masterUrl
+      };
+      this.currentProduct.photos = [{
+        id: 'restored_master',
+        url: draft.masterUrl,
+        uploaded: isRemote,
+        type: 'master'
+      }];
+
+      if (draft.photozone_type) this.setPhotozoneType?.(draft.photozone_type);
+
+      const priceEl = document.getElementById('product-price');
+      if (priceEl && draft.price != null && draft.price !== '') {
+        priceEl.value = draft.price;
+        this.syncBudgetFromPrice?.();
+      }
+      const compEl = document.getElementById('product-composition');
+      if (compEl && draft.composition != null) {
+        compEl.value = draft.composition;
+      }
+
+      this.renderPhotos?.();
+      this.renderStudioCompare?.();
+      this.showSignTextEditor?.();
+      this.setStudioBusy?.(false);
+      this.showSourceWorkPreview?.(draft.masterUrl, 'Master — восстановлен после обновления');
+      this.syncStudioModeHint?.();
+      this.syncEditorSteps?.();
+      this.syncAIFillGate?.();
+      this.syncAdvanceOrderFromScene?.();
+      this.syncRequiredFieldHighlights?.();
+      this.refreshStudioCheckpointUi?.();
+
+      const statusEl = document.getElementById('studio-status');
+      if (statusEl) {
+        statusEl.textContent = '✅ Master восстановлен после обновления страницы — можно продолжить цену + состав → ИИ';
+      }
+
+      this.switchTab?.('create');
+      this.toast('Master восстановлен после обновления', 'success');
+      return true;
+    } catch (err) {
+      console.warn('[Studio Pro] active draft restore failed:', err);
+      return false;
+    } finally {
+      this._restoringStudioDraft = false;
+    }
+  },
+
   async refreshStudioCheckpointUi() {
     const retryBtn = document.getElementById('studio-retry-btn');
     const src = this.studioSourceUrl || this.studioCompare?.original;
@@ -658,17 +835,23 @@ Object.assign(app, {
     this.studioCompare.master = masterImageUrl;
     this.renderStudioCompare();
     this.hidePlacementEditor(true);
-    // Блок «Надпись на табличку» отключён
+    this.showSignTextEditor();
 
     this.currentProduct.photos = [
       { id: Date.now() + '_master', url: masterImageUrl, uploaded: false, type: 'master' }
     ];
     this.renderPhotos();
+    this.setStudioBusy?.(false);
+    this.showSourceWorkPreview?.(masterImageUrl, 'Master — сверьте состав');
+    this.syncEditorSteps?.();
 
-    if (statusEl) statusEl.textContent = '✅ Master готов — укажите цену и состав, затем ИИ';
+    if (statusEl) statusEl.textContent = '✅ Master готов — при кривых буквах: «Исправить надпись», затем цена + состав → ИИ';
     this.toast('Master готов — одно фото в карточке', 'success');
     this.syncAIFillGate?.();
-    document.getElementById('studio-compare')?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    this.saveActiveStudioDraft?.();
+    document.getElementById('block-essentials')?.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
+      || document.getElementById('sign-text-editor')?.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
+      || document.getElementById('studio-compare')?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   },
 
   async callCompositeMaster(imageUrl, scene, statusEl) {
@@ -728,10 +911,13 @@ Object.assign(app, {
     try {
       const scene = this.currentProduct?.scene || 'floor';
       if (statusEl) statusEl.textContent = '↻ Новый Master… предыдущий сохранён до успеха';
+      this.setStudioBusy?.(true);
+      this.showSourceWorkPreview?.(src, 'Оригинал (пересоздание Master) — пишите состав');
       const masterImageUrl = await this.createMasterForScene(src, scene, statusEl);
       this.finishMasterWorkflow(masterImageUrl, statusEl);
     } catch (err) {
       console.error('[Studio Pro] retry', err);
+      this.setStudioBusy?.(false);
       if (keptMaster) {
         this.studioMasterDataUrl = keptMaster;
         this.studioCompare.master = keptMaster;
@@ -743,6 +929,7 @@ Object.assign(app, {
         this.toast(err.message, 'error');
       }
     } finally {
+      this.setStudioBusy?.(false);
       if (btn) btn.disabled = false;
       await this.refreshStudioCheckpointUi();
     }
@@ -840,6 +1027,9 @@ Object.assign(app, {
 
       this.studioSourceUrl = imageUrl;
       this.studioCompare.original = imageUrl;
+      this.setStudioBusy?.(true);
+      this.showSourceWorkPreview?.(imageUrl, 'Оригинал (идёт Master) — пишите состав');
+      document.getElementById('block-essentials')?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 
       const masterImageUrl = await this.createMasterForScene(imageUrl, scene, statusEl);
       this.finishMasterWorkflow(masterImageUrl, statusEl);
@@ -847,9 +1037,11 @@ Object.assign(app, {
       console.error('[Studio Pro] ❌', error);
       statusEl.textContent = '❌ Ошибка: ' + error.message;
       this.toast(error.message, 'error');
+      this.setStudioBusy?.(false);
     } finally {
       btn.disabled = false;
       btn.textContent = '✨ Создать Master';
+      this.setStudioBusy?.(false);
       await this.refreshStudioCheckpointUi();
     }
   },
@@ -1159,18 +1351,343 @@ Object.assign(app, {
   },
 
   showSignTextEditor() {
-    this.hideSignTextEditor();
+    const editor = document.getElementById('sign-text-editor');
+    if (!editor) return;
+    editor.classList.remove('hidden');
+    editor.open = false; // свёрнут — открывается кликом по заголовку
+  },
+
+  collapseSignTextEditor() {
+    const editor = document.getElementById('sign-text-editor');
+    if (editor) editor.open = false;
   },
 
   hideSignTextEditor() {
     const editor = document.getElementById('sign-text-editor');
-    if (editor) editor.classList.add('hidden');
+    if (editor) {
+      editor.classList.add('hidden');
+      editor.open = false;
+    }
     this._signDrag = null;
+  },
+
+  /**
+   * Авто: detect → кроп звезды → gpt in-place на кропе → вклейка в ПОЛНЫЙ Master.
+   * Кроп никогда не становится Master целиком.
+   */
+  async fixBalloonInscription() {
+    const masterUrl = this.studioMasterDataUrl || this.studioCompare?.master || this.studioMasterBackupUrl;
+    if (!masterUrl) {
+      this.toast('Сначала создайте Master', 'error');
+      return;
+    }
+    // Снимок полной фигуры — только в него вклеиваем; кроп сам по себе не коммитим
+    const masterBase = masterUrl;
+
+    const ta = document.getElementById('sign-text-exact');
+    const exact = String(ta?.value || '').replace(/\r\n/g, '\n').trim();
+    if (!exact) {
+      this.toast('Впишите правильный текст надписи', 'error');
+      ta?.focus();
+      return;
+    }
+
+    const lines = exact.split('\n').map((l) => l.trim()).filter(Boolean);
+    const btn = document.getElementById('sign-text-apply-btn');
+    const statusEl = document.getElementById('studio-status');
+    if (btn) btn.disabled = true;
+
+    const startFixCrop = async (imageUrl, prefer) => {
+      const res = await fetch(`${this.workerUrl}/api/studio/sign-text`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', ...this.authHeaders() },
+        body: JSON.stringify({
+          image_url: imageUrl,
+          text: exact,
+          line1: lines[0] || '',
+          line2: lines[1] || '',
+          line3: lines[2] || '',
+          mode: 'fix',
+          resolution: '2K',
+          prefer
+        })
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || !data.ok || !data.job_id) {
+        throw new Error(data.error || `Sign-fix HTTP ${res.status}`);
+      }
+      return data;
+    };
+
+    const runFixCrop = async (imageUrl) => {
+      try {
+        if (statusEl) statusEl.textContent = '✏️ 3/4 Правлю буквы на кропе (gpt, in-place)…';
+        const data = await startFixCrop(imageUrl, 'quality');
+        return await this.pollStudioStatusSimple(data.job_id, {
+          maxAttempts: 100,
+          statusEl,
+          label: `кроп ${data.model || 'gpt'}`
+        });
+      } catch (firstErr) {
+        const msg = String(firstErr?.message || firstErr || '');
+        if (!/таймаут|timeout|failed|отклонила|Status check/i.test(msg)) throw firstErr;
+        if (statusEl) statusEl.textContent = '↻ Кроп: banana…';
+        this.toast('gpt на кропе не успел — banana', 'info');
+        const data = await startFixCrop(imageUrl, 'banana');
+        return await this.pollStudioStatusSimple(data.job_id, {
+          maxAttempts: 100,
+          statusEl,
+          label: `кроп ${data.model || 'banana'}`
+        });
+      }
+    };
+
+    try {
+      if (statusEl) statusEl.textContent = '☁️ Загрузка Master…';
+      const httpsMaster = await this.ensureHttpsPhotoUrl(masterBase, 'studio-sign-src.webp');
+
+      if (statusEl) statusEl.textContent = '🔎 1/4 Ищу звезду / надпись…';
+      const detRes = await fetch(`${this.workerUrl}/api/studio/sign-detect`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', ...this.authHeaders() },
+        body: JSON.stringify({ image_url: httpsMaster })
+      });
+      const det = await detRes.json().catch(() => ({}));
+      if (!detRes.ok || !det.ok || !det.region) {
+        throw new Error(det.error || 'Не удалось найти область надписи');
+      }
+      let region = { ...det.region };
+      // Защита: область не больше ~36% кадра
+      if (region.w > 0.42 || region.h > 0.42) {
+        const cx = region.x + region.w / 2;
+        const cy = region.y + region.h / 2;
+        region.w = Math.min(region.w, 0.36);
+        region.h = Math.min(region.h, 0.36);
+        region.x = Math.max(0, Math.min(1 - region.w, cx - region.w / 2));
+        region.y = Math.max(0, Math.min(1 - region.h, cy - region.h / 2));
+      }
+      console.log('[SignText] region', region, det.surface);
+
+      if (statusEl) statusEl.textContent = '✂️ 2/4 Кроп и увеличение…';
+      const crop = await this.cropSignRegion(masterBase, region, { pad: 0.12, targetMin: 1024 });
+      if (crop.sw / (await this._imageSize(masterBase)).w > 0.55) {
+        throw new Error('Область надписи слишком большая — пересоздайте Master и попробуйте снова');
+      }
+      const cropHttps = await this.ensureHttpsPhotoUrl(crop.dataUrl, 'studio-sign-crop.webp');
+
+      let fixedCrop = await runFixCrop(cropHttps);
+
+      // Если модель «пересняла» звезду на бежевом — не вклеиваем, пробуем banana ещё раз или стоп
+      if (await this.signCropLooksRecomposed(crop.dataUrl, fixedCrop)) {
+        console.warn('[SignText] recomposed crop from gpt — retry banana');
+        if (statusEl) statusEl.textContent = '↻ Модель пересняла кроп — повтор banana…';
+        const data = await startFixCrop(cropHttps, 'banana');
+        fixedCrop = await this.pollStudioStatusSimple(data.job_id, {
+          maxAttempts: 100,
+          statusEl,
+          label: 'кроп banana'
+        });
+        if (await this.signCropLooksRecomposed(crop.dataUrl, fixedCrop)) {
+          throw new Error('Модель снова пересняла звезду вместо правки букв. Пересоздайте Master и попробуйте ещё раз.');
+        }
+      }
+
+      if (statusEl) statusEl.textContent = '📎 4/4 Вклеиваю в полный Master…';
+      const merged = await this.pasteSignCrop(masterBase, fixedCrop, crop.sx, crop.sy, crop.sw, crop.sh, { feather: true });
+
+      const baseSize = await this._imageSize(masterBase);
+      const mergedSize = await this._imageSize(merged);
+      if (mergedSize.w !== baseSize.w || mergedSize.h !== baseSize.h) {
+        throw new Error('Сбой вклейки: размер Master изменился');
+      }
+
+      this.commitMasterImage(merged, '✅ Надпись вклеена в полную фигуру — проверьте Master');
+      this.showSignTextEditor();
+      this.toast('Надпись обновлена', 'success');
+    } catch (err) {
+      console.error('[SignText]', err);
+      if (statusEl) statusEl.textContent = '❌ Надпись: ' + (err.message || err);
+      this.toast('Не удалось исправить надпись: ' + (err.message || err), 'error');
+    } finally {
+      if (btn) btn.disabled = false;
+    }
+  },
+
+  async _imageSize(src) {
+    const img = await this.loadImage(src);
+    return { w: img.naturalWidth || img.width, h: img.naturalHeight || img.height };
+  },
+
+  /** Эвристика: углы стали плоским бежевым студийным фоном, а в исходном кропе были пёстрые. */
+  async signCropLooksRecomposed(originalCropSrc, fixedCropSrc) {
+    const sampleCorners = async (src) => {
+      const img = await this.loadImage(src);
+      const W = img.naturalWidth || img.width;
+      const H = img.naturalHeight || img.height;
+      const c = document.createElement('canvas');
+      c.width = W;
+      c.height = H;
+      const ctx = c.getContext('2d');
+      ctx.drawImage(img, 0, 0);
+      const pts = [
+        [2, 2], [W - 3, 2], [2, H - 3], [W - 3, H - 3],
+        [Math.floor(W / 2), 2], [Math.floor(W / 2), H - 3]
+      ];
+      return pts.map(([x, y]) => {
+        const d = ctx.getImageData(x, y, 1, 1).data;
+        return [d[0], d[1], d[2]];
+      });
+    };
+
+    const variance = (cols) => {
+      const mean = cols.reduce((a, p) => [a[0] + p[0], a[1] + p[1], a[2] + p[2]], [0, 0, 0])
+        .map((v) => v / cols.length);
+      let s = 0;
+      for (const p of cols) {
+        s += (p[0] - mean[0]) ** 2 + (p[1] - mean[1]) ** 2 + (p[2] - mean[2]) ** 2;
+      }
+      return s / cols.length;
+    };
+
+    const isFlatBeige = (cols) => {
+      const mean = cols.reduce((a, p) => [a[0] + p[0], a[1] + p[1], a[2] + p[2]], [0, 0, 0])
+        .map((v) => v / cols.length);
+      // тёплый светлый беж студии
+      const beige = mean[0] > 170 && mean[1] > 160 && mean[2] > 140
+        && Math.abs(mean[0] - mean[1]) < 35;
+      return beige && variance(cols) < 180;
+    };
+
+    try {
+      const before = await sampleCorners(originalCropSrc);
+      const after = await sampleCorners(fixedCropSrc);
+      const beforeVar = variance(before);
+      const afterFlat = isFlatBeige(after);
+      // Исходный кроп был «живым», результат — плоская студия по краям → пересъёмка
+      if (beforeVar > 400 && afterFlat) return true;
+      // Или сильно упала пестрота углов
+      if (beforeVar > 500 && variance(after) < beforeVar * 0.15) return true;
+      return false;
+    } catch (e) {
+      console.warn('[SignText] recomposed check failed', e);
+      return false;
+    }
+  },
+
+  /** Вырезать область надписи и увеличить для ИИ (буквы крупнее → меньше каши). */
+  async cropSignRegion(src, region, opts = {}) {
+    const pad = Number(opts.pad) || 0.15;
+    const targetMin = Number(opts.targetMin) || 1024;
+    const img = await this.loadImage(src);
+    const W = img.naturalWidth || img.width;
+    const H = img.naturalHeight || img.height;
+
+    let bw = Math.max(8, (Number(region.w) || 0.2) * W);
+    let bh = Math.max(8, (Number(region.h) || 0.2) * H);
+    let bx = Math.max(0, (Number(region.x) || 0) * W);
+    let by = Math.max(0, (Number(region.y) || 0) * H);
+
+    const px = bw * pad;
+    const py = bh * pad;
+    bx = Math.max(0, bx - px);
+    by = Math.max(0, by - py);
+    bw = Math.min(W - bx, bw + px * 2);
+    bh = Math.min(H - by, bh + py * 2);
+
+    const scale = Math.max(1, targetMin / Math.max(bw, bh));
+    const outW = Math.max(64, Math.round(bw * scale));
+    const outH = Math.max(64, Math.round(bh * scale));
+    const c = document.createElement('canvas');
+    c.width = outW;
+    c.height = outH;
+    const ctx = c.getContext('2d');
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = 'high';
+    ctx.drawImage(img, bx, by, bw, bh, 0, 0, outW, outH);
+
+    return {
+      dataUrl: c.toDataURL('image/webp', this.WEBP_QUALITY ?? 1.0),
+      sx: bx,
+      sy: by,
+      sw: bw,
+      sh: bh,
+      outW,
+      outH
+    };
+  },
+
+  /** Вклеить исправленный кроп обратно в Master в исходные координаты (с лёгким feather). */
+  async pasteSignCrop(baseSrc, cropSrc, sx, sy, sw, sh, opts = {}) {
+    const base = await this.loadImage(baseSrc);
+    const crop = await this.loadImage(cropSrc);
+    const W = base.naturalWidth || base.width;
+    const H = base.naturalHeight || base.height;
+    const c = document.createElement('canvas');
+    c.width = W;
+    c.height = H;
+    const ctx = c.getContext('2d');
+    ctx.drawImage(base, 0, 0);
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = 'high';
+
+    const cw = crop.naturalWidth || crop.width;
+    const ch = crop.naturalHeight || crop.height;
+    const dw = Math.max(1, Math.round(sw));
+    const dh = Math.max(1, Math.round(sh));
+    const dx = Math.round(sx);
+    const dy = Math.round(sy);
+
+    if (opts.feather === false) {
+      ctx.drawImage(crop, 0, 0, cw, ch, dx, dy, dw, dh);
+      return c.toDataURL('image/webp', this.WEBP_QUALITY ?? 1.0);
+    }
+
+    const tmp = document.createElement('canvas');
+    tmp.width = dw;
+    tmp.height = dh;
+    const tctx = tmp.getContext('2d');
+    tctx.drawImage(crop, 0, 0, cw, ch, 0, 0, dw, dh);
+
+    const fade = Math.max(2, Math.round(Math.min(dw, dh) * 0.05));
+    const mask = document.createElement('canvas');
+    mask.width = dw;
+    mask.height = dh;
+    const mctx = mask.getContext('2d');
+    mctx.fillStyle = '#fff';
+    mctx.fillRect(0, 0, dw, dh);
+    mctx.globalCompositeOperation = 'destination-out';
+    let g = mctx.createLinearGradient(0, 0, fade, 0);
+    g.addColorStop(0, 'rgba(0,0,0,1)');
+    g.addColorStop(1, 'rgba(0,0,0,0)');
+    mctx.fillStyle = g;
+    mctx.fillRect(0, 0, fade, dh);
+    g = mctx.createLinearGradient(dw, 0, dw - fade, 0);
+    g.addColorStop(0, 'rgba(0,0,0,1)');
+    g.addColorStop(1, 'rgba(0,0,0,0)');
+    mctx.fillStyle = g;
+    mctx.fillRect(dw - fade, 0, fade, dh);
+    g = mctx.createLinearGradient(0, 0, 0, fade);
+    g.addColorStop(0, 'rgba(0,0,0,1)');
+    g.addColorStop(1, 'rgba(0,0,0,0)');
+    mctx.fillStyle = g;
+    mctx.fillRect(0, 0, dw, fade);
+    g = mctx.createLinearGradient(0, dh, 0, dh - fade);
+    g.addColorStop(0, 'rgba(0,0,0,1)');
+    g.addColorStop(1, 'rgba(0,0,0,0)');
+    mctx.fillStyle = g;
+    mctx.fillRect(0, dh - fade, dw, fade);
+
+    tctx.globalCompositeOperation = 'destination-in';
+    tctx.drawImage(mask, 0, 0);
+    ctx.drawImage(tmp, dx, dy);
+
+    return c.toDataURL('image/webp', this.WEBP_QUALITY ?? 1.0);
   },
 
   commitMasterImage(dataUrl, statusMsg) {
     this.studioMasterDataUrl = dataUrl;
     this.studioMasterBackupUrl = dataUrl;
+    this.studioMasterBaseUrl = dataUrl;
     this.studioCompare.master = dataUrl;
     this.renderStudioCompare();
     this.currentProduct.photos = [
@@ -1180,6 +1697,7 @@ Object.assign(app, {
     const studioStatus = document.getElementById('studio-status');
     if (studioStatus) studioStatus.textContent = statusMsg;
     this.syncAIFillGate?.();
+    this.saveActiveStudioDraft?.();
   },
 
   /** Map square-stage frame (object-fit:contain) → image pixel rect */

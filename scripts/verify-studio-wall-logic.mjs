@@ -42,11 +42,12 @@ assert(adminJs.includes("value: 'balloon_figures'"), 'balloon_figures in SCENES'
 assert(studio.includes("'balloon_figures'"), 'balloon_figures in studio modes');
 assert(!studio.includes('prepareSourceForRephotograph'), 'no restore before rephotograph');
 assert(!studio.includes('applySignPatchFromOriginal'), 'old sign patch removed');
-assert(!studio.includes('/api/studio/sign-text'), 'admin does not call AI sign-text');
-assert(!studio.includes('softWashPlaqueDisk'), 'plaque wash removed with sign UI');
+assert(studio.includes('/api/studio/sign-text'), 'admin calls AI sign-text');
+assert(studio.includes('fixBalloonInscription'), 'fixBalloonInscription wired');
+assert(!studio.includes('softWashPlaqueDisk'), 'plaque wash removed with old sign UI');
 assert(studio.includes('studioMasterBaseUrl'), 'Master Base kept for re-render');
-assert(!studio.includes('async applySignTextOnMaster'), 'sign apply removed');
-assert(studio.includes('showSignTextEditor'), 'sign editor stub remains');
+assert(studio.includes('showSignTextEditor'), 'sign editor show helper');
+assert(worker.includes('foil STAR') || worker.includes('foil star'), 'sign-text supports foil star');
 assert(worker.includes('extra balloons'), 'rephotograph forbids extra balloons');
 assert(studio.includes('studioMasterBackupUrl'), 'keep Master on failed retry');
 assert(worker.includes("status === 'failed'"), 'status returns failure detail');
@@ -75,8 +76,8 @@ assert(studio.includes('fallback banana') || studio.includes('fallback nano-bana
 assert(!studio.includes('drawHandPlateFaded(finalCtx'), 'hand plate not used in compose');
 
 assert(html.includes('studio-mode-hint'), 'mode hint in HTML');
-assert(!html.includes('Надпись на табличку'), 'sign-text UI removed');
-assert(!html.includes('Нанести надпись'), 'sign apply button removed');
+assert(html.includes('sign-text-editor'), 'sign-text UI present');
+assert(html.includes('Исправить надпись'), 'sign fix button label');
 assert(html.includes('до 1 000 ₽ — Небольшой сюрприз'), 'budget select 6 options');
 assert(adminJs.includes('articlePrefixFor'), 'article prefixes by category');
 assert(adminJs.includes('assignFreshArticle'), 'fresh article on save');

@@ -10,6 +10,10 @@ const TAGS = {
 
 /** Праздничные категории: в составе пишите метку в скобках, напр. (1 сентября) — в состав клиенту не попадёт. */
 const HOLIDAY_CATEGORIES = ['Выпускной', 'Новый год', '14 февраля', '23 февраля', '8 марта', '1 сентября'];
+/** Тематики для метки в скобках: аудитория / повод / праздник (не тип изделия). */
+const THEME_CATEGORIES = [...TAGS.forWho, ...TAGS.occasion, ...TAGS.dates];
+/** Пока не ставим на карточки — отдельный раздел позже */
+const DEFERRED_TYPE_TAGS = ['Шар-сюрприз'];
 
 const SCENES = [
   { value: 'auto', title: '🤖 Автоматически', desc: 'ИИ определит по содержимому' },
@@ -79,6 +83,7 @@ const app = {
     this.setupSceneSelector();
     this.syncStudioModeHint?.();
     this.setupAIFillGate?.();
+    this.setupRequiredFieldHighlights?.();
     this.setupFormEvents();
     this.renderCategories();
     this.renderTags();
@@ -86,6 +91,7 @@ const app = {
     this.wireFilters();
     this.switchTab('products');
     this.loadProducts();
+    this.restoreActiveStudioDraftIfAny?.();
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
         if (typeof this.closeLightbox === 'function') this.closeLightbox();
@@ -119,14 +125,23 @@ const app = {
     const priceEl = document.getElementById('product-price');
     if (priceEl && !priceEl.dataset.budgetWired) {
       priceEl.dataset.budgetWired = '1';
-      priceEl.addEventListener('change', () => this.syncBudgetFromPrice?.());
-      priceEl.addEventListener('input', () => this.syncBudgetFromPrice?.());
+      priceEl.addEventListener('change', () => {
+        this.syncBudgetFromPrice?.();
+        this.scheduleSaveActiveStudioDraft?.();
+      });
+      priceEl.addEventListener('input', () => {
+        this.syncBudgetFromPrice?.();
+        this.scheduleSaveActiveStudioDraft?.();
+      });
     }
 
     const compEl = document.getElementById('product-composition');
     if (compEl && !compEl.dataset.optsWired) {
       compEl.dataset.optsWired = '1';
-      const syncOpts = () => this.syncAdvanceOrderFromScene?.();
+      const syncOpts = () => {
+        this.syncAdvanceOrderFromScene?.();
+        this.scheduleSaveActiveStudioDraft?.();
+      };
       compEl.addEventListener('input', syncOpts);
       compEl.addEventListener('change', syncOpts);
     }
@@ -177,6 +192,7 @@ const app = {
       }
       if (titleEl) titleEl.placeholder = 'Например: Тёмный рыцарь';
     }
+    this.syncEditorSteps?.();
   },
 
   wireFilters() {
@@ -583,7 +599,10 @@ const app = {
   },
 
   renderCategories() {
-    const options = CATEGORIES.map(cat => `<option value="${cat}">${cat}</option>`).join('');
+    const deferred = (typeof DEFERRED_TYPE_TAGS !== 'undefined' && DEFERRED_TYPE_TAGS) || ['Шар-сюрприз'];
+    const options = CATEGORIES
+      .filter((cat) => !deferred.includes(cat))
+      .map(cat => `<option value="${cat}">${cat}</option>`).join('');
     const filter = document.getElementById('filter-category');
     if (filter) filter.innerHTML = '<option value="">Все категории</option>' + options;
     const formSelect = document.getElementById('product-category');
@@ -594,7 +613,8 @@ const app = {
     const toast = document.getElementById('toast');
     toast.textContent = msg;
     toast.className = `toast show ${type}`;
-    setTimeout(() => toast.className = `toast ${type}`, 3000);
+    const ms = (type === 'info' && String(msg).length > 50) ? 7000 : 3000;
+    setTimeout(() => toast.className = `toast ${type}`, ms);
   },
 
   // === Сохранение / публикация ===
@@ -628,6 +648,18 @@ const app = {
       this.toast('Выберите категорию', 'error');
       document.getElementById('product-category')?.focus();
       return;
+    }
+
+    if (status === 'published') {
+      const gaps = typeof this.getPublishSoftGaps === 'function' ? this.getPublishSoftGaps() : [];
+      if (gaps.length && !this._publishGapsAck) {
+        this._publishGapsAck = true;
+        this.toast(
+          `Не заполнено: ${gaps.join(', ')}. Нажмите «Опубликовать» ещё раз, чтобы продолжить`,
+          'info'
+        );
+        return;
+      }
     }
 
     // Новый товар: всегда свежий свободный артикул (избегаем UNIQUE)
@@ -699,6 +731,7 @@ const app = {
         isEdit ? 'Товар обновлён' : (status === 'published' ? 'Товар опубликован!' : 'Черновик сохранён'),
         'success'
       );
+      this._publishGapsAck = false;
       this.resetForm();
       this.switchTab('products');
       this.loadProducts();
@@ -713,6 +746,7 @@ const app = {
   },
 
   async saveDraft() {
+    this._publishGapsAck = false;
     return this.saveProduct('draft');
   },
 

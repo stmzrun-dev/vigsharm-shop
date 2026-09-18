@@ -2,6 +2,46 @@
   "ok": true,
   "products": [
     {
+      "id": "3148cc27-803e-449e-a492-76b33aa86067",
+      "title": "Синий комплимент",
+      "article": "BQT-002",
+      "price": 2000,
+      "short_description": "Букет из синих и серебряных фольгированных сердец с поздравительными надписями.",
+      "full_description": "Элегантный букет из фольгированных шаров-сердец в синих и серебряных тонах с тёплыми пожеланиями. Оформлен атласными лентами и упакован в декоративную обёртку.",
+      "composition": [
+        "букет из шаров с надписями"
+      ],
+      "category": "Букет из шаров",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": "1 000–2 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Букет из шаров с надписями в Армавире — VigSharm",
+      "seo_description": "Букет из синих и серебряных фольгированных сердец с поздравительными надписями. Доставка воздушных шаров в Армавире.",
+      "slug": "siniy-kompliment",
+      "scene": "handheld_bouquet",
+      "tags": [
+        "Букет из шаров"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1789758032/vigsharm-products/fngnpj1uy9ncai6t9nny.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789758032/vigsharm-products/fngnpj1uy9ncai6t9nny.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-18T19:01:34.440Z",
+      "updated_at": "2026-09-18T19:01:34.440Z"
+    },
+    {
       "id": "a340189b-0189-4ec9-ba10-73237cf7c959",
       "title": "Медвежья нежность",
       "article": "BAB-002",

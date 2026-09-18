@@ -2,6 +2,316 @@
   "ok": true,
   "products": [
     {
+      "id": "700e3716-eaf8-44bc-8502-1e5dcdc6d138",
+      "title": "Гоночный экипаж",
+      "article": "BOY-009",
+      "price": 4000,
+      "short_description": "Яркий букет с красной цифрой, двумя машинками и разноцветными шарами.",
+      "full_description": "Букет включает красную фольгированную цифру, фигуры красной и синей машинок, синюю звезду, шар с конфетти и 8 латексных шаров.",
+      "composition": [
+        "фольгированная цифра",
+        "2 фольгированные фигуры машинок",
+        "фольгированная звезда",
+        "шар с конфетти",
+        "8 латексных шаров"
+      ],
+      "category": "Для мальчика",
+      "character": "Молния Маккуин",
+      "age_group": "Для детей",
+      "budget": "3 500–5 000 ₽",
+      "series_name": "Тачки",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Букет из шаров с Молнией Маккуином — Армавир",
+      "seo_description": "Яркий букет из шаров с персонажами Тачек, цифрой и разноцветными шарами. Доставка воздушных шаров в Армавире.",
+      "slug": "gonochnyy-ekipazh",
+      "scene": "wall_only",
+      "tags": [
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1789735181/vigsharm-products/mo0ne9tzdnuymioznpgn.jpg"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789735181/vigsharm-products/mo0ne9tzdnuymioznpgn.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-18T12:57:04.255Z",
+      "updated_at": "2026-09-18T12:57:04.255Z"
+    },
+    {
+      "id": "c37e64bb-3d9d-470c-b4b6-5872053f5c44",
+      "title": "Ушастый сюрприз",
+      "article": "GRL-009",
+      "price": 2920,
+      "short_description": "Нежная композиция с милым зайчиком в пастельных тонах для маленькой именинницы.",
+      "full_description": "Букет из шаров с фольгированной фигурой зайчика, цифрой и латексными шарами в бежево-розовой гамме. Идеально для детского праздника.",
+      "composition": [
+        "фольгированная цифра",
+        "фольгированная фигура зайчика",
+        "шар с конфетти",
+        "6 латексных шаров"
+      ],
+      "category": "Для девочки",
+      "character": null,
+      "age_group": "Для малышей",
+      "budget": "2 000–3 500 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Букет из шаров с зайчиком для девочки в Армавире",
+      "seo_description": "Нежный букет из шаров с фольгированным зайчиком, цифрой и латексными шарами в пастельных тонах. Доставка воздушных шаров по Армавиру от VigSharm.",
+      "slug": "ushastyj-syurpriz",
+      "scene": "wall_only",
+      "tags": [
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1789734229/vigsharm-products/klwijppmaaoxkequm9ks.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789734229/vigsharm-products/klwijppmaaoxkequm9ks.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-18T12:24:34.967Z",
+      "updated_at": "2026-09-18T12:24:34.967Z"
+    },
+    {
+      "id": "a6a5d533-7386-40cb-aee7-414613b6e55d",
+      "title": "Веселая проказница",
+      "article": "GRL-008",
+      "price": 2410,
+      "short_description": "Фольгированная фигура Маши с букетом розовых шаров и сердцем с индивидуальной надписью.",
+      "full_description": "Букет включает фольгированную фигуру Маши в фиолетовом платке, сердце с персональной надписью и шары в розовых оттенках. Яркая композиция для девочки.",
+      "composition": [
+        "фольгированная фигура Маша",
+        "фольгированное сердце с индивидуальной надписью",
+        "3 хромированных шара",
+        "3 латексных шара"
+      ],
+      "category": "Для девочки",
+      "character": null,
+      "age_group": "Для малышей",
+      "budget": "2 000–3 500 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Букет из шаров с Машей — Армавир | VigSharm",
+      "seo_description": "Яркий букет из шаров с фигурой Маши, сердцем с надписью и розовыми шарами. Доставка воздушных шаров в Армавире.",
+      "slug": "veselaya-prokaznica",
+      "scene": "wall_only",
+      "tags": [
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1789733474/vigsharm-products/dup3ym6ufbnqsk53pshi.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789733474/vigsharm-products/dup3ym6ufbnqsk53pshi.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-18T12:14:54.029Z",
+      "updated_at": "2026-09-18T12:14:54.029Z"
+    },
+    {
+      "id": "f0f2cb63-9af4-4ef6-b05a-d290062eb9b2",
+      "title": "Сиреневый комплимент",
+      "article": "BQT-001",
+      "price": 2000,
+      "short_description": "Букет из семи фольгированных сердец с добрыми надписями в сиреневых оттенках.",
+      "full_description": "Букет из семи фольгированных сердец насыщенного сиренево-фиолетового цвета с тёплыми пожеланиями. Оформлен в нежную упаковку с атласными лентами.",
+      "composition": [
+        "букет из шаров с надписями"
+      ],
+      "category": "Букет из шаров",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": "1 000–2 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Букет из сиреневых шаров с надписями — Армавир",
+      "seo_description": "Букет из семи фольгированных сердец с добрыми пожеланиями в сиренево-фиолетовых тонах. Нежное оформление с атласными лентами. Доставка по Армавиру.",
+      "slug": "sirenevyj-kompliment",
+      "scene": "handheld_bouquet",
+      "tags": [
+        "Букет из шаров"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1789732999/vigsharm-products/xuutxzq0acntqzmceyw6.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789732999/vigsharm-products/xuutxzq0acntqzmceyw6.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-18T12:05:17.297Z",
+      "updated_at": "2026-09-18T12:05:17.297Z"
+    },
+    {
+      "id": "a744f79d-3d46-4cc7-aa17-8a6d24847580",
+      "title": "Галантный кавалер",
+      "article": "FIG-003",
+      "price": 6000,
+      "short_description": "Фигура из шаров в виде усатого джентльмена с цветком и золотой звездой с надписью.",
+      "full_description": "Фигура из шаров изображает усатого кавалера в красном костюме с сердечками, который держит цветок и золотую звезду с надписью. Яркая напольная композиция ручной работы для любого праздника.",
+      "composition": [
+        "фигура из шаров",
+        "звезда с надписью"
+      ],
+      "category": "Фигуры из шаров",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "5 000–8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Галантный кавалер — фигура из шаров в Армавире | VigSharm",
+      "seo_description": "Фигура из шаров «Галантный кавалер» — усатый джентльмен с цветком и звездой с надписью. Напольная композиция ручной работы в Армавире.",
+      "slug": "galantnyy-kavaler",
+      "scene": "balloon_figures",
+      "tags": [
+        "Фигуры из шаров"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1789732430/vigsharm-products/mxazflqlwir6cv3n3s10.webp"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789732430/vigsharm-products/mxazflqlwir6cv3n3s10.webp",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-18T11:57:30.456Z",
+      "updated_at": "2026-09-18T11:57:30.456Z"
+    },
+    {
+      "id": "296596ad-e0e3-4c84-ad05-82372dd4d778",
+      "title": "Школа волшебства",
+      "article": "BOY-008",
+      "price": 4000,
+      "short_description": "Две напольные композиции с золотой цифрой и фольгированной фигурой юного волшебника в очках.",
+      "full_description": "Композиция включает золотую цифру и фольгированную фигуру персонажа в чёрной мантии с красными акцентами. Основание выполнено из бордовых и золотых латексных шаров.",
+      "composition": [
+        "2 напольные композиции (цифра)"
+      ],
+      "category": "Для мальчика",
+      "character": null,
+      "age_group": "Для детей",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Напольные композиции с Гарри Поттером — Армавир | VigSharm",
+      "seo_description": "Две напольные композиции с золотой цифрой и фигурой Гарри Поттера в Армавире. Основание из бордовых и золотых шаров. Доставка по городу.",
+      "slug": "shkola-volshebstva",
+      "scene": "floor",
+      "tags": [
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1789731877/vigsharm-products/xrbvnet3vngr2ixbn1fl.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789731877/vigsharm-products/xrbvnet3vngr2ixbn1fl.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-18T11:46:07.856Z",
+      "updated_at": "2026-09-18T11:46:07.856Z"
+    },
+    {
+      "id": "9f92848e-1ee8-4747-be0e-ea61521301f0",
+      "title": "Мишкины объятия",
+      "article": "BOY-007",
+      "price": 5960,
+      "short_description": "Две напольные композиции с фольгированным мишкой в спокойных голубых и кремовых тонах.",
+      "full_description": "Набор из двух композиций: большая цифра с декором и фонтан из шаров с фольгированной фигурой медвежонка. Нежная гамма голубого, кремового и хрома создаёт уютную атмосферу праздника.",
+      "composition": [
+        "2 напольные композиции",
+        "6 шаров хром",
+        "2 шара",
+        "2 сердца"
+      ],
+      "category": "Для мальчика",
+      "character": null,
+      "age_group": "Для детей",
+      "budget": "5 000–8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Напольные композиции с мишкой на день рождения — Армавир",
+      "seo_description": "Две напольные композиции с фольгированным медвежонком в голубых и кремовых тонах. Цифра с декором и фонтан из шаров. Доставка в Армавире.",
+      "slug": "mishkiny-obiatia",
+      "scene": "floor",
+      "tags": [
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1789730874/vigsharm-products/i8lwmfhhn3nz0srymo8o.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789730874/vigsharm-products/i8lwmfhhn3nz0srymo8o.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-18T11:30:42.177Z",
+      "updated_at": "2026-09-18T11:30:42.177Z"
+    },
+    {
       "id": "58c7c8e0-7cf8-4e29-83d2-84563ac570da",
       "title": "Весёлый клоун",
       "article": "FIG-002",
@@ -40,47 +350,6 @@
       "show_on_site": true,
       "created_at": "2026-09-18T10:13:44.957Z",
       "updated_at": "2026-09-18T10:13:44.957Z"
-    },
-    {
-      "id": "4633f3e1-1974-4725-aa0c-74b56a5d4eb9",
-      "title": "Кавалер сердец",
-      "article": "HER-003",
-      "price": 6000,
-      "short_description": "Фигура из шаров с усами, розой и звездой с персональной надписью.",
-      "full_description": "Романтичная фигура джентльмена с розой в красном костюме с сердечками и золотой звездой с индивидуальной надписью.",
-      "composition": [
-        "фигура из шаров",
-        "фольгированная звезда с индивидуальной надписью"
-      ],
-      "category": "Для неё",
-      "character": null,
-      "age_group": "Для взрослых",
-      "budget": "5 000–8 000 ₽",
-      "series_name": null,
-      "occasion": null,
-      "target_audience": "Для неё",
-      "seo_title": "Кавалер сердец — романтичная фигура из шаров в Армавире",
-      "seo_description": "Фигура из шаров с розой и звездой с надписью. Оригинальный романтический подарок на День влюблённых. Доставка по Армавиру.",
-      "slug": "kavaler-serdets",
-      "scene": "balloon_figures",
-      "tags": [
-        "Фигуры из шаров"
-      ],
-      "client_options": {
-        "available_on_request": false,
-        "advance_order_1_2_days": true,
-        "number_choice": false,
-        "personal_inscription": true,
-        "photozone_rental": false
-      },
-      "photos": [
-        "https://res.cloudinary.com/saiuc42a/image/upload/v1789681617/vigsharm-products/pelyb7mritwiixgmnyw2.png"
-      ],
-      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789681617/vigsharm-products/pelyb7mritwiixgmnyw2.png",
-      "status": "published",
-      "show_on_site": true,
-      "created_at": "2026-09-17T21:46:58.051Z",
-      "updated_at": "2026-09-17T21:46:58.051Z"
     },
     {
       "id": "5409a3c0-6ef9-4499-adfb-8a1a277f7b66",

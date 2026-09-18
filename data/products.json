@@ -2,6 +2,57 @@
   "ok": true,
   "products": [
     {
+      "id": "6c775540-8849-4b5a-a640-4faf1a6e1081",
+      "title": "Герой в кадре",
+      "article": "PHT-001",
+      "price": 8000,
+      "short_description": "Фотозона с фольгированным Человеком-пауком, гирляндой из шаров и серебряными звёздами.",
+      "full_description": "Фотозона включает крупную фольгированную фигуру Человека-паука, гирлянду из красных, синих и серебряных шаров, серебряные звёзды и круглую табличку с персональной надписью. Яркое решение для фотосессии.",
+      "composition": [
+        "фотозона"
+      ],
+      "category": "Фотозона",
+      "character": "Человек-паук",
+      "age_group": "Для детей",
+      "budget": "от 8 000 ₽",
+      "series_name": "Человек-паук",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Фотозона с Человеком-пауком — Армавир | VigSharm",
+      "seo_description": "Фотозона с фольгированным Человеком-пауком, гирляндой из шаров и звёздами. Яркое оформление для фотосессии в Армавире.",
+      "slug": "geroj-v-kadre",
+      "scene": "photozone",
+      "tags": [
+        "Фотозона"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": true,
+        "photozone_rental": true,
+        "photozone_type": "easel",
+        "rental": {
+          "enabled": true,
+          "item": "Мольберт с кругом из полистирола",
+          "days": 3,
+          "keep_price_delta": 500
+        },
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1789760405/vigsharm-products/sjcpfbmmo6viyo9i3ita.jpg"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789760405/vigsharm-products/sjcpfbmmo6viyo9i3ita.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-18T19:45:04.863Z",
+      "updated_at": "2026-09-18T19:45:04.863Z"
+    },
+    {
       "id": "3148cc27-803e-449e-a492-76b33aa86067",
       "title": "Синий комплимент",
       "article": "BQT-002",

@@ -2,6 +2,231 @@
   "ok": true,
   "products": [
     {
+      "id": "6c775540-8849-4b5a-a640-4faf1a6e1081",
+      "title": "Герой в кадре",
+      "article": "PHT-001",
+      "price": 8000,
+      "short_description": "Фотозона с фольгированным Человеком-пауком, гирляндой из шаров и серебряными звёздами.",
+      "full_description": "Фотозона включает крупную фольгированную фигуру Человека-паука, гирлянду из красных, синих и серебряных шаров, серебряные звёзды и круглую табличку с персональной надписью. Яркое решение для фотосессии.",
+      "composition": [
+        "фотозона"
+      ],
+      "category": "Фотозона",
+      "character": "Человек-паук",
+      "age_group": "Для детей",
+      "budget": "от 8 000 ₽",
+      "series_name": "Человек-паук",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Фотозона с Человеком-пауком — Армавир | VigSharm",
+      "seo_description": "Фотозона с фольгированным Человеком-пауком, гирляндой из шаров и звёздами. Яркое оформление для фотосессии в Армавире.",
+      "slug": "geroj-v-kadre",
+      "scene": "photozone",
+      "tags": [
+        "Фотозона"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": true,
+        "photozone_rental": true,
+        "photozone_type": "easel",
+        "rental": {
+          "enabled": true,
+          "item": "Мольберт с кругом из полистирола",
+          "days": 3,
+          "keep_price_delta": 500
+        },
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1789760405/vigsharm-products/sjcpfbmmo6viyo9i3ita.jpg"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789760405/vigsharm-products/sjcpfbmmo6viyo9i3ita.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-18T19:45:04.863Z",
+      "updated_at": "2026-09-18T19:45:04.863Z"
+    },
+    {
+      "id": "3148cc27-803e-449e-a492-76b33aa86067",
+      "title": "Синий комплимент",
+      "article": "BQT-002",
+      "price": 2000,
+      "short_description": "Букет из синих и серебряных фольгированных сердец с поздравительными надписями.",
+      "full_description": "Элегантный букет из фольгированных шаров-сердец в синих и серебряных тонах с тёплыми пожеланиями. Оформлен атласными лентами и упакован в декоративную обёртку.",
+      "composition": [
+        "букет из шаров с надписями"
+      ],
+      "category": "Букет из шаров",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": "1 000–2 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Букет из шаров с надписями в Армавире — VigSharm",
+      "seo_description": "Букет из синих и серебряных фольгированных сердец с поздравительными надписями. Доставка воздушных шаров в Армавире.",
+      "slug": "siniy-kompliment",
+      "scene": "handheld_bouquet",
+      "tags": [
+        "Букет из шаров"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1789758032/vigsharm-products/fngnpj1uy9ncai6t9nny.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789758032/vigsharm-products/fngnpj1uy9ncai6t9nny.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-18T19:01:34.440Z",
+      "updated_at": "2026-09-18T19:01:34.440Z"
+    },
+    {
+      "id": "a340189b-0189-4ec9-ba10-73237cf7c959",
+      "title": "Медвежья нежность",
+      "article": "BAB-002",
+      "price": 5010,
+      "short_description": "Нежный букет с милым мишкой, метрикой и сердцами в пастельных тонах.",
+      "full_description": "Композиция с фольгированным мишкой, прозрачным шаром-баблс с метрикой, розовыми сердцами и латексными шарами. Идеальна для встречи малышки.",
+      "composition": [
+        "шар-баблс с крупинками пенопласта и надписью",
+        "фольгированная фигура мишки",
+        "фольгированное сердце",
+        "9 латексных шаров",
+        "фольгированное сердце с надписью"
+      ],
+      "category": "На выписку",
+      "character": null,
+      "age_group": "Для малышей",
+      "budget": "5 000–8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Букет шаров с мишкой и метрикой для девочки — Армавир",
+      "seo_description": "Нежный букет с фольгированным мишкой, баблс-шаром с метрикой и розовыми сердцами. Доставка воздушных шаров в Армавире.",
+      "slug": "medvezhya-nezhnost",
+      "scene": "wall_only",
+      "tags": [
+        "На выписку"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1789738363/vigsharm-products/rv8psraq0isamy2md1el.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789738363/vigsharm-products/rv8psraq0isamy2md1el.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-18T13:43:09.199Z",
+      "updated_at": "2026-09-18T13:43:09.199Z"
+    },
+    {
+      "id": "ed010990-bf3b-4d8d-82cd-2a82618ca852",
+      "title": "Розовый фламинго",
+      "article": "GRL-010",
+      "price": 3760,
+      "short_description": "Розовая композиция с фламинго и цифрой для девочки.",
+      "full_description": "Напольная композиция в розовых тонах с фольгированным фламинго, цифрой, звездой, сердцами и шарами с конфетти.",
+      "composition": [
+        "фольгированная цифра",
+        "фольгированная фигура фламинго",
+        "2 шара с конфетти",
+        "фольгированная звезда",
+        "2 фольгированных сердца",
+        "5 латексных шаров"
+      ],
+      "category": "Для девочки",
+      "character": null,
+      "age_group": "Для детей",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Розовый фламинго — шары на день рождения девочке в Армавире",
+      "seo_description": "Напольная композиция из шаров с фламинго, цифрой, звездой и сердцами. Нежное оформление праздника для девочки в розовых тонах. Заказать в Армавире.",
+      "slug": "rozovyy-flamingo",
+      "scene": "floor",
+      "tags": [
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1789737865/vigsharm-products/l42b99ylkhrlslu78ja0.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789737865/vigsharm-products/l42b99ylkhrlslu78ja0.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-18T13:25:48.438Z",
+      "updated_at": "2026-09-18T13:25:48.438Z"
+    },
+    {
+      "id": "1dd212dc-fb68-40e8-b5c3-77c7667f2676",
+      "title": "Алые бантики",
+      "article": "HER-003",
+      "price": 3759,
+      "short_description": "Стеклянный баблс с надписью в окружении красных и чёрных шаров с атласными бантами.",
+      "full_description": "Композиция из прозрачного баблса с каллиграфической надписью и семи латексных шаров в красно-чёрной гамме. Каждый шар украшен атласным бантиком.",
+      "composition": [
+        "стеклянный баблс с индивидуальной надписью и бантиками",
+        "7 латексных шаров с бантиками"
+      ],
+      "category": "Для неё",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Букет из шаров с баблсом и бантиками — Армавир",
+      "seo_description": "Элегантный букет из прозрачного баблса с надписью и красно-чёрных шаров с атласными бантами. Доставка воздушных шаров в Армавире.",
+      "slug": "alye-bantiki",
+      "scene": "wall_only",
+      "tags": [
+        "Для неё"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1789737093/vigsharm-products/xhbayc9rkugnnsnhorr8.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789737093/vigsharm-products/xhbayc9rkugnnsnhorr8.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-18T13:12:47.971Z",
+      "updated_at": "2026-09-18T13:12:47.971Z"
+    },
+    {
       "id": "700e3716-eaf8-44bc-8502-1e5dcdc6d138",
       "title": "Гоночный экипаж",
       "article": "BOY-009",

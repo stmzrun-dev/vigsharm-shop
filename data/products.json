@@ -2,6 +2,180 @@
   "ok": true,
   "products": [
     {
+      "id": "762f49dd-c7b4-4da3-84da-0a2a5563c287",
+      "title": "Маленькая леди",
+      "article": "FIG-004",
+      "price": 3000,
+      "short_description": "Фигура из шаров в виде девочки с косичками и розовым цветком в руках.",
+      "full_description": "Яркая фигура девочки с косичками, украшенными красными бантами. Одета в радужное платье, держит розовый цветок.",
+      "composition": [
+        "фигура из шаров"
+      ],
+      "category": "Фигуры из шаров",
+      "character": null,
+      "age_group": "Для детей",
+      "budget": "2 000–3 500 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Фигура из шаров Первый букет — VigSharm Армавир",
+      "seo_description": "Фигура из шаров в виде девочки с косичками и цветком. Яркое оформление праздника воздушными шарами в Армавире. Заказать в VigSharm.",
+      "slug": "pervyy-buket",
+      "scene": "balloon_figures",
+      "tags": [
+        "Фигуры из шаров"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1789826629/vigsharm-products/qk1f9u5aiyzuc5dtdvrh.png"
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1789826801/vigsharm-products/h7aucse3g8nfkguai1ls.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789826801/vigsharm-products/h7aucse3g8nfkguai1ls.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-19T14:07:33.118Z",
+      "updated_at": "2026-09-19T14:07:33.118Z"
+    },
+    {
+      "id": "1bafcbce-1e40-480a-98b7-9f92faf84eef",
+      "title": "Капитанский дебют",
+      "article": "Y1-006",
+      "price": 1930,
+      "short_description": "Голубая единичка с детскими элементами и синие шары с надписью.",
+      "full_description": "Набор для празднования первого дня рождения мальчика. Фольгированная цифра с изображением детской одежды и игрушек дополнена синими и белыми шарами.",
+      "composition": [
+        "фольгированная цифра 1",
+        "3 латексных шара с рисунком",
+        "2 латексных шара"
+      ],
+      "category": "1 годик",
+      "character": null,
+      "age_group": "Для малышей",
+      "budget": "1 000–2 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары на 1 годик мальчику в Армавире | VigSharm",
+      "seo_description": "Набор воздушных шаров с голубой единичкой для первого дня рождения мальчика. Фольгированная цифра и синие латексные шары. Доставка в Армавире.",
+      "slug": "pervyy-start",
+      "scene": "wall_only",
+      "tags": [
+        "1 годик"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1789825685/vigsharm-products/cvpkayapsbv9palujygl.png"
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1789825808/vigsharm-products/bubgqmnkfs8d7ayl8mxo.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789825808/vigsharm-products/bubgqmnkfs8d7ayl8mxo.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-19T13:51:48.449Z",
+      "updated_at": "2026-09-19T13:51:48.449Z"
+    },
+    {
+      "id": "fe37e1a3-7c14-41db-aafd-cac995bfebef",
+      "title": "Чёрный бант",
+      "article": "HER-006",
+      "price": 4700,
+      "short_description": "Два баблса с чёрными бантиками и розовыми латексными шарами для изысканного праздника.",
+      "full_description": "Композиция из двух прозрачных шаров баблс — один с персональной надписью, второй с россыпью розовых шаров внутри. Чёрные органзовые банты создают элегантный контраст с нежной розовой гаммой.",
+      "composition": [
+        "шар баблс с шариками, бантиками и надписью",
+        "шар баблс с бантиками",
+        "5 латексных шаров"
+      ],
+      "category": "Для неё",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары баблс с бантиками и надписью — Армавир",
+      "seo_description": "Элегантная композиция из двух баблс с чёрными бантами и розовыми шарами. Персональная надпись и нежный дизайн для особенного праздника.",
+      "slug": "chernyy-bant",
+      "scene": "wall_only",
+      "tags": [
+        "Для неё"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1789825128/vigsharm-products/z1kzd85zhzmady2rrql2.png"
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1789825260/vigsharm-products/f5sd7m5q8sl9ajwjxjih.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789825260/vigsharm-products/f5sd7m5q8sl9ajwjxjih.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-19T13:43:19.215Z",
+      "updated_at": "2026-09-19T13:43:19.215Z"
+    },
+    {
+      "id": "af44b870-75f9-440b-b2a1-9ec63df27ef8",
+      "title": "Яркий взрыв",
+      "article": "BOX-002",
+      "price": 4600,
+      "short_description": "Жёлтая коробка с индивидуальной надписью, золотая фольгированная цифра и букет из разноцветных шаров.",
+      "full_description": "Яркая жёлтая коробка-сюрприз с персональной надписью и рисунком трёх медведей. Золотая фольгированная цифра и букет из десяти латексных шаров радужных оттенков.",
+      "composition": [
+        "коробка 70x70x70 с индивидуальной надписью и декором",
+        "фольгированная цифра",
+        "10 латексных шаров"
+      ],
+      "category": "Коробка-сюрприз",
+      "character": null,
+      "age_group": "Для детей",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Коробка-сюрприз с шарами и цифрой — Армавир | VigSharm",
+      "seo_description": "Яркая жёлтая коробка-сюрприз с индивидуальной надписью, золотой фольгированной цифрой и букетом из разноцветных латексных шаров в Армавире.",
+      "slug": "tri-medvedya",
+      "scene": "floor",
+      "tags": [
+        "Коробка-сюрприз"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1789824629/vigsharm-products/v6cxf2mdf7vjfexecyvd.jpg",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1789824862/vigsharm-products/dfctbgy1inlif5jgea8g.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789824862/vigsharm-products/dfctbgy1inlif5jgea8g.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-19T13:35:46.469Z",
+      "updated_at": "2026-09-19T13:35:46.469Z"
+    },
+    {
       "id": "dbdaffda-5332-4037-902e-0d412e559655",
       "title": "Двойная радость",
       "article": "GND-001",

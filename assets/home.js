@@ -2,7 +2,7 @@
 (function () {
   'use strict';
 
-  /* ---------- Popular products (first 6 from catalog feed) ---------- */
+  /* ---------- Popular products (first 4 from catalog feed) ---------- */
   var list = document.getElementById('popular-list');
   var section = document.getElementById('products');
   if (list) {
@@ -26,7 +26,7 @@
           if (section) section.style.display = 'none';
           return;
         }
-        list.innerHTML = products.slice(0, 6).map(function (p) {
+        list.innerHTML = products.slice(0, 4).map(function (p) {
           var key = (window.vigProductPhoto ? window.vigProductPhoto(p) : '') ||
             (p.image_keys && p.image_keys[0]) ||
             (p.photos && p.photos[0]) ||

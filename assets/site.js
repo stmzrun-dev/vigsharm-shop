@@ -287,7 +287,9 @@
     document.querySelectorAll('img.vig-emoji[data-emoji]').forEach(function (img) {
       var name = img.getAttribute('data-emoji');
       var src = VIG_EMOJI_SRC[name];
-      if (src && img.getAttribute('src') !== src) img.setAttribute('src', src);
+      var cur = img.getAttribute('src') || '';
+      if (cur.indexOf('menu-') !== -1) return;
+      if (src && cur !== src) img.setAttribute('src', src);
     });
   }
   if (document.readyState === 'loading') {

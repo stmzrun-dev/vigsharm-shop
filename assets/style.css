@@ -295,7 +295,7 @@
 }
 }
 
-/* mobile menu footer — studio + coral phone (soft-3D phone icon later) */
+/* mobile menu footer — quiet studio phone CTA (no coral fill) */
 .header .nav .mobile-menu-footer{
   background:#fff!important;
   border:1.5px solid #e8e8ec!important;
@@ -303,11 +303,11 @@
   box-shadow:none!important;
 }
 .header .nav .mobile-menu-footer > a.mobile-phone{
-  background:#ff6b5a!important;
-  border:0!important;
+  background:#fff!important;
+  border:1.5px solid #e8e8ec!important;
   border-radius:999px!important;
   box-shadow:none!important;
-  color:#fff!important;
+  color:#2a2a32!important;
   min-height:52px!important;
   padding:8px 14px 8px 8px!important;
   grid-template-columns:44px 1fr!important;
@@ -322,15 +322,15 @@
   padding:4px!important;
   box-sizing:border-box!important;
   object-fit:contain!important;
-  background:#fff!important;
+  background:#f6f7f9!important;
   border-radius:999px!important;
   filter:none!important;
 }
 .header .nav .mobile-phone small{
-  color:#ffe8e4!important;
+  color:#6f6f78!important;
 }
 .header .nav .mobile-phone strong{
-  color:#fff!important;
+  color:#2a2a32!important;
   font-weight:800!important;
   letter-spacing:-.02em!important;
 }

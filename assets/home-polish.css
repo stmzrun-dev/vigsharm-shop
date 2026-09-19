@@ -807,7 +807,7 @@ a.budget-card:hover{
   background-image:none!important;
 }
 .budget-icon{
-  background:#fff!important;
+  background:#f6f7f9!important;
   border:0!important;
   border-radius:16px!important;
   animation:none!important;
@@ -817,14 +817,17 @@ a.budget-card:hover{
   place-items:center!important;
   flex:0 0 72px!important;
   overflow:hidden!important;
-  padding:0!important;
+  padding:6px!important;
+  box-sizing:border-box!important;
 }
 .budget-icon img{
   width:100%!important;
   height:100%!important;
   object-fit:contain!important;
+  object-position:center!important;
   display:block!important;
-  border-radius:inherit!important;
+  border-radius:10px!important;
+  background:transparent!important;
 }
 .budget-card span{
   display:flex!important;
@@ -870,22 +873,24 @@ a.budget-card:hover{
   }
   .budget-card,
   a.budget-card{
-    grid-template-columns:72px 1fr!important;
+    grid-template-columns:64px 1fr!important;
     gap:10px!important;
     padding:10px 12px!important;
     border-radius:18px!important;
   }
   .budget-icon{
-    width:72px!important;
-    height:72px!important;
-    flex-basis:72px!important;
+    width:64px!important;
+    height:64px!important;
+    flex-basis:64px!important;
     border-radius:14px!important;
     overflow:hidden!important;
+    padding:5px!important;
   }
   .budget-icon img{
     width:100%!important;
     height:100%!important;
     object-fit:contain!important;
+    border-radius:8px!important;
   }
 }
 
@@ -919,8 +924,9 @@ a.budget-card:hover{
     height:64px!important;
     flex-basis:64px!important;
     border-radius:12px!important;
-    background:#fff!important;
+    background:#f6f7f9!important;
     overflow:hidden!important;
+    padding:4px!important;
   }
   .budget-icon img{
     width:100%!important;
@@ -1040,10 +1046,12 @@ a.category:hover{
   aspect-ratio:1/1!important;
   filter:none!important;
   transform:none!important;
-  object-fit:cover!important;
+  object-fit:contain!important;
   object-position:center!important;
-  background:#fff!important;
+  background:#f6f7f9!important;
   border-radius:16px!important;
+  padding:10px!important;
+  box-sizing:border-box!important;
 }
 .category:hover .category-image,
 .category:hover > img{
@@ -1073,9 +1081,12 @@ a.category:hover{
   font-size:16px!important;
 }
 .category-copy span,
-.category-copy small,
 .category-copy p{
   color:#6f6f78!important;
+}
+/* Title-only tiles — less grey noise on 8-card grid */
+.category-copy small{
+  display:none!important;
 }
 .category-arrow{
   display:none!important;
@@ -1106,6 +1117,7 @@ a.category:hover{
   .category img.category-image,
   .category > img{
     border-radius:14px!important;
+    padding:8px!important;
   }
   .category-arrow,
   .character-go{
@@ -1121,9 +1133,6 @@ a.category:hover{
   .category-copy strong{
     font-size:15px!important;
     line-height:1.2!important;
-  }
-  .category-copy small{
-    display:none!important;
   }
 }
 
@@ -1151,15 +1160,13 @@ a.category:hover{
   .category img.category-image,
   .category > img{
     border-radius:12px!important;
+    padding:6px!important;
   }
   .category-copy{
     padding:0 2px!important;
   }
   .category-copy strong{
     font-size:14px!important;
-  }
-  .category-copy small{
-    display:none!important;
   }
 }
 
@@ -1254,7 +1261,7 @@ a.category:hover{
   gap:16px!important;
   padding:0!important;
 }
-/* Collapse wall: show two rows until «Показать всех» */
+/* Collapse wall: two full rows (5×2) until «Показать всех» */
 .character-scroll:not(.characters-expanded) .character-card:nth-child(n+11){
   display:none!important;
 }
@@ -1289,12 +1296,14 @@ a.character-card:hover{
 }
 .character-picture{
   aspect-ratio:1 / 1!important;
-  background:#fff!important;
+  background:#f6f7f9!important;
   border-radius:16px!important;
   border:0!important;
   overflow:hidden!important;
   display:block!important;
   position:relative!important;
+  padding:6px!important;
+  box-sizing:border-box!important;
 }
 .character-picture img{
   object-fit:cover!important;
@@ -1303,6 +1312,8 @@ a.character-card:hover{
   height:100%!important;
   transform:none!important;
   transition:none!important;
+  border-radius:12px!important;
+  display:block!important;
 }
 .character-card:hover img{
   transform:none!important;
@@ -1325,18 +1336,9 @@ a.character-card:hover{
 .character-go{
   display:none!important;
 }
-/* Quiet index chip — no floating “app badge” look */
+/* Index chips off — franchise names carry the card */
 .character-card>small{
-  background:rgba(255,255,255,.92)!important;
-  border:1px solid #e8e8ec!important;
-  border-radius:999px!important;
-  color:#8b8b93!important;
-  font-size:10px!important;
-  font-weight:700!important;
-  padding:2px 7px!important;
-  top:18px!important;
-  right:18px!important;
-  box-shadow:none!important;
+  display:none!important;
 }
 .all-characters{
   background:#fff!important;
@@ -1391,15 +1393,14 @@ a.character-card:hover{
   }
   .character-picture{
     border-radius:14px!important;
+    padding:5px!important;
   }
   .character-card>strong{
     padding:0 2px!important;
     font-size:15px!important;
   }
   .character-card>small{
-    top:16px!important;
-    right:16px!important;
-    font-size:10px!important;
+    display:none!important;
   }
 }
 
@@ -1442,11 +1443,11 @@ a.character-card:hover{
     padding:8px 8px 12px!important;
     border-radius:18px!important;
   }
-  .character-scroll:not(.characters-expanded) .character-card:nth-child(-n+8),
-  .character-scroll:not(.characters-expanded) a.character-card:nth-child(-n+8){
+  .character-scroll:not(.characters-expanded) .character-card:nth-child(-n+6),
+  .character-scroll:not(.characters-expanded) a.character-card:nth-child(-n+6){
     display:flex!important;
   }
-  .character-scroll:not(.characters-expanded) .character-card:nth-child(n+9){
+  .character-scroll:not(.characters-expanded) .character-card:nth-child(n+7){
     display:none!important;
   }
   .character-scroll.characters-expanded{
@@ -1469,6 +1470,7 @@ a.character-card:hover{
   }
   .character-picture{
     border-radius:12px!important;
+    padding:4px!important;
   }
   .character-card>strong{
     min-height:0!important;
@@ -1586,23 +1588,24 @@ a.character-card:hover{
 .step-icon{
   width:96px!important;
   height:96px!important;
-  margin:0 0 14px!important;
-  padding:0!important;
-  background:transparent!important;
+  margin:0 0 16px!important;
+  padding:10px!important;
+  background:#f6f7f9!important;
   background-image:none!important;
   border:0!important;
-  border-radius:0!important;
+  border-radius:18px!important;
   box-shadow:none!important;
   transform:none!important;
   animation:none!important;
   display:grid!important;
   place-items:center!important;
-  overflow:visible!important;
+  overflow:hidden!important;
+  box-sizing:border-box!important;
 }
 .step-pink .step-icon,
 .step-blue .step-icon,
 .step-yellow .step-icon{
-  background:transparent!important;
+  background:#f6f7f9!important;
   background-image:none!important;
   border:0!important;
 }
@@ -1610,9 +1613,11 @@ a.character-card:hover{
   width:100%!important;
   height:100%!important;
   object-fit:contain!important;
+  object-position:center!important;
   transform:none!important;
   filter:none!important;
   display:block!important;
+  border-radius:12px!important;
 }
 .steps strong,
 .step-card strong{
@@ -1642,21 +1647,36 @@ a.character-card:hover{
     padding:0 16px!important;
     box-sizing:border-box!important;
   }
+  .steps-section > .section-heading,
+  .steps-section .section-heading{
+    margin-bottom:16px!important;
+  }
   .steps{
-    gap:10px!important;
+    gap:12px!important;
   }
   .step-card,
   .steps .step-card{
-    padding:18px 16px 20px!important;
+    padding:20px 16px 22px!important;
     border-radius:18px!important;
   }
   .step-icon{
-    width:80px!important;
-    height:80px!important;
+    width:84px!important;
+    height:84px!important;
+    margin-bottom:14px!important;
+    padding:8px!important;
+    border-radius:16px!important;
   }
   .step-icon img{
     width:100%!important;
     height:100%!important;
+    border-radius:10px!important;
+  }
+  .step-card strong{
+    font-size:16px!important;
+  }
+  .step-card p{
+    font-size:13.5px!important;
+    line-height:1.5!important;
   }
 }
 
@@ -1687,6 +1707,8 @@ a.character-card:hover{
     width:76px!important;
     height:76px!important;
     margin:0!important;
+    padding:6px!important;
+    border-radius:14px!important;
     align-self:center!important;
   }
   .steps strong,

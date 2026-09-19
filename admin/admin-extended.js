@@ -543,41 +543,65 @@ Object.assign(app, {
       // В составе «… с надписью» / «коробка … с индивидуальной надписью» → «Персональная надпись»
       if (hasInscriptionInComp && inscriptionEl) inscriptionEl.checked = true;
 
-      // В составе «1 цифра» / «2 цифры» (любая сцена) → галочка «Выбор цифры» + бейдж
+      // В составе «1 цифра» / «2 цифры» → галочка «Выбор цифры».
+      // Полка «1 годик» — исключение: цифра фиксированная, выбор клиенту не предлагаем.
+      const isFirstBirthday = cat === '1 годик'
+        || this.currentProduct?.holiday_only === '1 годик';
       const numberBadge = document.getElementById('opt-number-badge');
       const numberCard = document.getElementById('opt-number-card');
-      if (digitCount > 0 && numberEl) {
-        numberEl.checked = true;
-      }
-      if (numberHint) {
-        if (digitCount === 2) {
-          numberHint.textContent = isWallOrFloor
-            ? 'По составу: 2 цифры. Клиент выбирает обе, менять количество нельзя.'
-            : 'По составу: 2 цифры. Клиент выбирает обе.';
-        } else if (digitCount === 1) {
-          numberHint.textContent = isWallOrFloor
-            ? 'По составу: 1 цифра. Клиент выбирает одну, менять количество нельзя.'
-            : 'По составу: 1 цифра. Клиент выбирает цифру.';
-        } else {
-          numberHint.textContent = 'Укажите в составе «1 цифра» или «2 цифры» — галочка и бейдж появятся сами.';
+      if (isFirstBirthday) {
+        if (numberEl) {
+          numberEl.checked = false;
+          numberEl.disabled = true;
         }
-      }
-      if (numberBadge) {
-        if (digitCount === 2) {
-          numberBadge.textContent = '2 цифры';
-          numberBadge.classList.remove('hidden');
-          numberBadge.classList.add('is-two');
-        } else if (digitCount === 1) {
-          numberBadge.textContent = '1 цифра';
-          numberBadge.classList.remove('hidden');
-          numberBadge.classList.remove('is-two');
-        } else {
+        if (numberHint) {
+          numberHint.textContent = 'Полка «1 годик» — цифра на фото фиксированная, выбор цифры не нужен.';
+        }
+        if (numberBadge) {
           numberBadge.textContent = '';
           numberBadge.classList.add('hidden');
           numberBadge.classList.remove('is-two');
         }
+        if (numberCard) {
+          numberCard.classList.add('hidden');
+          numberCard.classList.remove('is-digit-active');
+        }
+      } else {
+        if (numberEl) numberEl.disabled = false;
+        if (numberCard) numberCard.classList.remove('hidden');
+        if (digitCount > 0 && numberEl) {
+          numberEl.checked = true;
+        }
+        if (numberHint) {
+          if (digitCount === 2) {
+            numberHint.textContent = isWallOrFloor
+              ? 'По составу: 2 цифры. Клиент выбирает обе, менять количество нельзя.'
+              : 'По составу: 2 цифры. Клиент выбирает обе.';
+          } else if (digitCount === 1) {
+            numberHint.textContent = isWallOrFloor
+              ? 'По составу: 1 цифра. Клиент выбирает одну, менять количество нельзя.'
+              : 'По составу: 1 цифра. Клиент выбирает цифру.';
+          } else {
+            numberHint.textContent = 'Укажите в составе «1 цифра» или «2 цифры» — галочка и бейдж появятся сами.';
+          }
+        }
+        if (numberBadge) {
+          if (digitCount === 2) {
+            numberBadge.textContent = '2 цифры';
+            numberBadge.classList.remove('hidden');
+            numberBadge.classList.add('is-two');
+          } else if (digitCount === 1) {
+            numberBadge.textContent = '1 цифра';
+            numberBadge.classList.remove('hidden');
+            numberBadge.classList.remove('is-two');
+          } else {
+            numberBadge.textContent = '';
+            numberBadge.classList.add('hidden');
+            numberBadge.classList.remove('is-two');
+          }
+        }
+        if (numberCard) numberCard.classList.toggle('is-digit-active', digitCount > 0);
       }
-      if (numberCard) numberCard.classList.toggle('is-digit-active', digitCount > 0);
 
       // Фотозоны: всегда заранее + аренда; тип задаёт предмет аренды и надпись на круге
       if (isPhotozone) {
@@ -955,7 +979,10 @@ Object.assign(app, {
       };
     }
 
-    if (clientOptions.number_choice) {
+    if (category === '1 годик' || holidayOnly === '1 годик') {
+      clientOptions.number_choice = false;
+      delete clientOptions.digit_choice;
+    } else if (clientOptions.number_choice) {
       const fromComp = this.compositionDigitCount?.(compText) || 0;
       const count = Math.min(2, Math.max(1, fromComp || 1));
       clientOptions.digit_choice = {

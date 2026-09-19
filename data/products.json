@@ -2,6 +2,149 @@
   "ok": true,
   "products": [
     {
+      "id": "015ba659-6d09-46b1-b559-14a609dfb6ce",
+      "title": "Прыжок в праздник",
+      "article": "BOY-015",
+      "price": 6320,
+      "short_description": "Ходячая фигура Человека-паука, красная цифра 8, звезда и хромированные шары в сине-красной гамме.",
+      "full_description": "Напольная композиция с ходячей фигурой Человека-паука и крупной цифрой 8. Дополнена фонтанами из хромированных шаров и серебряной звездой.",
+      "composition": [
+        "ходячая фигура Человек-паук",
+        "фольгированная звезда",
+        "19 хромированных шаров",
+        "цифра"
+      ],
+      "category": "Для мальчика",
+      "character": "Человек-паук",
+      "age_group": "Для детей",
+      "budget": "5 000–8 000 ₽",
+      "series_name": "Человек-паук",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары с Человеком-пауком и цифрой в Армавире | VigSharm",
+      "seo_description": "Напольная композиция с ходячей фигурой Человека-паука, цифрой и хромированными шарами. Доставка по Армавиру. VigSharm — воздушные шары.",
+      "slug": "pryzhok-v-prazdnik",
+      "scene": "floor",
+      "tags": [
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1789829851/vigsharm-products/qh0mtvcasztifdmbqkoa.jpg",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1789830266/vigsharm-products/h5tq5wtooyelriof16dj.jpg"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789830266/vigsharm-products/h5tq5wtooyelriof16dj.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-19T15:05:42.457Z",
+      "updated_at": "2026-09-19T15:05:42.457Z"
+    },
+    {
+      "id": "9bd0a65d-c706-4623-a792-e2e6e654b441",
+      "title": "Семёрка героя",
+      "article": "BOY-014",
+      "price": 3000,
+      "short_description": "Две напольные композиции с Человеком-пауком и красной цифрой с паутиной.",
+      "full_description": "Композиция из двух напольных стоек в красно-синих тонах. Слева — фольгированная фигура Человека-паука на основе из латексных шаров с поздравительной звездой. Справа — крупная красная цифра с символом паутины на колонне из синих и красных шаров.",
+      "composition": [
+        "2 напольные композиции"
+      ],
+      "category": "Для мальчика",
+      "character": "Человек-паук",
+      "age_group": "Для детей",
+      "budget": "2 000–3 500 ₽",
+      "series_name": "Человек-паук",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Напольные композиции с Человеком-пауком для мальчика — Армавир",
+      "seo_description": "Две напольные композиции с фигурой Человека-паука и цифрой в красно-синих тонах. Доставка шаров по Армавиру. VigSharm.",
+      "slug": "semyorka-geroya",
+      "scene": "floor",
+      "tags": [
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1789829370/vigsharm-products/uv6ktu96jrz6afgwk2lb.jpg",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1789829765/vigsharm-products/r7soauir3qzyucmw8xll.jpg"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789829765/vigsharm-products/r7soauir3qzyucmw8xll.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-19T14:57:07.415Z",
+      "updated_at": "2026-09-19T14:57:07.415Z"
+    },
+    {
+      "id": "a1a29288-81d1-4f9f-8d0b-768a716558cb",
+      "title": "Синий трактор",
+      "article": "BOY-013",
+      "price": 3900,
+      "short_description": "Композиция с синим трактором, цифрой 2 и звездой с именной надписью.",
+      "full_description": "Набор включает фольгированную фигуру трактора, крупную цифру 2, звезду с персональной надписью и яркие шары с конфетти и хромом.",
+      "composition": [
+        "фольгированная фигура трактора",
+        "фольгированная цифра 2",
+        "3 шара с конфетти",
+        "3 хромированных шара",
+        "3 латексных шара",
+        "звезда с индивидуальной надписью"
+      ],
+      "category": "Для мальчика",
+      "character": "Синий трактор",
+      "age_group": "Для детей",
+      "budget": "3 500–5 000 ₽",
+      "series_name": "Синий трактор",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары с Синим трактором и цифрой 2 в Армавире",
+      "seo_description": "Композиция с синим трактором, цифрой 2, звездой с надписью, шарами с конфетти и хромом. Для мальчика на день рождения в Армавире.",
+      "slug": "siniy-traktor",
+      "scene": "wall_only",
+      "tags": [
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": true,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1789828122/vigsharm-products/ny31cfhlwhiogdkdqrur.webp",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1789828909/vigsharm-products/uoahsi4cbmclrz5kn6zb.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789828909/vigsharm-products/uoahsi4cbmclrz5kn6zb.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-19T14:43:39.161Z",
+      "updated_at": "2026-09-19T14:43:39.161Z"
+    },
+    {
       "id": "762f49dd-c7b4-4da3-84da-0a2a5563c287",
       "title": "Маленькая леди",
       "article": "FIG-004",

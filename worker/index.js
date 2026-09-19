@@ -266,15 +266,17 @@ function parseCompositionHolidayMeta(text) {
 function applyHolidayOnlyCard(data, holiday) {
   if (!holiday) return data;
   data.category = holiday;
-  data.character = '';
-  data.character_alts = [];
-  data.character_confidence = '';
+  if (!occasionKeepsCharacter(holiday)) {
+    data.character = '';
+    data.character_alts = [];
+    data.character_confidence = '';
+    data.series_name = '';
+    data.series_alts = [];
+    data.series_confidence = '';
+    data.ask_character = false;
+  }
   data.occasion = '';
   data.target_audience = '';
-  data.series_name = '';
-  data.series_alts = [];
-  data.series_confidence = '';
-  data.ask_character = false;
   // Доп. разделы: только тематика
   data.tags = [holiday];
   data.holiday_only = holiday;
@@ -300,28 +302,33 @@ function ageFromCategory(cat) {
   return '';
 }
 
-/** Полки-поводы/даты: без персонажа/серии, возраст из категории. */
+/** Полки-поводы/даты: без персонажа/серии (кроме «1 годик» — там персонаж нужен), возраст из категории. */
 const OCCASION_SHELVES = [
   'Юбилей', '1 годик', 'Крещение', 'Гендер-пати', 'На выписку', 'Свадьба и девичник',
   'Выпускной', 'Новый год', '14 февраля', '23 февраля', '8 марта', '1 сентября'
 ];
 
+/** На этих полках оставляем character (и series), остальное occasion-правило то же. */
+const OCCASION_SHELVES_KEEP_CHARACTER = ['1 годик'];
+
+function occasionKeepsCharacter(cat) {
+  return OCCASION_SHELVES_KEEP_CHARACTER.includes(String(cat || '').trim());
+}
+
 function applyOccasionShelfCard(data) {
   const cat = String(data.category || '').trim();
   if (!OCCASION_SHELVES.includes(cat)) return data;
-  data.character = '';
-  data.character_alts = [];
-  data.character_confidence = '';
-  data.series_name = '';
-  data.series_alts = [];
-  data.series_confidence = '';
-  data.ask_character = false;
-  data.age_group = ageFromCategory(cat) || data.age_group || 'Для любого возраста';
-  if (Array.isArray(data.tags)) {
-    data.tags = [cat];
-  } else {
-    data.tags = [cat];
+  if (!occasionKeepsCharacter(cat)) {
+    data.character = '';
+    data.character_alts = [];
+    data.character_confidence = '';
+    data.series_name = '';
+    data.series_alts = [];
+    data.series_confidence = '';
+    data.ask_character = false;
   }
+  data.age_group = ageFromCategory(cat) || data.age_group || 'Для любого возраста';
+  data.tags = [cat];
   return data;
 }
 
@@ -439,8 +446,11 @@ async function handleGenerateCard(request, env) {
   const holidayRule = holidayOnly
     ? `
 ТЕМАТИЧЕСКАЯ КАРТОЧКА (метка в скобках уже снята из состава; правило для ЛЮБОЙ сцены): category = РОВНО «${holidayOnly}».
-- НЕ заполняй character и series_name (оставь пустыми) — на полках-поводах персонаж/серия не нужны
-- age_group можно не заполнять — система поставит сама по категории
+${occasionKeepsCharacter(holidayOnly)
+    ? `- ОБЯЗАТЕЛЬНО заполни character по главному фольгированному зверю/герою на фото (зайчик, жираф, мишка…). series_name — по желанию (та же тема) или пусто
+- age_group можно не заполнять — система поставит сама по категории`
+    : `- НЕ заполняй character и series_name (оставь пустыми) — на этой полке персонаж/серия не нужны
+- age_group можно не заполнять — система поставит сама по категории`}
 - tags: ТОЛЬКО «${holidayOnly}» — без type-тегов («Букет из шаров», «Фигуры…» и т.п.), без других разделов
 - composition: БЕЗ скобок и БЕЗ текста тематики — только физический состав шаров`
     : '';
@@ -558,7 +568,8 @@ ${BUDGET_OPTIONS.join(' | ')}
   • При high тоже можно дать 1 alt, если есть близкий синоним
   • НЕ выдумывай героя без признаков на фото
   • Мишка/зайчик/сердце на выписке — НЕ character франшизы; character и series_name оставь пустыми
-  • Если category будет «1 годик» / другой повод из OCCASION — character и series можно оставить пустыми (система сама уберёт)
+  • Если category «1 годик» — ОБЯЗАТЕЛЬНО character по фольгированному зверю/герою (зайчик, жираф…). series_name по желанию
+  • Если category другой повод из OCCASION (не «1 годик») — character и series оставь пустыми (система сама уберёт)
 - age_group: ОБЯЗАТЕЛЬНО одно значение из списка по стилю фото/категории (выписка/1 годик → «Для малышей»; герои/цифры 2–9/для девочки|мальчика|универсальные → «Для детей»; для неё/него/юбилей → «Для взрослых»). Не оставляй пустым; «Для любого возраста» — только если совсем неоднозначно
 - occasion и target_audience: ВСЕГДА оставляй пустыми (повод/аудитория — только category и tags; свободные поля в админке убраны)
 - composition: оформи ТОЛЬКО сырой состав пользователя.

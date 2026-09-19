@@ -298,13 +298,15 @@ Object.assign(app, {
     );
     if (themeCb) themeCb.checked = true;
 
-    const clearIds = ['product-character', 'product-series'];
-    clearIds.forEach((id) => {
-      const el = document.getElementById(id);
-      if (el) el.value = '';
-    });
-    this.renderCharacterAlts?.('', [], '');
-    this.renderSeriesAlts?.('', [], '');
+    const keepChar = this.occasionKeepsCharacter?.(holiday);
+    if (!keepChar) {
+      ['product-character', 'product-series'].forEach((id) => {
+        const el = document.getElementById(id);
+        if (el) el.value = '';
+      });
+      this.renderCharacterAlts?.('', [], '');
+      this.renderSeriesAlts?.('', [], '');
+    }
     this.currentProduct = this.currentProduct || {};
     this.currentProduct.holiday_only = holiday;
     this.applyAgeFromCategory?.(holiday);
@@ -343,7 +345,14 @@ Object.assign(app, {
     return !!(h && h === c);
   },
 
-  /** Полки-поводы: скрыть персонаж/серию, возраст авто. */
+  occasionKeepsCharacter(cat) {
+    const c = String(cat || document.getElementById('product-category')?.value || '').trim();
+    const list = (typeof OCCASION_SHELVES_KEEP_CHARACTER !== 'undefined' && OCCASION_SHELVES_KEEP_CHARACTER)
+      || ['1 годик'];
+    return list.includes(c);
+  },
+
+  /** Полки-поводы: скрыть персонаж/серию (кроме «1 годик»), возраст авто. */
   syncOccasionShelfFields() {
     const cat = document.getElementById('product-category')?.value || '';
     const list = (typeof OCCASION_SHELVES !== 'undefined' && OCCASION_SHELVES) || [];
@@ -351,17 +360,21 @@ Object.assign(app, {
       this.currentProduct.holiday_only = '';
     }
     const occasion = this.isOccasionShelf(cat);
+    const keepChar = this.occasionKeepsCharacter?.(cat);
+    const hideChar = occasion && !keepChar;
     const charGroup = document.getElementById('product-character')?.closest('.form-group');
     const seriesGroup = document.getElementById('product-series')?.closest('.form-group');
-    if (charGroup) charGroup.classList.toggle('hidden', occasion);
-    if (seriesGroup) seriesGroup.classList.toggle('hidden', occasion);
-    if (occasion) {
+    if (charGroup) charGroup.classList.toggle('hidden', hideChar);
+    if (seriesGroup) seriesGroup.classList.toggle('hidden', hideChar);
+    if (hideChar) {
       const charEl = document.getElementById('product-character');
       const seriesEl = document.getElementById('product-series');
       if (charEl) charEl.value = '';
       if (seriesEl) seriesEl.value = '';
       this.renderCharacterAlts?.('', [], '');
       this.renderSeriesAlts?.('', [], '');
+    }
+    if (occasion) {
       this.applyAgeFromCategory?.(cat || this.currentProduct?.holiday_only);
     }
     this.syncRequiredFieldHighlights?.();
@@ -806,7 +819,8 @@ Object.assign(app, {
       });
     }
 
-    if (card.character != null && !holidayOnly && !this.isOccasionShelf?.(card.category)) {
+    const keepChar = this.occasionKeepsCharacter?.(card.category || holidayOnly);
+    if (card.character != null && (!holidayOnly && !this.isOccasionShelf?.(card.category) || keepChar)) {
       const el = document.getElementById('product-character');
       if (el) el.value = card.character || '';
     }
@@ -819,19 +833,21 @@ Object.assign(app, {
         else el.value = '';
       }
     }
-    if (card.series_name != null && !holidayOnly && !this.isOccasionShelf?.(card.category)) {
+    if (card.series_name != null && (!holidayOnly && !this.isOccasionShelf?.(card.category) || keepChar)) {
       const el = document.getElementById('product-series');
       if (el) el.value = card.series_name || '';
     }
     if (holidayOnly) {
       this.applyHolidayOnlyMode(holidayOnly);
     } else if (this.isOccasionShelf?.(card.category)) {
-      const charEl = document.getElementById('product-character');
-      const seriesEl = document.getElementById('product-series');
-      if (charEl) charEl.value = '';
-      if (seriesEl) seriesEl.value = '';
-      this.renderCharacterAlts?.('', [], '');
-      this.renderSeriesAlts?.('', [], '');
+      if (!keepChar) {
+        const charEl = document.getElementById('product-character');
+        const seriesEl = document.getElementById('product-series');
+        if (charEl) charEl.value = '';
+        if (seriesEl) seriesEl.value = '';
+        this.renderCharacterAlts?.('', [], '');
+        this.renderSeriesAlts?.('', [], '');
+      }
       this.applyAgeFromCategory?.(card.category);
       this.syncOccasionShelfFields?.();
     } else {
@@ -1023,7 +1039,9 @@ Object.assign(app, {
     finalTags = finalTags.filter((t) => !deferred.includes(t));
     if (deferred.includes(category)) category = finalTags[0] || '';
 
-    const skipCharSeries = !!(unit || holidayOnly || occasionShelf || this.isOccasionShelf?.(category));
+    const skipCharSeries = !!(unit
+      || ((holidayOnly || occasionShelf || this.isOccasionShelf?.(category))
+        && !this.occasionKeepsCharacter?.(category || holidayOnly)));
     if (!unit && (holidayOnly || occasionShelf || this.isOccasionShelf?.(category))) {
       this.applyAgeFromCategory?.(category || holidayOnly);
     }

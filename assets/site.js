@@ -240,38 +240,60 @@
     return 'api/images/' + key;
   };
 
-  /* Pilot toon emojis. Откат: поставь false — вернутся обычные эмодзи. */
-  window.VIG_TOON_EMOJI = true;
+  /* Line icons for chrome / UI accents. Откат на unicode: VIG_LINE_EMOJI = false */
+  window.VIG_LINE_EMOJI = true;
   var VIG_EMOJI_FALLBACK = {
     phone: '☎',
     balloon: '🎈',
     heart: '💕',
     pin: '📍',
     car: '🚗',
-    chat: '💬'
+    chat: '💬',
+    star: '✦',
+    sparkles: '✨',
+    receipt: '🧾'
+  };
+  var VIG_EMOJI_SRC = {
+    phone: 'icons/line-phone.svg',
+    pin: 'icons/line-pin.svg',
+    chat: 'icons/line-chat.svg',
+    car: 'icons/line-delivery.svg',
+    balloon: 'icons/line-balloon.svg',
+    heart: 'icons/line-heart.svg',
+    star: 'icons/line-star.svg',
+    sparkles: 'icons/line-sparkles.svg',
+    receipt: 'icons/line-receipt.svg'
   };
   window.vigEmoji = function (name, extraClass) {
-    if (!window.VIG_TOON_EMOJI) {
+    if (!window.VIG_LINE_EMOJI) {
       return '<span class="vig-emoji-text" aria-hidden="true">' + (VIG_EMOJI_FALLBACK[name] || '') + '</span>';
     }
     var cls = 'vig-emoji' + (extraClass ? ' ' + extraClass : '');
-    return '<img class="' + cls + '" src="icons/vigsharm-toons/emoji-' + name + '.png" alt="" width="24" height="24" decoding="async" aria-hidden="true" data-emoji="' + name + '"/>';
+    var src = VIG_EMOJI_SRC[name] || 'icons/line-balloon.svg';
+    return '<img class="' + cls + '" src="' + src + '" alt="" width="24" height="24" decoding="async" aria-hidden="true" data-emoji="' + name + '"/>';
   };
-  function applyToonEmojiMode() {
-    if (window.VIG_TOON_EMOJI) return;
+  function applyLineEmojiMode() {
+    if (!window.VIG_LINE_EMOJI) {
+      document.querySelectorAll('img.vig-emoji[data-emoji]').forEach(function (img) {
+        var name = img.getAttribute('data-emoji');
+        var span = document.createElement('span');
+        span.className = 'vig-emoji-text';
+        span.setAttribute('aria-hidden', 'true');
+        span.textContent = VIG_EMOJI_FALLBACK[name] || '';
+        img.parentNode.replaceChild(span, img);
+      });
+      return;
+    }
     document.querySelectorAll('img.vig-emoji[data-emoji]').forEach(function (img) {
       var name = img.getAttribute('data-emoji');
-      var span = document.createElement('span');
-      span.className = 'vig-emoji-text';
-      span.setAttribute('aria-hidden', 'true');
-      span.textContent = VIG_EMOJI_FALLBACK[name] || '';
-      img.parentNode.replaceChild(span, img);
+      var src = VIG_EMOJI_SRC[name];
+      if (src && img.getAttribute('src') !== src) img.setAttribute('src', src);
     });
   }
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', applyToonEmojiMode);
+    document.addEventListener('DOMContentLoaded', applyLineEmojiMode);
   } else {
-    applyToonEmojiMode();
+    applyLineEmojiMode();
   }
   window.vigRemote = function (key) {
     if (!key) return '';
@@ -297,7 +319,7 @@
       } else if (stage === '1') {
         t.setAttribute('data-fb', '2');
         t.removeAttribute('data-key');
-        t.src = 'icons/vigsharm-toons/emoji-balloon.png';
+        t.src = 'icons/line-balloon.svg';
       }
     }
   }, true);

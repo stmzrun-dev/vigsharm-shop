@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Макеты стилей Vigsharm</title>
+  <style>
+    body{margin:0;font-family:system-ui,sans-serif;background:#f4f4f6;color:#2a2a32}
+    h1{font-size:18px;margin:16px 16px 8px}
+    p{margin:0 16px 16px;color:#6f6f78;font-size:14px;max-width:40em}
+    .grid{display:grid;gap:16px;padding:0 16px 32px;max-width:1100px}
+    @media(min-width:720px){.grid{grid-template-columns:1fr 1fr}}
+    @media(min-width:1000px){.grid{grid-template-columns:1fr 1fr 1fr}}
+    figure{margin:0;background:#fff;border:1px solid #e8e8ec;border-radius:16px;padding:12px}
+    figcaption{font-weight:700;margin-bottom:6px;font-size:15px}
+    .note{font-weight:400;color:#6f6f78;font-size:13px;display:block;margin-bottom:10px}
+    img{width:100%;height:auto;border-radius:12px;display:block;background:#fff}
+  </style>
+</head>
+<body>
+  <h1>Макеты стилей</h1>
+  <p>A — чистое фото-студио. B — editorial / журнал. C — смелый flat. Плюс ранее: гибрид 3D и каваи.</p>
+  <div class="grid">
+    <figure>
+      <figcaption>A · Фото-студия</figcaption>
+      <span class="note">Реальные фото, line-иконки, коралл только на CTA</span>
+      <img src="images/mockup-style-A-photo-studio.png" alt="Стиль A — фото-студия"/>
+    </figure>
+    <figure>
+      <figcaption>B · Editorial</figcaption>
+      <span class="note">Журнальная вёрстка, воздух, спокойный люкс</span>
+      <img src="images/mockup-style-B-editorial.png" alt="Стиль B — editorial"/>
+    </figure>
+    <figure>
+      <figcaption>C · Flat graphic</figcaption>
+      <span class="note">Плакат, геометрия, без лиц и 3D-игрушек</span>
+      <img src="images/mockup-style-C-flat-graphic.png" alt="Стиль C — flat graphic"/>
+    </figure>
+    <figure>
+      <figcaption>2 · Гибрид (раньше)</figcaption>
+      <span class="note">Студия + soft-3D иконки + редкий промо</span>
+      <img src="images/mockup-variant-2-hybrid.png" alt="Гибрид"/>
+    </figure>
+    <figure>
+      <figcaption>3 · Каваи (раньше)</figcaption>
+      <span class="note">Лица на всём, детское приложение</span>
+      <img src="images/mockup-variant-3-kawaii.png" alt="Каваи"/>
+    </figure>
+  </div>
+</body>
+</html>

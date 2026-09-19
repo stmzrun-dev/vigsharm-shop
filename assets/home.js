@@ -34,7 +34,7 @@
             '';
           var img = key
             ? '<img src="' + window.vigImage(key) + '" data-key="' + escapeHtml(key) + '" alt="' + escapeHtml(p.title) + '" loading="lazy" decoding="async"/>'
-            : (window.vigEmoji ? window.vigEmoji('balloon') : '<img class="vig-emoji" src="icons/vigsharm-toons/emoji-balloon.png" alt="" width="24" height="24" decoding="async" aria-hidden="true"/>');
+            : (window.vigEmoji ? window.vigEmoji('balloon') : '<img class="vig-emoji" src="icons/line-balloon.svg" alt="" width="24" height="24" decoding="async" aria-hidden="true"/>');
           var requestBadge = p.available_on_request ? '<em class="product-request-badge">Под заказ</em>' : '';
           var cat = String(p.category || '').trim();
           var advanceBadge = (!requestBadge && p.needs_advance_order && !cat)

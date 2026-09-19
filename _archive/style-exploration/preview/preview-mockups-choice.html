@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Выбор: 1 · 2 · 3</title>
+  <style>
+    body{margin:0;font-family:system-ui,sans-serif;background:#f4f4f6;color:#2a2a32}
+    h1{font-size:18px;margin:16px 16px 8px}
+    p{margin:0 16px 20px;color:#6f6f78;font-size:14px;max-width:36em}
+    .grid{display:grid;gap:16px;padding:0 16px 40px;max-width:1100px}
+    @media(min-width:800px){.grid{grid-template-columns:1fr 1fr 1fr}}
+    figure{margin:0;background:#fff;border:1px solid #e8e8ec;border-radius:16px;padding:12px}
+    figcaption{font-weight:800;margin-bottom:4px;font-size:15px}
+    .note{display:block;color:#6f6f78;font-size:13px;margin-bottom:10px;line-height:1.35}
+    img{width:100%;border-radius:12px;display:block}
+  </style>
+</head>
+<body>
+  <h1>Три варианта направления</h1>
+  <p>Выбери номер — по нему пойдём с иконками и картинками на сайте.</p>
+  <div class="grid">
+    <figure>
+      <figcaption>1 · Витрина + line</figcaption>
+      <span class="note">Реальные фото · тонкие иконки · белый UI</span>
+      <img src="images/mockup-choice-1-white-line.png" alt="Вариант 1"/>
+    </figure>
+    <figure>
+      <figcaption>2 · Пастель soft-3D</figcaption>
+      <span class="note">Персик/мята · игрушечные карточки · вау-иллюстрации</span>
+      <img src="images/mockup-choice-2-pastel.png" alt="Вариант 2"/>
+    </figure>
+    <figure>
+      <figcaption>3 · Гибрид</figcaption>
+      <span class="note">Фото в hero · soft-3D меню без лиц · «О нас» не телефон</span>
+      <img src="images/mockup-choice-3-hybrid.png" alt="Вариант 3"/>
+    </figure>
+  </div>
+</body>
+</html>

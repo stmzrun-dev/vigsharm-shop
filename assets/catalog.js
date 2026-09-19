@@ -9,12 +9,12 @@
   var HOLIDAYS = ['Новый год', '14 февраля', '23 февраля', '8 марта', '9 мая', 'Выпускной', '1 сентября', 'День учителя', 'Хэллоуин'];
   var SINGLE_GIFTS = ['Фигуры из шаров', 'Цветы из шаров', 'Арки', 'Шар-сюрприз', 'Крафтовый букет', 'Коробка-сюрприз', 'Гендер-пати'];
   var GROUPS = [
-    { id: 'ready', title: 'Готовые решения', mobile: 'Готовые', icon: 'ready', iconImg: 'icons/vigsharm-toons/ready.webp', chipImg: 'icons/vigsharm-toons/chip-ready.png', note: 'Композиции для любого повода' },
-    { id: 'characters', title: 'Персонажи', mobile: 'Персонажи', icon: 'characters', iconImg: 'icons/vigsharm-toons/characters.webp', chipImg: 'icons/vigsharm-toons/chip-characters.png', note: 'Любимые герои детей' },
-    { id: 'unit', title: 'Шары поштучно', mobile: 'Шары', icon: 'unit', iconImg: 'icons/vigsharm-toons/balloons.webp', chipImg: 'icons/vigsharm-toons/chip-unit.png', note: 'Отдельные шары и фигуры' },
-    { id: 'holidays', title: 'Праздники', mobile: 'Праздники', icon: 'holidays', iconImg: 'icons/vigsharm-toons/holidays.webp', chipImg: 'icons/vigsharm-toons/chip-holidays.png', note: 'Сезонные коллекции' }
+    { id: 'ready', title: 'Готовые решения', mobile: 'Готовые', icon: 'ready', chipImg: 'icons/line-checklist.svg', note: 'Композиции для любого повода' },
+    { id: 'characters', title: 'Персонажи', mobile: 'Персонажи', icon: 'characters', chipImg: 'icons/line-star.svg', note: 'Любимые герои детей' },
+    { id: 'unit', title: 'Шары поштучно', mobile: 'Шары', icon: 'unit', chipImg: 'icons/line-balloon.svg', note: 'Отдельные шары и фигуры' },
+    { id: 'holidays', title: 'Праздники', mobile: 'Праздники', icon: 'holidays', chipImg: 'icons/line-sparkles.svg', note: 'Сезонные коллекции' }
   ];
-  var ALL_CHIP_IMG = 'icons/vigsharm-toons/chip-all.png';
+  var ALL_CHIP_IMG = 'icons/line-catalog.svg';
   var PRICES = [
     { label: 'Любая стоимость', min: 0, max: Infinity },
     { label: 'до 1 000 ₽', min: 0, max: 1000 },
@@ -350,7 +350,7 @@
       '<span><strong><span class="catalog-group-title-desktop">Весь каталог</span><span class="catalog-group-title-mobile">Все</span></strong><small>Все опубликованные варианты</small></span></button>' +
       GROUPS.map(function (g) {
         var active = group === g.id;
-        var img = g.chipImg || g.iconImg;
+        var img = g.chipImg;
         return '<button type="button" class="' + (active ? 'active' : '') + '" aria-pressed="' + (active ? 'true' : 'false') + '" data-group="' + g.id + '">' +
           '<span class="catalog-group-icon icon-' + g.icon + '" aria-hidden="true"><img src="' + img + '" alt="" width="40" height="40" decoding="async"/></span>' +
           '<span><strong><span class="catalog-group-title-desktop">' + g.title + '</span><span class="catalog-group-title-mobile">' + g.mobile + '</span></strong><small>' + g.note + '</small></span>' +

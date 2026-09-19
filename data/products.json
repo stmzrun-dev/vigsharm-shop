@@ -2,6 +2,235 @@
   "ok": true,
   "products": [
     {
+      "id": "3ac049d0-2bae-4809-b992-3ee7ae4cf947",
+      "title": "Пушистый шарм",
+      "article": "Y1-004",
+      "price": 4000,
+      "short_description": "Розовая цифра 1 с горошком, серебряный зайчик и прозрачный шар с перьями.",
+      "full_description": "Нежная композиция для первого дня рождения. Фольгированная цифра и фигура зайки дополнены прозрачным шаром с пушистым декором внутри.",
+      "composition": [
+        "фольгированная цифра 1 с декором",
+        "фольгированная фигура зайчика",
+        "шар баблс с перьями и индивидуальной надписью"
+      ],
+      "category": "1 годик",
+      "character": null,
+      "age_group": "Для малышей",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары на 1 годик с зайчиком и цифрой — Армавир",
+      "seo_description": "Воздушные шары на первый день рождения девочки в Армавире. Розовая цифра 1, фигура зайки и шар с перьями. Доставка композиций VigSharm.",
+      "slug": "pushistyy-sharm",
+      "scene": "wall_only",
+      "tags": [
+        "1 годик"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1789812020/vigsharm-products/kf3t4bgwem4dmhdx1pen.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789812020/vigsharm-products/kf3t4bgwem4dmhdx1pen.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-19T10:02:43.191Z",
+      "updated_at": "2026-09-19T10:02:43.191Z"
+    },
+    {
+      "id": "2bdc88cb-c4bf-4eaf-85db-85b1fef24814",
+      "title": "Мятный мольберт",
+      "article": "PHT-002",
+      "price": 6000,
+      "short_description": "Фотозона в мятно-золотой гамме с мольбертом и жирафом для торжественных снимков.",
+      "full_description": "Фотозона с арочной композицией из мятных, белых и золотых шаров, мольбертом с персонализированной надписью и фольгированной фигурой жирафа.",
+      "composition": [
+        "фотозона"
+      ],
+      "category": "Фотозона",
+      "character": null,
+      "age_group": "Для малышей",
+      "budget": "5 000–8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Фотозона Мятный мольберт – заказать в Армавире | VigSharm",
+      "seo_description": "Фотозона в мятно-золотой гамме с мольбертом и жирафом для торжественных снимков. Доставка воздушных шаров в Армавире.",
+      "slug": "myatnyy-molbert",
+      "scene": "photozone",
+      "tags": [
+        "Фотозона"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": true,
+        "photozone_type": "easel",
+        "rental": {
+          "enabled": true,
+          "item": "Мольберт с кругом из полистирола",
+          "days": 3,
+          "keep_price_delta": 500
+        }
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1789811432/vigsharm-products/u7gvzz0v9x10iulgqyfr.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789811432/vigsharm-products/u7gvzz0v9x10iulgqyfr.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-19T09:51:09.150Z",
+      "updated_at": "2026-09-19T09:51:09.150Z"
+    },
+    {
+      "id": "0166dbb7-2da2-4808-878c-f74ccb9fe9ca",
+      "title": "Маленький принц",
+      "article": "Y1-003",
+      "price": 5990,
+      "short_description": "Нежная композиция с голубым мишкой, цифрой 1 и облаком для первого дня рождения мальчика.",
+      "full_description": "Напольная композиция с плюшевым голубым мишкой, фольгированной цифрой 1 с короной, баблс-шаром с надписью и мягким облачком. Выполнена в бело-голубых и золотых тонах.",
+      "composition": [
+        "фольгированная фигура мишки",
+        "фольгированная цифра 1 с короной",
+        "баблс с индивидуальной надписью",
+        "фольгированная фигура облака",
+        "4 латексных шара",
+        "3 шара хром",
+        "напольная композиция с декором из звёзд"
+      ],
+      "category": "1 годик",
+      "character": null,
+      "age_group": "Для малышей",
+      "budget": "5 000–8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Композиция с мишкой и цифрой 1 на годик мальчику — Армавир",
+      "seo_description": "Напольная композиция с голубым мишкой, цифрой 1 и облаком для первого дня рождения мальчика. Доставка шаров в Армавире.",
+      "slug": "malenkiy-prints",
+      "scene": "floor",
+      "tags": [
+        "1 годик"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1789810743/vigsharm-products/cgnnzfddurwo42uiomsq.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789810743/vigsharm-products/cgnnzfddurwo42uiomsq.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-19T09:41:05.704Z",
+      "updated_at": "2026-09-19T09:41:05.704Z"
+    },
+    {
+      "id": "4d1990fa-cac9-4db5-b371-aa2898eb3589",
+      "title": "Жирафик-улыбашка",
+      "article": "Y1-002",
+      "price": 3360,
+      "short_description": "Композиция с фольгированным жирафом, золотой цифрой и шарами в нежных тонах.",
+      "full_description": "Настенная композиция с улыбающимся жирафом, золотой цифрой-единицей и букетом латексных шаров. Нежная палитра золота, белого и оливкового создаёт спокойную праздничную атмосферу.",
+      "composition": [
+        "фольгированная цифра",
+        "фольгированная фигура жирафа",
+        "2 шара с конфетти",
+        "2 шара хром",
+        "6 латексных шаров"
+      ],
+      "category": "Универсальные",
+      "character": null,
+      "age_group": "Для детей",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Жирафик-улыбашка — композиция с цифрой и шарами в Армавире",
+      "seo_description": "Настенная композиция с фольгированным жирафом, золотой цифрой и шарами в нежных тонах. Универсальное оформление детского праздника от VigSharm.",
+      "slug": "zhirafik-ulyibashka",
+      "scene": "wall_only",
+      "tags": [
+        "Универсальные"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1789810008/vigsharm-products/fat9v6kojybndtemv4wf.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789810008/vigsharm-products/fat9v6kojybndtemv4wf.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-19T09:33:04.433Z",
+      "updated_at": "2026-09-19T09:33:04.433Z"
+    },
+    {
+      "id": "22c4ef0f-80e7-45ec-a55f-a40008547d56",
+      "title": "Ушастое счастье",
+      "article": "Y1-001",
+      "price": 2830,
+      "short_description": "Серый зайчик с розовыми лапками и нежные шары в пастельных тонах.",
+      "full_description": "Композиция с фольгированным зайчиком и цифрой. Латексные шары в персиковых и кремовых оттенках создают нежный фон.",
+      "composition": [
+        "фольгированная фигура зайчика",
+        "фольгированная цифра",
+        "7 латексных шаров"
+      ],
+      "category": "1 годик",
+      "character": null,
+      "age_group": "Для малышей",
+      "budget": "2 000–3 500 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары с зайчиком на первый день рождения в Армавире",
+      "seo_description": "Нежная композиция с фольгированным зайчиком и цифрой для малыша. Пастельные шары в персиковых тонах. Доставка в Армавире.",
+      "slug": "ushastoe-schaste",
+      "scene": "wall_only",
+      "tags": [
+        "1 годик"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1789808980/vigsharm-products/erpbp626ogkxb5akz489.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789808980/vigsharm-products/erpbp626ogkxb5akz489.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-19T09:21:30.223Z",
+      "updated_at": "2026-09-19T09:21:30.223Z"
+    },
+    {
       "id": "4eda4101-8f43-4232-b206-5f0a8e2d31f9",
       "title": "Ледовый матч",
       "article": "BOY-012",

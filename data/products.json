@@ -2,6 +2,271 @@
   "ok": true,
   "products": [
     {
+      "id": "34c03f9f-cd79-42d4-b48d-3dae46c8fd8d",
+      "title": "Юнга на борту",
+      "article": "FIG-006",
+      "price": 3500,
+      "short_description": "Фигура из шаров в морском стиле с полосатой тельняшкой и якорем.",
+      "full_description": "Яркая фигура из шаров изображает весёлого морячка в тельняшке и синих брюках. Стоит на устойчивом основании из чёрных шаров.",
+      "composition": [
+        "фигура из шаров"
+      ],
+      "category": "Фигуры из шаров",
+      "character": "Морячок",
+      "age_group": "Для детей",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Фигура из шаров Морячок — заказать в Армавире | VigSharm",
+      "seo_description": "Фигура из шаров в виде морячка с тельняшкой и якорем. Яркое украшение праздника. Доставка по Армавиру. VigSharm — воздушные шары.",
+      "slug": "sem-futov-pod-kilem",
+      "scene": "balloon_figures",
+      "tags": [
+        "Фигуры из шаров"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1789858003/vigsharm-products/hg92rrvavysypqsbozsv.jpg"
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1789858129/vigsharm-products/plzyaghjgyzoxhu92lul.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789858129/vigsharm-products/plzyaghjgyzoxhu92lul.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-19T22:50:08.564Z",
+      "updated_at": "2026-09-19T22:50:08.564Z"
+    },
+    {
+      "id": "08dc966f-7858-4fec-91a7-ad15e7f4a480",
+      "title": "Медовый курьер",
+      "article": "FIG-005",
+      "price": 3000,
+      "short_description": "Жизнерадостная пчела с букетом ярких цветов из шаров",
+      "full_description": "Весёлая пчела из воздушных шаров держит букет розовых и красных цветов. Яркая фигура с улыбчивой мордочкой и прозрачными крыльями.",
+      "composition": [
+        "фигура из шаров"
+      ],
+      "category": "Фигуры из шаров",
+      "character": "Пчела",
+      "age_group": "Для детей",
+      "budget": "2 000–3 500 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Медовый курьер — фигура пчелы из шаров в Армавире",
+      "seo_description": "Забавная пчела из воздушных шаров с букетом цветов. Яркая фигура для детского праздника от VigSharm в Армавире.",
+      "slug": "medovyy-kurier",
+      "scene": "balloon_figures",
+      "tags": [
+        "Фигуры из шаров"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1789857265/vigsharm-products/h0r6kf0cpp5byyrh7wnw.jpg"
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1789857361/vigsharm-products/gp9kovgpziztxdgrtba3.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789857361/vigsharm-products/gp9kovgpziztxdgrtba3.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-19T22:37:42.918Z",
+      "updated_at": "2026-09-19T22:37:42.918Z"
+    },
+    {
+      "id": "b111188e-71e3-4d0d-9c8a-7ffe1e53907b",
+      "title": "Игристый юбилей",
+      "article": "JUB-002",
+      "price": 5000,
+      "short_description": "Напольная композиция с цифрами 40 и бутылкой шампанского в розово-золотой гамме.",
+      "full_description": "Элегантная напольная композиция с фольгированными цифрами 40, бутылкой шампанского и цветочным декором. Выполнена в розово-золотых тонах с серебряными акцентами.",
+      "composition": [
+        "напольная композиция"
+      ],
+      "category": "Юбилей",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Композиция из шаров на 40 лет с шампанским — Армавир",
+      "seo_description": "Напольная композиция с цифрами 40 и бутылкой шампанского. Розово-золотой дизайн, цветочный декор. Доставка в Армавире.",
+      "slug": "igristyj-yubilej",
+      "scene": "floor",
+      "tags": [
+        "Юбилей"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1789856915/vigsharm-products/jd02xtyqrxvcuwtvh1j0.jpg",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 2
+        }
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1789856989/vigsharm-products/binhhbzuwbwcanruejtu.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789856989/vigsharm-products/binhhbzuwbwcanruejtu.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-19T22:33:33.504Z",
+      "updated_at": "2026-09-19T22:33:33.504Z"
+    },
+    {
+      "id": "f6d59017-89fc-4a63-be34-749b5e49249b",
+      "title": "Зловещий шарм",
+      "article": "GRL-017",
+      "price": 2990,
+      "short_description": "Композиция с золотой цифрой в короне и персонажем Уэнсдей в готическом стиле.",
+      "full_description": "Две напольные композиции с золотой цифрой 5 в короне и фигурой Уэнсдей Аддамс. Чёрно-золотая гамма для поклонников готического стиля.",
+      "composition": [
+        "две напольные композиции"
+      ],
+      "category": "Для девочки",
+      "character": "Уэнсдей Аддамс",
+      "age_group": "Для детей",
+      "budget": "2 000–3 500 ₽",
+      "series_name": "Уэнсдей",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары с Уэнсдей Аддамс и золотой цифрой 5 в Армавире",
+      "seo_description": "Готическая композиция с цифрой 5 и персонажем Уэнсдей Аддамс. Чёрно-золотые шары для стильного праздника. Доставка в Армавире.",
+      "slug": "zloveschiy-sharm",
+      "scene": "floor",
+      "tags": [
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1789856259/vigsharm-products/aagmwge7m6z4x16ays7a.jpg",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1789856383/vigsharm-products/nl01ohjuxli6kmocsika.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789856383/vigsharm-products/nl01ohjuxli6kmocsika.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-19T22:21:10.525Z",
+      "updated_at": "2026-09-19T22:21:10.525Z"
+    },
+    {
+      "id": "6c2649c6-c66c-4074-90a7-0b97a99249ee",
+      "title": "Усатый восторг",
+      "article": "GRL-016",
+      "price": 4300,
+      "short_description": "Яркая композиция с героиней популярного мультсериала и золотой цифрой.",
+      "full_description": "Фольгированная фигура Карамельки, золотая цифра и круглые шары с персонажами дополнены синими и золотыми шарами.",
+      "composition": [
+        "фольгированная фигура Карамельки",
+        "фольгированная цифра",
+        "2 круглых фольгированных шара с персонажами",
+        "2 хромированных шара",
+        "6 латексных шаров"
+      ],
+      "category": "Для девочки",
+      "character": "Карамелька",
+      "age_group": "Для детей",
+      "budget": "3 500–5 000 ₽",
+      "series_name": "Три кота",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары Три кота с цифрой — Карамелька, Армавир | VigSharm",
+      "seo_description": "Композиция с фольгированной фигурой Карамельки из мультсериала Три кота, золотой цифрой и шарами. Доставка воздушных шаров в Армавире.",
+      "slug": "usatyy-vostorg",
+      "scene": "wall_only",
+      "tags": [
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1789856094/vigsharm-products/lbubiwyz2q0mpmhknu8o.jpg",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1789856182/vigsharm-products/fcftq6zsldghdbbsbrzw.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789856182/vigsharm-products/fcftq6zsldghdbbsbrzw.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-19T22:17:30.140Z",
+      "updated_at": "2026-09-19T22:17:30.140Z"
+    },
+    {
+      "id": "b184e6a7-7d28-465f-b0a9-60a89ea91b60",
+      "title": "Лесная хитрость",
+      "article": "UNI-002",
+      "price": 4700,
+      "short_description": "Солнечная композиция с лисёнком и золотым конфетти на прозрачном баблс.",
+      "full_description": "Композиция в тёплых золотисто-белых тонах с фольгированным лисёнком и стеклянным баблс с надписью. Дополнена хромированными и латексными шарами.",
+      "composition": [
+        "фольгированная фигура Лисёнок",
+        "стеклянный баблс с индивидуальной надписью",
+        "3 шара хром",
+        "9 латексных шаров"
+      ],
+      "category": "Универсальные",
+      "character": "Лисёнок",
+      "age_group": "Для детей",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Композиция с лисёнком и золотым баблс — Армавир",
+      "seo_description": "Солнечная композиция с фольгированным лисёнком, стеклянным баблс с надписью и шарами хром. Доставка воздушных шаров в Армавире.",
+      "slug": "lesnaya-khitrost",
+      "scene": "wall_only",
+      "tags": [
+        "Универсальные"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1789855767/vigsharm-products/uvfakfgukgrrlmbtpyvp.jpg"
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1789855889/vigsharm-products/x06epvhxtol5xrrxm0ei.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789855889/vigsharm-products/x06epvhxtol5xrrxm0ei.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-19T22:14:06.160Z",
+      "updated_at": "2026-09-19T22:14:06.160Z"
+    },
+    {
       "id": "f2387574-48ac-4620-a11f-004b9d1c1462",
       "title": "Модный бантик",
       "article": "GRL-015",

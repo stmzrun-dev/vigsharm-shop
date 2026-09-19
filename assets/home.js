@@ -14,6 +14,14 @@
     )
       .then(function (raw) {
         var products = (window.vigStorefrontProducts || window.vigNormalizeProducts)(raw || []);
+        /* Popular = compositions, not unit balloons from the price list */
+        products = products.filter(function (p) {
+          if (!p) return false;
+          if (p.scene === 'unit_balloon') return false;
+          var cat = String(p.category || '').toLowerCase();
+          if (cat.indexOf('поштучно') !== -1) return false;
+          return true;
+        });
         if (!products.length) {
           if (section) section.style.display = 'none';
           return;

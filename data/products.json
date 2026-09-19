@@ -2,6 +2,97 @@
   "ok": true,
   "products": [
     {
+      "id": "4eda4101-8f43-4232-b206-5f0a8e2d31f9",
+      "title": "Ледовый матч",
+      "article": "BOY-012",
+      "price": 4470,
+      "short_description": "Композиция с хоккеистом на прозрачном бабле и звездой в приглушённых оттенках.",
+      "full_description": "Стеклянный баблс с изображением хоккеиста и надписью Happy Birthday, серебряная звезда и охристые латексные шары. Стильное решение для любителя хоккея.",
+      "composition": [
+        "стеклянный баблс с индивидуальной надписью",
+        "фольгированная звезда",
+        "8 латексных шаров",
+        "прозрачный латексный шар"
+      ],
+      "category": "Для мальчика",
+      "character": null,
+      "age_group": "Для подростков",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары с хоккеистом на день рождения мальчику — Армавир",
+      "seo_description": "Композиция с хоккеистом на прозрачном бабле, звездой и латексными шарами. Стильный подарок для юного спортсмена в Армавире.",
+      "slug": "ledovyy-match",
+      "scene": "wall_only",
+      "tags": [
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1789808597/vigsharm-products/i48qmrqibbr2tpfd31g8.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789808597/vigsharm-products/i48qmrqibbr2tpfd31g8.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-19T09:04:44.627Z",
+      "updated_at": "2026-09-19T09:04:44.627Z"
+    },
+    {
+      "id": "4797d414-b416-4bcd-8b7b-a25552c45790",
+      "title": "Принцесса Прекрасная",
+      "article": "GRL-013",
+      "price": 10440,
+      "short_description": "Напольная композиция с принцессой София в сиреневых и золотых тонах с цифрой и букетом из шаров.",
+      "full_description": "Нарядная композиция с фольгированной фигурой принцессы, цифрой, цветами из шаров и фонтаном из баблс с перьями.",
+      "composition": [
+        "напольная композиция",
+        "2 шара баблс с перьями",
+        "2 сердца",
+        "8 шаров",
+        "4 шара хром"
+      ],
+      "category": "Для девочки",
+      "character": null,
+      "age_group": "Для детей",
+      "budget": "от 8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары с принцессой София на день рождения в Армавире",
+      "seo_description": "Напольная композиция с принцессой София, цифрой и шарами баблс. Сиреневое оформление для девочки. Доставка в Армавире.",
+      "slug": "printsessa-prekrasnaya",
+      "scene": "floor",
+      "tags": [
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1789807230/vigsharm-products/dt2k7iaorq9gpyetekqh.jpg"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789807230/vigsharm-products/dt2k7iaorq9gpyetekqh.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-19T08:41:51.643Z",
+      "updated_at": "2026-09-19T08:41:51.643Z"
+    },
+    {
       "id": "f7d5adbf-737d-425a-bb72-c822051f1838",
       "title": "Яркий праздник",
       "article": "UNT-006",

@@ -298,15 +298,6 @@ Object.assign(app, {
     );
     if (themeCb) themeCb.checked = true;
 
-    const keepChar = this.occasionKeepsCharacter?.(holiday);
-    if (!keepChar) {
-      ['product-character', 'product-series'].forEach((id) => {
-        const el = document.getElementById(id);
-        if (el) el.value = '';
-      });
-      this.renderCharacterAlts?.('', [], '');
-      this.renderSeriesAlts?.('', [], '');
-    }
     this.currentProduct = this.currentProduct || {};
     this.currentProduct.holiday_only = holiday;
     this.applyAgeFromCategory?.(holiday);
@@ -345,14 +336,7 @@ Object.assign(app, {
     return !!(h && h === c);
   },
 
-  occasionKeepsCharacter(cat) {
-    const c = String(cat || document.getElementById('product-category')?.value || '').trim();
-    const list = (typeof OCCASION_SHELVES_KEEP_CHARACTER !== 'undefined' && OCCASION_SHELVES_KEEP_CHARACTER)
-      || ['1 годик'];
-    return list.includes(c);
-  },
-
-  /** Полки-поводы: скрыть персонаж/серию (кроме «1 годик»), возраст авто. */
+  /** Полки-поводы: возраст авто; персонаж/серия всегда видны. */
   syncOccasionShelfFields() {
     const cat = document.getElementById('product-category')?.value || '';
     const list = (typeof OCCASION_SHELVES !== 'undefined' && OCCASION_SHELVES) || [];
@@ -360,20 +344,10 @@ Object.assign(app, {
       this.currentProduct.holiday_only = '';
     }
     const occasion = this.isOccasionShelf(cat);
-    const keepChar = this.occasionKeepsCharacter?.(cat);
-    const hideChar = occasion && !keepChar;
     const charGroup = document.getElementById('product-character')?.closest('.form-group');
     const seriesGroup = document.getElementById('product-series')?.closest('.form-group');
-    if (charGroup) charGroup.classList.toggle('hidden', hideChar);
-    if (seriesGroup) seriesGroup.classList.toggle('hidden', hideChar);
-    if (hideChar) {
-      const charEl = document.getElementById('product-character');
-      const seriesEl = document.getElementById('product-series');
-      if (charEl) charEl.value = '';
-      if (seriesEl) seriesEl.value = '';
-      this.renderCharacterAlts?.('', [], '');
-      this.renderSeriesAlts?.('', [], '');
-    }
+    if (charGroup) charGroup.classList.remove('hidden');
+    if (seriesGroup) seriesGroup.classList.remove('hidden');
     if (occasion) {
       this.applyAgeFromCategory?.(cat || this.currentProduct?.holiday_only);
     }
@@ -819,8 +793,7 @@ Object.assign(app, {
       });
     }
 
-    const keepChar = this.occasionKeepsCharacter?.(card.category || holidayOnly);
-    if (card.character != null && (!holidayOnly && !this.isOccasionShelf?.(card.category) || keepChar)) {
+    if (card.character != null) {
       const el = document.getElementById('product-character');
       if (el) el.value = card.character || '';
     }
@@ -833,21 +806,13 @@ Object.assign(app, {
         else el.value = '';
       }
     }
-    if (card.series_name != null && (!holidayOnly && !this.isOccasionShelf?.(card.category) || keepChar)) {
+    if (card.series_name != null) {
       const el = document.getElementById('product-series');
       if (el) el.value = card.series_name || '';
     }
     if (holidayOnly) {
       this.applyHolidayOnlyMode(holidayOnly);
     } else if (this.isOccasionShelf?.(card.category)) {
-      if (!keepChar) {
-        const charEl = document.getElementById('product-character');
-        const seriesEl = document.getElementById('product-series');
-        if (charEl) charEl.value = '';
-        if (seriesEl) seriesEl.value = '';
-        this.renderCharacterAlts?.('', [], '');
-        this.renderSeriesAlts?.('', [], '');
-      }
       this.applyAgeFromCategory?.(card.category);
       this.syncOccasionShelfFields?.();
     } else {
@@ -1039,9 +1004,7 @@ Object.assign(app, {
     finalTags = finalTags.filter((t) => !deferred.includes(t));
     if (deferred.includes(category)) category = finalTags[0] || '';
 
-    const skipCharSeries = !!(unit
-      || ((holidayOnly || occasionShelf || this.isOccasionShelf?.(category))
-        && !this.occasionKeepsCharacter?.(category || holidayOnly)));
+    const skipCharSeries = !!unit;
     if (!unit && (holidayOnly || occasionShelf || this.isOccasionShelf?.(category))) {
       this.applyAgeFromCategory?.(category || holidayOnly);
     }

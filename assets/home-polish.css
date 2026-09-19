@@ -123,11 +123,52 @@ body{
   transform:translateY(-1px)!important;
   border-color:#cfcfd6!important;
 }
+.hero .playful-title>span{
+  display:block!important;
+}
 .hero .playful-title>b{
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  margin-top:8px!important;
+  padding:8px 22px 10px!important;
+  border:0!important;
+  border-radius:999px!important;
+  box-shadow:0 10px 28px rgba(255,107,90,.22)!important;
   transform:none!important;
-  background:linear-gradient(120deg,#ff3d7a 0%,#ff6b5a 55%,#ff8a3d 100%)!important;
-  -webkit-background-clip:text!important;
-  background-clip:text!important;
+  width:auto!important;
+  max-width:none!important;
+  color:#fff!important;
+  -webkit-text-fill-color:#fff!important;
+  font-style:normal!important;
+  letter-spacing:-.03em!important;
+  line-height:1!important;
+  /* logo rainbow — festive point only on «всё!» */
+  background:linear-gradient(90deg,#ff6b5a 0%,#ff9a3d 22%,#f5c518 40%,#4cbf3f 55%,#2ec4d6 70%,#3b6fe8 85%,#8b5cf6 100%)!important;
+  -webkit-background-clip:border-box!important;
+  background-clip:border-box!important;
+}
+.hero .playful-title>b:after,
+.hero .playful-title:after{
+  display:none!important;
+  content:none!important;
+}
+
+/* characters — second festive point: short logo rainbow line */
+.characters-section .character-heading h2,
+#characters .character-heading h2{
+  position:relative!important;
+}
+.characters-section .character-heading h2:after,
+#characters .character-heading h2:after{
+  content:""!important;
+  display:block!important;
+  width:72px!important;
+  height:4px!important;
+  margin:10px 0 0!important;
+  border-radius:999px!important;
+  background:linear-gradient(90deg,#ff6b5a,#ff9a3d,#f5c518,#4cbf3f,#2ec4d6,#3b6fe8,#8b5cf6)!important;
+  box-shadow:none!important;
 }
 
 /* 1) PC */
@@ -146,7 +187,7 @@ body{
     align-items:flex-start!important;
   }
   .hero .eyebrow{margin:0 0 10px!important;color:#6f6f78!important;font-size:14px!important}
-  .hero .eyebrow strong{color:#2b4c3f!important}
+  .hero .eyebrow strong{color:#2a2a32!important}
   .hero .playful-title{margin:0 0 14px!important;letter-spacing:-.04em!important;line-height:1.05!important}
   .hero .hero-message{
     margin:0 0 28px!important;max-width:34em!important;color:#5a5a64!important;
@@ -175,7 +216,7 @@ body{
   }
   .hero .hero-copy{display:flex!important;flex-direction:column!important}
   .hero .eyebrow{margin:0 0 8px!important;font-size:13px!important;color:#6f6f78!important}
-  .hero .eyebrow strong{color:#2b4c3f!important}
+  .hero .eyebrow strong{color:#2a2a32!important}
   .hero .playful-title{margin:0 0 10px!important;font-size:clamp(32px,4.6vw,42px)!important;letter-spacing:-.035em!important;line-height:1.06!important}
   .hero .hero-message{
     margin:0 0 20px!important;font-size:15px!important;line-height:1.45!important;color:#5a5a64!important;
@@ -198,7 +239,7 @@ body{
   }
   .hero .hero-copy{display:contents!important}
   .hero .eyebrow{order:1!important;padding:0 24px!important;margin:0 0 8px!important;color:#6f6f78!important;font-size:13px!important}
-  .hero .eyebrow strong{color:#2b4c3f!important}
+  .hero .eyebrow strong{color:#2a2a32!important}
   .hero .playful-title{order:2!important;padding:0 24px!important;margin:0 0 10px!important;font-size:clamp(32px,5.5vw,40px)!important;letter-spacing:-.035em!important}
   .hero .hero-message{
     order:3!important;padding:0 24px!important;margin:0 0 16px!important;font-size:15px!important;color:#5a5a64!important;
@@ -222,7 +263,7 @@ body{
   .hero{display:flex!important;flex-direction:column!important;gap:0!important;padding:4px 0 22px!important;width:100%!important}
   .hero .hero-copy{display:contents!important}
   .hero .eyebrow{order:1!important;margin:0 0 6px!important;padding:0 16px!important;color:#6f6f78!important;font-size:13px!important}
-  .hero .eyebrow strong{color:#2b4c3f!important;font-weight:800!important}
+  .hero .eyebrow strong{color:#2a2a32!important;font-weight:800!important}
   .hero .playful-title{order:2!important;margin:0 0 8px!important;padding:0 16px!important;letter-spacing:-.035em!important;font-size:clamp(30px,8.2vw,38px)!important;line-height:1.08!important}
   .hero .hero-message{
     order:3!important;margin:0 0 14px!important;padding:0 16px!important;color:#5a5a64!important;font-size:14.5px!important;
@@ -1101,9 +1142,19 @@ a.category:hover{
   color:#2a2a32!important;
   animation:none!important;
 }
-.character-heading h2:after{
-  display:none!important;
-  content:none!important;
+.character-heading h2:after,
+#characters .character-heading h2:after{
+  content:""!important;
+  display:block!important;
+  width:72px!important;
+  height:4px!important;
+  margin:10px 0 0!important;
+  border-radius:999px!important;
+  background:linear-gradient(90deg,#ff6b5a,#ff9a3d,#f5c518,#4cbf3f,#2ec4d6,#3b6fe8,#8b5cf6)!important;
+  box-shadow:none!important;
+  position:static!important;
+  inset:auto!important;
+  animation:none!important;
 }
 .character-heading>p{
   color:#6f6f78!important;

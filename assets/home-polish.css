@@ -126,7 +126,8 @@ body{
 .hero .playful-title>span{
   display:block!important;
 }
-.hero .playful-title>b{
+.hero .playful-title>b,
+.hero .playful-title>b.hero-accent-pill{
   display:inline-flex!important;
   align-items:center!important;
   justify-content:center!important;
@@ -145,10 +146,12 @@ body{
   line-height:1!important;
   /* logo rainbow — festive point only on «всё!» */
   background:linear-gradient(90deg,#ff6b5a 0%,#ff9a3d 22%,#f5c518 40%,#4cbf3f 55%,#2ec4d6 70%,#3b6fe8 85%,#8b5cf6 100%)!important;
+  background-image:linear-gradient(90deg,#ff6b5a 0%,#ff9a3d 22%,#f5c518 40%,#4cbf3f 55%,#2ec4d6 70%,#3b6fe8 85%,#8b5cf6 100%)!important;
   -webkit-background-clip:border-box!important;
   background-clip:border-box!important;
 }
 .hero .playful-title>b:after,
+.hero .playful-title>b.hero-accent-pill:after,
 .hero .playful-title:after{
   display:none!important;
   content:none!important;

@@ -1,0 +1,469 @@
+/* Studio language for price / delivery — match homepage white tiles (DESIGN.md) */
+
+.price-page,
+.delivery-page{
+  background:#fff!important;
+  color:#2a2a32!important;
+}
+
+.price-page .info-page,
+.delivery-page .info-page{
+  background:#fff!important;
+  padding-top:12px;
+  padding-bottom:56px;
+}
+
+/* —— Info hero —— soft wash, not flat white —— */
+.price-page .info-hero,
+.delivery-page .info-hero{
+  background:linear-gradient(105deg,#fff8ec 0%,#fff4f0 42%,#f5f0fb 100%)!important;
+  background-image:linear-gradient(105deg,#fff8ec 0%,#fff4f0 42%,#f5f0fb 100%)!important;
+  border:1.5px solid #ece8f0!important;
+  border-radius:22px!important;
+  box-shadow:0 10px 28px rgba(40,36,60,.06)!important;
+  transform:none!important;
+  min-height:0!important;
+  padding:28px 28px 26px!important;
+  margin-top:12px!important;
+  gap:16px!important;
+  align-items:flex-start!important;
+}
+
+.price-page .info-hero .eyebrow,
+.delivery-page .info-hero .eyebrow{
+  color:#8b8b93!important;
+  letter-spacing:.06em!important;
+  font-weight:700!important;
+}
+
+.price-page .info-hero h1,
+.delivery-page .info-hero h1{
+  color:#2a2a32!important;
+  letter-spacing:-.03em!important;
+  font-weight:800!important;
+  line-height:1.12!important;
+}
+
+.price-page .info-hero h1 span,
+.delivery-page .info-hero h1 span{
+  color:#ff6b5a!important;
+  background:none!important;
+  -webkit-text-fill-color:#ff6b5a!important;
+  background-clip:unset!important;
+  -webkit-background-clip:unset!important;
+}
+
+.price-page .info-hero>div:first-child>p:last-child,
+.delivery-page .info-hero>div:first-child>p:last-child{
+  color:#6f6f78!important;
+  font-weight:600!important;
+  line-height:1.45!important;
+  max-width:36em;
+}
+
+.price-page .info-hero-emoji,
+.delivery-page .info-hero-emoji{
+  display:grid!important;
+  place-items:center!important;
+  width:52px!important;
+  height:52px!important;
+  min-height:0!important;
+  margin:0!important;
+  padding:0!important;
+  border:1.5px solid #f5c0cd!important;
+  border-radius:18px!important;
+  background:#ffd9e2!important;
+  box-shadow:0 6px 16px rgba(40,36,60,.06)!important;
+  animation:none!important;
+  font-size:0!important;
+  gap:0!important;
+}
+
+.delivery-page .info-hero-emoji{
+  background:#cfe6fb!important;
+  border-color:#b5d6f3!important;
+}
+
+.price-page .info-hero-emoji .vig-emoji,
+.delivery-page .info-hero-emoji .vig-emoji{
+  width:28px!important;
+  height:28px!important;
+}
+
+.price-page .info-hero-emoji>span,
+.delivery-page .info-hero-emoji>span{
+  display:none!important;
+}
+
+/* —— Jump chips / includes —— */
+.price-page .price-jump a{
+  border:1.5px solid #e8e8ec!important;
+  background:#fff!important;
+  color:#2a2a32!important;
+  border-radius:999px!important;
+  box-shadow:none!important;
+  font-weight:700!important;
+}
+
+.price-page .price-jump a:hover{
+  border-color:#d8d8de!important;
+  background:#fbfbfc!important;
+}
+
+.price-page .price-includes,
+.delivery-page .delivery-slot-note{
+  background:#fff!important;
+  border:1.5px solid #e8e8ec!important;
+  border-radius:14px!important;
+  color:#6f6f78!important;
+  box-shadow:none!important;
+}
+
+/* —— Price groups — soft pastel tiles (category identity) —— */
+.price-page .price-group{
+  border:1.5px solid transparent!important;
+  border-radius:22px!important;
+  box-shadow:0 10px 26px rgba(40,36,60,.06)!important;
+  transform:none!important;
+}
+
+.price-page .price-group.price-tone-red{
+  background:#fff1f4!important;
+  background-image:none!important;
+  border-color:#f3d7df!important;
+}
+.price-page .price-group.price-tone-blue{
+  background:#eef6fd!important;
+  background-image:none!important;
+  border-color:#d4e6f5!important;
+}
+.price-page .price-group.price-tone-purple{
+  background:#f3effa!important;
+  background-image:none!important;
+  border-color:#ddd4ef!important;
+}
+.price-page .price-group.price-tone-yellow{
+  background:#fff7e8!important;
+  background-image:none!important;
+  border-color:#efe0c4!important;
+}
+
+.price-page .price-group:hover{
+  transform:none!important;
+  box-shadow:0 14px 32px rgba(40,36,60,.09)!important;
+}
+
+.price-page .price-group-heading>span{
+  width:44px!important;
+  height:44px!important;
+  flex:0 0 44px!important;
+  display:grid!important;
+  place-items:center!important;
+  border:1.5px solid transparent!important;
+  border-radius:14px!important;
+  box-shadow:0 4px 12px rgba(40,36,60,.05)!important;
+}
+
+.price-page .price-group.price-tone-red .price-group-heading>span{
+  background:#ffd9e2!important;
+  border-color:#f5c0cd!important;
+}
+.price-page .price-group.price-tone-blue .price-group-heading>span{
+  background:#cfe6fb!important;
+  border-color:#b5d6f3!important;
+}
+.price-page .price-group.price-tone-purple .price-group-heading>span{
+  background:#e2d7f6!important;
+  border-color:#cebfeb!important;
+}
+.price-page .price-group.price-tone-yellow .price-group-heading>span{
+  background:#ffe6b8!important;
+  border-color:#f5d49a!important;
+}
+
+.price-page .price-group-heading>span img{
+  width:24px!important;
+  height:24px!important;
+  filter:none!important;
+}
+
+.price-page .price-group h2{
+  color:#2a2a32!important;
+  letter-spacing:-.02em!important;
+}
+
+.price-page .price-group>div:last-child a{
+  border-bottom:1px dashed rgba(42,42,50,.14)!important;
+  border-radius:0!important;
+  transform:none!important;
+  background:transparent!important;
+}
+
+.price-page .price-group>div:last-child a:hover{
+  background:rgba(255,255,255,.45)!important;
+}
+
+.price-page .price-group>div:last-child a>span{
+  color:#5c5c66!important;
+}
+
+.price-page .price-group>div:last-child strong{
+  color:#2a2a32!important;
+}
+
+.price-page .price-group>div:last-child b{
+  width:28px!important;
+  height:28px!important;
+  display:inline-grid!important;
+  place-items:center!important;
+  border-radius:999px!important;
+  background:rgba(255,255,255,.75)!important;
+  color:#ff6b5a!important;
+  font-size:14px!important;
+  line-height:1!important;
+  box-shadow:0 2px 8px rgba(40,36,60,.06)!important;
+}
+
+.price-page .price-subhead{
+  color:#8b8b93!important;
+}
+
+.price-page .price-explanation{
+  background:linear-gradient(105deg,#fff8ec 0%,#f3f8fc 100%)!important;
+  border:1.5px solid #ece8f0!important;
+  border-radius:22px!important;
+  box-shadow:0 10px 26px rgba(40,36,60,.06)!important;
+}
+
+.price-page .price-explanation>span{
+  background:#ffe6b8!important;
+  border:1.5px solid #f5d49a!important;
+  border-radius:14px!important;
+}
+
+/* —— Delivery cards — soft pastel tiles —— */
+.delivery-page .info-card{
+  border:1.5px solid transparent!important;
+  border-radius:22px!important;
+  box-shadow:0 10px 26px rgba(40,36,60,.06)!important;
+  transform:none!important;
+}
+
+.delivery-page .info-card.card-blue{
+  background:#eef6fd!important;
+  background-image:none!important;
+  border-color:#d4e6f5!important;
+}
+.delivery-page .info-card.card-yellow{
+  background:#fff7e8!important;
+  background-image:none!important;
+  border-color:#efe0c4!important;
+}
+.delivery-page .info-card.card-purple{
+  background:#f3effa!important;
+  background-image:none!important;
+  border-color:#ddd4ef!important;
+}
+.delivery-page .info-card.card-pink{
+  background:#fff1f4!important;
+  background-image:none!important;
+  border-color:#f3d7df!important;
+}
+
+.delivery-page .info-card:hover{
+  transform:none!important;
+  box-shadow:0 14px 32px rgba(40,36,60,.09)!important;
+}
+
+.delivery-page .info-card .eyebrow{
+  color:#8b8b93!important;
+}
+
+.delivery-page .info-card h2{
+  color:#2a2a32!important;
+  letter-spacing:-.02em!important;
+}
+
+.delivery-page .info-card-icon{
+  width:44px!important;
+  height:44px!important;
+  display:grid!important;
+  place-items:center!important;
+  border:1.5px solid transparent!important;
+  border-radius:14px!important;
+  box-shadow:0 4px 12px rgba(40,36,60,.05)!important;
+  font-size:0!important;
+}
+
+.delivery-page .info-card.card-blue .info-card-icon{
+  background:#cfe6fb!important;
+  border-color:#b5d6f3!important;
+}
+.delivery-page .info-card.card-yellow .info-card-icon{
+  background:#ffe6b8!important;
+  border-color:#f5d49a!important;
+}
+.delivery-page .info-card.card-purple .info-card-icon{
+  background:#e2d7f6!important;
+  border-color:#cebfeb!important;
+}
+.delivery-page .info-card.card-pink .info-card-icon{
+  background:#ffd9e2!important;
+  border-color:#f5c0cd!important;
+}
+
+.delivery-page .info-card-icon img{
+  width:24px!important;
+  height:24px!important;
+}
+
+.delivery-page .info-big-price{
+  display:inline-flex!important;
+  align-items:center!important;
+  margin:10px 0!important;
+  padding:8px 14px!important;
+  background:rgba(255,255,255,.8)!important;
+  border:1.5px solid rgba(255,255,255,.9)!important;
+  border-radius:999px!important;
+  color:#2a2a32!important;
+  font-weight:800!important;
+  box-shadow:0 4px 12px rgba(40,36,60,.05)!important;
+  transform:none!important;
+}
+
+.delivery-page .pay-ways li{
+  background:rgba(255,255,255,.75)!important;
+  border:1.5px solid rgba(255,255,255,.9)!important;
+  border-radius:12px!important;
+  color:#2a2a32!important;
+}
+
+.delivery-page .pay-ways li em{
+  color:#ff6b5a!important;
+  font-style:normal!important;
+  font-weight:750!important;
+}
+
+.delivery-page .rental-note{
+  background:rgba(255,255,255,.75)!important;
+  border:1.5px solid rgba(255,255,255,.9)!important;
+  border-radius:14px!important;
+  box-shadow:0 4px 12px rgba(40,36,60,.05)!important;
+}
+
+.delivery-page .info-steps>div{
+  background:#fff!important;
+  border:1.5px solid #e8e8ec!important;
+  border-radius:22px!important;
+  box-shadow:0 8px 22px rgba(40,36,60,.05)!important;
+}
+
+.delivery-page .info-steps>div>span{
+  color:#ff6b5a!important;
+  background:transparent!important;
+  border:0!important;
+  box-shadow:none!important;
+  font-weight:800!important;
+}
+
+/* —— Shared CTA / ask —— */
+.price-page .info-cta,
+.delivery-page .info-cta{
+  background:linear-gradient(105deg,#fff8ec 0%,#f0f4fc 55%,#f5f0fb 100%)!important;
+  border:1.5px solid #ece8f0!important;
+  border-radius:22px!important;
+  box-shadow:0 10px 26px rgba(40,36,60,.06)!important;
+}
+
+.price-page .info-cta .eyebrow,
+.delivery-page .info-cta .eyebrow{
+  color:#8b8b93!important;
+}
+
+.price-page .info-cta h2,
+.delivery-page .info-cta h2{
+  color:#2a2a32!important;
+  letter-spacing:-.02em!important;
+}
+
+.price-page .price-ask .button-primary,
+.delivery-page .delivery-ask .button-primary{
+  background:#ff6b5a!important;
+  border-color:#ff6b5a!important;
+  color:#fff!important;
+  border-radius:999px!important;
+  box-shadow:none!important;
+}
+
+.price-page .price-ask .button-primary:hover,
+.delivery-page .delivery-ask .button-primary:hover{
+  background:#e85a4a!important;
+  border-color:#e85a4a!important;
+}
+
+.price-page .price-ask .button-outline,
+.delivery-page .delivery-ask .button-outline{
+  background:#fff!important;
+  border:1.5px solid #e8e8ec!important;
+  color:#2a2a32!important;
+  border-radius:999px!important;
+  box-shadow:none!important;
+}
+
+@media (width<=650px){
+  .price-page .info-hero,
+  .delivery-page .info-hero{
+    padding:18px 16px 16px!important;
+    margin-top:8px!important;
+    border-radius:20px!important;
+    border-width:1.5px!important;
+  }
+
+  .price-page .price-group>div:last-child b{
+    display:none!important;
+  }
+
+  .price-page .info-hero h1,
+  .delivery-page .info-hero h1{
+    font-size:clamp(22px,6.2vw,28px)!important;
+  }
+
+  .price-page .info-hero-emoji,
+  .delivery-page .info-hero-emoji{
+    width:40px!important;
+    height:40px!important;
+    border-radius:12px!important;
+  }
+
+  .price-page .info-hero-emoji .vig-emoji,
+  .delivery-page .info-hero-emoji .vig-emoji{
+    width:22px!important;
+    height:22px!important;
+  }
+
+  .price-page .price-group,
+  .delivery-page .info-card{
+    border-width:1.5px!important;
+    border-radius:18px!important;
+    padding:16px 14px!important;
+  }
+
+  .price-page .price-group-heading>span,
+  .delivery-page .info-card-icon{
+    width:40px!important;
+    height:40px!important;
+    flex-basis:40px!important;
+    border-width:1.5px!important;
+  }
+
+  .price-page .price-ask,
+  .delivery-page .delivery-ask{
+    flex-direction:column;
+    align-items:stretch;
+  }
+
+  .price-page .price-ask .button,
+  .delivery-page .delivery-ask .button{
+    width:100%;
+  }
+}

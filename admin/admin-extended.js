@@ -188,7 +188,9 @@ Object.assign(app, {
     }
     this.syncUnitBalloonForm?.(false);
     this.wirePhotozoneTypeControls?.();
+    this.wireOccasionShelfControls?.();
     this.syncAdvanceOrderFromScene?.();
+    this.syncOccasionShelfFields?.();
   },
 
   /** В составе: «коробка», «… с надписью», «с индивидуальной надписью» и т.п. */
@@ -296,7 +298,7 @@ Object.assign(app, {
     );
     if (themeCb) themeCb.checked = true;
 
-    const clearIds = ['product-character', 'product-age', 'product-series'];
+    const clearIds = ['product-character', 'product-series'];
     clearIds.forEach((id) => {
       const el = document.getElementById(id);
       if (el) el.value = '';
@@ -305,6 +307,78 @@ Object.assign(app, {
     this.renderSeriesAlts?.('', [], '');
     this.currentProduct = this.currentProduct || {};
     this.currentProduct.holiday_only = holiday;
+    this.applyAgeFromCategory?.(holiday);
+    this.syncOccasionShelfFields?.();
+  },
+
+  ageFromCategory(cat) {
+    const c = String(cat || '').trim();
+    if (!c) return '';
+    if (c === 'На выписку' || c === '1 годик' || c === 'Крещение') return 'Для малышей';
+    if (c === 'Гендер-пати' || c === '1 сентября' || c === 'Для девочки' || c === 'Для мальчика'
+      || c === 'Универсальные' || c === 'Геймерам' || c === 'Фотозона' || c === 'Коробка-сюрприз') {
+      return 'Для детей';
+    }
+    if (c === 'Выпускной') return 'Для подростков';
+    if (c === 'Для неё' || c === 'Для него' || c === 'Для мамы' || c === 'Юбилей'
+      || c === 'Свадьба и девичник' || c === '8 марта' || c === '14 февраля' || c === '23 февраля') {
+      return 'Для взрослых';
+    }
+    if (c === 'Новый год') return 'Для любого возраста';
+    return '';
+  },
+
+  applyAgeFromCategory(cat) {
+    const age = this.ageFromCategory(cat || document.getElementById('product-category')?.value);
+    const ageEl = document.getElementById('product-age');
+    if (ageEl && age) ageEl.value = age;
+    return age;
+  },
+
+  isOccasionShelf(cat) {
+    const c = String(cat || document.getElementById('product-category')?.value || '').trim();
+    const list = (typeof OCCASION_SHELVES !== 'undefined' && OCCASION_SHELVES) || [];
+    if (list.includes(c)) return true;
+    const h = this.currentProduct?.holiday_only;
+    return !!(h && h === c);
+  },
+
+  /** Полки-поводы: скрыть персонаж/серию, возраст авто. */
+  syncOccasionShelfFields() {
+    const cat = document.getElementById('product-category')?.value || '';
+    const list = (typeof OCCASION_SHELVES !== 'undefined' && OCCASION_SHELVES) || [];
+    if (this.currentProduct?.holiday_only && cat && this.currentProduct.holiday_only !== cat && !list.includes(cat)) {
+      this.currentProduct.holiday_only = '';
+    }
+    const occasion = this.isOccasionShelf(cat);
+    const charGroup = document.getElementById('product-character')?.closest('.form-group');
+    const seriesGroup = document.getElementById('product-series')?.closest('.form-group');
+    if (charGroup) charGroup.classList.toggle('hidden', occasion);
+    if (seriesGroup) seriesGroup.classList.toggle('hidden', occasion);
+    if (occasion) {
+      const charEl = document.getElementById('product-character');
+      const seriesEl = document.getElementById('product-series');
+      if (charEl) charEl.value = '';
+      if (seriesEl) seriesEl.value = '';
+      this.renderCharacterAlts?.('', [], '');
+      this.renderSeriesAlts?.('', [], '');
+      this.applyAgeFromCategory?.(cat || this.currentProduct?.holiday_only);
+    }
+    this.syncRequiredFieldHighlights?.();
+  },
+
+  wireOccasionShelfControls() {
+    if (this._occasionShelfWired) return;
+    this._occasionShelfWired = true;
+    document.getElementById('product-category')?.addEventListener('change', () => {
+      this.syncOccasionShelfFields?.();
+      if (!this.isOccasionShelf?.()) return;
+      // При ручном выборе полки-повода — только эта метка в доп. разделах
+      const cat = document.getElementById('product-category')?.value || '';
+      if (!cat) return;
+      document.querySelectorAll('#tags-for-who input, #tags-occasion input, #tags-dates input, #tags-type input')
+        .forEach((cb) => { cb.checked = cb.value === cat; });
+    });
   },
 
   /** XOR тип изделия без тематики в скобках: только этот type-тег. */
@@ -708,26 +782,34 @@ Object.assign(app, {
       });
     }
 
-    if (card.character != null && !holidayOnly) {
+    if (card.character != null && !holidayOnly && !this.isOccasionShelf?.(card.category)) {
       const el = document.getElementById('product-character');
       if (el) el.value = card.character || '';
     }
-    if (card.age_group && !holidayOnly) {
+    if (card.age_group || holidayOnly || this.isOccasionShelf?.(card.category)) {
       const el = document.getElementById('product-age');
       if (el) {
-        const v = String(card.age_group || '').trim();
+        const v = String(card.age_group || this.ageFromCategory?.(card.category || holidayOnly) || '').trim();
         const opts = [...el.options].map((o) => o.value || o.textContent);
-        if (v && opts.includes(v) && v !== 'Для любого возраста') el.value = v;
-        else if (v === 'Для любого возраста') el.value = 'Для любого возраста';
+        if (v && opts.includes(v)) el.value = v;
         else el.value = '';
       }
     }
-    if (card.series_name != null && !holidayOnly) {
+    if (card.series_name != null && !holidayOnly && !this.isOccasionShelf?.(card.category)) {
       const el = document.getElementById('product-series');
       if (el) el.value = card.series_name || '';
     }
     if (holidayOnly) {
       this.applyHolidayOnlyMode(holidayOnly);
+    } else if (this.isOccasionShelf?.(card.category)) {
+      const charEl = document.getElementById('product-character');
+      const seriesEl = document.getElementById('product-series');
+      if (charEl) charEl.value = '';
+      if (seriesEl) seriesEl.value = '';
+      this.renderCharacterAlts?.('', [], '');
+      this.renderSeriesAlts?.('', [], '');
+      this.applyAgeFromCategory?.(card.category);
+      this.syncOccasionShelfFields?.();
     } else {
       const scene = this.currentProduct?.scene || '';
       const tags = Array.isArray(card.tags) ? card.tags : [];
@@ -770,6 +852,7 @@ Object.assign(app, {
     if (card.title) this.syncEditorTitle(card.title);
     this.syncAIFillGate?.();
     this.syncAdvanceOrderFromScene?.();
+    this.syncOccasionShelfFields?.();
     this.syncRequiredFieldHighlights?.();
   },
 
@@ -883,6 +966,8 @@ Object.assign(app, {
 
     // XOR: тематика из скобок ИЛИ один тип (коробка / букет / фигуры / фотозона) — не смешивать с аудиторией
     let finalTags = [...tags];
+    const occasionShelf = !unit && !holidayOnly && !isBox && !isBouquet && !isFigures && !isPhotozone
+      && (typeof OCCASION_SHELVES !== 'undefined' ? OCCASION_SHELVES.includes(category) : false);
     if (holidayOnly) {
       category = holidayOnly;
       finalTags = [holidayOnly];
@@ -898,6 +983,8 @@ Object.assign(app, {
     } else if (isPhotozone) {
       category = 'Фотозона';
       finalTags = ['Фотозона'];
+    } else if (occasionShelf) {
+      finalTags = [category];
     } else {
       if (isPhotozone && !finalTags.includes('Фотозона')) finalTags.push('Фотозона');
       if (!unit && scene === 'balloon_figures' && !finalTags.includes('Фигуры из шаров')) {
@@ -909,6 +996,16 @@ Object.assign(app, {
     finalTags = finalTags.filter((t) => !deferred.includes(t));
     if (deferred.includes(category)) category = finalTags[0] || '';
 
+    const skipCharSeries = !!(unit || holidayOnly || occasionShelf || this.isOccasionShelf?.(category));
+    if (!unit && (holidayOnly || occasionShelf || this.isOccasionShelf?.(category))) {
+      this.applyAgeFromCategory?.(category || holidayOnly);
+    }
+    const ageVal = unit
+      ? 'Для любого возраста'
+      : (document.getElementById('product-age')?.value
+        || this.ageFromCategory?.(category || holidayOnly)
+        || 'Для любого возраста');
+
     return {
       id: this.currentProduct.id || undefined,
       title: titleValue,
@@ -918,10 +1015,10 @@ Object.assign(app, {
       full_description: unit ? '' : document.getElementById('product-full-desc').value.trim(),
       composition: composition,
       category: category || (isPhotozone ? 'Фотозона' : category),
-      character: unit || holidayOnly ? null : (document.getElementById('product-character')?.value.trim() || null),
-      age_group: unit ? 'Для любого возраста' : (document.getElementById('product-age')?.value || 'Для любого возраста'),
+      character: skipCharSeries ? null : (document.getElementById('product-character')?.value.trim() || null),
+      age_group: ageVal,
       budget: unit ? null : (document.getElementById('product-budget')?.value.trim() || null),
-      series_name: unit || holidayOnly ? null : (document.getElementById('product-series')?.value.trim() || null),
+      series_name: skipCharSeries ? null : (document.getElementById('product-series')?.value.trim() || null),
       occasion: null,
       target_audience: null,
       seo_title: unit ? '' : document.getElementById('product-seo-title').value.trim(),
@@ -1093,9 +1190,11 @@ app.loadProductToForm = function(product) {
   }
   this.setPhotozoneType?.(opts.photozone_type || (String(rental.item || '').toLowerCase().includes('мольбер') ? 'easel' : 'frame'));
   this.wirePhotozoneTypeControls?.();
+  this.wireOccasionShelfControls?.();
   this.syncAIFillGate?.();
   this.syncUnitBalloonForm?.(false);
   this.syncAdvanceOrderFromScene?.();
+  this.syncOccasionShelfFields?.();
   this._publishGapsAck = false;
   this.syncEditorSteps?.();
   this.syncRequiredFieldHighlights?.();

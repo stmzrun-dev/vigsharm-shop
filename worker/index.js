@@ -269,7 +269,6 @@ function applyHolidayOnlyCard(data, holiday) {
   data.character = '';
   data.character_alts = [];
   data.character_confidence = '';
-  data.age_group = '';
   data.occasion = '';
   data.target_audience = '';
   data.series_name = '';
@@ -279,6 +278,45 @@ function applyHolidayOnlyCard(data, holiday) {
   // Доп. разделы: только тематика
   data.tags = [holiday];
   data.holiday_only = holiday;
+  data.age_group = ageFromCategory(holiday) || 'Для любого возраста';
+  return data;
+}
+
+/** Возраст по полке (для поводов/дат и fallback). */
+function ageFromCategory(cat) {
+  const c = String(cat || '').trim();
+  if (!c) return '';
+  if (c === 'На выписку' || c === '1 годик' || c === 'Крещение') return 'Для малышей';
+  if (c === 'Гендер-пати' || c === '1 сентября' || c === 'Для девочки' || c === 'Для мальчика'
+    || c === 'Универсальные' || c === 'Геймерам' || c === 'Фотозона' || c === 'Коробка-сюрприз') {
+    return 'Для детей';
+  }
+  if (c === 'Выпускной') return 'Для подростков';
+  if (c === 'Для неё' || c === 'Для него' || c === 'Для мамы' || c === 'Юбилей'
+    || c === 'Свадьба и девичник' || c === '8 марта' || c === '14 февраля' || c === '23 февраля') {
+    return 'Для взрослых';
+  }
+  if (c === 'Новый год') return 'Для любого возраста';
+  return '';
+}
+
+/** Полки-поводы/даты: без персонажа/серии, возраст из категории. */
+const OCCASION_SHELVES = [
+  'Юбилей', '1 годик', 'Крещение', 'Гендер-пати', 'На выписку', 'Свадьба и девичник',
+  'Выпускной', 'Новый год', '14 февраля', '23 февраля', '8 марта', '1 сентября'
+];
+
+function applyOccasionShelfCard(data) {
+  const cat = String(data.category || '').trim();
+  if (!OCCASION_SHELVES.includes(cat)) return data;
+  data.character = '';
+  data.character_alts = [];
+  data.character_confidence = '';
+  data.series_name = '';
+  data.series_alts = [];
+  data.series_confidence = '';
+  data.ask_character = false;
+  data.age_group = ageFromCategory(cat) || data.age_group || 'Для любого возраста';
   return data;
 }
 
@@ -385,7 +423,8 @@ async function handleGenerateCard(request, env) {
   const holidayRule = holidayOnly
     ? `
 ТЕМАТИЧЕСКАЯ КАРТОЧКА (метка в скобках уже снята из состава; правило для ЛЮБОЙ сцены): category = РОВНО «${holidayOnly}».
-- НЕ заполняй character, age_group, target_audience, series_name, occasion (оставь пустыми)
+- НЕ заполняй character и series_name (оставь пустыми) — на полках-поводах персонаж/серия не нужны
+- age_group можно не заполнять — система поставит сама по категории
 - tags: ТОЛЬКО «${holidayOnly}» — без type-тегов («Букет из шаров», «Фигуры…» и т.п.), без других разделов
 - composition: БЕЗ скобок и БЕЗ текста тематики — только физический состав шаров`
     : '';
@@ -595,9 +634,15 @@ ${image_url
   } else {
     applyDischargeCategoryPriority(data, rawComposition);
   }
+  // Полки-поводы («1 годик», выписка…): без персонажа/серии, возраст авто
+  applyOccasionShelfCard(data);
   // Свободные поля occasion / target_audience в админке убраны
   data.occasion = '';
   data.target_audience = '';
+  if (!data.age_group || data.age_group === 'Для любого возраста') {
+    const autoAge = ageFromCategory(data.category);
+    if (autoAge) data.age_group = autoAge;
+  }
   // Убрать случайно оставшиеся скобки-подсказки из состава
   if (Array.isArray(data.composition)) {
     data.composition = data.composition
@@ -953,19 +998,15 @@ function sanitizeCardMetadata(data, scene = 'floor', price = 0, rawComposition =
     else if (/дет/.test(low)) data.age_group = 'Для детей';
     else data.age_group = '';
   }
-  // Дозаполнение возраста по category / тегам, если ИИ оставил пусто / «любой»
+  // Дозаполнение возраста по category, если ИИ оставил пусто / «любой»
   if (!data.age_group || data.age_group === 'Для любого возраста') {
-    const cat = String(data.category || '');
-    const tagBlob = (Array.isArray(data.tags) ? data.tags : []).join(' ');
-    if (cat === 'На выписку' || cat === '1 годик' || cat === 'Крещение') data.age_group = 'Для малышей';
-    else if (
-      cat === 'Для девочки' || cat === 'Для мальчика' || cat === 'Универсальные' || cat === 'Гендер-пати'
-      || cat === 'Фотозона' || cat === 'Коробка-сюрприз'
-      || /Для девочки|Для мальчика|Универсальные|Коробка-сюрприз|Фотозона/.test(tagBlob)
-    ) {
-      data.age_group = 'Для детей';
-    } else if (cat === 'Для неё' || cat === 'Для него' || cat === 'Для мамы' || cat === 'Юбилей' || cat === 'Свадьба и девичник') {
-      data.age_group = 'Для взрослых';
+    const autoAge = ageFromCategory(data.category);
+    if (autoAge) data.age_group = autoAge;
+    else {
+      const tagBlob = (Array.isArray(data.tags) ? data.tags : []).join(' ');
+      if (/Для девочки|Для мальчика|Универсальные|Коробка-сюрприз|Фотозона/.test(tagBlob)) {
+        data.age_group = 'Для детей';
+      }
     }
   }
 

@@ -91,6 +91,9 @@ assert(worker.includes('KEEP: Spider-Man / character art printed ON the balloon'
 assert(worker.includes('AUDIENCE_CATEGORIES'), 'AI card audience categories');
 assert(worker.includes('Универсальные'), 'universal audience category');
 assert(!/case 'wall_only': return 'Букет из шаров'/.test(worker), 'wall_only does not force bouquet tag');
+assert(worker.includes('ageFromCategory'), 'age from category helper');
+assert(worker.includes('applyOccasionShelfCard'), 'occasion shelves clear character/series');
+assert(worker.includes('OCCASION_SHELVES'), 'occasion shelves list');
 assert(worker.includes('title_alts'), 'AI card title alternatives');
 assert(worker.includes('existing_titles'), 'AI receives existing titles');
 assert(worker.includes('sanitizeTitleAgainstExisting'), 'filter duplicate titles');

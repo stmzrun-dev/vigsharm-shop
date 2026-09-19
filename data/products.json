@@ -2,6 +2,360 @@
   "ok": true,
   "products": [
     {
+      "id": "dbdaffda-5332-4037-902e-0d412e559655",
+      "title": "Двойная радость",
+      "article": "GND-001",
+      "price": 4300,
+      "short_description": "Две фонтанные композиции с фольгированными малышами в розовом и голубом.",
+      "full_description": "Набор из двух фонтанов с фигурами малышей с соской и уточкой. Розовый и голубой варианты подходят для выписки из роддома или гендер-пати.",
+      "composition": [
+        "20 латексных шаров",
+        "2 фольгированные фигуры малышей"
+      ],
+      "category": "На выписку",
+      "character": "Малыш",
+      "age_group": "Для малышей",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Двойная радость — шары на гендер-пати в Армавире",
+      "seo_description": "Две фонтанные композиции с малышами: розовая и голубая. Фольгированные фигуры с соской и латексные шары. Доставка в Армавире.",
+      "slug": "dvoynaya-radost",
+      "scene": "wall_only",
+      "tags": [
+        "На выписку"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1789818504/vigsharm-products/odxipdusxy4boijzumqr.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789818504/vigsharm-products/odxipdusxy4boijzumqr.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-19T11:50:39.334Z",
+      "updated_at": "2026-09-19T11:50:39.334Z"
+    },
+    {
+      "id": "ae643c5f-8b76-49a6-ae43-586843a00d40",
+      "title": "Золотая принцесса",
+      "article": "GRL-014",
+      "price": 5000,
+      "short_description": "Напольная композиция с золотыми цифрами, короной и розово-золотыми цветами из шаров.",
+      "full_description": "Роскошная напольная композиция с крупными золотыми фольгированными цифрами, украшенными короной и нежными цветами. Розовые и золотые оттенки создают праздничное настроение.",
+      "composition": [
+        "Напольная композиция"
+      ],
+      "category": "Для девочки",
+      "character": null,
+      "age_group": "Для детей",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Золотая принцесса — композиция с цифрами и короной, Армавир",
+      "seo_description": "Напольная композиция с золотыми цифрами, короной и розово-золотыми цветами из шаров. Роскошное оформление для девочки в Армавире.",
+      "slug": "zolotaya-princessa",
+      "scene": "floor",
+      "tags": [
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1789818146/vigsharm-products/gf7fnapiqc26lssel27v.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789818146/vigsharm-products/gf7fnapiqc26lssel27v.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-19T11:43:52.007Z",
+      "updated_at": "2026-09-19T11:43:52.007Z"
+    },
+    {
+      "id": "ce9764fa-0104-45ee-9977-3027d7046aa5",
+      "title": "Щенячий сюрприз",
+      "article": "BOX-001",
+      "price": 4720,
+      "short_description": "Бирюзовая коробка-сюрприз с цифрой и шарами в нежных оттенках мяты и карамели.",
+      "full_description": "Коробка-сюрприз в бирюзовом цвете с персонализированной надписью и декором. Фольгированная цифра и фонтан из хромированных и латексных шаров создают праздничное настроение.",
+      "composition": [
+        "коробка 70x70x70 с индивидуальной надписью и декором",
+        "фольгированная цифра",
+        "3 хромированных шара",
+        "7 латексных шаров"
+      ],
+      "category": "Коробка-сюрприз",
+      "character": null,
+      "age_group": "Для детей",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Коробка-сюрприз с шарами — Армавир | VigSharm",
+      "seo_description": "Бирюзовая коробка-сюрприз с цифрой и фонтаном из хромированных шаров. Персонализированное оформление. Доставка по Армавиру.",
+      "slug": "shchenyachiy-syurpriz",
+      "scene": "floor",
+      "tags": [
+        "Коробка-сюрприз"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1789817992/vigsharm-products/yvo4xgjqhypox2dfghfg.jpg"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789817992/vigsharm-products/yvo4xgjqhypox2dfghfg.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-19T11:39:53.567Z",
+      "updated_at": "2026-09-19T11:39:53.567Z"
+    },
+    {
+      "id": "de573bc8-ecb8-4900-9ec0-3dec7ba5a77e",
+      "title": "Красный рубеж",
+      "article": "HER-005",
+      "price": 5400,
+      "short_description": "Яркая композиция с цифрами и сердцами для особенного дня рождения.",
+      "full_description": "Эффектное сочетание красных цифр, белых и красных сердец. Главное сердце можно персонализировать вашим текстом.",
+      "composition": [
+        "2 фольгированные цифры",
+        "6 фольгированных сердец",
+        "большое фольгированное сердце с индивидуальной надписью"
+      ],
+      "category": "Для неё",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "5 000–8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Красный рубеж — шары на совершеннолетие в Армавире",
+      "seo_description": "Композиция из фольгированных шаров: цифры и сердца с персональной надписью. Яркое оформление праздника в Армавире. 5400 ₽",
+      "slug": "krasnyy-rubezh",
+      "scene": "wall_only",
+      "tags": [
+        "Для неё"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": true,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 2
+        }
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1789817430/vigsharm-products/ggucapjw0dbwxmoo6jj2.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789817430/vigsharm-products/ggucapjw0dbwxmoo6jj2.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-19T11:31:49.604Z",
+      "updated_at": "2026-09-19T11:31:49.604Z"
+    },
+    {
+      "id": "67c3e3b9-1b3b-4fe6-ad56-c08baa3ad6bf",
+      "title": "Ягодная сладость",
+      "article": "HER-004",
+      "price": 4940,
+      "short_description": "Яркая композиция с цифрами и фольгированными клубничками в красных тонах.",
+      "full_description": "Композиция включает красные фольгированные цифры, две фигуры клубники, латексные шары и шары с конфетти. Идеально для создания праздничного настроения.",
+      "composition": [
+        "2 фольгированные цифры",
+        "2 фольгированные фигуры «Клубника»",
+        "4 шара с конфетти",
+        "8 латексных шаров"
+      ],
+      "category": "Для неё",
+      "character": "Клубника",
+      "age_group": "Для взрослых",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Воздушные шары с клубникой и цифрами — Армавир",
+      "seo_description": "Яркая композиция из шаров с фольгированными клубничками, цифрами и конфетти. Закажите оформление шарами в Армавире.",
+      "slug": "yagodnaya-sladost",
+      "scene": "wall_only",
+      "tags": [
+        "Для неё",
+        "Юбилей"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 2
+        }
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1789817098/vigsharm-products/w1h3aewnkkaqazfbv5bk.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789817098/vigsharm-products/w1h3aewnkkaqazfbv5bk.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-19T11:25:50.843Z",
+      "updated_at": "2026-09-19T11:25:50.843Z"
+    },
+    {
+      "id": "b1aed28b-a0ec-48a9-ac45-89220965c24d",
+      "title": "Чёрное серебро",
+      "article": "JUB-001",
+      "price": 8100,
+      "short_description": "Элегантная композиция в чёрно-серебряной гамме с крупными цифрами и баблс на подставках.",
+      "full_description": "Стильное оформление с контрастным сочетанием чёрных и серебряных шаров. Крупные фольгированные цифры, баблс на декоративных подставках и акценты-звёзды создают графичный современный образ.",
+      "composition": [
+        "2 фольгированные цифры",
+        "2 шара баблс на подставках с декором"
+      ],
+      "category": "Юбилей",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "от 8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары на 18 лет в чёрно-серебряной гамме — Армавир",
+      "seo_description": "Элегантная напольная композиция с цифрами и баблс на подставках в чёрно-серебряном стиле. Стильное оформление совершеннолетия в Армавире.",
+      "slug": "chernoe-serebro",
+      "scene": "floor",
+      "tags": [
+        "Юбилей"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 2
+        }
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1789816923/vigsharm-products/qnzyejyxbgtwetngekht.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789816923/vigsharm-products/qnzyejyxbgtwetngekht.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-19T11:22:04.563Z",
+      "updated_at": "2026-09-19T11:22:04.563Z"
+    },
+    {
+      "id": "91a44361-166e-419e-b722-220246e4f3bb",
+      "title": "Пастельный шёпот",
+      "article": "PHT-006",
+      "price": 4000,
+      "short_description": "Фотозона с круглым планшетом и гирляндами из мятных, персиковых и золотых шаров.",
+      "full_description": "Фотозона с круглым планшетом на мольберте и композициями из шаров в пастельной гамме. Нежное сочетание мятных, персиковых и золотых оттенков.",
+      "composition": [
+        "фотозона"
+      ],
+      "category": "Фотозона",
+      "character": null,
+      "age_group": "Для детей",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Фотозона с шарами в пастельных тонах | Армавир",
+      "seo_description": "Фотозона с круглым планшетом и шарами в мятных, персиковых и золотых оттенках. Нежное оформление для фотосессий в Армавире.",
+      "slug": "pastelnyy-shepot",
+      "scene": "photozone",
+      "tags": [
+        "Фотозона"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": true,
+        "photozone_type": "easel",
+        "rental": {
+          "enabled": true,
+          "item": "Мольберт с кругом из полистирола",
+          "days": 3,
+          "keep_price_delta": 500
+        }
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1789816468/vigsharm-products/nktlmg164juw7yvprj2w.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789816468/vigsharm-products/nktlmg164juw7yvprj2w.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-19T11:15:55.827Z",
+      "updated_at": "2026-09-19T11:15:55.827Z"
+    },
+    {
+      "id": "f1b1a003-649d-471f-b8bf-37acee3d6de5",
+      "title": "Переливы чувств",
+      "article": "BQT-003",
+      "price": 2500,
+      "short_description": "Букет градиентных шаров-сердец с тёплыми надписями и веточками гипсофилы в розовой упаковке.",
+      "full_description": "Яркий букет из фольгированных шаров-сердец с переливами цвета и тёплыми пожеланиями. Дополнен веточками гипсофилы и упакован в нежную розовую бумагу с лентами.",
+      "composition": [
+        "букет из шаров с гипсофилой"
+      ],
+      "category": "Букет из шаров",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "2 000–3 500 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Букет из шаров с гипсофилой в Армавире | VigSharm",
+      "seo_description": "Яркий букет градиентных шаров-сердец с тёплыми надписями и веточками гипсофилы. Оригинальный подарок от VigSharm в Армавире.",
+      "slug": "perelivi-chuvstv",
+      "scene": "handheld_bouquet",
+      "tags": [
+        "Букет из шаров"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1789816254/vigsharm-products/l0dx5wvcacnyhf3fxs7o.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789816254/vigsharm-products/l0dx5wvcacnyhf3fxs7o.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-19T11:11:58.156Z",
+      "updated_at": "2026-09-19T11:11:58.156Z"
+    },
+    {
       "id": "258760d1-4977-4163-beff-1731ac88d219",
       "title": "Золотой момент",
       "article": "PHT-005",

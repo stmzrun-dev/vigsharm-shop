@@ -151,7 +151,13 @@ Object.assign(app, {
     if (index !== 0) {
       const [photo] = this.currentProduct.photos.splice(index, 1);
       this.currentProduct.photos.unshift(photo);
+      // Новое главное без type=master — исходник для следующего Master
+      if (photo && photo.type !== 'master') {
+        this.studioSourceUrl = photo.url?.startsWith('http') ? photo.url : this.studioSourceUrl;
+        if (this.studioCompare) this.studioCompare.original = this.studioSourceUrl || this.studioCompare.original;
+      }
       this.renderPhotos();
+      this.refreshStudioCheckpointUi?.();
       this.toast('Главное фото изменено', 'success');
     }
   },
@@ -948,6 +954,17 @@ Object.assign(app, {
       photozone_rental: rentalChecked
     };
 
+    // Исходник Studio Pro — чтобы после закрытия карточки можно было пересоздать Master
+    const studioOrig = String(
+      this.studioSourceUrl
+      || this.studioCompare?.original
+      || this.currentProduct?.client_options?.studio_original_url
+      || ''
+    ).trim();
+    if (/^https?:\/\//i.test(studioOrig)) {
+      clientOptions.studio_original_url = studioOrig;
+    }
+
     if (isPhotozone && pzType) {
       clientOptions.photozone_type = pzType;
     }
@@ -1137,21 +1154,39 @@ app.loadProductToForm = function(product) {
   if (typeof this.renderStudioCompare === 'function') this.renderStudioCompare();
 
   this.currentProduct.id = product.id || null;
+  this.currentProduct.client_options = product.client_options && typeof product.client_options === 'object'
+    ? { ...product.client_options }
+    : {};
 
   // Фото
-  this.currentProduct.photos = (product.photos || []).map(url => ({
+  this.currentProduct.photos = (product.photos || []).map((url, i) => ({
     id: Date.now() + Math.random(),
     url: url,
-    uploaded: true
+    uploaded: true,
+    type: i === 0 ? 'master' : undefined
   }));
   this.renderPhotos();
 
-  // Сцена
+  // Сцена + Studio Pro: восстановить оригинал для «Пересоздать Master»
   this.currentProduct.scene = product.scene || 'auto';
   const sceneSelect = document.getElementById('scene-select');
   if (sceneSelect) sceneSelect.value = this.currentProduct.scene;
+  const studioOrig = this.currentProduct.client_options.studio_original_url || null;
+  const masterUrl = this.currentProduct.photos[0]?.url || null;
+  this.studioSourceUrl = studioOrig || null;
+  this.studioMasterDataUrl = masterUrl;
+  this.studioMasterBackupUrl = masterUrl;
+  this.studioMasterBaseUrl = masterUrl;
+  this.studioCompare = {
+    original: studioOrig || null,
+    master: masterUrl || null
+  };
+  this.renderStudioCompare?.();
   this.syncStudioModeHint?.();
   this.refreshStudioCheckpointUi?.();
+  if (studioOrig || masterUrl) {
+    this.showSignTextEditor?.();
+  }
 
   // Основные данные
   const set = (id, value) => {

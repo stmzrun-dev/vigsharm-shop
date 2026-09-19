@@ -743,9 +743,17 @@ Object.assign(app, {
     }
   },
 
+  getStudioRemasterSourceUrl() {
+    return this.studioSourceUrl
+      || this.studioCompare?.original
+      || this.currentProduct?.client_options?.studio_original_url
+      || this.currentProduct?.photos?.[0]?.url
+      || null;
+  },
+
   async refreshStudioCheckpointUi() {
     const retryBtn = document.getElementById('studio-retry-btn');
-    const src = this.studioSourceUrl || this.studioCompare?.original;
+    const src = this.getStudioRemasterSourceUrl?.() || this.studioSourceUrl || this.studioCompare?.original;
     retryBtn?.classList.toggle('hidden', !src);
   },
 
@@ -895,9 +903,9 @@ Object.assign(app, {
   },
 
   async retryStudioMaster() {
-    const src = this.studioSourceUrl || this.studioCompare?.original;
+    const src = this.getStudioRemasterSourceUrl?.();
     if (!src) {
-      this.toast('Сначала создайте Master', 'error');
+      this.toast('Нет исходного фото для пересоздания — загрузите фото', 'error');
       return;
     }
 
@@ -905,8 +913,15 @@ Object.assign(app, {
     const statusEl = document.getElementById('studio-status');
     if (btn) btn.disabled = true;
 
-    const keptMaster = this.studioMasterDataUrl || this.studioMasterBackupUrl || this.studioCompare?.master;
+    const keptMaster = this.studioMasterDataUrl || this.studioMasterBackupUrl || this.studioCompare?.master
+      || this.currentProduct?.photos?.[0]?.url;
     this.studioMasterBackupUrl = keptMaster || this.studioMasterBackupUrl;
+    // Запомнить исходник (если пересоздаём со старого Master — он станет «оригиналом» для следующих раз)
+    if (!this.studioSourceUrl && !this.studioCompare?.original) {
+      this.studioSourceUrl = src;
+      this.studioCompare = this.studioCompare || {};
+      this.studioCompare.original = src;
+    }
 
     try {
       const scene = this.currentProduct?.scene || 'floor';
@@ -1012,21 +1027,28 @@ Object.assign(app, {
       console.log('[Studio Pro] ====== START ======', { scene, mode });
       this.syncStudioModeHint();
 
-      const originalPhoto = this.currentProduct.photos[0];
-      let imageUrl = originalPhoto.url;
-      if (!originalPhoto.uploaded && originalPhoto.file) {
+      const mainPhoto = this.currentProduct.photos[0];
+      const savedOriginal = this.studioSourceUrl
+        || this.studioCompare?.original
+        || this.currentProduct?.client_options?.studio_original_url
+        || null;
+      // При редактировании: если главное уже Master и есть сохранённый оригинал — переснимаем с него
+      const remasterFromOriginal = !!(mainPhoto?.type === 'master' && savedOriginal && !mainPhoto.file);
+
+      let imageUrl = remasterFromOriginal ? savedOriginal : mainPhoto.url;
+      if (!remasterFromOriginal && !mainPhoto.uploaded && mainPhoto.file) {
         statusEl.textContent = '☁️ Загрузка в Cloudinary...';
-        const uploadResult = await this.uploadPhoto(originalPhoto.file);
+        const uploadResult = await this.uploadPhoto(mainPhoto.file);
         if (!uploadResult.ok) {
           throw new Error(`Cloudinary upload failed: ${uploadResult.error}`);
         }
         imageUrl = uploadResult.url;
-        originalPhoto.url = imageUrl;
-        originalPhoto.uploaded = true;
+        mainPhoto.url = imageUrl;
+        mainPhoto.uploaded = true;
       }
 
-      this.studioSourceUrl = imageUrl;
-      this.studioCompare.original = imageUrl;
+      this.studioSourceUrl = remasterFromOriginal ? savedOriginal : imageUrl;
+      this.studioCompare.original = this.studioSourceUrl;
       this.setStudioBusy?.(true);
       this.showSourceWorkPreview?.(imageUrl, 'Оригинал (идёт Master) — пишите состав');
       document.getElementById('block-essentials')?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });

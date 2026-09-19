@@ -2,6 +2,232 @@
   "ok": true,
   "products": [
     {
+      "id": "258760d1-4977-4163-beff-1731ac88d219",
+      "title": "Золотой момент",
+      "article": "PHT-005",
+      "price": 8000,
+      "short_description": "Фотозона с гирляндой из розовых, белых и золотых шаров, круглой рамкой и фольгированной цифрой.",
+      "full_description": "Фотозона с асимметричной гирляндой из розовых, белых и золотых шаров, круглой рамкой с золотой надписью на деревянном мольберте, белыми цветами из шаров и крупной золотой цифрой.",
+      "composition": [
+        "фотозона"
+      ],
+      "category": "Фотозона",
+      "character": null,
+      "age_group": "Для детей",
+      "budget": "от 8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Фотозона с розовыми и золотыми шарами — Армавир",
+      "seo_description": "Фотозона с гирляндой из розовых, белых и золотых шаров, круглой рамкой и цифрой. Яркий фон для памятных фотографий в Армавире.",
+      "slug": "zolotoy-moment",
+      "scene": "photozone",
+      "tags": [
+        "Фотозона"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": true,
+        "photozone_type": "easel",
+        "rental": {
+          "enabled": true,
+          "item": "Мольберт с кругом из полистирола",
+          "days": 3,
+          "keep_price_delta": 500
+        }
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1789815790/vigsharm-products/bmqtjgsrfvqtsyvfhfev.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789815790/vigsharm-products/bmqtjgsrfvqtsyvfhfev.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-19T11:03:44.761Z",
+      "updated_at": "2026-09-19T11:03:44.761Z"
+    },
+    {
+      "id": "1068b0a6-b003-4592-b79f-d68b0413bf2d",
+      "title": "Холодный взгляд",
+      "article": "PHT-004",
+      "price": 7000,
+      "short_description": "Готическая фотозона в чёрно-золотых тонах с мольбертом и портретом.",
+      "full_description": "Фотозона в стиле Уэнсдей Аддамс: деревянный мольберт с круглым постером, органическая гирлянда из чёрных, золотых и белых шаров, белая звезда на подставке.",
+      "composition": [
+        "фотозона"
+      ],
+      "category": "Фотозона",
+      "character": "Уэнсдей Аддамс",
+      "age_group": "Для детей",
+      "budget": "5 000–8 000 ₽",
+      "series_name": "Уэнсдей",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Фотозона Уэнсдей Аддамс в Армавире — готический стиль",
+      "seo_description": "Готическая фотозона в стиле Уэнсдей: чёрные, золотые и белые шары, мольберт с портретом. Заказать в Армавире — VigSharm.",
+      "slug": "holodnyj-vzgljad",
+      "scene": "photozone",
+      "tags": [
+        "Фотозона"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": true,
+        "photozone_type": "easel",
+        "rental": {
+          "enabled": true,
+          "item": "Мольберт с кругом из полистирола",
+          "days": 3,
+          "keep_price_delta": 500
+        }
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1789815395/vigsharm-products/fur7dirpxr2hsw69otpi.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789815395/vigsharm-products/fur7dirpxr2hsw69otpi.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-19T10:57:50.620Z",
+      "updated_at": "2026-09-19T10:57:50.620Z"
+    },
+    {
+      "id": "9ef9888a-718c-46ef-b061-77146401ba2e",
+      "title": "Высокий друг",
+      "article": "UNI-001",
+      "price": 4140,
+      "short_description": "Фольгированный жираф с букетом мятных и золотых шаров.",
+      "full_description": "Композиция с фольгированной фигурой жирафа в золотых пятнах и воздушными шарами в нежных оттенках мяты и золота. Универсальное решение для детского праздника.",
+      "composition": [
+        "фольгированная фигура жирафа",
+        "2 шара с конфетти",
+        "2 хромированных шара",
+        "6 латексных шаров"
+      ],
+      "category": "Универсальные",
+      "character": "Жираф",
+      "age_group": "Для детей",
+      "budget": "3 500–5 000 ₽",
+      "series_name": "Жираф",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары с жирафом в Армавире — Пятнистая нежность",
+      "seo_description": "Композиция с фольгированным жирафом и шарами в мятных и золотых тонах. Универсальное оформление детского праздника. Доставка в Армавире.",
+      "slug": "pyatnistaya-nezhnost",
+      "scene": "wall_only",
+      "tags": [
+        "Универсальные"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1789814771/vigsharm-products/zrfabudbyl2imm2tpked.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789814771/vigsharm-products/zrfabudbyl2imm2tpked.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-19T10:52:47.914Z",
+      "updated_at": "2026-09-19T10:58:04.757Z"
+    },
+    {
+      "id": "c0d3cc3a-9446-4927-8ff5-f819577c5e0e",
+      "title": "Розовое облако",
+      "article": "PHT-003",
+      "price": 7000,
+      "short_description": "Нежная фотозона с розово-белой аркой из шаров, круглой табличкой на мольберте и фольгированным зайчиком.",
+      "full_description": "Фотозона с асимметричной гирляндой из розовых, белых и фуксиевых шаров, деревянным мольбертом с персонализированной табличкой и фольгированной фигурой зайчика на шарах.",
+      "composition": [
+        "фотозона"
+      ],
+      "category": "Фотозона",
+      "character": "зайчик",
+      "age_group": "Для малышей",
+      "budget": "5 000–8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Фотозона с зайчиком и шарами в Армавире — VigSharm",
+      "seo_description": "Нежная розово-белая фотозона с аркой из шаров, мольбертом и фольгированным зайчиком. Оформление праздника под ключ в Армавире.",
+      "slug": "zaykin-pervyy-kadr",
+      "scene": "photozone",
+      "tags": [
+        "Фотозона"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": true,
+        "photozone_type": "easel",
+        "rental": {
+          "enabled": true,
+          "item": "Мольберт с кругом из полистирола",
+          "days": 3,
+          "keep_price_delta": 500
+        }
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1789814038/vigsharm-products/a5gmbwcjblum6nbdnwsr.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789814038/vigsharm-products/a5gmbwcjblum6nbdnwsr.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-19T10:36:04.305Z",
+      "updated_at": "2026-09-19T10:36:04.305Z"
+    },
+    {
+      "id": "2ac24320-446a-4ad3-9326-1396973886ed",
+      "title": "Полосатый приятель",
+      "article": "Y1-005",
+      "price": 2310,
+      "short_description": "Фольгированный котёнок в полосатой тельняшке, звезда с именем и яркие латексные шары.",
+      "full_description": "Композиция с озорным котёнком в морской тельняшке, персональной звездой и нежными шарами. Милый акцент для первого дня рождения.",
+      "composition": [
+        "звезда с индивидуальной надписью",
+        "фольгированная фигура котёнка",
+        "4 латексных шара"
+      ],
+      "category": "1 годик",
+      "character": "Коржик",
+      "age_group": "Для малышей",
+      "budget": "2 000–3 500 ₽",
+      "series_name": "Три кота",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Набор шаров с котёнком на 1 годик — Армавир",
+      "seo_description": "Композиция с фольгированным котёнком в тельняшке, именной звездой и латексными шарами для первого дня рождения. Доставка по Армавиру.",
+      "slug": "polosatyi-priyatel",
+      "scene": "wall_only",
+      "tags": [
+        "1 годик"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1789812558/vigsharm-products/fpcop1fzckd58ucg6nug.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789812558/vigsharm-products/fpcop1fzckd58ucg6nug.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-19T10:20:33.461Z",
+      "updated_at": "2026-09-19T10:21:24.141Z"
+    },
+    {
       "id": "3ac049d0-2bae-4809-b992-3ee7ae4cf947",
       "title": "Пушистый шарм",
       "article": "Y1-004",

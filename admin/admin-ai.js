@@ -146,9 +146,9 @@ Object.assign(app, {
       else if (gaps.includes('Master') || gaps.includes('фото')) this.goStep1Phase?.('a');
       return false;
     }
-    document.getElementById('block-main')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    document.getElementById('product-title')?.focus({ preventScroll: true });
-    this.toast('Шаг 2: название и ИИ', 'success');
+    document.getElementById('block-essentials')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    document.getElementById('generate-ai-btn')?.focus({ preventScroll: true });
+    this.toast('Шаг 2: ИИ заполнит карточку', 'success');
     return true;
   },
 
@@ -360,13 +360,18 @@ Object.assign(app, {
       this.hideSourceWorkPreview?.();
       if (!wasStep2) {
         setTimeout(() => {
-          document.getElementById('block-main')?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          this.autosizeCompositionField?.();
+          document.getElementById('generate-ai-btn')?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }, 50);
+      } else {
+        this.autosizeCompositionField?.();
       }
     } else {
       this.refreshSourceWorkPreview?.();
+      this.autosizeCompositionField?.();
     }
     this.syncStep1WizardUi?.();
+    this.syncStep2AiCardUi?.();
   },
 
   showSourceWorkPreview(url) {
@@ -534,6 +539,39 @@ Object.assign(app, {
     }
     this.syncEditorSteps?.();
     this.syncRequiredFieldHighlights?.();
+    this.syncStep2AiCardUi?.();
+  },
+
+  /** Шаг 2: поля карточки только после ИИ (или при редактировании / поштучно). */
+  syncStep2AiCardUi() {
+    const form = document.getElementById('product-form');
+    if (!form) return;
+    const unit = this.isUnitBalloonMode?.();
+    const editing = !!this.currentProduct?.id;
+    const titled = !!(document.getElementById('product-title')?.value || '').trim();
+    const shorted = !!(document.getElementById('product-short-desc')?.value || '').trim();
+    const done = !!(this._aiCardFilled || unit || editing || (titled && shorted));
+    form.classList.toggle('has-ai-card', done);
+    this.autosizeCompositionField?.();
+  },
+
+  autosizeCompositionField() {
+    const el = document.getElementById('product-composition');
+    if (!el) return;
+    const onStep2 = document.getElementById('product-form')?.classList.contains('is-editor-step-2');
+    if (!onStep2) {
+      el.style.height = '';
+      el.style.overflow = '';
+      return;
+    }
+    el.style.height = 'auto';
+    el.style.overflow = 'hidden';
+    el.style.height = `${Math.max(el.scrollHeight, 112)}px`;
+  },
+
+  markAiCardFilled(filled = true) {
+    this._aiCardFilled = !!filled;
+    this.syncStep2AiCardUi?.();
   },
 
   setupAIFillGate() {
@@ -548,6 +586,7 @@ Object.assign(app, {
       const kick = () => {
         this.ensureMasterPhotoFlag?.();
         this.syncAIFillGate();
+        if (id === 'product-composition') this.autosizeCompositionField?.();
       };
       el.addEventListener('input', kick);
       el.addEventListener('change', kick);
@@ -690,6 +729,8 @@ Object.assign(app, {
       return;
     }
 
+    this.ensureNotifyPermission?.();
+
     const btn = document.getElementById('generate-ai-btn');
     const statusEl = document.getElementById('ai-status');
 
@@ -822,15 +863,22 @@ Object.assign(app, {
       this.renderCharacterAlts(data.character, data.character_alts || [], data.character_confidence || '');
       this.renderSeriesAlts(data.series_name, data.series_alts || [], data.series_confidence || '');
 
+      this.markAiCardFilled?.(true);
+      this._lastAiCardData = data;
+      this.notifyMasterDone?.('ok', {
+        title: 'Карточка заполнена',
+        body: 'ИИ готов — проверьте и опубликуйте'
+      });
+      setTimeout(() => this.openAiReviewOverlay?.({ data }), 60);
+
       if (data.ask_title || !data.title) {
         statusEl.innerHTML = '✅ Карточка заполнена — <strong>придумайте уникальное название</strong> (похожие в каталоге уже заняты), затем сохраните';
         this.toast('Нужно уникальное название', '');
-        document.getElementById('product-title')?.focus();
       } else if (data.ask_character) {
-        statusEl.innerHTML = '✅ Карточка заполнена — <strong>уточните персонажа/серию</strong> (кнопки под полями) и название, затем сохраните';
+        statusEl.innerHTML = '✅ Карточка заполнена — <strong>уточните персонажа/серию</strong> и название, затем сохраните';
         this.toast('ИИ просит уточнить персонажа или серию', '');
       } else {
-        statusEl.innerHTML = '✅ Карточка заполнена — выберите название при необходимости и сохраните';
+        statusEl.innerHTML = '✅ Карточка заполнена — проверьте в окне и опубликуйте';
         this.toast('ИИ заполнил карточку', 'success');
       }
       console.log('Generated metadata:', data);
@@ -838,11 +886,286 @@ Object.assign(app, {
       console.error('AI generation error:', e);
       statusEl.textContent = '✗ ' + e.message;
       this.toast('Ошибка AI: ' + e.message, 'error');
+      this.notifyMasterDone?.('error', {
+        title: 'ИИ не заполнил карточку',
+        body: e.message || 'Ошибка генерации'
+      });
     } finally {
       btn.classList.remove('is-busy');
       btn.innerHTML = '🤖 ИИ заполнит карточку';
       this.syncAIFillGate();
     }
+  },
+
+  openAiReviewOverlay(opts = {}) {
+    const overlay = document.getElementById('ai-review-overlay');
+    if (!overlay) return;
+    if (opts.data) this._lastAiCardData = opts.data;
+    const form = document.getElementById('product-form');
+    form?.classList.remove('is-ai-review-detail');
+    this.wireAiReviewOverlay?.();
+    this.syncAiReviewFromForm?.(opts.data || this._lastAiCardData);
+    overlay.hidden = false;
+    overlay.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+    document.body.classList.add('ai-review-open');
+    setTimeout(() => document.getElementById('ai-review-title')?.focus({ preventScroll: true }), 40);
+  },
+
+  closeAiReviewOverlay(opts = {}) {
+    if (!opts.skipSync) this.syncAiReviewToForm?.();
+    const overlay = document.getElementById('ai-review-overlay');
+    if (overlay) {
+      overlay.classList.add('hidden');
+      overlay.hidden = true;
+    }
+    document.body.classList.remove('ai-review-open');
+    if (!document.getElementById('photo-lightbox') || document.getElementById('photo-lightbox').classList.contains('hidden')) {
+      document.body.style.overflow = '';
+    }
+    const form = document.getElementById('product-form');
+    if (opts.edit) {
+      form?.classList.add('is-ai-review-detail');
+      setTimeout(() => {
+        document.getElementById('step2-after-ai')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        document.getElementById('product-title')?.focus({ preventScroll: true });
+      }, 40);
+    }
+  },
+
+  wireAiReviewOverlay() {
+    if (this._aiReviewWired) return;
+    this._aiReviewWired = true;
+    const map = [
+      ['ai-review-title', 'product-title'],
+      ['ai-review-price', 'product-price'],
+      ['ai-review-composition', 'product-composition'],
+      ['ai-review-category', 'product-category'],
+      ['ai-review-age', 'product-age'],
+      ['ai-review-character', 'product-character'],
+      ['ai-review-series', 'product-series']
+    ];
+    map.forEach(([fromId, toId]) => {
+      const el = document.getElementById(fromId);
+      if (!el) return;
+      const sync = () => {
+        const target = document.getElementById(toId);
+        if (target) target.value = el.value;
+        if (fromId === 'ai-review-title') this.syncEditorTitle?.(el.value);
+        if (fromId === 'ai-review-composition') this.autosizeAiReviewComposition?.();
+        if (fromId === 'ai-review-price') this.syncBudgetFromPrice?.();
+        this.syncRequiredFieldHighlights?.();
+        this.scheduleSaveActiveStudioDraft?.();
+      };
+      el.addEventListener('input', sync);
+      el.addEventListener('change', sync);
+    });
+
+    const optMap = [
+      ['ai-review-opt-advance', 'opt-advance'],
+      ['ai-review-opt-number', 'opt-number'],
+      ['ai-review-opt-inscription', 'opt-inscription'],
+      ['ai-review-opt-rental', 'opt-rental']
+    ];
+    optMap.forEach(([fromId, toId]) => {
+      const el = document.getElementById(fromId);
+      if (!el) return;
+      el.addEventListener('change', () => {
+        const target = document.getElementById(toId);
+        if (target) target.checked = el.checked;
+        this.scheduleSaveActiveStudioDraft?.();
+      });
+    });
+  },
+
+  autosizeAiReviewComposition() {
+    const comp = document.getElementById('ai-review-composition');
+    if (!comp) return;
+    comp.style.height = 'auto';
+    comp.style.height = `${Math.max(comp.scrollHeight, 48)}px`;
+  },
+
+  renderAiReviewTagGroup(containerId, tags, sourceSelector) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+    const checked = new Set(
+      [...document.querySelectorAll(`${sourceSelector} input:checked`)].map((el) => el.value)
+    );
+    container.innerHTML = (tags || []).map((tag, i) => {
+      const id = `${containerId}-${i}`;
+      const on = checked.has(tag);
+      return `<div class="chip${on ? ' is-on' : ''}">
+        <input type="checkbox" id="${id}" value="${this.escapeAttr(tag)}"${on ? ' checked' : ''}/>
+        <label for="${id}">${this.escapeHtml(tag)}</label>
+      </div>`;
+    }).join('');
+    container.querySelectorAll('input[type="checkbox"]').forEach((cb) => {
+      cb.addEventListener('change', () => {
+        const formCb = document.querySelector(`${sourceSelector} input[value="${CSS.escape(cb.value)}"]`);
+        if (formCb) formCb.checked = cb.checked;
+        cb.closest('.chip')?.classList.toggle('is-on', cb.checked);
+        this.scheduleSaveActiveStudioDraft?.();
+      });
+    });
+  },
+
+  syncAiReviewFromForm(data) {
+    const set = (id, val) => {
+      const el = document.getElementById(id);
+      if (el && val != null) el.value = val;
+    };
+    const copySelect = (srcId, dstId) => {
+      const src = document.getElementById(srcId);
+      const dst = document.getElementById(dstId);
+      if (!src || !dst) return;
+      if (dst.options.length < 2) dst.innerHTML = src.innerHTML;
+      dst.value = src.value;
+    };
+    copySelect('product-category', 'ai-review-category');
+    copySelect('product-age', 'ai-review-age');
+
+    set('ai-review-title', document.getElementById('product-title')?.value || '');
+    set('ai-review-price', document.getElementById('product-price')?.value || '');
+    set('ai-review-composition', document.getElementById('product-composition')?.value || '');
+    set('ai-review-character', document.getElementById('product-character')?.value || '');
+    set('ai-review-series', document.getElementById('product-series')?.value || '');
+
+    const img = document.getElementById('ai-review-img');
+    const photoUrl = this.currentProduct?.photos?.[0]?.url
+      || this.studioMasterDataUrl
+      || this.studioCompare?.master
+      || '';
+    if (img) {
+      if (photoUrl) img.src = photoUrl;
+      else img.removeAttribute('src');
+    }
+
+    const article = document.getElementById('product-article')?.value || '';
+    const meta = document.getElementById('ai-review-meta');
+    if (meta) meta.textContent = article ? `Арт. ${article}` : '';
+
+    const title = data?.title || document.getElementById('product-title')?.value || '';
+    const titleAlts = (data?.title_alts || []).slice(0, 2);
+    this.renderFieldAlts?.(
+      'ai-review-title-alts',
+      'ai-review-title',
+      'Ещё варианты:',
+      title,
+      titleAlts,
+      (val) => {
+        const formTitle = document.getElementById('product-title');
+        if (formTitle) formTitle.value = val;
+        this.syncEditorTitle?.(val);
+        this.renderTitleAlts?.(val, data?.title_alts || titleAlts);
+      }
+    );
+
+    const conf = String(data?.character_confidence || this._lastAiCardData?.character_confidence || '').toLowerCase();
+    const charDoubt = conf === 'low' || conf === 'medium';
+    const charWrap = document.getElementById('ai-review-character-wrap');
+    if (charWrap) {
+      charWrap.classList.toggle('hidden', !charDoubt);
+      if (charDoubt) {
+        const char = data?.character || document.getElementById('product-character')?.value || '';
+        const charAlts = data?.character_alts || this._lastAiCardData?.character_alts || [];
+        this.renderFieldAlts?.(
+          'ai-review-character-alts',
+          'ai-review-character',
+          conf === 'low' ? 'ИИ не уверен — выберите:' : 'Уточните персонажа:',
+          char,
+          charAlts,
+          (val) => {
+            const el = document.getElementById('product-character');
+            if (el) el.value = val;
+          }
+        );
+      }
+    }
+
+    const seriesVal = (document.getElementById('product-series')?.value || '').trim();
+    const charVal = (document.getElementById('product-character')?.value || '').trim();
+    const showSeries = !!(seriesVal && (!charVal || seriesVal.toLowerCase() !== charVal.toLowerCase()));
+    document.getElementById('ai-review-series-wrap')?.classList.toggle('hidden', !showSeries);
+
+    const deferred = (typeof DEFERRED_TYPE_TAGS !== 'undefined' && DEFERRED_TYPE_TAGS) || ['Шар-сюрприз'];
+    const typeTags = ((typeof TAGS !== 'undefined' && TAGS.type) || []).filter((t) => !deferred.includes(t));
+    this.renderAiReviewTagGroup?.('ai-review-tags-for-who', TAGS?.forWho || [], '#tags-for-who');
+    this.renderAiReviewTagGroup?.('ai-review-tags-occasion', TAGS?.occasion || [], '#tags-occasion');
+    this.renderAiReviewTagGroup?.('ai-review-tags-dates', TAGS?.dates || [], '#tags-dates');
+    this.renderAiReviewTagGroup?.('ai-review-tags-type', typeTags, '#tags-type');
+
+    const syncOpt = (fromId, toId) => {
+      const from = document.getElementById(fromId);
+      const to = document.getElementById(toId);
+      if (from && to) from.checked = !!to.checked;
+    };
+    syncOpt('ai-review-opt-advance', 'opt-advance');
+    syncOpt('ai-review-opt-number', 'opt-number');
+    syncOpt('ai-review-opt-inscription', 'opt-inscription');
+    syncOpt('ai-review-opt-rental', 'opt-rental');
+
+    requestAnimationFrame(() => this.autosizeAiReviewComposition?.());
+  },
+
+  syncAiReviewToForm() {
+    const pair = (fromId, toId) => {
+      const from = document.getElementById(fromId);
+      const to = document.getElementById(toId);
+      if (from && to) to.value = from.value;
+    };
+    pair('ai-review-title', 'product-title');
+    pair('ai-review-price', 'product-price');
+    pair('ai-review-composition', 'product-composition');
+    pair('ai-review-category', 'product-category');
+    pair('ai-review-age', 'product-age');
+    pair('ai-review-character', 'product-character');
+    pair('ai-review-series', 'product-series');
+
+    const optMap = [
+      ['ai-review-opt-advance', 'opt-advance'],
+      ['ai-review-opt-number', 'opt-number'],
+      ['ai-review-opt-inscription', 'opt-inscription'],
+      ['ai-review-opt-rental', 'opt-rental']
+    ];
+    optMap.forEach(([fromId, toId]) => {
+      const from = document.getElementById(fromId);
+      const to = document.getElementById(toId);
+      if (from && to) to.checked = from.checked;
+    });
+
+    // Теги уже синкаются по change; на всякий случай прогоним из оверлея
+    [
+      ['ai-review-tags-for-who', '#tags-for-who'],
+      ['ai-review-tags-occasion', '#tags-occasion'],
+      ['ai-review-tags-dates', '#tags-dates'],
+      ['ai-review-tags-type', '#tags-type']
+    ].forEach(([boxId, sel]) => {
+      document.querySelectorAll(`#${boxId} input[type="checkbox"]`).forEach((cb) => {
+        const formCb = document.querySelector(`${sel} input[value="${CSS.escape(cb.value)}"]`);
+        if (formCb) formCb.checked = cb.checked;
+      });
+    });
+
+    const showEl = document.getElementById('show-on-site');
+    // при публикации выставится отдельно; в оверлее галочки нет
+    void showEl;
+
+    this.syncEditorTitle?.(document.getElementById('product-title')?.value || '');
+    this.syncBudgetFromPrice?.();
+    this.syncRequiredFieldHighlights?.();
+    this.autosizeCompositionField?.();
+  },
+
+  async publishFromAiReview() {
+    this.syncAiReviewToForm?.();
+    const showEl = document.getElementById('show-on-site');
+    if (showEl) showEl.checked = true;
+    await this.publishProduct?.();
+  },
+
+  async saveDraftFromAiReview() {
+    this.syncAiReviewToForm?.();
+    await this.saveDraft?.({ andNew: false });
   }
 });
 

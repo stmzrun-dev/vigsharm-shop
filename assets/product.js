@@ -34,6 +34,10 @@
   var dateDocBound = false;
   var MONTHS_RU = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'];
   var WEEK_RU = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'];
+  /** Mobile hybrid 5+6: stories until required picks done, then compact summary. */
+  var flowEditTarget = '';
+  var flowMedia = null;
+  var deltaAck = false;
 
   (function () {
     var d = new Date();
@@ -66,6 +70,51 @@
   function fulfillmentOk() { return !!(fulfillment && (fulfillment === 'pickup' || address.trim())); }
   function inscriptionOk() { return !(p && p.has_inscription) || !!String(inscription || '').trim(); }
   function isOrderReady() { return digitsOk() && inscriptionOk() && fulfillmentOk(); }
+  function useMobileFlow() {
+    if (typeof window.matchMedia !== 'function') return false;
+    if (!flowMedia) flowMedia = window.matchMedia('(max-width:650px)');
+    return !!flowMedia.matches;
+  }
+  function flowStepList() {
+    var steps = [];
+    if (p && p.has_digit_choice) {
+      steps.push('digit1');
+      if (canAdd() || canRemove()) steps.push('delta');
+      if (effDigits() >= 2) steps.push('digit2');
+    }
+    if (isUnit()) steps.push('qty');
+    if (p && p.has_inscription) steps.push('inscription');
+    steps.push('fulfill');
+    if (fulfillment && fulfillment !== 'pickup') steps.push('address');
+    return steps;
+  }
+  function flowStepDone(step) {
+    if (step === 'digit1') return !!digit;
+    if (step === 'delta') return !(canAdd() || canRemove()) || deltaAck;
+    if (step === 'digit2') return !!digit2;
+    if (step === 'qty') return qty >= 1;
+    if (step === 'inscription') return inscriptionOk();
+    if (step === 'fulfill') return !!fulfillment;
+    if (step === 'address') return !!address.trim();
+    return true;
+  }
+  function currentFlowStep() {
+    if (flowEditTarget) return flowEditTarget;
+    var steps = flowStepList();
+    var i;
+    for (i = 0; i < steps.length; i++) {
+      if (!flowStepDone(steps[i])) return steps[i];
+    }
+    return 'done';
+  }
+  function flowInStories() {
+    return false;
+  }
+  function digitsChipLabel() {
+    if (!p || !p.has_digit_choice) return '';
+    if (!digitsOk()) return '··';
+    return effDigits() >= 2 ? (digit + ' и ' + digit2) : digit;
+  }
   function orderCta(kind) {
     if (!digitsOk()) return kind === 'short' ? 'Выберите цифру' : ('Выберите ' + (effDigits() === 2 ? 'обе цифры' : 'цифру'));
     if (!inscriptionOk()) return 'Напишите надпись';
@@ -134,6 +183,19 @@
     if (a.length === 3) return a[2] + '.' + a[1] + '.' + a[0];
     try { return new Date(orderDate + 'T12:00:00').toLocaleDateString('ru-RU'); } catch (e) { return orderDate; }
   }
+  function dateCardLabel() {
+    if (!orderDate) return { title: 'Дата', hint: 'позже' };
+    var a = String(orderDate).split('-');
+    if (a.length === 3) {
+      var short = ['янв', 'фев', 'мар', 'апр', 'мая', 'июн', 'июл', 'авг', 'сен', 'окт', 'ноя', 'дек'];
+      return { title: Number(a[2]) + ' ' + short[Number(a[1]) - 1], hint: a[0] };
+    }
+    return { title: dateLabel(), hint: '' };
+  }
+  function timeCardLabel() {
+    if (!orderTime) return { title: 'Время', hint: 'позже' };
+    return { title: timeLabel(), hint: '\u00a0' };
+  }
   function ensureCalView() {
     var src = String(orderDate || todayMin).split('-');
     if (!calView.y) {
@@ -155,9 +217,11 @@
       var selected = iso === orderDate;
       cells += '<button type="button" class="cal-day' + (selected ? ' is-selected' : '') + (iso === todayMin ? ' is-today' : '') + '" data-act="date-day" data-v="' + iso + '"' + (disabled ? ' disabled' : '') + '>' + i + '</button>';
     }
-    return '<div class="order-date-picker' + (datePickerOpen ? ' is-open' : '') + '">' +
-      '<button type="button" class="order-date-toggle" data-act="date-toggle" aria-expanded="' + datePickerOpen + '" aria-haspopup="dialog">' +
-      (orderDate ? dateLabel() : 'Выберите дату') + '</button>' +
+    var dCard = dateCardLabel();
+    return '<div class="order-date-picker' + (datePickerOpen ? ' is-open' : '') + (orderDate ? ' has-value' : '') + '">' +
+      '<button type="button" class="order-date-toggle order-dt-card' + (orderDate ? ' is-picked' : '') + '" data-act="date-toggle" aria-expanded="' + datePickerOpen + '" aria-haspopup="dialog" aria-label="' + (orderDate ? 'Дата: ' + dateLabel() : 'Выбрать дату') + '">' +
+      '<span class="ful-icon dt-icon" aria-hidden="true"><img src="icons/dt-date.png?v=1" alt="" width="56" height="56"/></span>' +
+      '<strong>' + esc(dCard.title) + '</strong><small>' + esc(dCard.hint) + '</small></button>' +
       '<div class="order-cal" role="dialog" aria-label="Календарь">' +
       '<div class="order-cal-head">' +
       '<button type="button" data-act="cal-prev" aria-label="Предыдущий месяц">‹</button>' +
@@ -184,9 +248,11 @@
     var cells = slots.map(function (t) {
       return '<button type="button" class="time-slot' + (orderTime === t ? ' is-selected' : '') + '" data-act="time-slot" data-v="' + t + '">' + t + '</button>';
     }).join('');
-    return '<div class="order-date-picker order-time-picker' + (timePickerOpen ? ' is-open' : '') + '">' +
-      '<button type="button" class="order-date-toggle" data-act="time-toggle" aria-expanded="' + timePickerOpen + '" aria-haspopup="dialog">' +
-      (orderTime ? timeLabel() : 'Выберите время') + '</button>' +
+    var tCard = timeCardLabel();
+    return '<div class="order-date-picker order-time-picker' + (timePickerOpen ? ' is-open' : '') + (orderTime ? ' has-value' : '') + '">' +
+      '<button type="button" class="order-date-toggle order-dt-card' + (orderTime ? ' is-picked' : '') + '" data-act="time-toggle" aria-expanded="' + timePickerOpen + '" aria-haspopup="dialog" aria-label="' + (orderTime ? 'Время: ' + timeLabel() : 'Выбрать время') + '">' +
+      '<span class="ful-icon dt-icon" aria-hidden="true"><img src="icons/dt-time.png?v=1" alt="" width="56" height="56"/></span>' +
+      '<strong>' + esc(tCard.title) + '</strong><small>' + esc(tCard.hint) + '</small></button>' +
       '<div class="order-cal order-time-list" role="dialog" aria-label="Время">' +
       '<div class="order-time-grid">' + cells + '</div>' +
       '<button type="button" class="order-cal-later" data-act="time-clear">Уточнить позже</button>' +
@@ -197,6 +263,141 @@
     if (fulfillment === 'armavir') return 'Доставка по Армавиру';
     if (fulfillment === 'nearby') return 'Доставка за город';
     return 'Уточнить';
+  }
+
+  function storyProgressHtml(activeStep) {
+    var steps = flowStepList();
+    var idx = steps.indexOf(activeStep);
+    if (idx < 0) idx = steps.length;
+    return '<div class="order-story-bars" aria-hidden="true">' +
+      steps.map(function (s, i) {
+        return '<i class="' + (i < idx ? 'is-done' : i === idx ? 'is-on' : '') + '"></i>';
+      }).join('') + '</div>';
+  }
+
+  function storyDigitsPad(act, selected) {
+    var digits = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+    return '<div class="order-story-digits client-digits">' + digits.map(function (d) {
+      return '<button type="button" class="order-story-digit' + (selected === d ? ' selected' : '') + '" data-act="' + act + '" data-v="' + d + '" aria-label="Цифра ' + d + '" aria-pressed="' + (selected === d) + '">' +
+        '<span class="order-story-digit-ring" aria-hidden="true"></span>' +
+        '<span class="order-story-digit-face">' + d + '</span></button>';
+    }).join('') + '</div>';
+  }
+
+  function storyHtml() {
+    return '';
+  }
+
+  function clientNextId() {
+    if (!digitsOk()) return 'client-digits';
+    if (!inscriptionOk()) return 'client-ins';
+    if (!fulfillment) return 'client-ful';
+    if (!fulfillmentOk()) return 'client-addr';
+    return 'client-msg';
+  }
+
+  function clientOrderHtml() {
+    if (!useMobileFlow()) return '';
+    var H = effDelta();
+    var B = canAdd();
+    var U = effDigits();
+    var ready = isOrderReady();
+    var next = clientNextId();
+    var html = '<div class="client-order">';
+
+    if (isUnit()) {
+      html += '<section class="client-block" id="client-qty">' +
+        '<h3 class="client-block-title">' + (isPerMeter() ? 'Длина' : 'Количество') + '</h3>' +
+        '<label class="client-qty"><input type="number" min="1" max="100" value="' + qty + '" data-act="qty"/></label></section>';
+    }
+
+    if (p.has_digit_choice) {
+      html += '<section class="client-block' + (next === 'client-digits' ? ' is-next' : digitsOk() ? ' is-done' : '') + '" id="client-digits">' +
+        '<h3 class="client-block-title">Цифры на композиции</h3>';
+
+      if (digitsOk()) {
+        html += '<button type="button" class="client-digits-done" data-act="digits-edit" aria-label="Изменить цифры">' +
+          '<strong>' + esc(digitsChipLabel()) + '</strong><small>изменить</small></button>';
+        if (canAdd() && H === 0) {
+          html += '<div class="client-delta order-story-delta client-delta-compact">' +
+            '<button type="button" class="selected" data-act="delta" data-v="0" aria-pressed="true"><strong>1</strong><small>как на фото</small></button>' +
+            '<button type="button" data-act="delta" data-v="1" aria-pressed="false"><strong>2</strong><small>+900 ₽</small></button></div>';
+        }
+      } else if (U === 2 && digit) {
+        html += '<div class="client-digits-progress">' +
+          '<button type="button" class="client-digit-mini selected" data-act="digits-edit" aria-label="Изменить первую цифру">' + esc(digit) + '</button>' +
+          '<span class="client-digits-sep" aria-hidden="true">→</span>' +
+          '<span class="client-digit-label">вторая</span></div>' +
+          storyDigitsPad('digit2', digit2);
+      } else {
+        if (U === 2) html += '<span class="client-digit-label">Первая</span>';
+        html += storyDigitsPad('digit', digit);
+        if ((canAdd() || canRemove()) && digit) {
+          html += '<div class="client-delta order-story-delta client-delta-compact">' +
+            '<button type="button" class="' + (H === 0 ? 'selected' : '') + '" data-act="delta" data-v="0" aria-pressed="' + (H === 0) + '"><strong>' + (B ? '1' : '2') + '</strong><small>' + (B ? 'как на фото' : 'две') + '</small></button>' +
+            (B
+              ? '<button type="button" class="' + (H === 1 ? 'selected' : '') + '" data-act="delta" data-v="1" aria-pressed="' + (H === 1) + '"><strong>2</strong><small>+900 ₽</small></button>'
+              : '<button type="button" class="' + (H === -1 ? 'selected' : '') + '" data-act="delta" data-v="-1" aria-pressed="' + (H === -1) + '"><strong>1</strong><small>−900 ₽</small></button>') +
+            '</div>';
+        }
+      }
+      html += '</section>';
+    }
+
+    if (p.has_inscription) {
+      html += '<section class="client-block' + (next === 'client-ins' ? ' is-next' : inscriptionOk() ? ' is-done' : '') + '" id="client-ins">' +
+        '<h3 class="client-block-title">Надпись на шаре' + (next === 'client-ins' ? '<span class="client-req" aria-hidden="true">*</span>' : '') + '</h3>' +
+        '<label class="client-ins' + (inscriptionOk() ? ' is-filled' : '') + '">' +
+        '<span class="client-ins-ico" aria-hidden="true"><img src="icons/line-balloon.svg" alt="" width="22" height="22"/></span>' +
+        '<input value="' + esc(inscription) + '" maxlength="60" data-act="inscription" placeholder="С Днём рождения!" inputmode="text" autocomplete="off"/>' +
+        '<span class="client-ins-ok" aria-hidden="true">✓</span></label></section>';
+    }
+
+    if (p.has_rental) {
+      html += '<section class="client-block is-done"><h3 class="client-block-title">Аренда</h3>' +
+        '<p class="client-rental"><strong>' + esc(p.rental_item || 'элемент фотозоны') + '</strong> · до ' + (p.rental_days || 3) + ' суток</p></section>';
+    }
+
+    html += '<section class="client-block' + (next === 'client-ful' ? ' is-next' : fulfillment ? ' is-done' : '') + '" id="client-ful">' +
+      '<h3 class="client-block-title">Как получить' + (next === 'client-ful' ? '<span class="client-req" aria-hidden="true">*</span>' : '') + '</h3>' +
+      '<div class="client-ful fulfillment-options' + (!fulfillment ? ' is-pick' : '') + '">' +
+      '<button type="button" class="' + (fulfillment === 'pickup' ? 'selected' : '') + '" data-act="ful" data-v="pickup" aria-label="Самовывоз" aria-pressed="' + (fulfillment === 'pickup') + '"><span class="ful-icon"><img src="icons/ful-pickup.png?v=4" alt="" width="48" height="48"/></span><strong>Самовывоз</strong><small>Бесплатно</small></button>' +
+      '<button type="button" class="' + (fulfillment === 'armavir' ? 'selected' : '') + '" data-act="ful" data-v="armavir" aria-label="По городу" aria-pressed="' + (fulfillment === 'armavir') + '"><span class="ful-icon"><img src="icons/ful-city.png?v=4" alt="" width="48" height="48"/></span><strong>По городу</strong><small>+200 ₽</small></button>' +
+      '<button type="button" class="' + (fulfillment === 'nearby' ? 'selected' : '') + '" data-act="ful" data-v="nearby" aria-label="За город" aria-pressed="' + (fulfillment === 'nearby') + '"><span class="ful-icon"><img src="icons/ful-far.png?v=4" alt="" width="48" height="48"/></span><strong>За город</strong><small>Рассчитаем</small></button>' +
+      '</div></section>';
+
+    if (fulfillment && fulfillment !== 'pickup') {
+      html += '<section class="client-block' + (next === 'client-addr' ? ' is-next' : address.trim() ? ' is-done' : '') + '" id="client-addr">' +
+        '<h3 class="client-block-title">Адрес' + (next === 'client-addr' ? '<span class="client-req" aria-hidden="true">*</span>' : '') + '</h3>' +
+        '<label class="client-ins' + (address.trim() ? ' is-filled' : '') + '">' +
+        '<span class="client-ins-ico" aria-hidden="true"><img src="icons/line-pin.svg" alt="" width="20" height="20"/></span>' +
+        '<input value="' + esc(address) + '" maxlength="140" data-act="address" placeholder="' + (fulfillment === 'armavir' ? 'Улица, дом, квартира' : 'Населённый пункт и адрес') + '"/>' +
+        '<span class="client-ins-ok" aria-hidden="true">✓</span></label></section>';
+    }
+
+    html += '<details class="client-when"' + ((orderDate || orderTime) ? ' open' : '') + '>' +
+      '<summary>Дата и время</summary>' +
+      '<div class="order-date-row" role="group" aria-label="Дата и время">' +
+      '<div class="order-date-field">' + calendarHtml() + '</div>' +
+      '<div class="order-time-field">' + timeHtml() + '</div></div></details>';
+
+    if (ready) {
+      var msg = orderMessage();
+      html += '<section class="client-block is-done client-msg" id="client-msg">' +
+        '<h3 class="client-block-title">Отправить заказ</h3>' +
+        '<div class="order-sum-msg">' +
+        '<a class="order-sum-wa" target="_blank" rel="noreferrer" href="https://wa.me/' + PHONE + '?text=' + encodeURIComponent(msg) + '" data-act="flow-msg" data-msg="wa"><span>' + WA_SVG + '</span><strong>WhatsApp</strong></a>' +
+        '<a class="order-sum-tg" target="_blank" rel="noreferrer" href="' + TG_URL + '?text=' + encodeURIComponent(msg) + '" data-act="flow-msg" data-msg="tg"><span>' + TG_SVG + '</span><strong>Telegram</strong></a>' +
+        '<a class="order-sum-max" target="_blank" rel="noreferrer" href="' + MAX_URL + '" data-act="flow-msg" data-msg="max"><span><img src="icons/max-official.png" alt="" width="22" height="22"/></span><strong>MAX</strong></a>' +
+        '</div></section>';
+    }
+
+    html += '</div>';
+    return html;
+  }
+
+  function summaryFlowHtml() {
+    return clientOrderHtml();
   }
 
   function orderMessage() {
@@ -242,7 +443,11 @@
       if (!d) return;
       if (typeof d.digit === 'string') digit = d.digit;
       if (typeof d.additionalDigit === 'string') digit2 = d.additionalDigit;
-      if (d.digitCountChange === -1 || d.digitCountChange === 0 || d.digitCountChange === 1) digitDelta = d.digitCountChange;
+      if (d.digitCountChange === -1 || d.digitCountChange === 0 || d.digitCountChange === 1) {
+        digitDelta = d.digitCountChange;
+        deltaAck = true;
+      }
+      if (typeof d.digit === 'string' && d.digit) deltaAck = true;
       if (typeof d.inscription === 'string') inscription = d.inscription;
       if (typeof d.orderDate === 'string' && d.orderDate >= todayMin) orderDate = d.orderDate;
       if (typeof d.orderTime === 'string') orderTime = d.orderTime;
@@ -336,9 +541,9 @@
         '<small>Бесплатно до ' + (p.rental_days || 3) + ' суток. Далее — ' + Number(p.keep_price_delta != null ? p.keep_price_delta : 500).toLocaleString('ru-RU') + ' ₽/сутки.</small></span><b>включено</b></div></fieldset>';
     }
     var dateInner = extraOrderFields +
-      '<div class="order-date-row">' +
-      '<div class="config-input order-date-field"><span>Дата<small>можно позже</small></span>' + calendarHtml() + '</div>' +
-      '<div class="config-input order-time-field"><span>Время<small>можно позже</small></span>' + timeHtml() + '</div></div>' +
+      '<div class="order-date-row" role="group" aria-label="Дата и время">' +
+      '<div class="order-date-field">' + calendarHtml() + '</div>' +
+      '<div class="order-time-field">' + timeHtml() + '</div></div>' +
       '<fieldset class="fulfillment-field' + (!fulfilled ? ' needs-pick' : '') + '"><legend>Как получить заказ?</legend><div class="fulfillment-options">' +
       '<button type="button" class="' + (fulfilled === 'pickup' ? 'selected' : '') + '" data-act="ful" data-v="pickup" aria-label="Выбрать самовывоз, бесплатно" aria-pressed="' + (fulfilled === 'pickup') + '"><span class="ful-icon ful-pickup" aria-hidden="true"><img src="icons/ful-pickup.png?v=4" alt="" width="40" height="40"/></span><strong>Самовывоз</strong><small>Бесплатно</small></button>' +
       '<button type="button" class="' + (fulfilled === 'armavir' ? 'selected' : '') + '" data-act="ful" data-v="armavir" aria-label="Выбрать доставку по Армавиру, 200 рублей" aria-pressed="' + (fulfilled === 'armavir') + '"><span class="ful-icon ful-city" aria-hidden="true"><img src="icons/ful-city.png?v=4" alt="" width="40" height="40"/></span><strong>По городу</strong><small>+200 ₽</small></button>' +
@@ -355,6 +560,8 @@
     var hasPriceExtras = ip > 0 || dp !== 0 || yp > 0 || fulfilled === 'nearby';
     var ready = isOrderReady();
     var orderBtn = orderCta('full');
+    var mobileFlowOn = useMobileFlow();
+    var pageClass = 'product-page' + (mobileFlowOn ? ' is-mobile-flow is-client-order' : '');
 
     var desc = String(p.description || '').trim();
     var compItems = String(p.composition || '').split(/\n+/).map(function (s) { return s.trim(); }).filter(Boolean);
@@ -365,7 +572,7 @@
       ' <span aria-hidden="true">→</span></button>';
 
     root.innerHTML =
-      '<main class="product-page">' +
+      '<main class="' + pageClass + '">' +
       '<nav class="product-page-toolbar" aria-label="Действия с композицией">' +
       '<a href="catalog.html"><span aria-hidden="true">←</span> Вернуться в каталог</a>' +
       '<button type="button" data-act="share"><span aria-hidden="true">↗</span>' +
@@ -394,6 +601,8 @@
       (leadText
         ? '<div class="product-lead"><div class="product-lead-icon" aria-hidden="true"><img src="icons/line-balloon.svg" alt="" width="22" height="22"/></div><p>' + esc(leadText) + '</p></div>'
         : '') +
+      summaryFlowHtml() +
+      '<div class="order-classic-flow">' +
       paramsDetails +
       '<section class="order-details product-step is-open" id="product-step-date" data-details="date">' +
       '<header class="config-title"><div><strong>' + (stepNum ? stepNum + '. ' : '') + 'Дата и получение</strong><small>' + esc(fulfillmentTitle()) + '</small></div></header>' +
@@ -409,6 +618,7 @@
       (draftRestored
         ? '<p class="product-draft-note" role="status" aria-live="polite">Черновик восстановлен на этом устройстве.</p>'
         : '') +
+      '</div>' +
       '</div></section>' +
       (compItems.length
         ? ('<section class="product-page-description product-page-description--solo" aria-label="Состав композиции"><article class="product-composition-card">' +
@@ -438,6 +648,7 @@
       '</main>';
 
     document.title = (p.seo_title || (p.title + ' — заказать шары в Армавире | VigSharm'));
+    document.body.classList.remove('order-story-lock');
     wire();
   }
 
@@ -463,38 +674,72 @@
     });
   }
 
+  function clearFlowEditIf(step) {
+    if (flowEditTarget === step && flowStepDone(step)) flowEditTarget = '';
+  }
+
+  function softScrollTo(id) {
+    if (!useMobileFlow() || !id) return;
+    requestAnimationFrame(function () {
+      var el = root.querySelector('#' + id);
+      if (!el || !el.scrollIntoView) return;
+      try { el.scrollIntoView({ behavior: 'smooth', block: 'center' }); } catch (e) { try { el.scrollIntoView(); } catch (_) {} }
+    });
+  }
+
+  function afterDigitsMaybeScroll() {
+    if (!digitsOk()) return;
+    softScrollTo(p.has_inscription ? 'client-ins' : 'client-ful');
+  }
+
   function wire() {
     root.querySelectorAll('[data-act]').forEach(function (el) {
       var act = el.getAttribute('data-act');
       if (act === 'qty') {
-        el.addEventListener('change', function () { qty = Math.max(1, Math.min(100, Number(el.value) || 1)); render(); });
+        el.addEventListener('change', function () { qty = Math.max(1, Math.min(100, Number(el.value) || 1)); clearFlowEditIf('qty'); render(); });
       } else if (act === 'digit') {
         el.addEventListener('click', function () {
           digit = el.getAttribute('data-v');
-          // Keep hero photo visible when digit-specific preview is missing.
           if (!(p.digit_images && p.digit_images[digit])) imgIdx = 0;
+          clearFlowEditIf('digit1');
+          render();
+          afterDigitsMaybeScroll();
+        });
+      } else if (act === 'digits-edit') {
+        el.addEventListener('click', function () {
+          digit = '';
+          digit2 = '';
           render();
         });
       } else if (act === 'digit2') {
         el.addEventListener('click', function () {
           digit2 = el.getAttribute('data-v');
           if (!(p.digit_images && p.digit_images[digit + digit2])) imgIdx = 0;
+          clearFlowEditIf('digit2');
           render();
+          afterDigitsMaybeScroll();
         });
       } else if (act === 'delta') {
         el.addEventListener('click', function () {
           digitDelta = Number(el.getAttribute('data-v'));
           if (effDigits() < 2 && digit2) digit2 = '';
+          deltaAck = true;
+          clearFlowEditIf('delta');
           render();
+          afterDigitsMaybeScroll();
         });
       } else if (act === 'inscription') {
         el.addEventListener('input', function () {
           inscription = el.value;
           saveDraft();
-          // live-update totals without full rerender (keep focus)
           refreshTotals();
+          var wrap = el.closest('.client-ins');
+          if (wrap) wrap.classList.toggle('is-filled', !!inscription.trim());
         });
-        el.addEventListener('change', render);
+        el.addEventListener('change', function () {
+          render();
+          if (inscriptionOk()) softScrollTo('client-ful');
+        });
       } else if (act === 'date-toggle') {
         el.addEventListener('click', function (e) {
           e.stopPropagation();
@@ -574,11 +819,61 @@
         el.addEventListener('click', function () {
           fulfillment = el.getAttribute('data-v');
           if (fulfillment === 'pickup') address = '';
+          clearFlowEditIf('fulfill');
           render();
+          if (fulfillment === 'pickup') softScrollTo(isOrderReady() ? 'client-msg' : null);
+          else softScrollTo('client-addr');
         });
       } else if (act === 'address') {
-        el.addEventListener('input', function () { address = el.value; saveDraft(); });
-        el.addEventListener('change', render);
+        el.addEventListener('input', function () {
+          address = el.value;
+          saveDraft();
+          var wrap = el.closest('.client-ins');
+          if (wrap) wrap.classList.toggle('is-filled', !!address.trim());
+          var ok = root.querySelector('[data-act="flow-addr-ok"]');
+          if (ok) ok.disabled = !address.trim();
+        });
+        el.addEventListener('change', function () {
+          clearFlowEditIf('address');
+          render();
+          if (address.trim()) softScrollTo(isOrderReady() ? 'client-msg' : null);
+        });
+      } else if (act === 'flow-edit') {
+        el.addEventListener('click', function () {
+          flowEditTarget = el.getAttribute('data-v') || '';
+          render();
+        });
+      } else if (act === 'flow-cancel-edit') {
+        el.addEventListener('click', function () {
+          flowEditTarget = '';
+          render();
+        });
+      } else if (act === 'flow-ins-ok') {
+        el.addEventListener('click', function () {
+          if (!inscriptionOk()) return;
+          clearFlowEditIf('inscription');
+          flowEditTarget = '';
+          render();
+        });
+      } else if (act === 'flow-addr-ok') {
+        el.addEventListener('click', function () {
+          if (!address.trim()) return;
+          clearFlowEditIf('address');
+          flowEditTarget = '';
+          render();
+        });
+      } else if (act === 'flow-next') {
+        el.addEventListener('click', function () {
+          clearFlowEditIf('qty');
+          flowEditTarget = '';
+          render();
+        });
+      } else if (act === 'flow-msg') {
+        el.addEventListener('click', function () {
+          var kind = el.getAttribute('data-msg');
+          if (kind === 'max') copyOrderText(orderMessage(), null, MAX_COPY_HINT);
+          else copyOrderText(orderMessage());
+        });
       } else if (act === 'prev') {
         el.addEventListener('click', function () { step(-1); });
       } else if (act === 'next') {
@@ -642,6 +937,12 @@
           if (tog) tog.setAttribute('aria-expanded', 'false');
         });
       });
+      if (typeof window.matchMedia === 'function') {
+        flowMedia = window.matchMedia('(max-width:650px)');
+        var onFlowMq = function () { if (p) render(); };
+        if (flowMedia.addEventListener) flowMedia.addEventListener('change', onFlowMq);
+        else if (flowMedia.addListener) flowMedia.addListener(onFlowMq);
+      }
     }
   }
 
@@ -720,6 +1021,18 @@
   }
 
   function order() {
+    if (useMobileFlow()) {
+      if (!isOrderReady()) {
+        var id = clientNextId();
+        var el = root.querySelector('#' + id);
+        if (el && el.scrollIntoView) {
+          try { el.scrollIntoView({ behavior: 'smooth', block: 'center' }); } catch (e) { el.scrollIntoView(); }
+        }
+        return;
+      }
+      openOrderModal();
+      return;
+    }
     if (!digitsOk()) { openDetails('params'); return; }
     if (!inscriptionOk()) {
       openDetails('date');

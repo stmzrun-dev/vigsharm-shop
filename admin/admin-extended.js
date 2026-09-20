@@ -1268,12 +1268,14 @@ Object.assign(app, {
     const form = document.getElementById('product-form');
     if (form) {
       form.reset();
-      form.classList.remove('is-studio-busy', 'is-editor-step-2', 'is-step1-b', 'is-step1-c');
+      form.classList.remove('is-studio-busy', 'is-editor-step-2', 'is-step1-b', 'is-step1-c', 'has-ai-card', 'is-ai-review-detail');
       form.classList.add('is-editor-step-1', 'is-step1-a');
     }
     this._step1Phase = 'a';
     this._step1PhotoCount = 0;
-
+    this._aiCardFilled = false;
+    this._lastAiCardData = null;
+    this.closeAiReviewOverlay?.({ skipSync: true });
     const alts = document.getElementById('title-alts');
     if (alts) { alts.classList.add('hidden'); alts.innerHTML = ''; }
     ['character-alts', 'series-alts'].forEach((id) => {
@@ -1443,7 +1445,9 @@ app.loadProductToForm = function(product) {
   this.syncAdvanceOrderFromScene?.();
   this.syncOccasionShelfFields?.();
   this._publishGapsAck = false;
+  this._aiCardFilled = true;
   this.syncEditorSteps?.();
+  this.syncStep2AiCardUi?.();
   this.syncRequiredFieldHighlights?.();
   // При редактировании уважаем сохранённый текст аренды, если он был
   if (rentalItemEl && rental.item) {

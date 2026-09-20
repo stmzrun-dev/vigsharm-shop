@@ -7,7 +7,7 @@
 <meta name="robots" content="noindex, nofollow"/>
 <link rel="icon" href="../favicon.svg"/>
 <link rel="stylesheet" href="../assets/fonts.css"/>
-<link rel="stylesheet" href="styles.css?v=photo-full-1"/>
+<link rel="stylesheet" href="styles.css?v=ai-check-1"/>
 </head>
 <body>
 
@@ -201,15 +201,22 @@
             <div class="essentials-fields">
               <div class="form-group unit-hide" id="essentials-composition-wrap">
                 <label>Состав <span class="req">*</span></label>
-                <textarea id="product-composition" data-required-field="composition" rows="6" placeholder="Сырой состав, напр.: коробка, 10 шаров, 1 цифра"></textarea>
+                <textarea id="product-composition" data-required-field="composition" rows="4" placeholder="Сырой состав, напр.: коробка, 10 шаров, 1 цифра"></textarea>
                 <details class="field-help">
                   <summary>Подсказка по составу</summary>
                   <small class="text-muted">Сырой состав шаров. Всё в <code>(скобках)</code> — подсказка для ИИ, клиенту не попадёт. Примеры: <code>(цифра)</code>, <code>(для мальчика)</code>, <code>(На выписку)</code>, <code>(1 сентября)</code>.</small>
                 </details>
               </div>
-              <div class="form-group">
+              <div class="form-group" id="essentials-price-wrap">
                 <label>Цена, ₽ <span class="req">*</span></label>
                 <input id="product-price" data-required-field="price" type="number" min="0" step="1" inputmode="numeric" placeholder="0"/>
+              </div>
+              <div class="form-group unit-hide" id="ai-fill-block">
+                <p class="ai-fill-hint" id="ai-fill-hint">Сначала: фото (Master) → цена → состав. Потом появится кнопка ИИ.</p>
+                <div id="ai-fill-wrap" class="hidden">
+                  <button type="button" class="btn primary block" id="generate-ai-btn" onclick="app.generateAIMetadata()">🤖 ИИ заполнит карточку</button>
+                </div>
+                <div class="status" id="ai-status"></div>
               </div>
               <div id="step1-next-wrap" class="step1-next-wrap">
                 <p id="step1-next-hint" class="step1-next-hint">Чтобы продолжить: Master, цена и состав</p>
@@ -218,25 +225,27 @@
             </div>
           </div>
 
-          <div id="studio-compare" class="studio-compare hidden">
-            <h3>Сравнение</h3>
-            <p class="lead">Оригинал · Master. Клик — увеличить.</p>
-            <div class="studio-compare-grid studio-compare-grid-2">
-              <button type="button" class="studio-compare-slot" id="studio-compare-original-btn" onclick="app.openStudioCompareSlot('original')">
-                <span class="studio-compare-label">Оригинал</span>
-                <img id="studio-compare-original" alt="Оригинал"/>
-                <span class="studio-compare-empty hidden" id="studio-compare-original-empty">—</span>
-              </button>
-              <button type="button" class="studio-compare-slot" id="studio-compare-master-btn" onclick="app.openStudioCompareSlot('master')">
-                <span class="studio-compare-label">Master</span>
-                <img id="studio-compare-master" alt="Master"/>
-                <span class="studio-compare-empty hidden" id="studio-compare-master-empty">—</span>
-              </button>
+          <details id="studio-compare-fold" class="studio-compare-fold">
+            <summary>Фото: оригинал · Master</summary>
+            <div id="studio-compare" class="studio-compare hidden">
+              <p class="lead">Клик — увеличить.</p>
+              <div class="studio-compare-grid studio-compare-grid-2">
+                <button type="button" class="studio-compare-slot" id="studio-compare-original-btn" onclick="app.openStudioCompareSlot('original')">
+                  <span class="studio-compare-label">Оригинал</span>
+                  <img id="studio-compare-original" alt="Оригинал"/>
+                  <span class="studio-compare-empty hidden" id="studio-compare-original-empty">—</span>
+                </button>
+                <button type="button" class="studio-compare-slot" id="studio-compare-master-btn" onclick="app.openStudioCompareSlot('master')">
+                  <span class="studio-compare-label">Master</span>
+                  <img id="studio-compare-master" alt="Master"/>
+                  <span class="studio-compare-empty hidden" id="studio-compare-master-empty">—</span>
+                </button>
+              </div>
             </div>
-          </div>
+          </details>
 
           <details id="sign-text-editor" class="sign-text-editor hidden">
-            <summary>Исправить надпись</summary>
+            <summary>Надпись</summary>
             <p class="lead" style="margin:0 0 10px;font-size:13px;color:#616161;line-height:1.45">
               Если буквы на Master кривые — впишите <strong>правильный текст</strong> (с переносами).
               ИИ найдёт звезду, вырежет, поправит буквы <strong>только на кропе</strong> и вклеит обратно
@@ -254,9 +263,10 @@
         </section>
         </div><!-- /.step1-workspace -->
 
-        <!-- Шаг 2: остальные поля (после Master + цена + состав) -->
+        <!-- Шаг 2: поля после ИИ (до ИИ скрыты) -->
         <section class="card-block editor-step-2" id="block-main">
           <p class="unit-mode-banner hidden" id="unit-mode-banner">Режим «Шары поштучно»: название как у поставщика + цена. Остальное не нужно.</p>
+          <div id="step2-after-ai" class="step2-after-ai">
           <div class="form-group">
             <label>Название <span class="req">*</span></label>
             <input id="product-title" data-required-field="title" placeholder="Например: Тёмный рыцарь" autocomplete="off"
@@ -315,14 +325,6 @@
             </div>
           </div>
 
-          <div class="form-group unit-hide" id="ai-fill-block">
-            <p class="ai-fill-hint" id="ai-fill-hint">Сначала: фото (Master) → цена → состав. Потом появится кнопка ИИ.</p>
-            <div id="ai-fill-wrap" class="hidden">
-              <button type="button" class="btn primary block" id="generate-ai-btn" onclick="app.generateAIMetadata()">🤖 ИИ заполнит карточку</button>
-            </div>
-            <div class="status" id="ai-status"></div>
-          </div>
-
           <!-- AI-поля свёрнуты: заполняет ИИ, не раздувают скролл -->
           <details class="ai-fields-fold unit-hide" id="block-ai-text">
             <summary>Текст и SEO (заполняет ИИ) — развернуть при необходимости</summary>
@@ -343,12 +345,13 @@
               <textarea id="product-seo-desc" rows="2" placeholder="Описание для поисковых систем"></textarea>
             </div>
           </details>
+          </div><!-- /#step2-after-ai -->
           <!-- slug скрыт: авто из названия при сохранении -->
           <input type="hidden" id="product-slug" value=""/>
         </section>
 
         <!-- Разделы каталога — свёрнуты по умолчанию -->
-        <section class="card-block unit-hide editor-step-2" id="block-tags">
+        <section class="card-block unit-hide editor-step-2 step2-after-ai-block" id="block-tags">
           <details class="ai-fields-fold">
             <summary>Дополнительные разделы каталога</summary>
             <p class="tags-template-row">
@@ -364,7 +367,7 @@
         </section>
 
         <!-- Варианты для клиента -->
-        <section class="card-block unit-hide editor-step-2" id="block-options">
+        <section class="card-block unit-hide editor-step-2 step2-after-ai-block" id="block-options">
           <h3 class="subsection-title">Варианты для клиента</h3>
           <p class="lead">Включайте только настройки, подходящие этому товару.</p>
 
@@ -458,7 +461,7 @@
           <button type="button" class="btn outline" onclick="app.cancelProductEdit()">Отмена</button>
           <button type="button" class="btn outline" id="park-and-new-btn" onclick="app.parkAndNewProduct()" title="Отложить локально и открыть пустую карточку">Отложить и новая</button>
           <button type="button" class="btn secondary" id="save-draft-btn" onclick="app.saveDraft()">Сохранить черновиком</button>
-          <button type="button" class="btn primary editor-step-2" onclick="app.publishProduct()">Опубликовать товар</button>
+          <button type="button" class="btn primary editor-step-2 step2-publish-btn" onclick="app.publishProduct()">Опубликовать товар</button>
         </div>
       </form>
     </div>
@@ -577,12 +580,105 @@
   <img id="lightbox-img" alt="Просмотр" onclick="event.stopPropagation()"/>
 </div>
 
-<script src="admin.js?v=upload-only-1"></script>
-<script src="admin-extended.js?v=scene-side-1"></script>
+<!-- Проверка карточки после ИИ — один экран по чеклисту -->
+<div id="ai-review-overlay" class="ai-review-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="ai-review-heading" hidden>
+  <div class="ai-review-backdrop" onclick="app.closeAiReviewOverlay()"></div>
+  <div class="ai-review-panel" onclick="event.stopPropagation()">
+    <header class="ai-review-head">
+      <div>
+        <p class="ai-review-eyebrow">После ИИ</p>
+        <h2 id="ai-review-heading">Проверьте карточку</h2>
+      </div>
+      <button type="button" class="ai-review-close" onclick="app.closeAiReviewOverlay()" title="Закрыть" aria-label="Закрыть">×</button>
+    </header>
+    <div class="ai-review-body">
+      <div class="ai-review-photo">
+        <img id="ai-review-img" alt="Master"/>
+        <p class="ai-review-meta" id="ai-review-meta"></p>
+      </div>
+      <div class="ai-review-fields">
+        <div class="form-group ai-review-title-wrap">
+          <label for="ai-review-title">Название <span class="req">*</span></label>
+          <input id="ai-review-title" autocomplete="off"/>
+          <div id="ai-review-title-alts" class="title-alts hidden"></div>
+        </div>
+
+        <div class="ai-review-row ai-review-row-3">
+          <div class="form-group">
+            <label for="ai-review-category">Категория</label>
+            <select id="ai-review-category"></select>
+          </div>
+          <div class="form-group">
+            <label for="ai-review-age">Возраст</label>
+            <select id="ai-review-age"></select>
+          </div>
+          <div class="form-group">
+            <label for="ai-review-price">Цена, ₽</label>
+            <input id="ai-review-price" type="number" min="0" step="1" inputmode="numeric"/>
+          </div>
+        </div>
+
+        <div class="form-group ai-review-character-wrap hidden" id="ai-review-character-wrap">
+          <label for="ai-review-character">Персонаж <span class="ai-review-doubt-badge">уточните</span></label>
+          <input id="ai-review-character" autocomplete="off"/>
+          <div id="ai-review-character-alts" class="title-alts hidden"></div>
+        </div>
+
+        <div class="form-group ai-review-series-wrap hidden" id="ai-review-series-wrap">
+          <label for="ai-review-series">Тематическая серия</label>
+          <input id="ai-review-series" autocomplete="off"/>
+        </div>
+
+        <div class="form-group">
+          <label for="ai-review-composition">Состав</label>
+          <textarea id="ai-review-composition" rows="2"></textarea>
+        </div>
+
+        <div class="ai-review-tags" id="ai-review-tags">
+          <p class="ai-review-section-label">Разделы каталога</p>
+          <div class="ai-review-tag-block ai-review-tag-who">
+            <span class="ai-review-tag-h">Для кого</span>
+            <div class="chips chips-grid" id="ai-review-tags-for-who"></div>
+          </div>
+          <div class="ai-review-tag-block ai-review-tag-occasion">
+            <span class="ai-review-tag-h">Повод</span>
+            <div class="chips chips-grid" id="ai-review-tags-occasion"></div>
+          </div>
+          <div class="ai-review-tag-block ai-review-tag-dates">
+            <span class="ai-review-tag-h">Даты</span>
+            <div class="chips chips-grid" id="ai-review-tags-dates"></div>
+          </div>
+          <div class="ai-review-tag-block ai-review-tag-type">
+            <span class="ai-review-tag-h">Тип</span>
+            <div class="chips chips-grid" id="ai-review-tags-type"></div>
+          </div>
+        </div>
+
+        <div class="ai-review-opts" id="ai-review-opts">
+          <p class="ai-review-section-label">Варианты для клиента</p>
+          <div class="ai-review-opt-chips">
+            <label class="ai-review-opt"><input type="checkbox" id="ai-review-opt-advance"/><span>Заказ заранее</span></label>
+            <label class="ai-review-opt"><input type="checkbox" id="ai-review-opt-number"/><span>Цифра 0–9</span></label>
+            <label class="ai-review-opt"><input type="checkbox" id="ai-review-opt-inscription"/><span>Надпись</span></label>
+            <label class="ai-review-opt"><input type="checkbox" id="ai-review-opt-rental"/><span>Аренда</span></label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer class="ai-review-actions">
+      <button type="button" class="btn outline" onclick="app.closeAiReviewOverlay({ edit: true })">Подробнее</button>
+      <button type="button" class="btn secondary" onclick="app.saveDraftFromAiReview()">Черновик</button>
+      <button type="button" class="btn primary" onclick="app.publishFromAiReview()">Опубликовать</button>
+    </footer>
+  </div>
+</div>
+
+<script src="admin.js?v=ai-check-1"></script>
+<script src="admin-extended.js?v=ai-check-1"></script>
 <script src="cloudinary-upload.js?v=cloud-fix-1"></script>
 <script src="cloudinary-patch.js?v=cloud-fix-1"></script>
-<script src="admin-studio-pro.js?v=compose-cta-1"></script>
-<script src="admin-ai.js?v=one-cta-1"></script>
+<script src="admin-studio-pro.js?v=step2-ai-1"></script>
+<script src="admin-ai.js?v=ai-check-1"></script>
 <script src="admin-reference-background.js"></script>
 </body>
 </html>

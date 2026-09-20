@@ -125,6 +125,12 @@ const app = {
         return;
       }
       if (e.key === 'Escape') {
+        const review = document.getElementById('ai-review-overlay');
+        if (review && !review.classList.contains('hidden')) {
+          e.preventDefault();
+          this.closeAiReviewOverlay?.();
+          return;
+        }
         if (typeof this.closeLightbox === 'function') this.closeLightbox();
         if (document.body.classList.contains('admin-editor-open')) this.cancelProductEdit();
       }
@@ -1250,6 +1256,81 @@ const app = {
     toast.className = `toast show ${type}`;
     const ms = (type === 'info' && String(msg).length > 50) ? 7000 : 3000;
     setTimeout(() => toast.className = `toast ${type}`, ms);
+  },
+
+  /** Разрешение на системные уведомления (один раз, при старте Master). */
+  ensureNotifyPermission() {
+    try {
+      if (typeof Notification === 'undefined') return;
+      if (Notification.permission === 'default') {
+        Notification.requestPermission().catch(() => {});
+      }
+    } catch (_) { /* ignore */ }
+    // Разблокировать AudioContext жестом «старт Master»
+    try {
+      const AC = window.AudioContext || window.webkitAudioContext;
+      if (!AC) return;
+      if (!this._notifyAudioCtx) this._notifyAudioCtx = new AC();
+      if (this._notifyAudioCtx.state === 'suspended') this._notifyAudioCtx.resume().catch(() => {});
+    } catch (_) { /* ignore */ }
+  },
+
+  playNotifyChime(kind = 'ok') {
+    try {
+      const AC = window.AudioContext || window.webkitAudioContext;
+      if (!AC) return;
+      if (!this._notifyAudioCtx) this._notifyAudioCtx = new AC();
+      const ctx = this._notifyAudioCtx;
+      const resume = ctx.state === 'suspended' ? ctx.resume() : Promise.resolve();
+      resume.then(() => {
+        const now = ctx.currentTime;
+        const tones = kind === 'error'
+          ? [{ f: 420, t: 0 }, { f: 280, t: 0.14 }]
+          : [{ f: 880, t: 0 }, { f: 1175, t: 0.12 }];
+        tones.forEach(({ f, t }) => {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = 'sine';
+          osc.frequency.value = f;
+          gain.gain.setValueAtTime(0.0001, now + t);
+          gain.gain.exponentialRampToValueAtTime(0.12, now + t + 0.02);
+          gain.gain.exponentialRampToValueAtTime(0.0001, now + t + 0.18);
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start(now + t);
+          osc.stop(now + t + 0.2);
+        });
+      }).catch(() => {});
+    } catch (_) { /* ignore */ }
+  },
+
+  /**
+   * Звук + (если вкладка в фоне) системное уведомление.
+   * @param {'ok'|'error'} kind
+   */
+  notifyMasterDone(kind = 'ok', opts = {}) {
+    const title = opts.title || (kind === 'error' ? 'Master не готов' : 'Master готов');
+    const body = opts.body || (kind === 'error'
+      ? 'Ошибка генерации — откройте админку'
+      : 'Фото обработано — можно продолжить карточку');
+    this.playNotifyChime(kind);
+    try {
+      if (typeof Notification === 'undefined') return;
+      if (Notification.permission !== 'granted') return;
+      // В фоне — всегда; на активной вкладке хватает toast + звука
+      if (!document.hidden && !opts.force) return;
+      const n = new Notification(title, {
+        body,
+        icon: '../favicon.svg',
+        tag: 'vigsharm-master',
+        renotify: true
+      });
+      n.onclick = () => {
+        try { window.focus(); } catch (_) { /* ignore */ }
+        n.close();
+      };
+      setTimeout(() => { try { n.close(); } catch (_) { /* ignore */ } }, 12000);
+    } catch (_) { /* ignore */ }
   },
 
   // === Сохранение / публикация ===

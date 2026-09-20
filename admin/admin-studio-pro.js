@@ -849,6 +849,10 @@ Object.assign(app, {
 
     if (statusEl) statusEl.textContent = '✅ Master готов — при кривых буквах: «Исправить надпись», затем цена + состав → ИИ';
     this.toast('Master готов — одно фото в карточке', 'success');
+    this.notifyMasterDone?.('ok', {
+      title: 'Master готов',
+      body: 'Фото обработано — можно писать состав и цену'
+    });
     this.syncAIFillGate?.();
     this.saveActiveStudioDraft?.();
     this.goStep1Phase?.('c', { skipGate: true });
@@ -905,6 +909,8 @@ Object.assign(app, {
       return;
     }
 
+    this.ensureNotifyPermission?.();
+
     const btn = document.getElementById('studio-retry-btn');
     const statusEl = document.getElementById('studio-status');
     if (btn) btn.disabled = true;
@@ -939,6 +945,10 @@ Object.assign(app, {
         if (statusEl) statusEl.textContent = '❌ ' + err.message;
         this.toast(err.message, 'error');
       }
+      this.notifyMasterDone?.('error', {
+        title: 'Master не готов',
+        body: err.message || 'Ошибка пересоздания'
+      });
     } finally {
       this.setStudioBusy?.(false);
       if (btn) btn.disabled = false;
@@ -977,6 +987,8 @@ Object.assign(app, {
       }
     }
     root.classList.toggle('hidden', !any);
+    const fold = document.getElementById('studio-compare-fold');
+    if (fold) fold.classList.toggle('hidden', !any);
   },
 
   openStudioCompareSlot(key) {
@@ -1004,6 +1016,8 @@ Object.assign(app, {
       this.toast('Загрузите хотя бы одно фото', 'error');
       return;
     }
+
+    this.ensureNotifyPermission?.();
 
     const btn = document.getElementById('process-studio-btn');
     const statusEl = document.getElementById('studio-status');
@@ -1063,6 +1077,10 @@ Object.assign(app, {
       statusEl.textContent = '❌ Ошибка: ' + error.message;
       this.toast(error.message, 'error');
       this.setStudioBusy?.(false);
+      this.notifyMasterDone?.('error', {
+        title: 'Master не готов',
+        body: error.message || 'Ошибка генерации'
+      });
     } finally {
       if (btn) {
         btn.disabled = false;

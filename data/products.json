@@ -2,6 +2,463 @@
   "ok": true,
   "products": [
     {
+      "id": "488a857b-6952-4b16-b543-4cf45c387518",
+      "title": "Изумрудный юбилей",
+      "article": "JUB-005",
+      "price": 4490,
+      "short_description": "Напольная композиция с крупными цифрами в бирюзово-чёрной гамме и серебряными акцентами.",
+      "full_description": "Стильная композиция на подставке из шаров с большими фольгированными цифрами бирюзового цвета, дополненная чёрной звездой с поздравительной надписью и серебряными звёздами.",
+      "composition": [
+        "напольная композиция"
+      ],
+      "category": "Юбилей",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Напольная композиция с цифрами на юбилей в Армавире",
+      "seo_description": "Элегантная напольная композиция с большими бирюзовыми цифрами, чёрной звездой и серебряными акцентами для юбилея.",
+      "slug": "izumrudnyj-yubilej",
+      "scene": "floor",
+      "tags": [
+        "Юбилей"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1789930891/vigsharm-products/ayho1tppkt2tv39jzjin.jpg",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 2
+        }
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1789931041/vigsharm-products/fx5lmhgstniciq3wa4rk.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789931041/vigsharm-products/fx5lmhgstniciq3wa4rk.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-20T19:06:35.280Z",
+      "updated_at": "2026-09-20T19:06:35.280Z"
+    },
+    {
+      "id": "063960ce-57b3-494c-85fc-7fe52ee65586",
+      "title": "Золотые оковы",
+      "article": "HIM-006",
+      "price": 5490,
+      "short_description": "Брутальная композиция с восьмёркой, гантелями и цепями в чёрно-золотой гамме.",
+      "full_description": "Две напольные композиции в чёрном цвете с золотыми и серебряными акцентами. Одна включает цифру 8, фольгированные гантели и цепи, вторая — стилизованную гирю с надписью и цепью.",
+      "composition": [
+        "2 напольные композиции"
+      ],
+      "category": "Для него",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "5 000–8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Железная восьмёрка — брутальный набор шаров Армавир",
+      "seo_description": "Напольные композиции с цифрой 8, гантелями и цепями в чёрно-золотых тонах. Мужской стиль, доставка в Армавире.",
+      "slug": "zheleznaya-vosmyorka",
+      "scene": "floor",
+      "tags": [
+        "Для него"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1789929761/vigsharm-products/qtanclrwseq8l7enoehh.jpg",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1789929963/vigsharm-products/bbq0guqimrwpfy5zjdsb.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789929963/vigsharm-products/bbq0guqimrwpfy5zjdsb.png",
+      "status": "draft",
+      "show_on_site": false,
+      "created_at": "2026-09-20T18:48:53.086Z",
+      "updated_at": "2026-09-20T18:48:53.086Z"
+    },
+    {
+      "id": "e9a20f26-bc1d-44fd-8954-f0f0b567b00f",
+      "title": "Маммины владения",
+      "article": "MOM-002",
+      "price": 3780,
+      "short_description": "Стильное сочетание розового, чёрного и прозрачного конфетти для яркой женщины.",
+      "full_description": "Большой прозрачный шар с крупинками пенопласта и надписью дополнен фонтаном из латексных шаров с конфетти в розово-чёрной гамме. Эффектная композиция для той, кто держит всё под контролем.",
+      "composition": [
+        "шар bubbles с крупинками пенопласта и надписью",
+        "2 шара с конфетти",
+        "8 латексных шаров"
+      ],
+      "category": "Для мамы",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары для мамы в розово-чёрной гамме — VigSharm, Армавир",
+      "seo_description": "Стильная композиция из bubbles с крупинками и фонтана латексных шаров с конфетти. Идеальный сюрприз для яркой и сильной женщины.",
+      "slug": "mamminy-vladeniya",
+      "scene": "wall_only",
+      "tags": [
+        "Для мамы"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1789929422/vigsharm-products/lghtxtslfpvqq31nm4yj.webp"
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1789929545/vigsharm-products/b3offf4em25wcs9xxcbh.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789929545/vigsharm-products/b3offf4em25wcs9xxcbh.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-20T18:40:08.191Z",
+      "updated_at": "2026-09-20T18:40:08.191Z"
+    },
+    {
+      "id": "ac9752a3-3cbc-47a0-bbe7-4980838a155f",
+      "title": "Золотая вершина",
+      "article": "HIM-005",
+      "price": 5620,
+      "short_description": "Элегантная композиция в золотых и чёрных тонах с большим баблсом и фонтаном из шаров.",
+      "full_description": "Стильное сочетание золота и чёрного цвета. Баблс с индивидуальной надписью и лентой тассел дополнен фонтаном из латексных, хромированных шаров и шаров с конфетти.",
+      "composition": [
+        "баблс с индивидуальной надписью и лентой тассел",
+        "7 латексных шаров",
+        "7 шаров хром",
+        "6 шаров с конфетти"
+      ],
+      "category": "Для него",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "5 000–8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Золотая вершина — композиция из шаров в Армавире",
+      "seo_description": "Элегантная композиция из шаров в золотых и чёрных тонах. Баблс с надписью, хромированные шары и конфетти. Доставка по Армавиру.",
+      "slug": "zolotaya-vershina",
+      "scene": "floor",
+      "tags": [
+        "Для него"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1789928966/vigsharm-products/of8i8rzngwik3f2d0vf6.jpg",
+        "floor_type": "helium"
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1789929075/vigsharm-products/j6ppazx5sne1smcodyjx.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789929075/vigsharm-products/j6ppazx5sne1smcodyjx.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-20T18:32:12.750Z",
+      "updated_at": "2026-09-20T18:32:12.750Z"
+    },
+    {
+      "id": "873cdae8-4f56-47c3-9c9b-560c457affa9",
+      "title": "Золотая выдержка",
+      "article": "JUB-004",
+      "price": 5460,
+      "short_description": "Элегантная композиция в золоте и чёрном с бутылкой и баблс.",
+      "full_description": "Напольная композиция в строгой мужской гамме золота и чёрного. Крупные цифры, фигура бутылки и прозрачный баблс с конфетти создают атмосферу торжественного события.",
+      "composition": [
+        "напольная композиция",
+        "2 фольгированные цифры",
+        "баблс с конфетти и индивидуальной надписью",
+        "фольгированная фигура",
+        "3 хромированных шара",
+        "3 латексных шара"
+      ],
+      "category": "Юбилей",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "5 000–8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары на юбилей 60 лет мужчине в Армавире — Золотая выдержка",
+      "seo_description": "Напольная композиция из шаров на юбилей в золоте и чёрном. Цифры, баблс с конфетти, фигура бутылки. Доставка по Армавиру. VigSharm.",
+      "slug": "zolotaya-vyderzhka",
+      "scene": "floor",
+      "tags": [
+        "Юбилей"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1789927774/vigsharm-products/tnlcj8mpic4rtcaea7jx.jpg",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 2
+        }
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1789927924/vigsharm-products/t1bheg3xguvszaaqf29q.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789927924/vigsharm-products/t1bheg3xguvszaaqf29q.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-20T18:13:35.467Z",
+      "updated_at": "2026-09-20T18:13:35.467Z"
+    },
+    {
+      "id": "64b8570a-f7b8-4e57-bcf3-31fad7590623",
+      "title": "Силовой рубеж",
+      "article": "HIM-004",
+      "price": 4900,
+      "short_description": "Золотые цифры, гантели и персональная надпись для настоящего спортсмена.",
+      "full_description": "Напольная композиция в чёрно-золотой гамме с крупными цифрами, фольгированными гантелями и именным шаром. Подойдёт для тех, кто ценит спорт и достижения.",
+      "composition": [
+        "напольная композиция с индивидуальной надписью"
+      ],
+      "category": "Для него",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Силовой рубеж — композиция из шаров для спортсмена в Армавире",
+      "seo_description": "Напольная композиция с золотыми цифрами, гантелями и именной надписью. Чёрно-золотая гамма для настоящего спортсмена. Заказать в VigSharm, Армавир.",
+      "slug": "silovoy-rubezh",
+      "scene": "floor",
+      "tags": [
+        "Для него"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1789927245/vigsharm-products/z6fu3lxmfrcterve14x6.jpg",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 2
+        }
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1789927603/vigsharm-products/ifhokowsge6scpkw0iui.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789927603/vigsharm-products/ifhokowsge6scpkw0iui.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-20T18:08:16.927Z",
+      "updated_at": "2026-09-20T18:08:16.927Z"
+    },
+    {
+      "id": "2b28ff9b-7f15-4d5c-9de1-c43e96ddde61",
+      "title": "Взрослая веха",
+      "article": "HIM-003",
+      "price": 4680,
+      "short_description": "Синие фольгированные звёзды с индивидуальными поздравлениями и золотые хромированные шары.",
+      "full_description": "Композиция из пяти синих звёзд с персональными надписями и шести золотых хромированных шаров. Элегантное оформление для совершеннолетия.",
+      "composition": [
+        "большая звезда с индивидуальной надписью",
+        "2 звезды с рисунком",
+        "2 звезды с индивидуальными надписями",
+        "6 шаров хром"
+      ],
+      "category": "Для него",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Звёздный совершеннолетие — шары на 18 лет в Армавире",
+      "seo_description": "Композиция из синих звёзд с персональными надписями и золотых хромированных шаров для совершеннолетия. Заказать в VigSharm, Армавир.",
+      "slug": "zvezdnyj-sovershennoletie",
+      "scene": "wall_only",
+      "tags": [
+        "Для него"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1789926191/vigsharm-products/kug81vchvyvakwtxbncw.jpg"
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1789926912/vigsharm-products/qmskshpzwhkwylwrwfgv.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789926912/vigsharm-products/qmskshpzwhkwylwrwfgv.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-20T17:59:48.352Z",
+      "updated_at": "2026-09-20T17:59:48.352Z"
+    },
+    {
+      "id": "3ba85023-bbeb-4e2f-8382-2f0739c3b877",
+      "title": "Котопивной праздник",
+      "article": "HIM-002",
+      "price": 5000,
+      "short_description": "Две золотые цифры с крутым котом, кружкой пива и лобстером на золотисто-серебряной подставке.",
+      "full_description": "Композиция из двух золотых фольгированных цифр, фольгированных фигур кота в очках, кружки пива с пеной и лобстера, дополненная латексными шарами, кругом с рисунком и золотой звездой.",
+      "composition": [
+        "2 фольгированные цифры",
+        "фольгированная фигура «Крутой кот»",
+        "фольгированная фигура «Кружка пива»",
+        "фольгированная фигура «Лобстер»",
+        "5 латексных шаров",
+        "круг с рисунком",
+        "звезда"
+      ],
+      "category": "Для него",
+      "character": "Крутой кот",
+      "age_group": "Для взрослых",
+      "budget": "5 000–8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Крутой юбилей — композиция с цифрами и фигурами в Армавире",
+      "seo_description": "Композиция на юбилей с золотыми цифрами, фигурами кота, пивной кружки и лобстера. Доставка по Армавиру от VigSharm.",
+      "slug": "krutoj-yubilej",
+      "scene": "floor",
+      "tags": [
+        "Для него"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1789925235/vigsharm-products/adirs8xferaszaleklmo.jpg",
+        "floor_type": "helium",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 2
+        }
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1789925489/vigsharm-products/htzxf8ibz7xrygdfj7ru.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789925489/vigsharm-products/htzxf8ibz7xrygdfj7ru.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-20T17:39:00.423Z",
+      "updated_at": "2026-09-20T17:39:00.423Z"
+    },
+    {
+      "id": "4c186159-95b8-465b-bce4-45930884eb66",
+      "title": "Взрослый старт",
+      "article": "HER-008",
+      "price": 3600,
+      "short_description": "Две серебряные цифры 18 с розово-фиолетовым фонтаном из шаров с комплиментами.",
+      "full_description": "Композиция из двух фольгированных цифр 18 серебристого цвета и фонтана из 10 латексных шаров с надписями-комплиментами в розовых и фиолетовых тонах.",
+      "composition": [
+        "2 фольгированные цифры",
+        "10 латексных шаров с рисунком"
+      ],
+      "category": "Для неё",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары на 18 лет девушке в Армавире — Совершеннолетие",
+      "seo_description": "Композиция из серебристых цифр 18 и розово-фиолетовых шаров с комплиментами. Закажите стильное оформление на совершеннолетие в Армавире.",
+      "slug": "sovershennoletie",
+      "scene": "wall_only",
+      "tags": [
+        "Для неё"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1789924979/vigsharm-products/b9mnbgykrq7l0dq2gcqb.jpg",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 2
+        }
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1789925113/vigsharm-products/xpflhwtn8jls2wgkqajf.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789925113/vigsharm-products/xpflhwtn8jls2wgkqajf.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-20T17:26:39.150Z",
+      "updated_at": "2026-09-20T17:26:39.150Z"
+    },
+    {
+      "id": "b6f8c48f-1bfc-484d-8c0a-6987793b4953",
+      "title": "Чёрная элегантность",
+      "article": "HIM-001",
+      "price": 3200,
+      "short_description": "Чёрная звезда с золотой надписью и связка латексных шаров в тон.",
+      "full_description": "Строгая композиция в чёрном цвете: крупная фольгированная звезда с персональным поздравлением и букет из 10 латексных шаров.",
+      "composition": [
+        "большая фольгированная звезда с индивидуальной надписью",
+        "10 латексных шаров"
+      ],
+      "category": "Для него",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "2 000–3 500 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Чёрная звезда с шарами — строгий подарок в Армавире",
+      "seo_description": "Элегантная композиция с чёрной фольгированной звездой и латексными шарами. Персональная надпись. Доставка по Армавиру.",
+      "slug": "chernaya-elegantnost",
+      "scene": "wall_only",
+      "tags": [
+        "Для него"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1789924591/vigsharm-products/nkzhtg8u5vkezbtt84fq.jpg"
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1789924810/vigsharm-products/vkt2g41lffjklustf8kx.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789924810/vigsharm-products/vkt2g41lffjklustf8kx.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-20T17:22:27.488Z",
+      "updated_at": "2026-09-20T17:22:27.488Z"
+    },
+    {
       "id": "9955005d-fd5a-47d7-972c-376b5b63ee76",
       "title": "Цветущий юбилей",
       "article": "JUB-003",

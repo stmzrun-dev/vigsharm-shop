@@ -2,6 +2,234 @@
   "ok": true,
   "products": [
     {
+      "id": "488a857b-6952-4b16-b543-4cf45c387518",
+      "title": "Изумрудный юбилей",
+      "article": "JUB-005",
+      "price": 4490,
+      "short_description": "Напольная композиция с крупными цифрами в бирюзово-чёрной гамме и серебряными акцентами.",
+      "full_description": "Стильная композиция на подставке из шаров с большими фольгированными цифрами бирюзового цвета, дополненная чёрной звездой с поздравительной надписью и серебряными звёздами.",
+      "composition": [
+        "напольная композиция"
+      ],
+      "category": "Юбилей",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Напольная композиция с цифрами на юбилей в Армавире",
+      "seo_description": "Элегантная напольная композиция с большими бирюзовыми цифрами, чёрной звездой и серебряными акцентами для юбилея.",
+      "slug": "izumrudnyj-yubilej",
+      "scene": "floor",
+      "tags": [
+        "Юбилей"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1789930891/vigsharm-products/ayho1tppkt2tv39jzjin.jpg",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 2
+        }
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1789931041/vigsharm-products/fx5lmhgstniciq3wa4rk.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789931041/vigsharm-products/fx5lmhgstniciq3wa4rk.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-20T19:06:35.280Z",
+      "updated_at": "2026-09-20T19:06:35.280Z"
+    },
+    {
+      "id": "063960ce-57b3-494c-85fc-7fe52ee65586",
+      "title": "Золотые оковы",
+      "article": "HIM-006",
+      "price": 5490,
+      "short_description": "Брутальная композиция с восьмёркой, гантелями и цепями в чёрно-золотой гамме.",
+      "full_description": "Две напольные композиции в чёрном цвете с золотыми и серебряными акцентами. Одна включает цифру 8, фольгированные гантели и цепи, вторая — стилизованную гирю с надписью и цепью.",
+      "composition": [
+        "2 напольные композиции"
+      ],
+      "category": "Для него",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "5 000–8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Железная восьмёрка — брутальный набор шаров Армавир",
+      "seo_description": "Напольные композиции с цифрой 8, гантелями и цепями в чёрно-золотых тонах. Мужской стиль, доставка в Армавире.",
+      "slug": "zheleznaya-vosmyorka",
+      "scene": "floor",
+      "tags": [
+        "Для него"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1789929761/vigsharm-products/qtanclrwseq8l7enoehh.jpg",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1789929963/vigsharm-products/bbq0guqimrwpfy5zjdsb.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789929963/vigsharm-products/bbq0guqimrwpfy5zjdsb.png",
+      "status": "draft",
+      "show_on_site": false,
+      "created_at": "2026-09-20T18:48:53.086Z",
+      "updated_at": "2026-09-20T18:48:53.086Z"
+    },
+    {
+      "id": "e9a20f26-bc1d-44fd-8954-f0f0b567b00f",
+      "title": "Маммины владения",
+      "article": "MOM-002",
+      "price": 3780,
+      "short_description": "Стильное сочетание розового, чёрного и прозрачного конфетти для яркой женщины.",
+      "full_description": "Большой прозрачный шар с крупинками пенопласта и надписью дополнен фонтаном из латексных шаров с конфетти в розово-чёрной гамме. Эффектная композиция для той, кто держит всё под контролем.",
+      "composition": [
+        "шар bubbles с крупинками пенопласта и надписью",
+        "2 шара с конфетти",
+        "8 латексных шаров"
+      ],
+      "category": "Для мамы",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары для мамы в розово-чёрной гамме — VigSharm, Армавир",
+      "seo_description": "Стильная композиция из bubbles с крупинками и фонтана латексных шаров с конфетти. Идеальный сюрприз для яркой и сильной женщины.",
+      "slug": "mamminy-vladeniya",
+      "scene": "wall_only",
+      "tags": [
+        "Для мамы"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1789929422/vigsharm-products/lghtxtslfpvqq31nm4yj.webp"
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1789929545/vigsharm-products/b3offf4em25wcs9xxcbh.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789929545/vigsharm-products/b3offf4em25wcs9xxcbh.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-20T18:40:08.191Z",
+      "updated_at": "2026-09-20T18:40:08.191Z"
+    },
+    {
+      "id": "ac9752a3-3cbc-47a0-bbe7-4980838a155f",
+      "title": "Золотая вершина",
+      "article": "HIM-005",
+      "price": 5620,
+      "short_description": "Элегантная композиция в золотых и чёрных тонах с большим баблсом и фонтаном из шаров.",
+      "full_description": "Стильное сочетание золота и чёрного цвета. Баблс с индивидуальной надписью и лентой тассел дополнен фонтаном из латексных, хромированных шаров и шаров с конфетти.",
+      "composition": [
+        "баблс с индивидуальной надписью и лентой тассел",
+        "7 латексных шаров",
+        "7 шаров хром",
+        "6 шаров с конфетти"
+      ],
+      "category": "Для него",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "5 000–8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Золотая вершина — композиция из шаров в Армавире",
+      "seo_description": "Элегантная композиция из шаров в золотых и чёрных тонах. Баблс с надписью, хромированные шары и конфетти. Доставка по Армавиру.",
+      "slug": "zolotaya-vershina",
+      "scene": "floor",
+      "tags": [
+        "Для него"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1789928966/vigsharm-products/of8i8rzngwik3f2d0vf6.jpg",
+        "floor_type": "helium"
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1789929075/vigsharm-products/j6ppazx5sne1smcodyjx.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789929075/vigsharm-products/j6ppazx5sne1smcodyjx.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-20T18:32:12.750Z",
+      "updated_at": "2026-09-20T18:32:12.750Z"
+    },
+    {
+      "id": "873cdae8-4f56-47c3-9c9b-560c457affa9",
+      "title": "Золотая выдержка",
+      "article": "JUB-004",
+      "price": 5460,
+      "short_description": "Элегантная композиция в золоте и чёрном с бутылкой и баблс.",
+      "full_description": "Напольная композиция в строгой мужской гамме золота и чёрного. Крупные цифры, фигура бутылки и прозрачный баблс с конфетти создают атмосферу торжественного события.",
+      "composition": [
+        "напольная композиция",
+        "2 фольгированные цифры",
+        "баблс с конфетти и индивидуальной надписью",
+        "фольгированная фигура",
+        "3 хромированных шара",
+        "3 латексных шара"
+      ],
+      "category": "Юбилей",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "5 000–8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары на юбилей 60 лет мужчине в Армавире — Золотая выдержка",
+      "seo_description": "Напольная композиция из шаров на юбилей в золоте и чёрном. Цифры, баблс с конфетти, фигура бутылки. Доставка по Армавиру. VigSharm.",
+      "slug": "zolotaya-vyderzhka",
+      "scene": "floor",
+      "tags": [
+        "Юбилей"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1789927774/vigsharm-products/tnlcj8mpic4rtcaea7jx.jpg",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 2
+        }
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1789927924/vigsharm-products/t1bheg3xguvszaaqf29q.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789927924/vigsharm-products/t1bheg3xguvszaaqf29q.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-20T18:13:35.467Z",
+      "updated_at": "2026-09-20T18:13:35.467Z"
+    },
+    {
       "id": "64b8570a-f7b8-4e57-bcf3-31fad7590623",
       "title": "Силовой рубеж",
       "article": "HIM-004",

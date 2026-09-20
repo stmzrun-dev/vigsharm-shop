@@ -94,41 +94,138 @@ Object.assign(app, {
     const composition = (document.getElementById('product-composition')?.value || '').trim();
     const unit = this.isUnitBalloonMode?.();
     if (unit) return hasPhoto && price > 0;
-    const hasMaster = !!(this.studioMasterDataUrl
-      || (this.currentProduct?.photos || []).some((p) => p.type === 'master'));
-    return hasMaster && price > 0 && composition.length > 0;
+    return this.hasStudioMasterReady() && price > 0 && composition.length > 0;
   },
 
   hasStudioMasterReady() {
-    return !!(this.studioMasterDataUrl
-      || (this.currentProduct?.photos || []).some((p) => p.type === 'master'));
+    // Сверяем все места, где Master может жить после генерации/ретрая/автосейва
+    if (this.studioMasterDataUrl || this.studioMasterBackupUrl || this.studioMasterBaseUrl) return true;
+    if (this.studioCompare?.master) return true;
+    const photos = this.currentProduct?.photos || [];
+    if (photos.some((p) => p.type === 'master')) return true;
+    // Главное фото уже Master (https после upload), а type потерялся — считаем готовым, если есть сравнение
+    if (photos.length && this.studioCompare?.original && photos[0]?.url && photos[0].url !== this.studioCompare.original) {
+      return true;
+    }
+    return false;
+  },
+
+  getStep2Blockers() {
+    if (this.currentProduct?.id) return [];
+    const gaps = [];
+    const price = parseInt(document.getElementById('product-price')?.value, 10) || 0;
+    const composition = (document.getElementById('product-composition')?.value || '').trim();
+    if (this.isUnitBalloonMode?.()) {
+      if (!(this.currentProduct?.photos || []).length) gaps.push('фото');
+      if (!(price > 0)) gaps.push('цена');
+      return gaps;
+    }
+    if (!this.hasStudioMasterReady()) gaps.push('Master');
+    if (!(price > 0)) gaps.push('цена');
+    if (!composition) gaps.push('состав');
+    return gaps;
   },
 
   canUnlockEditorStep2() {
     if (this.currentProduct?.id) return true;
-    const hasPhoto = (this.currentProduct?.photos || []).length > 0;
-    const price = parseInt(document.getElementById('product-price')?.value, 10) || 0;
-    const composition = (document.getElementById('product-composition')?.value || '').trim();
-    if (this.isUnitBalloonMode?.()) return hasPhoto && price > 0;
-    return this.hasStudioMasterReady() && price > 0 && composition.length > 0;
+    return this.getStep2Blockers().length === 0;
+  },
+
+  goEditorStep2() {
+    if (document.getElementById('product-form')?.classList.contains('is-studio-busy')) {
+      this.toast('Подождите, пока Master закончит генерацию', 'info');
+      return false;
+    }
+    this.ensureMasterPhotoFlag?.();
+    this.syncEditorSteps?.();
+    const gaps = this.getStep2Blockers();
+    if (gaps.length) {
+      this.toast(`Ещё нужно: ${gaps.join(', ')}`, 'info');
+      if (gaps.includes('состав')) document.getElementById('product-composition')?.focus();
+      else if (gaps.includes('цена')) document.getElementById('product-price')?.focus();
+      return false;
+    }
+    document.getElementById('block-main')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    document.getElementById('product-title')?.focus({ preventScroll: true });
+    this.toast('Шаг 2: название и ИИ', 'success');
+    return true;
+  },
+
+  ensureMasterPhotoFlag() {
+    if (!this.hasStudioMasterReady()) return;
+    const masterUrl = this.studioMasterDataUrl
+      || this.studioMasterBackupUrl
+      || this.studioCompare?.master
+      || null;
+    if (!this.currentProduct) return;
+    const photos = this.currentProduct.photos || [];
+    if (!photos.length && masterUrl) {
+      this.currentProduct.photos = [{ id: Date.now() + '_master', url: masterUrl, uploaded: /^https?:/i.test(masterUrl), type: 'master' }];
+      this.renderPhotos?.();
+      return;
+    }
+    if (photos[0] && photos[0].type !== 'master' && masterUrl && photos[0].url === masterUrl) {
+      photos[0].type = 'master';
+    } else if (photos[0] && !photos[0].type && this.studioCompare?.master) {
+      photos[0].type = 'master';
+      if (!photos[0].url) photos[0].url = this.studioCompare.master;
+    }
+    if (masterUrl && !this.studioMasterDataUrl) this.studioMasterDataUrl = masterUrl;
   },
 
   syncEditorSteps() {
     const form = document.getElementById('product-form');
     if (!form) return;
+    this.ensureMasterPhotoFlag?.();
+    const wasStep2 = form.classList.contains('is-editor-step-2');
     const step2 = this.canUnlockEditorStep2();
     form.classList.toggle('is-editor-step-1', !step2);
     form.classList.toggle('is-editor-step-2', step2);
-    const hint = document.getElementById('step-1-hint');
+    const s1 = document.getElementById('editor-progress-1');
+    const s2 = document.getElementById('editor-progress-2');
+    if (s1) {
+      s1.classList.toggle('is-active', !step2);
+      s1.classList.toggle('is-done', step2);
+    }
+    if (s2) {
+      s2.classList.toggle('is-active', step2);
+      s2.classList.toggle('is-done', false);
+    }
+    const hint = document.getElementById('step1-next-hint');
+    const btn = document.getElementById('step1-next-btn');
+    const wrap = document.getElementById('step1-next-wrap');
+    const gaps = this.getStep2Blockers();
+    const busy = form.classList.contains('is-studio-busy');
+    if (wrap) {
+      wrap.classList.toggle('is-ready', step2 && !busy);
+      wrap.classList.toggle('is-waiting', busy);
+    }
     if (hint) {
-      if (this.isUnitBalloonMode?.()) {
-        hint.textContent = 'Шаг 1: фото и цена. Для «поштучно» остальное почти не нужно.';
+      if (busy) {
+        hint.textContent = 'Master ещё генерируется — состав и цену можно заполнять';
+      } else if (step2) {
+        hint.textContent = 'Шаг 1 готов — можно к названию и ИИ';
       } else {
-        hint.textContent = 'Шаг 1: фото → Master → цена и состав. Остальные поля откроются после этого.';
+        hint.textContent = gaps.length ? `Чтобы продолжить, нужно: ${gaps.join(', ')}` : '';
+      }
+    }
+    if (btn) {
+      if (busy) {
+        btn.disabled = true;
+        btn.textContent = 'Ждём Master…';
+      } else {
+        btn.disabled = false;
+        btn.textContent = step2 ? 'Дальше: название и ИИ →' : 'Проверить шаг 1';
       }
     }
     if (step2) {
       this.hideSourceWorkPreview?.();
+      if (!wasStep2) {
+        // Только что открылся шаг 2 — чуть проскроллим к карточке
+        setTimeout(() => {
+          document.getElementById('block-main')?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }, 50);
+      }
     } else {
       this.refreshSourceWorkPreview?.();
     }
@@ -155,7 +252,7 @@ Object.assign(app, {
     }
     if (img) img.removeAttribute('src');
     this._sourceWorkPreviewUrl = null;
-    document.getElementById('product-form')?.classList.remove('is-studio-busy');
+    // is-studio-busy снимает только setStudioBusy(false) — иначе баннер/таймер сбрасываются при refresh без фото
     document.getElementById('block-essentials')
       ?.querySelector('.essentials-layout')
       ?.classList.remove('is-preview-expanded');
@@ -217,6 +314,88 @@ Object.assign(app, {
     this.refreshSourceWorkPreview?.();
     // Во время генерации сразу крупно — писать состав удобнее без лишнего клика
     if (busy) this.toggleSourceWorkPreviewExpand?.(true);
+    this.syncStudioBusyUi?.(!!busy);
+  },
+
+  syncStudioBusyUi(busy) {
+    const banner = document.getElementById('studio-busy-banner');
+    const detail = document.getElementById('studio-busy-detail');
+    const timerEl = document.getElementById('studio-busy-timer');
+    const stageEl = document.getElementById('studio-busy-stage');
+    const scene = document.getElementById('scene-select');
+    const uploadBtn = document.getElementById('photo-upload-btn');
+    const retryBtn = document.getElementById('studio-retry-btn');
+    const processBtn = document.getElementById('process-studio-btn');
+    document.querySelectorAll('.scene-rail-btn').forEach((btn) => { btn.disabled = !!busy; });
+
+    if (banner) {
+      banner.classList.toggle('hidden', !busy);
+      banner.hidden = !busy;
+    }
+    if (scene) scene.disabled = !!busy;
+    if (uploadBtn) uploadBtn.disabled = !!busy;
+    if (processBtn && busy) processBtn.disabled = true;
+    if (retryBtn && busy) retryBtn.disabled = true;
+
+    if (busy) {
+      if (detail) {
+        detail.textContent = this.isUnitBalloonMode?.()
+          ? 'Обычно 1–3 минуты. Цену можно указать сейчас.'
+          : 'Состав и цену можно заполнять сейчас — не ждите конца.';
+      }
+      if (stageEl && !stageEl.textContent) stageEl.textContent = 'Запуск…';
+      if (!this._studioBusyStartedAt) this._studioBusyStartedAt = Date.now();
+      this.tickStudioBusyTimer?.();
+      clearInterval(this._studioBusyTimer);
+      this._studioBusyTimer = setInterval(() => this.tickStudioBusyTimer?.(), 1000);
+      this.syncEditorSteps?.();
+      const comp = document.getElementById('product-composition');
+      const price = document.getElementById('product-price');
+      const active = document.activeElement;
+      if (comp && active !== comp && active !== price) {
+        setTimeout(() => {
+          if (document.getElementById('product-form')?.classList.contains('is-studio-busy')) {
+            document.getElementById('block-essentials')?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            comp.focus({ preventScroll: true });
+          }
+        }, 400);
+      }
+    } else {
+      clearInterval(this._studioBusyTimer);
+      this._studioBusyTimer = null;
+      this._studioBusyStartedAt = null;
+      if (timerEl) timerEl.textContent = '0:00';
+      if (stageEl) stageEl.textContent = '';
+      if (detail) {
+        delete detail.dataset.longWait;
+        detail.textContent = 'Состав и цену можно заполнять сейчас — не ждите конца.';
+      }
+      if (retryBtn) retryBtn.disabled = false;
+      this.syncEditorSteps?.();
+    }
+  },
+
+  tickStudioBusyTimer() {
+    const timerEl = document.getElementById('studio-busy-timer');
+    if (!timerEl || !this._studioBusyStartedAt) return;
+    const sec = Math.max(0, Math.floor((Date.now() - this._studioBusyStartedAt) / 1000));
+    const m = Math.floor(sec / 60);
+    const s = String(sec % 60).padStart(2, '0');
+    timerEl.textContent = `${m}:${s}`;
+
+    const statusRaw = (document.getElementById('studio-status')?.textContent || '').trim();
+    const stageEl = document.getElementById('studio-busy-stage');
+    if (stageEl && statusRaw) {
+      stageEl.textContent = statusRaw.replace(/^[⏳✅❌☁️🎨✂️🔎📎✏️↻]+\s*/u, '').trim() || statusRaw;
+    }
+
+    if (sec >= 180) {
+      const detail = document.getElementById('studio-busy-detail');
+      if (detail && !detail.dataset.longWait) {
+        detail.dataset.longWait = '1';
+        detail.textContent = 'Уже дольше обычного — можно продолжать состав. Master появится сам.';
+      }
+    }
   },
 
   syncAIFillGate() {
@@ -242,8 +421,13 @@ Object.assign(app, {
     ['product-price', 'product-composition'].forEach((id) => {
       const el = document.getElementById(id);
       if (!el) return;
-      el.addEventListener('input', () => this.syncAIFillGate());
-      el.addEventListener('change', () => this.syncAIFillGate());
+      const kick = () => {
+        this.ensureMasterPhotoFlag?.();
+        this.syncAIFillGate();
+      };
+      el.addEventListener('input', kick);
+      el.addEventListener('change', kick);
+      el.addEventListener('blur', kick);
     });
     this.syncAIFillGate();
   },

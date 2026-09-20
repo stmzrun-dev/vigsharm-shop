@@ -171,36 +171,82 @@ Object.assign(app, {
     this.toast('Фото удалено', 'success');
   },
 
-  // === Scene Selector (компактный select как в старой админке) ===
+  // === Scene Selector: кнопки слева от фото ===
   setupSceneSelector() {
     const container = document.getElementById('scene-selector');
     if (!container) return;
 
     const current = this.currentProduct?.scene || 'auto';
+    const iconOf = (title) => String(title || '').split(/\s+/)[0] || '•';
+    const escAttr = (s) => String(s || '').replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
     container.innerHTML = `
-      <label class="scene-select-label">Сцена Studio Pro
-        <select id="scene-select">
-          ${SCENES.map(s => `<option value="${s.value}" ${s.value === current ? 'selected' : ''}>${s.title}</option>`).join('')}
-        </select>
-      </label>
+      <div class="scene-rail" role="radiogroup" aria-label="Сцена Studio Pro">
+        ${SCENES.map((s) => `
+          <button type="button" class="scene-rail-btn${s.value === current ? ' is-active' : ''}"
+            data-scene="${s.value}"
+            title="${escAttr(s.title + ' — ' + s.desc)}"
+            aria-pressed="${s.value === current ? 'true' : 'false'}">
+            <span class="scene-rail-icon" aria-hidden="true">${iconOf(s.title)}</span>
+            <span class="scene-rail-short">${escAttr(s.short || s.title)}</span>
+          </button>
+        `).join('')}
+      </div>
+      <select id="scene-select" class="scene-select-mirror" aria-hidden="true" tabindex="-1">
+        ${SCENES.map((s) => `<option value="${s.value}" ${s.value === current ? 'selected' : ''}>${s.title}</option>`).join('')}
+      </select>
     `;
 
-    const select = container.querySelector('#scene-select');
-    if (select) {
-      select.addEventListener('change', () => {
-        this.currentProduct.scene = select.value;
-        this.syncStudioModeHint?.();
-        this.syncUnitBalloonForm?.(true);
-        this.syncAdvanceOrderFromScene?.();
-        this.scheduleSaveActiveStudioDraft?.();
+    if (!container.dataset.railWired) {
+      container.dataset.railWired = '1';
+      container.addEventListener('click', (e) => {
+        const btn = e.target.closest('.scene-rail-btn');
+        if (!btn || btn.disabled) return;
+        this.setScene?.(btn.dataset.scene);
       });
     }
+
+    const select = container.querySelector('#scene-select');
+    if (select && !select.dataset.wired) {
+      select.dataset.wired = '1';
+      select.addEventListener('change', () => this.setScene?.(select.value));
+    }
+
+    this.syncSceneRailUi?.(current);
     this.syncUnitBalloonForm?.(false);
     this.wirePhotozoneTypeControls?.();
     this.wireFloorTypeControls?.();
     this.wireOccasionShelfControls?.();
     this.syncAdvanceOrderFromScene?.();
     this.syncOccasionShelfFields?.();
+  },
+
+  setScene(value) {
+    const scene = value || 'auto';
+    if (!this.currentProduct) this.currentProduct = { photos: [], scene: 'auto', tags: [], client_options: {} };
+    this.currentProduct.scene = scene;
+    const select = document.getElementById('scene-select');
+    if (select && select.value !== scene) select.value = scene;
+    this.syncSceneRailUi?.(scene);
+    this.syncStudioModeHint?.();
+    this.syncUnitBalloonForm?.(true);
+    this.syncAdvanceOrderFromScene?.();
+    this.scheduleSaveActiveStudioDraft?.();
+  },
+
+  syncSceneRailUi(sceneValue) {
+    const scene = sceneValue || this.currentProduct?.scene || document.getElementById('scene-select')?.value || 'auto';
+    document.querySelectorAll('.scene-rail-btn').forEach((btn) => {
+      const on = btn.dataset.scene === scene;
+      btn.classList.toggle('is-active', on);
+      btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+    });
+    const meta = (typeof SCENES !== 'undefined' ? SCENES : []).find((s) => s.value === scene);
+    const label = document.getElementById('scene-active-label');
+    if (label) {
+      label.textContent = meta
+        ? `${meta.title}`
+        : '';
+    }
   },
 
   /** В составе: «коробка», «… с надписью», «с индивидуальной надписью» и т.п. */
@@ -1157,6 +1203,7 @@ Object.assign(app, {
 
     const sceneSelect = document.getElementById('scene-select');
     if (sceneSelect) sceneSelect.value = 'auto';
+    this.syncSceneRailUi?.('auto');
 
     const articleEl = document.getElementById('product-article');
     if (articleEl) {
@@ -1240,6 +1287,7 @@ app.loadProductToForm = function(product) {
   this.currentProduct.scene = product.scene || 'auto';
   const sceneSelect = document.getElementById('scene-select');
   if (sceneSelect) sceneSelect.value = this.currentProduct.scene;
+  this.syncSceneRailUi?.(this.currentProduct.scene);
   const studioOrig = this.currentProduct.client_options.studio_original_url || null;
   const masterUrl = this.currentProduct.photos[0]?.url || null;
   this.studioSourceUrl = studioOrig || null;

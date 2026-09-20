@@ -19,13 +19,13 @@ const THEME_CATEGORIES = [...TAGS.forWho, ...TAGS.occasion, ...TAGS.dates];
 const DEFERRED_TYPE_TAGS = ['Шар-сюрприз'];
 
 const SCENES = [
-  { value: 'auto', title: '🤖 Автоматически', desc: 'ИИ определит по содержимому' },
-  { value: 'unit_balloon', title: '🎈 Шар поштучно', desc: 'Manus: стена, без пола' },
-  { value: 'handheld_bouquet', title: '💐 Букет в руке', desc: 'Женская рука, без бирок' },
-  { value: 'wall_only', title: '🧱 Только стена', desc: 'Manus: стена, без пола' },
-  { value: 'floor', title: '🏠 Напольная композиция', desc: 'Стена + плинтус + ламинат' },
-  { value: 'balloon_figures', title: '🧍 Фигуры из шаров', desc: 'Как напольная, масштаб ≥1 м' },
-  { value: 'photozone', title: '📸 Фотозона', desc: 'Каркас или мольберт' }
+  { value: 'auto', title: '🤖 Автоматически', short: 'Авто', desc: 'ИИ определит по содержимому' },
+  { value: 'unit_balloon', title: '🎈 Шар поштучно', short: 'Поштучно', desc: 'Manus: стена, без пола' },
+  { value: 'handheld_bouquet', title: '💐 Букет в руке', short: 'Букет', desc: 'Женская рука, без бирок' },
+  { value: 'wall_only', title: '🧱 Только стена', short: 'Стена', desc: 'Manus: стена, без пола' },
+  { value: 'floor', title: '🏠 Напольная композиция', short: 'Пол', desc: 'Стена + плинтус + ламинат' },
+  { value: 'balloon_figures', title: '🧍 Фигуры из шаров', short: 'Фигуры', desc: 'Как напольная, масштаб ≥1 м' },
+  { value: 'photozone', title: '📸 Фотозона', short: 'Фотозона', desc: 'Каркас или мольберт' }
 ];
 
 /** Типы фотозоны → что в аренде */
@@ -115,11 +115,6 @@ const app = {
     this.setupEditorAutosave?.();
     this.updateParkedDraftBanner?.();
     this.updateLastTemplateButton?.();
-    // На десктопе подсказку Master сразу раскрываем; на телефоне — свёрнута
-    try {
-      const help = document.querySelector('.studio-help');
-      if (help && window.matchMedia('(min-width: 769px)').matches) help.open = true;
-    } catch { /* ignore */ }
     document.addEventListener('keydown', (e) => {
       if ((e.ctrlKey || e.metaKey) && (e.key === 's' || e.key === 'S')) {
         if (document.body.classList.contains('admin-editor-open')) {
@@ -291,11 +286,7 @@ const app = {
       const cat = document.getElementById('product-category');
       if (cat && t.category) cat.value = t.category;
       if (t.scene) {
-        this.currentProduct.scene = t.scene;
-        const sceneSelect = document.getElementById('scene-select');
-        if (sceneSelect) sceneSelect.value = t.scene;
-        this.syncStudioModeHint?.();
-        this.syncAdvanceOrderFromScene?.();
+        this.setScene?.(t.scene);
       }
     }
 
@@ -451,15 +442,15 @@ const app = {
   updateEditorAutosaveHint(ts) {
     let el = document.getElementById('editor-autosave-hint');
     if (!el) {
-      const header = document.querySelector('.editor-header');
-      if (!header) return;
+      const anchor = document.getElementById('editor-progress') || document.querySelector('.editor-header');
+      if (!anchor) return;
       el = document.createElement('p');
       el.id = 'editor-autosave-hint';
       el.className = 'editor-autosave-hint';
-      header.insertAdjacentElement('afterend', el);
+      anchor.insertAdjacentElement('afterend', el);
     }
     if (!ts) {
-      el.textContent = 'Ctrl+S — сохранить черновиком на сервер · автосейв локально каждые 30 сек';
+      el.textContent = 'Ctrl+S — черновик на сервер · автосейв локально';
       return;
     }
     const when = new Date(ts).toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
@@ -520,6 +511,7 @@ const app = {
     const sceneSelect = document.getElementById('scene-select');
     if (sceneSelect) sceneSelect.value = draft.scene || 'auto';
     this.currentProduct.scene = draft.scene || 'auto';
+    this.syncSceneRailUi?.(this.currentProduct.scene);
 
     this.currentProduct.photos = (draft.photos || [])
       .filter((p) => p.url)

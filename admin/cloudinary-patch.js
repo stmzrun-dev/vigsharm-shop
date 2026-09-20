@@ -2,31 +2,43 @@
 // Переопределяем функцию uploadPhoto для работы с Cloudinary
 
 (function() {
-  // Ждем загрузки app
+  let tries = 0;
   const initCloudinary = () => {
-    if (typeof app === 'undefined') {
+    if (typeof app === 'undefined' || !window.CloudinaryUploader?.uploadPhoto) {
+      tries += 1;
+      if (tries > 50) {
+        console.error('CloudinaryUploader не загрузился — проверьте cloudinary-upload.js');
+        return;
+      }
       setTimeout(initCloudinary, 100);
       return;
     }
 
-    // Добавляем поля Cloudinary в app
     app.cloudinaryCloudName = app.cloudinaryCloudName || '';
     app.cloudinaryUploadPreset = app.cloudinaryUploadPreset || '';
 
-    // Переопределяем функцию uploadPhoto
     app.uploadPhoto = async function(file, opts = {}) {
-      // Проверяем настройки Cloudinary
+      const uploader = window.CloudinaryUploader;
+      if (!uploader || typeof uploader.uploadPhoto !== 'function') {
+        return {
+          ok: false,
+          error: 'Модуль Cloudinary не загружен. Обновите страницу (Ctrl+F5).'
+        };
+      }
       if (!this.cloudinaryCloudName || !this.cloudinaryUploadPreset) {
         return {
           ok: false,
           error: 'Cloudinary не настроен. Перейдите в Настройки и укажите Cloud Name и Upload Preset.'
         };
       }
+      if (!file) {
+        return { ok: false, error: 'Нет файла для загрузки' };
+      }
 
       try {
-        const label = file?.name || 'фото';
+        const label = file.name || 'фото';
         this.showPhotoUploadProgress?.(0, `Загрузка: ${label}`);
-        const result = await window.CloudinaryUploader.uploadPhoto(
+        const result = await uploader.uploadPhoto(
           file,
           this.cloudinaryCloudName,
           this.cloudinaryUploadPreset,
@@ -51,7 +63,6 @@
       }
     };
 
-    // Обновляем loadSettings для Cloudinary
     const originalLoadSettings = app.loadSettings;
     app.loadSettings = function() {
       originalLoadSettings.call(this);
@@ -73,14 +84,13 @@
       }
     };
 
-    // Обновляем saveSettings для Cloudinary
     const originalSaveSettings = app.saveSettings;
     app.saveSettings = function() {
       this.cloudinaryCloudName = document.getElementById('cloudinary-cloud-name')?.value.trim() || '';
       this.cloudinaryUploadPreset = document.getElementById('cloudinary-upload-preset')?.value.trim() || '';
       this.workerUrl = document.getElementById('worker-url')?.value.trim() || this.workerUrl;
       this.adminApiKey = document.getElementById('admin-api-key')?.value.trim() || '';
-      
+
       try {
         const saved = localStorage.getItem('vigsharm_admin_settings');
         const settings = saved ? JSON.parse(saved) : {};
@@ -88,16 +98,14 @@
         settings.cloudinaryUploadPreset = this.cloudinaryUploadPreset;
         settings.workerUrl = this.workerUrl;
         settings.adminApiKey = this.adminApiKey;
-        // Примечание: NordRouter-ключ больше НЕ хранится в localStorage — он живёт только
-        // в Worker secrets (см. миграцию в admin.js loadSettings()). Поле nordrouterKey
-        // на app отсутствует, поэтому строка settings.nordrouterKey = ... была удалена.
-
         localStorage.setItem('vigsharm_admin_settings', JSON.stringify(settings));
         this.toast('Настройки сохранены', 'success');
       } catch (e) {
         this.toast('Ошибка сохранения', 'error');
       }
     };
+
+    try { app.loadSettings(); } catch (e) { /* ignore */ }
 
     console.log('✓ Cloudinary integration enabled');
   };

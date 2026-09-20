@@ -7,7 +7,7 @@
 <meta name="robots" content="noindex, nofollow"/>
 <link rel="icon" href="../favicon.svg"/>
 <link rel="stylesheet" href="../assets/fonts.css"/>
-<link rel="stylesheet" href="styles.css?v=ux2-1"/>
+<link rel="stylesheet" href="styles.css?v=busy-focus-1"/>
 </head>
 <body>
 
@@ -96,24 +96,52 @@
         <button type="button" class="modal-close" onclick="app.cancelProductEdit()" title="Закрыть">×</button>
       </div>
 
+      <nav class="editor-progress" id="editor-progress" aria-label="Шаги создания">
+        <span class="editor-progress-step is-active" data-step="1" id="editor-progress-1">1. Фото и цена</span>
+        <span class="editor-progress-sep" aria-hidden="true">→</span>
+        <span class="editor-progress-step" data-step="2" id="editor-progress-2">2. Карточка</span>
+      </nav>
+
       <form id="product-form" class="is-editor-step-1" novalidate>
 
-        <!-- Фото + Studio -->
-        <section class="card-block" id="block-photos">
-          <div class="studio-toolbar">
-            <button type="button" class="btn secondary" id="process-studio-btn" onclick="app.processStudioProNew()">✨ Создать Master</button>
-            <button type="button" class="btn outline hidden" id="studio-retry-btn" onclick="app.retryStudioMaster()">↻ Пересоздать Master</button>
-            <div class="scene-selector scene-select-wrap" id="scene-selector"></div>
-            <button type="button" class="btn outline" id="photo-upload-btn" onclick="document.getElementById('photo-input').click()">+ Загрузить</button>
+        <div class="step1-workspace" id="step1-workspace">
+        <div id="studio-busy-banner" class="studio-busy-banner hidden" hidden role="status" aria-live="polite">
+          <span class="studio-busy-banner-dot" aria-hidden="true"></span>
+          <div class="studio-busy-banner-text">
+            <strong>Master генерируется · <span id="studio-busy-timer" class="studio-busy-timer-inline">0:00</span></strong>
+            <span id="studio-busy-stage" class="studio-busy-stage">Подготовка…</span>
+            <span id="studio-busy-detail">Состав и цену можно заполнять сейчас — не ждите конца.</span>
           </div>
-          <details class="studio-help">
-            <summary>Как работает Master</summary>
-            <p class="studio-lead">Manus AI-пересъёмка → одно фото Master. Снимаются водяные знаки и бейджи поставщика (sima-land.ru, MARVEL-коробка, «для гелия», размер). Рисунок на шаре остаётся. Эталон фона — в «Настройки». Пока идёт генерация — справа крупный оригинал, по нему пишите состав. Потом: цена + состав → откроются остальные поля и ИИ.</p>
-          </details>
+        </div>
+        <!-- Фото → сцена/Master → (сравнение ниже) -->
+        <section class="card-block step1-photos" id="block-photos">
+          <div class="scene-selector scene-rail-wrap" id="scene-selector"></div>
+          <p class="scene-active-label" id="scene-active-label"></p>
+          <div class="photo-section" id="photo-dropzone">
+            <div class="upload-zone upload-zone-compact" id="upload-zone-empty">
+              <div class="icon">📷</div>
+              <p>Перетащите фото или нажмите «+ Загрузить»</p>
+              <small>JPG, PNG, WebP · до 10 МБ · до 6 шт.</small>
+            </div>
+            <input type="file" id="photo-input" accept="image/*" multiple class="hidden-file"/>
+            <div class="photo-grid" id="photos-grid"></div>
+            <div id="photo-upload-progress" class="photo-upload-progress hidden" hidden aria-live="polite">
+              <div class="photo-upload-progress-bar"><span id="photo-upload-progress-fill"></span></div>
+              <p id="photo-upload-progress-text">Загрузка фото…</p>
+            </div>
+          </div>
+
+          <div class="studio-toolbar">
+            <div class="studio-toolbar-actions">
+              <button type="button" class="btn outline" id="photo-upload-btn" onclick="document.getElementById('photo-input').click()">+ Загрузить</button>
+              <button type="button" class="btn secondary" id="process-studio-btn" onclick="app.processStudioProNew()">✨ Создать Master</button>
+              <button type="button" class="btn outline hidden" id="studio-retry-btn" onclick="app.retryStudioMaster()">↻ Пересоздать</button>
+            </div>
+          </div>
           <p class="studio-mode-hint" id="studio-mode-hint"></p>
           <div id="photozone-type-early" class="photozone-type-early hidden">
             <p class="photozone-type-early-title">Тип фотозоны <span class="req">*</span></p>
-            <p class="text-muted" style="margin:0 0 8px;font-size:12px;">Выберите <strong>до</strong> «Создать Master» — от типа зависит промпт ИИ.</p>
+            <p class="text-muted photozone-type-early-note">Выберите до «Создать Master»</p>
             <div class="option-cards photozone-type-cards">
               <label class="option-card">
                 <input type="radio" name="photozone-type-early" id="pz-type-frame-early" value="frame" checked/>
@@ -133,7 +161,7 @@
           </div>
           <div id="floor-type-early" class="photozone-type-early hidden">
             <p class="photozone-type-early-title">Тип напольной <span class="req">*</span></p>
-            <p class="text-muted" style="margin:0 0 8px;font-size:12px;">С воздухом — всегда «заказ заранее за 1–2 дня». Гелиевые — без этой галочки.</p>
+            <p class="text-muted photozone-type-early-note">Воздух — «заказ заранее»; гелий — без него</p>
             <div class="option-cards photozone-type-cards">
               <label class="option-card">
                 <input type="radio" name="floor-type-early" id="floor-type-air-early" value="air" checked/>
@@ -153,24 +181,10 @@
           </div>
           <div class="status" id="studio-status"></div>
 
-          <div class="photo-section" id="photo-dropzone">
-            <div class="upload-zone upload-zone-compact" id="upload-zone-empty">
-              <div class="icon">📷</div>
-              <p>Перетащите фото или нажмите «+ Загрузить»</p>
-              <small>JPG, PNG, WebP · до 10 МБ · максимум 6</small>
-            </div>
-            <input type="file" id="photo-input" accept="image/*" multiple class="hidden-file"/>
-            <div class="photo-grid" id="photos-grid"></div>
-            <div id="photo-upload-progress" class="photo-upload-progress hidden" hidden aria-live="polite">
-              <div class="photo-upload-progress-bar"><span id="photo-upload-progress-fill"></span></div>
-              <p id="photo-upload-progress-text">Загрузка фото…</p>
-            </div>
-          </div>
-
           <!-- Сравнение: оригинал | Master -->
           <div id="studio-compare" class="studio-compare hidden">
             <h3>Сравнение</h3>
-            <p class="lead">Оригинал · Master (студия). Клик — увеличить.</p>
+            <p class="lead">Оригинал · Master. Клик — увеличить.</p>
             <div class="studio-compare-grid studio-compare-grid-2">
               <button type="button" class="studio-compare-slot" id="studio-compare-original-btn" onclick="app.openStudioCompareSlot('original')">
                 <span class="studio-compare-label">Оригинал</span>
@@ -185,7 +199,6 @@
             </div>
           </div>
 
-          <!-- Правка надписи на Master (фольга / бабл / табличка) — свёрнуто по умолчанию -->
           <details id="sign-text-editor" class="sign-text-editor hidden">
             <summary>Исправить надпись</summary>
             <p class="lead" style="margin:0 0 10px;font-size:13px;color:#616161;line-height:1.45">
@@ -202,11 +215,16 @@
               <button type="button" class="btn outline" onclick="app.collapseSignTextEditor()">Свернуть</button>
             </div>
           </details>
+
+          <details class="studio-help">
+            <summary>Как работает Master</summary>
+            <p class="studio-lead">Manus AI-пересъёмка → одно фото Master. Снимаются водяные знаки и бейджи поставщика. Рисунок на шаре остаётся. Эталон фона — в «Настройки». Пока идёт генерация — справа оригинал, по нему пишите состав. Потом откроются остальные поля и ИИ.</p>
+          </details>
         </section>
 
-        <!-- Шаг 1: цена + состав (+ крупный оригинал во время генерации) -->
-        <section class="card-block" id="block-essentials">
-          <p class="step-1-hint" id="step-1-hint">Шаг 1: фото → Master → цена и состав</p>
+        <!-- Состав + цена -->
+        <section class="card-block step1-essentials" id="block-essentials">
+          <p class="step-1-hint hidden" id="step-1-hint" hidden>Шаг 1</p>
           <div class="essentials-layout">
             <div id="source-work-preview" class="source-work-preview hidden">
               <div class="source-work-preview-head">
@@ -230,9 +248,14 @@
                 <label>Цена, ₽ <span class="req">*</span></label>
                 <input id="product-price" data-required-field="price" type="number" min="0" step="1" inputmode="numeric" placeholder="0"/>
               </div>
+              <div id="step1-next-wrap" class="step1-next-wrap">
+                <p id="step1-next-hint" class="step1-next-hint">Чтобы продолжить: Master, цена и состав</p>
+                <button type="button" class="btn primary" id="step1-next-btn" onclick="app.goEditorStep2()">Проверить шаг 1</button>
+              </div>
             </div>
           </div>
         </section>
+        </div><!-- /.step1-workspace -->
 
         <!-- Шаг 2: остальные поля (после Master + цена + состав) -->
         <section class="card-block editor-step-2" id="block-main">
@@ -556,12 +579,12 @@
   <img id="lightbox-img" alt="Просмотр" onclick="event.stopPropagation()"/>
 </div>
 
-<script src="admin.js?v=ux2-1"></script>
-<script src="admin-extended.js?v=ux2-1"></script>
-<script src="admin-studio-pro.js"></script>
-<script src="admin-ai.js"></script>
-<script src="cloudinary-upload.js?v=ux2-1"></script>
-<script src="cloudinary-patch.js?v=ux2-1"></script>
+<script src="admin.js?v=scene-rail-1"></script>
+<script src="admin-extended.js?v=scene-chips-1"></script>
+<script src="cloudinary-upload.js?v=cloud-fix-1"></script>
+<script src="cloudinary-patch.js?v=cloud-fix-1"></script>
+<script src="admin-studio-pro.js?v=cloud-fix-1"></script>
+<script src="admin-ai.js?v=busy-focus-1"></script>
 <script src="admin-reference-background.js"></script>
 </body>
 </html>

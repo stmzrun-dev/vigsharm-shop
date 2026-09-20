@@ -694,6 +694,7 @@ Object.assign(app, {
 
       const sceneSelect = document.getElementById('scene-select');
       if (sceneSelect) sceneSelect.value = scene;
+      this.syncSceneRailUi?.(scene);
 
       const isRemote = /^https?:\/\//i.test(draft.masterUrl);
       this.studioMasterDataUrl = draft.masterUrl;
@@ -866,9 +867,14 @@ Object.assign(app, {
     this.toast('Master готов — одно фото в карточке', 'success');
     this.syncAIFillGate?.();
     this.saveActiveStudioDraft?.();
-    document.getElementById('block-essentials')?.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
-      || document.getElementById('sign-text-editor')?.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
-      || document.getElementById('studio-compare')?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    // Если цена и состав уже заполнены — сразу открыть шаг 2
+    if (this.canUnlockEditorStep2?.()) {
+      setTimeout(() => this.goEditorStep2?.(), 300);
+    } else {
+      document.getElementById('block-essentials')?.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
+        || document.getElementById('sign-text-editor')?.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
+        || document.getElementById('studio-compare')?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
   },
 
   async callCompositeMaster(imageUrl, scene, statusEl) {
@@ -1196,9 +1202,13 @@ Object.assign(app, {
     const blobRes = await fetch(dataUrl);
     const blob = await blobRes.blob();
     const file = new File([blob], filename, { type: blob.type || 'image/webp' });
-    const uploadResult = await this.uploadPhoto(file);
-    if (!uploadResult.ok) {
-      throw new Error(uploadResult.error || 'Cloudinary upload failed');
+    const upload = typeof this.uploadPhoto === 'function' ? this.uploadPhoto.bind(this) : null;
+    if (!upload) {
+      throw new Error('uploadPhoto недоступен — обновите страницу (Ctrl+F5)');
+    }
+    const uploadResult = await upload(file);
+    if (!uploadResult || !uploadResult.ok) {
+      throw new Error((uploadResult && uploadResult.error) || 'Cloudinary upload failed');
     }
     return uploadResult.url;
   },
@@ -1206,6 +1216,9 @@ Object.assign(app, {
   async ensureHttpsPhotoUrl(url, filename = 'photo.webp') {
     if (!url) throw new Error('Пустой URL фото');
     if (url.startsWith('https://') || url.startsWith('http://')) return url;
+    if (!window.CloudinaryUploader) {
+      throw new Error('Cloudinary не загружен — обновите страницу (Ctrl+F5)');
+    }
     return this.uploadDataUrlToCloudinary(url, filename);
   },
 

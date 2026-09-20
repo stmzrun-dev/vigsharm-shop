@@ -577,3 +577,183 @@ html body main#main-content.catalog-page .catalog-group-nav > button .catalog-gr
   height:28px!important;
   object-fit:contain!important;
 }
+
+/* ===== Hero — mobile-first polish (option 1) =====
+   One strong CTA, quieter secondary, denser rhythm, photo closer to copy.
+   High specificity to beat home-polish stacked layouts. */
+html body main#main-content .hero .hero-actions .button-primary,
+html body main#main-content .hero .hero-actions a.button-primary{
+  box-shadow:0 12px 28px rgba(255,107,107,.32),0 4px 12px rgba(255,142,83,.18)!important;
+}
+
+/* Tablet + phone (≤1020): primary owns the row; secondary becomes a quiet text link */
+@media (max-width:1020px){
+  html body main#main-content .hero{
+    padding-top:8px!important;
+    padding-bottom:16px!important;
+  }
+  html body main#main-content .hero .eyebrow{
+    margin-bottom:6px!important;
+    padding:6px 12px 6px 10px!important;
+    font-size:12px!important;
+  }
+  html body main#main-content .hero .playful-title{
+    margin-bottom:6px!important;
+    line-height:1.05!important;
+  }
+  html body main#main-content .hero .hero-message{
+    margin-bottom:10px!important;
+    font-size:14.5px!important;
+    line-height:1.4!important;
+    color:#6f6f78!important;
+  }
+  html body main#main-content .hero .hero-actions{
+    display:flex!important;
+    flex-direction:column!important;
+    align-items:stretch!important;
+    gap:6px!important;
+    margin-top:10px!important;
+  }
+  html body main#main-content .hero .hero-actions .button-primary,
+  html body main#main-content .hero .hero-actions a.button-primary{
+    width:100%!important;
+    flex:none!important;
+    min-height:50px!important;
+    justify-content:center!important;
+  }
+  html body main#main-content .hero .hero-actions .button-outline,
+  html body main#main-content .hero .hero-actions a.button-outline{
+    width:auto!important;
+    flex:none!important;
+    align-self:center!important;
+    min-height:auto!important;
+    height:auto!important;
+    padding:6px 8px!important;
+    margin:0!important;
+    background:transparent!important;
+    background-image:none!important;
+    border:0!important;
+    border-radius:0!important;
+    box-shadow:none!important;
+    color:#8b8b93!important;
+    font-weight:700!important;
+    font-size:14px!important;
+    letter-spacing:0!important;
+    text-decoration:underline!important;
+    text-underline-offset:3px!important;
+    text-decoration-color:rgba(139,139,147,.45)!important;
+    transform:none!important;
+  }
+  html body main#main-content .hero .hero-actions .button-outline:hover,
+  html body main#main-content .hero .hero-actions a.button-outline:hover{
+    color:#ff6b5a!important;
+    text-decoration-color:#ff6b5a!important;
+    box-shadow:none!important;
+    transform:none!important;
+    background:transparent!important;
+  }
+}
+
+/* Stacked hero (≤900): shorter photo, less air between copy / image / CTA */
+@media (max-width:900px){
+  html body main#main-content .hero{
+    gap:0!important;
+  }
+  html body main#main-content .hero .hero-message{
+    margin-bottom:8px!important;
+  }
+  html body main#main-content .hero .hero-media{
+    padding-left:16px!important;
+    padding-right:16px!important;
+    margin:0!important;
+  }
+  html body main#main-content .hero .hero-media img{
+    aspect-ratio:4/3!important;
+    max-height:min(420px,58vw)!important;
+    width:100%!important;
+    border-radius:18px!important;
+    object-fit:cover!important;
+    object-position:center 40%!important;
+  }
+  html body main#main-content .hero .hero-actions{
+    margin-top:8px!important;
+    padding-top:0!important;
+  }
+}
+
+@media (max-width:720px){
+  html body main#main-content .hero{
+    padding:0 0 12px!important;
+  }
+  html body main#main-content .hero .eyebrow,
+  html body main#main-content .hero .playful-title,
+  html body main#main-content .hero .hero-message,
+  html body main#main-content .hero .hero-actions{
+    padding-left:16px!important;
+    padding-right:16px!important;
+  }
+  html body main#main-content .hero .playful-title{
+    font-size:clamp(28px,8vw,36px)!important;
+    margin-bottom:4px!important;
+  }
+  html body main#main-content .hero .hero-message{
+    margin-bottom:8px!important;
+    font-size:14px!important;
+  }
+  html body main#main-content .hero .hero-media{
+    padding-left:16px!important;
+    padding-right:16px!important;
+  }
+  html body main#main-content .hero .hero-media img{
+    aspect-ratio:4/3!important;
+    max-height:min(360px,72vw)!important;
+    border-radius:16px!important;
+  }
+  html body main#main-content .hero .hero-actions{
+    margin-top:8px!important;
+    gap:4px!important;
+  }
+}
+
+/* Desktop: keep two CTAs in a row, but secondary quieter + tighter gap to photo */
+@media (min-width:1021px){
+  html body main#main-content .hero{
+    gap:28px!important;
+    padding:16px 0 28px!important;
+    align-items:center!important;
+  }
+  html body main#main-content .hero .hero-message{
+    margin-bottom:16px!important;
+  }
+  html body main#main-content .hero .hero-actions{
+    flex-direction:row!important;
+    flex-wrap:wrap!important;
+    align-items:center!important;
+    gap:14px!important;
+  }
+  html body main#main-content .hero .hero-actions .button-primary,
+  html body main#main-content .hero .hero-actions a.button-primary{
+    width:auto!important;
+  }
+  html body main#main-content .hero .hero-actions .button-outline,
+  html body main#main-content .hero .hero-actions a.button-outline{
+    width:auto!important;
+    align-self:center!important;
+    min-height:auto!important;
+    padding:8px 4px!important;
+    background:transparent!important;
+    box-shadow:none!important;
+    border:0!important;
+    border-radius:0!important;
+    color:#8b8b93!important;
+    font-weight:700!important;
+    font-size:15px!important;
+    text-decoration:underline!important;
+    text-underline-offset:3px!important;
+    text-decoration-color:rgba(139,139,147,.4)!important;
+  }
+  html body main#main-content .hero .hero-media img{
+    border-radius:20px!important;
+  }
+}
+

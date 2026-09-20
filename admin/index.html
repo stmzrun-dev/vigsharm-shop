@@ -7,7 +7,7 @@
 <meta name="robots" content="noindex, nofollow"/>
 <link rel="icon" href="../favicon.svg"/>
 <link rel="stylesheet" href="../assets/fonts.css"/>
-<link rel="stylesheet" href="styles.css"/>
+<link rel="stylesheet" href="styles.css?v=ux2-1"/>
 </head>
 <body>
 
@@ -43,6 +43,28 @@
           <div class="badge neutral">Всего: <strong id="stats-total">0</strong></div>
           <div class="badge success">На сайте: <strong id="stats-published">0</strong></div>
           <div class="badge warning">Черновиков: <strong id="stats-drafts">0</strong></div>
+        </div>
+      </div>
+
+      <div id="storefront-sync-banner" class="storefront-sync-banner hidden" role="status" hidden>
+        <div class="storefront-sync-text">
+          <strong>Каталог в админке новее витрины</strong>
+          <span id="storefront-sync-reason">Скачайте products.json и положите в data/ — иначе на сайте останется старое.</span>
+        </div>
+        <div class="storefront-sync-actions">
+          <button type="button" class="btn primary sm" onclick="app.exportStorefrontSnapshot()">Скачать для сайта</button>
+          <button type="button" class="btn outline sm" onclick="app.dismissStorefrontDirty()">Позже</button>
+        </div>
+      </div>
+
+      <div id="editor-park-banner" class="editor-park-banner hidden" role="status" hidden>
+        <div class="editor-park-text">
+          <strong>Локальный черновик не потерян</strong>
+          <span id="editor-park-reason">Можно продолжить карточку с того места, где остановились.</span>
+        </div>
+        <div class="editor-park-actions">
+          <button type="button" class="btn primary sm" onclick="app.restoreParkedEditorDraft()">Продолжить</button>
+          <button type="button" class="btn outline sm" onclick="app.discardParkedEditorDraft(true)">Удалить</button>
         </div>
       </div>
       
@@ -84,7 +106,10 @@
             <div class="scene-selector scene-select-wrap" id="scene-selector"></div>
             <button type="button" class="btn outline" id="photo-upload-btn" onclick="document.getElementById('photo-input').click()">+ Загрузить</button>
           </div>
-          <p class="studio-lead">Manus AI-пересъёмка → одно фото Master. Снимаются водяные знаки и бейджи поставщика (sima-land.ru, MARVEL-коробка, «для гелия», размер). Рисунок на шаре остаётся. Эталон фона — в «Настройки». Пока идёт генерация — справа крупный оригинал, по нему пишите состав. Потом: цена + состав → откроются остальные поля и ИИ.</p>
+          <details class="studio-help">
+            <summary>Как работает Master</summary>
+            <p class="studio-lead">Manus AI-пересъёмка → одно фото Master. Снимаются водяные знаки и бейджи поставщика (sima-land.ru, MARVEL-коробка, «для гелия», размер). Рисунок на шаре остаётся. Эталон фона — в «Настройки». Пока идёт генерация — справа крупный оригинал, по нему пишите состав. Потом: цена + состав → откроются остальные поля и ИИ.</p>
+          </details>
           <p class="studio-mode-hint" id="studio-mode-hint"></p>
           <div id="photozone-type-early" class="photozone-type-early hidden">
             <p class="photozone-type-early-title">Тип фотозоны <span class="req">*</span></p>
@@ -106,6 +131,26 @@
               </label>
             </div>
           </div>
+          <div id="floor-type-early" class="photozone-type-early hidden">
+            <p class="photozone-type-early-title">Тип напольной <span class="req">*</span></p>
+            <p class="text-muted" style="margin:0 0 8px;font-size:12px;">С воздухом — всегда «заказ заранее за 1–2 дня». Гелиевые — без этой галочки.</p>
+            <div class="option-cards photozone-type-cards">
+              <label class="option-card">
+                <input type="radio" name="floor-type-early" id="floor-type-air-early" value="air" checked/>
+                <span class="option-card-body">
+                  <strong>С воздухом</strong>
+                  <small>Напольная на воздухе — заказ заранее за 1–2 дня</small>
+                </span>
+              </label>
+              <label class="option-card">
+                <input type="radio" name="floor-type-early" id="floor-type-helium-early" value="helium"/>
+                <span class="option-card-body">
+                  <strong>Гелиевые шары</strong>
+                  <small>Гелиевая напольная — без обязательного заказа заранее</small>
+                </span>
+              </label>
+            </div>
+          </div>
           <div class="status" id="studio-status"></div>
 
           <div class="photo-section" id="photo-dropzone">
@@ -116,6 +161,10 @@
             </div>
             <input type="file" id="photo-input" accept="image/*" multiple class="hidden-file"/>
             <div class="photo-grid" id="photos-grid"></div>
+            <div id="photo-upload-progress" class="photo-upload-progress hidden" hidden aria-live="polite">
+              <div class="photo-upload-progress-bar"><span id="photo-upload-progress-fill"></span></div>
+              <p id="photo-upload-progress-text">Загрузка фото…</p>
+            </div>
           </div>
 
           <!-- Сравнение: оригинал | Master -->
@@ -157,7 +206,7 @@
 
         <!-- Шаг 1: цена + состав (+ крупный оригинал во время генерации) -->
         <section class="card-block" id="block-essentials">
-          <p class="step-1-hint" id="step-1-hint">Шаг 1: фото → Master → цена и состав. Остальные поля откроются после этого.</p>
+          <p class="step-1-hint" id="step-1-hint">Шаг 1: фото → Master → цена и состав</p>
           <div class="essentials-layout">
             <div id="source-work-preview" class="source-work-preview hidden">
               <div class="source-work-preview-head">
@@ -172,7 +221,10 @@
               <div class="form-group unit-hide" id="essentials-composition-wrap">
                 <label>Состав <span class="req">*</span></label>
                 <textarea id="product-composition" data-required-field="composition" rows="5" placeholder="Сырой состав, напр.: коробка, 10 шаров, 1 цифра"></textarea>
-                <small class="text-muted">Сырой состав шаров. Всё в <code>(скобках)</code> — подсказка для ИИ, клиенту не попадёт. Примеры: <code>(цифра)</code>, <code>(для мальчика)</code>, <code>(На выписку)</code>, <code>(1 сентября)</code>.</small>
+                <details class="field-help">
+                  <summary>Подсказка по составу</summary>
+                  <small class="text-muted">Сырой состав шаров. Всё в <code>(скобках)</code> — подсказка для ИИ, клиенту не попадёт. Примеры: <code>(цифра)</code>, <code>(для мальчика)</code>, <code>(На выписку)</code>, <code>(1 сентября)</code>.</small>
+                </details>
               </div>
               <div class="form-group">
                 <label>Цена, ₽ <span class="req">*</span></label>
@@ -200,6 +252,7 @@
             <div class="form-group">
               <label>Категория <span class="req">*</span></label>
               <select id="product-category" data-required-field="category"></select>
+              <button type="button" class="btn outline sm template-from-last-btn" id="template-from-last-btn" onclick="app.applyLastProductTemplate()" hidden>Как прошлый</button>
             </div>
           </div>
 
@@ -278,6 +331,9 @@
         <section class="card-block unit-hide editor-step-2" id="block-tags">
           <details class="ai-fields-fold">
             <summary>Дополнительные разделы каталога</summary>
+            <p class="tags-template-row">
+              <button type="button" class="btn outline sm" onclick="app.applyLastProductTemplate({ tagsOnly: true })">Подставить теги как у прошлого</button>
+            </p>
             <div class="tags-grid">
               <div class="chips chips-grid" id="tags-for-who"></div>
               <div class="chips chips-grid" id="tags-occasion"></div>
@@ -315,6 +371,27 @@
               <label for="rental-item">Что сдаётся в аренду</label>
               <input id="rental-item" type="text" autocomplete="off" placeholder="Каркас фотозоны"/>
               <small class="text-muted" id="rental-terms-hint">До 3 суток — бесплатно, далее 500 ₽/сутки. Клиент увидит это в карточке.</small>
+            </div>
+          </div>
+
+          <div id="floor-type-block" class="photozone-type-block hidden">
+            <h4 class="photozone-type-title">Тип напольной</h4>
+            <p class="text-muted" style="margin:0 0 8px;font-size:13px;">Тот же выбор, что выше у Studio. С воздухом — «заказ заранее»; гелиевые — без него.</p>
+            <div class="option-cards photozone-type-cards">
+              <label class="option-card">
+                <input type="radio" name="floor-type" id="floor-type-air" value="air" checked/>
+                <span class="option-card-body">
+                  <strong>С воздухом</strong>
+                  <small>Всегда ставит «заказ заранее за 1–2 дня»</small>
+                </span>
+              </label>
+              <label class="option-card">
+                <input type="radio" name="floor-type" id="floor-type-helium" value="helium"/>
+                <span class="option-card-body">
+                  <strong>Гелиевые шары</strong>
+                  <small>Галочка «заказ заранее» не ставится</small>
+                </span>
+              </label>
             </div>
           </div>
 
@@ -479,12 +556,12 @@
   <img id="lightbox-img" alt="Просмотр" onclick="event.stopPropagation()"/>
 </div>
 
-<script src="admin.js"></script>
-<script src="admin-extended.js"></script>
+<script src="admin.js?v=ux2-1"></script>
+<script src="admin-extended.js?v=ux2-1"></script>
 <script src="admin-studio-pro.js"></script>
 <script src="admin-ai.js"></script>
-<script src="cloudinary-upload.js"></script>
-<script src="cloudinary-patch.js"></script>
+<script src="cloudinary-upload.js?v=ux2-1"></script>
+<script src="cloudinary-patch.js?v=ux2-1"></script>
 <script src="admin-reference-background.js"></script>
 </body>
 </html>

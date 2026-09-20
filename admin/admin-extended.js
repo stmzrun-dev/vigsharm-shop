@@ -143,8 +143,11 @@ Object.assign(app, {
   },
 
   cancelProductEdit() {
-    this.resetForm();
+    this.parkEditorDraft?.();
+    this.resetForm({ preserveStudioDraft: true });
     this.switchTab('products');
+    this.updateParkedDraftBanner?.();
+    this.toast('Черновик сохранён локально — можно продолжить из списка', 'info');
   },
 
   setMainPhoto(index) {
@@ -194,6 +197,7 @@ Object.assign(app, {
     }
     this.syncUnitBalloonForm?.(false);
     this.wirePhotozoneTypeControls?.();
+    this.wireFloorTypeControls?.();
     this.wireOccasionShelfControls?.();
     this.syncAdvanceOrderFromScene?.();
     this.syncOccasionShelfFields?.();
@@ -483,6 +487,15 @@ Object.assign(app, {
     return null;
   },
 
+  /** Тип напольной из состава/описания: air | helium | null. */
+  compositionFloorType(text) {
+    const t = String(text || '').toLowerCase().replace(/ё/g, 'е');
+    if (!t) return null;
+    if (/с\s+воздух|на\s+воздух|воздушн\w*\s+наполн|без\s+гели/.test(t)) return 'air';
+    if (/гели|helium|с\s+гелием/.test(t)) return 'helium';
+    return null;
+  },
+
   syncAdvanceOrderFromScene() {
     if (this._syncingClientOpts) return;
     this._syncingClientOpts = true;
@@ -508,6 +521,7 @@ Object.assign(app, {
       const digitCount = this.compositionDigitCount(composition);
       const pzHintText = [composition, titleText, shortDesc, fullDesc].join(' ');
       const pzFromComp = this.compositionPhotozoneType(pzHintText);
+      const floorFromComp = this.compositionFloorType(pzHintText);
 
       // Тип фотозоны из состава («на мольберте» / «на каркасе»)
       if (isPhotozone && pzFromComp) {
@@ -516,8 +530,15 @@ Object.assign(app, {
         if (rentalItemEl) rentalItemEl.dataset.autoFill = '1';
       }
 
+      // Тип напольной из состава («с воздухом» / «гелий»)
+      if (isFloor && floorFromComp) {
+        this.setFloorType?.(floorFromComp);
+      }
+
       const pzType = this.getPhotozoneType?.() || 'frame';
       const pzMeta = (typeof PHOTOZONE_TYPES !== 'undefined' && PHOTOZONE_TYPES[pzType]) || null;
+      const floorType = this.getFloorType?.() || 'air';
+      const floorMeta = (typeof FLOOR_TYPES !== 'undefined' && FLOOR_TYPES[floorType]) || null;
 
       const advanceEl = document.getElementById('opt-advance');
       const inscriptionEl = document.getElementById('opt-inscription');
@@ -526,11 +547,17 @@ Object.assign(app, {
       const rentalEl = document.getElementById('opt-rental');
       const rentalItemEl = document.getElementById('rental-item');
       const pzBlock = document.getElementById('photozone-type-block');
+      const floorBlock = document.getElementById('floor-type-block');
 
       if (pzBlock) pzBlock.classList.toggle('hidden', !isPhotozone);
+      if (floorBlock) floorBlock.classList.toggle('hidden', !isFloor);
 
-      // Напольные, фигуры и букеты — заранее за 1–2 дня
-      if ((isFloor || isFigures || isBouquet) && advanceEl) advanceEl.checked = true;
+      // Фигуры и букеты — заранее за 1–2 дня
+      if ((isFigures || isBouquet) && advanceEl) advanceEl.checked = true;
+      // Напольные: с воздухом — заранее; гелиевые — без галочки
+      if (isFloor && advanceEl) {
+        advanceEl.checked = floorMeta ? !!floorMeta.advance_order : floorType !== 'helium';
+      }
       // Букеты — персональная надпись (текст на сердцах / по желанию клиента)
       if (isBouquet && inscriptionEl) inscriptionEl.checked = true;
       // В составе «… с надписью» / «коробка … с индивидуальной надписью» → «Персональная надпись»
@@ -625,6 +652,21 @@ Object.assign(app, {
     });
   },
 
+  getFloorType() {
+    const checked = document.querySelector('input[name="floor-type"]:checked')
+      || document.querySelector('input[name="floor-type-early"]:checked');
+    return checked?.value || 'air';
+  },
+
+  setFloorType(type) {
+    const value = (typeof FLOOR_TYPES !== 'undefined' && FLOOR_TYPES[type])
+      ? type
+      : (type === 'helium' ? 'helium' : 'air');
+    document.querySelectorAll('input[name="floor-type"], input[name="floor-type-early"]').forEach((el) => {
+      el.checked = el.value === value;
+    });
+  },
+
   wirePhotozoneTypeControls() {
     if (this._photozoneTypeWired) return;
     this._photozoneTypeWired = true;
@@ -645,6 +687,21 @@ Object.assign(app, {
         rentalItemEl.dataset.autoFill = '0';
       });
     }
+  },
+
+  wireFloorTypeControls() {
+    if (this._floorTypeWired) return;
+    this._floorTypeWired = true;
+    const sync = (e) => {
+      const val = e?.target?.value || this.getFloorType();
+      this.setFloorType(val);
+      this.syncAdvanceOrderFromScene?.();
+      this.syncStudioModeHint?.();
+      this.scheduleSaveActiveStudioDraft?.();
+    };
+    document.querySelectorAll('input[name="floor-type"], input[name="floor-type-early"]').forEach((el) => {
+      el.addEventListener('change', sync);
+    });
   },
 
   // === Form Events ===
@@ -933,8 +990,13 @@ Object.assign(app, {
       scene === 'photozone'
       || category === 'Фотозона'
     );
+    const isFloorSave = !unit && !holidayOnly && !isBox && (
+      scene === 'floor'
+      || category === 'Напольные композиции'
+    );
     const pzType = isPhotozone ? (this.getPhotozoneType?.() || 'frame') : null;
     const pzMeta = pzType && typeof PHOTOZONE_TYPES !== 'undefined' ? PHOTOZONE_TYPES[pzType] : null;
+    const floorType = isFloorSave ? (this.getFloorType?.() || 'air') : null;
     const rentalChecked = !unit && (document.getElementById('opt-rental')?.checked || false);
     const rentalItem = (document.getElementById('rental-item')?.value || '').trim()
       || pzMeta?.rental_item
@@ -967,6 +1029,9 @@ Object.assign(app, {
 
     if (isPhotozone && pzType) {
       clientOptions.photozone_type = pzType;
+    }
+    if (isFloorSave && floorType) {
+      clientOptions.floor_type = floorType;
     }
     if (rentalChecked) {
       clientOptions.rental = {
@@ -1058,11 +1123,12 @@ Object.assign(app, {
     };
   },
 
-  resetForm() {
+  resetForm(opts = {}) {
+    const preserveStudioDraft = !!opts.preserveStudioDraft;
     this.currentProduct = { photos: [], scene: 'auto', tags: [], client_options: {} };
     this._publishGapsAck = false;
     this.resetStudioDraftKey?.();
-    this.clearActiveStudioDraft?.();
+    if (!preserveStudioDraft) this.clearActiveStudioDraft?.();
     this.studioCutoutDataUrl = null;
     this.studioPlacement = null;
     this.studioCompare = { original: null, master: null };
@@ -1110,14 +1176,17 @@ Object.assign(app, {
     this.syncUnitBalloonForm?.(false);
     this.syncEditorSteps?.();
     this.setPhotozoneType?.('frame');
+    this.setFloorType?.('air');
     const rentalItemEl = document.getElementById('rental-item');
     if (rentalItemEl) {
       rentalItemEl.value = '';
       rentalItemEl.dataset.autoFill = '1';
     }
     this.wirePhotozoneTypeControls?.();
+    this.wireFloorTypeControls?.();
     this.syncAdvanceOrderFromScene?.();
     this.syncRequiredFieldHighlights?.();
+    this.updateEditorAutosaveHint?.('');
   }
 });
 
@@ -1232,7 +1301,13 @@ app.loadProductToForm = function(product) {
     rentalItemEl.dataset.autoFill = rentalItemEl.value ? '0' : '1';
   }
   this.setPhotozoneType?.(opts.photozone_type || (String(rental.item || '').toLowerCase().includes('мольбер') ? 'easel' : 'frame'));
+  const advanceWasOn = !!(opts.advance_order_1_2_days || nestedOn(opts.advance_order));
+  const floorTypeSaved = opts.floor_type === 'helium' || opts.floor_type === 'air'
+    ? opts.floor_type
+    : (advanceWasOn ? 'air' : 'helium');
+  this.setFloorType?.(floorTypeSaved);
   this.wirePhotozoneTypeControls?.();
+  this.wireFloorTypeControls?.();
   this.wireOccasionShelfControls?.();
   this.syncAIFillGate?.();
   this.syncUnitBalloonForm?.(false);

@@ -44,6 +44,22 @@ const PHOTOZONE_TYPES = {
     has_inscription: true
   }
 };
+
+/** Типы напольной композиции → заказ заранее */
+const FLOOR_TYPES = {
+  air: {
+    value: 'air',
+    title: 'С воздухом',
+    hint: 'Напольная на воздухе — заказ заранее за 1–2 дня',
+    advance_order: true
+  },
+  helium: {
+    value: 'helium',
+    title: 'Гелиевые шары',
+    hint: 'Гелиевая напольная — без обязательного заказа заранее',
+    advance_order: false
+  }
+};
 const PHOTOZONE_RENTAL_DAYS = 3;
 const PHOTOZONE_RENTAL_EXTRA_PER_DAY = 500;
 
@@ -95,12 +111,459 @@ const app = {
     this.switchTab('products');
     this.loadProducts();
     this.restoreActiveStudioDraftIfAny?.();
+    this.restoreStorefrontDirty?.();
+    this.setupEditorAutosave?.();
+    this.updateParkedDraftBanner?.();
+    this.updateLastTemplateButton?.();
+    // На десктопе подсказку Master сразу раскрываем; на телефоне — свёрнута
+    try {
+      const help = document.querySelector('.studio-help');
+      if (help && window.matchMedia('(min-width: 769px)').matches) help.open = true;
+    } catch { /* ignore */ }
     document.addEventListener('keydown', (e) => {
+      if ((e.ctrlKey || e.metaKey) && (e.key === 's' || e.key === 'S')) {
+        if (document.body.classList.contains('admin-editor-open')) {
+          e.preventDefault();
+          this.parkEditorDraft?.(true);
+          this.saveDraft?.();
+        }
+        return;
+      }
       if (e.key === 'Escape') {
         if (typeof this.closeLightbox === 'function') this.closeLightbox();
         if (document.body.classList.contains('admin-editor-open')) this.cancelProductEdit();
       }
     });
+  },
+
+  /** Напоминание: Worker уже обновлён, а data/products.json на витрине — ещё нет */
+  restoreStorefrontDirty() {
+    try {
+      const raw = sessionStorage.getItem('vigsharm_storefront_dirty');
+      if (!raw) return;
+      const data = JSON.parse(raw);
+      if (data && data.dirty) {
+        this._storefrontDirty = true;
+        this._storefrontDirtyReason = data.reason || '';
+        this.updateStorefrontSyncUi();
+      }
+    } catch { /* ignore */ }
+  },
+
+  markStorefrontDirty(reason = '') {
+    this._storefrontDirty = true;
+    this._storefrontDirtyReason = reason || '';
+    try {
+      sessionStorage.setItem(
+        'vigsharm_storefront_dirty',
+        JSON.stringify({ dirty: true, reason: this._storefrontDirtyReason, at: Date.now() })
+      );
+    } catch { /* ignore */ }
+    this.updateStorefrontSyncUi();
+  },
+
+  clearStorefrontDirty() {
+    this._storefrontDirty = false;
+    this._storefrontDirtyReason = '';
+    try { sessionStorage.removeItem('vigsharm_storefront_dirty'); } catch { /* ignore */ }
+    this.updateStorefrontSyncUi();
+  },
+
+  dismissStorefrontDirty() {
+    this.clearStorefrontDirty();
+    this.toast('Напоминание скрыто. Кнопка «Обновить каталог» остаётся в шапке списка', 'info');
+  },
+
+  updateStorefrontSyncUi() {
+    const banner = document.getElementById('storefront-sync-banner');
+    const reasonEl = document.getElementById('storefront-sync-reason');
+    const btn = document.getElementById('export-storefront-btn');
+    const dirty = !!this._storefrontDirty;
+    if (banner) {
+      banner.classList.toggle('hidden', !dirty);
+      banner.hidden = !dirty;
+    }
+    if (reasonEl && dirty) {
+      const map = {
+        published: 'Только что опубликовали товар — без снимка на витрине останется старое.',
+        unpublished: 'Сняли с сайта — обновите products.json, чтобы карточка пропала с витрины.',
+        price: 'Цена на сайте в Worker изменилась — обновите снимок для витрины.',
+        deleted: 'Товар удалён в Worker — обновите снимок, чтобы убрать его с витрины.',
+        updated: 'Опубликованный товар изменили — витрине нужен свежий products.json.'
+      };
+      reasonEl.textContent = map[this._storefrontDirtyReason] ||
+        'Скачайте products.json и положите в data/ — иначе на сайте останется старое.';
+    }
+    if (btn) {
+      btn.classList.toggle('is-attention', dirty);
+      btn.textContent = dirty ? 'Обновить каталог · нужно' : 'Обновить каталог для сайта';
+    }
+  },
+
+  async offerStorefrontExportAfterPublish() {
+    const ok = confirm(
+      'Товар сохранён в Worker.\n\nСкачать products.json для витрины сейчас?\n(Положите файл в data/products.json и задеплойте сайт.)'
+    );
+    if (ok) await this.exportStorefrontSnapshot({ quiet: true });
+  },
+
+  showPhotoUploadProgress(pct, text) {
+    const wrap = document.getElementById('photo-upload-progress');
+    const fill = document.getElementById('photo-upload-progress-fill');
+    const label = document.getElementById('photo-upload-progress-text');
+    if (!wrap) return;
+    wrap.classList.remove('hidden');
+    wrap.hidden = false;
+    if (fill) fill.style.width = `${Math.max(0, Math.min(100, Number(pct) || 0))}%`;
+    if (label && text) label.textContent = text;
+  },
+
+  hidePhotoUploadProgress() {
+    const wrap = document.getElementById('photo-upload-progress');
+    const fill = document.getElementById('photo-upload-progress-fill');
+    if (!wrap) return;
+    wrap.classList.add('hidden');
+    wrap.hidden = true;
+    if (fill) fill.style.width = '0%';
+  },
+
+  LAST_TEMPLATE_KEY: 'vigsharm_last_product_template',
+
+  rememberLastProductTemplate(data) {
+    try {
+      const tags = Array.isArray(data?.tags) ? data.tags : [];
+      const checks = {};
+      document.querySelectorAll(
+        '#tags-for-who input, #tags-occasion input, #tags-dates input, #tags-type input, #product-form input[type="checkbox"]'
+      ).forEach((cb) => {
+        if (cb.id) checks[cb.id] = !!cb.checked;
+      });
+      const payload = {
+        v: 1,
+        savedAt: Date.now(),
+        category: data?.category || '',
+        scene: data?.scene || this.currentProduct?.scene || 'auto',
+        tags,
+        checks,
+        client_options: data?.client_options && typeof data.client_options === 'object'
+          ? { ...data.client_options }
+          : {},
+        title: data?.title || ''
+      };
+      localStorage.setItem(this.LAST_TEMPLATE_KEY, JSON.stringify(payload));
+      this.updateLastTemplateButton();
+    } catch (e) {
+      console.warn('[last template]', e);
+    }
+  },
+
+  readLastProductTemplate() {
+    try {
+      const raw = localStorage.getItem(this.LAST_TEMPLATE_KEY);
+      if (!raw) return null;
+      const data = JSON.parse(raw);
+      return data && data.v === 1 ? data : null;
+    } catch {
+      return null;
+    }
+  },
+
+  updateLastTemplateButton() {
+    const btn = document.getElementById('template-from-last-btn');
+    if (!btn) return;
+    const t = this.readLastProductTemplate();
+    btn.hidden = !t;
+    if (t) {
+      const label = (t.title || t.category || 'прошлый').slice(0, 28);
+      btn.title = `Категория, сцена и теги как у «${label}»`;
+    }
+  },
+
+  applyLastProductTemplate(opts = {}) {
+    const t = this.readLastProductTemplate();
+    if (!t) {
+      this.toast('Пока нет шаблона — сохраните хотя бы один товар', 'info');
+      return;
+    }
+    const tagsOnly = !!opts.tagsOnly;
+
+    if (!tagsOnly) {
+      const cat = document.getElementById('product-category');
+      if (cat && t.category) cat.value = t.category;
+      if (t.scene) {
+        this.currentProduct.scene = t.scene;
+        const sceneSelect = document.getElementById('scene-select');
+        if (sceneSelect) sceneSelect.value = t.scene;
+        this.syncStudioModeHint?.();
+        this.syncAdvanceOrderFromScene?.();
+      }
+    }
+
+    const tagSet = new Set(Array.isArray(t.tags) ? t.tags : []);
+    document.querySelectorAll(
+      '#tags-for-who input, #tags-occasion input, #tags-dates input, #tags-type input'
+    ).forEach((cb) => {
+      cb.checked = tagSet.has(cb.value) || !!(t.checks && t.checks[cb.id]);
+    });
+
+    if (!tagsOnly && t.checks) {
+      Object.entries(t.checks).forEach(([id, checked]) => {
+        if (id.startsWith('tags-') || id.includes('tag')) return;
+        const el = document.getElementById(id);
+        if (el && el.type === 'checkbox' && !el.closest('#tags-for-who, #tags-occasion, #tags-dates, #tags-type')) {
+          // Не трогаем show-on-site и прочие критичные — только клиентские опции
+          if (id === 'show-on-site') return;
+          el.checked = !!checked;
+        }
+      });
+    }
+
+    this.currentProduct.tags = Array.isArray(t.tags) ? [...t.tags] : [];
+    this.toast(tagsOnly ? 'Теги как у прошлого' : 'Категория и теги как у прошлого', 'success');
+  },
+
+  // === Локальный черновик формы (выход без потери + автосейв) ===
+  EDITOR_PARK_KEY: 'vigsharm_editor_park',
+
+  valById(id) {
+    return document.getElementById(id)?.value ?? '';
+  },
+
+  editorHasMeaningfulContent() {
+    const title = this.valById('product-title').trim();
+    const price = this.valById('product-price').trim();
+    const composition = this.valById('product-composition').trim();
+    const photos = this.currentProduct?.photos?.length || 0;
+    return !!(title || price || composition || photos || this.currentProduct?.id);
+  },
+
+  collectEditorParkPayload() {
+    if (!this.editorHasMeaningfulContent()) return null;
+    const fieldIds = [
+      'product-title', 'product-article', 'product-slug', 'product-price', 'product-budget',
+      'product-category', 'product-composition', 'product-short-desc', 'product-full-desc',
+      'product-seo-title', 'product-seo-desc', 'product-character', 'product-age', 'product-series',
+      'rental-item', 'scene-select'
+    ];
+    const fields = {};
+    fieldIds.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) fields[id] = el.value;
+    });
+    const checks = {};
+    document.querySelectorAll(
+      '#tags-for-who input, #tags-occasion input, #tags-dates input, #tags-type input, #product-form input[type="checkbox"]'
+    ).forEach((cb) => {
+      if (cb.id) checks[cb.id] = !!cb.checked;
+    });
+    const photos = (this.currentProduct?.photos || []).map((p) => {
+      const url = String(p.url || '');
+      const tooBigData = url.startsWith('data:') && url.length > 80000;
+      return {
+        id: p.id,
+        url: tooBigData ? '' : url,
+        uploaded: !!p.uploaded,
+        type: p.type || undefined,
+        parkedDataUrl: tooBigData || undefined
+      };
+    });
+    return {
+      v: 1,
+      savedAt: Date.now(),
+      productId: this.currentProduct?.id || null,
+      status: this.currentProduct?.status || 'draft',
+      scene: this.currentProduct?.scene || fields['scene-select'] || 'auto',
+      tags: this.currentProduct?.tags || [],
+      client_options: this.currentProduct?.client_options || {},
+      fields,
+      checks,
+      photos,
+      studio: {
+        sourceUrl: this.studioSourceUrl || null,
+        masterUrl: (!String(this.studioMasterDataUrl || '').startsWith('data:') || String(this.studioMasterDataUrl || '').length < 80000)
+          ? (this.studioMasterDataUrl || this.studioCompare?.master || null)
+          : null,
+        originalUrl: this.studioCompare?.original || null,
+        hasIdbDraft: !this.currentProduct?.id
+      },
+      title: fields['product-title'] || 'Без названия'
+    };
+  },
+
+  parkEditorDraft(silent = false) {
+    try {
+      const payload = this.collectEditorParkPayload();
+      if (!payload) {
+        if (!silent) this.discardParkedEditorDraft(false);
+        return false;
+      }
+      localStorage.setItem(this.EDITOR_PARK_KEY, JSON.stringify(payload));
+      this._editorParkedAt = payload.savedAt;
+      this.updateEditorAutosaveHint(payload.savedAt);
+      this.updateParkedDraftBanner();
+      return true;
+    } catch (e) {
+      console.warn('[editor park]', e);
+      if (!silent) this.toast('Не удалось сохранить локальный черновик (мало места?)', 'error');
+      return false;
+    }
+  },
+
+  readParkedEditorDraft() {
+    try {
+      const raw = localStorage.getItem(this.EDITOR_PARK_KEY);
+      if (!raw) return null;
+      const data = JSON.parse(raw);
+      return data && data.v === 1 ? data : null;
+    } catch {
+      return null;
+    }
+  },
+
+  hasParkedEditorDraft() {
+    return !!this.readParkedEditorDraft();
+  },
+
+  discardParkedEditorDraft(toast = false) {
+    try { localStorage.removeItem(this.EDITOR_PARK_KEY); } catch { /* ignore */ }
+    this._editorParkedAt = null;
+    this.updateParkedDraftBanner();
+    this.updateEditorAutosaveHint('');
+    if (toast) this.toast('Локальный черновик удалён', 'info');
+  },
+
+  updateParkedDraftBanner() {
+    const banner = document.getElementById('editor-park-banner');
+    const reason = document.getElementById('editor-park-reason');
+    const draft = this.readParkedEditorDraft();
+    const show = !!draft && !document.body.classList.contains('admin-editor-open');
+    if (banner) {
+      banner.classList.toggle('hidden', !show);
+      banner.hidden = !show;
+    }
+    if (reason && draft) {
+      const when = new Date(draft.savedAt).toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' });
+      const label = (draft.title || 'Без названия').slice(0, 48);
+      reason.textContent = `«${label}» · автосейв ${when}`;
+    }
+  },
+
+  updateEditorAutosaveHint(ts) {
+    let el = document.getElementById('editor-autosave-hint');
+    if (!el) {
+      const header = document.querySelector('.editor-header');
+      if (!header) return;
+      el = document.createElement('p');
+      el.id = 'editor-autosave-hint';
+      el.className = 'editor-autosave-hint';
+      header.insertAdjacentElement('afterend', el);
+    }
+    if (!ts) {
+      el.textContent = 'Ctrl+S — сохранить черновиком на сервер · автосейв локально каждые 30 сек';
+      return;
+    }
+    const when = new Date(ts).toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+    el.textContent = `Локальный автосейв ${when} · Ctrl+S — на сервер`;
+  },
+
+  setupEditorAutosave() {
+    if (this._editorAutosaveWired) return;
+    this._editorAutosaveWired = true;
+    const form = document.getElementById('product-form');
+    if (form) {
+      form.addEventListener('input', () => {
+        clearTimeout(this._editorParkDebounce);
+        this._editorParkDebounce = setTimeout(() => {
+          if (document.body.classList.contains('admin-editor-open')) this.parkEditorDraft(true);
+        }, 1200);
+      });
+      form.addEventListener('change', () => {
+        if (document.body.classList.contains('admin-editor-open')) this.parkEditorDraft(true);
+      });
+    }
+    setInterval(() => {
+      if (document.body.classList.contains('admin-editor-open') && this.editorHasMeaningfulContent()) {
+        this.parkEditorDraft(true);
+      }
+    }, 30000);
+    this.updateEditorAutosaveHint('');
+  },
+
+  async restoreParkedEditorDraft() {
+    const draft = this.readParkedEditorDraft();
+    if (!draft) {
+      this.toast('Локальный черновик не найден', 'error');
+      this.updateParkedDraftBanner();
+      return;
+    }
+    this.resetForm({ preserveStudioDraft: true });
+    this.currentProduct = {
+      id: draft.productId || null,
+      status: draft.status || 'draft',
+      photos: [],
+      scene: draft.scene || 'auto',
+      tags: Array.isArray(draft.tags) ? draft.tags : [],
+      client_options: draft.client_options && typeof draft.client_options === 'object'
+        ? { ...draft.client_options }
+        : {}
+    };
+
+    Object.entries(draft.fields || {}).forEach(([id, value]) => {
+      const el = document.getElementById(id);
+      if (el && value != null) el.value = value;
+    });
+    Object.entries(draft.checks || {}).forEach(([id, checked]) => {
+      const el = document.getElementById(id);
+      if (el && el.type === 'checkbox') el.checked = !!checked;
+    });
+
+    const sceneSelect = document.getElementById('scene-select');
+    if (sceneSelect) sceneSelect.value = draft.scene || 'auto';
+    this.currentProduct.scene = draft.scene || 'auto';
+
+    this.currentProduct.photos = (draft.photos || [])
+      .filter((p) => p.url)
+      .map((p) => ({
+        id: p.id || Date.now() + Math.random(),
+        url: p.url,
+        uploaded: !!p.uploaded,
+        type: p.type
+      }));
+
+    if (draft.studio) {
+      this.studioSourceUrl = draft.studio.sourceUrl || draft.studio.originalUrl || null;
+      this.studioMasterDataUrl = draft.studio.masterUrl || null;
+      this.studioMasterBackupUrl = draft.studio.masterUrl || null;
+      this.studioMasterBaseUrl = draft.studio.masterUrl || null;
+      this.studioCompare = {
+        original: draft.studio.originalUrl || draft.studio.sourceUrl || null,
+        master: draft.studio.masterUrl || null
+      };
+    }
+
+    this.renderPhotos?.();
+    this.renderStudioCompare?.();
+    this.syncStudioModeHint?.();
+    this.syncEditorSteps?.();
+    this.syncAIFillGate?.();
+    this.syncAdvanceOrderFromScene?.();
+    this.syncRequiredFieldHighlights?.();
+    this.syncEditorTitle?.(draft.fields?.['product-title'] || '');
+
+    const modeLabel = document.getElementById('editor-mode-label');
+    if (modeLabel) modeLabel.textContent = draft.productId ? 'РЕДАКТИРОВАНИЕ' : 'СОЗДАНИЕ';
+    const titleEl = document.getElementById('editor-title');
+    if (titleEl) titleEl.textContent = draft.title || 'Черновик';
+
+    this.switchTab('create');
+    this.updateParkedDraftBanner();
+
+    if (!draft.productId && draft.studio?.hasIdbDraft && !this.currentProduct.photos.length) {
+      await this.restoreActiveStudioDraftIfAny?.();
+    }
+
+    this.updateEditorAutosaveHint(draft.savedAt);
+    this.toast('Локальный черновик восстановлен', 'success');
   },
 
   // === Автозаполнение: артикул и slug ===
@@ -316,8 +779,18 @@ const app = {
   },
 
   newProduct() {
+    if (this.hasParkedEditorDraft?.()) {
+      const keep = confirm('Есть локальный черновик. Продолжить его?\n\nОК — продолжить, Отмена — новая пустая карточка.');
+      if (keep) {
+        this.restoreParkedEditorDraft();
+        return;
+      }
+      this.discardParkedEditorDraft(false);
+      this.clearActiveStudioDraft?.();
+    }
     this.resetForm();
     this.switchTab('create');
+    this.updateParkedDraftBanner?.();
     this.toast('Новая карточка', 'info');
   },
 
@@ -391,8 +864,11 @@ const app = {
     });
     if (tab !== 'create') {
       document.body.classList.remove('admin-editor-open');
+      this.updateParkedDraftBanner?.();
     } else {
       document.body.classList.add('admin-editor-open');
+      this.updateParkedDraftBanner?.();
+      this.updateEditorAutosaveHint?.(this._editorParkedAt || '');
       window.scrollTo(0, 0);
     }
   },
@@ -420,7 +896,8 @@ const app = {
    * Браузер не пишет в репозиторий — скачивает файл; дальше положить в data/ или:
    *   node scripts/export-products-snapshot.mjs
    */
-  async exportStorefrontSnapshot() {
+  async exportStorefrontSnapshot(opts = {}) {
+    const quiet = !!opts.quiet;
     const btn = document.getElementById('export-storefront-btn');
     const prev = btn ? btn.textContent : '';
     if (!this.workerUrl) {
@@ -447,11 +924,16 @@ const app = {
       a.download = 'products.json';
       a.click();
       URL.revokeObjectURL(a.href);
-      alert(
-        `Скачан products.json (${data.products.length} товаров).\n\n` +
-          'Положите файл в data/products.json в репозитории и задеплойте сайт.\n' +
-          'Или из корня проекта: node scripts/export-products-snapshot.mjs'
-      );
+      this.clearStorefrontDirty();
+      if (quiet) {
+        this.toast(`Скачан products.json (${data.products.length} товаров) → data/`, 'success');
+      } else {
+        alert(
+          `Скачан products.json (${data.products.length} товаров).\n\n` +
+            'Положите файл в data/products.json в репозитории и задеплойте сайт.\n' +
+            'Или из корня проекта: node scripts/export-products-snapshot.mjs'
+        );
+      }
     } catch (e) {
       console.error(e);
       alert(
@@ -462,7 +944,11 @@ const app = {
     } finally {
       if (btn) {
         btn.disabled = false;
-        btn.textContent = prev || 'Обновить каталог для сайта';
+        // clearStorefrontDirty уже выставил текст; если ошибка — вернём prev через update
+        this.updateStorefrontSyncUi();
+        if (!this._storefrontDirty && prev && !prev.includes('нужно') && prev !== 'Выгрузка…') {
+          btn.textContent = prev.includes('Обновить') ? 'Обновить каталог для сайта' : prev;
+        }
       }
     }
   },
@@ -482,31 +968,55 @@ const app = {
     });
   },
 
+  budgetLabelFromPrice(price) {
+    const n = Number(price);
+    if (!Number.isFinite(n) || n <= 0) return '';
+    if (n < 1000) return 'до 1 000 ₽';
+    if (n < 2000) return '1 000–2 000 ₽';
+    if (n < 3500) return '2 000–3 500 ₽';
+    if (n < 5000) return '3 500–5 000 ₽';
+    if (n < 8000) return '5 000–8 000 ₽';
+    return 'от 8 000 ₽';
+  },
+
   renderProductRow(p) {
     const published = p.status === 'published';
     const idJs = String(p.id ?? '').replace(/\\/g, '\\\\').replace(/'/g, "\\'");
     const title = this.escapeHtml(p.title || 'Без названия');
     const article = this.escapeHtml(p.article || '—');
     const category = this.escapeHtml(p.category || '—');
-    const price = Number(p.price || 0).toLocaleString('ru-RU');
+    const priceNum = Number(p.price || 0);
     const photo = p.main_photo || (Array.isArray(p.photos) && p.photos[0]) || '';
     const thumb = photo
       ? `<img src="${this.escapeHtml(photo)}" alt="" loading="lazy" decoding="async"/>`
       : '<span class="thumb-fallback" aria-hidden="true">🎈</span>';
+    const nextStatus = published ? 'draft' : 'published';
     return `
-      <article class="product-row">
+      <article class="product-row" data-id="${this.escapeHtml(String(p.id ?? ''))}">
         <div class="product-row-thumb">${thumb}</div>
         <div class="product-row-info">
           <div class="product-row-title">${title}</div>
           <div class="product-row-meta">${article} · ${category}</div>
         </div>
-        <div class="product-row-price">${price} ₽</div>
+        <div class="product-row-price">
+          <label class="product-row-price-edit">
+            <input type="number" class="product-row-price-input" inputmode="numeric" min="1" step="1"
+              value="${priceNum > 0 ? priceNum : ''}"
+              aria-label="Цена, рубли"
+              onkeydown="if(event.key==='Enter'){event.preventDefault();this.blur();}"
+              onblur="app.updateListPrice('${idJs}', this.value, this)"/>
+            <span aria-hidden="true">₽</span>
+          </label>
+        </div>
         <div class="product-row-status">
-          <span class="badge ${published ? 'success' : 'warning'}">${published ? 'На сайте' : 'Черновик'}</span>
+          <button type="button" class="badge ${published ? 'success' : 'warning'} product-row-status-btn"
+            title="${published ? 'Снять с сайта' : 'Опубликовать на сайте'}"
+            onclick="app.toggleStatus('${idJs}', '${nextStatus}')">${published ? 'На сайте' : 'Черновик'}</button>
         </div>
         <div class="product-row-actions">
           <button type="button" class="btn sm primary" onclick="app.editProduct('${idJs}')">Изменить</button>
-          <button type="button" class="btn sm outline" onclick="app.toggleStatus('${idJs}', '${published ? 'draft' : 'published'}')">${published ? 'Снять' : 'Опубл.'}</button>
+          <button type="button" class="btn sm outline" onclick="app.duplicateProduct('${idJs}')" title="Копия как черновик">Дубль</button>
+          <button type="button" class="btn sm outline" onclick="app.toggleStatus('${idJs}', '${nextStatus}')">${published ? 'Снять' : 'Опубл.'}</button>
           <button type="button" class="btn sm danger" onclick="app.deleteProduct('${idJs}')">Удалить</button>
         </div>
       </article>`;
@@ -594,11 +1104,113 @@ const app = {
       });
       const data = await res.json();
       if (data.ok) {
+        const local = this.products.find((p) => String(p.id) === String(id));
+        const wasPublished = local && local.status === 'published';
+        if (local) local.status = status;
         this.toast(status === 'published' ? 'Товар опубликован' : 'Снят с публикации', 'success');
-        this.loadProducts();
+        this.markStorefrontDirty(status === 'published' ? 'published' : 'unpublished');
+        this.renderProducts();
+        if (status === 'published' && !wasPublished) this.offerStorefrontExportAfterPublish();
       } else throw new Error(data.error || 'Ошибка');
     } catch (e) {
       this.toast('Ошибка: ' + e.message, 'error');
+    }
+  },
+
+  async updateListPrice(id, raw, inputEl) {
+    const price = parseInt(String(raw ?? '').replace(/\s/g, ''), 10);
+    const local = this.products.find((p) => String(p.id) === String(id));
+    const prev = local ? Number(local.price || 0) : 0;
+    if (!Number.isFinite(price) || price <= 0) {
+      this.toast('Цена должна быть больше 0', 'error');
+      if (inputEl) inputEl.value = prev > 0 ? String(prev) : '';
+      return;
+    }
+    if (price === prev) return;
+    if (inputEl) inputEl.disabled = true;
+    try {
+      const budget = this.budgetLabelFromPrice(price);
+      const res = await fetch(`${this.workerUrl}/api/products/${id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json', ...this.authHeaders() },
+        body: JSON.stringify({ price, budget })
+      });
+      let data;
+      try { data = await res.json(); } catch { data = {}; }
+      if (!res.ok || !data.ok) throw new Error(data.error || `HTTP ${res.status}`);
+      if (local) {
+        local.price = price;
+        if (budget) local.budget = budget;
+      }
+      this.toast(`Цена: ${price.toLocaleString('ru-RU')} ₽`, 'success');
+      if (local && local.status === 'published') this.markStorefrontDirty('price');
+    } catch (e) {
+      this.toast('Не удалось сохранить цену: ' + e.message, 'error');
+      if (inputEl) inputEl.value = prev > 0 ? String(prev) : '';
+    } finally {
+      if (inputEl) inputEl.disabled = false;
+    }
+  },
+
+  async duplicateProduct(id) {
+    if (!confirm('Создать копию товара как черновик?')) return;
+    this.toast('Копирую…', 'info');
+    try {
+      const res = await fetch(`${this.workerUrl}/api/products/${id}`);
+      const data = await res.json();
+      if (!res.ok || !data.ok || !data.product) throw new Error(data.error || 'Товар не найден');
+      const src = data.product;
+      const photos = Array.isArray(src.photos) ? src.photos.filter(Boolean) : [];
+      const composition = Array.isArray(src.composition)
+        ? src.composition
+        : (typeof src.composition === 'string' && src.composition.trim()
+          ? src.composition.split('\n').map((l) => l.trim()).filter(Boolean)
+          : []);
+      const tags = Array.isArray(src.tags) ? src.tags : [];
+      const clientOptions = src.client_options && typeof src.client_options === 'object'
+        ? { ...src.client_options }
+        : {};
+      const baseTitle = String(src.title || 'Товар').replace(/\s*\(копия(?:\s*\d+)?\)\s*$/i, '').trim() || 'Товар';
+      const payload = {
+        title: `${baseTitle} (копия)`,
+        article: '',
+        slug: '',
+        price: Number(src.price) || 0,
+        short_description: src.short_description || '',
+        full_description: src.full_description || '',
+        composition,
+        category: src.category || '',
+        character: src.character || '',
+        age_group: src.age_group || '',
+        budget: src.budget || this.budgetLabelFromPrice(src.price) || '',
+        series_name: src.series_name || '',
+        occasion: src.occasion || '',
+        target_audience: src.target_audience || '',
+        seo_title: '',
+        seo_description: '',
+        scene: src.scene || 'auto',
+        tags,
+        client_options: clientOptions,
+        photos,
+        main_photo: src.main_photo || photos[0] || null,
+        status: 'draft',
+        show_on_site: false
+      };
+      const create = await fetch(`${this.workerUrl}/api/products`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', ...this.authHeaders() },
+        body: JSON.stringify(payload)
+      });
+      let created;
+      try { created = await create.json(); } catch { created = {}; }
+      if (!create.ok || !created.ok) throw new Error(created.error || `HTTP ${create.status}`);
+      this.toast('Копия создана как черновик', 'success');
+      await this.loadProducts();
+      if (created.id && typeof this.editProduct === 'function') {
+        await this.editProduct(created.id);
+      }
+    } catch (e) {
+      this.toast('Не удалось скопировать: ' + e.message, 'error');
     }
   },
 
@@ -673,6 +1285,10 @@ const app = {
     }
 
     const isEdit = !!this.currentProduct.id;
+    const wasPublished = isEdit && (
+      this.currentProduct.status === 'published' ||
+      this.products.find((p) => String(p.id) === String(this.currentProduct.id))?.status === 'published'
+    );
     if (status === 'published') {
       data.show_on_site = true;
       const showEl = document.getElementById('show-on-site');
@@ -736,9 +1352,17 @@ const app = {
         'success'
       );
       this._publishGapsAck = false;
+      if (status === 'published') {
+        this.markStorefrontDirty(wasPublished ? 'updated' : 'published');
+      } else if (wasPublished) {
+        this.markStorefrontDirty('unpublished');
+      }
+      this.discardParkedEditorDraft(false);
+      this.rememberLastProductTemplate?.(data);
       this.resetForm();
       this.switchTab('products');
       this.loadProducts();
+      if (status === 'published' && !wasPublished) await this.offerStorefrontExportAfterPublish();
     } catch (e) {
       this.toast('Ошибка: ' + e.message, 'error');
       console.error('[saveProduct]', e);
@@ -757,10 +1381,13 @@ const app = {
   async deleteProduct(id) {
     if (confirm('Удалить товар?')) {
       try {
+        const local = this.products.find((p) => String(p.id) === String(id));
+        const wasPublished = local && local.status === 'published';
         const res = await fetch(`${this.workerUrl}/api/products/${id}`, { method: 'DELETE', headers: this.authHeaders() });
         const data = await res.json();
         if (data.ok) {
           this.toast('Товар удалён', 'success');
+          if (wasPublished) this.markStorefrontDirty('deleted');
           this.loadProducts();
         } else {
           this.toast('Ошибка удаления', 'error');

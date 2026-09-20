@@ -132,9 +132,15 @@
     var isFigures = p.scene === 'balloon_figures' || p.category === 'Фигуры из шаров';
     var isWallOnly = p.scene === 'wall_only';
     var pzType = opts.photozone_type || '';
+    var floorType = opts.floor_type === 'helium' || opts.floor_type === 'air' ? opts.floor_type : '';
     var compJoined = Array.isArray(p.composition) ? p.composition.join(' ') : String(p.composition || '');
-    // Fallback: напольные / фигуры / букеты без явного флага — тоже заранее
-    if (!advanceOn && (isFloor || isFigures || isBouquet)) {
+    // Напольные: с воздухом — всегда заранее; гелиевые — без «заказ заранее»
+    if (isFloor && floorType === 'air') {
+      advanceOn = true;
+    } else if (isFloor && floorType === 'helium') {
+      advanceOn = false;
+    } else if (!advanceOn && (isFloor || isFigures || isBouquet)) {
+      // Legacy без floor_type / фигуры / букеты — тоже заранее
       advanceOn = true;
     }
     // Фотозоны — всегда заранее и аренда

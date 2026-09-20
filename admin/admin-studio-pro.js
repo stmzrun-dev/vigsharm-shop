@@ -52,6 +52,8 @@ Object.assign(app, {
     const scene = this.currentProduct?.scene || 'floor';
     const earlyPz = document.getElementById('photozone-type-early');
     if (earlyPz) earlyPz.classList.toggle('hidden', scene !== 'photozone');
+    const earlyFloor = document.getElementById('floor-type-early');
+    if (earlyFloor) earlyFloor.classList.toggle('hidden', scene !== 'floor');
 
     if (scene === 'handheld_bouquet') {
       el.textContent = 'Режим Manus: букет + женская рука (короткое запястье). Бирки/логотипы на лентах снимаются.';
@@ -64,6 +66,11 @@ Object.assign(app, {
         : 'Режим Manus: круглая фотозона на каркасе (Ø ~3 м) — почти во весь кадр. Не добавляй каркас, если его нет на фото.';
     } else if (scene === 'balloon_figures') {
       el.textContent = 'Режим Manus: фигуры из шаров — крупный масштаб (≥1 м). Кривые буквы на фольге — блок «Исправить надпись» после Master.';
+    } else if (scene === 'floor') {
+      const ft = this.getFloorType?.() || 'air';
+      el.textContent = ft === 'helium'
+        ? 'Режим Manus: AI-пересъёмка напольной сцены (гелий). «Заказ заранее» не ставится. Кривые буквы — «Исправить надпись» после Master.'
+        : 'Режим Manus: AI-пересъёмка напольной сцены (с воздухом). Всегда «заказ заранее за 1–2 дня». Кривые буквы — «Исправить надпись» после Master.';
     } else {
       el.textContent = 'Режим Manus: AI-пересъёмка напольной сцены. Кривые буквы — блок «Исправить надпись» после Master.';
     }
@@ -593,6 +600,7 @@ Object.assign(app, {
       digit_from_marker: Number(this.currentProduct?.digit_from_marker) || 0,
       holiday_only: this.currentProduct?.holiday_only || '',
       photozone_type: this.getPhotozoneType?.() || 'frame',
+      floor_type: this.getFloorType?.() || 'air',
       ts: Date.now(),
       ...extra
     };
@@ -704,6 +712,7 @@ Object.assign(app, {
       }];
 
       if (draft.photozone_type) this.setPhotozoneType?.(draft.photozone_type);
+      if (draft.floor_type) this.setFloorType?.(draft.floor_type);
 
       const priceEl = document.getElementById('product-price');
       if (priceEl && draft.price != null && draft.price !== '') {

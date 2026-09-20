@@ -161,6 +161,18 @@ legend{font-size:15px;font-weight:600;padding:0 12px;color:#212121}
 /* Products */
 .products-header{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:16px;flex-wrap:wrap}
 .products-header-actions{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.storefront-sync-banner{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:0 0 14px;padding:12px 14px;border-radius:10px;background:#FFF3E0;color:#E65100;border:1px solid #FFCC80}
+.storefront-sync-banner.hidden{display:none!important}
+.storefront-sync-text{display:flex;flex-direction:column;gap:2px;font-size:13px;line-height:1.35;min-width:0}
+.storefront-sync-text strong{font-size:14px;color:#BF360C}
+.storefront-sync-actions{display:flex;flex-wrap:wrap;gap:8px;flex:none}
+#export-storefront-btn.is-attention{border-color:#FF6B35;color:#E65100;background:#FFF8F3;font-weight:600;box-shadow:0 0 0 2px rgba(255,107,53,.15)}
+.editor-park-banner{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:0 0 14px;padding:12px 14px;border-radius:10px;background:#E8F5E9;color:#2E7D32;border:1px solid #A5D6A7}
+.editor-park-banner.hidden{display:none!important}
+.editor-park-text{display:flex;flex-direction:column;gap:2px;font-size:13px;line-height:1.35;min-width:0}
+.editor-park-text strong{font-size:14px;color:#1B5E20}
+.editor-park-actions{display:flex;flex-wrap:wrap;gap:8px;flex:none}
+.editor-autosave-hint{font-size:12px;color:#757575;margin:0 0 8px}
 .products-filters{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:16px;align-items:center}
 .products-filters input{max-width:320px;flex:1}
 .products-filters select{max-width:200px}
@@ -191,8 +203,14 @@ legend{font-size:15px;font-weight:600;padding:0 12px;color:#212121}
 .product-row-title{font-size:15px;font-weight:600;color:#212121;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .product-row-meta{font-size:12px;color:#757575;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .product-row-price{font-size:15px;font-weight:700;color:#1976D2;white-space:nowrap;justify-self:end}
+.product-row-price-edit{display:inline-flex;align-items:center;gap:4px;margin:0}
+.product-row-price-input{width:5.5rem;max-width:22vw;padding:6px 8px;border:1px solid #E0E0E0;border-radius:8px;font:inherit;font-size:14px;font-weight:700;color:#1565C0;text-align:right;background:#fff}
+.product-row-price-input:focus{outline:0;border-color:#1976D2;box-shadow:0 0 0 3px rgba(25,118,210,.15)}
+.product-row-price-input:disabled{opacity:.6}
 .product-row-status{justify-self:end}
 .product-row-status .badge{padding:4px 10px;font-size:12px}
+.product-row-status-btn{border:0;cursor:pointer;font:inherit}
+.product-row-status-btn:hover{filter:brightness(.97);box-shadow:0 0 0 2px rgba(0,0,0,.06)}
 .product-row-actions{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
 .product-row-actions .btn.sm{padding:6px 10px;font-size:13px}
 .products-more{margin-top:8px}
@@ -368,6 +386,7 @@ body.admin-editor-open{overflow:hidden}
   .checkbox-group{grid-template-columns:1fr}
   .photo-grid{grid-template-columns:1fr}
   .action-bar{flex-direction:column-reverse}
+  .action-bar .btn{width:100%}
   .scene-compact{grid-template-columns:1fr 1fr}
   .crop-layout{flex-direction:column}
   .crop-previews{flex-direction:row;width:100%}
@@ -375,6 +394,32 @@ body.admin-editor-open{overflow:hidden}
   .crop-preview canvas{width:100%;height:auto;aspect-ratio:1}
   .crop-stage,.placement-stage{max-width:100%}
   .studio-compare-grid{grid-template-columns:1fr;max-width:280px}
+
+  /* Тише редактор на телефоне */
+  .product-editor{padding:12px 14px 20px}
+  .editor-title{font-size:20px}
+  .editor-header{margin-bottom:12px;padding-bottom:10px}
+  .editor-autosave-hint{font-size:11px;margin-bottom:6px}
+  .studio-toolbar{gap:8px;margin-bottom:6px}
+  .studio-toolbar .btn{padding:8px 12px;font-size:13px}
+  .studio-help{margin:0 0 8px;border:1px solid #E0E0E0;border-radius:8px;background:#FAFAFA;padding:0 10px}
+  .studio-help summary{cursor:pointer;font-size:13px;font-weight:600;color:#616161;padding:8px 0;list-style:none}
+  .studio-help summary::-webkit-details-marker{display:none}
+  .studio-help[open] summary{border-bottom:1px solid #EEEEEE;margin-bottom:6px}
+  .studio-lead{font-size:12px;line-height:1.4;margin:0 0 8px;color:#757575}
+  .studio-mode-hint{font-size:11px;margin:0 0 8px}
+  .step-1-hint{padding:8px 10px;font-size:12px;margin:0 0 10px}
+  .field-help{margin-top:6px}
+  .field-help summary{font-size:12px;color:#757575;cursor:pointer}
+  .field-help[open] summary{margin-bottom:4px}
+  .option-card-body small,.photozone-type-early > .text-muted,.block-options-lead-mobile-hide{display:none!important}
+  #block-options > .lead{display:none}
+  .option-card{padding:8px 10px}
+  .upload-zone-compact{padding:16px 12px}
+  .upload-zone-compact p{font-size:14px}
+  .upload-zone-compact small{font-size:11px}
+  .chips-grid{grid-template-columns:1fr 1fr}
+  .sign-text-editor summary{font-size:13px}
 }
 
 /* Modal */
@@ -397,6 +442,21 @@ body.admin-editor-open{overflow:hidden}
   .action-bar{flex-direction:column-reverse}
   .action-bar .btn{width:100%}
 }
+
+/* Studio help / field help (desktop: open by default via JS or CSS) */
+.studio-help{margin:0 0 10px}
+.studio-help summary{cursor:pointer;font-size:13px;font-weight:600;color:#546E7A;margin-bottom:6px}
+.studio-help .studio-lead{margin:0}
+.field-help{margin-top:6px}
+.field-help summary{font-size:12px;color:#757575;cursor:pointer}
+.field-help[open] summary{margin-bottom:4px}
+.template-from-last-btn{margin-top:8px}
+.tags-template-row{margin:0 0 10px}
+.photo-upload-progress{margin:10px 0 0;padding:10px 12px;border-radius:8px;background:#E3F2FD;border:1px solid #90CAF9}
+.photo-upload-progress.hidden{display:none!important}
+.photo-upload-progress-bar{height:8px;border-radius:999px;background:#BBDEFB;overflow:hidden}
+.photo-upload-progress-bar span{display:block;height:100%;width:0%;background:linear-gradient(90deg,#42A5F5,#1976D2);transition:width .15s ease}
+#photo-upload-progress-text{margin:6px 0 0;font-size:12px;color:#1565C0}
 
 /* === Product editor (старая админка: плотность) === */
 .product-editor{padding:18px 20px 24px;max-width:840px;margin:0 auto;width:100%;box-sizing:border-box}

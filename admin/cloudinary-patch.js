@@ -14,7 +14,7 @@
     app.cloudinaryUploadPreset = app.cloudinaryUploadPreset || '';
 
     // Переопределяем функцию uploadPhoto
-    app.uploadPhoto = async function(file) {
+    app.uploadPhoto = async function(file, opts = {}) {
       // Проверяем настройки Cloudinary
       if (!this.cloudinaryCloudName || !this.cloudinaryUploadPreset) {
         return {
@@ -24,14 +24,26 @@
       }
 
       try {
+        const label = file?.name || 'фото';
+        this.showPhotoUploadProgress?.(0, `Загрузка: ${label}`);
         const result = await window.CloudinaryUploader.uploadPhoto(
-          file, 
-          this.cloudinaryCloudName, 
-          this.cloudinaryUploadPreset
+          file,
+          this.cloudinaryCloudName,
+          this.cloudinaryUploadPreset,
+          {
+            onProgress: (pct) => {
+              this.showPhotoUploadProgress?.(pct, `Загрузка: ${label} · ${pct}%`);
+              if (typeof opts.onProgress === 'function') opts.onProgress(pct);
+            }
+          }
         );
+        if (result?.ok) this.showPhotoUploadProgress?.(100, 'Готово');
+        else this.hidePhotoUploadProgress?.();
+        setTimeout(() => this.hidePhotoUploadProgress?.(), result?.ok ? 600 : 0);
         return result;
       } catch (error) {
         console.error('Upload error:', error);
+        this.hidePhotoUploadProgress?.();
         return {
           ok: false,
           error: error.message || 'Ошибка загрузки фото'

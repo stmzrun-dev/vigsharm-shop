@@ -2,6 +2,94 @@
   "ok": true,
   "products": [
     {
+      "id": "8a306cdf-a761-49d3-bf59-70db020fe1d2",
+      "title": "Чемпионский удар",
+      "article": "HIM-011",
+      "price": 4490,
+      "short_description": "Футбольная композиция с красными цифрами, мячом, кубком и латексными шарами.",
+      "full_description": "Напольная композиция в футбольной тематике с крупными красными цифрами, фольгированным мячом, золотым кубком и яркими латексными шарами.",
+      "composition": [
+        "напольная композиция"
+      ],
+      "category": "Для него",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Футбольная композиция из шаров с цифрами — Армавир",
+      "seo_description": "Напольная композиция с футбольным мячом, кубком и яркими цифрами. Идеально для дня рождения юного чемпиона в Армавире.",
+      "slug": "chempionskiy-udar",
+      "scene": "floor",
+      "tags": [
+        "Для него"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1789940828/vigsharm-products/m6kynhq1hmrrndbx19ga.jpg",
+        "floor_type": "air",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 2
+        }
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1789940946/vigsharm-products/azyrptj8v15cdmpqbl7s.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789940946/vigsharm-products/azyrptj8v15cdmpqbl7s.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-20T21:53:02.689Z",
+      "updated_at": "2026-09-20T21:53:02.689Z"
+    },
+    {
+      "id": "dd56f52a-6ac0-446e-bd66-05c469c47df5",
+      "title": "Дерзкая особа",
+      "article": "FIG-007",
+      "price": 7280,
+      "short_description": "Фигура девушки из воздушных шаров с фонтаном из 7 красных шаров и шаром с надписью.",
+      "full_description": "Яркая фигура из воздушных шаров в игривом образе с ушками и длинными волосами. В комплекте фонтан из красных латексных шаров и шар с поздравительной надписью.",
+      "composition": [
+        "фигура из шаров",
+        "7 латексных шаров"
+      ],
+      "category": "Фигуры из шаров",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "5 000–8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Дерзкая особа — фигура из шаров, Армавир | VigSharm",
+      "seo_description": "Фигура из воздушных шаров в игривом стиле с фонтаном красных шаров. Яркий подарок для взрослого праздника в Армавире.",
+      "slug": "derzkaya-osoba",
+      "scene": "balloon_figures",
+      "tags": [
+        "Фигуры из шаров"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1789938217/vigsharm-products/qzxdatqxftyifwicrli0.jpg"
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1789938311/vigsharm-products/zhwbzldkqx8mvtp1fbls.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789938311/vigsharm-products/zhwbzldkqx8mvtp1fbls.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-20T21:36:09.452Z",
+      "updated_at": "2026-09-20T21:36:09.452Z"
+    },
+    {
       "id": "57b04b55-5771-4373-9e93-3a80fa6f02e6",
       "title": "Стальной шик",
       "article": "BOY-018",

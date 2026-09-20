@@ -11,14 +11,8 @@
   function esc(s) {
     return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
   }
-  function compIcon(text) {
-    var t = String(text || '').toLowerCase();
-    if (t.indexOf('цифр') >= 0) return '🎉';
-    if (t.indexOf('bubble') >= 0 || t.indexOf('бабл') >= 0) return '✨';
-    if (t.indexOf('короб') >= 0) return '🎁';
-    if (t.indexOf('надпис') >= 0) return '💌';
-    if (t.indexOf('шар') >= 0) return window.vigEmoji('balloon');
-    return '🌟';
+  function compIcon(i) {
+    return '<img class="comp-ico" src="icons/comp-deco-' + ((i || 0) % 4) + '.svg?v=1" alt="" width="28" height="28"/>';
   }
 
   var root = document.getElementById('product-root');
@@ -33,6 +27,13 @@
   var draftRestored = false, draftReady = false;
   var shareState = '', copyState = '';
   var todayMin = '';
+  var photoGrown = false;
+  var datePickerOpen = false;
+  var timePickerOpen = false;
+  var calView = { y: 0, m: 0 };
+  var dateDocBound = false;
+  var MONTHS_RU = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'];
+  var WEEK_RU = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'];
 
   (function () {
     var d = new Date();
@@ -63,6 +64,15 @@
     return true;
   }
   function fulfillmentOk() { return !!(fulfillment && (fulfillment === 'pickup' || address.trim())); }
+  function inscriptionOk() { return !(p && p.has_inscription) || !!String(inscription || '').trim(); }
+  function isOrderReady() { return digitsOk() && inscriptionOk() && fulfillmentOk(); }
+  function orderCta(kind) {
+    if (!digitsOk()) return kind === 'short' ? 'Выберите цифру' : ('Выберите ' + (effDigits() === 2 ? 'обе цифры' : 'цифру'));
+    if (!inscriptionOk()) return 'Напишите надпись';
+    if (!fulfillment) return kind === 'short' ? 'Выберите получение' : 'Выберите способ получения';
+    if (!fulfillmentOk()) return kind === 'short' ? 'Укажите адрес' : 'Укажите адрес доставки';
+    return kind === 'short' ? 'Заказать' : 'Заказать в мессенджер →';
+  }
   function digitDeltaPrice() { return effDelta() * 900; }
   function inscriptionPrice() { return (p && p.has_inscription && inscription.trim()) ? (p.inscription_price || 0) : 0; }
   function deliveryPrice() { return fulfillment === 'armavir' ? 200 : 0; }
@@ -117,9 +127,70 @@
     if (fulfillment === 'nearby') return address.trim() ? 'За город: ' + address.trim() : 'Укажите населённый пункт';
     return 'Когда подготовить и куда доставить';
   }
+  function pad2(n) { return (n < 10 ? '0' : '') + n; }
   function dateLabel() {
     if (!orderDate) return 'уточнить';
+    var a = String(orderDate).split('-');
+    if (a.length === 3) return a[2] + '.' + a[1] + '.' + a[0];
     try { return new Date(orderDate + 'T12:00:00').toLocaleDateString('ru-RU'); } catch (e) { return orderDate; }
+  }
+  function ensureCalView() {
+    var src = String(orderDate || todayMin).split('-');
+    if (!calView.y) {
+      calView.y = Number(src[0]) || new Date().getFullYear();
+      calView.m = Number(src[1]) || (new Date().getMonth() + 1);
+    }
+  }
+  function calendarHtml() {
+    ensureCalView();
+    var y = calView.y, m = calView.m;
+    var firstWd = (new Date(y, m - 1, 1).getDay() + 6) % 7;
+    var dim = new Date(y, m, 0).getDate();
+    var cells = '';
+    var i;
+    for (i = 0; i < firstWd; i++) cells += '<span class="cal-empty"></span>';
+    for (i = 1; i <= dim; i++) {
+      var iso = y + '-' + pad2(m) + '-' + pad2(i);
+      var disabled = iso < todayMin;
+      var selected = iso === orderDate;
+      cells += '<button type="button" class="cal-day' + (selected ? ' is-selected' : '') + (iso === todayMin ? ' is-today' : '') + '" data-act="date-day" data-v="' + iso + '"' + (disabled ? ' disabled' : '') + '>' + i + '</button>';
+    }
+    return '<div class="order-date-picker' + (datePickerOpen ? ' is-open' : '') + '">' +
+      '<button type="button" class="order-date-toggle" data-act="date-toggle" aria-expanded="' + datePickerOpen + '" aria-haspopup="dialog">' +
+      (orderDate ? dateLabel() : 'Выберите дату') + '</button>' +
+      '<div class="order-cal" role="dialog" aria-label="Календарь">' +
+      '<div class="order-cal-head">' +
+      '<button type="button" data-act="cal-prev" aria-label="Предыдущий месяц">‹</button>' +
+      '<strong>' + MONTHS_RU[m - 1] + ' ' + y + '</strong>' +
+      '<button type="button" data-act="cal-next" aria-label="Следующий месяц">›</button></div>' +
+      '<div class="order-cal-week">' + WEEK_RU.map(function (w) { return '<span>' + w + '</span>'; }).join('') + '</div>' +
+      '<div class="order-cal-grid">' + cells + '</div>' +
+      '<button type="button" class="order-cal-later" data-act="date-clear">Уточнить позже</button>' +
+      '</div></div>';
+  }
+  function timeLabel() {
+    if (!orderTime) return 'уточнить';
+    var p = String(orderTime).split(':');
+    if (p.length >= 2) return pad2(Number(p[0]) || 0) + ':' + pad2(Number(p[1]) || 0);
+    return orderTime;
+  }
+  function timeHtml() {
+    var slots = [];
+    var h;
+    for (h = 9; h <= 21; h++) {
+      slots.push(pad2(h) + ':00');
+      if (h < 21) slots.push(pad2(h) + ':30');
+    }
+    var cells = slots.map(function (t) {
+      return '<button type="button" class="time-slot' + (orderTime === t ? ' is-selected' : '') + '" data-act="time-slot" data-v="' + t + '">' + t + '</button>';
+    }).join('');
+    return '<div class="order-date-picker order-time-picker' + (timePickerOpen ? ' is-open' : '') + '">' +
+      '<button type="button" class="order-date-toggle" data-act="time-toggle" aria-expanded="' + timePickerOpen + '" aria-haspopup="dialog">' +
+      (orderTime ? timeLabel() : 'Выберите время') + '</button>' +
+      '<div class="order-cal order-time-list" role="dialog" aria-label="Время">' +
+      '<div class="order-time-grid">' + cells + '</div>' +
+      '<button type="button" class="order-cal-later" data-act="time-clear">Уточнить позже</button>' +
+      '</div></div>';
   }
   function fulfillmentLabel() {
     if (fulfillment === 'pickup') return 'Самовывоз';
@@ -203,8 +274,6 @@
   }
 
   /* ---------------- render ---------------- */
-  // Open client-option params by default so digit/inscription/rental are visible immediately
-  var detailsState = { params: true, date: false };
 
   function render() {
     if (!p) return;
@@ -213,20 +282,20 @@
     if (imgIdx < 0 || imgIdx >= keys.length) imgIdx = 0;
     var galleryKey = resolveGalleryKey();
     var mainKey = mainImageKey();
-    var stepNum = hasParams() ? '2' : '1';
+    var stepNum = (isUnit() || p.has_digit_choice) ? '2' : '';
     var digits = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
     var needDigit = p.has_digit_choice && !digitsOk();
     var U = effDigits(), H = effDelta();
 
     var paramsDetails = '';
-    if (hasParams()) {
+    if (isUnit() || p.has_digit_choice) {
       var inner = '';
       if (isUnit()) {
         inner += '<label class="config-input"><span>' + (isPerMeter() ? 'Длина арки' : 'Количество') + '</span>' +
           '<input type="number" min="1" max="100" value="' + qty + '" data-act="qty"/></label>';
       }
       if (p.has_digit_choice && U >= 1) {
-        inner += '<fieldset><legend>' + (U === 2 ? 'Какая первая цифра нужна?' : 'Какая цифра нужна?') + '</legend><div class="digit-options">' +
+        inner += '<fieldset class="' + (needDigit ? 'needs-pick' : '') + '"><legend>' + (U === 2 ? 'Какая первая цифра нужна?' : 'Какая цифра нужна?') + '</legend><div class="digit-options">' +
           digits.map(function (d) { return '<button type="button" class="' + (digit === d ? 'selected' : '') + '" data-act="digit" data-v="' + d + '" aria-label="Выбрать цифру ' + d + '" aria-pressed="' + (digit === d) + '">' + d + '</button>'; }).join('') +
           '</div></fieldset>';
         if (p.digit_count_locked || p.is_floor_composition) {
@@ -251,57 +320,49 @@
       if (needDigit) {
         inner += '<p class="digit-count-note">Выберите ' + (U === 2 ? 'обе цифры' : 'цифру') + ', чтобы оформить заказ.</p>';
       }
-      if (p.has_inscription) {
-        inner += '<label class="config-input"><span>Персональная надпись<small>' + ((p.inscription_price || 0) > 0 ? 'по желанию · +' + Number(p.inscription_price).toLocaleString('ru-RU') + ' ₽' : 'входит в стоимость') + '</small></span>' +
-          '<input value="' + esc(inscription) + '" maxlength="60" data-act="inscription" placeholder="Например: Любимой Дашеньке!"/></label>';
-      }
-      if (p.has_rental) {
-        inner += '<fieldset><legend>Условия аренды</legend><div class="config-choice selected"><span><strong>В аренду: ' + esc(p.rental_item || 'элемент фотозоны') + '</strong>' +
-          '<small>Бесплатно до ' + (p.rental_days || 3) + ' суток. Далее — ' + Number(p.keep_price_delta != null ? p.keep_price_delta : 500).toLocaleString('ru-RU') + ' ₽/сутки.</small></span><b>включено</b></div></fieldset>';
-      }
-      paramsDetails = '<details class="product-configurator product-step" data-details="params"' + (detailsState.params ? ' open' : '') + '>' +
-        '<summary class="config-title"><div><strong>1. Выбрать параметры</strong><small>' + esc(paramsTitle()) + '</small></div><b class="step-chevron" aria-hidden="true"></b></summary>' +
-        '<div class="product-step-content">' + inner + '</div></details>';
+      paramsDetails = '<section class="product-configurator product-step is-open" id="product-step-params" data-details="params">' +
+        '<header class="config-title"><div><strong>1. Параметры</strong><small>' + esc(paramsTitle()) + '</small></div></header>' +
+        '<div class="product-step-content">' + inner + '</div></section>';
     }
 
     var fulfilled = fulfillment;
-    var dateInner = '<div class="order-date-row">' +
-      '<label class="config-input"><span>Дата праздника</span><input type="date" value="' + esc(orderDate) + '" min="' + todayMin + '" data-act="date"/></label>' +
-      '<label class="config-input"><span>Желаемое время <small>можно уточнить позже</small></span><input type="time" value="' + esc(orderTime) + '" data-act="time"/></label></div>' +
-      '<fieldset><legend>Как получить заказ?</legend><div class="fulfillment-options">' +
-      '<button type="button" class="' + (fulfilled === 'pickup' ? 'selected' : '') + '" data-act="ful" data-v="pickup" aria-label="Выбрать самовывоз, бесплатно" aria-pressed="' + (fulfilled === 'pickup') + '"><span>🏠</span><strong>Самовывоз</strong><small>Бесплатно</small></button>' +
-      '<button type="button" class="' + (fulfilled === 'armavir' ? 'selected' : '') + '" data-act="ful" data-v="armavir" aria-label="Выбрать доставку по Армавиру, 200 рублей" aria-pressed="' + (fulfilled === 'armavir') + '"><span>' + window.vigEmoji('car') + '</span><strong>По Армавиру</strong><small>+200 ₽</small></button>' +
-      '<button type="button" class="' + (fulfilled === 'nearby' ? 'selected' : '') + '" data-act="ful" data-v="nearby" aria-label="Выбрать доставку за город, стоимость рассчитывается отдельно" aria-pressed="' + (fulfilled === 'nearby') + '"><span>🗺️</span><strong>За город</strong><small>Рассчитаем</small></button>' +
+    var extraOrderFields = '';
+    if (p.has_inscription) {
+      extraOrderFields += '<label class="config-input inscription-field"><span>Надпись на шаре<small>обязательно</small></span>' +
+        '<input value="' + esc(inscription) + '" maxlength="60" required aria-required="true" data-act="inscription" placeholder="Например: С Днём рождения!"/></label>';
+    }
+    if (p.has_rental) {
+      extraOrderFields += '<fieldset><legend>Условия аренды</legend><div class="config-choice selected"><span><strong>В аренду: ' + esc(p.rental_item || 'элемент фотозоны') + '</strong>' +
+        '<small>Бесплатно до ' + (p.rental_days || 3) + ' суток. Далее — ' + Number(p.keep_price_delta != null ? p.keep_price_delta : 500).toLocaleString('ru-RU') + ' ₽/сутки.</small></span><b>включено</b></div></fieldset>';
+    }
+    var dateInner = extraOrderFields +
+      '<div class="order-date-row">' +
+      '<div class="config-input order-date-field"><span>Дата<small>можно позже</small></span>' + calendarHtml() + '</div>' +
+      '<div class="config-input order-time-field"><span>Время<small>можно позже</small></span>' + timeHtml() + '</div></div>' +
+      '<fieldset class="fulfillment-field' + (!fulfilled ? ' needs-pick' : '') + '"><legend>Как получить заказ?</legend><div class="fulfillment-options">' +
+      '<button type="button" class="' + (fulfilled === 'pickup' ? 'selected' : '') + '" data-act="ful" data-v="pickup" aria-label="Выбрать самовывоз, бесплатно" aria-pressed="' + (fulfilled === 'pickup') + '"><span class="ful-icon ful-pickup" aria-hidden="true"><img src="icons/ful-pickup.png?v=2" alt="" width="40" height="40"/></span><strong>Самовывоз</strong><small>Бесплатно</small></button>' +
+      '<button type="button" class="' + (fulfilled === 'armavir' ? 'selected' : '') + '" data-act="ful" data-v="armavir" aria-label="Выбрать доставку по Армавиру, 200 рублей" aria-pressed="' + (fulfilled === 'armavir') + '"><span class="ful-icon ful-city" aria-hidden="true"><img src="icons/ful-city.png?v=2" alt="" width="40" height="40"/></span><strong>По городу</strong><small>+200 ₽</small></button>' +
+      '<button type="button" class="' + (fulfilled === 'nearby' ? 'selected' : '') + '" data-act="ful" data-v="nearby" aria-label="Выбрать доставку за город, стоимость рассчитывается отдельно" aria-pressed="' + (fulfilled === 'nearby') + '"><span class="ful-icon ful-far" aria-hidden="true"><img src="icons/ful-far.png?v=2" alt="" width="40" height="40"/></span><strong>За город</strong><small>Рассчитаем</small></button>' +
       '</div></fieldset>' +
       (fulfilled && fulfilled !== 'pickup'
-        ? '<label class="config-input"><span>Адрес доставки</span><input value="' + esc(address) + '" maxlength="140" data-act="address" placeholder="' + (fulfilled === 'armavir' ? 'Улица, дом, квартира' : 'Населённый пункт и адрес') + '"/>' + (!address.trim() ? '<small>Укажите адрес доставки</small>' : '') + '</label>'
+        ? '<label class="config-input' + (!address.trim() ? ' needs-pick' : '') + '"><span>Адрес доставки</span><input value="' + esc(address) + '" maxlength="140" data-act="address" placeholder="' + (fulfilled === 'armavir' ? 'Улица, дом, квартира' : 'Населённый пункт и адрес') + '"/>' + (!address.trim() ? '<small>Укажите адрес доставки</small>' : '') + '</label>'
         : '') +
-      (!fulfilled ? '<p class="order-details-note">Выберите самовывоз или доставку.</p>' : '') +
+      (!fulfilled ? '<p class="order-details-note">Нажмите, как удобнее получить заказ.</p>' : '') +
       '<p class="order-details-note order-details-note-quiet">Дата и адрес попадут в сообщение — время подтвердим.</p>';
 
     var dp = digitDeltaPrice(), ip = inscriptionPrice(), yp = deliveryPrice(), T = total();
     var totalLabel = fulfilled === 'nearby' ? 'Предварительная стоимость' : (fulfilled ? 'Итого' : 'Цена композиции');
     var hasPriceExtras = ip > 0 || dp !== 0 || yp > 0 || fulfilled === 'nearby';
-    var orderReady = digitsOk() && fulfillmentOk();
-    var orderBtn = !digitsOk()
-      ? 'Выберите ' + (U === 2 ? 'обе цифры' : 'цифру')
-      : (!fulfilled ? 'Выберите способ получения' : (!fulfillmentOk() ? 'Укажите адрес доставки' : 'Заказать в мессенджер →'));
+    var ready = isOrderReady();
+    var orderBtn = orderCta('full');
 
     var desc = String(p.description || '').trim();
     var compItems = String(p.composition || '').split(/\n+/).map(function (s) { return s.trim(); }).filter(Boolean);
     var rel = related();
     var leadText = p.short_description || (desc ? desc.split(/\n+/)[0] : '');
-    var msgPreview = orderReady ? orderMessage() : '';
-    var mobileBarActions = orderReady
-      ? ('<nav class="mobile-order-contacts" aria-label="Отправить заказ">' +
-        '<a class="mobile-order-msg whatsapp" data-msg="wa" target="_blank" rel="noreferrer" href="https://wa.me/' + PHONE + '?text=' + encodeURIComponent(msgPreview) + '" aria-label="Отправить заказ в WhatsApp"><span aria-hidden="true">' + WA_SVG + '</span><small>WhatsApp</small></a>' +
-        '<a class="mobile-order-msg telegram" data-msg="tg" target="_blank" rel="noreferrer" href="' + TG_URL + '?text=' + encodeURIComponent(msgPreview) + '" aria-label="Открыть Telegram с заказом"><span aria-hidden="true">' + TG_SVG + '</span><small>Telegram</small></a>' +
-        '<a class="mobile-order-msg max" data-msg="max" target="_blank" rel="noreferrer" href="' + MAX_URL + '" aria-label="Открыть MAX с заказом"><span aria-hidden="true"><img src="icons/max-official.png" alt=""/></span><small>MAX</small></a>' +
-        '<a class="mobile-order-msg phone" href="tel:+' + PHONE + '" aria-label="Позвонить ' + PHONE_LABEL + '"><span aria-hidden="true">' + window.vigEmoji('phone') + '</span><small>Звонок</small></a>' +
-        '</nav>')
-      : ('<button type="button" class="mobile-order-cta" data-act="order">' +
-        (!digitsOk() ? 'Выберите цифры' : !fulfilled ? 'Выберите получение' : 'Укажите адрес') +
-        ' <span aria-hidden="true">→</span></button>');
+    var mobileBarActions = '<button type="button" class="mobile-order-cta" data-act="order">' +
+      orderCta('short') +
+      ' <span aria-hidden="true">→</span></button>';
 
     root.innerHTML =
       '<main class="product-page">' +
@@ -310,8 +371,9 @@
       '<button type="button" data-act="share"><span aria-hidden="true">↗</span>' +
       (shareState === 'shared' ? 'Отправлено ✓' : shareState === 'copied' ? 'Ссылка скопирована ✓' : shareState === 'failed' ? 'Не удалось скопировать' : 'Поделиться') + '</button></nav>' +
       '<section class="product-page-card"><div class="product-page-gallery">' +
-      '<div class="product-page-main-image" role="group" aria-label="Галерея товара. Фотография ' + (imgIdx + 1) + ' из ' + Math.max(keys.length, 1) + '" tabindex="' + (keys.length > 1 ? '0' : '-1') + '" data-gallery>' +
-      galleryImgHtml(galleryKey || mainKey, p.title, 'fetchpriority="high"') + '</div>' +
+      '<div class="product-page-main-image' + (photoGrown ? ' is-grown' : '') + '" role="button" aria-label="Фото композиции. Нажмите, чтобы увеличить" tabindex="0" data-gallery>' +
+      galleryImgHtml(galleryKey || mainKey, p.title, 'fetchpriority="high"') +
+      '</div>' +
       (keys.length > 1
         ? '<div class="product-gallery-controls"><button type="button" data-act="prev" aria-label="Предыдущая фотография">←</button><span role="status" aria-live="polite">Фото ' + (imgIdx + 1) + ' из ' + keys.length + '</span><button type="button" data-act="next" aria-label="Следующая фотография">→</button></div>' +
           '<div class="product-thumbnails" aria-label="Все фотографии товара">' +
@@ -330,12 +392,12 @@
       '<p class="sku">Артикул ' + esc(p.sku || '') + '</p>' +
       '<div class="product-base-price"><small>' + (isUnit() ? (isPerMeter() ? 'Цена за метр' : 'Цена за штуку') : 'Цена за композицию') + '</small><strong>' + (priceFrom() ? 'от ' : '') + Number(p.price).toLocaleString('ru-RU') + ' ₽</strong></div>' +
       (leadText
-        ? '<div class="product-lead"><p>' + esc(leadText) + '</p></div>'
+        ? '<div class="product-lead"><div class="product-lead-icon" aria-hidden="true"><img src="icons/line-balloon.svg" alt="" width="22" height="22"/></div><p>' + esc(leadText) + '</p></div>'
         : '') +
       paramsDetails +
-      '<details class="order-details product-step" data-details="date"' + (detailsState.date ? ' open' : '') + '>' +
-      '<summary class="config-title"><div><strong>' + stepNum + '. Дата и получение</strong><small>' + esc(fulfillmentTitle()) + '</small></div><b class="step-chevron" aria-hidden="true"></b></summary>' +
-      '<div class="product-step-content">' + dateInner + '</div></details>' +
+      '<section class="order-details product-step is-open" id="product-step-date" data-details="date">' +
+      '<header class="config-title"><div><strong>' + (stepNum ? stepNum + '. ' : '') + 'Дата и получение</strong><small>' + esc(fulfillmentTitle()) + '</small></div></header>' +
+      '<div class="product-step-content">' + dateInner + '</div></section>' +
       '<div class="product-order-total' + (hasPriceExtras ? ' is-detailed' : '') + '"><span>' + totalLabel +
       (ip > 0 ? '<small>Включая надпись: +' + ip.toLocaleString('ru-RU') + ' ₽</small>' : '') +
       (dp !== 0 ? '<small>' + (dp > 0 ? 'Дополнительная цифра: +' : 'Без второй цифры: −') + Math.abs(dp).toLocaleString('ru-RU') + ' ₽</small>' : '') +
@@ -350,9 +412,10 @@
       '</div></section>' +
       (compItems.length
         ? ('<section class="product-page-description product-page-description--solo" aria-label="Состав композиции"><article class="product-composition-card">' +
-          '<p class="eyebrow">Состав</p><h2>Что входит</h2>' +
+          '<p class="eyebrow">Что входит</p><h2>Собрано в один праздник</h2>' +
           '<div class="composition-list">' + compItems.map(function (t, i) {
-            return '<div class="composition-item tone-' + (i % 4) + '"><span aria-hidden="true">' + compIcon(t) + '</span><strong>' + esc(t) + '</strong><b aria-hidden="true">✓</b></div>';
+            var label = String(t).replace(/[;.\s]+$/, '');
+            return '<div class="composition-item tone-' + (i % 4) + '"><span class="comp-mark" aria-hidden="true">' + compIcon(i) + '</span><strong>' + esc(label) + '</strong><b class="comp-check" aria-hidden="true">✓</b></div>';
           }).join('') + '</div></article></section>')
         : '') +
       '<section class="related-products"><div class="related-products-heading"><div>' +
@@ -370,7 +433,7 @@
         }).join('') + '</div>'
         : '<div class="related-custom-card">' + window.vigEmoji('balloon') + '<div><strong>Сделаем под ваш праздник</strong><p>Напишите повод и бюджет — предложим идеи.</p></div><button type="button" data-act="order">Обсудить идею</button></div>') +
       '</section>' +
-      '<aside class="mobile-order-bar' + (orderReady ? ' is-ready' : '') + '" aria-label="Быстрый заказ"><div><small>' + (fulfilled === 'nearby' ? 'От' : fulfilled ? 'Итого' : 'Цена композиции') + '</small><strong>' + (priceFrom() ? 'от ' : '') + T.toLocaleString('ru-RU') + ' ₽</strong></div>' +
+      '<aside class="mobile-order-bar' + (ready ? ' is-ready' : '') + '" aria-label="Быстрый заказ"><div><small>' + (fulfilled === 'nearby' ? 'От' : fulfilled ? 'Итого' : 'Цена') + '</small><strong>' + (priceFrom() ? 'от ' : '') + T.toLocaleString('ru-RU') + ' ₽</strong></div>' +
       mobileBarActions + '</aside>' +
       '</main>';
 
@@ -379,24 +442,28 @@
   }
 
   function openDetails(which) {
-    detailsState[which] = true;
     var d = root.querySelector('[data-details="' + which + '"]');
-    if (d) {
-      d.open = true;
-      requestAnimationFrame(function () {
-        try {
-          if (d.scrollIntoView) d.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        } catch (e) { try { d.scrollIntoView(); } catch (_) {} }
-      });
-    }
+    if (!d) return;
+    requestAnimationFrame(function () {
+      try {
+        if (d.scrollIntoView) d.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } catch (e) { try { d.scrollIntoView(); } catch (_) {} }
+      var focusEl = null;
+      if (which === 'params') {
+        focusEl = d.querySelector('.digit-options button:not(.selected)') || d.querySelector('[data-act="digit"]');
+      } else if (which === 'date') {
+        if (!inscriptionOk()) focusEl = d.querySelector('[data-act="inscription"]');
+        else if (!fulfillment) focusEl = d.querySelector('[data-act="ful"]');
+        else if (!address.trim()) focusEl = d.querySelector('[data-act="address"]');
+        else focusEl = d.querySelector('[data-act="date-toggle"]');
+      }
+      if (focusEl && focusEl.focus) {
+        try { focusEl.focus({ preventScroll: true }); } catch (e) { try { focusEl.focus(); } catch (_) {} }
+      }
+    });
   }
 
   function wire() {
-    root.querySelectorAll('[data-details]').forEach(function (d) {
-      d.addEventListener('toggle', function () {
-        detailsState[d.getAttribute('data-details')] = d.open;
-      });
-    });
     root.querySelectorAll('[data-act]').forEach(function (el) {
       var act = el.getAttribute('data-act');
       if (act === 'qty') {
@@ -428,10 +495,81 @@
           refreshTotals();
         });
         el.addEventListener('change', render);
-      } else if (act === 'date') {
-        el.addEventListener('change', function () { orderDate = el.value; render(); });
-      } else if (act === 'time') {
-        el.addEventListener('change', function () { orderTime = el.value; render(); });
+      } else if (act === 'date-toggle') {
+        el.addEventListener('click', function (e) {
+          e.stopPropagation();
+          datePickerOpen = !datePickerOpen;
+          timePickerOpen = false;
+          var timeBox = root.querySelector('.order-time-picker');
+          if (timeBox) timeBox.classList.remove('is-open');
+          var box = root.querySelector('.order-date-picker:not(.order-time-picker)');
+          if (box) {
+            box.classList.toggle('is-open', datePickerOpen);
+            el.setAttribute('aria-expanded', datePickerOpen);
+          }
+        });
+      } else if (act === 'cal-prev') {
+        el.addEventListener('click', function (e) {
+          e.stopPropagation();
+          ensureCalView();
+          calView.m -= 1;
+          if (calView.m < 1) { calView.m = 12; calView.y -= 1; }
+          datePickerOpen = true;
+          render();
+        });
+      } else if (act === 'cal-next') {
+        el.addEventListener('click', function (e) {
+          e.stopPropagation();
+          ensureCalView();
+          calView.m += 1;
+          if (calView.m > 12) { calView.m = 1; calView.y += 1; }
+          datePickerOpen = true;
+          render();
+        });
+      } else if (act === 'date-day') {
+        el.addEventListener('click', function (e) {
+          e.stopPropagation();
+          orderDate = el.getAttribute('data-v') || '';
+          var parts = orderDate.split('-');
+          calView.y = Number(parts[0]) || calView.y;
+          calView.m = Number(parts[1]) || calView.m;
+          datePickerOpen = false;
+          render();
+        });
+      } else if (act === 'date-clear') {
+        el.addEventListener('click', function (e) {
+          e.stopPropagation();
+          orderDate = '';
+          datePickerOpen = false;
+          render();
+        });
+      } else if (act === 'time-toggle') {
+        el.addEventListener('click', function (e) {
+          e.stopPropagation();
+          timePickerOpen = !timePickerOpen;
+          datePickerOpen = false;
+          var dateBox = root.querySelector('.order-date-picker:not(.order-time-picker)');
+          if (dateBox) dateBox.classList.remove('is-open');
+          var box = root.querySelector('.order-time-picker');
+          if (box) {
+            box.classList.toggle('is-open', timePickerOpen);
+            el.setAttribute('aria-expanded', timePickerOpen);
+          }
+        });
+      } else if (act === 'time-slot') {
+        el.addEventListener('click', function (e) {
+          e.stopPropagation();
+          orderTime = el.getAttribute('data-v') || '';
+          timePickerOpen = false;
+          render();
+        });
+      } else if (act === 'time-clear') {
+        el.addEventListener('click', function (e) {
+          e.stopPropagation();
+          orderTime = '';
+          timePickerOpen = false;
+          render();
+        });
       } else if (act === 'ful') {
         el.addEventListener('click', function () {
           fulfillment = el.getAttribute('data-v');
@@ -462,17 +600,48 @@
     });
     var gal = root.querySelector('[data-gallery]');
     if (gal) {
+      function togglePhoto() {
+        photoGrown = !photoGrown;
+        gal.classList.toggle('is-grown', photoGrown);
+      }
       gal.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); togglePhoto(); return; }
+        if (e.key === 'Escape' && photoGrown) { e.preventDefault(); photoGrown = false; gal.classList.remove('is-grown'); return; }
         if (e.key === 'ArrowLeft') { e.preventDefault(); step(-1); }
         if (e.key === 'ArrowRight') { e.preventDefault(); step(1); }
       });
-      var sx = 0, sy = 0;
+      var sx = 0, sy = 0, skipClick = false;
       gal.addEventListener('touchstart', function (e) { var t = e.touches[0]; sx = t.clientX; sy = t.clientY; }, { passive: true });
       gal.addEventListener('touchend', function (e) {
         var t = e.changedTouches[0], dx = t.clientX - sx, dy = t.clientY - sy;
-        if (Math.abs(dx) < 45 || Math.abs(dx) <= Math.abs(dy)) return;
-        step(dx < 0 ? 1 : -1);
+        if (Math.abs(dx) >= 45 && Math.abs(dx) > Math.abs(dy)) {
+          skipClick = true;
+          step(dx < 0 ? 1 : -1);
+          return;
+        }
+        if (Math.abs(dx) < 14 && Math.abs(dy) < 14) {
+          skipClick = true;
+          togglePhoto();
+        }
       }, { passive: true });
+      gal.addEventListener('click', function () {
+        if (skipClick) { skipClick = false; return; }
+        togglePhoto();
+      });
+    }
+    if (!dateDocBound) {
+      dateDocBound = true;
+      document.addEventListener('click', function (e) {
+        if (!datePickerOpen && !timePickerOpen) return;
+        if (e.target.closest && e.target.closest('.order-date-picker')) return;
+        datePickerOpen = false;
+        timePickerOpen = false;
+        root.querySelectorAll('.order-date-picker').forEach(function (box) {
+          box.classList.remove('is-open');
+          var tog = box.querySelector('.order-date-toggle');
+          if (tog) tog.setAttribute('aria-expanded', 'false');
+        });
+      });
     }
   }
 
@@ -484,9 +653,7 @@
     var fulfilled = fulfillment, U = effDigits();
     var totalLabel = fulfilled === 'nearby' ? 'Предварительная стоимость' : (fulfilled ? 'Итого' : 'Цена композиции');
     var hasPriceExtras = ip > 0 || dp !== 0 || yp > 0 || fulfilled === 'nearby';
-    var orderBtn = !digitsOk()
-      ? 'Выберите ' + (U === 2 ? 'обе цифры' : 'цифру')
-      : (!fulfilled ? 'Выберите способ получения' : (!fulfillmentOk() ? 'Укажите адрес доставки' : 'Заказать в мессенджер →'));
+    var orderBtn = orderCta('full');
 
     var totalEl = root.querySelector('.product-order-total');
     if (totalEl) {
@@ -503,14 +670,19 @@
     if (btn) btn.textContent = orderBtn;
 
     var barSmall = root.querySelector('.mobile-order-bar div small');
-    if (barSmall) barSmall.textContent = fulfilled === 'nearby' ? 'От' : (fulfilled ? 'Итого' : 'Цена композиции');
+    if (barSmall) barSmall.textContent = fulfilled === 'nearby' ? 'От' : (fulfilled ? 'Итого' : 'Цена');
     var barStrong = root.querySelector('.mobile-order-bar div strong');
     if (barStrong) barStrong.textContent = (priceFrom() ? 'от ' : '') + T.toLocaleString('ru-RU') + ' ₽';
 
+    var bar = root.querySelector('.mobile-order-bar');
+    if (bar) bar.classList.toggle('is-ready', isOrderReady());
+
+    var insField = root.querySelector('.inscription-field');
+    if (insField) insField.classList.toggle('is-empty', !inscriptionOk());
+
     var cta = root.querySelector('.mobile-order-cta');
     if (cta) {
-      cta.innerHTML = (!digitsOk() ? 'Выберите цифры' : !fulfilled ? 'Выберите получение' : 'Укажите адрес') +
-        ' <span aria-hidden="true">→</span>';
+      cta.innerHTML = orderCta('short') + ' <span aria-hidden="true">→</span>';
     }
   }
 
@@ -549,6 +721,12 @@
 
   function order() {
     if (!digitsOk()) { openDetails('params'); return; }
+    if (!inscriptionOk()) {
+      openDetails('date');
+      var ins = root.querySelector('[data-act="inscription"]');
+      if (ins) ins.focus();
+      return;
+    }
     if (!fulfillmentOk()) { openDetails('date'); return; }
     openOrderModal();
   }
@@ -570,7 +748,9 @@
       '<div class="order-confirmation-list" aria-label="Выбранные условия заказа">' +
       '<span><small>Дата</small><strong>' + esc(dateLabel()) + '</strong></span>' +
       '<span><small>Время</small><strong>' + esc(orderTime || 'уточнить') + '</strong></span>' +
-      '<span><small>Получение</small><strong>' + esc(fulfillmentLabel()) + '</strong></span></div>' +
+      '<span><small>Получение</small><strong>' + esc(fulfillmentLabel()) + '</strong></span>' +
+      (p.has_inscription ? '<span><small>Надпись</small><strong>' + esc(inscription.trim() || '—') + '</strong></span>' : '') +
+      '</div>' +
       '<p>Все выбранные опции, дата, адрес и стоимость уже подготовлены для отправки.</p>' +
       '<details class="order-message-preview"><summary>Проверить текст заказа</summary><pre>' + esc(msg) + '</pre>' +
       '<button type="button" data-copy>Скопировать заказ</button><small role="status" aria-live="polite"></small></details>' +

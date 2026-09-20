@@ -515,36 +515,26 @@
     border-color:#ddd4ef!important;
   }
   .catalog-group-nav>button .catalog-group-icon{
-    width:36px!important;
-    height:36px!important;
-    min-width:36px;
-    border-radius:12px!important;
+    width:40px!important;
+    height:40px!important;
+    min-width:40px;
+    border-radius:0!important;
     display:grid!important;
     place-items:center!important;
+    background:transparent!important;
+    box-shadow:none!important;
   }
   .catalog-group-nav>button .catalog-group-icon img{
-    width:22px!important;
-    height:22px!important;
+    width:30px!important;
+    height:30px!important;
   }
-  .catalog-group-nav>button.catalog-group-all .catalog-group-icon{
-    background:#cfe6fb!important;
-    border:1.5px solid #b5d6f3!important;
-  }
-  .catalog-group-nav>button[data-group="ready"] .catalog-group-icon{
-    background:#ffd9e2!important;
-    border:1.5px solid #f5c0cd!important;
-  }
-  .catalog-group-nav>button[data-group="characters"] .catalog-group-icon{
-    background:#cfead8!important;
-    border:1.5px solid #b5dcc4!important;
-  }
-  .catalog-group-nav>button[data-group="unit"] .catalog-group-icon{
-    background:#d4e2f8!important;
-    border:1.5px solid #b9cef0!important;
-  }
+  .catalog-group-nav>button.catalog-group-all .catalog-group-icon,
+  .catalog-group-nav>button[data-group="ready"] .catalog-group-icon,
+  .catalog-group-nav>button[data-group="characters"] .catalog-group-icon,
+  .catalog-group-nav>button[data-group="unit"] .catalog-group-icon,
   .catalog-group-nav>button[data-group="holidays"] .catalog-group-icon{
-    background:#e2d7f6!important;
-    border:1.5px solid #cebfeb!important;
+    background:transparent!important;
+    border:0!important;
   }
   .catalog-group-nav>button strong{
     font-size:14px;

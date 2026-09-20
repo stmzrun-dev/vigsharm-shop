@@ -9,12 +9,12 @@
   var HOLIDAYS = ['Новый год', '14 февраля', '23 февраля', '8 марта', '9 мая', 'Выпускной', '1 сентября', 'День учителя', 'Хэллоуин'];
   var SINGLE_GIFTS = ['Фигуры из шаров', 'Цветы из шаров', 'Арки', 'Шар-сюрприз', 'Крафтовый букет', 'Коробка-сюрприз', 'Гендер-пати'];
   var GROUPS = [
-    { id: 'ready', title: 'Готовые решения', mobile: 'Готовые', icon: 'ready', chipImg: 'icons/line-checklist.svg', note: 'Композиции для любого повода' },
-    { id: 'characters', title: 'Персонажи', mobile: 'Персонажи', icon: 'characters', chipImg: 'icons/line-star.svg', note: 'Любимые герои детей' },
-    { id: 'unit', title: 'Шары поштучно', mobile: 'Шары', icon: 'unit', chipImg: 'icons/line-balloon.svg', note: 'Отдельные шары и фигуры' },
-    { id: 'holidays', title: 'Праздники', mobile: 'Праздники', icon: 'holidays', chipImg: 'icons/line-sparkles.svg', note: 'Сезонные коллекции' }
+    { id: 'ready', title: 'Готовые решения', mobile: 'Готовые', icon: 'ready', chipImg: 'icons/group-ready.svg?v=5', note: 'Композиции для любого повода' },
+    { id: 'characters', title: 'Персонажи', mobile: 'Персонажи', icon: 'characters', chipImg: 'icons/group-characters.svg?v=5', note: 'Любимые герои детей' },
+    { id: 'unit', title: 'Шары поштучно', mobile: 'Шары', icon: 'unit', chipImg: 'icons/group-balloons.svg?v=5', note: 'Отдельные шары и фигуры' },
+    { id: 'holidays', title: 'Праздники', mobile: 'Праздники', icon: 'holidays', chipImg: 'icons/group-holidays.svg?v=5', note: 'Сезонные коллекции' }
   ];
-  var ALL_CHIP_IMG = 'icons/line-catalog.svg';
+  var ALL_CHIP_IMG = 'icons/group-all.svg?v=5';
   var PRICES = [
     { label: 'Любая стоимость', min: 0, max: Infinity },
     { label: 'до 1 000 ₽', min: 0, max: 1000 },
@@ -306,7 +306,7 @@
       '<span class="catalog-card-copy"><span class="catalog-card-meta"><small>' + esc(cat || 'Композиция') + '</small>' + badge + '</span>' +
       '<strong>' + esc(p.title) + '</strong>' +
       '<span>' + esc(p.short_description || '') + '</span>' +
-      '<span class="catalog-card-price"><small>' + priceNote + '</small><b>' + from + Number(p.price).toLocaleString('ru-RU') + ' ₽</b><i aria-hidden="true">Подробнее</i></span>' +
+      '<span class="catalog-card-price"><small>' + priceNote + '</small><b>' + from + Number(p.price).toLocaleString('ru-RU') + ' ₽</b><i aria-hidden="true">→</i></span>' +
       '</span></a>';
   }
 
@@ -323,7 +323,10 @@
 
   function syncControls() {
     if (searchInput && searchInput.value !== q) searchInput.value = q;
-    if (priceSelect) priceSelect.value = String(priceIdx);
+    if (priceSelect) {
+      priceSelect.value = String(priceIdx);
+      priceSelect.classList.toggle('has-value', priceIdx !== 0);
+    }
     if (ageSelect) {
       var ages = collectAges();
       var hasAges = ages.length > 0;
@@ -335,6 +338,7 @@
       ageSelect.value = age;
       ageSelect.hidden = hideAge;
       ageSelect.disabled = hideAge;
+      ageSelect.classList.toggle('has-value', !!age);
       if (controlsEl) controlsEl.classList.toggle('no-age-filter', hideAge);
     }
     if (controlsEl && !isMobileFilters()) controlsEl.classList.toggle('mobile-filters-open', filtersOpen);
@@ -509,7 +513,7 @@
             return '<a class="catalog-card color-' + (i % 5) + '" href="product.html?slug=' + encodeURIComponent(p.slug || p.id) + '" aria-label="Подробнее: ' + esc(p.title) + '">' +
               '<span class="catalog-card-image">' + img + '</span>' +
               '<span class="catalog-card-copy"><small>' + esc(p.category || 'Композиция') + '</small><strong>' + esc(p.title) + '</strong>' +
-              '<span class="catalog-card-price"><b>' + from + Number(p.price).toLocaleString('ru-RU') + ' ₽</b><i aria-hidden="true">Подробнее</i></span></span></a>';
+              '<span class="catalog-card-price"><b>' + from + Number(p.price).toLocaleString('ru-RU') + ' ₽</b><i aria-hidden="true">→</i></span></span></a>';
           }).join('') + '</div></section>';
       }
     }

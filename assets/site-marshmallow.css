@@ -1,0 +1,521 @@
+/* ============================================================
+   Site-wide Soft Marshmallow redesign (approved override of the
+   previous quiet-studio direction — see DESIGN.md "Стиль (v2)").
+   Loaded LAST on every storefront page: index, catalog, product,
+   price, delivery. CSS-only — no JS/markup/ID changes.
+   ============================================================ */
+
+:root{
+  --mm-bg:#fff;
+  --mm-radius:22px;
+  --mm-radius-lg:24px;
+  --mm-shadow:0 10px 30px rgba(0,0,0,.05),0 2px 8px rgba(0,0,0,.02);
+  --mm-shadow-hover:0 16px 40px rgba(0,0,0,.08),0 4px 12px rgba(0,0,0,.03);
+  --mm-ink:#1e293b;
+  --mm-muted:#475569;
+  --mm-accent-grad:linear-gradient(135deg,#ff6b6b 0%,#ff8e53 100%);
+  --mm-focus:0 0 0 4px rgba(255,107,107,.16);
+}
+
+/* ===== 4) Global background — one seamless white sheet, no striping ===== */
+html,body{
+  background:var(--mm-bg)!important;
+  position:relative!important;
+  isolation:isolate!important;
+}
+main#main-content,
+.catalog-page,
+.product-page,
+.info-page,
+main#main-content > section,
+main#main-content > *,
+.hero,
+.quick-recipient-section,
+.live-products-section,
+.budget-section,
+.ideas-section,
+.characters-section,
+.steps-section,
+#delivery.steps-section,
+.service-info,
+.service-info.section,
+.studio-story,
+#about,
+.faq-section,
+.faq-section.section,
+main#main-content footer{
+  background:transparent!important;
+  background-image:none!important;
+}
+/* Ambient pastel auras — fixed, sit under everything, never create banding */
+body:before,
+body:after{
+  content:""!important;
+  position:fixed!important;
+  width:min(480px,70vw)!important;
+  height:min(480px,70vw)!important;
+  border-radius:50%!important;
+  filter:blur(90px)!important;
+  pointer-events:none!important;
+  z-index:0!important;
+  background:radial-gradient(circle,rgba(255,141,107,.14) 0%,transparent 70%)!important;
+}
+body:before{ top:-6%!important; left:-10%!important; }
+body:after{
+  right:-8%!important; top:34%!important;
+  background:radial-gradient(circle,rgba(255,182,193,.12) 0%,transparent 70%)!important;
+}
+main#main-content{
+  position:relative!important;
+  z-index:1!important;
+}
+
+/* ===== 1) Cards / containers — clean white, big radius, floating shadow ===== */
+main#main-content .quick-recipient-card,
+main#main-content .live-product-card,
+main#main-content .budget-card,
+main#main-content .character-card,
+main#main-content .step-card,
+main#main-content .steps .step-card,
+main#main-content .steps li.step-card,
+main#main-content .service-info article,
+main#main-content .service-info .delivery-card,
+main#main-content .service-info .price-card,
+main#main-content .service-info a.delivery-card,
+main#main-content .service-info a.price-card,
+main#main-content .faq-list details,
+.catalog-page .catalog-card,
+.product-page .product-card,
+.product-page .product-step,
+.product-page .order-summary,
+.info-page .price-card,
+.info-page .delivery-card,
+.info-page article{
+  background:#fff!important;
+  background-image:none!important;
+  border:0!important;
+  border-radius:var(--mm-radius)!important;
+  box-shadow:var(--mm-shadow)!important;
+}
+main#main-content .quick-recipient-card:hover,
+main#main-content .live-product-card:hover,
+main#main-content .budget-card:hover,
+main#main-content .character-card:hover,
+main#main-content .step-card:hover,
+main#main-content .service-info article:hover,
+main#main-content .service-info .delivery-card:hover,
+main#main-content .service-info .price-card:hover,
+.catalog-page .catalog-card:hover,
+main#main-content .faq-list details[open]{
+  box-shadow:var(--mm-shadow-hover)!important;
+  border:0!important;
+  transform:translateY(-2px)!important;
+}
+
+/* Comfortable inner padding so content isn't cramped */
+.catalog-page .catalog-card{
+  padding:12px 12px 16px!important;
+}
+.catalog-page .catalog-card-copy{
+  padding:12px 6px 0!important;
+}
+
+/* ===== 2c) Catalog grid — equal height cards, fixed image ratio, price pinned bottom ===== */
+.catalog-page .catalog-grid{
+  display:grid!important;
+  gap:20px!important;
+  align-items:stretch!important;
+}
+.catalog-page .catalog-card{
+  display:flex!important;
+  flex-direction:column!important;
+  height:100%!important;
+  min-width:0!important;
+}
+.catalog-page .catalog-card-image{
+  aspect-ratio:1/1!important;
+  width:100%!important;
+  border-radius:16px!important;
+  overflow:hidden!important;
+  flex:none!important;
+}
+.catalog-page .catalog-card-image img{
+  width:100%!important;
+  height:100%!important;
+  object-fit:cover!important;
+  border-radius:16px!important;
+}
+.catalog-page .catalog-card-copy{
+  display:flex!important;
+  flex-direction:column!important;
+  flex:1 1 auto!important;
+  min-height:0!important;
+}
+.catalog-page .catalog-card .catalog-card-price{
+  margin-top:auto!important;
+  padding-top:10px!important;
+}
+
+/* Character / step cards — even row height */
+main#main-content .character-scroll{
+  align-items:stretch!important;
+}
+main#main-content .character-card{
+  height:100%!important;
+}
+main#main-content .steps{
+  align-items:stretch!important;
+}
+main#main-content .step-card{
+  height:100%!important;
+}
+main#main-content .step-card,
+main#main-content .service-info article,
+main#main-content .service-info .delivery-card,
+main#main-content .service-info .price-card{
+  padding:24px 22px!important;
+}
+
+/* ===== 2a) Inputs / selects — soft radius + coral focus glow ===== */
+.catalog-search,
+.catalog-controls select,
+.product-page input,
+.product-page select,
+.product-page textarea,
+.catalog-filter-sheet-body select,
+main#main-content input,
+main#main-content select{
+  background-color:#fff!important;
+  border:1.5px solid #eef1f5!important;
+  border-radius:14px!important;
+  box-shadow:none!important;
+  transition:border-color .15s ease,box-shadow .15s ease!important;
+}
+.catalog-search:focus-within,
+.catalog-controls select:focus,
+.catalog-controls select:focus-visible,
+.product-page input:focus,
+.product-page select:focus,
+.product-page textarea:focus,
+.catalog-filter-sheet-body select:focus,
+main#main-content input:focus,
+main#main-content select:focus{
+  border-color:#ff6b6b!important;
+  box-shadow:var(--mm-focus)!important;
+  outline:none!important;
+}
+.product-page .config-input,
+.product-page .config-input input{
+  border-radius:14px!important;
+}
+
+/* ===== 2b) Badges / statuses — pastel pills (mint / peach / lavender) ===== */
+.product-request-badge{
+  background:#eafff3!important;
+  color:#0f9d58!important;
+  border:0!important;
+  border-radius:999px!important;
+  padding:4px 10px!important;
+}
+.product-advance-badge{
+  background:#fff1e6!important;
+  color:#c2650f!important;
+  border:0!important;
+  border-radius:999px!important;
+  padding:4px 10px!important;
+}
+.catalog-card-meta > small{
+  background:#f3f0ff!important;
+  color:#7c5cff!important;
+  border-radius:999px!important;
+  padding:2px 8px!important;
+  font-weight:800!important;
+}
+
+/* ===== 3) Tables / lists — spacious rows, quiet hover ===== */
+.info-page .price-list div,
+main#main-content .service-info .price-list div{
+  border-bottom:1px solid #f1f4f8!important;
+  padding:14px 4px!important;
+  transition:background .15s ease!important;
+}
+.info-page .price-list div:hover,
+main#main-content .service-info .price-list div:hover{
+  background:#fbfbfd!important;
+  border-radius:12px!important;
+}
+.info-page .price-list div:last-child,
+main#main-content .service-info .price-list div:last-child{
+  border-bottom:0!important;
+}
+.faq-list details{
+  padding:4px 20px!important;
+}
+.faq-list summary{
+  padding:16px 0!important;
+}
+
+/* ===== Buttons — coral gradient primary / white pill secondary, sitewide ===== */
+.button-primary,
+a.button-primary,
+main#main-content .button-primary,
+.product-page .button-primary,
+.catalog-page .button-primary{
+  background:var(--mm-accent-grad)!important;
+  background-image:var(--mm-accent-grad)!important;
+  border:0!important;
+  border-radius:999px!important;
+  color:#fff!important;
+  box-shadow:0 10px 24px rgba(255,107,107,.28),0 4px 10px rgba(255,142,83,.16)!important;
+}
+.button-primary:hover,
+a.button-primary:hover{
+  background:linear-gradient(135deg,#ff5a5a 0%,#ff7a3d 100%)!important;
+  background-image:linear-gradient(135deg,#ff5a5a 0%,#ff7a3d 100%)!important;
+  box-shadow:0 14px 30px rgba(255,107,107,.34),0 6px 14px rgba(255,142,83,.2)!important;
+}
+.button-outline,
+a.button-outline,
+.catalog-load-more button{
+  background:#fff!important;
+  border:0!important;
+  border-radius:999px!important;
+  box-shadow:0 4px 14px rgba(30,30,40,.06)!important;
+}
+.button-outline:hover,
+a.button-outline:hover,
+.catalog-load-more button:hover{
+  box-shadow:0 8px 20px rgba(30,30,40,.09)!important;
+}
+
+/* ===== Hero polish — eyebrow pill with pin, gradient "всё!", puffy secondary CTA ===== */
+.hero .eyebrow{
+  display:inline-flex!important;
+  align-items:center!important;
+  gap:8px!important;
+  background:#fff!important;
+  border-radius:999px!important;
+  padding:8px 16px 8px 12px!important;
+  box-shadow:0 4px 14px rgba(30,30,40,.07)!important;
+  width:max-content!important;
+}
+.hero .eyebrow:before{
+  content:""!important;
+  display:inline-block!important;
+  width:8px!important;
+  height:8px!important;
+  border-radius:50%!important;
+  background:#ff6b6b!important;
+  box-shadow:0 0 0 4px rgba(255,107,107,.18)!important;
+  flex:none!important;
+}
+.hero .playful-title>b,
+.hero .playful-title>b.hero-accent-pill{
+  background:var(--mm-accent-grad)!important;
+  background-image:var(--mm-accent-grad)!important;
+  -webkit-background-clip:text!important;
+  background-clip:text!important;
+  -webkit-text-fill-color:transparent!important;
+  color:transparent!important;
+}
+.hero .hero-actions .button-outline,
+.hero .hero-actions a.button-outline{
+  background:#fff!important;
+  border:0!important;
+  border-radius:20px!important;
+  box-shadow:0 10px 26px rgba(30,30,40,.08),0 2px 8px rgba(30,30,40,.03)!important;
+  color:var(--mm-ink)!important;
+  font-weight:800!important;
+}
+.hero .hero-actions .button-outline:hover{
+  box-shadow:0 14px 32px rgba(30,30,40,.11),0 3px 10px rgba(30,30,40,.04)!important;
+  transform:translateY(-1px)!important;
+}
+
+/* ===== Typography ===== */
+main#main-content h1,
+main#main-content h2,
+main#main-content h3,
+.catalog-page h1,
+.catalog-page h2,
+.product-page h1,
+.product-page h2,
+.info-page h1,
+.info-page h2{
+  color:var(--mm-ink)!important;
+}
+main#main-content p,
+.catalog-page p,
+.product-page p,
+.info-page p{
+  color:var(--mm-muted)!important;
+}
+
+@media (prefers-reduced-motion:reduce){
+  main#main-content .quick-recipient-card:hover,
+  main#main-content .live-product-card:hover,
+  main#main-content .budget-card:hover,
+  main#main-content .character-card:hover,
+  main#main-content .step-card:hover,
+  .catalog-page .catalog-card:hover{
+    transform:none!important;
+  }
+}
+
+/* Product order form — marshmallow warmth (overrides product-polish graphite) */
+html body .product-page .product-configurator,
+html body .product-page .order-details,
+html body .product-page .product-step{
+  border:1.5px solid #ffd9d0!important;
+  background:linear-gradient(180deg,#ffffff 0%,#fff6f2 100%)!important;
+  box-shadow:0 10px 28px rgba(255,107,90,.08),0 2px 8px rgba(0,0,0,.02)!important;
+}
+.product-page .config-title strong{
+  color:#2a2a32!important;
+}
+.product-page .config-title small{
+  color:#c2650f!important;
+}
+.product-page .config-input span small{
+  display:inline-flex!important;
+  align-items:center;
+  margin-left:8px;
+  padding:2px 8px!important;
+  border-radius:999px!important;
+  background:#fff1e6!important;
+  color:#c2650f!important;
+  font-weight:800!important;
+  font-size:11px!important;
+}
+.product-page .inscription-field.is-empty{
+  box-shadow:0 0 0 4px rgba(255,107,90,.12);
+}
+html body .product-page label.inscription-field{
+  display:block!important;
+  padding:12px!important;
+  border-radius:16px!important;
+  border:1.5px solid #f3d7df!important;
+  background:#fff5f8!important;
+}
+.product-page .inscription-field input{
+  background:#fff!important;
+  border-color:#f3d7df!important;
+}
+.product-page .order-date-row .config-input:first-child input{
+  background:#fffaf3!important;
+}
+.product-page .order-date-row .config-input:last-child input{
+  background:#f4fbf7!important;
+}
+.product-page .product-order-button.button-primary,
+.product-page .button.button-primary.product-order-button{
+  background-image:var(--mm-accent-grad)!important;
+  box-shadow:0 10px 24px rgba(255,107,107,.28),0 4px 10px rgba(255,142,83,.16)!important;
+}
+.product-page .mobile-order-cta{
+  background-image:var(--mm-accent-grad)!important;
+  box-shadow:0 8px 18px rgba(255,107,107,.28)!important;
+}
+
+/* Lead card + composition rows (from old product page, without accordion) */
+html body .product-page .product-lead{
+  display:flex!important;
+  align-items:flex-start;
+  gap:12px;
+  margin:12px 0 4px!important;
+  padding:14px 16px!important;
+  border-radius:18px!important;
+  border:0!important;
+  background:#fff8ee!important;
+  box-shadow:none!important;
+}
+html body .product-page .product-lead-icon{
+  display:grid!important;
+  width:40px;
+  height:40px;
+  flex:none;
+  place-items:center;
+  border-radius:14px;
+  background:#fff;
+}
+html body .product-page .product-lead-icon img{
+  width:22px;
+  height:22px;
+}
+html body .product-page .product-lead p{
+  margin:0!important;
+  color:#2a2a32!important;
+  font-size:15px!important;
+  line-height:1.45!important;
+  max-width:none!important;
+}
+html body .product-page .product-composition-card{
+  background:#f7f3ff!important;
+  border:0!important;
+  border-radius:22px!important;
+  box-shadow:0 10px 28px rgba(40,36,60,.05)!important;
+  padding:20px 18px!important;
+}
+html body .product-page .product-composition-card .eyebrow{
+  color:#2ec4d6!important;
+  font-weight:800!important;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+}
+html body .product-page .product-composition-card h2{
+  color:#2a2a32!important;
+  margin:6px 0 14px!important;
+}
+html body .product-page .composition-list{
+  display:grid!important;
+  gap:8px!important;
+}
+html body .product-page .composition-item{
+  display:flex!important;
+  align-items:flex-start;
+  gap:10px;
+  margin:0!important;
+  padding:12px 14px!important;
+  border:0!important;
+  border-radius:16px!important;
+  box-shadow:none!important;
+  transform:none!important;
+}
+html body .product-page .composition-item.tone-0{background:#ffd6e0!important}
+html body .product-page .composition-item.tone-1{background:#c5f3fb!important}
+html body .product-page .composition-item.tone-2{background:#ffe28a!important}
+html body .product-page .composition-item.tone-3{background:#e4d7ff!important}
+html body .product-page .comp-mark{
+  width:28px;
+  height:28px;
+  margin-top:2px;
+  flex:none;
+  display:grid;
+  place-items:center;
+}
+html body .product-page .comp-ico{
+  width:26px;
+  height:26px;
+  object-fit:contain;
+  display:block;
+}
+html body .product-page .composition-item strong{
+  flex:1;
+  min-width:0;
+  padding-top:4px;
+  font-weight:700!important;
+  color:#2a2a32!important;
+  line-height:1.35!important;
+}
+html body .product-page .comp-check{
+  width:22px;
+  height:22px;
+  margin-top:5px;
+  border-radius:999px;
+  display:grid;
+  place-items:center;
+  background:#4cbf3f;
+  color:#fff!important;
+  font-size:12px;
+  flex:none;
+}

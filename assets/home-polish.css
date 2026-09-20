@@ -1,10 +1,38 @@
 /* Homepage polish — CSS only, no structure/JS changes */
 
 html{
-  background:#fff;
+  background:#fff!important;
 }
 body{
   background:#fff!important;
+  position:relative!important;
+  isolation:isolate!important;
+}
+/* Very subtle festive glow — barely-there peach/blush, not a wash */
+body:before,
+body:after{
+  content:""!important;
+  position:fixed!important;
+  width:min(460px,70vw)!important;
+  height:min(460px,70vw)!important;
+  border-radius:50%!important;
+  filter:blur(90px)!important;
+  pointer-events:none!important;
+  z-index:0!important;
+}
+body:before{
+  top:-6%!important;
+  left:-10%!important;
+  background:radial-gradient(circle,rgba(255,141,107,.16) 0%,transparent 70%)!important;
+}
+body:after{
+  right:-8%!important;
+  top:32%!important;
+  background:radial-gradient(circle,rgba(255,182,193,.14) 0%,transparent 70%)!important;
+}
+main#main-content{
+  position:relative!important;
+  z-index:1!important;
 }
 
 /* ========== Studio hero — white product-photo language ========== */
@@ -136,12 +164,12 @@ body{
 .hero .hero-actions{gap:10px!important}
 .hero .hero-actions .button-primary,
 .hero .hero-actions a.button-primary{
-  background:#ff6b5a!important;
-  background-image:none!important;
+  background:linear-gradient(135deg,#ff6b6b 0%,#ff8e53 100%)!important;
+  background-image:linear-gradient(135deg,#ff6b6b 0%,#ff8e53 100%)!important;
   border:0!important;
   border-radius:999px!important;
   min-height:52px!important;
-  box-shadow:0 8px 20px rgba(42,42,50,.08)!important;
+  box-shadow:0 10px 24px rgba(255,107,107,.28),0 4px 10px rgba(255,142,83,.16)!important;
   transform:none!important;
   animation:none!important;
   filter:none!important;
@@ -155,16 +183,17 @@ body{
 }
 .hero .hero-actions .button-primary:hover{
   transform:translateY(-1px)!important;
-  background:#e85a4a!important;
-  background-image:none!important;
+  background:linear-gradient(135deg,#ff5a5a 0%,#ff7a3d 100%)!important;
+  background-image:linear-gradient(135deg,#ff5a5a 0%,#ff7a3d 100%)!important;
+  box-shadow:0 14px 30px rgba(255,107,107,.34),0 6px 14px rgba(255,142,83,.2)!important;
   filter:none!important;
 }
 .hero .hero-actions .button-outline,
 .hero .hero-actions a.button-outline{
   background:#fff!important;
-  border:1.5px solid #e8e8ec!important;
+  border:0!important;
   border-radius:999px!important;
-  box-shadow:none!important;
+  box-shadow:0 4px 14px rgba(30,30,40,.06)!important;
   color:#2a2a32!important;
   transform:none!important;
   animation:none!important;
@@ -173,7 +202,7 @@ body{
 }
 .hero .hero-actions .button-outline:hover{
   transform:translateY(-1px)!important;
-  border-color:#d8d8de!important;
+  box-shadow:0 6px 18px rgba(30,30,40,.09)!important;
 }
 .hero .playful-title{
   color:#2a2a32!important;

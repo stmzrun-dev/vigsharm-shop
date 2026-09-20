@@ -75,14 +75,19 @@
 .catalog-filter-sheet-body select{
   display:block!important;width:100%;min-height:48px;
   font:inherit;font-weight:700;color:var(--ink);
-  background:#fff;border:1.5px solid #e4e7ee;border-radius:14px;padding:0 14px;
-  outline:none;transition:border-color .15s ease, box-shadow .15s ease;
+  background:#fff;border:1.5px solid #e4e7ee;border-radius:14px;padding:0 36px 0 14px;
+  outline:none;transition:border-color .15s ease, box-shadow .15s ease, background-color .15s ease;
 }
 .catalog-filter-sheet-body select:focus,
 .catalog-filter-sheet-body select:focus-visible{
   border-color:#9fd8dc!important;
   box-shadow:0 0 0 3px #9fd8dc33!important;
   outline:none!important;
+}
+.catalog-filter-sheet-body select.has-value{
+  border-color:#ff6b5a!important;
+  background-color:#fff7f6!important;
+  color:#ff6b5a!important;
 }
 .catalog-filter-sheet-foot{
   display:grid;grid-template-columns:1fr 1.15fr;gap:8px;
@@ -190,36 +195,25 @@
 .catalog-group-nav>button .catalog-group-icon{
   display:grid!important;
   place-items:center;
-  width:28px!important;
-  height:28px!important;
-  min-width:28px;
+  width:34px!important;
+  height:34px!important;
+  min-width:34px;
   padding:0!important;
-  border-radius:10px!important;
-  border:1.5px solid transparent!important;
+  border-radius:0!important;
+  border:0!important;
   overflow:visible!important;
-  box-shadow:0 2px 8px rgba(40,36,60,.05)!important;
+  background:transparent!important;
+  box-shadow:none!important;
 }
-.catalog-group-nav>button.catalog-group-all .catalog-group-icon{
-  background:#cfe6fb!important;
-  border-color:#b5d6f3!important;
-}
-.catalog-group-nav>button[data-group="ready"] .catalog-group-icon{
-  background:#ffd9e2!important;
-  border-color:#f5c0cd!important;
-}
-.catalog-group-nav>button[data-group="characters"] .catalog-group-icon{
-  background:#cfead8!important;
-  border-color:#b5dcc4!important;
-}
-.catalog-group-nav>button[data-group="unit"] .catalog-group-icon{
-  background:#d4e2f8!important;
-  border-color:#b9cef0!important;
-}
+.catalog-group-nav>button.catalog-group-all .catalog-group-icon,
+.catalog-group-nav>button[data-group="ready"] .catalog-group-icon,
+.catalog-group-nav>button[data-group="characters"] .catalog-group-icon,
+.catalog-group-nav>button[data-group="unit"] .catalog-group-icon,
 .catalog-group-nav>button[data-group="holidays"] .catalog-group-icon{
-  background:#e2d7f6!important;
-  border-color:#cebfeb!important;
+  background:transparent!important;
+  border:0!important;
 }
-.catalog-group-nav>button .catalog-group-icon img{width:18px!important;height:18px!important;object-fit:contain;object-position:center;display:block;background:transparent!important}
+.catalog-group-nav>button .catalog-group-icon img{width:28px!important;height:28px!important;object-fit:contain;object-position:center;display:block;background:transparent!important}
 .catalog-group-nav>button small{display:none!important}
 .catalog-group-nav>button>span:nth-child(2),.catalog-group-all>span:last-child{display:block!important;min-width:0;max-width:100%;width:100%}
 .catalog-group-nav strong{font-size:10.5px!important;line-height:1.15;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;max-width:100%;color:inherit!important;text-align:center}
@@ -289,9 +283,10 @@
 }
 .catalog-group-nav>button:active{transform:scale(.97)!important}
 .catalog-group-nav>button .catalog-group-icon{
-  width:28px!important;height:28px!important;min-width:28px;overflow:visible!important;
+  width:30px!important;height:30px!important;min-width:30px;overflow:visible!important;
+  background:transparent!important;box-shadow:none!important;
 }
-.catalog-group-nav>button .catalog-group-icon img{width:18px!important;height:18px!important}
+.catalog-group-nav>button .catalog-group-icon img{width:26px!important;height:26px!important}
 .catalog-group-nav strong{font-size:11px!important;line-height:1.15}
 
 .catalog-subcategories{width:calc(100% - 20px);gap:6px;padding:0 0 8px;margin:0 auto}
@@ -450,10 +445,12 @@
   width:34px!important;
   height:34px!important;
   min-width:34px;
+  background:transparent!important;
+  box-shadow:none!important;
 }
 .catalog-group-nav>button .catalog-group-icon img{
-  width:34px!important;
-  height:34px!important;
+  width:28px!important;
+  height:28px!important;
 }
 .catalog-group-nav strong{
   font-size:12.5px!important;

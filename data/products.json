@@ -2,6 +2,188 @@
   "ok": true,
   "products": [
     {
+      "id": "8b8b036e-089d-41b9-852a-7bee30d90216",
+      "title": "Выдержанный праздник",
+      "article": "HIM-008",
+      "price": 3620,
+      "short_description": "Фольгированная бутылка виски с надписью Aged to Perfection в окружении золотых и чёрных шаров.",
+      "full_description": "Стильная композиция с фигурой бутылки виски, золотыми звёздами и шарами с конфетти. Чёрно-золотая гамма подчёркивает элегантность момента.",
+      "composition": [
+        "фольгированная фигура бутылки виски",
+        "10 латексных шаров",
+        "4 шара с конфетти",
+        "2 фольгированные звезды"
+      ],
+      "category": "Для него",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары с бутылкой виски на юбилей в Армавире — VigSharm",
+      "seo_description": "Элегантная композиция с фольгированной бутылкой виски, золотыми звёздами и шарами. Стильное оформление юбилея. Доставка в Армавире.",
+      "slug": "vyderzhannyy-prazdnik",
+      "scene": "wall_only",
+      "tags": [
+        "Для него"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1789933512/vigsharm-products/sfefobdnk0tsrimzof16.jpg"
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1789933750/vigsharm-products/ytbtt1wexy34y7vkqezh.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789933750/vigsharm-products/ytbtt1wexy34y7vkqezh.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-20T19:52:09.930Z",
+      "updated_at": "2026-09-20T19:52:09.930Z"
+    },
+    {
+      "id": "73780589-6c25-4dfe-92f0-a6b7ce15a676",
+      "title": "Тёмное золото",
+      "article": "HIM-007",
+      "price": 3900,
+      "short_description": "Чёрный баблс с золотой надписью и фонтан из хромированных шаров.",
+      "full_description": "Элегантная композиция в чёрно-золотых тонах: прозрачный баблс с индивидуальной надписью и декоративной лентой тассел, фонтан из хромированных и латексных шаров.",
+      "composition": [
+        "баблс с индивидуальной надписью и лентой тассел",
+        "5 хромированных шаров",
+        "5 латексных шаров"
+      ],
+      "category": "Для него",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Тёмное золото — чёрно-золотая композиция из шаров в Армавире",
+      "seo_description": "Элегантная композиция из чёрного баблса с золотой надписью и фонтана хромированных шаров. Стильное оформление праздника. Доставка по Армавиру.",
+      "slug": "temnoye-zoloto",
+      "scene": "wall_only",
+      "tags": [
+        "Для него"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1789932341/vigsharm-products/e1nyy2xchxmijrqmbwrq.jpg"
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1789932965/vigsharm-products/mtiq7ij2dvyootamf7oc.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789932965/vigsharm-products/mtiq7ij2dvyootamf7oc.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-20T19:39:09.715Z",
+      "updated_at": "2026-09-20T19:39:09.715Z"
+    },
+    {
+      "id": "3b33b842-7e6f-4487-bdb6-15bf5e7ac5c6",
+      "title": "Фигура,6 шаров хром,3 латексных шара,Звезда,Коро",
+      "article": "DG-002",
+      "price": 4,
+      "short_description": "",
+      "full_description": "",
+      "composition": [
+        "Фигура",
+        "6 шаров хром",
+        "3 латексных шара",
+        "Звезда",
+        "Коробка 70 × 70 × 70 см с декором"
+      ],
+      "category": "Коробка-сюрприз",
+      "character": null,
+      "age_group": "Для детей",
+      "budget": "до 1 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "figura-6-sharov-hrom-3-lateksnyh-shara-zvezda-koro",
+      "scene": "floor",
+      "tags": [
+        "Коробка-сюрприз"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1789931907/vigsharm-products/odvc3q2n9raiodaxbqur.jpg"
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1789932103/vigsharm-products/wrt0j6nex91minaov4gw.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789932103/vigsharm-products/wrt0j6nex91minaov4gw.png",
+      "status": "draft",
+      "show_on_site": false,
+      "created_at": "2026-09-20T19:21:44.475Z",
+      "updated_at": "2026-09-20T19:21:44.475Z"
+    },
+    {
+      "id": "f32da3e1-f483-41a5-862c-4fbf3a51cfea",
+      "title": "Бирюзовый тост",
+      "article": "JUB-006",
+      "price": 5590,
+      "short_description": "Напольная композиция с цифрой 60 и бутылкой шампанского в бирюзовых тонах.",
+      "full_description": "Элегантная композиция с крупными фольгированными цифрами 60, бутылкой шампанского и бокалом. Дополнена цветами из шаров, хромированными акцентами и фольгированным сердцем.",
+      "composition": [
+        "напольная композиция",
+        "фольгированное сердце",
+        "2 хромированных шара",
+        "шар-сердце"
+      ],
+      "category": "Юбилей",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "5 000–8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Напольная композиция с цифрой 60 и шампанским — Армавир",
+      "seo_description": "Элегантная композиция для юбилея 60 лет с фольгированными цифрами, бутылкой шампанского, сердцем и хромированными шарами. Доставка в Армавире.",
+      "slug": "biryuzovyy-tost",
+      "scene": "floor",
+      "tags": [
+        "Юбилей"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": true,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1789931498/vigsharm-products/yvs52bith8h4ccxavmeg.jpg",
+        "rental": {
+          "enabled": true,
+          "item": "Каркас фотозоны",
+          "days": 3,
+          "keep_price_delta": 500
+        }
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1789931635/vigsharm-products/uxgq4puv7xquxqjwbgac.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789931635/vigsharm-products/uxgq4puv7xquxqjwbgac.png",
+      "status": "draft",
+      "show_on_site": false,
+      "created_at": "2026-09-20T19:16:23.874Z",
+      "updated_at": "2026-09-20T19:16:23.874Z"
+    },
+    {
       "id": "488a857b-6952-4b16-b543-4cf45c387518",
       "title": "Изумрудный юбилей",
       "article": "JUB-005",

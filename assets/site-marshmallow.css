@@ -763,7 +763,7 @@ html body main#main-content .quick-recipient-section{
 }
 html body main#main-content .quick-recipient-card{
   border:0!important;
-  overflow:hidden!important;
+  overflow:visible!important;
 }
 html body main#main-content .quick-recipient-card.pink{
   background:linear-gradient(180deg,#fff 0%,#fff5f8 100%)!important;
@@ -777,14 +777,18 @@ html body main#main-content .quick-recipient-card.purple{
 html body main#main-content .quick-recipient-card.navy{
   background:linear-gradient(180deg,#fff 0%,#f2f5fb 100%)!important;
 }
+/* contain + inset padding — tops of crowns/rockets must stay inside the tile */
 html body main#main-content .quick-recipient-card img{
   width:100%!important;
   height:auto!important;
+  max-height:none!important;
   aspect-ratio:1/1!important;
-  object-fit:cover!important;
-  object-position:center!important;
+  box-sizing:border-box!important;
+  padding:12px!important;
+  object-fit:contain!important;
+  object-position:center center!important;
   border-radius:14px!important;
-  background:#f6f7f9!important;
+  background:transparent!important;
   display:block!important;
 }
 html body main#main-content .quick-recipient-card strong{
@@ -800,14 +804,14 @@ html body main#main-content .quick-recipient-card small{
     gap:10px!important;
   }
   html body main#main-content .quick-recipient-card{
-    padding:8px 8px 12px!important;
+    padding:10px 10px 12px!important;
     border-radius:18px!important;
   }
   html body main#main-content .quick-recipient-card img{
-    aspect-ratio:4/3!important;
-    max-height:min(200px,42vw)!important;
+    aspect-ratio:1/1!important;
+    max-height:none!important;
     border-radius:12px!important;
-    object-fit:cover!important;
+    object-fit:contain!important;
   }
   html body main#main-content .quick-recipient-card strong{
     font-size:14px!important;
@@ -823,12 +827,96 @@ html body main#main-content .quick-recipient-card small{
     padding:0 16px 4px!important;
   }
   html body main#main-content .quick-recipient-card{
-    padding:6px 6px 10px!important;
+    padding:8px 8px 10px!important;
     border-radius:16px!important;
   }
   html body main#main-content .quick-recipient-card img{
-    max-height:min(160px,44vw)!important;
+    max-height:none!important;
     border-radius:12px!important;
+    object-fit:contain!important;
+  }
+}
+
+/* Product fulfillment chips — show full pickup/city/far icons on phone */
+html body #main-content .order-details.product-step,
+html body #product-root .order-details.product-step,
+html body .product-page .order-details.product-step,
+html body .product-page .fulfillment-field,
+html body .product-page .fulfillment-options,
+html body .product-page .fulfillment-options > button{
+  overflow:visible!important;
+}
+html body #main-content .fulfillment-options > button,
+html body #product-root .fulfillment-options > button,
+html body main.product-page .fulfillment-options > button,
+html body .product-page .fulfillment-options > button{
+  overflow:visible!important;
+  min-height:0!important;
+  padding:12px 6px 10px!important;
+  gap:6px!important;
+}
+html body #main-content .ful-icon,
+html body #product-root .ful-icon,
+html body main.product-page .ful-icon,
+html body .product-page .ful-icon{
+  width:56px!important;
+  height:56px!important;
+  min-width:56px!important;
+  min-height:56px!important;
+  max-width:none!important;
+  max-height:none!important;
+  flex:0 0 56px!important;
+  border-radius:16px!important;
+  overflow:visible!important;
+  background:transparent!important;
+  padding:0!important;
+  display:grid!important;
+  place-items:center!important;
+  box-sizing:border-box!important;
+}
+html body #main-content .ful-icon img,
+html body #product-root .ful-icon img,
+html body main.product-page .ful-icon img,
+html body .product-page .ful-icon img{
+  width:56px!important;
+  height:56px!important;
+  min-width:56px!important;
+  min-height:56px!important;
+  max-width:none!important;
+  max-height:none!important;
+  object-fit:contain!important;
+  object-position:center!important;
+  display:block!important;
+  flex:none!important;
+  overflow:visible!important;
+}
+@media (max-width:720px){
+  html body #main-content .fulfillment-options,
+  html body #product-root .fulfillment-options,
+  html body main.product-page .fulfillment-options,
+  html body .product-page .fulfillment-options{
+    grid-template-columns:repeat(3,minmax(0,1fr))!important;
+    gap:8px!important;
+  }
+  html body #main-content .fulfillment-options > button,
+  html body #product-root .fulfillment-options > button,
+  html body main.product-page .fulfillment-options > button,
+  html body .product-page .fulfillment-options > button{
+    padding:10px 4px 8px!important;
+  }
+  html body #main-content .ful-icon,
+  html body #main-content .ful-icon img,
+  html body #product-root .ful-icon,
+  html body #product-root .ful-icon img,
+  html body main.product-page .ful-icon,
+  html body main.product-page .ful-icon img,
+  html body .product-page .ful-icon,
+  html body .product-page .ful-icon img{
+    width:52px!important;
+    height:52px!important;
+    min-width:52px!important;
+    min-height:52px!important;
+    flex-basis:52px!important;
   }
 }
 
@@ -1033,6 +1121,240 @@ html body main#main-content #budget .budget-icon img{
   }
   html body main#main-content #budget .budget-card small{
     font-size:12px!important;
+  }
+}
+
+/* ===== How-to-order + bottom — marshmallow language ===== */
+html body main#main-content #delivery.steps-section,
+html body main#main-content .steps-section{
+  background:transparent!important;
+}
+html body main#main-content #delivery .step-card,
+html body main#main-content .steps .step-card,
+html body main#main-content .steps li.step-card{
+  border:0!important;
+  border-width:0!important;
+  background:#fff!important;
+  background-image:none!important;
+  box-shadow:var(--mm-shadow)!important;
+  border-radius:var(--mm-radius)!important;
+}
+html body main#main-content #delivery .step-card:hover,
+html body main#main-content .steps .step-card:hover{
+  border:0!important;
+  box-shadow:var(--mm-shadow-hover)!important;
+  transform:translateY(-2px)!important;
+}
+html body main#main-content #delivery .step-number,
+html body main#main-content .step-number{
+  color:#ff8e7a!important;
+  font-weight:800!important;
+  letter-spacing:.06em!important;
+}
+html body main#main-content #delivery .step-icon,
+html body main#main-content .step-icon{
+  border:0!important;
+  border-radius:16px!important;
+  overflow:hidden!important;
+  padding:8px!important;
+}
+html body main#main-content #delivery .step-pink .step-icon,
+html body main#main-content .step-pink .step-icon{
+  background:#fff1f0!important;
+}
+html body main#main-content #delivery .step-blue .step-icon,
+html body main#main-content .step-blue .step-icon{
+  background:#eef6ff!important;
+}
+html body main#main-content #delivery .step-yellow .step-icon,
+html body main#main-content .step-yellow .step-icon{
+  background:#fffbeb!important;
+}
+html body main#main-content #delivery .step-card strong,
+html body main#main-content .step-card strong{
+  color:#1e293b!important;
+}
+html body main#main-content #delivery .step-card p,
+html body main#main-content .step-card p{
+  color:#8b8b93!important;
+}
+
+html body main#main-content .service-info,
+html body main#main-content .service-info.section{
+  background:transparent!important;
+}
+html body main#main-content .service-info a.delivery-card,
+html body main#main-content .service-info a.price-card,
+html body main#main-content .service-info .delivery-card,
+html body main#main-content .service-info .price-card{
+  border:0!important;
+  border-width:0!important;
+  background:#fff!important;
+  background-image:none!important;
+  box-shadow:var(--mm-shadow)!important;
+  border-radius:var(--mm-radius)!important;
+}
+html body main#main-content .service-info a.delivery-card:hover,
+html body main#main-content .service-info a.price-card:hover{
+  border:0!important;
+  box-shadow:var(--mm-shadow-hover)!important;
+  transform:translateY(-2px)!important;
+}
+html body main#main-content .service-info .info-icon{
+  width:88px!important;
+  height:88px!important;
+  padding:8px!important;
+  border-radius:16px!important;
+  background:#fff5f2!important;
+  box-sizing:border-box!important;
+}
+html body main#main-content .service-info .price-card .info-icon{
+  background:#fff8eb!important;
+}
+html body main#main-content .service-info .price-list strong,
+html body main#main-content .service-info li strong{
+  color:#ff6b5a!important;
+}
+html body main#main-content .service-info .info-page-link,
+html body main#main-content .service-info span.info-page-link{
+  color:#8b8b93!important;
+  font-weight:700!important;
+  text-decoration:underline!important;
+  text-underline-offset:3px!important;
+  text-decoration-color:rgba(139,139,147,.4)!important;
+}
+html body main#main-content .service-info a.delivery-card:hover .info-page-link,
+html body main#main-content .service-info a.price-card:hover .info-page-link{
+  color:#ff6b5a!important;
+  text-decoration-color:rgba(255,107,90,.45)!important;
+}
+
+html body main#main-content #about.studio-story,
+html body main#main-content .studio-story{
+  background:transparent!important;
+}
+html body main#main-content #about .story-art,
+html body main#main-content .studio-story .story-art{
+  border-radius:24px!important;
+  box-shadow:var(--mm-shadow)!important;
+  overflow:hidden!important;
+}
+html body main#main-content #about .story-link,
+html body main#main-content .studio-story .story-link{
+  border:0!important;
+  background:#fff8f5!important;
+  box-shadow:0 4px 14px rgba(255,107,90,.08)!important;
+  border-radius:999px!important;
+  font-weight:800!important;
+  color:#1e293b!important;
+}
+html body main#main-content #about .story-link:hover,
+html body main#main-content .studio-story .story-link:hover{
+  border:0!important;
+  background:#fff!important;
+  color:#ff6b5a!important;
+  box-shadow:0 8px 20px rgba(255,107,90,.12)!important;
+}
+
+html body main#main-content .faq-section,
+html body main#main-content .faq-section.section{
+  background:transparent!important;
+}
+html body main#main-content .faq-list details{
+  border:0!important;
+  border-width:0!important;
+  background:#fff!important;
+  box-shadow:var(--mm-shadow)!important;
+  border-radius:18px!important;
+  padding:0!important;
+}
+html body main#main-content .faq-list details[open]{
+  border:0!important;
+  box-shadow:var(--mm-shadow-hover)!important;
+}
+html body main#main-content .faq-list summary > b{
+  border:0!important;
+  background:#fff5f2!important;
+  color:#ff6b5a!important;
+  box-shadow:none!important;
+}
+html body main#main-content .faq-list details[open] summary > b{
+  background:#ff6b5a!important;
+  color:#fff!important;
+  border:0!important;
+}
+html body main#main-content .faq-list summary > span{
+  color:#ff8e7a!important;
+}
+
+html body main#main-content footer .footer-cta{
+  border:0!important;
+  background:linear-gradient(135deg,#fff 0%,#fff6f2 100%)!important;
+  box-shadow:var(--mm-shadow)!important;
+  border-radius:var(--mm-radius-lg)!important;
+}
+html body main#main-content footer .footer-cta button,
+html body main#main-content footer .footer-cta > button{
+  background:var(--mm-accent-grad)!important;
+  background-image:var(--mm-accent-grad)!important;
+  border:0!important;
+  border-radius:999px!important;
+  color:#fff!important;
+  font-weight:800!important;
+  box-shadow:0 10px 24px rgba(255,107,107,.28),0 4px 10px rgba(255,142,83,.16)!important;
+  padding:14px 22px!important;
+}
+html body main#main-content footer .footer-cta button:hover{
+  background:linear-gradient(135deg,#ff5a5a 0%,#ff7a3d 100%)!important;
+  background-image:linear-gradient(135deg,#ff5a5a 0%,#ff7a3d 100%)!important;
+}
+html body main#main-content footer .footer-phone,
+html body main#main-content footer .footer-contacts button{
+  border:0!important;
+  background:#fff!important;
+  box-shadow:0 4px 14px rgba(30,30,40,.06)!important;
+  border-radius:16px!important;
+}
+
+/* Sticky mobile CTA — same marshmallow chrome as footer contacts */
+html body main#main-content .homepage-mobile-cta,
+html body .homepage-mobile-cta{
+  border:0!important;
+  background:#ffffffe8!important;
+  box-shadow:0 10px 28px rgba(30,30,40,.10),0 2px 8px rgba(255,107,90,.06)!important;
+  border-radius:999px!important;
+}
+html body main#main-content .homepage-mobile-cta strong,
+html body .homepage-mobile-cta strong{
+  color:#1e293b!important;
+}
+html body main#main-content .homepage-mobile-cta small,
+html body .homepage-mobile-cta small{
+  color:#8b8b93!important;
+}
+
+@media (max-width:720px){
+  html body main#main-content #delivery .step-card,
+  html body main#main-content .steps .step-card{
+    border-radius:18px!important;
+  }
+  html body main#main-content #delivery .step-icon,
+  html body main#main-content .step-icon{
+    border-radius:14px!important;
+    padding:6px!important;
+  }
+  html body main#main-content .service-info .info-icon{
+    width:72px!important;
+    height:72px!important;
+    border-radius:14px!important;
+  }
+  html body main#main-content footer .footer-cta{
+    grid-template-columns:1fr!important;
+    padding:20px 18px!important;
+    border-radius:20px!important;
+  }
+  html body main#main-content footer .footer-cta button{
+    width:100%!important;
   }
 }
 

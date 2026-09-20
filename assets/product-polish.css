@@ -243,19 +243,21 @@
   padding:10px 6px!important;
 }
 .product-page .ful-icon{
-  width:44px;
-  height:44px;
-  border-radius:14px;
+  width:56px;
+  height:56px;
+  border-radius:16px;
   display:grid;
   place-items:center;
   flex:none;
-  background:#fff!important;
+  overflow:visible;
+  background:transparent!important;
 }
 .product-page .ful-icon img{
-  width:40px;
-  height:40px;
+  width:56px;
+  height:56px;
   display:block;
   object-fit:contain;
+  object-position:center;
 }
 .product-page .ful-pickup,
 .product-page .ful-city,

@@ -757,3 +757,282 @@ html body main#main-content .hero .hero-actions a.button-primary{
   }
 }
 
+/* ===== Quick recipient «Для кого» — fix + marshmallow compact tiles ===== */
+html body main#main-content .quick-recipient-section{
+  background:transparent!important;
+}
+html body main#main-content .quick-recipient-card{
+  border:0!important;
+  overflow:hidden!important;
+}
+html body main#main-content .quick-recipient-card.pink{
+  background:linear-gradient(180deg,#fff 0%,#fff5f8 100%)!important;
+}
+html body main#main-content .quick-recipient-card.blue{
+  background:linear-gradient(180deg,#fff 0%,#f3f8ff 100%)!important;
+}
+html body main#main-content .quick-recipient-card.purple{
+  background:linear-gradient(180deg,#fff 0%,#f7f3ff 100%)!important;
+}
+html body main#main-content .quick-recipient-card.navy{
+  background:linear-gradient(180deg,#fff 0%,#f2f5fb 100%)!important;
+}
+html body main#main-content .quick-recipient-card img{
+  width:100%!important;
+  height:auto!important;
+  aspect-ratio:1/1!important;
+  object-fit:cover!important;
+  object-position:center!important;
+  border-radius:14px!important;
+  background:#f6f7f9!important;
+  display:block!important;
+}
+html body main#main-content .quick-recipient-card strong{
+  color:#1e293b!important;
+  font-weight:800!important;
+}
+html body main#main-content .quick-recipient-card small{
+  color:#8b8b93!important;
+}
+
+@media (max-width:1100px){
+  html body main#main-content .quick-recipient-list{
+    gap:10px!important;
+  }
+  html body main#main-content .quick-recipient-card{
+    padding:8px 8px 12px!important;
+    border-radius:18px!important;
+  }
+  html body main#main-content .quick-recipient-card img{
+    aspect-ratio:4/3!important;
+    max-height:min(200px,42vw)!important;
+    border-radius:12px!important;
+    object-fit:cover!important;
+  }
+  html body main#main-content .quick-recipient-card strong{
+    font-size:14px!important;
+  }
+}
+
+@media (max-width:720px){
+  html body main#main-content .quick-recipient-section{
+    padding-top:12px!important;
+  }
+  html body main#main-content .quick-recipient-list{
+    gap:8px!important;
+    padding:0 16px 4px!important;
+  }
+  html body main#main-content .quick-recipient-card{
+    padding:6px 6px 10px!important;
+    border-radius:16px!important;
+  }
+  html body main#main-content .quick-recipient-card img{
+    max-height:min(160px,44vw)!important;
+    border-radius:12px!important;
+  }
+}
+
+/* ===== Popular products — catalog language on homepage ===== */
+html body main#main-content #products.live-products-section,
+html body main#main-content #products.homepage-first-products{
+  background:transparent!important;
+}
+html body main#main-content #products a.live-product-card,
+html body main#main-content #products .live-product-card{
+  border:0!important;
+  border-width:0!important;
+  background:#fff!important;
+  background-image:none!important;
+  box-shadow:var(--mm-shadow)!important;
+  padding:10px 10px 14px!important;
+  border-radius:var(--mm-radius)!important;
+}
+html body main#main-content #products a.live-product-card:hover,
+html body main#main-content #products .live-product-card:hover{
+  box-shadow:var(--mm-shadow-hover)!important;
+  border:0!important;
+  transform:translateY(-2px)!important;
+}
+html body main#main-content #products .live-product-image{
+  aspect-ratio:1/1!important;
+  border-radius:14px!important;
+  background:#f6f7f9!important;
+  overflow:hidden!important;
+}
+html body main#main-content #products .live-product-image img{
+  object-fit:cover!important;
+  width:100%!important;
+  height:100%!important;
+  transform:none!important;
+}
+html body main#main-content #products .live-product-meta > small{
+  background:#f3f0ff!important;
+  color:#7c5cff!important;
+  border-radius:999px!important;
+  padding:2px 8px!important;
+  font-weight:800!important;
+  font-size:11px!important;
+}
+html body main#main-content #products .live-product-copy > strong{
+  color:#1e293b!important;
+  font-weight:800!important;
+}
+html body main#main-content #products .live-product-copy > span:not(.live-product-meta){
+  color:#b5a29c!important;
+  font-size:12.5px!important;
+  -webkit-line-clamp:1!important;
+}
+html body main#main-content #products .live-product-copy > b{
+  color:#ff6b5a!important;
+  font-weight:800!important;
+  font-size:17px!important;
+  letter-spacing:-.02em!important;
+  margin-top:6px!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:space-between!important;
+  gap:8px!important;
+}
+html body main#main-content #products .live-product-copy i,
+html body main#main-content #products .live-product-copy > b > i{
+  background:transparent!important;
+  background-image:none!important;
+  color:#8b8b93!important;
+  box-shadow:none!important;
+  border-radius:0!important;
+  min-width:0!important;
+  min-height:auto!important;
+  width:auto!important;
+  height:auto!important;
+  padding:0!important;
+  font-size:13px!important;
+  font-weight:700!important;
+  font-style:normal!important;
+  text-decoration:underline!important;
+  text-underline-offset:2px!important;
+  text-decoration-color:rgba(139,139,147,.4)!important;
+}
+html body main#main-content #products .popular-footer .button-outline,
+html body main#main-content #products .popular-footer a.button-outline{
+  border:0!important;
+  box-shadow:0 4px 14px rgba(30,30,40,.06)!important;
+  border-radius:999px!important;
+  font-weight:800!important;
+}
+
+@media (max-width:720px){
+  html body main#main-content #products a.live-product-card,
+  html body main#main-content #products .live-product-card{
+    min-width:min(78vw,300px)!important;
+    padding:8px 8px 12px!important;
+    border-radius:18px!important;
+  }
+  html body main#main-content #products .live-product-image{
+    border-radius:12px!important;
+  }
+  html body main#main-content #products .live-product-copy i,
+  html body main#main-content #products .live-product-copy > b > i{
+    font-size:12px!important;
+    background:transparent!important;
+    color:#8b8b93!important;
+    height:auto!important;
+    padding:0!important;
+  }
+}
+
+/* ===== Budget — soft pastel icon tiles + marshmallow cards ===== */
+html body main#main-content #budget.budget-section{
+  background:transparent!important;
+}
+html body main#main-content #budget a.budget-card,
+html body main#main-content #budget .budget-card{
+  border:0!important;
+  border-width:0!important;
+  background:#fff!important;
+  background-image:none!important;
+  box-shadow:var(--mm-shadow)!important;
+  border-radius:18px!important;
+  padding:10px 12px!important;
+  gap:12px!important;
+  transition:transform .15s ease, box-shadow .15s ease!important;
+}
+html body main#main-content #budget a.budget-card:hover,
+html body main#main-content #budget .budget-card:hover{
+  transform:translateY(-2px)!important;
+  box-shadow:var(--mm-shadow-hover)!important;
+  border:0!important;
+}
+html body main#main-content #budget .budget-card strong{
+  color:#1e293b!important;
+  font-weight:800!important;
+}
+html body main#main-content #budget .budget-card small{
+  color:#8b8b93!important;
+}
+html body main#main-content #budget .budget-icon{
+  border:0!important;
+  border-radius:14px!important;
+  overflow:hidden!important;
+  padding:4px!important;
+}
+html body main#main-content #budget .budget-card.budget-red .budget-icon,
+html body main#main-content #budget a.budget-red .budget-icon{
+  background:#fff1f0!important;
+}
+html body main#main-content #budget .budget-card.budget-orange .budget-icon,
+html body main#main-content #budget a.budget-orange .budget-icon{
+  background:#fff5eb!important;
+}
+html body main#main-content #budget .budget-card.budget-yellow .budget-icon,
+html body main#main-content #budget a.budget-yellow .budget-icon{
+  background:#fffbeb!important;
+}
+html body main#main-content #budget .budget-card.budget-green .budget-icon,
+html body main#main-content #budget a.budget-green .budget-icon{
+  background:#eefbf2!important;
+}
+html body main#main-content #budget .budget-card.budget-blue .budget-icon,
+html body main#main-content #budget a.budget-blue .budget-icon{
+  background:#eef6ff!important;
+}
+html body main#main-content #budget .budget-card.budget-purple .budget-icon,
+html body main#main-content #budget a.budget-purple .budget-icon{
+  background:#f5f0ff!important;
+}
+html body main#main-content #budget .budget-icon img{
+  object-fit:cover!important;
+  border-radius:10px!important;
+}
+
+@media (max-width:720px){
+  html body main#main-content #budget.budget-section{
+    padding:0 16px!important;
+    margin-top:20px!important;
+  }
+  html body main#main-content #budget .budget-heading{
+    margin-bottom:10px!important;
+  }
+  html body main#main-content #budget .budgets{
+    gap:8px!important;
+  }
+  html body main#main-content #budget a.budget-card,
+  html body main#main-content #budget .budget-card{
+    grid-template-columns:56px 1fr!important;
+    padding:8px 10px!important;
+    border-radius:16px!important;
+    gap:10px!important;
+  }
+  html body main#main-content #budget .budget-icon{
+    width:56px!important;
+    height:56px!important;
+    flex-basis:56px!important;
+    border-radius:12px!important;
+  }
+  html body main#main-content #budget .budget-card strong{
+    font-size:15px!important;
+  }
+  html body main#main-content #budget .budget-card small{
+    font-size:12px!important;
+  }
+}
+

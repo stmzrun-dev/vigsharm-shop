@@ -2,6 +2,62 @@
   "ok": true,
   "products": [
     {
+      "id": "cf610690-83b3-4993-aa57-3e175c9f60cf",
+      "title": "Оливковая нежность",
+      "article": "PHT-007",
+      "price": 7040,
+      "short_description": "Фотозона в оливковых и белых тонах с цифрой, сердцами и баблс с индивидуальной надписью.",
+      "full_description": "Фотозона выполнена в нежной оливково-белой гамме с прозрачными шарами с конфетти. Включает мольберт с персонализированной табличкой, фольгированную цифру, сердца и баблс с надписью.",
+      "composition": [
+        "фотозона",
+        "баблс с надписью",
+        "4 шара с конфетти",
+        "3 шара",
+        "3 сердца"
+      ],
+      "category": "Фотозона",
+      "character": null,
+      "age_group": "Для детей",
+      "budget": "5 000–8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Фотозона Оливковая нежность — Армавир | VigSharm",
+      "seo_description": "Фотозона в оливковых и белых тонах с цифрой, сердцами и баблс. Персонализация под ваш праздник. Доставка по Армавиру.",
+      "slug": "olivkovaya-nezhnost",
+      "scene": "photozone",
+      "tags": [
+        "Фотозона"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": true,
+        "photozone_rental": true,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1789891174/vigsharm-products/qwjkmsnhngrtklnvw5ry.png",
+        "photozone_type": "easel",
+        "rental": {
+          "enabled": true,
+          "item": "Мольберт с кругом из полистирола",
+          "days": 3,
+          "keep_price_delta": 500
+        },
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1789891393/vigsharm-products/ppjmq7iyte1va3nudu00.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789891393/vigsharm-products/ppjmq7iyte1va3nudu00.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-20T08:04:05.465Z",
+      "updated_at": "2026-09-20T08:04:05.465Z"
+    },
+    {
       "id": "34c03f9f-cd79-42d4-b48d-3dae46c8fd8d",
       "title": "Юнга на борту",
       "article": "FIG-006",

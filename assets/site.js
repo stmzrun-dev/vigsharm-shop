@@ -393,8 +393,10 @@
     if (menuBtn) menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
     document.body.style.overflow = open ? 'hidden' : '';
     if (open) {
+      nav.scrollTop = 0;
       requestAnimationFrame(function () {
-        if (closeBtn) closeBtn.focus();
+        nav.scrollTop = 0;
+        if (closeBtn) closeBtn.focus({ preventScroll: true });
       });
     } else if (wasOpen && menuBtn) {
       menuBtn.focus();

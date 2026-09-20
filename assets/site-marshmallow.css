@@ -519,3 +519,61 @@ html body .product-page .comp-check{
   font-size:12px;
   flex:none;
 }
+
+/* ===== Catalog chrome warmth — soft peach, coral price, quieter blurbs ===== */
+/* Specificity must beat main#main-content / main#main-content > * (ID selectors) */
+html body main#main-content.catalog-page{
+  background-color:#fffaf8!important;
+  background-image:radial-gradient(ellipse 80% 40% at 50% 0%,rgba(255,180,150,.16) 0%,transparent 70%)!important;
+}
+html body main#main-content.catalog-page > .catalog-controls{
+  padding:12px!important;
+  border-radius:20px!important;
+  background-color:#fff5f0!important;
+  background-image:linear-gradient(180deg,#ffffff 0%,#fff5f0 100%)!important;
+  box-shadow:0 8px 24px rgba(255,107,90,.06),0 1px 0 rgba(255,255,255,.8) inset!important;
+  border:1px solid rgba(255,200,180,.45)!important;
+}
+html body main#main-content.catalog-page .catalog-search,
+html body main#main-content.catalog-page .catalog-controls select,
+html body main#main-content.catalog-page .catalog-mobile-filter-toggle{
+  background-color:#fffdfb!important;
+  border-color:#f0ddd4!important;
+}
+html body main#main-content.catalog-page .catalog-results-heading h2{
+  color:#1e293b!important;
+}
+html body main#main-content.catalog-page .catalog-results-counts,
+html body main#main-content.catalog-page .catalog-results-counts span{
+  color:#a07870!important;
+}
+/* Coral price — brand accent on the money signal */
+html body main#main-content.catalog-page .catalog-card .catalog-card-price b{
+  color:#ff6b5a!important;
+  font-weight:800!important;
+  letter-spacing:-.02em!important;
+}
+html body main#main-content.catalog-page .catalog-card .catalog-card-price small{
+  color:#c4a39a!important;
+}
+/* Quieter card blurbs — one line, less gray noise under titles */
+html body main#main-content.catalog-page .catalog-card-copy > span:not(.catalog-card-meta):not(.catalog-card-price){
+  color:#b5a29c!important;
+  font-size:12.5px!important;
+  line-height:1.35!important;
+  display:-webkit-box!important;
+  -webkit-box-orient:vertical!important;
+  -webkit-line-clamp:1!important;
+  overflow:hidden!important;
+  opacity:.92!important;
+}
+/* Group chips stay pastel; active gets soft coral glow */
+html body main#main-content.catalog-page .catalog-group-nav > button.active{
+  box-shadow:0 0 0 1.5px #ff6b5a,0 8px 20px rgba(255,107,90,.14)!important;
+}
+html body main#main-content.catalog-page .catalog-group-nav > button .catalog-group-icon img{
+  display:block!important;
+  width:28px!important;
+  height:28px!important;
+  object-fit:contain!important;
+}

@@ -11,7 +11,7 @@
   background:#fff!important;
   padding:20px 18px max(20px, env(safe-area-inset-bottom))!important;
   box-shadow:-16px 0 50px rgba(30,30,40,.10)!important;
-  position:relative!important;
+  /* keep position:fixed from base drawer — relative breaks slide-in */
   overflow-y:auto!important;
 }
 .header .nav.nav-open:before{
@@ -194,5 +194,99 @@
   font-size:13px!important;
   color:#8b8b93!important;
   margin-top:6px!important;
+}
+
+/* Phone ≤650: compact so Catalog→footer fit without scrolling away the top */
+@media (width<=650px){
+.header .nav.nav-open{
+  width:min(92vw,380px)!important;
+  max-height:min(100dvh,100vh)!important;
+  padding:10px 12px max(10px, env(safe-area-inset-bottom))!important;
+  overflow-y:auto!important;
+  overscroll-behavior:contain!important;
+}
+.header .nav .mobile-menu-head{
+  min-height:44px!important;
+  margin-bottom:8px!important;
+}
+.header .nav .mobile-menu-head strong{
+  font-size:22px!important;
+}
+.header .nav .mobile-menu-head > button{
+  width:38px!important;
+  height:38px!important;
+}
+.header .nav > a,
+.header .nav > button{
+  min-height:48px!important;
+  padding:6px 8px!important;
+  gap:10px!important;
+  border-radius:14px!important;
+  grid-template-columns:40px minmax(0,1fr)!important;
+  font-size:15px!important;
+}
+.header .nav .nav-icon{
+  width:40px!important;
+  height:40px!important;
+  border-radius:12px!important;
+}
+.header .nav .nav-icon img{
+  max-width:34px!important;
+  max-height:34px!important;
+}
+.header .nav .mobile-menu-footer{
+  margin-top:8px!important;
+  padding:12px!important;
+  border-radius:18px!important;
+  gap:8px!important;
+}
+.header .nav .mobile-menu-footer > a.mobile-phone{
+  min-height:48px!important;
+  padding:6px 10px!important;
+  grid-template-columns:36px minmax(0,1fr)!important;
+  gap:10px!important;
+  overflow:hidden!important;
+  width:100%!important;
+  max-width:100%!important;
+  box-sizing:border-box!important;
+}
+.header .nav .mobile-phone > img,
+.header .nav .mobile-phone .vig-emoji{
+  width:36px!important;
+  height:36px!important;
+  max-width:36px!important;
+}
+.header .nav .mobile-phone > span,
+.header .nav .mobile-phone > div{
+  min-width:0!important;
+  overflow:hidden!important;
+}
+.header .nav .mobile-phone strong{
+  font-size:14px!important;
+  min-width:0!important;
+  max-width:100%!important;
+  overflow:hidden!important;
+  text-overflow:ellipsis!important;
+  white-space:nowrap!important;
+  display:block!important;
+}
+.header .nav .mobile-contact-options{
+  gap:6px!important;
+  margin-top:8px!important;
+}
+.header .nav .mobile-contact-options > a{
+  min-height:48px!important;
+  padding:6px 2px!important;
+  border-radius:14px!important;
+  font-size:10px!important;
+}
+.header .nav .mobile-contact-options > a svg,
+.header .nav .mobile-contact-options > a img{
+  width:24px!important;
+  height:24px!important;
+  display:block!important;
+  object-fit:contain!important;
+  flex-shrink:0!important;
+}
 }
 }

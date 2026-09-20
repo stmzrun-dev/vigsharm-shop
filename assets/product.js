@@ -348,13 +348,12 @@
       html += '<section class="client-block' + (next === 'client-ins' ? ' is-next' : inscriptionOk() ? ' is-done' : '') + '" id="client-ins">' +
         '<h3 class="client-block-title">Надпись на шаре' + (next === 'client-ins' ? '<span class="client-req" aria-hidden="true">*</span>' : '') + '</h3>' +
         '<label class="client-ins' + (inscriptionOk() ? ' is-filled' : '') + '">' +
-        '<span class="client-ins-ico" aria-hidden="true"><img src="icons/line-balloon.svg" alt="" width="22" height="22"/></span>' +
         '<input value="' + esc(inscription) + '" maxlength="60" data-act="inscription" placeholder="С Днём рождения!" inputmode="text" autocomplete="off"/>' +
-        '<span class="client-ins-ok" aria-hidden="true">✓</span></label></section>';
+        '</label></section>';
     }
 
     if (p.has_rental) {
-      html += '<section class="client-block is-done"><h3 class="client-block-title">Аренда</h3>' +
+      html += '<section class="client-block client-info"><h3 class="client-block-title">Аренда</h3>' +
         '<p class="client-rental"><strong>' + esc(p.rental_item || 'элемент фотозоны') + '</strong> · до ' + (p.rental_days || 3) + ' суток</p></section>';
     }
 
@@ -370,16 +369,15 @@
       html += '<section class="client-block' + (next === 'client-addr' ? ' is-next' : address.trim() ? ' is-done' : '') + '" id="client-addr">' +
         '<h3 class="client-block-title">Адрес' + (next === 'client-addr' ? '<span class="client-req" aria-hidden="true">*</span>' : '') + '</h3>' +
         '<label class="client-ins' + (address.trim() ? ' is-filled' : '') + '">' +
-        '<span class="client-ins-ico" aria-hidden="true"><img src="icons/line-pin.svg" alt="" width="20" height="20"/></span>' +
         '<input value="' + esc(address) + '" maxlength="140" data-act="address" placeholder="' + (fulfillment === 'armavir' ? 'Улица, дом, квартира' : 'Населённый пункт и адрес') + '"/>' +
-        '<span class="client-ins-ok" aria-hidden="true">✓</span></label></section>';
+        '</label></section>';
     }
 
-    html += '<details class="client-when"' + ((orderDate || orderTime) ? ' open' : '') + '>' +
-      '<summary>Дата и время</summary>' +
+    html += '<section class="client-block client-when' + ((orderDate || orderTime) ? ' is-done' : '') + '" id="client-when">' +
+      '<h3 class="client-block-title">Дата и время</h3>' +
       '<div class="order-date-row" role="group" aria-label="Дата и время">' +
       '<div class="order-date-field">' + calendarHtml() + '</div>' +
-      '<div class="order-time-field">' + timeHtml() + '</div></div></details>';
+      '<div class="order-time-field">' + timeHtml() + '</div></div></section>';
 
     if (ready) {
       var msg = orderMessage();

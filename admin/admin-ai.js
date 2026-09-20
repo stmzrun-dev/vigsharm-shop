@@ -369,16 +369,15 @@ Object.assign(app, {
     this.syncStep1WizardUi?.();
   },
 
-  showSourceWorkPreview(url, label) {
+  showSourceWorkPreview(url) {
     const panel = document.getElementById('source-work-preview');
     const img = document.getElementById('source-work-preview-img');
-    const labelEl = document.getElementById('source-work-preview-label');
     if (!panel || !img || !url) return;
     img.src = url;
     this._sourceWorkPreviewUrl = url;
-    if (labelEl) labelEl.textContent = label || 'Оригинал — смотрите состав';
+    panel.classList.add('is-expanded');
     panel.classList.remove('hidden');
-    this.syncSourceWorkPreviewExpandUi?.();
+    document.getElementById('block-essentials')?.classList.add('is-preview-expanded');
   },
 
   hideSourceWorkPreview() {
@@ -386,12 +385,11 @@ Object.assign(app, {
     const img = document.getElementById('source-work-preview-img');
     if (panel) {
       panel.classList.add('hidden');
-      panel.classList.remove('is-expanded');
+      panel.classList.add('is-expanded');
     }
     if (img) img.removeAttribute('src');
     this._sourceWorkPreviewUrl = null;
     document.getElementById('block-essentials')?.classList.remove('is-preview-expanded');
-    this.syncSourceWorkPreviewExpandUi?.();
   },
 
   refreshSourceWorkPreview() {
@@ -405,13 +403,9 @@ Object.assign(app, {
       || this.studioSourceUrl
       || this.currentProduct?.photos?.[0]?.url;
     if (master) {
-      this.showSourceWorkPreview(master, 'Master — сверьте состав');
+      this.showSourceWorkPreview(master);
     } else if (original) {
-      const busy = document.getElementById('product-form')?.classList.contains('is-studio-busy');
-      this.showSourceWorkPreview(
-        original,
-        busy ? 'Оригинал (идёт Master) — пишите состав' : 'Оригинал — смотрите состав'
-      );
+      this.showSourceWorkPreview(original);
     } else {
       this.hideSourceWorkPreview();
     }
@@ -423,23 +417,19 @@ Object.assign(app, {
 
   syncSourceWorkPreviewExpandUi() {
     const panel = document.getElementById('source-work-preview');
-    const btn = document.getElementById('source-work-preview-zoom');
     const layout = document.getElementById('block-essentials');
-    const expanded = !!panel?.classList.contains('is-expanded');
-    if (layout) layout.classList.toggle('is-preview-expanded', expanded && !panel.classList.contains('hidden'));
-    if (btn) btn.textContent = expanded ? 'Свернуть' : 'Увеличить';
+    const visible = !!panel && !panel.classList.contains('hidden');
+    if (panel && visible) panel.classList.add('is-expanded');
+    if (layout) layout.classList.toggle('is-preview-expanded', visible);
   },
 
   toggleSourceWorkPreviewExpand(force) {
+    // Превью всегда крупное — свернуть/увеличить убраны из UI
     const panel = document.getElementById('source-work-preview');
     if (!panel || panel.classList.contains('hidden')) return;
-    const next = typeof force === 'boolean' ? force : !panel.classList.contains('is-expanded');
-    panel.classList.toggle('is-expanded', next);
+    if (force === false) return;
+    panel.classList.add('is-expanded');
     this.syncSourceWorkPreviewExpandUi();
-    if (next) {
-      panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-      document.getElementById('product-composition')?.focus({ preventScroll: true });
-    }
   },
 
   setStudioBusy(busy) {

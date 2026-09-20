@@ -7,7 +7,7 @@
 <meta name="robots" content="noindex, nofollow"/>
 <link rel="icon" href="../favicon.svg"/>
 <link rel="stylesheet" href="../assets/fonts.css"/>
-<link rel="stylesheet" href="styles.css?v=cta-side-1"/>
+<link rel="stylesheet" href="styles.css?v=photo-full-1"/>
 </head>
 <body>
 
@@ -194,13 +194,9 @@
           <p class="step-1-hint hidden" id="step-1-hint" hidden>Шаг 1</p>
           <div class="essentials-layout essentials-layout-compose" id="block-essentials">
             <div id="source-work-preview" class="source-work-preview hidden is-expanded">
-              <div class="source-work-preview-head">
-                <span id="source-work-preview-label">Оригинал — смотрите состав</span>
-                <button type="button" class="btn outline btn-sm" id="source-work-preview-zoom" onclick="app.toggleSourceWorkPreviewExpand()">Свернуть</button>
+              <div class="source-work-preview-frame">
+                <img id="source-work-preview-img" alt="Фото для состава"/>
               </div>
-              <button type="button" class="source-work-preview-frame" onclick="app.toggleSourceWorkPreviewExpand()" title="Клик — увеличить / свернуть. Поля справа остаются доступны.">
-                <img id="source-work-preview-img" alt="Оригинал для состава"/>
-              </button>
             </div>
             <div class="essentials-fields">
               <div class="form-group unit-hide" id="essentials-composition-wrap">

@@ -284,8 +284,24 @@
   background:#fff!important;
 }
 
+/* Date/time popovers must not be clipped by step cards */
+.product-page .order-details,
+.product-page .order-details.product-step,
+.product-page #product-step-date,
+.product-page .order-date-field,
+.product-page .order-time-field,
+.product-page .order-date-row .config-input,
+.product-page .product-page-info,
+.product-page .product-page-card{
+  overflow:visible!important;
+}
 .product-page .order-date-picker{
   position:relative;
+  z-index:1;
+  overflow:visible;
+}
+.product-page .order-date-picker.is-open{
+  z-index:40;
 }
 .product-page .order-date-toggle{
   width:100%;
@@ -303,7 +319,7 @@
 .product-page .order-cal{
   display:none;
   position:absolute;
-  z-index:8;
+  z-index:50;
   left:0;
   right:0;
   top:calc(100% + 6px);

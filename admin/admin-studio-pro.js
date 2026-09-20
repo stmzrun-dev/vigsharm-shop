@@ -713,7 +713,7 @@ Object.assign(app, {
       this.renderStudioCompare?.();
       this.showSignTextEditor?.();
       this.setStudioBusy?.(false);
-      this.showSourceWorkPreview?.(draft.masterUrl, 'Master — восстановлен после обновления');
+      this.showSourceWorkPreview?.(draft.masterUrl);
       this.syncStudioModeHint?.();
       this.syncEditorSteps?.();
       this.syncAIFillGate?.();
@@ -844,7 +844,7 @@ Object.assign(app, {
     ];
     this.renderPhotos();
     this.setStudioBusy?.(false);
-    this.showSourceWorkPreview?.(masterImageUrl, 'Master — сверьте состав');
+    this.showSourceWorkPreview?.(masterImageUrl);
     this.syncEditorSteps?.();
 
     if (statusEl) statusEl.textContent = '✅ Master готов — при кривых буквах: «Исправить надпись», затем цена + состав → ИИ';
@@ -923,7 +923,7 @@ Object.assign(app, {
       const scene = this.currentProduct?.scene || 'floor';
       if (statusEl) statusEl.textContent = '↻ Новый Master… предыдущий сохранён до успеха';
       this.setStudioBusy?.(true);
-      this.showSourceWorkPreview?.(src, 'Оригинал (пересоздание Master) — пишите состав');
+      this.showSourceWorkPreview?.(src);
       const masterImageUrl = await this.createMasterForScene(src, scene, statusEl);
       this.finishMasterWorkflow(masterImageUrl, statusEl);
     } catch (err) {
@@ -1053,7 +1053,7 @@ Object.assign(app, {
       this.studioSourceUrl = remasterFromOriginal ? savedOriginal : imageUrl;
       this.studioCompare.original = this.studioSourceUrl;
       this.setStudioBusy?.(true);
-      this.showSourceWorkPreview?.(imageUrl, 'Оригинал (идёт Master) — пишите состав');
+      this.showSourceWorkPreview?.(imageUrl);
       this.goStep1Phase?.('c', { skipGate: true });
 
       const masterImageUrl = await this.createMasterForScene(imageUrl, scene, statusEl);

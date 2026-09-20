@@ -7,7 +7,7 @@
 <meta name="robots" content="noindex, nofollow"/>
 <link rel="icon" href="../favicon.svg"/>
 <link rel="stylesheet" href="../assets/fonts.css"/>
-<link rel="stylesheet" href="styles.css?v=busy-focus-1"/>
+<link rel="stylesheet" href="styles.css?v=cta-side-1"/>
 </head>
 <body>
 
@@ -97,91 +97,131 @@
       </div>
 
       <nav class="editor-progress" id="editor-progress" aria-label="Шаги создания">
-        <span class="editor-progress-step is-active" data-step="1" id="editor-progress-1">1. Фото и цена</span>
+        <span class="editor-progress-step is-active" data-step="1" id="editor-progress-1">1. Создание</span>
         <span class="editor-progress-sep" aria-hidden="true">→</span>
         <span class="editor-progress-step" data-step="2" id="editor-progress-2">2. Карточка</span>
       </nav>
 
-      <form id="product-form" class="is-editor-step-1" novalidate>
+      <nav class="step1-wizard-progress" id="step1-wizard-progress" aria-label="Шаг 1">
+        <span class="step1-wiz-step is-active" data-phase="a" id="step1-wiz-a">Фото и сцена</span>
+        <span class="step1-wiz-sep" aria-hidden="true">→</span>
+        <span class="step1-wiz-step" data-phase="c" id="step1-wiz-c">Состав</span>
+      </nav>
+
+      <form id="product-form" class="is-editor-step-1 is-step1-a" novalidate>
 
         <div class="step1-workspace" id="step1-workspace">
-        <div id="studio-busy-banner" class="studio-busy-banner hidden" hidden role="status" aria-live="polite">
-          <span class="studio-busy-banner-dot" aria-hidden="true"></span>
-          <div class="studio-busy-banner-text">
-            <strong>Master генерируется · <span id="studio-busy-timer" class="studio-busy-timer-inline">0:00</span></strong>
-            <span id="studio-busy-stage" class="studio-busy-stage">Подготовка…</span>
-            <span id="studio-busy-detail">Состав и цену можно заполнять сейчас — не ждите конца.</span>
-          </div>
-        </div>
-        <!-- Фото → сцена/Master → (сравнение ниже) -->
-        <section class="card-block step1-photos" id="block-photos">
-          <div class="scene-selector scene-rail-wrap" id="scene-selector"></div>
-          <p class="scene-active-label" id="scene-active-label"></p>
-          <div class="photo-section" id="photo-dropzone">
-            <div class="upload-zone upload-zone-compact" id="upload-zone-empty">
-              <div class="icon">📷</div>
-              <p>Перетащите фото или нажмите «+ Загрузить»</p>
-              <small>JPG, PNG, WebP · до 10 МБ · до 6 шт.</small>
+
+        <!-- A: сначала только фото; после — фото слева, сцены справа -->
+        <section class="card-block step1-phase step1-photos" id="block-photos" data-phase="a">
+          <div class="step1-photo-scene-grid" id="step1-photo-scene-grid">
+            <div class="step1-photo-col">
+              <div class="photo-section" id="photo-dropzone">
+                <div class="upload-zone upload-zone-hero" id="upload-zone-empty" role="button" tabindex="0" title="Загрузить фото">
+                  <div class="icon">📷</div>
+                  <p>Перетащите фото или нажмите сюда</p>
+                  <small>JPG, PNG, WebP · до 10 МБ · до 6 шт.</small>
+                </div>
+                <input type="file" id="photo-input" accept="image/*" multiple class="hidden-file"/>
+                <div class="photo-grid" id="photos-grid"></div>
+                <div id="photo-upload-progress" class="photo-upload-progress hidden" hidden aria-live="polite">
+                  <div class="photo-upload-progress-bar"><span id="photo-upload-progress-fill"></span></div>
+                  <p id="photo-upload-progress-text">Загрузка фото…</p>
+                </div>
+              </div>
+              <div class="step1-photo-actions" id="step1-photo-actions" hidden>
+                <button type="button" class="btn outline" id="photo-upload-btn" onclick="document.getElementById('photo-input').click()">+ Ещё фото</button>
+                <button type="button" class="btn outline" id="photo-replace-btn" onclick="app.replaceMainPhoto()">Изменить фото</button>
+              </div>
             </div>
-            <input type="file" id="photo-input" accept="image/*" multiple class="hidden-file"/>
-            <div class="photo-grid" id="photos-grid"></div>
-            <div id="photo-upload-progress" class="photo-upload-progress hidden" hidden aria-live="polite">
-              <div class="photo-upload-progress-bar"><span id="photo-upload-progress-fill"></span></div>
-              <p id="photo-upload-progress-text">Загрузка фото…</p>
+
+            <div class="step1-after-photo" id="step1-after-photo" hidden>
+              <h3 class="step1-scene-heading">Сцена для фото</h3>
+              <div class="scene-selector scene-rail-wrap" id="scene-selector"></div>
+              <p class="scene-active-label" id="scene-active-label" hidden></p>
+              <div id="photozone-type-early" class="photozone-type-early scene-subchips hidden">
+                <p class="scene-subchips-label">Тип <span class="req">*</span></p>
+                <div class="scene-subchips-row" role="radiogroup" aria-label="Тип фотозоны">
+                  <label class="scene-subchip">
+                    <input type="radio" name="photozone-type-early" id="pz-type-frame-early" value="frame" checked/>
+                    <span>Круглый каркас</span>
+                  </label>
+                  <label class="scene-subchip">
+                    <input type="radio" name="photozone-type-early" id="pz-type-easel-early" value="easel"/>
+                    <span>Мольберт</span>
+                  </label>
+                </div>
+              </div>
+              <div id="floor-type-early" class="photozone-type-early scene-subchips hidden">
+                <p class="scene-subchips-label">Тип <span class="req">*</span></p>
+                <div class="scene-subchips-row" role="radiogroup" aria-label="Тип напольной">
+                  <label class="scene-subchip">
+                    <input type="radio" name="floor-type-early" id="floor-type-air-early" value="air" checked/>
+                    <span>С воздухом</span>
+                  </label>
+                  <label class="scene-subchip">
+                    <input type="radio" name="floor-type-early" id="floor-type-helium-early" value="helium"/>
+                    <span>Гелий</span>
+                  </label>
+                </div>
+              </div>
+              <p class="studio-mode-hint" id="studio-mode-hint" hidden></p>
+              <div class="status" id="studio-status"></div>
+              <button type="button" class="btn secondary hidden" id="process-studio-btn" onclick="app.processStudioProNew()">✨ Создать Master</button>
+              <div class="step1-compose-cta" id="step1-compose-cta" hidden>
+                <button type="button" class="btn primary" id="step1-a-next" onclick="app.startMasterFromWizard()">Далее: состав →</button>
+                <button type="button" class="btn outline hidden" id="studio-retry-btn" onclick="app.retryStudioMaster()">↻ Пересоздать</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- C: крупное фото + состав + цена -->
+        <section class="card-block step1-phase step1-essentials" id="step1-phase-c" data-phase="c">
+          <div class="step1-phase-nav">
+            <button type="button" class="btn outline btn-sm" id="step1-c-back" onclick="app.goStep1Phase('a')">← К сцене</button>
+            <button type="button" class="btn outline btn-sm" id="step1-c-replace" onclick="app.replaceMainPhoto()">Изменить фото</button>
+            <span class="step1-phase-scene-chip" id="step1-phase-c-scene"></span>
+          </div>
+          <div id="studio-busy-banner" class="studio-busy-banner hidden" hidden role="status" aria-live="polite">
+            <span class="studio-busy-banner-dot" aria-hidden="true"></span>
+            <div class="studio-busy-banner-text">
+              <strong>Master генерируется · <span id="studio-busy-timer" class="studio-busy-timer-inline">0:00</span></strong>
+              <span id="studio-busy-stage" class="studio-busy-stage">Подготовка…</span>
+              <span id="studio-busy-detail">Состав и цену можно заполнять сейчас — не ждите конца.</span>
+            </div>
+          </div>
+          <p class="step-1-hint hidden" id="step-1-hint" hidden>Шаг 1</p>
+          <div class="essentials-layout essentials-layout-compose" id="block-essentials">
+            <div id="source-work-preview" class="source-work-preview hidden is-expanded">
+              <div class="source-work-preview-head">
+                <span id="source-work-preview-label">Оригинал — смотрите состав</span>
+                <button type="button" class="btn outline btn-sm" id="source-work-preview-zoom" onclick="app.toggleSourceWorkPreviewExpand()">Свернуть</button>
+              </div>
+              <button type="button" class="source-work-preview-frame" onclick="app.toggleSourceWorkPreviewExpand()" title="Клик — увеличить / свернуть. Поля справа остаются доступны.">
+                <img id="source-work-preview-img" alt="Оригинал для состава"/>
+              </button>
+            </div>
+            <div class="essentials-fields">
+              <div class="form-group unit-hide" id="essentials-composition-wrap">
+                <label>Состав <span class="req">*</span></label>
+                <textarea id="product-composition" data-required-field="composition" rows="6" placeholder="Сырой состав, напр.: коробка, 10 шаров, 1 цифра"></textarea>
+                <details class="field-help">
+                  <summary>Подсказка по составу</summary>
+                  <small class="text-muted">Сырой состав шаров. Всё в <code>(скобках)</code> — подсказка для ИИ, клиенту не попадёт. Примеры: <code>(цифра)</code>, <code>(для мальчика)</code>, <code>(На выписку)</code>, <code>(1 сентября)</code>.</small>
+                </details>
+              </div>
+              <div class="form-group">
+                <label>Цена, ₽ <span class="req">*</span></label>
+                <input id="product-price" data-required-field="price" type="number" min="0" step="1" inputmode="numeric" placeholder="0"/>
+              </div>
+              <div id="step1-next-wrap" class="step1-next-wrap">
+                <p id="step1-next-hint" class="step1-next-hint">Чтобы продолжить: Master, цена и состав</p>
+                <button type="button" class="btn primary" id="step1-next-btn" onclick="app.goEditorStep2()">Проверить шаг 1</button>
+              </div>
             </div>
           </div>
 
-          <div class="studio-toolbar">
-            <div class="studio-toolbar-actions">
-              <button type="button" class="btn outline" id="photo-upload-btn" onclick="document.getElementById('photo-input').click()">+ Загрузить</button>
-              <button type="button" class="btn secondary" id="process-studio-btn" onclick="app.processStudioProNew()">✨ Создать Master</button>
-              <button type="button" class="btn outline hidden" id="studio-retry-btn" onclick="app.retryStudioMaster()">↻ Пересоздать</button>
-            </div>
-          </div>
-          <p class="studio-mode-hint" id="studio-mode-hint"></p>
-          <div id="photozone-type-early" class="photozone-type-early hidden">
-            <p class="photozone-type-early-title">Тип фотозоны <span class="req">*</span></p>
-            <p class="text-muted photozone-type-early-note">Выберите до «Создать Master»</p>
-            <div class="option-cards photozone-type-cards">
-              <label class="option-card">
-                <input type="radio" name="photozone-type-early" id="pz-type-frame-early" value="frame" checked/>
-                <span class="option-card-body">
-                  <strong>Круглый каркас</strong>
-                  <small>Обруч / арка Ø ~3 м — если каркас уже на фото</small>
-                </span>
-              </label>
-              <label class="option-card">
-                <input type="radio" name="photozone-type-early" id="pz-type-easel-early" value="easel"/>
-                <span class="option-card-body">
-                  <strong>Мольберт с кругом</strong>
-                  <small>Мольберт + круг ~180 см с надписью</small>
-                </span>
-              </label>
-            </div>
-          </div>
-          <div id="floor-type-early" class="photozone-type-early hidden">
-            <p class="photozone-type-early-title">Тип напольной <span class="req">*</span></p>
-            <p class="text-muted photozone-type-early-note">Воздух — «заказ заранее»; гелий — без него</p>
-            <div class="option-cards photozone-type-cards">
-              <label class="option-card">
-                <input type="radio" name="floor-type-early" id="floor-type-air-early" value="air" checked/>
-                <span class="option-card-body">
-                  <strong>С воздухом</strong>
-                  <small>Напольная на воздухе — заказ заранее за 1–2 дня</small>
-                </span>
-              </label>
-              <label class="option-card">
-                <input type="radio" name="floor-type-early" id="floor-type-helium-early" value="helium"/>
-                <span class="option-card-body">
-                  <strong>Гелиевые шары</strong>
-                  <small>Гелиевая напольная — без обязательного заказа заранее</small>
-                </span>
-              </label>
-            </div>
-          </div>
-          <div class="status" id="studio-status"></div>
-
-          <!-- Сравнение: оригинал | Master -->
           <div id="studio-compare" class="studio-compare hidden">
             <h3>Сравнение</h3>
             <p class="lead">Оригинал · Master. Клик — увеличить.</p>
@@ -215,45 +255,6 @@
               <button type="button" class="btn outline" onclick="app.collapseSignTextEditor()">Свернуть</button>
             </div>
           </details>
-
-          <details class="studio-help">
-            <summary>Как работает Master</summary>
-            <p class="studio-lead">Manus AI-пересъёмка → одно фото Master. Снимаются водяные знаки и бейджи поставщика. Рисунок на шаре остаётся. Эталон фона — в «Настройки». Пока идёт генерация — справа оригинал, по нему пишите состав. Потом откроются остальные поля и ИИ.</p>
-          </details>
-        </section>
-
-        <!-- Состав + цена -->
-        <section class="card-block step1-essentials" id="block-essentials">
-          <p class="step-1-hint hidden" id="step-1-hint" hidden>Шаг 1</p>
-          <div class="essentials-layout">
-            <div id="source-work-preview" class="source-work-preview hidden">
-              <div class="source-work-preview-head">
-                <span id="source-work-preview-label">Оригинал — смотрите состав</span>
-                <button type="button" class="btn outline btn-sm" id="source-work-preview-zoom" onclick="app.toggleSourceWorkPreviewExpand()">Увеличить</button>
-              </div>
-              <button type="button" class="source-work-preview-frame" onclick="app.toggleSourceWorkPreviewExpand()" title="Клик — увеличить / свернуть. Поля справа остаются доступны.">
-                <img id="source-work-preview-img" alt="Оригинал для состава"/>
-              </button>
-            </div>
-            <div class="essentials-fields">
-              <div class="form-group unit-hide" id="essentials-composition-wrap">
-                <label>Состав <span class="req">*</span></label>
-                <textarea id="product-composition" data-required-field="composition" rows="5" placeholder="Сырой состав, напр.: коробка, 10 шаров, 1 цифра"></textarea>
-                <details class="field-help">
-                  <summary>Подсказка по составу</summary>
-                  <small class="text-muted">Сырой состав шаров. Всё в <code>(скобках)</code> — подсказка для ИИ, клиенту не попадёт. Примеры: <code>(цифра)</code>, <code>(для мальчика)</code>, <code>(На выписку)</code>, <code>(1 сентября)</code>.</small>
-                </details>
-              </div>
-              <div class="form-group">
-                <label>Цена, ₽ <span class="req">*</span></label>
-                <input id="product-price" data-required-field="price" type="number" min="0" step="1" inputmode="numeric" placeholder="0"/>
-              </div>
-              <div id="step1-next-wrap" class="step1-next-wrap">
-                <p id="step1-next-hint" class="step1-next-hint">Чтобы продолжить: Master, цена и состав</p>
-                <button type="button" class="btn primary" id="step1-next-btn" onclick="app.goEditorStep2()">Проверить шаг 1</button>
-              </div>
-            </div>
-          </div>
         </section>
         </div><!-- /.step1-workspace -->
 
@@ -459,7 +460,8 @@
 
         <div class="action-bar">
           <button type="button" class="btn outline" onclick="app.cancelProductEdit()">Отмена</button>
-          <button type="button" class="btn secondary editor-step-2" onclick="app.saveDraft()">Сохранить черновиком</button>
+          <button type="button" class="btn outline" id="park-and-new-btn" onclick="app.parkAndNewProduct()" title="Отложить локально и открыть пустую карточку">Отложить и новая</button>
+          <button type="button" class="btn secondary" id="save-draft-btn" onclick="app.saveDraft()">Сохранить черновиком</button>
           <button type="button" class="btn primary editor-step-2" onclick="app.publishProduct()">Опубликовать товар</button>
         </div>
       </form>
@@ -579,12 +581,12 @@
   <img id="lightbox-img" alt="Просмотр" onclick="event.stopPropagation()"/>
 </div>
 
-<script src="admin.js?v=scene-rail-1"></script>
-<script src="admin-extended.js?v=scene-chips-1"></script>
+<script src="admin.js?v=upload-only-1"></script>
+<script src="admin-extended.js?v=scene-side-1"></script>
 <script src="cloudinary-upload.js?v=cloud-fix-1"></script>
 <script src="cloudinary-patch.js?v=cloud-fix-1"></script>
-<script src="admin-studio-pro.js?v=cloud-fix-1"></script>
-<script src="admin-ai.js?v=busy-focus-1"></script>
+<script src="admin-studio-pro.js?v=compose-cta-1"></script>
+<script src="admin-ai.js?v=one-cta-1"></script>
 <script src="admin-reference-background.js"></script>
 </body>
 </html>

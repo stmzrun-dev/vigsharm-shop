@@ -143,12 +143,150 @@ Object.assign(app, {
       this.toast(`Ещё нужно: ${gaps.join(', ')}`, 'info');
       if (gaps.includes('состав')) document.getElementById('product-composition')?.focus();
       else if (gaps.includes('цена')) document.getElementById('product-price')?.focus();
+      else if (gaps.includes('Master') || gaps.includes('фото')) this.goStep1Phase?.('a');
       return false;
     }
     document.getElementById('block-main')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     document.getElementById('product-title')?.focus({ preventScroll: true });
     this.toast('Шаг 2: название и ИИ', 'success');
     return true;
+  },
+
+  getStep1Phase() {
+    const form = document.getElementById('product-form');
+    if (form?.classList.contains('is-step1-c')) return 'c';
+    return this._step1Phase === 'c' ? 'c' : 'a';
+  },
+
+  goStep1Phase(phase, opts = {}) {
+    const form = document.getElementById('product-form');
+    const busy = form?.classList.contains('is-studio-busy');
+    // b больше нет — сведена к a (фото+сцена на одном экране)
+    let next = phase === 'c' ? 'c' : 'a';
+    if (phase === 'b') next = 'a';
+    if (busy && next !== 'c' && !opts.force) {
+      this.toast('Подождите, пока Master закончит генерацию', 'info');
+      return false;
+    }
+    const photos = this.currentProduct?.photos || [];
+    if (next === 'c' && !opts.skipGate && !photos.length && !this.hasStudioMasterReady?.()) {
+      this.toast('Сначала загрузите фото', 'info');
+      this.goStep1Phase('a', { skipGate: true });
+      return false;
+    }
+    this._step1Phase = next;
+    this.syncStep1WizardUi?.();
+    if (next === 'c') {
+      this.refreshSourceWorkPreview?.();
+      this.toggleSourceWorkPreviewExpand?.(true);
+      setTimeout(() => {
+        document.getElementById('step1-phase-c')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        const comp = document.getElementById('product-composition');
+        if (comp && !this.isUnitBalloonMode?.()) comp.focus({ preventScroll: true });
+        else document.getElementById('product-price')?.focus({ preventScroll: true });
+      }, 60);
+    } else {
+      setTimeout(() => {
+        document.getElementById('block-photos')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 40);
+    }
+    return true;
+  },
+
+  /** «Далее» после выбора сцены: Master → экран состава (или сразу цена для поштучных). */
+  startMasterFromWizard() {
+    const photos = this.currentProduct?.photos || [];
+    if (!photos.length) {
+      this.toast('Сначала загрузите фото', 'info');
+      return false;
+    }
+    if (this.isUnitBalloonMode?.()) {
+      this.goStep1Phase('c', { skipGate: true });
+      return true;
+    }
+    return this.processStudioProNew?.();
+  },
+
+  syncStep1WizardUi() {
+    const form = document.getElementById('product-form');
+    if (!form) return;
+    const step2 = form.classList.contains('is-editor-step-2');
+    let phase = this._step1Phase || 'a';
+    if (phase === 'b') phase = 'a';
+    if (!['a', 'c'].includes(phase)) phase = 'a';
+    this._step1Phase = phase;
+
+    if (step2 || this.currentProduct?.id) {
+      form.classList.remove('is-step1-a', 'is-step1-b', 'is-step1-c');
+    } else {
+      form.classList.remove('is-step1-b');
+      form.classList.toggle('is-step1-a', phase === 'a');
+      form.classList.toggle('is-step1-c', phase === 'c');
+    }
+
+    const photoCount = (this.currentProduct?.photos || []).length;
+    const hasPhotos = photoCount > 0;
+    form.classList.toggle('has-step1-photos', hasPhotos);
+
+    const editorCard = document.querySelector('#tab-create .product-editor');
+    const quietChrome = !step2 && !this.currentProduct?.id;
+    const uploadFocus = quietChrome && phase === 'a' && !hasPhotos;
+    if (editorCard) {
+      editorCard.classList.toggle('is-upload-focus', uploadFocus);
+      editorCard.classList.toggle('is-quiet-chrome', quietChrome && !uploadFocus);
+    }
+    document.body.classList.toggle('admin-upload-focus', uploadFocus);
+
+    const grid = document.getElementById('step1-photo-scene-grid');
+    if (grid) grid.classList.toggle('has-photos', hasPhotos && phase === 'a' && !step2);
+
+    const after = document.getElementById('step1-after-photo');
+    if (after) {
+      after.hidden = !hasPhotos || phase === 'c' || step2;
+    }
+    const composeCta = document.getElementById('step1-compose-cta');
+    if (composeCta) {
+      composeCta.hidden = !hasPhotos || phase === 'c' || step2;
+    }
+    const photoActions = document.getElementById('step1-photo-actions');
+    if (photoActions) {
+      // Показывать смену фото и на шаге состава / после Master / на шаге 2
+      const showActions = hasPhotos && (phase === 'a' || phase === 'c' || step2);
+      photoActions.hidden = !showActions;
+    }
+    // На шаге состава блок фото скрыт CSS — кнопка «Изменить фото» в nav фазы C
+
+    const mark = (id, done, active) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.classList.toggle('is-done', !!done);
+      el.classList.toggle('is-active', !!active);
+    };
+    const p = step2 ? 'done' : phase;
+    mark('step1-wiz-a', p === 'c' || p === 'done', p === 'a');
+    mark('step1-wiz-c', p === 'done', p === 'c');
+
+    const scene = this.currentProduct?.scene || document.getElementById('scene-select')?.value || 'auto';
+    const meta = (typeof SCENES !== 'undefined' ? SCENES : []).find((s) => s.value === scene);
+    const sceneLabel = meta ? meta.title : scene;
+    const cChip = document.getElementById('step1-phase-c-scene');
+    if (cChip) cChip.textContent = sceneLabel;
+
+    const wiz = document.getElementById('step1-wizard-progress');
+    if (wiz) wiz.hidden = !!step2 || quietChrome;
+
+    const nextA = document.getElementById('step1-a-next');
+    if (nextA) {
+      nextA.disabled = !hasPhotos;
+      nextA.textContent = this.isUnitBalloonMode?.() ? 'Далее: цена →' : 'Далее: состав →';
+    }
+
+    const backC = document.getElementById('step1-c-back');
+    if (backC) {
+      const busy = form.classList.contains('is-studio-busy');
+      backC.disabled = busy;
+      backC.title = busy ? 'Дождитесь окончания Master' : '';
+    }
   },
 
   ensureMasterPhotoFlag() {
@@ -221,7 +359,6 @@ Object.assign(app, {
     if (step2) {
       this.hideSourceWorkPreview?.();
       if (!wasStep2) {
-        // Только что открылся шаг 2 — чуть проскроллим к карточке
         setTimeout(() => {
           document.getElementById('block-main')?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }, 50);
@@ -229,6 +366,7 @@ Object.assign(app, {
     } else {
       this.refreshSourceWorkPreview?.();
     }
+    this.syncStep1WizardUi?.();
   },
 
   showSourceWorkPreview(url, label) {
@@ -252,10 +390,7 @@ Object.assign(app, {
     }
     if (img) img.removeAttribute('src');
     this._sourceWorkPreviewUrl = null;
-    // is-studio-busy снимает только setStudioBusy(false) — иначе баннер/таймер сбрасываются при refresh без фото
-    document.getElementById('block-essentials')
-      ?.querySelector('.essentials-layout')
-      ?.classList.remove('is-preview-expanded');
+    document.getElementById('block-essentials')?.classList.remove('is-preview-expanded');
     this.syncSourceWorkPreviewExpandUi?.();
   },
 
@@ -289,7 +424,7 @@ Object.assign(app, {
   syncSourceWorkPreviewExpandUi() {
     const panel = document.getElementById('source-work-preview');
     const btn = document.getElementById('source-work-preview-zoom');
-    const layout = document.querySelector('#block-essentials .essentials-layout');
+    const layout = document.getElementById('block-essentials');
     const expanded = !!panel?.classList.contains('is-expanded');
     if (layout) layout.classList.toggle('is-preview-expanded', expanded && !panel.classList.contains('hidden'));
     if (btn) btn.textContent = expanded ? 'Свернуть' : 'Увеличить';
@@ -303,7 +438,6 @@ Object.assign(app, {
     this.syncSourceWorkPreviewExpandUi();
     if (next) {
       panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-      // Фокус на состав — можно сразу печатать, глядя на крупное фото
       document.getElementById('product-composition')?.focus({ preventScroll: true });
     }
   },
@@ -311,8 +445,8 @@ Object.assign(app, {
   setStudioBusy(busy) {
     const form = document.getElementById('product-form');
     if (form) form.classList.toggle('is-studio-busy', !!busy);
+    if (busy) this.goStep1Phase?.('c', { skipGate: true });
     this.refreshSourceWorkPreview?.();
-    // Во время генерации сразу крупно — писать состав удобнее без лишнего клика
     if (busy) this.toggleSourceWorkPreviewExpand?.(true);
     this.syncStudioBusyUi?.(!!busy);
   },
@@ -355,7 +489,7 @@ Object.assign(app, {
       if (comp && active !== comp && active !== price) {
         setTimeout(() => {
           if (document.getElementById('product-form')?.classList.contains('is-studio-busy')) {
-            document.getElementById('block-essentials')?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            document.getElementById('step1-phase-c')?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
             comp.focus({ preventScroll: true });
           }
         }, 400);

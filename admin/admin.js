@@ -120,7 +120,7 @@ const app = {
         if (document.body.classList.contains('admin-editor-open')) {
           e.preventDefault();
           this.parkEditorDraft?.(true);
-          this.saveDraft?.();
+          this.saveDraft?.({ andNew: false });
         }
         return;
       }
@@ -435,7 +435,7 @@ const app = {
     if (reason && draft) {
       const when = new Date(draft.savedAt).toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' });
       const label = (draft.title || 'Без названия').slice(0, 48);
-      reason.textContent = `«${label}» · автосейв ${when}`;
+      reason.textContent = `«${label}» · автосейв ${when}. Не на сервере — «Продолжить» или сохраните черновиком из редактора`;
     }
   },
 
@@ -541,6 +541,16 @@ const app = {
     this.syncAdvanceOrderFromScene?.();
     this.syncRequiredFieldHighlights?.();
     this.syncEditorTitle?.(draft.fields?.['product-title'] || '');
+
+    if (!draft.productId) {
+      const hasMaster = !!(draft.studio?.masterUrl || this.hasStudioMasterReady?.());
+      const hasPhotos = (this.currentProduct.photos || []).length > 0;
+      if (hasMaster || (draft.fields?.['product-composition'] || draft.fields?.['product-price'])) {
+        this.goStep1Phase?.('c', { skipGate: true });
+      } else {
+        this.goStep1Phase?.('a', { skipGate: true });
+      }
+    }
 
     const modeLabel = document.getElementById('editor-mode-label');
     if (modeLabel) modeLabel.textContent = draft.productId ? 'РЕДАКТИРОВАНИЕ' : 'СОЗДАНИЕ';
@@ -772,18 +782,35 @@ const app = {
 
   newProduct() {
     if (this.hasParkedEditorDraft?.()) {
-      const keep = confirm('Есть локальный черновик. Продолжить его?\n\nОК — продолжить, Отмена — новая пустая карточка.');
+      const keep = confirm(
+        'Есть локальный черновик (ещё не на сервере).\n\nОК — продолжить его\nОтмена — оставить его в баннере и открыть новую пустую карточку'
+      );
       if (keep) {
         this.restoreParkedEditorDraft();
         return;
       }
-      this.discardParkedEditorDraft(false);
-      this.clearActiveStudioDraft?.();
+      // Не удаляем parked — баннер останется; просто новая пустая форма
     }
     this.resetForm();
     this.switchTab('create');
     this.updateParkedDraftBanner?.();
     this.toast('Новая карточка', 'info');
+  },
+
+  /** Отложить текущее локально и сразу открыть новую карточку (без удаления parked). */
+  parkAndNewProduct() {
+    if (document.getElementById('product-form')?.classList.contains('is-studio-busy')) {
+      this.toast('Дождитесь окончания Master — потом можно отложить', 'info');
+      return;
+    }
+    if (this.editorHasMeaningfulContent?.()) {
+      this.parkEditorDraft?.(true);
+    }
+    this.clearActiveStudioDraft?.();
+    this.resetForm();
+    this.switchTab('create');
+    this.updateParkedDraftBanner?.();
+    this.toast('Отложено локально. Новая карточка — прежнюю вернёте из зелёного баннера', 'success');
   },
 
   loadSettings() {
@@ -1226,36 +1253,79 @@ const app = {
   },
 
   // === Сохранение / публикация ===
-  async saveProduct(status) {
+  async saveProduct(status, opts = {}) {
+    const andNew = !!opts.andNew;
     const data = this.collectFormData();
+    const isDraft = status === 'draft';
 
     if (this.currentProduct.photos.length === 0) {
+      if (isDraft) {
+        this.parkEditorDraft?.(true);
+        this.resetForm({ preserveStudioDraft: true });
+        this.switchTab('products');
+        this.updateParkedDraftBanner?.();
+        this.toast('Без фото — только локально. Для черновика на сервере загрузите фото', 'info');
+        return;
+      }
       this.toast('Загрузите фото', 'error');
+      this.goStep1Phase?.('b', { skipGate: true });
       document.getElementById('block-photos')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
       return;
     }
-    if (!data.title) {
-      this.toast('Введите название', 'error');
-      document.getElementById('product-title')?.focus();
-      document.getElementById('block-main')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      return;
-    }
-    const titleClash = this.findSimilarCatalogTitle?.(data.title);
-    if (titleClash) {
-      this.toast(`Название похоже на «${titleClash.title}» — придумайте другое`, 'error');
-      document.getElementById('product-title')?.focus();
-      document.getElementById('block-main')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      return;
-    }
-    if (!data.price || data.price <= 0) {
-      this.toast('Укажите цену', 'error');
-      document.getElementById('product-price')?.focus();
-      return;
-    }
-    if (!data.category) {
-      this.toast('Выберите категорию', 'error');
-      document.getElementById('product-category')?.focus();
-      return;
+
+    if (isDraft) {
+      if (!data.title) {
+        const fromComp = String(data.composition || '').trim().split(/\n/)[0].replace(/\s+/g, ' ').slice(0, 48);
+        let autoTitle = fromComp || `Черновик ${new Date().toLocaleString('ru-RU', {
+          day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit'
+        })}`;
+        let n = 2;
+        while (this.findSimilarCatalogTitle?.(autoTitle)) {
+          autoTitle = `${(fromComp || 'Черновик').slice(0, 40)} · ${n}`;
+          n += 1;
+          if (n > 20) break;
+        }
+        data.title = autoTitle;
+        const titleEl = document.getElementById('product-title');
+        if (titleEl) titleEl.value = autoTitle;
+        this.syncEditorTitle?.(autoTitle);
+      } else {
+        const titleClash = this.findSimilarCatalogTitle?.(data.title);
+        if (titleClash) {
+          this.toast(`Название похоже на «${titleClash.title}» — придумайте другое`, 'error');
+          this.goEditorStep2?.();
+          document.getElementById('product-title')?.focus();
+          return;
+        }
+      }
+      if (!data.price || data.price <= 0) data.price = 0;
+      // категория для черновика необязательна
+    } else {
+      if (!data.title) {
+        this.toast('Введите название', 'error');
+        document.getElementById('product-title')?.focus();
+        document.getElementById('block-main')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        return;
+      }
+      const titleClash = this.findSimilarCatalogTitle?.(data.title);
+      if (titleClash) {
+        this.toast(`Название похоже на «${titleClash.title}» — придумайте другое`, 'error');
+        document.getElementById('product-title')?.focus();
+        document.getElementById('block-main')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        return;
+      }
+      if (!data.price || data.price <= 0) {
+        this.toast('Укажите цену', 'error');
+        document.getElementById('product-price')?.focus();
+        this.goStep1Phase?.('c', { skipGate: true });
+        return;
+      }
+      if (!data.category) {
+        this.toast('Выберите категорию', 'error');
+        document.getElementById('product-category')?.focus();
+        document.getElementById('block-main')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        return;
+      }
     }
 
     if (status === 'published') {
@@ -1339,10 +1409,6 @@ const app = {
         throw new Error(result.error || `Ошибка сохранения (HTTP ${res.status})`);
       }
 
-      this.toast(
-        isEdit ? 'Товар обновлён' : (status === 'published' ? 'Товар опубликован!' : 'Черновик сохранён'),
-        'success'
-      );
       this._publishGapsAck = false;
       if (status === 'published') {
         this.markStorefrontDirty(wasPublished ? 'updated' : 'published');
@@ -1350,10 +1416,26 @@ const app = {
         this.markStorefrontDirty('unpublished');
       }
       this.discardParkedEditorDraft(false);
+      this.clearActiveStudioDraft?.();
       this.rememberLastProductTemplate?.(data);
+
+      if (isDraft && andNew) {
+        this.toast('Черновик на сервере. Новая карточка', 'success');
+        this.resetForm();
+        this.switchTab('create');
+        this.loadProducts();
+        this.updateParkedDraftBanner?.();
+        return;
+      }
+
+      this.toast(
+        isEdit ? 'Товар обновлён' : (status === 'published' ? 'Товар опубликован!' : 'Черновик сохранён на сервере'),
+        'success'
+      );
       this.resetForm();
       this.switchTab('products');
       this.loadProducts();
+      this.updateParkedDraftBanner?.();
       if (status === 'published' && !wasPublished) await this.offerStorefrontExportAfterPublish();
     } catch (e) {
       this.toast('Ошибка: ' + e.message, 'error');
@@ -1365,9 +1447,11 @@ const app = {
     return this.saveProduct('published');
   },
 
-  async saveDraft() {
+  async saveDraft(opts = {}) {
     this._publishGapsAck = false;
-    return this.saveProduct('draft');
+    const hasPhotos = (this.currentProduct?.photos || []).length > 0;
+    const andNew = opts.andNew != null ? !!opts.andNew : hasPhotos;
+    return this.saveProduct('draft', { andNew });
   },
 
   async deleteProduct(id) {

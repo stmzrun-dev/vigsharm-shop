@@ -48,31 +48,15 @@ Object.assign(app, {
 
   syncStudioModeHint() {
     const el = document.getElementById('studio-mode-hint');
-    if (!el) return;
     const scene = this.currentProduct?.scene || 'floor';
     const earlyPz = document.getElementById('photozone-type-early');
     if (earlyPz) earlyPz.classList.toggle('hidden', scene !== 'photozone');
     const earlyFloor = document.getElementById('floor-type-early');
     if (earlyFloor) earlyFloor.classList.toggle('hidden', scene !== 'floor');
-
-    if (scene === 'handheld_bouquet') {
-      el.textContent = 'Режим Manus: букет + женская рука (короткое запястье). Бирки/логотипы на лентах снимаются.';
-    } else if (scene === 'wall_only' || scene === 'unit_balloon') {
-      el.textContent = 'Режим Manus: AI-пересъёмка — только стена (без пола, без руки). Товар LOCK, без cutout.';
-    } else if (scene === 'photozone') {
-      const pz = this.getPhotozoneType?.() || 'frame';
-      el.textContent = pz === 'easel'
-        ? 'Режим Manus: фотозона на мольберте (~180 см) — крупно в кадре, не мельчить. Не добавляй мольберт, если его нет на фото.'
-        : 'Режим Manus: круглая фотозона на каркасе (Ø ~3 м) — почти во весь кадр. Не добавляй каркас, если его нет на фото.';
-    } else if (scene === 'balloon_figures') {
-      el.textContent = 'Режим Manus: фигуры из шаров — крупный масштаб (≥1 м). Кривые буквы на фольге — блок «Исправить надпись» после Master.';
-    } else if (scene === 'floor') {
-      const ft = this.getFloorType?.() || 'air';
-      el.textContent = ft === 'helium'
-        ? 'Режим Manus: AI-пересъёмка напольной сцены (гелий). «Заказ заранее» не ставится. Кривые буквы — «Исправить надпись» после Master.'
-        : 'Режим Manus: AI-пересъёмка напольной сцены (с воздухом). Всегда «заказ заранее за 1–2 дня». Кривые буквы — «Исправить надпись» после Master.';
-    } else {
-      el.textContent = 'Режим Manus: AI-пересъёмка напольной сцены. Кривые буквы — блок «Исправить надпись» после Master.';
+    // Подсказку Manus на экране сцен не показываем
+    if (el) {
+      el.hidden = true;
+      el.textContent = '';
     }
   },
 
@@ -867,13 +851,10 @@ Object.assign(app, {
     this.toast('Master готов — одно фото в карточке', 'success');
     this.syncAIFillGate?.();
     this.saveActiveStudioDraft?.();
+    this.goStep1Phase?.('c', { skipGate: true });
     // Если цена и состав уже заполнены — сразу открыть шаг 2
     if (this.canUnlockEditorStep2?.()) {
       setTimeout(() => this.goEditorStep2?.(), 300);
-    } else {
-      document.getElementById('block-essentials')?.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
-        || document.getElementById('sign-text-editor')?.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
-        || document.getElementById('studio-compare')?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
   },
 
@@ -1026,8 +1007,15 @@ Object.assign(app, {
 
     const btn = document.getElementById('process-studio-btn');
     const statusEl = document.getElementById('studio-status');
-    btn.disabled = true;
-    btn.innerHTML = '<span class="spinner"></span> Обработка...';
+    const nextBtn = document.getElementById('step1-a-next');
+    if (btn) {
+      btn.disabled = true;
+      btn.innerHTML = '<span class="spinner"></span> Обработка...';
+    }
+    if (nextBtn) {
+      nextBtn.disabled = true;
+      nextBtn.textContent = 'Создаём Master…';
+    }
     this.hideCropEditor();
     this.hidePlacementEditor(true);
     this.hideSignTextEditor?.();
@@ -1066,7 +1054,7 @@ Object.assign(app, {
       this.studioCompare.original = this.studioSourceUrl;
       this.setStudioBusy?.(true);
       this.showSourceWorkPreview?.(imageUrl, 'Оригинал (идёт Master) — пишите состав');
-      document.getElementById('block-essentials')?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      this.goStep1Phase?.('c', { skipGate: true });
 
       const masterImageUrl = await this.createMasterForScene(imageUrl, scene, statusEl);
       this.finishMasterWorkflow(masterImageUrl, statusEl);
@@ -1076,8 +1064,14 @@ Object.assign(app, {
       this.toast(error.message, 'error');
       this.setStudioBusy?.(false);
     } finally {
-      btn.disabled = false;
-      btn.textContent = '✨ Создать Master';
+      if (btn) {
+        btn.disabled = false;
+        btn.textContent = '✨ Создать Master';
+      }
+      if (nextBtn) {
+        nextBtn.disabled = false;
+        nextBtn.textContent = this.isUnitBalloonMode?.() ? 'Далее: цена →' : 'Далее: состав →';
+      }
       this.setStudioBusy?.(false);
       await this.refreshStudioCheckpointUi();
     }

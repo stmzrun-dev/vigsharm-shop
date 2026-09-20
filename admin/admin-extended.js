@@ -13,6 +13,12 @@ Object.assign(app, {
       if (e.target.closest('button') || e.target.closest('.photo-item')) return;
       input.click();
     });
+    zone.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        input.click();
+      }
+    });
     input.addEventListener('change', (e) => this.handlePhotoFiles(Array.from(e.target.files)));
 
     ['dragenter','dragover'].forEach(ev => {
@@ -29,6 +35,40 @@ Object.assign(app, {
   async handlePhotoFiles(files) {
     if (files.length === 0) return;
     const maxPhotos = 6;
+
+    if (this._replaceMainPhotoOnce) {
+      this._replaceMainPhotoOnce = false;
+      const file = files[0];
+      if (!file) return;
+      if (file.size > 10 * 1024 * 1024) {
+        this.toast('Файл слишком большой (макс. 10 МБ)', 'error');
+        return;
+      }
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const next = {
+          id: Date.now() + Math.random(),
+          url: e.target.result,
+          file,
+          uploaded: false
+        };
+        if (!this.currentProduct.photos.length) this.currentProduct.photos = [next];
+        else this.currentProduct.photos[0] = next;
+        // Сброс Master — нужно пересоздать
+        this.studioMasterDataUrl = null;
+        this.studioMasterBackupUrl = null;
+        this.studioMasterBaseUrl = null;
+        this.studioCompare = { original: null, master: null };
+        this.studioSourceUrl = null;
+        this.renderStudioCompare?.();
+        this.renderPhotos();
+        this.goStep1Phase?.('a', { skipGate: true });
+        this.toast('Главное фото заменено — выберите сцену и нажмите «Далее»', 'success');
+      };
+      reader.readAsDataURL(file);
+      return;
+    }
+
     const remainingSlots = maxPhotos - this.currentProduct.photos.length;
     if (remainingSlots === 0) { this.toast('Максимум 6 фото', 'error'); return; }
     
@@ -56,8 +96,17 @@ Object.assign(app, {
     if (this.currentProduct.photos.length === 0) {
       container.innerHTML = '';
       if (emptyZone) emptyZone.classList.remove('hidden');
+      this._step1PhotoCount = 0;
       this.syncAIFillGate?.();
       this.refreshSourceWorkPreview?.();
+      this.syncStep1WizardUi?.();
+      if (
+        this._step1Phase === 'c'
+        && !document.getElementById('product-form')?.classList.contains('is-editor-step-2')
+        && !this.currentProduct?.id
+      ) {
+        this.goStep1Phase?.('a', { skipGate: true });
+      }
       return;
     }
 
@@ -104,6 +153,20 @@ Object.assign(app, {
     });
     this.syncAIFillGate?.();
     this.refreshSourceWorkPreview?.();
+    this.syncStep1WizardUi?.();
+    const count = this.currentProduct.photos.length;
+    this._step1PhotoCount = count;
+    // Сцены появляются на том же экране — проскроллим к ним
+    if (
+      count > 0
+      && (this._step1Phase || 'a') === 'a'
+      && !document.getElementById('product-form')?.classList.contains('is-editor-step-2')
+      && !this.currentProduct?.id
+    ) {
+      setTimeout(() => {
+        document.getElementById('step1-after-photo')?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }, 80);
+    }
   },
 
   movePhoto(index, dir) {
@@ -147,7 +210,7 @@ Object.assign(app, {
     this.resetForm({ preserveStudioDraft: true });
     this.switchTab('products');
     this.updateParkedDraftBanner?.();
-    this.toast('Черновик сохранён локально — можно продолжить из списка', 'info');
+    this.toast('Отложено локально. «Продолжить» в баннере или «+ Добавить» → Отмена для новой', 'info');
   },
 
   setMainPhoto(index) {
@@ -171,7 +234,21 @@ Object.assign(app, {
     this.toast('Фото удалено', 'success');
   },
 
-  // === Scene Selector: кнопки слева от фото ===
+  /** Заменить главное фото (после Master / на шаге состава). */
+  replaceMainPhoto() {
+    if (document.getElementById('product-form')?.classList.contains('is-studio-busy')) {
+      this.toast('Дождитесь окончания Master', 'info');
+      return;
+    }
+    this._replaceMainPhotoOnce = true;
+    const input = document.getElementById('photo-input');
+    if (input) {
+      input.value = '';
+      input.click();
+    }
+  },
+
+  // === Scene Selector ===
   setupSceneSelector() {
     const container = document.getElementById('scene-selector');
     if (!container) return;
@@ -180,7 +257,7 @@ Object.assign(app, {
     const iconOf = (title) => String(title || '').split(/\s+/)[0] || '•';
     const escAttr = (s) => String(s || '').replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
     container.innerHTML = `
-      <div class="scene-rail" role="radiogroup" aria-label="Сцена Studio Pro">
+      <div class="scene-rail scene-rail-stack" role="radiogroup" aria-label="Сцена для фото">
         ${SCENES.map((s) => `
           <button type="button" class="scene-rail-btn${s.value === current ? ' is-active' : ''}"
             data-scene="${s.value}"
@@ -231,6 +308,7 @@ Object.assign(app, {
     this.syncUnitBalloonForm?.(true);
     this.syncAdvanceOrderFromScene?.();
     this.scheduleSaveActiveStudioDraft?.();
+    this.syncStep1WizardUi?.();
   },
 
   syncSceneRailUi(sceneValue) {
@@ -1190,9 +1268,11 @@ Object.assign(app, {
     const form = document.getElementById('product-form');
     if (form) {
       form.reset();
-      form.classList.remove('is-studio-busy', 'is-editor-step-2');
-      form.classList.add('is-editor-step-1');
+      form.classList.remove('is-studio-busy', 'is-editor-step-2', 'is-step1-b', 'is-step1-c');
+      form.classList.add('is-editor-step-1', 'is-step1-a');
     }
+    this._step1Phase = 'a';
+    this._step1PhotoCount = 0;
 
     const alts = document.getElementById('title-alts');
     if (alts) { alts.classList.add('hidden'); alts.innerHTML = ''; }
@@ -1222,6 +1302,7 @@ Object.assign(app, {
     this.syncAIFillGate?.();
     this.syncUnitBalloonForm?.(false);
     this.syncEditorSteps?.();
+    this.syncStep1WizardUi?.();
     this.setPhotozoneType?.('frame');
     this.setFloorType?.('air');
     const rentalItemEl = document.getElementById('rental-item');

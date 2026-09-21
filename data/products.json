@@ -2,6 +2,144 @@
   "ok": true,
   "products": [
     {
+      "id": "00763b82-9474-489f-b811-7ec6ca52d9b6",
+      "title": "Чемпионский трофей",
+      "article": "JUB-007",
+      "price": 4500,
+      "short_description": "Напольная композиция с золотым кубком, цифрами 40 и футбольным мячом в красно-бело-серебряной гамме.",
+      "full_description": "Напольная композиция с фольгированным золотым кубком, красными цифрами 40 с логотипом Liverpool FC, футбольным мячом и гирляндой из красных, белых и серебряных шаров. Яркое оформление для футбольного болельщика.",
+      "composition": [
+        "напольная композиция"
+      ],
+      "category": "Юбилей",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Композиция с кубком и футбольным мячом на 40 лет — Армавир",
+      "seo_description": "Напольная композиция с золотым кубком, цифрами 40 и футбольным мячом. Яркое оформление юбилея для футбольного фаната в Армавире.",
+      "slug": "chempionskiy-trofey",
+      "scene": "floor",
+      "tags": [
+        "Юбилей"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1789977689/vigsharm-products/i9upzbuqmwehidqidaap.jpg",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 2
+        }
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1789977780/vigsharm-products/ygmixsgyimqarmfhwnoi.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789977780/vigsharm-products/ygmixsgyimqarmfhwnoi.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-21T08:06:53.437Z",
+      "updated_at": "2026-09-21T08:06:53.437Z"
+    },
+    {
+      "id": "a9ddc266-4e7e-49c7-8fc1-592b5e5112a0",
+      "title": "Ночной блеск",
+      "article": "HIM-013",
+      "price": 4530,
+      "short_description": "Элегантная композиция в чёрно-золотых тонах с баблсом и фольгированной звездой.",
+      "full_description": "Изысканное сочетание чёрного и золотого: баблс и звезда с персональными надписями, хромированные шары и конфетти.",
+      "composition": [
+        "баблс с индивидуальной надписью",
+        "фольгированная звезда с индивидуальной надписью",
+        "3 хромированных шара",
+        "3 шара с конфетти",
+        "5 латексных шаров"
+      ],
+      "category": "Для неё",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Чёрно-золотая композиция из шаров с баблсом — Армавир",
+      "seo_description": "Элегантная напольная композиция в чёрно-золотых тонах с баблсом, фольгированной звездой и хромированными шарами. Доставка в Армавире.",
+      "slug": "nochnoj-blesk",
+      "scene": "wall_only",
+      "tags": [
+        "Для неё"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1789977181/vigsharm-products/cvcwundcnnaavqmlx3wa.jpg"
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1789977296/vigsharm-products/xzgnf5qohpk5odjunwku.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789977296/vigsharm-products/xzgnf5qohpk5odjunwku.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-21T07:58:22.890Z",
+      "updated_at": "2026-09-21T07:58:22.890Z"
+    },
+    {
+      "id": "d73a1501-6cc2-4834-863f-3693b6e3895c",
+      "title": "Графитовый импульс",
+      "article": "HIM-012",
+      "price": 3780,
+      "short_description": "Элегантная композиция в серебристо-чёрной гамме с цифрами и хромированными акцентами.",
+      "full_description": "Стильная композиция из фольгированных цифр, серебряной звезды, хромированных и латексных шаров в монохромной палитре. Подходит для современного взрослого праздника.",
+      "composition": [
+        "2 фольгированные цифры",
+        "фольгированная звезда",
+        "3 хромированных шара",
+        "6 латексных шаров"
+      ],
+      "category": "Универсальные",
+      "character": null,
+      "age_group": "Для детей",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Композиция из шаров с цифрами серебро и чёрный — Армавир",
+      "seo_description": "Элегантная композиция с фольгированными цифрами, звездой и хромированными шарами в серебристо-чёрной гамме. Доставка воздушных шаров в Армавире.",
+      "slug": "grafitovyy-impuls",
+      "scene": "wall_only",
+      "tags": [
+        "Универсальные"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1789975142/vigsharm-products/e50x6icxbpbmhfk5lgok.png",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 2
+        }
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1789975295/vigsharm-products/cnwey8bclaov1l5pbbry.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789975295/vigsharm-products/cnwey8bclaov1l5pbbry.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-21T07:49:32.964Z",
+      "updated_at": "2026-09-21T07:49:32.964Z"
+    },
+    {
       "id": "8a306cdf-a761-49d3-bf59-70db020fe1d2",
       "title": "Чемпионский удар",
       "article": "HIM-011",

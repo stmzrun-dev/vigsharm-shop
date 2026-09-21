@@ -2,6 +2,401 @@
   "ok": true,
   "products": [
     {
+      "id": "feb5afa0-ac57-4c22-a1b6-565af934ec09",
+      "title": "Фисташковое золото",
+      "article": "PHT-009",
+      "price": 5000,
+      "short_description": "Фотозона с круглой табличкой на мольберте в окружении нежных шаров.",
+      "full_description": "Фотозона в приглушённых тонах: фисташковые, персиковые и золотые шары обрамляют мольберт с круглой табличкой для индивидуальной надписи.",
+      "composition": [
+        "фотозона"
+      ],
+      "category": "Фотозона",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "5 000–8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Фотозона Фисташковое золото — аренда в Армавире | VigSharm",
+      "seo_description": "Фотозона с мольбертом и круглой табличкой в фисташковых и золотых тонах. Нежная композиция из шаров для любого праздника в Армавире.",
+      "slug": "fotozona-fistashkovoe-zoloto",
+      "scene": "photozone",
+      "tags": [
+        "Фотозона"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": true,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790017590/vigsharm-products/ncctcze3yowif67ztwto.jpg",
+        "photozone_type": "easel",
+        "rental": {
+          "enabled": true,
+          "item": "Мольберт с кругом из полистирола",
+          "days": 3,
+          "keep_price_delta": 500
+        }
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790017726/vigsharm-products/rzqnbwj9wjka6q8nciqp.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790017726/vigsharm-products/rzqnbwj9wjka6q8nciqp.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-21T19:10:16.975Z",
+      "updated_at": "2026-09-21T19:10:16.975Z"
+    },
+    {
+      "id": "d9fa6d5a-8986-44c8-9957-602a578d8cc8",
+      "title": "Радужный трон",
+      "article": "PHT-008",
+      "price": 5000,
+      "short_description": "Фотозона с деревянной лестницей, круглой табличкой и яркой гирляндой из шаров.",
+      "full_description": "Фотозона включает деревянную лестницу-мольберт, круглую белую табличку с индивидуальной надписью и гирлянду из оранжевых, жёлтых и мятных шаров. Фольгированная цифра с короной добавляет праздничный акцент.",
+      "composition": [
+        "фотозона"
+      ],
+      "category": "Фотозона",
+      "character": "Динозавр",
+      "age_group": "Для малышей",
+      "budget": "5 000–8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Фотозона Радужный трон — VigSharm Армавир",
+      "seo_description": "Яркая детская фотозона с деревянной лестницей, табличкой для надписи и гирляндой из шаров. Заказать фотозону для малышей в Армавире.",
+      "slug": "raduzhnyy-tron",
+      "scene": "photozone",
+      "tags": [
+        "Фотозона"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": true,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790017121/vigsharm-products/etkfdvnb1ju8rn5lxgv7.jpg",
+        "photozone_type": "easel",
+        "rental": {
+          "enabled": true,
+          "item": "Мольберт с кругом из полистирола",
+          "days": 3,
+          "keep_price_delta": 500
+        }
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790017247/vigsharm-products/fvtpi8v4kgzmdnvcivtq.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790017247/vigsharm-products/fvtpi8v4kgzmdnvcivtq.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-21T19:01:57.356Z",
+      "updated_at": "2026-09-21T19:01:57.356Z"
+    },
+    {
+      "id": "816d2834-87c5-4aaa-bcd8-103f5a71bdf1",
+      "title": "Сиреневый восторг",
+      "article": "Y1-008",
+      "price": 6000,
+      "short_description": "Фотозона с аркой из розовых и сиреневых шаров, фольгированной цифрой и круглой табличкой на подставке.",
+      "full_description": "Фотозона включает арку из розовых, сиреневых и хромированных шаров, фольгированную цифру 1 и круглую табличку с каллиграфией на деревянной подставке. Дополнена фонтаном из шаров с декором.",
+      "composition": [
+        "фольгированная цифра",
+        "4 латексных шара",
+        "2 хромированных шара"
+      ],
+      "category": "1 годик",
+      "character": null,
+      "age_group": "Для малышей",
+      "budget": "5 000–8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Фотозона с аркой из розовых и сиреневых шаров — Армавир",
+      "seo_description": "Фотозона с аркой из розовых и сиреневых шаров, фольгированной цифрой и круглой табличкой. Для первого дня рождения. Заказать в Армавире.",
+      "slug": "sirenevyy-vostorg",
+      "scene": "photozone",
+      "tags": [
+        "1 годик"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": true,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790016456/vigsharm-products/k6mch3ln45zsb08jfkls.jpg",
+        "rental": {
+          "enabled": true,
+          "item": "Мольберт с кругом из полистирола",
+          "days": 3,
+          "keep_price_delta": 500
+        }
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790016532/vigsharm-products/jpiv3hsev8warwwxqsqm.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790016532/vigsharm-products/jpiv3hsev8warwwxqsqm.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-21T18:50:32.478Z",
+      "updated_at": "2026-09-21T18:50:32.478Z"
+    },
+    {
+      "id": "8557c9cf-9cfb-4e98-9e42-2fd90ef6ed5f",
+      "title": "Сладкий именинник",
+      "article": "FIG-022",
+      "price": 2000,
+      "short_description": "Фольгированный котик с тортиком на подставке из белых и розовых шаров.",
+      "full_description": "Фигура из фольгированного шара в виде милого котика с праздничным тортом. Композиция стоит на устойчивой подставке из белых и розовых латексных шаров.",
+      "composition": [
+        "фигура из шаров"
+      ],
+      "category": "Фигуры из шаров",
+      "character": "Медвежонок",
+      "age_group": "Для детей",
+      "budget": "2 000–3 500 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Сладкий именинник — фигура из шаров с котиком в Армавире",
+      "seo_description": "Фольгированный котик с тортиком на подставке из белых и розовых шаров. Милая фигура для детского праздника в Армавире.",
+      "slug": "sladkiy-imeninnik",
+      "scene": "balloon_figures",
+      "tags": [
+        "Фигуры из шаров"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790010111/vigsharm-products/ersuvheijykvfpk0el8a.jpg"
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790010303/vigsharm-products/ruwyz7ibbwkb7swtyall.jpg"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790010303/vigsharm-products/ruwyz7ibbwkb7swtyall.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-21T17:05:38.825Z",
+      "updated_at": "2026-09-21T17:05:38.825Z"
+    },
+    {
+      "id": "c550da85-7e46-4624-9dbc-5528bb3dac19",
+      "title": "Весенний подарок",
+      "article": "FIG-021",
+      "price": 2500,
+      "short_description": "Белая кошка из шаров с букетом красных цветов на зелёных стеблях.",
+      "full_description": "Фигура из шаров в виде белой кошки с голубыми глазами, держащей букет из трёх красных цветов. Композиция стоит на зелёной основе из двух больших шаров.",
+      "composition": [
+        "фигура из шаров"
+      ],
+      "category": "Фигуры из шаров",
+      "character": "Кошка",
+      "age_group": "Для детей",
+      "budget": "2 000–3 500 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Фигура из шаров Кошка с букетом — Армавир",
+      "seo_description": "Белая кошка из шаров с букетом красных цветов. Яркая фигура для детского праздника. Доставка воздушных шаров в Армавире.",
+      "slug": "vesenniy-podarok",
+      "scene": "balloon_figures",
+      "tags": [
+        "Фигуры из шаров"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790009878/vigsharm-products/fvylm3nq1btumtw2ovmw.jpg"
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790009973/vigsharm-products/lxiclp5oxgr0mhqacxoa.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790009973/vigsharm-products/lxiclp5oxgr0mhqacxoa.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-21T17:00:31.337Z",
+      "updated_at": "2026-09-21T18:56:27.031Z"
+    },
+    {
+      "id": "7c4bd082-266e-44f4-a895-fe7f8873750f",
+      "title": "Цветочный сюрприз",
+      "article": "FIG-020",
+      "price": 3000,
+      "short_description": "Белая мышка из шаров с букетом разноцветных цветов и серебряной цифрой 5.",
+      "full_description": "Фигура белой мышки из воздушных шаров держит букет из трёх цветков — синего, розового и жёлтого. Композицию дополняет крупная серебряная фольгированная цифра 5.",
+      "composition": [
+        "фигура из шаров"
+      ],
+      "category": "Фигуры из шаров",
+      "character": "Мышка",
+      "age_group": "Для детей",
+      "budget": "2 000–3 500 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Мышка с букетом из шаров — цифра 5 | Армавир",
+      "seo_description": "Фигура белой мышки из воздушных шаров с букетом цветов и серебряной цифрой 5. Яркая композиция для детского праздника в Армавире.",
+      "slug": "myshka-s-buketom-2",
+      "scene": "balloon_figures",
+      "tags": [
+        "Фигуры из шаров"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790009312/vigsharm-products/enmehzwtrgwpw2n0asxn.jpg",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790009465/vigsharm-products/mmrp2zz9ecwevhp8kgpi.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790009465/vigsharm-products/mmrp2zz9ecwevhp8kgpi.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-21T16:57:45.220Z",
+      "updated_at": "2026-09-21T16:57:45.220Z"
+    },
+    {
+      "id": "884bb1c2-81b4-4d61-9061-65b79fbc0b3d",
+      "title": "Улыбка праздника",
+      "article": "FIG-019",
+      "price": 2000,
+      "short_description": "Яркая фигура клоуна из шаров с улыбкой и розовым бантиком.",
+      "full_description": "Фигура клоуна из шаров с жёлтой головой-смайликом, голубым туловищем, салатовыми руками и ногами. Украшена розовым бантиком-бабочкой и шляпкой.",
+      "composition": [
+        "фигура из шаров"
+      ],
+      "category": "Фигуры из шаров",
+      "character": null,
+      "age_group": "Для детей",
+      "budget": "2 000–3 500 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Фигура клоуна из шаров в Армавире — VigSharm",
+      "seo_description": "Яркая фигура весёлого клоуна из воздушных шаров с улыбкой и бантиком. Идеальный подарок для детского праздника. Доставка по Армавиру.",
+      "slug": "veselyj-kloun",
+      "scene": "balloon_figures",
+      "tags": [
+        "Фигуры из шаров"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790009038/vigsharm-products/t7ot7mjadiuggbqxgozi.jpg"
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790009204/vigsharm-products/kmmbbsz0kmoiehkhurzx.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790009204/vigsharm-products/kmmbbsz0kmoiehkhurzx.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-21T16:47:32.309Z",
+      "updated_at": "2026-09-21T16:47:32.309Z"
+    },
+    {
+      "id": "8682ed31-5b8f-4c4b-960d-4c8761e67edc",
+      "title": "Мишка с букетом",
+      "article": "FIG-018",
+      "price": 3000,
+      "short_description": "Розовый медведь из шаров с букетом цветов и жёлтым бантом.",
+      "full_description": "Фигура медведя из воздушных шаров, держащего яркий букет из разноцветных цветов. Композиция украшена большим жёлтым бантом.",
+      "composition": [
+        "фигура из шаров"
+      ],
+      "category": "Фигуры из шаров",
+      "character": "Мишка",
+      "age_group": "Для детей",
+      "budget": "2 000–3 500 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Фигура мишки из шаров с букетом — Армавир",
+      "seo_description": "Розовый медведь из воздушных шаров с цветами и жёлтым бантом. Яркая фигура для детского праздника в Армавире.",
+      "slug": "mishka-s-buketom",
+      "scene": "balloon_figures",
+      "tags": [
+        "Фигуры из шаров"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790008692/vigsharm-products/gkaqsbvyxlj2x5cdl1bt.jpg"
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790008838/vigsharm-products/r2wxq88zgculpxx1pdcz.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790008838/vigsharm-products/r2wxq88zgculpxx1pdcz.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-21T16:41:43.769Z",
+      "updated_at": "2026-09-21T16:41:43.769Z"
+    },
+    {
+      "id": "7cdd4590-550c-47b0-9287-69ea43241520",
+      "title": "Зимний гость",
+      "article": "FIG-017",
+      "price": 2000,
+      "short_description": "Фигура Деда Мороза из шаров в красной шубе с белым воротником и чёрными сапогами.",
+      "full_description": "Фигура Деда Мороза из воздушных шаров с красной шубой, белым воротником, оранжевым поясом и чёрными сапогами. Высокая причёска из красных шаров завершает образ новогоднего волшебника.",
+      "composition": [
+        "фигура из шаров"
+      ],
+      "category": "Фигуры из шаров",
+      "character": "Дед Мороз",
+      "age_group": "Для любого возраста",
+      "budget": "2 000–3 500 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Фигура Деда Мороза из шаров — Армавир | VigSharm",
+      "seo_description": "Фигура Деда Мороза из воздушных шаров в красной шубе и чёрных сапогах. Яркое новогоднее украшение для любого праздника в Армавире.",
+      "slug": "zimniy-gost",
+      "scene": "balloon_figures",
+      "tags": [
+        "Фигуры из шаров"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790002033/vigsharm-products/esvldqmnzhqjzy1sjpik.jpg"
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790002126/vigsharm-products/ouizmunseu6vxjmkatyf.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790002126/vigsharm-products/ouizmunseu6vxjmkatyf.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-21T16:38:03.306Z",
+      "updated_at": "2026-09-21T18:41:23.235Z"
+    },
+    {
       "id": "8d289a53-b8c0-48aa-ab56-3604de009f2d",
       "title": "Военная барышня",
       "article": "F23-001",

@@ -50,6 +50,7 @@ assert(studio.includes('showSignTextEditor'), 'sign editor show helper');
 assert(worker.includes('foil STAR') || worker.includes('foil star'), 'sign-text supports foil star');
 assert(worker.includes('extra balloons'), 'rephotograph forbids extra balloons');
 assert(worker.includes('MIRROR / VANITY BEHIND THE PRODUCT'), 'floor mirror hazard lock');
+assert(worker.includes('REFLECTIONS — NOT product') || worker.includes('ONLY inside the mirror glass are REFLECTIONS'), 'mirror reflections not counted as product');
 assert(studio.includes('studioMasterBackupUrl'), 'keep Master on failed retry');
 assert(worker.includes("status === 'failed'"), 'status returns failure detail');
 

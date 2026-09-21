@@ -1001,13 +1001,13 @@ footer{
   min-height:52px;
   padding:8px 12px!important;
   gap:10px!important;
-  grid-template-columns:36px 1fr!important;
+  grid-template-columns:40px 1fr!important;
   align-items:center!important;
   font-size:17px!important;
 }
 .footer-phone .vig-emoji{
-  width:28px!important;
-  height:28px!important;
+  width:38px!important;
+  height:38px!important;
 }
 .footer-contacts>button .vig-emoji{
   width:18px!important;
@@ -1119,13 +1119,13 @@ footer{
   min-height:52px;
   padding:10px 14px!important;
   gap:10px!important;
-  grid-template-columns:36px 1fr!important;
+  grid-template-columns:40px 1fr!important;
   align-items:center!important;
   font-size:17px!important;
 }
 .footer-phone .vig-emoji{
-  width:28px!important;
-  height:28px!important;
+  width:38px!important;
+  height:38px!important;
 }
 .footer-contacts>button .vig-emoji{
   width:18px!important;
@@ -1259,13 +1259,13 @@ footer{
   min-height:56px;
   padding:12px 16px!important;
   gap:12px!important;
-  grid-template-columns:40px 1fr!important;
+  grid-template-columns:44px 1fr!important;
   align-items:center!important;
   font-size:18px!important;
 }
 .footer-phone .vig-emoji{
-  width:30px!important;
-  height:30px!important;
+  width:42px!important;
+  height:42px!important;
 }
 .footer-contacts>button .vig-emoji{
   width:18px!important;

@@ -5,10 +5,10 @@
   var PHONE = '79284440142', PHONE_LABEL = '+7 928 444-01-42';
   var MAX_URL = 'https://max.ru/u/f9LHodD0cOJwY09H6Zj63nYK_X8tPZGb3CODIvTT7FWkRzrgbh5F582AiB8';
   var TG_URL = 'https://t.me/Olgamzz';
-  var WA_ICON = '<img src="icons/brand-whatsapp.svg?v=3" alt="" width="40" height="40" decoding="async" aria-hidden="true"/>';
-  var TG_ICON = '<img src="icons/brand-telegram.svg?v=8" alt="" width="40" height="40" decoding="async" aria-hidden="true"/>';
-  var MAX_ICON = '<img src="icons/max-official.png" alt="" width="40" height="40" decoding="async" aria-hidden="true"/>';
-  var PHONE_ICON = '<img src="icons/brand-phone.svg?v=5" alt="" width="40" height="40" decoding="async" aria-hidden="true"/>';
+  var WA_ICON = '<img src="icons/bar-whatsapp.png?v=1" alt="" width="40" height="40" decoding="async" aria-hidden="true"/>';
+  var TG_ICON = '<img src="icons/bar-telegram.png?v=1" alt="" width="40" height="40" decoding="async" aria-hidden="true"/>';
+  var MAX_ICON = '<img src="icons/bar-max.png?v=2" alt="" width="40" height="40" decoding="async" aria-hidden="true"/>';
+  var PHONE_ICON = '<img src="icons/bar-phone.svg?v=5" alt="" width="40" height="40" decoding="async" aria-hidden="true"/>';
 
   function esc(s) {
     return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -101,8 +101,33 @@
   function isOrderReady() { return digitsOk() && inscriptionOk() && fulfillmentOk() && whenOk(); }
   function useMobileFlow() {
     if (typeof window.matchMedia !== 'function') return false;
-    if (!flowMedia) flowMedia = window.matchMedia('(max-width:650px)');
+    if (!flowMedia) flowMedia = window.matchMedia('(max-width:1020px)');
     return !!flowMedia.matches;
+  }
+  function mobileBarActionsHtml(ready) {
+    if (!ready) {
+      return '<button type="button" class="mobile-order-cta" data-act="order">' + esc(orderCta('short')) + '</button>';
+    }
+    var msg = encodeURIComponent(orderMessage());
+    var barWa = '<img src="icons/bar-whatsapp.png?v=1" alt="" width="48" height="48" decoding="async" aria-hidden="true"/>';
+    var barTg = '<img src="icons/bar-telegram.png?v=1" alt="" width="48" height="48" decoding="async" aria-hidden="true"/>';
+    var barMax = '<img src="icons/bar-max.png?v=2" alt="" width="48" height="48" decoding="async" aria-hidden="true"/>';
+    var barPhone = '<img src="icons/bar-phone.svg?v=5" alt="" width="48" height="48" decoding="async" aria-hidden="true"/>';
+    return '<div class="mobile-order-contacts" role="group" aria-label="Отправить заказ">' +
+      '<a class="mobile-order-msg whatsapp" target="_blank" rel="noreferrer" href="https://wa.me/' + PHONE + '?text=' + msg + '" data-msg="wa" aria-label="Отправить заказ в WhatsApp"><span>' + barWa + '</span></a>' +
+      '<a class="mobile-order-msg telegram" target="_blank" rel="noreferrer" href="' + TG_URL + '?text=' + msg + '" data-msg="tg" aria-label="Отправить заказ в Telegram"><span>' + barTg + '</span></a>' +
+      '<a class="mobile-order-msg max" target="_blank" rel="noreferrer" href="' + MAX_URL + '" data-msg="max" aria-label="Отправить заказ в MAX"><span>' + barMax + '</span></a>' +
+      '<a class="mobile-order-msg phone" href="tel:+' + PHONE + '" aria-label="Позвонить ' + PHONE_LABEL + '"><span>' + barPhone + '</span></a>' +
+      '</div>';
+  }
+  function bindMobileBarContacts() {
+    root.querySelectorAll('.mobile-order-msg[data-msg]').forEach(function (el) {
+      el.addEventListener('click', function () {
+        var kind = el.getAttribute('data-msg');
+        if (kind === 'max') copyOrderText(orderMessage(), null, MAX_COPY_HINT);
+        else if (kind === 'wa' || kind === 'tg') copyOrderText(orderMessage());
+      });
+    });
   }
   function flowStepList() {
     var steps = [];
@@ -146,7 +171,7 @@
   }
   function orderCta(kind) {
     if (!digitsOk()) return kind === 'short' ? 'Выберите цифру' : ('Выберите ' + (effDigits() === 2 ? 'обе цифры' : 'цифру'));
-    if (!inscriptionOk()) return 'Напишите надпись';
+    if (!inscriptionOk()) return kind === 'short' ? 'Нужна надпись' : 'Напишите надпись на шаре';
     if (!fulfillment) return kind === 'short' ? 'Выберите получение' : 'Выберите способ получения';
     if (!fulfillmentOk()) return kind === 'short' ? 'Укажите адрес' : 'Укажите адрес доставки';
     if (!orderDate) return kind === 'short' ? 'Укажите дату' : 'Выберите дату';
@@ -331,10 +356,10 @@
     if (id === 'client-qty') return isUnit();
     if (id === 'client-digits') return !!(p && p.has_digit_choice);
     if (id === 'client-ins') return !!(p && p.has_inscription) && digitsOk();
-    if (id === 'client-rental') return !!(p && p.has_rental) && digitsOk() && inscriptionOk();
-    if (id === 'client-ful') return digitsOk() && inscriptionOk();
-    if (id === 'client-addr') return digitsOk() && inscriptionOk() && !!fulfillment && fulfillment !== 'pickup';
-    if (id === 'client-when') return digitsOk() && inscriptionOk() && fulfillmentOk();
+    if (id === 'client-rental') return !!(p && p.has_rental) && digitsOk();
+    if (id === 'client-ful') return digitsOk();
+    if (id === 'client-addr') return digitsOk() && !!fulfillment && fulfillment !== 'pickup';
+    if (id === 'client-when') return digitsOk();
     return false;
   }
 
@@ -609,9 +634,7 @@
           return '<div class="composition-item tone-' + (i % 4) + '"><span class="comp-mark" aria-hidden="true">' + compIcon(label, i) + '</span><strong>' + esc(label) + '</strong></div>';
         }).join('') + '</div></article></section>')
       : '';
-    var mobileBarActions = '<button type="button" class="mobile-order-cta" data-act="order">' +
-      orderCta('short') +
-      ' <span aria-hidden="true">→</span></button>';
+    var mobileBarActions = mobileBarActionsHtml(ready);
 
     root.innerHTML =
       '<main class="' + pageClass + '">' +
@@ -635,10 +658,9 @@
       '<div class="product-page-tags">' +
       '<span class="product-tag">' + esc(p.category || 'Композиция Вигшарм') + '</span>' +
       (p.available_on_request ? '<span class="product-tag product-tag-request">Под заказ</span>' : '') +
-      (p.needs_advance_order ? '<span class="product-tag product-tag-advance">За 1–2 дня</span>' : '') +
+      (p.needs_advance_order ? '<span class="product-tag product-tag-advance">Заказ за 1–2 дня</span>' : '') +
       '</div>' +
       '<h1>' + esc(p.title) + '</h1>' +
-      '<p class="sku">Артикул ' + esc(p.sku || '') + '</p>' +
       '<div class="product-base-price"><small>' + (isUnit() ? (isPerMeter() ? 'Цена за метр' : 'Цена за штуку') : 'Цена за композицию') + '</small><strong>' + (priceFrom() ? 'от ' : '') + Number(p.price).toLocaleString('ru-RU') + ' ₽</strong></div>' +
       (leadText
         ? '<div class="product-lead"><div class="product-lead-icon" aria-hidden="true"><img src="icons/line-balloon.svg" alt="" width="22" height="22"/></div><p>' + esc(leadText) + '</p></div>'
@@ -666,7 +688,7 @@
       '<section class="related-products"><div class="related-products-heading"><div>' +
       '<h2>' + (rel.length ? 'Похожие композиции' : 'Нужен другой вариант?') + '</h2>' +
       '</div>' +
-      '<div class="related-products-actions"><a href="catalog.html?max=' + p.price + '">Не дороже ' + Number(p.price).toLocaleString('ru-RU') + ' ₽</a><a href="catalog.html">Весь каталог <span>→</span></a></div></div>' +
+      '<div class="related-products-actions"><a href="catalog.html?max=' + p.price + '">Не дороже ' + Number(p.price).toLocaleString('ru-RU') + ' ₽</a><a href="catalog.html">Весь каталог</a></div></div>' +
       (rel.length
         ? '<div class="related-products-grid">' + rel.map(function (o, i) {
           var k = (window.vigProductPhoto ? window.vigProductPhoto(o) : '') || (o.image_keys && o.image_keys[0]) || '';
@@ -678,8 +700,8 @@
         }).join('') + '</div>'
         : '<div class="related-custom-card">' + window.vigEmoji('balloon') + '<div><strong>Сделаем под ваш праздник</strong><p>Напишите повод и бюджет — предложим идеи.</p></div><button type="button" data-act="order">Обсудить идею</button></div>') +
       '</section>' +
-      '<aside class="mobile-order-bar' + (ready ? ' is-ready' : '') + '" aria-label="Быстрый заказ"><div><small>' + (fulfilled === 'nearby' ? 'От' : fulfilled ? 'Итого' : 'Цена') + '</small><strong>' + (priceFrom() ? 'от ' : '') + T.toLocaleString('ru-RU') + ' ₽</strong></div>' +
-      mobileBarActions + '</aside>' +
+      '<aside class="mobile-order-bar' + (ready ? ' is-ready' : '') + '" aria-label="Отправить заказ"><div class="mobile-order-price"><small>' + (ready ? 'Отправить заказ' : (fulfilled === 'nearby' ? 'От' : fulfilled ? 'Итого' : 'Цена')) + '</small><strong>' + (priceFrom() ? 'от ' : '') + T.toLocaleString('ru-RU') + ' ₽</strong></div>' +
+      '<div class="mobile-order-actions">' + mobileBarActions + '</div></aside>' +
       '</main>';
 
     document.title = (p.seo_title || (p.title + ' — заказать шары в Армавире | VigSharm'));
@@ -795,7 +817,6 @@
         });
       } else if (act === 'inscription') {
         el.addEventListener('input', function () {
-          var hadText = !!String(inscription || '').trim();
           inscription = el.value;
           var hasText = !!String(inscription || '').trim();
           saveDraft();
@@ -807,20 +828,9 @@
             insBlock.classList.toggle('is-done', hasText);
             insBlock.classList.toggle('is-next', !hasText);
           }
-          if (!useMobileFlow()) return;
-          var fulVisible = !!root.querySelector('#client-ful');
-          if (hasText && !fulVisible) {
-            unlockClientSteps({ keepFocus: 'inscription', scroll: true, delay: 420 });
-          } else if (!hasText && fulVisible) {
-            unlockClientSteps({ keepFocus: 'inscription', immediate: true });
-          } else if (hasText !== hadText) {
-            unlockClientSteps({ keepFocus: 'inscription', delay: 200 });
-          }
         });
         el.addEventListener('change', function () {
-          clearTimeout(stepUnlockTimer);
-          render();
-          if (inscriptionOk()) softScrollTo(clientNextId());
+          clearFlowEditIf('inscription');
         });
         el.addEventListener('keydown', function (e) {
           if (e.key !== 'Enter') return;
@@ -843,21 +853,9 @@
           }
           var ok = root.querySelector('[data-act="flow-addr-ok"]');
           if (ok) ok.disabled = !has;
-          if (!useMobileFlow()) return;
-          var whenVisible = !!root.querySelector('#client-when');
-          if (has && fulfillmentOk() && !whenVisible) {
-            unlockClientSteps({ keepFocus: 'address', scroll: true, delay: 420 });
-          } else if (!has && whenVisible) {
-            unlockClientSteps({ keepFocus: 'address', immediate: true });
-          } else if (has !== had) {
-            unlockClientSteps({ keepFocus: 'address', delay: 200 });
-          }
         });
         el.addEventListener('change', function () {
           clearFlowEditIf('address');
-          clearTimeout(stepUnlockTimer);
-          render();
-          if (addressOk()) softScrollTo(clientNextId());
         });
         el.addEventListener('keydown', function (e) {
           if (e.key !== 'Enter') return;
@@ -933,8 +931,6 @@
           if (fulfillment === 'pickup') address = '';
           clearFlowEditIf('fulfill');
           render();
-          if (fulfillment === 'pickup') softScrollTo(clientNextId());
-          else softScrollTo('client-addr');
         });
       } else if (act === 'flow-edit') {
         el.addEventListener('click', function () {
@@ -984,13 +980,7 @@
         el.addEventListener('click', order);
       }
     });
-    root.querySelectorAll('.mobile-order-msg[data-msg]').forEach(function (el) {
-      el.addEventListener('click', function () {
-        var kind = el.getAttribute('data-msg');
-        if (kind === 'max') copyOrderText(orderMessage(), null, MAX_COPY_HINT);
-        else if (kind === 'wa' || kind === 'tg') copyOrderText(orderMessage());
-      });
-    });
+    bindMobileBarContacts();
     var gal = root.querySelector('[data-gallery]');
     if (gal) {
       function togglePhoto() {
@@ -1036,7 +1026,7 @@
         });
       });
       if (typeof window.matchMedia === 'function') {
-        flowMedia = window.matchMedia('(max-width:650px)');
+        flowMedia = window.matchMedia('(max-width:1020px)');
         var onFlowMq = function () { if (p) render(); };
         if (flowMedia.addEventListener) flowMedia.addEventListener('change', onFlowMq);
         else if (flowMedia.addListener) flowMedia.addListener(onFlowMq);
@@ -1068,22 +1058,39 @@
     var btn = root.querySelector('.product-order-button');
     if (btn) btn.textContent = orderBtn;
 
-    var barSmall = root.querySelector('.mobile-order-bar div small');
-    if (barSmall) barSmall.textContent = fulfilled === 'nearby' ? 'От' : (fulfilled ? 'Итого' : 'Цена');
-    var barStrong = root.querySelector('.mobile-order-bar div strong');
+    var readyNow = isOrderReady();
+    var barSmall = root.querySelector('.mobile-order-price small');
+    if (barSmall) barSmall.textContent = readyNow ? 'Отправить заказ' : (fulfilled === 'nearby' ? 'От' : (fulfilled ? 'Итого' : 'Цена'));
+    var barStrong = root.querySelector('.mobile-order-price strong');
     if (barStrong) barStrong.textContent = (priceFrom() ? 'от ' : '') + T.toLocaleString('ru-RU') + ' ₽';
 
     var bar = root.querySelector('.mobile-order-bar');
-    if (bar) bar.classList.toggle('is-ready', isOrderReady());
+    if (bar) bar.classList.toggle('is-ready', readyNow);
     var pageEl = root.querySelector('.product-page');
-    if (pageEl && useMobileFlow()) pageEl.classList.toggle('is-order-ready', isOrderReady());
+    if (pageEl && useMobileFlow()) pageEl.classList.toggle('is-order-ready', readyNow);
 
     var insField = root.querySelector('.inscription-field');
     if (insField) insField.classList.toggle('is-empty', !inscriptionOk());
 
-    var cta = root.querySelector('.mobile-order-cta');
-    if (cta) {
-      cta.innerHTML = orderCta('short') + ' <span aria-hidden="true">→</span>';
+    var actions = root.querySelector('.mobile-order-actions');
+    if (actions) {
+      var wantContacts = readyNow;
+      var hasContacts = !!actions.querySelector('.mobile-order-contacts');
+      if (wantContacts !== hasContacts) {
+        actions.innerHTML = mobileBarActionsHtml(readyNow);
+        bindMobileBarContacts();
+        var ctaBtn = actions.querySelector('[data-act="order"]');
+        if (ctaBtn) ctaBtn.addEventListener('click', order);
+      } else if (wantContacts) {
+        var msg = encodeURIComponent(orderMessage());
+        var wa = actions.querySelector('.mobile-order-msg.whatsapp');
+        var tg = actions.querySelector('.mobile-order-msg.telegram');
+        if (wa) wa.setAttribute('href', 'https://wa.me/' + PHONE + '?text=' + msg);
+        if (tg) tg.setAttribute('href', TG_URL + '?text=' + msg);
+      } else {
+        var cta = actions.querySelector('.mobile-order-cta');
+        if (cta) cta.textContent = orderCta('short');
+      }
     }
   }
 
@@ -1163,7 +1170,7 @@
       '<section class="contact-modal product-order-modal" role="dialog" aria-modal="true" aria-labelledby="product-order-title">' +
       '<button class="modal-close" type="button" aria-label="Закрыть">×</button>' +
       '<p class="eyebrow">Почти готово</p><h2 id="product-order-title">Куда отправить заказ?</h2>' +
-      '<div class="order-modal-summary"><span>' + esc(p.title) + '</span><strong>' + (priceFrom() ? 'от ' : '') + T.toLocaleString('ru-RU') + ' ₽</strong><small>Артикул ' + esc(p.sku || '') + '</small></div>' +
+      '<div class="order-modal-summary"><span>' + esc(p.title) + '</span><strong>' + (priceFrom() ? 'от ' : '') + T.toLocaleString('ru-RU') + ' ₽</strong></div>' +
       '<div class="order-confirmation-list" aria-label="Выбранные условия заказа">' +
       '<span><small>Дата</small><strong>' + esc(dateLabel()) + '</strong></span>' +
       '<span><small>Время</small><strong>' + esc(orderTime || 'уточнить') + '</strong></span>' +

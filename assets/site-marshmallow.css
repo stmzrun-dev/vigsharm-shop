@@ -2582,3 +2582,147 @@ html body .contact-request-summary{
   border-radius:18px!important;
 }
 
+/* Product phone/tablet: quiet sticky order */
+@media (max-width:1020px){
+  html body .mobile-order-bar{
+    display:flex!important;
+    align-items:center!important;
+    gap:8px!important;
+    padding:8px 10px!important;
+    border:0!important;
+    border-radius:20px!important;
+    background:#fffffff8!important;
+    box-shadow:0 10px 30px rgba(0,0,0,.08),0 2px 8px rgba(0,0,0,.03)!important;
+  }
+  html body .mobile-order-bar.is-ready{
+    flex-direction:row!important;
+    align-items:center!important;
+    gap:10px!important;
+    padding:8px 10px 8px 14px!important;
+    background:#fff8f5!important;
+    box-shadow:0 0 0 4px rgba(255,107,107,.16),0 12px 28px rgba(255,107,90,.18)!important;
+  }
+  html body .mobile-order-price{
+    flex:0 0 auto;
+    min-width:68px;
+    max-width:92px;
+  }
+  html body .mobile-order-bar.is-ready .mobile-order-price{
+    display:grid!important;
+    gap:1px;
+    min-width:0;
+    max-width:118px;
+    width:auto;
+  }
+  html body .mobile-order-price small{
+    color:#6f6f78!important;
+    font-size:10px!important;
+    font-weight:700!important;
+  }
+  html body .mobile-order-bar.is-ready .mobile-order-price small{
+    font-size:11px!important;
+    letter-spacing:-.01em;
+    color:#c2650f!important;
+  }
+  html body .mobile-order-price strong{
+    color:#2a2a32!important;
+    font-size:15px!important;
+    font-weight:800!important;
+    letter-spacing:-.03em;
+  }
+  html body .mobile-order-actions{
+    flex:1 1 auto;
+    min-width:0;
+  }
+  html body .mobile-order-bar .mobile-order-cta,
+  html body .mobile-order-cta{
+    background:#fff!important;
+    background-image:none!important;
+    color:#6f6f78!important;
+    box-shadow:none!important;
+    border:1.5px solid #e8e8ec!important;
+    font-weight:700!important;
+  }
+  html body .mobile-order-contacts{
+    display:flex!important;
+    justify-content:flex-end!important;
+    align-items:center!important;
+    gap:6px!important;
+    grid-template-columns:none!important;
+  }
+  html body .mobile-order-msg,
+  html body .mobile-order-msg.whatsapp,
+  html body .mobile-order-msg.telegram,
+  html body .mobile-order-msg.max,
+  html body .mobile-order-msg.phone{
+    flex:none!important;
+    flex-direction:row!important;
+    width:48px!important;
+    height:48px!important;
+    min-height:48px!important;
+    padding:0!important;
+    border-radius:50%!important;
+    overflow:hidden!important;
+    background:transparent!important;
+    color:#2a2a32!important;
+    text-decoration:none!important;
+    box-shadow:none!important;
+  }
+  html body .mobile-order-msg.max{
+    background:transparent!important;
+  }
+  html body .mobile-order-msg small{
+    display:none!important;
+  }
+  html body .mobile-order-msg span,
+  html body .mobile-order-msg.whatsapp span,
+  html body .mobile-order-msg.telegram span,
+  html body .mobile-order-msg.max span,
+  html body .mobile-order-msg.phone span{
+    display:grid!important;
+    place-items:center!important;
+    width:48px!important;
+    height:48px!important;
+    margin:0!important;
+    padding:0!important;
+    background:transparent!important;
+    border-radius:0!important;
+  }
+  html body .mobile-order-msg span img,
+  html body .mobile-order-msg.whatsapp img,
+  html body .mobile-order-msg.telegram img,
+  html body .mobile-order-msg.phone img,
+  html body .mobile-order-msg.max img{
+    width:48px!important;
+    height:48px!important;
+    max-width:48px!important;
+    max-height:48px!important;
+    object-fit:contain!important;
+    display:block!important;
+  }
+  html body .product-page{
+    padding-bottom:calc(108px + env(safe-area-inset-bottom,0px))!important;
+  }
+  html body .product-page .client-block{
+    border:0!important;
+    border-radius:20px!important;
+    background:#fff!important;
+    box-shadow:0 10px 30px rgba(0,0,0,.05),0 2px 8px rgba(0,0,0,.02)!important;
+  }
+  html body .product-page .client-block.is-next{
+    background:#fff8f5!important;
+    box-shadow:0 0 0 4px rgba(255,107,107,.16),0 10px 28px rgba(255,107,90,.08)!important;
+  }
+  html body .product-page .client-ful > button,
+  html body .product-page .client-ins input,
+  html body .product-page .client-qty input{
+    border-radius:16px!important;
+  }
+  html body .product-page .client-ins input:focus,
+  html body .product-page .client-qty input:focus{
+    outline:0!important;
+    box-shadow:0 0 0 4px rgba(255,107,107,.16)!important;
+    border-color:#ff6b6b!important;
+  }
+}
+

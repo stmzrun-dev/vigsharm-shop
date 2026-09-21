@@ -38,7 +38,7 @@
           var requestBadge = p.available_on_request ? '<em class="product-request-badge">Под заказ</em>' : '';
           var cat = String(p.category || '').trim();
           var advanceBadge = (!requestBadge && p.needs_advance_order && !cat)
-            ? '<em class="product-advance-badge">За 1–2 дня</em>'
+            ? '<em class="product-advance-badge">Заказ за 1–2 дня</em>'
             : '';
           var badge = requestBadge || advanceBadge;
           return (

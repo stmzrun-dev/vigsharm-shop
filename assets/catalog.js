@@ -309,7 +309,7 @@
     var requestBadge = p.available_on_request ? '<em class="product-request-badge">Под заказ</em>' : '';
     /* Advance badge only when category is missing — avoid noisy repeat on every card */
     var advanceBadge = (!requestBadge && p.needs_advance_order && !cat)
-      ? '<em class="product-advance-badge">За 1–2 дня</em>'
+      ? '<em class="product-advance-badge">Заказ за 1–2 дня</em>'
       : '';
     var badge = requestBadge || advanceBadge;
     return '<a class="catalog-card color-' + (i % 5) + '" href="product.html?slug=' + encodeURIComponent(p.slug || p.id) + '" aria-label="Подробнее: ' + esc(p.title) + '">' +

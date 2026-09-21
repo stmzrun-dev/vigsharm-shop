@@ -177,18 +177,7 @@
   color:#2a2a32!important;
 }
 .product-page .related-products-actions > a span{
-  display:inline-grid!important;
-  place-items:center!important;
-  width:22px!important;
-  height:22px!important;
-  margin-left:6px!important;
-  border-radius:999px!important;
-  background:#ff6b5a!important;
-  color:#fff!important;
-  font-size:12px!important;
-  font-weight:800!important;
-  line-height:1!important;
-  box-shadow:none!important;
+  display:none!important;
 }
 
 .product-page .related-products-grid .catalog-card{
@@ -620,11 +609,11 @@
   }
 }
 
-/* ===== Client order form (mobile ≤650) — no stories overlay ===== */
+/* ===== Client order form (phone + tablet ≤1020) — no stories overlay ===== */
 .order-story{display:none!important}
 .client-order{display:none}
 
-@media (max-width:650px){
+@media (max-width:1020px){
   .product-page.is-mobile-flow .order-classic-flow{
     display:none!important;
   }

@@ -2,6 +2,88 @@
   "ok": true,
   "products": [
     {
+      "id": "8d289a53-b8c0-48aa-ab56-3604de009f2d",
+      "title": "Военная барышня",
+      "article": "F23-001",
+      "price": 2000,
+      "short_description": "Фигура девушки в зелёной военной форме с жёлтыми волосами и пилоткой со звездой.",
+      "full_description": "Фигура из шаров в виде девушки в зелёной военной форме с жёлтыми волосами, пилоткой со звездой и чёрным поясом.",
+      "composition": [
+        "фигура из шаров"
+      ],
+      "category": "23 февраля",
+      "character": "Военная девушка",
+      "age_group": "Для взрослых",
+      "budget": "2 000–3 500 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Военная барышня из шаров на 23 февраля в Армавире",
+      "seo_description": "Фигура девушки в зелёной военной форме с жёлтыми волосами и пилоткой со звездой. Оригинальный подарок на 23 февраля в Армавире.",
+      "slug": "voennaya-baryshnya",
+      "scene": "balloon_figures",
+      "tags": [
+        "23 февраля"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790001733/vigsharm-products/yhlxmkev85s8cazperar.jpg"
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790001813/vigsharm-products/eeeetl2j36jodkprbix9.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790001813/vigsharm-products/eeeetl2j36jodkprbix9.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-21T14:44:16.718Z",
+      "updated_at": "2026-09-21T14:44:16.718Z"
+    },
+    {
+      "id": "fb85313d-af55-4ddb-bb74-d8fd472ce31d",
+      "title": "Снеговик в наушниках",
+      "article": "NY-001",
+      "price": 1500,
+      "short_description": "Снеговик из шаров с фиолетовыми наушниками и ярким шарфом.",
+      "full_description": "Фигура снеговика из воздушных шаров с фиолетовыми наушниками, оранжевым носом-морковкой и жёлто-оранжевым полосатым шарфом. Яркий новогодний персонаж для праздничного настроения.",
+      "composition": [
+        "фигура из шаров"
+      ],
+      "category": "Новый год",
+      "character": "Снеговик",
+      "age_group": "Для любого возраста",
+      "budget": "1 000–2 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Снеговик из шаров в наушниках — Армавир | VigSharm",
+      "seo_description": "Снеговик из воздушных шаров с фиолетовыми наушниками и ярким шарфом. Новогодняя фигура для праздничного декора в Армавире.",
+      "slug": "snegovik-v-naushnikah",
+      "scene": "balloon_figures",
+      "tags": [
+        "Новый год"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790001627/vigsharm-products/za1h6m8cnz2mix4me2x1.jpg"
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790001681/vigsharm-products/zumb4ngnz2rpr5sijuqf.jpg"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790001681/vigsharm-products/zumb4ngnz2rpr5sijuqf.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-21T14:41:55.430Z",
+      "updated_at": "2026-09-21T14:41:55.430Z"
+    },
+    {
       "id": "d2889a10-370a-4d0c-8395-360e9c7de083",
       "title": "Забивной гол",
       "article": "FIG-016",

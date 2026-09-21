@@ -765,13 +765,36 @@ html body main#main-content .hero .hero-actions a.button-primary{
   }
 }
 
-/* ===== Quick recipient «Для кого» — fix + marshmallow compact tiles ===== */
+/* ===== Quick recipient «Для кого» — stacked marshmallow tiles ===== */
 html body main#main-content .quick-recipient-section{
   background:transparent!important;
 }
+html body main#main-content .quick-recipient-heading>a{
+  color:#ff6b5a!important;
+  font-size:15px!important;
+  font-weight:800!important;
+  line-height:1.2!important;
+  min-height:44px!important;
+  display:inline-flex!important;
+  align-items:center!important;
+  padding:10px 0!important;
+  text-decoration:none!important;
+}
+html body main#main-content .quick-recipient-heading>a:hover{
+  color:#e85a4a!important;
+}
 html body main#main-content .quick-recipient-card{
+  display:grid!important;
+  grid-template-columns:1fr!important;
+  grid-template-rows:auto auto!important;
+  justify-items:stretch!important;
+  align-items:start!important;
+  text-align:left!important;
+  gap:8px!important;
+  padding:10px 10px 14px!important;
   border:0!important;
-  overflow:visible!important;
+  border-radius:22px!important;
+  overflow:hidden!important;
 }
 html body main#main-content .quick-recipient-card.pink{
   background:linear-gradient(180deg,#fff 0%,#fff5f8 100%)!important;
@@ -785,9 +808,9 @@ html body main#main-content .quick-recipient-card.purple{
 html body main#main-content .quick-recipient-card.navy{
   background:linear-gradient(180deg,#fff 0%,#f2f5fb 100%)!important;
 }
-/* contain + inset padding — tops of crowns/rockets must stay inside the tile */
 html body main#main-content .quick-recipient-card img{
   width:100%!important;
+  max-width:none!important;
   height:auto!important;
   max-height:none!important;
   aspect-ratio:1/1!important;
@@ -795,34 +818,72 @@ html body main#main-content .quick-recipient-card img{
   padding:12px!important;
   object-fit:contain!important;
   object-position:center center!important;
-  border-radius:14px!important;
+  border-radius:16px!important;
   background:transparent!important;
   display:block!important;
+}
+html body main#main-content .quick-recipient-card>span{
+  display:grid!important;
+  justify-items:start!important;
+  gap:4px!important;
+  padding:0 4px 2px!important;
+  min-width:0!important;
 }
 html body main#main-content .quick-recipient-card strong{
   color:#1e293b!important;
   font-weight:800!important;
+  line-height:1.2!important;
 }
 html body main#main-content .quick-recipient-card small{
+  display:block!important;
   color:#8b8b93!important;
+  white-space:normal!important;
+  overflow:visible!important;
+  text-overflow:unset!important;
+  -webkit-line-clamp:unset!important;
+  line-clamp:unset!important;
+  max-height:none!important;
+  line-height:1.35!important;
+}
+html body main#main-content .quick-recipient-card>b{
+  display:none!important;
+}
+
+@media (min-width:1101px){
+  html body main#main-content .quick-recipient-list{
+    display:grid!important;
+    grid-template-columns:repeat(4,minmax(0,1fr))!important;
+    gap:14px!important;
+    overflow:visible!important;
+  }
+  html body main#main-content .quick-recipient-card{
+    padding:12px 12px 16px!important;
+  }
+  html body main#main-content .quick-recipient-card strong{
+    font-size:16px!important;
+  }
+  html body main#main-content .quick-recipient-card small{
+    font-size:13px!important;
+  }
 }
 
 @media (max-width:1100px){
   html body main#main-content .quick-recipient-list{
+    display:grid!important;
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
     gap:10px!important;
   }
   html body main#main-content .quick-recipient-card{
     padding:10px 10px 12px!important;
-    border-radius:18px!important;
   }
   html body main#main-content .quick-recipient-card img{
-    aspect-ratio:1/1!important;
-    max-height:none!important;
-    border-radius:12px!important;
-    object-fit:contain!important;
+    border-radius:14px!important;
   }
   html body main#main-content .quick-recipient-card strong{
     font-size:14px!important;
+  }
+  html body main#main-content .quick-recipient-card small{
+    display:none!important;
   }
 }
 
@@ -835,13 +896,11 @@ html body main#main-content .quick-recipient-card small{
     padding:0 16px 4px!important;
   }
   html body main#main-content .quick-recipient-card{
-    padding:8px 8px 10px!important;
-    border-radius:16px!important;
+    padding:8px 8px 12px!important;
   }
   html body main#main-content .quick-recipient-card img{
-    max-height:none!important;
-    border-radius:12px!important;
-    object-fit:contain!important;
+    padding:10px!important;
+    border-radius:14px!important;
   }
 }
 
@@ -952,7 +1011,7 @@ html body main#main-content #products .live-product-card:hover{
 }
 html body main#main-content #products .live-product-image{
   aspect-ratio:1/1!important;
-  border-radius:14px!important;
+  border-radius:16px!important;
   background:#f6f7f9!important;
   overflow:hidden!important;
 }
@@ -963,8 +1022,8 @@ html body main#main-content #products .live-product-image img{
   transform:none!important;
 }
 html body main#main-content #products .live-product-meta > small{
-  background:#f3f0ff!important;
-  color:#7c5cff!important;
+  background:#fff1ec!important;
+  color:#e85a4a!important;
   border-radius:999px!important;
   padding:2px 8px!important;
   font-weight:800!important;
@@ -992,22 +1051,26 @@ html body main#main-content #products .live-product-copy > b{
 }
 html body main#main-content #products .live-product-copy i,
 html body main#main-content #products .live-product-copy > b > i{
-  background:transparent!important;
-  background-image:none!important;
-  color:#8b8b93!important;
-  box-shadow:none!important;
-  border-radius:0!important;
-  min-width:0!important;
-  min-height:auto!important;
-  width:auto!important;
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  min-height:32px!important;
   height:auto!important;
-  padding:0!important;
-  font-size:13px!important;
-  font-weight:700!important;
+  width:auto!important;
+  min-width:0!important;
+  padding:0 12px!important;
+  margin:0!important;
+  background:#fff8f6!important;
+  background-image:none!important;
+  border:1.5px solid #ffe1d8!important;
+  border-radius:999px!important;
+  box-shadow:0 4px 12px rgba(255,107,90,.08)!important;
+  color:#5c4a45!important;
+  font-size:12px!important;
+  font-weight:750!important;
   font-style:normal!important;
-  text-decoration:underline!important;
-  text-underline-offset:2px!important;
-  text-decoration-color:rgba(139,139,147,.4)!important;
+  letter-spacing:0!important;
+  text-decoration:none!important;
 }
 html body main#main-content #products .popular-footer .button-outline,
 html body main#main-content #products .popular-footer a.button-outline{
@@ -1017,23 +1080,57 @@ html body main#main-content #products .popular-footer a.button-outline{
   font-weight:800!important;
 }
 
+@media (min-width:721px){
+  html body main#main-content #products .popular-footer>span{
+    display:none!important;
+  }
+}
+
+@media (min-width:721px) and (max-width:1020px){
+  html body main#main-content #products .live-products{
+    display:grid!important;
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:12px!important;
+    overflow:visible!important;
+  }
+  html body main#main-content #products a.live-product-card,
+  html body main#main-content #products .live-product-card{
+    min-width:0!important;
+  }
+}
+
+@media (min-width:1021px){
+  html body main#main-content #products .live-products{
+    display:grid!important;
+    grid-template-columns:repeat(4,minmax(0,1fr))!important;
+    gap:14px!important;
+    overflow:visible!important;
+  }
+  html body main#main-content #products a.live-product-card,
+  html body main#main-content #products .live-product-card{
+    min-width:0!important;
+  }
+}
+
 @media (max-width:720px){
+  html body main#main-content #products.live-products-section,
+  html body main#main-content #products.homepage-first-products{
+    padding-bottom:28px!important;
+  }
   html body main#main-content #products a.live-product-card,
   html body main#main-content #products .live-product-card{
     min-width:min(78vw,300px)!important;
     padding:8px 8px 12px!important;
-    border-radius:18px!important;
+    border-radius:22px!important;
   }
   html body main#main-content #products .live-product-image{
-    border-radius:12px!important;
+    border-radius:16px!important;
   }
   html body main#main-content #products .live-product-copy i,
   html body main#main-content #products .live-product-copy > b > i{
+    min-height:36px!important;
+    padding:0 12px!important;
     font-size:12px!important;
-    background:transparent!important;
-    color:#8b8b93!important;
-    height:auto!important;
-    padding:0!important;
   }
 }
 

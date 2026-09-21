@@ -569,15 +569,79 @@ html body main#main-content.catalog-page .catalog-card-copy > span:not(.catalog-
   overflow:hidden!important;
   opacity:.92!important;
 }
-/* Group chips stay pastel; active gets soft coral glow */
+/* Group chips — marshmallow pillows + clay PNG icons */
+html body main#main-content.catalog-page .catalog-group-nav > button{
+  border:0!important;
+  border-width:0!important;
+  background:#fff!important;
+  background-image:none!important;
+  box-shadow:var(--mm-shadow)!important;
+  border-radius:18px!important;
+  color:#1e293b!important;
+  min-height:72px!important;
+  transition:transform .15s ease, box-shadow .15s ease!important;
+}
+html body main#main-content.catalog-page .catalog-group-nav > button:hover{
+  transform:translateY(-2px)!important;
+  box-shadow:var(--mm-shadow-hover)!important;
+  border:0!important;
+}
 html body main#main-content.catalog-page .catalog-group-nav > button.active{
-  box-shadow:0 0 0 1.5px #ff6b5a,0 8px 20px rgba(255,107,90,.14)!important;
+  transform:translateY(-1px)!important;
+  border:0!important;
+  box-shadow:0 12px 28px rgba(255,107,90,.16),0 4px 10px rgba(0,0,0,.04)!important;
+}
+html body main#main-content.catalog-page .catalog-group-nav > button .catalog-group-icon{
+  display:grid!important;
+  place-items:center!important;
+  width:52px!important;
+  height:52px!important;
+  min-width:52px!important;
+  padding:2px!important;
+  border:0!important;
+  border-radius:12px!important;
+  overflow:hidden!important;
+  box-shadow:none!important;
+  box-sizing:border-box!important;
+}
+html body main#main-content.catalog-page .catalog-group-nav > button.catalog-group-all .catalog-group-icon{
+  background:#eef6ff!important;
+}
+html body main#main-content.catalog-page .catalog-group-nav > button[data-group="ready"] .catalog-group-icon{
+  background:#fff1f0!important;
+}
+html body main#main-content.catalog-page .catalog-group-nav > button[data-group="characters"] .catalog-group-icon{
+  background:#fff5eb!important;
+}
+html body main#main-content.catalog-page .catalog-group-nav > button[data-group="unit"] .catalog-group-icon{
+  background:#eefbf2!important;
+}
+html body main#main-content.catalog-page .catalog-group-nav > button[data-group="holidays"] .catalog-group-icon{
+  background:#f5f0ff!important;
 }
 html body main#main-content.catalog-page .catalog-group-nav > button .catalog-group-icon img{
   display:block!important;
-  width:28px!important;
-  height:28px!important;
+  width:100%!important;
+  height:100%!important;
   object-fit:contain!important;
+  object-position:center!important;
+  background:transparent!important;
+}
+html body main#main-content.catalog-page .catalog-group-nav > button strong{
+  color:#1e293b!important;
+}
+
+@media (max-width:1020px){
+  html body main#main-content.catalog-page .catalog-group-nav > button{
+    border-radius:16px!important;
+    min-height:78px!important;
+  }
+  html body main#main-content.catalog-page .catalog-group-nav > button .catalog-group-icon{
+    width:46px!important;
+    height:46px!important;
+    min-width:46px!important;
+    border-radius:12px!important;
+  }
 }
 
 /* ===== Hero — mobile-first polish (option 1) =====
@@ -1461,6 +1525,103 @@ html body main#main-content #budget .budget-icon img{
   }
   html body main#main-content #budget .budget-card small{
     font-size:12px!important;
+  }
+}
+
+/* ===== Characters «Кого позовём на праздник?» — marshmallow tiles ===== */
+html body main#main-content #characters.characters-section{
+  background:transparent!important;
+  box-shadow:none!important;
+  border:0!important;
+}
+html body main#main-content #characters a.character-card,
+html body main#main-content #characters .character-card{
+  border:0!important;
+  border-width:0!important;
+  border-radius:22px!important;
+  background:#fff!important;
+  background-image:none!important;
+  box-shadow:var(--mm-shadow)!important;
+  overflow:hidden!important;
+  transition:transform .15s ease, box-shadow .15s ease!important;
+}
+html body main#main-content #characters a.character-card:hover,
+html body main#main-content #characters .character-card:hover{
+  transform:translateY(-2px)!important;
+  box-shadow:var(--mm-shadow-hover)!important;
+  border:0!important;
+  border-color:transparent!important;
+}
+html body main#main-content #characters .character-picture{
+  background:#fff5eb!important;
+  border:0!important;
+  overflow:hidden!important;
+  padding:8px!important;
+  box-sizing:border-box!important;
+}
+html body main#main-content #characters .character-card:nth-child(6n+1) .character-picture{
+  background:#fff1f0!important;
+}
+html body main#main-content #characters .character-card:nth-child(6n+2) .character-picture{
+  background:#fff5eb!important;
+}
+html body main#main-content #characters .character-card:nth-child(6n+3) .character-picture{
+  background:#fffbeb!important;
+}
+html body main#main-content #characters .character-card:nth-child(6n+4) .character-picture{
+  background:#eefbf2!important;
+}
+html body main#main-content #characters .character-card:nth-child(6n+5) .character-picture{
+  background:#eef6ff!important;
+}
+html body main#main-content #characters .character-card:nth-child(6n) .character-picture{
+  background:#f5f0ff!important;
+}
+html body main#main-content #characters .character-picture img{
+  width:100%!important;
+  height:100%!important;
+  object-fit:contain!important;
+  object-position:center!important;
+  background:transparent!important;
+  border-radius:10px!important;
+  transform:none!important;
+}
+html body main#main-content #characters .character-card>strong{
+  color:#1e293b!important;
+  font-weight:800!important;
+  letter-spacing:-.02em!important;
+}
+html body main#main-content #characters .all-characters{
+  border:0!important;
+  border-width:0!important;
+  background:#fff!important;
+  background-image:none!important;
+  box-shadow:var(--mm-shadow)!important;
+  border-radius:999px!important;
+  color:#1e293b!important;
+  font-weight:800!important;
+}
+html body main#main-content #characters .all-characters:hover{
+  transform:translateY(-1px)!important;
+  box-shadow:var(--mm-shadow-hover)!important;
+  border:0!important;
+  border-color:transparent!important;
+}
+
+@media (max-width:1100px){
+  html body main#main-content #characters a.character-card,
+  html body main#main-content #characters .character-card{
+    border-radius:18px!important;
+  }
+}
+
+@media (max-width:720px){
+  html body main#main-content #characters a.character-card,
+  html body main#main-content #characters .character-card{
+    border-radius:18px!important;
+  }
+  html body main#main-content #characters .character-picture{
+    padding:6px!important;
   }
 }
 

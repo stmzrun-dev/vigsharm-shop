@@ -1,19 +1,45 @@
 /* ============================================================
-   Mobile nav menu — Soft Marshmallow, COMPACT drawer (option 1).
+   Mobile nav menu — Soft Marshmallow, COMPACT drawer.
    Same language phone + tablet (≤1020). Keep position:fixed.
+   Wins over style.css leftovers (gray wells, bulky cards).
    ============================================================ */
 
 @media (width<=1020px){
 
-/* Panel — compact padding, fits viewport without scrolling top away */
+/* Panel — hug content; scroll only on very short viewports.
+   NOTE: overflow-x:hidden + overflow-y:visible computes to auto (CSS quirk). */
 .header .nav.nav-open{
   width:min(92vw,380px)!important;
-  max-height:min(100dvh,100vh)!important;
+  height:auto!important;
+  max-height:none!important;
+  top:0!important;
+  bottom:auto!important;
+  left:auto!important;
   background:#fff!important;
-  padding:12px 14px max(12px, env(safe-area-inset-bottom))!important;
+  padding:8px 12px max(8px, env(safe-area-inset-bottom))!important;
+  gap:0!important;
   box-shadow:-14px 0 40px rgba(30,30,40,.10)!important;
-  overflow-y:auto!important;
+  overflow:visible!important;
   overscroll-behavior:contain!important;
+}
+@media (max-height:560px){
+  .header .nav.nav-open{
+    max-height:min(100dvh,100vh)!important;
+    overflow:auto!important;
+    -webkit-overflow-scrolling:touch!important;
+    scrollbar-width:thin!important;
+    scrollbar-color:#e2e5ea transparent!important;
+  }
+  .header .nav.nav-open::-webkit-scrollbar{
+    width:4px!important;
+  }
+  .header .nav.nav-open::-webkit-scrollbar-thumb{
+    background:#e2e5ea!important;
+    border-radius:4px!important;
+  }
+  .header .nav.nav-open::-webkit-scrollbar-track{
+    background:transparent!important;
+  }
 }
 .header .nav.nav-open:before,
 .header .nav.nav-open:after{
@@ -45,8 +71,8 @@
 
 /* Header — quieter, less air */
 .header .nav .mobile-menu-head{
-  min-height:44px!important;
-  margin-bottom:8px!important;
+  min-height:36px!important;
+  margin-bottom:4px!important;
   padding:0!important;
   gap:10px!important;
   align-items:center!important;
@@ -57,16 +83,16 @@
   color:#8b8b93!important;
 }
 .header .nav .mobile-menu-head strong{
-  font-size:22px!important;
+  font-size:20px!important;
   letter-spacing:-.03em!important;
   color:#1e293b!important;
 }
 .header .nav .mobile-menu-head > button{
-  width:38px!important;
-  height:38px!important;
-  font-size:18px!important;
+  width:34px!important;
+  height:34px!important;
+  font-size:17px!important;
   border:1.5px solid #e8e8ec!important;
-  border-radius:14px!important;
+  border-radius:12px!important;
   background:#fff!important;
   box-shadow:none!important;
   color:#2a2a32!important;
@@ -78,34 +104,44 @@
   box-shadow:none!important;
 }
 
-/* Rows — compact tap targets, soft dividers */
+/* Rows — compact tap targets, soft dividers (kill old card shadows) */
 .header .nav > a,
 .header .nav > button{
-  min-height:48px!important;
-  padding:6px 8px!important;
+  min-height:42px!important;
+  margin:0!important;
+  padding:4px 8px!important;
   border:0!important;
   border-radius:14px!important;
   box-shadow:none!important;
-  grid-template-columns:40px minmax(0,1fr)!important;
+  grid-template-columns:36px minmax(0,1fr)!important;
   gap:10px!important;
   font-size:15px!important;
   border-bottom:1px solid #f1f4f8!important;
   white-space:normal!important;
+  background:transparent!important;
+}
+.header .nav > a:first-of-type,
+.header .nav > button:first-of-type{
+  margin:0!important;
+  background:transparent!important;
 }
 .header .nav > a:last-of-type,
 .header .nav > button:last-of-type{
   border-bottom:0!important;
 }
 .header .nav .nav-icon{
-  width:40px!important;
-  height:40px!important;
-  border-radius:12px!important;
+  width:36px!important;
+  height:36px!important;
+  border-radius:11px!important;
   background:#f8fafc!important;
   box-shadow:none!important;
+  overflow:visible!important;
 }
 .header .nav .nav-icon img{
-  max-width:34px!important;
-  max-height:34px!important;
+  max-width:32px!important;
+  max-height:32px!important;
+  width:auto!important;
+  height:auto!important;
 }
 .header .nav > a strong,
 .header .nav > button strong{
@@ -123,45 +159,56 @@
   box-shadow:none!important;
 }
 
-/* Footer contacts — denser card */
+/* Footer contacts — denser card, no gray wells */
 .header .nav .mobile-menu-footer{
-  margin-top:8px!important;
-  padding:12px!important;
+  margin-top:4px!important;
+  padding:8px!important;
   border:1.5px solid #eef1f5!important;
-  border-radius:18px!important;
+  border-radius:16px!important;
   background:#fff!important;
   box-shadow:none!important;
-  gap:8px!important;
+  gap:5px!important;
 }
 .header .nav .mobile-menu-footer > a.mobile-phone{
-  min-height:48px!important;
-  padding:6px 10px!important;
+  min-height:40px!important;
+  padding:3px 10px 3px 3px!important;
   border:0!important;
   border-radius:999px!important;
   background:#f8fafc!important;
   box-shadow:none!important;
-  grid-template-columns:36px minmax(0,1fr)!important;
-  gap:10px!important;
+  grid-template-columns:34px minmax(0,1fr)!important;
+  gap:8px!important;
   overflow:hidden!important;
   width:100%!important;
   max-width:100%!important;
   box-sizing:border-box!important;
+  color:#2a2a32!important;
 }
 .header .nav .mobile-phone > img,
 .header .nav .mobile-phone .vig-emoji{
-  width:36px!important;
-  height:36px!important;
-  max-width:36px!important;
-  background:#fff!important;
+  width:34px!important;
+  height:34px!important;
+  max-width:34px!important;
+  padding:0!important;
+  background:transparent!important;
+  border-radius:0!important;
   box-shadow:none!important;
+  object-fit:contain!important;
+  filter:none!important;
 }
 .header .nav .mobile-phone > span,
 .header .nav .mobile-phone > div{
   min-width:0!important;
   overflow:hidden!important;
 }
+.header .nav .mobile-phone small{
+  display:none!important;
+}
 .header .nav .mobile-phone strong{
   font-size:14px!important;
+  font-weight:800!important;
+  letter-spacing:-.02em!important;
+  color:#2a2a32!important;
   min-width:0!important;
   max-width:100%!important;
   overflow:hidden!important;
@@ -170,21 +217,39 @@
   display:block!important;
 }
 
-/* Messenger tiles — compact */
+.header .nav .mobile-contact-title{
+  color:#8b8b93!important;
+  font-size:10px!important;
+  font-weight:700!important;
+  letter-spacing:.04em!important;
+  text-transform:uppercase!important;
+  margin:0!important;
+}
+
+/* Messenger tiles — compact brand chips */
 .header .nav .mobile-contact-options{
-  gap:6px!important;
-  margin-top:6px!important;
+  display:grid!important;
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  gap:5px!important;
+  margin-top:2px!important;
 }
 .header .nav .mobile-contact-options > a{
-  min-height:48px!important;
-  padding:6px 2px!important;
+  min-height:42px!important;
+  padding:5px 2px!important;
   border:0!important;
-  border-radius:14px!important;
+  border-radius:12px!important;
   box-shadow:none!important;
   font-size:10px!important;
-  gap:4px!important;
+  font-weight:700!important;
+  color:#2a2a32!important;
+  letter-spacing:0!important;
+  gap:3px!important;
   white-space:normal!important;
   overflow:visible!important;
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:center!important;
+  justify-content:center!important;
 }
 .header .nav .mobile-contact-options > a span{
   white-space:normal!important;
@@ -200,6 +265,22 @@
   display:block!important;
   object-fit:contain!important;
   flex-shrink:0!important;
+  filter:none!important;
+  background:transparent!important;
+  border-radius:0!important;
+  padding:0!important;
+}
+.header .nav .mobile-contact-options > a:nth-child(1){
+  background:#f0faf3!important;
+  border:1.5px solid #c6ebd3!important;
+}
+.header .nav .mobile-contact-options > a:nth-child(2){
+  background:#eef7fc!important;
+  border:1.5px solid #c5e3f5!important;
+}
+.header .nav .mobile-contact-options > a:nth-child(3){
+  background:#f4f0fb!important;
+  border:1.5px solid #ddd4ef!important;
 }
 .header .nav .mobile-contact-options > a:hover,
 .header .nav .mobile-contact-options > a:active{

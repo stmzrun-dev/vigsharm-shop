@@ -1947,10 +1947,77 @@ html body main#main-content #characters .all-characters:hover{
   }
 }
 
-/* ===== How-to-order + bottom — marshmallow language ===== */
+/* ===== How-to-order (#delivery) — marshmallow like budget/ideas ===== */
 html body main#main-content #delivery.steps-section,
 html body main#main-content .steps-section{
   background:transparent!important;
+  background-image:none!important;
+  border:0!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+  width:100%!important;
+  max-width:none!important;
+  margin:40px auto 0!important;
+  padding:0 max(32px, calc((100% - 1280px) / 2))!important;
+  box-sizing:border-box!important;
+  overflow:visible!important;
+  position:relative!important;
+}
+/* Kill candy décor from style.css (blobs, dashed connector, auras) */
+html body main#main-content #delivery.steps-section:before,
+html body main#main-content #delivery.steps-section:after,
+html body main#main-content .steps-section:before,
+html body main#main-content .steps-section:after,
+html body main#main-content #delivery .steps:before,
+html body main#main-content .steps:before,
+html body main#main-content #delivery .step-card:after,
+html body main#main-content #delivery .step-pink:after,
+html body main#main-content #delivery .step-blue:after,
+html body main#main-content #delivery .step-yellow:after,
+html body main#main-content .step-card:after,
+html body main#main-content .step-pink:after,
+html body main#main-content .step-blue:after,
+html body main#main-content .step-yellow:after{
+  content:none!important;
+  display:none!important;
+  animation:none!important;
+  background:none!important;
+  border:0!important;
+}
+html body main#main-content #delivery > div,
+html body main#main-content #delivery .section-heading,
+html body main#main-content .steps-section > div{
+  margin:0 0 20px!important;
+}
+html body main#main-content #delivery .eyebrow,
+html body main#main-content .steps-section .eyebrow{
+  margin:0 0 6px!important;
+  color:#8b8b93!important;
+  letter-spacing:.08em!important;
+}
+html body main#main-content #delivery h2,
+html body main#main-content .steps-section h2{
+  margin:0!important;
+  color:#1e293b!important;
+  letter-spacing:-.03em!important;
+  animation:none!important;
+}
+html body main#main-content #delivery h2:after,
+html body main#main-content .steps-section h2:after{
+  content:none!important;
+  display:none!important;
+}
+html body main#main-content #delivery .steps,
+html body main#main-content .steps{
+  display:grid!important;
+  grid-template-columns:repeat(3, minmax(0, 1fr))!important;
+  gap:14px!important;
+  margin:0!important;
+  padding:0!important;
+  list-style:none!important;
+  width:100%!important;
+  max-width:none!important;
+  position:relative!important;
 }
 html body main#main-content #delivery .step-card,
 html body main#main-content .steps .step-card,
@@ -1961,6 +2028,14 @@ html body main#main-content .steps li.step-card{
   background-image:none!important;
   box-shadow:var(--mm-shadow)!important;
   border-radius:var(--mm-radius)!important;
+  padding:20px 18px 22px!important;
+  margin:0!important;
+  min-height:0!important;
+  overflow:hidden!important;
+  position:relative!important;
+  transform:none!important;
+  animation:none!important;
+  transition:transform .15s ease, box-shadow .15s ease!important;
 }
 html body main#main-content #delivery .step-card:hover,
 html body main#main-content .steps .step-card:hover{
@@ -1970,17 +2045,37 @@ html body main#main-content .steps .step-card:hover{
 }
 html body main#main-content #delivery .step-number,
 html body main#main-content .step-number{
-  color:#ff8e7a!important;
+  position:absolute!important;
+  top:14px!important;
+  right:16px!important;
+  margin:0!important;
+  font-size:13px!important;
   font-weight:800!important;
   letter-spacing:.06em!important;
+  color:#ff8e7a!important;
+  opacity:1!important;
+  background:transparent!important;
+  border:0!important;
+  box-shadow:none!important;
 }
 html body main#main-content #delivery .step-icon,
 html body main#main-content .step-icon{
+  width:88px!important;
+  height:88px!important;
+  margin:0 0 14px!important;
+  padding:8px!important;
   border:0!important;
   border-radius:16px!important;
   overflow:hidden!important;
-  padding:8px!important;
+  display:grid!important;
+  place-items:center!important;
+  box-sizing:border-box!important;
+  box-shadow:none!important;
+  transform:none!important;
+  animation:none!important;
+  background-image:none!important;
 }
+/* Pastel wells — same family as budget tiles */
 html body main#main-content #delivery .step-pink .step-icon,
 html body main#main-content .step-pink .step-icon{
   background:#fff1f0!important;
@@ -1993,83 +2088,523 @@ html body main#main-content #delivery .step-yellow .step-icon,
 html body main#main-content .step-yellow .step-icon{
   background:#fffbeb!important;
 }
+html body main#main-content #delivery .step-icon img,
+html body main#main-content .step-icon img{
+  width:100%!important;
+  height:100%!important;
+  object-fit:contain!important;
+  object-position:center!important;
+  border-radius:10px!important;
+  background:transparent!important;
+  transform:none!important;
+  filter:none!important;
+  display:block!important;
+}
 html body main#main-content #delivery .step-card strong,
 html body main#main-content .step-card strong{
+  display:block!important;
+  margin:0 0 8px!important;
   color:#1e293b!important;
+  font-weight:800!important;
+  letter-spacing:-.02em!important;
+  font-size:clamp(17px, 1.6vw, 19px)!important;
+  line-height:1.25!important;
 }
 html body main#main-content #delivery .step-card p,
 html body main#main-content .step-card p{
+  margin:0!important;
   color:#8b8b93!important;
+  font-size:14px!important;
+  line-height:1.45!important;
+  max-width:28em!important;
 }
 
+@media (max-width:1100px){
+  html body main#main-content #delivery.steps-section,
+  html body main#main-content .steps-section{
+    margin-top:28px!important;
+    padding:0 16px!important;
+  }
+  html body main#main-content #delivery .steps,
+  html body main#main-content .steps{
+    gap:12px!important;
+  }
+  html body main#main-content #delivery .step-card,
+  html body main#main-content .steps .step-card{
+    padding:18px 16px 20px!important;
+    border-radius:20px!important;
+  }
+  html body main#main-content #delivery .step-icon,
+  html body main#main-content .step-icon{
+    width:80px!important;
+    height:80px!important;
+    margin-bottom:12px!important;
+    border-radius:14px!important;
+  }
+}
+
+@media (max-width:720px){
+  html body main#main-content #delivery.steps-section,
+  html body main#main-content .steps-section{
+    margin-top:24px!important;
+    padding:0 16px!important;
+  }
+  html body main#main-content #delivery .steps,
+  html body main#main-content .steps{
+    grid-template-columns:1fr!important;
+    gap:10px!important;
+  }
+  html body main#main-content #delivery .step-card,
+  html body main#main-content .steps .step-card,
+  html body main#main-content .steps li.step-card{
+    display:grid!important;
+    grid-template-columns:72px minmax(0, 1fr)!important;
+    grid-template-areas:"icon title" "icon text"!important;
+    column-gap:12px!important;
+    row-gap:4px!important;
+    align-items:start!important;
+    padding:14px 40px 14px 14px!important;
+    border-radius:18px!important;
+  }
+  html body main#main-content #delivery .step-icon,
+  html body main#main-content .step-icon{
+    grid-area:icon!important;
+    width:72px!important;
+    height:72px!important;
+    margin:0!important;
+    padding:6px!important;
+    border-radius:14px!important;
+    align-self:center!important;
+  }
+  html body main#main-content #delivery .step-card strong,
+  html body main#main-content .step-card strong{
+    grid-area:title!important;
+    margin:0!important;
+    font-size:16px!important;
+  }
+  html body main#main-content #delivery .step-card p,
+  html body main#main-content .step-card p{
+    grid-area:text!important;
+    font-size:13px!important;
+    max-width:none!important;
+  }
+  html body main#main-content #delivery .step-number,
+  html body main#main-content .step-number{
+    top:12px!important;
+    right:14px!important;
+    font-size:12px!important;
+  }
+}
+
+/* ===== Service info (delivery + price) — marshmallow like steps/budget ===== */
 html body main#main-content .service-info,
 html body main#main-content .service-info.section{
   background:transparent!important;
+  background-image:none!important;
+  border:0!important;
+  box-shadow:none!important;
+  width:100%!important;
+  max-width:none!important;
+  margin:40px auto 0!important;
+  padding:0 max(32px, calc((100% - 1280px) / 2))!important;
+  box-sizing:border-box!important;
+  display:grid!important;
+  grid-template-columns:1fr 1fr!important;
+  gap:14px!important;
+  position:relative!important;
+  overflow:visible!important;
+}
+html body main#main-content .service-info:before,
+html body main#main-content .service-info:after{
+  content:none!important;
+  display:none!important;
+  animation:none!important;
 }
 html body main#main-content .service-info a.delivery-card,
 html body main#main-content .service-info a.price-card,
 html body main#main-content .service-info .delivery-card,
-html body main#main-content .service-info .price-card{
+html body main#main-content .service-info .price-card,
+html body main#main-content .service-info article{
   border:0!important;
   border-width:0!important;
   background:#fff!important;
   background-image:none!important;
   box-shadow:var(--mm-shadow)!important;
   border-radius:var(--mm-radius)!important;
+  padding:22px 20px 20px!important;
+  margin:0!important;
+  overflow:hidden!important;
+  position:relative!important;
+  display:block!important;
+  text-decoration:none!important;
+  color:inherit!important;
+  transform:none!important;
+  animation:none!important;
+  transition:transform .15s ease, box-shadow .15s ease!important;
 }
 html body main#main-content .service-info a.delivery-card:hover,
-html body main#main-content .service-info a.price-card:hover{
+html body main#main-content .service-info a.price-card:hover,
+html body main#main-content .service-info .delivery-card:hover,
+html body main#main-content .service-info .price-card:hover,
+html body main#main-content .service-info article:hover{
   border:0!important;
   box-shadow:var(--mm-shadow-hover)!important;
   transform:translateY(-2px)!important;
 }
 html body main#main-content .service-info .info-icon{
+  position:static!important;
+  top:auto!important;
+  right:auto!important;
   width:88px!important;
   height:88px!important;
+  margin:0 0 14px!important;
   padding:8px!important;
+  display:grid!important;
+  place-items:center!important;
+  border:0!important;
   border-radius:16px!important;
-  background:#fff5f2!important;
+  box-shadow:none!important;
+  animation:none!important;
+  overflow:hidden!important;
   box-sizing:border-box!important;
+  background-image:none!important;
 }
-html body main#main-content .service-info .price-card .info-icon{
-  background:#fff8eb!important;
+html body main#main-content .service-info .delivery-card .info-icon,
+html body main#main-content .service-info a.delivery-card .info-icon{
+  background:#fff1f0!important;
+}
+html body main#main-content .service-info .price-card .info-icon,
+html body main#main-content .service-info a.price-card .info-icon{
+  background:#fffbeb!important;
+}
+html body main#main-content .service-info .info-icon img{
+  width:100%!important;
+  height:100%!important;
+  object-fit:contain!important;
+  object-position:center!important;
+  display:block!important;
+  border-radius:10px!important;
+  background:transparent!important;
+  filter:none!important;
+  transform:none!important;
+}
+html body main#main-content .service-info .eyebrow{
+  margin:0 0 6px!important;
+  color:#8b8b93!important;
+  letter-spacing:.08em!important;
+}
+html body main#main-content .service-info h2{
+  max-width:18em!important;
+  margin:0 0 16px!important;
+  font-size:clamp(22px, 2.4vw, 28px)!important;
+  line-height:1.15!important;
+  letter-spacing:-.03em!important;
+  color:#1e293b!important;
+  font-weight:800!important;
+}
+html body main#main-content .service-info ul{
+  color:#8b8b93!important;
+  gap:10px!important;
+  margin:0 0 20px!important;
+  padding:0!important;
+  line-height:1.45!important;
+  list-style:none!important;
+  display:grid!important;
+}
+html body main#main-content .service-info li{
+  padding-left:22px!important;
+  position:relative!important;
+  font-size:15px!important;
+  color:#8b8b93!important;
+}
+html body main#main-content .service-info li:before{
+  content:"✓"!important;
+  color:#ff8e7a!important;
+  font-weight:700!important;
+  font-size:13px!important;
+  position:absolute!important;
+  left:0!important;
+  top:.15em!important;
+}
+html body main#main-content .service-info .price-list{
+  gap:0!important;
+  margin:0 0 20px!important;
+  display:grid!important;
+}
+html body main#main-content .service-info .price-list div{
+  color:#8b8b93!important;
+  border-bottom:1px solid #f1f4f8!important;
+  border-top:0!important;
+  justify-content:space-between!important;
+  align-items:baseline!important;
+  gap:16px!important;
+  padding:11px 0!important;
+  display:flex!important;
+  font-size:14px!important;
+}
+html body main#main-content .service-info .price-list div:last-child{
+  border-bottom:0!important;
 }
 html body main#main-content .service-info .price-list strong,
 html body main#main-content .service-info li strong{
   color:#ff6b5a!important;
+  white-space:nowrap!important;
+  font-weight:800!important;
+  font-size:14px!important;
 }
 html body main#main-content .service-info .info-page-link,
+html body main#main-content .service-info a.info-page-link,
 html body main#main-content .service-info span.info-page-link{
+  display:inline-flex!important;
+  align-items:center!important;
+  gap:6px!important;
+  margin-top:4px!important;
   color:#8b8b93!important;
   font-weight:700!important;
-  text-decoration:underline!important;
-  text-underline-offset:3px!important;
-  text-decoration-color:rgba(139,139,147,.4)!important;
+  font-size:14px!important;
+  letter-spacing:-.01em!important;
+  text-decoration:none!important;
+  background:transparent!important;
+  border:0!important;
+  padding:0!important;
+  box-shadow:none!important;
+  transition:color .15s ease!important;
+}
+html body main#main-content .service-info .info-page-link > b,
+html body main#main-content .service-info span.info-page-link > b{
+  font-weight:800!important;
+  color:inherit!important;
+  transition:transform .15s ease!important;
 }
 html body main#main-content .service-info a.delivery-card:hover .info-page-link,
-html body main#main-content .service-info a.price-card:hover .info-page-link{
+html body main#main-content .service-info a.price-card:hover .info-page-link,
+html body main#main-content .service-info .delivery-card:hover .info-page-link,
+html body main#main-content .service-info .price-card:hover .info-page-link{
   color:#ff6b5a!important;
-  text-decoration-color:rgba(255,107,90,.45)!important;
+}
+html body main#main-content .service-info a.delivery-card:hover .info-page-link > b,
+html body main#main-content .service-info a.price-card:hover .info-page-link > b,
+html body main#main-content .service-info .delivery-card:hover .info-page-link > b,
+html body main#main-content .service-info .price-card:hover .info-page-link > b{
+  transform:translateX(2px)!important;
 }
 
+@media (max-width:1100px){
+  html body main#main-content .service-info,
+  html body main#main-content .service-info.section{
+    margin-top:28px!important;
+    padding:0 16px!important;
+    gap:12px!important;
+  }
+  html body main#main-content .service-info a.delivery-card,
+  html body main#main-content .service-info a.price-card,
+  html body main#main-content .service-info .delivery-card,
+  html body main#main-content .service-info .price-card,
+  html body main#main-content .service-info article{
+    padding:18px 16px 18px!important;
+    border-radius:20px!important;
+  }
+  html body main#main-content .service-info h2{
+    font-size:clamp(20px, 4vw, 24px)!important;
+    margin:0 0 14px!important;
+  }
+  html body main#main-content .service-info .info-icon{
+    width:80px!important;
+    height:80px!important;
+    margin:0 0 12px!important;
+    border-radius:14px!important;
+  }
+}
+
+@media (max-width:720px){
+  html body main#main-content .service-info,
+  html body main#main-content .service-info.section{
+    grid-template-columns:1fr!important;
+    margin-top:24px!important;
+    gap:10px!important;
+    padding:0 16px!important;
+  }
+  html body main#main-content .service-info a.delivery-card,
+  html body main#main-content .service-info a.price-card,
+  html body main#main-content .service-info .delivery-card,
+  html body main#main-content .service-info .price-card,
+  html body main#main-content .service-info article{
+    padding:16px 14px 16px!important;
+    border-radius:18px!important;
+  }
+  html body main#main-content .service-info .info-icon{
+    width:72px!important;
+    height:72px!important;
+    margin:0 0 12px!important;
+    padding:6px!important;
+    border-radius:14px!important;
+  }
+  html body main#main-content .service-info li,
+  html body main#main-content .service-info .price-list div{
+    font-size:14px!important;
+  }
+}
+
+/* ===== About studio (#about) — marshmallow like steps/service ===== */
 html body main#main-content #about.studio-story,
 html body main#main-content .studio-story{
   background:transparent!important;
+  background-image:none!important;
+  border:0!important;
+  box-shadow:none!important;
+  width:100%!important;
+  max-width:none!important;
+  margin:40px auto 0!important;
+  padding:0 max(32px, calc((100% - 1280px) / 2))!important;
+  box-sizing:border-box!important;
+  display:grid!important;
+  grid-template-columns:minmax(0, 0.95fr) minmax(0, 1.05fr)!important;
+  gap:36px!important;
+  align-items:center!important;
+  overflow:visible!important;
+  position:relative!important;
+}
+html body main#main-content #about.studio-story:before,
+html body main#main-content #about.studio-story:after,
+html body main#main-content .studio-story:before,
+html body main#main-content .studio-story:after{
+  content:none!important;
+  display:none!important;
+  animation:none!important;
+}
+html body main#main-content #about .story-copy,
+html body main#main-content .studio-story .story-copy{
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:flex-start!important;
+  gap:0!important;
+  padding:4px 0!important;
+  min-width:0!important;
+  background:transparent!important;
+  border:0!important;
+  box-shadow:none!important;
+}
+html body main#main-content #about .eyebrow,
+html body main#main-content .studio-story .eyebrow{
+  margin:0 0 8px!important;
+  color:#8b8b93!important;
+  letter-spacing:.08em!important;
+}
+html body main#main-content #about h2,
+html body main#main-content .studio-story h2{
+  margin:0 0 14px!important;
+  max-width:16em!important;
+  font-size:clamp(26px, 3vw, 36px)!important;
+  line-height:1.15!important;
+  letter-spacing:-.03em!important;
+  color:#1e293b!important;
+  font-weight:800!important;
+}
+html body main#main-content #about .story-copy > p:not(.eyebrow),
+html body main#main-content .studio-story .story-copy > p:not(.eyebrow){
+  margin:0 0 20px!important;
+  max-width:36em!important;
+  color:#8b8b93!important;
+  font-size:clamp(15px, 1.5vw, 17px)!important;
+  line-height:1.5!important;
+}
+html body main#main-content #about .story-points,
+html body main#main-content .studio-story .story-points{
+  display:grid!important;
+  gap:10px!important;
+  margin:0 0 22px!important;
+  padding:0!important;
+  list-style:none!important;
+  background:transparent!important;
+  border:0!important;
+  box-shadow:none!important;
+}
+html body main#main-content #about .story-points li,
+html body main#main-content .studio-story .story-points li{
+  display:block!important;
+  position:relative!important;
+  margin:0!important;
+  padding:0 0 0 22px!important;
+  background:transparent!important;
+  border:0!important;
+  box-shadow:none!important;
+  color:#1e293b!important;
+  font-size:15px!important;
+  font-weight:600!important;
+  line-height:1.4!important;
+}
+html body main#main-content #about .story-points li:before,
+html body main#main-content .studio-story .story-points li:before{
+  content:"✓"!important;
+  position:absolute!important;
+  left:0!important;
+  top:.1em!important;
+  color:#ff8e7a!important;
+  font-weight:700!important;
+  font-size:13px!important;
 }
 html body main#main-content #about .story-art,
 html body main#main-content .studio-story .story-art{
+  margin:0!important;
+  padding:0!important;
+  background:#fff!important;
+  background-image:none!important;
+  border:0!important;
   border-radius:24px!important;
   box-shadow:var(--mm-shadow)!important;
+  position:relative!important;
+  min-height:0!important;
+  display:block!important;
   overflow:hidden!important;
+}
+html body main#main-content #about .story-art:before,
+html body main#main-content #about .story-art:after,
+html body main#main-content .studio-story .story-art:before,
+html body main#main-content .studio-story .story-art:after{
+  content:none!important;
+  display:none!important;
+}
+html body main#main-content #about .story-art img,
+html body main#main-content .studio-story .story-art img{
+  display:block!important;
+  width:100%!important;
+  height:auto!important;
+  aspect-ratio:1 / 1!important;
+  object-fit:cover!important;
+  object-position:center!important;
+  background:#fff!important;
+  border:0!important;
+  border-radius:inherit!important;
+  box-shadow:none!important;
+  transform:none!important;
+  filter:none!important;
 }
 html body main#main-content #about .story-link,
 html body main#main-content .studio-story .story-link{
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:6px!important;
+  margin:0!important;
+  padding:12px 18px!important;
+  min-height:44px!important;
   border:0!important;
   background:#fff8f5!important;
   box-shadow:0 4px 14px rgba(255,107,90,.08)!important;
   border-radius:999px!important;
   font-weight:800!important;
+  font-size:14px!important;
+  letter-spacing:-.01em!important;
   color:#1e293b!important;
+  text-decoration:none!important;
+  cursor:pointer!important;
+  transition:background .15s ease, color .15s ease, box-shadow .15s ease!important;
+}
+html body main#main-content #about .story-link > b,
+html body main#main-content .studio-story .story-link > b{
+  font-weight:800!important;
+  color:inherit!important;
+  transition:transform .15s ease!important;
 }
 html body main#main-content #about .story-link:hover,
 html body main#main-content .studio-story .story-link:hover{
@@ -2078,43 +2613,242 @@ html body main#main-content .studio-story .story-link:hover{
   color:#ff6b5a!important;
   box-shadow:0 8px 20px rgba(255,107,90,.12)!important;
 }
+html body main#main-content #about .story-link:hover > b,
+html body main#main-content .studio-story .story-link:hover > b{
+  transform:translateX(2px)!important;
+}
 
+@media (max-width:1100px){
+  html body main#main-content #about.studio-story,
+  html body main#main-content .studio-story{
+    margin-top:32px!important;
+    padding:0 16px!important;
+    gap:24px!important;
+  }
+  html body main#main-content #about .story-art,
+  html body main#main-content .studio-story .story-art{
+    border-radius:20px!important;
+  }
+}
+
+@media (max-width:900px){
+  html body main#main-content #about.studio-story,
+  html body main#main-content .studio-story{
+    grid-template-columns:1fr!important;
+    gap:18px!important;
+  }
+  html body main#main-content #about .story-copy,
+  html body main#main-content .studio-story .story-copy{
+    order:1!important;
+  }
+  html body main#main-content #about .story-art,
+  html body main#main-content .studio-story .story-art{
+    order:2!important;
+    border-radius:18px!important;
+  }
+}
+
+/* ===== FAQ — marshmallow cards like steps/service (no icons) ===== */
 html body main#main-content .faq-section,
 html body main#main-content .faq-section.section{
+  background:transparent!important;
+  background-image:none!important;
+  border:0!important;
+  box-shadow:none!important;
+  width:100%!important;
+  max-width:none!important;
+  margin:40px auto 0!important;
+  padding:0 max(32px, calc((100% - 1280px) / 2))!important;
+  box-sizing:border-box!important;
+  display:grid!important;
+  grid-template-columns:minmax(0, .72fr) minmax(0, 1.28fr)!important;
+  align-items:start!important;
+  gap:40px!important;
+  overflow:visible!important;
+  position:relative!important;
+}
+html body main#main-content .faq-section:before,
+html body main#main-content .faq-section:after{
+  content:none!important;
+  display:none!important;
+}
+html body main#main-content .faq-heading{
+  position:sticky!important;
+  top:28px!important;
+  margin:0!important;
+  padding:4px 0 0!important;
+  background:transparent!important;
+  border:0!important;
+  box-shadow:none!important;
+}
+html body main#main-content .faq-heading .eyebrow{
+  margin:0 0 8px!important;
+  color:#8b8b93!important;
+  letter-spacing:.08em!important;
+}
+html body main#main-content .faq-heading h2{
+  margin:0 0 14px!important;
+  max-width:12em!important;
+  font-size:clamp(26px, 3vw, 36px)!important;
+  line-height:1.15!important;
+  letter-spacing:-.03em!important;
+  color:#1e293b!important;
+  font-weight:800!important;
+}
+html body main#main-content .faq-heading h2:after{
+  content:none!important;
+  display:none!important;
+}
+html body main#main-content .faq-heading > p:last-child{
+  margin:0!important;
+  max-width:28em!important;
+  color:#8b8b93!important;
+  font-size:clamp(15px, 1.5vw, 17px)!important;
+  line-height:1.5!important;
+}
+html body main#main-content .faq-list{
+  display:grid!important;
+  gap:10px!important;
+  margin:0!important;
+  padding:0!important;
   background:transparent!important;
 }
 html body main#main-content .faq-list details{
   border:0!important;
   border-width:0!important;
   background:#fff!important;
+  background-image:none!important;
   box-shadow:var(--mm-shadow)!important;
-  border-radius:18px!important;
+  border-radius:var(--mm-radius)!important;
   padding:0!important;
+  margin:0!important;
+  overflow:hidden!important;
+  transform:none!important;
+  transition:box-shadow .15s ease!important;
 }
 html body main#main-content .faq-list details[open]{
   border:0!important;
   box-shadow:var(--mm-shadow-hover)!important;
 }
+html body main#main-content .faq-list summary{
+  cursor:pointer!important;
+  display:grid!important;
+  grid-template-columns:36px 1fr auto!important;
+  align-items:center!important;
+  gap:12px!important;
+  min-height:56px!important;
+  padding:14px 16px 14px 18px!important;
+  margin:0!important;
+  background:transparent!important;
+  border:0!important;
+  box-shadow:none!important;
+  color:#1e293b!important;
+  font-size:15px!important;
+  font-weight:750!important;
+  letter-spacing:-.01em!important;
+  line-height:1.3!important;
+  list-style:none!important;
+  -webkit-tap-highlight-color:transparent;
+}
+html body main#main-content .faq-list summary::-webkit-details-marker{
+  display:none!important;
+}
+html body main#main-content .faq-list summary > span{
+  color:#ff8e7a!important;
+  font-size:12px!important;
+  font-weight:800!important;
+  letter-spacing:.04em!important;
+  line-height:1!important;
+}
 html body main#main-content .faq-list summary > b{
+  width:30px!important;
+  height:30px!important;
   border:0!important;
   background:#fff5f2!important;
   color:#ff6b5a!important;
   box-shadow:none!important;
+  border-radius:50%!important;
+  place-items:center!important;
+  font-size:18px!important;
+  font-weight:600!important;
+  line-height:1!important;
+  display:grid!important;
+  transition:transform .2s ease, color .15s ease, background .15s ease!important;
 }
 html body main#main-content .faq-list details[open] summary > b{
+  transform:rotate(45deg)!important;
   background:#ff6b5a!important;
   color:#fff!important;
   border:0!important;
 }
-html body main#main-content .faq-list summary > span{
-  color:#ff8e7a!important;
+html body main#main-content .faq-list details > p{
+  margin:0!important;
+  padding:0 18px 18px 66px!important;
+  color:#8b8b93!important;
+  font-size:14px!important;
+  line-height:1.55!important;
+  background:transparent!important;
 }
 
+@media (max-width:1100px){
+  html body main#main-content .faq-section,
+  html body main#main-content .faq-section.section{
+    margin-top:32px!important;
+    padding:0 16px!important;
+    gap:24px!important;
+  }
+}
+
+@media (max-width:900px){
+  html body main#main-content .faq-section,
+  html body main#main-content .faq-section.section{
+    grid-template-columns:1fr!important;
+    gap:16px!important;
+  }
+  html body main#main-content .faq-heading{
+    position:static!important;
+  }
+  html body main#main-content .faq-list details{
+    border-radius:18px!important;
+  }
+  html body main#main-content .faq-list summary{
+    min-height:52px!important;
+    padding:12px 14px 12px 16px!important;
+    font-size:14px!important;
+  }
+  html body main#main-content .faq-list details > p{
+    padding:0 16px 16px 52px!important;
+    font-size:13.5px!important;
+  }
+}
+
+/* ===== Footer — marshmallow finish (CTA + contacts + socials) ===== */
+html body main#main-content footer{
+  background:transparent!important;
+  border:0!important;
+  box-shadow:none!important;
+}
 html body main#main-content footer .footer-cta{
   border:0!important;
   background:linear-gradient(135deg,#fff 0%,#fff6f2 100%)!important;
   box-shadow:var(--mm-shadow)!important;
   border-radius:var(--mm-radius-lg)!important;
+  padding:24px 26px!important;
+  gap:18px!important;
+}
+html body main#main-content footer .footer-cta-icon{
+  color:#ff8e7a!important;
+}
+html body main#main-content footer .footer-cta small{
+  color:#8b8b93!important;
+  letter-spacing:.08em!important;
+}
+html body main#main-content footer .footer-cta h2{
+  color:#1e293b!important;
+  letter-spacing:-.03em!important;
+}
+html body main#main-content footer .footer-cta p{
+  color:#8b8b93!important;
 }
 html body main#main-content footer .footer-cta button,
 html body main#main-content footer .footer-cta > button{
@@ -2126,26 +2860,77 @@ html body main#main-content footer .footer-cta > button{
   font-weight:800!important;
   box-shadow:0 10px 24px rgba(255,107,107,.28),0 4px 10px rgba(255,142,83,.16)!important;
   padding:14px 22px!important;
+  min-height:48px!important;
+}
+html body main#main-content footer .footer-cta button:hover,
+html body main#main-content footer .footer-cta > button:hover{
+  background:linear-gradient(135deg,#ff5a5a 0%,#ff7a3d 100%)!important;
+  background-image:linear-gradient(135deg,#ff5a5a 0%,#ff7a3d 100%)!important;
+  border:0!important;
+  color:#fff!important;
+  box-shadow:0 14px 30px rgba(255,107,107,.34),0 6px 14px rgba(255,142,83,.2)!important;
 }
 html body main#main-content footer .footer-social-label,
 html body main#main-content footer .footer-nav strong,
 html body main#main-content footer .footer-contacts strong{
   color:#8b8b93!important;
+  letter-spacing:.06em!important;
 }
-html body main#main-content footer .footer-contacts > button,
-html body main#main-content footer .footer-chat{
-  color:#2a2a32!important;
+html body main#main-content footer .footer-main > p,
+html body main#main-content footer .footer-main > span{
+  color:#8b8b93!important;
 }
-html body main#main-content footer .footer-cta button:hover{
-  background:linear-gradient(135deg,#ff5a5a 0%,#ff7a3d 100%)!important;
-  background-image:linear-gradient(135deg,#ff5a5a 0%,#ff7a3d 100%)!important;
+html body main#main-content footer .footer-nav a{
+  color:#1e293b!important;
+}
+html body main#main-content footer .footer-nav a:hover{
+  color:#ff6b5a!important;
 }
 html body main#main-content footer .footer-phone,
-html body main#main-content footer .footer-chat{
-  border:1.5px solid #e8e8ec!important;
+html body main#main-content footer .footer-chat,
+html body main#main-content footer .footer-contacts > button.footer-chat,
+html body main#main-content footer .footer-contacts > a.footer-phone{
+  border:0!important;
+  border-width:0!important;
   background:#fff!important;
-  box-shadow:none!important;
+  box-shadow:var(--mm-shadow)!important;
   border-radius:22px!important;
+  color:#1e293b!important;
+  transition:transform .15s ease, box-shadow .15s ease!important;
+}
+html body main#main-content footer .footer-phone:hover,
+html body main#main-content footer .footer-chat:hover,
+html body main#main-content footer .footer-contacts > button.footer-chat:hover{
+  border:0!important;
+  box-shadow:var(--mm-shadow-hover)!important;
+  transform:translateY(-2px)!important;
+}
+html body main#main-content footer .footer-phone small,
+html body main#main-content footer .footer-chat small{
+  color:#8b8b93!important;
+}
+html body main#main-content footer .footer-phone strong,
+html body main#main-content footer .footer-chat strong{
+  color:#1e293b!important;
+}
+html body main#main-content footer .footer-bottom{
+  color:#8b8b93!important;
+  border-color:#f1f4f8!important;
+}
+html body main#main-content footer .footer-bottom a{
+  color:#ff6b5a!important;
+}
+
+@media (max-width:720px){
+  html body main#main-content footer .footer-cta{
+    grid-template-columns:1fr!important;
+    padding:20px 18px!important;
+    border-radius:20px!important;
+  }
+  html body main#main-content footer .footer-cta button,
+  html body main#main-content footer .footer-cta > button{
+    width:100%!important;
+  }
 }
 
 /* Sticky mobile CTA — same marshmallow chrome as footer contacts */
@@ -2163,31 +2948,6 @@ html body .homepage-mobile-cta strong{
 html body main#main-content .homepage-mobile-cta small,
 html body .homepage-mobile-cta small{
   color:#8b8b93!important;
-}
-
-@media (max-width:720px){
-  html body main#main-content #delivery .step-card,
-  html body main#main-content .steps .step-card{
-    border-radius:18px!important;
-  }
-  html body main#main-content #delivery .step-icon,
-  html body main#main-content .step-icon{
-    border-radius:14px!important;
-    padding:6px!important;
-  }
-  html body main#main-content .service-info .info-icon{
-    width:72px!important;
-    height:72px!important;
-    border-radius:14px!important;
-  }
-  html body main#main-content footer .footer-cta{
-    grid-template-columns:1fr!important;
-    padding:20px 18px!important;
-    border-radius:20px!important;
-  }
-  html body main#main-content footer .footer-cta button{
-    width:100%!important;
-  }
 }
 
 /* Catalog sort — one quiet marshmallow capsule beside the count */

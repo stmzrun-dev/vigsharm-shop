@@ -1319,20 +1319,39 @@ html body main#main-content #catalog .category-arrow{
   }
 }
 
-/* ===== Budget — soft pastel icon tiles + marshmallow cards ===== */
+/* ===== Budget «Какой у вас бюджет?» — marshmallow row tiles ===== */
 html body main#main-content #budget.budget-section{
+  width:100%!important;
+  max-width:none!important;
+  margin:28px 0 0!important;
+  padding:0!important;
   background:transparent!important;
+  box-shadow:none!important;
+  border:0!important;
+}
+html body main#main-content #budget .budget-heading{
+  margin:0 0 16px!important;
+}
+html body main#main-content #budget .budgets{
+  display:grid!important;
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  gap:14px!important;
 }
 html body main#main-content #budget a.budget-card,
 html body main#main-content #budget .budget-card{
+  display:grid!important;
+  grid-template-columns:72px 1fr!important;
+  align-items:center!important;
+  gap:12px!important;
+  min-height:48px!important;
+  padding:10px 12px!important;
   border:0!important;
   border-width:0!important;
+  border-radius:22px!important;
   background:#fff!important;
   background-image:none!important;
   box-shadow:var(--mm-shadow)!important;
-  border-radius:18px!important;
-  padding:10px 12px!important;
-  gap:12px!important;
+  text-decoration:none!important;
   transition:transform .15s ease, box-shadow .15s ease!important;
 }
 html body main#main-content #budget a.budget-card:hover,
@@ -1344,15 +1363,23 @@ html body main#main-content #budget .budget-card:hover{
 html body main#main-content #budget .budget-card strong{
   color:#1e293b!important;
   font-weight:800!important;
+  letter-spacing:-.02em!important;
 }
 html body main#main-content #budget .budget-card small{
   color:#8b8b93!important;
+  font-weight:600!important;
 }
 html body main#main-content #budget .budget-icon{
+  width:72px!important;
+  height:72px!important;
+  flex:none!important;
+  display:grid!important;
+  place-items:center!important;
   border:0!important;
-  border-radius:14px!important;
+  border-radius:16px!important;
   overflow:hidden!important;
-  padding:4px!important;
+  padding:6px!important;
+  box-sizing:border-box!important;
 }
 html body main#main-content #budget .budget-card.budget-red .budget-icon,
 html body main#main-content #budget a.budget-red .budget-icon{
@@ -1379,33 +1406,55 @@ html body main#main-content #budget a.budget-purple .budget-icon{
   background:#f5f0ff!important;
 }
 html body main#main-content #budget .budget-icon img{
-  object-fit:cover!important;
+  width:100%!important;
+  height:100%!important;
+  object-fit:contain!important;
+  object-position:center!important;
   border-radius:10px!important;
+  background:transparent!important;
+}
+
+@media (max-width:1100px){
+  html body main#main-content #budget .budgets{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:10px!important;
+  }
+  html body main#main-content #budget a.budget-card,
+  html body main#main-content #budget .budget-card{
+    grid-template-columns:64px 1fr!important;
+    padding:10px!important;
+  }
+  html body main#main-content #budget .budget-icon{
+    width:64px!important;
+    height:64px!important;
+    border-radius:14px!important;
+  }
 }
 
 @media (max-width:720px){
   html body main#main-content #budget.budget-section{
-    padding:0 16px!important;
     margin-top:20px!important;
+    padding:0!important;
   }
   html body main#main-content #budget .budget-heading{
-    margin-bottom:10px!important;
+    margin-bottom:12px!important;
   }
   html body main#main-content #budget .budgets{
+    grid-template-columns:1fr!important;
     gap:8px!important;
   }
   html body main#main-content #budget a.budget-card,
   html body main#main-content #budget .budget-card{
     grid-template-columns:56px 1fr!important;
     padding:8px 10px!important;
-    border-radius:16px!important;
+    border-radius:18px!important;
     gap:10px!important;
   }
   html body main#main-content #budget .budget-icon{
     width:56px!important;
     height:56px!important;
-    flex-basis:56px!important;
     border-radius:12px!important;
+    padding:4px!important;
   }
   html body main#main-content #budget .budget-card strong{
     font-size:15px!important;

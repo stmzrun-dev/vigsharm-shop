@@ -2,6 +2,408 @@
   "ok": true,
   "products": [
     {
+      "id": "e8284956-48fe-4928-b285-bc6bbb530657",
+      "title": "Золотое облако",
+      "article": "PHT-017",
+      "price": 5000,
+      "short_description": "Фотозона с мольбертом в нежных розово-золотых тонах и крупной цифрой.",
+      "full_description": "Фотозона на деревянном мольберте, украшенная гирляндой из розовых, белых и золотых шаров. В комплекте большая фольгированная цифра и цветы из воздушных шаров.",
+      "composition": [
+        "фотозона",
+        "цифра"
+      ],
+      "category": "Фотозона",
+      "character": null,
+      "age_group": "Для детей",
+      "budget": "5 000–8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Фотозона с цифрой в розово-золотых тонах — Армавир",
+      "seo_description": "Фотозона на мольберте с гирляндой из розовых, белых и золотых шаров, крупной цифрой и цветами из шаров. Доставка по Армавиру.",
+      "slug": "rozovaya-mechta-fotozona",
+      "scene": "photozone",
+      "tags": [
+        "Фотозона"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": true,
+        "photozone_rental": true,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790024829/vigsharm-products/bb5vvdwvwrd48fvrhsd0.jpg",
+        "photozone_type": "easel",
+        "rental": {
+          "enabled": true,
+          "item": "Мольберт с кругом из полистирола",
+          "days": 3,
+          "keep_price_delta": 500
+        },
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790024953/vigsharm-products/otfku3ybqx85le63jkkp.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790024953/vigsharm-products/otfku3ybqx85le63jkkp.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-21T21:09:46.248Z",
+      "updated_at": "2026-09-21T21:09:46.248Z"
+    },
+    {
+      "id": "75c0caeb-b394-4409-9ac9-642657c06b47",
+      "title": "Пастельный триумф",
+      "article": "PHT-016",
+      "price": 6000,
+      "short_description": "Фотозона с круглым планшетом на мольберте, украшенная гирляндой из персиковых, бежевых и оливковых шаров.",
+      "full_description": "Фотозона на белом мольберте с круглым планшетом для индивидуальной надписи. Композиция из пастельных шаров обрамляет круг и спускается каскадом к полу.",
+      "composition": [
+        "фотозона"
+      ],
+      "category": "Фотозона",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "5 000–8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Фотозона с мольбертом в пастельных тонах — Армавир",
+      "seo_description": "Элегантная фотозона на мольберте с круглым планшетом и гирляндой из персиковых, бежевых и оливковых шаров. Идеальна для юбилеев и торжеств.",
+      "slug": "pastelnyy-triumf",
+      "scene": "photozone",
+      "tags": [
+        "Фотозона"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": true,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790024299/vigsharm-products/b9rgxxjtpfne2cfbaiqu.jpg",
+        "photozone_type": "easel",
+        "rental": {
+          "enabled": true,
+          "item": "Мольберт с кругом из полистирола",
+          "days": 3,
+          "keep_price_delta": 500
+        }
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790024416/vigsharm-products/schbaeibkjhhds9brykz.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790024416/vigsharm-products/schbaeibkjhhds9brykz.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-21T21:02:03.118Z",
+      "updated_at": "2026-09-21T21:02:03.118Z"
+    },
+    {
+      "id": "c2d304ac-9f30-4003-8445-e608f8016253",
+      "title": "Золотой рубеж",
+      "article": "PHT-015",
+      "price": 6500,
+      "short_description": "Фотозона с мольбертом, золотыми цифрами и гирляндой из чёрных, белых и золотых шаров.",
+      "full_description": "Элегантная фотозона на деревянном мольберте с круглой табличкой для индивидуальной надписи. Крупные золотые фольгированные цифры и стильная гирлянда из чёрных, белых и золотых шаров создают торжественную атмосферу.",
+      "composition": [
+        "фотозона с мольбертом и круглой табличкой для индивидуальной надписи",
+        "2 цифры",
+        "гирлянда из латексных шаров"
+      ],
+      "category": "Фотозона",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "5 000–8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Фотозона с золотыми цифрами и гирляндой — Армавир",
+      "seo_description": "Элегантная фотозона с мольбертом, золотыми фольгированными цифрами и стильной гирляндой из чёрных, белых и золотых шаров в Армавире.",
+      "slug": "zolotoy-rubezh",
+      "scene": "photozone",
+      "tags": [
+        "Фотозона"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": true,
+        "photozone_rental": true,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790024055/vigsharm-products/vxupb4mfizce1apa9waa.jpg",
+        "photozone_type": "easel",
+        "rental": {
+          "enabled": true,
+          "item": "Мольберт с кругом из полистирола",
+          "days": 3,
+          "keep_price_delta": 500
+        },
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 2
+        }
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790024086/vigsharm-products/sn1u8yrmjqilgilesfvm.jpg"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790024086/vigsharm-products/sn1u8yrmjqilgilesfvm.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-21T20:57:03.624Z",
+      "updated_at": "2026-09-21T20:57:03.624Z"
+    },
+    {
+      "id": "ceefe451-1b5b-4cf9-b708-c6f6882fbf15",
+      "title": "Рогатый друг",
+      "article": "PHT-014",
+      "price": 5000,
+      "short_description": "Фотозона с мольбертом и бычком в бело-голубых тонах.",
+      "full_description": "Фотозона на деревянном мольберте с персонализированным кругом и гирляндой из бело-голубых и серебряных шаров.",
+      "composition": [
+        "фотозона"
+      ],
+      "category": "Фотозона",
+      "character": "Буба",
+      "age_group": "Для детей",
+      "budget": "5 000–8 000 ₽",
+      "series_name": "Буба",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Фотозона с бычком на мольберте в Армавире",
+      "seo_description": "Фотозона с мольбертом и персонажем-бычком в бело-голубых тонах. Идеальный фон для детского праздника.",
+      "slug": "bychok-na-molberte",
+      "scene": "photozone",
+      "tags": [
+        "Фотозона"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": true,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790023500/vigsharm-products/eptc3enlmjh5t5xfgk7s.jpg",
+        "photozone_type": "easel",
+        "rental": {
+          "enabled": true,
+          "item": "Мольберт с кругом из полистирола",
+          "days": 3,
+          "keep_price_delta": 500
+        }
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790023931/vigsharm-products/yugazw4u88m8j4u4vvo8.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790023931/vigsharm-products/yugazw4u88m8j4u4vvo8.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-21T20:53:27.662Z",
+      "updated_at": "2026-09-21T20:53:27.662Z"
+    },
+    {
+      "id": "9c22af8a-a722-4b38-a311-6a299921c93d",
+      "title": "Радужная рамка",
+      "article": "PHT-013",
+      "price": 5000,
+      "short_description": "Фотозона на мольберте с круглой табличкой и гирляндой из разноцветных шаров.",
+      "full_description": "Фотозона с деревянным мольбертом, круглой белой табличкой и яркой гирляндой из жёлтых, зелёных, фиолетовых и синих шаров разного размера.",
+      "composition": [
+        "фотозона"
+      ],
+      "category": "Фотозона",
+      "character": null,
+      "age_group": "Для детей",
+      "budget": "5 000–8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Фотозона с мольбертом и разноцветными шарами — Армавир",
+      "seo_description": "Яркая фотозона на мольберте с круглой табличкой и гирляндой из жёлтых, зелёных, фиолетовых и синих шаров. Доставка в Армавире.",
+      "slug": "raduzhnaya-ramka",
+      "scene": "photozone",
+      "tags": [
+        "Фотозона"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": true,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790023033/vigsharm-products/et6zayyv99rhymnbhs0d.jpg",
+        "photozone_type": "easel",
+        "rental": {
+          "enabled": true,
+          "item": "Мольберт с кругом из полистирола",
+          "days": 3,
+          "keep_price_delta": 500
+        }
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790023121/vigsharm-products/mqffwatbdz4wgjnvo9uk.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790023121/vigsharm-products/mqffwatbdz4wgjnvo9uk.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-21T20:41:18.328Z",
+      "updated_at": "2026-09-21T20:41:18.328Z"
+    },
+    {
+      "id": "60212e5f-d9ee-4a75-a568-8064b0c0a603",
+      "title": "Пастельная сказка",
+      "article": "PHT-012",
+      "price": 7000,
+      "short_description": "Фотозона с мольбертом, арка из розовых и оливковых шаров с цифрой 1.",
+      "full_description": "Фотозона с деревянным мольбертом и круглой табличкой в центре. Арка из розовых и оливковых шаров дополнена золотыми акцентами, прозрачными баблс и фольгированной цифрой 1.",
+      "composition": [
+        "фотозона"
+      ],
+      "category": "Фотозона",
+      "character": null,
+      "age_group": "Для малышей",
+      "budget": "5 000–8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Фотозона на 1 годик девочке с мольбертом — Армавир",
+      "seo_description": "Нежная фотозона для первого дня рождения: арка из розовых и оливковых шаров, мольберт с круглой табличкой, цифра 1. Доставка в Армавире.",
+      "slug": "rozovaya-mechta-2",
+      "scene": "photozone",
+      "tags": [
+        "Фотозона"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": true,
+        "photozone_rental": true,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790022700/vigsharm-products/u9c2de7uovddbhueg4at.png",
+        "photozone_type": "easel",
+        "rental": {
+          "enabled": true,
+          "item": "Мольберт с кругом из полистирола",
+          "days": 3,
+          "keep_price_delta": 500
+        },
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790022800/vigsharm-products/nojkqopu0p4cjmkmdx58.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790022800/vigsharm-products/nojkqopu0p4cjmkmdx58.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-21T20:35:14.298Z",
+      "updated_at": "2026-09-21T20:35:14.298Z"
+    },
+    {
+      "id": "828bf927-4d39-4cae-837a-f9bde44fd692",
+      "title": "Нежная арка",
+      "article": "PHT-011",
+      "price": 12000,
+      "short_description": "Арка из белых, мятных и золотых шаров с круглым топпером для памятных снимков.",
+      "full_description": "Фотозона в виде арки из воздушных шаров в мятно-золотой гамме с белыми акцентами. Украшена прозрачными шарами с конфетти и живой зеленью, дополнена круглым топпером с каллиграфией.",
+      "composition": [
+        "фотозона"
+      ],
+      "category": "Фотозона",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "от 8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Фотозона из шаров в мятных тонах — Армавир",
+      "seo_description": "Арка-фотозона из белых, мятных и золотых шаров с топпером. Элегантное оформление для фотосессий и мероприятий в Армавире.",
+      "slug": "myatnyi-shepot",
+      "scene": "photozone",
+      "tags": [
+        "Фотозона"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": true,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790022309/vigsharm-products/eiuohmy8siicg0mfvixk.jpg",
+        "photozone_type": "frame",
+        "rental": {
+          "enabled": true,
+          "item": "Каркас фотозоны",
+          "days": 3,
+          "keep_price_delta": 500
+        }
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790022559/vigsharm-products/y1f9fsbg1n3tn4gejju4.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790022559/vigsharm-products/y1f9fsbg1n3tn4gejju4.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-21T20:30:17.539Z",
+      "updated_at": "2026-09-21T20:30:17.539Z"
+    },
+    {
+      "id": "1662fd4e-f7ce-40d6-90bf-7e18059c6c6c",
+      "title": "Команда в масках",
+      "article": "BOY-021",
+      "price": 8700,
+      "short_description": "Три супергероя в масках и цифра 4 в окружении фонтанов из бирюзовых и серебряных шаров.",
+      "full_description": "Композиция с тремя фольгированными фигурами героев в масках и крупной цифрой 4. Две группы фонтанов из бирюзовых и серебряных шаров с сердцами, звёздами и конфетти.",
+      "composition": [
+        "цифра",
+        "3 фольгированные фигуры",
+        "4 фольгированных сердца",
+        "4 фольгированные звезды",
+        "4 шара с конфетти",
+        "8 хромированных шаров",
+        "6 латексных шаров"
+      ],
+      "category": "Для мальчика",
+      "character": "Герои в пижамах",
+      "age_group": "Для детей",
+      "budget": "от 8 000 ₽",
+      "series_name": "Герои в пижамах",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Композиция с героями в масках и цифрой 4 — Армавир",
+      "seo_description": "Три супергероя в масках, цифра 4 и два фонтана из бирюзовых и серебряных шаров. Доставка по Армавиру.",
+      "slug": "nochnoy-dozor-chetverki",
+      "scene": "wall_only",
+      "tags": [
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790020950/vigsharm-products/uppo2oucla3nv8gvw7s8.jpg",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790021910/vigsharm-products/lfkz3ubkxka92voigjjw.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790021910/vigsharm-products/lfkz3ubkxka92voigjjw.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-21T20:22:13.049Z",
+      "updated_at": "2026-09-21T20:22:13.049Z"
+    },
+    {
       "id": "0c49cad3-840f-456f-8774-c87ce95dd4a9",
       "title": "На поле славы",
       "article": "PHT-010",

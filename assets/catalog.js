@@ -596,8 +596,10 @@
   var PHONE = '79284440142', PHONE_LABEL = '+7 928 444-01-42';
   var MAX_URL = 'https://max.ru/u/f9LHodD0cOJwY09H6Zj63nYK_X8tPZGb3CODIvTT7FWkRzrgbh5F582AiB8';
   var TG_URL = 'https://t.me/Olgamzz';
-  var WA_SVG = '<svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M12 2a9.75 9.75 0 0 0-8.47 14.58L2.2 21.8l5.35-1.28A9.78 9.78 0 1 0 12 2Zm0 17.5a7.7 7.7 0 0 1-3.92-1.08l-.37-.22-3.08.74.77-3-.24-.38A7.75 7.75 0 1 1 12 19.5Zm4.25-5.78c-.23-.12-1.37-.67-1.58-.75-.21-.08-.36-.12-.52.12-.15.23-.6.75-.73.9-.14.16-.27.18-.5.06-1.39-.69-2.3-1.23-3.22-2.8-.24-.42.24-.39.69-1.3.08-.16.04-.3-.02-.42-.06-.12-.52-1.25-.71-1.71-.19-.45-.38-.39-.52-.4h-.45c-.16 0-.41.06-.62.29-.21.23-.81.79-.81 1.92 0 1.14.83 2.23.94 2.39.12.15 1.63 2.48 3.94 3.48 1.47.63 2.04.69 2.77.58.44-.07 1.37-.56 1.56-1.1.19-.54.19-1 .13-1.1-.06-.09-.21-.15-.44-.26Z"></path></svg>';
-  var TG_SVG = '<svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M20.67 3.55 2.8 10.44c-1.22.49-1.21 1.16-.22 1.46l4.58 1.43 1.76 5.42c.21.58.1.81.72.81.48 0 .69-.22.96-.48l2.2-2.14 4.58 3.38c.84.46 1.45.22 1.66-.78l3-14.14c.31-1.23-.47-1.79-1.37-1.85ZM8.1 13l10.32-6.51c.52-.31 1-.15.61.2l-8.51 7.68-.33 3.54L8.1 13Z"></path></svg>';
+  var WA_ICON = '<img src="icons/brand-whatsapp.svg?v=3" alt="" width="40" height="40" decoding="async" aria-hidden="true"/>';
+  var TG_ICON = '<img src="icons/brand-telegram.svg?v=8" alt="" width="40" height="40" decoding="async" aria-hidden="true"/>';
+  var MAX_ICON = '<img src="icons/max-official.png" alt="" width="40" height="40" decoding="async" aria-hidden="true"/>';
+  var PHONE_ICON = '<img src="icons/brand-phone.svg?v=5" alt="" width="40" height="40" decoding="async" aria-hidden="true"/>';
 
   function openCatalogModal() {
     if (document.querySelector('.catalog-modal-wrap')) return;
@@ -615,10 +617,10 @@
       '<p>Расскажите о празднике и бюджете — подберём композицию.</p>' +
       (parts.length ? '<div class="contact-request-summary"><strong>Ваш выбор сохранён</strong><span>' + esc(parts.join(' · ')) + '</span></div>' : '') +
       '<div class="contact-options">' +
-      '<a class="contact-option whatsapp" target="_blank" rel="noreferrer" href="https://wa.me/' + PHONE + '?text=' + encodeURIComponent(msg) + '"><span>' + WA_SVG + '</span><div><strong>WhatsApp</strong><small>Сообщение уже подготовлено</small></div></a>' +
-      '<a class="contact-option telegram" target="_blank" rel="noreferrer" href="' + TG_URL + '?text=' + encodeURIComponent(msg) + '"><span>' + TG_SVG + '</span><div><strong>Telegram</strong><small>Текст скопируется · личный чат</small></div></a>' +
-      '<a class="contact-option max" target="_blank" rel="noreferrer" href="' + MAX_URL + '"><span><img src="icons/max-official.png" alt="" width="24" height="24" decoding="async" aria-hidden="true"/></span><div><strong>MAX</strong><small>Текст обращения скопируется</small></div></a>' +
-      '<a class="contact-option phone" href="tel:+' + PHONE + '"><span>' + window.vigEmoji('phone') + '</span><div><strong>Позвонить</strong><small>' + PHONE_LABEL + '</small></div></a>' +
+      '<a class="contact-option whatsapp" target="_blank" rel="noreferrer" href="https://wa.me/' + PHONE + '?text=' + encodeURIComponent(msg) + '"><span>' + WA_ICON + '</span><div><strong>WhatsApp</strong><small>Сообщение уже подготовлено</small></div></a>' +
+      '<a class="contact-option telegram" target="_blank" rel="noreferrer" href="' + TG_URL + '?text=' + encodeURIComponent(msg) + '"><span>' + TG_ICON + '</span><div><strong>Telegram</strong><small>Текст скопируется · личный чат</small></div></a>' +
+      '<a class="contact-option max" target="_blank" rel="noreferrer" href="' + MAX_URL + '"><span>' + MAX_ICON + '</span><div><strong>MAX</strong><small>Текст обращения скопируется</small></div></a>' +
+      '<a class="contact-option phone" href="tel:+' + PHONE + '"><span>' + PHONE_ICON + '</span><div><strong>Позвонить</strong><small>' + PHONE_LABEL + '</small></div></a>' +
       '</div><p class="modal-note">Заказ оформляется только после нашего подтверждения.</p></section>';
     function close() { wrap.remove(); document.body.style.overflow = ''; }
     wrap.addEventListener('mousedown', function (e) { if (e.target === wrap) close(); });
@@ -665,45 +667,6 @@
     syncFilterToggle();
   });
 
-  var cta = document.querySelector('.homepage-mobile-cta');
-  if (cta) {
-    cta.setAttribute('data-custom-modal', '1');
-    cta.removeAttribute('data-contact');
-    cta.addEventListener('click', function () { openCatalogModal(); });
-  }
-  function updateCta() {
-    if (!cta) return;
-    var customVisible = false;
-    var nearListEnd = false;
-    try {
-      var el = document.querySelector('.catalog-custom-order');
-      if (el) {
-        var r = el.getBoundingClientRect();
-        customVisible = r.top < window.innerHeight - 90 && r.bottom > 0;
-      }
-      // Ближе к концу сетки/«показать ещё», а не посередине витрины
-      var grid = document.querySelector('.catalog-grid');
-      var loadMore = document.querySelector('.catalog-load-more');
-      var anchor = loadMore || grid;
-      if (anchor) {
-        var ar = anchor.getBoundingClientRect();
-        var vh = window.innerHeight || 0;
-        nearListEnd = ar.bottom < vh + 160 && ar.top < vh * 0.42;
-      } else {
-        var docH = document.documentElement.scrollHeight || 0;
-        var winH = window.innerHeight || 0;
-        nearListEnd = window.scrollY + winH > docH - Math.max(winH * 0.5, 480);
-      }
-    } catch (e) {}
-    var modalOpen = !!document.querySelector('.catalog-modal-wrap');
-    var visible = nearListEnd && !customVisible && !modalOpen;
-    cta.classList.toggle('homepage-mobile-cta-visible', visible);
-    cta.setAttribute('aria-hidden', visible ? 'false' : 'true');
-    cta.setAttribute('tabindex', visible ? '0' : '-1');
-  }
-  window.addEventListener('scroll', updateCta, { passive: true });
-  window.addEventListener('resize', updateCta);
-
   function load() {
     loading = true; loadError = false;
     navSignature = '';
@@ -719,7 +682,6 @@
         loading = false;
         navSignature = '';
         render();
-        updateCta();
       })
       .catch(function () {
         products = []; loading = false; loadError = true;

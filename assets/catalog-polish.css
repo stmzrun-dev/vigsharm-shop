@@ -277,7 +277,7 @@
 @media (max-width:650px){
   .catalog-page{
     --cat-pad:16px;
-    padding-bottom:calc(84px + env(safe-area-inset-bottom))!important;
+    padding-bottom:24px!important;
   }
   .catalog-page .catalog-controls{
     margin-top:10px!important;

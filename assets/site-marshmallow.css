@@ -528,20 +528,184 @@ html body main#main-content.catalog-page{
   background-color:#fffaf8!important;
   background-image:radial-gradient(ellipse 80% 40% at 50% 0%,rgba(255,180,150,.16) 0%,transparent 70%)!important;
 }
+/* Search + filters — standalone marshmallow pillows, no tray */
 html body main#main-content.catalog-page > .catalog-controls{
-  padding:12px!important;
-  border-radius:20px!important;
-  background-color:#fff5f0!important;
-  background-image:linear-gradient(180deg,#ffffff 0%,#fff5f0 100%)!important;
-  box-shadow:0 8px 24px rgba(255,107,90,.06),0 1px 0 rgba(255,255,255,.8) inset!important;
-  border:1px solid rgba(255,200,180,.45)!important;
+  padding:0!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  background-image:none!important;
+  box-shadow:none!important;
+  gap:10px!important;
 }
 html body main#main-content.catalog-page .catalog-search,
 html body main#main-content.catalog-page .catalog-controls select,
 html body main#main-content.catalog-page .catalog-mobile-filter-toggle{
-  background-color:#fffdfb!important;
-  border-color:#f0ddd4!important;
+  background-color:#fff!important;
+  background-image:none!important;
+  border:0!important;
+  border-color:transparent!important;
+  border-radius:18px!important;
+  box-shadow:var(--mm-shadow)!important;
 }
+html body main#main-content.catalog-page .catalog-search:focus-within,
+html body main#main-content.catalog-page .catalog-controls select:focus,
+html body main#main-content.catalog-page .catalog-controls select:focus-visible{
+  border:0!important;
+  box-shadow:var(--mm-shadow),var(--mm-focus)!important;
+}
+html body main#main-content.catalog-page .catalog-controls select.has-value{
+  background-color:#fff7f6!important;
+  color:#e85a4a!important;
+  box-shadow:0 10px 24px rgba(255,107,90,.12),0 2px 8px rgba(0,0,0,.03)!important;
+}
+
+@media (max-width:650px){
+  html body main#main-content.catalog-page > .catalog-controls{
+    display:grid!important;
+    grid-template-columns:minmax(0,1fr) 48px!important;
+    align-items:center!important;
+    gap:8px!important;
+  }
+  html body main#main-content.catalog-page .catalog-search{
+    grid-column:1!important;
+    grid-row:1!important;
+    min-height:48px!important;
+  }
+  html body main#main-content.catalog-page .catalog-mobile-filter-toggle{
+    display:inline-flex!important;
+    grid-column:2!important;
+    grid-row:1!important;
+    width:48px!important;
+    min-width:48px!important;
+    max-width:48px!important;
+    height:48px!important;
+    min-height:48px!important;
+    padding:0!important;
+    overflow:hidden!important;
+    align-items:center!important;
+    justify-content:center!important;
+  }
+  html body main#main-content.catalog-page .catalog-mobile-filter-toggle .catalog-mobile-filter-label,
+  html body main#main-content.catalog-page .catalog-mobile-filter-toggle .catalog-mobile-filter-label strong,
+  html body main#main-content.catalog-page .catalog-mobile-filter-toggle > strong{
+    display:none!important;
+  }
+  html body main#main-content.catalog-page .catalog-mobile-filter-toggle{
+    font-size:0!important;
+  }
+  html body main#main-content.catalog-page .catalog-mobile-filter-toggle .catalog-mobile-filter-icon{
+    font-size:16px!important;
+  }
+  html body main#main-content.catalog-page .catalog-controls select{
+    display:none!important;
+  }
+}
+
+@media (min-width:651px){
+  html body main#main-content.catalog-page > .catalog-controls{
+    display:grid!important;
+    grid-template-columns:minmax(0,1.5fr) minmax(160px,220px) minmax(150px,200px)!important;
+    align-items:stretch!important;
+  }
+  html body main#main-content.catalog-page > .catalog-controls.no-age-filter{
+    grid-template-columns:minmax(0,1.6fr) minmax(180px,240px)!important;
+  }
+  html body main#main-content.catalog-page .catalog-search{
+    grid-column:auto!important;
+    grid-row:auto!important;
+    min-height:52px!important;
+  }
+  html body main#main-content.catalog-page .catalog-mobile-filter-toggle{
+    display:none!important;
+  }
+  html body main#main-content.catalog-page .catalog-filter-panel{
+    display:contents!important;
+  }
+  html body main#main-content.catalog-page .catalog-controls select{
+    display:block!important;
+    width:100%!important;
+    min-height:52px!important;
+  }
+}
+
+/* Filter sheet lives on body — --cat-accent from .catalog-page does not apply here */
+html body .catalog-filter-sheet{
+  z-index:120!important;
+}
+html body .catalog-filter-sheet-panel{
+  background:#fff!important;
+  border-radius:24px 24px 0 0!important;
+  box-shadow:0 -18px 40px rgba(30,20,20,.14)!important;
+  padding:10px 16px calc(18px + env(safe-area-inset-bottom,0px))!important;
+  max-height:min(82vh,560px)!important;
+  gap:12px!important;
+}
+html body .catalog-filter-sheet-handle{
+  background:#eadcd6!important;
+}
+html body .catalog-filter-sheet-head h2{
+  color:#1e293b!important;
+  font-weight:800!important;
+}
+html body .catalog-filter-sheet-close{
+  width:40px!important;
+  height:40px!important;
+  border:0!important;
+  background:#fff5f3!important;
+  color:#e85a4a!important;
+  border-radius:14px!important;
+  box-shadow:none!important;
+}
+html body .catalog-filter-sheet-head{
+  display:flex!important;
+  flex-direction:row!important;
+  align-items:center!important;
+  justify-content:space-between!important;
+}
+html body .catalog-filter-sheet-body .catalog-filter-panel{
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr)!important;
+  gap:8px!important;
+  width:100%!important;
+}
+html body .catalog-filter-sheet-body select{
+  min-height:48px!important;
+  width:100%!important;
+  max-width:100%!important;
+  border:0!important;
+  background:#fff8f4!important;
+  border-radius:16px!important;
+  box-shadow:var(--mm-shadow)!important;
+  color:#1e293b!important;
+}
+html body .catalog-filter-sheet-body select:focus,
+html body .catalog-filter-sheet-body select:focus-visible{
+  border:0!important;
+  box-shadow:var(--mm-shadow),var(--mm-focus)!important;
+}
+html body .catalog-filter-sheet-foot{
+  display:grid!important;
+  grid-template-columns:1fr 1.2fr!important;
+  gap:8px!important;
+}
+html body .catalog-filter-sheet-reset{
+  min-height:48px!important;
+  border:0!important;
+  background:#fff8f4!important;
+  color:#8a6e68!important;
+  border-radius:16px!important;
+  box-shadow:var(--mm-shadow)!important;
+}
+html body .catalog-filter-sheet-done{
+  min-height:48px!important;
+  border:0!important;
+  background:linear-gradient(135deg,#ff6b6b,#ff8e53)!important;
+  color:#fff!important;
+  border-radius:16px!important;
+  box-shadow:0 10px 22px rgba(255,107,90,.28)!important;
+}
+
 html body main#main-content.catalog-page .catalog-results-heading h2{
   color:#1e293b!important;
 }
@@ -642,16 +806,196 @@ html body main#main-content.catalog-page .catalog-group-nav > button strong{
   color:#1e293b!important;
 }
 
+/* Five groups always visible — no sideways scroll */
+html body main#main-content.catalog-page nav.catalog-group-nav,
+html body main#main-content.catalog-page .catalog-group-nav{
+  display:grid!important;
+  grid-template-columns:repeat(5,minmax(0,1fr))!important;
+  gap:8px!important;
+  overflow-x:hidden!important;
+  overflow-y:visible!important;
+  width:calc(100% - 2 * var(--cat-pad, 16px))!important;
+  max-width:calc(100% - 2 * var(--cat-pad, 16px))!important;
+  box-sizing:border-box!important;
+  margin-left:var(--cat-pad, 16px)!important;
+  margin-right:var(--cat-pad, 16px)!important;
+  min-width:0!important;
+}
+html body main#main-content.catalog-page .catalog-group-nav > button{
+  min-width:0!important;
+  width:auto!important;
+  max-width:100%!important;
+  flex:none!important;
+}
+
 @media (max-width:1020px){
+  html body main#main-content.catalog-page nav.catalog-group-nav,
+  html body main#main-content.catalog-page .catalog-group-nav{
+    gap:6px!important;
+  }
   html body main#main-content.catalog-page .catalog-group-nav > button{
     border-radius:16px!important;
-    min-height:78px!important;
+    min-height:70px!important;
+    padding:6px 2px 6px!important;
   }
   html body main#main-content.catalog-page .catalog-group-nav > button .catalog-group-icon{
-    width:46px!important;
-    height:46px!important;
-    min-width:46px!important;
-    border-radius:12px!important;
+    width:36px!important;
+    height:36px!important;
+    min-width:36px!important;
+    border-radius:11px!important;
+  }
+  html body main#main-content.catalog-page .catalog-group-nav > button strong{
+    font-size:10px!important;
+    line-height:1.15!important;
+    white-space:normal!important;
+    overflow:visible!important;
+    text-overflow:unset!important;
+    max-width:100%!important;
+  }
+}
+
+/* Subcategories — marshmallow capsules, wrap so every option is tappable */
+html body main#main-content.catalog-page .catalog-subcategories,
+html body main#main-content.catalog-page .catalog-detail-categories{
+  display:flex!important;
+  flex-wrap:wrap!important;
+  align-items:center!important;
+  gap:8px!important;
+  width:auto!important;
+  max-width:none!important;
+  box-sizing:border-box!important;
+  margin-left:var(--cat-pad)!important;
+  margin-right:var(--cat-pad)!important;
+  margin-top:4px!important;
+  margin-bottom:0!important;
+  padding:4px 0 10px!important;
+  overflow:visible!important;
+}
+html body main#main-content.catalog-page .catalog-detail-categories > span{
+  flex:0 0 auto!important;
+  font-size:12px!important;
+  font-weight:700!important;
+  color:#c4a39a!important;
+  white-space:nowrap!important;
+  padding-right:4px!important;
+}
+html body main#main-content.catalog-page .catalog-subcategories > button,
+html body main#main-content.catalog-page .catalog-detail-categories > button{
+  flex:0 0 auto!important;
+  min-height:36px!important;
+  padding:0 14px!important;
+  border:0!important;
+  border-width:0!important;
+  border-radius:999px!important;
+  background:#fff!important;
+  color:#8a6e68!important;
+  font-size:13px!important;
+  font-weight:700!important;
+  letter-spacing:-.01em!important;
+  box-shadow:0 6px 16px rgba(0,0,0,.045),0 1px 4px rgba(0,0,0,.03)!important;
+  white-space:nowrap!important;
+  transform:none!important;
+  filter:none!important;
+}
+/* Who: peach / mint / cream */
+html body main#main-content.catalog-page .catalog-subcategories > button[data-sub="Для девочки"],
+html body main#main-content.catalog-page .catalog-subcategories > button[data-sub="Для неё"],
+html body main#main-content.catalog-page .catalog-detail-categories > button[data-f="Для девочки"],
+html body main#main-content.catalog-page .catalog-detail-categories > button[data-f="Для неё"]{
+  background:#fff1f0!important;
+  color:#c45d5a!important;
+}
+html body main#main-content.catalog-page .catalog-subcategories > button[data-sub="Для мальчика"],
+html body main#main-content.catalog-page .catalog-subcategories > button[data-sub="Для него"],
+html body main#main-content.catalog-page .catalog-detail-categories > button[data-f="Для мальчика"],
+html body main#main-content.catalog-page .catalog-detail-categories > button[data-f="Для него"]{
+  background:#eef8f3!important;
+  color:#3d8f73!important;
+}
+html body main#main-content.catalog-page .catalog-subcategories > button[data-sub="Универсальные"],
+html body main#main-content.catalog-page .catalog-detail-categories > button[data-f="Универсальные"]{
+  background:#fff8f1!important;
+  color:#b07a58!important;
+}
+html body main#main-content.catalog-page .catalog-subcategories > button[data-sub="Для мамы"]{
+  background:#fff4ea!important;
+  color:#c27840!important;
+}
+html body main#main-content.catalog-page .catalog-subcategories > button[data-sub="Детские"],
+html body main#main-content.catalog-page .catalog-detail-categories > button[data-f="Детские"]{
+  background:#fff6ee!important;
+  color:#c07a4a!important;
+}
+/* Occasion: lavender — party / romance */
+html body main#main-content.catalog-page .catalog-subcategories > button[data-sub="На выписку"],
+html body main#main-content.catalog-page .catalog-subcategories > button[data-sub="Гендер-пати"],
+html body main#main-content.catalog-page .catalog-subcategories > button[data-sub="День рождения"],
+html body main#main-content.catalog-page .catalog-subcategories > button[data-sub="Оформление праздника"],
+html body main#main-content.catalog-page .catalog-subcategories > button[data-sub="14 февраля"],
+html body main#main-content.catalog-page .catalog-subcategories > button[data-sub="8 марта"],
+html body main#main-content.catalog-page .catalog-subcategories > button[data-sub="Хэллоуин"],
+html body main#main-content.catalog-page .catalog-detail-categories > button[data-f="На выписку"],
+html body main#main-content.catalog-page .catalog-detail-categories > button[data-f="День рождения"],
+html body main#main-content.catalog-page .catalog-detail-categories > button[data-f="Праздники"]{
+  background:#f3f0ff!important;
+  color:#7a68b8!important;
+}
+/* Holidays: cool mint — winter / defender */
+html body main#main-content.catalog-page .catalog-subcategories > button[data-sub="Новый год"],
+html body main#main-content.catalog-page .catalog-subcategories > button[data-sub="23 февраля"],
+html body main#main-content.catalog-page .catalog-subcategories > button[data-sub="9 мая"]{
+  background:#eef8f3!important;
+  color:#3d8f73!important;
+}
+/* Holidays: peach — school / graduation */
+html body main#main-content.catalog-page .catalog-subcategories > button[data-sub="Выпускной"],
+html body main#main-content.catalog-page .catalog-subcategories > button[data-sub="1 сентября"],
+html body main#main-content.catalog-page .catalog-subcategories > button[data-sub="День учителя"]{
+  background:#fff1f0!important;
+  color:#c45d5a!important;
+}
+/* Format: warm paper */
+html body main#main-content.catalog-page .catalog-subcategories > button[data-sub="Фигуры из шаров"],
+html body main#main-content.catalog-page .catalog-subcategories > button[data-sub="Коробка-сюрприз"],
+html body main#main-content.catalog-page .catalog-subcategories > button[data-sub="Цветы из шаров"],
+html body main#main-content.catalog-page .catalog-subcategories > button[data-sub="Арки"],
+html body main#main-content.catalog-page .catalog-subcategories > button[data-sub="Шар-сюрприз"],
+html body main#main-content.catalog-page .catalog-subcategories > button[data-sub="Крафтовый букет"],
+html body main#main-content.catalog-page .catalog-subcategories > button[data-sub="Оригинальные подарки"]{
+  background:#fffaf6!important;
+  color:#9a7068!important;
+}
+html body main#main-content.catalog-page .catalog-subcategories > button:hover,
+html body main#main-content.catalog-page .catalog-detail-categories > button:hover{
+  filter:brightness(.985)!important;
+  border:0!important;
+  transform:none!important;
+}
+html body main#main-content.catalog-page .catalog-subcategories > button.active,
+html body main#main-content.catalog-page .catalog-detail-categories > button.active{
+  background:#fff1ee!important;
+  color:#e85a4a!important;
+  border:0!important;
+  filter:none!important;
+  box-shadow:0 8px 18px rgba(255,107,90,.12),0 2px 6px rgba(0,0,0,.03)!important;
+}
+html body main#main-content.catalog-page .catalog-subcategories > button[data-sub=""].active{
+  background:#fff8f4!important;
+  color:#b07a72!important;
+  box-shadow:0 6px 16px rgba(0,0,0,.045),0 1px 4px rgba(0,0,0,.03)!important;
+}
+
+@media (max-width:650px){
+  html body main#main-content.catalog-page .catalog-subcategories,
+  html body main#main-content.catalog-page .catalog-detail-categories{
+    gap:6px!important;
+    padding:2px 0 10px!important;
+  }
+  html body main#main-content.catalog-page .catalog-subcategories > button,
+  html body main#main-content.catalog-page .catalog-detail-categories > button{
+    min-height:34px!important;
+    padding:0 12px!important;
+    font-size:12.5px!important;
   }
 }
 
@@ -2063,5 +2407,196 @@ html body footer .footer-bottom a{
 }
 html body footer .footer-bottom .vig-emoji{
   display:none!important;
+}
+
+/* Footer socials — brand marks only, no pills / captions */
+html body footer .footer-social-label,
+html body main#main-content .footer-social-label,
+html body main#main-content footer .footer-social-label{
+  display:none!important;
+}
+html body footer .footer-socials,
+html body main#main-content .footer-socials,
+html body main#main-content footer .footer-socials{
+  display:flex!important;
+  flex-wrap:wrap!important;
+  align-items:center!important;
+  gap:14px!important;
+  margin:14px 0 0!important;
+  max-width:none!important;
+  grid-template-columns:none!important;
+}
+html body footer .footer-socials a,
+html body main#main-content .footer-socials a,
+html body main#main-content footer .footer-socials a,
+html body footer .footer-socials .social-vk,
+html body footer .footer-socials .social-instagram,
+html body footer .footer-socials .social-telegram,
+html body main#main-content .footer-socials .social-vk,
+html body main#main-content .footer-socials .social-instagram,
+html body main#main-content .footer-socials .social-telegram{
+  width:48px!important;
+  height:48px!important;
+  min-height:48px!important;
+  min-width:48px!important;
+  padding:0!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  background-image:none!important;
+  box-shadow:none!important;
+  display:flex!important;
+  position:relative!important;
+  flex-direction:row!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:0!important;
+  transform:none!important;
+  filter:none!important;
+}
+html body footer .footer-socials a:hover,
+html body main#main-content .footer-socials a:hover{
+  transform:translateY(-1px)!important;
+  filter:none!important;
+  background:transparent!important;
+  border:0!important;
+}
+html body footer .footer-socials a img,
+html body main#main-content .footer-socials a img{
+  width:48px!important;
+  height:48px!important;
+  display:block!important;
+  object-fit:contain!important;
+  opacity:1!important;
+  filter:none!important;
+}
+html body footer .footer-socials a span,
+html body main#main-content .footer-socials a span{
+  position:absolute!important;
+  width:1px!important;
+  height:1px!important;
+  padding:0!important;
+  margin:-1px!important;
+  overflow:hidden!important;
+  clip:rect(0,0,0,0)!important;
+  white-space:nowrap!important;
+  border:0!important;
+}
+
+/* Contact modal — same marshmallow cards as footer «В мессенджер» */
+html body .modal-backdrop{
+  background:rgba(46,32,30,.38)!important;
+}
+html body .contact-modal{
+  background:#fffaf8!important;
+  background-image:radial-gradient(ellipse 80% 50% at 50% 0%,rgba(255,180,150,.12) 0%,transparent 70%)!important;
+  border:0!important;
+  box-shadow:var(--mm-shadow-hover)!important;
+  border-radius:24px!important;
+  color:#1e293b!important;
+}
+html body .contact-modal h2{
+  color:#1e293b!important;
+}
+html body .contact-modal > p:not(.modal-note){
+  color:#6b5b57!important;
+}
+html body .contact-modal .modal-note{
+  color:#a07870!important;
+}
+html body .contact-modal .modal-close{
+  background:#fff5f2!important;
+  border:0!important;
+  box-shadow:none!important;
+  color:#ff6b5a!important;
+  border-radius:14px!important;
+}
+html body .contact-options{
+  gap:8px!important;
+}
+html body a.contact-option,
+html body .contact-option{
+  display:flex!important;
+  flex-direction:row!important;
+  align-items:center!important;
+  justify-content:flex-start!important;
+  gap:12px!important;
+  width:100%!important;
+  box-sizing:border-box!important;
+  background:#fff!important;
+  background-image:none!important;
+  border:0 none!important;
+  outline:0!important;
+  box-shadow:var(--mm-shadow)!important;
+  border-radius:22px!important;
+  min-height:56px!important;
+  padding:8px 14px 8px 10px!important;
+  color:#1e293b!important;
+  text-decoration:none!important;
+}
+html body .contact-option:hover{
+  box-shadow:var(--mm-shadow-hover)!important;
+  transform:none!important;
+  background:#fff!important;
+}
+html body .contact-option strong{
+  color:#1e293b!important;
+  font-size:16px!important;
+  font-weight:750!important;
+}
+html body .contact-option small{
+  color:#a07870!important;
+  font-size:12px!important;
+}
+html body .contact-option > span,
+html body .contact-option.whatsapp > span,
+html body .contact-option.telegram > span,
+html body .contact-option.max > span,
+html body .contact-option.phone > span{
+  flex:0 0 40px!important;
+  width:40px!important;
+  height:40px!important;
+  margin:0!important;
+  padding:0!important;
+  background:transparent!important;
+  background-image:none!important;
+  box-shadow:none!important;
+  border:0!important;
+  border-radius:0!important;
+  overflow:visible!important;
+  display:grid!important;
+  place-items:center!important;
+}
+html body .contact-option > span svg,
+html body .contact-option > span img,
+html body .contact-option > span .vig-emoji,
+html body .contact-option.phone > span .vig-emoji,
+html body .contact-option.whatsapp > span img,
+html body .contact-option.telegram > span img,
+html body .contact-option.max > span img{
+  width:40px!important;
+  height:40px!important;
+  max-width:40px!important;
+  max-height:40px!important;
+  object-fit:contain!important;
+  display:block!important;
+  filter:none!important;
+}
+html body .contact-option.max > span{
+  background:#f3f0ff!important;
+  overflow:visible!important;
+  border-radius:10px!important;
+}
+html body .contact-option.max > span img{
+  width:28px!important;
+  height:28px!important;
+  max-width:28px!important;
+  max-height:28px!important;
+}
+html body .contact-request-summary{
+  background:#fff!important;
+  border:0!important;
+  box-shadow:var(--mm-shadow)!important;
+  border-radius:18px!important;
 }
 

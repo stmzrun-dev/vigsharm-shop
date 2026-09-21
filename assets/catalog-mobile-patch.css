@@ -259,7 +259,7 @@
 
 @media (width<=650px){
 .catalog-page{
-  padding-bottom:calc(84px + env(safe-area-inset-bottom));
+  padding-bottom:24px;
   background:#fff!important;
 }
 

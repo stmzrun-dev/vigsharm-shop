@@ -2,6 +2,129 @@
   "ok": true,
   "products": [
     {
+      "id": "d2889a10-370a-4d0c-8395-360e9c7de083",
+      "title": "Забивной гол",
+      "article": "FIG-016",
+      "price": 4000,
+      "short_description": "Фигура футболиста из шаров с мячом на зелёной подставке.",
+      "full_description": "Фигура футболиста из воздушных шаров в чёрной форме с жёлтым номером на груди. Рядом большой футбольный мяч и зелёная подставка из шаров.",
+      "composition": [
+        "фигура из шаров"
+      ],
+      "category": "Фигуры из шаров",
+      "character": null,
+      "age_group": "Для детей",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Фигура футболиста из шаров — Армавир | VigSharm",
+      "seo_description": "Фигура футболиста из воздушных шаров с мячом. Оригинальный подарок для юных спортсменов. Доставка по Армавиру.",
+      "slug": "zabivnoj-gol",
+      "scene": "balloon_figures",
+      "tags": [
+        "Фигуры из шаров"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1789998507/vigsharm-products/ynswvfyrkgtrhcw8opii.jpg"
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1789998618/vigsharm-products/nguvj5wwouui6pjgveof.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789998618/vigsharm-products/nguvj5wwouui6pjgveof.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-21T13:51:16.947Z",
+      "updated_at": "2026-09-21T13:51:16.947Z"
+    },
+    {
+      "id": "b2a11b80-960b-43f8-be4c-1756ddd3f547",
+      "title": "Торжественный звон",
+      "article": "GRD-001",
+      "price": 1500,
+      "short_description": "Фигура из шаров в виде золотого колокольчика с красным бантом.",
+      "full_description": "Фигура из шаров в виде золотого колокольчика с красным бантом. Торжественная композиция для выпускного.",
+      "composition": [
+        "фигура из шаров"
+      ],
+      "category": "Выпускной",
+      "character": null,
+      "age_group": "Для подростков",
+      "budget": "1 000–2 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Золотой звонок — фигура из шаров на выпускной в Армавире",
+      "seo_description": "Фигура из шаров в виде золотого колокольчика с красным бантом. Торжественная композиция для выпускного в Армавире. Заказать в VigSharm.",
+      "slug": "zolotoy-zvonok",
+      "scene": "balloon_figures",
+      "tags": [
+        "Выпускной"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1789998245/vigsharm-products/jsmhwlqiifo6lhl4lwlm.jpg"
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1789998371/vigsharm-products/wggcrwxnh7vomoneg2rt.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789998371/vigsharm-products/wggcrwxnh7vomoneg2rt.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-21T13:47:45.726Z",
+      "updated_at": "2026-09-21T13:47:45.726Z"
+    },
+    {
+      "id": "faf06c25-9f3a-4b57-8d46-912c295b09bc",
+      "title": "Юный джентльмен",
+      "article": "FIG-015",
+      "price": 4000,
+      "short_description": "Фигура малыша из шаров с ярким букетом цветов в руках.",
+      "full_description": "Фигура из шаров в виде малыша с чёрным хохолком, держащего букет оранжевых цветов. Стоит на основании из чёрных шаров.",
+      "composition": [
+        "фигура из шаров"
+      ],
+      "category": "Фигуры из шаров",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Малыш с букетом — фигура из шаров в Армавире",
+      "seo_description": "Фигура из шаров малыша с букетом цветов. Яркая композиция для детского праздника. Доставка по Армавиру от VigSharm.",
+      "slug": "malysh-s-buketom",
+      "scene": "balloon_figures",
+      "tags": [
+        "Фигуры из шаров"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1789997208/vigsharm-products/r0juwmsmpqx5wsq0z346.jpg"
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1789997278/vigsharm-products/zw0tz2u9girhxyxvqepy.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789997278/vigsharm-products/zw0tz2u9girhxyxvqepy.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-21T13:30:04.641Z",
+      "updated_at": "2026-09-21T13:30:04.641Z"
+    },
+    {
       "id": "1021b228-d996-4f5b-ae45-c520651e3708",
       "title": "Цветочный курьер",
       "article": "FIG-014",

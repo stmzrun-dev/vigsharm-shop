@@ -413,7 +413,7 @@
 
     if (clientStepVisible('client-ins')) {
       html += '<section class="client-block' + (next === 'client-ins' ? ' is-next' : inscriptionOk() ? ' is-done' : '') + '" id="client-ins">' +
-        '<h3 class="client-block-title">Надпись на шаре' + (next === 'client-ins' ? '<span class="client-req" aria-hidden="true">*</span>' : '') + '</h3>' +
+        '<h3 class="client-block-title">Надпись на шаре</h3>' +
         '<label class="client-ins' + (inscriptionOk() ? ' is-filled' : '') + '">' +
         '<input value="' + esc(inscription) + '" maxlength="60" data-act="inscription" placeholder="С Днём рождения!" inputmode="text" autocomplete="off"/>' +
         '</label></section>';
@@ -426,7 +426,7 @@
 
     if (clientStepVisible('client-ful')) {
       html += '<section class="client-block' + (next === 'client-ful' ? ' is-next' : fulfillment ? ' is-done' : '') + '" id="client-ful">' +
-        '<h3 class="client-block-title">Как получить' + (next === 'client-ful' ? '<span class="client-req" aria-hidden="true">*</span>' : '') + '</h3>' +
+        '<h3 class="client-block-title">Как получить</h3>' +
         '<div class="client-ful fulfillment-options' + (!fulfillment ? ' is-pick' : '') + '">' +
         '<button type="button" class="' + (fulfillment === 'pickup' ? 'selected' : '') + '" data-act="ful" data-v="pickup" aria-label="Самовывоз" aria-pressed="' + (fulfillment === 'pickup') + '"><span class="ful-icon"><img src="icons/ful-pickup.png?v=4" alt="" width="48" height="48"/></span><strong>Самовывоз</strong><small>Бесплатно</small></button>' +
         '<button type="button" class="' + (fulfillment === 'armavir' ? 'selected' : '') + '" data-act="ful" data-v="armavir" aria-label="По городу" aria-pressed="' + (fulfillment === 'armavir') + '"><span class="ful-icon"><img src="icons/ful-city.png?v=4" alt="" width="48" height="48"/></span><strong>По городу</strong><small>+200 ₽</small></button>' +
@@ -436,7 +436,7 @@
 
     if (clientStepVisible('client-addr')) {
       html += '<section class="client-block' + (next === 'client-addr' ? ' is-next' : addressOk() ? ' is-done' : '') + '" id="client-addr">' +
-        '<h3 class="client-block-title">Адрес' + (next === 'client-addr' ? '<span class="client-req" aria-hidden="true">*</span>' : '') + '</h3>' +
+        '<h3 class="client-block-title">Адрес</h3>' +
         '<label class="client-ins' + (addressOk() ? ' is-filled' : '') + '">' +
         '<input value="' + esc(address) + '" maxlength="140" data-act="address" placeholder="' + (fulfillment === 'armavir' ? 'Улица, дом, квартира' : 'Населённый пункт и адрес') + '"/>' +
         '</label></section>';
@@ -444,7 +444,7 @@
 
     if (clientStepVisible('client-when')) {
       html += '<section class="client-block client-when' + (next === 'client-when' ? ' is-next' : whenOk() ? ' is-done' : '') + '" id="client-when">' +
-        '<h3 class="client-block-title">Дата и время' + (next === 'client-when' ? '<span class="client-req" aria-hidden="true">*</span>' : '') + '</h3>' +
+        '<h3 class="client-block-title">Дата и время</h3>' +
         '<div class="order-date-row" role="group" aria-label="Дата и время">' +
         '<div class="order-date-field">' + calendarHtml() + '</div>' +
         '<div class="order-time-field">' + timeHtml() + '</div></div></section>';
@@ -591,7 +591,7 @@
     var fulfilled = fulfillment;
     var extraOrderFields = '';
     if (p.has_inscription) {
-      extraOrderFields += '<label class="config-input inscription-field"><span>Надпись на шаре<small>обязательно</small></span>' +
+      extraOrderFields += '<label class="config-input inscription-field"><span>Надпись на шаре</span>' +
         '<input value="' + esc(inscription) + '" maxlength="60" required aria-required="true" data-act="inscription" placeholder="Например: С Днём рождения!"/></label>';
     }
     if (p.has_rental) {
@@ -608,11 +608,8 @@
       '<button type="button" class="' + (fulfilled === 'nearby' ? 'selected' : '') + '" data-act="ful" data-v="nearby" aria-label="Выбрать доставку за город, стоимость рассчитывается отдельно" aria-pressed="' + (fulfilled === 'nearby') + '"><span class="ful-icon ful-far" aria-hidden="true"><img src="icons/ful-far.png?v=4" alt="" width="40" height="40"/></span><strong>За город</strong><small>Рассчитаем</small></button>' +
       '</div></fieldset>' +
       (fulfilled && fulfilled !== 'pickup'
-        ? '<label class="config-input' + (!addressOk() ? ' needs-pick' : '') + '"><span>Адрес доставки</span><input value="' + esc(address) + '" maxlength="140" data-act="address" placeholder="' + (fulfilled === 'armavir' ? 'Улица, дом, квартира' : 'Населённый пункт и адрес') + '"/>' + (!addressOk() ? '<small>Укажите адрес доставки</small>' : '') + '</label>'
-        : '') +
-      (!fulfilled ? '<p class="order-details-note">Нажмите, как удобнее получить заказ.</p>' : '') +
-      (!whenOk() ? '<p class="order-details-note">Укажите дату и время — так быстрее подтвердим заказ.</p>' : '') +
-      '<p class="order-details-note order-details-note-quiet">Дата, время и адрес попадут в сообщение — детали уточним при подтверждении.</p>';
+        ? '<label class="config-input' + (!addressOk() ? ' needs-pick' : '') + '"><span>Адрес доставки</span><input value="' + esc(address) + '" maxlength="140" data-act="address" placeholder="' + (fulfilled === 'armavir' ? 'Улица, дом, квартира' : 'Населённый пункт и адрес') + '"/></label>'
+        : '');
 
     var dp = digitDeltaPrice(), ip = inscriptionPrice(), yp = deliveryPrice(), T = total();
     var totalLabel = fulfilled === 'nearby' ? 'Предварительная стоимость' : (fulfilled ? 'Итого' : 'Цена композиции');
@@ -685,7 +682,9 @@
         : '') +
       '</div>' +
       '</div></section>' +
-      '<section class="related-products"><div class="related-products-heading"><div>' +
+      ((mobileFlowOn && !ready)
+        ? ''
+        : ('<section class="related-products"><div class="related-products-heading"><div>' +
       '<h2>' + (rel.length ? 'Похожие композиции' : 'Нужен другой вариант?') + '</h2>' +
       '</div>' +
       '<div class="related-products-actions"><a href="catalog.html?max=' + p.price + '">Не дороже ' + Number(p.price).toLocaleString('ru-RU') + ' ₽</a><a href="catalog.html">Весь каталог</a></div></div>' +
@@ -699,7 +698,7 @@
             '<b><em>' + Number(o.price).toLocaleString('ru-RU') + ' ₽</em><span class="related-cta">Подробнее</span></b></span></a>';
         }).join('') + '</div>'
         : '<div class="related-custom-card">' + window.vigEmoji('balloon') + '<div><strong>Сделаем под ваш праздник</strong><p>Напишите повод и бюджет — предложим идеи.</p></div><button type="button" data-act="order">Обсудить идею</button></div>') +
-      '</section>' +
+      '</section>')) +
       '<aside class="mobile-order-bar' + (ready ? ' is-ready' : '') + '" aria-label="Отправить заказ"><div class="mobile-order-price"><small>' + (ready ? 'Отправить заказ' : (fulfilled === 'nearby' ? 'От' : fulfilled ? 'Итого' : 'Цена')) + '</small><strong>' + (priceFrom() ? 'от ' : '') + T.toLocaleString('ru-RU') + ' ₽</strong></div>' +
       '<div class="mobile-order-actions">' + mobileBarActions + '</div></aside>' +
       '</main>';

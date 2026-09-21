@@ -2724,5 +2724,16 @@ html body .contact-request-summary{
     box-shadow:0 0 0 4px rgba(255,107,107,.16)!important;
     border-color:#ff6b6b!important;
   }
+  html body .product-page.is-order-ready .related-products{
+    margin-top:28px!important;
+    opacity:.92;
+  }
+  html body .product-page.is-order-ready .related-products-heading h2{
+    font-size:20px!important;
+    color:#6f6f78!important;
+  }
+  html body .product-page .client-block-title{
+    font-size:15px!important;
+  }
 }
 

@@ -2784,38 +2784,59 @@ main#main-content .footer-phone i{
   display:block!important;
   filter:none!important;
 }
-main#main-content .footer-contacts > button{
-  justify-self:start!important;
-  display:inline-flex!important;
+main#main-content .footer-contacts > button.footer-chat,
+main#main-content .footer-chat{
+  display:grid!important;
+  grid-template-columns:36px 1fr!important;
   align-items:center!important;
-  gap:6px!important;
+  gap:10px!important;
+  width:100%!important;
+  max-width:100%!important;
+  min-height:52px!important;
   margin:4px 0 0!important;
-  padding:0!important;
-  background:transparent!important;
+  padding:10px 12px!important;
+  box-sizing:border-box!important;
+  background:#fff!important;
   background-image:none!important;
-  border:0!important;
+  border:1.5px solid #e8e8ec!important;
+  border-radius:14px!important;
   box-shadow:none!important;
   color:#2a2a32!important;
-  font-size:15px!important;
-  font-weight:700!important;
+  font:inherit!important;
+  font-size:16px!important;
+  font-weight:750!important;
+  text-align:left!important;
   text-decoration:none!important;
   cursor:pointer!important;
   transform:none!important;
-  transition:color .15s ease!important;
+  transition:border-color .15s ease!important;
 }
-main#main-content .footer-contacts > button:hover{
-  color:#6f6f78!important;
+main#main-content .footer-contacts > button.footer-chat:hover,
+main#main-content .footer-chat:hover{
+  border-color:#d8d8de!important;
+  color:#2a2a32!important;
   text-decoration:none!important;
 }
-main#main-content .footer-contacts > button .line-icon,
-main#main-content .footer-contacts > button .vig-emoji{
-  width:24px!important;
-  height:24px!important;
-  margin-right:8px!important;
-  vertical-align:-.35em!important;
-  filter:none!important;
-  display:inline-block!important;
+main#main-content .footer-chat small{
+  display:block!important;
+  color:#8b8b93!important;
+  font-size:11px!important;
+  font-weight:700!important;
+  line-height:1.2!important;
+}
+main#main-content .footer-chat .line-icon,
+main#main-content .footer-chat .vig-emoji{
+  width:28px!important;
+  height:28px!important;
+  margin:0!important;
+  background:transparent!important;
+  background-image:none!important;
+  border:0!important;
+  border-radius:0!important;
+  box-shadow:none!important;
   object-fit:contain!important;
+  display:block!important;
+  filter:none!important;
 }
 main#main-content .footer-contacts > small{
   margin:2px 0 0!important;

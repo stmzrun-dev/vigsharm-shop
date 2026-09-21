@@ -450,15 +450,15 @@ html body .product-page .product-lead p{
   max-width:none!important;
 }
 html body .product-page .product-composition-card{
-  background:#f7f3ff!important;
-  border:0!important;
+  background:#fff!important;
+  border:1.5px solid #e8e8ec!important;
   border-radius:22px!important;
-  box-shadow:0 10px 28px rgba(40,36,60,.05)!important;
+  box-shadow:0 10px 28px rgba(40,36,60,.04)!important;
   padding:20px 18px!important;
 }
 html body .product-page .product-composition-card .eyebrow{
-  color:#2ec4d6!important;
-  font-weight:800!important;
+  color:#8b8b93!important;
+  font-weight:700!important;
   letter-spacing:.06em;
   text-transform:uppercase;
 }
@@ -476,28 +476,37 @@ html body .product-page .composition-item{
   gap:10px;
   margin:0!important;
   padding:12px 14px!important;
-  border:0!important;
+  border:1.5px solid #ebe6e3!important;
   border-radius:16px!important;
   box-shadow:none!important;
   transform:none!important;
+  /* white row = soft-3d PNG square blends in */
+  background:#fff!important;
 }
-html body .product-page .composition-item.tone-0{background:#ffd6e0!important}
-html body .product-page .composition-item.tone-1{background:#c5f3fb!important}
-html body .product-page .composition-item.tone-2{background:#ffe28a!important}
-html body .product-page .composition-item.tone-3{background:#e4d7ff!important}
+html body .product-page .composition-item.tone-0,
+html body .product-page .composition-item.tone-1,
+html body .product-page .composition-item.tone-2,
+html body .product-page .composition-item.tone-3{
+  background:#fff!important;
+}
 html body .product-page .comp-mark{
-  width:28px;
-  height:28px;
-  margin-top:2px;
+  width:40px;
+  height:40px;
+  margin-top:0;
   flex:none;
   display:grid;
   place-items:center;
+  background:transparent!important;
+  border-radius:0!important;
+  overflow:visible;
 }
 html body .product-page .comp-ico{
-  width:26px;
-  height:26px;
+  width:40px;
+  height:40px;
   object-fit:contain;
   display:block;
+  /* dissolve baked-in white PNG canvas */
+  mix-blend-mode:multiply;
 }
 html body .product-page .composition-item strong{
   flex:1;
@@ -507,18 +516,7 @@ html body .product-page .composition-item strong{
   color:#2a2a32!important;
   line-height:1.35!important;
 }
-html body .product-page .comp-check{
-  width:22px;
-  height:22px;
-  margin-top:5px;
-  border-radius:999px;
-  display:grid;
-  place-items:center;
-  background:#4cbf3f;
-  color:#fff!important;
-  font-size:12px;
-  flex:none;
-}
+html body .product-page .comp-check{display:none!important}
 
 /* ===== Catalog chrome warmth — soft peach, coral price, quieter blurbs ===== */
 /* Specificity must beat main#main-content / main#main-content > * (ID selectors) */
@@ -866,7 +864,7 @@ html body .product-page .ful-icon{
   max-width:none!important;
   max-height:none!important;
   flex:0 0 56px!important;
-  border-radius:16px!important;
+  border-radius:0!important;
   overflow:visible!important;
   background:transparent!important;
   padding:0!important;
@@ -889,6 +887,7 @@ html body .product-page .ful-icon img{
   display:block!important;
   flex:none!important;
   overflow:visible!important;
+  mix-blend-mode:multiply!important;
 }
 @media (max-width:720px){
   html body #main-content .fulfillment-options,
@@ -1304,16 +1303,25 @@ html body main#main-content footer .footer-cta > button{
   box-shadow:0 10px 24px rgba(255,107,107,.28),0 4px 10px rgba(255,142,83,.16)!important;
   padding:14px 22px!important;
 }
+html body main#main-content footer .footer-social-label,
+html body main#main-content footer .footer-nav strong,
+html body main#main-content footer .footer-contacts strong{
+  color:#8b8b93!important;
+}
+html body main#main-content footer .footer-contacts > button,
+html body main#main-content footer .footer-chat{
+  color:#2a2a32!important;
+}
 html body main#main-content footer .footer-cta button:hover{
   background:linear-gradient(135deg,#ff5a5a 0%,#ff7a3d 100%)!important;
   background-image:linear-gradient(135deg,#ff5a5a 0%,#ff7a3d 100%)!important;
 }
 html body main#main-content footer .footer-phone,
-html body main#main-content footer .footer-contacts button{
-  border:0!important;
+html body main#main-content footer .footer-chat{
+  border:1.5px solid #e8e8ec!important;
   background:#fff!important;
-  box-shadow:0 4px 14px rgba(30,30,40,.06)!important;
-  border-radius:16px!important;
+  box-shadow:none!important;
+  border-radius:14px!important;
 }
 
 /* Sticky mobile CTA — same marshmallow chrome as footer contacts */

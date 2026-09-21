@@ -77,6 +77,8 @@ const app = {
   studioReferenceBackgroundUrl: '',
   studioReferenceHandUrl: '',
   adminApiKey: '',
+  cloudinaryCloudName: '',
+  cloudinaryUploadPreset: '',
 
   // Заголовок авторизации для admin-only запросов к Worker (создание/изменение/удаление
   // товаров, загрузка фото, ИИ-генерация, Studio Pro). Публичное чтение каталога
@@ -819,40 +821,68 @@ const app = {
     this.toast('Отложено локально. Новая карточка — прежнюю вернёте из зелёного баннера', 'success');
   },
 
-  loadSettings() {
+  readAdminSettings() {
     try {
       const saved = localStorage.getItem('vigsharm_admin_settings');
-      if (saved) {
-        const settings = JSON.parse(saved);
-        this.workerUrl = settings.workerUrl || '';
-        this.adminApiKey = settings.adminApiKey || '';
-        
-        // Миграция: удаляем старый небезопасный ключ
-        if (settings.nordrouterKey) {
-          delete settings.nordrouterKey;
-          localStorage.setItem('vigsharm_admin_settings', JSON.stringify(settings));
-          console.warn('⚠️ NordRouter API ключ удалён из localStorage (теперь хранится в Worker secrets)');
-        }
-        
-        // Загружаем эталонный фон и руку
-        this.studioReferenceBackgroundUrl = settings.studioReferenceBackgroundUrl || '';
-        this.studioReferenceHandUrl = settings.studioReferenceHandUrl || '';
-        this.studioReferenceHandVersion = settings.studioReferenceHandVersion || '';
-        
-        if (document.getElementById('worker-url')) document.getElementById('worker-url').value = this.workerUrl;
-        if (document.getElementById('admin-api-key')) document.getElementById('admin-api-key').value = this.adminApiKey;
+      return saved ? JSON.parse(saved) : {};
+    } catch (e) {
+      return {};
+    }
+  },
+
+  writeAdminSettings(patch = {}) {
+    const settings = { ...this.readAdminSettings(), ...patch };
+    localStorage.setItem('vigsharm_admin_settings', JSON.stringify(settings));
+    return settings;
+  },
+
+  loadSettings() {
+    try {
+      const settings = this.readAdminSettings();
+      this.workerUrl = settings.workerUrl || this.workerUrl || '';
+      this.adminApiKey = settings.adminApiKey || '';
+      this.cloudinaryCloudName = settings.cloudinaryCloudName || '';
+      this.cloudinaryUploadPreset = settings.cloudinaryUploadPreset || '';
+
+      // Миграция: удаляем старый небезопасный ключ
+      if (settings.nordrouterKey) {
+        delete settings.nordrouterKey;
+        localStorage.setItem('vigsharm_admin_settings', JSON.stringify(settings));
+        console.warn('⚠️ NordRouter API ключ удалён из localStorage (теперь хранится в Worker secrets)');
       }
+
+      // Загружаем эталонный фон и руку
+      this.studioReferenceBackgroundUrl = settings.studioReferenceBackgroundUrl || '';
+      this.studioReferenceHandUrl = settings.studioReferenceHandUrl || '';
+      this.studioReferenceHandVersion = settings.studioReferenceHandVersion || '';
+
+      const setVal = (id, val) => {
+        const el = document.getElementById(id);
+        if (el) el.value = val || '';
+      };
+      setVal('worker-url', this.workerUrl);
+      setVal('admin-api-key', this.adminApiKey);
+      setVal('cloudinary-cloud-name', this.cloudinaryCloudName);
+      setVal('cloudinary-upload-preset', this.cloudinaryUploadPreset);
     } catch (e) {}
   },
 
   saveSettings() {
-    this.workerUrl = document.getElementById('worker-url').value.trim();
+    this.workerUrl = document.getElementById('worker-url')?.value.trim() || this.workerUrl || '';
     this.adminApiKey = document.getElementById('admin-api-key')?.value.trim() || '';
+    this.cloudinaryCloudName = document.getElementById('cloudinary-cloud-name')?.value.trim() || '';
+    this.cloudinaryUploadPreset = document.getElementById('cloudinary-upload-preset')?.value.trim() || '';
     try {
-      localStorage.setItem('vigsharm_admin_settings', JSON.stringify({
+      // Важно: merge, а не замена объекта — иначе Cloudinary/эталоны сбрасываются
+      this.writeAdminSettings({
         workerUrl: this.workerUrl,
-        adminApiKey: this.adminApiKey
-      }));
+        adminApiKey: this.adminApiKey,
+        cloudinaryCloudName: this.cloudinaryCloudName,
+        cloudinaryUploadPreset: this.cloudinaryUploadPreset,
+        studioReferenceBackgroundUrl: this.studioReferenceBackgroundUrl || '',
+        studioReferenceHandUrl: this.studioReferenceHandUrl || '',
+        studioReferenceHandVersion: this.studioReferenceHandVersion || ''
+      });
       this.toast('Настройки сохранены', 'success');
     } catch (e) {
       this.toast('Ошибка сохранения', 'error');
@@ -860,10 +890,21 @@ const app = {
   },
 
   clearSettings() {
-    if (confirm('Удалить все настройки?')) {
-      localStorage.clear();
-      this.toast('Настройки очищены', 'success');
-    }
+    if (!confirm('Удалить настройки подключения (Worker, ключ, Cloudinary)? Черновики товаров не трогаем.')) return;
+    try {
+      localStorage.removeItem('vigsharm_admin_settings');
+    } catch (e) { /* ignore */ }
+    this.workerUrl = 'https://vigsharm-api.vigsharm.workers.dev';
+    this.adminApiKey = '';
+    this.cloudinaryCloudName = '';
+    this.cloudinaryUploadPreset = '';
+    this.studioReferenceBackgroundUrl = '';
+    this.studioReferenceHandUrl = '';
+    this.studioReferenceHandVersion = '';
+    this.loadSettings();
+    this.updateReferenceBackgroundUI?.();
+    this.updateReferenceHandUI?.();
+    this.toast('Настройки очищены', 'success');
   },
 
   setupTabs() {

@@ -63,48 +63,8 @@
       }
     };
 
-    const originalLoadSettings = app.loadSettings;
-    app.loadSettings = function() {
-      originalLoadSettings.call(this);
-      try {
-        const saved = localStorage.getItem('vigsharm_admin_settings');
-        if (saved) {
-          const settings = JSON.parse(saved);
-          this.cloudinaryCloudName = settings.cloudinaryCloudName || '';
-          this.cloudinaryUploadPreset = settings.cloudinaryUploadPreset || '';
-          if (document.getElementById('cloudinary-cloud-name')) {
-            document.getElementById('cloudinary-cloud-name').value = this.cloudinaryCloudName;
-          }
-          if (document.getElementById('cloudinary-upload-preset')) {
-            document.getElementById('cloudinary-upload-preset').value = this.cloudinaryUploadPreset;
-          }
-        }
-      } catch (e) {
-        console.error('Failed to load Cloudinary settings:', e);
-      }
-    };
-
-    const originalSaveSettings = app.saveSettings;
-    app.saveSettings = function() {
-      this.cloudinaryCloudName = document.getElementById('cloudinary-cloud-name')?.value.trim() || '';
-      this.cloudinaryUploadPreset = document.getElementById('cloudinary-upload-preset')?.value.trim() || '';
-      this.workerUrl = document.getElementById('worker-url')?.value.trim() || this.workerUrl;
-      this.adminApiKey = document.getElementById('admin-api-key')?.value.trim() || '';
-
-      try {
-        const saved = localStorage.getItem('vigsharm_admin_settings');
-        const settings = saved ? JSON.parse(saved) : {};
-        settings.cloudinaryCloudName = this.cloudinaryCloudName;
-        settings.cloudinaryUploadPreset = this.cloudinaryUploadPreset;
-        settings.workerUrl = this.workerUrl;
-        settings.adminApiKey = this.adminApiKey;
-        localStorage.setItem('vigsharm_admin_settings', JSON.stringify(settings));
-        this.toast('Настройки сохранены', 'success');
-      } catch (e) {
-        this.toast('Ошибка сохранения', 'error');
-      }
-    };
-
+    // Cloud Name / Upload Preset уже в app.loadSettings / saveSettings (merge в localStorage).
+    // Здесь только подтягиваем значения ещё раз после патча uploadPhoto.
     try { app.loadSettings(); } catch (e) { /* ignore */ }
 
     console.log('✓ Cloudinary integration enabled');

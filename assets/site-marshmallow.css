@@ -229,8 +229,8 @@ main#main-content select:focus{
   padding:4px 10px!important;
 }
 .catalog-card-meta > small{
-  background:#f3f0ff!important;
-  color:#7c5cff!important;
+  background:#fff1e6!important;
+  color:#c2650f!important;
   border-radius:999px!important;
   padding:2px 8px!important;
   font-weight:800!important;
@@ -550,10 +550,21 @@ html body main#main-content.catalog-page .catalog-results-counts span{
   color:#a07870!important;
 }
 /* Coral price — brand accent on the money signal */
+html body main#main-content.catalog-page .catalog-card .catalog-card-price i{
+  display:none!important;
+}
 html body main#main-content.catalog-page .catalog-card .catalog-card-price b{
   color:#ff6b5a!important;
   font-weight:800!important;
   letter-spacing:-.02em!important;
+}
+html body main#main-content.catalog-page .catalog-card-meta > small{
+  background:#fff1e6!important;
+  color:#c2650f!important;
+  border:0!important;
+  border-radius:999px!important;
+  padding:2px 8px!important;
+  font-weight:800!important;
 }
 html body main#main-content.catalog-page .catalog-card .catalog-card-price small{
   color:#c4a39a!important;
@@ -1866,5 +1877,191 @@ html body .homepage-mobile-cta small{
   html body main#main-content footer .footer-cta button{
     width:100%!important;
   }
+}
+
+/* Catalog sort — one quiet marshmallow capsule beside the count */
+html body main#main-content.catalog-page .catalog-results-heading{
+  display:flex!important;
+  flex-wrap:wrap!important;
+  align-items:flex-end!important;
+  justify-content:space-between!important;
+  gap:8px 16px!important;
+}
+html body main#main-content.catalog-page .catalog-results-tools{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  justify-content:flex-end;
+  gap:8px 12px;
+}
+html body main#main-content.catalog-page .catalog-results-tools > span[role="status"]{
+  color:#a07870!important;
+  font-weight:700!important;
+  font-size:14px;
+  white-space:nowrap;
+}
+html body main#main-content.catalog-page .catalog-sort{
+  display:inline-flex;
+  align-items:center;
+  gap:2px;
+  padding:3px;
+  margin:0;
+  background:#fff;
+  border-radius:999px;
+  box-shadow:var(--mm-shadow);
+}
+html body main#main-content.catalog-page .catalog-sort > button{
+  appearance:none;
+  margin:0;
+  border:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  border-radius:999px!important;
+  padding:8px 14px;
+  min-height:0;
+  font:inherit;
+  font-size:13px;
+  font-weight:700;
+  letter-spacing:-.01em;
+  color:#a07870!important;
+  cursor:pointer;
+  white-space:nowrap;
+  line-height:1.2;
+}
+html body main#main-content.catalog-page .catalog-sort > button.selected{
+  background:#fff6f3!important;
+  color:#ff6b5a!important;
+  box-shadow:0 4px 10px rgba(255,107,90,.12)!important;
+}
+html body main#main-content.catalog-page .catalog-sort > button:focus-visible{
+  outline:none;
+  box-shadow:var(--mm-focus)!important;
+}
+@media (max-width:650px){
+  html body main#main-content.catalog-page .catalog-results-heading{
+    flex-direction:column!important;
+    align-items:stretch!important;
+  }
+  html body main#main-content.catalog-page .catalog-results-tools{
+    justify-content:space-between;
+  }
+  html body main#main-content.catalog-page .catalog-sort{
+    flex:1 1 100%;
+  }
+  html body main#main-content.catalog-page .catalog-sort > button{
+    flex:1 1 0;
+    padding:8px 6px;
+    text-align:center;
+  }
+}
+
+/* Catalog “didn’t find it” — marshmallow pillow, coral CTA, no teal */
+html body main#main-content.catalog-page .related-custom-card.catalog-custom-order,
+html body main#main-content.catalog-page .catalog-custom-order.related-custom-card{
+  display:grid!important;
+  grid-template-columns:1fr auto!important;
+  align-items:center!important;
+  gap:12px 18px!important;
+  border:0!important;
+  background:#fff!important;
+  background-image:none!important;
+  box-shadow:var(--mm-shadow)!important;
+  border-radius:22px!important;
+  padding:16px 18px!important;
+}
+html body main#main-content.catalog-page .related-custom-card.catalog-custom-order > .vig-emoji,
+html body main#main-content.catalog-page .related-custom-card.catalog-custom-order > span{
+  display:none!important;
+}
+html body main#main-content.catalog-page .related-custom-card.catalog-custom-order > div{
+  grid-column:1!important;
+  grid-row:1!important;
+}
+html body main#main-content.catalog-page .related-custom-card.catalog-custom-order strong{
+  color:#1e293b!important;
+}
+html body main#main-content.catalog-page .related-custom-card.catalog-custom-order p{
+  color:#a07870!important;
+}
+html body main#main-content.catalog-page .related-custom-card.catalog-custom-order > button,
+html body main#main-content.catalog-page .related-custom-card.catalog-custom-order > a{
+  grid-column:2!important;
+  border:1.5px solid #ffd9d0!important;
+  border-radius:999px!important;
+  background:#fff7f4!important;
+  background-image:none!important;
+  box-shadow:none!important;
+  color:#ff6b5a!important;
+  font-weight:800!important;
+  min-height:44px;
+  padding:0 18px!important;
+}
+@media (max-width:650px){
+  html body main#main-content.catalog-page .related-custom-card.catalog-custom-order,
+  html body main#main-content.catalog-page .catalog-custom-order.related-custom-card{
+    grid-template-columns:1fr!important;
+  }
+  html body main#main-content.catalog-page .related-custom-card.catalog-custom-order > button,
+  html body main#main-content.catalog-page .related-custom-card.catalog-custom-order > a{
+    grid-column:1!important;
+    width:100%;
+  }
+}
+
+/* Footer sits beside <main>, not inside it — old selectors never reached catalog */
+html body footer.site-footer,
+html body footer.catalog-footer,
+html body footer{
+  background:#fffaf8!important;
+  background-image:radial-gradient(ellipse 80% 50% at 50% 0%,rgba(255,180,150,.12) 0%,transparent 70%)!important;
+  border:0!important;
+  box-shadow:var(--mm-shadow)!important;
+  border-radius:24px!important;
+  color:#1e293b!important;
+}
+html body footer.site-footer:before,
+html body footer.site-footer:after,
+html body footer:before,
+html body footer:after{
+  display:none!important;
+  content:none!important;
+}
+html body footer .footer-main p,
+html body footer .footer-main > span{
+  color:#6b5b57!important;
+}
+html body footer .footer-social-label,
+html body footer .footer-nav strong,
+html body footer .footer-contacts strong{
+  color:#a07870!important;
+}
+html body footer .footer-nav a{
+  color:#1e293b!important;
+}
+html body footer .footer-nav a:hover{
+  color:#ff6b5a!important;
+}
+html body footer .footer-phone,
+html body footer .footer-chat{
+  border:0!important;
+  background:#fff!important;
+  box-shadow:var(--mm-shadow)!important;
+  border-radius:22px!important;
+  color:#1e293b!important;
+}
+html body footer.catalog-footer .footer-contacts > button,
+html body footer.catalog-footer .footer-chat,
+html body footer.catalog-footer .footer-contacts > small{
+  display:flex!important;
+}
+html body footer .footer-bottom{
+  color:#a07870!important;
+  border-color:#f0ddd4!important;
+}
+html body footer .footer-bottom a{
+  color:#ff6b5a!important;
+}
+html body footer .footer-bottom .vig-emoji{
+  display:none!important;
 }
 

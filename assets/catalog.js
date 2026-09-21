@@ -59,7 +59,7 @@
   var products = [];
   var loading = true;
   var loadError = false;
-  var q = '', category = 'Все товары', priceIdx = 0, age = '', character = '', filter = '', group = 'all';
+  var q = '', category = 'Все товары', priceIdx = 0, age = '', character = '', filter = '', group = 'all', sortMode = '';
   var filtersOpen = false;
   var fromUrl = false;
   var navSignature = '';
@@ -69,8 +69,9 @@
   function readUrl() {
     var sp = new URLSearchParams(window.location.search);
     var c = sp.get('category'), query = sp.get('query'), ch = sp.get('character'),
-        a = sp.get('age'), f = sp.get('filter'), g = sp.get('group'),
+        a = sp.get('age'), f = sp.get('filter'), g = sp.get('group'), s = sp.get('sort'),
         mn = Number(sp.get('min') || 0), mxRaw = sp.get('max'), mx = mxRaw ? Number(mxRaw) : Infinity;
+    if (s === 'price-asc' || s === 'price-desc') sortMode = s;
     if (g === 'all' || GROUPS.some(function (x) { return x.id === g; })) group = g;
     if (c) {
       category = (c === 'Шары поштучно') ? 'Все товары' : c;
@@ -97,6 +98,7 @@
       sp.set('min', String(PRICES[priceIdx].min));
       if (isFinite(PRICES[priceIdx].max)) sp.set('max', String(PRICES[priceIdx].max));
     }
+    if (sortMode) sp.set('sort', sortMode);
     var s = sp.toString();
     window.history.replaceState({}, '', s ? 'catalog.html?' + s : 'catalog.html');
   }
@@ -202,7 +204,7 @@
 
   function ensureResetBtn() {
     if (!controlsEl) return;
-    var show = q || category !== 'Все товары' || priceIdx !== 0 || character || age || filter || group !== 'all';
+    var show = q || category !== 'Все товары' || priceIdx !== 0 || character || age || filter || group !== 'all' || sortMode;
     var btn = controlsEl.querySelector('.catalog-reset');
     if (show && !btn) {
       btn = document.createElement('button');
@@ -217,7 +219,7 @@
   }
 
   function resetAll() {
-    q = ''; category = 'Все товары'; priceIdx = 0; character = ''; age = ''; filter = ''; group = 'all';
+    q = ''; category = 'Все товары'; priceIdx = 0; character = ''; age = ''; filter = ''; group = 'all'; sortMode = '';
     visibleCount = PAGE_SIZE;
     if (searchInput) searchInput.value = '';
     window.history.replaceState({}, '', 'catalog.html');
@@ -268,7 +270,7 @@
   function filtered() {
     var terms = norm(q).split(' ').filter(Boolean);
     var pr = PRICES[priceIdx];
-    return products.filter(function (p) {
+    var list = products.filter(function (p) {
       var searched = terms.length > 0;
       var excludedUnitRoot = group === 'unit' && category === 'Все товары' && terms.length === 0 && priceIdx === 0 && !age && UNIT_COLLECTIONS.indexOf(p.category) >= 0;
       var inG = searched || group === 'all' || inGroup(p, group);
@@ -281,6 +283,15 @@
       var matchA = !age || p.age_group === age;
       return !excludedUnitRoot && inG && matchQ && matchC && matchP && matchF && matchCh && matchA;
     });
+    if (sortMode === 'price-asc' || sortMode === 'price-desc') {
+      var dir = sortMode === 'price-asc' ? 1 : -1;
+      list = list.slice().sort(function (a, b) {
+        var d = (Number(a.price) || 0) - (Number(b.price) || 0);
+        if (d) return d * dir;
+        return String(a.id || a.slug || '').localeCompare(String(b.id || b.slug || ''), 'ru');
+      });
+    }
+    return list;
   }
 
   function cardHtml(p, i) {
@@ -305,8 +316,7 @@
       '<span class="catalog-card-image">' + img + '</span>' +
       '<span class="catalog-card-copy"><span class="catalog-card-meta"><small>' + esc(cat || 'Композиция') + '</small>' + badge + '</span>' +
       '<strong>' + esc(p.title) + '</strong>' +
-      '<span>' + esc(p.short_description || '') + '</span>' +
-      '<span class="catalog-card-price"><small>' + priceNote + '</small><b>' + from + Number(p.price).toLocaleString('ru-RU') + ' ₽</b><i aria-hidden="true">→</i></span>' +
+      '<span class="catalog-card-price"><small>' + priceNote + '</small><b>' + from + Number(p.price).toLocaleString('ru-RU') + ' ₽</b></span>' +
       '</span></a>';
   }
 
@@ -462,11 +472,21 @@
     var searching = !!q.trim();
     var shown = list.slice(0, visibleCount);
     var hasMore = list.length > visibleCount;
+    function sortChip(value, label) {
+      var on = sortMode === value;
+      return '<button type="button" class="' + (on ? 'selected' : '') + '" data-sort="' + value + '" aria-pressed="' + (on ? 'true' : 'false') + '">' + label + '</button>';
+    }
     var head =
       '<div class="catalog-results-heading"><div><h2>' + esc(groupTitle()) + '</h2>' +
       (searching ? '<p class="catalog-search-scope">Ищем по всему каталогу</p>' : '') +
       '</div>' +
-      '<div class="catalog-results-counts"><span role="status" aria-live="polite">' + (loading ? 'Загружаем варианты…' : list.length + ' ' + plural(list.length)) + '</span>' +
+      '<div class="catalog-results-tools">' +
+      '<span role="status" aria-live="polite">' + (loading ? 'Загружаем варианты…' : list.length + ' ' + plural(list.length)) + '</span>' +
+      '<div class="catalog-sort" role="group" aria-label="Сортировка">' +
+      sortChip('', 'Как есть') +
+      sortChip('price-asc', 'Дешевле') +
+      sortChip('price-desc', 'Дороже') +
+      '</div>' +
       (!loading && group !== 'all' ? '<button type="button" data-showall>Показать весь ассортимент</button>' : '') +
       '</div></div>';
     var budget = '';
@@ -513,15 +533,22 @@
             return '<a class="catalog-card color-' + (i % 5) + '" href="product.html?slug=' + encodeURIComponent(p.slug || p.id) + '" aria-label="Подробнее: ' + esc(p.title) + '">' +
               '<span class="catalog-card-image">' + img + '</span>' +
               '<span class="catalog-card-copy"><small>' + esc(p.category || 'Композиция') + '</small><strong>' + esc(p.title) + '</strong>' +
-              '<span class="catalog-card-price"><b>' + from + Number(p.price).toLocaleString('ru-RU') + ' ₽</b><i aria-hidden="true">→</i></span></span></a>';
+              '<span class="catalog-card-price"><b>' + from + Number(p.price).toLocaleString('ru-RU') + ' ₽</b></span></span></a>';
           }).join('') + '</div></section>';
       }
     }
-    var custom = !loading ? '<div class="related-custom-card catalog-custom-order">' + window.vigEmoji('balloon') + '<div><strong>Не нашли подходящую композицию?</strong><p>Напишите, для какого праздника и на какой бюджет нужен вариант — поможем подобрать.</p></div><button type="button" data-help>Подобрать вариант</button></div>' : '';
+    var custom = !loading ? '<div class="related-custom-card catalog-custom-order"><div><strong>Не нашли подходящую композицию?</strong><p>Напишите, для какого праздника и на какой бюджет нужен вариант — поможем подобрать.</p></div><button type="button" data-help>Подобрать вариант</button></div>' : '';
     resultsSection.innerHTML = head + budget + collections + body + custom;
 
     var sa = resultsSection.querySelector('[data-showall]');
     if (sa) sa.addEventListener('click', function () { group = 'all'; category = 'Все товары'; character = ''; filter = ''; render(); });
+    resultsSection.querySelectorAll('[data-sort]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var v = b.getAttribute('data-sort') || '';
+        sortMode = (v === 'price-asc' || v === 'price-desc') ? v : '';
+        render();
+      });
+    });
     var cp = resultsSection.querySelector('[data-clearprice]');
     if (cp) cp.addEventListener('click', function () { priceIdx = 0; render(); });
     var rt = resultsSection.querySelector('[data-retry]');

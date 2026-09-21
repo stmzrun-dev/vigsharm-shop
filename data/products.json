@@ -2,6 +2,256 @@
   "ok": true,
   "products": [
     {
+      "id": "8557c9cf-9cfb-4e98-9e42-2fd90ef6ed5f",
+      "title": "Сладкий именинник",
+      "article": "FIG-022",
+      "price": 2000,
+      "short_description": "Фольгированный котик с тортиком на подставке из белых и розовых шаров.",
+      "full_description": "Фигура из фольгированного шара в виде милого котика с праздничным тортом. Композиция стоит на устойчивой подставке из белых и розовых латексных шаров.",
+      "composition": [
+        "фигура из шаров"
+      ],
+      "category": "Фигуры из шаров",
+      "character": "Медвежонок",
+      "age_group": "Для детей",
+      "budget": "2 000–3 500 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Сладкий именинник — фигура из шаров с котиком в Армавире",
+      "seo_description": "Фольгированный котик с тортиком на подставке из белых и розовых шаров. Милая фигура для детского праздника в Армавире.",
+      "slug": "sladkiy-imeninnik",
+      "scene": "balloon_figures",
+      "tags": [
+        "Фигуры из шаров"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790010111/vigsharm-products/ersuvheijykvfpk0el8a.jpg"
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790010303/vigsharm-products/ruwyz7ibbwkb7swtyall.jpg"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790010303/vigsharm-products/ruwyz7ibbwkb7swtyall.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-21T17:05:38.825Z",
+      "updated_at": "2026-09-21T17:05:38.825Z"
+    },
+    {
+      "id": "c550da85-7e46-4624-9dbc-5528bb3dac19",
+      "title": "Весенний подарок",
+      "article": "FIG-021",
+      "price": 2500,
+      "short_description": "Белый зайчик из шаров держит букет красных цветов — яркая фигура для любого детского праздника.",
+      "full_description": "Белый зайчик из шаров с букетом красных цветов на зелёных стеблях. Фигура устойчиво стоит на зелёной основе.",
+      "composition": [
+        "фигура из шаров"
+      ],
+      "category": "Фигуры из шаров",
+      "character": "Зайчик",
+      "age_group": "Для детей",
+      "budget": "2 000–3 500 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Зайчик с букетом из шаров — фигура для детского праздника в Армавире",
+      "seo_description": "Белый зайчик из шаров держит букет красных цветов. Яркая фигура для детского праздника. Доставка в Армавире.",
+      "slug": "vesenniy-podarok",
+      "scene": "balloon_figures",
+      "tags": [
+        "Фигуры из шаров"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790009878/vigsharm-products/fvylm3nq1btumtw2ovmw.jpg"
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790009973/vigsharm-products/lxiclp5oxgr0mhqacxoa.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790009973/vigsharm-products/lxiclp5oxgr0mhqacxoa.png",
+      "status": "draft",
+      "show_on_site": false,
+      "created_at": "2026-09-21T17:00:31.337Z",
+      "updated_at": "2026-09-21T17:00:31.337Z"
+    },
+    {
+      "id": "7c4bd082-266e-44f4-a895-fe7f8873750f",
+      "title": "Цветочный сюрприз",
+      "article": "FIG-020",
+      "price": 3000,
+      "short_description": "Белая мышка из шаров с букетом разноцветных цветов и серебряной цифрой 5.",
+      "full_description": "Фигура белой мышки из воздушных шаров держит букет из трёх цветков — синего, розового и жёлтого. Композицию дополняет крупная серебряная фольгированная цифра 5.",
+      "composition": [
+        "фигура из шаров"
+      ],
+      "category": "Фигуры из шаров",
+      "character": "Мышка",
+      "age_group": "Для детей",
+      "budget": "2 000–3 500 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Мышка с букетом из шаров — цифра 5 | Армавир",
+      "seo_description": "Фигура белой мышки из воздушных шаров с букетом цветов и серебряной цифрой 5. Яркая композиция для детского праздника в Армавире.",
+      "slug": "myshka-s-buketom-2",
+      "scene": "balloon_figures",
+      "tags": [
+        "Фигуры из шаров"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790009312/vigsharm-products/enmehzwtrgwpw2n0asxn.jpg",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790009465/vigsharm-products/mmrp2zz9ecwevhp8kgpi.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790009465/vigsharm-products/mmrp2zz9ecwevhp8kgpi.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-21T16:57:45.220Z",
+      "updated_at": "2026-09-21T16:57:45.220Z"
+    },
+    {
+      "id": "884bb1c2-81b4-4d61-9061-65b79fbc0b3d",
+      "title": "Улыбка праздника",
+      "article": "FIG-019",
+      "price": 2000,
+      "short_description": "Яркая фигура клоуна из шаров с улыбкой и розовым бантиком.",
+      "full_description": "Фигура клоуна из шаров с жёлтой головой-смайликом, голубым туловищем, салатовыми руками и ногами. Украшена розовым бантиком-бабочкой и шляпкой.",
+      "composition": [
+        "фигура из шаров"
+      ],
+      "category": "Фигуры из шаров",
+      "character": null,
+      "age_group": "Для детей",
+      "budget": "2 000–3 500 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Фигура клоуна из шаров в Армавире — VigSharm",
+      "seo_description": "Яркая фигура весёлого клоуна из воздушных шаров с улыбкой и бантиком. Идеальный подарок для детского праздника. Доставка по Армавиру.",
+      "slug": "veselyj-kloun",
+      "scene": "balloon_figures",
+      "tags": [
+        "Фигуры из шаров"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790009038/vigsharm-products/t7ot7mjadiuggbqxgozi.jpg"
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790009204/vigsharm-products/kmmbbsz0kmoiehkhurzx.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790009204/vigsharm-products/kmmbbsz0kmoiehkhurzx.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-21T16:47:32.309Z",
+      "updated_at": "2026-09-21T16:47:32.309Z"
+    },
+    {
+      "id": "8682ed31-5b8f-4c4b-960d-4c8761e67edc",
+      "title": "Мишка с букетом",
+      "article": "FIG-018",
+      "price": 3000,
+      "short_description": "Розовый медведь из шаров с букетом цветов и жёлтым бантом.",
+      "full_description": "Фигура медведя из воздушных шаров, держащего яркий букет из разноцветных цветов. Композиция украшена большим жёлтым бантом.",
+      "composition": [
+        "фигура из шаров"
+      ],
+      "category": "Фигуры из шаров",
+      "character": "Мишка",
+      "age_group": "Для детей",
+      "budget": "2 000–3 500 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Фигура мишки из шаров с букетом — Армавир",
+      "seo_description": "Розовый медведь из воздушных шаров с цветами и жёлтым бантом. Яркая фигура для детского праздника в Армавире.",
+      "slug": "mishka-s-buketom",
+      "scene": "balloon_figures",
+      "tags": [
+        "Фигуры из шаров"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790008692/vigsharm-products/gkaqsbvyxlj2x5cdl1bt.jpg"
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790008838/vigsharm-products/r2wxq88zgculpxx1pdcz.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790008838/vigsharm-products/r2wxq88zgculpxx1pdcz.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-21T16:41:43.769Z",
+      "updated_at": "2026-09-21T16:41:43.769Z"
+    },
+    {
+      "id": "7cdd4590-550c-47b0-9287-69ea43241520",
+      "title": "Красная принцесса",
+      "article": "FIG-017",
+      "price": 2000,
+      "short_description": "Фигура из шаров в виде принцессы в красном платье с короной на голове.",
+      "full_description": "Объёмная фигура из воздушных шаров изображает принцессу в красном платье с белыми деталями и короной. Яркий персонаж станет украшением детского праздника.",
+      "composition": [
+        "фигура из шаров"
+      ],
+      "category": "Фигуры из шаров",
+      "character": null,
+      "age_group": "Для детей",
+      "budget": "2 000–3 500 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Фигура из шаров Красная принцесса — Армавир",
+      "seo_description": "Объёмная фигура принцессы из воздушных шаров в красном платье с короной. Яркое украшение для детского праздника в Армавире.",
+      "slug": "krasnaya-printsessa",
+      "scene": "balloon_figures",
+      "tags": [
+        "Фигуры из шаров"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790002033/vigsharm-products/esvldqmnzhqjzy1sjpik.jpg"
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790002126/vigsharm-products/ouizmunseu6vxjmkatyf.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790002126/vigsharm-products/ouizmunseu6vxjmkatyf.png",
+      "status": "draft",
+      "show_on_site": false,
+      "created_at": "2026-09-21T16:38:03.306Z",
+      "updated_at": "2026-09-21T16:38:03.306Z"
+    },
+    {
       "id": "8d289a53-b8c0-48aa-ab56-3604de009f2d",
       "title": "Военная барышня",
       "article": "F23-001",

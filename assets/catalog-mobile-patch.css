@@ -101,8 +101,8 @@
   color:#8a4a56;background:#fff;border:1.5px solid #ead0d5;
 }
 .catalog-filter-sheet-done{
-  color:#fff;background:var(--teal,#63c4c9);border:0;
-  box-shadow:0 3px #4aa8ad33;
+  color:#fff;background:var(--accent,#ff6b5a);border:0;
+  box-shadow:0 3px rgba(255,107,90,.28);
 }
 .catalog-filter-sheet-reset:active{background:#fff7f8;transform:scale(.98)}
 .catalog-filter-sheet-done:active{filter:brightness(.97);transform:scale(.98)}
@@ -385,38 +385,37 @@
 @media (width>650px) and (width<=1020px){
 .catalog-page{padding-bottom:40px;background:#fffdfb!important}
 
-/* search + filters: search full width, selects on second row */
+/* search + filter button, same as phone — selects only in the sheet */
 .catalog-controls{
   width:calc(100% - 40px)!important;
   margin:14px auto 8px!important;
-  grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;
+  grid-template-columns:minmax(0,1fr) 48px!important;
   gap:10px!important;
 }
 .catalog-controls.no-age-filter{
-  grid-template-columns:1fr!important;
+  grid-template-columns:minmax(0,1fr) 48px!important;
 }
 .catalog-search{
-  grid-column:1 / -1!important;
+  grid-column:1!important;
   grid-row:1;
   min-height:50px!important;
   border-radius:16px!important;
   padding:0 16px!important;
 }
-.catalog-mobile-filter-toggle{display:none!important}
-.catalog-filter-panel{display:contents!important}
-.catalog-controls select{
-  display:block!important;
-  width:100%;
-  min-height:48px!important;
-  border-radius:16px!important;
-  border:1.5px solid #e4e7ee;
-  background:#fff;
-  padding:0 12px;
-  font:inherit;
-  font-weight:700;
-  font-size:14px;
-  box-shadow:0 3px #f0eef5;
+.catalog-mobile-filter-toggle{
+  display:inline-flex!important;
+  grid-column:2!important;
+  grid-row:1;
+  width:48px!important;
+  min-width:48px!important;
+  max-width:48px;
+  height:48px;
+  min-height:48px;
+  overflow:visible!important;
 }
+.catalog-filter-panel{display:none!important}
+.catalog-controls select{display:none!important}
+.catalog-controls>.catalog-reset{display:none!important}
 
 .catalog-group-nav{
   width:calc(100% - 40px)!important;

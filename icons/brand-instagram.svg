@@ -1,12 +1,14 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true">
   <defs>
-    <linearGradient id="vig-ig" x1="0" y1="24" x2="24" y2="0" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#f58529"/>
-      <stop offset="0.5" stop-color="#dd2a7b"/>
-      <stop offset="1" stop-color="#515BD4"/>
-    </linearGradient>
+    <radialGradient id="vigIgSpot" cx="32%" cy="108%" r="140%">
+      <stop offset="0%" stop-color="#FDF497"/>
+      <stop offset="45%" stop-color="#FD5949"/>
+      <stop offset="60%" stop-color="#D6249F"/>
+      <stop offset="90%" stop-color="#285AEB"/>
+    </radialGradient>
   </defs>
-  <rect width="24" height="24" rx="6" fill="url(#vig-ig)"/>
-  <circle cx="12" cy="12.2" r="5" fill="none" stroke="#fff" stroke-width="1.85"/>
-  <circle cx="17.4" cy="6.6" r="1.35" fill="#fff"/>
+  <rect width="24" height="24" rx="6" fill="url(#vigIgSpot)"/>
+  <rect x="6.15" y="6.15" width="11.7" height="11.7" rx="3.5" fill="none" stroke="#fff" stroke-width="1.7"/>
+  <circle cx="12" cy="12" r="3.15" fill="none" stroke="#fff" stroke-width="1.7"/>
+  <circle cx="16.4" cy="7.65" r="1.05" fill="#fff"/>
 </svg>

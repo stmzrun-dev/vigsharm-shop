@@ -560,7 +560,7 @@ html body main#main-content.catalog-page .catalog-controls select.has-value{
   box-shadow:0 10px 24px rgba(255,107,90,.12),0 2px 8px rgba(0,0,0,.03)!important;
 }
 
-@media (max-width:650px){
+@media (max-width:1020px){
   html body main#main-content.catalog-page > .catalog-controls{
     display:grid!important;
     grid-template-columns:minmax(0,1fr) 48px!important;
@@ -582,7 +582,7 @@ html body main#main-content.catalog-page .catalog-controls select.has-value{
     height:48px!important;
     min-height:48px!important;
     padding:0!important;
-    overflow:hidden!important;
+    overflow:visible!important;
     align-items:center!important;
     justify-content:center!important;
   }
@@ -602,18 +602,22 @@ html body main#main-content.catalog-page .catalog-controls select.has-value{
   }
 }
 
-@media (min-width:651px){
+@media (min-width:1021px){
   html body main#main-content.catalog-page > .catalog-controls{
     display:grid!important;
-    grid-template-columns:minmax(0,1.5fr) minmax(160px,220px) minmax(150px,200px)!important;
+    grid-template-columns:minmax(0,1fr) minmax(160px,220px) minmax(150px,200px)!important;
+    grid-template-rows:auto!important;
     align-items:stretch!important;
+    column-gap:10px!important;
+    row-gap:0!important;
   }
   html body main#main-content.catalog-page > .catalog-controls.no-age-filter{
-    grid-template-columns:minmax(0,1.6fr) minmax(180px,240px)!important;
+    grid-template-columns:minmax(0,1fr) minmax(180px,240px)!important;
   }
   html body main#main-content.catalog-page .catalog-search{
-    grid-column:auto!important;
-    grid-row:auto!important;
+    grid-column:1!important;
+    grid-row:1!important;
+    min-width:0!important;
     min-height:52px!important;
   }
   html body main#main-content.catalog-page .catalog-mobile-filter-toggle{
@@ -622,10 +626,40 @@ html body main#main-content.catalog-page .catalog-controls select.has-value{
   html body main#main-content.catalog-page .catalog-filter-panel{
     display:contents!important;
   }
-  html body main#main-content.catalog-page .catalog-controls select{
+  html body main#main-content.catalog-page .catalog-controls select[aria-label="Стоимость"]{
+    grid-column:2!important;
+    grid-row:1!important;
     display:block!important;
     width:100%!important;
+    min-width:0!important;
     min-height:52px!important;
+  }
+  html body main#main-content.catalog-page .catalog-controls select[aria-label="Возраст"]{
+    grid-column:3!important;
+    grid-row:1!important;
+    display:block!important;
+    width:100%!important;
+    min-width:0!important;
+    min-height:52px!important;
+  }
+  html body main#main-content.catalog-page > .catalog-controls.no-age-filter select[aria-label="Стоимость"]{
+    grid-column:2!important;
+  }
+  html body main#main-content.catalog-page > .catalog-controls.no-age-filter select[aria-label="Возраст"],
+  html body main#main-content.catalog-page .catalog-controls select[hidden]{
+    display:none!important;
+  }
+  html body main#main-content.catalog-page .catalog-controls .catalog-reset{
+    display:none!important;
+  }
+  html body main#main-content.catalog-page .catalog-subcategories,
+  html body main#main-content.catalog-page .catalog-detail-categories{
+    display:flex!important;
+    flex-wrap:wrap!important;
+    width:calc(100% - 2 * var(--cat-pad, 24px))!important;
+    max-width:calc(100% - 2 * var(--cat-pad, 24px))!important;
+    margin-top:10px!important;
+    overflow:visible!important;
   }
 }
 
@@ -884,105 +918,38 @@ html body main#main-content.catalog-page .catalog-detail-categories > button{
   flex:0 0 auto!important;
   min-height:36px!important;
   padding:0 14px!important;
-  border:0!important;
-  border-width:0!important;
+  border:1.5px solid transparent!important;
   border-radius:999px!important;
-  background:#fff!important;
+  background:#fff8f4!important;
   color:#8a6e68!important;
   font-size:13px!important;
   font-weight:700!important;
   letter-spacing:-.01em!important;
-  box-shadow:0 6px 16px rgba(0,0,0,.045),0 1px 4px rgba(0,0,0,.03)!important;
+  box-shadow:0 6px 16px rgba(0,0,0,.04),0 1px 4px rgba(0,0,0,.03)!important;
   white-space:nowrap!important;
   transform:none!important;
   filter:none!important;
 }
-/* Who: peach / mint / cream */
-html body main#main-content.catalog-page .catalog-subcategories > button[data-sub="Для девочки"],
-html body main#main-content.catalog-page .catalog-subcategories > button[data-sub="Для неё"],
-html body main#main-content.catalog-page .catalog-detail-categories > button[data-f="Для девочки"],
-html body main#main-content.catalog-page .catalog-detail-categories > button[data-f="Для неё"]{
-  background:#fff1f0!important;
-  color:#c45d5a!important;
-}
-html body main#main-content.catalog-page .catalog-subcategories > button[data-sub="Для мальчика"],
-html body main#main-content.catalog-page .catalog-subcategories > button[data-sub="Для него"],
-html body main#main-content.catalog-page .catalog-detail-categories > button[data-f="Для мальчика"],
-html body main#main-content.catalog-page .catalog-detail-categories > button[data-f="Для него"]{
-  background:#eef8f3!important;
-  color:#3d8f73!important;
-}
-html body main#main-content.catalog-page .catalog-subcategories > button[data-sub="Универсальные"],
-html body main#main-content.catalog-page .catalog-detail-categories > button[data-f="Универсальные"]{
-  background:#fff8f1!important;
-  color:#b07a58!important;
-}
-html body main#main-content.catalog-page .catalog-subcategories > button[data-sub="Для мамы"]{
-  background:#fff4ea!important;
-  color:#c27840!important;
-}
-html body main#main-content.catalog-page .catalog-subcategories > button[data-sub="Детские"],
-html body main#main-content.catalog-page .catalog-detail-categories > button[data-f="Детские"]{
-  background:#fff6ee!important;
-  color:#c07a4a!important;
-}
-/* Occasion: lavender — party / romance */
-html body main#main-content.catalog-page .catalog-subcategories > button[data-sub="На выписку"],
-html body main#main-content.catalog-page .catalog-subcategories > button[data-sub="Гендер-пати"],
-html body main#main-content.catalog-page .catalog-subcategories > button[data-sub="День рождения"],
-html body main#main-content.catalog-page .catalog-subcategories > button[data-sub="Оформление праздника"],
-html body main#main-content.catalog-page .catalog-subcategories > button[data-sub="14 февраля"],
-html body main#main-content.catalog-page .catalog-subcategories > button[data-sub="8 марта"],
-html body main#main-content.catalog-page .catalog-subcategories > button[data-sub="Хэллоуин"],
-html body main#main-content.catalog-page .catalog-detail-categories > button[data-f="На выписку"],
-html body main#main-content.catalog-page .catalog-detail-categories > button[data-f="День рождения"],
-html body main#main-content.catalog-page .catalog-detail-categories > button[data-f="Праздники"]{
-  background:#f3f0ff!important;
-  color:#7a68b8!important;
-}
-/* Holidays: cool mint — winter / defender */
-html body main#main-content.catalog-page .catalog-subcategories > button[data-sub="Новый год"],
-html body main#main-content.catalog-page .catalog-subcategories > button[data-sub="23 февраля"],
-html body main#main-content.catalog-page .catalog-subcategories > button[data-sub="9 мая"]{
-  background:#eef8f3!important;
-  color:#3d8f73!important;
-}
-/* Holidays: peach — school / graduation */
-html body main#main-content.catalog-page .catalog-subcategories > button[data-sub="Выпускной"],
-html body main#main-content.catalog-page .catalog-subcategories > button[data-sub="1 сентября"],
-html body main#main-content.catalog-page .catalog-subcategories > button[data-sub="День учителя"]{
-  background:#fff1f0!important;
-  color:#c45d5a!important;
-}
-/* Format: warm paper */
-html body main#main-content.catalog-page .catalog-subcategories > button[data-sub="Фигуры из шаров"],
-html body main#main-content.catalog-page .catalog-subcategories > button[data-sub="Коробка-сюрприз"],
-html body main#main-content.catalog-page .catalog-subcategories > button[data-sub="Цветы из шаров"],
-html body main#main-content.catalog-page .catalog-subcategories > button[data-sub="Арки"],
-html body main#main-content.catalog-page .catalog-subcategories > button[data-sub="Шар-сюрприз"],
-html body main#main-content.catalog-page .catalog-subcategories > button[data-sub="Крафтовый букет"],
-html body main#main-content.catalog-page .catalog-subcategories > button[data-sub="Оригинальные подарки"]{
-  background:#fffaf6!important;
-  color:#9a7068!important;
-}
 html body main#main-content.catalog-page .catalog-subcategories > button:hover,
 html body main#main-content.catalog-page .catalog-detail-categories > button:hover{
-  filter:brightness(.985)!important;
-  border:0!important;
+  filter:none!important;
+  background:#fff!important;
+  border-color:#ffd8d0!important;
   transform:none!important;
 }
 html body main#main-content.catalog-page .catalog-subcategories > button.active,
 html body main#main-content.catalog-page .catalog-detail-categories > button.active{
-  background:#fff1ee!important;
-  color:#e85a4a!important;
-  border:0!important;
+  background:#fff!important;
+  color:#1e293b!important;
+  border-color:#ff6b5a!important;
   filter:none!important;
-  box-shadow:0 8px 18px rgba(255,107,90,.12),0 2px 6px rgba(0,0,0,.03)!important;
+  box-shadow:0 0 0 1px #ff6b5a,0 6px 16px rgba(255,107,90,.12)!important;
 }
 html body main#main-content.catalog-page .catalog-subcategories > button[data-sub=""].active{
   background:#fff8f4!important;
-  color:#b07a72!important;
-  box-shadow:0 6px 16px rgba(0,0,0,.045),0 1px 4px rgba(0,0,0,.03)!important;
+  color:#8a6e68!important;
+  border-color:#ff6b5a!important;
+  box-shadow:0 0 0 1px #ff6b5a,0 6px 16px rgba(255,107,90,.1)!important;
 }
 
 @media (max-width:650px){
@@ -2237,6 +2204,21 @@ html body main#main-content.catalog-page .catalog-results-tools{
   align-items:center;
   justify-content:flex-end;
   gap:8px 12px;
+  min-width:0;
+  max-width:100%;
+}
+html body main#main-content.catalog-page .catalog-results-tools > button[data-showall]{
+  flex:0 1 auto;
+  min-height:36px;
+  padding:8px 12px;
+  border:0;
+  background:transparent;
+  color:#a07870;
+  font:inherit;
+  font-size:13px;
+  font-weight:700;
+  white-space:nowrap;
+  cursor:pointer;
 }
 html body main#main-content.catalog-page .catalog-results-tools > span[role="status"]{
   color:#a07870!important;

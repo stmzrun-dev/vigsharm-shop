@@ -443,9 +443,10 @@ Object.assign(app, {
     if (!c) return '';
     if (c === 'На выписку' || c === '1 годик' || c === 'Крещение') return 'Для малышей';
     if (c === 'Гендер-пати' || c === '1 сентября' || c === 'Для девочки' || c === 'Для мальчика'
-      || c === 'Универсальные' || c === 'Геймерам' || c === 'Фотозона' || c === 'Коробка-сюрприз') {
+      || c === 'Геймерам' || c === 'Фотозона' || c === 'Коробка-сюрприз') {
       return 'Для детей';
     }
+    // «Универсальные» — возраст не авто; задаёт ИИ/оператор по фото
     if (c === 'Выпускной') return 'Для подростков';
     if (c === 'Для неё' || c === 'Для него' || c === 'Для мамы' || c === 'Юбилей'
       || c === 'Свадьба и девичник' || c === '8 марта' || c === '14 февраля' || c === '23 февраля') {
@@ -494,11 +495,13 @@ Object.assign(app, {
     document.getElementById('product-category')?.addEventListener('change', () => {
       this.syncOccasionShelfFields?.();
       if (!this.isOccasionShelf?.()) return;
-      // При ручном выборе полки-повода — только эта метка в доп. разделах
+      // Полка-повод: отметить повод/дату; аудиторию «для кого» не сбрасывать
       const cat = document.getElementById('product-category')?.value || '';
       if (!cat) return;
-      document.querySelectorAll('#tags-for-who input, #tags-occasion input, #tags-dates input, #tags-type input')
+      document.querySelectorAll('#tags-occasion input, #tags-dates input')
         .forEach((cb) => { cb.checked = cb.value === cat; });
+      document.querySelectorAll('#tags-type input')
+        .forEach((cb) => { cb.checked = false; });
     });
   },
 
@@ -1048,10 +1051,38 @@ Object.assign(app, {
     this.syncRequiredFieldHighlights?.();
   },
 
-  async uploadPhoto(file) {
+  async uploadPhoto(file, opts = {}) {
+    // Прямой Cloudinary — даже если cloudinary-patch.js не загрузился
+    const cloud = this.cloudinaryCloudName || '';
+    const preset = this.cloudinaryUploadPreset || '';
+    if (cloud && preset && window.CloudinaryUploader?.uploadPhoto) {
+      try {
+        const label = file?.name || 'фото';
+        this.showPhotoUploadProgress?.(0, `Загрузка: ${label}`);
+        const result = await window.CloudinaryUploader.uploadPhoto(file, cloud, preset, {
+          onProgress: (pct) => {
+            this.showPhotoUploadProgress?.(pct, `Загрузка: ${label} · ${pct}%`);
+            if (typeof opts.onProgress === 'function') opts.onProgress(pct);
+          }
+        });
+        if (result?.ok) this.showPhotoUploadProgress?.(100, 'Готово');
+        else this.hidePhotoUploadProgress?.();
+        setTimeout(() => this.hidePhotoUploadProgress?.(), result?.ok ? 600 : 0);
+        return result;
+      } catch (error) {
+        console.error('Cloudinary upload error:', error);
+        this.hidePhotoUploadProgress?.();
+        return { ok: false, error: error.message || 'Ошибка загрузки в Cloudinary' };
+      }
+    }
+
     const formData = new FormData();
     formData.append('file', file);
-    const res = await fetch(`${this.workerUrl}/api/upload/photo`, { method: 'POST', headers: this.authHeaders(), body: formData });
+    const res = await fetch(`${this.workerUrl}/api/upload/photo`, {
+      method: 'POST',
+      headers: this.authHeaders(),
+      body: formData
+    });
     return await res.json();
   },
 
@@ -1198,7 +1229,10 @@ Object.assign(app, {
       category = 'Фотозона';
       finalTags = ['Фотозона'];
     } else if (occasionShelf) {
-      finalTags = [category];
+      // Повод + опционально один тег «для кого» (Юбилей + Для него)
+      const forWho = (typeof TAGS !== 'undefined' && TAGS.forWho) || [];
+      const audience = tags.filter((t) => forWho.includes(t) && t !== category).slice(0, 1);
+      finalTags = [category, ...audience];
     } else {
       if (isPhotozone && !finalTags.includes('Фотозона')) finalTags.push('Фотозона');
       if (!unit && scene === 'balloon_figures' && !finalTags.includes('Фигуры из шаров')) {

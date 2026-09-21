@@ -262,7 +262,7 @@
   var VIG_EMOJI_SRC = {
     phone: 'icons/line-phone.svg',
     pin: 'icons/line-pin.svg',
-    chat: 'icons/line-chat.svg',
+    chat: '/icons/footer-chat.png?v=2',
     car: 'icons/line-delivery.svg',
     balloon: 'icons/line-balloon.svg',
     heart: 'icons/line-heart.svg',

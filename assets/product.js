@@ -11,8 +11,29 @@
   function esc(s) {
     return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
   }
-  function compIcon(i) {
-    return '<img class="comp-ico" src="icons/comp-deco-' + ((i || 0) % 4) + '.svg?v=1" alt="" width="28" height="28"/>';
+  function compIconKey(label) {
+    var t = String(label || '').toLowerCase();
+    if (/хром|chrome|зеркал/.test(t)) return 'chrome';
+    if (/конфетт/.test(t)) return 'confetti';
+    if (/звезд/.test(t)) return 'star';
+    if (/сердц|heart/.test(t)) return 'heart';
+    if (/цифр/.test(t)) return 'digit';
+    if (/коробк|сюрприз|box/.test(t)) return 'box';
+    if (/бабл|bubble|прозрачн/.test(t)) return 'bubble';
+    if (/латекс/.test(t)) return 'latex';
+    if (/фотозон|мольберт|каркас/.test(t)) return 'photozone';
+    if (/фигур|персонаж|мишк|зайц|единорог/.test(t)) return 'figure';
+    if (/напольн|стойк/.test(t)) return 'floor';
+    if (/букет/.test(t)) return 'bouquet';
+    if (/тюльпан|цветк/.test(t)) return 'tulip';
+    if (/печат|принтов|надпис/.test(t)) return 'print';
+    if (/гелиев/.test(t)) return 'latex';
+    return '';
+  }
+  function compIcon(label, i) {
+    var fallback = ['latex', 'bouquet', 'heart', 'digit'];
+    var key = compIconKey(label) || fallback[(i || 0) % fallback.length];
+    return '<img class="comp-ico" src="icons/comp-' + key + '.png?v=2" alt="" width="32" height="32" onerror="this.onerror=null;this.src=\'icons/comp-' + key + '.svg\'"/>';
   }
 
   var root = document.getElementById('product-root');
@@ -38,6 +59,7 @@
   var flowEditTarget = '';
   var flowMedia = null;
   var deltaAck = false;
+  var stepUnlockTimer = null;
 
   (function () {
     var d = new Date();
@@ -67,9 +89,14 @@
     if (effDigits() >= 2 && !digit2) return false;
     return true;
   }
-  function fulfillmentOk() { return !!(fulfillment && (fulfillment === 'pickup' || address.trim())); }
+  function fulfillmentOk() { return !!(fulfillment && (fulfillment === 'pickup' || addressOk())); }
+  function addressOk() {
+    var a = String(address || '').trim();
+    return a.length >= 5;
+  }
   function inscriptionOk() { return !(p && p.has_inscription) || !!String(inscription || '').trim(); }
-  function isOrderReady() { return digitsOk() && inscriptionOk() && fulfillmentOk(); }
+  function whenOk() { return !!(orderDate && orderTime); }
+  function isOrderReady() { return digitsOk() && inscriptionOk() && fulfillmentOk() && whenOk(); }
   function useMobileFlow() {
     if (typeof window.matchMedia !== 'function') return false;
     if (!flowMedia) flowMedia = window.matchMedia('(max-width:650px)');
@@ -95,7 +122,7 @@
     if (step === 'qty') return qty >= 1;
     if (step === 'inscription') return inscriptionOk();
     if (step === 'fulfill') return !!fulfillment;
-    if (step === 'address') return !!address.trim();
+    if (step === 'address') return addressOk();
     return true;
   }
   function currentFlowStep() {
@@ -120,6 +147,8 @@
     if (!inscriptionOk()) return 'Напишите надпись';
     if (!fulfillment) return kind === 'short' ? 'Выберите получение' : 'Выберите способ получения';
     if (!fulfillmentOk()) return kind === 'short' ? 'Укажите адрес' : 'Укажите адрес доставки';
+    if (!orderDate) return kind === 'short' ? 'Укажите дату' : 'Выберите дату';
+    if (!orderTime) return kind === 'short' ? 'Укажите время' : 'Выберите время';
     return kind === 'short' ? 'Заказать' : 'Заказать в мессенджер →';
   }
   function digitDeltaPrice() { return effDelta() * 900; }
@@ -184,7 +213,7 @@
     try { return new Date(orderDate + 'T12:00:00').toLocaleDateString('ru-RU'); } catch (e) { return orderDate; }
   }
   function dateCardLabel() {
-    if (!orderDate) return { title: 'Дата', hint: 'позже' };
+    if (!orderDate) return { title: 'Дата', hint: 'выбрать' };
     var a = String(orderDate).split('-');
     if (a.length === 3) {
       var short = ['янв', 'фев', 'мар', 'апр', 'мая', 'июн', 'июл', 'авг', 'сен', 'окт', 'ноя', 'дек'];
@@ -193,7 +222,7 @@
     return { title: dateLabel(), hint: '' };
   }
   function timeCardLabel() {
-    if (!orderTime) return { title: 'Время', hint: 'позже' };
+    if (!orderTime) return { title: 'Время', hint: 'выбрать' };
     return { title: timeLabel(), hint: '\u00a0' };
   }
   function ensureCalView() {
@@ -229,7 +258,6 @@
       '<button type="button" data-act="cal-next" aria-label="Следующий месяц">›</button></div>' +
       '<div class="order-cal-week">' + WEEK_RU.map(function (w) { return '<span>' + w + '</span>'; }).join('') + '</div>' +
       '<div class="order-cal-grid">' + cells + '</div>' +
-      '<button type="button" class="order-cal-later" data-act="date-clear">Уточнить позже</button>' +
       '</div></div>';
   }
   function timeLabel() {
@@ -255,7 +283,6 @@
       '<strong>' + esc(tCard.title) + '</strong><small>' + esc(tCard.hint) + '</small></button>' +
       '<div class="order-cal order-time-list" role="dialog" aria-label="Время">' +
       '<div class="order-time-grid">' + cells + '</div>' +
-      '<button type="button" class="order-cal-later" data-act="time-clear">Уточнить позже</button>' +
       '</div></div>';
   }
   function fulfillmentLabel() {
@@ -293,7 +320,20 @@
     if (!inscriptionOk()) return 'client-ins';
     if (!fulfillment) return 'client-ful';
     if (!fulfillmentOk()) return 'client-addr';
-    return 'client-msg';
+    if (!whenOk()) return 'client-when';
+    return '';
+  }
+
+  /** Progressive mobile form: only current + completed steps are visible. */
+  function clientStepVisible(id) {
+    if (id === 'client-qty') return isUnit();
+    if (id === 'client-digits') return !!(p && p.has_digit_choice);
+    if (id === 'client-ins') return !!(p && p.has_inscription) && digitsOk();
+    if (id === 'client-rental') return !!(p && p.has_rental) && digitsOk() && inscriptionOk();
+    if (id === 'client-ful') return digitsOk() && inscriptionOk();
+    if (id === 'client-addr') return digitsOk() && inscriptionOk() && !!fulfillment && fulfillment !== 'pickup';
+    if (id === 'client-when') return digitsOk() && inscriptionOk() && fulfillmentOk();
+    return false;
   }
 
   function clientOrderHtml() {
@@ -305,13 +345,13 @@
     var next = clientNextId();
     var html = '<div class="client-order">';
 
-    if (isUnit()) {
+    if (clientStepVisible('client-qty')) {
       html += '<section class="client-block" id="client-qty">' +
         '<h3 class="client-block-title">' + (isPerMeter() ? 'Длина' : 'Количество') + '</h3>' +
         '<label class="client-qty"><input type="number" min="1" max="100" value="' + qty + '" data-act="qty"/></label></section>';
     }
 
-    if (p.has_digit_choice) {
+    if (clientStepVisible('client-digits')) {
       html += '<section class="client-block' + (next === 'client-digits' ? ' is-next' : digitsOk() ? ' is-done' : '') + '" id="client-digits">' +
         '<h3 class="client-block-title">Цифры на композиции</h3>';
 
@@ -344,7 +384,7 @@
       html += '</section>';
     }
 
-    if (p.has_inscription) {
+    if (clientStepVisible('client-ins')) {
       html += '<section class="client-block' + (next === 'client-ins' ? ' is-next' : inscriptionOk() ? ' is-done' : '') + '" id="client-ins">' +
         '<h3 class="client-block-title">Надпись на шаре' + (next === 'client-ins' ? '<span class="client-req" aria-hidden="true">*</span>' : '') + '</h3>' +
         '<label class="client-ins' + (inscriptionOk() ? ' is-filled' : '') + '">' +
@@ -352,42 +392,35 @@
         '</label></section>';
     }
 
-    if (p.has_rental) {
-      html += '<section class="client-block client-info"><h3 class="client-block-title">Аренда</h3>' +
+    if (clientStepVisible('client-rental')) {
+      html += '<section class="client-block client-info" id="client-rental"><h3 class="client-block-title">Аренда</h3>' +
         '<p class="client-rental"><strong>' + esc(p.rental_item || 'элемент фотозоны') + '</strong> · до ' + (p.rental_days || 3) + ' суток</p></section>';
     }
 
-    html += '<section class="client-block' + (next === 'client-ful' ? ' is-next' : fulfillment ? ' is-done' : '') + '" id="client-ful">' +
-      '<h3 class="client-block-title">Как получить' + (next === 'client-ful' ? '<span class="client-req" aria-hidden="true">*</span>' : '') + '</h3>' +
-      '<div class="client-ful fulfillment-options' + (!fulfillment ? ' is-pick' : '') + '">' +
-      '<button type="button" class="' + (fulfillment === 'pickup' ? 'selected' : '') + '" data-act="ful" data-v="pickup" aria-label="Самовывоз" aria-pressed="' + (fulfillment === 'pickup') + '"><span class="ful-icon"><img src="icons/ful-pickup.png?v=4" alt="" width="48" height="48"/></span><strong>Самовывоз</strong><small>Бесплатно</small></button>' +
-      '<button type="button" class="' + (fulfillment === 'armavir' ? 'selected' : '') + '" data-act="ful" data-v="armavir" aria-label="По городу" aria-pressed="' + (fulfillment === 'armavir') + '"><span class="ful-icon"><img src="icons/ful-city.png?v=4" alt="" width="48" height="48"/></span><strong>По городу</strong><small>+200 ₽</small></button>' +
-      '<button type="button" class="' + (fulfillment === 'nearby' ? 'selected' : '') + '" data-act="ful" data-v="nearby" aria-label="За город" aria-pressed="' + (fulfillment === 'nearby') + '"><span class="ful-icon"><img src="icons/ful-far.png?v=4" alt="" width="48" height="48"/></span><strong>За город</strong><small>Рассчитаем</small></button>' +
-      '</div></section>';
+    if (clientStepVisible('client-ful')) {
+      html += '<section class="client-block' + (next === 'client-ful' ? ' is-next' : fulfillment ? ' is-done' : '') + '" id="client-ful">' +
+        '<h3 class="client-block-title">Как получить' + (next === 'client-ful' ? '<span class="client-req" aria-hidden="true">*</span>' : '') + '</h3>' +
+        '<div class="client-ful fulfillment-options' + (!fulfillment ? ' is-pick' : '') + '">' +
+        '<button type="button" class="' + (fulfillment === 'pickup' ? 'selected' : '') + '" data-act="ful" data-v="pickup" aria-label="Самовывоз" aria-pressed="' + (fulfillment === 'pickup') + '"><span class="ful-icon"><img src="icons/ful-pickup.png?v=4" alt="" width="48" height="48"/></span><strong>Самовывоз</strong><small>Бесплатно</small></button>' +
+        '<button type="button" class="' + (fulfillment === 'armavir' ? 'selected' : '') + '" data-act="ful" data-v="armavir" aria-label="По городу" aria-pressed="' + (fulfillment === 'armavir') + '"><span class="ful-icon"><img src="icons/ful-city.png?v=4" alt="" width="48" height="48"/></span><strong>По городу</strong><small>+200 ₽</small></button>' +
+        '<button type="button" class="' + (fulfillment === 'nearby' ? 'selected' : '') + '" data-act="ful" data-v="nearby" aria-label="За город" aria-pressed="' + (fulfillment === 'nearby') + '"><span class="ful-icon"><img src="icons/ful-far.png?v=4" alt="" width="48" height="48"/></span><strong>За город</strong><small>Рассчитаем</small></button>' +
+        '</div></section>';
+    }
 
-    if (fulfillment && fulfillment !== 'pickup') {
-      html += '<section class="client-block' + (next === 'client-addr' ? ' is-next' : address.trim() ? ' is-done' : '') + '" id="client-addr">' +
+    if (clientStepVisible('client-addr')) {
+      html += '<section class="client-block' + (next === 'client-addr' ? ' is-next' : addressOk() ? ' is-done' : '') + '" id="client-addr">' +
         '<h3 class="client-block-title">Адрес' + (next === 'client-addr' ? '<span class="client-req" aria-hidden="true">*</span>' : '') + '</h3>' +
-        '<label class="client-ins' + (address.trim() ? ' is-filled' : '') + '">' +
+        '<label class="client-ins' + (addressOk() ? ' is-filled' : '') + '">' +
         '<input value="' + esc(address) + '" maxlength="140" data-act="address" placeholder="' + (fulfillment === 'armavir' ? 'Улица, дом, квартира' : 'Населённый пункт и адрес') + '"/>' +
         '</label></section>';
     }
 
-    html += '<section class="client-block client-when' + ((orderDate || orderTime) ? ' is-done' : '') + '" id="client-when">' +
-      '<h3 class="client-block-title">Дата и время</h3>' +
-      '<div class="order-date-row" role="group" aria-label="Дата и время">' +
-      '<div class="order-date-field">' + calendarHtml() + '</div>' +
-      '<div class="order-time-field">' + timeHtml() + '</div></div></section>';
-
-    if (ready) {
-      var msg = orderMessage();
-      html += '<section class="client-block is-done client-msg" id="client-msg">' +
-        '<h3 class="client-block-title">Отправить заказ</h3>' +
-        '<div class="order-sum-msg">' +
-        '<a class="order-sum-wa" target="_blank" rel="noreferrer" href="https://wa.me/' + PHONE + '?text=' + encodeURIComponent(msg) + '" data-act="flow-msg" data-msg="wa"><span>' + WA_SVG + '</span><strong>WhatsApp</strong></a>' +
-        '<a class="order-sum-tg" target="_blank" rel="noreferrer" href="' + TG_URL + '?text=' + encodeURIComponent(msg) + '" data-act="flow-msg" data-msg="tg"><span>' + TG_SVG + '</span><strong>Telegram</strong></a>' +
-        '<a class="order-sum-max" target="_blank" rel="noreferrer" href="' + MAX_URL + '" data-act="flow-msg" data-msg="max"><span><img src="icons/max-official.png" alt="" width="22" height="22"/></span><strong>MAX</strong></a>' +
-        '</div></section>';
+    if (clientStepVisible('client-when')) {
+      html += '<section class="client-block client-when' + (next === 'client-when' ? ' is-next' : whenOk() ? ' is-done' : '') + '" id="client-when">' +
+        '<h3 class="client-block-title">Дата и время' + (next === 'client-when' ? '<span class="client-req" aria-hidden="true">*</span>' : '') + '</h3>' +
+        '<div class="order-date-row" role="group" aria-label="Дата и время">' +
+        '<div class="order-date-field">' + calendarHtml() + '</div>' +
+        '<div class="order-time-field">' + timeHtml() + '</div></div></section>';
     }
 
     html += '</div>';
@@ -548,10 +581,11 @@
       '<button type="button" class="' + (fulfilled === 'nearby' ? 'selected' : '') + '" data-act="ful" data-v="nearby" aria-label="Выбрать доставку за город, стоимость рассчитывается отдельно" aria-pressed="' + (fulfilled === 'nearby') + '"><span class="ful-icon ful-far" aria-hidden="true"><img src="icons/ful-far.png?v=4" alt="" width="40" height="40"/></span><strong>За город</strong><small>Рассчитаем</small></button>' +
       '</div></fieldset>' +
       (fulfilled && fulfilled !== 'pickup'
-        ? '<label class="config-input' + (!address.trim() ? ' needs-pick' : '') + '"><span>Адрес доставки</span><input value="' + esc(address) + '" maxlength="140" data-act="address" placeholder="' + (fulfilled === 'armavir' ? 'Улица, дом, квартира' : 'Населённый пункт и адрес') + '"/>' + (!address.trim() ? '<small>Укажите адрес доставки</small>' : '') + '</label>'
+        ? '<label class="config-input' + (!addressOk() ? ' needs-pick' : '') + '"><span>Адрес доставки</span><input value="' + esc(address) + '" maxlength="140" data-act="address" placeholder="' + (fulfilled === 'armavir' ? 'Улица, дом, квартира' : 'Населённый пункт и адрес') + '"/>' + (!addressOk() ? '<small>Укажите адрес доставки</small>' : '') + '</label>'
         : '') +
       (!fulfilled ? '<p class="order-details-note">Нажмите, как удобнее получить заказ.</p>' : '') +
-      '<p class="order-details-note order-details-note-quiet">Дата и адрес попадут в сообщение — время подтвердим.</p>';
+      (!whenOk() ? '<p class="order-details-note">Укажите дату и время — так быстрее подтвердим заказ.</p>' : '') +
+      '<p class="order-details-note order-details-note-quiet">Дата, время и адрес попадут в сообщение — детали уточним при подтверждении.</p>';
 
     var dp = digitDeltaPrice(), ip = inscriptionPrice(), yp = deliveryPrice(), T = total();
     var totalLabel = fulfilled === 'nearby' ? 'Предварительная стоимость' : (fulfilled ? 'Итого' : 'Цена композиции');
@@ -559,12 +593,20 @@
     var ready = isOrderReady();
     var orderBtn = orderCta('full');
     var mobileFlowOn = useMobileFlow();
-    var pageClass = 'product-page' + (mobileFlowOn ? ' is-mobile-flow is-client-order' : '');
+    var pageClass = 'product-page' + (mobileFlowOn ? ' is-mobile-flow is-client-order' : '') + (mobileFlowOn && ready ? ' is-order-ready' : '');
 
     var desc = String(p.description || '').trim();
     var compItems = String(p.composition || '').split(/\n+/).map(function (s) { return s.trim(); }).filter(Boolean);
     var rel = related();
     var leadText = p.short_description || (desc ? desc.split(/\n+/)[0] : '');
+    var compositionHtml = compItems.length
+      ? ('<section class="product-page-description product-page-description--solo product-composition-inline" aria-label="Состав композиции"><article class="product-composition-card">' +
+        '<p class="eyebrow">Что входит</p><h2>Собрано в один праздник</h2>' +
+        '<div class="composition-list">' + compItems.map(function (t, i) {
+          var label = String(t).replace(/[;.\s]+$/, '');
+          return '<div class="composition-item tone-' + (i % 4) + '"><span class="comp-mark" aria-hidden="true">' + compIcon(label, i) + '</span><strong>' + esc(label) + '</strong></div>';
+        }).join('') + '</div></article></section>')
+      : '';
     var mobileBarActions = '<button type="button" class="mobile-order-cta" data-act="order">' +
       orderCta('short') +
       ' <span aria-hidden="true">→</span></button>';
@@ -599,6 +641,7 @@
       (leadText
         ? '<div class="product-lead"><div class="product-lead-icon" aria-hidden="true"><img src="icons/line-balloon.svg" alt="" width="22" height="22"/></div><p>' + esc(leadText) + '</p></div>'
         : '') +
+      compositionHtml +
       summaryFlowHtml() +
       '<div class="order-classic-flow">' +
       paramsDetails +
@@ -618,14 +661,6 @@
         : '') +
       '</div>' +
       '</div></section>' +
-      (compItems.length
-        ? ('<section class="product-page-description product-page-description--solo" aria-label="Состав композиции"><article class="product-composition-card">' +
-          '<p class="eyebrow">Что входит</p><h2>Собрано в один праздник</h2>' +
-          '<div class="composition-list">' + compItems.map(function (t, i) {
-            var label = String(t).replace(/[;.\s]+$/, '');
-            return '<div class="composition-item tone-' + (i % 4) + '"><span class="comp-mark" aria-hidden="true">' + compIcon(i) + '</span><strong>' + esc(label) + '</strong><b class="comp-check" aria-hidden="true">✓</b></div>';
-          }).join('') + '</div></article></section>')
-        : '') +
       '<section class="related-products"><div class="related-products-heading"><div>' +
       '<h2>' + (rel.length ? 'Похожие композиции' : 'Нужен другой вариант?') + '</h2>' +
       '</div>' +
@@ -663,7 +698,7 @@
       } else if (which === 'date') {
         if (!inscriptionOk()) focusEl = d.querySelector('[data-act="inscription"]');
         else if (!fulfillment) focusEl = d.querySelector('[data-act="ful"]');
-        else if (!address.trim()) focusEl = d.querySelector('[data-act="address"]');
+        else if (!addressOk()) focusEl = d.querySelector('[data-act="address"]');
         else focusEl = d.querySelector('[data-act="date-toggle"]');
       }
       if (focusEl && focusEl.focus) {
@@ -685,9 +720,39 @@
     });
   }
 
+  /** Re-render when a gated step should appear/disappear; keep typing focus when possible. */
+  function unlockClientSteps(opt) {
+    if (!useMobileFlow()) return;
+    opt = opt || {};
+    clearTimeout(stepUnlockTimer);
+    var run = function () {
+      var focusAct = opt.keepFocus || '';
+      var selStart = 0;
+      var selEnd = 0;
+      var active = focusAct ? root.querySelector('[data-act="' + focusAct + '"]') : null;
+      if (active && typeof active.selectionStart === 'number') {
+        selStart = active.selectionStart;
+        selEnd = active.selectionEnd;
+      }
+      render();
+      if (focusAct) {
+        var again = root.querySelector('[data-act="' + focusAct + '"]');
+        if (again && again.focus) {
+          try { again.focus({ preventScroll: true }); } catch (e) { try { again.focus(); } catch (_) {} }
+          try {
+            if (typeof again.setSelectionRange === 'function') again.setSelectionRange(selStart, selEnd);
+          } catch (_) {}
+        }
+      }
+      if (opt.scroll) softScrollTo(clientNextId());
+    };
+    if (opt.immediate) run();
+    else stepUnlockTimer = setTimeout(run, opt.delay != null ? opt.delay : 380);
+  }
+
   function afterDigitsMaybeScroll() {
     if (!digitsOk()) return;
-    softScrollTo(p.has_inscription ? 'client-ins' : 'client-ful');
+    softScrollTo(clientNextId());
   }
 
   function wire() {
@@ -728,15 +793,74 @@
         });
       } else if (act === 'inscription') {
         el.addEventListener('input', function () {
+          var hadText = !!String(inscription || '').trim();
           inscription = el.value;
+          var hasText = !!String(inscription || '').trim();
           saveDraft();
           refreshTotals();
           var wrap = el.closest('.client-ins');
-          if (wrap) wrap.classList.toggle('is-filled', !!inscription.trim());
+          if (wrap) wrap.classList.toggle('is-filled', hasText);
+          var insBlock = el.closest('.client-block');
+          if (insBlock) {
+            insBlock.classList.toggle('is-done', hasText);
+            insBlock.classList.toggle('is-next', !hasText);
+          }
+          if (!useMobileFlow()) return;
+          var fulVisible = !!root.querySelector('#client-ful');
+          if (hasText && !fulVisible) {
+            unlockClientSteps({ keepFocus: 'inscription', scroll: true, delay: 420 });
+          } else if (!hasText && fulVisible) {
+            unlockClientSteps({ keepFocus: 'inscription', immediate: true });
+          } else if (hasText !== hadText) {
+            unlockClientSteps({ keepFocus: 'inscription', delay: 200 });
+          }
         });
         el.addEventListener('change', function () {
+          clearTimeout(stepUnlockTimer);
           render();
-          if (inscriptionOk()) softScrollTo('client-ful');
+          if (inscriptionOk()) softScrollTo(clientNextId());
+        });
+        el.addEventListener('keydown', function (e) {
+          if (e.key !== 'Enter') return;
+          e.preventDefault();
+          el.blur();
+        });
+      } else if (act === 'address') {
+        el.addEventListener('input', function () {
+          var had = addressOk();
+          address = el.value;
+          var has = addressOk();
+          saveDraft();
+          refreshTotals();
+          var wrap = el.closest('.client-ins');
+          if (wrap) wrap.classList.toggle('is-filled', has);
+          var addrBlock = el.closest('.client-block');
+          if (addrBlock) {
+            addrBlock.classList.toggle('is-done', has);
+            addrBlock.classList.toggle('is-next', !has);
+          }
+          var ok = root.querySelector('[data-act="flow-addr-ok"]');
+          if (ok) ok.disabled = !has;
+          if (!useMobileFlow()) return;
+          var whenVisible = !!root.querySelector('#client-when');
+          if (has && fulfillmentOk() && !whenVisible) {
+            unlockClientSteps({ keepFocus: 'address', scroll: true, delay: 420 });
+          } else if (!has && whenVisible) {
+            unlockClientSteps({ keepFocus: 'address', immediate: true });
+          } else if (has !== had) {
+            unlockClientSteps({ keepFocus: 'address', delay: 200 });
+          }
+        });
+        el.addEventListener('change', function () {
+          clearFlowEditIf('address');
+          clearTimeout(stepUnlockTimer);
+          render();
+          if (addressOk()) softScrollTo(clientNextId());
+        });
+        el.addEventListener('keydown', function (e) {
+          if (e.key !== 'Enter') return;
+          e.preventDefault();
+          el.blur();
         });
       } else if (act === 'date-toggle') {
         el.addEventListener('click', function (e) {
@@ -778,13 +902,7 @@
           calView.m = Number(parts[1]) || calView.m;
           datePickerOpen = false;
           render();
-        });
-      } else if (act === 'date-clear') {
-        el.addEventListener('click', function (e) {
-          e.stopPropagation();
-          orderDate = '';
-          datePickerOpen = false;
-          render();
+          softScrollTo(clientNextId());
         });
       } else if (act === 'time-toggle') {
         el.addEventListener('click', function (e) {
@@ -805,13 +923,7 @@
           orderTime = el.getAttribute('data-v') || '';
           timePickerOpen = false;
           render();
-        });
-      } else if (act === 'time-clear') {
-        el.addEventListener('click', function (e) {
-          e.stopPropagation();
-          orderTime = '';
-          timePickerOpen = false;
-          render();
+          softScrollTo(clientNextId());
         });
       } else if (act === 'ful') {
         el.addEventListener('click', function () {
@@ -819,22 +931,8 @@
           if (fulfillment === 'pickup') address = '';
           clearFlowEditIf('fulfill');
           render();
-          if (fulfillment === 'pickup') softScrollTo(isOrderReady() ? 'client-msg' : null);
+          if (fulfillment === 'pickup') softScrollTo(clientNextId());
           else softScrollTo('client-addr');
-        });
-      } else if (act === 'address') {
-        el.addEventListener('input', function () {
-          address = el.value;
-          saveDraft();
-          var wrap = el.closest('.client-ins');
-          if (wrap) wrap.classList.toggle('is-filled', !!address.trim());
-          var ok = root.querySelector('[data-act="flow-addr-ok"]');
-          if (ok) ok.disabled = !address.trim();
-        });
-        el.addEventListener('change', function () {
-          clearFlowEditIf('address');
-          render();
-          if (address.trim()) softScrollTo(isOrderReady() ? 'client-msg' : null);
         });
       } else if (act === 'flow-edit') {
         el.addEventListener('click', function () {
@@ -855,7 +953,7 @@
         });
       } else if (act === 'flow-addr-ok') {
         el.addEventListener('click', function () {
-          if (!address.trim()) return;
+          if (!addressOk()) return;
           clearFlowEditIf('address');
           flowEditTarget = '';
           render();
@@ -975,6 +1073,8 @@
 
     var bar = root.querySelector('.mobile-order-bar');
     if (bar) bar.classList.toggle('is-ready', isOrderReady());
+    var pageEl = root.querySelector('.product-page');
+    if (pageEl && useMobileFlow()) pageEl.classList.toggle('is-order-ready', isOrderReady());
 
     var insField = root.querySelector('.inscription-field');
     if (insField) insField.classList.toggle('is-empty', !inscriptionOk());
@@ -1021,11 +1121,9 @@
   function order() {
     if (useMobileFlow()) {
       if (!isOrderReady()) {
-        var id = clientNextId();
-        var el = root.querySelector('#' + id);
-        if (el && el.scrollIntoView) {
-          try { el.scrollIntoView({ behavior: 'smooth', block: 'center' }); } catch (e) { el.scrollIntoView(); }
-        }
+        clearTimeout(stepUnlockTimer);
+        render();
+        softScrollTo(clientNextId());
         return;
       }
       openOrderModal();
@@ -1039,6 +1137,14 @@
       return;
     }
     if (!fulfillmentOk()) { openDetails('date'); return; }
+    if (!whenOk()) {
+      openDetails('date');
+      var focusWhen = root.querySelector(!orderDate ? '[data-act="date-toggle"]' : '[data-act="time-toggle"]');
+      if (focusWhen && focusWhen.focus) {
+        try { focusWhen.focus({ preventScroll: true }); } catch (e) { try { focusWhen.focus(); } catch (_) {} }
+      }
+      return;
+    }
     openOrderModal();
   }
 

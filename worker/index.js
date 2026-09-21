@@ -281,9 +281,10 @@ function ageFromCategory(cat) {
   if (!c) return '';
   if (c === 'На выписку' || c === '1 годик' || c === 'Крещение') return 'Для малышей';
   if (c === 'Гендер-пати' || c === '1 сентября' || c === 'Для девочки' || c === 'Для мальчика'
-    || c === 'Универсальные' || c === 'Геймерам' || c === 'Фотозона' || c === 'Коробка-сюрприз') {
+    || c === 'Геймерам' || c === 'Фотозона' || c === 'Коробка-сюрприз') {
     return 'Для детей';
   }
+  // «Универсальные» — возраст НЕ авто: ИИ/оператор по фото (дети или взрослые)
   if (c === 'Выпускной') return 'Для подростков';
   if (c === 'Для неё' || c === 'Для него' || c === 'Для мамы' || c === 'Юбилей'
     || c === 'Свадьба и девичник' || c === '8 марта' || c === '14 февраля' || c === '23 февраля') {
@@ -299,23 +300,64 @@ const OCCASION_SHELVES = [
   'Выпускной', 'Новый год', '14 февраля', '23 февраля', '8 марта', '1 сентября'
 ];
 
+/** Аудитория «для кого» — можно держать рядом с полкой-поводом (Юбилей + Для него). */
+const FOR_WHO_TAGS = [
+  'Для девочки', 'Для мальчика', 'Универсальные', 'Для неё', 'Для мамы', 'Для него', 'Геймерам'
+];
+
+function pickAudienceTags(tags) {
+  const list = Array.isArray(tags) ? tags : [];
+  const out = [];
+  for (const t of list) {
+    if (FOR_WHO_TAGS.includes(t) && !out.includes(t)) out.push(t);
+  }
+  return out.slice(0, 1);
+}
+
 function applyOccasionShelfCard(data) {
   const cat = String(data.category || '').trim();
   if (!OCCASION_SHELVES.includes(cat)) return data;
   data.age_group = ageFromCategory(cat) || data.age_group || 'Для любого возраста';
-  data.tags = [cat];
+  const audience = pickAudienceTags(data.tags).filter((t) => t !== cat);
+  data.tags = [cat, ...audience];
   return data;
 }
 
-/** Крупная фольгированная «1» на фото → полка «1 годик» (даже если ИИ выбрал Универсальные). */
-function applyFirstBirthdayFromFoilDigit(data) {
-  const raw = data.foil_digit;
+/** Круглые юбилейные числа на фольге (10, 20, … 90, 100). */
+const JUBILEE_FOIL_NUMBERS = new Set(['10', '20', '30', '40', '50', '60', '70', '80', '90', '100']);
+
+/** Нормализация foil_digits / foil_digit → строка цифр слева направо («1», «28», «20»). */
+function takeFoilDigits(data) {
+  const raw = data.foil_digits != null && String(data.foil_digits).trim() !== ''
+    ? data.foil_digits
+    : data.foil_digit;
+  delete data.foil_digits;
   delete data.foil_digit;
-  const d = String(raw ?? '').trim().replace(/^0+/, '') || String(raw ?? '').trim();
+  return String(raw ?? '').replace(/\D/g, '');
+}
+
+/** Крупная фольгированная «1» (одна цифра) → «1 годик». «10» сюда не попадает. */
+function applyFirstBirthdayFromFoilDigit(data, digits) {
+  const d = String(digits || '');
   if (d !== '1') return data;
   if (String(data.category || '') === 'На выписку') return data;
   data.category = '1 годик';
   return applyOccasionShelfCard(data);
+}
+
+/** Круглые 10/20/30… → «Юбилей». 18, 28, 35 и одиночные 2–9 — НЕ юбилей. */
+function applyJubileeFromFoilDigits(data, digits) {
+  const d = String(digits || '');
+  if (JUBILEE_FOIL_NUMBERS.has(d)) {
+    if (String(data.category || '') === 'На выписку') return data;
+    data.category = 'Юбилей';
+    return applyOccasionShelfCard(data);
+  }
+  // ИИ иногда ставит «Юбилей» на обычный ДР (28 и т.п.) — снимаем, если цифры известны и некруглые
+  if (String(data.category || '') === 'Юбилей' && d && !JUBILEE_FOIL_NUMBERS.has(d)) {
+    data.category = 'Универсальные';
+  }
+  return data;
 }
 
 function applyTypeOnlyCard(data, typeTag) {
@@ -493,7 +535,7 @@ async function handleGenerateCard(request, env) {
   "seo_description": "SEO макс 155",
   "slug": "url-slug-latin",
   "tags": ["1–4 тега из списка"],
-  "foil_digit": "одна цифра 0–9 если на фото крупная фольгированная цифра, иначе пустая строка"
+  "foil_digits": "крупные фольгированные цифры слева направо: «1», «28», «20» или пустая строка"
 }
 
 AUDIENCE (поле category):
@@ -512,19 +554,30 @@ ${BUDGET_OPTIONS.join(' | ')}
 - Персонаж и повод — в character / category / tags, не в title
 - title_alts: ещё 1–2 крючка в том же духе, не пересказ состава
 - УНИКАЛЬНОСТЬ: title и title_alts НЕ должны совпадать и НЕ должны быть похожи на уже занятые названия каталога (другой порядок слов, синоним-близнец, «почти то же» — тоже запрещены). Придумай свежие крючки.
-- ЦИФРА НА ФОТО:
-  • foil_digit — какая цифра на фольге крупно (0–9), иначе ""
+- ЦИФРЫ НА ФОТО:
+  • foil_digits — крупные фольгированные цифры слева направо («1», «28», «20»), иначе ""
   • В title и title_alts ЗАПРЕЩЕНО писать цифру, возраст, «годик», «на N лет» — крючок без числа
-  • Клиент может сменить цифру при заказе — но category от цифры «1» всё равно «1 годик»
+  • Клиент может сменить цифру при заказе — category от цифр всё равно по правилам ниже
 
 ПРОЧИЕ ПРАВИЛА:
 - category = ОДНА главная полка из AUDIENCE (аудитория ИЛИ явный повод), НЕ тип изделия
 - ПРИОРИТЕТ category (важнее цвета, пола и «Универсальные»):
   1) «На выписку» — если на фото/в тексте признаки выписки из роддома: бабл/таблица с датой+временем+весом (гр)+ростом (см), следы ножек, «Добро пожаловать домой», «выписка», «из роддома», метрики новорождённого. Розовый/голубой и имя малыша НЕ отменяют выписку: category = «На выписку»
-  2) «1 годик» — если на фото крупная фольгированная цифра «1» (или «01») как акцент композиции (рядом зверёк/шары — не отменяет). foil_digit = "1". НЕ ставь «Универсальные» / «Для девочки» / «Для мальчика» вместо «1 годик»
-  3) Другой узкий повод из списка (Крещение, Гендер-пати, Юбилей…) — если явно виден
-  4) Явный пол/стиль: «Для девочки» / «Для мальчика» / «Для неё» / «Для него» / «Для мамы» / «Геймерам»
-  5) «Универсальные» — нейтральные звери/лес/космос БЕЗ фольгированной «1» и без явного пола. НЕ оставляй category пустым
+  2) «1 годик» — только ОДНА крупная фольгированная цифра «1» (foil_digits = "1"). НЕ путать с «10». НЕ ставь «Универсальные» / пол вместо «1 годик»
+  3) «Юбилей» — ТОЛЬКО круглые даты foil_digits ∈ {10,20,30,40,50,60,70,80,90,100}. ЗАПРЕЩЕНО ставить «Юбилей» за 18, 25, 28, 35, 45, одну цифру 2–9 или любые некруглые пары
+     • При category = полка-повод (Юбилей, 1 годик, Крещение, выписка, праздники…): в tags ВСЕГДА эта же category.
+       Если на фото ЯВНЫЙ пол/адресат — ДОБАВЬ в tags ещё ОДИН тег аудитории.
+       Пример: 40 + кубок + футбольный мяч → category «Юбилей», tags ["Юбилей","Для него"].
+       Розовое/бантики на юбилее → tags ["Юбилей","Для неё"]. Без явного пола — только ["Юбилей"] или ["Юбилей","Универсальные"].
+  4) Другой узкий повод (Крещение, Гендер-пати, Свадьба…) — если явно виден на фото/в подсказках
+  5) Явный пол/стиль: «Для девочки» / «Для мальчика» / «Для неё» / «Для него» / «Для мамы» / «Геймерам»
+     • ИМЯ НА НАДПИСИ (бабл / звезда / сердце / табличка) — сильный сигнал пола. Читай текст на фото.
+       Мужские/мужские уменьшительные (Алекс, Александр, Саша→если явно муж., Максим, Иван, Дима, Артём…) → «Для него» (взрослый стиль) или «Для мальчика» (детский), НЕ «Для неё»
+       Женские (Анна, Мария, Алина, Катя…) → «Для неё» / «Для девочки»
+       Неоднозначные (Саша, Женя, Валя без других сигналов) → «Универсальные», не угадывай «Для неё»
+     • ЗАПРЕЩЕНО ставить «Для неё» только из‑за золота, каллиграфии, звезды, чёрно-золотой палитры или «элегантного» вида — без явного женского имени/розового/сердечек этого мало
+     • Имя на надписи — пример персонализации клиента: НЕ пиши это имя в title / title_alts / seo
+  6) «Универсальные» — нейтральная композиция / цифры некруглые (напр. 28, 5+7) / нет явного пола и нет однозначного имени. НЕ оставляй category пустым
 - тип изделия — только в tags
 - «Букет из шаров» в tags — ТОЛЬКО если сцена handheld_bouquet или в составе явно «букет». Сцена wall_only сама по себе НЕ букет
 - ЗАПРЕЩЕНО: тег и категория «Шар-сюрприз» — раздел пока не используется, не ставь никуда
@@ -542,7 +595,12 @@ ${BUDGET_OPTIONS.join(' | ')}
   • Мишка/зайчик/сердце на выписке — character = «Мишка»/«Зайчик» и т.п. (это персонаж карточки), не франшиза Marvel
   • На ЛЮБОЙ полке (включая «Универсальные», «1 годик», выписку) — если на фото есть узнаваемый фольгированный зверёк/герой, character ОБЯЗАТЕЛЕН
   • series_name — франшиза или та же тема; если франшизы нет — можно пусто или имя зверя
-- age_group: ОБЯЗАТЕЛЬНО одно значение из списка по стилю фото/категории (выписка/1 годик → «Для малышей»; герои/цифры 2–9/для девочки|мальчика|универсальные → «Для детей»; для неё/него/юбилей → «Для взрослых»). Не оставляй пустым; «Для любого возраста» — только если совсем неоднозначно
+- age_group: ОБЯЗАТЕЛЬНО одно значение из списка:
+  • выписка / 1 годик → «Для малышей»
+  • для девочки|мальчика|геймерам / мультики / детский стиль → «Для детей»
+  • юбилей (круглые 10–100) / для неё|него|мамы → «Для взрослых»
+  • «Универсальные»: возраст ПО ФОТО — детский стиль/звери/герои → «Для детей»; нейтральные шары или цифры возраста взрослого (18, 28, 35…) → «Для взрослых». НЕ ставь «Для детей» по умолчанию только из‑за полки «Универсальные»
+  • «Для любого возраста» — только если совсем неоднозначно
 - occasion и target_audience: ВСЕГДА оставляй пустыми (повод/аудитория — только category и tags; свободные поля в админке убраны)
 - composition: оформи ТОЛЬКО сырой состав пользователя.
   • НЕ добавляй позиции, которых нет во входе
@@ -580,7 +638,7 @@ ${image_url
       ? 'Фото приложено — опиши товар в short/full description. ОБЯЗАТЕЛЬНО age_group. НЕ заполняй target_audience и occasion.'
       : (photozoneOnly
         ? 'Фото приложено — category/tags только «Фотозона». ОБЯЗАТЕЛЬНО age_group и character/series по фото. target_audience и occasion пустые. Имена/цифры на круге — пример персонализации, не в title.'
-        : 'Фото приложено — ОБЯЗАТЕЛЬНО foil_digit (цифра на фольге или ""). Если foil_digit=1 → category «1 годик», не «Универсальные». Иначе: выписка / узкий повод / пол / Универсальные. age_group обязателен. target_audience и occasion пустые. Не ставь «Букет из шаров» только из‑за wall_only. Персонаж/серия по фото, кроме полок-поводов. Если сомневаешься — confidence medium/low и дай alts. Логотипы магазинов игнорируй. Имена на табличке — пример персонализации, не в title.'))
+        : 'Фото приложено — ОБЯЗАТЕЛЬНО foil_digits. Имя на надписи учитывай для пола. Юбилей (10/20/40…) + явный мужской стиль (кубок, мяч…) → tags ["Юбилей","Для него"]; category остаётся «Юбилей». Некруглые цифры → не юбилей. Имя с шара НЕ в title. age_group обязателен. Персонаж/серия по фото. Сомневаешься — medium/low + alts. Логотипы игнорируй.'))
     : ''}`;
 
   const messages = [
@@ -636,13 +694,14 @@ ${image_url
   } else {
     applyDischargeCategoryPriority(data, rawComposition);
   }
-  // Полки-поводы («1 годик», выписка…): без персонажа/серии, возраст авто
-  applyFirstBirthdayFromFoilDigit(data);
+  // Полки по фольгированным цифрам: «1» → 1 годик; 10/20/… → Юбилей
+  const foilDigits = takeFoilDigits(data);
+  applyFirstBirthdayFromFoilDigit(data, foilDigits);
+  applyJubileeFromFoilDigits(data, foilDigits);
   applyOccasionShelfCard(data);
   // Свободные поля occasion / target_audience в админке убраны
   data.occasion = '';
   data.target_audience = '';
-  delete data.foil_digit;
   if (!data.age_group || data.age_group === 'Для любого возраста') {
     const autoAge = ageFromCategory(data.category);
     if (autoAge) data.age_group = autoAge;
@@ -1151,7 +1210,7 @@ REMOVE completely (inpaint as if never there):
 Inpaint the wall / balloon / ribbon surface underneath cleanly — no blur blotches, no leftover letters or half a circle.
 KEEP: Spider-Man / character art printed ON the balloon latex or foil; decorative words that are clearly part of that print (e.g. «HERO» baked into the balloon design); bubble lettering and custom personalization on the product itself; foil heart texts that are printed ON the balloon face.`;
 
-  const forbidden = `FORBIDDEN: sticker/cutout appearance, white or dark halo, invented text, changed colors, plastic CGI look, furniture, window, curtains from the original room, melting ribbons, harsh cast shadows, yellow/orange color cast, duplicate objects, collage, dark moody look, evening lighting, underexposure, extra balloons, denser balloon columns than the original, new mini filler balloons, new foreground balloon clusters, objects not present in the original, store watermarks, supplier packaging badges, size/helium labels, marketplace URL overlays (sima-land.ru etc.), leftover half-erased text, circular shop hang-tags on ribbons`;
+  const forbidden = `FORBIDDEN: sticker/cutout appearance, white or dark halo, invented text, changed colors, plastic CGI look, furniture, mirrors, vanity light frames, window, curtains from the original room, melting ribbons, harsh cast shadows, yellow/orange color cast, duplicate objects, collage, copying mirror reflections as extra balloons, dark moody look, evening lighting, underexposure, extra balloons, denser balloon columns than the original, new mini filler balloons, new foreground balloon clusters, inventing extra foil hearts/figures, objects not present in the original, store watermarks, supplier packaging badges, size/helium labels, marketplace URL overlays (sima-land.ru etc.), leftover half-erased text, circular shop hang-tags on ribbons`;
 
   const light = `LIGHTING: soft even professional studio product photography. Remove harsh window backlight. Match exposure and white balance to the studio room. Real photograph, not CGI render.`;
 
@@ -1176,6 +1235,17 @@ KEEP: Spider-Man / character art printed ON the balloon latex or foil; decorativ
 - FORBIDDEN while placing: adding balloons, densifying garlands/columns, inventing mini fillers, reshaping clusters, “beautifying” the arrangement
 - Soft contact shadow under the original base only; tiny soft wall-contact shadow OK
 - Camera still shows full product; do not crop tops`;
+
+  /** Зеркало: отражение ≠ товар. Не оставлять «фантомные» шары из стекла. */
+  const mirrorHazard = `MIRROR / VANITY BEHIND THE PRODUCT — CRITICAL (common failure mode):
+- Full-length mirrors, vanity mirrors with light bulbs, dressing tables, LED strip frames = ROOM BACKGROUND ONLY — REMOVE completely and replace with the VigSharm studio wall + laminate from the SECOND reference
+- ONLY balloons that physically stand IN THE ROOM in front of the mirror are the real product (ribbons go down to weights on the real floor)
+- Balloons that appear ONLY inside the mirror glass are REFLECTIONS — NOT product. Do NOT count them. Do NOT copy them into the studio scene
+- Example: one red foil heart in front of the mirror + the same heart visible again in the reflection → output EXACTLY ONE heart (drop the reflection)
+- Same for any foil figure / latex cluster: if a duplicate exists only as a reflection, discard the duplicate when removing the mirror
+- Keep real product balloons pixel-faithful (shapes, colors, prints, ribbons, weights) — but count REAL items only, not mirror ghosts
+- Do NOT “rebuild” or beautify the bouquet while removing the mirror — erase glass/frame/furniture, drop reflection-only balloons, inpaint studio wall behind the real product
+- FORBIDDEN: inventing extra foil hearts/figures from the reflection; keeping two copies of an item that was one real + one reflection; changing Superman/chrome layout while clearing the mirror`;
 
   if (scene === 'handheld_bouquet') {
     return `Rephotograph this VigSharm balloon BOUQUET for a square catalog card — Manus style: one real photo of a WOMAN holding the bouquet against the studio wall.
@@ -1355,11 +1425,13 @@ ${forbidden}
 OUTPUT: one square 1:1 professional catalog photo — balloon figure LARGE, perfectly VERTICAL, near the wall on LIGHT pale-oak laminate (no table, no invented feet balloons), natural catalog light, human scale ≥1 m.`;
   }
 
-  return `Edit the provided floor-standing balloon composition photo for a square VigSharm catalog card. Change ONLY the room background and lighting.
+  return `Edit the provided floor-standing balloon composition photo for a square VigSharm catalog card. Change ONLY the room background and lighting — NEVER rebuild the balloon product.
 
 ${lock}
 
 ${logoClean}
+
+${mirrorHazard}
 
 Use the SECOND reference image as the real VigSharm studio environment — match it as closely as possible: warm beige-grey wall, white baseboard, LIGHT pale-oak / light grey-beige laminate floor with horizontal planks.
 
@@ -1375,7 +1447,7 @@ ${brightFloor}
 
 ${forbidden}
 
-OUTPUT: one square 1:1 professional catalog photo, composition large near the wall on LIGHT laminate, natural catalog light.`;
+OUTPUT: one square 1:1 professional catalog photo — SAME balloon product as source (exact counts), studio room only, large near the wall on LIGHT laminate, natural catalog light.`;
 }
 
 function buildRephotographAttempts(imageUrl, referenceUrl, prompt, resolution = '2K', prefer = 'quality', scene = 'floor') {
@@ -1388,7 +1460,7 @@ function buildRephotographAttempts(imageUrl, referenceUrl, prompt, resolution = 
   ];
   const wallOnly = ['wall_only', 'unit_balloon', 'handheld_bouquet'].includes(scene);
   const wallHint = '\n\nTarget room: VigSharm studio wall from the SECOND reference — warm light beige-grey plaster, natural catalog softbox daylight (not overexposed wash). Copy reference wall tone; do NOT darken into taupe/muddy grey and do NOT blow out to pure white. NO invented mottled/smudged wall.';
-  const floorHint = '\n\nTarget FLOOR from the SECOND reference — LIGHT pale oak / light grey-beige laminate matching reference brightness. Place product CLOSE to the white baseboard (short floor strip only — not mid-room). Soft contact shadows only under product feet. FORBIDDEN: dark brown/charcoal laminate; large empty floor toward the wall.';
+  const floorHint = '\n\nTarget FLOOR from the SECOND reference — LIGHT pale oak / light grey-beige laminate matching reference brightness. Place product CLOSE to the white baseboard (short floor strip only — not mid-room). Soft contact shadows only under product feet. FORBIDDEN: dark brown/charcoal laminate; large empty floor toward the wall. If source has a mirror/vanity: remove it; count ONLY real balloons on the floor in front of the glass — NEVER copy balloons that exist only as mirror reflections (e.g. one real heart + reflection → output one heart).';
   const roomHint = wallOnly ? wallHint : (wallHint + floorHint);
   const attempts = [];
 
@@ -2322,17 +2394,17 @@ async function handleUploadPhoto(request, env) {
   const file = formData.get('file');
   if (!file) return json({ ok: false, error: 'No file' }, 400);
 
-  // R2 отключен — конвертируем файл в data URL (временное решение)
-  // Для продакшена нужно настроить реальный хостинг изображений
+  // Fallback без Cloudinary: data URL. Не использовать spread в fromCharCode — stack overflow на больших фото.
   try {
     const arrayBuffer = await file.arrayBuffer();
-    const base64 = btoa(String.fromCharCode(...new Uint8Array(arrayBuffer)));
+    const bytes = new Uint8Array(arrayBuffer);
+    const base64 = bytesToBase64(bytes);
     const mimeType = file.type || 'image/jpeg';
     const dataUrl = `data:${mimeType};base64,${base64}`;
-    
+
     const id = crypto.randomUUID();
-    console.log('Photo uploaded as data URL, size:', base64.length, 'bytes');
-    
+    console.log('Photo uploaded as data URL, size:', base64.length, 'chars');
+
     return json({ ok: true, url: dataUrl, id });
   } catch (error) {
     console.error('Upload error:', error);

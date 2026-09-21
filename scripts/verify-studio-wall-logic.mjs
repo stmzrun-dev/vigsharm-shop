@@ -49,6 +49,8 @@ assert(studio.includes('studioMasterBaseUrl'), 'Master Base kept for re-render')
 assert(studio.includes('showSignTextEditor'), 'sign editor show helper');
 assert(worker.includes('foil STAR') || worker.includes('foil star'), 'sign-text supports foil star');
 assert(worker.includes('extra balloons'), 'rephotograph forbids extra balloons');
+assert(worker.includes('MIRROR / VANITY BEHIND THE PRODUCT'), 'floor mirror hazard lock');
+assert(worker.includes('REFLECTIONS — NOT product') || worker.includes('ONLY inside the mirror glass are REFLECTIONS'), 'mirror reflections not counted as product');
 assert(studio.includes('studioMasterBackupUrl'), 'keep Master on failed retry');
 assert(worker.includes("status === 'failed'"), 'status returns failure detail');
 
@@ -95,7 +97,8 @@ assert(worker.includes('ageFromCategory'), 'age from category helper');
 assert(worker.includes('applyOccasionShelfCard'), 'occasion shelf age/tags');
 assert(worker.includes('character ОБЯЗАТЕЛЕН'), 'character required on all shelves');
 assert(worker.includes('applyFirstBirthdayFromFoilDigit'), 'foil digit 1 → 1 годик');
-assert(worker.includes('foil_digit'), 'AI returns foil_digit');
+assert(worker.includes('applyJubileeFromFoilDigits'), 'round foil → Юбилей');
+assert(worker.includes('foil_digits') || worker.includes('foil_digit'), 'AI returns foil digits');
 assert(worker.includes('title_alts'), 'AI card title alternatives');
 assert(worker.includes('existing_titles'), 'AI receives existing titles');
 assert(worker.includes('sanitizeTitleAgainstExisting'), 'filter duplicate titles');

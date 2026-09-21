@@ -2,6 +2,313 @@
   "ok": true,
   "products": [
     {
+      "id": "acfd5023-3f5f-4691-88a0-7004621e63a5",
+      "title": "Паутинный квартет",
+      "article": "BOY-020",
+      "price": 4000,
+      "short_description": "Напольная композиция с Человеком-пауком и золотой звездой на четвёртый день рождения.",
+      "full_description": "Яркая композиция с фольгированной фигурой Человека-паука, цифрой 4 и золотой звездой. Красно-синяя гамма с чёрными акцентами.",
+      "composition": [
+        "напольная композиция"
+      ],
+      "category": "Для мальчика",
+      "character": "Человек-паук",
+      "age_group": "Для детей",
+      "budget": "3 500–5 000 ₽",
+      "series_name": "Человек-паук",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Композиция с Человеком-пауком на 4 года в Армавире",
+      "seo_description": "Напольная композиция с фигурой Человека-паука, цифрой 4 и золотой звездой. Яркое оформление дня рождения мальчика в красно-синей гамме.",
+      "slug": "pautinnyj-kvartet",
+      "scene": "floor",
+      "tags": [
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1789984879/vigsharm-products/lfzv2u9ud5w0pqhkhyau.jpg",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1789985098/vigsharm-products/pxks91xktp16j6xxazdw.jpg"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789985098/vigsharm-products/pxks91xktp16j6xxazdw.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-21T10:07:09.659Z",
+      "updated_at": "2026-09-21T10:07:09.659Z"
+    },
+    {
+      "id": "02e83ed3-bedb-418e-9c73-c6ca2ad3ffa3",
+      "title": "Тайна цвета",
+      "article": "GND-002",
+      "price": 4300,
+      "short_description": "Два фонтана с фигурами малышей — розовый и голубой для гендер-пати.",
+      "full_description": "Две композиции с фольгированными фигурами младенцев в розовых и голубых тонах. Для торжественного раскрытия пола будущего малыша.",
+      "composition": [
+        "18 латексных шаров",
+        "2 фольгированные фигуры младенцев"
+      ],
+      "category": "Гендер-пати",
+      "character": null,
+      "age_group": "Для детей",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары для гендер-пати в Армавире — розовый и голубой",
+      "seo_description": "Композиция из воздушных шаров для раскрытия пола ребёнка. Два фонтана с фигурами малышей — розовый и голубой. Доставка по Армавиру.",
+      "slug": "tayna-tsveta",
+      "scene": "wall_only",
+      "tags": [
+        "Гендер-пати"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1789984467/vigsharm-products/oxfxvikxw6zqkuc4uawn.jpg"
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1789984573/vigsharm-products/h0razqnv14anvj1tll2z.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789984573/vigsharm-products/h0razqnv14anvj1tll2z.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-21T09:58:10.603Z",
+      "updated_at": "2026-09-21T09:58:10.603Z"
+    },
+    {
+      "id": "20eb1186-f93d-4f75-b1c2-135794b6ffe0",
+      "title": "Железная хватка",
+      "article": "HIM-014",
+      "price": 5490,
+      "short_description": "Брутальная композиция с гантелью, цепями и цифрами в черно-золотой гамме.",
+      "full_description": "Две напольные композиции в мужском стиле: цифры, гантель из шаров, цепи и звёзды. Чёрно-золотая палитра для настоящего бро.",
+      "composition": [
+        "2 напольные композиции"
+      ],
+      "category": "Для него",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "5 000–8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Железная хватка — брутальные шары на день рождения в Армавире",
+      "seo_description": "Мужская композиция с гантелью, цепями и цифрами. Черно-золотой стиль для настоящего бро. Доставка воздушных шаров в Армавире.",
+      "slug": "zheleznaya-hvatka",
+      "scene": "floor",
+      "tags": [
+        "Для него"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1789983472/vigsharm-products/wyuiskfgakgxwat0zuju.jpg",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1789983700/vigsharm-products/gtxjhowdfyuadbf3sopj.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789983700/vigsharm-products/gtxjhowdfyuadbf3sopj.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-21T09:43:44.060Z",
+      "updated_at": "2026-09-21T09:43:44.060Z"
+    },
+    {
+      "id": "5db94be8-dc89-4789-8cd9-6d3d9c480296",
+      "title": "Зверская затея",
+      "article": "BOX-005",
+      "price": 4720,
+      "short_description": "Бирюзовая коробка с именем и наклейками животных, цифра 6, хромированные и латексные шары.",
+      "full_description": "Коробка-сюрприз украшена золотыми буквами и забавными стикерами зверей. Рядом фольгированная цифра и фонтан из бирюзовых и карамельных шаров.",
+      "composition": [
+        "коробка 70x70x70 с индивидуальной надписью и декором",
+        "фольгированная цифра",
+        "3 хромированных шара",
+        "7 латексных шаров"
+      ],
+      "category": "Коробка-сюрприз",
+      "character": null,
+      "age_group": "Для детей",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Коробка-сюрприз с шарами и цифрой — Армавир | VigSharm",
+      "seo_description": "Коробка-сюрприз с индивидуальной надписью, фольгированной цифрой и шарами. Оригинальное оформление праздника в Армавире.",
+      "slug": "zverskaya-zateya",
+      "scene": "floor",
+      "tags": [
+        "Коробка-сюрприз"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1789982851/vigsharm-products/nbmtc2qhpykrnjsbotnn.jpg",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1789982951/vigsharm-products/dqdtrdlm0jkkpsgqmtk5.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789982951/vigsharm-products/dqdtrdlm0jkkpsgqmtk5.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-21T09:30:48.444Z",
+      "updated_at": "2026-09-21T09:30:48.444Z"
+    },
+    {
+      "id": "589579c0-0b4c-4387-a9f3-6aad33b40c57",
+      "title": "Небесная радость",
+      "article": "BQT-005",
+      "price": 1800,
+      "short_description": "Букет из голубых шаров-сердец с надписями и фигурой малыша.",
+      "full_description": "Нежный букет из фольгированных сердец с персональными надписями, украшен фигурой младенца и атласными лентами.",
+      "composition": [
+        "букет из шаров с индивидуальными надписями"
+      ],
+      "category": "Букет из шаров",
+      "character": "Малыш",
+      "age_group": "Для малышей",
+      "budget": "1 000–2 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Букет из шаров с младенцем в Армавире | VigSharm",
+      "seo_description": "Нежный букет из голубых фольгированных шаров с персональными надписями и фигурой малыша. Заказать воздушные шары в Армавире.",
+      "slug": "angelskiy-vzglyad",
+      "scene": "handheld_bouquet",
+      "tags": [
+        "Букет из шаров"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1789982628/vigsharm-products/xspgj7oviytnesiddbn5.jpg"
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1789982727/vigsharm-products/buyvdweqelrup7yjcxx9.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789982727/vigsharm-products/buyvdweqelrup7yjcxx9.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-21T09:27:11.096Z",
+      "updated_at": "2026-09-21T09:27:11.096Z"
+    },
+    {
+      "id": "3cf6c358-63d0-448c-b3ca-44742331afd6",
+      "title": "Нежное начало",
+      "article": "BQT-004",
+      "price": 1800,
+      "short_description": "Букет из розовых фольгированных сердец с фигурой малышки и поздравлениями с рождением дочки.",
+      "full_description": "Букет из розовых фольгированных сердец с фигурой малышки на вершине. Шары украшены индивидуальными надписями с датой и параметрами рождения.",
+      "composition": [
+        "букет из фольгированных шаров с индивидуальными надписями"
+      ],
+      "category": "Букет из шаров",
+      "character": "Малышка",
+      "age_group": "Для малышей",
+      "budget": "1 000–2 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Букет из шаров на выписку девочки в Армавире",
+      "seo_description": "Букет из розовых фольгированных сердец с фигурой малышки и персональными надписями. Доставка воздушных шаров на выписку из роддома в Армавире.",
+      "slug": "sladkiy-debut",
+      "scene": "handheld_bouquet",
+      "tags": [
+        "Букет из шаров"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1789982222/vigsharm-products/r4jubjvgpr50hxc66ti2.jpg"
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1789982342/vigsharm-products/ugqzy6pbqcd0u9sjn2ns.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789982342/vigsharm-products/ugqzy6pbqcd0u9sjn2ns.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-21T09:21:49.790Z",
+      "updated_at": "2026-09-21T09:21:49.790Z"
+    },
+    {
+      "id": "299ddbea-dd5d-4b2c-a106-43b2096fead7",
+      "title": "Крылатый старт",
+      "article": "BOY-019",
+      "price": 4120,
+      "short_description": "Композиция с фольгированным утёнком, яркими шарами и именной звездой.",
+      "full_description": "Яркая композиция с белым фольгированным утёнком, большой жёлтой звездой с именной надписью и связкой латексных шаров в жёлто-бирюзовой гамме.",
+      "composition": [
+        "фольгированная фигура утёнка",
+        "большая звезда с индивидуальной надписью",
+        "8 латексных шаров",
+        "фольгированная звезда",
+        "фольгированное сердце"
+      ],
+      "category": "Для мальчика",
+      "character": "Утёнок",
+      "age_group": "Для детей",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Крылатый старт — шары на день рождения мальчика в Армавире",
+      "seo_description": "Яркая композиция с фольгированным утёнком и шарами для мальчика. Персональная надпись на звезде. Доставка в Армавире от VigSharm.",
+      "slug": "krylatyy-start",
+      "scene": "wall_only",
+      "tags": [
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1789981855/vigsharm-products/zl5wrdlf8acpgelo7qmm.jpg"
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1789982104/vigsharm-products/nre8h8cdgigr6optqkop.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789982104/vigsharm-products/nre8h8cdgigr6optqkop.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-21T09:16:43.567Z",
+      "updated_at": "2026-09-21T09:16:43.567Z"
+    },
+    {
       "id": "d41afbe8-4226-4c66-9731-e7a31fb08f0d",
       "title": "Аквамарин",
       "article": "Y1-007",
@@ -536,28 +843,28 @@
     },
     {
       "id": "3b33b842-7e6f-4487-bdb6-15bf5e7ac5c6",
-      "title": "Фигура,6 шаров хром,3 латексных шара,Звезда,Коро",
+      "title": "Сюрприз для настоящего",
       "article": "DG-002",
-      "price": 4,
-      "short_description": "",
-      "full_description": "",
+      "price": 4700,
+      "short_description": "Чёрно-золотая коробка с бутылкой виски, звездой и хромированными шарами.",
+      "full_description": "Стильная коробка-сюрприз в чёрно-золотой гамме с фольгированной бутылкой виски, чёрной звездой и композицией из хромированных и латексных шаров.",
       "composition": [
-        "Фигура",
-        "6 шаров хром",
+        "фольгированная фигура бутылка виски",
+        "6 хромированных шаров",
         "3 латексных шара",
-        "Звезда",
-        "Коробка 70 × 70 × 70 см с декором"
+        "фольгированная звезда",
+        "коробка 70x70x70 с индивидуальной надписью и декором"
       ],
       "category": "Коробка-сюрприз",
       "character": null,
-      "age_group": "Для детей",
-      "budget": "до 1 000 ₽",
+      "age_group": "Для взрослых",
+      "budget": "3 500–5 000 ₽",
       "series_name": null,
       "occasion": null,
       "target_audience": null,
-      "seo_title": "",
-      "seo_description": "",
-      "slug": "figura-6-sharov-hrom-3-lateksnyh-shara-zvezda-koro",
+      "seo_title": "Коробка-сюрприз с шарами и бутылкой виски в Армавире",
+      "seo_description": "Стильная чёрно-золотая коробка-сюрприз с фольгированной бутылкой виски, звездой и шарами. Эффектный подарок для настоящего мужчины.",
+      "slug": "syurpriz-dlya-nastoyashchego",
       "scene": "floor",
       "tags": [
         "Коробка-сюрприз"
@@ -574,23 +881,22 @@
         "https://res.cloudinary.com/saiuc42a/image/upload/v1789932103/vigsharm-products/wrt0j6nex91minaov4gw.png"
       ],
       "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789932103/vigsharm-products/wrt0j6nex91minaov4gw.png",
-      "status": "draft",
-      "show_on_site": false,
+      "status": "published",
+      "show_on_site": true,
       "created_at": "2026-09-20T19:21:44.475Z",
-      "updated_at": "2026-09-20T19:21:44.475Z"
+      "updated_at": "2026-09-21T09:52:48.990Z"
     },
     {
       "id": "f32da3e1-f483-41a5-862c-4fbf3a51cfea",
       "title": "Бирюзовый тост",
       "article": "JUB-006",
       "price": 5590,
-      "short_description": "Напольная композиция с цифрой 60 и бутылкой шампанского в бирюзовых тонах.",
-      "full_description": "Элегантная композиция с крупными фольгированными цифрами 60, бутылкой шампанского и бокалом. Дополнена цветами из шаров, хромированными акцентами и фольгированным сердцем.",
+      "short_description": "Напольная композиция на 60 лет в бирюзовых тонах с шампанским.",
+      "full_description": "Элегантная композиция с крупными цифрами 60, фольгированными фигурами бутылки и бокала шампанского. Бирюзовые и серебряные шары создают торжественное настроение.",
       "composition": [
-        "напольная композиция",
         "фольгированное сердце",
         "2 хромированных шара",
-        "шар-сердце"
+        "латексный шар"
       ],
       "category": "Юбилей",
       "character": null,
@@ -599,8 +905,8 @@
       "series_name": null,
       "occasion": null,
       "target_audience": null,
-      "seo_title": "Напольная композиция с цифрой 60 и шампанским — Армавир",
-      "seo_description": "Элегантная композиция для юбилея 60 лет с фольгированными цифрами, бутылкой шампанского, сердцем и хромированными шарами. Доставка в Армавире.",
+      "seo_title": "Бирюзовый тост — композиция на 60 лет в Армавире",
+      "seo_description": "Напольная композиция на юбилей 60 лет в бирюзовых тонах. Фольгированные цифры, шампанское, хромированные шары. Доставка в Армавире.",
       "slug": "biryuzovyy-tost",
       "scene": "floor",
       "tags": [
@@ -609,7 +915,7 @@
       "client_options": {
         "available_on_request": false,
         "advance_order_1_2_days": true,
-        "number_choice": false,
+        "number_choice": true,
         "personal_inscription": false,
         "photozone_rental": true,
         "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1789931498/vigsharm-products/yvs52bith8h4ccxavmeg.jpg",
@@ -618,16 +924,20 @@
           "item": "Каркас фотозоны",
           "days": 3,
           "keep_price_delta": 500
+        },
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 2
         }
       },
       "photos": [
         "https://res.cloudinary.com/saiuc42a/image/upload/v1789931635/vigsharm-products/uxgq4puv7xquxqjwbgac.png"
       ],
       "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789931635/vigsharm-products/uxgq4puv7xquxqjwbgac.png",
-      "status": "draft",
-      "show_on_site": false,
+      "status": "published",
+      "show_on_site": true,
       "created_at": "2026-09-20T19:16:23.874Z",
-      "updated_at": "2026-09-20T19:16:23.874Z"
+      "updated_at": "2026-09-21T09:51:05.259Z"
     },
     {
       "id": "488a857b-6952-4b16-b543-4cf45c387518",
@@ -673,51 +983,6 @@
       "show_on_site": true,
       "created_at": "2026-09-20T19:06:35.280Z",
       "updated_at": "2026-09-20T19:06:35.280Z"
-    },
-    {
-      "id": "063960ce-57b3-494c-85fc-7fe52ee65586",
-      "title": "Золотые оковы",
-      "article": "HIM-006",
-      "price": 5490,
-      "short_description": "Брутальная композиция с восьмёркой, гантелями и цепями в чёрно-золотой гамме.",
-      "full_description": "Две напольные композиции в чёрном цвете с золотыми и серебряными акцентами. Одна включает цифру 8, фольгированные гантели и цепи, вторая — стилизованную гирю с надписью и цепью.",
-      "composition": [
-        "2 напольные композиции"
-      ],
-      "category": "Для него",
-      "character": null,
-      "age_group": "Для взрослых",
-      "budget": "5 000–8 000 ₽",
-      "series_name": null,
-      "occasion": null,
-      "target_audience": null,
-      "seo_title": "Железная восьмёрка — брутальный набор шаров Армавир",
-      "seo_description": "Напольные композиции с цифрой 8, гантелями и цепями в чёрно-золотых тонах. Мужской стиль, доставка в Армавире.",
-      "slug": "zheleznaya-vosmyorka",
-      "scene": "floor",
-      "tags": [
-        "Для него"
-      ],
-      "client_options": {
-        "available_on_request": false,
-        "advance_order_1_2_days": true,
-        "number_choice": true,
-        "personal_inscription": false,
-        "photozone_rental": false,
-        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1789929761/vigsharm-products/qtanclrwseq8l7enoehh.jpg",
-        "digit_choice": {
-          "enabled": true,
-          "count_on_photo": 1
-        }
-      },
-      "photos": [
-        "https://res.cloudinary.com/saiuc42a/image/upload/v1789929963/vigsharm-products/bbq0guqimrwpfy5zjdsb.png"
-      ],
-      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789929963/vigsharm-products/bbq0guqimrwpfy5zjdsb.png",
-      "status": "draft",
-      "show_on_site": false,
-      "created_at": "2026-09-20T18:48:53.086Z",
-      "updated_at": "2026-09-20T18:48:53.086Z"
     },
     {
       "id": "e9a20f26-bc1d-44fd-8954-f0f0b567b00f",

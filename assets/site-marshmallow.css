@@ -73,6 +73,8 @@ main#main-content{
 /* ===== 1) Cards / containers — clean white, big radius, floating shadow ===== */
 main#main-content .quick-recipient-card,
 main#main-content .live-product-card,
+main#main-content #catalog a.category,
+main#main-content #catalog .category,
 main#main-content .budget-card,
 main#main-content .character-card,
 main#main-content .step-card,
@@ -99,6 +101,8 @@ main#main-content .faq-list details,
 }
 main#main-content .quick-recipient-card:hover,
 main#main-content .live-product-card:hover,
+main#main-content #catalog a.category:hover,
+main#main-content #catalog .category:hover,
 main#main-content .budget-card:hover,
 main#main-content .character-card:hover,
 main#main-content .step-card:hover,
@@ -1131,6 +1135,187 @@ html body main#main-content #products .popular-footer a.button-outline{
     min-height:36px!important;
     padding:0 12px!important;
     font-size:12px!important;
+  }
+}
+
+/* ===== Ideas «Идеи для праздника» — stacked marshmallow tiles ===== */
+html body main#main-content #catalog.section{
+  background:transparent!important;
+}
+html body main#main-content #catalog a.category,
+html body main#main-content #catalog .category{
+  display:flex!important;
+  flex-direction:column!important;
+  gap:6px!important;
+  padding:8px 8px 12px!important;
+  background:#fff!important;
+  background-image:none!important;
+  border:2px solid #f0e6e2!important;
+  border-radius:22px!important;
+  overflow:hidden!important;
+  box-shadow:var(--mm-shadow)!important;
+  transition:transform .15s ease, box-shadow .15s ease, border-color .15s ease!important;
+}
+html body main#main-content #catalog a.category:hover,
+html body main#main-content #catalog .category:hover{
+  transform:translateY(-2px)!important;
+  box-shadow:var(--mm-shadow-hover)!important;
+}
+html body main#main-content #catalog a.category.pink,
+html body main#main-content #catalog .category.pink{
+  background:#fff!important;
+  background-image:none!important;
+  border:2px solid #f7c9d6!important;
+}
+html body main#main-content #catalog a.category.blue,
+html body main#main-content #catalog .category.blue{
+  background:#fff!important;
+  background-image:none!important;
+  border:2px solid #c5daf8!important;
+}
+html body main#main-content #catalog a.category.purple,
+html body main#main-content #catalog .category.purple{
+  background:#fff!important;
+  background-image:none!important;
+  border:2px solid #dcccf4!important;
+}
+html body main#main-content #catalog a.category.navy,
+html body main#main-content #catalog .category.navy{
+  background:#fff!important;
+  background-image:none!important;
+  border:2px solid #c9d4ea!important;
+}
+html body main#main-content #catalog a.category.yellow,
+html body main#main-content #catalog .category.yellow{
+  background:#fff!important;
+  background-image:none!important;
+  border:2px solid #f0dca0!important;
+}
+html body main#main-content #catalog a.category.coral,
+html body main#main-content #catalog .category.coral{
+  background:#fff!important;
+  background-image:none!important;
+  border:2px solid #f5c4b6!important;
+}
+html body main#main-content #catalog a.category.green,
+html body main#main-content #catalog .category.green{
+  background:#fff!important;
+  background-image:none!important;
+  border:2px solid #bde6cc!important;
+}
+html body main#main-content #catalog a.category.rainbow,
+html body main#main-content #catalog .category.rainbow{
+  background:#fff!important;
+  background-image:none!important;
+  border:2px solid #e0cde8!important;
+}
+html body main#main-content #catalog .category-image,
+html body main#main-content #catalog .category img.category-image,
+html body main#main-content #catalog a.category > img{
+  width:100%!important;
+  height:auto!important;
+  aspect-ratio:4/3!important;
+  box-sizing:border-box!important;
+  padding:4px!important;
+  object-fit:contain!important;
+  object-position:center center!important;
+  border-radius:16px!important;
+  background:transparent!important;
+  display:block!important;
+}
+html body main#main-content #catalog .category-copy{
+  display:grid!important;
+  justify-items:start!important;
+  gap:4px!important;
+  padding:0 4px 2px!important;
+  min-width:0!important;
+  background:transparent!important;
+  border:0!important;
+  box-shadow:none!important;
+}
+html body main#main-content #catalog .category-copy strong{
+  color:#1e293b!important;
+  font-weight:800!important;
+  line-height:1.2!important;
+}
+html body main#main-content #catalog .category-copy small{
+  color:#8b8b93!important;
+  white-space:normal!important;
+  overflow:visible!important;
+  text-overflow:unset!important;
+  -webkit-line-clamp:unset!important;
+  line-clamp:unset!important;
+  max-height:none!important;
+  line-height:1.35!important;
+}
+html body main#main-content #catalog .category-arrow{
+  display:none!important;
+}
+
+@media (min-width:1101px){
+  html body main#main-content #catalog .categories{
+    display:grid!important;
+    grid-template-columns:repeat(4,minmax(0,1fr))!important;
+    gap:14px!important;
+  }
+  html body main#main-content #catalog a.category,
+  html body main#main-content #catalog .category{
+    padding:10px 10px 14px!important;
+  }
+  html body main#main-content #catalog .category-image,
+  html body main#main-content #catalog .category img.category-image,
+  html body main#main-content #catalog a.category > img{
+    padding:6px!important;
+  }
+  html body main#main-content #catalog .category-copy strong{
+    font-size:16px!important;
+  }
+  html body main#main-content #catalog .category-copy small{
+    display:block!important;
+    font-size:13px!important;
+  }
+}
+
+@media (max-width:1100px){
+  html body main#main-content #catalog .categories{
+    display:grid!important;
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:10px!important;
+  }
+  html body main#main-content #catalog a.category,
+  html body main#main-content #catalog .category{
+    padding:8px 8px 10px!important;
+  }
+  html body main#main-content #catalog .category-image,
+  html body main#main-content #catalog .category img.category-image,
+  html body main#main-content #catalog a.category > img{
+    padding:6px!important;
+    border-radius:14px!important;
+  }
+  html body main#main-content #catalog .category-copy strong{
+    font-size:14px!important;
+  }
+  html body main#main-content #catalog .category-copy small{
+    display:none!important;
+  }
+}
+
+@media (max-width:720px){
+  html body main#main-content #catalog.section{
+    padding:24px 16px 12px!important;
+  }
+  html body main#main-content #catalog .categories{
+    gap:8px!important;
+  }
+  html body main#main-content #catalog a.category,
+  html body main#main-content #catalog .category{
+    padding:6px 6px 10px!important;
+  }
+  html body main#main-content #catalog .category-image,
+  html body main#main-content #catalog .category img.category-image,
+  html body main#main-content #catalog a.category > img{
+    padding:4px!important;
+    border-radius:12px!important;
   }
 }
 

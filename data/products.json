@@ -2,6 +2,293 @@
   "ok": true,
   "products": [
     {
+      "id": "1021b228-d996-4f5b-ae45-c520651e3708",
+      "title": "Цветочный курьер",
+      "article": "FIG-014",
+      "price": 3000,
+      "short_description": "Белый зайчик с букетом розовых тюльпанов и жёлтым бантом.",
+      "full_description": "Фигура из шаров в виде белого зайчика с длинными ушами, который держит букет розовых тюльпанов, перевязанных жёлтым бантом.",
+      "composition": [
+        "фигура из шаров"
+      ],
+      "category": "Фигуры из шаров",
+      "character": null,
+      "age_group": "Для детей",
+      "budget": "2 000–3 500 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Зайчик с тюльпанами из шаров — Армавир",
+      "seo_description": "Фигура из шаров: белый зайчик с букетом розовых тюльпанов. Аэродизайн ручной работы в Армавире. Доставка по городу.",
+      "slug": "tsvetochnyy-kuryer",
+      "scene": "balloon_figures",
+      "tags": [
+        "Фигуры из шаров"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1789994616/vigsharm-products/krffdp0lisbrhmrhkwzm.png"
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1789994845/vigsharm-products/twtu6vfmhwatrhqoe8yk.jpg"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789994845/vigsharm-products/twtu6vfmhwatrhqoe8yk.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-21T12:48:34.523Z",
+      "updated_at": "2026-09-21T12:48:34.523Z"
+    },
+    {
+      "id": "5d3b4bc4-6edb-4428-9252-4b26bd285bc1",
+      "title": "Кукольное чудо",
+      "article": "FIG-013",
+      "price": 6000,
+      "short_description": "Фигура куклы из воздушных шаров с розовым платьем, бантиком и большими глазами.",
+      "full_description": "Очаровательная фигура куклы, полностью собранная из шаров. Розовое платье с бантом на поясе, бантик в волосах и выразительные глаза создают узнаваемый кукольный образ.",
+      "composition": [
+        "фигура из шаров"
+      ],
+      "category": "Фигуры из шаров",
+      "character": null,
+      "age_group": "Для детей",
+      "budget": "5 000–8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Фигура куклы из шаров — Армавир | VigSharm",
+      "seo_description": "Фигура куклы из воздушных шаров с розовым платьем и бантиком. Эффектное украшение детского праздника в Армавире.",
+      "slug": "kukolnoe-chudo",
+      "scene": "balloon_figures",
+      "tags": [
+        "Фигуры из шаров"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1789994319/vigsharm-products/qgrtwl4ydbudlhmvpe8g.jpg"
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1789994551/vigsharm-products/wudpr2lg9da4skumtrlg.jpg"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789994551/vigsharm-products/wudpr2lg9da4skumtrlg.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-21T12:43:28.790Z",
+      "updated_at": "2026-09-21T12:43:28.790Z"
+    },
+    {
+      "id": "dce14434-c810-4c26-8dce-260dfcebf6eb",
+      "title": "Девочка с цветком",
+      "article": "FIG-012",
+      "price": 5000,
+      "short_description": "Фигура девочки из шаров с жёлтыми косичками, в розовом платье и с цветком в руке.",
+      "full_description": "Фигура девочки из шаров с яркими жёлтыми косичками, нарядным розово-белым платьем и фиолетовым цветком в руке. Стоит на зелёной подставке с цветочным декором.",
+      "composition": [
+        "фигура из шаров"
+      ],
+      "category": "Фигуры из шаров",
+      "character": null,
+      "age_group": "Для детей",
+      "budget": "5 000–8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Фигура из шаров девочка с цветком — Армавир",
+      "seo_description": "Фигура девочки из шаров с жёлтыми косичками, в розовом платье и с цветком. Яркое украшение для детского праздника в Армавире.",
+      "slug": "devochka-s-cvetkom",
+      "scene": "balloon_figures",
+      "tags": [
+        "Фигуры из шаров"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1789994008/vigsharm-products/he1qkqco1ibw5sse1vdd.jpg"
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1789994140/vigsharm-products/yg9yzhqorsoxlfrninkd.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789994140/vigsharm-products/yg9yzhqorsoxlfrninkd.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-21T12:37:29.526Z",
+      "updated_at": "2026-09-21T12:37:29.526Z"
+    },
+    {
+      "id": "015e6c41-2fdb-4c0b-8bd3-0be30e35ee1c",
+      "title": "Скрипичный виртуоз",
+      "article": "FIG-011",
+      "price": 3000,
+      "short_description": "Фигура из шаров в виде музыканта со скрипкой и зелёными кудрями.",
+      "full_description": "Скрутка из воздушных шаров изображает улыбчивого персонажа с чёрной скрипкой в руках. Бирюзовые кудри, бежевое тело и чёрные ботинки создают запоминающийся образ.",
+      "composition": [
+        "фигура из шаров"
+      ],
+      "category": "Фигуры из шаров",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": "2 000–3 500 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Фигура из шаров музыкант со скрипкой — Армавир",
+      "seo_description": "Скрутка из шаров в виде музыканта с чёрной скрипкой и бирюзовыми кудрями. Оригинальная фигура для праздника в Армавире.",
+      "slug": "skripichnyy-virtuoz",
+      "scene": "balloon_figures",
+      "tags": [
+        "Фигуры из шаров"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1789993864/vigsharm-products/eqk6tyur9q0sciyufxh3.png"
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1789993939/vigsharm-products/na8kw1u2dphlsj3q3kbl.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789993939/vigsharm-products/na8kw1u2dphlsj3q3kbl.png",
+      "status": "draft",
+      "show_on_site": false,
+      "created_at": "2026-09-21T12:33:12.521Z",
+      "updated_at": "2026-09-21T12:33:12.521Z"
+    },
+    {
+      "id": "5d7017da-baf3-4eee-ab50-c0f83c39aecb",
+      "title": "Футбольный чемпион",
+      "article": "FIG-010",
+      "price": 5000,
+      "short_description": "Фигура футболиста из шаров в красно-чёрной форме с мячом.",
+      "full_description": "Фигура мальчика-футболиста, скрученная из латексных шаров. В руках держит футбольный мяч, стоит на зелёной подставке из шаров.",
+      "composition": [
+        "фигура из шаров"
+      ],
+      "category": "Фигуры из шаров",
+      "character": null,
+      "age_group": "Для детей",
+      "budget": "5 000–8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Фигура футболиста из шаров в Армавире — VigSharm",
+      "seo_description": "Фигура мальчика-футболиста из шаров с мячом. Яркая скрутка для детского праздника. Заказать в Армавире — VigSharm.",
+      "slug": "futbolnyy-chempion",
+      "scene": "balloon_figures",
+      "tags": [
+        "Фигуры из шаров"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1789993727/vigsharm-products/ehsaxecw8av4pynxe1ul.jpg"
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1789993804/vigsharm-products/efrpu51epeiyqc7y4k69.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789993804/vigsharm-products/efrpu51epeiyqc7y4k69.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-21T12:30:51.472Z",
+      "updated_at": "2026-09-21T12:30:51.472Z"
+    },
+    {
+      "id": "67a38c80-42df-4d13-8521-16f99281c62f",
+      "title": "Цветочная встреча",
+      "article": "FIG-009",
+      "price": 3000,
+      "short_description": "Далматинец из шаров с букетом тюльпанов в лапах и красными бантиками на ушах.",
+      "full_description": "Фигура из воздушных шаров в виде далматинца с чёрными пятнышками, который держит букет ярких тюльпанов. Красные бантики на ушах и улыбка добавляют композиции весеннего настроения.",
+      "composition": [
+        "фигура из шаров"
+      ],
+      "category": "Фигуры из шаров",
+      "character": "Далматинец",
+      "age_group": "Для любого возраста",
+      "budget": "2 000–3 500 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Далматинец из шаров с букетом тюльпанов — Армавир",
+      "seo_description": "Фигура из воздушных шаров: далматинец с яркими тюльпанами и красными бантиками. Оригинальный подарок для праздника в Армавире.",
+      "slug": "tsvetochnaya-vstrecha",
+      "scene": "balloon_figures",
+      "tags": [
+        "Фигуры из шаров"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1789993464/vigsharm-products/pbioblr4rcfcmbs2pka6.png"
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1789993546/vigsharm-products/wa10auaasq7svkfiyjup.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789993546/vigsharm-products/wa10auaasq7svkfiyjup.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-21T12:26:34.175Z",
+      "updated_at": "2026-09-21T12:26:34.175Z"
+    },
+    {
+      "id": "553fc989-b6b1-4a3e-a403-c425b37c73e7",
+      "title": "Усатый кавалер",
+      "article": "FIG-008",
+      "price": 5000,
+      "short_description": "Фигура из шаров в виде усатого джентльмена с цветком и бутылкой шампанского.",
+      "full_description": "Напольная фигура из воздушных шаров изображает галантного усатого героя в красном костюме с сердечками, который держит розовый цветок и бутылку шампанского. Яркое решение для создания праздничной атмосферы.",
+      "composition": [
+        "фигура из шаров"
+      ],
+      "category": "Фигуры из шаров",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "5 000–8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Усатый кавалер — фигура из шаров в Армавире | VigSharm",
+      "seo_description": "Усатый кавалер — напольная фигура из воздушных шаров с цветком и шампанским. Яркое оформление праздника в Армавире от VigSharm.",
+      "slug": "usatyy-kavaler",
+      "scene": "balloon_figures",
+      "tags": [
+        "Фигуры из шаров"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1789993033/vigsharm-products/ahzyanccxecllextf6s9.jpg"
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1789993123/vigsharm-products/b9t8ekod5jq4yxs2mdts.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789993123/vigsharm-products/b9t8ekod5jq4yxs2mdts.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-21T12:21:35.350Z",
+      "updated_at": "2026-09-21T12:21:35.350Z"
+    },
+    {
       "id": "acfd5023-3f5f-4691-88a0-7004621e63a5",
       "title": "Паутинный квартет",
       "article": "BOY-020",

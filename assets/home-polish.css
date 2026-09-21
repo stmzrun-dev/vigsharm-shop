@@ -2740,7 +2740,7 @@ main#main-content .footer-nav a:hover{
 }
 main#main-content .footer-phone{
   display:grid!important;
-  grid-template-columns:36px 1fr!important;
+  grid-template-columns:48px 1fr!important;
   align-items:center!important;
   gap:10px!important;
   width:100%!important;
@@ -2752,7 +2752,7 @@ main#main-content .footer-phone{
   background:#fff!important;
   background-image:none!important;
   border:1.5px solid #e8e8ec!important;
-  border-radius:14px!important;
+  border-radius:22px!important;
   box-shadow:none!important;
   color:#2a2a32!important;
   text-decoration:none!important;
@@ -2772,8 +2772,8 @@ main#main-content .footer-phone small{
 main#main-content .footer-phone .line-icon,
 main#main-content .footer-phone .vig-emoji,
 main#main-content .footer-phone i{
-  width:28px!important;
-  height:28px!important;
+  width:44px!important;
+  height:44px!important;
   margin:0!important;
   background:transparent!important;
   background-image:none!important;
@@ -2787,7 +2787,7 @@ main#main-content .footer-phone i{
 main#main-content .footer-contacts > button.footer-chat,
 main#main-content .footer-chat{
   display:grid!important;
-  grid-template-columns:36px 1fr!important;
+  grid-template-columns:48px 1fr!important;
   align-items:center!important;
   gap:10px!important;
   width:100%!important;
@@ -2799,7 +2799,7 @@ main#main-content .footer-chat{
   background:#fff!important;
   background-image:none!important;
   border:1.5px solid #e8e8ec!important;
-  border-radius:14px!important;
+  border-radius:22px!important;
   box-shadow:none!important;
   color:#2a2a32!important;
   font:inherit!important;
@@ -2826,8 +2826,8 @@ main#main-content .footer-chat small{
 }
 main#main-content .footer-chat .line-icon,
 main#main-content .footer-chat .vig-emoji{
-  width:38px!important;
-  height:38px!important;
+  width:44px!important;
+  height:44px!important;
   margin:0!important;
   background:transparent!important;
   background-image:none!important;

@@ -2,6 +2,157 @@
   "ok": true,
   "products": [
     {
+      "id": "0c49cad3-840f-456f-8774-c87ce95dd4a9",
+      "title": "На поле славы",
+      "article": "PHT-010",
+      "price": 5000,
+      "short_description": "Фотозона с мольбертом, гирляндой из шаров и футбольными акцентами.",
+      "full_description": "Фотозона на деревянном мольберте с белым кругом «Happy Birthday!», гирляндой из салатовых и белых шаров, фольгированной цифрой и футбольными шарами.",
+      "composition": [
+        "фотозона"
+      ],
+      "category": "Фотозона",
+      "character": null,
+      "age_group": "Для детей",
+      "budget": "5 000–8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Фотозона с футбольными шарами — Армавир | VigSharm",
+      "seo_description": "Фотозона на мольберте с гирляндой из салатовых и белых шаров, футбольными акцентами и фольгированной цифрой. Доставка в Армавире.",
+      "slug": "futbolnaya-vosmerka",
+      "scene": "photozone",
+      "tags": [
+        "Фотозона"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": true,
+        "photozone_rental": true,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790019485/vigsharm-products/nljda5yygenyjfwupijv.jpg",
+        "photozone_type": "easel",
+        "rental": {
+          "enabled": true,
+          "item": "Мольберт с кругом из полистирола",
+          "days": 3,
+          "keep_price_delta": 500
+        },
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790019983/vigsharm-products/jzedqzqvpwbrhmssfsnc.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790019983/vigsharm-products/jzedqzqvpwbrhmssfsnc.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-21T19:47:20.102Z",
+      "updated_at": "2026-09-21T19:47:20.102Z"
+    },
+    {
+      "id": "97c01871-0077-42ef-b198-75391aca4241",
+      "title": "Гламурная четвёрка",
+      "article": "GRL-019",
+      "price": 6860,
+      "short_description": "Три куклы LOL, красная цифра 4, звёзды и шары с конфетти в коробке-сюрприз.",
+      "full_description": "Композиция с тремя фольгированными куклами LOL, яркой цифрой 4, красными звёздами и шарами с золотым конфетти. Всё упаковано в белую коробку-сюрприз с надписью.",
+      "composition": [
+        "3 фольгированные фигуры",
+        "цифра",
+        "3 звезды",
+        "6 латексных шаров",
+        "4 шара с конфетти"
+      ],
+      "category": "Для девочки",
+      "character": "Куклы LOL",
+      "age_group": "Для детей",
+      "budget": "5 000–8 000 ₽",
+      "series_name": "LOL Surprise",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары с куклами LOL на 4 года в Армавире",
+      "seo_description": "Композиция с тремя куклами LOL, цифрой 4, звёздами и шарами с конфетти в коробке-сюрприз. Доставка воздушных шаров по Армавиру.",
+      "slug": "glamurnaya-chetverka",
+      "scene": "floor",
+      "tags": [
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790018668/vigsharm-products/xocztmfl3semsehbedtq.webp",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790018763/vigsharm-products/v1dx1ra6qe1y94z5uuox.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790018763/vigsharm-products/v1dx1ra6qe1y94z5uuox.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-21T19:27:39.892Z",
+      "updated_at": "2026-09-21T19:53:23.992Z"
+    },
+    {
+      "id": "415168d4-ed23-463c-bb37-625a382d1412",
+      "title": "Модная семёрка",
+      "article": "GRL-018",
+      "price": 3680,
+      "short_description": "Коробка-сюрприз с двумя куклами LOL, золотой цифрой 7 и нежными шарами.",
+      "full_description": "Напольная композиция с коробкой-сюрпризом, двумя фольгированными фигурами кукол LOL, крупной золотой цифрой 7, хромированными и конфетти-шарами в золотисто-розовой гамме.",
+      "composition": [
+        "2 фольгированные фигуры",
+        "цифра",
+        "4 латексных шара",
+        "2 хромированных шара",
+        "2 шара с конфетти",
+        "коробка 70x70x70 с индивидуальной надписью и декором"
+      ],
+      "category": "Коробка-сюрприз",
+      "character": "LOL",
+      "age_group": "Для детей",
+      "budget": "3 500–5 000 ₽",
+      "series_name": "LOL Surprise",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Коробка-сюрприз с куклами LOL и цифрой 7 — Армавир",
+      "seo_description": "Напольная композиция для девочки с коробкой-сюрпризом, двумя фольгированными фигурами LOL, золотой цифрой 7 и шарами. Заказать в Армавире.",
+      "slug": "modnaya-semyorka",
+      "scene": "floor",
+      "tags": [
+        "Коробка-сюрприз"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": true,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790018343/vigsharm-products/rbzg5ljafkhmsl78vs1b.webp",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 2
+        }
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790020778/vigsharm-products/jbmh2ybt3lkmwqdy06yg.webp"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790020778/vigsharm-products/jbmh2ybt3lkmwqdy06yg.webp",
+      "status": "draft",
+      "show_on_site": true,
+      "created_at": "2026-09-21T19:22:50.767Z",
+      "updated_at": "2026-09-21T19:59:39.472Z"
+    },
+    {
       "id": "feb5afa0-ac57-4c22-a1b6-565af934ec09",
       "title": "Фисташковое золото",
       "article": "PHT-009",
@@ -726,24 +877,24 @@
     },
     {
       "id": "015e6c41-2fdb-4c0b-8bd3-0be30e35ee1c",
-      "title": "Скрипичный виртуоз",
+      "title": "На посту",
       "article": "FIG-011",
       "price": 3000,
-      "short_description": "Фигура из шаров в виде музыканта со скрипкой и зелёными кудрями.",
-      "full_description": "Скрутка из воздушных шаров изображает улыбчивого персонажа с чёрной скрипкой в руках. Бирюзовые кудри, бежевое тело и чёрные ботинки создают запоминающийся образ.",
+      "short_description": "Фигура солдата в зелёной форме с автоматом, скрученная из шаров.",
+      "full_description": "Фигура солдата из воздушных шаров в зелёной форме с автоматом. Детали проработаны вплоть до пряжки на ремне и причёски.",
       "composition": [
         "фигура из шаров"
       ],
       "category": "Фигуры из шаров",
-      "character": null,
+      "character": "Солдат",
       "age_group": "Для любого возраста",
       "budget": "2 000–3 500 ₽",
       "series_name": null,
       "occasion": null,
       "target_audience": null,
-      "seo_title": "Фигура из шаров музыкант со скрипкой — Армавир",
-      "seo_description": "Скрутка из шаров в виде музыканта с чёрной скрипкой и бирюзовыми кудрями. Оригинальная фигура для праздника в Армавире.",
-      "slug": "skripichnyy-virtuoz",
+      "seo_title": "Фигура солдата из шаров — купить в Армавире | VigSharm",
+      "seo_description": "Фигура солдата из воздушных шаров с автоматом. Оригинальный подарок на 23 февраля или День защитника Отечества. Доставка по Армавиру.",
+      "slug": "na-postu",
       "scene": "balloon_figures",
       "tags": [
         "Фигуры из шаров"
@@ -760,10 +911,10 @@
         "https://res.cloudinary.com/saiuc42a/image/upload/v1789993939/vigsharm-products/na8kw1u2dphlsj3q3kbl.png"
       ],
       "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789993939/vigsharm-products/na8kw1u2dphlsj3q3kbl.png",
-      "status": "draft",
-      "show_on_site": false,
+      "status": "published",
+      "show_on_site": true,
       "created_at": "2026-09-21T12:33:12.521Z",
-      "updated_at": "2026-09-21T12:33:12.521Z"
+      "updated_at": "2026-09-21T19:49:38.770Z"
     },
     {
       "id": "5d7017da-baf3-4eee-ab50-c0f83c39aecb",

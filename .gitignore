@@ -35,6 +35,11 @@ node_modules/
 *-old.js
 *.backup
 *.old
+*.prev.png
+*.prev.jpg
+*.prev.webp
+test-results/
+scripts/_tmp_*.py
 deploy-output*.txt
 deploy.log
 models-response.json

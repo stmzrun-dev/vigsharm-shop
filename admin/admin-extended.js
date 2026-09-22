@@ -291,6 +291,7 @@ Object.assign(app, {
     this.syncUnitBalloonForm?.(false);
     this.wirePhotozoneTypeControls?.();
     this.wireFloorTypeControls?.();
+    this.wireBouquetTypeControls?.();
     this.wireOccasionShelfControls?.();
     this.syncAdvanceOrderFromScene?.();
     this.syncOccasionShelfFields?.();
@@ -527,6 +528,16 @@ Object.assign(app, {
   },
 
   applyBouquetOnlyMode() { this.applyTypeOnlyMode('Букет из шаров'); },
+  applyBalloonFlowersOnlyMode() { this.applyTypeOnlyMode('Цветы из шаров'); },
+
+  isBalloonFlowersMode() {
+    const cat = document.getElementById('product-category')?.value || '';
+    const typeOn = [...document.querySelectorAll('#tags-type input:checked')]
+      .some((cb) => cb.value === 'Цветы из шаров');
+    return this.getBouquetType?.() === 'flowers'
+      || cat === 'Цветы из шаров'
+      || typeOn;
+  },
   applyFiguresOnlyMode() { this.applyTypeOnlyMode('Фигуры из шаров'); },
   applyBoxOnlyMode() { this.applyTypeOnlyMode('Коробка-сюрприз'); },
   applyPhotozoneOnlyMode() {
@@ -597,6 +608,7 @@ Object.assign(app, {
     const label = leadKey === 'photozone' ? 'фотозона'
       : leadKey === 'balloon_figures' ? 'фигура из шаров'
       : leadKey === 'floor' ? 'напольная композиция'
+      : leadKey === 'balloon_flowers' ? 'цветы из шаров'
       : '';
     const arr = (Array.isArray(lines) ? lines : String(lines || '').split(/\n/))
       .map((s) => String(s || '').trim()).filter(Boolean);
@@ -607,6 +619,7 @@ Object.assign(app, {
       if (leadKey === 'balloon_figures') {
         return /фигур[аыуе]?(?:\s+\w+){0,2}\s+из\s+шар/.test(t) || /скрутк\w*\s+из\s+шар/.test(t);
       }
+      if (leadKey === 'balloon_flowers') return /цвет\w*\s+из\s+шар/.test(t);
       return /напольн\w*\s+композиц/.test(t);
     });
     if (has) return arr;
@@ -618,6 +631,9 @@ Object.assign(app, {
     if (opts.isBox) return '';
     if (opts.isPhotozone || scene === 'photozone') return 'photozone';
     if (opts.isFigures || scene === 'balloon_figures') return 'balloon_figures';
+    if (opts.isBalloonFlowers
+      || this.getBouquetType?.() === 'flowers'
+      || opts.category === 'Цветы из шаров') return 'balloon_flowers';
     if (opts.isFloor || scene === 'floor' || opts.category === 'Напольные композиции') return 'floor';
     return '';
   },
@@ -727,10 +743,11 @@ Object.assign(app, {
       const fullDesc = document.getElementById('product-full-desc')?.value || '';
       const isFloor = scene === 'floor' || cat === 'Напольные композиции';
       const isFigures = scene === 'balloon_figures' || cat === 'Фигуры из шаров';
+      const isBalloonFlowers = this.getBouquetType?.() === 'flowers' || cat === 'Цветы из шаров';
       const isBouquet = scene === 'handheld_bouquet'
         || cat === 'Букет из шаров'
         || cat === 'Крафтовый букет'
-        || cat === 'Цветы из шаров';
+        || isBalloonFlowers;
       const isPhotozone = this.isPhotozoneContext?.()
         || scene === 'photozone'
         || cat === 'Фотозона';
@@ -779,8 +796,9 @@ Object.assign(app, {
       if (isFloor && advanceEl && !hasBox) {
         advanceEl.checked = !!(floorMeta && floorMeta.advance_order);
       }
-      // Букеты — персональная надпись (текст на сердцах / по желанию клиента)
-      if (isBouquet && inscriptionEl) inscriptionEl.checked = true;
+      // Букеты — персональная надпись; подтип «Цветы» — без галочки (если в составе нет «с надписью»)
+      if (isBouquet && inscriptionEl && !isBalloonFlowers) inscriptionEl.checked = true;
+      if (isBalloonFlowers && inscriptionEl && !hasInscriptionInComp) inscriptionEl.checked = false;
       // В составе «… с надписью» / «коробка … с индивидуальной надписью» → «Персональная надпись»
       if (hasInscriptionInComp && inscriptionEl) inscriptionEl.checked = true;
 
@@ -924,6 +942,43 @@ Object.assign(app, {
     });
   },
 
+  getBouquetType() {
+    const checked = document.querySelector('input[name="bouquet-type-early"]:checked');
+    return checked?.value === 'flowers' ? 'flowers' : '';
+  },
+
+  setBouquetType(type) {
+    const on = type === 'flowers';
+    document.querySelectorAll('input[name="bouquet-type-early"]').forEach((el) => {
+      el.checked = on && el.value === 'flowers';
+    });
+  },
+
+  wireBouquetTypeControls() {
+    if (this._bouquetTypeWired) return;
+    this._bouquetTypeWired = true;
+    const sync = (e) => {
+      const el = e?.target;
+      const on = !!(el && el.checked && el.value === 'flowers');
+      this.setBouquetType(on ? 'flowers' : '');
+      if (on) this.applyBalloonFlowersOnlyMode?.();
+      else if ((this.currentProduct?.scene || document.getElementById('scene-select')?.value) === 'handheld_bouquet') {
+        this.applyBouquetOnlyMode?.();
+      }
+      const compEl = document.getElementById('product-composition');
+      if (compEl && on) {
+        const led = this.ensureSceneCompositionLead?.(compEl.value.split(/\n/), 'balloon_flowers');
+        if (Array.isArray(led)) compEl.value = led.join('\n');
+      }
+      this.syncAdvanceOrderFromScene?.();
+      this.syncStudioModeHint?.();
+      this.scheduleSaveActiveStudioDraft?.();
+    };
+    document.querySelectorAll('input[name="bouquet-type-early"]').forEach((el) => {
+      el.addEventListener('change', sync);
+    });
+  },
+
   // === Form Events ===
   setupFormEvents() {
     // ОТКЛЮЧЕНО: кнопка "Сгенерировать данные через ИИ" использует onclick="app.generateAIMetadata()"
@@ -1043,6 +1098,7 @@ Object.assign(app, {
         isPhotozone: this.isPhotozoneContext?.() || card.category === 'Фотозона' || (card.tags || []).includes('Фотозона'),
         isFigures: card.category === 'Фигуры из шаров' || this.currentProduct?.scene === 'balloon_figures',
         isFloor: this.currentProduct?.scene === 'floor' || card.category === 'Напольные композиции',
+        isBalloonFlowers: this.getBouquetType?.() === 'flowers' || card.category === 'Цветы из шаров',
         category: card.category
       });
       const led = this.ensureSceneCompositionLead?.(meta.cleanText.split(/\n/), leadKey);
@@ -1133,6 +1189,13 @@ Object.assign(app, {
         this.applyBoxOnlyMode?.();
         const ageEl = document.getElementById('product-age');
         if (ageEl && !ageEl.value) ageEl.value = 'Для детей';
+      } else if (
+        this.getBouquetType?.() === 'flowers'
+        || card.category === 'Цветы из шаров'
+        || tags.includes('Цветы из шаров')
+      ) {
+        this.applyBalloonFlowersOnlyMode?.();
+        this.setBouquetType?.('flowers');
       } else if (
         scene === 'handheld_bouquet'
         || card.category === 'Букет из шаров'
@@ -1249,7 +1312,11 @@ Object.assign(app, {
       category === 'Коробка-сюрприз'
       || this.compositionLooksLikeSurpriseBox?.(compText)
     );
-    const isBouquet = !unit && !holidayOnly && !isBox && (
+    const isBalloonFlowers = !unit && !holidayOnly && !isBox && (
+      this.getBouquetType?.() === 'flowers'
+      || category === 'Цветы из шаров'
+    );
+    const isBouquet = !unit && !holidayOnly && !isBox && !isBalloonFlowers && (
       scene === 'handheld_bouquet'
       || category === 'Букет из шаров'
       || this.compositionLooksLikeBouquet?.(compText)
@@ -1272,7 +1339,7 @@ Object.assign(app, {
     );
     if (!unit) {
       const leadKey = this.sceneCompositionLeadKey?.({
-        scene, isBox, isPhotozone, isFigures, isFloor: isFloorSave, category
+        scene, isBox, isPhotozone, isFigures, isFloor: isFloorSave, isBalloonFlowers, category
       });
       const led = this.ensureSceneCompositionLead?.(composition, leadKey);
       if (Array.isArray(led)) {
@@ -1320,6 +1387,9 @@ Object.assign(app, {
     if (isFloorSave && floorType) {
       clientOptions.floor_type = floorType;
     }
+    if (isBalloonFlowers || (scene === 'handheld_bouquet' && this.getBouquetType?.() === 'flowers')) {
+      clientOptions.bouquet_type = 'flowers';
+    }
     if (rentalChecked) {
       clientOptions.rental = {
         enabled: true,
@@ -1343,7 +1413,7 @@ Object.assign(app, {
 
     // Тематика/повод может соседствовать с типом «Фотозона»; коробка/букет/фигуры — по-прежнему XOR
     let finalTags = [...tags];
-    const occasionShelf = !unit && !holidayOnly && !isBox && !isBouquet && !isFigures
+    const occasionShelf = !unit && !holidayOnly && !isBox && !isBouquet && !isBalloonFlowers && !isFigures
       && (typeof OCCASION_SHELVES !== 'undefined' ? OCCASION_SHELVES.includes(category) : false);
     if (holidayOnly) {
       category = holidayOnly;
@@ -1352,6 +1422,9 @@ Object.assign(app, {
     } else if (isBox) {
       category = 'Коробка-сюрприз';
       finalTags = ['Коробка-сюрприз'];
+    } else if (isBalloonFlowers) {
+      category = 'Цветы из шаров';
+      finalTags = ['Цветы из шаров'];
     } else if (isBouquet) {
       category = 'Букет из шаров';
       finalTags = ['Букет из шаров'];
@@ -1476,6 +1549,7 @@ Object.assign(app, {
     this.syncStep1WizardUi?.();
     this.setPhotozoneType?.('frame');
     this.setFloorType?.('');
+    this.setBouquetType?.('');
     const rentalItemEl = document.getElementById('rental-item');
     if (rentalItemEl) {
       rentalItemEl.value = '';
@@ -1483,6 +1557,7 @@ Object.assign(app, {
     }
     this.wirePhotozoneTypeControls?.();
     this.wireFloorTypeControls?.();
+    this.wireBouquetTypeControls?.();
     this.syncAdvanceOrderFromScene?.();
     this.syncRequiredFieldHighlights?.();
     this.updateEditorAutosaveHint?.('');
@@ -1608,8 +1683,13 @@ app.loadProductToForm = function(product) {
   else if (opts.floor_type === 'helium') floorTypeSaved = '';
   else if (advanceWasOn && sceneNow === 'floor') floorTypeSaved = 'air';
   this.setFloorType?.(floorTypeSaved);
+  const bouquetTypeSaved = (opts.bouquet_type === 'flowers'
+    || product.category === 'Цветы из шаров'
+    || (product.tags || []).includes('Цветы из шаров')) ? 'flowers' : '';
+  this.setBouquetType?.(bouquetTypeSaved);
   this.wirePhotozoneTypeControls?.();
   this.wireFloorTypeControls?.();
+  this.wireBouquetTypeControls?.();
   this.wireOccasionShelfControls?.();
   this.syncAIFillGate?.();
   this.syncUnitBalloonForm?.(false);

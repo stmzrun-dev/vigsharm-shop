@@ -54,6 +54,16 @@ const FLOOR_TYPES = {
     advance_order: true
   }
 };
+
+/** Подтип сцены «Букет»: опциональный чип «Цветы» (не выбирается сам). */
+const BOUQUET_TYPES = {
+  flowers: {
+    value: 'flowers',
+    title: 'Цветы',
+    hint: 'Как букет: сцена и заказ за 1–2 дня, без надписи; в составе — «цветы из шаров»',
+    type_tag: 'Цветы из шаров'
+  }
+};
 const PHOTOZONE_RENTAL_DAYS = 3;
 const PHOTOZONE_RENTAL_EXTRA_PER_DAY = 500;
 
@@ -250,7 +260,11 @@ const app = {
       localStorage.setItem(this.LAST_TEMPLATE_KEY, JSON.stringify(payload));
       this.updateLastTemplateButton();
     } catch (e) {
-      console.warn('[last template]', e);
+      if (this.isStorageQuotaError?.(e)) {
+        try { localStorage.removeItem(this.LAST_TEMPLATE_KEY); } catch { /* ignore */ }
+      } else {
+        console.warn('[last template]', e);
+      }
     }
   },
 
@@ -350,14 +364,12 @@ const app = {
       if (cb.id) checks[cb.id] = !!cb.checked;
     });
     const photos = (this.currentProduct?.photos || []).map((p) => {
-      const url = String(p.url || '');
-      const tooBigData = url.startsWith('data:') && url.length > 80000;
+      const url = this.parkableMediaUrl(p.url);
       return {
         id: p.id,
-        url: tooBigData ? '' : url,
+        url,
         uploaded: !!p.uploaded,
-        type: p.type || undefined,
-        parkedDataUrl: tooBigData || undefined
+        type: p.type || undefined
       };
     });
     return {
@@ -372,34 +384,96 @@ const app = {
       checks,
       photos,
       studio: {
-        sourceUrl: this.studioSourceUrl || null,
-        masterUrl: (!String(this.studioMasterDataUrl || '').startsWith('data:') || String(this.studioMasterDataUrl || '').length < 80000)
-          ? (this.studioMasterDataUrl || this.studioCompare?.master || null)
-          : null,
-        originalUrl: this.studioCompare?.original || null,
+        sourceUrl: this.parkableMediaUrl(this.studioSourceUrl),
+        masterUrl: this.parkableMediaUrl(this.studioMasterDataUrl || this.studioCompare?.master),
+        originalUrl: this.parkableMediaUrl(this.studioCompare?.original),
         hasIdbDraft: !this.currentProduct?.id
       },
       title: fields['product-title'] || 'Без названия'
     };
   },
 
-  parkEditorDraft(silent = false) {
-    try {
-      const payload = this.collectEditorParkPayload();
-      if (!payload) {
-        if (!silent) this.discardParkedEditorDraft(false);
-        return false;
+  /** Только короткие http(s) — data-URL в localStorage раздувают квоту. Master живёт в IndexedDB. */
+  parkableMediaUrl(url) {
+    const s = String(url || '');
+    if (!/^https?:\/\//i.test(s)) return '';
+    if (s.length > 4000) return '';
+    return s;
+  },
+
+  isStorageQuotaError(e) {
+    const name = String(e?.name || '');
+    const msg = String(e?.message || e || '');
+    return name === 'QuotaExceededError'
+      || name === 'NS_ERROR_DOM_QUOTA_REACHED'
+      || e?.code === 22
+      || /quota|exceeded/i.test(msg);
+  },
+
+  slimEditorParkPayload(payload, level) {
+    const base = {
+      ...payload,
+      photos: [],
+      studio: { hasIdbDraft: true }
+    };
+    if (level !== 'http') return base;
+    base.photos = (payload.photos || [])
+      .map((p) => ({
+        id: p.id,
+        url: this.parkableMediaUrl(p.url),
+        uploaded: !!p.uploaded,
+        type: p.type || undefined
+      }))
+      .filter((p) => p.url);
+    const st = payload.studio || {};
+    base.studio = {
+      sourceUrl: this.parkableMediaUrl(st.sourceUrl),
+      masterUrl: this.parkableMediaUrl(st.masterUrl),
+      originalUrl: this.parkableMediaUrl(st.originalUrl),
+      hasIdbDraft: true
+    };
+    return base;
+  },
+
+  writeEditorParkPayload(payload) {
+    const attempts = [
+      payload,
+      this.slimEditorParkPayload(payload, 'http'),
+      this.slimEditorParkPayload(payload, 'meta')
+    ];
+    let lastErr = null;
+    for (const body of attempts) {
+      try {
+        localStorage.setItem(this.EDITOR_PARK_KEY, JSON.stringify(body));
+        return true;
+      } catch (e) {
+        lastErr = e;
+        if (!this.isStorageQuotaError(e)) break;
+        try { localStorage.removeItem(this.EDITOR_PARK_KEY); } catch { /* ignore */ }
       }
-      localStorage.setItem(this.EDITOR_PARK_KEY, JSON.stringify(payload));
+    }
+    if (this.isStorageQuotaError(lastErr)) {
+      console.warn('[editor park] квота localStorage — поля без тяжёлых фото (Master в IndexedDB)');
+    } else if (lastErr) {
+      console.warn('[editor park]', lastErr);
+    }
+    return false;
+  },
+
+  parkEditorDraft(silent = false) {
+    const payload = this.collectEditorParkPayload();
+    if (!payload) {
+      if (!silent) this.discardParkedEditorDraft(false);
+      return false;
+    }
+    if (this.writeEditorParkPayload(payload)) {
       this._editorParkedAt = payload.savedAt;
       this.updateEditorAutosaveHint(payload.savedAt);
       this.updateParkedDraftBanner();
       return true;
-    } catch (e) {
-      console.warn('[editor park]', e);
-      if (!silent) this.toast('Не удалось сохранить локальный черновик (мало места?)', 'error');
-      return false;
     }
+    if (!silent) this.toast('Не удалось сохранить локальный черновик (мало места?)', 'error');
+    return false;
   },
 
   readParkedEditorDraft() {

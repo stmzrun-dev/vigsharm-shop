@@ -53,6 +53,8 @@ Object.assign(app, {
     if (earlyPz) earlyPz.classList.toggle('hidden', scene !== 'photozone');
     const earlyFloor = document.getElementById('floor-type-early');
     if (earlyFloor) earlyFloor.classList.toggle('hidden', scene !== 'floor');
+    const earlyBouquet = document.getElementById('bouquet-type-early');
+    if (earlyBouquet) earlyBouquet.classList.toggle('hidden', scene !== 'handheld_bouquet');
     // Подсказку Manus на экране сцен не показываем
     if (el) {
       el.hidden = true;
@@ -585,6 +587,7 @@ Object.assign(app, {
       holiday_only: this.currentProduct?.holiday_only || '',
       photozone_type: this.getPhotozoneType?.() || 'frame',
       floor_type: this.getFloorType?.() || '',
+      bouquet_type: this.getBouquetType?.() || '',
       ts: Date.now(),
       ...extra
     };
@@ -698,6 +701,7 @@ Object.assign(app, {
 
       if (draft.photozone_type) this.setPhotozoneType?.(draft.photozone_type);
       if (draft.floor_type) this.setFloorType?.(draft.floor_type);
+      this.setBouquetType?.(draft.bouquet_type || '');
 
       const priceEl = document.getElementById('product-price');
       if (priceEl && draft.price != null && draft.price !== '') {

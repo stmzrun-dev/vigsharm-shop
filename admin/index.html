@@ -7,7 +7,7 @@
 <meta name="robots" content="noindex, nofollow"/>
 <link rel="icon" href="../favicon.svg"/>
 <link rel="stylesheet" href="../assets/fonts.css"/>
-<link rel="stylesheet" href="styles.css?v=price-2"/>
+<link rel="stylesheet" href="styles.css?v=publish-1"/>
 </head>
 <body>
 
@@ -21,6 +21,7 @@
     <a href="#price" class="header-link" data-tab="price">Прайс</a>
     <a href="#orders" class="header-link" data-tab="orders">Заявки</a>
     <a href="#create" class="header-link" data-tab="create">+ Создать</a>
+    <a href="#publish" class="header-link" data-tab="publish">Ключ</a>
     <a href="#settings" class="header-link" data-tab="settings">Настройки</a>
     <a href="../index.html" class="header-link">← Витрина</a>
   </nav>
@@ -144,6 +145,58 @@
     </div>
   </section>
 
+  <section id="tab-publish" class="tab-content hidden" hidden aria-hidden="true">
+    <div class="hero-section">
+      <h2>Соцсети</h2>
+      <h1>Ключ публикации</h1>
+      <p>Одно фото — пачка для поста и сторис. Скачиваете ZIP и выкладываете в Instagram, Telegram и VK вручную. Музыку к сторис лучше добавить в приложении сети.</p>
+    </div>
+    <div class="card">
+      <div class="publish-layout">
+        <div class="publish-col">
+          <div class="upload-zone" id="publish-dropzone" role="button" tabindex="0">
+            <div class="icon">📷</div>
+            <p>Перетащите фото или нажмите сюда</p>
+            <small>JPG, PNG, WebP · одно фото</small>
+          </div>
+          <input type="file" id="publish-file" accept="image/*" class="hidden-file"/>
+          <div id="publish-source-preview" class="publish-source-preview hidden" hidden></div>
+          <div class="form-group">
+            <label for="publish-title">Что на фото</label>
+            <input id="publish-title" placeholder="Например: связка шаров на годик"/>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="publish-occasion">Повод</label>
+              <input id="publish-occasion" placeholder="День рождения, выписка…"/>
+            </div>
+            <div class="form-group">
+              <label for="publish-price">Цена <span class="hint">необязательно</span></label>
+              <input id="publish-price" type="text" inputmode="numeric" placeholder="3500"/>
+            </div>
+          </div>
+          <label class="publish-check">
+            <input type="checkbox" id="publish-on-bg" checked/>
+            <span>Поставить на эталонный фон студии (4:5 и 9:16)</span>
+          </label>
+          <p class="text-muted" id="publish-status"></p>
+          <div class="products-header-actions">
+            <button type="button" class="btn primary" id="publish-build-btn" onclick="app.buildPublishPack()">Собрать пачку</button>
+            <button type="button" class="btn outline" id="publish-zip-btn" disabled onclick="app.downloadPublishZip()">Скачать ZIP</button>
+          </div>
+        </div>
+        <div class="publish-col">
+          <h3 class="publish-preview-title">Пост 4:5</h3>
+          <div id="publish-posts" class="publish-thumbs"></div>
+          <h3 class="publish-preview-title">Сторис 9:16</h3>
+          <div id="publish-stories" class="publish-thumbs publish-thumbs-story"></div>
+          <label for="publish-captions">Подписи Instagram · Telegram · VK</label>
+          <textarea id="publish-captions" rows="12" placeholder="Появятся после сборки"></textarea>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Tab: Create Product (overlay editor) -->
   <section id="tab-create" class="tab-content hidden" hidden aria-hidden="true">
     <div class="card compact-card product-editor">
@@ -218,6 +271,15 @@
                   <label class="scene-subchip">
                     <input type="checkbox" name="floor-type-early" id="floor-type-air-early" value="air"/>
                     <span>Заказ за 1–2 дня</span>
+                  </label>
+                </div>
+              </div>
+              <div id="bouquet-type-early" class="photozone-type-early scene-subchips hidden">
+                <p class="scene-subchips-label">Тип</p>
+                <div class="scene-subchips-row" role="group" aria-label="Тип букета">
+                  <label class="scene-subchip">
+                    <input type="checkbox" name="bouquet-type-early" id="bouquet-type-flowers-early" value="flowers"/>
+                    <span>Цветы</span>
                   </label>
                 </div>
               </div>
@@ -726,7 +788,7 @@
   </div>
 </div>
 
-<script src="admin.js?v=price-1"></script>
+<script src="admin.js?v=park-quota-1"></script>
 <script src="admin-extended.js?v=retry-saved-1"></script>
 <script src="cloudinary-upload.js?v=cloud-fix-2"></script>
 <script src="cloudinary-patch.js?v=settings-merge-2"></script>
@@ -735,5 +797,6 @@
 <script src="admin-reference-background.js"></script>
 <script src="admin-orders.js?v=1"></script>
 <script src="admin-price.js?v=3"></script>
+<script src="admin-publish-key.js?v=1"></script>
 </body>
 </html>

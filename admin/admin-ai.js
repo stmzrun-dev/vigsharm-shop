@@ -854,6 +854,7 @@ Object.assign(app, {
           isPhotozone: sceneHint === 'photozone',
           isFigures: sceneHint === 'balloon_figures',
           isFloor: sceneHint === 'floor',
+          isBalloonFlowers: this.getBouquetType?.() === 'flowers',
           category: data.category
         });
         data.composition = this.ensureSceneCompositionLead?.(data.composition, leadKey) || data.composition;

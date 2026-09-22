@@ -1351,7 +1351,16 @@ REMOVE completely (inpaint as if never there):
 Inpaint the wall / balloon / ribbon surface underneath cleanly — no blur blotches, no leftover letters or half a circle.
 KEEP: Spider-Man / character art printed ON the balloon latex or foil; decorative words that are clearly part of that print (e.g. «HERO» baked into the balloon design); bubble lettering and custom personalization on the product itself; foil heart texts that are printed ON the balloon face.`;
 
-  const forbidden = `FORBIDDEN: sticker/cutout appearance, white or dark halo, invented text, changed colors, plastic CGI look, furniture, mirrors, vanity light frames, window, curtains from the original room, melting ribbons, harsh cast shadows, yellow/orange color cast, duplicate objects, collage, copying mirror reflections as extra balloons, dark moody look, evening lighting, underexposure, extra balloons, denser balloon columns than the original, new mini filler balloons, new foreground balloon clusters, inventing extra foil hearts/figures, objects not present in the original, store watermarks, supplier packaging badges, size/helium labels, marketplace URL overlays (sima-land.ru etc.), leftover half-erased text, circular shop hang-tags on ribbons`;
+  const peopleClean = `ALLOWED EXCEPTION — REMOVE REAL PEOPLE (critical for catalog):
+REMOVE completely (inpaint as if they were never in the photo):
+- Every real human: woman, man, child, model posing with balloons, photographer, bystander
+- Face, hair, torso, legs, full body, silhouette, shadow of a person on wall/floor
+- Clothes that belong to a person (dress, jeans, shoes) — not balloon wrap
+KEEP the balloon product; fill the hole with studio wall / laminate / more of the same balloons already in the set.
+Do NOT confuse: foil/latex balloon sculptures, printed cartoon characters ON balloons, and balloon “фигуры из шаров” are PRODUCT — keep them. Only living photographed people go.
+FORBIDDEN leftover: ghost face, floating hair, half a dress, a person cropped at the edge.`;
+
+  const forbidden = `FORBIDDEN: people / models / faces / full human bodies in the catalog photo, sticker/cutout appearance, white or dark halo, invented text, changed colors, plastic CGI look, furniture, mirrors, vanity light frames, window, curtains from the original room, melting ribbons, harsh cast shadows, yellow/orange color cast, duplicate objects, collage, copying mirror reflections as extra balloons, dark moody look, evening lighting, underexposure, extra balloons, denser balloon columns than the original, new mini filler balloons, new foreground balloon clusters, inventing extra foil hearts/figures, objects not present in the original, store watermarks, supplier packaging badges, size/helium labels, marketplace URL overlays (sima-land.ru etc.), leftover half-erased text, circular shop hang-tags on ribbons`;
 
   const light = `LIGHTING: soft even professional studio product photography. Remove harsh window backlight. Match exposure and white balance to the studio room. Real photograph, not CGI render.`;
 
@@ -1389,14 +1398,15 @@ KEEP: Spider-Man / character art printed ON the balloon latex or foil; decorativ
 - FORBIDDEN: inventing extra foil hearts/figures from the reflection; keeping two copies of an item that was one real + one reflection; changing Superman/chrome layout while clearing the mirror`;
 
   if (scene === 'handheld_bouquet') {
-    return `Rephotograph this VigSharm balloon BOUQUET for a square catalog card — Manus style: one real photo of a WOMAN holding the bouquet against the studio wall.
+    return `Rephotograph this VigSharm balloon BOUQUET for a square catalog card — Manus style: bouquet held by a FEMALE HAND ONLY against the studio wall (no model, no face, no body).
 
 TASK:
 1. Replace the background with the SECOND reference image — VigSharm studio WALL ONLY (warm beige-grey plaster). NO floor, NO baseboard, NO laminate, NO furniture.
 2. The bouquet must be HELD by ONE realistic adult FEMALE hand (woman's hand only — never male, never child's) gripping the ribbon / wrapping base — natural gift-bouquet catalog pose.
-3. If a hand is already in the original: keep the grip idea but REPLACE with a correct female hand/wrist if the original looks male, CGI, or stretched. Fix lighting to match the studio.
-4. If there is NO hand in the original, ADD one photoreal female hand holding the bouquet base — physically gripping the ribbons, same light as the product — NOT a sticker, NOT a separate cutout plate, NOT floating.
-5. REMOVE any circular hang-tag / logo disc on the ribbons or wrap (shop brand tags). Replace with clean ribbons only.
+3. If the original shows a person (woman, girl, man, child) standing with the balloons: DELETE the entire person — face, hair, torso, legs, clothes. Keep ONLY a correct female HAND + short wrist at the bouquet base. Inpaint studio wall where the body was.
+4. If a hand is already in the original: keep the grip idea but REPLACE with a correct female hand/wrist if the original looks male, CGI, or stretched. Fix lighting to match the studio.
+5. If there is NO hand in the original, ADD one photoreal female hand holding the bouquet base — physically gripping the ribbons, same light as the product — NOT a sticker, NOT a separate cutout plate, NOT floating.
+6. REMOVE any circular hang-tag / logo disc on the ribbons or wrap (shop brand tags). Replace with clean ribbons only.
 
 ${lock}
 
@@ -1405,6 +1415,7 @@ ${logoClean}
 HAND — critical anatomy (allowed exception — only this may be added/replaced):
 - ONE woman's hand only: feminine proportions, natural nails, soft skin — NEVER a man's hand
 - Show mainly the HAND + short wrist; forearm must be SHORT and natural — NEVER a long stretched / elongated / warped arm entering from the corner
+- NEVER show a face, head, shoulders, torso, or full model posing next to the bouquet
 - Correct perspective: hand size matches bouquet base; fingers wrap around the stem/wrap naturally
 - No rubbery stretch, no liquid morphing, no extra-long forearm diagonally across the frame
 - Match skin lighting to soft studio daylight on the balloons
@@ -1414,9 +1425,9 @@ HAND — critical anatomy (allowed exception — only this may be added/replaced
 ${light}
 Do NOT add artificial balloon shadows on the wall. Soft natural contact only where hand/ribbons need grounding.
 
-FORBIDDEN: floor, baseboard, laminate, sticker/cutout look, white halo, invented balloon text, changed balloon colors/counts, extra balloons, plastic CGI, collage of a pasted fist, dark moody grade, store watermarks, supplier logos, circular hang-tags, male hand, child's hand, stretched/elongated forearm, warped anatomy.
+FORBIDDEN: full person / model / face / body in frame, floor, baseboard, laminate, sticker/cutout look, white halo, invented balloon text, changed balloon colors/counts, extra balloons, plastic CGI, collage of a pasted fist, dark moody grade, store watermarks, supplier logos, circular hang-tags, male hand, child's hand, stretched/elongated forearm, warped anatomy.
 
-OUTPUT: one square 1:1 catalog photo — wall background, bouquet large in frame, natural female hand holding it (short wrist, no stretch), no hang-tags, bright and sharp.`;
+OUTPUT: one square 1:1 catalog photo — wall background, bouquet large in frame, natural female hand holding it (short wrist, no stretch), NO person/face/body, no hang-tags, bright and sharp.`;
   }
 
   if (isWallOnlyScene(scene)) {
@@ -1427,7 +1438,7 @@ TASK:
 1. Replace ONLY the room/background with the SECOND reference image — VigSharm studio WALL section (warm light beige-grey plaster).
 2. NO floor, NO baseboard, NO laminate, NO furniture, NO LED strips from the original room.
 3. Keep the product as one continuous photograph in the new room — remove cutout halo, white fringe, hard sticker edges.
-4. Do NOT add a hand. Do NOT add balloons, bows, or ribbons that were not in the original.
+4. Do NOT add a hand. Do NOT add balloons, bows, or ribbons that were not in the original. REMOVE every real person from the source (model, child, photographer) — product and studio wall only.
 ${unit ? `5. UNIT / «шары поштучно» SOURCE PHOTOS often come from marketplace catalogs (Sima-land etc.) with heavy packaging overlays — you MUST strip ALL of them (MARVEL/Disney badge boxes, «ДЛЯ ГЕЛИЯ И ВОЗДУХА», size «12" / 30 CM», sima-land.ru / © stamps) while keeping the balloon artwork itself.` : ''}
 
 STUDIO LOOK (critical — fix dark muddy walls):
@@ -1441,6 +1452,8 @@ ${lock}
 
 ${logoClean}
 
+${peopleClean}
+
 EXTRA LOCK for bubble / chrome / tulle sets:
 - Exact count of balloons INSIDE any clear bubble balloon
 - Exact lettering on bubble balloons — every character identical
@@ -1449,7 +1462,7 @@ EXTRA LOCK for bubble / chrome / tulle sets:
 
 Minimal soft edge integration only — no graphic drop shadow on the wall.
 
-FORBIDDEN: dark/muddy/taupe wall, underexposed background, floor, baseboard, laminate, sticker/cutout look, white/dark halo, invented text, changed balloon counts (including inside bubbles), melting tulle, plastic CGI, adding a hand, dark moody cinematic grade, store watermarks, supplier packaging badges, size/helium labels, marketplace URLs, leftover half-erased text.
+FORBIDDEN: people / models / faces, dark/muddy/taupe wall, underexposed background, floor, baseboard, laminate, sticker/cutout look, white/dark halo, invented text, changed balloon counts (including inside bubbles), melting tulle, plastic CGI, adding a hand, dark moody cinematic grade, store watermarks, supplier packaging badges, size/helium labels, marketplace URLs, leftover half-erased text.
 
 OUTPUT: one square 1:1 bright professional catalog photo — ${unit ? 'single balloon / small set' : 'full product'} large in frame on a LIGHT studio wall only${unit ? ', with zero packaging badges or marketplace watermarks' : ''}.`;
   }
@@ -1461,6 +1474,8 @@ OUTPUT: one square 1:1 bright professional catalog photo — ${unit ? 'single ba
 ${lock}
 
 ${logoClean}
+
+${peopleClean}
 
 PHOTOZONE PRODUCT LOCK (critical — do not rebuild the set):
 - Keep the easel, round board, text on the board, giraffe/foil figures, and EVERY balloon column/cluster EXACTLY as in the source
@@ -1496,6 +1511,8 @@ ${lock}
 
 ${logoClean}
 
+${peopleClean}
+
 PHOTOZONE PRODUCT LOCK (critical — do not rebuild the set):
 - Keep the round frame and EVERY balloon on it EXACTLY as in the source — same count, colors, density, attachments
 - Do NOT redesign, densify, or invent new balloon clusters
@@ -1529,6 +1546,8 @@ OUTPUT: one square 1:1 professional catalog photo — round Ø3 m photozone fram
 ${lock}
 
 ${logoClean}
+
+${peopleClean}
 
 ALLOWED EXCEPTION — POSTURE & SUPPORT (critical for catalog):
 - STRAIGHTEN aggressively: head, body and green base on ONE vertical plumb line, parallel to the side edges of the frame / wall corners.
@@ -1572,6 +1591,8 @@ ${lock}
 
 ${logoClean}
 
+${peopleClean}
+
 ${mirrorHazard}
 
 Use the SECOND reference image as the real VigSharm studio environment — match it as closely as possible: warm beige-grey wall, white baseboard, LIGHT pale-oak / light grey-beige laminate floor with horizontal planks.
@@ -1601,7 +1622,7 @@ function buildRephotographAttempts(imageUrl, referenceUrl, prompt, resolution = 
   ];
   const wallOnly = ['wall_only', 'unit_balloon', 'handheld_bouquet'].includes(scene);
   const wallHint = '\n\nTarget room: VigSharm studio wall from the SECOND reference — warm light beige-grey plaster, natural catalog softbox daylight (not overexposed wash). Copy reference wall tone; do NOT darken into taupe/muddy grey and do NOT blow out to pure white. NO invented mottled/smudged wall.';
-  const floorHint = '\n\nTarget FLOOR from the SECOND reference — LIGHT pale oak / light grey-beige laminate matching reference brightness. Place product CLOSE to the white baseboard (short floor strip only — not mid-room). Soft contact shadows only under product feet. FORBIDDEN: dark brown/charcoal laminate; large empty floor toward the wall. If source has a mirror/vanity: remove it; count ONLY real balloons on the floor in front of the glass — NEVER copy balloons that exist only as mirror reflections (e.g. one real heart + reflection → output one heart).';
+  const floorHint = '\n\nTarget FLOOR from the SECOND reference — LIGHT pale oak / light grey-beige laminate matching reference brightness. Place product CLOSE to the white baseboard (short floor strip only — not mid-room). Soft contact shadows only under product feet. FORBIDDEN: dark brown/charcoal laminate; large empty floor toward the wall; any real people/models in the frame. If source has a person posing with balloons: erase them completely, keep only the balloon product. If source has a mirror/vanity: remove it; count ONLY real balloons on the floor in front of the glass — NEVER copy balloons that exist only as mirror reflections (e.g. one real heart + reflection → output one heart).';
   const roomHint = wallOnly ? wallHint : (wallHint + floorHint);
   const attempts = [];
 
@@ -1738,7 +1759,7 @@ ONLY ALLOWED:
 
 FORBIDDEN: reshaping balloons, straight vertical cuts on spheres, melting ribbons, changing text, chrome color shift, plastic CGI rewrite, moving the product.
 
-SCENE: ${scene === 'handheld_bouquet' ? 'wall only; FEMALE hand only, short natural wrist (no stretched arm); remove circular hang-tags on ribbons' : 'wall only — no floor'}.`;
+SCENE: ${scene === 'handheld_bouquet' ? 'wall only; FEMALE hand + short wrist ONLY — no face, no body, no full model; remove circular hang-tags on ribbons' : 'wall only — no floor, no people'}.`;
 }
 
 function buildEnhancePrompt(scene, mode = 'rephotograph') {
@@ -1758,6 +1779,7 @@ KEEP STRICTLY IDENTICAL:
 - Room layout (wall, baseboard, laminate) — same geometry
 
 REPHOTOGRAPH / INTEGRATE:
+- If any real person remains in the frame (face, body, model posing): REMOVE them completely; keep only the balloon product in the studio
 - Remove cutout halo, white fringe, hard sticker edges
 - Match product lighting to soft daylight in the room (reduce harsh studio HDR on foil balloons)
 - Real contact shadows where balloons meet floor/wall — soft ambient occlusion under each sphere

@@ -2,6 +2,186 @@
   "ok": true,
   "products": [
     {
+      "id": "60b8a39b-625c-46cd-92c1-2e6fe064ad77",
+      "title": "Тайная страсть",
+      "article": "HIM-006",
+      "price": 3100,
+      "short_description": "Чёрная маска и сердце с персональным фото — для того, кто скрывает нежность за загадкой.",
+      "full_description": "Фольгированная чёрная маска и белое сердце с надписью «i love you MY HUSBAND» и фотографией. Стильный дуэт для романтичного сюрприза.",
+      "composition": [
+        "напольная композиция",
+        "фольгированная фигура",
+        "большое фольгированное сердце с индивидуальной надписью и фото"
+      ],
+      "category": "Для него",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "2 000–3 500 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары с маской и сердцем с фото — Армавир | VigSharm",
+      "seo_description": "Романтичная композиция: чёрная маска и сердце с персональным фото и надписью. Стильный подарок для любимого в Армавире.",
+      "slug": "maskaradnoe-priznanie",
+      "scene": "floor",
+      "tags": [
+        "Для него"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790082066/vigsharm-products/tzxh3sgga9amb7khcpeq.png"
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790082145/vigsharm-products/vridubgg6yu2dg2i1gti.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790082145/vigsharm-products/vridubgg6yu2dg2i1gti.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-22T13:04:48.644Z",
+      "updated_at": "2026-09-22T13:04:48.644Z"
+    },
+    {
+      "id": "98743bd6-90d3-4fe0-86c6-7d8091472dc0",
+      "title": "Розовая принцесса",
+      "article": "GRL-021",
+      "price": 5400,
+      "short_description": "Розовая композиция с пуделем из шаров, баблс с поздравлением и фонтаном из шаров.",
+      "full_description": "Композиция в нежно-розовых тонах с фигурой пуделя из шаров, прозрачным баблс с надписью «С Днём Рождения, Принцесса!» и фонтаном из розовых и белых шаров.",
+      "composition": [
+        "10 латексных шаров",
+        "баблс с надписью",
+        "фигура из шаров"
+      ],
+      "category": "Фигуры из шаров",
+      "character": "Пудель",
+      "age_group": "Для детей",
+      "budget": "5 000–8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Розовая принцесса — композиция из шаров с пуделем, Армавир",
+      "seo_description": "Нежная розовая композиция с фигурой пуделя из шаров, баблс с поздравлением и фонтаном из розовых и белых шаров. Доставка в Армавире.",
+      "slug": "rozovaya-princessa",
+      "scene": "floor",
+      "tags": [
+        "Фигуры из шаров"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790081443/vigsharm-products/fpfahfrn4ncihaasdgry.png",
+        "floor_type": "air"
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790081492/vigsharm-products/c5s7uyoj32aagix2hmnl.jpg"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790081492/vigsharm-products/c5s7uyoj32aagix2hmnl.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-22T12:59:20.936Z",
+      "updated_at": "2026-09-22T12:59:20.936Z"
+    },
+    {
+      "id": "f5dcfb42-7412-4c0d-b771-3fafc3398ceb",
+      "title": "Оливковый шепот",
+      "article": "PHT-018",
+      "price": 8820,
+      "short_description": "Фотозона на мольберте в оливково-белых тонах с цифрой 8, сердцами и баблсом.",
+      "full_description": "Фотозона на деревянном мольберте с круглой табличкой, оливковыми фольгированными сердцами, цифрой 8, белыми и оливковыми шарами, шарами с конфетти и баблсом.",
+      "composition": [
+        "фотозона",
+        "баблс с конфетти и надписью",
+        "4 шара с конфетти",
+        "5 латексных шаров",
+        "3 фольгированных сердца"
+      ],
+      "category": "Фотозона",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "от 8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Оливковый шепот — фотозона с цифрой 8 в Армавире",
+      "seo_description": "Фотозона на мольберте в оливково-белых тонах с цифрой 8, сердцами и баблсом. Воздушные шары и фотозоны на заказ в Армавире.",
+      "slug": "olivkovyj-shepot",
+      "scene": "photozone",
+      "tags": [
+        "Фотозона"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": true,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790081054/vigsharm-products/rkhwnybq089mro1ndcgn.png",
+        "photozone_type": "easel",
+        "rental": {
+          "enabled": true,
+          "item": "Мольберт с кругом из полистирола",
+          "days": 3,
+          "keep_price_delta": 500
+        }
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790081277/vigsharm-products/lba7gu0dfyd2kcby8l81.jpg"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790081277/vigsharm-products/lba7gu0dfyd2kcby8l81.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-22T12:49:33.953Z",
+      "updated_at": "2026-09-22T12:49:33.953Z"
+    },
+    {
+      "id": "3de4c396-9be2-419c-aac6-b85714c3eaa7",
+      "title": "Серебряный контраст",
+      "article": "BQT-007",
+      "price": 2000,
+      "short_description": "Букет из чёрных и серебряных фольгированных сердец с персональными надписями на атласных лентах.",
+      "full_description": "Стильное сочетание чёрных и серебряных фольгированных сердец с индивидуальными пожеланиями. Букет перевязан серыми атласными лентами.",
+      "composition": [
+        "букет из шаров с надписями"
+      ],
+      "category": "Букет из шаров",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": "2 000–3 500 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Букет из чёрных и серебряных шаров с надписями — Армавир",
+      "seo_description": "Стильный букет из фольгированных сердец чёрного и серебряного цвета с персональными надписями. Доставка воздушных шаров по Армавиру.",
+      "slug": "serebryanyy-kontrast",
+      "scene": "handheld_bouquet",
+      "tags": [
+        "Букет из шаров"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790079788/vigsharm-products/arzi9bztklhvrtrghbnd.jpg"
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790080513/vigsharm-products/kjtesjnf4vthalp9cnyl.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790080513/vigsharm-products/kjtesjnf4vthalp9cnyl.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-22T12:43:08.820Z",
+      "updated_at": "2026-09-22T12:43:08.820Z"
+    },
+    {
       "id": "1eba5f64-5f23-46bb-87ea-730ab6ee93e3",
       "title": "Полосатый курьер",
       "article": "BQT-006",

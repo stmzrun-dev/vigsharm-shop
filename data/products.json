@@ -2,6 +2,53 @@
   "ok": true,
   "products": [
     {
+      "id": "f34bcbde-36b7-4338-9a32-d678fd423abd",
+      "title": "Мишка",
+      "article": "GRL-023",
+      "price": 3500,
+      "short_description": "Две напольные композиции с розовой цифрой 5 и фольгированным мишкой в нежных тонах.",
+      "full_description": "Композиция из двух элементов: крупная розовая цифра 5 с бантом и фольгированный мишка с бантиком на подставках из воздушных шаров.",
+      "composition": [
+        "2 напольные композиции"
+      ],
+      "category": "Для девочки",
+      "character": "Мишка",
+      "age_group": "Для детей",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Плюшевая пятёрка — композиция на 5 лет в Армавире",
+      "seo_description": "Две напольные композиции с розовой цифрой 5 и милым мишкой. Нежное оформление детского праздника воздушными шарами в Армавире.",
+      "slug": "plyushevaya-pyaterka",
+      "scene": "floor",
+      "tags": [
+        "Для девочки",
+        "Напольные композиции"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790087133/vigsharm-products/ijsvhdyunatwdhll7bch.jpg",
+        "floor_type": "air",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790087290/vigsharm-products/cvlog6cugpebfmlodajx.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790087290/vigsharm-products/cvlog6cugpebfmlodajx.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-22T14:28:54.419Z",
+      "updated_at": "2026-09-22T14:28:54.419Z"
+    },
+    {
       "id": "be9aa4d6-2e4b-4e8e-b56c-93c7e1bbab66",
       "title": "Розовый юбилей малышки",
       "article": "JUB-010",
@@ -135,26 +182,33 @@
     },
     {
       "id": "77998411-69b6-4a71-b38f-4ebc95bd6c6b",
-      "title": "2 фигуры, цифра, 6 кругов с рисунком, 6 шаров, 6",
+      "title": "Крылья мечты",
       "article": "DG-003",
       "price": 6320,
-      "short_description": "",
-      "full_description": "",
+      "short_description": "Две композиции с розовыми бабочками и цифра восемь в центре.",
+      "full_description": "Симметричная композиция из двух фонтанов с фольгированными бабочками, кругами с рисунком и шарами с конфетти. В центре крупная розовая цифра восемь.",
       "composition": [
-        "2 фигуры, цифра, 6 кругов с рисунком, 6 шаров, 6 шаров с конфетти"
+        "2 фольгированные фигуры бабочек",
+        "цифра",
+        "6 фольгированных кругов с рисунком",
+        "6 латексных шаров",
+        "6 латексных шаров с конфетти"
       ],
-      "category": "",
+      "category": "Для девочки",
       "character": null,
-      "age_group": "Для любого возраста",
+      "age_group": "Для детей",
       "budget": "5 000–8 000 ₽",
       "series_name": null,
       "occasion": null,
       "target_audience": null,
-      "seo_title": "",
-      "seo_description": "",
-      "slug": "2-figury-cifra-6-krugov-s-risunkom-6-sharov-6",
+      "seo_title": "Шары с бабочками на 8 лет для девочки — Армавир",
+      "seo_description": "Нежная композиция с розовыми бабочками, цифрой и шарами с конфетти. Оформление дня рождения для девочки в Армавире. Доставка.",
+      "slug": "krylya-mechty",
       "scene": "floor",
-      "tags": [],
+      "tags": [
+        "Для девочки",
+        "Напольные композиции"
+      ],
       "client_options": {
         "available_on_request": false,
         "advance_order_1_2_days": false,
@@ -164,17 +218,17 @@
         "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790082818/vigsharm-products/nh0j0jtczk2zalvi9vdo.jpg",
         "digit_choice": {
           "enabled": true,
-          "count_on_photo": 1
+          "count_on_photo": 2
         }
       },
       "photos": [
-        "https://res.cloudinary.com/saiuc42a/image/upload/v1790082970/vigsharm-products/vatnw2smanfsjchk4jyk.png"
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790087432/vigsharm-products/fyxinesoboxcnxm3544b.png"
       ],
-      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790082970/vigsharm-products/vatnw2smanfsjchk4jyk.png",
-      "status": "draft",
-      "show_on_site": false,
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790087432/vigsharm-products/fyxinesoboxcnxm3544b.png",
+      "status": "published",
+      "show_on_site": true,
       "created_at": "2026-09-22T13:16:12.203Z",
-      "updated_at": "2026-09-22T13:16:12.203Z"
+      "updated_at": "2026-09-22T14:31:12.493Z"
     },
     {
       "id": "60b8a39b-625c-46cd-92c1-2e6fe064ad77",

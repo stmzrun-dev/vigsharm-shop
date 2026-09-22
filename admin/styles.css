@@ -48,9 +48,8 @@ button{font:inherit;cursor:pointer}
 .btn:active:not(:disabled){transform:translateY(0)}
 .btn:disabled{opacity:.5;cursor:not-allowed}
 
-/* Gradient Primary Button */
-.btn.primary{background:linear-gradient(135deg,#FF6B35 0%,#FF8A50 30%,#9C27B0 70%,#3F51B5 100%);border:none;color:#fff;font-weight:700;box-shadow:0 4px 12px rgba(255,107,53,.3)}
-.btn.primary:hover:not(:disabled){background:linear-gradient(135deg,#FF5722 0%,#FF7043 30%,#8E24AA 70%,#3949AB 100%);box-shadow:0 6px 16px rgba(255,107,53,.4);transform:translateY(-2px)}
+.btn.primary{background:#ff6b5a;background-image:none;border:none;color:#fff;font-weight:700;box-shadow:0 4px 12px rgba(255,107,90,.28)}
+.btn.primary:hover:not(:disabled){background:#ff5a48;background-image:none;box-shadow:0 6px 16px rgba(255,107,90,.36);transform:translateY(-2px)}
 
 .btn.secondary{background:#E3F2FD;border:1px solid #90CAF9;color:#1565C0;font-weight:600}
 .btn.secondary:hover:not(:disabled){background:#BBDEFB;border-color:#64B5F6}

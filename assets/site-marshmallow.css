@@ -811,20 +811,12 @@ html body main#main-content.catalog-page .catalog-group-nav > button .catalog-gr
   box-shadow:none!important;
   box-sizing:border-box!important;
 }
-html body main#main-content.catalog-page .catalog-group-nav > button.catalog-group-all .catalog-group-icon{
-  background:#eef6ff!important;
-}
-html body main#main-content.catalog-page .catalog-group-nav > button[data-group="ready"] .catalog-group-icon{
-  background:#fff1f0!important;
-}
-html body main#main-content.catalog-page .catalog-group-nav > button[data-group="characters"] .catalog-group-icon{
-  background:#fff5eb!important;
-}
-html body main#main-content.catalog-page .catalog-group-nav > button[data-group="unit"] .catalog-group-icon{
-  background:#eefbf2!important;
-}
+html body main#main-content.catalog-page .catalog-group-nav > button.catalog-group-all .catalog-group-icon,
+html body main#main-content.catalog-page .catalog-group-nav > button[data-group="ready"] .catalog-group-icon,
+html body main#main-content.catalog-page .catalog-group-nav > button[data-group="characters"] .catalog-group-icon,
+html body main#main-content.catalog-page .catalog-group-nav > button[data-group="unit"] .catalog-group-icon,
 html body main#main-content.catalog-page .catalog-group-nav > button[data-group="holidays"] .catalog-group-icon{
-  background:#f5f0ff!important;
+  background:#fff!important;
 }
 html body main#main-content.catalog-page .catalog-group-nav > button .catalog-group-icon img{
   display:block!important;
@@ -3376,6 +3368,10 @@ html body .contact-request-summary{
     background:#fffffff8!important;
     box-shadow:0 10px 30px rgba(0,0,0,.08),0 2px 8px rgba(0,0,0,.03)!important;
   }
+  html body .mobile-order-bar.is-away,
+  html body .product-page:has(.order-date-picker.is-open) ~ .mobile-order-bar{
+    display:none!important;
+  }
   html body .mobile-order-bar.is-ready{
     flex-direction:row!important;
     align-items:center!important;
@@ -3690,6 +3686,26 @@ html body.delivery-page main#main-content footer .footer-contacts>button{
   html body .site-header .header-phone,
   html body .header .header-phone{
     display:flex!important;
+    align-items:center!important;
+    overflow:visible!important;
+    flex-shrink:0!important;
+    min-width:0;
+  }
+  html body .site-header .header-phone img,
+  html body .header .header-phone img,
+  html body .site-header .header-phone .vig-emoji,
+  html body .header .header-phone .vig-emoji{
+    flex-shrink:0!important;
+    width:20px!important;
+    height:20px!important;
+    overflow:visible!important;
+  }
+  html body .site-header .header-phone strong,
+  html body .header .header-phone strong{
+    min-width:0;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
   }
 }
 @media (min-width:1021px) and (max-width:1200px){

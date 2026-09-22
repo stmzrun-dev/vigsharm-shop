@@ -2,6 +2,331 @@
   "ok": true,
   "products": [
     {
+      "id": "1eba5f64-5f23-46bb-87ea-730ab6ee93e3",
+      "title": "Полосатый курьер",
+      "article": "BQT-006",
+      "price": 1500,
+      "short_description": "Букет из шаров с белым котёнком в полосатом свитере и ромашками.",
+      "full_description": "Букет из шаров с фольгированной фигурой белого котёнка в розово-малиновом свитере. Композицию дополняют белые ромашки из шаров с яркими серединками и атласный бант.",
+      "composition": [
+        "букет из шаров с фигурой"
+      ],
+      "category": "Букет из шаров",
+      "character": "Кошка",
+      "age_group": "Для любого возраста",
+      "budget": "1 000–2 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Букет из шаров с котёнком и ромашками — Армавир",
+      "seo_description": "Букет из шаров с белым котёнком в полосатом свитере и ромашками. Яркая композиция для подарка. Доставка по Армавиру.",
+      "slug": "polosatyy-kurier",
+      "scene": "handheld_bouquet",
+      "tags": [
+        "Букет из шаров"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790066680/vigsharm-products/ckzh3nfejgvfxcsh4nhr.jpg"
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790066792/vigsharm-products/i0czy1epqosvsiag1l83.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790066792/vigsharm-products/i0czy1epqosvsiag1l83.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-22T08:51:01.450Z",
+      "updated_at": "2026-09-22T08:51:01.450Z"
+    },
+    {
+      "id": "901665f3-fe3f-4855-8fdf-feff72c95353",
+      "title": "Футбольный рубеж",
+      "article": "JUB-009",
+      "price": 6700,
+      "short_description": "Композиция с зелёной цифрой 10, футбольными мячами, кедом и чёрно-белыми шарами.",
+      "full_description": "Напольная композиция с крупной зелёной цифрой 10, фольгированными футбольными мячами, серебряной звездой и кедом. В оформлении чёрные, белые, зелёные и серебряные шары.",
+      "composition": [
+        "напольная композиция",
+        "10 шаров"
+      ],
+      "category": "Юбилей",
+      "character": null,
+      "age_group": "Для детей",
+      "budget": "5 000–8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Композиция с цифрой 10 и футбольными мячами — Армавир",
+      "seo_description": "Напольная композиция на юбилей 10 лет с зелёной цифрой, футбольными мячами и кедом. Оформление шарами в чёрно-зелёной гамме. Доставка в Армавире.",
+      "slug": "futbolnyj-rubezh",
+      "scene": "floor",
+      "tags": [
+        "Юбилей",
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790066481/vigsharm-products/srxtjqqcui9pbq8avucp.jpg",
+        "floor_type": "air",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 2
+        }
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790066607/vigsharm-products/hg2p0kttjq0oscun7cun.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790066607/vigsharm-products/hg2p0kttjq0oscun7cun.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-22T08:44:27.380Z",
+      "updated_at": "2026-09-22T08:44:27.380Z"
+    },
+    {
+      "id": "d583ca16-7f0a-443c-a600-3862688be52f",
+      "title": "Буба в гостях",
+      "article": "UNI-004",
+      "price": 4080,
+      "short_description": "Напольная композиция с фольгированной цифрой 5 и героем мультфильма в бирюзово-серебристых тонах.",
+      "full_description": "Напольная композиция включает крупную фольгированную цифру 5, фигуру Бубы, звезду с надписью и три фонтана из латексных и хромированных шаров в бирюзово-серебристой гамме.",
+      "composition": [
+        "напольная композиция",
+        "3 латексных шара",
+        "2 хромированных шара",
+        "3 напольные композиции"
+      ],
+      "category": "Универсальные",
+      "character": "Буба",
+      "age_group": "Для детей",
+      "budget": "3 500–5 000 ₽",
+      "series_name": "Буба",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Композиция с Бубой и цифрой 5 — Армавир | VigSharm",
+      "seo_description": "Напольная композиция с героем мультфильма Бубой, фольгированной цифрой 5 и шарами в бирюзово-серебристых тонах. Доставка в Армавире.",
+      "slug": "buba-v-gostyah",
+      "scene": "floor",
+      "tags": [
+        "Универсальные",
+        "Напольные композиции"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": true,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790066255/vigsharm-products/vyor2yxukwdefn1pgg7l.jpg",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790066415/vigsharm-products/ed3wiwhncnylgrg19xyn.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790066415/vigsharm-products/ed3wiwhncnylgrg19xyn.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-22T08:41:08.246Z",
+      "updated_at": "2026-09-22T08:41:08.246Z"
+    },
+    {
+      "id": "57978dd2-9831-4750-8253-cf44da94c56c",
+      "title": "Волшебная школа",
+      "article": "BOY-024",
+      "price": 5000,
+      "short_description": "Напольная композиция с совой, гербом Хогвартса и золотой восьмёркой для юного волшебника.",
+      "full_description": "Напольная композиция в стиле Гарри Поттера с фольгированной совой, гербом факультетов, метлой и золотой цифрой 8. Дополнена хромированными и золотыми шарами.",
+      "composition": [
+        "напольная композиция"
+      ],
+      "category": "Для мальчика",
+      "character": "Сова",
+      "age_group": "Для детей",
+      "budget": "5 000–8 000 ₽",
+      "series_name": "Гарри Поттер",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары Гарри Поттер на 8 лет мальчику — Армавир",
+      "seo_description": "Напольная композиция с совой, гербом Хогвартса и цифрой 8. Оформление дня рождения в стиле Гарри Поттера. Доставка по Армавиру.",
+      "slug": "magicheskiy-vosmoy",
+      "scene": "floor",
+      "tags": [
+        "Для мальчика",
+        "Напольные композиции"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790065679/vigsharm-products/ypu2mocz8aky9q995xpd.jpg",
+        "floor_type": "air"
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790065886/vigsharm-products/azwkfa2uliedrkl0pkvg.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790065886/vigsharm-products/azwkfa2uliedrkl0pkvg.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-22T08:32:48.600Z",
+      "updated_at": "2026-09-22T08:32:48.600Z"
+    },
+    {
+      "id": "a0810183-9209-4a4e-9b80-4dadbd94b963",
+      "title": "Волшебная почта",
+      "article": "BOY-023",
+      "price": 6960,
+      "short_description": "Композиция с Гарри Поттером и белыми совами в чёрно-золотой гамме.",
+      "full_description": "На фото фигура Гарри Поттера, две фольгированные совы, баблс с надписью и лентой тассел, хромированные и латексные шары. Стильная композиция для поклонников волшебного мира.",
+      "composition": [
+        "3 фольгированные фигуры",
+        "баблс с индивидуальной надписью и лентой тассел",
+        "10 хромированных шаров",
+        "4 латексных шара"
+      ],
+      "category": "Для мальчика",
+      "character": "Гарри Поттер",
+      "age_group": "Для детей",
+      "budget": "5 000–8 000 ₽",
+      "series_name": "Гарри Поттер",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары Гарри Поттер с совами — заказать в Армавире",
+      "seo_description": "Композиция с фигурой Гарри Поттера и совами: баблс с надписью, хромированные шары. Доставка по Армавиру. VigSharm.",
+      "slug": "volshebnaya-pochta",
+      "scene": "wall_only",
+      "tags": [
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790065416/vigsharm-products/xh1drnnpqevkjg06cnqv.jpg"
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790065608/vigsharm-products/jj7dzj06sr6l0r5albyk.jpg"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790065608/vigsharm-products/jj7dzj06sr6l0r5albyk.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-22T08:27:47.747Z",
+      "updated_at": "2026-09-22T08:27:47.747Z"
+    },
+    {
+      "id": "648a14f0-3bd8-470b-ab7c-fb26bf6bbad9",
+      "title": "Факультетский праздник",
+      "article": "JUB-008",
+      "price": 7000,
+      "short_description": "Напольная композиция с золотыми цифрами 10 и квадратами в стиле волшебной школы.",
+      "full_description": "Яркая композиция с крупными золотыми цифрами 10, фольгированными квадратами с гербом волшебной школы и фонтанами из латексных шаров со звёздами и конфетти.",
+      "composition": [
+        "2 цифры",
+        "1 фольгированная фигура",
+        "2 фольгированных квадрата с рисунком",
+        "4 фольгированные звезды",
+        "6 латексных шаров с конфетти",
+        "8 латексных шаров"
+      ],
+      "category": "Юбилей",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "5 000–8 000 ₽",
+      "series_name": "Гарри Поттер",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары на 10 лет в стиле Гарри Поттера — Армавир",
+      "seo_description": "Напольная композиция с золотыми цифрами 10 и гербом Хогвартса. Яркие фонтаны из шаров со звёздами и конфетти. Доставка по Армавиру.",
+      "slug": "magicheskij-dekret",
+      "scene": "floor",
+      "tags": [
+        "Юбилей"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790064977/vigsharm-products/r80l4ksyyjj31dvgsc0p.jpg",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 2
+        }
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790065141/vigsharm-products/tiwdujizay7keeup5mcs.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790065141/vigsharm-products/tiwdujizay7keeup5mcs.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-22T08:22:34.341Z",
+      "updated_at": "2026-09-22T08:22:34.341Z"
+    },
+    {
+      "id": "b91ed2a3-cbb7-417c-851b-fd554748bf74",
+      "title": "Леди в горошек",
+      "article": "GRL-020",
+      "price": 3820,
+      "short_description": "Композиция с героиней в красном костюме, цифрой и яркими шарами.",
+      "full_description": "Настенная композиция с крупной красной цифрой, фольгированной фигурой супергероини и букетом шаров в красно-чёрной гамме с горошком.",
+      "composition": [
+        "цифра",
+        "фольгированная фигура",
+        "фольгированный круг с рисунком",
+        "2 хромированных шара",
+        "3 шара с рисунком",
+        "4 латексных шара"
+      ],
+      "category": "Для девочки",
+      "character": "Леди Баг",
+      "age_group": "Для детей",
+      "budget": "3 500–5 000 ₽",
+      "series_name": "Леди Баг и Супер-Кот",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары Леди Баг с цифрой — Армавир | VigSharm",
+      "seo_description": "Композиция с Леди Баг, цифрой и шарами в красно-чёрной гамме. Доставка воздушных шаров по Армавиру. VigSharm.",
+      "slug": "ledi-v-goroshek",
+      "scene": "wall_only",
+      "tags": [
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790064678/vigsharm-products/actwrlxbe6yslkbulpbe.jpg",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790064784/vigsharm-products/ogriaxtz99yk8d9po6od.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790064784/vigsharm-products/ogriaxtz99yk8d9po6od.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-22T08:14:38.010Z",
+      "updated_at": "2026-09-22T08:14:38.010Z"
+    },
+    {
       "id": "a30e9f12-ac2a-409a-80b0-a9403e350762",
       "title": "Весёлый фермер",
       "article": "BOY-022",
@@ -725,7 +1050,7 @@
       ],
       "client_options": {
         "available_on_request": false,
-        "advance_order_1_2_days": false,
+        "advance_order_1_2_days": true,
         "number_choice": true,
         "personal_inscription": true,
         "photozone_rental": false,
@@ -742,7 +1067,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-21T19:22:50.767Z",
-      "updated_at": "2026-09-22T07:46:42.253Z"
+      "updated_at": "2026-09-22 08:20:18"
     },
     {
       "id": "feb5afa0-ac57-4c22-a1b6-565af934ec09",
@@ -2501,7 +2826,7 @@
       ],
       "client_options": {
         "available_on_request": false,
-        "advance_order_1_2_days": false,
+        "advance_order_1_2_days": true,
         "number_choice": false,
         "personal_inscription": true,
         "photozone_rental": false,
@@ -2514,7 +2839,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-20T19:21:44.475Z",
-      "updated_at": "2026-09-21T09:52:48.990Z"
+      "updated_at": "2026-09-22 08:20:18"
     },
     {
       "id": "f32da3e1-f483-41a5-862c-4fbf3a51cfea",

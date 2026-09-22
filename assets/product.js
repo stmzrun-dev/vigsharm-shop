@@ -379,9 +379,14 @@
   function storyDigitsPad(act, selected) {
     var digits = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
     return '<div class="order-story-digits client-digits">' + digits.map(function (d) {
+      var off = 'icons/digits/off-' + d + '.png?v=1';
+      var on = 'icons/digits/on-' + d + '.png?v=1';
       return '<button type="button" class="order-story-digit' + (selected === d ? ' selected' : '') + '" data-act="' + act + '" data-v="' + d + '" aria-label="Цифра ' + d + '" aria-pressed="' + (selected === d) + '">' +
         '<span class="order-story-digit-ring" aria-hidden="true"></span>' +
-        '<span class="order-story-digit-face">' + d + '</span></button>';
+        '<span class="order-story-digit-face">' +
+        '<img class="digit-clay digit-clay-off" src="' + off + '" alt="" width="96" height="96" decoding="async"/>' +
+        '<img class="digit-clay digit-clay-on" src="' + on + '" alt="" width="96" height="96" decoding="async"/>' +
+        '</span></button>';
     }).join('') + '</div>';
   }
 
@@ -628,7 +633,6 @@
     var galleryKey = resolveGalleryKey();
     var mainKey = mainImageKey();
     var stepNum = (isUnit() || p.has_digit_choice) ? '2' : '';
-    var digits = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
     var needDigit = p.has_digit_choice && !digitsOk();
     var U = effDigits(), H = effDelta();
 
@@ -640,9 +644,8 @@
           '<input type="number" min="1" max="100" value="' + qty + '" data-act="qty"/></label>';
       }
       if (p.has_digit_choice && U >= 1) {
-        inner += '<fieldset class="' + (needDigit ? 'needs-pick' : '') + '"><legend>' + (U === 2 ? 'Какая первая цифра нужна?' : 'Какая цифра нужна?') + '</legend><div class="digit-options">' +
-          digits.map(function (d) { return '<button type="button" class="' + (digit === d ? 'selected' : '') + '" data-act="digit" data-v="' + d + '" aria-label="Выбрать цифру ' + d + '" aria-pressed="' + (digit === d) + '">' + d + '</button>'; }).join('') +
-          '</div></fieldset>';
+        inner += '<fieldset class="' + (needDigit ? 'needs-pick' : '') + '"><legend>' + (U === 2 ? 'Какая первая цифра нужна?' : 'Какая цифра нужна?') + '</legend>' +
+          storyDigitsPad('digit', digit) + '</fieldset>';
         if (p.digit_count_locked || p.is_floor_composition) {
           inner += '<p class="digit-count-note">' + (U === 2
             ? 'В этой композиции две цифры — выберите обе. Количество менять нельзя.'
@@ -658,9 +661,8 @@
           '</div><p class="digit-count-note">' + (B ? 'В гелиевую композицию можно добавить не более двух цифр.' : 'При отказе от второй цифры стоимость уменьшится на 900 ₽.') + '</p></fieldset>';
       }
       if (p.has_digit_choice && U === 2) {
-        inner += '<fieldset><legend>Какая вторая цифра нужна?</legend><div class="digit-options">' +
-          digits.map(function (d) { return '<button type="button" class="' + (digit2 === d ? 'selected' : '') + '" data-act="digit2" data-v="' + d + '" aria-label="Выбрать вторую цифру ' + d + '" aria-pressed="' + (digit2 === d) + '">' + d + '</button>'; }).join('') +
-          '</div></fieldset>';
+        inner += '<fieldset><legend>Какая вторая цифра нужна?</legend>' +
+          storyDigitsPad('digit2', digit2) + '</fieldset>';
       }
       if (needDigit) {
         inner += '<p class="digit-count-note">Выберите ' + (U === 2 ? 'обе цифры' : 'цифру') + ', чтобы оформить заказ.</p>';

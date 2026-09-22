@@ -142,6 +142,64 @@
   border-top:1.5px solid #e8e8ec!important;
 }
 
+/* Digit pad — clay numerals, 3 columns, 9 centered. Mockup hybrid-56-1-digits. */
+.order-story-digits{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:4px 8px;
+  width:100%;
+  max-width:360px;
+  margin:4px auto 0;
+  justify-items:center;
+}
+.order-story-digits .order-story-digit:nth-child(10){
+  grid-column:2;
+}
+.order-story-digit{
+  position:relative;
+  width:100%;
+  max-width:108px;
+  aspect-ratio:1;
+  padding:0;
+  border:0;
+  background:transparent;
+  cursor:pointer;
+  display:grid;
+  place-items:center;
+  -webkit-tap-highlight-color:transparent;
+}
+.order-story-digit-ring{
+  position:absolute;
+  inset:6%;
+  border-radius:50%;
+  border:2.5px solid transparent;
+  pointer-events:none;
+}
+.order-story-digit-face{
+  position:relative;
+  z-index:1;
+  width:100%;
+  height:100%;
+  display:grid;
+  place-items:center;
+  background:none;
+  box-shadow:none;
+}
+.order-story-digit .digit-clay{
+  width:88%;
+  height:88%;
+  object-fit:contain;
+  display:block;
+  pointer-events:none;
+}
+.order-story-digit .digit-clay-on{display:none}
+.order-story-digit.selected .digit-clay-off{display:none}
+.order-story-digit.selected .digit-clay-on{display:block}
+.order-story-digit.selected .order-story-digit-ring{
+  border-color:#ff6b5a;
+}
+.order-story-digit:active .order-story-digit-face{transform:scale(.96)}
+
 /* CTA — coral, not green */
 .product-page .product-order-button.button-primary,
 .product-page .button.button-primary.product-order-button{
@@ -834,78 +892,12 @@
   }
 
   .order-story-digits{
-    display:grid;
-    grid-template-columns:repeat(5,minmax(0,1fr));
-    gap:8px;
-    width:100%;
-    max-width:100%;
     padding:0 0 80px!important;
     scroll-margin-bottom:calc(88px + env(safe-area-inset-bottom,0px));
-    justify-items:center;
   }
   .client-digits{
-    max-width:100%;
-    margin:0 auto;
     padding-bottom:80px!important;
     scroll-margin-bottom:calc(88px + env(safe-area-inset-bottom,0px));
-  }
-  .order-story-digits .order-story-digit:nth-child(10){
-    grid-column:auto;
-  }
-  .order-story-digit{
-    position:relative;
-    width:100%;
-    max-width:56px;
-    aspect-ratio:1;
-    height:auto;
-    padding:0;
-    border:0;
-    background:transparent;
-    cursor:pointer;
-    display:grid;
-    place-items:center;
-    -webkit-tap-highlight-color:transparent;
-  }
-  .order-story-digit-ring{
-    position:absolute;
-    inset:0;
-    border-radius:50%;
-    border:2px solid transparent;
-    pointer-events:none;
-    transition:border-color .15s ease, transform .15s ease;
-  }
-  .order-story-digit-face{
-    position:relative;
-    z-index:1;
-    width:86%;
-    height:86%;
-    border-radius:50%;
-    display:grid;
-    place-items:center;
-    font-family:inherit;
-    font-size:20px;
-    font-weight:800;
-    line-height:1;
-    color:#3a3540;
-    background:radial-gradient(circle at 32% 28%,#ffffff 0%,#fff8f2 42%,#f3ebe3 100%);
-    box-shadow:
-      inset 0 2px 3px rgba(255,255,255,.9),
-      inset 0 -2px 5px rgba(80,60,50,.12),
-      0 3px 8px rgba(60,40,30,.12);
-    transition:transform .15s ease, background .15s ease, color .15s ease, box-shadow .15s ease;
-  }
-  .order-story-digit:active .order-story-digit-face{transform:scale(.94)}
-  .order-story-digit.selected .order-story-digit-ring{
-    border-color:#ff6b5a;
-    transform:scale(1.02);
-  }
-  .order-story-digit.selected .order-story-digit-face{
-    color:#fff;
-    background:radial-gradient(circle at 32% 28%,#ff9a8b 0%,#ff6b5a 55%,#f05545 100%);
-    box-shadow:
-      inset 0 2px 3px rgba(255,255,255,.35),
-      inset 0 -3px 6px rgba(120,30,20,.25),
-      0 5px 14px rgba(255,107,90,.35);
   }
   .order-story-delta,
   .client-delta{

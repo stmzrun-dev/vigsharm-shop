@@ -70,6 +70,30 @@
     todayMin = new Date(d.getTime() - d.getTimezoneOffset() * 60000).toISOString().slice(0, 10);
   })();
 
+  function canonicalSlug() {
+    if (!p) return slug;
+    return String(p.slug || p.id || slug || '');
+  }
+  function pageTitle() {
+    var t = String((p && p.title) || '').trim();
+    var seo = String((p && p.seo_title) || '').trim();
+    if (seo && t && seo.indexOf(t) >= 0) return seo;
+    if (t) return t + ' — заказать шары в Армавире | VigSharm';
+    return seo || 'Композиция из шаров — VigSharm';
+  }
+  function syncCanonicalUrl() {
+    var next = canonicalSlug();
+    if (!next || !window.history || !window.history.replaceState) return;
+    var cur = new URLSearchParams(window.location.search).get('slug') || '';
+    if (cur === next) return;
+    try {
+      var u = new URL(window.location.href);
+      u.searchParams.set('slug', next);
+      window.history.replaceState({}, '', u.pathname + u.search + u.hash);
+      slug = next;
+    } catch (e) { /* ignore */ }
+  }
+
   function isUnit() { return p && (p.category === 'Шары поштучно' || (p.tags || []).indexOf('Шары поштучно') >= 0); }
   function isPerMeter() { return !!(p && (p.tags || []).indexOf('Цена за метр') >= 0); }
   function priceFrom() { return !!(p && (p.tags || []).indexOf('Цена от') >= 0); }
@@ -515,7 +539,7 @@
     var cost = fulfillment === 'nearby'
       ? 'Предварительная стоимость: ' + (priceFrom() ? 'от ' : '') + total().toLocaleString('ru-RU') + ' ₽ + доставка.'
       : (priceFrom() ? 'Ориентировочная стоимость: от' : 'Стоимость:') + ' ' + total().toLocaleString('ru-RU') + ' ₽.';
-    return 'Здравствуйте! Хочу заказать «' + p.title + '», артикул ' + p.sku + '.' + opts + '\n' + cost + '\nКарточка: https://new.vigsharm.ru/product/' + (p.slug || p.id);
+    return 'Здравствуйте! Хочу заказать «' + p.title + '», артикул ' + p.sku + '.' + opts + '\n' + cost + '\nКарточка: https://new.vigsharm.ru/product/' + canonicalSlug();
   }
 
   function contactFieldsHtml() {
@@ -768,7 +792,8 @@
       '<div class="mobile-order-actions">' + mobileBarActions + '</div></aside>' +
       '</main>';
 
-    document.title = (p.seo_title || (p.title + ' — заказать шары в Армавире | VigSharm'));
+    document.title = pageTitle();
+    syncCanonicalUrl();
     document.body.classList.remove('order-story-lock');
     root.querySelectorAll('.product-page-main-image img, .product-thumbnails img').forEach(function (img) {
       if (img.complete && img.naturalWidth) img.classList.add('is-ready');

@@ -3984,3 +3984,10 @@ html body .product-page .product-page-toolbar button{
   background:#fff!important;
 }
 
+
+html body footer .footer-contacts img,
+html body main#main-content footer .footer-contacts img{
+  width:40px!important;
+  height:40px!important;
+  object-fit:contain!important;
+}

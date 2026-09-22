@@ -289,7 +289,7 @@
       var name = img.getAttribute('data-emoji');
       var src = VIG_EMOJI_SRC[name];
       var cur = img.getAttribute('src') || '';
-      if (cur.indexOf('menu-') !== -1) return;
+      if (cur.indexOf('menu-') !== -1 || cur.indexOf('contact-') !== -1) return;
       if (src && cur !== src) img.setAttribute('src', src);
     });
   }

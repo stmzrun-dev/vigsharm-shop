@@ -2,6 +2,98 @@
   "ok": true,
   "products": [
     {
+      "id": "d1106fe5-c1cd-453b-98c5-77a1949184b6",
+      "title": "Жемчужный рубеж",
+      "article": "JUB-012",
+      "price": 6000,
+      "short_description": "Напольная композиция с крупной цифрой, украшенной жемчужными нитями и золотыми шарами.",
+      "full_description": "Композиция включает крупную фольгированную цифру нежного персикового оттенка с элегантным декором из жемчужных бусин и золотых шаров. Фонтан из хромированных и белых шаров, сердце с надписью и конфетти дополняют праздничное оформление.",
+      "composition": [
+        "напольная композиция",
+        "2 шара хром",
+        "шар с конфетти"
+      ],
+      "category": "Юбилей",
+      "character": null,
+      "age_group": "Для детей",
+      "budget": "5 000–8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Жемчужный рубеж — композиция с цифрой 10 в Армавире",
+      "seo_description": "Напольная композиция с крупной цифрой 10, украшенной жемчужными бусинами и золотыми шарами. Элегантное оформление юбилея в персиково-золотой гамме.",
+      "slug": "zhemchuzhnyy-rubezh",
+      "scene": "floor",
+      "tags": [
+        "Юбилей",
+        "Для неё"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790115755/vigsharm-products/ehrxnkryypoi5lraedoo.png",
+        "floor_type": "air"
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790115804/vigsharm-products/sa7pl7gqson0k0dodqya.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790115804/vigsharm-products/sa7pl7gqson0k0dodqya.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-22T22:24:07.636Z",
+      "updated_at": "2026-09-22T22:24:07.636Z"
+    },
+    {
+      "id": "1e913f79-0ba9-4fc1-abc2-2f4a3ad12fa2",
+      "title": "Розовое шампанское",
+      "article": "HER-009",
+      "price": 5000,
+      "short_description": "Напольная композиция с золотой цифрой 5, розовым бокалом и бутылкой шампанского.",
+      "full_description": "Напольная композиция с крупной золотой цифрой 5, фольгированной бутылкой шампанского, розовым бокалом Happy Birthday и декоративными элементами из латексных и фольгированных шаров.",
+      "composition": [
+        "напольная композиция"
+      ],
+      "category": "Для неё",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "5 000–8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Золотая пятёрка — напольная композиция с цифрой 5, Армавир",
+      "seo_description": "Напольная композиция с золотой цифрой 5, розовым бокалом и бутылкой шампанского. Доставка воздушных шаров в Армавире.",
+      "slug": "zolotaya-pyatyorka",
+      "scene": "floor",
+      "tags": [
+        "Для неё",
+        "Напольные композиции"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790115453/vigsharm-products/uc7ydgjflx2qjuxfictt.jpg",
+        "floor_type": "air",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 2
+        }
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790115541/vigsharm-products/cinyk4shnn1qxwb7d0ru.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790115541/vigsharm-products/cinyk4shnn1qxwb7d0ru.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-22T22:21:13.479Z",
+      "updated_at": "2026-09-22T22:21:13.479Z"
+    },
+    {
       "id": "bd2d3e20-f4c6-4d61-9a83-fc4ac721182b",
       "title": "Шампанский десант",
       "article": "JUB-011",
@@ -91,42 +183,6 @@
       "show_on_site": true,
       "created_at": "2026-09-22T21:58:38.019Z",
       "updated_at": "2026-09-22T21:58:38.019Z"
-    },
-    {
-      "id": "28ba5822-4e29-4a1a-99c6-1d5ba23f1d40",
-      "title": "Черновик 23.09, 00:56",
-      "article": "DG-005",
-      "price": 0,
-      "short_description": "",
-      "full_description": "",
-      "composition": [],
-      "category": "",
-      "character": null,
-      "age_group": "Для любого возраста",
-      "budget": null,
-      "series_name": null,
-      "occasion": null,
-      "target_audience": null,
-      "seo_title": "",
-      "seo_description": "",
-      "slug": "chernovik-23-09-00-56",
-      "scene": "wall_only",
-      "tags": [],
-      "client_options": {
-        "available_on_request": false,
-        "advance_order_1_2_days": false,
-        "number_choice": false,
-        "personal_inscription": false,
-        "photozone_rental": false
-      },
-      "photos": [
-        "https://res.cloudinary.com/saiuc42a/image/upload/v1790114192/vigsharm-products/uufbllciaqqwvgcni5oq.jpg"
-      ],
-      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790114192/vigsharm-products/uufbllciaqqwvgcni5oq.jpg",
-      "status": "draft",
-      "show_on_site": false,
-      "created_at": "2026-09-22T21:56:33.065Z",
-      "updated_at": "2026-09-22T21:56:33.065Z"
     },
     {
       "id": "2b9ab66e-22e1-4b9c-977e-e030ab70a7a4",

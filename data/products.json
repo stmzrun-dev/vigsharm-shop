@@ -2,6 +2,462 @@
   "ok": true,
   "products": [
     {
+      "id": "bd2d3e20-f4c6-4d61-9a83-fc4ac721182b",
+      "title": "Шампанский десант",
+      "article": "JUB-011",
+      "price": 8850,
+      "short_description": "Напольная композиция с цифрами 10, бутылкой шампанского и букетом сердец с надписями.",
+      "full_description": "Элегантная композиция из золотых цифр 10, фольгированной бутылки шампанского, гирлянд из шаров и букета сердец с именными надписями. Идеально для празднования юбилея.",
+      "composition": [
+        "5 сердец с надписью",
+        "2 сердца",
+        "напольная композиция"
+      ],
+      "category": "Юбилей",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "от 8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шампанский десант — композиция на 10 лет в Армавире",
+      "seo_description": "Напольная композиция с цифрами 10, бутылкой шампанского и сердцами с надписями. Закажите оформление юбилея шарами в VigSharm, Армавир.",
+      "slug": "shampanskiy-desant",
+      "scene": "floor",
+      "tags": [
+        "Юбилей"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790114513/vigsharm-products/grmirjp7hnfwvh9zyxpf.jpg",
+        "floor_type": "air",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 2
+        }
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790114867/vigsharm-products/ikzpjhrw3imyqisqwhfr.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790114867/vigsharm-products/ikzpjhrw3imyqisqwhfr.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-22T22:10:16.641Z",
+      "updated_at": "2026-09-22T22:10:16.641Z"
+    },
+    {
+      "id": "34ee0135-8fd9-419b-ad9d-4fbaa1896470",
+      "title": "Предложение руки",
+      "article": "WED-001",
+      "price": 5200,
+      "short_description": "Розово-золотая композиция с кольцом и шампанским для предложения руки и сердца.",
+      "full_description": "Романтичная композиция в розово-золотых тонах с фольгированным кольцом, бутылкой шампанского и сердцами. Идеальна для предложения и девичника.",
+      "composition": [
+        "7 фольгированных сердец",
+        "2 фольгированные фигуры",
+        "шар-баблс с индивидуальной надписью"
+      ],
+      "category": "Свадьба и девичник",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "5 000–8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары для предложения руки и сердца в Армавире",
+      "seo_description": "Романтичная композиция из шаров с кольцом и шампанским для предложения. Розово-золотые сердца и баблс с именем. Доставка по Армавиру.",
+      "slug": "predlozhenie-ruki",
+      "scene": "wall_only",
+      "tags": [
+        "Свадьба и девичник"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790114210/vigsharm-products/huw39oabmumrghgwtpgw.jpg"
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790114257/vigsharm-products/vohknhxaacjdpw3zscty.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790114257/vigsharm-products/vohknhxaacjdpw3zscty.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-22T21:58:38.019Z",
+      "updated_at": "2026-09-22T21:58:38.019Z"
+    },
+    {
+      "id": "28ba5822-4e29-4a1a-99c6-1d5ba23f1d40",
+      "title": "Черновик 23.09, 00:56",
+      "article": "DG-005",
+      "price": 0,
+      "short_description": "",
+      "full_description": "",
+      "composition": [],
+      "category": "",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "chernovik-23-09-00-56",
+      "scene": "wall_only",
+      "tags": [],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790114192/vigsharm-products/uufbllciaqqwvgcni5oq.jpg"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790114192/vigsharm-products/uufbllciaqqwvgcni5oq.jpg",
+      "status": "draft",
+      "show_on_site": false,
+      "created_at": "2026-09-22T21:56:33.065Z",
+      "updated_at": "2026-09-22T21:56:33.065Z"
+    },
+    {
+      "id": "2b9ab66e-22e1-4b9c-977e-e030ab70a7a4",
+      "title": "Королевский букет",
+      "article": "BQT-016",
+      "price": 2200,
+      "short_description": "Букет из девяти фольгированных сердец с тёплыми надписями в жёлто-фиолетовом оформлении.",
+      "full_description": "Букет из девяти синих фольгированных сердец с золотыми надписями и короной. Упакован в яркую жёлто-фиолетовую бумагу с атласными лентами.",
+      "composition": [
+        "букет из шаров с надписями"
+      ],
+      "category": "Букет из шаров",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": "2 000–3 500 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Букет из шаров с надписями — Армавир | VigSharm",
+      "seo_description": "Букет из девяти фольгированных сердец с тёплыми надписями в жёлто-фиолетовом оформлении. Доставка воздушных шаров в Армавире.",
+      "slug": "korolevskiy-buket",
+      "scene": "handheld_bouquet",
+      "tags": [
+        "Букет из шаров"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790113720/vigsharm-products/xolgtzaf9msyb9numrk8.jpg"
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790113763/vigsharm-products/kbp5uvbbpr4zhccqntke.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790113763/vigsharm-products/kbp5uvbbpr4zhccqntke.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-22T21:50:02.875Z",
+      "updated_at": "2026-09-22T21:50:02.875Z"
+    },
+    {
+      "id": "39aec565-6178-4b0b-98e2-dc016b3271fa",
+      "title": "Лучшей маме",
+      "article": "BQT-015",
+      "price": 2000,
+      "short_description": "Букет из золотых сердец с красным центральным шаром и надписью «Лучшей Маме на свете».",
+      "full_description": "Букет из фольгированных золотых сердец с красным центральным шаром, на котором написано «Лучшей Маме на свете». Оформлен в красную упаковку с атласными лентами.",
+      "composition": [
+        "букет из шаров с надписью"
+      ],
+      "category": "Букет из шаров",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "2 000–3 500 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Букет из шаров для мамы с надписью — Армавир",
+      "seo_description": "Букет из золотых фольгированных сердец с красным центральным шаром и надписью «Лучшей Маме на свете». Доставка воздушных шаров в Армавире.",
+      "slug": "luchshey-mame",
+      "scene": "handheld_bouquet",
+      "tags": [
+        "Букет из шаров"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790113594/vigsharm-products/qo1ojx1v1wrtqm8xarwb.jpg"
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790113668/vigsharm-products/n8xfvod6cuaqe9grk8wk.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790113668/vigsharm-products/n8xfvod6cuaqe9grk8wk.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-22T21:48:20.417Z",
+      "updated_at": "2026-09-22T21:48:20.417Z"
+    },
+    {
+      "id": "97d5861a-8f1d-4d6b-a22a-897d287bfd02",
+      "title": "Бордовые пожелания",
+      "article": "BQT-014",
+      "price": 2000,
+      "short_description": "Букет из бордовых сердец с мотивирующими надписями и серебряным акцентом в центре.",
+      "full_description": "Букет из фольгированных сердец глубокого бордового оттенка с вдохновляющими фразами. В центре — серебряное сердце с цифрой 30 и надписью «С юбилеем».",
+      "composition": [
+        "букет из шаров с надписями"
+      ],
+      "category": "Букет из шаров",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "2 000–3 500 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Букет из шаров с надписями на 30 лет — VigSharm Армавир",
+      "seo_description": "Букет из бордовых фольгированных сердец с мотивирующими надписями и серебряным акцентом. Доставка воздушных шаров в Армавире.",
+      "slug": "bordovye-pozhelaniya",
+      "scene": "handheld_bouquet",
+      "tags": [
+        "Букет из шаров"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790113047/vigsharm-products/zi9mranygpwjdyn7tggc.jpg"
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790113097/vigsharm-products/fkfdtn1epwxlkyebka42.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790113097/vigsharm-products/fkfdtn1epwxlkyebka42.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-22T21:38:53.853Z",
+      "updated_at": "2026-09-22T21:38:53.853Z"
+    },
+    {
+      "id": "39c3a5aa-8db4-484a-8fdb-b074a258b331",
+      "title": "Первые шаги",
+      "article": "BQT-013",
+      "price": 2000,
+      "short_description": "Букет с голубыми фольгированными сердцами, фигурой мишки и метрикой новорождённого.",
+      "full_description": "Букет из голубых фольгированных сердец с надписями «С рождением малыша», «Поздравляем! Мы вас любим», метрикой (дата, время, вес, рост) и фигурой мишки с соской. Упакован в белую и жёлтую бумагу с атласными лентами.",
+      "composition": [
+        "букет из шаров с надписями",
+        "фольгированная фигура мишки"
+      ],
+      "category": "Букет из шаров",
+      "character": null,
+      "age_group": "Для малышей",
+      "budget": "2 000–3 500 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Букет шаров на выписку мальчика с мишкой — Армавир",
+      "seo_description": "Букет из голубых фольгированных сердец с метрикой новорождённого и фигурой мишки. Трогательный подарок на выписку из роддома в Армавире.",
+      "slug": "pervye-shagi-2",
+      "scene": "handheld_bouquet",
+      "tags": [
+        "Букет из шаров"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790112275/vigsharm-products/y5f1qylf7pfg0g3ozdtp.jpg"
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790112345/vigsharm-products/c3tyt7yw6npqdlffmel2.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790112345/vigsharm-products/c3tyt7yw6npqdlffmel2.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-22T21:26:57.834Z",
+      "updated_at": "2026-09-22T21:26:57.834Z"
+    },
+    {
+      "id": "7c4772b6-6b33-4d3d-9ee6-b074b228cec4",
+      "title": "Лиловые сердца",
+      "article": "BQT-012",
+      "price": 2500,
+      "short_description": "Букет из малиновых фольгированных сердец с индивидуальной надписью, дополненный гипсофилой и лиловой упаковкой.",
+      "full_description": "Букет из фольгированных сердец фуксии с персональной надписью, украшенный веточками гипсофилы. Упаковка в лиловых тонах с атласными лентами.",
+      "composition": [
+        "букет из шаров с надписью и гипсофилой"
+      ],
+      "category": "Букет из шаров",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": "2 000–3 500 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Букет из шаров с надписью и гипсофилой в Армавире",
+      "seo_description": "Букет из малиновых фольгированных сердец с индивидуальной надписью и гипсофилой. Лиловая упаковка с атласными лентами. Доставка по Армавиру.",
+      "slug": "lilovye-serdtsa",
+      "scene": "handheld_bouquet",
+      "tags": [
+        "Букет из шаров"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790111971/vigsharm-products/acyxobm3iv2lbrczud5r.jpg"
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790112048/vigsharm-products/xwhaw6oelbdi2zbxmdra.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790112048/vigsharm-products/xwhaw6oelbdi2zbxmdra.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-22T21:22:01.416Z",
+      "updated_at": "2026-09-22T21:22:01.416Z"
+    },
+    {
+      "id": "2d82fc7b-3c88-4708-b53d-9909fa167444",
+      "title": "Игристый букет",
+      "article": "BQT-011",
+      "price": 2000,
+      "short_description": "Букет из розово-золотых звёзд с фольгированной бутылкой шампанского в нарядной упаковке.",
+      "full_description": "Букет из фольгированных звёзд в розово-золотой гамме и бутылки шампанского. Упакован в золотисто-белую плёнку с атласными лентами.",
+      "composition": [
+        "букет из шаров"
+      ],
+      "category": "Букет из шаров",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "2 000–3 500 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Букет из шаров с шампанским в Армавире — VigSharm",
+      "seo_description": "Букет из розово-золотых фольгированных звёзд с бутылкой шампанского. Нарядная упаковка и атласные ленты. Доставка по Армавиру.",
+      "slug": "rozovoe-shampanskoe",
+      "scene": "handheld_bouquet",
+      "tags": [
+        "Букет из шаров"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790111761/vigsharm-products/dgp1fwl6om1kf4miigvp.jpg"
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790111826/vigsharm-products/ycoqu4ev1cbc9vtcqaym.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790111826/vigsharm-products/ycoqu4ev1cbc9vtcqaym.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-22T21:19:08.371Z",
+      "updated_at": "2026-09-22T21:19:08.371Z"
+    },
+    {
+      "id": "b4f342d6-e06c-48a0-b487-f0ad4fbe4330",
+      "title": "Праздник величия",
+      "article": "BQT-010",
+      "price": 2000,
+      "short_description": "Букет из золотых фольгированных шаров с короной и сердцами, упакованный в нежную розовую обёртку.",
+      "full_description": "Букет из золотых фольгированных шаров в форме короны и сердец. Упакован в розовую и бежевую обёртку с атласной лентой.",
+      "composition": [
+        "букет из шаров"
+      ],
+      "category": "Букет из шаров",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": "2 000–3 500 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Букет из шаров с золотой короной и сердцами — Армавир",
+      "seo_description": "Букет из золотых фольгированных шаров с короной и сердцами в розовой упаковке. Доставка по Армавиру от VigSharm.",
+      "slug": "korolevskaya-vozdushnost",
+      "scene": "handheld_bouquet",
+      "tags": [
+        "Букет из шаров"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790111649/vigsharm-products/f0ydhogvot5lstekxc0t.jpg"
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790111694/vigsharm-products/du5f3shdhq15v82pjtvy.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790111694/vigsharm-products/du5f3shdhq15v82pjtvy.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-22T21:15:50.932Z",
+      "updated_at": "2026-09-22T21:15:50.932Z"
+    },
+    {
+      "id": "342c0e99-ce80-4e05-92ce-db37863ab205",
+      "title": "Фиолетовое послание",
+      "article": "BQT-008",
+      "price": 2500,
+      "short_description": "Букет из фольгированных сердец с персональными надписями, украшенный гипсофилой и упакованный в розово-сиреневую бумагу.",
+      "full_description": "Букет из фольгированных сердец розовых и сиреневых оттенков с тёплыми надписями. Дополнен веточками гипсофилы и упакован в нежную бумагу с атласными лентами.",
+      "composition": [
+        "букет из шаров с надписями и гипсофилой"
+      ],
+      "category": "Букет из шаров",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": "2 000–3 500 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Букет из шаров с надписями и гипсофилой — Армавир",
+      "seo_description": "Букет из фольгированных сердец с персональными надписями, украшенный гипсофилой. Нежная упаковка в розово-сиреневых тонах. Доставка в Армавире.",
+      "slug": "sirenevyj-kompliment-2",
+      "scene": "handheld_bouquet",
+      "tags": [
+        "Букет из шаров"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790111448/vigsharm-products/ai2aplu5fkfbdfdmgakt.jpg"
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790111508/vigsharm-products/nxxv3xjixtqclprdgwb3.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790111508/vigsharm-products/nxxv3xjixtqclprdgwb3.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-22T21:13:50.618Z",
+      "updated_at": "2026-09-22T21:13:50.618Z"
+    },
+    {
       "id": "c459a005-b064-44a1-8fee-4989a2aef71f",
       "title": "Виски и усы",
       "article": "BQT-009",

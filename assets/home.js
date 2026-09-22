@@ -78,32 +78,4 @@
     });
   }
 
-  /* ---------- Mobile CTA visibility ---------- */
-  var cta = document.querySelector('.homepage-mobile-cta');
-  var heroActions = document.querySelector('.hero-actions');
-  function updateCta() {
-    if (!cta) return;
-    var show = window.scrollY > Math.min(window.innerHeight * 0.9, 760);
-    /* keep hidden while primary hero CTAs are still on screen */
-    if (heroActions) {
-      var hr = heroActions.getBoundingClientRect();
-      if (hr.bottom > 48) show = false;
-    }
-    // hide when footer CTA / footer in view
-    var footerVisible = false;
-    try {
-      var els = document.querySelectorAll('.footer-cta, footer');
-      for (var i = 0; i < els.length; i++) {
-        var r = els[i].getBoundingClientRect();
-        if (r.top < window.innerHeight - 80 && r.bottom > 0) { footerVisible = true; break; }
-      }
-    } catch (e) {}
-    var visible = show && !footerVisible;
-    cta.classList.toggle('homepage-mobile-cta-visible', visible);
-    cta.setAttribute('aria-hidden', visible ? 'false' : 'true');
-    cta.setAttribute('tabindex', visible ? '0' : '-1');
-  }
-  window.addEventListener('scroll', updateCta, { passive: true });
-  window.addEventListener('resize', updateCta);
-  updateCta();
 })();

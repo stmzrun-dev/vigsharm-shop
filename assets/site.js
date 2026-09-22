@@ -487,7 +487,7 @@
 
   // Wire known CTA buttons (footer CTA, story link, footer contacts, mobile CTA)
   function wireCtas() {
-    var sels = ['.footer-cta button', '.story-link', '.footer-contacts button', '.homepage-mobile-cta'];
+    var sels = ['.footer-cta button', '.story-link', '.footer-contacts button'];
     sels.forEach(function (sel) {
       document.querySelectorAll(sel).forEach(function (btn) {
         if (btn.hasAttribute('data-custom-modal')) return;

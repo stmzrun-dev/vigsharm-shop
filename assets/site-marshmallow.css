@@ -1,8 +1,7 @@
 /* ============================================================
-   Site-wide Soft Marshmallow redesign (approved override of the
-   previous quiet-studio direction — see DESIGN.md "Стиль (v2)").
-   Loaded LAST on every storefront page: index, catalog, product,
-   price, delivery. CSS-only — no JS/markup/ID changes.
+   Soft Marshmallow storefront (DESIGN.md v3 — hybrid:
+   product photos + 3D icons only). Loaded LAST on index, catalog,
+   product, price, delivery.
    ============================================================ */
 
 :root{
@@ -2854,6 +2853,11 @@ html body main#main-content footer .footer-cta{
 }
 html body main#main-content footer .footer-cta-icon{
   color:#ff8e7a!important;
+}
+html body main#main-content footer .footer-cta-icon img{
+  width:28px!important;
+  height:28px!important;
+  display:block!important;
 }
 html body main#main-content footer .footer-cta small{
   color:#8b8b93!important;

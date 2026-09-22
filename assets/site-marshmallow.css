@@ -461,14 +461,13 @@ html body .product-page .product-composition-card{
   padding:20px 18px!important;
 }
 html body .product-page .product-composition-card .eyebrow{
-  color:#8b8b93!important;
-  font-weight:700!important;
-  letter-spacing:.06em;
-  text-transform:uppercase;
+  display:none!important;
 }
 html body .product-page .product-composition-card h2{
   color:#2a2a32!important;
-  margin:6px 0 14px!important;
+  margin:0 0 14px!important;
+  font-size:22px!important;
+  line-height:1.2!important;
 }
 html body .product-page .composition-list{
   display:grid!important;
@@ -3044,6 +3043,7 @@ html body main#main-content.catalog-page .catalog-sort > button:focus-visible{
     flex:1 1 0;
     padding:8px 6px;
     text-align:center;
+    font-size:12px;
   }
 }
 
@@ -3711,7 +3711,7 @@ html body.delivery-page main#main-content footer .footer-contacts>button{
   }
 }
 
-/* Crop padded 3D icons so the subject fills the tile (not a blank square). */
+/* 3D tiles are already framed — do not zoom/crop the subject. */
 html body.price-page .info-hero-emoji,
 html body.delivery-page main#main-content .info-hero-emoji,
 html body.delivery-page main#main-content .info-card-icon,
@@ -3728,13 +3728,8 @@ html body.price-page .price-explanation>span img{
   height:100%!important;
   max-width:none!important;
   object-fit:contain!important;
-  transform:scale(2.85)!important;
-  transform-origin:center 80%!important;
-}
-html body.delivery-page main#main-content .info-card-icon img[src*="ful-far"],
-html body.delivery-page main#main-content .info-card-icon img[src*="ful-pickup"]{
-  transform:scale(1.18)!important;
-  transform-origin:center center!important;
+  object-position:center!important;
+  transform:none!important;
 }
 
 @keyframes mm-photo-wait{

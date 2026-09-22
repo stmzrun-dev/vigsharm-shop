@@ -690,7 +690,7 @@
     var leadText = p.short_description || (desc ? desc.split(/\n+/)[0] : '');
     var compositionHtml = compItems.length
       ? ('<section class="product-page-description product-page-description--solo product-composition-inline" aria-label="Состав композиции"><article class="product-composition-card">' +
-        '<p class="eyebrow">Что входит</p><h2>Состав</h2>' +
+        '<h2>Состав</h2>' +
         '<div class="composition-list">' + compItems.map(function (t, i) {
           var label = String(t).replace(/[;.\s]+$/, '');
           return '<div class="composition-item tone-' + (i % 4) + '"><span class="comp-mark" aria-hidden="true">' + compIcon(label, i) + '</span><strong>' + esc(label) + '</strong></div>';

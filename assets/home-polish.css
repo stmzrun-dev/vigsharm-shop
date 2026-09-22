@@ -74,6 +74,19 @@ main#main-content{
   border:1.5px solid #e8e8ec!important;
   box-shadow:none!important;
   border-radius:999px!important;
+  overflow:visible!important;
+  align-items:center!important;
+  min-height:44px!important;
+  padding:6px 14px 6px 10px!important;
+  gap:8px!important;
+}
+.header-phone img,
+.header-phone .vig-emoji{
+  flex-shrink:0!important;
+  width:20px!important;
+  height:20px!important;
+  object-fit:contain!important;
+  display:block!important;
 }
 .header-phone span{
   background:#ff6b5a!important;

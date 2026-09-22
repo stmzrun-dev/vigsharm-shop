@@ -255,7 +255,7 @@
     receipt: '🧾'
   };
   var VIG_EMOJI_SRC = {
-    phone: 'icons/line-phone.svg',
+    phone: 'icons/line-phone.svg?v=5',
     pin: 'icons/line-pin.svg',
     chat: 'icons/footer-chat.png?v=2',
     car: 'icons/line-delivery.svg',

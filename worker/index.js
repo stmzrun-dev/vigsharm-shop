@@ -25,8 +25,10 @@ export default {
       // ИИ-генерация, Studio Pro) требует заголовок Authorization: Bearer <ADMIN_API_KEY>.
       const isPublicRead = method === 'GET' && (
         path === '/api/products' || /^\/api\/products\/[^/]+$/.test(path)
+        || path === '/api/price-list'
       );
-      if (!isPublicRead) {
+      const isPublicOrder = path === '/api/orders' && method === 'POST';
+      if (!isPublicRead && !isPublicOrder) {
         const authHeader = request.headers.get('Authorization') || '';
         const expected = 'Bearer ' + (env.ADMIN_API_KEY || '');
         if (!env.ADMIN_API_KEY || authHeader !== expected) {
@@ -59,6 +61,12 @@ export default {
         return handleStudioUpload(request, env);
       if (path === '/api/studio/generate-reference' && method === 'POST')
         return handleGenerateReference(request, env);
+      if (path === '/api/orders' && method === 'POST')
+        return handleCreateOrder(request, env);
+      if (path === '/api/orders' && method === 'GET')
+        return handleListOrders(env);
+      if (path.match(/^\/api\/orders\/[^/]+\/status$/) && method === 'PATCH')
+        return handleOrderStatus(path, request, env);
       if (path === '/api/products' && method === 'GET')
         return handleGetProducts(env);
       if (path.match(/^\/api\/products\/[^/]+$/) && method === 'GET')
@@ -71,6 +79,12 @@ export default {
         return handleDeleteProduct(path, env);
       if (path.match(/^\/api\/products\/[^/]+\/status$/) && method === 'PATCH')
         return handleToggleStatus(path, request, env);
+      if (path === '/api/price-list' && method === 'GET')
+        return handleGetPriceList(env);
+      if (path === '/api/price-list' && method === 'PUT')
+        return handlePutPriceList(request, env);
+      if (path === '/api/price-list/reprice' && method === 'POST')
+        return handleRepriceFromList(request, env);
       if (path === '/api/upload/photo' && method === 'POST')
         return handleUploadPhoto(request, env);
       if (path.match(/^\/api\/upload\/photo\/[^/]+$/) && method === 'DELETE')
@@ -202,6 +216,15 @@ function normalizeHolidayKey(raw) {
     .trim();
 }
 
+function holidayFromHints(hints) {
+  if (!Array.isArray(hints)) return null;
+  for (const h of hints) {
+    const hit = matchHolidayCategory(h);
+    if (hit) return hit;
+  }
+  return null;
+}
+
 function matchHolidayCategory(raw) {
   const key = normalizeHolidayKey(raw);
   if (!key) return null;
@@ -314,12 +337,40 @@ function pickAudienceTags(tags) {
   return out.slice(0, 1);
 }
 
+function pickKeptTypeTags(tags) {
+  const list = Array.isArray(tags) ? tags : [];
+  const out = [];
+  for (const t of list) {
+    if (t === 'Фотозона' && !out.includes(t)) out.push(t);
+  }
+  return out;
+}
+
+function compositionLooksLikePhotozone(text) {
+  const t = String(text || '').toLowerCase().replace(/ё/g, 'е');
+  if (!t) return false;
+  return /фотозон|мольбер|полистирол|круг\s+на\s+мольбер|каркас|кругл\w*\s+рам|рамк\w*\s+фотозон|обруч|\bhoop\b|\beasel\b/.test(t);
+}
+
+function applyPhotozoneTypeTag(data, scene, rawComposition) {
+  const tags = Array.isArray(data.tags) ? [...data.tags] : [];
+  const hit = (scene || '') === 'photozone'
+    || compositionLooksLikePhotozone(rawComposition)
+    || tags.includes('Фотозона')
+    || String(data.category || '') === 'Фотозона';
+  if (!hit) return data;
+  if (!tags.includes('Фотозона')) tags.push('Фотозона');
+  data.tags = tags;
+  return data;
+}
+
 function applyOccasionShelfCard(data) {
   const cat = String(data.category || '').trim();
   if (!OCCASION_SHELVES.includes(cat)) return data;
   data.age_group = ageFromCategory(cat) || data.age_group || 'Для любого возраста';
   const audience = pickAudienceTags(data.tags).filter((t) => t !== cat);
-  data.tags = [cat, ...audience];
+  const types = pickKeptTypeTags(data.tags);
+  data.tags = [cat, ...audience, ...types];
   return data;
 }
 
@@ -446,12 +497,16 @@ async function handleGenerateCard(request, env) {
   } = body;
   const rawIn = String(composition_raw || description || '').trim();
   const holidayMeta = parseCompositionHolidayMeta(rawIn);
-  const holidayOnly = matchHolidayCategory(holiday_only) || holidayMeta.holiday || null;
   const rawComposition = holidayMeta.cleanText || rawIn;
   const hintsFromBody = Array.isArray(composition_hints)
     ? composition_hints.map((h) => String(h || '').trim()).filter(Boolean)
     : [];
   const compositionHints = [...new Set([...(holidayMeta.hints || []), ...hintsFromBody])];
+  const themeHit = matchHolidayCategory(holiday_only)
+    || holidayMeta.holiday
+    || holidayFromHints(compositionHints)
+    || null;
+  const holidayOnly = themeHit && OCCASION_SHELVES.includes(themeHit) ? themeHit : null;
   const typeHint = sceneTypeHint(scene || 'floor');
   const priceNum = Number(price) || 0;
   const takenTitles = normalizeExistingTitlesList(existing_titles);
@@ -462,8 +517,9 @@ async function handleGenerateCard(request, env) {
 
   const holidayRule = holidayOnly
     ? `
-ТЕМАТИЧЕСКАЯ КАРТОЧКА (метка в скобках уже снята из состава; правило для ЛЮБОЙ сцены): category = РОВНО «${holidayOnly}».
-- ОБЯЗАТЕЛЬНО заполни character, если на фото есть фольгированный зверёк/герой (зайчик, жираф, мишка, LOL…). series_name — по теме или пусто
+ТЕМАТИЧЕСКАЯ КАРТОЧКА (метка в скобках уже снята из состава; правило для ЛЮБОЙ сцены, в т.ч. balloon_figures): category = РОВНО «${holidayOnly}».
+- Не ставь category/tags «Фигуры из шаров» / букет / фотозона — тип изделия не перебивает праздник
+- ОБЯЗАТЕЛЬНО character по фото: скрутка И фольгированный герой (Дед Мороз, Снегурочка, снеговик, кошка, заяц, мишка, солдат, LOL…). series_name — по теме или пусто
 - age_group можно не заполнять — система поставит сама по категории
 - tags: ТОЛЬКО «${holidayOnly}» — без type-тегов («Букет из шаров», «Фигуры…» и т.п.), без других разделов
 - composition: БЕЗ скобок и БЕЗ текста тематики — только физический состав шаров`
@@ -502,11 +558,13 @@ async function handleGenerateCard(request, env) {
     : '';
   const photozoneRule = photozoneOnly
     ? `
-ФОТОЗОНА (без тематики в скобках): category = РОВНО «Фотозона».
-- tags: ТОЛЬКО «Фотозона» (пол/повод не дублируй в tags)
-- ОБЯЗАТЕЛЬНО заполни age_group по фото (дети/малыши/…)
-- target_audience и occasion оставь пустыми
-- character / series_name — по герою на фото (Человек-паук и т.п.)`
+ФОТОЗОНА (мольберт / каркас / круг; без тематики в скобках):
+- В tags ВСЕГДА «Фотозона»
+- Если на фото одна крупная фольгированная «1» (foil_digits = "1"): category = «1 годик», tags ["1 годик","Фотозона"] (+ пол если явный). НЕ ставь category «Фотозона» вместо «1 годик»
+- Иначе: category = «Фотозона», tags только «Фотозона» (пол/повод не дублируй)
+- ОБЯЗАТЕЛЬНО age_group по фото
+- target_audience и occasion пустые
+- character / series_name — по герою на фото`
     : '';
 
   const systemPrompt = `Ты — копирайтер каталога VigSharm (воздушные шары, Армавир).
@@ -582,10 +640,21 @@ ${BUDGET_OPTIONS.join(' | ')}
 - «Букет из шаров» в tags — ТОЛЬКО если сцена handheld_bouquet или в составе явно «букет». Сцена wall_only сама по себе НЕ букет
 - ЗАПРЕЩЕНО: тег и категория «Шар-сюрприз» — раздел пока не используется, не ставь никуда
 - «Фигуры из шаров» — ТОЛЬКО скрутка/лепка из множества шаров, стоящая на полу. НЕ ставь этот тег для фольгированных персонажей (Пикачу, Гонщик, зайчик, жираф), баблов, фонтанов и композиций на стене
+- Мольберт / пенопластовый круг / каркас-обруч (фотозона) → в tags «Фотозона». Если foil_digits = "1", category всё равно «1 годик», тег «Фотозона» рядом
 - ПЕРСОНАЖ И СЕРИЯ — критично, определяй по фото:
-  • Смотри фигуры, принты, цвета, декор, паутину, логотипы, типичные сочетания
+  • Смотри фигуры (скрутка из шаров тоже!), принты, цвета, декор, паутину, логотипы, типичные сочетания
+  • Скрутка: красная шуба + белая борода + шапка + чёрные сапоги → character «Дед Мороз» (Санта). НЕ «принцесса», не «барышня», не «для девочки» только из‑за красного
+  • Снегурочка, снеговик, кошка/заяц/мишка из шаров — тоже character, не пустая строка
+  • КОШКА vs ЗАЯЦ (скрутка) — не ставь «зайчик» любому белому зверю:
+    короткие/треугольные уши, усы, круглая морда, часто букет в лапах → character «Кошка» (не «Заяц»)
+    длинные уши (торчат вверх/назад, длиннее головы) → «Заяц»
+    сомнение → character_confidence medium/low, character_alts: «Кошка», «Заяц»; в title/title_alts НЕ пиши «зайка/заяц», если уши короткие
+  • СОЛДАТ vs МУЗЫКАНТ (скрутка): автомат/винтовка (приклад, ствол, магазин, ремень), пилотка/каска, сапоги, зелёная форма → character «Солдат». НЕ скрипач и не гитарист.
+    Скрипка/гитара — корпус-резонатор, гриф с головкой, струны, смычок. «Палка в руках» без корпуса ≠ инструмент.
+    title: армейский крючок («На посту», «Боевой расчёт»), НЕ «Скрипичный виртуоз» / «Струнный маэстро»
   • Примеры: красно-синие шары + паутина / звезда → character «Человек-паук», series_name «Человек-паук»
   • Миньоны, Единорог, LOL, Холодное сердце, Гонщик, Пикачу, Барби — по узнаваемым признакам
+  • title при зимнем герое — зимний крючок («Зимний гость», «Мешок подарков»), НЕ «Красная принцесса» / «Алая барышня»
   • series_name = франшиза/тематика (Человек-паук, Marvel, Миньоны…), не «День рождения»
   • character = конкретный герой по-русски («Человек-паук», не Spider-Man), если героя нет — пустая строка
   • character_confidence / series_confidence: high если уверен, medium если вероятнее всего, low если сомневаешься
@@ -631,7 +700,7 @@ ${holidayOnly ? `Праздничная/тематическая категор�
 ${boxOnly ? 'В составе коробка — category и tags только «Коробка-сюрприз». age_group обязателен.' : ''}
 ${bouquetOnly ? 'Это букет из шаров без тематики в скобках — category и tags только «Букет из шаров».' : ''}
 ${figuresOnly ? 'Это фигура из шаров без тематики в скобках — category и tags только «Фигуры из шаров».' : ''}
-${photozoneOnly ? 'Это фотозона без тематики в скобках — category и tags только «Фотозона».' : ''}
+${photozoneOnly ? 'Это фотозона. В tags всегда «Фотозона». Если foil_digits=1 — category «1 годик» + тег Фотозона, иначе category «Фотозона».' : ''}
 ${takenBlock}
 ${image_url
     ? (holidayOnly || boxOnly || bouquetOnly || figuresOnly
@@ -694,11 +763,14 @@ ${image_url
   } else {
     applyDischargeCategoryPriority(data, rawComposition);
   }
-  // Полки по фольгированным цифрам: «1» → 1 годик; 10/20/… → Юбилей
+  // Цифра на фото не перебивает коробку/букет/фигуру
   const foilDigits = takeFoilDigits(data);
-  applyFirstBirthdayFromFoilDigit(data, foilDigits);
-  applyJubileeFromFoilDigits(data, foilDigits);
+  if (!boxOnly && !bouquetOnly && !figuresOnly) {
+    applyFirstBirthdayFromFoilDigit(data, foilDigits);
+    applyJubileeFromFoilDigits(data, foilDigits);
+  }
   applyOccasionShelfCard(data);
+  applyPhotozoneTypeTag(data, scene || 'floor', rawComposition);
   // Свободные поля occasion / target_audience в админке убраны
   data.occasion = '';
   data.target_audience = '';
@@ -797,6 +869,18 @@ function sanitizeCompositionBoxes(lines) {
     const count = countM ? `${countM[1]} ` : '';
     return `${count}коробка ${size} с индивидуальной надписью и декором`;
   }).filter(Boolean);
+}
+
+function sanitizeCompositionDigitLines(lines, rawComposition) {
+  const raw = String(rawComposition || '').toLowerCase().replace(/ё/g, 'е');
+  const userMentionedDigit = /цифр/.test(raw);
+  return (lines || []).map((line) => String(line || '').trim()).filter(Boolean).flatMap((line) => {
+    const t = line.toLowerCase().replace(/ё/g, 'е');
+    if (!/цифр/.test(t)) return [line];
+    if (!userMentionedDigit) return [];
+    if (/^2\b/.test(t) || /две\s+цифр/.test(t) || /2\s+цифр/.test(t)) return ['2 цифры'];
+    return ['цифра'];
+  });
 }
 
 /** Названия не должны цепляться к цифре на фото — клиент меняет 0–9. */
@@ -1027,6 +1111,7 @@ function sanitizeCardMetadata(data, scene = 'floor', price = 0, rawComposition =
   }
   if (Array.isArray(data.composition)) {
     data.composition = sanitizeCompositionBoxes(data.composition);
+    data.composition = sanitizeCompositionDigitLines(data.composition, rawComposition);
   }
 
   const occ = String(data.occasion || '').toLowerCase();
@@ -2430,6 +2515,491 @@ function parseProduct(row) {
     photos: JSON.parse(row.photos || '[]'),
     show_on_site: !!row.show_on_site
   };
+}
+
+// ─── Storefront orders ───────────────────────────────────
+
+async function ensureOrdersTable(env) {
+  await env.DB.prepare(`CREATE TABLE IF NOT EXISTS orders (
+    id TEXT PRIMARY KEY,
+    public_code TEXT NOT NULL,
+    product_id TEXT,
+    product_slug TEXT,
+    product_title TEXT,
+    product_sku TEXT,
+    quantity INTEGER DEFAULT 1,
+    digit TEXT,
+    digit2 TEXT,
+    digit_delta INTEGER DEFAULT 0,
+    inscription TEXT,
+    fulfillment TEXT,
+    address TEXT,
+    order_date TEXT,
+    order_time TEXT,
+    customer_name TEXT,
+    customer_phone TEXT,
+    total INTEGER DEFAULT 0,
+    price_from INTEGER DEFAULT 0,
+    message TEXT,
+    status TEXT DEFAULT 'new',
+    ip TEXT,
+    created_at TEXT,
+    updated_at TEXT
+  )`).run();
+}
+
+function normalizeRuPhone(raw) {
+  let digits = String(raw || '').replace(/\D/g, '');
+  if (digits.length === 11 && digits[0] === '8') digits = '7' + digits.slice(1);
+  if (digits.length === 10) digits = '7' + digits;
+  if (digits.length === 11 && digits[0] === '7') return digits;
+  return null;
+}
+
+function shortOrderCode() {
+  const alphabet = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+  const bytes = crypto.getRandomValues(new Uint8Array(4));
+  let out = '';
+  for (let i = 0; i < 4; i++) out += alphabet[bytes[i] % alphabet.length];
+  return out;
+}
+
+function formatRuPhone(digits) {
+  if (!digits || digits.length !== 11) return digits || '';
+  return '+7 ' + digits.slice(1, 4) + ' ' + digits.slice(4, 7) + '-' + digits.slice(7, 9) + '-' + digits.slice(9);
+}
+
+function clientIp(request) {
+  return request.headers.get('CF-Connecting-IP')
+    || (request.headers.get('X-Forwarded-For') || '').split(',')[0].trim()
+    || 'unknown';
+}
+
+function orderNotifyText(order) {
+  const phoneNice = formatRuPhone(order.customer_phone);
+  return [
+    'Новая заявка #' + order.public_code,
+    order.customer_name ? ('Имя: ' + order.customer_name) : '',
+    'Телефон: ' + phoneNice,
+    '',
+    order.message || ''
+  ].filter(Boolean).join('\n').slice(0, 3900);
+}
+
+function splitSecretList(raw) {
+  return String(raw || '').split(/[,;\s]+/).map((id) => id.trim()).filter(Boolean);
+}
+
+async function telegramChatIdFromUpdates(token) {
+  const res = await fetch('https://api.telegram.org/bot' + token + '/getUpdates?limit=20');
+  if (!res.ok) return '';
+  const data = await res.json().catch(() => null);
+  const updates = (data && data.ok && Array.isArray(data.result)) ? data.result : [];
+  for (let i = updates.length - 1; i >= 0; i--) {
+    const chat = updates[i] && (updates[i].message || updates[i].my_chat_member || updates[i].edited_message);
+    const id = chat && chat.chat && chat.chat.id;
+    if (id) return String(id);
+  }
+  return '';
+}
+
+async function notifyTelegram(env, order) {
+  const tokens = splitSecretList(env.TELEGRAM_BOT_TOKEN);
+  let chatIds = splitSecretList(env.TELEGRAM_CHAT_ID);
+  if (!tokens.length) return { ok: false, skipped: true };
+  if (!chatIds.length) {
+    chatIds = [];
+    for (const token of tokens) {
+      const id = await telegramChatIdFromUpdates(token).catch(() => '');
+      chatIds.push(id || '');
+    }
+  }
+  if (chatIds.every((id) => !id)) return { ok: false, skipped: true };
+  const text = orderNotifyText(order);
+  let anyOk = false;
+  for (let i = 0; i < tokens.length; i++) {
+    const token = tokens[i];
+    const chatId = chatIds[i] || chatIds[0];
+    if (!token || !chatId) continue;
+    try {
+      const res = await fetch('https://api.telegram.org/bot' + token + '/sendMessage', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          chat_id: chatId,
+          text,
+          disable_web_page_preview: true
+        })
+      });
+      if (res.ok) anyOk = true;
+      else console.error('Telegram notify failed', chatId, res.status, await res.text().catch(() => ''));
+    } catch (e) {
+      console.error('Telegram notify error', chatId, e);
+    }
+  }
+  return { ok: anyOk };
+}
+
+async function notifyMax(env, order) {
+  const token = String(env.MAX_BOT_TOKEN || '').trim();
+  const userId = String(env.MAX_USER_ID || env.MAX_CHAT_ID || '').trim();
+  if (!token || !userId) return { ok: false, skipped: true };
+  const asChat = userId.startsWith('-') || (env.MAX_CHAT_ID && String(env.MAX_CHAT_ID) === userId);
+  const url = 'https://platform-api2.max.ru/messages?' + (asChat
+    ? ('chat_id=' + encodeURIComponent(userId))
+    : ('user_id=' + encodeURIComponent(userId)));
+  try {
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Authorization': token,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        text: orderNotifyText(order),
+        notify: true
+      })
+    });
+    if (!res.ok) {
+      const errText = await res.text().catch(() => '');
+      console.error('MAX notify failed', res.status, errText);
+      return { ok: false, status: res.status };
+    }
+    return { ok: true };
+  } catch (e) {
+    console.error('MAX notify error', e);
+    return { ok: false, error: e.message };
+  }
+}
+
+async function notifyShop(env, order) {
+  const tg = await notifyTelegram(env, order);
+  if (tg.ok) return tg;
+  return notifyMax(env, order);
+}
+
+async function handleCreateOrder(request, env) {
+  await ensureOrdersTable(env);
+  let data;
+  try {
+    data = await request.json();
+  } catch (e) {
+    return json({ ok: false, error: 'Некорректные данные' }, 400);
+  }
+  if (String(data.website || data.hp || '').trim()) {
+    return json({ ok: true, code: 'OK' });
+  }
+  const phone = normalizeRuPhone(data.customer_phone || data.phone);
+  if (!phone) return json({ ok: false, error: 'Укажите телефон в формате +7 …' }, 400);
+  const fulfillment = String(data.fulfillment || '');
+  if (!['pickup', 'armavir', 'nearby'].includes(fulfillment)) {
+    return json({ ok: false, error: 'Выберите способ получения' }, 400);
+  }
+  const title = String(data.product_title || data.title || '').trim();
+  if (!title) return json({ ok: false, error: 'Нет названия композиции' }, 400);
+  const orderDate = String(data.order_date || '').trim();
+  const orderTime = String(data.order_time || '').trim();
+  if (!orderDate || !orderTime) return json({ ok: false, error: 'Укажите дату и время' }, 400);
+
+  const ip = clientIp(request);
+  const hourAgo = new Date(Date.now() - 60 * 60 * 1000).toISOString();
+  const counted = await env.DB.prepare(
+    'SELECT COUNT(*) AS n FROM orders WHERE ip = ? AND created_at > ?'
+  ).bind(ip, hourAgo).first();
+  if ((counted && counted.n) >= 5) {
+    return json({ ok: false, error: 'Слишком много заявок. Позвоните нам или напишите в WhatsApp.' }, 429);
+  }
+
+  const id = crypto.randomUUID();
+  const publicCode = shortOrderCode();
+  const now = new Date().toISOString();
+  const name = String(data.customer_name || data.name || '').trim().slice(0, 80);
+  const message = String(data.message || '').trim().slice(0, 4000);
+  const total = Number(data.total);
+  const row = {
+    id,
+    public_code: publicCode,
+    product_id: d1(data.product_id),
+    product_slug: d1(data.product_slug || data.slug),
+    product_title: title.slice(0, 180),
+    product_sku: d1(data.product_sku || data.sku),
+    quantity: Math.max(1, Math.min(100, Number(data.quantity) || 1)),
+    digit: d1(data.digit),
+    digit2: d1(data.digit2),
+    digit_delta: Number(data.digit_delta) || 0,
+    inscription: d1(String(data.inscription || '').slice(0, 60)),
+    fulfillment,
+    address: d1(String(data.address || '').slice(0, 140)),
+    order_date: orderDate.slice(0, 16),
+    order_time: orderTime.slice(0, 40),
+    customer_name: d1(name),
+    customer_phone: phone,
+    total: Number.isFinite(total) ? Math.round(total) : 0,
+    price_from: data.price_from ? 1 : 0,
+    message: d1(message),
+    status: 'new',
+    ip: d1(ip),
+    created_at: now,
+    updated_at: now
+  };
+
+  await env.DB.prepare(`INSERT INTO orders (
+    id, public_code, product_id, product_slug, product_title, product_sku, quantity,
+    digit, digit2, digit_delta, inscription, fulfillment, address, order_date, order_time,
+    customer_name, customer_phone, total, price_from, message, status, ip, created_at, updated_at
+  ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`).bind(
+    row.id, row.public_code, row.product_id, row.product_slug, row.product_title, row.product_sku, row.quantity,
+    row.digit, row.digit2, row.digit_delta, row.inscription, row.fulfillment, row.address, row.order_date, row.order_time,
+    row.customer_name, row.customer_phone, row.total, row.price_from, row.message, row.status, row.ip, row.created_at, row.updated_at
+  ).run();
+
+  const notified = await notifyShop(env, row);
+  return json({ ok: true, code: publicCode, notified: !!notified.ok });
+}
+
+async function handleListOrders(env) {
+  await ensureOrdersTable(env);
+  const { results } = await env.DB.prepare(
+    'SELECT id, public_code, product_id, product_slug, product_title, product_sku, quantity, digit, digit2, inscription, fulfillment, address, order_date, order_time, customer_name, customer_phone, total, price_from, message, status, created_at FROM orders ORDER BY created_at DESC LIMIT 150'
+  ).all();
+  return json({ ok: true, orders: results || [] });
+}
+
+async function handleOrderStatus(path, request, env) {
+  await ensureOrdersTable(env);
+  const id = path.split('/')[3];
+  let data;
+  try { data = await request.json(); } catch (e) {
+    return json({ ok: false, error: 'Некорректные данные' }, 400);
+  }
+  const status = String(data.status || '');
+  if (!['new', 'called', 'confirmed', 'cancelled'].includes(status)) {
+    return json({ ok: false, error: 'Неизвестный статус' }, 400);
+  }
+  const now = new Date().toISOString();
+  await env.DB.prepare('UPDATE orders SET status = ?, updated_at = ? WHERE id = ?').bind(status, now, id).run();
+  return json({ ok: true });
+}
+
+const PRICE_LIST_SEED = [
+  ['latex', 'latex', 1, 'Латексный шар', 140, 0, '', 'Шары поштучно', 'Латексный шар', ''],
+  ['print', 'latex', 2, 'Шар с рисунком', 140, 0, '', 'Шары поштучно', 'Шар с рисунком', ''],
+  ['confetti', 'latex', 3, 'Шар с конфетти', 180, 0, '', 'Шары поштучно', 'Шар с конфетти', ''],
+  ['chrome', 'latex', 4, 'Шар хром', 180, 0, '', 'Шары поштучно', 'Шар хром', ''],
+  ['agate', 'latex', 5, 'Шар супер-агат', 200, 0, '', 'Шары поштучно', 'Шар супер-агат', ''],
+  ['brush', 'latex', 6, 'Шар браш', 150, 0, '', 'Шары поштучно', 'Шар браш', ''],
+  ['foil-round', 'foil', 1, 'Круг, звезда или сердце', 300, 0, '', 'Шары поштучно', 'Круг, звезда или сердце', ''],
+  ['foil-text', 'foil', 2, 'С надписью', 400, 0, '', 'Шары поштучно', 'С надписью', ''],
+  ['foil-figure', 'foil', 3, 'Фольгированная фигура', 500, 1, '', 'Шары поштучно', 'Фольгированная фигура', ''],
+  ['walker', 'foil', 4, 'Ходячая фигура', 300, 1, '', 'Шары поштучно', 'Ходячая фигура', ''],
+  ['digit', 'foil', 5, 'Фольгированная цифра', 900, 0, '', 'Шары поштучно', 'Фольгированная цифра', ''],
+  ['figure', 'special', 1, 'Фигура из шаров', 100, 1, '', 'Фигуры из шаров', 'Фигура из шаров', ''],
+  ['flower', 'special', 2, 'Цветок из шаров', 80, 1, '', 'Цветы из шаров', 'Цветок из шаров', ''],
+  ['gender', 'special', 3, 'Гендерный шар', 1600, 0, '', 'Гендер-пати', 'Гендерный шар', 'Коробки, баблс и сюрпризы'],
+  ['surprise', 'special', 4, 'Шар-сюрприз', 1000, 1, '', 'Шар-сюрприз', 'Шар-сюрприз', ''],
+  ['kraft', 'special', 5, 'Крафтовый букет', 1000, 1, '', 'Крафтовый букет', 'Крафтовый букет', ''],
+  ['box', 'special', 6, 'Коробка-сюрприз', 1700, 0, '', 'Коробка-сюрприз', 'Коробка-сюрприз', ''],
+  ['bubble', 'special', 7, 'Баблс с наполнением и надписью', 1600, 0, '', 'Шары поштучно', 'Баблс с наполнением и надписью', ''],
+  ['glass-bubble', 'special', 8, 'Стеклянный баблс с надписью', 2000, 0, '', 'Шары поштучно', 'Стеклянный баблс с надписью', ''],
+  ['arch-classic', 'decor', 1, 'Классическая арка', 650, 0, '/м', 'Арки', 'Классическая арка', ''],
+  ['arch-organic', 'decor', 2, 'Разнокалиберная арка', 1200, 0, '/м', 'Арки', 'Разнокалиберная арка', '']
+];
+
+async function ensurePriceListTable(env) {
+  await env.DB.prepare(`CREATE TABLE IF NOT EXISTS price_list (
+    id TEXT PRIMARY KEY,
+    group_id TEXT NOT NULL,
+    sort_order INTEGER NOT NULL DEFAULT 0,
+    title TEXT NOT NULL,
+    price INTEGER NOT NULL DEFAULT 0,
+    price_from INTEGER NOT NULL DEFAULT 0,
+    unit TEXT DEFAULT '',
+    catalog_category TEXT DEFAULT '',
+    catalog_query TEXT DEFAULT '',
+    subhead TEXT DEFAULT '',
+    updated_at TEXT
+  )`).run();
+  const row = await env.DB.prepare('SELECT COUNT(*) AS n FROM price_list').first();
+  if (Number(row?.n) > 0) return;
+  const now = new Date().toISOString();
+  for (const item of PRICE_LIST_SEED) {
+    await env.DB.prepare(
+      `INSERT OR IGNORE INTO price_list
+        (id, group_id, sort_order, title, price, price_from, unit, catalog_category, catalog_query, subhead, updated_at)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
+    ).bind(...item, now).run();
+  }
+}
+
+function parsePriceRow(row) {
+  return {
+    id: row.id,
+    group_id: row.group_id,
+    sort_order: Number(row.sort_order) || 0,
+    title: row.title,
+    price: Number(row.price) || 0,
+    price_from: Number(row.price_from) ? 1 : 0,
+    unit: row.unit || '',
+    catalog_category: row.catalog_category || '',
+    catalog_query: row.catalog_query || '',
+    subhead: row.subhead || '',
+    updated_at: row.updated_at || ''
+  };
+}
+
+async function handleGetPriceList(env) {
+  await ensurePriceListTable(env);
+  const { results } = await env.DB.prepare(
+    'SELECT * FROM price_list ORDER BY group_id, sort_order, id'
+  ).all();
+  return json({ ok: true, items: (results || []).map(parsePriceRow) });
+}
+
+async function handlePutPriceList(request, env) {
+  await ensurePriceListTable(env);
+  let data;
+  try { data = await request.json(); } catch (e) {
+    return json({ ok: false, error: 'Некорректные данные' }, 400);
+  }
+  const items = Array.isArray(data.items) ? data.items : [];
+  if (!items.length) return json({ ok: false, error: 'Пустой список' }, 400);
+  const now = new Date().toISOString();
+  for (const raw of items) {
+    const id = String(raw.id || '').trim();
+    if (!id) continue;
+    const price = Math.max(0, Math.round(Number(raw.price) || 0));
+    const priceFrom = raw.price_from ? 1 : 0;
+    await env.DB.prepare(
+      'UPDATE price_list SET price = ?, price_from = ?, updated_at = ? WHERE id = ?'
+    ).bind(price, priceFrom, now, id).run();
+  }
+  const { results } = await env.DB.prepare(
+    'SELECT * FROM price_list ORDER BY group_id, sort_order, id'
+  ).all();
+  return json({ ok: true, items: (results || []).map(parsePriceRow) });
+}
+
+function compositionLines(raw) {
+  if (Array.isArray(raw)) return raw.map((x) => String(x || '').trim()).filter(Boolean);
+  if (typeof raw !== 'string') return [];
+  const t = raw.trim();
+  if (t.startsWith('[')) {
+    try {
+      const parsed = JSON.parse(t);
+      if (Array.isArray(parsed)) return compositionLines(parsed);
+    } catch (e) { /* text */ }
+  }
+  return t.split(/\n+/).map((x) => x.trim()).filter(Boolean);
+}
+
+function matchCompositionLine(line) {
+  let s = String(line || '').toLowerCase().replace(/ё/g, 'е').replace(/\s+/g, ' ').trim();
+  if (!s) return null;
+  if (/гирлянд|фотозон|мольберт|лестниц|табличк/.test(s)) return null;
+  if (/\bарк/.test(s)) return null;
+
+  let qty = 1;
+  const qm = s.match(/^(\d+)\s+(.*)$/);
+  if (qm) {
+    qty = Math.max(1, Math.min(200, Number(qm[1]) || 1));
+    s = qm[2];
+  }
+
+  const rules = [
+    [/стеклянн.*бабл|бабл.*стеклян/, 'glass-bubble'],
+    [/бабл/, 'bubble'],
+    [/гендер/, 'gender'],
+    [/коробк.*сюрприз|сюрприз.*коробк/, 'box'],
+    [/шар[-\s]?сюрприз/, 'surprise'],
+    [/крафтов/, 'kraft'],
+    [/цвет(ок|ка|ы|ов|ков).*из шаров|из шаров.*цвет/, 'flower'],
+    [/фигур.*из шаров|из шаров.*фигур/, 'figure'],
+    [/ходяч/, 'walker'],
+    [/конфетти/, 'confetti'],
+    [/хром/, 'chrome'],
+    [/агат/, 'agate'],
+    [/браш|brush/, 'brush'],
+    [/рисунк/, 'print'],
+    [/цифр/, 'digit'],
+    [/фольг.*фигур|фигур.*фольг/, 'foil-figure'],
+    [/сердц|звезд|круг/, 'foil-round'],
+    [/латекс/, 'latex'],
+    [/гелиев/, 'latex']
+  ];
+  for (const [re, id] of rules) {
+    if (re.test(s)) return { id, qty };
+  }
+  return null;
+}
+
+function productRepriceDelta(product, deltas) {
+  const lines = compositionLines(product.composition);
+  let add = 0;
+  const hits = [];
+  for (const line of lines) {
+    const hit = matchCompositionLine(line);
+    if (!hit) continue;
+    const d = Number(deltas[hit.id] || 0);
+    if (!d) continue;
+    const part = d * hit.qty;
+    add += part;
+    hits.push({ id: hit.id, qty: hit.qty, delta: part, line });
+  }
+  const oldPrice = Number(product.price) || 0;
+  const newPrice = Math.max(0, Math.round(oldPrice + add));
+  return { add, hits, oldPrice, newPrice };
+}
+
+async function handleRepriceFromList(request, env) {
+  let data;
+  try { data = await request.json(); } catch (e) {
+    return json({ ok: false, error: 'Некорректные данные' }, 400);
+  }
+  const rawDeltas = data && typeof data.deltas === 'object' ? data.deltas : {};
+  const deltas = {};
+  for (const [id, val] of Object.entries(rawDeltas)) {
+    const n = Math.round(Number(val) || 0);
+    if (!n || Math.abs(n) > 20000) continue;
+    deltas[id] = n;
+  }
+  if (!Object.keys(deltas).length) {
+    return json({ ok: true, changed: [], count: 0, applied: false });
+  }
+
+  const { results } = await env.DB.prepare(
+    'SELECT id, title, article, price, composition, budget, status FROM products'
+  ).all();
+  const changed = [];
+  for (const row of results || []) {
+    const r = productRepriceDelta(row, deltas);
+    if (!r.add) continue;
+    changed.push({
+      id: row.id,
+      title: row.title,
+      article: row.article,
+      status: row.status,
+      old_price: r.oldPrice,
+      new_price: r.newPrice,
+      add: r.add,
+      hits: r.hits
+    });
+  }
+
+  if (data.apply) {
+    const now = new Date().toISOString();
+    for (const row of changed) {
+      await env.DB.prepare(
+        'UPDATE products SET price = ?, budget = ?, updated_at = ? WHERE id = ?'
+      ).bind(row.new_price, budgetFromPrice(row.new_price), now, row.id).run();
+    }
+  }
+
+  return json({
+    ok: true,
+    applied: !!data.apply,
+    count: changed.length,
+    changed: changed.slice(0, 80)
+  });
 }
 
 

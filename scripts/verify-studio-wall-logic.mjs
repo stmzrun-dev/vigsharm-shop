@@ -107,7 +107,13 @@ assert(worker.includes('HOLIDAY_CATEGORIES') || worker.includes('parseCompositio
 assert(worker.includes('applyHolidayOnlyCard') || worker.includes('ПРАЗДНИЧНАЯ КАРТОЧКА'), 'holiday-only AI mode');
 assert(ai.includes('getExistingCatalogTitles'), 'admin collects catalog titles');
 assert(ai.includes('filterTitlesAgainstCatalog'), 'admin filters title alts');
-assert(ai.includes('holiday_only'), 'admin AI sends holiday_only');
+assert(worker.includes('applyPhotozoneTypeTag'), 'photozone tag kept on occasion shelf');
+assert(adminExt.includes('ensurePhotozoneTagFromCard'), 'admin keeps photozone tag with 1 годик');
+assert(worker.includes('holidayFromHints'), 'holiday from composition hints');
+assert(worker.includes('Дед Мороз'), 'Santa balloon figure character');
+assert(worker.includes('КОШКА vs ЗАЯЦ'), 'cat vs rabbit balloon figure');
+assert(worker.includes('СОЛДАТ vs МУЗЫКАНТ'), 'soldier vs musician balloon figure');
+assert(adminExt.includes('holidayFromHints'), 'admin holiday from hints');
 assert(adminJs.includes('HOLIDAY_CATEGORIES'), 'holiday categories list');
 assert(adminExt.includes('parseCompositionHolidayMeta'), 'admin parses holiday paren meta');
 assert(adminExt.includes('applyHolidayOnlyMode'), 'admin holiday-only mode');

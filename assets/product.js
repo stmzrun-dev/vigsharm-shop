@@ -47,6 +47,8 @@
   var digit = '', digit2 = '', digitDelta = 0;
   var inscription = '', orderDate = '', orderTime = '';
   var fulfillment = '', address = '', qty = 1;
+  var customerPhone = '', customerName = '', honeypot = '';
+  var orderSending = false;
   var draftRestored = false, draftReady = false;
   var shareState = '', copyState = '';
   var todayMin = '';
@@ -98,36 +100,28 @@
   }
   function inscriptionOk() { return !(p && p.has_inscription) || !!String(inscription || '').trim(); }
   function whenOk() { return !!(orderDate && orderTime); }
+  function phoneDigits() {
+    var d = String(customerPhone || '').replace(/\D/g, '');
+    if (d.length === 11 && d.charAt(0) === '8') d = '7' + d.slice(1);
+    if (d.length === 10) d = '7' + d;
+    return d;
+  }
+  function phoneOk() {
+    var d = phoneDigits();
+    return d.length === 11 && d.charAt(0) === '7';
+  }
   function isOrderReady() { return digitsOk() && inscriptionOk() && fulfillmentOk() && whenOk(); }
+  function isSubmitReady() { return isOrderReady() && phoneOk(); }
+  function apiBase() {
+    return (window.VIG_API || 'https://vigsharm-api.vigsharm.workers.dev').replace(/\/$/, '');
+  }
   function useMobileFlow() {
     if (typeof window.matchMedia !== 'function') return false;
     if (!flowMedia) flowMedia = window.matchMedia('(max-width:1020px)');
     return !!flowMedia.matches;
   }
-  function mobileBarActionsHtml(ready) {
-    if (!ready) {
-      return '<button type="button" class="mobile-order-cta" data-act="order">' + esc(orderCta('short')) + '</button>';
-    }
-    var msg = encodeURIComponent(orderMessage());
-    var barWa = '<img src="icons/bar-whatsapp.png?v=1" alt="" width="48" height="48" decoding="async" aria-hidden="true"/>';
-    var barTg = '<img src="icons/bar-telegram.png?v=1" alt="" width="48" height="48" decoding="async" aria-hidden="true"/>';
-    var barMax = '<img src="icons/bar-max.png?v=2" alt="" width="48" height="48" decoding="async" aria-hidden="true"/>';
-    var barPhone = '<img src="icons/bar-phone.svg?v=5" alt="" width="48" height="48" decoding="async" aria-hidden="true"/>';
-    return '<div class="mobile-order-contacts" role="group" aria-label="Отправить заказ">' +
-      '<a class="mobile-order-msg whatsapp" target="_blank" rel="noreferrer" href="https://wa.me/' + PHONE + '?text=' + msg + '" data-msg="wa" aria-label="Отправить заказ в WhatsApp"><span>' + barWa + '</span></a>' +
-      '<a class="mobile-order-msg telegram" target="_blank" rel="noreferrer" href="' + TG_URL + '?text=' + msg + '" data-msg="tg" aria-label="Отправить заказ в Telegram"><span>' + barTg + '</span></a>' +
-      '<a class="mobile-order-msg max" target="_blank" rel="noreferrer" href="' + MAX_URL + '" data-msg="max" aria-label="Отправить заказ в MAX"><span>' + barMax + '</span></a>' +
-      '<a class="mobile-order-msg phone" href="tel:+' + PHONE + '" aria-label="Позвонить ' + PHONE_LABEL + '"><span>' + barPhone + '</span></a>' +
-      '</div>';
-  }
-  function bindMobileBarContacts() {
-    root.querySelectorAll('.mobile-order-msg[data-msg]').forEach(function (el) {
-      el.addEventListener('click', function () {
-        var kind = el.getAttribute('data-msg');
-        if (kind === 'max') copyOrderText(orderMessage(), null, MAX_COPY_HINT);
-        else if (kind === 'wa' || kind === 'tg') copyOrderText(orderMessage());
-      });
-    });
+  function mobileBarActionsHtml() {
+    return '<button type="button" class="mobile-order-cta" data-act="order">' + esc(orderCta('short')) + '</button>';
   }
   function flowStepList() {
     var steps = [];
@@ -176,7 +170,8 @@
     if (!fulfillmentOk()) return kind === 'short' ? 'Укажите адрес' : 'Укажите адрес доставки';
     if (!orderDate) return kind === 'short' ? 'Укажите дату' : 'Выберите дату';
     if (!orderTime) return kind === 'short' ? 'Укажите время' : 'Выберите время';
-    return kind === 'short' ? 'Заказать' : 'Заказать в мессенджер →';
+    if (!phoneOk()) return kind === 'short' ? 'Укажите телефон' : 'Оставьте телефон для заявки';
+    return kind === 'short' ? 'Отправить заявку' : 'Отправить заявку';
   }
   function digitDeltaPrice() { return effDelta() * 900; }
   function inscriptionPrice() { return (p && p.has_inscription && inscription.trim()) ? (p.inscription_price || 0) : 0; }
@@ -348,6 +343,7 @@
     if (!fulfillment) return 'client-ful';
     if (!fulfillmentOk()) return 'client-addr';
     if (!whenOk()) return 'client-when';
+    if (!phoneOk()) return 'client-contact';
     return '';
   }
 
@@ -360,6 +356,7 @@
     if (id === 'client-ful') return digitsOk();
     if (id === 'client-addr') return digitsOk() && !!fulfillment && fulfillment !== 'pickup';
     if (id === 'client-when') return digitsOk();
+    if (id === 'client-contact') return whenOk();
     return false;
   }
 
@@ -450,6 +447,13 @@
         '<div class="order-time-field">' + timeHtml() + '</div></div></section>';
     }
 
+    if (clientStepVisible('client-contact')) {
+      html += '<section class="client-block client-contact' + (next === 'client-contact' ? ' is-next' : phoneOk() ? ' is-done' : '') + '" id="client-contact">' +
+        '<h3 class="client-block-title">Контакт для заявки</h3>' +
+        contactFieldsHtml() +
+        '</section>';
+    }
+
     html += '</div>';
     return html;
   }
@@ -485,13 +489,32 @@
     return 'Здравствуйте! Хочу заказать «' + p.title + '», артикул ' + p.sku + '.' + opts + '\n' + cost + '\nКарточка: https://new.vigsharm.ru/product/' + (p.slug || p.id);
   }
 
+  function contactFieldsHtml() {
+    return '<label class="client-ins' + (phoneOk() ? ' is-filled' : '') + '">' +
+      '<span class="client-digit-label">Телефон</span>' +
+      '<input value="' + esc(customerPhone) + '" data-act="phone" type="tel" inputmode="tel" autocomplete="tel" maxlength="22" placeholder="+7 928 000-00-00"/>' +
+      '</label>' +
+      '<label class="client-ins' + (String(customerName || '').trim() ? ' is-filled' : '') + '" style="margin-top:10px">' +
+      '<span class="client-digit-label">Имя <small style="font-weight:600;color:#9a9aa3">(необязательно)</small></span>' +
+      '<input value="' + esc(customerName) + '" data-act="name" type="text" autocomplete="name" maxlength="80" placeholder="Как к вам обратиться"/>' +
+      '</label>' +
+      '<input class="order-hp" tabindex="-1" autocomplete="off" data-act="hp" value="' + esc(honeypot) + '" aria-hidden="true"/>';
+  }
+
+  function orderAltHtml() {
+    if (!isOrderReady()) return '';
+    var msg = encodeURIComponent(orderMessage());
+    return '<p class="order-alt-contacts">Или <a href="https://wa.me/' + PHONE + '?text=' + msg + '" target="_blank" rel="noreferrer" data-act="flow-msg" data-msg="wa">написать в WhatsApp</a> · <a href="tel:+' + PHONE + '">позвонить ' + PHONE_LABEL + '</a></p>';
+  }
+
   function saveDraft() {
     if (!slug || !draftReady) return;
     try {
       localStorage.setItem('vigsharm_order_draft_' + slug, JSON.stringify({
         digit: digit, additionalDigit: digit2, digitCountChange: digitDelta,
         inscription: inscription, orderDate: orderDate, orderTime: orderTime,
-        fulfillment: fulfillment, address: address, quantity: qty
+        fulfillment: fulfillment, address: address, quantity: qty,
+        customerPhone: customerPhone, customerName: customerName
       }));
     } catch (e) {}
   }
@@ -512,6 +535,8 @@
       if (['', 'pickup', 'armavir', 'nearby'].indexOf(d.fulfillment || '') >= 0) fulfillment = d.fulfillment || '';
       if (typeof d.address === 'string') address = d.address;
       if (typeof d.quantity === 'number') qty = Math.max(1, Math.min(100, d.quantity));
+      if (typeof d.customerPhone === 'string') customerPhone = d.customerPhone;
+      if (typeof d.customerName === 'string') customerName = d.customerName;
       draftRestored = true;
     } catch (e) {}
     draftReady = true;
@@ -609,7 +634,14 @@
       '</div></fieldset>' +
       (fulfilled && fulfilled !== 'pickup'
         ? '<label class="config-input' + (!addressOk() ? ' needs-pick' : '') + '"><span>Адрес доставки</span><input value="' + esc(address) + '" maxlength="140" data-act="address" placeholder="' + (fulfilled === 'armavir' ? 'Улица, дом, квартира' : 'Населённый пункт и адрес') + '"/></label>'
-        : '');
+        : '') +
+      '<div class="order-contact-fields">' +
+      '<label class="config-input' + (isOrderReady() && !phoneOk() ? ' needs-pick' : '') + '"><span>Телефон для заявки</span>' +
+      '<input value="' + esc(customerPhone) + '" data-act="phone" type="tel" inputmode="tel" autocomplete="tel" maxlength="22" placeholder="+7 928 000-00-00"/></label>' +
+      '<label class="config-input"><span>Имя (необязательно)</span>' +
+      '<input value="' + esc(customerName) + '" data-act="name" type="text" autocomplete="name" maxlength="80" placeholder="Как к вам обратиться"/></label>' +
+      '<input class="order-hp" tabindex="-1" autocomplete="off" data-act="hp" value="' + esc(honeypot) + '" aria-hidden="true"/>' +
+      '</div>';
 
     var dp = digitDeltaPrice(), ip = inscriptionPrice(), yp = deliveryPrice(), T = total();
     var totalLabel = fulfilled === 'nearby' ? 'Предварительная стоимость' : (fulfilled ? 'Итого' : 'Цена композиции');
@@ -675,7 +707,8 @@
       (yp > 0 ? '<small>Доставка по Армавиру: +' + yp.toLocaleString('ru-RU') + ' ₽</small>' : '') +
       (fulfilled === 'nearby' ? '<small>Доставку за город уточним при подтверждении</small>' : '') +
       '</span><strong>' + (priceFrom() ? 'от ' : '') + T.toLocaleString('ru-RU') + ' ₽</strong></div>' +
-      '<button type="button" class="button button-primary product-order-button" data-act="order">' + esc(orderBtn) + '</button>' +
+      '<button type="button" class="button button-primary product-order-button" data-act="order"' + (orderSending ? ' disabled' : '') + '>' + esc(orderSending ? 'Отправляем…' : orderBtn) + '</button>' +
+      orderAltHtml() +
       '<p class="product-order-explainer">Оплата позже — сначала подтвердим наличие и время.</p>' +
       (draftRestored
         ? '<p class="product-draft-note" role="status" aria-live="polite">Черновик восстановлен на этом устройстве.</p>'
@@ -699,7 +732,7 @@
         }).join('') + '</div>'
         : '<div class="related-custom-card">' + window.vigEmoji('balloon') + '<div><strong>Сделаем под ваш праздник</strong><p>Напишите повод и бюджет — предложим идеи.</p></div><button type="button" data-act="order">Обсудить идею</button></div>') +
       '</section>')) +
-      '<aside class="mobile-order-bar' + (ready ? ' is-ready' : '') + '" aria-label="Отправить заказ"><div class="mobile-order-price"><small>' + (ready ? 'Отправить заказ' : (fulfilled === 'nearby' ? 'От' : fulfilled ? 'Итого' : 'Цена')) + '</small><strong>' + (priceFrom() ? 'от ' : '') + T.toLocaleString('ru-RU') + ' ₽</strong></div>' +
+      '<aside class="mobile-order-bar' + (isSubmitReady() ? ' is-ready' : '') + '" aria-label="Отправить заявку"><div class="mobile-order-price"><small>' + (isSubmitReady() ? 'Заявка на сайте' : (fulfilled === 'nearby' ? 'От' : fulfilled ? 'Итого' : 'Цена')) + '</small><strong>' + (priceFrom() ? 'от ' : '') + T.toLocaleString('ru-RU') + ' ₽</strong></div>' +
       '<div class="mobile-order-actions">' + mobileBarActions + '</div></aside>' +
       '</main>';
 
@@ -861,6 +894,34 @@
           e.preventDefault();
           el.blur();
         });
+      } else if (act === 'phone') {
+        el.addEventListener('input', function () {
+          customerPhone = el.value;
+          saveDraft();
+          refreshTotals();
+          var wrap = el.closest('.client-ins') || el.closest('.config-input');
+          if (wrap) wrap.classList.toggle('is-filled', phoneOk());
+          if (wrap) wrap.classList.toggle('needs-pick', isOrderReady() && !phoneOk());
+          var block = el.closest('.client-block');
+          if (block) {
+            block.classList.toggle('is-done', phoneOk());
+            block.classList.toggle('is-next', !phoneOk());
+          }
+        });
+        el.addEventListener('keydown', function (e) {
+          if (e.key !== 'Enter') return;
+          e.preventDefault();
+          el.blur();
+        });
+      } else if (act === 'name') {
+        el.addEventListener('input', function () {
+          customerName = el.value;
+          saveDraft();
+          var wrap = el.closest('.client-ins');
+          if (wrap) wrap.classList.toggle('is-filled', !!String(customerName || '').trim());
+        });
+      } else if (act === 'hp') {
+        el.addEventListener('input', function () { honeypot = el.value; });
       } else if (act === 'date-toggle') {
         el.addEventListener('click', function (e) {
           e.stopPropagation();
@@ -979,7 +1040,6 @@
         el.addEventListener('click', order);
       }
     });
-    bindMobileBarContacts();
     var gal = root.querySelector('[data-gallery]');
     if (gal) {
       function togglePhoto() {
@@ -1055,40 +1115,37 @@
     }
 
     var btn = root.querySelector('.product-order-button');
-    if (btn) btn.textContent = orderBtn;
+    if (btn) {
+      btn.textContent = orderSending ? 'Отправляем…' : orderBtn;
+      btn.disabled = !!orderSending;
+    }
 
-    var readyNow = isOrderReady();
+    var submitNow = isSubmitReady();
     var barSmall = root.querySelector('.mobile-order-price small');
-    if (barSmall) barSmall.textContent = readyNow ? 'Отправить заказ' : (fulfilled === 'nearby' ? 'От' : (fulfilled ? 'Итого' : 'Цена'));
+    if (barSmall) barSmall.textContent = submitNow ? 'Заявка на сайте' : (fulfilled === 'nearby' ? 'От' : (fulfilled ? 'Итого' : 'Цена'));
     var barStrong = root.querySelector('.mobile-order-price strong');
     if (barStrong) barStrong.textContent = (priceFrom() ? 'от ' : '') + T.toLocaleString('ru-RU') + ' ₽';
 
     var bar = root.querySelector('.mobile-order-bar');
-    if (bar) bar.classList.toggle('is-ready', readyNow);
+    if (bar) bar.classList.toggle('is-ready', submitNow);
     var pageEl = root.querySelector('.product-page');
-    if (pageEl && useMobileFlow()) pageEl.classList.toggle('is-order-ready', readyNow);
+    if (pageEl && useMobileFlow()) pageEl.classList.toggle('is-order-ready', isOrderReady());
 
     var insField = root.querySelector('.inscription-field');
     if (insField) insField.classList.toggle('is-empty', !inscriptionOk());
 
     var actions = root.querySelector('.mobile-order-actions');
     if (actions) {
-      var wantContacts = readyNow;
-      var hasContacts = !!actions.querySelector('.mobile-order-contacts');
-      if (wantContacts !== hasContacts) {
-        actions.innerHTML = mobileBarActionsHtml(readyNow);
-        bindMobileBarContacts();
-        var ctaBtn = actions.querySelector('[data-act="order"]');
-        if (ctaBtn) ctaBtn.addEventListener('click', order);
-      } else if (wantContacts) {
-        var msg = encodeURIComponent(orderMessage());
-        var wa = actions.querySelector('.mobile-order-msg.whatsapp');
-        var tg = actions.querySelector('.mobile-order-msg.telegram');
-        if (wa) wa.setAttribute('href', 'https://wa.me/' + PHONE + '?text=' + msg);
-        if (tg) tg.setAttribute('href', TG_URL + '?text=' + msg);
-      } else {
-        var cta = actions.querySelector('.mobile-order-cta');
-        if (cta) cta.textContent = orderCta('short');
+      var cta = actions.querySelector('.mobile-order-cta');
+      if (cta) cta.textContent = orderCta('short');
+    }
+    var alt = root.querySelector('.order-alt-contacts');
+    if (alt) {
+      var nextAlt = orderAltHtml();
+      if (nextAlt) {
+        var tmp = document.createElement('div');
+        tmp.innerHTML = nextAlt;
+        alt.replaceWith(tmp.firstChild);
       }
     }
   }
@@ -1127,14 +1184,15 @@
   }
 
   function order() {
+    if (orderSending) return;
     if (useMobileFlow()) {
-      if (!isOrderReady()) {
+      if (!isOrderReady() || !phoneOk()) {
         clearTimeout(stepUnlockTimer);
         render();
         softScrollTo(clientNextId());
         return;
       }
-      openOrderModal();
+      submitOrder();
       return;
     }
     if (!digitsOk()) { openDetails('params'); return; }
@@ -1153,60 +1211,91 @@
       }
       return;
     }
-    openOrderModal();
+    if (!phoneOk()) {
+      openDetails('date');
+      var ph = root.querySelector('[data-act="phone"]');
+      if (ph) ph.focus();
+      return;
+    }
+    submitOrder();
   }
 
-  function openOrderModal() {
-    if (document.querySelector('.order-modal-wrap')) return;
-    copyState = '';
-    var msg = orderMessage();
-    var T = total();
-    var needsConfirm = priceFrom() || fulfillment === 'nearby';
+  function submitOrder() {
+    if (orderSending || !p || !isSubmitReady()) return;
+    orderSending = true;
+    refreshTotals();
+    var payload = {
+      product_id: p.id,
+      product_slug: p.slug || slug,
+      product_title: p.title,
+      product_sku: p.sku,
+      quantity: qty,
+      digit: digit,
+      digit2: digit2,
+      digit_delta: digitDelta,
+      inscription: inscription,
+      fulfillment: fulfillment,
+      address: address,
+      order_date: orderDate,
+      order_time: orderTime,
+      customer_name: customerName,
+      customer_phone: phoneDigits(),
+      total: total(),
+      price_from: priceFrom() ? 1 : 0,
+      message: orderMessage(),
+      website: honeypot
+    };
+    fetch(apiBase() + '/api/orders', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    }).then(function (r) { return r.json().then(function (data) { return { data: data }; }); })
+      .then(function (res) {
+        orderSending = false;
+        refreshTotals();
+        if (!res.data || !res.data.ok) {
+          window.vigToast((res.data && res.data.error) || 'Не получилось отправить. Позвоните нам или напишите в WhatsApp.');
+          return;
+        }
+        showOrderSuccess(res.data.code || '');
+      })
+      .catch(function () {
+        orderSending = false;
+        refreshTotals();
+        window.vigToast('Нет связи. Позвоните нам или напишите в WhatsApp.');
+      });
+  }
+
+  function showOrderSuccess(code) {
+    var existed = document.querySelector('.order-modal-wrap');
+    if (existed) existed.remove();
     var wrap = document.createElement('div');
     wrap.className = 'modal-backdrop order-modal-wrap';
     wrap.setAttribute('role', 'presentation');
     wrap.innerHTML =
       '<section class="contact-modal product-order-modal" role="dialog" aria-modal="true" aria-labelledby="product-order-title">' +
       '<button class="modal-close" type="button" aria-label="Закрыть">×</button>' +
-      '<p class="eyebrow">Почти готово</p><h2 id="product-order-title">Куда отправить заказ?</h2>' +
-      '<div class="order-modal-summary"><span>' + esc(p.title) + '</span><strong>' + (priceFrom() ? 'от ' : '') + T.toLocaleString('ru-RU') + ' ₽</strong></div>' +
-      '<div class="order-confirmation-list" aria-label="Выбранные условия заказа">' +
+      '<p class="eyebrow">Заявка принята</p>' +
+      '<h2 id="product-order-title">Мы получили заказ' + (code ? ' #' + esc(code) : '') + '</h2>' +
+      '<p>Перезвоним или напишем, чтобы подтвердить наличие и время. Оплата не списывается.</p>' +
+      '<div class="order-confirmation-list" aria-label="Условия заявки">' +
+      '<span><small>Композиция</small><strong>' + esc(p.title) + '</strong></span>' +
       '<span><small>Дата</small><strong>' + esc(dateLabel()) + '</strong></span>' +
       '<span><small>Время</small><strong>' + esc(orderTime || 'уточнить') + '</strong></span>' +
-      '<span><small>Получение</small><strong>' + esc(fulfillmentLabel()) + '</strong></span>' +
-      (p.has_inscription ? '<span><small>Надпись</small><strong>' + esc(inscription.trim() || '—') + '</strong></span>' : '') +
+      '<span><small>Телефон</small><strong>' + esc(customerPhone) + '</strong></span>' +
       '</div>' +
-      '<p>Все выбранные опции, дата, адрес и стоимость уже подготовлены для отправки.</p>' +
-      '<details class="order-message-preview"><summary>Проверить текст заказа</summary><pre>' + esc(msg) + '</pre>' +
-      '<button type="button" data-copy>Скопировать заказ</button><small role="status" aria-live="polite"></small></details>' +
-      '<div class="contact-options">' +
-      '<a class="contact-option whatsapp" target="_blank" rel="noreferrer" href="https://wa.me/' + PHONE + '?text=' + encodeURIComponent(msg) + '"><span>' + WA_ICON + '</span><div><strong>WhatsApp</strong><small>Отправить готовый заказ</small></div></a>' +
-      '<a class="contact-option telegram" target="_blank" rel="noreferrer" href="' + TG_URL + '?text=' + encodeURIComponent(msg) + '"><span>' + TG_ICON + '</span><div><strong>Telegram</strong><small>Текст скопируется · личный чат</small></div></a>' +
-      '<a class="contact-option max" target="_blank" rel="noreferrer" href="' + MAX_URL + '"><span>' + MAX_ICON + '</span><div><strong>MAX</strong><small>Заказ скопируется — вставьте в чат</small></div></a>' +
-      '<a class="contact-option phone" href="tel:+' + PHONE + '"><span>' + PHONE_ICON + '</span><div><strong>Позвонить</strong><small>' + PHONE_LABEL + '</small></div></a>' +
-      '</div><p class="modal-note">' + (needsConfirm ? 'Итоговую стоимость уточним до подтверждения заказа. ' : '') + 'Оплата не списывается автоматически: сначала подтвердим наличие и свободное время.</p></section>';
+      '<p class="order-alt-contacts" style="margin-top:16px">Пока ждёте, можно <a href="https://wa.me/' + PHONE + '?text=' + encodeURIComponent(orderMessage()) + '" target="_blank" rel="noreferrer">написать в WhatsApp</a> или <a href="tel:+' + PHONE + '">позвонить</a>.</p>' +
+      '<p class="modal-note">Если передумали — просто скажите при звонке.</p></section>';
     function close() { wrap.remove(); document.body.style.overflow = ''; }
     wrap.addEventListener('mousedown', function (e) { if (e.target === wrap) close(); });
     wrap.querySelector('.modal-close').addEventListener('click', close);
-    function doCopy() {
-      var btn = wrap.querySelector('[data-copy]');
-      var note = wrap.querySelector('.order-message-preview small');
-      copyOrderText(msg, function () {
-        btn.textContent = 'Скопировано ✓';
-        note.textContent = 'Текст заказа сохранён в буфере обмена.';
-      });
-    }
-    wrap.querySelector('[data-copy]').addEventListener('click', doCopy);
-    // Auto-copy the order text on any messenger tap and show a hint toast.
-    wrap.querySelectorAll('.contact-option.whatsapp, .contact-option.telegram').forEach(function (el) {
-      el.addEventListener('click', function () { copyOrderText(msg); });
-    });
-    wrap.querySelector('.contact-option.max').addEventListener('click', function () {
-      copyOrderText(msg, null, MAX_COPY_HINT);
-    });
     document.body.appendChild(wrap);
     document.body.style.overflow = 'hidden';
     wrap.querySelector('.modal-close').focus();
+  }
+
+  function openOrderModal() {
+    order();
   }
 
   function renderNotFound(message) {

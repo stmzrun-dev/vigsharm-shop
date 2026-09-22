@@ -954,3 +954,31 @@
   .order-sum-tg{background:#229ed9}
   .order-sum-max{background:#ff6b5a}
 }
+
+.order-hp{
+  position:absolute!important;
+  left:-9999px!important;
+  height:0!important;
+  width:0!important;
+  opacity:0!important;
+  pointer-events:none!important;
+}
+.order-alt-contacts{
+  margin:10px 0 0;
+  font-size:13px;
+  line-height:1.45;
+  color:#6b6b75;
+  text-align:center;
+}
+.order-alt-contacts a{
+  color:#2a2a32;
+  font-weight:700;
+}
+.order-contact-fields{
+  display:grid;
+  gap:12px;
+  margin-top:14px;
+}
+.client-contact .client-digit-label{
+  margin-bottom:6px;
+}

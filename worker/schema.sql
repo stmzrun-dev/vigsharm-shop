@@ -74,3 +74,47 @@ INSERT OR IGNORE INTO categories (id, name, slug, sort_order) VALUES
   ('cat-27', 'Арка из шаров', 'arka-iz-sharov', 27),
   ('cat-28', 'Шары поштучно', 'shary-poshtuchno', 28),
   ('cat-29', 'Универсальные', 'universalnye', 2);
+
+CREATE TABLE IF NOT EXISTS orders (
+  id TEXT PRIMARY KEY,
+  public_code TEXT NOT NULL,
+  product_id TEXT,
+  product_slug TEXT,
+  product_title TEXT,
+  product_sku TEXT,
+  quantity INTEGER DEFAULT 1,
+  digit TEXT,
+  digit2 TEXT,
+  digit_delta INTEGER DEFAULT 0,
+  inscription TEXT,
+  fulfillment TEXT,
+  address TEXT,
+  order_date TEXT,
+  order_time TEXT,
+  customer_name TEXT,
+  customer_phone TEXT,
+  total INTEGER DEFAULT 0,
+  price_from INTEGER DEFAULT 0,
+  message TEXT,
+  status TEXT DEFAULT 'new',
+  ip TEXT,
+  created_at TEXT,
+  updated_at TEXT
+);
+CREATE INDEX IF NOT EXISTS idx_orders_created ON orders(created_at);
+CREATE INDEX IF NOT EXISTS idx_orders_ip ON orders(ip);
+
+CREATE TABLE IF NOT EXISTS price_list (
+  id TEXT PRIMARY KEY,
+  group_id TEXT NOT NULL,
+  sort_order INTEGER NOT NULL DEFAULT 0,
+  title TEXT NOT NULL,
+  price INTEGER NOT NULL DEFAULT 0,
+  price_from INTEGER NOT NULL DEFAULT 0,
+  unit TEXT DEFAULT '',
+  catalog_category TEXT DEFAULT '',
+  catalog_query TEXT DEFAULT '',
+  subhead TEXT DEFAULT '',
+  updated_at TEXT
+);
+CREATE INDEX IF NOT EXISTS idx_price_list_group ON price_list(group_id, sort_order);

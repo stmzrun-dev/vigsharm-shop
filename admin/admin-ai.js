@@ -453,7 +453,7 @@ Object.assign(app, {
     const stageEl = document.getElementById('studio-busy-stage');
     const scene = document.getElementById('scene-select');
     const uploadBtn = document.getElementById('photo-upload-btn');
-    const retryBtn = document.getElementById('studio-retry-btn');
+    const retryBtns = this.studioRetryButtons?.() || [];
     const processBtn = document.getElementById('process-studio-btn');
     document.querySelectorAll('.scene-rail-btn').forEach((btn) => { btn.disabled = !!busy; });
 
@@ -464,7 +464,7 @@ Object.assign(app, {
     if (scene) scene.disabled = !!busy;
     if (uploadBtn) uploadBtn.disabled = !!busy;
     if (processBtn && busy) processBtn.disabled = true;
-    if (retryBtn && busy) retryBtn.disabled = true;
+    retryBtns.forEach((btn) => { if (busy) btn.disabled = true; });
 
     if (busy) {
       if (detail) {
@@ -499,7 +499,7 @@ Object.assign(app, {
         delete detail.dataset.longWait;
         detail.textContent = 'Состав и цену можно заполнять сейчас — не ждите конца.';
       }
-      if (retryBtn) retryBtn.disabled = false;
+      retryBtns.forEach((btn) => { btn.disabled = false; });
       this.syncEditorSteps?.();
     }
   },
@@ -775,21 +775,33 @@ Object.assign(app, {
         holiday: null, cleanText: rawComposition, hints: [], digitCount: 0
       };
       const userComposition = holidayMeta.cleanText || rawComposition;
+      const occasionList = (typeof OCCASION_SHELVES !== 'undefined' && OCCASION_SHELVES) || [];
       const compositionHints = (holidayMeta.hints && holidayMeta.hints.length)
         ? holidayMeta.hints
-        : (this.currentProduct.composition_hints || []);
+        : (this.currentProduct.composition_hints || []).filter((h) => {
+          const hit = this.matchHolidayCategory?.(h);
+          return hit && occasionList.includes(hit);
+        });
       if (holidayMeta.digitCount > 0) {
         this.currentProduct.digit_from_marker = holidayMeta.digitCount;
       }
-      if (holidayMeta.hints?.length) {
-        this.currentProduct.composition_hints = holidayMeta.hints;
+      if (compositionHints.length) {
+        this.currentProduct.composition_hints = compositionHints;
       }
-      if (holidayMeta.holiday) {
-        this.currentProduct.holiday_only = holidayMeta.holiday;
+      const holidayFlagRaw = holidayMeta.holiday
+        || this.holidayFromHints?.(holidayMeta.hints || [])
+        || '';
+      let holidayFlag = occasionList.includes(holidayFlagRaw) ? holidayFlagRaw : '';
+      if (!holidayFlag && occasionList.includes(this.currentProduct.holiday_only)) {
+        holidayFlag = this.currentProduct.holiday_only;
+      }
+      if (holidayFlag) {
+        this.currentProduct.holiday_only = holidayFlag;
         if (compEl && compEl.value !== userComposition) compEl.value = userComposition;
-        this.applyHolidayOnlyMode?.(holidayMeta.holiday);
-      } else if (compEl && userComposition !== rawComposition) {
-        compEl.value = userComposition;
+        this.applyHolidayOnlyMode?.(holidayFlag);
+      } else {
+        this.currentProduct.holiday_only = '';
+        if (compEl && userComposition !== rawComposition) compEl.value = userComposition;
       }
       const priceHint = parseInt(priceEl?.value, 10) || 0;
       const sceneHint = this.currentProduct.scene || 'floor';
@@ -809,7 +821,7 @@ Object.assign(app, {
           description: userComposition,
           scene: sceneHint,
           existing_titles: existingTitles,
-          holiday_only: holidayMeta.holiday || this.currentProduct.holiday_only || ''
+          holiday_only: holidayFlag || ''
         })
       });
 
@@ -952,7 +964,13 @@ Object.assign(app, {
         const target = document.getElementById(toId);
         if (target) target.value = el.value;
         if (fromId === 'ai-review-title') this.syncEditorTitle?.(el.value);
-        if (fromId === 'ai-review-composition') this.autosizeAiReviewComposition?.();
+        if (fromId === 'ai-review-composition') {
+          this.autosizeAiReviewComposition?.();
+          this.syncHolidayFromComposition?.();
+          this.syncAdvanceOrderFromScene?.();
+          this.syncAiReviewDigitOpts?.();
+        }
+        if (fromId === 'ai-review-category') this.syncAiReviewDigitOpts?.();
         if (fromId === 'ai-review-price') this.syncBudgetFromPrice?.();
         this.syncRequiredFieldHighlights?.();
         this.scheduleSaveActiveStudioDraft?.();
@@ -963,7 +981,6 @@ Object.assign(app, {
 
     const optMap = [
       ['ai-review-opt-advance', 'opt-advance'],
-      ['ai-review-opt-number', 'opt-number'],
       ['ai-review-opt-inscription', 'opt-inscription'],
       ['ai-review-opt-rental', 'opt-rental']
     ];
@@ -976,6 +993,31 @@ Object.assign(app, {
         this.scheduleSaveActiveStudioDraft?.();
       });
     });
+    const digit1 = document.getElementById('ai-review-opt-digit-1');
+    const digit2 = document.getElementById('ai-review-opt-digit-2');
+    const onDigit = (n) => {
+      const d1 = document.getElementById('ai-review-opt-digit-1');
+      const d2 = document.getElementById('ai-review-opt-digit-2');
+      const on = n === 1 ? d1?.checked : d2?.checked;
+      if (on) {
+        if (n === 1 && d2) d2.checked = false;
+        if (n === 2 && d1) d1.checked = false;
+        this.currentProduct = this.currentProduct || {};
+        this.currentProduct.digit_from_marker = n;
+        const numberEl = document.getElementById('opt-number');
+        if (numberEl) numberEl.checked = true;
+      } else {
+        const otherOn = n === 1 ? d2?.checked : d1?.checked;
+        this.currentProduct = this.currentProduct || {};
+        this.currentProduct.digit_from_marker = otherOn ? (n === 1 ? 2 : 1) : 0;
+        const numberEl = document.getElementById('opt-number');
+        if (numberEl) numberEl.checked = !!otherOn;
+      }
+      this.syncAdvanceOrderFromScene?.();
+      this.scheduleSaveActiveStudioDraft?.();
+    };
+    digit1?.addEventListener('change', () => onDigit(1));
+    digit2?.addEventListener('change', () => onDigit(2));
   },
 
   autosizeAiReviewComposition() {
@@ -983,6 +1025,39 @@ Object.assign(app, {
     if (!comp) return;
     comp.style.height = 'auto';
     comp.style.height = `${Math.max(comp.scrollHeight, 48)}px`;
+  },
+
+  syncAiReviewDigitOpts() {
+    const d1 = document.getElementById('ai-review-opt-digit-1');
+    const d2 = document.getElementById('ai-review-opt-digit-2');
+    if (!d1 && !d2) return;
+    const cat = document.getElementById('ai-review-category')?.value
+      || document.getElementById('product-category')?.value
+      || '';
+    const isFirstBirthday = (cat === '1 годик'
+      || this.currentProduct?.holiday_only === '1 годик')
+      && !this.isPhotozoneContext?.();
+    const comp = document.getElementById('ai-review-composition')?.value
+      || document.getElementById('product-composition')?.value
+      || '';
+    const n = isFirstBirthday ? 0 : (this.compositionDigitCount?.(comp) || 0);
+    if (d1) {
+      d1.checked = n === 1;
+      d1.disabled = isFirstBirthday;
+    }
+    if (d2) {
+      d2.checked = n === 2;
+      d2.disabled = isFirstBirthday;
+    }
+    const numberEl = document.getElementById('opt-number');
+    if (numberEl) {
+      numberEl.checked = !isFirstBirthday && n > 0;
+      numberEl.disabled = isFirstBirthday;
+    }
+    if (!isFirstBirthday && n > 0) {
+      this.currentProduct = this.currentProduct || {};
+      this.currentProduct.digit_from_marker = n;
+    }
   },
 
   renderAiReviewTagGroup(containerId, tags, sourceSelector) {
@@ -1063,24 +1138,27 @@ Object.assign(app, {
     const conf = String(data?.character_confidence || this._lastAiCardData?.character_confidence || '').toLowerCase();
     const charDoubt = conf === 'low' || conf === 'medium';
     const charWrap = document.getElementById('ai-review-character-wrap');
+    const doubtBadge = document.getElementById('ai-review-character-doubt');
     if (charWrap) {
-      charWrap.classList.toggle('hidden', !charDoubt);
-      if (charDoubt) {
-        const char = data?.character || document.getElementById('product-character')?.value || '';
-        const charAlts = data?.character_alts || this._lastAiCardData?.character_alts || [];
-        this.renderFieldAlts?.(
-          'ai-review-character-alts',
-          'ai-review-character',
-          conf === 'low' ? 'ИИ не уверен — выберите:' : 'Уточните персонажа:',
-          char,
-          charAlts,
-          (val) => {
-            const el = document.getElementById('product-character');
-            if (el) el.value = val;
-          }
-        );
-      }
+      charWrap.classList.remove('hidden');
+      charWrap.classList.toggle('is-doubt', charDoubt);
     }
+    if (doubtBadge) doubtBadge.classList.toggle('hidden', !charDoubt);
+    const char = data?.character || document.getElementById('product-character')?.value || '';
+    const charAlts = data?.character_alts || this._lastAiCardData?.character_alts || [];
+    this.renderFieldAlts?.(
+      'ai-review-character-alts',
+      'ai-review-character',
+      charDoubt
+        ? (conf === 'low' ? 'ИИ не уверен — выберите:' : 'Уточните персонажа:')
+        : 'Варианты:',
+      char,
+      charAlts,
+      (val) => {
+        const el = document.getElementById('product-character');
+        if (el) el.value = val;
+      }
+    );
 
     const seriesVal = (document.getElementById('product-series')?.value || '').trim();
     const charVal = (document.getElementById('product-character')?.value || '').trim();
@@ -1100,9 +1178,9 @@ Object.assign(app, {
       if (from && to) from.checked = !!to.checked;
     };
     syncOpt('ai-review-opt-advance', 'opt-advance');
-    syncOpt('ai-review-opt-number', 'opt-number');
     syncOpt('ai-review-opt-inscription', 'opt-inscription');
     syncOpt('ai-review-opt-rental', 'opt-rental');
+    this.syncAiReviewDigitOpts?.();
 
     requestAnimationFrame(() => this.autosizeAiReviewComposition?.());
   },
@@ -1123,7 +1201,6 @@ Object.assign(app, {
 
     const optMap = [
       ['ai-review-opt-advance', 'opt-advance'],
-      ['ai-review-opt-number', 'opt-number'],
       ['ai-review-opt-inscription', 'opt-inscription'],
       ['ai-review-opt-rental', 'opt-rental']
     ];
@@ -1132,6 +1209,16 @@ Object.assign(app, {
       const to = document.getElementById(toId);
       if (from && to) to.checked = from.checked;
     });
+    const d1 = document.getElementById('ai-review-opt-digit-1')?.checked;
+    const d2 = document.getElementById('ai-review-opt-digit-2')?.checked;
+    const n = d2 ? 2 : d1 ? 1 : 0;
+    this.currentProduct = this.currentProduct || {};
+    this.currentProduct.digit_from_marker = n;
+    const numberEl = document.getElementById('opt-number');
+    if (numberEl) {
+      numberEl.checked = n > 0;
+      numberEl.disabled = false;
+    }
 
     // Теги уже синкаются по change; на всякий случай прогоним из оверлея
     [

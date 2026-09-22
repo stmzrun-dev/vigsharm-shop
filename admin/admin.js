@@ -937,6 +937,8 @@ const app = {
       this.updateEditorAutosaveHint?.(this._editorParkedAt || '');
       window.scrollTo(0, 0);
     }
+    if (tab === 'orders') this.loadOrders?.();
+    if (tab === 'price') this.loadPriceList?.();
   },
 
   async loadProducts() {

@@ -84,10 +84,17 @@
   border-color:#b5d6f3!important;
 }
 
-.price-page .info-hero-emoji .vig-emoji,
-.delivery-page .info-hero-emoji .vig-emoji{
-  width:28px!important;
-  height:28px!important;
+.price-page .info-hero-emoji{
+  width:56px!important;
+  height:56px!important;
+  overflow:hidden!important;
+  background:#fff!important;
+}
+
+.price-page .info-hero-emoji img{
+  width:44px!important;
+  height:44px!important;
+  object-fit:contain!important;
 }
 
 .price-page .info-hero-emoji>span,
@@ -105,9 +112,25 @@
   font-weight:700!important;
 }
 
+.price-page .price-jump a.price-jump-red{
+  background:#fff1f4!important;
+  border-color:#f3d7df!important;
+}
+.price-page .price-jump a.price-jump-blue{
+  background:#eef6fd!important;
+  border-color:#d4e6f5!important;
+}
+.price-page .price-jump a.price-jump-purple{
+  background:#f3effa!important;
+  border-color:#ddd4ef!important;
+}
+.price-page .price-jump a.price-jump-yellow{
+  background:#fff7e8!important;
+  border-color:#efe0c4!important;
+}
+
 .price-page .price-jump a:hover{
-  border-color:#d8d8de!important;
-  background:#fbfbfc!important;
+  filter:brightness(.98);
 }
 
 .price-page .price-includes,
@@ -154,36 +177,39 @@
 }
 
 .price-page .price-group-heading>span{
-  width:44px!important;
-  height:44px!important;
-  flex:0 0 44px!important;
+  width:52px!important;
+  height:52px!important;
+  flex:0 0 52px!important;
   display:grid!important;
   place-items:center!important;
   border:1.5px solid transparent!important;
-  border-radius:14px!important;
+  border-radius:16px!important;
   box-shadow:0 4px 12px rgba(40,36,60,.05)!important;
+  overflow:hidden!important;
+  background:#fff!important;
 }
 
 .price-page .price-group.price-tone-red .price-group-heading>span{
-  background:#ffd9e2!important;
+  background:#fff!important;
   border-color:#f5c0cd!important;
 }
 .price-page .price-group.price-tone-blue .price-group-heading>span{
-  background:#cfe6fb!important;
+  background:#fff!important;
   border-color:#b5d6f3!important;
 }
 .price-page .price-group.price-tone-purple .price-group-heading>span{
-  background:#e2d7f6!important;
+  background:#fff!important;
   border-color:#cebfeb!important;
 }
 .price-page .price-group.price-tone-yellow .price-group-heading>span{
-  background:#ffe6b8!important;
+  background:#fff!important;
   border-color:#f5d49a!important;
 }
 
 .price-page .price-group-heading>span img{
-  width:24px!important;
-  height:24px!important;
+  width:40px!important;
+  height:40px!important;
+  object-fit:contain!important;
   filter:none!important;
 }
 
@@ -192,15 +218,24 @@
   letter-spacing:-.02em!important;
 }
 
+.price-page .price-group>div:last-child{
+  display:grid;
+  gap:8px;
+}
+
 .price-page .price-group>div:last-child a{
-  border-bottom:1px dashed rgba(42,42,50,.14)!important;
-  border-radius:0!important;
+  border:1.5px solid rgba(42,42,50,.08)!important;
+  border-radius:16px!important;
   transform:none!important;
-  background:transparent!important;
+  background:rgba(255,255,255,.72)!important;
+  padding:10px 12px!important;
+  min-height:48px!important;
+  align-items:center!important;
 }
 
 .price-page .price-group>div:last-child a:hover{
-  background:rgba(255,255,255,.45)!important;
+  background:#fff!important;
+  border-color:rgba(42,42,50,.14)!important;
 }
 
 .price-page .price-group>div:last-child a>span{
@@ -236,9 +271,16 @@
 }
 
 .price-page .price-explanation>span{
-  background:#ffe6b8!important;
+  background:#fff!important;
   border:1.5px solid #f5d49a!important;
   border-radius:14px!important;
+  overflow:hidden!important;
+}
+
+.price-page .price-explanation>span img{
+  width:36px!important;
+  height:36px!important;
+  object-fit:contain!important;
 }
 
 /* —— Delivery cards — soft pastel tiles —— */
@@ -386,7 +428,21 @@
   letter-spacing:-.02em!important;
 }
 
-.price-page .price-ask .button-primary,
+.price-page .info-contact-options,
+.delivery-page .info-contact-options{
+  display:grid!important;
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  gap:10px!important;
+  width:100%!important;
+}
+
+.price-page .info-contact-options>a,
+.delivery-page .info-contact-options>a{
+  width:auto!important;
+  min-width:0!important;
+  flex:none!important;
+}
+
 .delivery-page .delivery-ask .button-primary{
   background:#ff6b5a!important;
   border-color:#ff6b5a!important;
@@ -395,19 +451,24 @@
   box-shadow:none!important;
 }
 
-.price-page .price-ask .button-primary:hover,
 .delivery-page .delivery-ask .button-primary:hover{
   background:#e85a4a!important;
   border-color:#e85a4a!important;
 }
 
-.price-page .price-ask .button-outline,
 .delivery-page .delivery-ask .button-outline{
   background:#fff!important;
   border:1.5px solid #e8e8ec!important;
   color:#2a2a32!important;
   border-radius:999px!important;
   box-shadow:none!important;
+}
+
+.price-page .price-subhead{
+  margin:6px 4px 0!important;
+  padding:4px 2px 0!important;
+  border:0!important;
+  background:transparent!important;
 }
 
 @media (width<=650px){
@@ -428,14 +489,23 @@
     font-size:clamp(22px,6.2vw,28px)!important;
   }
 
-  .price-page .info-hero-emoji,
+  .price-page .info-hero-emoji{
+    width:48px!important;
+    height:48px!important;
+    border-radius:14px!important;
+  }
+
   .delivery-page .info-hero-emoji{
     width:40px!important;
     height:40px!important;
     border-radius:12px!important;
   }
 
-  .price-page .info-hero-emoji .vig-emoji,
+  .price-page .info-hero-emoji img{
+    width:38px!important;
+    height:38px!important;
+  }
+
   .delivery-page .info-hero-emoji .vig-emoji{
     width:22px!important;
     height:22px!important;
@@ -448,7 +518,18 @@
     padding:16px 14px!important;
   }
 
-  .price-page .price-group-heading>span,
+  .price-page .price-group-heading>span{
+    width:48px!important;
+    height:48px!important;
+    flex-basis:48px!important;
+    border-width:1.5px!important;
+  }
+
+  .price-page .price-group-heading>span img{
+    width:36px!important;
+    height:36px!important;
+  }
+
   .delivery-page .info-card-icon{
     width:40px!important;
     height:40px!important;
@@ -456,14 +537,38 @@
     border-width:1.5px!important;
   }
 
-  .price-page .price-ask,
   .delivery-page .delivery-ask{
     flex-direction:column;
     align-items:stretch;
   }
 
-  .price-page .price-ask .button,
   .delivery-page .delivery-ask .button{
     width:100%;
+  }
+
+  .price-page .price-group>div:last-child a{
+    min-height:46px!important;
+    padding:9px 12px!important;
+  }
+
+  .price-page .price-info-hero{
+    border-width:1.5px!important;
+    box-shadow:0 10px 28px rgba(40,36,60,.06)!important;
+  }
+
+  .price-page .info-hero-emoji{
+    display:grid!important;
+    margin-top:0!important;
+    place-items:center!important;
+  }
+
+  .price-page .info-contact-options>a,
+  .delivery-page .info-contact-options>a{
+    padding:12px 6px!important;
+  }
+
+  .price-page .info-contact-options>a span,
+  .delivery-page .info-contact-options>a span{
+    font-size:11px!important;
   }
 }

@@ -741,14 +741,20 @@ Object.assign(app, {
     return this.studioSourceUrl
       || this.studioCompare?.original
       || this.currentProduct?.client_options?.studio_original_url
+      || this.currentProduct?.photos?.find((p) => p.type !== 'master')?.url
       || this.currentProduct?.photos?.[0]?.url
+      || this.studioMasterDataUrl
+      || this.studioCompare?.master
       || null;
   },
 
+  studioRetryButtons() {
+    return [...document.querySelectorAll('[data-studio-retry]')];
+  },
+
   async refreshStudioCheckpointUi() {
-    const retryBtn = document.getElementById('studio-retry-btn');
-    const src = this.getStudioRemasterSourceUrl?.() || this.studioSourceUrl || this.studioCompare?.original;
-    retryBtn?.classList.toggle('hidden', !src);
+    const src = this.getStudioRemasterSourceUrl?.();
+    this.studioRetryButtons?.().forEach((btn) => btn.classList.toggle('hidden', !src));
   },
 
   async ensureReferenceHttpsUrl() {
@@ -773,23 +779,36 @@ Object.assign(app, {
     // Без restore: лишний шаг (часто content-policy на персонажах) и +1–3 мин.
     const referenceUrl = await this.ensureReferenceHttpsUrl();
     const startJob = async (prefer) => {
-      const res = await fetch(`${this.workerUrl}/api/studio/rephotograph`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', ...this.authHeaders() },
-        body: JSON.stringify({
-          image_url: imageUrl,
-          reference_url: referenceUrl,
-          scene,
-          photozone_type: scene === 'photozone' ? (this.getPhotozoneType?.() || 'frame') : undefined,
-          resolution: '2K',
-          prefer
-        })
-      });
-      const data = await res.json().catch(() => ({}));
-      if (!res.ok || !data.ok || !data.job_id) {
-        throw new Error(data.error || `Rephotograph HTTP ${res.status}`);
+      let lastErr = null;
+      for (let attempt = 1; attempt <= 3; attempt++) {
+        try {
+          const res = await fetch(`${this.workerUrl}/api/studio/rephotograph`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', ...this.authHeaders() },
+            body: JSON.stringify({
+              image_url: imageUrl,
+              reference_url: referenceUrl,
+              scene,
+              photozone_type: scene === 'photozone' ? (this.getPhotozoneType?.() || 'frame') : undefined,
+              resolution: '2K',
+              prefer
+            })
+          });
+          const data = await res.json().catch(() => ({}));
+          if (!res.ok || !data.ok || !data.job_id) {
+            throw new Error(data.error || `Rephotograph HTTP ${res.status}`);
+          }
+          return data;
+        } catch (err) {
+          lastErr = err;
+          const net = /failed to fetch|networkerror|load failed|connection/i.test(String(err?.message || err));
+          if (!net || attempt === 3) throw err;
+          console.warn('[Studio Pro] rephotograph fetch retry', attempt, err);
+          if (statusEl) statusEl.textContent = `↻ Сеть сбойнула — повтор ${attempt + 1}/3…`;
+          await new Promise((r) => setTimeout(r, 800 * attempt));
+        }
       }
-      return data;
+      throw lastErr;
     };
 
     if (statusEl) {
@@ -911,9 +930,9 @@ Object.assign(app, {
 
     this.ensureNotifyPermission?.();
 
-    const btn = document.getElementById('studio-retry-btn');
+    const btns = this.studioRetryButtons?.() || [];
+    btns.forEach((btn) => { btn.disabled = true; });
     const statusEl = document.getElementById('studio-status');
-    if (btn) btn.disabled = true;
 
     const keptMaster = this.studioMasterDataUrl || this.studioMasterBackupUrl || this.studioCompare?.master
       || this.currentProduct?.photos?.[0]?.url;
@@ -926,7 +945,8 @@ Object.assign(app, {
     }
 
     try {
-      const scene = this.currentProduct?.scene || 'floor';
+      let scene = this.currentProduct?.scene || 'floor';
+      if (!scene || scene === 'auto') scene = 'floor';
       if (statusEl) statusEl.textContent = '↻ Новый Master… предыдущий сохранён до успеха';
       this.setStudioBusy?.(true);
       this.showSourceWorkPreview?.(src);
@@ -951,7 +971,7 @@ Object.assign(app, {
       });
     } finally {
       this.setStudioBusy?.(false);
-      if (btn) btn.disabled = false;
+      btns.forEach((btn) => { btn.disabled = false; });
       await this.refreshStudioCheckpointUi();
     }
   },

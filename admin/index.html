@@ -7,7 +7,7 @@
 <meta name="robots" content="noindex, nofollow"/>
 <link rel="icon" href="../favicon.svg"/>
 <link rel="stylesheet" href="../assets/fonts.css"/>
-<link rel="stylesheet" href="styles.css?v=ai-jubilee-1"/>
+<link rel="stylesheet" href="styles.css?v=price-2"/>
 </head>
 <body>
 
@@ -18,6 +18,8 @@
   </div>
   <nav class="header-nav">
     <a href="#products" class="header-link active" data-tab="products">Товары</a>
+    <a href="#price" class="header-link" data-tab="price">Прайс</a>
+    <a href="#orders" class="header-link" data-tab="orders">Заявки</a>
     <a href="#create" class="header-link" data-tab="create">+ Создать</a>
     <a href="#settings" class="header-link" data-tab="settings">Настройки</a>
     <a href="../index.html" class="header-link">← Витрина</a>
@@ -85,6 +87,49 @@
     </div>
   </section>
 
+  <section id="tab-price" class="tab-content hidden" hidden aria-hidden="true">
+    <div class="hero-section">
+      <h2>Витрина</h2>
+      <h1>Прайс на сайте</h1>
+      <p>Цены за штуку и метр. После сохранения скачайте JSON в <code>data/</code>, если сайт открывают без VPN.</p>
+    </div>
+    <div class="card">
+      <div class="products-header">
+        <div class="products-header-actions">
+          <button type="button" class="btn primary" id="price-list-save" onclick="app.savePriceList()">Сохранить</button>
+          <button type="button" class="btn outline" onclick="app.exportPriceListSnapshot()">Скачать для сайта</button>
+          <button type="button" class="btn outline" onclick="app.loadPriceList()">Обновить</button>
+        </div>
+      </div>
+      <div id="price-list-admin">
+        <div class="loading"><div class="loading-spinner"></div><p>Загрузка...</p></div>
+      </div>
+      <div id="price-reprice-panel" class="price-reprice-panel hidden" hidden></div>
+    </div>
+  </section>
+
+  <section id="tab-orders" class="tab-content hidden" hidden aria-hidden="true">
+    <div class="hero-section">
+      <h2>Витрина</h2>
+      <h1>Заявки с сайта</h1>
+      <p>Клиент оставляет заявку на карточке товара. Уведомление уходит в Telegram — можно на два аккаунта.</p>
+    </div>
+    <div class="card">
+      <div class="products-header">
+        <div class="products-header-actions">
+          <button type="button" class="btn outline" onclick="app.loadOrders()">Обновить</button>
+        </div>
+        <div class="stats-row" aria-label="Заявки">
+          <div class="badge warning">Новые: <strong id="orders-new">0</strong></div>
+          <div class="badge neutral">Всего: <strong id="orders-total">0</strong></div>
+        </div>
+      </div>
+      <div id="orders-list" class="orders-list">
+        <div class="loading"><div class="loading-spinner"></div><p>Загрузка...</p></div>
+      </div>
+    </div>
+  </section>
+
   <!-- Tab: Create Product (overlay editor) -->
   <section id="tab-create" class="tab-content hidden" hidden aria-hidden="true">
     <div class="card compact-card product-editor">
@@ -132,6 +177,7 @@
               <div class="step1-photo-actions" id="step1-photo-actions" hidden>
                 <button type="button" class="btn outline" id="photo-upload-btn" onclick="document.getElementById('photo-input').click()">+ Ещё фото</button>
                 <button type="button" class="btn outline" id="photo-replace-btn" onclick="app.replaceMainPhoto()">Изменить фото</button>
+                <button type="button" class="btn outline hidden" data-studio-retry onclick="app.retryStudioMaster()">↻ Пересоздать</button>
               </div>
             </div>
 
@@ -170,7 +216,7 @@
               <button type="button" class="btn secondary hidden" id="process-studio-btn" onclick="app.processStudioProNew()">✨ Создать Master</button>
               <div class="step1-compose-cta" id="step1-compose-cta" hidden>
                 <button type="button" class="btn primary" id="step1-a-next" onclick="app.startMasterFromWizard()">Далее: состав →</button>
-                <button type="button" class="btn outline hidden" id="studio-retry-btn" onclick="app.retryStudioMaster()">↻ Пересоздать</button>
+                <button type="button" class="btn outline hidden" id="studio-retry-btn" data-studio-retry onclick="app.retryStudioMaster()">↻ Пересоздать</button>
               </div>
             </div>
           </div>
@@ -180,8 +226,11 @@
         <section class="card-block step1-phase step1-essentials" id="step1-phase-c" data-phase="c">
           <div class="step1-phase-nav">
             <button type="button" class="btn outline btn-sm" id="step1-c-back" onclick="app.goStep1Phase('a')">← К сцене</button>
-            <button type="button" class="btn outline btn-sm" id="step1-c-replace" onclick="app.replaceMainPhoto()">Изменить фото</button>
-            <span class="step1-phase-scene-chip" id="step1-phase-c-scene"></span>
+            <div class="step1-phase-nav-right">
+              <button type="button" class="btn outline btn-sm hidden" data-studio-retry onclick="app.retryStudioMaster()">↻ Пересоздать</button>
+              <button type="button" class="btn outline btn-sm" id="step1-c-replace" onclick="app.replaceMainPhoto()">Изменить фото</button>
+              <span class="step1-phase-scene-chip" id="step1-phase-c-scene"></span>
+            </div>
           </div>
           <div id="studio-busy-banner" class="studio-busy-banner hidden" hidden role="status" aria-live="polite">
             <span class="studio-busy-banner-dot" aria-hidden="true"></span>
@@ -486,7 +535,7 @@
       <div class="form-group">
         <label>Admin API Key <span style="color: #e74c3c;">*обязательно</span></label>
         <input type="password" id="admin-api-key" placeholder="Вставьте ключ, заданный через wrangler secret put ADMIN_API_KEY"/>
-        <small class="text-muted">Тот же ключ, что установлен в Worker (ADMIN_API_KEY). Нужен для создания/изменения/удаления товаров, загрузки фото, ИИ-генерации и Studio Pro.</small>
+        <small class="text-muted">Тот же ключ, что установлен в Worker (ADMIN_API_KEY). Нужен для товаров, заявок, загрузки фото, ИИ и Studio Pro.</small>
       </div>
 
       <div class="divider"></div>
@@ -618,9 +667,9 @@
           </div>
         </div>
 
-        <div class="form-group ai-review-character-wrap hidden" id="ai-review-character-wrap">
-          <label for="ai-review-character">Персонаж <span class="ai-review-doubt-badge">уточните</span></label>
-          <input id="ai-review-character" autocomplete="off"/>
+        <div class="form-group ai-review-character-wrap" id="ai-review-character-wrap">
+          <label for="ai-review-character">Персонаж <span class="ai-review-doubt-badge hidden" id="ai-review-character-doubt">уточните</span></label>
+          <input id="ai-review-character" autocomplete="off" placeholder="Кто на фото"/>
           <div id="ai-review-character-alts" class="title-alts hidden"></div>
         </div>
 
@@ -632,6 +681,17 @@
         <div class="form-group">
           <label for="ai-review-composition">Состав</label>
           <textarea id="ai-review-composition" rows="2"></textarea>
+        </div>
+
+        <div class="ai-review-opts" id="ai-review-opts">
+          <p class="ai-review-section-label">Варианты для клиента</p>
+          <div class="ai-review-opt-chips">
+            <label class="ai-review-opt"><input type="checkbox" id="ai-review-opt-advance"/><span>Заказ заранее</span></label>
+            <label class="ai-review-opt"><input type="checkbox" id="ai-review-opt-digit-1"/><span>1 цифра</span></label>
+            <label class="ai-review-opt"><input type="checkbox" id="ai-review-opt-digit-2"/><span>2 цифры</span></label>
+            <label class="ai-review-opt"><input type="checkbox" id="ai-review-opt-inscription"/><span>Надпись</span></label>
+            <label class="ai-review-opt"><input type="checkbox" id="ai-review-opt-rental"/><span>Аренда</span></label>
+          </div>
         </div>
 
         <div class="ai-review-tags" id="ai-review-tags">
@@ -653,16 +713,6 @@
             <div class="chips chips-grid" id="ai-review-tags-type"></div>
           </div>
         </div>
-
-        <div class="ai-review-opts" id="ai-review-opts">
-          <p class="ai-review-section-label">Варианты для клиента</p>
-          <div class="ai-review-opt-chips">
-            <label class="ai-review-opt"><input type="checkbox" id="ai-review-opt-advance"/><span>Заказ заранее</span></label>
-            <label class="ai-review-opt"><input type="checkbox" id="ai-review-opt-number"/><span>Цифра 0–9</span></label>
-            <label class="ai-review-opt"><input type="checkbox" id="ai-review-opt-inscription"/><span>Надпись</span></label>
-            <label class="ai-review-opt"><input type="checkbox" id="ai-review-opt-rental"/><span>Аренда</span></label>
-          </div>
-        </div>
       </div>
     </div>
     <footer class="ai-review-actions">
@@ -673,12 +723,14 @@
   </div>
 </div>
 
-<script src="admin.js?v=settings-merge-1"></script>
-<script src="admin-extended.js?v=upload-fix-1"></script>
+<script src="admin.js?v=price-1"></script>
+<script src="admin-extended.js?v=retry-saved-1"></script>
 <script src="cloudinary-upload.js?v=cloud-fix-2"></script>
 <script src="cloudinary-patch.js?v=settings-merge-2"></script>
-<script src="admin-studio-pro.js?v=step2-ai-1"></script>
-<script src="admin-ai.js?v=ai-check-1"></script>
+<script src="admin-studio-pro.js?v=retry-saved-1"></script>
+<script src="admin-ai.js?v=retry-saved-1"></script>
 <script src="admin-reference-background.js"></script>
+<script src="admin-orders.js?v=1"></script>
+<script src="admin-price.js?v=2"></script>
 </body>
 </html>

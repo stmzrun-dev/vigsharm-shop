@@ -2,6 +2,181 @@
   "ok": true,
   "products": [
     {
+      "id": "be9aa4d6-2e4b-4e8e-b56c-93c7e1bbab66",
+      "title": "Розовый юбилей малышки",
+      "article": "JUB-010",
+      "price": 9000,
+      "short_description": "Две напольные композиции в нежно-розовых тонах с цифрой, гирляндой и фигурой малышки.",
+      "full_description": "Композиция включает арку из розовых и персиковых шаров с бантами, крупную розовую цифру с надписью и декоративную фигуру малышки из шаров. Выполнена в пастельной гамме с акцентами на деталях.",
+      "composition": [
+        "2 напольные композиции"
+      ],
+      "category": "Юбилей",
+      "character": "Малышка",
+      "age_group": "Для детей",
+      "budget": "от 8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Декор первого года — воздушные шары на годик в Армавире",
+      "seo_description": "Две напольные композиции для девочки на 1 годик: арка из розовых шаров с бантами, крупная цифра и фигура малышки. Доставка в Армавире.",
+      "slug": "dekor-pervogo-goda",
+      "scene": "floor",
+      "tags": [
+        "Юбилей",
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790083757/vigsharm-products/mpnvnniq6d0eeauobutl.jpg",
+        "floor_type": "air",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 2
+        }
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790083966/vigsharm-products/gglm3tu9vzul0dujknbg.jpg"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790083966/vigsharm-products/gglm3tu9vzul0dujknbg.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-22T13:33:34.046Z",
+      "updated_at": "2026-09-22T13:33:34.046Z"
+    },
+    {
+      "id": "32f41f5d-fd74-4b02-b3b5-949d14f903b7",
+      "title": "Бантики и грёзы",
+      "article": "GRL-022",
+      "price": 4500,
+      "short_description": "Два баблс с чёрными бантами и нежные розовые шары создают изящную композицию.",
+      "full_description": "Композиция из двух прозрачных баблс с чёрными бантиками и надписью, дополненная розовыми латексными шарами. Сочетание нежности и графичного акцента.",
+      "composition": [
+        "баблс с декором и надписью",
+        "баблс с декором",
+        "5 шаров"
+      ],
+      "category": "Для девочки",
+      "character": null,
+      "age_group": "Для детей",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Баблс с бантиками и шары для девочки — Армавир",
+      "seo_description": "Два баблс с чёрными бантами, надписью и розовые шары. Нежная композиция для дня рождения девочки. Доставка в Армавире.",
+      "slug": "bantiki-i-grezy",
+      "scene": "wall_only",
+      "tags": [
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790083512/vigsharm-products/obd5bl6bzwtnp9hdkvoa.jpg"
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790083615/vigsharm-products/owm3v8lpmofahzpw40oe.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790083615/vigsharm-products/owm3v8lpmofahzpw40oe.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-22T13:28:01.015Z",
+      "updated_at": "2026-09-22T13:28:01.015Z"
+    },
+    {
+      "id": "abe22aa2-6a9f-4a8d-bd0b-6ea8469959ac",
+      "title": "Нежность с бантиками",
+      "article": "BAB-003",
+      "price": 4600,
+      "short_description": "Стеклянный бабл с метрикой новорождённой и 10 шаров с розовыми бантиками.",
+      "full_description": "Композиция на выписку девочки. Стеклянный бабл с золотой надписью, датой, временем рождения, весом и ростом малышки, украшенный розовыми бантиками и лентами. 10 нежных шаров с бантиками дополняют встречу.",
+      "composition": [
+        "стеклянный бабл с индивидуальной надписью и декором",
+        "10 латексных шаров с бантиками"
+      ],
+      "category": "На выписку",
+      "character": null,
+      "age_group": "Для малышей",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары на выписку девочки с метрикой и бантиками — Армавир",
+      "seo_description": "Нежная композиция на выписку девочки: стеклянный бабл с золотой метрикой и 10 шаров с розовыми бантиками. Доставка в Армавире.",
+      "slug": "nezhnost-s-bantikami",
+      "scene": "wall_only",
+      "tags": [
+        "На выписку"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790083157/vigsharm-products/xhcuqrtujqihll2gcccq.jpg"
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790083366/vigsharm-products/urhhgsmsm3nadtlehenj.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790083366/vigsharm-products/urhhgsmsm3nadtlehenj.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-22T13:23:40.638Z",
+      "updated_at": "2026-09-22T13:23:40.638Z"
+    },
+    {
+      "id": "77998411-69b6-4a71-b38f-4ebc95bd6c6b",
+      "title": "2 фигуры, цифра, 6 кругов с рисунком, 6 шаров, 6",
+      "article": "DG-003",
+      "price": 6320,
+      "short_description": "",
+      "full_description": "",
+      "composition": [
+        "2 фигуры, цифра, 6 кругов с рисунком, 6 шаров, 6 шаров с конфетти"
+      ],
+      "category": "",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": "5 000–8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "2-figury-cifra-6-krugov-s-risunkom-6-sharov-6",
+      "scene": "floor",
+      "tags": [],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790082818/vigsharm-products/nh0j0jtczk2zalvi9vdo.jpg",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790082970/vigsharm-products/vatnw2smanfsjchk4jyk.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790082970/vigsharm-products/vatnw2smanfsjchk4jyk.png",
+      "status": "draft",
+      "show_on_site": false,
+      "created_at": "2026-09-22T13:16:12.203Z",
+      "updated_at": "2026-09-22T13:16:12.203Z"
+    },
+    {
       "id": "60b8a39b-625c-46cd-92c1-2e6fe064ad77",
       "title": "Тайная страсть",
       "article": "HIM-006",

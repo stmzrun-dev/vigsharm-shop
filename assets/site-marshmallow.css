@@ -3394,14 +3394,13 @@ html body .contact-request-summary{
     flex:1 1 auto;
     min-width:0;
   }
-  html body .mobile-order-bar .mobile-order-cta,
-  html body .mobile-order-cta{
-    background:#fff!important;
+  html body .mobile-order-bar.is-ready .mobile-order-cta,
+  html body .mobile-order-bar.is-ready .mobile-order-cta.mobile-order-cta{
+    background:#ff6b5a!important;
     background-image:none!important;
-    color:#6f6f78!important;
-    box-shadow:none!important;
-    border:1.5px solid #e8e8ec!important;
-    font-weight:700!important;
+    color:#fff!important;
+    border:0!important;
+    font-weight:800!important;
   }
   html body .mobile-order-contacts{
     display:flex!important;

@@ -604,6 +604,17 @@
   .product-page .product-order-explainer{
     display:none!important;
   }
+  .product-page .client-contact .product-order-button.client-submit{
+    display:block!important;
+    width:100%;
+    margin-top:14px;
+    min-height:48px;
+    border:0;
+    border-radius:16px;
+    background:#ff6b5a;
+    color:#fff;
+    font-weight:800;
+  }
   .product-page .product-order-total:not(.is-detailed){
     display:none!important;
   }

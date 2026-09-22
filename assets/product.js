@@ -451,6 +451,8 @@
       html += '<section class="client-block client-contact' + (next === 'client-contact' ? ' is-next' : phoneOk() ? ' is-done' : '') + '" id="client-contact">' +
         '<h3 class="client-block-title">Контакт для заявки</h3>' +
         contactFieldsHtml() +
+        '<button type="button" class="button button-primary product-order-button client-submit" data-act="order">' + esc(orderSending ? 'Отправляем…' : orderCta('short')) + '</button>' +
+        orderAltHtml() +
         '</section>';
     }
 
@@ -911,7 +913,8 @@
         el.addEventListener('keydown', function (e) {
           if (e.key !== 'Enter') return;
           e.preventDefault();
-          el.blur();
+          if (isSubmitReady()) order();
+          else el.blur();
         });
       } else if (act === 'name') {
         el.addEventListener('input', function () {
@@ -1139,6 +1142,11 @@
       var cta = actions.querySelector('.mobile-order-cta');
       if (cta) cta.textContent = orderCta('short');
     }
+    var submitBtn = root.querySelector('.client-submit');
+    if (submitBtn) {
+      submitBtn.textContent = orderSending ? 'Отправляем…' : orderCta('short');
+      submitBtn.disabled = !!orderSending;
+    }
     var alt = root.querySelector('.order-alt-contacts');
     if (alt) {
       var nextAlt = orderAltHtml();
@@ -1221,7 +1229,11 @@
   }
 
   function submitOrder() {
-    if (orderSending || !p || !isSubmitReady()) return;
+    if (orderSending) return;
+    if (!p || !isSubmitReady()) {
+      if (window.vigToast) window.vigToast(orderCta('full'));
+      return;
+    }
     orderSending = true;
     refreshTotals();
     var payload = {
@@ -1249,7 +1261,13 @@
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)
-    }).then(function (r) { return r.json().then(function (data) { return { data: data }; }); })
+    }).then(function (r) {
+      return r.text().then(function (raw) {
+        var data = null;
+        try { data = raw ? JSON.parse(raw) : null; } catch (e) { data = null; }
+        return { okHttp: r.ok, data: data };
+      });
+    })
       .then(function (res) {
         orderSending = false;
         refreshTotals();

@@ -974,12 +974,42 @@
   opacity:0!important;
   pointer-events:none!important;
 }
-.order-alt-contacts{
-  margin:10px 0 0;
-  font-size:13px;
-  line-height:1.45;
+.order-choice-stack{
+  display:grid;
+  gap:10px;
+  margin:14px 0 8px;
+}
+.order-choice-btn{
+  display:grid;
+  gap:4px;
+  text-align:left;
+  padding:14px 16px;
+  border:1.5px solid #ebe6e3;
+  border-radius:16px;
+  background:#fff;
+  font:inherit;
+  cursor:pointer;
+  color:#2a2a32;
+}
+.order-choice-btn strong{
+  font-size:16px;
+  font-weight:800;
+}
+.order-choice-btn small{
   color:#6b6b75;
-  text-align:center;
+  font-size:13px;
+  font-weight:600;
+}
+.order-choice-btn.is-primary{
+  background:#ff6b5a;
+  border-color:#ff6b5a;
+  color:#fff;
+}
+.order-choice-btn.is-primary small{
+  color:#ffe8e4;
+}
+.order-choice-msg{
+  margin-top:8px;
 }
 .order-alt-contacts a{
   color:#2a2a32;

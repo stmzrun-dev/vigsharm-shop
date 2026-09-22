@@ -171,7 +171,7 @@
     if (!orderDate) return kind === 'short' ? 'Укажите дату' : 'Выберите дату';
     if (!orderTime) return kind === 'short' ? 'Укажите время' : 'Выберите время';
     if (!phoneOk()) return kind === 'short' ? 'Укажите телефон' : 'Оставьте телефон для заявки';
-    return kind === 'short' ? 'Отправить заявку' : 'Отправить заявку';
+    return kind === 'short' ? 'Оформить заказ' : 'Оформить заказ';
   }
   function digitDeltaPrice() { return effDelta() * 900; }
   function inscriptionPrice() { return (p && p.has_inscription && inscription.trim()) ? (p.inscription_price || 0) : 0; }
@@ -452,7 +452,6 @@
         '<h3 class="client-block-title">Контакт для заявки</h3>' +
         contactFieldsHtml() +
         '<button type="button" class="button button-primary product-order-button client-submit" data-act="order">' + esc(orderSending ? 'Отправляем…' : orderCta('short')) + '</button>' +
-        orderAltHtml() +
         '</section>';
     }
 
@@ -506,7 +505,11 @@
   function orderAltHtml() {
     if (!isOrderReady()) return '';
     var msg = encodeURIComponent(orderMessage());
-    return '<p class="order-alt-contacts">Или <a href="https://wa.me/' + PHONE + '?text=' + msg + '" target="_blank" rel="noreferrer" data-act="flow-msg" data-msg="wa">написать в WhatsApp</a> · <a href="tel:+' + PHONE + '">позвонить ' + PHONE_LABEL + '</a></p>';
+    return '<p class="order-alt-contacts">Или написать: ' +
+      '<a href="https://wa.me/' + PHONE + '?text=' + msg + '" target="_blank" rel="noreferrer" data-act="flow-msg" data-msg="wa">WhatsApp</a> · ' +
+      '<a href="' + TG_URL + '?text=' + msg + '" target="_blank" rel="noreferrer" data-act="flow-msg" data-msg="tg">Telegram</a> · ' +
+      '<a href="' + MAX_URL + '" target="_blank" rel="noreferrer" data-act="flow-msg" data-msg="max">MAX</a> · ' +
+      '<a href="tel:+' + PHONE + '">позвонить</a></p>';
   }
 
   function saveDraft() {
@@ -710,7 +713,6 @@
       (fulfilled === 'nearby' ? '<small>Доставку за город уточним при подтверждении</small>' : '') +
       '</span><strong>' + (priceFrom() ? 'от ' : '') + T.toLocaleString('ru-RU') + ' ₽</strong></div>' +
       '<button type="button" class="button button-primary product-order-button" data-act="order"' + (orderSending ? ' disabled' : '') + '>' + esc(orderSending ? 'Отправляем…' : orderBtn) + '</button>' +
-      orderAltHtml() +
       '<p class="product-order-explainer">Оплата позже — сначала подтвердим наличие и время.</p>' +
       (draftRestored
         ? '<p class="product-draft-note" role="status" aria-live="polite">Черновик восстановлен на этом устройстве.</p>'
@@ -1125,7 +1127,7 @@
 
     var submitNow = isSubmitReady();
     var barSmall = root.querySelector('.mobile-order-price small');
-    if (barSmall) barSmall.textContent = submitNow ? 'Заявка на сайте' : (fulfilled === 'nearby' ? 'От' : (fulfilled ? 'Итого' : 'Цена'));
+    if (barSmall) barSmall.textContent = submitNow ? 'Оформить заказ' : (fulfilled === 'nearby' ? 'От' : (fulfilled ? 'Итого' : 'Цена'));
     var barStrong = root.querySelector('.mobile-order-price strong');
     if (barStrong) barStrong.textContent = (priceFrom() ? 'от ' : '') + T.toLocaleString('ru-RU') + ' ₽';
 
@@ -1200,7 +1202,7 @@
         softScrollTo(clientNextId());
         return;
       }
-      submitOrder();
+      openChoiceModal();
       return;
     }
     if (!digitsOk()) { openDetails('params'); return; }
@@ -1225,7 +1227,7 @@
       if (ph) ph.focus();
       return;
     }
-    submitOrder();
+    openChoiceModal();
   }
 
   function submitOrder() {
@@ -1302,11 +1304,63 @@
       '<span><small>Время</small><strong>' + esc(orderTime || 'уточнить') + '</strong></span>' +
       '<span><small>Телефон</small><strong>' + esc(customerPhone) + '</strong></span>' +
       '</div>' +
-      '<p class="order-alt-contacts" style="margin-top:16px">Пока ждёте, можно <a href="https://wa.me/' + PHONE + '?text=' + encodeURIComponent(orderMessage()) + '" target="_blank" rel="noreferrer">написать в WhatsApp</a> или <a href="tel:+' + PHONE + '">позвонить</a>.</p>' +
       '<p class="modal-note">Если передумали — просто скажите при звонке.</p></section>';
     function close() { wrap.remove(); document.body.style.overflow = ''; }
     wrap.addEventListener('mousedown', function (e) { if (e.target === wrap) close(); });
     wrap.querySelector('.modal-close').addEventListener('click', close);
+    document.body.appendChild(wrap);
+    document.body.style.overflow = 'hidden';
+    wrap.querySelector('.modal-close').focus();
+  }
+
+  function messengerListHtml() {
+    var msg = encodeURIComponent(orderMessage());
+    return '<div class="contact-options order-msg-list">' +
+      '<a class="contact-option whatsapp" target="_blank" rel="noreferrer" href="https://wa.me/' + PHONE + '?text=' + msg + '" data-msg="wa"><span>' + WA_ICON + '</span><div><strong>WhatsApp</strong><small>Текст заказа уже готов</small></div></a>' +
+      '<a class="contact-option telegram" target="_blank" rel="noreferrer" href="' + TG_URL + '?text=' + msg + '" data-msg="tg"><span>' + TG_ICON + '</span><div><strong>Telegram</strong><small>Текст скопируется · личный чат</small></div></a>' +
+      '<a class="contact-option max" target="_blank" rel="noreferrer" href="' + MAX_URL + '" data-msg="max"><span>' + MAX_ICON + '</span><div><strong>MAX</strong><small>Текст скопируется · вставьте в чат</small></div></a>' +
+      '</div>' +
+      '<p class="order-alt-contacts">Или <a href="tel:+' + PHONE + '">позвонить ' + PHONE_LABEL + '</a></p>';
+  }
+
+  function openChoiceModal() {
+    if (document.querySelector('.order-modal-wrap')) return;
+    var T = total();
+    var wrap = document.createElement('div');
+    wrap.className = 'modal-backdrop order-modal-wrap';
+    wrap.setAttribute('role', 'presentation');
+    wrap.innerHTML =
+      '<section class="contact-modal product-order-modal" role="dialog" aria-modal="true" aria-labelledby="product-order-title">' +
+      '<button class="modal-close" type="button" aria-label="Закрыть">×</button>' +
+      '<p class="eyebrow">Почти готово</p>' +
+      '<h2 id="product-order-title">Как удобнее оформить?</h2>' +
+      '<div class="order-modal-summary"><span>' + esc(p.title) + '</span><strong>' + (priceFrom() ? 'от ' : '') + T.toLocaleString('ru-RU') + ' ₽</strong></div>' +
+      '<div class="order-choice-stack">' +
+      '<button type="button" class="order-choice-btn is-primary" data-choice="site"><strong>Оставить заявку на сайте</strong><small>Перезвоним по телефону · вы никуда не уходите</small></button>' +
+      '<button type="button" class="order-choice-btn" data-choice="msg"><strong>Написать в мессенджер</strong><small>WhatsApp, Telegram или MAX</small></button>' +
+      '</div>' +
+      '<div class="order-choice-msg" hidden>' + messengerListHtml() + '</div>' +
+      '<p class="modal-note">Оплата не списывается: сначала подтвердим наличие и время.</p></section>';
+    function close() { wrap.remove(); document.body.style.overflow = ''; }
+    wrap.addEventListener('mousedown', function (e) { if (e.target === wrap) close(); });
+    wrap.querySelector('.modal-close').addEventListener('click', close);
+    wrap.querySelector('[data-choice="site"]').addEventListener('click', function () {
+      close();
+      submitOrder();
+    });
+    wrap.querySelector('[data-choice="msg"]').addEventListener('click', function () {
+      var box = wrap.querySelector('.order-choice-msg');
+      var btn = wrap.querySelector('[data-choice="msg"]');
+      box.hidden = false;
+      btn.hidden = true;
+    });
+    wrap.querySelectorAll('.contact-option[data-msg]').forEach(function (el) {
+      el.addEventListener('click', function () {
+        var kind = el.getAttribute('data-msg');
+        if (kind === 'max') copyOrderText(orderMessage(), null, MAX_COPY_HINT);
+        else copyOrderText(orderMessage());
+      });
+    });
     document.body.appendChild(wrap);
     document.body.style.overflow = 'hidden';
     wrap.querySelector('.modal-close').focus();

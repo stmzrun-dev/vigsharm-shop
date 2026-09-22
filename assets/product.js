@@ -230,7 +230,7 @@
     var extra = attrs || '';
     // Inline onerror: digit/variant failure → main composition photo (never empty block).
     var onerr = 'var m=this.getAttribute(\'data-main-key\');var k=this.getAttribute(\'data-key\');if(m&&k!==m){this.onerror=null;this.setAttribute(\'data-key\',m);this.setAttribute(\'data-fb\',\'0\');this.src=(window.vigImage?window.vigImage(m):m);}';
-    return '<img src="' + window.vigImage(show) + '" data-key="' + esc(show) + '" data-main-key="' + esc(main) + '" alt="' + esc(alt || '') + '" decoding="async" onerror="' + onerr + '" ' + extra + '/>';
+    return '<img src="' + window.vigImage(show) + '" data-key="' + esc(show) + '" data-main-key="' + esc(main) + '" alt="' + esc(alt || '') + '" decoding="async" onload="this.classList.add(\'is-ready\')" onerror="' + onerr + '" ' + extra + '/>';
   }
 
   function paramsSummary() {
@@ -690,7 +690,7 @@
     var leadText = p.short_description || (desc ? desc.split(/\n+/)[0] : '');
     var compositionHtml = compItems.length
       ? ('<section class="product-page-description product-page-description--solo product-composition-inline" aria-label="Состав композиции"><article class="product-composition-card">' +
-        '<p class="eyebrow">Что входит</p><h2>Собрано в один праздник</h2>' +
+        '<p class="eyebrow">Что входит</p><h2>Состав</h2>' +
         '<div class="composition-list">' + compItems.map(function (t, i) {
           var label = String(t).replace(/[;.\s]+$/, '');
           return '<div class="composition-item tone-' + (i % 4) + '"><span class="comp-mark" aria-hidden="true">' + compIcon(label, i) + '</span><strong>' + esc(label) + '</strong></div>';
@@ -770,6 +770,9 @@
 
     document.title = (p.seo_title || (p.title + ' — заказать шары в Армавире | VigSharm'));
     document.body.classList.remove('order-story-lock');
+    root.querySelectorAll('.product-page-main-image img, .product-thumbnails img').forEach(function (img) {
+      if (img.complete && img.naturalWidth) img.classList.add('is-ready');
+    });
     wire();
   }
 

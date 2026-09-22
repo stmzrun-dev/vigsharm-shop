@@ -1071,6 +1071,9 @@ body.admin-editor-open{overflow:hidden}
 .publish-thumbs img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:10px;border:1px solid #E0E0E0;background:#eee;display:block}
 .publish-thumbs-story img{aspect-ratio:9/16}
 .publish-thumbs figcaption{font-size:12px;color:#757575;margin-top:4px}
+.publish-scene-label{display:block;font-weight:600;margin-bottom:8px}
+.publish-scenes{flex-direction:row;flex-wrap:wrap;gap:8px}
+.publish-col .products-header-actions{flex-wrap:wrap;gap:8px}
 
 .price-admin-group{margin:0 0 22px}
 .price-admin-group h3{margin:0 0 10px;font-size:16px}

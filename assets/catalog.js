@@ -39,6 +39,14 @@
   function esc(s) {
     return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
   }
+  function revealReadyPhotos(scope) {
+    if (!scope) return;
+    scope.querySelectorAll('.catalog-card-image img').forEach(function (img) {
+      function ready() { img.classList.add('is-ready'); }
+      if (img.complete && img.naturalWidth) ready();
+      else img.addEventListener('load', ready, { once: true });
+    });
+  }
   function tagsOf(p) { return [p.category].concat(p.tags || []).filter(Boolean); }
   function inGroup(p, group) {
     var r = tagsOf(p);
@@ -301,7 +309,7 @@
       p.main_photo ||
       '';
     var img = key
-      ? '<img src="' + window.vigImage(key) + '" data-key="' + esc(key) + '" alt="' + esc(p.title) + '" loading="' + (i < 4 ? 'eager' : 'lazy') + '" decoding="async" width="800" height="800"/>'
+      ? '<img src="' + window.vigImage(key) + '" data-key="' + esc(key) + '" alt="' + esc(p.title) + '" loading="' + (i < 4 ? 'eager' : 'lazy') + '" decoding="async" width="800" height="800" onload="this.classList.add(\'is-ready\')"/>'
       : window.vigEmoji('balloon');
     var from = (p.tags || []).indexOf('Цена от') >= 0 ? 'от ' : '';
     var priceNote = p.category === 'Шары поштучно' ? 'Цена за штуку' : 'Цена за композицию';
@@ -361,7 +369,7 @@
     groupNav.innerHTML =
       '<button type="button" class="catalog-group-all' + (allActive ? ' active' : '') + '" aria-pressed="' + (allActive ? 'true' : 'false') + '" data-group="all">' +
       '<span class="catalog-group-icon icon-all" aria-hidden="true"><img src="' + ALL_CHIP_IMG + '" alt="" width="40" height="40" decoding="async"/></span>' +
-      '<span><strong><span class="catalog-group-title-desktop">Весь каталог</span><span class="catalog-group-title-mobile">Все</span></strong><small>Все опубликованные варианты</small></span></button>' +
+      '<span><strong><span class="catalog-group-title-desktop">Весь каталог</span><span class="catalog-group-title-mobile">Все</span></strong><small>Все композиции</small></span></button>' +
       GROUPS.map(function (g) {
         var active = group === g.id;
         var img = g.chipImg;
@@ -483,7 +491,7 @@
       '<div class="catalog-results-tools">' +
       '<span role="status" aria-live="polite">' + (loading ? 'Загружаем варианты…' : list.length + ' ' + plural(list.length)) + '</span>' +
       '<div class="catalog-sort" role="group" aria-label="Сортировка">' +
-      sortChip('', 'Как есть') +
+      sortChip('', 'По умолчанию') +
       sortChip('price-asc', 'Дешевле') +
       sortChip('price-desc', 'Дороже') +
       '</div>' +
@@ -510,7 +518,11 @@
     }
     var body = '';
     if (loading) {
-      body = '<div class="catalog-empty">Загружаем воздушное настроение…</div>';
+      var skel = '';
+      for (var si = 0; si < 6; si++) {
+        skel += '<div class="catalog-card catalog-card-skeleton" aria-hidden="true"><span class="catalog-card-image"></span><span class="catalog-card-copy"><i></i><i></i><i></i></span></div>';
+      }
+      body = '<div class="catalog-grid catalog-grid-skeleton" aria-busy="true" aria-label="Загружаем каталог">' + skel + '</div>';
     } else if (loadError) {
       body = '<div class="catalog-empty" role="alert">' + window.vigEmoji('balloon') + '<h3>Каталог не загрузился</h3><p>Проверьте соединение и попробуйте ещё раз. Выбранные фильтры сохранятся.</p><button type="button" data-retry>Попробовать ещё раз</button></div>';
     } else if (list.length) {
@@ -566,6 +578,7 @@
     resultsSection.querySelectorAll('[data-help]').forEach(function (b) {
       b.addEventListener('click', function () { openCatalogModal(); });
     });
+    revealReadyPhotos(resultsSection);
   }
 
   function renderRecent() {

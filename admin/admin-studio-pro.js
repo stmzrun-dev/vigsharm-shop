@@ -1455,8 +1455,8 @@ Object.assign(app, {
    * Авто: detect → кроп звезды → gpt in-place на кропе → вклейка в ПОЛНЫЙ Master.
    * Кроп никогда не становится Master целиком.
    */
-  async fixBalloonInscription() {
-    const masterUrl = this.studioMasterDataUrl || this.studioCompare?.master || this.studioMasterBackupUrl;
+  async fixBalloonInscription(opts = {}) {
+    const masterUrl = opts.masterUrl || this.studioMasterDataUrl || this.studioCompare?.master || this.studioMasterBackupUrl;
     if (!masterUrl) {
       this.toast('Сначала создайте Master', 'error');
       return;
@@ -1465,16 +1465,16 @@ Object.assign(app, {
     const masterBase = masterUrl;
 
     const ta = document.getElementById('sign-text-exact');
-    const exact = String(ta?.value || '').replace(/\r\n/g, '\n').trim();
+    const exact = String(opts.exact != null ? opts.exact : (ta?.value || '')).replace(/\r\n/g, '\n').trim();
     if (!exact) {
       this.toast('Впишите правильный текст надписи', 'error');
-      ta?.focus();
+      if (!opts.skipCommit) ta?.focus();
       return;
     }
 
     const lines = exact.split('\n').map((l) => l.trim()).filter(Boolean);
-    const btn = document.getElementById('sign-text-apply-btn');
-    const statusEl = document.getElementById('studio-status');
+    const btn = opts.skipCommit ? null : document.getElementById('sign-text-apply-btn');
+    const statusEl = opts.statusEl || document.getElementById('studio-status');
     if (btn) btn.disabled = true;
 
     const startFixCrop = async (imageUrl, prefer) => {
@@ -1581,6 +1581,12 @@ Object.assign(app, {
         throw new Error('Сбой вклейки: размер Master изменился');
       }
 
+      if (opts.skipCommit) {
+        if (statusEl) statusEl.textContent = '✅ Надпись вклеена';
+        this.toast('Надпись обновлена', 'success');
+        return merged;
+      }
+
       this.commitMasterImage(merged, '✅ Надпись вклеена в полную фигуру — проверьте Master');
       this.showSignTextEditor();
       this.toast('Надпись обновлена', 'success');
@@ -1588,6 +1594,7 @@ Object.assign(app, {
       console.error('[SignText]', err);
       if (statusEl) statusEl.textContent = '❌ Надпись: ' + (err.message || err);
       this.toast('Не удалось исправить надпись: ' + (err.message || err), 'error');
+      if (opts.skipCommit) throw err;
     } finally {
       if (btn) btn.disabled = false;
     }

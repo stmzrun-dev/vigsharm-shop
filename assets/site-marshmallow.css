@@ -1122,6 +1122,10 @@ html body main#main-content .hero .hero-actions a.button-primary:hover{
   html body main#main-content .hero .hero-message{
     margin-bottom:16px!important;
   }
+  html body main#main-content .hero .playful-title{
+    font-size:clamp(36px,3.4vw,52px)!important;
+    line-height:1.08!important;
+  }
   html body main#main-content .hero .hero-actions{
     flex-direction:row!important;
     flex-wrap:wrap!important;
@@ -3665,17 +3669,221 @@ html body.delivery-page main#main-content footer .footer-cta,
 html body.delivery-page main#main-content footer .footer-contacts>button{
   display:none!important;
 }
+/* Laptop header: keep the phone visible once desktop nav is on (style.css hides it ≤1200). */
+@media (min-width:1021px){
+  html body .site-header .header-phone,
+  html body .header .header-phone{
+    display:flex!important;
+  }
+}
+@media (min-width:1021px) and (max-width:1200px){
+  html body .site-header .location,
+  html body .header .location{
+    display:none!important;
+  }
+  html body .site-header .nav,
+  html body .header .nav{
+    gap:16px!important;
+  }
+  html body .site-header .header-phone,
+  html body .header .header-phone{
+    min-height:44px!important;
+    padding:4px 12px 4px 8px!important;
+    gap:6px!important;
+  }
+  html body .site-header .header-phone strong,
+  html body .header .header-phone strong{
+    font-size:13px!important;
+  }
+}
+
 @media (width<=720px){
   html body.delivery-page main#main-content .delivery-grid{
     grid-template-columns:1fr!important;
   }
   html body.delivery-page main#main-content .info-hero-emoji{
-    width:48px!important;
-    height:48px!important;
+    width:56px!important;
+    height:56px!important;
   }
   html body.delivery-page main#main-content .info-hero-emoji img{
-    width:38px!important;
-    height:38px!important;
+    width:100%!important;
+    height:100%!important;
   }
+}
+
+/* Crop padded 3D icons so the subject fills the tile (not a blank square). */
+html body.price-page .info-hero-emoji,
+html body.delivery-page main#main-content .info-hero-emoji,
+html body.delivery-page main#main-content .info-card-icon,
+html body.price-page .price-group-heading>span,
+html body.price-page .price-explanation>span{
+  overflow:hidden!important;
+}
+html body.price-page .info-hero-emoji img,
+html body.delivery-page main#main-content .info-hero-emoji img,
+html body.delivery-page main#main-content .info-card-icon img,
+html body.price-page .price-group-heading>span img,
+html body.price-page .price-explanation>span img{
+  width:100%!important;
+  height:100%!important;
+  max-width:none!important;
+  object-fit:contain!important;
+  transform:scale(2.85)!important;
+  transform-origin:center 80%!important;
+}
+html body.delivery-page main#main-content .info-card-icon img[src*="ful-far"],
+html body.delivery-page main#main-content .info-card-icon img[src*="ful-pickup"]{
+  transform:scale(1.18)!important;
+  transform-origin:center center!important;
+}
+
+@keyframes mm-photo-wait{
+  0%{background-position:100% 0}
+  100%{background-position:-100% 0}
+}
+.catalog-page .catalog-card-image,
+.product-page .product-page-main-image,
+.product-page-state-loading .product-load-skel{
+  background:linear-gradient(90deg,#efeef1 0%,#f7f6f8 42%,#efeef1 100%)!important;
+  background-size:200% 100%!important;
+  animation:mm-photo-wait 1.15s linear infinite!important;
+}
+.catalog-page .catalog-card-image:has(img.is-ready),
+.product-page .product-page-main-image:has(img.is-ready){
+  animation:none!important;
+  background:#f4f2f3!important;
+}
+.catalog-page .catalog-card-image img,
+.product-page .product-page-main-image img{
+  opacity:0;
+  transition:opacity .22s ease;
+}
+.catalog-page .catalog-card-image img.is-ready,
+.product-page .product-page-main-image img.is-ready{
+  opacity:1;
+}
+.catalog-page .catalog-card-skeleton{
+  pointer-events:none!important;
+  box-shadow:0 10px 24px rgba(0,0,0,.04)!important;
+}
+.catalog-page .catalog-card-skeleton .catalog-card-copy{
+  gap:10px!important;
+  padding:4px 2px 8px!important;
+}
+.catalog-page .catalog-card-skeleton .catalog-card-copy i{
+  display:block!important;
+  height:12px!important;
+  border-radius:999px!important;
+  background:#eceaee!important;
+}
+.catalog-page .catalog-card-skeleton .catalog-card-copy i:nth-child(1){width:42%!important;height:10px!important}
+.catalog-page .catalog-card-skeleton .catalog-card-copy i:nth-child(2){width:78%!important;height:16px!important}
+.catalog-page .catalog-card-skeleton .catalog-card-copy i:nth-child(3){width:34%!important;height:18px!important;margin-top:8px!important}
+.product-page-state-loading{
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:stretch!important;
+  gap:16px!important;
+  max-width:560px!important;
+  margin:24px auto 48px!important;
+  padding:0 16px!important;
+  color:#6f6f78!important;
+  font-weight:650!important;
+}
+.product-page-state-loading .product-load-skel{
+  display:block!important;
+  width:100%!important;
+  aspect-ratio:1/1!important;
+  border-radius:22px!important;
+}
+.product-page-state-loading p{
+  margin:0!important;
+  text-align:center!important;
+}
+
+/* Stage 2: pastel groups like delivery; white product cards; catalog footer CTA */
+html body.price-page .info-page article.price-group,
+html body.price-page article.price-group{
+  border:1.5px solid #ece8f0!important;
+  box-shadow:0 10px 26px rgba(40,36,60,.06)!important;
+}
+html body.price-page article.price-group.price-tone-red{
+  background:#fff1f4!important;
+  border-color:#f3d7df!important;
+}
+html body.price-page article.price-group.price-tone-blue{
+  background:#eef6fd!important;
+  border-color:#d4e6f5!important;
+}
+html body.price-page article.price-group.price-tone-purple{
+  background:#f3effa!important;
+  border-color:#ddd4ef!important;
+}
+html body.price-page article.price-group.price-tone-yellow{
+  background:#fff7e8!important;
+  border-color:#efe0c4!important;
+}
+html body.price-page article.price-group>div:last-child a{
+  background:#fff!important;
+  border:0!important;
+  box-shadow:0 4px 12px rgba(40,36,60,.05)!important;
+  border-radius:16px!important;
+}
+html body.price-page article.price-group>div:last-child a>strong{
+  color:#ff6b5a!important;
+}
+html body.catalog-page .catalog-card,
+html body.catalog-page .catalog-card.color-0,
+html body.catalog-page .catalog-card.color-1,
+html body.catalog-page .catalog-card.color-2,
+html body.catalog-page .catalog-card.color-3,
+html body.catalog-page .catalog-card.color-4{
+  background:#fff!important;
+  border:0!important;
+  box-shadow:var(--mm-shadow)!important;
+}
+html body.catalog-page .catalog-card:hover{
+  border:0!important;
+}
+html body footer.catalog-footer .footer-cta{
+  display:grid!important;
+  border:0!important;
+  background:linear-gradient(135deg,#fff 0%,#fff6f2 100%)!important;
+  box-shadow:var(--mm-shadow)!important;
+  border-radius:var(--mm-radius-lg, 24px)!important;
+  padding:24px 22px!important;
+  gap:16px!important;
+  margin:0 0 20px!important;
+}
+html body footer.catalog-footer .footer-cta small{
+  color:#8b8b93!important;
+  letter-spacing:.08em!important;
+  text-transform:uppercase!important;
+  font-weight:700!important;
+}
+html body footer.catalog-footer .footer-cta h2{
+  color:#1e293b!important;
+  letter-spacing:-.03em!important;
+  margin:4px 0 6px!important;
+}
+html body footer.catalog-footer .footer-cta p{
+  color:#8b8b93!important;
+  margin:0!important;
+}
+html body footer.catalog-footer .footer-cta button{
+  background:var(--mm-accent-grad)!important;
+  background-image:var(--mm-accent-grad)!important;
+  border:0!important;
+  border-radius:999px!important;
+  color:#fff!important;
+  font-weight:800!important;
+  min-height:48px!important;
+  box-shadow:0 10px 24px rgba(255,107,107,.28)!important;
+}
+html body .product-page .product-page-toolbar a,
+html body .product-page .product-page-toolbar button{
+  border:0!important;
+  box-shadow:var(--mm-shadow)!important;
+  background:#fff!important;
 }
 

@@ -1,6 +1,7 @@
 // Ключ публикации: одно фото → кадры поста/сторис + подписи → ZIP
 Object.assign(app, {
   publishSource: null,
+  publishMasterUrl: null,
   publishPack: null,
   _jszipPromise: null,
 
@@ -45,22 +46,138 @@ Object.assign(app, {
     const url = URL.createObjectURL(file);
     if (this.publishSource?.url) URL.revokeObjectURL(this.publishSource.url);
     this.publishSource = { file, url, name: file.name };
+    this.publishMasterUrl = null;
     this.publishPack = null;
     const zipBtn = document.getElementById('publish-zip-btn');
+    const packBtn = document.getElementById('publish-build-btn');
+    const signBtn = document.getElementById('publish-sign-btn');
     if (zipBtn) zipBtn.disabled = true;
-    const preview = document.getElementById('publish-source-preview');
-    if (preview) {
-      preview.innerHTML = '<img alt="Исходник" src="' + url + '"/>';
-      preview.classList.remove('hidden');
-      preview.hidden = false;
-    }
+    if (packBtn) packBtn.disabled = true;
+    if (signBtn) signBtn.disabled = true;
+    this.showPublishPreview(url, 'Исходник');
     const status = document.getElementById('publish-status');
     if (status) status.textContent = file.name;
   },
 
-  async loadImage(src) {
+  showPublishPreview(src, alt) {
+    const preview = document.getElementById('publish-source-preview');
+    if (!preview || !src) return;
+    preview.innerHTML = '<img alt="' + (alt || 'Фото') + '" src="' + src + '"/>';
+    preview.classList.remove('hidden');
+    preview.hidden = false;
+  },
+
+  getPublishScene() {
+    return document.querySelector('input[name="publish-scene"]:checked')?.value || 'floor';
+  },
+
+  setPublishBusy(busy) {
+    ['publish-master-btn', 'publish-sign-btn', 'publish-build-btn', 'publish-zip-btn'].forEach((id) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      if (id === 'publish-master-btn') el.disabled = !!busy;
+      if (id === 'publish-sign-btn') el.disabled = busy || !this.publishMasterUrl;
+      if (id === 'publish-build-btn') el.disabled = busy || !this.publishMasterUrl;
+      if (id === 'publish-zip-btn') el.disabled = busy || !this.publishPack;
+    });
+  },
+
+  async createPublishMaster() {
+    if (!this.publishSource?.file && !this.publishSource?.url) {
+      this.toast?.('Сначала загрузите фото', 'error');
+      return;
+    }
+    if (!this.workerUrl) {
+      this.toast?.('Укажите Worker API URL в Настройках', 'error');
+      return;
+    }
+    if (!this.adminApiKey) {
+      this.toast?.('Укажите ключ админки в Настройках', 'error');
+      return;
+    }
+    const status = document.getElementById('publish-status');
+    const masterBtn = document.getElementById('publish-master-btn');
+    this.setPublishBusy(true);
+    if (masterBtn) masterBtn.innerHTML = '<span class="spinner"></span> Master…';
+    try {
+      let imageUrl = this.publishSource.httpsUrl;
+      if (!imageUrl) {
+        if (status) status.textContent = '☁️ Загрузка в Cloudinary…';
+        const file = this.publishSource.file;
+        if (!file) throw new Error('Нет файла для загрузки');
+        const uploadResult = await this.uploadPhoto(file);
+        if (!uploadResult?.ok) throw new Error(uploadResult?.error || 'Cloudinary: не загрузилось');
+        imageUrl = uploadResult.url;
+        this.publishSource.httpsUrl = imageUrl;
+      }
+      const scene = this.getPublishScene();
+      if (status) status.textContent = '📸 ИИ переснимает в студии, как в карточке…';
+      const masterUrl = await this.createMasterForScene(imageUrl, scene, status);
+      this.publishMasterUrl = masterUrl;
+      this.showPublishPreview(masterUrl, 'Master');
+      const sign = (document.getElementById('publish-sign-text')?.value || '').trim();
+      if (sign) {
+        if (status) status.textContent = '✏️ Правлю надпись…';
+        const fixed = await this.fixBalloonInscription({
+          masterUrl,
+          exact: sign,
+          statusEl: status,
+          skipCommit: true
+        });
+        if (fixed) {
+          this.publishMasterUrl = fixed;
+          this.showPublishPreview(fixed, 'Master');
+        }
+      }
+      if (status) status.textContent = 'Master готов. Можно исправить надпись или собрать пачку.';
+      this.toast?.('Master готов', 'success');
+    } catch (e) {
+      console.error(e);
+      this.toast?.(e.message || 'Не удалось создать Master', 'error');
+      if (status) status.textContent = e.message || 'Ошибка Master';
+    } finally {
+      if (masterBtn) masterBtn.textContent = 'Создать Master';
+      this.setPublishBusy(false);
+    }
+  },
+
+  async fixPublishInscription() {
+    const sign = (document.getElementById('publish-sign-text')?.value || '').trim();
+    if (!this.publishMasterUrl) {
+      this.toast?.('Сначала создайте Master', 'error');
+      return;
+    }
+    if (!sign) {
+      this.toast?.('Впишите текст на шаре', 'error');
+      document.getElementById('publish-sign-text')?.focus();
+      return;
+    }
+    const status = document.getElementById('publish-status');
+    this.setPublishBusy(true);
+    try {
+      const fixed = await this.fixBalloonInscription({
+        masterUrl: this.publishMasterUrl,
+        exact: sign,
+        statusEl: status,
+        skipCommit: true
+      });
+      if (fixed) {
+        this.publishMasterUrl = fixed;
+        this.publishPack = null;
+        this.showPublishPreview(fixed, 'Master');
+      }
+    } catch (e) {
+      /* toast already in fixBalloonInscription */
+    } finally {
+      this.setPublishBusy(false);
+    }
+  },
+
+  /** Не перетирает Studio Pro loadImage: CORS только для http(s). */
+  loadPublishImage(src) {
     return new Promise((resolve, reject) => {
       const img = new Image();
+      if (/^https?:\/\//i.test(src)) img.crossOrigin = 'anonymous';
       img.onload = () => resolve(img);
       img.onerror = () => reject(new Error('Не удалось открыть изображение'));
       img.src = src;
@@ -68,15 +185,22 @@ Object.assign(app, {
   },
 
   async getPublishBackgroundImage() {
-    const src = this.getReferenceBackgroundUrl?.() || this.DEFAULT_REFERENCE_BG || '../assets/reference/reference-background.png';
-    try {
-      return await this.loadImage(src);
-    } catch (e) {
-      return null;
-    }
+    const local = this.DEFAULT_REFERENCE_BG || '../assets/reference/reference-background.png';
+    const src = this.getReferenceBackgroundUrl?.() || local;
+    const tryLoad = async (url) => {
+      try {
+        return await this.loadPublishImage(url);
+      } catch (e) {
+        return null;
+      }
+    };
+    let img = await tryLoad(src);
+    if (img) return img;
+    if (src !== local) img = await tryLoad(local);
+    return img;
   },
 
-  clamp(n, min, max) {
+  clampPublish(n, min, max) {
     return Math.min(max, Math.max(min, n));
   },
 
@@ -96,8 +220,8 @@ Object.assign(app, {
     }
     let sx = (img.width - sw) / 2 + (offsetX || 0) * img.width;
     let sy = (img.height - sh) / 2 + (offsetY || 0) * img.height;
-    sx = this.clamp(sx, 0, Math.max(0, img.width - sw));
-    sy = this.clamp(sy, 0, Math.max(0, img.height - sh));
+    sx = this.clampPublish(sx, 0, Math.max(0, img.width - sw));
+    sy = this.clampPublish(sy, 0, Math.max(0, img.height - sh));
     ctx.drawImage(img, sx, sy, sw, sh, 0, 0, tw, th);
   },
 
@@ -113,6 +237,13 @@ Object.assign(app, {
     ctx.drawImage(img, dx, dy, dw, dh);
   },
 
+  placeOnFrame(ctx, img, tw, th, spec) {
+    const top = th * (spec.top ?? 0.06);
+    const height = th * (spec.boxH ?? 0.88);
+    const padX = tw * (spec.padX ?? 0.06);
+    this.drawContain(ctx, img, padX, top, tw - padX * 2, height);
+  },
+
   renderPublishFrame(srcImg, bgImg, tw, th, spec) {
     const canvas = document.createElement('canvas');
     canvas.width = tw;
@@ -123,10 +254,15 @@ Object.assign(app, {
 
     if (spec.onBg && bgImg) {
       this.drawCoverCrop(ctx, bgImg, tw, th, 1, 0, 0);
-      const top = spec.story ? th * 0.08 : th * 0.06;
-      const height = spec.story ? th * 0.62 : th * 0.88;
-      const padX = tw * 0.06;
-      this.drawContain(ctx, srcImg, padX, top, tw - padX * 2, height);
+      this.placeOnFrame(ctx, srcImg, tw, th, spec);
+    } else if (spec.story) {
+      ctx.save();
+      ctx.filter = 'blur(32px)';
+      this.drawCoverCrop(ctx, srcImg, tw, th, 1.15, 0, -0.06);
+      ctx.restore();
+      ctx.fillStyle = 'rgba(232, 228, 220, 0.38)';
+      ctx.fillRect(0, 0, tw, th);
+      this.placeOnFrame(ctx, srcImg, tw, th, spec);
     } else {
       this.drawCoverCrop(ctx, srcImg, tw, th, spec.zoom, spec.ox, spec.oy);
     }
@@ -144,35 +280,26 @@ Object.assign(app, {
   },
 
   buildPublishCaptions() {
-    const title = (document.getElementById('publish-title')?.value || '').trim() || 'Композиция из шаров';
+    const title = (document.getElementById('publish-title')?.value || '').trim();
     const occasion = (document.getElementById('publish-occasion')?.value || '').trim();
     const priceRaw = (document.getElementById('publish-price')?.value || '').trim();
-    const price = priceRaw ? (priceRaw.replace(/[^\d]/g, '') + ' ₽') : '';
-    const occasionLine = occasion ? 'Повод: ' + occasion + '.' : 'Соберём под ваш повод.';
-    const priceLine = price ? 'Ориентир: ' + price + '.' : '';
+    const digits = priceRaw.replace(/[^\d]/g, '');
+    const priceLine = digits ? digits + ' ₽' : '';
+    const heading = title || 'Вигшарм · Армавир';
     const cta = 'Армавир и доставка рядом. Написать в директ или на сайте vigsharm.ru';
 
-    const ig = [
-      title,
-      '',
-      occasionLine,
-      priceLine,
-      cta,
-      '',
-      '#вигшарм #армавир #шарыармавир #аэродизайн #доставкашаров'
-    ].filter((line, i, arr) => line !== '' || arr[i - 1] !== '').join('\n').replace(/\n{3,}/g, '\n\n');
+    const igBody = [heading, occasion, priceLine, '', cta, '', '#вигшарм #армавир #шарыармавир #аэродизайн #доставкашаров']
+      .filter((line, i, arr) => line !== '' || (arr[i - 1] && arr[i - 1] !== ''))
+      .join('\n')
+      .replace(/\n{3,}/g, '\n\n');
 
-    const tg = [title, occasionLine, priceLine, 'Заявка в сообщении или на vigsharm.ru'].filter(Boolean).join('\n');
+    const tg = [heading, occasion, priceLine, 'Заявка в сообщении или на vigsharm.ru'].filter(Boolean).join('\n');
 
-    const vk = [
-      title,
-      occasionLine,
-      priceLine,
-      'Пишите в сообщения сообщества или оставьте заявку на сайте.',
-      '#Вигшарм #Армавир #Шары'
-    ].filter(Boolean).join('\n');
+    const vk = [heading, occasion, priceLine, 'Пишите в сообщения сообщества или оставьте заявку на сайте.', '#Вигшарм #Армавир #Шары']
+      .filter(Boolean)
+      .join('\n');
 
-    return '=== INSTAGRAM ===\n' + ig + '\n\n=== TELEGRAM ===\n' + tg + '\n\n=== VK ===\n' + vk + '\n';
+    return '=== INSTAGRAM ===\n' + igBody + '\n\n=== TELEGRAM ===\n' + tg + '\n\n=== VK ===\n' + vk + '\n';
   },
 
   renderPublishThumbs(pack) {
@@ -193,47 +320,42 @@ Object.assign(app, {
   },
 
   async buildPublishPack() {
-    if (!this.publishSource?.url) {
-      this.toast?.('Сначала загрузите фото', 'error');
+    if (!this.publishMasterUrl) {
+      this.toast?.('Сначала создайте Master', 'error');
       return;
     }
-    const btn = document.getElementById('publish-build-btn');
     const status = document.getElementById('publish-status');
-    if (btn) btn.disabled = true;
-    if (status) status.textContent = 'Собираем кадры…';
+    this.setPublishBusy(true);
+    if (status) status.textContent = 'Собираем кадры из Master…';
     try {
-      const srcImg = await this.loadImage(this.publishSource.url);
-      const onBg = !!document.getElementById('publish-on-bg')?.checked;
-      const bgImg = onBg ? await this.getPublishBackgroundImage() : null;
+      const srcImg = await this.loadPublishImage(this.publishMasterUrl);
       const posts = [
-        { file: 'post-01-full.jpg', label: 'Пост · весь кадр', zoom: 1.02, ox: 0, oy: -0.02, onBg, story: false },
-        { file: 'post-02-close.jpg', label: 'Пост · ближе', zoom: 1.18, ox: 0, oy: -0.04, onBg, story: false },
-        { file: 'post-03-shift.jpg', label: 'Пост · смещение', zoom: 1.1, ox: 0.04, oy: 0.02, onBg, story: false }
+        { file: 'post-01-full.jpg', label: 'Пост · весь кадр', zoom: 1.04, ox: 0, oy: -0.02, story: false },
+        { file: 'post-02-close.jpg', label: 'Пост · ближе', zoom: 1.38, ox: 0, oy: -0.06, story: false },
+        { file: 'post-03-shift.jpg', label: 'Пост · крупно', zoom: 1.62, ox: 0.02, oy: -0.1, story: false }
       ].map((spec) => ({
         ...spec,
-        dataUrl: this.renderPublishFrame(srcImg, bgImg, 1080, 1350, spec)
+        dataUrl: this.renderPublishFrame(srcImg, null, 1080, 1350, spec)
       }));
       const stories = [
-        { file: 'story-01-full.jpg', label: 'Сторис · сцена', zoom: 1.04, ox: 0, oy: -0.08, onBg, story: true },
-        { file: 'story-02-upper.jpg', label: 'Сторис · выше', zoom: 1.12, ox: 0, oy: -0.14, onBg, story: true },
-        { file: 'story-03-close.jpg', label: 'Сторис · крупно', zoom: 1.28, ox: 0, oy: -0.1, onBg, story: true }
+        { file: 'story-01-full.jpg', label: 'Сторис · сцена', top: 0.07, boxH: 0.54, padX: 0.08, story: true },
+        { file: 'story-02-upper.jpg', label: 'Сторис · выше', top: 0.05, boxH: 0.42, padX: 0.12, story: true },
+        { file: 'story-03-close.jpg', label: 'Сторис · крупно', top: 0.08, boxH: 0.5, padX: 0.04, story: true }
       ].map((spec) => ({
         ...spec,
-        dataUrl: this.renderPublishFrame(srcImg, bgImg, 1080, 1920, spec)
+        dataUrl: this.renderPublishFrame(srcImg, null, 1080, 1920, spec)
       }));
       const captions = this.buildPublishCaptions();
       this.publishPack = { posts, stories, captions };
       this.renderPublishThumbs(this.publishPack);
-      const zipBtn = document.getElementById('publish-zip-btn');
-      if (zipBtn) zipBtn.disabled = false;
-      if (status) status.textContent = 'Готово: 3 поста и 3 сторис. Можно скачать ZIP.';
+      if (status) status.textContent = 'Готово: 3 поста и 3 сторис с Master. Можно скачать ZIP.';
       this.toast?.('Пачка собрана', 'success');
     } catch (e) {
       console.error(e);
       this.toast?.(e.message || 'Не удалось собрать пачку', 'error');
       if (status) status.textContent = e.message || 'Ошибка';
     } finally {
-      if (btn) btn.disabled = false;
+      this.setPublishBusy(false);
     }
   },
 
@@ -270,9 +392,10 @@ Object.assign(app, {
       folder.file('captions.txt', this.publishPack.captions);
       folder.file('kak-vylozhit.txt',
         'Пост: файлы post-01…03 (4:5).\n' +
-        'Сторис: story-01…03 (9:16). Композицию держите в верхней части кадра.\n' +
+        'Сторис: story-01…03 (9:16). Композиция в верхней части — низ для текста и музыки в приложении.\n' +
         'Instagram / Telegram / VK: вставьте текст из captions.txt.\n' +
-        'Музыку к сторис добавьте в приложении сети — через сайт её подставить нельзя.\n'
+        'Музыку к сторис добавьте в приложении сети — через сайт её подставить нельзя.\n' +
+        'Чужой логотип на исходном фото пачка не убирает — нужен кадр без чужого бренда.\n'
       );
       const blob = await zip.generateAsync({ type: 'blob' });
       const a = document.createElement('a');
@@ -286,6 +409,7 @@ Object.assign(app, {
   }
 });
 
+window.app = app;
 if (document.getElementById('publish-dropzone')) {
   app.setupPublishKey();
 }

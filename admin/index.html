@@ -7,7 +7,7 @@
 <meta name="robots" content="noindex, nofollow"/>
 <link rel="icon" href="../favicon.svg"/>
 <link rel="stylesheet" href="../assets/fonts.css"/>
-<link rel="stylesheet" href="styles.css?v=publish-1"/>
+<link rel="stylesheet" href="styles.css?v=publish-2"/>
 </head>
 <body>
 
@@ -149,7 +149,7 @@
     <div class="hero-section">
       <h2>Соцсети</h2>
       <h1>Ключ публикации</h1>
-      <p>Одно фото — пачка для поста и сторис. Скачиваете ZIP и выкладываете в Instagram, Telegram и VK вручную. Музыку к сторис лучше добавить в приложении сети.</p>
+      <p>Как в карточке: ИИ переснимает на студию Вигшарм, при необходимости правит текст на шаре. Потом — кадры поста и сторис и подписи. ZIP выкладываете в Instagram, Telegram и VK вручную.</p>
     </div>
     <div class="card">
       <div class="publish-layout">
@@ -161,6 +161,20 @@
           </div>
           <input type="file" id="publish-file" accept="image/*" class="hidden-file"/>
           <div id="publish-source-preview" class="publish-source-preview hidden" hidden></div>
+          <div class="form-group">
+            <span class="publish-scene-label">Сцена</span>
+            <div class="scene-subchips-row publish-scenes" role="radiogroup" aria-label="Сцена">
+              <label class="scene-subchip"><input type="radio" name="publish-scene" value="floor" checked/><span>Напольная</span></label>
+              <label class="scene-subchip"><input type="radio" name="publish-scene" value="wall_only"/><span>Стена</span></label>
+              <label class="scene-subchip"><input type="radio" name="publish-scene" value="handheld_bouquet"/><span>Букет в руке</span></label>
+              <label class="scene-subchip"><input type="radio" name="publish-scene" value="unit_balloon"/><span>Поштучно</span></label>
+              <label class="scene-subchip"><input type="radio" name="publish-scene" value="photozone"/><span>Фотозона</span></label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="publish-sign-text">Текст на шаре <span class="hint">если есть надпись</span></label>
+            <textarea id="publish-sign-text" rows="3" placeholder="Как должно быть написано, с переносами"></textarea>
+          </div>
           <div class="form-group">
             <label for="publish-title">Что на фото</label>
             <input id="publish-title" placeholder="Например: связка шаров на годик"/>
@@ -175,13 +189,11 @@
               <input id="publish-price" type="text" inputmode="numeric" placeholder="3500"/>
             </div>
           </div>
-          <label class="publish-check">
-            <input type="checkbox" id="publish-on-bg" checked/>
-            <span>Поставить на эталонный фон студии (4:5 и 9:16)</span>
-          </label>
           <p class="text-muted" id="publish-status"></p>
           <div class="products-header-actions">
-            <button type="button" class="btn primary" id="publish-build-btn" onclick="app.buildPublishPack()">Собрать пачку</button>
+            <button type="button" class="btn primary" id="publish-master-btn" onclick="app.createPublishMaster()">Создать Master</button>
+            <button type="button" class="btn outline" id="publish-sign-btn" disabled onclick="app.fixPublishInscription()">Исправить надпись</button>
+            <button type="button" class="btn outline" id="publish-build-btn" disabled onclick="app.buildPublishPack()">Собрать пачку</button>
             <button type="button" class="btn outline" id="publish-zip-btn" disabled onclick="app.downloadPublishZip()">Скачать ZIP</button>
           </div>
         </div>
@@ -792,11 +804,11 @@
 <script src="admin-extended.js?v=retry-saved-1"></script>
 <script src="cloudinary-upload.js?v=cloud-fix-2"></script>
 <script src="cloudinary-patch.js?v=settings-merge-2"></script>
-<script src="admin-studio-pro.js?v=retry-saved-1"></script>
+<script src="admin-studio-pro.js?v=publish-key-1"></script>
 <script src="admin-ai.js?v=retry-saved-1"></script>
 <script src="admin-reference-background.js"></script>
 <script src="admin-orders.js?v=1"></script>
 <script src="admin-price.js?v=3"></script>
-<script src="admin-publish-key.js?v=1"></script>
+<script src="admin-publish-key.js?v=4"></script>
 </body>
 </html>

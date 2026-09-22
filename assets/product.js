@@ -279,6 +279,30 @@
     if (fulfillment === 'nearby') return address.trim() ? 'За город: ' + address.trim() : 'Укажите населённый пункт';
     return 'Когда подготовить и куда доставить';
   }
+  function fulStatusText() {
+    if (fulfillment === 'pickup') return 'Выбрано: самовывоз';
+    if (fulfillment === 'armavir') return 'Выбрано: по городу';
+    if (fulfillment === 'nearby') return 'Выбрано: за город';
+    return 'Выберите, как получить';
+  }
+  function whenStatusText() {
+    var months = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'];
+    var parts = [];
+    if (orderDate) {
+      var a = String(orderDate).split('-');
+      if (a.length === 3) parts.push(Number(a[2]) + ' ' + months[Number(a[1]) - 1]);
+      else parts.push(dateLabel());
+    }
+    if (orderTime) parts.push(timeLabel());
+    if (!parts.length) return 'Выберите дату и время';
+    return 'Выбрано: ' + parts.join(', ');
+  }
+  function contactStatusText() {
+    if (!phoneOk()) return 'Укажите телефон';
+    var name = String(customerName || '').trim();
+    var phone = String(customerPhone || '').trim();
+    return 'Выбрано: ' + (name ? name + ', ' + phone : phone);
+  }
   function pad2(n) { return (n < 10 ? '0' : '') + n; }
   function dateLabel() {
     if (!orderDate) return 'уточнить';
@@ -323,7 +347,7 @@
     var dCard = dateCardLabel();
     return '<div class="order-date-picker' + (datePickerOpen ? ' is-open' : '') + (orderDate ? ' has-value' : '') + '">' +
       '<button type="button" class="order-date-toggle order-dt-card' + (orderDate ? ' is-picked' : '') + '" data-act="date-toggle" aria-expanded="' + datePickerOpen + '" aria-haspopup="dialog" aria-label="' + (orderDate ? 'Дата: ' + dateLabel() : 'Выбрать дату') + '">' +
-      '<span class="ful-icon dt-icon" aria-hidden="true"><img src="icons/dt-date.png?v=1" alt="" width="56" height="56"/></span>' +
+      '<span class="ful-icon dt-icon" aria-hidden="true"><img src="icons/dt-date.png?v=2" alt="" width="56" height="56"/></span>' +
       '<strong>' + esc(dCard.title) + '</strong><small>' + esc(dCard.hint) + '</small></button>' +
       '<div class="order-cal" role="dialog" aria-label="Календарь">' +
       '<div class="order-cal-head">' +
@@ -353,7 +377,7 @@
     var tCard = timeCardLabel();
     return '<div class="order-date-picker order-time-picker' + (timePickerOpen ? ' is-open' : '') + (orderTime ? ' has-value' : '') + '">' +
       '<button type="button" class="order-date-toggle order-dt-card' + (orderTime ? ' is-picked' : '') + '" data-act="time-toggle" aria-expanded="' + timePickerOpen + '" aria-haspopup="dialog" aria-label="' + (orderTime ? 'Время: ' + timeLabel() : 'Выбрать время') + '">' +
-      '<span class="ful-icon dt-icon" aria-hidden="true"><img src="icons/dt-time.png?v=1" alt="" width="56" height="56"/></span>' +
+      '<span class="ful-icon dt-icon" aria-hidden="true"><img src="icons/dt-time.png?v=2" alt="" width="56" height="56"/></span>' +
       '<strong>' + esc(tCard.title) + '</strong><small>' + esc(tCard.hint) + '</small></button>' +
       '<div class="order-cal order-time-list" role="dialog" aria-label="Время">' +
       '<div class="order-time-grid">' + cells + '</div>' +
@@ -376,18 +400,46 @@
       }).join('') + '</div>';
   }
 
-  function storyDigitsPad(act, selected) {
+  function pickedDigitList() {
+    var list = [];
+    if (digit) list.push(String(digit));
+    if (effDigits() >= 2 && digit2) list.push(String(digit2));
+    return list;
+  }
+  function storyDigitsPad() {
     var digits = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+    var picked = pickedDigitList();
     return '<div class="order-story-digits client-digits">' + digits.map(function (d) {
-      var off = 'icons/digits/off-' + d + '.png?v=1';
-      var on = 'icons/digits/on-' + d + '.png?v=1';
-      return '<button type="button" class="order-story-digit' + (selected === d ? ' selected' : '') + '" data-act="' + act + '" data-v="' + d + '" aria-label="Цифра ' + d + '" aria-pressed="' + (selected === d) + '">' +
+      var on = picked.indexOf(d) !== -1;
+      var offSrc = 'icons/digits/off-' + d + '.png?v=1';
+      var onSrc = 'icons/digits/on-' + d + '.png?v=1';
+      return '<button type="button" class="order-story-digit' + (on ? ' selected' : '') + '" data-act="digit" data-v="' + d + '" aria-label="Цифра ' + d + '" aria-pressed="' + on + '">' +
         '<span class="order-story-digit-ring" aria-hidden="true"></span>' +
         '<span class="order-story-digit-face">' +
-        '<img class="digit-clay digit-clay-off" src="' + off + '" alt="" width="96" height="96" decoding="async"/>' +
-        '<img class="digit-clay digit-clay-on" src="' + on + '" alt="" width="96" height="96" decoding="async"/>' +
+        '<img class="digit-clay digit-clay-off" src="' + offSrc + '" alt="" width="96" height="96" decoding="async"/>' +
+        '<img class="digit-clay digit-clay-on" src="' + onSrc + '" alt="" width="96" height="96" decoding="async"/>' +
         '</span></button>';
     }).join('') + '</div>';
+  }
+  function applyDigitTap(v) {
+    v = String(v);
+    if (effDigits() < 2) {
+      digit = digit === v ? '' : v;
+      digit2 = '';
+    } else if (!digit) {
+      digit = v;
+    } else if (!digit2) {
+      digit2 = v;
+    } else if (v === digit || v === digit2) {
+      digit2 = '';
+    } else {
+      digit2 = v;
+    }
+    var key = (effDigits() >= 2 && digit && digit2) ? (digit + digit2) : digit;
+    if (!(p.digit_images && key && p.digit_images[key])) imgIdx = 0;
+    clearFlowEditIf(digit2 ? 'digit2' : 'digit1');
+    render();
+    afterDigitsMaybeScroll();
   }
 
   function storyHtml() {
@@ -434,33 +486,20 @@
 
     if (clientStepVisible('client-digits')) {
       html += '<section class="client-block' + (next === 'client-digits' ? ' is-next' : digitsOk() ? ' is-done' : '') + '" id="client-digits">' +
-        '<h3 class="client-block-title">Цифры на композиции</h3>';
+        '<h3 class="client-block-title">Цифры на композиции</h3>' +
+        '<p class="client-digit-picked">' + esc(digit
+          ? ('Выбрано: ' + ((U >= 2 && digit2) ? (digit + digit2) : digit))
+          : (U === 2 ? 'Выберите обе цифры' : 'Выберите цифру')) + '</p>';
 
-      if (digitsOk()) {
-        html += '<button type="button" class="client-digits-done" data-act="digits-edit" aria-label="Изменить цифры">' +
-          '<strong>' + esc(digitsChipLabel()) + '</strong><small>изменить</small></button>';
-        if (canAdd() && H === 0) {
-          html += '<div class="client-delta order-story-delta client-delta-compact">' +
-            '<button type="button" class="selected" data-act="delta" data-v="0" aria-pressed="true"><strong>1</strong><small>как на фото</small></button>' +
-            '<button type="button" data-act="delta" data-v="1" aria-pressed="false"><strong>2</strong><small>+900 ₽</small></button></div>';
-        }
-      } else if (U === 2 && digit) {
-        html += '<div class="client-digits-progress">' +
-          '<button type="button" class="client-digit-mini selected" data-act="digits-edit" aria-label="Изменить первую цифру">' + esc(digit) + '</button>' +
-          '<span class="client-digits-sep" aria-hidden="true">→</span>' +
-          '<span class="client-digit-label">вторая</span></div>' +
-          storyDigitsPad('digit2', digit2);
-      } else {
-        if (U === 2) html += '<span class="client-digit-label">Первая</span>';
-        html += storyDigitsPad('digit', digit);
-        if ((canAdd() || canRemove()) && digit) {
-          html += '<div class="client-delta order-story-delta client-delta-compact">' +
-            '<button type="button" class="' + (H === 0 ? 'selected' : '') + '" data-act="delta" data-v="0" aria-pressed="' + (H === 0) + '"><strong>' + (B ? '1' : '2') + '</strong><small>' + (B ? 'как на фото' : 'две') + '</small></button>' +
-            (B
-              ? '<button type="button" class="' + (H === 1 ? 'selected' : '') + '" data-act="delta" data-v="1" aria-pressed="' + (H === 1) + '"><strong>2</strong><small>+900 ₽</small></button>'
-              : '<button type="button" class="' + (H === -1 ? 'selected' : '') + '" data-act="delta" data-v="-1" aria-pressed="' + (H === -1) + '"><strong>1</strong><small>−900 ₽</small></button>') +
-            '</div>';
-        }
+      html += storyDigitsPad();
+      var showDigitDelta = digitsOk() ? (canAdd() && H === 0) : (!(U === 2 && digit) && (canAdd() || canRemove()) && !!digit);
+      if (showDigitDelta) {
+        html += '<div class="client-delta order-story-delta client-delta-compact">' +
+          '<button type="button" class="' + (H === 0 ? 'selected' : '') + '" data-act="delta" data-v="0" aria-pressed="' + (H === 0) + '"><strong>' + (B ? '1' : '2') + '</strong><small>' + (B ? 'как на фото' : 'две') + '</small></button>' +
+          (B
+            ? '<button type="button" class="' + (H === 1 ? 'selected' : '') + '" data-act="delta" data-v="1" aria-pressed="' + (H === 1) + '"><strong>2</strong><small>+900 ₽</small></button>'
+            : '<button type="button" class="' + (H === -1 ? 'selected' : '') + '" data-act="delta" data-v="-1" aria-pressed="' + (H === -1) + '"><strong>1</strong><small>−900 ₽</small></button>') +
+          '</div>';
       }
       html += '</section>';
     }
@@ -468,6 +507,9 @@
     if (clientStepVisible('client-ins')) {
       html += '<section class="client-block' + (next === 'client-ins' ? ' is-next' : inscriptionOk() ? ' is-done' : '') + '" id="client-ins">' +
         '<h3 class="client-block-title">Надпись на шаре</h3>' +
+        '<div class="ins-balloon' + (inscriptionOk() ? ' is-filled' : '') + '">' +
+        '<img src="icons/ins-balloon.png?v=1" alt="" width="160" height="160"/>' +
+        '<span class="ins-balloon-text">' + esc(String(inscription || '').trim() || 'С Днём рождения!') + '</span></div>' +
         '<label class="client-ins' + (inscriptionOk() ? ' is-filled' : '') + '">' +
         '<input value="' + esc(inscription) + '" maxlength="60" data-act="inscription" placeholder="С Днём рождения!" inputmode="text" autocomplete="off"/>' +
         '</label></section>';
@@ -481,6 +523,7 @@
     if (clientStepVisible('client-ful')) {
       html += '<section class="client-block' + (next === 'client-ful' ? ' is-next' : fulfillment ? ' is-done' : '') + '" id="client-ful">' +
         '<h3 class="client-block-title">Как получить</h3>' +
+        '<p class="client-digit-picked">' + esc(fulStatusText()) + '</p>' +
         '<div class="client-ful fulfillment-options' + (!fulfillment ? ' is-pick' : '') + '">' +
         '<button type="button" class="' + (fulfillment === 'pickup' ? 'selected' : '') + '" data-act="ful" data-v="pickup" aria-label="Самовывоз" aria-pressed="' + (fulfillment === 'pickup') + '"><span class="ful-icon"><img src="icons/ful-pickup.png?v=4" alt="" width="48" height="48"/></span><strong>Самовывоз</strong><small>Бесплатно</small></button>' +
         '<button type="button" class="' + (fulfillment === 'armavir' ? 'selected' : '') + '" data-act="ful" data-v="armavir" aria-label="По городу" aria-pressed="' + (fulfillment === 'armavir') + '"><span class="ful-icon"><img src="icons/ful-city.png?v=4" alt="" width="48" height="48"/></span><strong>По городу</strong><small>+' + cityRub() + '</small></button>' +
@@ -499,6 +542,7 @@
     if (clientStepVisible('client-when')) {
       html += '<section class="client-block client-when' + (next === 'client-when' ? ' is-next' : whenOk() ? ' is-done' : '') + '" id="client-when">' +
         '<h3 class="client-block-title">Дата и время</h3>' +
+        '<p class="client-digit-picked">' + esc(whenStatusText()) + '</p>' +
         '<div class="order-date-row" role="group" aria-label="Дата и время">' +
         '<div class="order-date-field">' + calendarHtml() + '</div>' +
         '<div class="order-time-field">' + timeHtml() + '</div></div></section>';
@@ -507,8 +551,9 @@
     if (clientStepVisible('client-contact')) {
       html += '<section class="client-block client-contact' + (next === 'client-contact' ? ' is-next' : phoneOk() ? ' is-done' : '') + '" id="client-contact">' +
         '<h3 class="client-block-title">Контакт для заявки</h3>' +
+        '<p class="client-digit-picked">' + esc(contactStatusText()) + '</p>' +
+        '<div class="contact-clay' + (phoneOk() ? ' is-on' : '') + '"><img src="icons/clay-phone.png?v=1" alt="" width="72" height="72"/></div>' +
         contactFieldsHtml() +
-        '<button type="button" class="button button-primary product-order-button client-submit" data-act="order">' + esc(orderSending ? 'Отправляем…' : orderCta('short')) + '</button>' +
         '</section>';
     }
 
@@ -644,8 +689,8 @@
           '<input type="number" min="1" max="100" value="' + qty + '" data-act="qty"/></label>';
       }
       if (p.has_digit_choice && U >= 1) {
-        inner += '<fieldset class="' + (needDigit ? 'needs-pick' : '') + '"><legend>' + (U === 2 ? 'Какая первая цифра нужна?' : 'Какая цифра нужна?') + '</legend>' +
-          storyDigitsPad('digit', digit) + '</fieldset>';
+        inner += '<fieldset class="' + (needDigit ? 'needs-pick' : '') + '"><legend>Какая цифра нужна?</legend>' +
+          storyDigitsPad() + '</fieldset>';
         if (p.digit_count_locked || p.is_floor_composition) {
           inner += '<p class="digit-count-note">' + (U === 2
             ? 'В этой композиции две цифры — выберите обе. Количество менять нельзя.'
@@ -659,10 +704,6 @@
           (B ? '<button type="button" class="' + (H === 1 ? 'selected' : '') + '" data-act="delta" data-v="1" aria-pressed="' + (H === 1) + '"><strong>Да, добавить вторую</strong><small>+900 ₽</small></button>' : '') +
           (!B ? '<button type="button" class="' + (H === -1 ? 'selected' : '') + '" data-act="delta" data-v="-1" aria-pressed="' + (H === -1) + '"><strong>Нет, оставить одну</strong><small>−900 ₽</small></button>' : '') +
           '</div><p class="digit-count-note">' + (B ? 'В гелиевую композицию можно добавить не более двух цифр.' : 'При отказе от второй цифры стоимость уменьшится на 900 ₽.') + '</p></fieldset>';
-      }
-      if (p.has_digit_choice && U === 2) {
-        inner += '<fieldset><legend>Какая вторая цифра нужна?</legend>' +
-          storyDigitsPad('digit2', digit2) + '</fieldset>';
       }
       if (needDigit) {
         inner += '<p class="digit-count-note">Выберите ' + (U === 2 ? 'обе цифры' : 'цифру') + ', чтобы оформить заказ.</p>';
@@ -880,11 +921,7 @@
         el.addEventListener('change', function () { qty = Math.max(1, Math.min(100, Number(el.value) || 1)); clearFlowEditIf('qty'); render(); });
       } else if (act === 'digit') {
         el.addEventListener('click', function () {
-          digit = el.getAttribute('data-v');
-          if (!(p.digit_images && p.digit_images[digit])) imgIdx = 0;
-          clearFlowEditIf('digit1');
-          render();
-          afterDigitsMaybeScroll();
+          applyDigitTap(el.getAttribute('data-v'));
         });
       } else if (act === 'digits-edit') {
         el.addEventListener('click', function () {
@@ -922,6 +959,10 @@
             insBlock.classList.toggle('is-done', hasText);
             insBlock.classList.toggle('is-next', !hasText);
           }
+          var preview = insBlock && insBlock.querySelector('.ins-balloon-text');
+          var balloon = insBlock && insBlock.querySelector('.ins-balloon');
+          if (preview) preview.textContent = hasText ? inscription.trim() : 'С Днём рождения!';
+          if (balloon) balloon.classList.toggle('is-filled', hasText);
         });
         el.addEventListener('change', function () {
           clearFlowEditIf('inscription');
@@ -968,6 +1009,10 @@
           if (block) {
             block.classList.toggle('is-done', phoneOk());
             block.classList.toggle('is-next', !phoneOk());
+            var status = block.querySelector('.client-digit-picked');
+            var clay = block.querySelector('.contact-clay');
+            if (status) status.textContent = contactStatusText();
+            if (clay) clay.classList.toggle('is-on', phoneOk());
           }
         });
         el.addEventListener('keydown', function (e) {
@@ -982,6 +1027,9 @@
           saveDraft();
           var wrap = el.closest('.client-ins');
           if (wrap) wrap.classList.toggle('is-filled', !!String(customerName || '').trim());
+          var block = el.closest('.client-block');
+          var status = block && block.querySelector('.client-digit-picked');
+          if (status) status.textContent = contactStatusText();
         });
       } else if (act === 'hp') {
         el.addEventListener('input', function () { honeypot = el.value; });
@@ -1405,7 +1453,7 @@
       '<h2 id="product-order-title">Как удобнее оформить?</h2>' +
       '<div class="order-modal-summary"><span>' + esc(p.title) + '</span><strong>' + (priceFrom() ? 'от ' : '') + T.toLocaleString('ru-RU') + ' ₽</strong></div>' +
       '<div class="order-choice-stack">' +
-      '<button type="button" class="order-choice-btn is-primary" data-choice="site"><strong>Оставить заявку на сайте</strong><small>Перезвоним по телефону · вы никуда не уходите</small></button>' +
+      '<button type="button" class="order-choice-btn is-primary" data-choice="site"><img class="order-choice-ico" src="icons/clay-phone.png?v=1" alt="" width="44" height="44"/><span><strong>Оставить заявку на сайте</strong><small>Перезвоним по телефону · вы никуда не уходите</small></span></button>' +
       '<button type="button" class="order-choice-btn" data-choice="msg"><strong>Написать в мессенджер</strong><small>WhatsApp, Telegram или MAX</small></button>' +
       '</div>' +
       '<div class="order-choice-msg" hidden>' + messengerListHtml() + '</div>' +

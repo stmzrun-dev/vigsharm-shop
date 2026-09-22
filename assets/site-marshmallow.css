@@ -464,9 +464,17 @@ html body .product-page .product-composition-card .eyebrow{
 }
 html body .product-page .product-composition-card h2{
   color:#2a2a32!important;
-  margin:0 0 14px!important;
-  font-size:22px!important;
-  line-height:1.2!important;
+  margin:0 0 12px!important;
+  font-size:15px!important;
+  font-weight:800!important;
+  line-height:1.35!important;
+  overflow:visible!important;
+  white-space:normal!important;
+  max-width:none!important;
+  display:block!important;
+  -webkit-line-clamp:unset!important;
+  -webkit-text-fill-color:#2a2a32!important;
+  background:none!important;
 }
 html body .product-page .composition-list{
   display:grid!important;
@@ -3267,6 +3275,19 @@ html body .contact-modal .modal-close{
   color:#ff6b5a!important;
   border-radius:14px!important;
 }
+html body .product-order-modal .modal-close{
+  width:36px!important;
+  height:36px!important;
+  border-radius:50%!important;
+  border:2.5px solid #ff6b5a!important;
+  background:#fff!important;
+  color:#ff6b5a!important;
+  box-shadow:none!important;
+  font-size:20px!important;
+  line-height:1!important;
+  display:grid!important;
+  place-items:center!important;
+}
 html body .contact-options{
   gap:8px!important;
 }
@@ -4011,4 +4032,23 @@ html body main#main-content footer .footer-contacts img{
   width:40px!important;
   height:40px!important;
   object-fit:contain!important;
+}
+@media (max-width:1020px){
+  html body:has(.product-page) main > footer{
+    display:none!important;
+  }
+}
+@media (max-width:650px){
+  html body .product-page .related-products-grid .catalog-card-copy > b{
+    display:flex!important;
+    flex-direction:column!important;
+    align-items:flex-start!important;
+    gap:6px!important;
+  }
+  html body .product-page .related-products-grid .catalog-card-copy > b > em{
+    overflow:visible!important;
+    text-overflow:unset!important;
+    white-space:normal!important;
+    max-width:none!important;
+  }
 }

@@ -603,41 +603,6 @@ Object.assign(app, {
     return /коробк/.test(t);
   },
 
-  /** Первая строка состава по сцене: фотозона / фигура / напольная. Без дублей. */
-  ensureSceneCompositionLead(lines, leadKey) {
-    const label = leadKey === 'photozone' ? 'фотозона'
-      : leadKey === 'balloon_figures' ? 'фигура из шаров'
-      : leadKey === 'floor' ? 'напольная композиция'
-      : leadKey === 'balloon_flowers' ? 'цветы из шаров'
-      : '';
-    const arr = (Array.isArray(lines) ? lines : String(lines || '').split(/\n/))
-      .map((s) => String(s || '').trim()).filter(Boolean);
-    if (!label) return arr;
-    const has = arr.some((line) => {
-      const t = line.toLowerCase().replace(/ё/g, 'е');
-      if (leadKey === 'photozone') return /фотозон/.test(t);
-      if (leadKey === 'balloon_figures') {
-        return /фигур[аыуе]?(?:\s+\w+){0,2}\s+из\s+шар/.test(t) || /скрутк\w*\s+из\s+шар/.test(t);
-      }
-      if (leadKey === 'balloon_flowers') return /цвет\w*\s+из\s+шар/.test(t);
-      return /напольн\w*\s+композиц/.test(t);
-    });
-    if (has) return arr;
-    return [label, ...arr];
-  },
-
-  sceneCompositionLeadKey(opts = {}) {
-    const scene = opts.scene || this.currentProduct?.scene || '';
-    if (opts.isBox) return '';
-    if (opts.isPhotozone || scene === 'photozone') return 'photozone';
-    if (opts.isFigures || scene === 'balloon_figures') return 'balloon_figures';
-    if (opts.isBalloonFlowers
-      || this.getBouquetType?.() === 'flowers'
-      || opts.category === 'Цветы из шаров') return 'balloon_flowers';
-    if (opts.isFloor || scene === 'floor' || opts.category === 'Напольные композиции') return 'floor';
-    return '';
-  },
-
   syncHolidayFromComposition() {
     const el = document.getElementById('product-composition');
     if (!el) return null;
@@ -965,11 +930,6 @@ Object.assign(app, {
       else if ((this.currentProduct?.scene || document.getElementById('scene-select')?.value) === 'handheld_bouquet') {
         this.applyBouquetOnlyMode?.();
       }
-      const compEl = document.getElementById('product-composition');
-      if (compEl && on) {
-        const led = this.ensureSceneCompositionLead?.(compEl.value.split(/\n/), 'balloon_flowers');
-        if (Array.isArray(led)) compEl.value = led.join('\n');
-      }
       this.syncAdvanceOrderFromScene?.();
       this.syncStudioModeHint?.();
       this.scheduleSaveActiveStudioDraft?.();
@@ -1092,17 +1052,6 @@ Object.assign(app, {
       if (meta.holiday) {
         this.currentProduct.holiday_only = meta.holiday;
       }
-      const leadKey = this.sceneCompositionLeadKey?.({
-        scene: this.currentProduct?.scene || '',
-        isBox: this.compositionLooksLikeSurpriseBox?.(meta.cleanText),
-        isPhotozone: this.isPhotozoneContext?.() || card.category === 'Фотозона' || (card.tags || []).includes('Фотозона'),
-        isFigures: card.category === 'Фигуры из шаров' || this.currentProduct?.scene === 'balloon_figures',
-        isFloor: this.currentProduct?.scene === 'floor' || card.category === 'Напольные композиции',
-        isBalloonFlowers: this.getBouquetType?.() === 'flowers' || card.category === 'Цветы из шаров',
-        category: card.category
-      });
-      const led = this.ensureSceneCompositionLead?.(meta.cleanText.split(/\n/), leadKey);
-      if (el && Array.isArray(led)) el.value = led.join('\n');
     }
     const holidayOnly = (() => {
       const raw = this.currentProduct?.holiday_only
@@ -1272,7 +1221,7 @@ Object.assign(app, {
     const titleValue = document.getElementById('product-title').value.trim();
     const unit = this.isUnitBalloonMode?.() || false;
     let holidayOnly = null;
-    const composition = unit
+    let composition = unit
       ? []
       : (() => {
           const raw = document.getElementById('product-composition').value;
@@ -1337,17 +1286,6 @@ Object.assign(app, {
       scene === 'floor'
       || category === 'Напольные композиции'
     );
-    if (!unit) {
-      const leadKey = this.sceneCompositionLeadKey?.({
-        scene, isBox, isPhotozone, isFigures, isFloor: isFloorSave, isBalloonFlowers, category
-      });
-      const led = this.ensureSceneCompositionLead?.(composition, leadKey);
-      if (Array.isArray(led)) {
-        composition = led;
-        const el = document.getElementById('product-composition');
-        if (el) el.value = led.join('\n');
-      }
-    }
     const pzType = isPhotozone ? (this.getPhotozoneType?.() || 'frame') : null;
     const pzMeta = pzType && typeof PHOTOZONE_TYPES !== 'undefined' ? PHOTOZONE_TYPES[pzType] : null;
     const floorType = isFloorSave ? (this.getFloorType?.() || '') : null;

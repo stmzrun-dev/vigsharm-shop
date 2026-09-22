@@ -848,16 +848,6 @@ Object.assign(app, {
       // Состав: ИИ только оформляет ваш текст
       if (data.composition) {
         data.composition = this.sanitizeAiDigitLines?.(data.composition, userComposition) || data.composition;
-        const leadKey = this.sceneCompositionLeadKey?.({
-          scene: sceneHint,
-          isBox: this.compositionLooksLikeSurpriseBox?.(userComposition),
-          isPhotozone: sceneHint === 'photozone',
-          isFigures: sceneHint === 'balloon_figures',
-          isFloor: sceneHint === 'floor',
-          isBalloonFlowers: this.getBouquetType?.() === 'flowers',
-          category: data.category
-        });
-        data.composition = this.ensureSceneCompositionLead?.(data.composition, leadKey) || data.composition;
       }
       this.currentProduct.composition = data.composition || this.currentProduct.composition;
       this.currentProduct.category = data.category || this.currentProduct.category;

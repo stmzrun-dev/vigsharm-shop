@@ -885,31 +885,6 @@ function applyDischargeCategoryPriority(data, rawComposition = '') {
   return data;
 }
 
-function ensureSceneCompositionLead(lines, scene, extraText) {
-  const blob = [Array.isArray(lines) ? lines.join('\n') : '', extraText || ''].join('\n');
-  if (compositionLooksLikeSurpriseBox(blob)) return Array.isArray(lines) ? lines.filter(Boolean) : [];
-  const leadKey = scene === 'photozone' ? 'photozone'
-    : scene === 'balloon_figures' ? 'balloon_figures'
-    : scene === 'floor' ? 'floor'
-    : '';
-  const label = leadKey === 'photozone' ? 'фотозона'
-    : leadKey === 'balloon_figures' ? 'фигура из шаров'
-    : leadKey === 'floor' ? 'напольная композиция'
-    : '';
-  const arr = (Array.isArray(lines) ? lines : []).map((s) => String(s || '').trim()).filter(Boolean);
-  if (!label) return arr;
-  const has = arr.some((line) => {
-    const t = line.toLowerCase().replace(/ё/g, 'е');
-    if (leadKey === 'photozone') return /фотозон/.test(t);
-    if (leadKey === 'balloon_figures') {
-      return /фигур[аыуе]?(?:\s+\w+){0,2}\s+из\s+шар/.test(t) || /скрутк\w*\s+из\s+шар/.test(t);
-    }
-    return /напольн\w*\s+композиц/.test(t);
-  });
-  if (has) return arr;
-  return [label, ...arr];
-}
-
 function sanitizeCompositionColors(lines, rawComposition) {
   const raw = String(rawComposition || '').toLowerCase();
   const colorRe = /жёлт\w*|желт\w*|син\w*|голуб\w*|роз\w*|красн\w*|зелён\w*|зелен\w*|фиолет\w*|оранж\w*|бел\w*|чёрн\w*|черн\w*|золот\w*|серебр\w*|хром\w*/gi;
@@ -1193,7 +1168,6 @@ function sanitizeCardMetadata(data, scene = 'floor', price = 0, rawComposition =
   if (Array.isArray(data.composition)) {
     data.composition = sanitizeCompositionBoxes(data.composition);
     data.composition = sanitizeCompositionDigitLines(data.composition, rawComposition);
-    data.composition = ensureSceneCompositionLead(data.composition, scene, rawComposition);
   }
 
   const occ = String(data.occasion || '').toLowerCase();

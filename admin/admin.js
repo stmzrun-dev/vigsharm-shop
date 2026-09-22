@@ -93,8 +93,8 @@ const app = {
 
   currentStep: 1,
   products: [],
-  listPageSize: 60,
-  listVisible: 60,
+  listPageSize: 20,
+  listVisible: 20,
   /** Какие группы раскрыты: { ready: true, ... } — по умолчанию все свёрнуты */
   listExpandedGroups: {},
   /** Лимит строк внутри раскрытой группы */
@@ -765,8 +765,14 @@ const app = {
 
   toggleListGroup(groupId) {
     this.listExpandedGroups = this.listExpandedGroups || {};
-    this.listExpandedGroups[groupId] = !this.listExpandedGroups[groupId];
-    if (this.listExpandedGroups[groupId] && !this.listGroupVisible[groupId]) {
+    const opening = !this.listExpandedGroups[groupId];
+    if (opening) {
+      Object.keys(this.listExpandedGroups).forEach((id) => {
+        if (id !== groupId) this.listExpandedGroups[id] = false;
+      });
+    }
+    this.listExpandedGroups[groupId] = opening;
+    if (opening && !this.listGroupVisible[groupId]) {
       this.listGroupVisible[groupId] = this.listPageSize;
     }
     this.renderProducts();

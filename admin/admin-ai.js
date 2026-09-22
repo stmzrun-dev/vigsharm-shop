@@ -552,6 +552,12 @@ Object.assign(app, {
     const shorted = !!(document.getElementById('product-short-desc')?.value || '').trim();
     const done = !!(this._aiCardFilled || unit || editing || (titled && shorted));
     form.classList.toggle('has-ai-card', done);
+    const editBtn = document.getElementById('edit-card-btn');
+    if (editBtn) {
+      const show = done && form.classList.contains('is-editor-step-2');
+      editBtn.classList.toggle('hidden', !show);
+      editBtn.hidden = !show;
+    }
     this.autosizeCompositionField?.();
   },
 
@@ -807,7 +813,27 @@ Object.assign(app, {
       const sceneHint = this.currentProduct.scene || 'floor';
       const existingTitles = this.getExistingCatalogTitles?.() || [];
 
-      statusEl.textContent = '🤖 ИИ заполняет карточку...';
+      let foilDigits = '';
+      if (imageUrl) {
+        statusEl.textContent = '🔢 ИИ читает цифры на фото...';
+        try {
+          const digitRes = await fetch(`${this.workerUrl}/api/ai/read-foil-digits`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', ...this.authHeaders() },
+            body: JSON.stringify({ image_url: imageUrl })
+          });
+          const digitJson = await digitRes.json().catch(() => ({}));
+          if (digitRes.ok && digitJson.ok) {
+            foilDigits = String(digitJson.foil_digits || '').replace(/\D/g, '').slice(0, 4);
+          }
+        } catch (digitErr) {
+          console.warn('[AI] foil digits', digitErr);
+        }
+      }
+
+      statusEl.textContent = foilDigits
+        ? `🤖 ИИ заполняет карточку... цифры ${foilDigits}`
+        : '🤖 ИИ заполняет карточку...';
 
       const res = await fetch(`${this.workerUrl}/api/ai/generate-card`, {
         method: 'POST',
@@ -821,7 +847,8 @@ Object.assign(app, {
           description: userComposition,
           scene: sceneHint,
           existing_titles: existingTitles,
-          holiday_only: holidayFlag || ''
+          holiday_only: holidayFlag || '',
+          foil_digits: foilDigits
         })
       });
 
@@ -884,7 +911,7 @@ Object.assign(app, {
         title: 'Карточка заполнена',
         body: 'ИИ готов — проверьте и опубликуйте'
       });
-      setTimeout(() => this.openAiReviewOverlay?.({ data }), 60);
+      setTimeout(() => this.openAiReviewOverlay?.({ data, fresh: true }), 60);
 
       if (data.ask_title || !data.title) {
         statusEl.innerHTML = '✅ Карточка заполнена — <strong>придумайте уникальное название</strong> (похожие в каталоге уже заняты), затем сохраните';
@@ -918,6 +945,8 @@ Object.assign(app, {
     if (opts.data) this._lastAiCardData = opts.data;
     const form = document.getElementById('product-form');
     form?.classList.remove('is-ai-review-detail');
+    const eyebrow = overlay.querySelector('.ai-review-eyebrow');
+    if (eyebrow) eyebrow.textContent = opts.fresh ? 'После ИИ' : 'Правка';
     this.wireAiReviewOverlay?.();
     this.syncAiReviewFromForm?.(opts.data || this._lastAiCardData);
     overlay.hidden = false;

@@ -819,11 +819,11 @@ Object.assign(app, {
       statusEl.textContent = scene === 'handheld_bouquet'
         ? '✋ Manus: AI переснимает букет — стена + рука...'
         : (scene === 'wall_only' || scene === 'unit_balloon')
-          ? '🧱 Manus: gpt/flux → при сбое banana...'
-          : '📸 AI переснимает в студии (gpt → banana)...';
+          ? '🧱 Manus: sunburst/flux → при сбое banana...'
+          : '📸 AI переснимает в студии (sunburst → banana)...';
     }
 
-    // 1) quality (gpt/flux). Short poll — if hang/fail → banana with longer wait.
+    // 1) quality (sunburst, then gpt/flux). Short poll — if hang/fail → banana with longer wait.
     const preferFirst = 'quality';
     let data = await startJob(preferFirst);
     if (statusEl) {
@@ -841,7 +841,7 @@ Object.assign(app, {
       // Do NOT match bare "failed" — that catches "Failed to fetch" (503/CORS) incorrectly
       if (!genFail) throw err;
       console.warn('[Studio Pro] quality job failed, fallback banana:', msg);
-      if (statusEl) statusEl.textContent = '↻ gpt/flux упал/таймаут — fallback nano-banana (до ~5 мин)...';
+      if (statusEl) statusEl.textContent = '↻ sunburst/flux упал/таймаут — fallback nano-banana (до ~5 мин)...';
       this.toast('Дорогая модель не выдала кадр — пробуем banana', 'info');
       data = await startJob('banana');
       if (statusEl) statusEl.textContent = `⏳ Master fallback (${data.model || 'banana'})...`;

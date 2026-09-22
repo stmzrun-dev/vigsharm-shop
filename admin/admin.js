@@ -97,6 +97,8 @@ const app = {
   listVisible: 20,
   /** Какие группы раскрыты: { ready: true, ... } — по умолчанию все свёрнуты */
   listExpandedGroups: {},
+  /** Полки внутри группы: { 'ready::Для него': true } */
+  listExpandedSubgroups: {},
   /** Лимит строк внутри раскрытой группы */
   listGroupVisible: {},
   currentProduct: { photos: [], scene: 'auto', tags: [], client_options: {} },
@@ -763,6 +765,60 @@ const app = {
     this.renderProducts();
   },
 
+  /** Полка внутри группы. Праздники — по дате, персонажи — по герою, остальные — по категории. */
+  productShelfLabel(groupId, product) {
+    if (groupId === 'holidays') {
+      const tags = [product.category].concat(product.tags || []).filter(Boolean);
+      return LIST_HOLIDAYS.find((h) => tags.includes(h)) || product.category || 'Другое';
+    }
+    if (groupId === 'characters') {
+      return String(product.character || product.character_name || '').trim() || 'Без имени';
+    }
+    return product.category || 'Без категории';
+  },
+
+  renderGroupBody(groupId, items, searching) {
+    if (!items.length) return '';
+    const freshCount = 20;
+    const split = !searching && items.length > freshCount;
+    const fresh = split ? items.slice(0, freshCount) : items;
+    const rest = split ? items.slice(freshCount) : [];
+    const freshHtml = (split ? '<p class="product-fresh-label">Новые</p>' : '')
+      + fresh.map((p) => this.renderProductRow(p)).join('');
+    if (!rest.length) return freshHtml;
+
+    const buckets = new Map();
+    rest.forEach((p) => {
+      const label = this.productShelfLabel(groupId, p);
+      if (!buckets.has(label)) buckets.set(label, []);
+      buckets.get(label).push(p);
+    });
+    const shelves = [...buckets.entries()].sort((a, b) => a[0].localeCompare(b[0], 'ru'));
+    const shelvesHtml = shelves.map(([label, shelfItems]) => {
+      const key = `${groupId}::${label}`;
+      const subOpen = !!(this.listExpandedSubgroups && this.listExpandedSubgroups[key]);
+      const labelJs = String(label).replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+      const rows = subOpen ? shelfItems.map((p) => this.renderProductRow(p)).join('') : '';
+      return `
+        <section class="product-subgroup${subOpen ? ' is-open' : ''}">
+          <button type="button" class="product-subgroup-header" onclick="app.toggleListSubgroup('${groupId}', '${labelJs}')" aria-expanded="${subOpen}">
+            <strong>${this.escapeHtml(label)}</strong>
+            <span class="product-subgroup-count">${shelfItems.length}</span>
+            <span class="product-subgroup-toggle" aria-hidden="true">${subOpen ? '−' : '+'}</span>
+          </button>
+          <div class="product-subgroup-body${subOpen ? '' : ' hidden'}">${rows}</div>
+        </section>`;
+    }).join('');
+    return freshHtml + shelvesHtml;
+  },
+
+  toggleListSubgroup(groupId, label) {
+    const key = `${groupId}::${label}`;
+    this.listExpandedSubgroups = this.listExpandedSubgroups || {};
+    this.listExpandedSubgroups[key] = !this.listExpandedSubgroups[key];
+    this.renderProducts();
+  },
+
   toggleListGroup(groupId) {
     this.listExpandedGroups = this.listExpandedGroups || {};
     const opening = !this.listExpandedGroups[groupId];
@@ -1200,12 +1256,8 @@ const app = {
       const items = byGroup[g.id] || [];
       if (!items.length && q) return '';
       const open = !!(this.listExpandedGroups && this.listExpandedGroups[g.id]);
-      const limit = this.listGroupVisible[g.id] || this.listPageSize;
-      const visible = open ? items.slice(0, limit) : [];
-      const remaining = open ? Math.max(0, items.length - visible.length) : 0;
-      const rows = visible.map((p) => this.renderProductRow(p)).join('');
-      const more = remaining > 0
-        ? `<button type="button" class="btn outline block products-more" onclick="app.showMoreProducts('${g.id}')">Показать ещё ${Math.min(remaining, this.listPageSize)} из ${remaining}</button>`
+      const body = open
+        ? (this.renderGroupBody(g.id, items, !!q) || '<p class="product-group-empty">Пока пусто</p>')
         : '';
       return `
         <section class="product-group${open ? ' is-open' : ''}" data-group="${g.id}">
@@ -1219,7 +1271,7 @@ const app = {
             <span class="product-group-toggle" aria-hidden="true">${open ? '−' : '+'}</span>
           </button>
           <div class="product-group-body${open ? '' : ' hidden'}">
-            ${open ? (rows || '<p class="product-group-empty">Пока пусто</p>') + more : ''}
+            ${body}
           </div>
         </section>`;
     }).filter(Boolean).join('');

@@ -38,6 +38,8 @@ export default {
       }
 
       // Router
+      if (path === '/api/ai/read-foil-digits' && method === 'POST')
+        return handleReadFoilDigits(request, env);
       if (path === '/api/ai/generate-card' && method === 'POST')
         return handleGenerateCard(request, env);
       if (path === '/api/ai/suggest-category' && method === 'POST')
@@ -394,6 +396,92 @@ function takeFoilDigits(data) {
   return String(raw ?? '').replace(/\D/g, '');
 }
 
+/** Взрослое число с отдельного чтения цифр не оставляем детской полкой и названием «на пять лет». */
+function applyTrustedFoilReading(data, digits, opts = {}) {
+  const d = String(digits || '').replace(/\D/g, '');
+  if (!d) return data;
+  const n = parseInt(d, 10);
+  if (!Number.isFinite(n)) return data;
+  const singleChild = d.length === 1;
+  const jubilee = JUBILEE_FOIL_NUMBERS.has(d);
+  const adultNumber = !singleChild && !jubilee && n >= 16;
+  if (adultNumber && !opts.lockCategory) {
+    if (data.category === 'Для девочки' || data.category === '1 годик') data.category = 'Для неё';
+    else if (data.category === 'Для мальчика') data.category = 'Для него';
+    else if (data.category === 'Юбилей') data.category = 'Универсальные';
+    if (Array.isArray(data.tags)) {
+      data.tags = data.tags
+        .map((t) => {
+          if (t === 'Для девочки' && data.category === 'Для неё') return 'Для неё';
+          if (t === 'Для мальчика' && data.category === 'Для него') return 'Для него';
+          if (t === '1 годик' || t === 'Юбилей') return '';
+          return t;
+        })
+        .filter(Boolean);
+      if ((data.category === 'Для неё' || data.category === 'Для него') && !data.tags.includes(data.category)) {
+        data.tags.unshift(data.category);
+      }
+      data.tags = [...new Set(data.tags)].slice(0, 5);
+    }
+  }
+  if (adultNumber) data.age_group = 'Для взрослых';
+  if (!singleChild) {
+    const badAgeTitle = (t) => /летн|годик|на \d+\s*лет|\b\d+\s*лет/i.test(String(t || ''));
+    const alts = (Array.isArray(data.title_alts) ? data.title_alts : []).filter((t) => !badAgeTitle(t));
+    if (badAgeTitle(data.title)) {
+      data.title = alts[0] || '';
+      data.title_alts = alts.slice(1, 3);
+      if (!data.title) data.ask_title = true;
+    } else {
+      data.title_alts = alts.slice(0, 2);
+    }
+  }
+  return data;
+}
+
+/** Только крупные фольгированные цифры слева направо. 4 и 5 → «45», не «5». */
+async function handleReadFoilDigits(request, env) {
+  const body = await request.json().catch(() => ({}));
+  const image_url = body.image_url;
+  if (!image_url) return json({ ok: false, error: 'Missing image_url' }, 400);
+
+  const aiResp = await nordRequest('/v1/chat/completions', 'POST', {
+    model: 'claude-sonnet-5',
+    temperature: 0,
+    response_format: { type: 'json_object' },
+    messages: [
+      {
+        role: 'system',
+        content: `Ты читаешь ТОЛЬКО крупные фольгированные цифры на фото воздушного шара.
+Верни ТОЛЬКО JSON: {"foil_digits":"45"}
+- Смотри слева направо. Каждая отдельная цифра-шар — один символ.
+- Два шара «4» и «5» → "45". Никогда не отбрасывай левую цифру и не возвращай одну «5», если рядом есть «4».
+- Одна цифра → "5". Нет крупных цифр-шаров → "".
+- Игнорируй мелкий текст, Happy Birthday, даты на бабле, цены, надписи на бутылке и звёздах.`
+      },
+      {
+        role: 'user',
+        content: [
+          { type: 'text', text: 'Перечисли крупные фольгированные цифры слева направо.' },
+          { type: 'image_url', image_url: { url: image_url } }
+        ]
+      }
+    ]
+  }, env);
+
+  if (aiResp.error) {
+    return json({ ok: false, error: 'NordRouter API ошибка: ' + (aiResp.error.message || JSON.stringify(aiResp.error)) });
+  }
+  const text = aiResp.choices?.[0]?.message?.content || '';
+  let digits = '';
+  try {
+    digits = String(JSON.parse(text).foil_digits || '').replace(/\D/g, '').slice(0, 4);
+  } catch {
+    digits = String(text).replace(/\D/g, '').slice(0, 4);
+  }
+  return json({ ok: true, foil_digits: digits });
+}
+
 /** Крупная фольгированная «1» (одна цифра) → «1 годик». «10» сюда не попадает. */
 function applyFirstBirthdayFromFoilDigit(data, digits) {
   const d = String(digits || '');
@@ -538,8 +626,10 @@ async function handleGenerateCard(request, env) {
     composition_raw,
     composition_hints,
     existing_titles,
-    holiday_only
+    holiday_only,
+    foil_digits
   } = body;
+  const trustedDigits = String(foil_digits || '').replace(/\D/g, '').slice(0, 4);
   const rawIn = String(composition_raw || description || '').trim();
   const holidayMeta = parseCompositionHolidayMeta(rawIn);
   const rawComposition = holidayMeta.cleanText || rawIn;
@@ -738,7 +828,23 @@ ${BUDGET_OPTIONS.join(' | ')}
     ? `Уже занятые названия в каталоге (НЕ предлагай эти и похожие):\n${takenTitles.slice(0, 80).map((t) => `• ${t}`).join('\n')}`
     : 'Занятых названий пока нет.';
 
-  const userPrompt = `Сгенерируй карточку:
+  const trustedNum = trustedDigits ? parseInt(trustedDigits, 10) : 0;
+  const foilFact = trustedDigits
+    ? `
+ЦИФРЫ НА ФОТО УЖЕ ПРОЧИТАНЫ ОТДЕЛЬНО — это факт, не пересчитывай и не отбрасывай цифру:
+foil_digits = "${trustedDigits}" (число ${trustedNum}).
+Две фольгированные цифры — одно число слева направо: «4» и «5» = 45, это НЕ пять лет и НЕ одна цифра 5.
+- title и title_alts БЕЗ числа, возраста, «лет», «пятилетний», «на ${trustedNum} лет»
+- ${JUBILEE_FOIL_NUMBERS.has(trustedDigits)
+      ? 'Круглая дата: category «Юбилей».'
+      : trustedDigits === '1'
+        ? 'Одна цифра 1: category «1 годик».'
+        : trustedNum >= 16
+          ? 'Взрослый возраст. ЗАПРЕЩЕНО «Для девочки», «Для мальчика», «1 годик» и «Юбилей». Розовый/сердечки → «Для неё», явный мужской стиль → «Для него», иначе «Универсальные». age_group = «Для взрослых».'
+          : 'Детская цифра. НЕ ставь «Юбилей».'}`
+    : '';
+
+  const userPrompt = `Сгенерируй карточку:${foilFact}
 Подсказка названия: ${title_hint || 'не указано'}
 Цена (₽): ${priceNum > 0 ? priceNum : 'не указана'}
 Сырой состав от пользователя (оформи красиво, исправь орфографию, числа сохрани; скобки-подсказки уже убраны): ${rawComposition || 'не указан'}
@@ -812,6 +918,8 @@ ${image_url
   } else {
     applyDischargeCategoryPriority(data, rawComposition);
   }
+  // Отдельное чтение цифр важнее того, что карточка угадала сама
+  if (trustedDigits) data.foil_digits = trustedDigits;
   // Цифра на фото не перебивает коробку/букет/фигуру
   const foilDigits = takeFoilDigits(data);
   if (!boxOnly && !bouquetOnly && !figuresOnly) {
@@ -828,6 +936,9 @@ ${image_url
     const autoAge = ageFromCategory(data.category);
     if (autoAge) data.age_group = autoAge;
   }
+  applyTrustedFoilReading(data, trustedDigits || foilDigits, {
+    lockCategory: !!(holidayOnly || boxOnly || bouquetOnly || figuresOnly || photozoneOnly)
+  });
   // Убрать случайно оставшиеся скобки-подсказки из состава
   if (Array.isArray(data.composition)) {
     data.composition = data.composition
@@ -1402,11 +1513,17 @@ FORBIDDEN leftover: ghost face, floating hair, half a dress, a person cropped at
 
 TASK:
 1. Replace the background with the SECOND reference image — VigSharm studio WALL ONLY (warm beige-grey plaster). NO floor, NO baseboard, NO laminate, NO furniture.
-2. The bouquet must be HELD by ONE realistic adult FEMALE hand (woman's hand only — never male, never child's) gripping the ribbon / wrapping base — natural gift-bouquet catalog pose.
-3. If the original shows a person (woman, girl, man, child) standing with the balloons: DELETE the entire person — face, hair, torso, legs, clothes. Keep ONLY a correct female HAND + short wrist at the bouquet base. Inpaint studio wall where the body was.
-4. If a hand is already in the original: keep the grip idea but REPLACE with a correct female hand/wrist if the original looks male, CGI, or stretched. Fix lighting to match the studio.
-5. If there is NO hand in the original, ADD one photoreal female hand holding the bouquet base — physically gripping the ribbons, same light as the product — NOT a sticker, NOT a separate cutout plate, NOT floating.
-6. REMOVE any circular hang-tag / logo disc on the ribbons or wrap (shop brand tags). Replace with clean ribbons only.
+2. The PRODUCT is only the balloon bouquet: balloons, wrap, bow, and ribbons. DELETE every support and room prop from the source — easel, wooden tripod legs, crossbar, vase, glass, table, houseplant, mirror, vanity light bulbs, furniture, floor. Do NOT carry the stand or vase into the studio. The hand holds the bouquet itself.
+3. The bouquet must be HELD by ONE realistic adult FEMALE hand (woman's hand only — never male, never child's) the way a person standing BESIDE the bouquet would hold a gift: hand enters from the LEFT or RIGHT at the wrap, fingers around the gathered stems under the bow. NOT a hand rising from the bottom. NOT a vertical stick grip. NOT a floating wrist with empty wall under it.
+4. If the original shows a person (woman, girl, man, child) standing with the balloons: DELETE the entire person — face, hair, torso, legs, clothes. Keep ONLY a correct female HAND + short wrist at the bouquet base. Inpaint studio wall where the body was.
+5. If a hand is already in the original: keep the grip idea but REPLACE with a correct female hand/wrist if the original looks male, CGI, crooked, or stretched. Fix lighting to match the studio.
+6. If there is NO hand in the original, ADD one photoreal female hand holding the bouquet base — physically gripping the ribbons, same light as the product — NOT a sticker, NOT a separate cutout plate, NOT floating.
+7. REMOVE any circular hang-tag / logo disc on the ribbons or wrap (shop brand tags). Replace with clean ribbons only.
+
+FRAMING — ribbons fully inside, arm exits the side:
+- Ribbon tails hang freely BELOW the hand and end in visible pointed tips. Leave about 8% empty wall under the lowest ribbon tip. Do not cut ribbons on the bottom edge.
+- The hand and wrist are fully visible. The short forearm leaves through the LEFT or RIGHT edge, toward where the person would stand. It does NOT leave through the bottom and does NOT stop in mid-air above a wall band.
+- If the bouquet is tall, SCALE IT DOWN so every ribbon tip stays inside. Do NOT zoom until the ribbons are cut off.
 
 ${lock}
 
@@ -1414,9 +1531,11 @@ ${logoClean}
 
 HAND — critical anatomy (allowed exception — only this may be added/replaced):
 - ONE woman's hand only: feminine proportions, natural nails, soft skin — NEVER a man's hand
-- Show mainly the HAND + short wrist; forearm must be SHORT and natural — NEVER a long stretched / elongated / warped arm entering from the corner
+- Natural side hold: the person is cropped out, only the hand remains. Fingers wrap the gathered stems at the wrap, thumb on the near side. The bouquet hangs in the hand; ribbons fall past the fist.
+- Forearm is SHORT and enters from the left or right side of the frame, roughly horizontal or a gentle diagonal, then the hand turns up to hold the stems. NEVER a vertical forearm rising from the bottom center. NEVER a long arm slashing in from a corner.
+- Wrist and fingers stay fully inside. Only the forearm may leave the side edge.
 - NEVER show a face, head, shoulders, torso, or full model posing next to the bouquet
-- Correct perspective: hand size matches bouquet base; fingers wrap around the stem/wrap naturally
+- Correct perspective: hand size matches bouquet base
 - No rubbery stretch, no liquid morphing, no extra-long forearm diagonally across the frame
 - Match skin lighting to soft studio daylight on the balloons
 - Do not cover balloon faces or printed foil text with fingers
@@ -1425,9 +1544,9 @@ HAND — critical anatomy (allowed exception — only this may be added/replaced
 ${light}
 Do NOT add artificial balloon shadows on the wall. Soft natural contact only where hand/ribbons need grounding.
 
-FORBIDDEN: full person / model / face / body in frame, floor, baseboard, laminate, sticker/cutout look, white halo, invented balloon text, changed balloon colors/counts, extra balloons, plastic CGI, collage of a pasted fist, dark moody grade, store watermarks, supplier logos, circular hang-tags, male hand, child's hand, stretched/elongated forearm, warped anatomy.
+FORBIDDEN: full person / model / face / body in frame, floor, baseboard, laminate, easel, wooden stand, tripod legs, vase, glass, table, houseplant, mirror, vanity lights, furniture, cropped ribbon tails, hand rising from the bottom, vertical stick grip, floating wrist with empty wall under it, sticker/cutout look, white halo, invented balloon text, changed balloon colors/counts, extra balloons, plastic CGI, collage of a pasted fist, dark moody grade, store watermarks, supplier logos, circular hang-tags, male hand, child's hand, stretched/elongated forearm, long diagonal arm from a corner, warped anatomy.
 
-OUTPUT: one square 1:1 catalog photo — wall background, bouquet large in frame, natural female hand holding it (short wrist, no stretch), NO person/face/body, no hang-tags, bright and sharp.`;
+OUTPUT: one square 1:1 catalog photo — studio wall, bouquet held from the side by one female hand, forearm leaving the left or right edge, ribbon tails fully visible with wall under the tips, NO hand from the bottom, NO easel/vase/room props, NO person/face/body, no hang-tags, bright and sharp.`;
   }
 
   if (isWallOnlyScene(scene)) {
@@ -1651,7 +1770,17 @@ function buildRephotographAttempts(imageUrl, referenceUrl, prompt, resolution = 
     return attempts;
   }
 
-  // quality: one clean gpt + one flux (single ref field), then banana for submit-fallback
+  // quality: sunburst first (studio ref), then proven gpt, then flux. Banana is submit-fallback.
+  attempts.push({
+    model: 'image/gpt-image-2.5-sunburst-edit',
+    input: {
+      prompt: prompt + roomHint,
+      image: imageUrl,
+      reference_image: referenceUrl,
+      aspect_ratio: '1:1',
+      resolution: res
+    }
+  });
   attempts.push({
     model: 'image/gpt-image-2-edit',
     input: {
@@ -1825,7 +1954,7 @@ async function handleStudioEnhance(request, env) {
   const prompt = buildEnhancePrompt(scene, mode);
   const res = ['1K', '2K', '4K'].includes(resolution) ? resolution : '2K';
 
-  // Gentle: lighter models first (less rewrite). Rephotograph: gpt 2K first.
+  // Gentle: lighter models first (less rewrite). Rephotograph: sunburst 2K, then gpt.
   const enhanceAttempts = mode === 'gentle'
     ? [
         { model: 'image/nano-banana-edit', input: { prompt, image: image_url } },
@@ -1834,6 +1963,7 @@ async function handleStudioEnhance(request, env) {
         { model: 'image/nano-banana-pro', input: { prompt, image: image_url } }
       ]
     : [
+        { model: 'image/gpt-image-2.5-sunburst-edit', input: { prompt, image: image_url, aspect_ratio: '1:1', resolution: res } },
         { model: 'image/gpt-image-2-edit', input: { prompt, image: image_url, aspect_ratio: '1:1', resolution: res } },
         { model: 'image/flux2-pro-edit', input: { prompt, image: image_url, aspect_ratio: '1:1', resolution: res === '4K' ? '2K' : res } },
         { model: 'image/gpt-image-2-edit', input: { prompt, image: image_url } },

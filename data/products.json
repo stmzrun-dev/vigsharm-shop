@@ -2,30 +2,71 @@
   "ok": true,
   "products": [
     {
+      "id": "c459a005-b064-44a1-8fee-4989a2aef71f",
+      "title": "Виски и усы",
+      "article": "BQT-009",
+      "price": 2000,
+      "short_description": "Крафтовый букет с чёрными усами, виски и звёздами в красно-чёрной упаковке.",
+      "full_description": "Букет собран из фольгированных шаров: усы, бутылка виски, звёзды и латексные шары. Упакован в красно-чёрную крафтовую бумагу с атласной лентой.",
+      "composition": [
+        "крафтовый букет из шаров"
+      ],
+      "category": "Букет из шаров",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "2 000–3 500 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Крафтовый букет из шаров с усами — VigSharm Армавир",
+      "seo_description": "Стильный крафтовый букет с фольгированными усами, виски и звёздами. Доставка воздушных шаров в Армавире.",
+      "slug": "viski-i-usy",
+      "scene": "handheld_bouquet",
+      "tags": [
+        "Букет из шаров"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790111247/vigsharm-products/haddrxnbrckkcusku4ym.jpg"
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790111381/vigsharm-products/ngtggi4yvoeq982bo7mv.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790111381/vigsharm-products/ngtggi4yvoeq982bo7mv.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-22T21:10:25.297Z",
+      "updated_at": "2026-09-22T21:10:25.297Z"
+    },
+    {
       "id": "3f03d96c-789b-4f39-8413-e68d86ab7c3d",
-      "title": "Маленькое чудо",
+      "title": "Долгожданный",
       "article": "BAB-004",
       "price": 3740,
-      "short_description": "Композиция с младенцем и персональным баблс для выписки из роддома.",
-      "full_description": "Напольная композиция с фольгированной фигурой младенца, фонтаном из шаров и большим баблс с индивидуальной золотой надписью. Нежные голубые и золотые оттенки подчёркивают торжественность момента.",
+      "short_description": "Композиция с фигурой младенца и баблсом с именем для праздника выписки.",
+      "full_description": "Нежная композиция с фольгированной фигурой младенца, баблсом с индивидуальной надписью и фонтаном из шаров. Подходит для встречи из роддома.",
       "composition": [
         "баблс с надписью",
-        "6 шаров",
+        "6 латексных шаров",
         "фольгированная фигура младенца"
       ],
-      "category": "На выписку",
+      "category": "Крещение",
       "character": "Младенец",
       "age_group": "Для малышей",
       "budget": "3 500–5 000 ₽",
       "series_name": null,
       "occasion": null,
       "target_audience": null,
-      "seo_title": "Шары на выписку мальчика с младенцем — Армавир | VigSharm",
-      "seo_description": "Композиция на выписку из роддома: фольгированный младенец, баблс с персональной надписью и фонтан из шаров. Доставка по Армавиру.",
-      "slug": "malenkoe-chudo",
+      "seo_title": "Шары на выписку из роддома с младенцем — Армавир",
+      "seo_description": "Композиция для выписки из роддома: фигура младенца, баблс с именем и фонтан из шаров. Доставка по Армавиру.",
+      "slug": "pervye-shagi",
       "scene": "floor",
       "tags": [
-        "На выписку"
+        "Крещение"
       ],
       "client_options": {
         "available_on_request": false,
@@ -42,7 +83,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-22T18:39:28.941Z",
-      "updated_at": "2026-09-22T18:39:28.941Z"
+      "updated_at": "2026-09-22T20:52:58.133Z"
     },
     {
       "id": "f34bcbde-36b7-4338-9a32-d678fd423abd",

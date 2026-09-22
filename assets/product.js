@@ -788,7 +788,7 @@
         }).join('') + '</div>'
         : '<div class="related-custom-card">' + window.vigEmoji('balloon') + '<div><strong>Сделаем под ваш праздник</strong><p>Напишите повод и бюджет — предложим идеи.</p></div><button type="button" data-act="order">Обсудить идею</button></div>') +
       '</section>')) +
-      '<aside class="mobile-order-bar' + (isSubmitReady() ? ' is-ready' : '') + '" aria-label="Отправить заявку"><div class="mobile-order-price"><small>' + (isSubmitReady() ? 'Заявка на сайте' : (fulfilled === 'nearby' ? 'От' : fulfilled ? 'Итого' : 'Цена')) + '</small><strong>' + (priceFrom() ? 'от ' : '') + T.toLocaleString('ru-RU') + ' ₽</strong></div>' +
+      '<aside class="mobile-order-bar' + (isSubmitReady() ? ' is-ready' : '') + (datePickerOpen || timePickerOpen ? ' is-away' : '') + '" aria-label="Отправить заявку"><div class="mobile-order-price"><small>' + (isSubmitReady() ? 'Заявка на сайте' : (fulfilled === 'nearby' ? 'От' : fulfilled ? 'Итого' : 'Цена')) + '</small><strong>' + (priceFrom() ? 'от ' : '') + T.toLocaleString('ru-RU') + ' ₽</strong></div>' +
       '<div class="mobile-order-actions">' + mobileBarActions + '</div></aside>' +
       '</main>';
 
@@ -995,6 +995,7 @@
             box.classList.toggle('is-open', datePickerOpen);
             el.setAttribute('aria-expanded', datePickerOpen);
           }
+          syncOrderBar();
         });
       } else if (act === 'cal-prev') {
         el.addEventListener('click', function (e) {
@@ -1037,6 +1038,7 @@
             box.classList.toggle('is-open', timePickerOpen);
             el.setAttribute('aria-expanded', timePickerOpen);
           }
+          syncOrderBar();
         });
       } else if (act === 'time-slot') {
         el.addEventListener('click', function (e) {
@@ -1144,6 +1146,7 @@
           var tog = box.querySelector('.order-date-toggle');
           if (tog) tog.setAttribute('aria-expanded', 'false');
         });
+        syncOrderBar();
       });
       if (typeof window.matchMedia === 'function') {
         flowMedia = window.matchMedia('(max-width:1020px)');
@@ -1152,6 +1155,11 @@
         else if (flowMedia.addListener) flowMedia.addListener(onFlowMq);
       }
     }
+  }
+
+  function syncOrderBar() {
+    var bar = root.querySelector('.mobile-order-bar');
+    if (bar) bar.classList.toggle('is-away', !!(datePickerOpen || timePickerOpen));
   }
 
   function refreshTotals() {
@@ -1188,7 +1196,10 @@
     if (barStrong) barStrong.textContent = (priceFrom() ? 'от ' : '') + T.toLocaleString('ru-RU') + ' ₽';
 
     var bar = root.querySelector('.mobile-order-bar');
-    if (bar) bar.classList.toggle('is-ready', submitNow);
+    if (bar) {
+      bar.classList.toggle('is-ready', submitNow);
+      bar.classList.toggle('is-away', !!(datePickerOpen || timePickerOpen));
+    }
     var pageEl = root.querySelector('.product-page');
     if (pageEl && useMobileFlow()) pageEl.classList.toggle('is-order-ready', isOrderReady());
 

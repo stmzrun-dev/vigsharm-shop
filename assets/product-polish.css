@@ -571,6 +571,9 @@
     align-items:center!important;
     gap:12px!important;
   }
+  .mobile-order-bar.is-away{
+    display:none!important;
+  }
   .mobile-order-bar .mobile-order-cta{
     flex:1 1 auto;
     min-height:48px!important;
@@ -749,10 +752,6 @@
   .client-delta-compact button{
     min-height:56px!important;
   }
-  .client-digits{
-    max-width:100%;
-    margin:0 auto;
-  }
   .client-rental{
     margin:0;
     font-size:14px;
@@ -840,8 +839,15 @@
     gap:8px;
     width:100%;
     max-width:100%;
-    padding:0;
+    padding:0 0 80px!important;
+    scroll-margin-bottom:calc(88px + env(safe-area-inset-bottom,0px));
     justify-items:center;
+  }
+  .client-digits{
+    max-width:100%;
+    margin:0 auto;
+    padding-bottom:80px!important;
+    scroll-margin-bottom:calc(88px + env(safe-area-inset-bottom,0px));
   }
   .order-story-digits .order-story-digit:nth-child(10){
     grid-column:auto;

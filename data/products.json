@@ -2,6 +2,196 @@
   "ok": true,
   "products": [
     {
+      "id": "a30e9f12-ac2a-409a-80b0-a9403e350762",
+      "title": "Весёлый фермер",
+      "article": "BOY-022",
+      "price": 2640,
+      "short_description": "Композиция с синим трактором и фольгированной цифрой в сине-серебристых тонах.",
+      "full_description": "Настенная композиция включает крупную фольгированную цифру, фигуру трактора и связку латексных шаров с конфетти.",
+      "composition": [
+        "цифра",
+        "фольгированная фигура трактора",
+        "латексный шар с конфетти",
+        "4 латексных шара"
+      ],
+      "category": "Для мальчика",
+      "character": "Синий трактор",
+      "age_group": "Для малышей",
+      "budget": "2 000–3 500 ₽",
+      "series_name": "Синий трактор",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары с синим трактором на день рождения мальчика в Армавире",
+      "seo_description": "Композиция с фольгированной фигурой синего трактора, цифрой и шарами. Идеальный подарок для юного любителя техники.",
+      "slug": "siniy-traktor-2",
+      "scene": "wall_only",
+      "tags": [
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790064022/vigsharm-products/psfusvw4mf40oimngdzk.jpg",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790064172/vigsharm-products/mqgf78ipmbamlvcm4zph.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790064172/vigsharm-products/mqgf78ipmbamlvcm4zph.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-22T08:04:41.996Z",
+      "updated_at": "2026-09-22T08:04:41.996Z"
+    },
+    {
+      "id": "2d01c10e-9146-4b7e-8daf-29e5eb59c1a0",
+      "title": "Строительная бригада",
+      "article": "UNI-003",
+      "price": 2920,
+      "short_description": "Золотая цифра 3, фольгированный щенок в каске и фонтан из шаров.",
+      "full_description": "Композиция с золотой цифрой 3, фольгированной фигурой щенка-строителя в жёлтой каске и фонтаном из шаров нейтральных и золотых оттенков.",
+      "composition": [
+        "цифра",
+        "фольгированная фигура щенка",
+        "6 латексных шаров",
+        "хромированный шар"
+      ],
+      "category": "Универсальные",
+      "character": "Крепыш",
+      "age_group": "Для детей",
+      "budget": "2 000–3 500 ₽",
+      "series_name": "Щенячий патруль",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары Щенячий патруль на 3 года в Армавире",
+      "seo_description": "Композиция с золотой цифрой 3 и щенком-строителем из мультсериала Щенячий патруль. Доставка воздушных шаров в Армавире.",
+      "slug": "shchenyachiy-patrul-3",
+      "scene": "wall_only",
+      "tags": [
+        "Универсальные"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790062431/vigsharm-products/kwggfts6oqdtvcptdsaa.jpg",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790062493/vigsharm-products/om56o4fvkzr3ja1xqd4m.jpg"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790062493/vigsharm-products/om56o4fvkzr3ja1xqd4m.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-22T07:36:09.444Z",
+      "updated_at": "2026-09-22T07:36:09.444Z"
+    },
+    {
+      "id": "ff023d04-c818-4bba-a643-1ccd44f51729",
+      "title": "Пиксельный левел",
+      "article": "BOX-007",
+      "price": 6500,
+      "short_description": "Красная коробка-сюрприз с геймерской тематикой и цифрой 10.",
+      "full_description": "Коробка украшена изображениями джойстиков и надписью с именем. Из неё выходят зелёные цифры 10, фольгированный геймпад, круг с поздравлением и шары с принтами Minecraft.",
+      "composition": [
+        "фольгированная фигура геймпад",
+        "2 цифры",
+        "фольгированный круг с рисунком",
+        "9 латексных шаров с рисунком",
+        "коробка 70x70x70 с индивидуальной надписью и декором"
+      ],
+      "category": "Коробка-сюрприз",
+      "character": null,
+      "age_group": "Для детей",
+      "budget": "5 000–8 000 ₽",
+      "series_name": "Minecraft",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Коробка-сюрприз с шарами Minecraft на 10 лет — Армавир",
+      "seo_description": "Красная коробка-сюрприз с геймерской тематикой: цифры 10, фольгированный геймпад, шары с принтами Minecraft. Доставка в Армавире.",
+      "slug": "pikselnyy-level",
+      "scene": "floor",
+      "tags": [
+        "Коробка-сюрприз"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790062081/vigsharm-products/ws5lahfznpdfoppnhs78.jpg",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 2
+        }
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790062273/vigsharm-products/byw5ion2iazdpcodxctc.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790062273/vigsharm-products/byw5ion2iazdpcodxctc.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-22T07:31:55.716Z",
+      "updated_at": "2026-09-22T07:31:55.716Z"
+    },
+    {
+      "id": "89f5b7d7-85ed-4400-9151-e5608e026fb1",
+      "title": "Банановая команда",
+      "article": "BOX-006",
+      "price": 4690,
+      "short_description": "Яркая жёлтая коробка с миньонами и связкой шаров в фирменных цветах.",
+      "full_description": "Коробка-сюрприз с изображением миньонов, фольгированной фигурой и круглым шаром с принтом. Дополнена жёлтыми и золотыми хромированными шарами.",
+      "composition": [
+        "коробка 70x70x70 с индивидуальной надписью и декором",
+        "фольгированная фигура",
+        "круг с рисунком",
+        "3 хромированных шара",
+        "5 латексных шаров"
+      ],
+      "category": "Коробка-сюрприз",
+      "character": "Миньон",
+      "age_group": "Для детей",
+      "budget": "3 500–5 000 ₽",
+      "series_name": "Гадкий я",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Коробка-сюрприз с миньонами в Армавире — VigSharm",
+      "seo_description": "Яркая коробка-сюрприз с миньонами, фольгированной фигурой и шарами. Жёлто-золотая композиция для детского праздника. Заказать в Армавире.",
+      "slug": "bananovaya-komanda",
+      "scene": "floor",
+      "tags": [
+        "Коробка-сюрприз"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790061759/vigsharm-products/x9uwcnzylzer4hgzpqez.jpg"
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790061979/vigsharm-products/rivnu3khsyxs3hho2ptz.jpg"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790061979/vigsharm-products/rivnu3khsyxs3hho2ptz.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-22T07:27:11.214Z",
+      "updated_at": "2026-09-22T07:27:11.214Z"
+    },
+    {
       "id": "e8284956-48fe-4928-b285-bc6bbb530657",
       "title": "Золотое облако",
       "article": "PHT-017",
@@ -508,9 +698,9 @@
       "id": "415168d4-ed23-463c-bb37-625a382d1412",
       "title": "Модная семёрка",
       "article": "GRL-018",
-      "price": 3680,
-      "short_description": "Коробка-сюрприз с двумя куклами LOL, золотой цифрой 7 и нежными шарами.",
-      "full_description": "Напольная композиция с коробкой-сюрпризом, двумя фольгированными фигурами кукол LOL, крупной золотой цифрой 7, хромированными и конфетти-шарами в золотисто-розовой гамме.",
+      "price": 5880,
+      "short_description": "Коробка-сюрприз с куклами LOL, золотой цифрой 7 и нежными шарами.",
+      "full_description": "Белая коробка с персональной надписью, две фольгированные куклы LOL, крупная золотая цифра 7 и композиция из латексных, хромированных шаров и шаров с конфетти.",
       "composition": [
         "2 фольгированные фигуры",
         "цифра",
@@ -520,14 +710,14 @@
         "коробка 70x70x70 с индивидуальной надписью и декором"
       ],
       "category": "Коробка-сюрприз",
-      "character": "LOL",
+      "character": "Кукла LOL",
       "age_group": "Для детей",
-      "budget": "3 500–5 000 ₽",
+      "budget": "5 000–8 000 ₽",
       "series_name": "LOL Surprise",
       "occasion": null,
       "target_audience": null,
       "seo_title": "Коробка-сюрприз с куклами LOL и цифрой 7 — Армавир",
-      "seo_description": "Напольная композиция для девочки с коробкой-сюрпризом, двумя фольгированными фигурами LOL, золотой цифрой 7 и шарами. Заказать в Армавире.",
+      "seo_description": "Яркая коробка-сюрприз с фольгированными куклами LOL, золотой цифрой 7 и нежными шарами. Персональная надпись и стильный декор для юной модницы.",
       "slug": "modnaya-semyorka",
       "scene": "floor",
       "tags": [
@@ -546,13 +736,13 @@
         }
       },
       "photos": [
-        "https://res.cloudinary.com/saiuc42a/image/upload/v1790020778/vigsharm-products/jbmh2ybt3lkmwqdy06yg.webp"
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790063087/vigsharm-products/vefqlmzyodle0m5kvarl.png"
       ],
-      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790020778/vigsharm-products/jbmh2ybt3lkmwqdy06yg.webp",
-      "status": "draft",
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790063087/vigsharm-products/vefqlmzyodle0m5kvarl.png",
+      "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-21T19:22:50.767Z",
-      "updated_at": "2026-09-21T19:59:39.472Z"
+      "updated_at": "2026-09-22T07:46:42.253Z"
     },
     {
       "id": "feb5afa0-ac57-4c22-a1b6-565af934ec09",

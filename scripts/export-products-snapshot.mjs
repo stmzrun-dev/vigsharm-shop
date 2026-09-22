@@ -1,12 +1,11 @@
 #!/usr/bin/env node
 /**
- * Выгрузка снимка каталога из Worker → data/products.json
- * (fallback для витрины, когда *.workers.dev недоступен, напр. РФ без VPN).
+ * Снимки витрины из Worker → data/*.json
+ * (fallback, когда *.workers.dev недоступен, напр. РФ без VPN).
  *
  * Usage:
  *   node scripts/export-products-snapshot.mjs
  *   VIG_API=https://… node scripts/export-products-snapshot.mjs
- *   node scripts/export-products-snapshot.mjs --url https://…
  */
 import { writeFileSync, mkdirSync } from 'fs';
 import { dirname, join } from 'path';
@@ -14,7 +13,7 @@ import { fileURLToPath } from 'url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '..');
-const OUT = join(ROOT, 'data', 'products.json');
+const DATA = join(ROOT, 'data');
 const DEFAULT_API = 'https://vigsharm-api.vigsharm.workers.dev';
 
 function parseArgs(argv) {
@@ -27,11 +26,7 @@ function parseArgs(argv) {
   return { url: url.replace(/\/$/, '') };
 }
 
-async function main() {
-  const { url } = parseArgs(process.argv.slice(2));
-  const endpoint = `${url}/api/products`;
-  console.log(`Fetching ${endpoint} …`);
-
+async function getJson(endpoint) {
   let res;
   try {
     res = await fetch(endpoint, {
@@ -39,47 +34,71 @@ async function main() {
       headers: { Accept: 'application/json' }
     });
   } catch (e) {
-    console.error(
-      'Сеть: не удалось достучаться до Worker.\n' +
-        'Если вы в РФ — включите VPN и повторите.\n' +
-        `(${e.message || e})`
+    throw new Error(
+      'Сеть: не удалось достучаться до Worker. Если вы в РФ — VPN.\n' +
+        `${endpoint}\n(${e.message || e})`
     );
-    process.exit(1);
   }
-
-  if (!res.ok) {
-    console.error(`HTTP ${res.status} ${res.statusText}`);
-    process.exit(1);
-  }
-
-  let data;
+  if (!res.ok) throw new Error(`HTTP ${res.status} ${res.statusText} — ${endpoint}`);
   try {
-    data = await res.json();
+    return await res.json();
   } catch {
-    console.error('Ответ не JSON');
-    process.exit(1);
-  }
-
-  if (!data || data.ok !== true || !Array.isArray(data.products)) {
-    console.error('Неожиданный формат: нужен { ok: true, products: [...] }');
-    process.exit(1);
-  }
-
-  if (!data.products.length) {
-    console.error('Пустой каталог — снимок не записан (чтобы не затереть рабочий файл).');
-    process.exit(1);
-  }
-
-  mkdirSync(dirname(OUT), { recursive: true });
-  const body = JSON.stringify({ ok: true, products: data.products }, null, 2) + '\n';
-  writeFileSync(OUT, body, 'utf8');
-
-  console.log(`OK: ${data.products.length} товаров → ${OUT}`);
-  if (process.env.CI) {
-    console.log('CI: commit data/products.json if changed (workflow step).');
-  } else {
-    console.log('Дальше: закоммитить data/products.json и задеплоить сайт.');
+    throw new Error('Ответ не JSON — ' + endpoint);
   }
 }
 
-main();
+function writeJson(file, payload) {
+  mkdirSync(DATA, { recursive: true });
+  writeFileSync(file, JSON.stringify(payload, null, 2) + '\n', 'utf8');
+}
+
+async function main() {
+  const { url } = parseArgs(process.argv.slice(2));
+  const written = [];
+
+  const productsData = await getJson(`${url}/api/products`);
+  if (!productsData || productsData.ok !== true || !Array.isArray(productsData.products)) {
+    throw new Error('Каталог: нужен { ok: true, products: [...] }');
+  }
+  if (!productsData.products.length) {
+    throw new Error('Пустой каталог — снимок не записан (чтобы не затереть рабочий файл).');
+  }
+  const productsFile = join(DATA, 'products.json');
+  writeJson(productsFile, { ok: true, products: productsData.products });
+  written.push(`products.json (${productsData.products.length})`);
+
+  const deliveryData = await getJson(`${url}/api/delivery`);
+  const city = Math.max(0, Math.round(Number(deliveryData.city)));
+  const nearby = Math.max(0, Math.round(Number(deliveryData.nearby)));
+  if (!deliveryData || deliveryData.ok !== true || !Number.isFinite(city) || !Number.isFinite(nearby)) {
+    throw new Error('Доставка: нужен { ok: true, city, nearby, nearby_from }');
+  }
+  const deliveryFile = join(DATA, 'delivery.json');
+  writeJson(deliveryFile, {
+    ok: true,
+    city,
+    nearby,
+    nearby_from: Number(deliveryData.nearby_from) ? 1 : 0
+  });
+  written.push(`delivery.json (город ${city} ₽)`);
+
+  const priceData = await getJson(`${url}/api/price-list`);
+  if (!priceData || priceData.ok !== true || !Array.isArray(priceData.items) || !priceData.items.length) {
+    throw new Error('Прайс: нужен { ok: true, items: [...] }');
+  }
+  const priceFile = join(DATA, 'price-list.json');
+  writeJson(priceFile, { ok: true, items: priceData.items });
+  written.push(`price-list.json (${priceData.items.length})`);
+
+  console.log('OK: ' + written.join(' · '));
+  if (process.env.CI) {
+    console.log('CI: commit data/*.json if changed (workflow step).');
+  } else {
+    console.log('Дальше: закоммитить data/*.json и задеплоить сайт.');
+  }
+}
+
+main().catch((e) => {
+  console.error(e.message || e);
+  process.exit(1);
+});

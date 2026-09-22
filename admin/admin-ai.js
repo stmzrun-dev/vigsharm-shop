@@ -846,6 +846,18 @@ Object.assign(app, {
       this.currentProduct.short_description = data.short_description || this.currentProduct.short_description;
       this.currentProduct.full_description = data.full_description || this.currentProduct.full_description;
       // Состав: ИИ только оформляет ваш текст
+      if (data.composition) {
+        data.composition = this.sanitizeAiDigitLines?.(data.composition, userComposition) || data.composition;
+        const leadKey = this.sceneCompositionLeadKey?.({
+          scene: sceneHint,
+          isBox: this.compositionLooksLikeSurpriseBox?.(userComposition),
+          isPhotozone: sceneHint === 'photozone',
+          isFigures: sceneHint === 'balloon_figures',
+          isFloor: sceneHint === 'floor',
+          category: data.category
+        });
+        data.composition = this.ensureSceneCompositionLead?.(data.composition, leadKey) || data.composition;
+      }
       this.currentProduct.composition = data.composition || this.currentProduct.composition;
       this.currentProduct.category = data.category || this.currentProduct.category;
       this.currentProduct.character = data.character || this.currentProduct.character;

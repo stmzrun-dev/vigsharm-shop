@@ -175,7 +175,35 @@
   }
   function digitDeltaPrice() { return effDelta() * 900; }
   function inscriptionPrice() { return (p && p.has_inscription && inscription.trim()) ? (p.inscription_price || 0) : 0; }
-  function deliveryPrice() { return fulfillment === 'armavir' ? 200 : 0; }
+  var cityDelivery = 200;
+
+  function cityRub() {
+    return (Number(cityDelivery) || 0).toLocaleString('ru-RU') + ' ₽';
+  }
+
+  function applyDeliverySettings(data) {
+    if (!data) return;
+    var n = Math.max(0, Math.round(Number(data.city)));
+    if (Number.isFinite(n)) cityDelivery = n;
+  }
+
+  function loadDeliverySettings() {
+    var api = (window.VIG_API || 'https://vigsharm-api.vigsharm.workers.dev') + '/api/delivery';
+    return fetch('data/delivery.json', { cache: 'no-store' })
+      .then(function (r) { if (!r.ok) throw new Error('x'); return r.json(); })
+      .catch(function () {
+        return fetch(api, { cache: 'no-store' }).then(function (r) {
+          if (!r.ok) throw new Error('x');
+          return r.json();
+        });
+      })
+      .then(function (data) {
+        if (data && data.ok !== false) applyDeliverySettings(data);
+      })
+      .catch(function () { /* keep 200 */ });
+  }
+
+  function deliveryPrice() { return fulfillment === 'armavir' ? cityDelivery : 0; }
   function total() { return (p ? p.price : 0) * (isUnit() ? qty : 1) + digitDeltaPrice() + inscriptionPrice() + deliveryPrice(); }
 
   function mainImageKey() {
@@ -426,7 +454,7 @@
         '<h3 class="client-block-title">Как получить</h3>' +
         '<div class="client-ful fulfillment-options' + (!fulfillment ? ' is-pick' : '') + '">' +
         '<button type="button" class="' + (fulfillment === 'pickup' ? 'selected' : '') + '" data-act="ful" data-v="pickup" aria-label="Самовывоз" aria-pressed="' + (fulfillment === 'pickup') + '"><span class="ful-icon"><img src="icons/ful-pickup.png?v=4" alt="" width="48" height="48"/></span><strong>Самовывоз</strong><small>Бесплатно</small></button>' +
-        '<button type="button" class="' + (fulfillment === 'armavir' ? 'selected' : '') + '" data-act="ful" data-v="armavir" aria-label="По городу" aria-pressed="' + (fulfillment === 'armavir') + '"><span class="ful-icon"><img src="icons/ful-city.png?v=4" alt="" width="48" height="48"/></span><strong>По городу</strong><small>+200 ₽</small></button>' +
+        '<button type="button" class="' + (fulfillment === 'armavir' ? 'selected' : '') + '" data-act="ful" data-v="armavir" aria-label="По городу" aria-pressed="' + (fulfillment === 'armavir') + '"><span class="ful-icon"><img src="icons/ful-city.png?v=4" alt="" width="48" height="48"/></span><strong>По городу</strong><small>+' + cityRub() + '</small></button>' +
         '<button type="button" class="' + (fulfillment === 'nearby' ? 'selected' : '') + '" data-act="ful" data-v="nearby" aria-label="За город" aria-pressed="' + (fulfillment === 'nearby') + '"><span class="ful-icon"><img src="icons/ful-far.png?v=4" alt="" width="48" height="48"/></span><strong>За город</strong><small>Рассчитаем</small></button>' +
         '</div></section>';
     }
@@ -480,7 +508,7 @@
     if (p.has_rental) lines.push('Аренда: ' + (p.rental_item || 'арендный элемент уточнить') + ' — бесплатно до ' + (p.rental_days || 3) + ' суток, далее ' + (p.keep_price_delta || 500) + ' ₽/сутки');
     lines.push('Дата: ' + dateLabel());
     lines.push('Желаемое время: ' + (orderTime || 'уточнить'));
-    var fmap = { pickup: 'самовывоз из студии', armavir: 'доставка по Армавиру (+200 ₽)', nearby: 'доставка за пределы Армавира (стоимость уточним при подтверждении заказа)' };
+    var fmap = { pickup: 'самовывоз из студии', armavir: 'доставка по Армавиру (+' + cityRub() + ')', nearby: 'доставка за пределы Армавира (стоимость уточним при подтверждении заказа)' };
     lines.push('Получение: ' + (fulfillment ? fmap[fulfillment] : 'уточнить'));
     if (fulfillment && fulfillment !== 'pickup' && address.trim()) lines.push('Адрес: ' + address.trim());
     var opts = lines.length ? '\n' + lines.join('\n') : '';
@@ -634,7 +662,7 @@
       '<div class="order-time-field">' + timeHtml() + '</div></div>' +
       '<fieldset class="fulfillment-field' + (!fulfilled ? ' needs-pick' : '') + '"><legend>Как получить заказ?</legend><div class="fulfillment-options">' +
       '<button type="button" class="' + (fulfilled === 'pickup' ? 'selected' : '') + '" data-act="ful" data-v="pickup" aria-label="Выбрать самовывоз, бесплатно" aria-pressed="' + (fulfilled === 'pickup') + '"><span class="ful-icon ful-pickup" aria-hidden="true"><img src="icons/ful-pickup.png?v=4" alt="" width="40" height="40"/></span><strong>Самовывоз</strong><small>Бесплатно</small></button>' +
-      '<button type="button" class="' + (fulfilled === 'armavir' ? 'selected' : '') + '" data-act="ful" data-v="armavir" aria-label="Выбрать доставку по Армавиру, 200 рублей" aria-pressed="' + (fulfilled === 'armavir') + '"><span class="ful-icon ful-city" aria-hidden="true"><img src="icons/ful-city.png?v=4" alt="" width="40" height="40"/></span><strong>По городу</strong><small>+200 ₽</small></button>' +
+      '<button type="button" class="' + (fulfilled === 'armavir' ? 'selected' : '') + '" data-act="ful" data-v="armavir" aria-label="Выбрать доставку по Армавиру, ' + cityRub() + '" aria-pressed="' + (fulfilled === 'armavir') + '"><span class="ful-icon ful-city" aria-hidden="true"><img src="icons/ful-city.png?v=4" alt="" width="40" height="40"/></span><strong>По городу</strong><small>+' + cityRub() + '</small></button>' +
       '<button type="button" class="' + (fulfilled === 'nearby' ? 'selected' : '') + '" data-act="ful" data-v="nearby" aria-label="Выбрать доставку за город, стоимость рассчитывается отдельно" aria-pressed="' + (fulfilled === 'nearby') + '"><span class="ful-icon ful-far" aria-hidden="true"><img src="icons/ful-far.png?v=4" alt="" width="40" height="40"/></span><strong>За город</strong><small>Рассчитаем</small></button>' +
       '</div></fieldset>' +
       (fulfilled && fulfilled !== 'pickup'
@@ -1377,13 +1405,16 @@
   }
 
   // ---------- boot ----------
-  (window.vigFetchProducts
-    ? window.vigFetchProducts()
-    : fetch('https://vigsharm-api.vigsharm.workers.dev/api/products', { cache: 'no-store' })
-        .then(function (r) { if (!r.ok) throw new Error('x'); return r.json(); })
-        .then(function (data) { return (data.ok && Array.isArray(data.products)) ? data.products : []; })
-  )
-    .then(function (raw) {
+  Promise.all([
+    (window.vigFetchProducts
+      ? window.vigFetchProducts()
+      : fetch('https://vigsharm-api.vigsharm.workers.dev/api/products', { cache: 'no-store' })
+          .then(function (r) { if (!r.ok) throw new Error('x'); return r.json(); })
+          .then(function (data) { return (data.ok && Array.isArray(data.products)) ? data.products : []; })),
+    loadDeliverySettings()
+  ])
+    .then(function (pair) {
+      var raw = pair[0];
       var normalized = window.vigNormalizeProducts(raw || []);
       var found = null;
       for (var i = 0; i < normalized.length; i++) {

@@ -26,6 +26,7 @@ export default {
       const isPublicRead = method === 'GET' && (
         path === '/api/products' || /^\/api\/products\/[^/]+$/.test(path)
         || path === '/api/price-list'
+        || path === '/api/delivery'
       );
       const isPublicOrder = path === '/api/orders' && method === 'POST';
       if (!isPublicRead && !isPublicOrder) {
@@ -85,6 +86,10 @@ export default {
         return handlePutPriceList(request, env);
       if (path === '/api/price-list/reprice' && method === 'POST')
         return handleRepriceFromList(request, env);
+      if (path === '/api/delivery' && method === 'GET')
+        return handleGetDelivery(env);
+      if (path === '/api/delivery' && method === 'PUT')
+        return handlePutDelivery(request, env);
       if (path === '/api/upload/photo' && method === 'POST')
         return handleUploadPhoto(request, env);
       if (path.match(/^\/api\/upload\/photo\/[^/]+$/) && method === 'DELETE')
@@ -307,9 +312,9 @@ function ageFromCategory(cat) {
     || c === 'Геймерам' || c === 'Фотозона' || c === 'Коробка-сюрприз') {
     return 'Для детей';
   }
-  // «Универсальные» — возраст НЕ авто: ИИ/оператор по фото (дети или взрослые)
+  // «Универсальные» и «Юбилей» — возраст НЕ авто: ИИ/оператор по фото
   if (c === 'Выпускной') return 'Для подростков';
-  if (c === 'Для неё' || c === 'Для него' || c === 'Для мамы' || c === 'Юбилей'
+  if (c === 'Для неё' || c === 'Для него' || c === 'Для мамы'
     || c === 'Свадьба и девичник' || c === '8 марта' || c === '14 февраля' || c === '23 февраля') {
     return 'Для взрослых';
   }
@@ -367,7 +372,9 @@ function applyPhotozoneTypeTag(data, scene, rawComposition) {
 function applyOccasionShelfCard(data) {
   const cat = String(data.category || '').trim();
   if (!OCCASION_SHELVES.includes(cat)) return data;
-  data.age_group = ageFromCategory(cat) || data.age_group || 'Для любого возраста';
+  if (cat !== 'Юбилей') {
+    data.age_group = ageFromCategory(cat) || data.age_group || 'Для любого возраста';
+  }
   const audience = pickAudienceTags(data.tags).filter((t) => t !== cat);
   const types = pickKeptTypeTags(data.tags);
   data.tags = [cat, ...audience, ...types];
@@ -407,6 +414,44 @@ function applyJubileeFromFoilDigits(data, digits) {
   // ИИ иногда ставит «Юбилей» на обычный ДР (28 и т.п.) — снимаем, если цифры известны и некруглые
   if (String(data.category || '') === 'Юбилей' && d && !JUBILEE_FOIL_NUMBERS.has(d)) {
     data.category = 'Универсальные';
+  }
+  return data;
+}
+
+function cardAgeBlob(data) {
+  return [
+    data.character, data.series_name,
+    Array.isArray(data.tags) ? data.tags.join(' ') : '',
+    data.title, data.short_description, data.full_description
+  ].join(' ').toLowerCase().replace(/ё/g, 'е');
+}
+
+function jubileeLooksKids(data) {
+  const blob = cardAgeBlob(data);
+  return /гарри\s*поттер|хогварт|поттер|для девочки|для мальчика|геймерам|мульт|пикачу|человек-паук|спайдер|миньон|lol|барби|единорог|щеняч|трактор|принцесс|\bdisney\b|\bmarvel\b/.test(blob);
+}
+
+function jubileeLooksAdult(data) {
+  const blob = cardAgeBlob(data);
+  return /для неё|для него|для мамы|виски|коньяк|шампанск|вино\b|кубок|сигар|галстук/.test(blob);
+}
+
+/** Юбилей: возраст по фото, не «всегда взрослые». 10 → дети, если нет взрослого стиля; 20+ → взрослые, если нет детского героя. */
+function applyJubileeAgeFromPhoto(data, digits) {
+  if (String(data.category || '') !== 'Юбилей') return data;
+  const d = String(digits || '');
+  const kids = jubileeLooksKids(data);
+  const adult = jubileeLooksAdult(data);
+  if (kids && !adult) {
+    data.age_group = 'Для детей';
+  } else if (adult && !kids) {
+    data.age_group = 'Для взрослых';
+  } else if (d === '10') {
+    data.age_group = kids || !adult ? 'Для детей' : 'Для взрослых';
+  } else if (JUBILEE_FOIL_NUMBERS.has(d)) {
+    data.age_group = adult || !kids ? 'Для взрослых' : 'Для детей';
+  } else if (!data.age_group || data.age_group === 'Для любого возраста') {
+    data.age_group = kids ? 'Для детей' : 'Для взрослых';
   }
   return data;
 }
@@ -638,6 +683,7 @@ ${BUDGET_OPTIONS.join(' | ')}
   6) «Универсальные» — нейтральная композиция / цифры некруглые (напр. 28, 5+7) / нет явного пола и нет однозначного имени. НЕ оставляй category пустым
 - тип изделия — только в tags
 - «Букет из шаров» в tags — ТОЛЬКО если сцена handheld_bouquet или в составе явно «букет». Сцена wall_only сама по себе НЕ букет
+- Сцена wall_only / unit_balloon: ЗАПРЕЩЕНО ставить тег «Напольные композиции» (это не полка «пол», а съёмка на стене)
 - ЗАПРЕЩЕНО: тег и категория «Шар-сюрприз» — раздел пока не используется, не ставь никуда
 - «Фигуры из шаров» — ТОЛЬКО скрутка/лепка из множества шаров, стоящая на полу. НЕ ставь этот тег для фольгированных персонажей (Пикачу, Гонщик, зайчик, жираф), баблов, фонтанов и композиций на стене
 - Мольберт / пенопластовый круг / каркас-обруч (фотозона) → в tags «Фотозона». Если foil_digits = "1", category всё равно «1 годик», тег «Фотозона» рядом
@@ -667,7 +713,10 @@ ${BUDGET_OPTIONS.join(' | ')}
 - age_group: ОБЯЗАТЕЛЬНО одно значение из списка:
   • выписка / 1 годик → «Для малышей»
   • для девочки|мальчика|геймерам / мультики / детский стиль → «Для детей»
-  • юбилей (круглые 10–100) / для неё|него|мамы → «Для взрослых»
+  • юбилей (круглые 10/20/30…): category «Юбилей», возраст ПО ФОТО — не всегда «Для взрослых».
+    10 + герои/мульт/Поттер/«Для девочки|мальчика» → «Для детей».
+    20+ без детского героя → «Для взрослых». Кубок/виски/«Для него|неё» → «Для взрослых».
+    НЕ ставь «Для взрослых» только из‑за полки «Юбилей»
   • «Универсальные»: возраст ПО ФОТО — детский стиль/звери/герои → «Для детей»; нейтральные шары или цифры возраста взрослого (18, 28, 35…) → «Для взрослых». НЕ ставь «Для детей» по умолчанию только из‑за полки «Универсальные»
   • «Для любого возраста» — только если совсем неоднозначно
 - occasion и target_audience: ВСЕГДА оставляй пустыми (повод/аудитория — только category и tags; свободные поля в админке убраны)
@@ -695,7 +744,7 @@ ${BUDGET_OPTIONS.join(' | ')}
 Сырой состав от пользователя (оформи красиво, исправь орфографию, числа сохрани; скобки-подсказки уже убраны): ${rawComposition || 'не указан'}
 ${hintsBlock}
 Сцена Studio Pro: ${scene || 'floor'}
-Подсказка типа изделия для tags: ${typeHint || 'по фото'}
+Подсказка типа изделия для tags: ${['wall_only', 'unit_balloon'].includes(scene) ? 'НЕ ставь «Напольные композиции»' : (typeHint || 'по фото')}
 ${holidayOnly ? `Праздничная/тематическая категория (обязательно): ${holidayOnly}` : ''}
 ${boxOnly ? 'В составе коробка — category и tags только «Коробка-сюрприз». age_group обязателен.' : ''}
 ${bouquetOnly ? 'Это букет из шаров без тематики в скобках — category и tags только «Букет из шаров».' : ''}
@@ -770,6 +819,7 @@ ${image_url
     applyJubileeFromFoilDigits(data, foilDigits);
   }
   applyOccasionShelfCard(data);
+  applyJubileeAgeFromPhoto(data, foilDigits);
   applyPhotozoneTypeTag(data, scene || 'floor', rawComposition);
   // Свободные поля occasion / target_audience в админке убраны
   data.occasion = '';
@@ -835,6 +885,31 @@ function applyDischargeCategoryPriority(data, rawComposition = '') {
   return data;
 }
 
+function ensureSceneCompositionLead(lines, scene, extraText) {
+  const blob = [Array.isArray(lines) ? lines.join('\n') : '', extraText || ''].join('\n');
+  if (compositionLooksLikeSurpriseBox(blob)) return Array.isArray(lines) ? lines.filter(Boolean) : [];
+  const leadKey = scene === 'photozone' ? 'photozone'
+    : scene === 'balloon_figures' ? 'balloon_figures'
+    : scene === 'floor' ? 'floor'
+    : '';
+  const label = leadKey === 'photozone' ? 'фотозона'
+    : leadKey === 'balloon_figures' ? 'фигура из шаров'
+    : leadKey === 'floor' ? 'напольная композиция'
+    : '';
+  const arr = (Array.isArray(lines) ? lines : []).map((s) => String(s || '').trim()).filter(Boolean);
+  if (!label) return arr;
+  const has = arr.some((line) => {
+    const t = line.toLowerCase().replace(/ё/g, 'е');
+    if (leadKey === 'photozone') return /фотозон/.test(t);
+    if (leadKey === 'balloon_figures') {
+      return /фигур[аыуе]?(?:\s+\w+){0,2}\s+из\s+шар/.test(t) || /скрутк\w*\s+из\s+шар/.test(t);
+    }
+    return /напольн\w*\s+композиц/.test(t);
+  });
+  if (has) return arr;
+  return [label, ...arr];
+}
+
 function sanitizeCompositionColors(lines, rawComposition) {
   const raw = String(rawComposition || '').toLowerCase();
   const colorRe = /жёлт\w*|желт\w*|син\w*|голуб\w*|роз\w*|красн\w*|зелён\w*|зелен\w*|фиолет\w*|оранж\w*|бел\w*|чёрн\w*|черн\w*|золот\w*|серебр\w*|хром\w*/gi;
@@ -874,11 +949,13 @@ function sanitizeCompositionBoxes(lines) {
 function sanitizeCompositionDigitLines(lines, rawComposition) {
   const raw = String(rawComposition || '').toLowerCase().replace(/ё/g, 'е');
   const userMentionedDigit = /цифр/.test(raw);
+  const userAskedTwo = /(?:^|[^\d])2\s+(?:[а-яa-z-]+\s+){0,3}цифр/.test(raw)
+    || /(?:^|[^а-яa-z0-9])две\s+(?:[а-яa-z-]+\s+){0,2}цифр/.test(raw);
   return (lines || []).map((line) => String(line || '').trim()).filter(Boolean).flatMap((line) => {
     const t = line.toLowerCase().replace(/ё/g, 'е');
     if (!/цифр/.test(t)) return [line];
     if (!userMentionedDigit) return [];
-    if (/^2\b/.test(t) || /две\s+цифр/.test(t) || /2\s+цифр/.test(t)) return ['2 цифры'];
+    if (userAskedTwo) return ['2 цифры'];
     return ['цифра'];
   });
 }
@@ -1096,6 +1173,10 @@ function sanitizeCardMetadata(data, scene = 'floor', price = 0, rawComposition =
   if (['wall_only', 'unit_balloon', 'handheld_bouquet'].includes(scene)) {
     tags = tags.filter((t) => t !== 'Фигуры из шаров');
   }
+  // Стена / поштучно — не полка «Напольные композиции»
+  if (['wall_only', 'unit_balloon'].includes(scene)) {
+    tags = tags.filter((t) => t !== 'Напольные композиции');
+  }
   // Отложенные разделы (пока без карточек)
   tags = tags.filter((t) => !DEFERRED_TYPE_TAGS.includes(t));
   if (DEFERRED_TYPE_TAGS.includes(category)) {
@@ -1112,6 +1193,7 @@ function sanitizeCardMetadata(data, scene = 'floor', price = 0, rawComposition =
   if (Array.isArray(data.composition)) {
     data.composition = sanitizeCompositionBoxes(data.composition);
     data.composition = sanitizeCompositionDigitLines(data.composition, rawComposition);
+    data.composition = ensureSceneCompositionLead(data.composition, scene, rawComposition);
   }
 
   const occ = String(data.occasion || '').toLowerCase();
@@ -2877,6 +2959,78 @@ async function handlePutPriceList(request, env) {
     'SELECT * FROM price_list ORDER BY group_id, sort_order, id'
   ).all();
   return json({ ok: true, items: (results || []).map(parsePriceRow) });
+}
+
+const DELIVERY_DEFAULTS = { city: 200, nearby: 200, nearby_from: 1 };
+
+async function ensureDeliverySettings(env) {
+  await env.DB.prepare(`CREATE TABLE IF NOT EXISTS site_settings (
+    key TEXT PRIMARY KEY,
+    value TEXT NOT NULL,
+    updated_at TEXT
+  )`).run();
+  const now = new Date().toISOString();
+  for (const [key, value] of Object.entries({
+    delivery_city: String(DELIVERY_DEFAULTS.city),
+    delivery_nearby: String(DELIVERY_DEFAULTS.nearby),
+    delivery_nearby_from: String(DELIVERY_DEFAULTS.nearby_from)
+  })) {
+    await env.DB.prepare(
+      'INSERT OR IGNORE INTO site_settings (key, value, updated_at) VALUES (?, ?, ?)'
+    ).bind(key, value, now).run();
+  }
+}
+
+function parseDeliverySettings(rows) {
+  const map = {};
+  (rows || []).forEach((r) => { map[r.key] = r.value; });
+  const city = Math.max(0, Math.round(Number(map.delivery_city)));
+  const nearby = Math.max(0, Math.round(Number(map.delivery_nearby)));
+  return {
+    city: Number.isFinite(city) && map.delivery_city != null ? city : DELIVERY_DEFAULTS.city,
+    nearby: Number.isFinite(nearby) && map.delivery_nearby != null ? nearby : DELIVERY_DEFAULTS.nearby,
+    nearby_from: map.delivery_nearby_from === '0' ? 0 : 1
+  };
+}
+
+async function readDelivery(env) {
+  await ensureDeliverySettings(env);
+  const { results } = await env.DB.prepare(
+    "SELECT key, value FROM site_settings WHERE key LIKE 'delivery_%'"
+  ).all();
+  return parseDeliverySettings(results);
+}
+
+async function handleGetDelivery(env) {
+  const d = await readDelivery(env);
+  return json({ ok: true, ...d });
+}
+
+async function handlePutDelivery(request, env) {
+  await ensureDeliverySettings(env);
+  let data;
+  try { data = await request.json(); } catch (e) {
+    return json({ ok: false, error: 'Некорректные данные' }, 400);
+  }
+  const city = Math.max(0, Math.round(Number(data.city)));
+  const nearby = Math.max(0, Math.round(Number(data.nearby)));
+  if (!Number.isFinite(city) || !Number.isFinite(nearby)) {
+    return json({ ok: false, error: 'Укажите числа' }, 400);
+  }
+  const nearbyFrom = data.nearby_from ? 1 : 0;
+  const now = new Date().toISOString();
+  const pairs = [
+    ['delivery_city', String(city)],
+    ['delivery_nearby', String(nearby)],
+    ['delivery_nearby_from', String(nearbyFrom)]
+  ];
+  for (const [key, value] of pairs) {
+    await env.DB.prepare(
+      `INSERT INTO site_settings (key, value, updated_at) VALUES (?, ?, ?)
+       ON CONFLICT(key) DO UPDATE SET value = excluded.value, updated_at = excluded.updated_at`
+    ).bind(key, value, now).run();
+  }
+  return json({ ok: true, city, nearby, nearby_from: nearbyFrom });
 }
 
 function compositionLines(raw) {

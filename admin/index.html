@@ -91,7 +91,7 @@
     <div class="hero-section">
       <h2>Витрина</h2>
       <h1>Прайс на сайте</h1>
-      <p>Цены за штуку и метр. После сохранения скачайте JSON в <code>data/</code>, если сайт открывают без VPN.</p>
+      <p>Цены за штуку и метр — и доставка по Армавиру. После сохранения скачайте JSON в <code>data/</code>, если сайт открывают без VPN.</p>
     </div>
     <div class="card">
       <div class="products-header">
@@ -100,6 +100,20 @@
           <button type="button" class="btn outline" onclick="app.exportPriceListSnapshot()">Скачать для сайта</button>
           <button type="button" class="btn outline" onclick="app.loadPriceList()">Обновить</button>
         </div>
+      </div>
+      <div id="delivery-admin" class="price-admin-group">
+        <h3>Доставка</h3>
+        <label class="price-admin-row">
+          <span>По Армавиру</span>
+          <span></span>
+          <input class="product-row-price-input" id="delivery-city" type="number" min="0" step="1" inputmode="numeric" value="200"/>
+        </label>
+        <label class="price-admin-row">
+          <span>За город</span>
+          <span class="price-admin-from"><input type="checkbox" id="delivery-nearby-from" checked/> от</span>
+          <input class="product-row-price-input" id="delivery-nearby" type="number" min="0" step="1" inputmode="numeric" value="200"/>
+        </label>
+        <p class="text-muted" style="margin:8px 0 0;">Самовывоз всегда бесплатный. За город на сайте останется «рассчитаем», цена — ориентир «от».</p>
       </div>
       <div id="price-list-admin">
         <div class="loading"><div class="loading-spinner"></div><p>Загрузка...</p></div>
@@ -199,15 +213,11 @@
                 </div>
               </div>
               <div id="floor-type-early" class="photozone-type-early scene-subchips hidden">
-                <p class="scene-subchips-label">Тип <span class="req">*</span></p>
-                <div class="scene-subchips-row" role="radiogroup" aria-label="Тип напольной">
+                <p class="scene-subchips-label">Тип</p>
+                <div class="scene-subchips-row" role="group" aria-label="Тип напольной">
                   <label class="scene-subchip">
-                    <input type="radio" name="floor-type-early" id="floor-type-air-early" value="air" checked/>
-                    <span>С воздухом</span>
-                  </label>
-                  <label class="scene-subchip">
-                    <input type="radio" name="floor-type-early" id="floor-type-helium-early" value="helium"/>
-                    <span>Гелий</span>
+                    <input type="checkbox" name="floor-type-early" id="floor-type-air-early" value="air"/>
+                    <span>Заказ за 1–2 дня</span>
                   </label>
                 </div>
               </div>
@@ -448,20 +458,13 @@
 
           <div id="floor-type-block" class="photozone-type-block hidden">
             <h4 class="photozone-type-title">Тип напольной</h4>
-            <p class="text-muted" style="margin:0 0 8px;font-size:13px;">Тот же выбор, что выше у Studio. С воздухом — «заказ заранее»; гелиевые — без него.</p>
+            <p class="text-muted" style="margin:0 0 8px;font-size:13px;">Тот же чип, что у сцены «Пол». Не ставится сам — только вручную или если в составе коробка.</p>
             <div class="option-cards photozone-type-cards">
               <label class="option-card">
-                <input type="radio" name="floor-type" id="floor-type-air" value="air" checked/>
+                <input type="checkbox" name="floor-type" id="floor-type-air" value="air"/>
                 <span class="option-card-body">
-                  <strong>С воздухом</strong>
-                  <small>Всегда ставит «заказ заранее за 1–2 дня»</small>
-                </span>
-              </label>
-              <label class="option-card">
-                <input type="radio" name="floor-type" id="floor-type-helium" value="helium"/>
-                <span class="option-card-body">
-                  <strong>Гелиевые шары</strong>
-                  <small>Галочка «заказ заранее» не ставится</small>
+                  <strong>Заказ за 1–2 дня</strong>
+                  <small>Клиент увидит бейдж «заказывать заранее»</small>
                 </span>
               </label>
             </div>
@@ -731,6 +734,6 @@
 <script src="admin-ai.js?v=retry-saved-1"></script>
 <script src="admin-reference-background.js"></script>
 <script src="admin-orders.js?v=1"></script>
-<script src="admin-price.js?v=2"></script>
+<script src="admin-price.js?v=3"></script>
 </body>
 </html>

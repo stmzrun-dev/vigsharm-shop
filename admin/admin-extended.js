@@ -254,16 +254,15 @@ Object.assign(app, {
     if (!container) return;
 
     const current = this.currentProduct?.scene || 'auto';
-    const iconOf = (title) => String(title || '').split(/\s+/)[0] || '•';
     const escAttr = (s) => String(s || '').replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
     container.innerHTML = `
       <div class="scene-rail scene-rail-stack" role="radiogroup" aria-label="Сцена для фото">
         ${SCENES.map((s) => `
           <button type="button" class="scene-rail-btn${s.value === current ? ' is-active' : ''}"
             data-scene="${s.value}"
-            title="${escAttr(s.title + ' — ' + s.desc)}"
+            title="${escAttr((s.icon ? s.icon + ' ' : '') + s.title + ' — ' + s.desc)}"
             aria-pressed="${s.value === current ? 'true' : 'false'}">
-            <span class="scene-rail-icon" aria-hidden="true">${iconOf(s.title)}</span>
+            <span class="scene-rail-icon" aria-hidden="true">${escAttr(s.icon || '•')}</span>
             <span class="scene-rail-short">${escAttr(s.short || s.title)}</span>
           </button>
         `).join('')}
@@ -322,7 +321,7 @@ Object.assign(app, {
     const label = document.getElementById('scene-active-label');
     if (label) {
       label.textContent = meta
-        ? `${meta.title}`
+        ? `${meta.icon ? meta.icon + ' ' : ''}${meta.title}`
         : '';
     }
   },
@@ -412,9 +411,9 @@ Object.assign(app, {
       if (!raw) return ' ';
       const key = raw.toLowerCase().replace(/ё/g, 'е');
       hints.push(raw);
-      // (цифра) | (1 цифра) | (2 цифры) | (цифры)
+      // (цифра) | (1 цифра) | (2 цифры). Голое «цифры» = 1, не 2.
       if (/^(?:\d\s*)?цифр/.test(key) || /^две\s+цифр/.test(key) || /^одн[аоуы]\s+цифр/.test(key)) {
-        if (/^2\b/.test(key) || /^две\b/.test(key) || /^цифры/.test(key)) digitCount = 2;
+        if (/^2\b/.test(key) || /^две\b/.test(key)) digitCount = 2;
         else digitCount = digitCount === 2 ? 2 : 1;
       }
       const hit = this.matchHolidayCategory(raw);
@@ -454,9 +453,9 @@ Object.assign(app, {
       || c === 'Геймерам' || c === 'Фотозона' || c === 'Коробка-сюрприз') {
       return 'Для детей';
     }
-    // «Универсальные» — возраст не авто; задаёт ИИ/оператор по фото
+    // «Универсальные» и «Юбилей» — возраст не авто; задаёт ИИ/оператор по фото
     if (c === 'Выпускной') return 'Для подростков';
-    if (c === 'Для неё' || c === 'Для него' || c === 'Для мамы' || c === 'Юбилей'
+    if (c === 'Для неё' || c === 'Для него' || c === 'Для мамы'
       || c === 'Свадьба и девичник' || c === '8 марта' || c === '14 февраля' || c === '23 февраля') {
       return 'Для взрослых';
     }
@@ -491,7 +490,7 @@ Object.assign(app, {
     const seriesGroup = document.getElementById('product-series')?.closest('.form-group');
     if (charGroup) charGroup.classList.remove('hidden');
     if (seriesGroup) seriesGroup.classList.remove('hidden');
-    if (occasion) {
+    if (occasion && cat !== 'Юбилей') {
       this.applyAgeFromCategory?.(cat || this.currentProduct?.holiday_only);
     }
     this.syncRequiredFieldHighlights?.();
@@ -593,6 +592,36 @@ Object.assign(app, {
     return /коробк/.test(t);
   },
 
+  /** Первая строка состава по сцене: фотозона / фигура / напольная. Без дублей. */
+  ensureSceneCompositionLead(lines, leadKey) {
+    const label = leadKey === 'photozone' ? 'фотозона'
+      : leadKey === 'balloon_figures' ? 'фигура из шаров'
+      : leadKey === 'floor' ? 'напольная композиция'
+      : '';
+    const arr = (Array.isArray(lines) ? lines : String(lines || '').split(/\n/))
+      .map((s) => String(s || '').trim()).filter(Boolean);
+    if (!label) return arr;
+    const has = arr.some((line) => {
+      const t = line.toLowerCase().replace(/ё/g, 'е');
+      if (leadKey === 'photozone') return /фотозон/.test(t);
+      if (leadKey === 'balloon_figures') {
+        return /фигур[аыуе]?(?:\s+\w+){0,2}\s+из\s+шар/.test(t) || /скрутк\w*\s+из\s+шар/.test(t);
+      }
+      return /напольн\w*\s+композиц/.test(t);
+    });
+    if (has) return arr;
+    return [label, ...arr];
+  },
+
+  sceneCompositionLeadKey(opts = {}) {
+    const scene = opts.scene || this.currentProduct?.scene || '';
+    if (opts.isBox) return '';
+    if (opts.isPhotozone || scene === 'photozone') return 'photozone';
+    if (opts.isFigures || scene === 'balloon_figures') return 'balloon_figures';
+    if (opts.isFloor || scene === 'floor' || opts.category === 'Напольные композиции') return 'floor';
+    return '';
+  },
+
   syncHolidayFromComposition() {
     const el = document.getElementById('product-composition');
     if (!el) return null;
@@ -641,16 +670,29 @@ Object.assign(app, {
         || /(?:^|[^а-яa-z0-9])две\s+(?:[а-яa-z-]+\s+){0,2}цифр/.test(t)) {
         fromText = 2;
       } else if (/(?:^|[^\d])1\s+(?:[а-яa-z-]+\s+){0,3}цифр/.test(t)
-        || /(?:^|[^а-яa-z0-9])одн[аоуы]\s+(?:[а-яa-z-]+\s+){0,2}цифр/.test(t)) {
-        fromText = 1;
-      } else if (/(?:^|[^а-яa-z0-9])цифры(?:[^а-яa-z0-9]|$)/.test(t)) {
-        fromText = 2;
-      } else if (/(?:^|[^а-яa-z0-9])цифр[ауы](?:[^а-яa-z0-9]|$)/.test(t)
+        || /(?:^|[^а-яa-z0-9])одн[аоуы]\s+(?:[а-яa-z-]+\s+){0,2}цифр/.test(t)
+        || /(?:^|[^а-яa-z0-9])цифр/.test(t)
         || /фольг\w*\s+цифр/.test(t)) {
         fromText = 1;
       }
     }
     return Math.max(fromMarker, fromText);
+  },
+
+  /** ИИ не повышает 1→2, если в сыром составе не было «2/две цифры». */
+  sanitizeAiDigitLines(lines, rawComposition) {
+    const raw = String(rawComposition || '').toLowerCase().replace(/ё/g, 'е');
+    const userMentionedDigit = /цифр/.test(raw);
+    const userAskedTwo = /(?:^|[^\d])2\s+(?:[а-яa-z-]+\s+){0,3}цифр/.test(raw)
+      || /(?:^|[^а-яa-z0-9])две\s+(?:[а-яa-z-]+\s+){0,2}цифр/.test(raw);
+    const arr = Array.isArray(lines) ? lines : String(lines || '').split(/\n/);
+    return arr.map((line) => String(line || '').trim()).filter(Boolean).flatMap((line) => {
+      const t = line.toLowerCase().replace(/ё/g, 'е');
+      if (!/цифр/.test(t)) return [line];
+      if (!userMentionedDigit) return [];
+      if (userAskedTwo) return ['2 цифры'];
+      return ['цифра'];
+    });
   },
 
   /** Тип фотозоны из состава/описания: easel | frame | null. */
@@ -698,7 +740,7 @@ Object.assign(app, {
       const digitCount = this.compositionDigitCount(composition);
       const pzHintText = [composition, titleText, shortDesc, fullDesc].join(' ');
       const pzFromComp = this.compositionPhotozoneType(pzHintText);
-      const floorFromComp = this.compositionFloorType(pzHintText);
+      const hasBox = this.compositionLooksLikeSurpriseBox?.(composition);
 
       // Тип фотозоны из состава («на мольберте» / «на каркасе»)
       if (isPhotozone && pzFromComp) {
@@ -707,14 +749,14 @@ Object.assign(app, {
         if (rentalItemEl) rentalItemEl.dataset.autoFill = '1';
       }
 
-      // Тип напольной из состава («с воздухом» / «гелий»)
-      if (isFloor && floorFromComp) {
-        this.setFloorType?.(floorFromComp);
+      // Коробка в составе → заказ за 1–2 дня (на полу — тот же чип типа)
+      if (hasBox) {
+        if (isFloor) this.setFloorType?.('air');
       }
 
       const pzType = this.getPhotozoneType?.() || 'frame';
       const pzMeta = (typeof PHOTOZONE_TYPES !== 'undefined' && PHOTOZONE_TYPES[pzType]) || null;
-      const floorType = this.getFloorType?.() || 'air';
+      const floorType = this.getFloorType?.() || '';
       const floorMeta = (typeof FLOOR_TYPES !== 'undefined' && FLOOR_TYPES[floorType]) || null;
 
       const advanceEl = document.getElementById('opt-advance');
@@ -727,13 +769,15 @@ Object.assign(app, {
       const floorBlock = document.getElementById('floor-type-block');
 
       if (pzBlock) pzBlock.classList.toggle('hidden', !isPhotozone);
-      if (floorBlock) floorBlock.classList.toggle('hidden', !isFloor);
+      if (floorBlock) floorBlock.classList.add('hidden');
 
       // Фигуры и букеты — заранее за 1–2 дня
       if ((isFigures || isBouquet) && advanceEl) advanceEl.checked = true;
-      // Напольные: с воздухом — заранее; гелиевые — без галочки
-      if (isFloor && advanceEl) {
-        advanceEl.checked = floorMeta ? !!floorMeta.advance_order : floorType !== 'helium';
+      // Коробка — всегда заранее
+      if (hasBox && advanceEl) advanceEl.checked = true;
+      // Напольные: чип типа «Заказ за 1–2 дня» (не авто при выборе «Пол»)
+      if (isFloor && advanceEl && !hasBox) {
+        advanceEl.checked = !!(floorMeta && floorMeta.advance_order);
       }
       // Букеты — персональная надпись (текст на сердцах / по желанию клиента)
       if (isBouquet && inscriptionEl) inscriptionEl.checked = true;
@@ -832,15 +876,13 @@ Object.assign(app, {
   getFloorType() {
     const checked = document.querySelector('input[name="floor-type"]:checked')
       || document.querySelector('input[name="floor-type-early"]:checked');
-    return checked?.value || 'air';
+    return checked?.value === 'air' ? 'air' : '';
   },
 
   setFloorType(type) {
-    const value = (typeof FLOOR_TYPES !== 'undefined' && FLOOR_TYPES[type])
-      ? type
-      : (type === 'helium' ? 'helium' : 'air');
+    const on = type === 'air';
     document.querySelectorAll('input[name="floor-type"], input[name="floor-type-early"]').forEach((el) => {
-      el.checked = el.value === value;
+      el.checked = on && el.value === 'air';
     });
   },
 
@@ -870,8 +912,9 @@ Object.assign(app, {
     if (this._floorTypeWired) return;
     this._floorTypeWired = true;
     const sync = (e) => {
-      const val = e?.target?.value || this.getFloorType();
-      this.setFloorType(val);
+      const el = e?.target;
+      const on = !!(el && el.checked && el.value === 'air');
+      this.setFloorType(on ? 'air' : '');
       this.syncAdvanceOrderFromScene?.();
       this.syncStudioModeHint?.();
       this.scheduleSaveActiveStudioDraft?.();
@@ -994,6 +1037,16 @@ Object.assign(app, {
       if (meta.holiday) {
         this.currentProduct.holiday_only = meta.holiday;
       }
+      const leadKey = this.sceneCompositionLeadKey?.({
+        scene: this.currentProduct?.scene || '',
+        isBox: this.compositionLooksLikeSurpriseBox?.(meta.cleanText),
+        isPhotozone: this.isPhotozoneContext?.() || card.category === 'Фотозона' || (card.tags || []).includes('Фотозона'),
+        isFigures: card.category === 'Фигуры из шаров' || this.currentProduct?.scene === 'balloon_figures',
+        isFloor: this.currentProduct?.scene === 'floor' || card.category === 'Напольные композиции',
+        category: card.category
+      });
+      const led = this.ensureSceneCompositionLead?.(meta.cleanText.split(/\n/), leadKey);
+      if (el && Array.isArray(led)) el.value = led.join('\n');
     }
     const holidayOnly = (() => {
       const raw = this.currentProduct?.holiday_only
@@ -1027,11 +1080,14 @@ Object.assign(app, {
       }
       const typeSet = new Set((typeof TAGS !== 'undefined' && TAGS.type) || []);
       const deferred = (typeof DEFERRED_TYPE_TAGS !== 'undefined' && DEFERRED_TYPE_TAGS) || ['Шар-сюрприз'];
+      const sceneNow = this.currentProduct?.scene || '';
+      const skipFloorTag = sceneNow === 'wall_only' || sceneNow === 'unit_balloon';
       card.tags.forEach((tag) => {
         if (deferred.includes(tag)) return;
         // Праздник/тематика: в доп. разделах только она, без типов/аудитории
         if (holidayOnly && tag !== holidayOnly && tag !== 'Фотозона') return;
         if (holidayOnly && typeSet.has(tag) && tag !== 'Фотозона') return;
+        if (skipFloorTag && tag === 'Напольные композиции') return;
         const cb = document.querySelector(
           `#tags-for-who input[value="${CSS.escape(tag)}"], #tags-occasion input[value="${CSS.escape(tag)}"], #tags-dates input[value="${CSS.escape(tag)}"], #tags-type input[value="${CSS.escape(tag)}"]`
         ) || document.querySelector(`input[type="checkbox"][value="${CSS.escape(tag)}"]`);
@@ -1060,7 +1116,7 @@ Object.assign(app, {
       this.applyHolidayOnlyMode(holidayOnly);
       this.ensurePhotozoneTagFromCard?.(card);
     } else if (this.isOccasionShelf?.(card.category)) {
-      this.applyAgeFromCategory?.(card.category);
+      if (card.category !== 'Юбилей') this.applyAgeFromCategory?.(card.category);
       this.syncOccasionShelfFields?.();
       this.ensurePhotozoneTagFromCard?.(card);
     } else {
@@ -1210,13 +1266,24 @@ Object.assign(app, {
       || this.compositionLooksLikePhotozone?.(compText)
       || !!this.compositionPhotozoneType?.(compText)
     );
-    const isFloorSave = !unit && !holidayOnly && !isBox && (
+    const isFloorSave = !unit && !isBox && (
       scene === 'floor'
       || category === 'Напольные композиции'
     );
+    if (!unit) {
+      const leadKey = this.sceneCompositionLeadKey?.({
+        scene, isBox, isPhotozone, isFigures, isFloor: isFloorSave, category
+      });
+      const led = this.ensureSceneCompositionLead?.(composition, leadKey);
+      if (Array.isArray(led)) {
+        composition = led;
+        const el = document.getElementById('product-composition');
+        if (el) el.value = led.join('\n');
+      }
+    }
     const pzType = isPhotozone ? (this.getPhotozoneType?.() || 'frame') : null;
     const pzMeta = pzType && typeof PHOTOZONE_TYPES !== 'undefined' ? PHOTOZONE_TYPES[pzType] : null;
-    const floorType = isFloorSave ? (this.getFloorType?.() || 'air') : null;
+    const floorType = isFloorSave ? (this.getFloorType?.() || '') : null;
     const rentalChecked = !unit && (document.getElementById('opt-rental')?.checked || false);
     const rentalItem = (document.getElementById('rental-item')?.value || '').trim()
       || pzMeta?.rental_item
@@ -1307,10 +1374,13 @@ Object.assign(app, {
 
     const deferred = (typeof DEFERRED_TYPE_TAGS !== 'undefined' && DEFERRED_TYPE_TAGS) || ['Шар-сюрприз'];
     finalTags = finalTags.filter((t) => !deferred.includes(t));
+    if (scene === 'wall_only' || scene === 'unit_balloon') {
+      finalTags = finalTags.filter((t) => t !== 'Напольные композиции');
+    }
     if (deferred.includes(category)) category = finalTags[0] || '';
 
     const skipCharSeries = !!unit;
-    if (!unit && (holidayOnly || occasionShelf || this.isOccasionShelf?.(category))) {
+    if (!unit && category !== 'Юбилей' && (holidayOnly || occasionShelf || this.isOccasionShelf?.(category))) {
       this.applyAgeFromCategory?.(category || holidayOnly);
     }
     const ageVal = unit
@@ -1405,7 +1475,7 @@ Object.assign(app, {
     this.syncEditorSteps?.();
     this.syncStep1WizardUi?.();
     this.setPhotozoneType?.('frame');
-    this.setFloorType?.('air');
+    this.setFloorType?.('');
     const rentalItemEl = document.getElementById('rental-item');
     if (rentalItemEl) {
       rentalItemEl.value = '';
@@ -1532,9 +1602,11 @@ app.loadProductToForm = function(product) {
   }
   this.setPhotozoneType?.(opts.photozone_type || (String(rental.item || '').toLowerCase().includes('мольбер') ? 'easel' : 'frame'));
   const advanceWasOn = !!(opts.advance_order_1_2_days || nestedOn(opts.advance_order));
-  const floorTypeSaved = opts.floor_type === 'helium' || opts.floor_type === 'air'
-    ? opts.floor_type
-    : (advanceWasOn ? 'air' : 'helium');
+  const sceneNow = product.scene || '';
+  let floorTypeSaved = '';
+  if (opts.floor_type === 'air') floorTypeSaved = 'air';
+  else if (opts.floor_type === 'helium') floorTypeSaved = '';
+  else if (advanceWasOn && sceneNow === 'floor') floorTypeSaved = 'air';
   this.setFloorType?.(floorTypeSaved);
   this.wirePhotozoneTypeControls?.();
   this.wireFloorTypeControls?.();

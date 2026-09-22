@@ -13,6 +13,56 @@
 
   app.priceList = [];
 
+  app.deliverySettings = { city: 200, nearby: 200, nearby_from: 1 };
+
+  app.fillDeliveryAdmin = function (d) {
+    const city = document.getElementById('delivery-city');
+    const nearby = document.getElementById('delivery-nearby');
+    const from = document.getElementById('delivery-nearby-from');
+    if (!d) return;
+    if (city) city.value = Number(d.city) || 0;
+    if (nearby) nearby.value = Number(d.nearby) || 0;
+    if (from) from.checked = Number(d.nearby_from) !== 0;
+    this.deliverySettings = {
+      city: Number(d.city) || 0,
+      nearby: Number(d.nearby) || 0,
+      nearby_from: Number(d.nearby_from) ? 1 : 0
+    };
+  };
+
+  app.collectDeliveryEdits = function () {
+    const city = document.getElementById('delivery-city');
+    const nearby = document.getElementById('delivery-nearby');
+    const from = document.getElementById('delivery-nearby-from');
+    return {
+      city: city ? Math.max(0, Math.round(Number(city.value) || 0)) : 200,
+      nearby: nearby ? Math.max(0, Math.round(Number(nearby.value) || 0)) : 200,
+      nearby_from: from && from.checked ? 1 : 0
+    };
+  };
+
+  app.loadDeliverySettings = async function () {
+    if (!this.workerUrl) return;
+    try {
+      const res = await fetch(this.workerUrl + '/api/delivery', { cache: 'no-store' });
+      const data = await res.json();
+      if (data.ok) this.fillDeliveryAdmin(data);
+    } catch (_) { /* keep defaults */ }
+  };
+
+  app.saveDeliverySettings = async function () {
+    const body = this.collectDeliveryEdits();
+    const res = await fetch(this.workerUrl + '/api/delivery', {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json', ...this.authHeaders() },
+      body: JSON.stringify(body)
+    });
+    const data = await res.json();
+    if (!data.ok) throw new Error(data.error || ('HTTP ' + res.status));
+    this.fillDeliveryAdmin(data);
+    return data;
+  };
+
   app.loadPriceList = async function () {
     const box = document.getElementById('price-list-admin');
     if (!box) return;
@@ -20,6 +70,7 @@
       box.innerHTML = '<div class="empty-state"><div class="title">Worker не настроен</div></div>';
       return;
     }
+    this.loadDeliverySettings();
     try {
       const res = await fetch(this.workerUrl + '/api/price-list', { cache: 'no-store' });
       const data = await res.json();
@@ -166,9 +217,10 @@
       });
       const data = await res.json();
       if (!data.ok) throw new Error(data.error || ('HTTP ' + res.status));
+      await this.saveDeliverySettings();
       this.priceList = data.items || [];
       this.renderPriceList();
-      this.toast?.('Прайс сохранён. Для сайта в РФ скачайте JSON в data/', 'success');
+      this.toast?.('Прайс и доставка сохранены. Для сайта в РФ скачайте JSON в data/', 'success');
       if (Object.keys(deltas).length) {
         const prev = await fetch(this.workerUrl + '/api/price-list/reprice', {
           method: 'POST',
@@ -202,10 +254,24 @@
       );
       const a = document.createElement('a');
       a.href = URL.createObjectURL(blob);
-      a.download = 'price-list.json';
       a.click();
       URL.revokeObjectURL(a.href);
-      this.toast?.('Скачан price-list.json → положите в data/', 'success');
+      try {
+        const delRes = await fetch(this.workerUrl + '/api/delivery', { cache: 'no-store' });
+        const del = await delRes.json();
+        if (del.ok) {
+          const dBlob = new Blob(
+            [JSON.stringify({ ok: true, city: del.city, nearby: del.nearby, nearby_from: del.nearby_from }, null, 2) + '\n'],
+            { type: 'application/json;charset=utf-8' }
+          );
+          const da = document.createElement('a');
+          da.href = URL.createObjectURL(dBlob);
+          da.download = 'delivery.json';
+          da.click();
+          URL.revokeObjectURL(da.href);
+        }
+      } catch (_) { /* прайс уже скачан */ }
+      this.toast?.('Скачаны price-list.json и delivery.json → положите в data/', 'success');
     } catch (e) {
       alert('Не удалось скачать: ' + (e.message || e));
     }

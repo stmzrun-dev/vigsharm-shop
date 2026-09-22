@@ -584,7 +584,7 @@ Object.assign(app, {
       digit_from_marker: Number(this.currentProduct?.digit_from_marker) || 0,
       holiday_only: this.currentProduct?.holiday_only || '',
       photozone_type: this.getPhotozoneType?.() || 'frame',
-      floor_type: this.getFloorType?.() || 'air',
+      floor_type: this.getFloorType?.() || '',
       ts: Date.now(),
       ...extra
     };

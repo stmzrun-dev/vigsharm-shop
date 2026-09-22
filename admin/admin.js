@@ -19,13 +19,13 @@ const THEME_CATEGORIES = [...TAGS.forWho, ...TAGS.occasion, ...TAGS.dates];
 const DEFERRED_TYPE_TAGS = ['Шар-сюрприз'];
 
 const SCENES = [
-  { value: 'auto', title: '🤖 Автоматически', short: 'Авто', desc: 'ИИ определит по содержимому' },
-  { value: 'unit_balloon', title: '🎈 Шар поштучно', short: 'Поштучно', desc: 'Manus: стена, без пола' },
-  { value: 'handheld_bouquet', title: '💐 Букет в руке', short: 'Букет', desc: 'Женская рука, без бирок' },
-  { value: 'wall_only', title: '🧱 Только стена', short: 'Стена', desc: 'Manus: стена, без пола' },
-  { value: 'floor', title: '🏠 Напольная композиция', short: 'Пол', desc: 'Стена + плинтус + ламинат' },
-  { value: 'balloon_figures', title: '🧍 Фигуры из шаров', short: 'Фигуры', desc: 'Как напольная, масштаб ≥1 м' },
-  { value: 'photozone', title: '📸 Фотозона', short: 'Фотозона', desc: 'Каркас или мольберт' }
+  { value: 'auto', icon: '✨', title: 'Автоматически', short: 'Авто', desc: 'ИИ определит по содержимому' },
+  { value: 'unit_balloon', icon: '🎈', title: 'Шар поштучно', short: 'Поштучно', desc: 'Один шар у стены, без пола' },
+  { value: 'handheld_bouquet', icon: '💐', title: 'Букет в руке', short: 'Букет', desc: 'Букет в руке, без бирок' },
+  { value: 'wall_only', icon: '🖼️', title: 'Только стена', short: 'Стена', desc: 'Композиция на стене, без пола' },
+  { value: 'floor', icon: '🪵', title: 'Напольная композиция', short: 'Пол', desc: 'Стоит на полу: стена + плинтус + ламинат' },
+  { value: 'balloon_figures', icon: '🧸', title: 'Фигуры из шаров', short: 'Фигуры', desc: 'Крупная фигура из шаров на полу' },
+  { value: 'photozone', icon: '🎪', title: 'Фотозона', short: 'Фотозона', desc: 'Каркас или мольберт' }
 ];
 
 /** Типы фотозоны → что в аренде */
@@ -45,19 +45,13 @@ const PHOTOZONE_TYPES = {
   }
 };
 
-/** Типы напольной композиции → заказ заранее */
+/** Тип напольной: опциональный чип «заказ за 1–2 дня» (не выбирается сам). */
 const FLOOR_TYPES = {
   air: {
     value: 'air',
-    title: 'С воздухом',
-    hint: 'Напольная на воздухе — заказ заранее за 1–2 дня',
+    title: 'Заказ за 1–2 дня',
+    hint: 'Напольная «под заказ» — клиент видит бейдж заранее',
     advance_order: true
-  },
-  helium: {
-    value: 'helium',
-    title: 'Гелиевые шары',
-    hint: 'Гелиевая напольная — без обязательного заказа заранее',
-    advance_order: false
   }
 };
 const PHOTOZONE_RENTAL_DAYS = 3;

@@ -79,11 +79,7 @@
   gap:0!important;
 }
 
-.delivery-page .info-hero-emoji{
-  background:#cfe6fb!important;
-  border-color:#b5d6f3!important;
-}
-
+.delivery-page .info-hero-emoji,
 .price-page .info-hero-emoji{
   width:56px!important;
   height:56px!important;
@@ -91,6 +87,11 @@
   background:#fff!important;
 }
 
+.delivery-page .info-hero-emoji{
+  border-color:#b5d6f3!important;
+}
+
+.delivery-page .info-hero-emoji img,
 .price-page .info-hero-emoji img{
   width:44px!important;
   height:44px!important;
@@ -291,6 +292,22 @@
   transform:none!important;
 }
 
+.delivery-page .delivery-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:14px;
+}
+
+.delivery-page .delivery-slot-note{
+  grid-column:1 / -1;
+}
+
+@media (width<=720px){
+  .delivery-page .delivery-grid{
+    grid-template-columns:1fr;
+  }
+}
+
 .delivery-page .info-card.card-blue{
   background:#eef6fd!important;
   background-image:none!important;
@@ -311,6 +328,11 @@
   background-image:none!important;
   border-color:#f3d7df!important;
 }
+.delivery-page .info-card.card-mint{
+  background:#eaf7f1!important;
+  background-image:none!important;
+  border-color:#cfe8dc!important;
+}
 
 .delivery-page .info-card:hover{
   transform:none!important;
@@ -327,36 +349,39 @@
 }
 
 .delivery-page .info-card-icon{
-  width:44px!important;
-  height:44px!important;
+  width:52px!important;
+  height:52px!important;
+  flex:0 0 52px!important;
   display:grid!important;
   place-items:center!important;
+  overflow:hidden!important;
   border:1.5px solid transparent!important;
-  border-radius:14px!important;
+  border-radius:16px!important;
   box-shadow:0 4px 12px rgba(40,36,60,.05)!important;
   font-size:0!important;
+  background:#fff!important;
 }
 
 .delivery-page .info-card.card-blue .info-card-icon{
-  background:#cfe6fb!important;
   border-color:#b5d6f3!important;
 }
 .delivery-page .info-card.card-yellow .info-card-icon{
-  background:#ffe6b8!important;
   border-color:#f5d49a!important;
 }
 .delivery-page .info-card.card-purple .info-card-icon{
-  background:#e2d7f6!important;
   border-color:#cebfeb!important;
 }
 .delivery-page .info-card.card-pink .info-card-icon{
-  background:#ffd9e2!important;
   border-color:#f5c0cd!important;
+}
+.delivery-page .info-card.card-mint .info-card-icon{
+  border-color:#b7dccb!important;
 }
 
 .delivery-page .info-card-icon img{
-  width:24px!important;
-  height:24px!important;
+  width:40px!important;
+  height:40px!important;
+  object-fit:contain!important;
 }
 
 .delivery-page .info-big-price{
@@ -443,6 +468,14 @@
   flex:none!important;
 }
 
+.price-page .info-contact-options>a.max img,
+.delivery-page .info-contact-options>a.max img{
+  width:28px!important;
+  height:28px!important;
+  object-fit:contain!important;
+  display:block!important;
+}
+
 .delivery-page .delivery-ask .button-primary{
   background:#ff6b5a!important;
   border-color:#ff6b5a!important;
@@ -496,9 +529,9 @@
   }
 
   .delivery-page .info-hero-emoji{
-    width:40px!important;
-    height:40px!important;
-    border-radius:12px!important;
+    width:48px!important;
+    height:48px!important;
+    border-radius:14px!important;
   }
 
   .price-page .info-hero-emoji img{
@@ -506,9 +539,9 @@
     height:38px!important;
   }
 
-  .delivery-page .info-hero-emoji .vig-emoji{
-    width:22px!important;
-    height:22px!important;
+  .delivery-page .info-hero-emoji img{
+    width:38px!important;
+    height:38px!important;
   }
 
   .price-page .price-group,
@@ -531,10 +564,16 @@
   }
 
   .delivery-page .info-card-icon{
-    width:40px!important;
-    height:40px!important;
-    flex-basis:40px!important;
+    width:48px!important;
+    height:48px!important;
+    flex-basis:48px!important;
     border-width:1.5px!important;
+    border-radius:14px!important;
+  }
+
+  .delivery-page .info-card-icon img{
+    width:36px!important;
+    height:36px!important;
   }
 
   .delivery-page .delivery-ask{

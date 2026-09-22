@@ -1,4 +1,4 @@
-name: Sync products snapshot
+name: Sync storefront snapshots
 
 on:
   schedule:
@@ -28,7 +28,7 @@ jobs:
         with:
           node-version: "20"
 
-      - name: Export catalog from Worker
+      - name: Export catalog, delivery and price from Worker
         env:
           VIG_API: https://vigsharm-api.vigsharm.workers.dev
         run: node scripts/export-products-snapshot.mjs
@@ -37,10 +37,10 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/products.json
+          git add data/products.json data/delivery.json data/price-list.json
           if git diff --staged --quiet; then
-            echo "No catalog changes — skip commit"
+            echo "No snapshot changes — skip commit"
           else
-            git commit -m "chore: sync storefront products snapshot"
+            git commit -m "chore: sync storefront snapshots (catalog, delivery, price)"
             git push origin main
           fi

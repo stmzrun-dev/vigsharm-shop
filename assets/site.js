@@ -73,12 +73,7 @@
       || /(?:^|[^а-яa-z0-9])две\s+(?:[а-яa-z-]+\s+){0,2}цифр/.test(t)) {
       return 2;
     }
-    if (/(?:^|[^\d])1\s+(?:[а-яa-z-]+\s+){0,3}цифр/.test(t)
-      || /(?:^|[^а-яa-z0-9])одн[аоуы]\s+(?:[а-яa-z-]+\s+){0,2}цифр/.test(t)) {
-      return 1;
-    }
-    if (/(?:^|[^а-яa-z0-9])цифры(?:[^а-яa-z0-9]|$)/.test(t)) return 2;
-    if (/цифр[ауы]/.test(t)) return 1;
+    if (/цифр/.test(t)) return 1;
     return 0;
   }
   window.vigIsStorefrontVisible = function (p) {
@@ -132,15 +127,15 @@
     var isFigures = p.scene === 'balloon_figures' || p.category === 'Фигуры из шаров';
     var isWallOnly = p.scene === 'wall_only';
     var pzType = opts.photozone_type || '';
-    var floorType = opts.floor_type === 'helium' || opts.floor_type === 'air' ? opts.floor_type : '';
+    var floorType = opts.floor_type === 'air' ? 'air' : '';
     var compJoined = Array.isArray(p.composition) ? p.composition.join(' ') : String(p.composition || '');
-    // Напольные: с воздухом — всегда заранее; гелиевые — без «заказ заранее»
+    // Напольные: чип «заказ за 1–2 дня» (floor_type air). Без чипа — не ставим сами.
     if (isFloor && floorType === 'air') {
       advanceOn = true;
-    } else if (isFloor && floorType === 'helium') {
-      advanceOn = false;
-    } else if (!advanceOn && (isFloor || isFigures || isBouquet)) {
-      // Legacy без floor_type / фигуры / букеты — тоже заранее
+    } else if (!advanceOn && (isFigures || isBouquet)) {
+      advanceOn = true;
+    }
+    if (!advanceOn && /коробк/i.test(compJoined)) {
       advanceOn = true;
     }
     // Фотозоны — всегда заранее и аренда

@@ -2365,9 +2365,8 @@ body:has(.product-page) footer .footer-cta{
   color:#2B4C3F;
   font-weight:750;
 }
-.delivery-page .footer-cta{
-  display:none!important;
-}
+.delivery-page .footer-cta{display:none!important}
+.delivery-page .footer-contacts>button{display:none!important}
 .delivery-page .info-card:hover{
   transform:none!important;
 }

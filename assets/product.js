@@ -253,8 +253,8 @@
     if (!show) return window.vigEmoji('balloon');
     var extra = attrs || '';
     // Inline onerror: digit/variant failure → main composition photo (never empty block).
-    var onerr = 'var m=this.getAttribute(\'data-main-key\');var k=this.getAttribute(\'data-key\');if(m&&k!==m){this.onerror=null;this.setAttribute(\'data-key\',m);this.setAttribute(\'data-fb\',\'0\');this.src=(window.vigImage?window.vigImage(m):m);}';
-    return '<img src="' + window.vigImage(show) + '" data-key="' + esc(show) + '" data-main-key="' + esc(main) + '" alt="' + esc(alt || '') + '" decoding="async" onload="this.classList.add(\'is-ready\')" onerror="' + onerr + '" ' + extra + '/>';
+    var onerr = 'var m=this.getAttribute(\'data-main-key\');var k=this.getAttribute(\'data-key\');if(m&&k!==m){this.onerror=null;this.setAttribute(\'data-key\',m);this.setAttribute(\'data-fb\',\'0\');this.src=(window.vigImage?window.vigImage(m,1200):m);}';
+    return '<img src="' + window.vigImage(show, 1200) + '" data-key="' + esc(show) + '" data-main-key="' + esc(main) + '" alt="' + esc(alt || '') + '" decoding="async" onload="this.classList.add(\'is-ready\')" onerror="' + onerr + '" ' + extra + '/>';
   }
 
   function paramsSummary() {

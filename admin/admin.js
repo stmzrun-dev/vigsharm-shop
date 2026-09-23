@@ -1177,6 +1177,15 @@ const app = {
     return 'от 8 000 ₽';
   },
 
+  thumbUrl(url) {
+    if (!url || url.indexOf('res.cloudinary.com') === -1 || url.indexOf('/image/upload/') === -1) return url;
+    const marker = '/image/upload/';
+    const i = url.indexOf(marker);
+    const rest = url.slice(i + marker.length);
+    if (/^[a-z]{1,3}_/.test(rest)) return url;
+    return url.slice(0, i) + marker + 'f_auto,q_auto,w_200,c_limit/' + rest;
+  },
+
   renderProductRow(p) {
     const published = p.status === 'published';
     const idJs = String(p.id ?? '').replace(/\\/g, '\\\\').replace(/'/g, "\\'");
@@ -1184,7 +1193,7 @@ const app = {
     const article = this.escapeHtml(p.article || '—');
     const category = this.escapeHtml(p.category || '—');
     const priceNum = Number(p.price || 0);
-    const photo = p.main_photo || (Array.isArray(p.photos) && p.photos[0]) || '';
+    const photo = this.thumbUrl(p.main_photo || (Array.isArray(p.photos) && p.photos[0]) || '');
     const thumb = photo
       ? `<img src="${this.escapeHtml(photo)}" alt="" loading="lazy" decoding="async"/>`
       : '<span class="thumb-fallback" aria-hidden="true">🎈</span>';

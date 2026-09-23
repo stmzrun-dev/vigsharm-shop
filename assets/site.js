@@ -222,10 +222,25 @@
     return window.vigNormalizeProducts(list).filter(window.vigIsStorefrontVisible);
   };
 
+  // Cloudinary free plan bills bandwidth on the original file. Delivery URLs
+  // request a resized derivative; stored product URLs stay unchanged.
+  window.vigCloudinarySized = function (url, width) {
+    if (!url || url.indexOf('res.cloudinary.com') === -1 || url.indexOf('/image/upload/') === -1) return url;
+    var w = Number(width) || 800;
+    if (w < 200) w = 800;
+    if (w > 1600) w = 1600;
+    var marker = '/image/upload/';
+    var i = url.indexOf(marker);
+    var rest = url.slice(i + marker.length);
+    if (/^[a-z]{1,3}_/.test(rest)) return url;
+    return url.slice(0, i) + marker + 'f_auto,q_auto,w_' + w + ',c_limit/' + rest;
+  };
+
   // Resolves a product image key/URL for the storefront (Cloudinary, local images, legacy keys).
-  window.vigImage = function (key) {
+  // width: delivery size for Cloudinary (catalog 800, product gallery 1200).
+  window.vigImage = function (key, width) {
     if (!key) return '';
-    if (key.indexOf('http') === 0 || key.indexOf('data:') === 0) return key;
+    if (key.indexOf('http') === 0 || key.indexOf('data:') === 0) return window.vigCloudinarySized(key, width);
     // Admin/legacy relative paths: ../images/foo.png → images/foo.png (GH Pages / local)
     if (key.indexOf('../') === 0) key = key.replace(/^(\.\.\/)+/, '');
     if (key.indexOf('./') === 0) key = key.slice(2);
@@ -400,8 +415,26 @@
         if (closeBtn) closeBtn.focus({ preventScroll: true });
       });
     } else if (wasOpen && menuBtn) {
-      menuBtn.focus();
+      try { menuBtn.focus({ preventScroll: true }); }
+      catch (e) { menuBtn.focus(); }
     }
+  }
+  /* In-page menu anchors: native hash scroll on a phone lands past the
+     block, because the drawer closes and the browser focuses the menu
+     button in the same turn. Place the target just under the sticky header. */
+  function scrollBelowHeader(el) {
+    var headerH = header ? header.getBoundingClientRect().height : 0;
+    var top = el.getBoundingClientRect().top + window.scrollY - headerH - 12;
+    window.scrollTo(0, Math.max(0, top));
+  }
+  function samePageHash(a) {
+    var href = a.getAttribute('href') || '';
+    if (href.charAt(0) === '#') return href.slice(1);
+    try {
+      var url = new URL(a.href, location.href);
+      if (url.hash && url.pathname === location.pathname) return url.hash.slice(1);
+    } catch (e) {}
+    return '';
   }
   if (menuBtn) menuBtn.addEventListener('click', function () { setMenu(true); });
   if (closeBtn) closeBtn.addEventListener('click', function () { setMenu(false); });
@@ -411,7 +444,19 @@
   });
   if (nav) nav.addEventListener('click', function (e) {
     var a = e.target.closest('a');
-    if (a) setMenu(false);
+    if (!a) return;
+    var hash = samePageHash(a);
+    var el = hash ? document.getElementById(hash) : null;
+    if (el) {
+      e.preventDefault();
+      setMenu(false);
+      requestAnimationFrame(function () {
+        scrollBelowHeader(el);
+        if (location.hash !== '#' + hash) history.pushState(null, '', '#' + hash);
+      });
+      return;
+    }
+    setMenu(false);
   });
 
   /* ---------- Header shadow on scroll ---------- */

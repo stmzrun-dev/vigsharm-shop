@@ -3,7 +3,7 @@
     { id: 'latex', title: 'Латексные шары' },
     { id: 'foil', title: 'Фольгированные шары' },
     { id: 'special', title: 'Особенные шары' },
-    { id: 'decor', title: 'Оформление праздника' }
+    { id: 'decor', title: 'Арки' }
   ];
 
   function esc(s) {

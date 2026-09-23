@@ -337,7 +337,8 @@
       } else if (stage === '1') {
         t.setAttribute('data-fb', '2');
         t.removeAttribute('data-key');
-        t.src = 'icons/line-balloon.svg';
+        t.removeAttribute('src');
+        t.classList.add('is-missing');
       }
     }
   }, true);

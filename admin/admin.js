@@ -64,6 +64,25 @@ const BOUQUET_TYPES = {
     type_tag: 'Цветы из шаров'
   }
 };
+
+/** Подтип «Шары поштучно»: полка каталога + размер у фольги. */
+const UNIT_BALLOON_TYPES = {
+  latex: { value: 'latex', title: 'Латекс', tag: 'Латексные шары' },
+  print: { value: 'print', title: 'С рисунком', tag: 'Шары с рисунком', hasWho: true },
+  foil: { value: 'foil', title: 'Фольга', tag: 'Фольгированные фигуры', hasSize: true, hasWho: true }
+};
+
+/** «Для кого» только у поштучных с рисунком / фольги — тег = якорь в каталоге. */
+const UNIT_WHO_PICKS = [
+  { label: 'Для неё', tag: 'Для неё' },
+  { label: 'Для него', tag: 'Для него' },
+  { label: 'Девочкам', tag: 'Для девочки' },
+  { label: 'Мальчикам', tag: 'Для мальчика' },
+  { label: 'Геймерам', tag: 'Геймерам' },
+  { label: 'Выписка', tag: 'На выписку' },
+  { label: 'Свадьба&Девичник', tag: 'Свадьба и девичник' },
+  { label: '1 годик', tag: '1 годик' }
+];
 const PHOTOZONE_RENTAL_DAYS = 3;
 const PHOTOZONE_RENTAL_EXTRA_PER_DAY = 500;
 
@@ -352,7 +371,7 @@ const app = {
       'product-title', 'product-article', 'product-slug', 'product-price', 'product-budget',
       'product-category', 'product-composition', 'product-short-desc', 'product-full-desc',
       'product-seo-title', 'product-seo-desc', 'product-character', 'product-age', 'product-series',
-      'rental-item', 'scene-select'
+      'rental-item', 'scene-select', 'unit-balloon-size'
     ];
     const fields = {};
     fieldIds.forEach((id) => {
@@ -382,6 +401,7 @@ const app = {
       scene: this.currentProduct?.scene || fields['scene-select'] || 'auto',
       tags: this.currentProduct?.tags || [],
       client_options: this.currentProduct?.client_options || {},
+      unit_type: this.getUnitBalloonType?.() || '',
       fields,
       checks,
       photos,
@@ -614,6 +634,8 @@ const app = {
     this.renderPhotos?.();
     this.renderStudioCompare?.();
     this.syncStudioModeHint?.();
+    this.setUnitBalloonType?.(draft.unit_type || draft.client_options?.unit_type || '');
+    this.setUnitBalloonWho?.(draft.unit_who || draft.client_options?.unit_who || '');
     this.syncEditorSteps?.();
     this.syncAIFillGate?.();
     this.syncAdvanceOrderFromScene?.();
@@ -1530,6 +1552,25 @@ const app = {
       this.goStep1Phase?.('b', { skipGate: true });
       document.getElementById('block-photos')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
       return;
+    }
+
+    if (data.scene === 'unit_balloon') {
+      if (!data.title) {
+        this.toast('Введите название как у поставщика', 'error');
+        document.getElementById('product-title')?.focus();
+        return;
+      }
+      const unitType = data.client_options?.unit_type || '';
+      if (!unitType) {
+        this.toast('На сцене выберите подтип: с рисунком или фольга', 'error');
+        this.goStep1Phase?.('a');
+        return;
+      }
+      if (unitType === 'foil' && !data.client_options?.balloon_size) {
+        this.toast('Укажите размер фольги в см', 'error');
+        document.getElementById('unit-balloon-size')?.focus();
+        return;
+      }
     }
 
     if (isDraft) {

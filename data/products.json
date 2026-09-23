@@ -2,6 +2,309 @@
   "ok": true,
   "products": [
     {
+      "id": "a22517f8-7fc9-4952-9dba-166e33575dc6",
+      "title": "Золотая мечта",
+      "article": "GRL-041",
+      "price": 3000,
+      "short_description": "Две напольные композиции с фольгированной кошечкой в короне и золотой цифрой.",
+      "full_description": "Композиция из двух фигур: розовая кошка с золотой короной и зонтиком на подставке из шаров, а также крупная золотая цифра с короной и розово-золотым декором.",
+      "composition": [
+        "2 напольные композиции"
+      ],
+      "category": "Для девочки",
+      "character": "Кошка",
+      "age_group": "Для детей",
+      "budget": "2 000–3 500 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Композиция с кошкой и цифрой — воздушные шары в Армавире",
+      "seo_description": "Напольные композиции с розовой кошкой в короне и золотой цифрой. Розово-золотое оформление дня рождения в Армавире. VigSharm.",
+      "slug": "korolevskaya-shestnadtsat",
+      "scene": "floor",
+      "tags": [
+        "Для девочки",
+        "Напольные композиции"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790172336/vigsharm-products/mipxxeqngmfdqismtzwd.jpg",
+        "floor_type": "air",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790172383/vigsharm-products/u3mw2qdrlnbgsc2ursby.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790172383/vigsharm-products/u3mw2qdrlnbgsc2ursby.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-23T14:09:52.045Z",
+      "updated_at": "2026-09-23T14:09:52.045Z"
+    },
+    {
+      "id": "d817289b-487e-4b62-a0e4-6c1be9862758",
+      "title": "Розовый монстрик",
+      "article": "GRL-045",
+      "price": 2400,
+      "short_description": "Розовая фольгированная фигура Хагги Вагги в окружении ярких латексных шаров.",
+      "full_description": "Композиция с фольгированной фигурой Хагги Вагги и десятью латексными шарами в розовых, красных и сиреневых тонах. Яркое решение для поклонников игры.",
+      "composition": [
+        "10 латексных шаров",
+        "фольгированная фигура Хагги Вагги"
+      ],
+      "category": "Для девочки",
+      "character": "Хагги Вагги",
+      "age_group": "Для детей",
+      "budget": "2 000–3 500 ₽",
+      "series_name": "Poppy Playtime",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары с Хагги Вагги — Poppy Playtime в Армавире",
+      "seo_description": "Композиция с фольгированной фигурой Хагги Вагги и яркими латексными шарами. Для поклонников игры Poppy Playtime. Доставка в Армавире.",
+      "slug": "rozovyy-monstrik",
+      "scene": "wall_only",
+      "tags": [
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790171370/vigsharm-products/ovjbieixitpymcjc7vpw.jpg"
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790171457/vigsharm-products/yn99jolp114o44p1bdcu.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790171457/vigsharm-products/yn99jolp114o44p1bdcu.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-23T13:52:42.486Z",
+      "updated_at": "2026-09-23T13:52:42.486Z"
+    },
+    {
+      "id": "6192b643-ea98-454e-928d-a79f5421f037",
+      "title": "Черновик 23.09, 16:47",
+      "article": "DG-007",
+      "price": 0,
+      "short_description": "",
+      "full_description": "",
+      "composition": [],
+      "category": "Букет из шаров",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "cheshirskiy-vostorg-4",
+      "scene": "handheld_bouquet",
+      "tags": [
+        "Букет из шаров"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790171224/vigsharm-products/dij0ilafnzizdnkfkf9l.jpg"
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790171283/vigsharm-products/mzjw5xszpggoncdspcnj.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790171283/vigsharm-products/mzjw5xszpggoncdspcnj.png",
+      "status": "draft",
+      "show_on_site": false,
+      "created_at": "2026-09-23T13:48:04.460Z",
+      "updated_at": "2026-09-23T13:48:04.460Z"
+    },
+    {
+      "id": "9d947c97-d870-444a-8d26-3462c02957f9",
+      "title": "Черновик 23.09, 16:46",
+      "article": "DG-006",
+      "price": 0,
+      "short_description": "",
+      "full_description": "",
+      "composition": [],
+      "category": "Букет из шаров",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "cheshirskiy-vostorg-3",
+      "scene": "handheld_bouquet",
+      "tags": [
+        "Букет из шаров"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790171155/vigsharm-products/v5y5znklvdwznama2dgm.jpg"
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790171213/vigsharm-products/xqi6bvh2we3fmrq8ipci.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790171213/vigsharm-products/xqi6bvh2we3fmrq8ipci.png",
+      "status": "draft",
+      "show_on_site": false,
+      "created_at": "2026-09-23T13:46:54.864Z",
+      "updated_at": "2026-09-23T13:46:54.864Z"
+    },
+    {
+      "id": "b0b4910e-eb55-442b-aa7b-f65cbe2cff2a",
+      "title": "Черновик 23.09, 16:45",
+      "article": "DG-005",
+      "price": 0,
+      "short_description": "",
+      "full_description": "",
+      "composition": [],
+      "category": "Букет из шаров",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "cheshirskiy-vostorg-2",
+      "scene": "handheld_bouquet",
+      "tags": [
+        "Букет из шаров"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790170981/vigsharm-products/dinliftwkxri7vfuv5kq.jpg"
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790171135/vigsharm-products/vsmmik7fkwvzqfwfxkyp.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790171135/vigsharm-products/vsmmik7fkwvzqfwfxkyp.png",
+      "status": "draft",
+      "show_on_site": false,
+      "created_at": "2026-09-23T13:45:36.121Z",
+      "updated_at": "2026-09-23T13:45:36.121Z"
+    },
+    {
+      "id": "1bfdd137-b667-43f0-ae4c-047bf2d1a25e",
+      "title": "Божья коровка в цветах",
+      "article": "GRL-044",
+      "price": 4560,
+      "short_description": "Фигура божьей коровки из шаров с цветами и фонтан из разноцветных шаров с конфетти.",
+      "full_description": "Композиция из фигуры божьей коровки с яркими цветами и радужного фонтана шаров. В фонтане латексные шары разных цветов, хромированные и прозрачные с конфетти.",
+      "composition": [
+        "фигура из шаров",
+        "2 шара с конфетти",
+        "2 хромированных шара",
+        "6 латексных шаров"
+      ],
+      "category": "Фигуры из шаров",
+      "character": "Божья коровка",
+      "age_group": "Для детей",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Божья коровка из шаров с цветами — Армавир",
+      "seo_description": "Яркая фигура божьей коровки из шаров с цветами и фонтан разноцветных шаров. Оригинальное оформление детского праздника в Армавире.",
+      "slug": "bozhya-korovka-v-tsvetakh",
+      "scene": "floor",
+      "tags": [
+        "Фигуры из шаров"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790169941/vigsharm-products/vcophxgmce2wmpabhdz1.jpg",
+        "floor_type": "air",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790170045/vigsharm-products/gmyiddyld69nv4igvdki.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790170045/vigsharm-products/gmyiddyld69nv4igvdki.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-23T13:29:59.910Z",
+      "updated_at": "2026-09-23T13:29:59.910Z"
+    },
+    {
+      "id": "1336901c-70da-4d04-bd94-dfbcd91bf075",
+      "title": "Цветочная поляна",
+      "article": "GRL-043",
+      "price": 2500,
+      "short_description": "Розовая фольгированная цифра с пчёлкой, бабочкой, божьей коровкой и яркими цветами из шаров.",
+      "full_description": "Напольная композиция с розовой фольгированной цифрой, украшенной фигурами пчёлки, бабочки и божьей коровки. Основание декорировано цветами из шаров в розовых, жёлтых, оранжевых и сиреневых тонах.",
+      "composition": [
+        "напольная композиция"
+      ],
+      "category": "Для девочки",
+      "character": "Пчела",
+      "age_group": "Для детей",
+      "budget": "2 000–3 500 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Цветочная поляна — композиция с цифрой и пчёлкой в Армавире",
+      "seo_description": "Напольная композиция с розовой фольгированной цифрой, пчёлкой, бабочкой и цветами из шаров. Яркое оформление детского праздника в Армавире.",
+      "slug": "tsvetochnaya-polyana",
+      "scene": "floor",
+      "tags": [
+        "Для девочки",
+        "Фигуры из шаров",
+        "Напольные композиции"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790169708/vigsharm-products/bcxk0b1m1b7jupnzehox.jpg",
+        "floor_type": "air",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790169780/vigsharm-products/eueb65oyggptmxp1xq0i.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790169780/vigsharm-products/eueb65oyggptmxp1xq0i.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-23T13:24:08.193Z",
+      "updated_at": "2026-09-23T13:24:08.193Z"
+    },
+    {
       "id": "00e9eb90-d37f-43e8-a394-fac7fced3140",
       "title": "Стильная дива",
       "article": "GRL-042",
@@ -43,48 +346,6 @@
       "show_on_site": true,
       "created_at": "2026-09-23T13:04:28.461Z",
       "updated_at": "2026-09-23T13:04:37.770Z"
-    },
-    {
-      "id": "52ed738e-393c-4b6c-8282-6ea9add9e595",
-      "title": "Улыбка до ушей",
-      "article": "GRL-041",
-      "price": 2400,
-      "short_description": "Фольгированная фигура Чеширского кота с букетом розово-красных шаров.",
-      "full_description": "Композиция с узнаваемым героем из Страны чудес и яркими латексными шарами. Подарит хорошее настроение и улыбки.",
-      "composition": [
-        "10 латексных шаров",
-        "фольгированная фигура Чеширского кота"
-      ],
-      "category": "Для девочки",
-      "character": "Чеширский кот",
-      "age_group": "Для детей",
-      "budget": "2 000–3 500 ₽",
-      "series_name": "Алиса в Стране чудес",
-      "occasion": null,
-      "target_audience": null,
-      "seo_title": "Букет с Чеширским котом — Армавир | VigSharm",
-      "seo_description": "Яркая композиция с фольгированной фигурой Чеширского кота и латексными шарами. Доставка воздушных шаров по Армавиру.",
-      "slug": "ulybka-do-ushey",
-      "scene": "wall_only",
-      "tags": [
-        "Для девочки"
-      ],
-      "client_options": {
-        "available_on_request": false,
-        "advance_order_1_2_days": false,
-        "number_choice": false,
-        "personal_inscription": false,
-        "photozone_rental": false,
-        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790168038/vigsharm-products/go7etlnjtyxmmhab6v76.jpg"
-      },
-      "photos": [
-        "https://res.cloudinary.com/saiuc42a/image/upload/v1790168739/vigsharm-products/gm60pobkv8zg0zvndnb3.png"
-      ],
-      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790168739/vigsharm-products/gm60pobkv8zg0zvndnb3.png",
-      "status": "draft",
-      "show_on_site": true,
-      "created_at": "2026-09-23T12:58:52.827Z",
-      "updated_at": "2026-09-23T13:05:41.055Z"
     },
     {
       "id": "a2d0ab0a-9025-4c6a-a236-e489ad4e6363",

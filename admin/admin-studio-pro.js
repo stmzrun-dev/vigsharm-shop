@@ -862,17 +862,29 @@ Object.assign(app, {
     }
   },
 
-  finishMasterWorkflow(masterImageUrl, statusEl) {
-    this.studioMasterBackupUrl = masterImageUrl;
-    this.studioMasterBaseUrl = masterImageUrl;
-    this.studioMasterDataUrl = masterImageUrl;
-    this.studioCompare.master = masterImageUrl;
+  async finishMasterWorkflow(masterImageUrl, statusEl) {
+    let url = String(masterImageUrl || '').trim();
+    if (!url) throw new Error('Модель не вернула фото');
+    if (url.startsWith('data:') || url.startsWith('blob:')) {
+      if (statusEl) statusEl.textContent = '☁️ Сохраняю новое фото...';
+      url = await this.ensureHttpsPhotoUrl(url, 'studio-master.webp');
+    }
+    if (!/^https?:\/\//i.test(url)) throw new Error('Новое фото не сохранилось');
+    const source = this.studioSourceUrl || this.studioCompare?.original || '';
+    if (source && url.split('?')[0] === String(source).split('?')[0]) {
+      throw new Error('Модель вернула то же фото — кадр не изменился');
+    }
+
+    this.studioMasterBackupUrl = url;
+    this.studioMasterBaseUrl = url;
+    this.studioMasterDataUrl = url;
+    this.studioCompare.master = url;
     this.renderStudioCompare();
     this.hidePlacementEditor(true);
     this.showSignTextEditor();
 
     this.currentProduct.photos = [
-      { id: Date.now() + '_master', url: masterImageUrl, uploaded: false, type: 'master' }
+      { id: Date.now() + '_master', url, uploaded: true, type: 'master' }
     ];
     this.renderPhotos();
     this.setStudioBusy?.(false);
@@ -964,7 +976,7 @@ Object.assign(app, {
       this.setStudioBusy?.(true);
       this.showSourceWorkPreview?.(src);
       const masterImageUrl = await this.createMasterForScene(src, scene, statusEl);
-      this.finishMasterWorkflow(masterImageUrl, statusEl);
+      await this.finishMasterWorkflow(masterImageUrl, statusEl);
     } catch (err) {
       console.error('[Studio Pro] retry', err);
       this.setStudioBusy?.(false);
@@ -1104,7 +1116,7 @@ Object.assign(app, {
       this.goStep1Phase?.('c', { skipGate: true });
 
       const masterImageUrl = await this.createMasterForScene(imageUrl, scene, statusEl);
-      this.finishMasterWorkflow(masterImageUrl, statusEl);
+      await this.finishMasterWorkflow(masterImageUrl, statusEl);
     } catch (error) {
       console.error('[Studio Pro] ❌', error);
       statusEl.textContent = '❌ Ошибка: ' + error.message;

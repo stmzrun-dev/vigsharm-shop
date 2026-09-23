@@ -960,33 +960,38 @@ Object.assign(app, {
       if (sizeEl && !value) sizeEl.value = '';
     }
     const whoWrap = document.getElementById('unit-balloon-who-wrap');
-    if (whoWrap) whoWrap.classList.toggle('hidden', !meta?.hasWho);
-    if (!meta?.hasWho) this.setUnitBalloonWho?.('');
+    if (whoWrap) whoWrap.classList.toggle('hidden', !value);
+  },
+
+  getUnitBalloonWhoList() {
+    const list = (typeof UNIT_WHO_PICKS !== 'undefined' && UNIT_WHO_PICKS) || [];
+    const allowed = new Set(list.map((x) => x.tag));
+    return [...document.querySelectorAll('input[name="unit-balloon-who-early"]:checked')]
+      .map((el) => el.value)
+      .filter((tag) => allowed.has(tag));
   },
 
   getUnitBalloonWho() {
-    const checked = document.querySelector('input[name="unit-balloon-who-early"]:checked');
-    const val = checked?.value || '';
-    const list = (typeof UNIT_WHO_PICKS !== 'undefined' && UNIT_WHO_PICKS) || [];
-    return list.some((x) => x.tag === val) ? val : '';
+    return this.getUnitBalloonWhoList?.()[0] || '';
   },
 
   setUnitBalloonWho(tag) {
+    const raw = Array.isArray(tag) ? tag : (tag ? [tag] : []);
     this.renderUnitWhoChips?.();
     const list = (typeof UNIT_WHO_PICKS !== 'undefined' && UNIT_WHO_PICKS) || [];
-    const value = list.some((x) => x.tag === tag) ? tag : '';
+    const allowed = new Set(raw.filter((t) => list.some((x) => x.tag === t)));
     document.querySelectorAll('input[name="unit-balloon-who-early"]').forEach((el) => {
-      el.checked = !!value && el.value === value;
+      el.checked = allowed.has(el.value);
     });
   },
 
   inferUnitBalloonWho(product) {
     const opts = product?.client_options || {};
     const list = (typeof UNIT_WHO_PICKS !== 'undefined' && UNIT_WHO_PICKS) || [];
-    if (opts.unit_who && list.some((x) => x.tag === opts.unit_who)) return opts.unit_who;
-    const hay = [product?.category].concat(product?.tags || []);
-    const hit = list.find((x) => hay.includes(x.tag));
-    return hit ? hit.tag : '';
+    const allowed = new Set(list.map((x) => x.tag));
+    const fromOpt = Array.isArray(opts.unit_who) ? opts.unit_who : (opts.unit_who ? [opts.unit_who] : []);
+    const hay = [product?.category].concat(product?.tags || [], fromOpt);
+    return [...new Set(hay.filter((t) => allowed.has(t)))];
   },
 
   renderUnitWhoChips() {
@@ -996,7 +1001,7 @@ Object.assign(app, {
     const esc = (s) => String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
     row.innerHTML = list.map((item, i) => `
       <label class="scene-subchip">
-        <input type="radio" name="unit-balloon-who-early" id="unit-who-${i}" value="${esc(item.tag)}"/>
+        <input type="checkbox" name="unit-balloon-who-early" id="unit-who-${i}" value="${esc(item.tag)}"/>
         <span>${esc(item.label)}</span>
       </label>
     `).join('');
@@ -1435,10 +1440,8 @@ Object.assign(app, {
           const cm = raw ? String(Math.round(parseFloat(raw))) : '';
           if (cm && cm !== 'NaN') clientOptions.balloon_size = `${cm} см`;
         }
-        if (unitMeta.hasWho) {
-          const who = this.getUnitBalloonWho?.() || '';
-          if (who) clientOptions.unit_who = who;
-        }
+        const whoList = this.getUnitBalloonWhoList?.() || [];
+        if (whoList.length) clientOptions.unit_who = whoList;
       }
     }
     if (rentalChecked) {
@@ -1484,7 +1487,7 @@ Object.assign(app, {
       finalTags = ['Фигуры из шаров'];
     } else if (occasionShelf) {
       const forWho = (typeof TAGS !== 'undefined' && TAGS.forWho) || [];
-      const audience = tags.filter((t) => forWho.includes(t) && t !== category).slice(0, 1);
+      const audience = tags.filter((t) => forWho.includes(t) && t !== category);
       finalTags = [category, ...audience];
       if (isPhotozone && !finalTags.includes('Фотозона')) finalTags.push('Фотозона');
     } else if (isPhotozone) {
@@ -1505,10 +1508,9 @@ Object.assign(app, {
       const unitType = this.getUnitBalloonType?.() || '';
       const unitMeta = (typeof UNIT_BALLOON_TYPES !== 'undefined' && UNIT_BALLOON_TYPES[unitType]) || null;
       if (unitMeta?.tag && !finalTags.includes(unitMeta.tag)) finalTags.push(unitMeta.tag);
-      if (unitMeta?.hasWho) {
-        const who = this.getUnitBalloonWho?.() || '';
+      (this.getUnitBalloonWhoList?.() || []).forEach((who) => {
         if (who && !finalTags.includes(who)) finalTags.push(who);
-      }
+      });
     }
     if (deferred.includes(category)) category = finalTags[0] || '';
 

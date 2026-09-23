@@ -1566,11 +1566,6 @@ const app = {
         this.goStep1Phase?.('a');
         return;
       }
-      const needsWho = unitType === 'print' || unitType === 'foil';
-      if (needsWho && !data.client_options?.unit_who) {
-        this.toast('Выберите, для кого шар', 'error');
-        return;
-      }
       if (unitType === 'foil' && !data.client_options?.balloon_size) {
         this.toast('Укажите размер фольги в см', 'error');
         document.getElementById('unit-balloon-size')?.focus();

@@ -531,8 +531,8 @@ body.admin-editor-open{overflow:hidden}
   margin:0;padding:0;border:none;background:transparent;box-shadow:none
 }
 #product-form.is-editor-step-2 #step1-phase-c{display:contents!important}
-#product-form.is-editor-step-2 #step1-phase-c .step1-phase-nav,
-#product-form.is-editor-step-2 #step1-phase-c .studio-busy-banner{display:none!important}
+#product-form.is-editor-step-2 #step1-phase-c .step1-phase-nav{display:none!important}
+#product-form.is-editor-step-2.is-studio-busy #studio-busy-banner{display:flex!important}
 #product-form.is-editor-step-2 #block-essentials,
 #product-form.is-editor-step-2 .essentials-layout-compose{
   display:block!important;

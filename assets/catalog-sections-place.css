@@ -181,9 +181,9 @@ html body main#main-content.catalog-page .catalog-group-nav.catalog-sections > b
 }
 .pick-band .pick-more button{background:#fff;max-width:100%}
 .catalog-idea-board .pick-heroes{
-  display:flex;
-  flex-wrap:wrap;
-  justify-content:flex-start;
+  display:grid;
+  grid-template-columns:repeat(4, minmax(0, 1fr));
+  justify-items:center;
   gap:12px 8px;
 }
 .catalog-idea-board .pick-band-rail .pick-heroes{
@@ -309,7 +309,7 @@ html body main#main-content.catalog-page .catalog-ready-audience button.is-on{
 }
 .catalog-idea-board .pick-hero{
   width:72px;
-  flex:0 0 72px;
+  max-width:100%;
   overflow:hidden;
 }
 .catalog-idea-board .pick-hero-ring{
@@ -326,8 +326,33 @@ html body main#main-content.catalog-page .catalog-ready-audience button.is-on{
   font-size:11px;
   line-height:1.15;
   text-align:center;
-  overflow-wrap:anywhere;
-  word-break:break-word;
+  overflow-wrap:normal;
+  word-break:normal;
+}
+.catalog-idea-board .pick-band:has(.pick-hero.is-on) .pick-hero:not(.is-on){
+  opacity:.42;
+}
+.catalog-idea-board .pick-hero.is-on{
+  opacity:1;
+  color:#1e293b;
+}
+.catalog-idea-board .pick-hero.is-on .pick-hero-ring{
+  border:2.5px solid #ff6b5a;
+  box-shadow:0 0 0 4px rgba(255,107,90,.18);
+}
+.catalog-idea-board .pick-hero.is-on b{
+  color:#1e293b;
+  font-weight:800;
+}
+.catalog-idea-board .pick-band:has(.pick-more .is-on) .pick-more button:not(.is-on){
+  opacity:.42;
+}
+.catalog-idea-board .pick-more button.is-on{
+  opacity:1;
+  border-color:#ff6b5a;
+  color:#1e293b;
+  background:#fff5f3;
+  box-shadow:0 0 0 3px rgba(255,107,90,.18);
 }
 @media (min-width:651px){
   .catalog-idea-board .pick-heroes{gap:14px 12px}

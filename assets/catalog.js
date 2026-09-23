@@ -2,7 +2,7 @@
 (function () {
   'use strict';
 
-  var READY_SUBCATS = ['Для девочки', 'Для мальчика', 'Универсальные', 'Для неё', 'Для мамы', 'Для него', 'На выписку', 'День рождения', 'Оригинальные подарки', 'Оформление праздника', 'Фигуры из шаров', 'Цветы из шаров', 'Арки', 'Шар-сюрприз', 'Крафтовый букет', 'Коробка-сюрприз', 'Гендер-пати'];
+  var READY_SUBCATS = ['Для девочки', 'Для мальчика', 'Универсальные', 'Для неё', 'Для мамы', 'Для него', 'На выписку', 'День рождения', 'Фигуры из шаров', 'Цветы из шаров', 'Арки', 'Шар-сюрприз', 'Крафтовый букет', 'Коробка-сюрприз', 'Гендер-пати'];
   var UNIT_SUBCATS = ['Латексные шары', 'Шары с рисунком', 'Фольгированные фигуры', 'Ходячие фигуры', 'Круги, звёзды и сердца', 'Шары с конфетти', 'Шары хром', 'Шары Brush', 'Шары Super Agate', 'Шары Bubble', 'Фольгированные цифры', 'Именные шары'];
   var UNIT_COLLECTIONS = ['Шары с рисунком', 'Латексные шары', 'Фольгированные фигуры', 'Ходячие фигуры', 'Круги, звёзды и сердца', 'Шары с конфетти', 'Шары хром', 'Шары Brush', 'Шары Super Agate', 'Шары Bubble', 'Фольгированные цифры'];
   var DETAIL_FILTERS = ['Для мальчика', 'Для девочки', 'Детские', 'Для него', 'Для неё', 'На выписку', 'День рождения', 'Праздники', 'Персонажи', 'Универсальные'];
@@ -322,7 +322,7 @@
       '';
     var img = key
       ? '<img src="' + window.vigImage(key) + '" data-key="' + esc(key) + '" alt="' + esc(p.title) + '" loading="' + (i < 4 ? 'eager' : 'lazy') + '" decoding="async" width="800" height="800" onload="this.classList.add(\'is-ready\')"/>'
-      : window.vigEmoji('balloon');
+      : '';
     var from = (p.tags || []).indexOf('Цена от') >= 0 ? 'от ' : '';
     var priceNote = p.category === 'Шары поштучно' ? 'Цена за штуку' : 'Цена за композицию';
     var cat = String(p.category || '').trim();
@@ -384,7 +384,7 @@
   var READY_WHO = AUDIENCE;
   var READY_MAIN = ['Для девочки', 'Для мальчика', 'Для неё', 'Для него'];
   var READY_MORE = ['На выписку', '1 годик', 'День рождения', 'Юбилей', 'Для мамы', 'Свадьба и девичник', 'Крещение'];
-  var READY_WHAT = ['Фигуры из шаров', 'Букет из шаров', 'Коробка-сюрприз', 'Фотозона', 'Цветы из шаров', 'Гендер-пати', 'Арки', 'Шар-сюрприз', 'Крафтовый букет', 'Оригинальные подарки', 'Оформление праздника'];
+  var READY_WHAT = ['Фигуры из шаров', 'Букет из шаров', 'Коробка-сюрприз', 'Фотозона', 'Цветы из шаров', 'Гендер-пати', 'Арки', 'Шар-сюрприз', 'Крафтовый букет'];
   var READY_PHOTOS = {
     'Фигуры из шаров': 'images/ready/figures.jpg?v=20260923',
     'Букет из шаров': 'images/ready/bouquet.jpg?v=20260923',
@@ -395,8 +395,6 @@
     'Арки': 'images/ready/arch.jpg?v=20260923',
     'Шар-сюрприз': 'images/ready/surprise.jpg?v=20260923',
     'Крафтовый букет': 'images/ready/kraft.jpg?v=20260923',
-    'Оригинальные подарки': 'images/ready/gift.jpg?v=20260923',
-    'Оформление праздника': 'images/ready/party.jpg?v=20260923',
     'День рождения': 'images/ready/birthday.jpg?v=20260923'
   };
   var WHO_PICKS = ['Для девочки', 'Для мальчика', 'Для неё', 'Для него', 'На выписку', 'День рождения', 'Юбилей', 'Геймерам', 'Универсальные'];
@@ -1051,7 +1049,7 @@
       }
       body = '<div class="catalog-grid catalog-grid-skeleton" aria-busy="true" aria-label="Загружаем каталог">' + skel + '</div>';
     } else if (loadError) {
-      body = '<div class="catalog-empty" role="alert">' + window.vigEmoji('balloon') + '<h3>Каталог не загрузился</h3><p>Проверьте соединение и попробуйте ещё раз. Выбранные фильтры сохранятся.</p><button type="button" data-retry>Попробовать ещё раз</button></div>';
+      body = '<div class="catalog-empty" role="alert"><h3>Каталог не загрузился</h3><p>Проверьте соединение и попробуйте ещё раз. Выбранные фильтры сохранятся.</p><button type="button" data-retry>Попробовать ещё раз</button></div>';
     } else if (list.length) {
       body = '<div class="catalog-grid">' + shown.map(cardHtml).join('') + '</div>';
       if (hasMore) {
@@ -1061,13 +1059,13 @@
       var pr = PRICES[priceIdx];
       var sugg = products.filter(function (p) { return group === 'all' || inGroup(p, group); })
         .filter(function (p) { return priceIdx === 0 || (p.price >= pr.min && p.price <= pr.max); }).slice(0, 4);
-      body = '<div class="catalog-empty">' + window.vigEmoji('balloon') + '<h3>Пока ничего не нашли</h3><p>Попробуйте изменить запрос или напишите нам — подберём композицию под ваш праздник и бюджет.</p>' +
+      body = '<div class="catalog-empty"><h3>Пока ничего не нашли</h3><p>Попробуйте изменить запрос или напишите нам — подберём композицию под ваш праздник и бюджет.</p>' +
         '<div class="catalog-empty-actions"><button type="button" class="secondary" data-reset>Сбросить поиск и фильтры</button><button type="button" data-help>Помочь с выбором</button></div></div>';
       if (sugg.length) {
         body += '<section class="catalog-empty-suggestions" aria-labelledby="empty-suggestions-title"><div><p class="eyebrow">Возможно, вам подойдёт</p><h3 id="empty-suggestions-title">Популярные варианты из этого раздела</h3></div>' +
           '<div class="catalog-grid">' + sugg.map(function (p, i) {
             var key = (window.vigProductPhoto ? window.vigProductPhoto(p) : '') || (p.image_keys && p.image_keys[0]) || '';
-            var img = key ? '<img src="' + window.vigImage(key) + '" data-key="' + esc(key) + '" alt="' + esc(p.title) + '" loading="lazy" decoding="async" width="800" height="800"/>' : window.vigEmoji('balloon');
+            var img = key ? '<img src="' + window.vigImage(key) + '" data-key="' + esc(key) + '" alt="' + esc(p.title) + '" loading="lazy" decoding="async" width="800" height="800"/>' : '';
             var from = (p.tags || []).indexOf('Цена от') >= 0 ? 'от ' : '';
             return '<a class="catalog-card color-' + (i % 5) + '" href="product.html?slug=' + encodeURIComponent(p.slug || p.id) + '" aria-label="Подробнее: ' + esc(p.title) + '">' +
               '<span class="catalog-card-image">' + img + '</span>' +
@@ -1122,7 +1120,7 @@
     sec.innerHTML = '<div class="recent-products-heading"><div><p class="eyebrow">Можно вернуться</p><h2 id="recent-products-title">Недавно смотрели</h2></div><button type="button">Очистить</button></div>' +
       '<div class="recent-products-list">' + items.map(function (p) {
         var key = (window.vigProductPhoto ? window.vigProductPhoto(p) : '') || (p.image_keys && p.image_keys[0]) || '';
-        var img = key ? '<img src="' + window.vigImage(key) + '" data-key="' + esc(key) + '" alt="' + esc(p.title) + '" loading="lazy" decoding="async"/>' : window.vigEmoji('balloon');
+        var img = key ? '<img src="' + window.vigImage(key) + '" data-key="' + esc(key) + '" alt="' + esc(p.title) + '" loading="lazy" decoding="async"/>' : '';
         return '<a href="product.html?slug=' + encodeURIComponent(p.slug || p.id) + '"><span>' + img + '</span><span><strong>' + esc(p.title) + '</strong><small>' + Number(p.price).toLocaleString('ru-RU') + ' ₽</small></span></a>';
       }).join('') + '</div>';
     sec.querySelector('button').addEventListener('click', function () {

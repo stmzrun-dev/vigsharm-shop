@@ -2,8 +2,8 @@
 (function () {
   'use strict';
 
-  var READY_SUBCATS = ['Для девочки', 'Для мальчика', 'Универсальные', 'Для неё', 'Для мамы', 'Для него', 'На выписку', 'День рождения', 'Оригинальные подарки', 'Оформление праздника', 'Фигуры из шаров', 'Цветы из шаров', 'Арки', 'Шар-сюрприз', 'Крафтовый букет', 'Коробка-сюрприз', 'Гендер-пати'];
-  var UNIT_SUBCATS = ['Латексные шары', 'Шары с рисунком', 'Фольгированные фигуры', 'Ходячие фигуры', 'Круги, звёзды и сердца', 'Шары с конфетти', 'Шары хром', 'Шары Brush', 'Шары Super Agate', 'Шары Bubble', 'Фольгированные цифры', 'Именные шары'];
+  var READY_SUBCATS = ['Для девочки', 'Для мальчика', 'Универсальные', 'Для неё', 'Для мамы', 'Для него', 'На выписку', 'День рождения', 'Фигуры из шаров', 'Цветы из шаров', 'Арки', 'Шар-сюрприз', 'Крафтовый букет', 'Коробка-сюрприз', 'Гендер-пати'];
+  var UNIT_SUBCATS = ['Латексные шары', 'Кристалл Ассорти', 'Металлик Ассорти', 'Пастель MACARON Ассорти', 'Пастель Ассорти', 'Сердце Ассорти', 'Шары с рисунком', 'Фольгированные фигуры', 'Ходячие фигуры', 'Круги, звёзды и сердца', 'Шары с конфетти', 'Шары хром', 'Шары Brush', 'Шары Super Agate', 'Шары Bubble', 'Фольгированные цифры', 'Именные шары'];
   var UNIT_COLLECTIONS = ['Шары с рисунком', 'Латексные шары', 'Фольгированные фигуры', 'Ходячие фигуры', 'Круги, звёзды и сердца', 'Шары с конфетти', 'Шары хром', 'Шары Brush', 'Шары Super Agate', 'Шары Bubble', 'Фольгированные цифры'];
   var DETAIL_FILTERS = ['Для мальчика', 'Для девочки', 'Детские', 'Для него', 'Для неё', 'На выписку', 'День рождения', 'Праздники', 'Персонажи', 'Универсальные'];
   var HOLIDAYS = ['Новый год', '14 февраля', '23 февраля', '8 марта', '9 мая', 'Выпускной', '1 сентября', 'День учителя', 'Хэллоуин'];
@@ -81,6 +81,8 @@
   var navSignature = '';
   var searchTimer = null;
   var visibleCount = PAGE_SIZE;
+  var showAllReady = false;
+  var showAllHeroes = false;
 
   function readUrl() {
     var sp = new URLSearchParams(window.location.search);
@@ -241,6 +243,8 @@
   function resetAll() {
     q = ''; category = 'Все товары'; priceIdx = 0; character = ''; age = ''; filter = ''; group = 'ready'; sortMode = '';
     visibleCount = PAGE_SIZE;
+    showAllReady = false;
+    showAllHeroes = false;
     if (searchInput) searchInput.value = '';
     window.history.replaceState({}, '', 'catalog.html');
     closeFilterSheet();
@@ -324,7 +328,7 @@
       '';
     var img = key
       ? '<img src="' + window.vigImage(key) + '" data-key="' + esc(key) + '" alt="' + esc(p.title) + '" loading="' + (i < 4 ? 'eager' : 'lazy') + '" decoding="async" width="800" height="800" onload="this.classList.add(\'is-ready\')"/>'
-      : window.vigEmoji('balloon');
+      : '';
     var from = (p.tags || []).indexOf('Цена от') >= 0 ? 'от ' : '';
     var priceNote = p.category === 'Шары поштучно' ? 'Цена за штуку' : 'Цена за композицию';
     var cat = String(p.category || '').trim();
@@ -391,20 +395,18 @@
   var READY_WHO = AUDIENCE;
   var READY_MAIN = ['Для девочки', 'Для мальчика', 'Для неё', 'Для него'];
   var READY_MORE = ['На выписку', '1 годик', 'День рождения', 'Юбилей', 'Для мамы', 'Свадьба и девичник', 'Крещение'];
-  var READY_WHAT = ['Фигуры из шаров', 'Букет из шаров', 'Коробка-сюрприз', 'Фотозона', 'Цветы из шаров', 'Гендер-пати', 'Арки', 'Шар-сюрприз', 'Крафтовый букет', 'Оригинальные подарки', 'Оформление праздника'];
+  var READY_WHAT = ['Фигуры из шаров', 'Букет из шаров', 'Коробка-сюрприз', 'Фотозона', 'Цветы из шаров', 'Гендер-пати', 'Арки', 'Шар-сюрприз', 'Крафтовый букет'];
   var READY_PHOTOS = {
-    'Фигуры из шаров': 'images/ready/figures.jpg?v=20260923',
-    'Букет из шаров': 'images/ready/bouquet.jpg?v=20260923',
-    'Коробка-сюрприз': 'images/ready/box.jpg?v=20260923',
-    'Фотозона': 'images/ready/photozone.jpg?v=20260923',
-    'Цветы из шаров': 'images/ready/flowers.jpg?v=20260923',
-    'Гендер-пати': 'images/ready/gender.jpg?v=20260923',
-    'Арки': 'images/ready/arch.jpg?v=20260923',
-    'Шар-сюрприз': 'images/ready/surprise.jpg?v=20260923',
-    'Крафтовый букет': 'images/ready/kraft.jpg?v=20260923',
-    'Оригинальные подарки': 'images/ready/gift.jpg?v=20260923',
-    'Оформление праздника': 'images/ready/party.jpg?v=20260923',
-    'День рождения': 'images/ready/birthday.jpg?v=20260923'
+    'Фигуры из шаров': 'images/idea-figures.jpg?v=5',
+    'Букет из шаров': 'images/ready/ready-bouquet.jpg?v=20260924',
+    'Коробка-сюрприз': 'images/idea-box.jpg?v=5',
+    'Фотозона': 'images/ready/ready-photozone.jpg?v=20260924',
+    'Цветы из шаров': 'images/idea-flowers.jpg?v=5',
+    'Гендер-пати': 'images/idea-gender.jpg?v=5',
+    'Арки': 'images/ready/ready-arch.jpg?v=20260924',
+    'Шар-сюрприз': 'images/ready/ready-surprise.jpg?v=20260924',
+    'Крафтовый букет': 'images/ready/ready-kraft.jpg?v=20260924',
+    'День рождения': ''
   };
   var WHO_PICKS = [
     ['Для неё', 'Для неё'],
@@ -417,30 +419,36 @@
     ['1 годик', '1 годик']
   ];
   var UNIT_TYPES = [
-    ['Латекс', 'images/balloons/balloon-latex.jpg', 'latex', 'Латексные шары'],
-    ['С рисунком', 'images/balloons/balloon-print.jpg', 'who', 'Шары с рисунком'],
-    ['Фольга', 'images/balloons/balloon-foil.jpg?v=20260923', 'who', 'Фольгированные фигуры'],
-    ['Ходячие', 'images/balloons/balloon-walker.jpg?v=20260923', 'who', 'Ходячие фигуры'],
-    ['Круги и звёзды', 'images/balloons/balloon-shapes.jpg', '', 'Круги, звёзды и сердца'],
-    ['Цифры', 'images/balloons/balloon-digit.jpg', '', 'Фольгированные цифры'],
-    ['Bubble', 'images/balloons/balloon-bubble.jpg', '', 'Шары Bubble'],
-    ['С именем', 'images/balloons/balloon-name.jpg?v=20260923', '', 'Именные шары']
+    ['Латекс', 'images/balloons/balloon-latex.png?v=20260924', 'latex', 'Латексные шары'],
+    ['С рисунком', 'images/balloons/balloon-print.png?v=20260924', 'who', 'Шары с рисунком'],
+    ['Фольга', 'images/balloons/balloon-foil.jpg?v=20260924', 'who', 'Фольгированные фигуры'],
+    ['Ходячие', 'images/balloons/balloon-walker.jpg?v=20260924', 'who', 'Ходячие фигуры'],
+    ['Круги и звёзды', 'images/balloons/balloon-shapes.jpg?v=20260924', 'who', 'Круги, звёзды и сердца'],
+    ['Конфетти', 'images/balloons/balloon-confetti.jpg?v=20260924', '', 'Шары с конфетти'],
+    ['Хром', 'images/balloons/balloon-chrome.jpg?v=20260924', '', 'Шары хром'],
+    ['Браш', 'images/balloons/balloon-brush.jpg?v=20260924', '', 'Шары Brush'],
+    ['Super Agate', 'images/balloons/balloon-agate.jpg?v=20260924', '', 'Шары Super Agate'],
+    ['Bubble', 'images/balloons/balloon-bubble.png?v=20260924', '', 'Шары Bubble'],
+    ['Цифры', 'images/balloons/balloon-digit.jpg?v=20260924', '', 'Фольгированные цифры'],
+    ['С надписью', 'images/balloons/balloon-name.jpg?v=20260924', '', 'Именные шары']
   ];
   var LATEX_TYPES = [
-    ['Обычный', 'images/balloons/balloon-latex.jpg', 'Латексные шары'],
-    ['С конфетти', 'images/balloons/balloon-confetti.jpg', 'Шары с конфетти'],
-    ['Хром', 'images/balloons/balloon-chrome.jpg', 'Шары хром'],
-    ['Brush', 'images/balloons/balloon-brush.jpg', 'Шары Brush'],
-    ['Super Agate', 'images/balloons/balloon-agate.jpg', 'Шары Super Agate']
+    ['Кристалл Ассорти', '', 'Кристалл Ассорти'],
+    ['Металлик Ассорти', '', 'Металлик Ассорти'],
+    ['Пастель MACARON Ассорти', '', 'Пастель MACARON Ассорти'],
+    ['Пастель Ассорти', '', 'Пастель Ассорти'],
+    ['Сердце Ассорти', '', 'Сердце Ассорти']
   ];
   var HOLIDAY_PHOTOS = [
-    ['Новый год', 'images/holidays/holiday-new-year.jpg'],
-    ['14 февраля', 'images/holidays/holiday-feb14.jpg'],
-    ['23 февраля', 'images/holidays/holiday-feb23.jpg'],
-    ['8 марта', 'images/holidays/holiday-mar8.jpg'],
-    ['9 мая', 'images/holidays/holiday-may9.jpg'],
-    ['Выпускной', 'images/holidays/holiday-graduation.jpg'],
-    ['1 сентября', 'images/holidays/holiday-sept1.jpg']
+    ['Новый год', 'images/holidays/holiday-newyear.jpg?v=20260924'],
+    ['14 февраля', 'images/holidays/holiday-feb14.jpg?v=20260924'],
+    ['23 февраля', 'images/holidays/holiday-feb23.jpg?v=20260924'],
+    ['8 марта', 'images/holidays/holiday-mar8.jpg?v=20260924'],
+    ['9 мая', 'images/holidays/holiday-may9.jpg?v=20260924'],
+    ['Выпускной', 'images/holidays/holiday-grad.jpg?v=20260924'],
+    ['1 сентября', 'images/holidays/holiday-sep1.jpg?v=20260924'],
+    ['День учителя', 'images/holidays/holiday-teacher.jpg?v=20260924'],
+    ['Хэллоуин', 'images/holidays/holiday-halloween.jpg?v=20260924']
   ];
   var HERO_PHOTOS = [
     ['Hello Kitty', 'images/characters/hero-hello-kitty.webp'],
@@ -527,7 +535,7 @@
     return '<div class="pick-heroes">' + list.map(function (row) {
       var on = sheetDraft === row[0];
       return '<button type="button" class="pick-hero' + (on ? ' is-on' : '') + '" data-pick="' + esc(row[0]) + '">' +
-        '<span class="pick-hero-ring"><img src="' + row[1] + '" alt=""/></span><b>' + esc(row[2] || row[0]) + '</b></button>';
+        '<span class="pick-hero-ring">' + (row[1] ? '<img src="' + row[1] + '" alt=""/>' : '') + '</span><b>' + esc(row[2] || row[0]) + '</b></button>';
     }).join('') + '</div>';
   }
 
@@ -535,7 +543,7 @@
     return '<div class="pick-heroes">' + list.map(function (row) {
       var on = sheetDraft === row[0] || sheetDraft === row[3];
       return '<button type="button" class="pick-hero' + (on ? ' is-on' : '') + '" data-pick="' + esc(row[0]) + '">' +
-        '<span class="pick-hero-ring"><img class="' + (contain ? 'is-contain' : '') + '" src="' + row[1] + '" alt=""/></span><b>' + esc(row[0]) + '</b></button>';
+        '<span class="pick-hero-ring">' + (row[1] ? '<img class="' + (contain ? 'is-contain' : '') + '" src="' + row[1] + '" alt=""/>' : '') + '</span><b>' + esc(row[0]) + '</b></button>';
     }).join('') + '</div>';
   }
 
@@ -565,10 +573,10 @@
       title = 'Категории';
       lead = '';
       var who = [
-        ['Для девочки', 'images/category-girl.png'],
-        ['Для мальчика', 'images/category-boy.png'],
-        ['Для неё', 'images/category-loved.png'],
-        ['Для него', 'images/category-him.png']
+        ['Для девочки', 'images/who/who-girl.jpg?v=20260924'],
+        ['Для мальчика', 'images/who/who-boy.jpg?v=20260924'],
+        ['Для неё', 'images/who/who-her.jpg?v=20260924'],
+        ['Для него', 'images/who/who-him.jpg?v=20260924']
       ];
       var occasions = READY_MORE.concat(['Гендер-пати']);
       var what = READY_WHAT.filter(function (name) { return name !== 'Гендер-пати'; }).map(function (name) {
@@ -587,9 +595,12 @@
       });
       html = photoButtons(days.length ? days : HOLIDAY_PHOTOS, true);
     } else if (group === 'unit' && unitStep === 'latex') {
-      title = 'Какой латекс?';
-      lead = 'Обычный шар и фактуры.';
-      html = photoButtons(LATEX_TYPES, false);
+      title = 'Какое ассорти?';
+      lead = '';
+      html = '<div class="pick-choices">' + LATEX_TYPES.map(function (row) {
+        var on = sheetDraft === row[0] || sheetDraft === row[2];
+        return '<button type="button" class="' + (on ? 'is-on' : '') + '" data-pick="' + esc(row[0]) + '">' + esc(row[0]) + '</button>';
+      }).join('') + '</div>';
     } else if (group === 'unit' && unitStep === 'who') {
       title = 'Кому шар?';
       lead = 'Список без картинок.';
@@ -717,6 +728,8 @@
           closeReadySheet();
           unitStep = '';
           sheetQuery = '';
+          showAllReady = false;
+          showAllHeroes = false;
         }
         render();
         closePickSheet();
@@ -737,6 +750,7 @@
 
   function ideaLabel(name) {
     if (name === 'Шар-сюрприз') return 'Сюрприз';
+    if (name === 'Крафтовый букет') return 'Крафт';
     return String(name || '').replace(' из шаров', '').replace('-сюрприз', '');
   }
 
@@ -791,17 +805,17 @@
 
   function readyBands() {
     var who = [
-      ['Для девочки', 'images/category-girl.png'],
-      ['Для мальчика', 'images/category-boy.png'],
-      ['Для неё', 'images/category-loved.png'],
-      ['Для него', 'images/category-him.png']
+      ['Для девочки', 'images/who/who-girl.jpg?v=20260924'],
+      ['Для мальчика', 'images/who/who-boy.jpg?v=20260924'],
+      ['Для неё', 'images/who/who-her.jpg?v=20260924'],
+      ['Для него', 'images/who/who-him.jpg?v=20260924']
     ];
     var occasions = READY_MORE.concat(['Гендер-пати']);
     var what = READY_WHAT.filter(function (name) { return name !== 'Гендер-пати'; });
     function hero(name, src, label) {
       var on = category === name ? ' is-on' : '';
       return '<button type="button" class="pick-hero' + on + '" data-idea="' + esc(name) + '">' +
-        '<span class="pick-hero-ring"><img src="' + src + '" alt=""/></span><b>' + esc(label) + '</b></button>';
+        '<span class="pick-hero-ring">' + (src ? '<img src="' + src + '" alt=""/>' : '') + '</span><b>' + esc(label) + '</b></button>';
     }
     return '<div class="pick-band pick-band-who"><p class="pick-kicker">Кому</p><div class="pick-heroes">' +
       who.map(function (row) { return hero(row[0], row[1], row[0]); }).join('') + '</div></div>' +
@@ -829,6 +843,7 @@
         category = category === name ? 'Все товары' : name;
         character = '';
         filter = '';
+        showAllReady = false;
         render({ resultsOnly: true });
         paintReadySheet();
       });
@@ -877,7 +892,7 @@
     return '<div class="catalog-idea-grid">' + rows.map(function (row) {
       var on = circleOn(selected, row);
       return '<button type="button" class="pick-hero' + (on ? ' is-on' : '') + '" data-pick="' + esc(row[0]) + '">' +
-        '<span class="pick-hero-ring"><img class="' + (contain ? 'is-contain' : '') + '" src="' + row[1] + '" alt=""/></span><b>' + esc(row[0]) + '</b></button>';
+        '<span class="pick-hero-ring">' + (row[1] ? '<img class="' + (contain ? 'is-contain' : '') + '" src="' + row[1] + '" alt=""/>' : '') + '</span><b>' + esc(row[0]) + '</b></button>';
     }).join('') + '</div>';
   }
 
@@ -893,7 +908,7 @@
     var buttons = rows.map(function (row) {
       var on = circleOn(selected, row);
       return '<button type="button" class="pick-hero' + (on ? ' is-on' : '') + '" data-pick="' + esc(row[0]) + '">' +
-        '<span class="pick-hero-ring"><img src="' + row[1] + '" alt=""/></span><b>' + esc(row[0]) + '</b></button>';
+        '<span class="pick-hero-ring">' + (row[1] ? '<img src="' + row[1] + '" alt=""/>' : '') + '</span><b>' + esc(row[0]) + '</b></button>';
     }).join('');
     return '<div class="pick-band ' + bandClass + '">' +
       (kicker ? '<p class="pick-kicker">' + kicker + '</p>' : '') +
@@ -901,14 +916,7 @@
   }
 
   function boardHtml() {
-    if (group === 'ready') {
-      var chip = '';
-      if (category !== 'Все товары') {
-        var chipLabel = READY_WHAT.indexOf(category) >= 0 ? ideaLabel(category) : category;
-        chip = '<button type="button" class="catalog-pick-chip" data-clear-ready>' + esc(chipLabel) + ' ×</button>';
-      }
-      return '<div class="catalog-pick-bar"><button type="button" data-open-ready>Кому, повод или что заказать</button>' + chip + '</div>';
-    }
+    if (group === 'ready') return readyBands();
     if (group === 'holidays') {
       return bandCircles(HOLIDAY_PHOTOS, category, 'pick-band-why', 'Праздник');
     }
@@ -919,12 +927,15 @@
       var extra = subcatList().filter(function (name) {
         return !known[norm(name)] && (!sheetQuery || norm(name).indexOf(sheetQuery) >= 0);
       });
+      var heroOpen = showAllHeroes || !!sheetQuery || extra.some(function (name) { return character === name; });
       var html = '<input class="catalog-board-search" id="catalog-hero-search" type="search" placeholder="Найти персонажа" value="' + esc(sheetQuery) + '"/>' +
         bandCircles(heroes, character, 'pick-band-who', 'Персонажи');
-      if (extra.length) {
+      if (extra.length && heroOpen) {
         html += '<div class="pick-band pick-band-why"><p class="pick-kicker">Ещё</p><div class="pick-more">' + extra.map(function (name) {
           return '<button type="button" class="' + (character === name ? 'is-on' : '') + '" data-hero="' + esc(name) + '">' + esc(name) + '</button>';
         }).join('') + '</div></div>';
+      } else if (extra.length) {
+        html += '<div class="catalog-load-more catalog-hero-more"><button type="button" data-more-heroes>Все персонажи <span>' + extra.length + '</span></button></div>';
       }
       return html;
     }
@@ -932,16 +943,13 @@
       var type = activeUnitType();
       var html = bandCircles(UNIT_TYPES, type ? type[0] : '', 'pick-band-what', 'Какие шары');
       if (type && type[2] === 'latex') {
-        html += bandCircles(LATEX_TYPES, category, 'pick-band-who', 'Какой латекс');
+        html += '<div class="pick-band pick-band-who"><p class="pick-kicker">Ассорти</p><div class="pick-more">' + LATEX_TYPES.map(function (row) {
+          return '<button type="button" class="' + (category === row[2] ? 'is-on' : '') + '" data-pick="' + esc(row[0]) + '">' + esc(row[0]) + '</button>';
+        }).join('') + '</div></div>';
       } else if (type && type[2] === 'who') {
-        var typeHasGoods = products.some(function (p) {
-          return inGroup(p, 'unit') && productHasLabel(p, type[3]);
-        });
-        if (typeHasGoods) {
-          html += '<div class="pick-band pick-band-why"><p class="pick-kicker">Кому шар</p><div class="pick-more">' + WHO_PICKS.map(function (row) {
-            return '<button type="button" class="' + (filter === row[1] ? 'is-on' : '') + '" data-who="' + esc(row[1]) + '">' + esc(row[0]) + '</button>';
-          }).join('') + '</div></div>';
-        }
+        html += '<div class="pick-band pick-band-why"><p class="pick-kicker">Кому шар</p><div class="pick-more">' + WHO_PICKS.map(function (row) {
+          return '<button type="button" class="' + (filter === row[1] ? 'is-on' : '') + '" data-who="' + esc(row[1]) + '">' + esc(row[0]) + '</button>';
+        }).join('') + '</div></div>';
       }
       return html;
     }
@@ -950,7 +958,9 @@
 
   function scrollToResults() {
     if (!resultsSection) return;
-    var top = resultsSection.getBoundingClientRect().top + window.pageYOffset - 12;
+    var header = document.querySelector('.site-header');
+    var gap = (header ? header.getBoundingClientRect().height : 76) + 12;
+    var top = resultsSection.getBoundingClientRect().top + window.pageYOffset - gap;
     window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
   }
 
@@ -983,6 +993,7 @@
         category = category === name ? 'Все товары' : name;
         character = '';
         filter = '';
+        showAllReady = false;
         render({ scroll: category !== 'Все товары' });
       });
     });
@@ -1008,6 +1019,7 @@
         if (latex && activeUnitType() && activeUnitType()[2] === 'latex') {
           category = category === latex[2] ? 'Латексные шары' : latex[2];
           filter = '';
+          showAllReady = false;
           render({ scroll: category !== 'Латексные шары' });
           return;
         }
@@ -1016,8 +1028,15 @@
           category = same ? 'Все товары' : type[3];
           filter = '';
           character = '';
+          showAllReady = false;
           render({ scroll: !same && !type[2] });
         }
+      });
+    });
+    old.querySelectorAll('[data-more-heroes]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        showAllHeroes = true;
+        render();
       });
     });
     old.querySelectorAll('[data-hero]').forEach(function (b) {
@@ -1026,6 +1045,7 @@
         character = character === name ? '' : name;
         category = 'Все товары';
         filter = '';
+        showAllReady = false;
         render({ scroll: !!character });
       });
     });
@@ -1103,18 +1123,22 @@
       return '<button type="button" class="' + (on ? 'selected' : '') + '" data-sort="' + value + '" aria-pressed="' + (on ? 'true' : 'false') + '">' + label + '</button>';
     }
     var title = groupTitle();
+    var browseHub = (group === 'ready' || group === 'characters' || group === 'unit') && category === 'Все товары' && !searching && !character && !filter && !showAllReady;
+    var headTitle = browseHub ? 'Популярное' : title;
     var head =
       '<div class="catalog-results-heading"><div>' +
-      (title ? '<h2>' + esc(title) + '</h2>' : '') +
+      (headTitle ? '<h2>' + esc(headTitle) + '</h2>' : '') +
       (searching ? '<p class="catalog-search-scope">Ищем по всему каталогу</p>' : '') +
       '</div>' +
+      (browseHub ? '' :
       '<div class="catalog-results-tools">' +
       '<span role="status" aria-live="polite">' + (loading ? 'Загружаем варианты…' : list.length + ' ' + plural(list.length)) + '</span>' +
       '<div class="catalog-sort" role="group" aria-label="Сортировка">' +
       sortChip('price-asc', 'Дешевле') +
       sortChip('price-desc', 'Дороже') +
       '</div>' +
-      '</div></div>';
+      '</div>') +
+      '</div>';
     var budget = '';
     if (priceIdx !== 0) {
       budget = '<div class="catalog-active-budget" role="status"><span><b aria-hidden="true">₽</b> Бюджет: <strong>' + esc(PRICES[priceIdx].label) + '</strong></span><button type="button" data-clearprice>Показать все цены ×</button></div>';
@@ -1142,7 +1166,11 @@
       }
       body = '<div class="catalog-grid catalog-grid-skeleton" aria-busy="true" aria-label="Загружаем каталог">' + skel + '</div>';
     } else if (loadError) {
-      body = '<div class="catalog-empty" role="alert">' + window.vigEmoji('balloon') + '<h3>Каталог не загрузился</h3><p>Проверьте соединение и попробуйте ещё раз. Выбранные фильтры сохранятся.</p><button type="button" data-retry>Попробовать ещё раз</button></div>';
+      body = '<div class="catalog-empty" role="alert"><h3>Каталог не загрузился</h3><p>Проверьте соединение и попробуйте ещё раз. Выбранные фильтры сохранятся.</p><button type="button" data-retry>Попробовать ещё раз</button></div>';
+    } else if (list.length && browseHub) {
+      var popular = list.slice(0, 12);
+      body = '<div class="catalog-grid">' + popular.map(cardHtml).join('') + '</div>';
+      body += '<div class="catalog-load-more"><button type="button" data-show-ready>Показать все <span>' + list.length + '</span></button></div>';
     } else if (list.length) {
       body = '<div class="catalog-grid">' + shown.map(cardHtml).join('') + '</div>';
       if (hasMore) {
@@ -1156,15 +1184,14 @@
       var emptyLead = emptyUnitType
         ? 'Таких шаров в каталоге пока нет. Сбросьте фильтр или напишите нам — подскажем, что можно заказать.'
         : 'Попробуйте изменить запрос или напишите нам — подберём композицию под ваш праздник и бюджет.';
-      body = '<div class="catalog-empty">' + window.vigEmoji('balloon') + '<h3>Пока ничего не нашли</h3><p>' + emptyLead + '</p>' +
+      body = '<div class="catalog-empty"><h3>Пока ничего не нашли</h3><p>' + emptyLead + '</p>' +
         '<div class="catalog-empty-actions"><button type="button" class="secondary" data-reset>Сбросить поиск и фильтры</button><button type="button" data-help>Помочь с выбором</button></div></div>';
       if (sugg.length) {
         body += '<section class="catalog-empty-suggestions" aria-labelledby="empty-suggestions-title"><div><p class="eyebrow">Возможно, вам подойдёт</p><h3 id="empty-suggestions-title">Популярные варианты из этого раздела</h3></div>' +
           '<div class="catalog-grid">' + sugg.map(cardHtml).join('') + '</div></section>';
       }
     }
-    var custom = !loading ? '<div class="related-custom-card catalog-custom-order"><div><strong>Не нашли подходящую композицию?</strong><p>Напишите, для какого праздника и на какой бюджет нужен вариант — поможем подобрать.</p></div><button type="button" data-help>Подобрать вариант</button></div>' : '';
-    resultsSection.innerHTML = head + budget + collections + body + custom;
+    resultsSection.innerHTML = head + budget + collections + body;
 
     var sa = resultsSection.querySelector('[data-showall]');
     if (sa) sa.addEventListener('click', function () { group = 'all'; category = 'Все товары'; character = ''; filter = ''; render(); });
@@ -1181,6 +1208,12 @@
     if (rt) rt.addEventListener('click', load);
     var rs = resultsSection.querySelector('[data-reset]');
     if (rs) rs.addEventListener('click', resetAll);
+    var showReady = resultsSection.querySelector('[data-show-ready]');
+    if (showReady) showReady.addEventListener('click', function () {
+      showAllReady = true;
+      visibleCount = PAGE_SIZE;
+      render({ scroll: true });
+    });
     var more = resultsSection.querySelector('[data-more]');
     if (more) more.addEventListener('click', function () {
       visibleCount += PAGE_SIZE;
@@ -1209,7 +1242,7 @@
     sec.innerHTML = '<div class="recent-products-heading"><div><p class="eyebrow">Можно вернуться</p><h2 id="recent-products-title">Недавно смотрели</h2></div><button type="button">Очистить</button></div>' +
       '<div class="recent-products-list">' + items.map(function (p) {
         var key = (window.vigProductPhoto ? window.vigProductPhoto(p) : '') || (p.image_keys && p.image_keys[0]) || '';
-        var img = key ? '<img src="' + window.vigImage(key) + '" data-key="' + esc(key) + '" alt="' + esc(p.title) + '" loading="lazy" decoding="async"/>' : window.vigEmoji('balloon');
+        var img = key ? '<img src="' + window.vigImage(key) + '" data-key="' + esc(key) + '" alt="' + esc(p.title) + '" loading="lazy" decoding="async"/>' : '';
         return '<a href="product.html?slug=' + encodeURIComponent(p.slug || p.id) + '"><span>' + img + '</span><span><strong>' + esc(p.title) + '</strong><small>' + Number(p.price).toLocaleString('ru-RU') + ' ₽</small></span></a>';
       }).join('') + '</div>';
     sec.querySelector('button').addEventListener('click', function () {

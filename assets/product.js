@@ -250,7 +250,7 @@
   function galleryImgHtml(key, alt, attrs) {
     var main = mainImageKey();
     var show = key || main;
-    if (!show) return window.vigEmoji('balloon');
+    if (!show) return '';
     var extra = attrs || '';
     // Inline onerror: digit/variant failure → main composition photo (never empty block).
     var onerr = 'var m=this.getAttribute(\'data-main-key\');var k=this.getAttribute(\'data-key\');if(m&&k!==m){this.onerror=null;this.setAttribute(\'data-key\',m);this.setAttribute(\'data-fb\',\'0\');this.src=(window.vigImage?window.vigImage(m,1200):m);}';
@@ -797,7 +797,7 @@
       })() +
       '<div class="product-base-price"><small>' + (isUnit() ? (isPerMeter() ? 'Цена за метр' : 'Цена за штуку') : 'Цена за композицию') + '</small><strong>' + (priceFrom() ? 'от ' : '') + Number(p.price).toLocaleString('ru-RU') + ' ₽</strong></div>' +
       (leadText
-        ? '<div class="product-lead"><div class="product-lead-icon" aria-hidden="true"><img src="icons/line-balloon.svg" alt="" width="22" height="22"/></div><p>' + esc(leadText) + '</p></div>'
+        ? '<div class="product-lead"><p>' + esc(leadText) + '</p></div>'
         : '') +
       compositionHtml +
       summaryFlowHtml() +
@@ -828,13 +828,13 @@
       (rel.length
         ? '<div class="related-products-grid">' + rel.map(function (o, i) {
           var k = (window.vigProductPhoto ? window.vigProductPhoto(o) : '') || (o.image_keys && o.image_keys[0]) || '';
-          var img = k ? '<img src="' + window.vigImage(k) + '" data-key="' + esc(k) + '" alt="' + esc(o.title) + '" loading="lazy" decoding="async" width="800" height="800"/>' : window.vigEmoji('balloon');
+          var img = k ? '<img src="' + window.vigImage(k) + '" data-key="' + esc(k) + '" alt="' + esc(o.title) + '" loading="lazy" decoding="async" width="800" height="800"/>' : '';
           return '<a class="catalog-card color-' + ((i + 1) % 5) + '" href="product.html?slug=' + encodeURIComponent(o.slug || o.id) + '" aria-label="Подробнее: ' + esc(o.title) + '">' +
             '<span class="catalog-card-image">' + img + '</span>' +
             '<span class="catalog-card-copy"><small>' + esc(o.category || 'Композиция Вигшарм') + '</small><strong>' + esc(o.title) + '</strong>' +
             '<b><em>' + Number(o.price).toLocaleString('ru-RU') + ' ₽</em><span class="related-cta">Подробнее</span></b></span></a>';
         }).join('') + '</div>'
-        : '<div class="related-custom-card">' + window.vigEmoji('balloon') + '<div><strong>Сделаем под ваш праздник</strong><p>Напишите повод и бюджет — предложим идеи.</p></div><button type="button" data-act="order">Обсудить идею</button></div>') +
+        : '<div class="related-custom-card"><div><strong>Сделаем под ваш праздник</strong><p>Напишите повод и бюджет — предложим идеи.</p></div><button type="button" data-act="order">Обсудить идею</button></div>') +
       '</section>')) +
       '<aside class="mobile-order-bar' + (isSubmitReady() ? ' is-ready' : '') + (datePickerOpen || timePickerOpen ? ' is-away' : '') + '" aria-label="Отправить заявку"><div class="mobile-order-price"><small>' + (isSubmitReady() ? 'Заявка на сайте' : (fulfilled === 'nearby' ? 'От' : fulfilled ? 'Итого' : 'Цена')) + '</small><strong>' + (priceFrom() ? 'от ' : '') + T.toLocaleString('ru-RU') + ' ₽</strong></div>' +
       '<div class="mobile-order-actions">' + mobileBarActions + '</div></aside>' +

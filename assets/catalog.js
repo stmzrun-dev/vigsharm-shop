@@ -609,10 +609,10 @@
   var PHONE = '79284440142', PHONE_LABEL = '+7 928 444-01-42';
   var MAX_URL = 'https://max.ru/u/f9LHodD0cOJwY09H6Zj63nYK_X8tPZGb3CODIvTT7FWkRzrgbh5F582AiB8';
   var TG_URL = 'https://t.me/Olgamzz';
-  var WA_ICON = '<img src="icons/brand-whatsapp.svg?v=3" alt="" width="40" height="40" decoding="async" aria-hidden="true"/>';
-  var TG_ICON = '<img src="icons/brand-telegram.svg?v=8" alt="" width="40" height="40" decoding="async" aria-hidden="true"/>';
-  var MAX_ICON = '<img src="icons/max-official.png" alt="" width="40" height="40" decoding="async" aria-hidden="true"/>';
-  var PHONE_ICON = '<img src="icons/brand-phone.svg?v=5" alt="" width="40" height="40" decoding="async" aria-hidden="true"/>';
+  var WA_ICON = '<img src="icons/brand-whatsapp.png?v=9" alt="" width="40" height="40" decoding="async" aria-hidden="true"/>';
+  var TG_ICON = '<img src="icons/brand-telegram.png?v=9" alt="" width="40" height="40" decoding="async" aria-hidden="true"/>';
+  var MAX_ICON = '<img src="icons/brand-max.png?v=9" alt="" width="40" height="40" decoding="async" aria-hidden="true"/>';
+  var PHONE_ICON = '<img src="icons/phone-smartphone.png?v=1" alt="" width="40" height="40" decoding="async" aria-hidden="true"/>';
 
   function openCatalogModal() {
     if (document.querySelector('.catalog-modal-wrap')) return;

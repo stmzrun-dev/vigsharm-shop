@@ -24,6 +24,7 @@
         });
         if (!products.length) {
           if (section) section.style.display = 'none';
+          revealHash();
           return;
         }
         list.innerHTML = products.slice(0, 4).map(function (p) {
@@ -52,10 +53,27 @@
             '</span></a>'
           );
         }).join('');
+        revealHash();
       })
       .catch(function () {
         if (section) section.style.display = 'none';
+        revealHash();
       });
+  }
+
+  /* Products above the hash targets load after the first scroll. */
+  function revealHash() {
+    var id = (location.hash || '').replace('#', '');
+    if (!id) return;
+    var el = document.getElementById(id);
+    if (!el || !el.scrollIntoView) return;
+    var margin = parseFloat(getComputedStyle(el).scrollMarginTop) || 0;
+    var delta = el.getBoundingClientRect().top - margin;
+    if (Math.abs(delta) < 24 || Math.abs(delta) > 900) return;
+    requestAnimationFrame(function () {
+      try { el.scrollIntoView({ behavior: 'auto', block: 'start' }); }
+      catch (e) { el.scrollIntoView(); }
+    });
   }
 
   function escapeHtml(s) {

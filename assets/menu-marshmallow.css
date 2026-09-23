@@ -229,14 +229,18 @@
 
 /* Messenger tiles — compact brand chips */
 .header .nav .mobile-contact-options{
-  display:grid!important;
-  grid-template-columns:repeat(3,minmax(0,1fr))!important;
-  gap:8px!important;
-  margin-top:4px!important;
+  display:flex!important;
+  grid-template-columns:none!important;
+  justify-content:center!important;
+  align-items:flex-start!important;
+  gap:12px!important;
+  margin-top:2px!important;
 }
 .header .nav .mobile-contact-options > a{
-  min-height:56px!important;
-  padding:8px 4px!important;
+  flex:0 0 auto!important;
+  width:auto!important;
+  min-height:0!important;
+  padding:0!important;
   border:0!important;
   border-radius:14px!important;
   box-shadow:none!important;
@@ -260,9 +264,10 @@
   text-align:center!important;
 }
 .header .nav .mobile-contact-options > a svg,
-.header .nav .mobile-contact-options > a img{
-  width:26px!important;
-  height:26px!important;
+.header .nav .mobile-contact-options > a img,
+.header .nav .mobile-contact-options > a:nth-child(3) img{
+  width:44px!important;
+  height:44px!important;
   display:block!important;
   object-fit:contain!important;
   flex-shrink:0!important;
@@ -271,17 +276,11 @@
   border-radius:0!important;
   padding:0!important;
 }
-.header .nav .mobile-contact-options > a:nth-child(1){
-  background:#f0faf3!important;
-  border:1.5px solid #c6ebd3!important;
-}
-.header .nav .mobile-contact-options > a:nth-child(2){
-  background:#eef7fc!important;
-  border:1.5px solid #c5e3f5!important;
-}
+.header .nav .mobile-contact-options > a:nth-child(1),
+.header .nav .mobile-contact-options > a:nth-child(2),
 .header .nav .mobile-contact-options > a:nth-child(3){
-  background:#f4f0fb!important;
-  border:1.5px solid #ddd4ef!important;
+  background:transparent!important;
+  border:0!important;
 }
 .header .nav .mobile-contact-options > a:hover,
 .header .nav .mobile-contact-options > a:active{

@@ -972,12 +972,36 @@ html body main#main-content .hero .hero-actions a.button-primary{
   background:#ff6b5a!important;
   background-image:none!important;
   box-shadow:0 6px 16px rgba(255,107,90,.18)!important;
+  transition:transform .18s ease,box-shadow .18s ease,background .18s ease!important;
 }
 html body main#main-content .hero .hero-actions .button-primary:hover,
 html body main#main-content .hero .hero-actions a.button-primary:hover{
   background:#e85a4a!important;
   background-image:none!important;
-  box-shadow:0 8px 18px rgba(255,107,90,.22)!important;
+  transform:translateY(-2px)!important;
+  box-shadow:0 12px 26px rgba(255,107,90,.3)!important;
+}
+@keyframes heroPhotoIn{
+  from{opacity:0;transform:translateY(8px)}
+  to{opacity:1;transform:translateY(0)}
+}
+html body main#main-content .hero .hero-media img{
+  width:100%!important;
+  height:auto!important;
+  max-height:none!important;
+  aspect-ratio:auto!important;
+  object-fit:contain!important;
+  object-position:center!important;
+  animation:heroPhotoIn .28s ease-out both!important;
+}
+@media (prefers-reduced-motion:reduce){
+  html body main#main-content .hero .hero-media img{
+    animation:none!important;
+  }
+  html body main#main-content .hero .hero-actions .button-primary,
+  html body main#main-content .hero .hero-actions a.button-primary{
+    transition:none!important;
+  }
 }
 
 /* Tablet + phone (≤1020): primary owns the row; secondary becomes a quiet text link */
@@ -1049,7 +1073,7 @@ html body main#main-content .hero .hero-actions a.button-primary:hover{
   }
 }
 
-/* Stacked hero (≤900): shorter photo, less air between copy / image / CTA */
+/* Stacked hero (≤900): full photo, less air between copy / image / CTA */
 @media (max-width:900px){
   html body main#main-content .hero{
     gap:0!important;
@@ -1063,12 +1087,13 @@ html body main#main-content .hero .hero-actions a.button-primary:hover{
     margin:0!important;
   }
   html body main#main-content .hero .hero-media img{
-    aspect-ratio:4/3!important;
-    max-height:min(420px,58vw)!important;
+    aspect-ratio:auto!important;
+    max-height:none!important;
     width:100%!important;
+    height:auto!important;
     border-radius:18px!important;
-    object-fit:cover!important;
-    object-position:center 40%!important;
+    object-fit:contain!important;
+    object-position:center!important;
   }
   html body main#main-content .hero .hero-actions{
     margin-top:8px!important;
@@ -1100,8 +1125,10 @@ html body main#main-content .hero .hero-actions a.button-primary:hover{
     padding-right:16px!important;
   }
   html body main#main-content .hero .hero-media img{
-    aspect-ratio:4/3!important;
-    max-height:min(360px,72vw)!important;
+    aspect-ratio:auto!important;
+    max-height:none!important;
+    height:auto!important;
+    object-fit:contain!important;
     border-radius:16px!important;
   }
   html body main#main-content .hero .hero-actions{
@@ -1161,6 +1188,10 @@ html body main#main-content .hero .hero-actions a.button-primary:hover{
     background:#fff!important;
   }
   html body main#main-content .hero .hero-media img{
+    aspect-ratio:auto!important;
+    max-height:none!important;
+    height:auto!important;
+    object-fit:contain!important;
     border-radius:20px!important;
   }
 }
@@ -3360,15 +3391,9 @@ html body .contact-option.max > span img{
   filter:none!important;
 }
 html body .contact-option.max > span{
-  background:#f3f0ff!important;
+  background:transparent!important;
   overflow:visible!important;
-  border-radius:10px!important;
-}
-html body .contact-option.max > span img{
-  width:28px!important;
-  height:28px!important;
-  max-width:28px!important;
-  max-height:28px!important;
+  border-radius:0!important;
 }
 html body .contact-request-summary{
   background:#fff!important;
@@ -3466,8 +3491,12 @@ html body .contact-request-summary{
     text-decoration:none!important;
     box-shadow:none!important;
   }
+  html body .mobile-order-msg.whatsapp,
+  html body .mobile-order-msg.telegram,
   html body .mobile-order-msg.max{
     background:transparent!important;
+    border-radius:0!important;
+    overflow:visible!important;
   }
   html body .mobile-order-msg small{
     display:none!important;
@@ -3720,8 +3749,8 @@ html body.delivery-page main#main-content footer .footer-contacts>button{
   html body .site-header .header-phone .vig-emoji,
   html body .header .header-phone .vig-emoji{
     flex-shrink:0!important;
-    width:20px!important;
-    height:20px!important;
+    width:28px!important;
+    height:28px!important;
     object-fit:contain!important;
     display:block!important;
     overflow:visible!important;
@@ -4036,6 +4065,15 @@ html body main#main-content footer .footer-contacts img{
 @media (max-width:1020px){
   html body:has(.product-page) main > footer{
     display:none!important;
+  }
+}
+/* Phone and tablet: sticky header is 76px. Keep hash targets below it. */
+@media (max-width:1020px){
+  html body main#main-content #budget,
+  html body main#main-content #characters,
+  html body main#main-content #delivery,
+  html body main#main-content #about{
+    scroll-margin-top:88px!important;
   }
 }
 @media (max-width:650px){

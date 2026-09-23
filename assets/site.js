@@ -255,7 +255,7 @@
     receipt: '🧾'
   };
   var VIG_EMOJI_SRC = {
-    phone: 'icons/clay-phone.png?v=1',
+    phone: 'icons/phone-smartphone.png?v=1',
     pin: 'icons/clay-pin.png?v=1',
     chat: 'icons/footer-chat.png?v=2',
     car: 'icons/line-delivery.svg',
@@ -422,10 +422,10 @@
   onScrollHeader();
 
   /* ---------- Contact modal ---------- */
-  var WA_ICON = '<img src="icons/brand-whatsapp.svg?v=3" alt="" width="40" height="40" decoding="async" aria-hidden="true"/>';
-  var TG_ICON = '<img src="icons/brand-telegram.svg?v=8" alt="" width="40" height="40" decoding="async" aria-hidden="true"/>';
-  var MAX_ICON = '<img src="icons/max-official.png" alt="" width="40" height="40" decoding="async" aria-hidden="true"/>';
-  var PHONE_ICON = '<img src="icons/brand-phone.svg?v=5" alt="" width="40" height="40" decoding="async" aria-hidden="true"/>';
+  var WA_ICON = '<img src="icons/brand-whatsapp.png?v=9" alt="" width="40" height="40" decoding="async" aria-hidden="true"/>';
+  var TG_ICON = '<img src="icons/brand-telegram.png?v=9" alt="" width="40" height="40" decoding="async" aria-hidden="true"/>';
+  var MAX_ICON = '<img src="icons/brand-max.png?v=9" alt="" width="40" height="40" decoding="async" aria-hidden="true"/>';
+  var PHONE_ICON = '<img src="icons/phone-smartphone.png?v=1" alt="" width="40" height="40" decoding="async" aria-hidden="true"/>';
 
   var modalEl = null;
   var lastFocus = null;

@@ -2220,13 +2220,11 @@ body:has(.product-page) footer .footer-cta{
     max-width:none!important;
     height:auto!important;
     max-height:none!important;
-    aspect-ratio:992 / 929!important;
-    object-fit:cover!important;
+    aspect-ratio:auto!important;
+    object-fit:contain!important;
     object-position:center!important;
     border-radius:0!important;
     background:transparent!important;
-    animation:none!important;
-    transform:none!important;
     filter:none!important;
     box-shadow:none!important;
     margin:0!important;
@@ -2290,10 +2288,9 @@ body:has(.product-page) footer .footer-cta{
     max-height:none!important;
     margin:0!important;
     border-radius:0!important;
-    aspect-ratio:992 / 929!important;
-    object-fit:cover!important;
+    aspect-ratio:auto!important;
+    object-fit:contain!important;
     object-position:center!important;
-    transform:none!important;
     box-shadow:none!important;
   }
 }

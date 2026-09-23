@@ -5,10 +5,10 @@
   var PHONE = '79284440142', PHONE_LABEL = '+7 928 444-01-42';
   var MAX_URL = 'https://max.ru/u/f9LHodD0cOJwY09H6Zj63nYK_X8tPZGb3CODIvTT7FWkRzrgbh5F582AiB8';
   var TG_URL = 'https://t.me/Olgamzz';
-  var WA_ICON = '<img src="icons/bar-whatsapp.png?v=1" alt="" width="40" height="40" decoding="async" aria-hidden="true"/>';
-  var TG_ICON = '<img src="icons/bar-telegram.png?v=1" alt="" width="40" height="40" decoding="async" aria-hidden="true"/>';
-  var MAX_ICON = '<img src="icons/bar-max.png?v=2" alt="" width="40" height="40" decoding="async" aria-hidden="true"/>';
-  var PHONE_ICON = '<img src="icons/bar-phone.svg?v=5" alt="" width="40" height="40" decoding="async" aria-hidden="true"/>';
+  var WA_ICON = '<img src="icons/brand-whatsapp.png?v=9" alt="" width="40" height="40" decoding="async" aria-hidden="true"/>';
+  var TG_ICON = '<img src="icons/brand-telegram.png?v=9" alt="" width="40" height="40" decoding="async" aria-hidden="true"/>';
+  var MAX_ICON = '<img src="icons/brand-max.png?v=9" alt="" width="40" height="40" decoding="async" aria-hidden="true"/>';
+  var PHONE_ICON = '<img src="icons/phone-smartphone.png?v=1" alt="" width="40" height="40" decoding="async" aria-hidden="true"/>';
 
   function esc(s) {
     return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -552,7 +552,7 @@
       html += '<section class="client-block client-contact' + (next === 'client-contact' ? ' is-next' : phoneOk() ? ' is-done' : '') + '" id="client-contact">' +
         '<h3 class="client-block-title">Контакт для заявки</h3>' +
         '<p class="client-digit-picked">' + esc(contactStatusText()) + '</p>' +
-        '<div class="contact-clay' + (phoneOk() ? ' is-on' : '') + '"><img src="icons/clay-phone.png?v=1" alt="" width="72" height="72"/></div>' +
+        '<div class="contact-clay' + (phoneOk() ? ' is-on' : '') + '"><img src="icons/phone-smartphone.png?v=1" alt="" width="72" height="72"/></div>' +
         contactFieldsHtml() +
         '</section>';
     }
@@ -1453,7 +1453,7 @@
       '<h2 id="product-order-title">Как удобнее оформить?</h2>' +
       '<div class="order-modal-summary"><span>' + esc(p.title) + '</span><strong>' + (priceFrom() ? 'от ' : '') + T.toLocaleString('ru-RU') + ' ₽</strong></div>' +
       '<div class="order-choice-stack">' +
-      '<button type="button" class="order-choice-btn is-primary" data-choice="site"><img class="order-choice-ico" src="icons/clay-phone.png?v=1" alt="" width="44" height="44"/><span><strong>Оставить заявку на сайте</strong><small>Перезвоним по телефону · вы никуда не уходите</small></span></button>' +
+      '<button type="button" class="order-choice-btn is-primary" data-choice="site"><img class="order-choice-ico" src="icons/phone-smartphone.png?v=1" alt="" width="44" height="44"/><span><strong>Оставить заявку на сайте</strong><small>Перезвоним по телефону · вы никуда не уходите</small></span></button>' +
       '<button type="button" class="order-choice-btn" data-choice="msg"><strong>Написать в мессенджер</strong><small>WhatsApp, Telegram или MAX</small></button>' +
       '</div>' +
       '<div class="order-choice-msg" hidden>' + messengerListHtml() + '</div>' +

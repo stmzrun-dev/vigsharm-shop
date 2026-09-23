@@ -2,6 +2,90 @@
   "ok": true,
   "products": [
     {
+      "id": "73ea343f-f56d-4c30-a0e0-1df80a0f8f40",
+      "title": "Черновик 23.09, 17:16",
+      "article": "DG-008",
+      "price": 0,
+      "short_description": "",
+      "full_description": "",
+      "composition": [],
+      "category": "",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "barbi-style-2",
+      "scene": "wall_only",
+      "tags": [],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790172849/vigsharm-products/kclcaklxehgzz5iaizqp.jpg"
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790172979/vigsharm-products/uw44ozvib8hahvxiegdz.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790172979/vigsharm-products/uw44ozvib8hahvxiegdz.png",
+      "status": "draft",
+      "show_on_site": false,
+      "created_at": "2026-09-23T14:16:20.849Z",
+      "updated_at": "2026-09-23T14:16:20.849Z"
+    },
+    {
+      "id": "f18b748d-0023-4c4d-961a-56d1e1c1ed54",
+      "title": "Барби-стайл",
+      "article": "GRL-046",
+      "price": 3510,
+      "short_description": "Яркая розово-чёрная композиция с крупной цифрой и шарами с надписями.",
+      "full_description": "Композиция в стиле Барби с фольгированной цифрой, шарами с конфетти и дерзкими надписями.",
+      "composition": [
+        "цифра",
+        "2 шара с конфетти",
+        "13 шаров с рисунком"
+      ],
+      "category": "Для девочки",
+      "character": null,
+      "age_group": "Для детей",
+      "budget": "3 500–5 000 ₽",
+      "series_name": "Барби",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары в стиле Барби с цифрой — Армавир | VigSharm",
+      "seo_description": "Яркая композиция из воздушных шаров в розово-чёрной гамме Барби с крупной цифрой. Доставка в Армавире. VigSharm.",
+      "slug": "barbi-style",
+      "scene": "wall_only",
+      "tags": [
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790172600/vigsharm-products/au80ig8zekx5auryqxf9.jpg",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790172670/vigsharm-products/de6i8mmire7kuglzcdpd.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790172670/vigsharm-products/de6i8mmire7kuglzcdpd.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-23T14:13:54.957Z",
+      "updated_at": "2026-09-23T14:13:54.957Z"
+    },
+    {
       "id": "a22517f8-7fc9-4952-9dba-166e33575dc6",
       "title": "Золотая мечта",
       "article": "GRL-041",

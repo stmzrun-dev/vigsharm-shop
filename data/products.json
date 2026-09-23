@@ -2,6 +2,97 @@
   "ok": true,
   "products": [
     {
+      "id": "8ab66da3-ad4c-4b86-bef2-4962e3e3d3b3",
+      "title": "Сиреневое величие",
+      "article": "JUB-014",
+      "price": 5660,
+      "short_description": "Композиция с крупными цифрами в фиолетово-серебряной гамме и напольными фонтанами из хромированных шаров.",
+      "full_description": "Элегантная композиция с серебряными фольгированными цифрами на основаниях из фиолетовых, серебряных и белых шаров. По бокам размещены высокие фонтаны из хромированных и латексных шаров в той же палитре.",
+      "composition": [
+        "14 хромированных шаров",
+        "6 латексных шаров",
+        "2 напольные композиции"
+      ],
+      "category": "Юбилей",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "5 000–8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Фиолетовый рубеж — композиция на юбилей в Армавире",
+      "seo_description": "Элегантная композиция с фольгированными цифрами и напольными фонтанами в фиолетово-серебряной гамме. Доставка воздушных шаров в Армавире.",
+      "slug": "fioletovyy-rubezh",
+      "scene": "floor",
+      "tags": [
+        "Юбилей",
+        "Для неё"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790141460/vigsharm-products/zdszhauoxana1rppuoil.jpg"
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790141515/vigsharm-products/uzy9vrv8aiu08ak6njtp.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790141515/vigsharm-products/uzy9vrv8aiu08ak6njtp.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-23T05:33:48.457Z",
+      "updated_at": "2026-09-23T05:33:48.457Z"
+    },
+    {
+      "id": "674564c8-cf7b-47df-a672-cdd3a01ceec8",
+      "title": "Розовый триумф",
+      "article": "JUB-013",
+      "price": 5000,
+      "short_description": "Золотые цифры с розовыми цветами и сердцем на нежном основании.",
+      "full_description": "Напольная композиция с золотыми фольгированными цифрами, украшенными розовыми цветами из шаров и фольгированным сердцем с надписью. Основание из розовых шаров с золотыми акцентами.",
+      "composition": [
+        "композиция из шаров"
+      ],
+      "category": "Юбилей",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "5 000–8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Композиция с цифрами на юбилей – розово-золотая, Армавир",
+      "seo_description": "Напольная композиция из шаров с золотыми цифрами, розовыми цветами и сердцем. Яркое оформление юбилея в Армавире. VigSharm.",
+      "slug": "rozovyy-triumf",
+      "scene": "floor",
+      "tags": [
+        "Юбилей",
+        "Для неё"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790141159/vigsharm-products/uyxusgaqmhjem742senr.jpg",
+        "floor_type": "air",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 2
+        }
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790141219/vigsharm-products/qbfqcjvwtpydmfpienfm.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790141219/vigsharm-products/qbfqcjvwtpydmfpienfm.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-23T05:28:46.697Z",
+      "updated_at": "2026-09-23T05:28:46.697Z"
+    },
+    {
       "id": "d1106fe5-c1cd-453b-98c5-77a1949184b6",
       "title": "Жемчужный рубеж",
       "article": "JUB-012",

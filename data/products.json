@@ -2,6 +2,317 @@
   "ok": true,
   "products": [
     {
+      "id": "8c1f0ae8-3235-4fe1-827e-249969477a1f",
+      "title": "Фиолетовое сияние",
+      "article": "GRL-067",
+      "price": 2880,
+      "short_description": "Композиция из фольгированных звёзд, хромированных шаров и конфетти в фиолетово-серебряной гамме.",
+      "full_description": "Настенная композиция с двумя фольгированными звёздами, хромированными шарами и прозрачными шарами с фиолетовым конфетти.",
+      "composition": [
+        "2 фольгированные звезды",
+        "3 шара с конфетти",
+        "8 хромированных шаров"
+      ],
+      "category": "Для девочки",
+      "character": null,
+      "age_group": "Для детей",
+      "budget": "2 000–3 500 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Фиолетовое сияние — композиция из шаров в Армавире",
+      "seo_description": "Композиция из фольгированных звёзд, хромированных шаров и конфетти в фиолетово-серебряной гамме. Доставка воздушных шаров в Армавире.",
+      "slug": "fioletovoe-siyanie",
+      "scene": "wall_only",
+      "tags": [
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790201068/vigsharm-products/dzfndafzk2raomke8dsm.webp"
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790201119/vigsharm-products/guiillaokih04kxjupv5.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790201119/vigsharm-products/guiillaokih04kxjupv5.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-23T22:07:07.707Z",
+      "updated_at": "2026-09-23T22:07:07.707Z"
+    },
+    {
+      "id": "b841fd2b-70b6-45fe-9569-f8404eecbcd4",
+      "title": "Золотое сердце",
+      "article": "HER-011",
+      "price": 3670,
+      "short_description": "Баблс с тёплой надписью, золотое сердце с цифрами и персиковые шары с конфетти.",
+      "full_description": "Композиция из прозрачного баблса с надписью и конфетти, фольгированного золотого сердца с цифрами, хромированных и латексных шаров в персиковых тонах.",
+      "composition": [
+        "баблс с конфетти и надписью",
+        "фольгированное сердце с надписью",
+        "2 хромированных шара",
+        "4 латексных шара"
+      ],
+      "category": "Для неё",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары на день рождения бабушке 55 лет — Армавир",
+      "seo_description": "Композиция из баблса с надписью, золотого сердца и персиковых шаров. Доставка по Армавиру.",
+      "slug": "zolotoe-serdce",
+      "scene": "wall_only",
+      "tags": [
+        "Для неё"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790200617/vigsharm-products/yxtjxsytpa616hrg3nwh.webp"
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790200679/vigsharm-products/lrzbk0fdhx6eg3xb92wh.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790200679/vigsharm-products/lrzbk0fdhx6eg3xb92wh.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-23T22:04:13.278Z",
+      "updated_at": "2026-09-23T22:04:13.278Z"
+    },
+    {
+      "id": "a207699a-9495-410a-aa9d-24c75ce564d3",
+      "title": "Сердечное признание",
+      "article": "MOM-003",
+      "price": 5300,
+      "short_description": "Композиция из красных фольгированных сердец и большого белого сердца с тёплой надписью.",
+      "full_description": "На фото композиция из 10 красных фольгированных сердец и одного большого белого сердца с надписью. Подходит для выражения чувств самым близким.",
+      "composition": [
+        "10 фольгированных сердец",
+        "большое фольгированное сердце с индивидуальной надписью"
+      ],
+      "category": "Для мамы",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "5 000–8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Композиция из сердец для мамы — VigSharm Армавир",
+      "seo_description": "Композиция из красных и белого фольгированных сердец с тёплой надписью. Для самых близких. Доставка по Армавиру.",
+      "slug": "serdechnoe-priznanie",
+      "scene": "wall_only",
+      "tags": [
+        "Для мамы"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790200270/vigsharm-products/mjqviy13mgvpto2elwyd.webp"
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790200415/vigsharm-products/g2uqb5vsmmwnzy7ga6b8.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790200415/vigsharm-products/g2uqb5vsmmwnzy7ga6b8.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-23T21:56:20.097Z",
+      "updated_at": "2026-09-23T21:56:20.097Z"
+    },
+    {
+      "id": "10c6397a-cb44-4315-a9e9-85e187d34eef",
+      "title": "С ДР Конфетти",
+      "article": "UNT-011",
+      "price": 150,
+      "short_description": "С ДР Конфетти",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "slonik-v-kolpachke-rozovyy-3",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Шары с рисунком",
+        "Для девочки",
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790199364/vigsharm-products/rggpqp18vkuh2hyzjebd.jpg",
+        "unit_type": "print",
+        "unit_who": [
+          "Для девочки",
+          "Для мальчика"
+        ]
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790199441/vigsharm-products/gd7ytoggw5z3lkppbwst.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790199441/vigsharm-products/gd7ytoggw5z3lkppbwst.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-23T21:38:40.393Z",
+      "updated_at": "2026-09-23T21:38:40.393Z"
+    },
+    {
+      "id": "0a127b7a-52b0-4979-a573-f9416b6c9635",
+      "title": "Лучшая жена",
+      "article": "UNT-010",
+      "price": 150,
+      "short_description": "Лучшая жена",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "slonik-v-kolpachke-rozovyy-2",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Шары с рисунком",
+        "Для неё"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790199161/vigsharm-products/z9mu27obtrpovoshooip.jpg",
+        "unit_type": "print",
+        "unit_who": [
+          "Для неё"
+        ]
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790199218/vigsharm-products/eq6nr2jvcxpbn1zanmea.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790199218/vigsharm-products/eq6nr2jvcxpbn1zanmea.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-23T21:35:53.289Z",
+      "updated_at": "2026-09-23T21:35:53.289Z"
+    },
+    {
+      "id": "444fe5d0-6d46-4b20-9187-7425f8215ecd",
+      "title": "Слоник в Колпачке, Розовый",
+      "article": "UNT-009",
+      "price": 650,
+      "short_description": "Слоник в Колпачке, Розовый",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "slonik-v-kolpachke-rozovyy",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Для девочки",
+        "На выписку"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790198927/vigsharm-products/rkgp9hgbzzlddxwtgxrx.jpg",
+        "unit_type": "foil",
+        "balloon_size": "89 см",
+        "unit_who": [
+          "Для девочки",
+          "На выписку"
+        ]
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790198999/vigsharm-products/p3qseoqgutcnthv1yhu4.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790198999/vigsharm-products/p3qseoqgutcnthv1yhu4.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-23T21:31:31.580Z",
+      "updated_at": "2026-09-23T21:31:31.580Z"
+    },
+    {
+      "id": "85f0ed77-1080-4632-8b73-e77ee640e134",
+      "title": "Бургер",
+      "article": "UNT-008",
+      "price": 600,
+      "short_description": "Бургер",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "burger",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790198604/vigsharm-products/orkmteovspzd8ttkwcv9.jpg",
+        "unit_type": "foil",
+        "balloon_size": "61 см"
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790198661/vigsharm-products/dyntm2fkuac8qsfqjvz5.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790198661/vigsharm-products/dyntm2fkuac8qsfqjvz5.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-23T21:24:41.071Z",
+      "updated_at": "2026-09-23T21:24:41.071Z"
+    },
+    {
       "id": "dce3ed25-e1ab-452f-89e7-8757fbee8f5c",
       "title": "Балерина Капучино",
       "article": "UNT-007",

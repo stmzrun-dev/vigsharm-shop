@@ -2,6 +2,332 @@
   "ok": true,
   "products": [
     {
+      "id": "5bc157ef-8136-4120-9a61-b9548a04ab58",
+      "title": "Фламинго на каникулах",
+      "article": "GRL-029",
+      "price": 3500,
+      "short_description": "Розовая цифра и фольгированный фламинго на ярких напольных композициях.",
+      "full_description": "Две напольные композиции с крупной розовой цифрой и фольгированным фламинго. Основа из бирюзовых, розовых и серебряных шаров создаёт яркий праздничный акцент.",
+      "composition": [
+        "2 напольные композиции"
+      ],
+      "category": "Для девочки",
+      "character": "Фламинго",
+      "age_group": "Для детей",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Напольные композиции с фламинго и цифрой — Армавир",
+      "seo_description": "Яркие напольные композиции с розовой цифрой и фольгированным фламинго. Бирюзовые, розовые и серебряные шары для детского праздника в Армавире.",
+      "slug": "flamingo-na-kanikulah",
+      "scene": "floor",
+      "tags": [
+        "Для девочки",
+        "Напольные композиции"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790161783/vigsharm-products/g7sbyscidwvvqj5uftfh.jpg",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790161826/vigsharm-products/cap8ewa7c4mrfwtrithn.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790161826/vigsharm-products/cap8ewa7c4mrfwtrithn.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-23T11:11:14.174Z",
+      "updated_at": "2026-09-23T11:11:14.174Z"
+    },
+    {
+      "id": "c92b6891-c610-4dd9-987c-ef0c3fe6c967",
+      "title": "Блестящая вечеринка",
+      "article": "GRL-028",
+      "price": 3500,
+      "short_description": "Золотая цифра с короной и куколка LOL на напольных композициях из розовых и золотых шаров.",
+      "full_description": "Композиция с крупной золотой цифрой, украшенной короной и гирляндой из шаров, и фольгированной фигурой куколки LOL. Две напольные стойки из розовых, золотых и белых шаров.",
+      "composition": [
+        "2 напольные композиции"
+      ],
+      "category": "Для девочки",
+      "character": "LOL",
+      "age_group": "Для детей",
+      "budget": "3 500–5 000 ₽",
+      "series_name": "LOL Surprise",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Золотая цифра с куклой LOL и короной — Армавир",
+      "seo_description": "Яркая композиция с золотой цифрой, короной и куколкой LOL на напольных стойках из розовых и золотых шаров. Доставка в Армавире.",
+      "slug": "zolotaya-koroleva-bala",
+      "scene": "floor",
+      "tags": [
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790161646/vigsharm-products/cysip1frq4fn1soimrmo.jpg",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790161710/vigsharm-products/y2kol2haqwp9kmpnfrb1.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790161710/vigsharm-products/y2kol2haqwp9kmpnfrb1.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-23T11:09:25.615Z",
+      "updated_at": "2026-09-23T11:09:25.615Z"
+    },
+    {
+      "id": "f34cba4f-03c1-4cb1-963e-354bdad3393b",
+      "title": "Гламурная тройка",
+      "article": "GRL-027",
+      "price": 5920,
+      "short_description": "Три фольгированные куклы LOL в окружении ярких фонтанов из шаров с золотым конфетти и фигурой на полу.",
+      "full_description": "Композиция с тремя фольгированными фигурами кукол LOL, фонтанами из разноцветных латексных шаров с золотым конфетти, шарами супер-агат и фигурой из шаров на полу. Яркое оформление в розово-фиолетово-жёлтой гамме с золотыми акцентами.",
+      "composition": [
+        "3 фольгированные фигуры",
+        "2 круга с рисунком",
+        "14 латексных шаров",
+        "2 шара с конфетти",
+        "2 шара супер-агат",
+        "фигура из шаров"
+      ],
+      "category": "Фигуры из шаров",
+      "character": "LOL",
+      "age_group": "Для детей",
+      "budget": "5 000–8 000 ₽",
+      "series_name": "LOL Surprise",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Гламурная тройка — шары LOL для девочки в Армавире",
+      "seo_description": "Композиция с тремя куклами LOL Surprise: фольгированные фигуры, фонтаны из шаров с золотым конфетти, агаты и фигура из шаров. Доставка по Армавиру.",
+      "slug": "glamurnaya-troyka",
+      "scene": "floor",
+      "tags": [
+        "Фигуры из шаров"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790161024/vigsharm-products/s6kt0cfrliml6cnqse44.jpg"
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790161216/vigsharm-products/mw4tdpd2jacididevv3u.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790161216/vigsharm-products/mw4tdpd2jacididevv3u.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-23T11:03:20.134Z",
+      "updated_at": "2026-09-23T11:03:20.134Z"
+    },
+    {
+      "id": "dfdfcd1a-3a91-4a46-b879-011a08966814",
+      "title": "Маленькая дива",
+      "article": "GRL-026",
+      "price": 3440,
+      "short_description": "Яркая композиция с куклой LOL в розово-белых тонах.",
+      "full_description": "Композиция с фольгированной цифрой, фигурой куклы LOL, звездой и фонтаном из шаров с конфетти. Оформлена в розовых и белых оттенках.",
+      "composition": [
+        "цифра",
+        "фольгированная фигура куклы LOL",
+        "фольгированная звезда",
+        "2 шара с конфетти",
+        "7 латексных шаров"
+      ],
+      "category": "Для девочки",
+      "character": "Кукла LOL",
+      "age_group": "Для детей",
+      "budget": "2 000–3 500 ₽",
+      "series_name": "LOL Surprise",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Композиция с куклой LOL и шарами, Армавир",
+      "seo_description": "Яркая композиция для девочки с фольгированной фигурой куклы LOL, цифрой, звездой и шарами с конфетти в розово-белых тонах.",
+      "slug": "malenkaya-diva",
+      "scene": "wall_only",
+      "tags": [
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790160901/vigsharm-products/prxn7qljypp8wiwxjxwp.jpg",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790160957/vigsharm-products/mz3nqyxyajxefn2jd8br.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790160957/vigsharm-products/mz3nqyxyajxefn2jd8br.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-23T10:56:41.167Z",
+      "updated_at": "2026-09-23T10:56:41.167Z"
+    },
+    {
+      "id": "18a09772-9ffe-4864-84fd-178346d15403",
+      "title": "Золотая королева",
+      "article": "GRL-025",
+      "price": 3080,
+      "short_description": "Золотые цифры, фольгированная кукла LOL и яркие шары с конфетти.",
+      "full_description": "Композиция с золотыми цифрами, фольгированной куклой LOL в золотом наряде и шарами с конфетти. Стильное сочетание золота, фуксии и белого.",
+      "composition": [
+        "цифра",
+        "фольгированная фигура кукла LOL",
+        "2 шара с конфетти",
+        "2 хромированных шара",
+        "4 латексных шара"
+      ],
+      "category": "Для девочки",
+      "character": "Кукла LOL",
+      "age_group": "Для детей",
+      "budget": "2 000–3 500 ₽",
+      "series_name": "LOL Surprise",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Воздушные шары с куклой LOL и цифрами, Армавир",
+      "seo_description": "Композиция с золотыми цифрами, фольгированной куклой LOL и яркими шарами с конфетти. Доставка в Армавире.",
+      "slug": "zolotaya-koroleva",
+      "scene": "wall_only",
+      "tags": [
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790160734/vigsharm-products/uyeb6l4ttop6ifr127tf.jpg",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790160782/vigsharm-products/epjbwp8m2f1f3ckjv6hf.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790160782/vigsharm-products/epjbwp8m2f1f3ckjv6hf.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-23T10:54:48.665Z",
+      "updated_at": "2026-09-23T10:54:48.665Z"
+    },
+    {
+      "id": "ed6bded6-fac2-41e4-a6d6-14f50fe8f1f7",
+      "title": "Перламутровый снег",
+      "article": "GRL-024",
+      "price": 3820,
+      "short_description": "Большой прозрачный баблс с крупинками пенопласта в окружении нежных пастельных шаров.",
+      "full_description": "Композиция с крупным баблсом, наполненным переливающимися крупинками пенопласта, и нежными латексными шарами в пастельной гамме. Воздушная и элегантная композиция для любого торжества.",
+      "composition": [
+        "баблс с крупинками пенопласта",
+        "2 шара с крупинками пенопласта",
+        "8 латексных шаров"
+      ],
+      "category": "Для девочки",
+      "character": null,
+      "age_group": "Для детей",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Перламутровый снег — композиция с баблсом в Армавире",
+      "seo_description": "Композиция с большим прозрачным баблсом, наполненным крупинками пенопласта, и нежными пастельными шарами. Доставка воздушных шаров в Армавире.",
+      "slug": "perlamutrovyy-sneg",
+      "scene": "wall_only",
+      "tags": [
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790160566/vigsharm-products/zjdrntlym40tbajljhry.jpg"
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790160645/vigsharm-products/qaafid772tvn3o8mmqd7.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790160645/vigsharm-products/qaafid772tvn3o8mmqd7.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-23T10:51:53.427Z",
+      "updated_at": "2026-09-23T10:51:53.427Z"
+    },
+    {
+      "id": "01c4dcdd-aa8f-4442-b49f-91c7b8623149",
+      "title": "Синий горизонт",
+      "article": "BOY-025",
+      "price": 4350,
+      "short_description": "Композиция с фольгированными цифрами, сердцем с надписью и хромированными шарами в сине-серебристых тонах.",
+      "full_description": "Яркая композиция в холодных оттенках синего и серебра. Крупные фольгированные цифры и сердце с поздравительной надписью создают праздничное настроение.",
+      "composition": [
+        "2 цифры",
+        "фольгированное сердце с индивидуальной надписью",
+        "10 хромированных латексных шаров"
+      ],
+      "category": "Для мальчика",
+      "character": null,
+      "age_group": "Для подростков",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Синий горизонт — композиция из шаров с цифрами в Армавире",
+      "seo_description": "Композиция в сине-серебристых тонах с фольгированными цифрами и сердцем. Стильное оформление для взрослого праздника. Доставка по Армавиру.",
+      "slug": "siniy-gorizont",
+      "scene": "wall_only",
+      "tags": [
+        "Для мальчика",
+        "Универсальные"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": true,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790151795/vigsharm-products/hduta4h73ge7nf1eut6f.jpg",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 2
+        }
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790160176/vigsharm-products/g36pgv7xq9pwt6fpgmmy.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790160176/vigsharm-products/g36pgv7xq9pwt6fpgmmy.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-23T10:48:47.035Z",
+      "updated_at": "2026-09-23T10:48:47.035Z"
+    },
+    {
       "id": "8ab66da3-ad4c-4b86-bef2-4962e3e3d3b3",
       "title": "Сиреневое величие",
       "article": "JUB-014",
@@ -31,10 +357,14 @@
       "client_options": {
         "available_on_request": false,
         "advance_order_1_2_days": false,
-        "number_choice": false,
+        "number_choice": true,
         "personal_inscription": false,
         "photozone_rental": false,
-        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790141460/vigsharm-products/zdszhauoxana1rppuoil.jpg"
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790141460/vigsharm-products/zdszhauoxana1rppuoil.jpg",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 2
+        }
       },
       "photos": [
         "https://res.cloudinary.com/saiuc42a/image/upload/v1790141515/vigsharm-products/uzy9vrv8aiu08ak6njtp.png"
@@ -43,7 +373,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T05:33:48.457Z",
-      "updated_at": "2026-09-23T05:33:48.457Z"
+      "updated_at": "2026-09-23T10:56:51.342Z"
     },
     {
       "id": "674564c8-cf7b-47df-a672-cdd3a01ceec8",

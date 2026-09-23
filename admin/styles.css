@@ -748,6 +748,20 @@ body.admin-editor-open{overflow:hidden}
   border-color:#1976D2;background:#E3F2FD;color:#0D47A1;box-shadow:0 0 0 2px rgba(25,118,210,.12)
 }
 .photozone-type-early.scene-subchips{margin:8px 0 0;padding:8px}
+.unit-balloon-size-wrap{margin:8px 0 0}
+.unit-balloon-size-wrap.hidden{display:none!important}
+.unit-balloon-size-wrap label{
+  display:block;margin:0 0 4px;font-size:11px;font-weight:700;color:#E65100
+}
+.unit-balloon-size-wrap input{
+  width:100%;box-sizing:border-box;min-height:36px;padding:6px 10px;
+  border:1px solid #E0E0E0;border-radius:8px;font:inherit;font-size:13px;background:#fff
+}
+.unit-balloon-who-wrap{margin:8px 0 0}
+.unit-balloon-who-wrap.hidden{display:none!important}
+.unit-who-row{
+  display:grid;grid-template-columns:1fr 1fr;gap:5px
+}
 
 /* Шаг 1: место под sticky action-bar, чтобы «Далее» не перекрывалась */
 .product-editor.is-quiet-chrome #product-form.is-editor-step-1{

@@ -200,10 +200,6 @@ Object.assign(app, {
       this.toast('Сначала загрузите фото', 'info');
       return false;
     }
-    if (this.isUnitBalloonMode?.()) {
-      this.goStep1Phase('c', { skipGate: true });
-      return true;
-    }
     return this.processStudioProNew?.();
   },
 

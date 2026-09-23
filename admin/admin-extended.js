@@ -292,6 +292,7 @@ Object.assign(app, {
     this.wirePhotozoneTypeControls?.();
     this.wireFloorTypeControls?.();
     this.wireBouquetTypeControls?.();
+    this.wireUnitBalloonTypeControls?.();
     this.wireOccasionShelfControls?.();
     this.syncAdvanceOrderFromScene?.();
     this.syncOccasionShelfFields?.();
@@ -939,6 +940,102 @@ Object.assign(app, {
     });
   },
 
+  getUnitBalloonType() {
+    const checked = document.querySelector('input[name="unit-balloon-type-early"]:checked');
+    const val = checked?.value || '';
+    return (typeof UNIT_BALLOON_TYPES !== 'undefined' && UNIT_BALLOON_TYPES[val]) ? val : '';
+  },
+
+  setUnitBalloonType(type) {
+    this.renderUnitWhoChips?.();
+    const value = (typeof UNIT_BALLOON_TYPES !== 'undefined' && UNIT_BALLOON_TYPES[type]) ? type : '';
+    document.querySelectorAll('input[name="unit-balloon-type-early"]').forEach((el) => {
+      el.checked = !!value && el.value === value;
+    });
+    const meta = UNIT_BALLOON_TYPES[value];
+    const wrap = document.getElementById('unit-balloon-size-wrap');
+    if (wrap) wrap.classList.toggle('hidden', !meta?.hasSize);
+    if (!meta?.hasSize) {
+      const sizeEl = document.getElementById('unit-balloon-size');
+      if (sizeEl && !value) sizeEl.value = '';
+    }
+    const whoWrap = document.getElementById('unit-balloon-who-wrap');
+    if (whoWrap) whoWrap.classList.toggle('hidden', !meta?.hasWho);
+    if (!meta?.hasWho) this.setUnitBalloonWho?.('');
+  },
+
+  getUnitBalloonWho() {
+    const checked = document.querySelector('input[name="unit-balloon-who-early"]:checked');
+    const val = checked?.value || '';
+    const list = (typeof UNIT_WHO_PICKS !== 'undefined' && UNIT_WHO_PICKS) || [];
+    return list.some((x) => x.tag === val) ? val : '';
+  },
+
+  setUnitBalloonWho(tag) {
+    this.renderUnitWhoChips?.();
+    const list = (typeof UNIT_WHO_PICKS !== 'undefined' && UNIT_WHO_PICKS) || [];
+    const value = list.some((x) => x.tag === tag) ? tag : '';
+    document.querySelectorAll('input[name="unit-balloon-who-early"]').forEach((el) => {
+      el.checked = !!value && el.value === value;
+    });
+  },
+
+  inferUnitBalloonWho(product) {
+    const opts = product?.client_options || {};
+    const list = (typeof UNIT_WHO_PICKS !== 'undefined' && UNIT_WHO_PICKS) || [];
+    if (opts.unit_who && list.some((x) => x.tag === opts.unit_who)) return opts.unit_who;
+    const hay = [product?.category].concat(product?.tags || []);
+    const hit = list.find((x) => hay.includes(x.tag));
+    return hit ? hit.tag : '';
+  },
+
+  renderUnitWhoChips() {
+    const row = document.getElementById('unit-who-row');
+    if (!row || row.dataset.ready === '1') return;
+    const list = (typeof UNIT_WHO_PICKS !== 'undefined' && UNIT_WHO_PICKS) || [];
+    const esc = (s) => String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
+    row.innerHTML = list.map((item, i) => `
+      <label class="scene-subchip">
+        <input type="radio" name="unit-balloon-who-early" id="unit-who-${i}" value="${esc(item.tag)}"/>
+        <span>${esc(item.label)}</span>
+      </label>
+    `).join('');
+    row.dataset.ready = '1';
+  },
+
+  inferUnitBalloonType(product) {
+    const opts = product?.client_options || {};
+    if (opts.unit_type && typeof UNIT_BALLOON_TYPES !== 'undefined' && UNIT_BALLOON_TYPES[opts.unit_type]) {
+      return opts.unit_type;
+    }
+    const hay = [product?.category].concat(product?.tags || []);
+    if (hay.includes('Шары с рисунком')) return 'print';
+    if (hay.includes('Фольгированные фигуры')) return 'foil';
+    if (hay.includes('Латексные шары')) return 'latex';
+    return '';
+  },
+
+  wireUnitBalloonTypeControls() {
+    if (this._unitBalloonTypeWired) return;
+    this._unitBalloonTypeWired = true;
+    this.renderUnitWhoChips?.();
+    const sync = (e) => {
+      const val = e?.target?.checked === false ? '' : (e?.target?.value || this.getUnitBalloonType());
+      this.setUnitBalloonType(val);
+      this.scheduleSaveActiveStudioDraft?.();
+    };
+    document.querySelectorAll('input[name="unit-balloon-type-early"]').forEach((el) => {
+      el.addEventListener('change', sync);
+    });
+    const sizeEl = document.getElementById('unit-balloon-size');
+    if (sizeEl) {
+      sizeEl.addEventListener('input', () => this.scheduleSaveActiveStudioDraft?.());
+    }
+    document.querySelectorAll('input[name="unit-balloon-who-early"]').forEach((el) => {
+      el.addEventListener('change', () => this.scheduleSaveActiveStudioDraft?.());
+    });
+  },
+
   // === Form Events ===
   setupFormEvents() {
     // ОТКЛЮЧЕНО: кнопка "Сгенерировать данные через ИИ" использует onclick="app.generateAIMetadata()"
@@ -1328,6 +1425,21 @@ Object.assign(app, {
     if (isBalloonFlowers || (scene === 'handheld_bouquet' && this.getBouquetType?.() === 'flowers')) {
       clientOptions.bouquet_type = 'flowers';
     }
+    if (unit) {
+      const unitType = this.getUnitBalloonType?.() || '';
+      const unitMeta = (typeof UNIT_BALLOON_TYPES !== 'undefined' && UNIT_BALLOON_TYPES[unitType]) || null;
+      if (unitMeta) {
+        clientOptions.unit_type = unitType;
+        if (unitMeta.hasSize) {
+          const size = (document.getElementById('unit-balloon-size')?.value || '').trim();
+          if (size) clientOptions.balloon_size = size;
+        }
+        if (unitMeta.hasWho) {
+          const who = this.getUnitBalloonWho?.() || '';
+          if (who) clientOptions.unit_who = who;
+        }
+      }
+    }
     if (rentalChecked) {
       clientOptions.rental = {
         enabled: true,
@@ -1387,6 +1499,15 @@ Object.assign(app, {
     finalTags = finalTags.filter((t) => !deferred.includes(t));
     if (scene === 'wall_only' || scene === 'unit_balloon') {
       finalTags = finalTags.filter((t) => t !== 'Напольные композиции');
+    }
+    if (unit) {
+      const unitType = this.getUnitBalloonType?.() || '';
+      const unitMeta = (typeof UNIT_BALLOON_TYPES !== 'undefined' && UNIT_BALLOON_TYPES[unitType]) || null;
+      if (unitMeta?.tag && !finalTags.includes(unitMeta.tag)) finalTags.push(unitMeta.tag);
+      if (unitMeta?.hasWho) {
+        const who = this.getUnitBalloonWho?.() || '';
+        if (who && !finalTags.includes(who)) finalTags.push(who);
+      }
     }
     if (deferred.includes(category)) category = finalTags[0] || '';
 
@@ -1488,6 +1609,10 @@ Object.assign(app, {
     this.setPhotozoneType?.('frame');
     this.setFloorType?.('');
     this.setBouquetType?.('');
+    this.setUnitBalloonType?.('');
+    this.setUnitBalloonWho?.('');
+    const unitSizeEl = document.getElementById('unit-balloon-size');
+    if (unitSizeEl) unitSizeEl.value = '';
     const rentalItemEl = document.getElementById('rental-item');
     if (rentalItemEl) {
       rentalItemEl.value = '';
@@ -1496,6 +1621,7 @@ Object.assign(app, {
     this.wirePhotozoneTypeControls?.();
     this.wireFloorTypeControls?.();
     this.wireBouquetTypeControls?.();
+    this.wireUnitBalloonTypeControls?.();
     this.syncAdvanceOrderFromScene?.();
     this.syncRequiredFieldHighlights?.();
     this.updateEditorAutosaveHint?.('');
@@ -1625,9 +1751,14 @@ app.loadProductToForm = function(product) {
     || product.category === 'Цветы из шаров'
     || (product.tags || []).includes('Цветы из шаров')) ? 'flowers' : '';
   this.setBouquetType?.(bouquetTypeSaved);
+  this.setUnitBalloonType?.(this.inferUnitBalloonType?.(product) || '');
+  this.setUnitBalloonWho?.(this.inferUnitBalloonWho?.(product) || '');
+  const unitSizeEl = document.getElementById('unit-balloon-size');
+  if (unitSizeEl) unitSizeEl.value = opts.balloon_size || '';
   this.wirePhotozoneTypeControls?.();
   this.wireFloorTypeControls?.();
   this.wireBouquetTypeControls?.();
+  this.wireUnitBalloonTypeControls?.();
   this.wireOccasionShelfControls?.();
   this.syncAIFillGate?.();
   this.syncUnitBalloonForm?.(false);

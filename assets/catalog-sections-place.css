@@ -165,7 +165,38 @@ html body main#main-content.catalog-page .catalog-group-nav.catalog-sections > b
 .catalog-idea-board .pick-choices{
   margin-top:4px;
 }
-.catalog-ready-open{
+.catalog-ready-what-toggle{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:100%;
+  min-height:44px;
+  margin:0 0 10px;
+  padding:0 16px;
+  border:0;
+  border-radius:16px;
+  background:#fff1f4;
+  font:inherit;
+  font-size:14px;
+  font-weight:800;
+  color:#6f6570;
+  cursor:pointer;
+}
+.pick-band-what{
+  position:relative;
+}
+.pick-kicker-hide{
+  position:absolute;
+  top:4px;
+  right:8px;
+  border:0;
+  background:transparent;
+  font:inherit;
+  font-size:13px;
+  font-weight:750;
+  color:#8a8184;
+  cursor:pointer;
+}
   display:inline-flex;
   align-items:center;
   min-height:40px;

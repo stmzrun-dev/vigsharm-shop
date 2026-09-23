@@ -55,6 +55,8 @@ Object.assign(app, {
     if (earlyFloor) earlyFloor.classList.toggle('hidden', scene !== 'floor');
     const earlyBouquet = document.getElementById('bouquet-type-early');
     if (earlyBouquet) earlyBouquet.classList.toggle('hidden', scene !== 'handheld_bouquet');
+    const earlyUnit = document.getElementById('unit-type-early');
+    if (earlyUnit) earlyUnit.classList.toggle('hidden', scene !== 'unit_balloon');
     // Подсказку Manus на экране сцен не показываем
     if (el) {
       el.hidden = true;
@@ -588,6 +590,9 @@ Object.assign(app, {
       photozone_type: this.getPhotozoneType?.() || 'frame',
       floor_type: this.getFloorType?.() || '',
       bouquet_type: this.getBouquetType?.() || '',
+      unit_type: this.getUnitBalloonType?.() || '',
+      unit_who: this.getUnitBalloonWho?.() || '',
+      balloon_size: document.getElementById('unit-balloon-size')?.value || '',
       ts: Date.now(),
       ...extra
     };
@@ -702,6 +707,10 @@ Object.assign(app, {
       if (draft.photozone_type) this.setPhotozoneType?.(draft.photozone_type);
       if (draft.floor_type) this.setFloorType?.(draft.floor_type);
       this.setBouquetType?.(draft.bouquet_type || '');
+      this.setUnitBalloonType?.(draft.unit_type || '');
+      this.setUnitBalloonWho?.(draft.unit_who || '');
+      const sizeEl = document.getElementById('unit-balloon-size');
+      if (sizeEl && draft.balloon_size != null) sizeEl.value = draft.balloon_size;
 
       const priceEl = document.getElementById('product-price');
       if (priceEl && draft.price != null && draft.price !== '') {

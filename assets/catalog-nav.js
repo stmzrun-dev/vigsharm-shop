@@ -76,6 +76,7 @@
   var q = '', category = 'Все товары', priceIdx = 0, age = '', character = '', filter = '', group = 'ready', sortMode = '';
   var unitStep = '';
   var sheetDraft = '';
+  var readyWhatOpen = false;
   var filtersOpen = false;
   var fromUrl = false;
   var navSignature = '';
@@ -399,7 +400,16 @@
     'Оформление праздника': 'images/ready/party.jpg?v=20260923',
     'День рождения': 'images/ready/birthday.jpg?v=20260923'
   };
-  var WHO_PICKS = ['Для девочки', 'Для мальчика', 'Для неё', 'Для него', 'На выписку', 'День рождения', 'Юбилей', 'Геймерам', 'Универсальные'];
+  var WHO_PICKS = [
+    ['Для неё', 'Для неё'],
+    ['Для него', 'Для него'],
+    ['Девочкам', 'Для девочки'],
+    ['Мальчикам', 'Для мальчика'],
+    ['Геймерам', 'Геймерам'],
+    ['Выписка', 'На выписку'],
+    ['Свадьба&Девичник', 'Свадьба и девичник'],
+    ['1 годик', '1 годик']
+  ];
   var UNIT_TYPES = [
     ['Латекс', 'images/balloons/balloon-latex.jpg', 'latex', 'Латексные шары'],
     ['С рисунком', 'images/balloons/balloon-print.jpg', 'who', 'Шары с рисунком'],
@@ -577,7 +587,10 @@
     } else if (group === 'unit' && unitStep === 'who') {
       title = 'Кому шар?';
       lead = 'Список без картинок.';
-      html = textButtons(WHO_PICKS);
+      html = '<div class="pick-choices">' + WHO_PICKS.map(function (row) {
+        var on = sheetDraft === row[1] || sheetDraft === row[0];
+        return '<button type="button" class="' + (on ? 'is-on' : '') + '" data-pick="' + esc(row[1]) + '">' + esc(row[0]) + '</button>';
+      }).join('') + '</div>';
     } else if (group === 'unit') {
       title = 'Какие шары?';
       lead = 'Сначала вид. Если нужно — можно показать все шары этого вида.';
@@ -778,19 +791,25 @@
     ];
     var occasions = READY_MORE.concat(['Гендер-пати']);
     var what = READY_WHAT.filter(function (name) { return name !== 'Гендер-пати'; });
+    var showWhat = readyWhatOpen;
     function hero(name, src, label) {
       var on = category === name ? ' is-on' : '';
       return '<button type="button" class="pick-hero' + on + '" data-idea="' + esc(name) + '">' +
         '<span class="pick-hero-ring"><img src="' + src + '" alt=""/></span><b>' + esc(label) + '</b></button>';
     }
-    return '<div class="pick-band pick-band-who"><p class="pick-kicker">Кому</p><div class="pick-heroes">' +
+    var html = '<div class="pick-band pick-band-who"><p class="pick-kicker">Кому</p><div class="pick-heroes">' +
       who.map(function (row) { return hero(row[0], row[1], row[0]); }).join('') + '</div></div>' +
       '<div class="pick-band pick-band-why"><p class="pick-kicker">Повод</p><div class="pick-more">' +
       occasions.map(function (name) {
         return '<button type="button" class="' + (category === name ? 'is-on' : '') + '" data-idea="' + esc(name) + '">' + esc(name) + '</button>';
-      }).join('') + '</div></div>' +
-      '<div class="pick-band pick-band-what"><p class="pick-kicker">Что заказать</p><div class="pick-heroes">' +
+      }).join('') + '</div></div>';
+    if (!showWhat) {
+      html += '<button type="button" class="catalog-ready-what-toggle" data-what-toggle>Что заказать</button>';
+      return html;
+    }
+    html += '<div class="pick-band pick-band-what"><p class="pick-kicker">Что заказать</p><button type="button" class="pick-kicker-hide" data-what-toggle>Скрыть</button><div class="pick-heroes">' +
       what.map(function (name) { return hero(name, READY_PHOTOS[name] || '', ideaLabel(name)); }).join('') + '</div></div>';
+    return html;
   }
 
   function circleOn(selected, row) {
@@ -857,9 +876,14 @@
       if (type && type[2] === 'latex') {
         html += bandCircles(LATEX_TYPES, category, 'pick-band-who', 'Какой латекс');
       } else if (type && type[2] === 'who') {
-        html += '<div class="pick-band pick-band-why"><p class="pick-kicker">Кому шар</p><div class="pick-more">' + WHO_PICKS.map(function (name) {
-          return '<button type="button" class="' + (filter === name ? 'is-on' : '') + '" data-who="' + esc(name) + '">' + esc(name) + '</button>';
-        }).join('') + '</div></div>';
+        var typeHasGoods = products.some(function (p) {
+          return inGroup(p, 'unit') && productHasLabel(p, type[3]);
+        });
+        if (typeHasGoods) {
+          html += '<div class="pick-band pick-band-why"><p class="pick-kicker">Кому шар</p><div class="pick-more">' + WHO_PICKS.map(function (row) {
+            return '<button type="button" class="' + (filter === row[1] ? 'is-on' : '') + '" data-who="' + esc(row[1]) + '">' + esc(row[0]) + '</button>';
+          }).join('') + '</div></div>';
+        }
       }
       return html;
     }
@@ -886,6 +910,14 @@
       if (groupNav) groupNav.after(old);
     }
     old.innerHTML = boardHtml();
+    old.querySelectorAll('[data-what-toggle]').forEach(function (b) {
+      b.addEventListener('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        readyWhatOpen = !readyWhatOpen;
+        render();
+      });
+    });
     old.querySelectorAll('[data-idea]').forEach(function (b) {
       b.addEventListener('click', function () {
         var name = b.getAttribute('data-idea');
@@ -972,6 +1004,7 @@
       priceIdx !== 0 ? 1 : 0,
       age ? 1 : 0,
       ages.length,
+      readyWhatOpen ? 1 : 0,
       subcatList().join(',')
     ].join('|');
   }
@@ -1058,22 +1091,18 @@
         body += '<div class="catalog-load-more"><button type="button" data-more>Показать ещё <span>' + Math.min(PAGE_SIZE, list.length - visibleCount) + '</span></button><small>Показано ' + shown.length + ' из ' + list.length + '</small></div>';
       }
     } else {
+      var emptyUnitType = group === 'unit' && category !== 'Все товары';
       var pr = PRICES[priceIdx];
-      var sugg = products.filter(function (p) { return group === 'all' || inGroup(p, group); })
+      var sugg = emptyUnitType ? [] : products.filter(function (p) { return group === 'all' || inGroup(p, group); })
         .filter(function (p) { return priceIdx === 0 || (p.price >= pr.min && p.price <= pr.max); }).slice(0, 4);
-      body = '<div class="catalog-empty">' + window.vigEmoji('balloon') + '<h3>Пока ничего не нашли</h3><p>Попробуйте изменить запрос или напишите нам — подберём композицию под ваш праздник и бюджет.</p>' +
+      var emptyLead = emptyUnitType
+        ? 'Таких шаров в каталоге пока нет. Сбросьте фильтр или напишите нам — подскажем, что можно заказать.'
+        : 'Попробуйте изменить запрос или напишите нам — подберём композицию под ваш праздник и бюджет.';
+      body = '<div class="catalog-empty">' + window.vigEmoji('balloon') + '<h3>Пока ничего не нашли</h3><p>' + emptyLead + '</p>' +
         '<div class="catalog-empty-actions"><button type="button" class="secondary" data-reset>Сбросить поиск и фильтры</button><button type="button" data-help>Помочь с выбором</button></div></div>';
       if (sugg.length) {
         body += '<section class="catalog-empty-suggestions" aria-labelledby="empty-suggestions-title"><div><p class="eyebrow">Возможно, вам подойдёт</p><h3 id="empty-suggestions-title">Популярные варианты из этого раздела</h3></div>' +
-          '<div class="catalog-grid">' + sugg.map(function (p, i) {
-            var key = (window.vigProductPhoto ? window.vigProductPhoto(p) : '') || (p.image_keys && p.image_keys[0]) || '';
-            var img = key ? '<img src="' + window.vigImage(key) + '" data-key="' + esc(key) + '" alt="' + esc(p.title) + '" loading="lazy" decoding="async" width="800" height="800"/>' : window.vigEmoji('balloon');
-            var from = (p.tags || []).indexOf('Цена от') >= 0 ? 'от ' : '';
-            return '<a class="catalog-card color-' + (i % 5) + '" href="product.html?slug=' + encodeURIComponent(p.slug || p.id) + '" aria-label="Подробнее: ' + esc(p.title) + '">' +
-              '<span class="catalog-card-image">' + img + '</span>' +
-              '<span class="catalog-card-copy"><small>' + esc(p.category || 'Композиция') + '</small><strong>' + esc(p.title) + '</strong>' +
-              '<span class="catalog-card-price"><b>' + from + Number(p.price).toLocaleString('ru-RU') + ' ₽</b></span></span></a>';
-          }).join('') + '</div></section>';
+          '<div class="catalog-grid">' + sugg.map(cardHtml).join('') + '</div></section>';
       }
     }
     var custom = !loading ? '<div class="related-custom-card catalog-custom-order"><div><strong>Не нашли подходящую композицию?</strong><p>Напишите, для какого праздника и на какой бюджет нужен вариант — поможем подобрать.</p></div><button type="button" data-help>Подобрать вариант</button></div>' : '';

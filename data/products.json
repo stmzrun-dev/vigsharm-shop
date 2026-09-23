@@ -2,6 +2,53 @@
   "ok": true,
   "products": [
     {
+      "id": "5a9800d9-bb58-4a83-b1bc-8a32555b3ac8",
+      "title": "Нежный сюрприз",
+      "article": "BOX-011",
+      "price": 5000,
+      "short_description": "Розовая коробка-сюрприз с фольгированной цифрой и россыпью звёзд в пастельных тонах.",
+      "full_description": "Нежная композиция в розово-сиреневых оттенках. Из коробки с атласными лентами вылетают фольгированные звёзды и крупная цифра.",
+      "composition": [
+        "7 фольгированных звёзд",
+        "цифра",
+        "коробка 70x70x70 с индивидуальной надписью и декором"
+      ],
+      "category": "Коробка-сюрприз",
+      "character": null,
+      "age_group": "Для детей",
+      "budget": "5 000–8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Розовая коробка-сюрприз с цифрой и звёздами — Армавир",
+      "seo_description": "Нежная коробка-сюрприз с фольгированной цифрой и россыпью звёзд в розово-сиреневых тонах. Доставка воздушных шаров в Армавире.",
+      "slug": "rozovaya-mechta-korobka",
+      "scene": "floor",
+      "tags": [
+        "Коробка-сюрприз"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790204845/vigsharm-products/exze8qs7juvfst8qttkr.webp",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790204883/vigsharm-products/m0b96aaaxosweldqypcu.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790204883/vigsharm-products/m0b96aaaxosweldqypcu.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-23T23:09:31.565Z",
+      "updated_at": "2026-09-23T23:09:31.565Z"
+    },
+    {
       "id": "8c1f0ae8-3235-4fe1-827e-249969477a1f",
       "title": "Фиолетовое сияние",
       "article": "GRL-067",

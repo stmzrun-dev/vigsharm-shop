@@ -2,6 +2,316 @@
   "ok": true,
   "products": [
     {
+      "id": "dce3ed25-e1ab-452f-89e7-8757fbee8f5c",
+      "title": "Балерина Капучино",
+      "article": "UNT-007",
+      "price": 700,
+      "short_description": "Балерина Капучино",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "balerina-kapuchino",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790197330/vigsharm-products/crtqbvohpjylen7fmnsp.jpg",
+        "unit_type": "foil",
+        "balloon_size": "56 см",
+        "unit_who": "Для девочки"
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790197445/vigsharm-products/qzfcuuuxkpbblubxzfrr.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790197445/vigsharm-products/qzfcuuuxkpbblubxzfrr.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-23T21:04:06.599Z",
+      "updated_at": "2026-09-23T21:04:06.599Z"
+    },
+    {
+      "id": "b0e552b4-aad2-4813-b004-9d5a9af9de4d",
+      "title": "Пинки Пай",
+      "article": "GRL-066",
+      "price": 2140,
+      "short_description": "Розовая пони с яркой гривой и шарами в нежных тонах.",
+      "full_description": "Композиция с фольгированной фигурой пони Пинки Пай, розовым сердцем и латексными шарами. Идеально для поклонниц My Little Pony.",
+      "composition": [
+        "6 латексных шаров",
+        "фольгированное сердце",
+        "фольгированная фигура пони"
+      ],
+      "category": "Для девочки",
+      "character": "Пинки Пай",
+      "age_group": "Для детей",
+      "budget": "2 000–3 500 ₽",
+      "series_name": "My Little Pony",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары Пинки Пай из My Little Pony — Армавир",
+      "seo_description": "Композиция с розовой пони Пинки Пай, сердцем и шарами. Доставка воздушных шаров для девочек в Армавире от VigSharm.",
+      "slug": "pinki-pai",
+      "scene": "wall_only",
+      "tags": [
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790197018/vigsharm-products/q1ffaiwyzgfaqfznb9dk.png"
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790197170/vigsharm-products/ef3zknulzdnrgeo2zplw.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790197170/vigsharm-products/ef3zknulzdnrgeo2zplw.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-23T21:00:34.445Z",
+      "updated_at": "2026-09-23T21:00:34.445Z"
+    },
+    {
+      "id": "a5790385-adfd-4e8f-9b36-ff326c05f8a8",
+      "title": "Бирюзовый хищник",
+      "article": "BQT-017",
+      "price": 2500,
+      "short_description": "Букет из бирюзовых сердец с леопардовым принтом и персональными надписями.",
+      "full_description": "Яркий букет из фольгированных сердец бирюзового цвета с леопардовым принтом. В центре композиции чёрное сердце с персональной надписью, дополненное белыми цветами-наполнителями.",
+      "composition": [
+        "букет из шаров с надписями"
+      ],
+      "category": "Букет из шаров",
+      "character": null,
+      "age_group": "Для детей",
+      "budget": "2 000–3 500 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Букет из бирюзовых шаров с леопардовым принтом — Армавир",
+      "seo_description": "Стильный букет из фольгированных сердец бирюзового цвета с леопардовым принтом и персональной надписью. Доставка воздушных шаров в Армавире.",
+      "slug": "biryuzovyy-khishchnik",
+      "scene": "handheld_bouquet",
+      "tags": [
+        "Букет из шаров"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790195691/vigsharm-products/stnmgk75n4a0ibwsvjaf.jpg"
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790195804/vigsharm-products/nx5xblf3dclieugbkyug.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790195804/vigsharm-products/nx5xblf3dclieugbkyug.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-23T20:38:15.351Z",
+      "updated_at": "2026-09-23T20:38:15.351Z"
+    },
+    {
+      "id": "9800377d-6175-4480-bece-7ea7fc3632b6",
+      "title": "Звёздная битва",
+      "article": "GMR-005",
+      "price": 2880,
+      "short_description": "Фольгированная фигура персонажа и яркие шары с героями Brawl Stars.",
+      "full_description": "Композиция с фольгированной фигурой бойца и набором разноцветных шаров с принтами персонажей Brawl Stars. Два круга с логотипом игры дополняют тематическое оформление.",
+      "composition": [
+        "фольгированная фигура",
+        "2 круга с рисунком",
+        "6 шаров с рисунком",
+        "2 шара"
+      ],
+      "category": "Геймерам",
+      "character": "Леон",
+      "age_group": "Для детей",
+      "budget": "2 000–3 500 ₽",
+      "series_name": "Brawl Stars",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары Brawl Stars в Армавире — фигура и набор с героями игры",
+      "seo_description": "Набор шаров Brawl Stars с фольгированной фигурой персонажа, кругами с логотипом и яркими шарами с героями игры. Доставка в Армавире.",
+      "slug": "zvezdnaya-bitva",
+      "scene": "wall_only",
+      "tags": [
+        "Геймерам"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790195061/vigsharm-products/uufp9xgzfzllp0ttqmq4.jpg"
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790195147/vigsharm-products/b9ytpyevoxxjdsejgbh9.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790195147/vigsharm-products/b9ytpyevoxxjdsejgbh9.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-23T20:26:44.722Z",
+      "updated_at": "2026-09-23T20:26:44.722Z"
+    },
+    {
+      "id": "ad93cd7c-5ca6-41ac-9e5e-5c2f7af2fa01",
+      "title": "Игра на выживание",
+      "article": "GMR-004",
+      "price": 2130,
+      "short_description": "Композиция с героями Among Us: фольгированная фигура, цифра и звезда с яркими шарами.",
+      "full_description": "В составе крупная фольгированная фигура персонажа Among Us, цифра 7 с принтом героев игры, звезда с рисунком и 7 латексных шаров.",
+      "composition": [
+        "фольгированная звезда с рисунком",
+        "цифра",
+        "7 латексных шаров",
+        "фольгированная фигура"
+      ],
+      "category": "Геймерам",
+      "character": "Космонавт Among Us",
+      "age_group": "Для детей",
+      "budget": "2 000–3 500 ₽",
+      "series_name": "Among Us",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары Among Us на 7 лет в Армавире — космическая игра",
+      "seo_description": "Композиция с героями Among Us: фольгированная фигура космонавта, цифра 7, звезда с рисунком и яркие шары. Доставка в Армавире.",
+      "slug": "kosmicheskie-predateli-among-us-7",
+      "scene": "wall_only",
+      "tags": [
+        "Геймерам"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790194849/vigsharm-products/pjdlk4kwsheh1b7jlrz8.jpg",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790194988/vigsharm-products/stauuk8umggop1mdiija.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790194988/vigsharm-products/stauuk8umggop1mdiija.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-23T20:24:11.643Z",
+      "updated_at": "2026-09-23T20:24:11.643Z"
+    },
+    {
+      "id": "b090c71e-9d3f-4438-a5ef-0ff19dd58b71",
+      "title": "Геймерский азарт",
+      "article": "GMR-003",
+      "price": 4000,
+      "short_description": "Напольная композиция с фольгированным джойстиком и персонализированной звездой для геймера.",
+      "full_description": "Стильная напольная композиция в чёрно-красной гамме с крупным фольгированным джойстиком. Дополнена красной звездой с индивидуальной надписью и серебряной гирляндой из шаров.",
+      "composition": [
+        "напольная композиция"
+      ],
+      "category": "Геймерам",
+      "character": null,
+      "age_group": "Для детей",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Напольная композиция для геймера с джойстиком — Армавир",
+      "seo_description": "Напольная композиция с фольгированным джойстиком и персонализированной звездой. Чёрно-красная гамма, серебряная гирлянда. Доставка в Армавире.",
+      "slug": "igrovoy-kontroller",
+      "scene": "floor",
+      "tags": [
+        "Геймерам",
+        "Напольные композиции"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790194558/vigsharm-products/uqvpomj0zxi01zuzyhxw.jpg",
+        "floor_type": "air"
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790194754/vigsharm-products/fhsy5mxwpcijndfesydz.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790194754/vigsharm-products/fhsy5mxwpcijndfesydz.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-23T20:20:39.108Z",
+      "updated_at": "2026-09-23T20:20:39.108Z"
+    },
+    {
+      "id": "9d04150e-92b6-474a-b855-33a3a7b70d6d",
+      "title": "Новый уровень",
+      "article": "GMR-002",
+      "price": 4500,
+      "short_description": "Напольная композиция с игровым джойстиком и яркими шарами.",
+      "full_description": "Композиция включает крупную фольгированную цифру, чёрный джойстик с кнопками, зелёную звезду с поздравлением и круглый шар с игровой тематикой. Основание из красных, зелёных и чёрных латексных шаров.",
+      "composition": [
+        "напольная композиция"
+      ],
+      "category": "Геймерам",
+      "character": null,
+      "age_group": "Для детей",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Композиция с игровым джойстиком — VigSharm Армавир",
+      "seo_description": "Напольная композиция для геймера с фольгированной цифрой, джойстиком и яркими шарами. Доставка по Армавиру от VigSharm.",
+      "slug": "novyy-uroven",
+      "scene": "floor",
+      "tags": [
+        "Геймерам",
+        "Напольные композиции"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790194055/vigsharm-products/z4sl9abu3cjvs1i1esdj.jpg",
+        "floor_type": "air",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790194386/vigsharm-products/u0wzep88hfgmflrsvjkp.webp"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790194386/vigsharm-products/u0wzep88hfgmflrsvjkp.webp",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-23T20:14:13.414Z",
+      "updated_at": "2026-09-23T20:14:13.414Z"
+    },
+    {
       "id": "d84fb2d2-b8fa-4b40-8b21-2150a4d02fa8",
       "title": "Джойстик в руках",
       "article": "BOY-042",

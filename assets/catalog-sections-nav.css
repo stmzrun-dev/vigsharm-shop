@@ -1,0 +1,64 @@
+html body main#main-content.catalog-page nav.catalog-group-nav.catalog-sections,
+html body main#main-content.catalog-page .catalog-group-nav.catalog-sections{
+  display:grid!important;
+  grid-template-columns:1fr 1fr!important;
+  justify-items:center!important;
+  align-items:center!important;
+  gap:12px 16px!important;
+  width:auto!important;
+  max-width:none!important;
+  margin:10px var(--cat-pad, 16px) 16px!important;
+  overflow:visible!important;
+}
+html body main#main-content.catalog-page .catalog-group-nav.catalog-sections > button{
+  position:relative!important;
+  width:100%!important;
+  height:auto!important;
+  min-height:0!important;
+  min-width:0!important;
+  padding:0!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  overflow:visible!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+}
+html body main#main-content.catalog-page .catalog-group-nav.catalog-sections > button img{
+  display:block!important;
+  width:auto!important;
+  height:clamp(36px, 10.5vw, 48px)!important;
+  max-width:100%!important;
+  flex:none!important;
+  object-fit:contain!important;
+  background:transparent!important;
+}
+html body main#main-content.catalog-page .catalog-group-nav.catalog-sections > button .pick-disc-ring{
+  display:none!important;
+}
+html body main#main-content.catalog-page .catalog-group-nav.catalog-sections.is-picked > button:not(.is-on){
+  opacity:1!important;
+}
+html body main#main-content.catalog-page .catalog-group-nav.catalog-sections > button.is-on{
+  background:transparent!important;
+  box-shadow:none!important;
+  border-color:transparent!important;
+}
+
+@media (min-width:960px){
+  html body main#main-content.catalog-page nav.catalog-group-nav.catalog-sections,
+  html body main#main-content.catalog-page .catalog-group-nav.catalog-sections{
+    grid-template-columns:repeat(4, max-content)!important;
+    justify-content:space-between!important;
+    gap:8px 20px!important;
+  }
+  html body main#main-content.catalog-page .catalog-group-nav.catalog-sections > button{
+    width:auto!important;
+  }
+  html body main#main-content.catalog-page .catalog-group-nav.catalog-sections > button img{
+    height:clamp(52px, 5.4vw, 76px)!important;
+    max-width:none!important;
+  }
+}

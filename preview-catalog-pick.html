@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<meta name="robots" content="noindex,nofollow"/>
+<title>Макет каталога — выбор героя</title>
+<link rel="icon" href="favicon.svg"/>
+<link rel="stylesheet" href="assets/fonts.css?v=20260923"/>
+<link rel="stylesheet" href="assets/preview-catalog-pick.css?v=20260923m"/>
+</head>
+<body class="pick-mock">
+<aside class="pick-banner">
+  <div>
+    <strong>Макет, каталог не изменён</strong>
+    <span>У каждого раздела своя капсула. Список открывается тем же окном. У «Все» капсулы нет.</span>
+  </div>
+  <a href="catalog.html">К текущему каталогу</a>
+</aside>
+
+<div class="pick-stage">
+  <div class="pick-top">
+    <img src="images/vigsharm-logo.png" alt="Вигшарм"/>
+    <small>Армавир</small>
+  </div>
+
+  <label class="pick-search">
+    <span aria-hidden="true">⌕</span>
+    <input placeholder="Название, персонаж или повод" aria-label="Поиск по каталогу"/>
+  </label>
+
+  <section class="pick-card" aria-label="Раздел каталога">
+    <div class="pick-groups" id="groups"></div>
+  </section>
+
+  <button type="button" class="pick-capsule is-empty" id="capsule" hidden>
+    <span class="pick-face" id="capsule-face" hidden></span>
+    <span>
+      <strong id="capsule-title">Выберите героя</strong>
+      <small id="capsule-note">Откроется окно со всеми именами</small>
+    </span>
+    <span class="pick-capsule-go" id="capsule-go">Выбрать</span>
+  </button>
+
+  <div class="pick-head">
+    <h1 id="heading">Персонажи</h1>
+    <span id="count">24 варианта</span>
+  </div>
+
+  <div class="pick-grid" id="grid"></div>
+</div>
+
+<div class="pick-sheet" id="sheet" hidden>
+  <button type="button" class="pick-sheet-back" id="sheet-back" aria-label="Закрыть"></button>
+  <section class="pick-panel" role="dialog" aria-modal="true" aria-labelledby="sheet-title">
+    <div class="pick-handle" aria-hidden="true"></div>
+    <header class="pick-panel-head">
+      <div>
+        <h2 id="sheet-title">Кого позовём?</h2>
+        <p id="sheet-lead">Сначала герои с главной, ниже остальные из ассортимента.</p>
+      </div>
+      <button type="button" class="pick-close" id="sheet-close" aria-label="Закрыть">×</button>
+    </header>
+    <input class="pick-sheet-search" id="hero-search" type="search" placeholder="Найти героя" aria-label="Найти героя"/>
+    <div class="pick-sheet-body">
+      <p class="pick-kicker" id="hero-kicker">С главной</p>
+      <div class="pick-heroes" id="heroes"></div>
+      <p class="pick-kicker" id="more-kicker">Ещё в ассортименте</p>
+      <div class="pick-more" id="more"></div>
+      <div class="pick-choices" id="choices" hidden></div>
+      <p class="pick-empty" id="none" hidden>Никого не нашли — попробуйте другое имя.</p>
+    </div>
+    <footer class="pick-foot">
+      <button type="button" class="pick-reset" id="hero-reset">Все</button>
+      <button type="button" class="pick-done" id="hero-done">Показать</button>
+    </footer>
+  </section>
+</div>
+
+<script>
+(function () {
+  var groups = [
+    { id: 'ready', label: 'Готовые', off: 'icons/sections/section-ready-off.jpg', on: 'icons/sections/section-ready-on.jpg' },
+    { id: 'characters', label: 'Герои', off: 'icons/sections/section-heroes-off.jpg', on: 'icons/sections/section-heroes-on.jpg' },
+    { id: 'unit', label: 'Шары', off: 'icons/sections/section-balloons-off.jpg', on: 'icons/sections/section-balloons-on.jpg' },
+    { id: 'holidays', label: 'Праздники', off: 'icons/sections/section-holidays-off.jpg', on: 'icons/sections/section-holidays-on.jpg' }
+  ];
+  var sheets = {
+    ready: {
+      title: 'Для кого праздник?',
+      lead: 'Выберите, кому собираем композицию.',
+      ask: 'Для кого',
+      note: 'Откроется окно с поводами',
+      options: ['Для девочки', 'Для мальчика', 'Универсальные', 'Для неё', 'Для него', 'На выписку', 'День рождения']
+    },
+    unit: {
+      title: 'Какие шары?',
+      lead: 'Сначала вид. У латекса, рисунка, фольги и ходячих откроется уточнение.',
+      ask: 'Какие шары',
+      note: 'Откроется окно с видами',
+      photos: [
+        ['Латекс', 'images/balloons/balloon-latex.jpg', 'latex'],
+        ['С рисунком', 'images/balloons/balloon-print.jpg', 'who'],
+        ['Фольга', 'images/balloons/balloon-foil.jpg', 'who'],
+        ['Ходячие', 'images/balloons/balloon-walker.jpg', 'who'],
+        ['Круги и звёзды', 'images/balloons/balloon-shapes.jpg'],
+        ['Цифры', 'images/balloons/balloon-digit.jpg'],
+        ['Bubble', 'images/balloons/balloon-bubble.jpg'],
+        ['Именные', 'images/balloons/balloon-name.jpg']
+      ],
+      latex: {
+        title: 'Какой латекс?',
+        lead: 'Обычный и фактуры. Картинка та же, что в круге.',
+        photos: [
+          ['Обычный', 'images/balloons/balloon-latex.jpg'],
+          ['С конфетти', 'images/balloons/balloon-confetti.jpg'],
+          ['Хром', 'images/balloons/balloon-chrome.jpg'],
+          ['Brush', 'images/balloons/balloon-brush.jpg'],
+          ['Super Agate', 'images/balloons/balloon-agate.jpg']
+        ]
+      },
+      who: {
+        title: 'Кому шар?',
+        lead: 'Без картинок: подпись и так понятна.',
+        options: ['Для неё', 'Для него', 'На выписку', 'Геймерам', 'Для девочки', 'Для мальчика']
+      }
+    },
+    holidays: {
+      title: 'Какой праздник?',
+      lead: 'Дата или повод — одним нажатием.',
+      ask: 'Какой праздник',
+      note: 'Откроется окно с датами',
+      photos: [
+        ['Новый год', 'images/holidays/holiday-new-year.jpg'],
+        ['14 февраля', 'images/holidays/holiday-feb14.jpg'],
+        ['23 февраля', 'images/holidays/holiday-feb23.jpg'],
+        ['8 марта', 'images/holidays/holiday-mar8.jpg'],
+        ['9 мая', 'images/holidays/holiday-may9.jpg'],
+        ['Выпускной', 'images/holidays/holiday-graduation.jpg'],
+        ['1 сентября', 'images/holidays/holiday-sept1.jpg']
+      ]
+    },
+    characters: {
+      title: 'Кого позовём?',
+      lead: 'Сначала герои с главной, ниже остальные из ассортимента.',
+      ask: 'Выберите героя',
+      note: 'Откроется окно со всеми именами'
+    }
+  };
+  var heroes = [
+    ['Hello Kitty', 'images/characters/hero-hello-kitty.webp'],
+    ['Три кота', 'images/characters/hero-three-cats.webp'],
+    ['Бэтмен', 'images/characters/hero-batman.webp'],
+    ['Миньоны', 'images/characters/hero-minions.webp'],
+    ['Человек-паук', 'images/characters/hero-spiderman.webp'],
+    ['Леди Баг', 'images/characters/hero-ladybug.webp'],
+    ['Гарри Поттер', 'images/characters/hero-harry-potter.webp'],
+    ['Буба', 'images/characters/hero-booba.webp'],
+    ['Пеппа', 'images/characters/hero-peppa.webp'],
+    ['Синий трактор', 'images/characters/hero-blue-tractor.webp'],
+    ['Куклы LOL', 'images/characters/hero-lol.webp'],
+    ['Щенячий патруль', 'images/characters/hero-paw-patrol.webp'],
+    ['Единорог', 'images/characters/hero-unicorn.webp'],
+    ['Соник', 'images/characters/hero-sonic.webp'],
+    ['Лабубу', 'images/characters/hero-labubu.webp'],
+    ['Холодное сердце', 'images/characters/hero-frozen.webp']
+  ];
+  var more = ['зайчик', 'Динозавр', 'Жираф', 'Карамелька', 'Клубника', 'Коржик', 'Малыш', 'Мишка', 'Пикачу', 'Сова', 'Утёнок', 'Эльза'];
+  var shots = [
+    'images/category-girl.webp',
+    'images/category-boy.webp',
+    'images/idea-1year.jpg',
+    'images/hero-balloon-character-party.webp'
+  ];
+
+  var group = '';
+  var pick = '';
+  var draft = '';
+  var unitStep = '';
+
+  var groupsEl = document.getElementById('groups');
+  var capsule = document.getElementById('capsule');
+  var sheet = document.getElementById('sheet');
+  var heroesEl = document.getElementById('heroes');
+  var moreEl = document.getElementById('more');
+  var choicesEl = document.getElementById('choices');
+  var search = document.getElementById('hero-search');
+  var meta = function () { return sheets[group] || null; };
+
+  function renderGroups() {
+    groupsEl.classList.toggle('is-picked', !!group);
+    groupsEl.innerHTML = groups.map(function (g) {
+      var on = g.id === group;
+      return '<button type="button" class="' + (on ? 'is-on' : '') + '" data-group="' + g.id + '" aria-label="' + g.label + '" aria-pressed="' + on + '">' +
+        '<span class="pick-disc-ring" aria-hidden="true"></span>' +
+        '<img src="' + (on ? g.on : g.off) + '?v=20260923m" alt=""/></button>';
+    }).join('');
+  }
+
+  function renderCapsule() {
+    var info = meta();
+    capsule.hidden = !info || !pick;
+    if (!info || !pick) return;
+    var face = document.getElementById('capsule-face');
+    var title = document.getElementById('capsule-title');
+    var note = document.getElementById('capsule-note');
+    var go = document.getElementById('capsule-go');
+    if (!pick) {
+      capsule.classList.add('is-empty');
+      face.hidden = true;
+      face.innerHTML = '';
+      title.textContent = info.ask;
+      note.textContent = info.note;
+      go.textContent = 'Выбрать';
+      return;
+    }
+    var pool = heroes
+      .concat((sheets.holidays && sheets.holidays.photos) || [])
+      .concat((sheets.unit && sheets.unit.photos) || [])
+      .concat((sheets.unit && sheets.unit.latex && sheets.unit.latex.photos) || []);
+    var found = pool.filter(function (h) { return h[0] === pick; })[0];
+    capsule.classList.remove('is-empty');
+    face.hidden = !found;
+    face.innerHTML = found
+      ? '<img src="' + found[1] + '" alt="" onerror="this.replaceWith(document.createTextNode(\'' + pick.charAt(0) + '\'))"/>'
+      : '';
+    title.textContent = pick;
+    note.textContent = 'Нажмите, чтобы сменить';
+    go.textContent = 'Изменить';
+  }
+
+  function renderGrid() {
+    var titles = {
+      '': ['Композиции', '134 варианта'],
+      ready: ['Готовые решения', pick ? '12 вариантов' : '64 варианта'],
+      characters: ['Персонажи', pick ? '4 варианта' : '24 варианта'],
+      unit: ['Шары', pick ? '9 вариантов' : '48 вариантов'],
+      holidays: ['Праздники', pick ? '6 вариантов' : '18 вариантов']
+    };
+    var pair = titles[group];
+    document.getElementById('heading').textContent = pick ? pick : pair[0];
+    document.getElementById('count').textContent = pair[1];
+    var names = pick
+      ? [pick + ' с цифрой', pick + ' и фонтан', 'Композиция «' + pick + '»', pick + ' на выписку']
+      : ['Фонтан с мишкой', 'Коробка-сюрприз', 'Цифра и шары', 'Букет из шаров'];
+    document.getElementById('grid').innerHTML = names.map(function (name, i) {
+      return '<a class="pick-product" href="catalog.html">' +
+        '<img src="' + shots[i] + '" alt=""/>' +
+        '<div><small>Композиция</small><strong>' + name + '</strong><b>2 400 ₽</b></div></a>';
+    }).join('');
+  }
+
+  function norm(s) {
+    return String(s || '').toLowerCase().replace(/ё/g, 'е');
+  }
+
+  function activeSheet() {
+    var info = meta();
+    if (group === 'unit' && unitStep && info && info[unitStep]) return info[unitStep];
+    return info;
+  }
+
+  function renderSheetList() {
+    var info = activeSheet();
+    document.getElementById('sheet-title').textContent = info.title;
+    document.getElementById('sheet-lead').textContent = info.lead;
+    document.getElementById('hero-reset').textContent = unitStep ? 'Назад' : 'Все';
+    var characters = group === 'characters';
+    var photoList = info && info.photos;
+    search.hidden = !characters;
+    heroesEl.hidden = !(characters || photoList);
+    document.getElementById('hero-kicker').hidden = !characters;
+    document.getElementById('more-kicker').hidden = !characters;
+    choicesEl.hidden = !!(characters || photoList);
+    if (photoList) {
+      moreEl.hidden = true;
+      document.getElementById('none').hidden = true;
+      heroesEl.innerHTML = photoList.map(function (h) {
+        var on = draft === h[0];
+        return '<button type="button" class="pick-hero' + (on ? ' is-on' : '') + '" data-hero="' + h[0] + '">' +
+          '<span class="pick-hero-ring"><img class="is-contain" src="' + h[1] + '" alt="" onerror="this.replaceWith(document.createTextNode(\'' + h[0].charAt(0) + '\'))"/></span>' +
+          '<b>' + h[0] + '</b></button>';
+      }).join('');
+      return;
+    }
+    if (!characters) {
+      moreEl.hidden = true;
+      document.getElementById('none').hidden = true;
+      choicesEl.innerHTML = (info.options || []).map(function (name) {
+        var on = draft === name;
+        return '<button type="button" class="' + (on ? 'is-on' : '') + '" data-hero="' + name + '">' + name + '</button>';
+      }).join('');
+      return;
+    }
+    var q = norm(search.value);
+    var heroHits = heroes.filter(function (h) { return !q || norm(h[0]).indexOf(q) >= 0; });
+    var moreHits = more.filter(function (name) { return !q || norm(name).indexOf(q) >= 0; });
+    document.getElementById('hero-kicker').hidden = !heroHits.length;
+    document.getElementById('more-kicker').hidden = !moreHits.length;
+    moreEl.hidden = !moreHits.length;
+    document.getElementById('none').hidden = !!(heroHits.length || moreHits.length);
+    heroesEl.innerHTML = heroHits.map(function (h) {
+      var on = draft === h[0];
+      return '<button type="button" class="pick-hero' + (on ? ' is-on' : '') + '" data-hero="' + h[0] + '">' +
+        '<span class="pick-hero-ring"><img src="' + h[1] + '" alt="" onerror="this.replaceWith(document.createTextNode(\'' + h[0].charAt(0) + '\'))"/></span>' +
+        '<b>' + h[0] + '</b></button>';
+    }).join('');
+    moreEl.innerHTML = moreHits.map(function (name) {
+      var on = draft === name;
+      return '<button type="button"' + (on ? ' class="is-on"' : '') + ' data-hero="' + name + '">' + name + '</button>';
+    }).join('');
+  }
+
+  function openSheet() {
+    var info = meta();
+    if (!info) return;
+    unitStep = '';
+    draft = pick;
+    document.getElementById('sheet-title').textContent = info.title;
+    document.getElementById('sheet-lead').textContent = info.lead;
+    search.value = '';
+    search.placeholder = 'Найти героя';
+    renderSheetList();
+    sheet.hidden = false;
+    if (!search.hidden) search.focus();
+  }
+  function closeSheet() { sheet.hidden = true; }
+
+  function paint() {
+    renderGroups();
+    renderCapsule();
+    renderGrid();
+  }
+
+  groupsEl.addEventListener('click', function (e) {
+    var btn = e.target.closest('[data-group]');
+    if (!btn) return;
+    var next = btn.getAttribute('data-group');
+    if (next !== group) pick = '';
+    group = next;
+    unitStep = '';
+    paint();
+    openSheet();
+  });
+  capsule.addEventListener('click', openSheet);
+  document.getElementById('sheet-back').addEventListener('click', closeSheet);
+  document.getElementById('sheet-close').addEventListener('click', closeSheet);
+  search.addEventListener('input', renderSheetList);
+  sheet.addEventListener('click', function (e) {
+    var btn = e.target.closest('[data-hero]');
+    if (!btn || !sheet.contains(btn)) return;
+    draft = btn.getAttribute('data-hero');
+    renderSheetList();
+  });
+  document.getElementById('hero-reset').addEventListener('click', function () {
+    if (unitStep) {
+      unitStep = '';
+      draft = '';
+      renderSheetList();
+      return;
+    }
+    draft = '';
+    pick = '';
+    closeSheet();
+    paint();
+  });
+  document.getElementById('hero-done').addEventListener('click', function () {
+    if (group === 'unit' && !unitStep) {
+      var chosen = (sheets.unit.photos || []).filter(function (h) { return h[0] === draft; })[0];
+      if (chosen && chosen[2]) {
+        unitStep = chosen[2];
+        draft = '';
+        renderSheetList();
+        return;
+      }
+    }
+    pick = draft;
+    unitStep = '';
+    closeSheet();
+    paint();
+  });
+
+  paint();
+})();
+</script>
+</body>
+</html>

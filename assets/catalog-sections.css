@@ -1,0 +1,50 @@
+html body main#main-content.catalog-page nav.catalog-group-nav.catalog-sections,
+html body main#main-content.catalog-page .catalog-group-nav.catalog-sections{
+  display:grid!important;
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  gap:2px 10px!important;
+  max-width:460px!important;
+  width:100%!important;
+  margin:8px var(--cat-pad, 16px) 4px!important;
+  overflow:visible!important;
+}
+html body main#main-content.catalog-page .catalog-group-nav.catalog-sections > button{
+  position:relative!important;
+  height:132px!important;
+  min-height:132px!important;
+  min-width:0!important;
+  padding:26px 18px!important;
+  box-sizing:border-box!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  overflow:hidden!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+}
+html body main#main-content.catalog-page .catalog-group-nav.catalog-sections > button img{
+  display:block!important;
+  width:78%!important;
+  height:auto!important;
+  max-width:none!important;
+  flex:none!important;
+  object-fit:contain!important;
+  background:transparent!important;
+}
+html body main#main-content.catalog-page .catalog-group-nav.catalog-sections > button .pick-disc-ring{
+  position:absolute!important;
+  inset:14px 10px!important;
+  border-radius:999px!important;
+  border:2.5px solid transparent!important;
+  pointer-events:none!important;
+  background:transparent!important;
+}
+html body main#main-content.catalog-page .catalog-group-nav.catalog-sections.is-picked > button:not(.is-on){opacity:.55!important}
+html body main#main-content.catalog-page .catalog-group-nav.catalog-sections > button.is-on{
+  background:transparent!important;
+  box-shadow:none!important;
+  border-color:transparent!important;
+}
+html body main#main-content.catalog-page .catalog-group-nav.catalog-sections > button.is-on .pick-disc-ring{border-color:#ff6b5a!important}

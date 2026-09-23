@@ -514,9 +514,39 @@ function cardAgeBlob(data) {
   ].join(' ').toLowerCase().replace(/ё/g, 'е');
 }
 
+const KIDS_HERO_RE = /гарри\s*поттер|хогварт|поттер|для девочки|для мальчика|геймерам|мульт|пикачу|человек-паук|спайдер|миньон|lol|барби|единорог|щеняч|трактор|принцесс|\bdisney\b|\bmarvel\b/;
+
 function jubileeLooksKids(data) {
-  const blob = cardAgeBlob(data);
-  return /гарри\s*поттер|хогварт|поттер|для девочки|для мальчика|геймерам|мульт|пикачу|человек-паук|спайдер|миньон|lol|барби|единорог|щеняч|трактор|принцесс|\bdisney\b|\bmarvel\b/.test(blob);
+  return KIDS_HERO_RE.test(cardAgeBlob(data));
+}
+
+function cardLooksLikeKidsHero(data) {
+  if (jubileeLooksKids(data)) return true;
+  const extra = Array.isArray(data.composition) ? data.composition.join(' ') : '';
+  return KIDS_HERO_RE.test(String(extra).toLowerCase().replace(/ё/g, 'е'));
+}
+
+/** Детский герой и цифра до 16: «Для неё/него» — детская полка. Маму, свадьбу и праздники не трогаем. */
+function applyKidsHeroChildDigit(data, digits, opts = {}) {
+  if (opts.lockCategory) return data;
+  const cat = String(data.category || '').trim();
+  if (cat !== 'Для неё' && cat !== 'Для него') return data;
+  if (OCCASION_SHELVES.includes(cat)) return data;
+  const d = String(digits || '').replace(/\D/g, '');
+  if (!d) return data;
+  const n = parseInt(d, 10);
+  if (!Number.isFinite(n)) return data;
+  if (!(d.length === 1 || n < 16)) return data;
+  if (JUBILEE_FOIL_NUMBERS.has(d)) return data;
+  if (!cardLooksLikeKidsHero(data)) return data;
+
+  const next = cat === 'Для неё' ? 'Для девочки' : 'Для мальчика';
+  data.category = next;
+  data.age_group = 'Для детей';
+  const tags = Array.isArray(data.tags) ? data.tags.map((t) => (t === cat ? next : t)) : [];
+  if (!tags.includes(next)) tags.unshift(next);
+  data.tags = [...new Set(tags)].slice(0, 5);
+  return data;
 }
 
 function jubileeLooksAdult(data) {
@@ -785,6 +815,10 @@ ${BUDGET_OPTIONS.join(' | ')}
     короткие/треугольные уши, усы, круглая морда, часто букет в лапах → character «Кошка» (не «Заяц»)
     длинные уши (торчат вверх/назад, длиннее головы) → «Заяц»
     сомнение → character_confidence medium/low, character_alts: «Кошка», «Заяц»; в title/title_alts НЕ пиши «зайка/заяц», если уши короткие
+  • ХАГГИ ВАГГИ vs ЧЕШИРСКИЙ КОТ — розовое сердце с улыбкой НЕ значит «Чешир»:
+    гладкое розовое или синее сердце/фигура-монстр, круглые глаза, широкая улыбка в ряд зубов, без полос, усов и кошачьих ушей → character «Хагги Вагги», series_name «Poppy Playtime». НЕ «Чеширский кот», НЕ «Алиса в стране чудес», НЕ «Кот»
+    полосатый кот (розово-фиолетовые полосы), кошачьи уши, усы, морда кота → character «Чеширский кот», series_name «Алиса в стране чудес»
+    сомнение → character_confidence medium, character_alts: «Хагги Вагги», «Чеширский кот»; не ставь high на Чешира без полос и ушей
   • СОЛДАТ vs МУЗЫКАНТ (скрутка): автомат/винтовка (приклад, ствол, магазин, ремень), пилотка/каска, сапоги, зелёная форма → character «Солдат». НЕ скрипач и не гитарист.
     Скрипка/гитара — корпус-резонатор, гриф с головкой, струны, смычок. «Палка в руках» без корпуса ≠ инструмент.
     title: армейский крючок («На посту», «Боевой расчёт»), НЕ «Скрипичный виртуоз» / «Струнный маэстро»
@@ -803,6 +837,7 @@ ${BUDGET_OPTIONS.join(' | ')}
 - age_group: ОБЯЗАТЕЛЬНО одно значение из списка:
   • выписка / 1 годик → «Для малышей»
   • для девочки|мальчика|геймерам / мультики / детский стиль → «Для детей»
+  • детский герой (LOL, Барби, единорог, Пикачу, Человек-паук и т.п.) и цифра одна или меньше 16 → category «Для девочки» или «Для мальчика», age_group «Для детей». ЗАПРЕЩЕНО «Для неё», «Для него» и «Для взрослых». «Для мамы» и праздники не подменяй
   • юбилей (круглые 10/20/30…): category «Юбилей», возраст ПО ФОТО — не всегда «Для взрослых».
     10 + герои/мульт/Поттер/«Для девочки|мальчика» → «Для детей».
     20+ без детского героя → «Для взрослых». Кубок/виски/«Для него|неё» → «Для взрослых».
@@ -841,7 +876,7 @@ foil_digits = "${trustedDigits}" (число ${trustedNum}).
         ? 'Одна цифра 1: category «1 годик».'
         : trustedNum >= 16
           ? 'Взрослый возраст. ЗАПРЕЩЕНО «Для девочки», «Для мальчика», «1 годик» и «Юбилей». Розовый/сердечки → «Для неё», явный мужской стиль → «Для него», иначе «Универсальные». age_group = «Для взрослых».'
-          : 'Детская цифра. НЕ ставь «Юбилей».'}`
+          : 'Детская цифра. НЕ ставь «Юбилей». Детский герой (LOL, Барби, единорог, мульт) → «Для девочки» или «Для мальчика», age_group «Для детей». ЗАПРЕЩЕНО «Для неё», «Для него» и «Для взрослых».'}`
     : '';
 
   const userPrompt = `Сгенерируй карточку:${foilFact}
@@ -936,9 +971,9 @@ ${image_url
     const autoAge = ageFromCategory(data.category);
     if (autoAge) data.age_group = autoAge;
   }
-  applyTrustedFoilReading(data, trustedDigits || foilDigits, {
-    lockCategory: !!(holidayOnly || boxOnly || bouquetOnly || figuresOnly || photozoneOnly)
-  });
+  const foilLock = !!(holidayOnly || boxOnly || bouquetOnly || figuresOnly || photozoneOnly);
+  applyTrustedFoilReading(data, trustedDigits || foilDigits, { lockCategory: foilLock });
+  applyKidsHeroChildDigit(data, trustedDigits || foilDigits, { lockCategory: foilLock });
   // Убрать случайно оставшиеся скобки-подсказки из состава
   if (Array.isArray(data.composition)) {
     data.composition = data.composition
@@ -1716,7 +1751,12 @@ ${mirrorHazard}
 
 Use the SECOND reference image as the real VigSharm studio environment — match it as closely as possible: warm beige-grey wall, white baseboard, LIGHT pale-oak / light grey-beige laminate floor with horizontal planks.
 
-Keep the real base/support and natural floor position from the original. Only minimal soft contact shadow where the product genuinely touches the floor.
+SUPPORT — remove furniture, keep the balloon base:
+- REMOVE any non-balloon support under or around the composition: small table, stolik, glass table, wire stand, metal rack, stool, chair, crate, box, furniture legs — as if never there.
+- Place the EXISTING balloon base (green / bottom cluster already in the photo) DIRECTLY on the laminate floor.
+- Soft contact shadow ONLY under those original base spheres that touch the floor — no large dark pool.
+- Do NOT invent a new stand. Do NOT invent NEW balloons under the base.
+- After removing the table: the lowest balloons that already existed must sit on the floor unchanged — zero added balloons below them.
 
 ${nearWall}
 
@@ -1728,7 +1768,7 @@ ${brightFloor}
 
 ${forbidden}
 
-OUTPUT: one square 1:1 professional catalog photo — SAME balloon product as source (exact counts), studio room only, large near the wall on LIGHT laminate, natural catalog light.`;
+OUTPUT: one square 1:1 professional catalog photo — SAME balloon product as source (exact counts), studio room only, large near the wall on LIGHT laminate, no table or furniture under the base, natural catalog light.`;
 }
 
 function buildRephotographAttempts(imageUrl, referenceUrl, prompt, resolution = '2K', prefer = 'quality', scene = 'floor') {
@@ -1741,7 +1781,7 @@ function buildRephotographAttempts(imageUrl, referenceUrl, prompt, resolution = 
   ];
   const wallOnly = ['wall_only', 'unit_balloon', 'handheld_bouquet'].includes(scene);
   const wallHint = '\n\nTarget room: VigSharm studio wall from the SECOND reference — warm light beige-grey plaster, natural catalog softbox daylight (not overexposed wash). Copy reference wall tone; do NOT darken into taupe/muddy grey and do NOT blow out to pure white. NO invented mottled/smudged wall.';
-  const floorHint = '\n\nTarget FLOOR from the SECOND reference — LIGHT pale oak / light grey-beige laminate matching reference brightness. Place product CLOSE to the white baseboard (short floor strip only — not mid-room). Soft contact shadows only under product feet. FORBIDDEN: dark brown/charcoal laminate; large empty floor toward the wall; any real people/models in the frame. If source has a person posing with balloons: erase them completely, keep only the balloon product. If source has a mirror/vanity: remove it; count ONLY real balloons on the floor in front of the glass — NEVER copy balloons that exist only as mirror reflections (e.g. one real heart + reflection → output one heart).';
+  const floorHint = '\n\nTarget FLOOR from the SECOND reference — LIGHT pale oak / light grey-beige laminate matching reference brightness. Place product CLOSE to the white baseboard (short floor strip only — not mid-room). Soft contact shadows only under the original balloon base. REMOVE any table, stolik, glass table, stool, chair, wire stand or other furniture from the source — the existing balloon base sits directly on the laminate. Do NOT invent new balloons under the base. FORBIDDEN: dark brown/charcoal laminate; large empty floor toward the wall; keeping a table under the product; any real people/models in the frame. If source has a person posing with balloons: erase them completely, keep only the balloon product. If source has a mirror/vanity: remove it; count ONLY real balloons on the floor in front of the glass — NEVER copy balloons that exist only as mirror reflections (e.g. one real heart + reflection → output one heart).';
   const roomHint = wallOnly ? wallHint : (wallHint + floorHint);
   const attempts = [];
 

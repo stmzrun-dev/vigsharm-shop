@@ -927,9 +927,8 @@
       var extra = subcatList().filter(function (name) {
         return !known[norm(name)] && (!sheetQuery || norm(name).indexOf(sheetQuery) >= 0);
       });
-      var heroOpen = showAllHeroes || !!sheetQuery || extra.some(function (name) { return character === name; });
-      var html = '<input class="catalog-board-search" id="catalog-hero-search" type="search" placeholder="Найти персонажа" value="' + esc(sheetQuery) + '"/>' +
-        bandCircles(heroes, character, 'pick-band-who', 'Персонажи');
+      var heroOpen = showAllHeroes || extra.some(function (name) { return character === name; });
+      var html = bandCircles(heroes, character, 'pick-band-who', 'Персонажи');
       if (extra.length && heroOpen) {
         html += '<div class="pick-band pick-band-why"><p class="pick-kicker">Ещё</p><div class="pick-more">' + extra.map(function (name) {
           return '<button type="button" class="' + (character === name ? 'is-on' : '') + '" data-hero="' + esc(name) + '">' + esc(name) + '</button>';
@@ -970,7 +969,6 @@
       if (old) old.remove();
       return;
     }
-    var keepFocus = document.activeElement && document.activeElement.id === 'catalog-hero-search';
     if (!old) {
       old = document.createElement('div');
       old.id = 'catalog-idea-board';
@@ -1056,18 +1054,6 @@
         render({ scroll: !!filter });
       });
     });
-    var search = old.querySelector('#catalog-hero-search');
-    if (search) {
-      search.addEventListener('input', function () {
-        sheetQuery = norm(search.value);
-        renderBoard();
-      });
-      if (keepFocus) {
-        search.focus();
-        var len = search.value.length;
-        try { search.setSelectionRange(len, len); } catch (e) {}
-      }
-    }
   }
 
   function computeNavSignature() {

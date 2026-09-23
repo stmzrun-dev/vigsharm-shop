@@ -87,9 +87,15 @@ html body main#main-content.catalog-page .catalog-group-nav.catalog-sections > b
   }
 }
 @media (min-width:1040px){
+  html body main#main-content.catalog-page nav.catalog-group-nav.catalog-sections,
   html body main#main-content.catalog-page .catalog-group-nav.catalog-sections{
-    column-gap:28px!important;
+    justify-content:center!important;
+    column-gap:40px!important;
+    width:auto!important;
+    max-width:none!important;
     margin-top:24px!important;
+    margin-left:auto!important;
+    margin-right:auto!important;
   }
   html body main#main-content.catalog-page .catalog-group-nav.catalog-sections > button img{
     height:clamp(52px, 4.2vw, 68px)!important;

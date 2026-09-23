@@ -100,6 +100,8 @@ html body main#main-content.catalog-page .catalog-group-nav.catalog-sections > b
   width:calc(100% - 2 * var(--cat-pad, 16px));
   max-width:none;
   margin:0 auto 8px;
+  box-sizing:border-box;
+  overflow:visible;
 }
 .catalog-idea-grid{
   display:flex;
@@ -186,7 +188,13 @@ html body main#main-content.catalog-page .catalog-group-nav.catalog-sections > b
 .pick-band-who{background:#eef6fd}
 .pick-band-why{background:#fff7e8}
 .pick-band-what{background:#fff1f4}
-.pick-band .pick-more button{background:#fff}
+.pick-band .pick-more{
+  max-width:100%;
+  box-sizing:border-box;
+  padding:2px 12px 2px 2px;
+  overflow:visible;
+}
+.pick-band .pick-more button{background:#fff;max-width:100%}
 .catalog-idea-board .pick-heroes{
   display:flex;
   flex-wrap:wrap;
@@ -196,6 +204,7 @@ html body main#main-content.catalog-page .catalog-group-nav.catalog-sections > b
 .catalog-idea-board .pick-hero{
   width:72px;
   flex:0 0 72px;
+  overflow:hidden;
 }
 .catalog-idea-board .pick-hero-ring{
   width:64px;
@@ -211,8 +220,8 @@ html body main#main-content.catalog-page .catalog-group-nav.catalog-sections > b
   font-size:11px;
   line-height:1.15;
   text-align:center;
-  overflow-wrap:normal;
-  word-break:normal;
+  overflow-wrap:anywhere;
+  word-break:break-word;
 }
 @media (min-width:651px){
   .catalog-idea-board .pick-heroes{gap:14px 12px}

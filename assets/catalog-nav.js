@@ -296,7 +296,7 @@
       var inG = searched || (group === 'all' ? !inGroup(p, 'unit') : inGroup(p, group));
       var hay = norm([p.title, p.sku, p.short_description, p.description, p.composition, p.category, p.character_name, p.age_group].concat(p.tags || []).filter(Boolean).join(' '));
       var matchQ = terms.every(function (t) { return hay.indexOf(t) >= 0; });
-      var matchC = category === 'Все товары' || p.category === category || (p.tags || []).indexOf(category) >= 0;
+      var matchC = category === 'Все товары' || productHasLabel(p, category);
       var matchP = p.price >= pr.min && p.price <= pr.max;
       var matchF = !filter || p.category === filter || (p.tags || []).indexOf(filter) >= 0;
       var matchCh = !character || (p.character_name || '').toLowerCase().indexOf(character.toLowerCase()) >= 0 || (p.title || '').toLowerCase().indexOf(character.toLowerCase()) >= 0;
@@ -793,9 +793,17 @@
       what.map(function (name) { return hero(name, READY_PHOTOS[name] || '', ideaLabel(name)); }).join('') + '</div></div>';
   }
 
+  function circleOn(selected, row) {
+    if (!selected) return false;
+    if (selected === row[0]) return true;
+    if (row[2] && selected === row[2]) return true;
+    if (row[3] && selected === row[3]) return true;
+    return false;
+  }
+
   function staticCircles(rows, selected, contain) {
     return '<div class="catalog-idea-grid">' + rows.map(function (row) {
-      var on = selected === row[0] || selected === row[2] || selected === row[3];
+      var on = circleOn(selected, row);
       return '<button type="button" class="pick-hero' + (on ? ' is-on' : '') + '" data-pick="' + esc(row[0]) + '">' +
         '<span class="pick-hero-ring"><img class="' + (contain ? 'is-contain' : '') + '" src="' + row[1] + '" alt=""/></span><b>' + esc(row[0]) + '</b></button>';
     }).join('') + '</div>';
@@ -811,7 +819,7 @@
 
   function bandCircles(rows, selected, bandClass, kicker) {
     var buttons = rows.map(function (row) {
-      var on = selected === row[0] || selected === row[2] || selected === row[3];
+      var on = circleOn(selected, row);
       return '<button type="button" class="pick-hero' + (on ? ' is-on' : '') + '" data-pick="' + esc(row[0]) + '">' +
         '<span class="pick-hero-ring"><img src="' + row[1] + '" alt=""/></span><b>' + esc(row[0]) + '</b></button>';
     }).join('');

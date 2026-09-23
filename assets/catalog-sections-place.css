@@ -165,52 +165,6 @@ html body main#main-content.catalog-page .catalog-group-nav.catalog-sections > b
 .catalog-idea-board .pick-choices{
   margin-top:4px;
 }
-.catalog-ready-what-toggle{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  width:100%;
-  min-height:44px;
-  margin:0 0 10px;
-  padding:0 16px;
-  border:0;
-  border-radius:16px;
-  background:#fff1f4;
-  font:inherit;
-  font-size:14px;
-  font-weight:800;
-  color:#6f6570;
-  cursor:pointer;
-}
-.pick-band-what{
-  position:relative;
-}
-.pick-kicker-hide{
-  position:absolute;
-  top:4px;
-  right:8px;
-  border:0;
-  background:transparent;
-  font:inherit;
-  font-size:13px;
-  font-weight:750;
-  color:#8a8184;
-  cursor:pointer;
-}
-  display:inline-flex;
-  align-items:center;
-  min-height:40px;
-  margin:0 0 8px;
-  padding:0 16px;
-  border:1.5px solid #ebe6e3;
-  border-radius:999px;
-  background:#fff;
-  font:inherit;
-  font-size:15px;
-  font-weight:750;
-  color:#1e293b;
-  cursor:pointer;
-}
 .pick-band{
   border-radius:16px;
   padding:4px 8px 12px;
@@ -231,6 +185,127 @@ html body main#main-content.catalog-page .catalog-group-nav.catalog-sections > b
   flex-wrap:wrap;
   justify-content:flex-start;
   gap:12px 8px;
+}
+.catalog-idea-board .pick-band-rail .pick-heroes{
+  flex-wrap:nowrap;
+  overflow-x:auto;
+  gap:10px 8px;
+  padding:8px 4px 10px;
+  -webkit-overflow-scrolling:touch;
+  scrollbar-width:none;
+}
+.catalog-idea-board .pick-band-rail .pick-heroes::-webkit-scrollbar{display:none}
+.catalog-idea-board .pick-band-rail{
+  background:transparent;
+  padding:0;
+  margin:0 0 8px;
+}
+.catalog-unsure{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:100%;
+  min-height:40px;
+  margin:0 0 10px;
+  padding:0 14px;
+  border:1.5px solid #f3d5dc;
+  border-radius:999px;
+  background:#fff;
+  font:inherit;
+  font-size:14px;
+  font-weight:750;
+  color:#6f6570;
+  cursor:pointer;
+}
+.catalog-unsure-list{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:8px;
+  margin:0 0 12px;
+}
+.catalog-unsure-card{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+  min-width:0;
+}
+.catalog-unsure-card a:first-child{
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+  min-width:0;
+  color:inherit;
+  text-decoration:none;
+}
+.catalog-unsure-card img{
+  width:100%;
+  aspect-ratio:1;
+  object-fit:cover;
+  border-radius:14px;
+  background:#fff1f4;
+}
+.catalog-unsure-card strong{
+  font-size:12px;
+  line-height:1.25;
+  font-weight:750;
+}
+.catalog-unsure-card b{font-size:13px}
+.catalog-unsure-wa{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  min-height:32px;
+  border-radius:999px;
+  background:#e7f8ef;
+  color:#1f7a45;
+  font-size:12px;
+  font-weight:800;
+  text-decoration:none;
+}
+html body main#main-content.catalog-page .catalog-ready-audience{
+  display:grid;
+  gap:10px;
+  padding:4px 0 8px;
+}
+html body main#main-content.catalog-page .catalog-ready-audience p{
+  margin:0 0 6px;
+  font-size:12px;
+  font-weight:800;
+  letter-spacing:.04em;
+  text-transform:uppercase;
+  color:#8a8184;
+}
+html body main#main-content.catalog-page .catalog-ready-audience div{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+}
+html body main#main-content.catalog-page .catalog-ready-audience button{
+  min-height:34px;
+  padding:0 12px;
+  border:1.5px solid #ebe6e3;
+  border-radius:999px;
+  background:#fff;
+  font:inherit;
+  font-size:13px;
+  font-weight:700;
+  color:#1e293b;
+  cursor:pointer;
+}
+html body main#main-content.catalog-page .catalog-ready-audience button.is-on{
+  border-color:#ff6b5a;
+  background:#fff1f4;
+}
+@media (min-width:1021px){
+  html body main#main-content.catalog-page .catalog-ready-audience{
+    grid-column:1 / -1;
+    grid-row:2;
+  }
+}
+@media (max-width:520px){
+  .catalog-unsure-list{grid-template-columns:1fr}
+  .catalog-unsure-card a:first-child{flex-direction:row;align-items:center}
+  .catalog-unsure-card img{width:72px;height:72px;aspect-ratio:auto;flex:0 0 72px}
 }
 .catalog-idea-board .pick-hero{
   width:72px;
@@ -289,6 +364,91 @@ html body main#main-content.catalog-page .catalog-group-nav.catalog-sections > b
 }
 .catalog-who-chips.is-main button{
   font-size:14px;
+}
+html body main#main-content.catalog-page .catalog-shelf{
+  margin:0 0 16px;
+}
+html body main#main-content.catalog-page .catalog-shelf h3{
+  display:flex;
+  align-items:baseline;
+  gap:8px;
+  margin:0 0 8px;
+  font-size:18px;
+  font-weight:800;
+}
+html body main#main-content.catalog-page .catalog-shelf h3 span{
+  font-size:13px;
+  font-weight:700;
+  color:#8a8184;
+}
+html body main#main-content.catalog-page .catalog-shelf-row{
+  display:flex;
+  gap:10px;
+  overflow-x:auto;
+  padding-bottom:6px;
+  -webkit-overflow-scrolling:touch;
+  scrollbar-width:none;
+}
+html body main#main-content.catalog-page .catalog-shelf-row::-webkit-scrollbar{display:none}
+html body main#main-content.catalog-page .catalog-shelf-row .catalog-card{
+  flex:0 0 148px;
+  width:148px;
+}
+.catalog-pick-bar{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  margin:0 0 12px;
+}
+.catalog-pick-bar [data-open-ready]{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  flex:1 1 auto;
+  min-height:48px;
+  padding:0 16px;
+  border:1.5px solid #ebe6e3;
+  border-radius:16px;
+  background:#fff;
+  color:#1e293b;
+  font:inherit;
+  font-size:15px;
+  font-weight:750;
+  text-align:left;
+  text-decoration:none;
+  cursor:pointer;
+}
+.catalog-pick-bar [data-open-ready]::after{
+  content:"";
+  width:8px;
+  height:8px;
+  margin-left:12px;
+  border-right:2px solid #8a8184;
+  border-bottom:2px solid #8a8184;
+  transform:rotate(45deg) translateY(-2px);
+  flex:none;
+}
+.catalog-pick-chip{
+  min-height:40px;
+  padding:0 12px;
+  border:1.5px solid #f3d5dc;
+  border-radius:999px;
+  background:#fff;
+  font:inherit;
+  font-size:13px;
+  font-weight:700;
+  color:#1e293b;
+  cursor:pointer;
+}
+html body .catalog-ready-sheet .catalog-filter-sheet-panel{
+  max-height:min(92vh,920px)!important;
+  overflow:hidden!important;
+  grid-template-rows:auto auto minmax(0,1fr) auto!important;
+}
+html body .catalog-ready-sheet .catalog-filter-sheet-body{
+  display:block!important;
+  min-height:0!important;
+  overflow:auto!important;
 }
 html body main#main-content.catalog-page .catalog-results{
   margin-top:4px!important;

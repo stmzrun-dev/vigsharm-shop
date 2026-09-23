@@ -790,6 +790,11 @@
       (p.needs_advance_order ? '<span class="product-tag product-tag-advance">Заказ за 1–2 дня</span>' : '') +
       '</div>' +
       '<h1>' + esc(p.title) + '</h1>' +
+      (function () {
+        var opts = p.client_options || {};
+        var size = String(opts.balloon_size || '').trim();
+        return size ? '<p class="product-balloon-size">Размер: ' + esc(size) + '</p>' : '';
+      })() +
       '<div class="product-base-price"><small>' + (isUnit() ? (isPerMeter() ? 'Цена за метр' : 'Цена за штуку') : 'Цена за композицию') + '</small><strong>' + (priceFrom() ? 'от ' : '') + Number(p.price).toLocaleString('ru-RU') + ' ₽</strong></div>' +
       (leadText
         ? '<div class="product-lead"><div class="product-lead-icon" aria-hidden="true"><img src="icons/line-balloon.svg" alt="" width="22" height="22"/></div><p>' + esc(leadText) + '</p></div>'

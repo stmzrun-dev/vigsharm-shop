@@ -76,7 +76,6 @@
   var q = '', category = 'Все товары', priceIdx = 0, age = '', character = '', filter = '', group = 'ready', sortMode = '';
   var unitStep = '';
   var sheetDraft = '';
-  var readyWhatOpen = false;
   var filtersOpen = false;
   var fromUrl = false;
   var navSignature = '';
@@ -134,9 +133,10 @@
 
   var filterPanel = controlsEl ? controlsEl.querySelector('.catalog-filter-panel') : null;
   var filterSheet = null;
+  var readySheet = null;
 
   function filterBadgeCount() {
-    return (priceIdx !== 0 ? 1 : 0) + (age ? 1 : 0);
+    return (priceIdx !== 0 ? 1 : 0) + (age ? 1 : 0) + (filter ? 1 : 0);
   }
 
   function isMobileFilters() {
@@ -213,6 +213,7 @@
     filterSheet.querySelector('[data-sheet-reset]').addEventListener('click', function () {
       priceIdx = 0;
       age = '';
+      filter = '';
       if (priceSelect) priceSelect.value = '0';
       if (ageSelect) ageSelect.value = '';
       render({ resultsOnly: true });
@@ -337,6 +338,11 @@
       '<span class="catalog-card-image">' + img + '</span>' +
       '<span class="catalog-card-copy"><span class="catalog-card-meta"><small>' + esc(cat || 'Композиция') + '</small>' + badge + '</span>' +
       '<strong>' + esc(p.title) + '</strong>' +
+      (function () {
+        var opts = p.client_options || {};
+        var size = String(opts.balloon_size || '').trim();
+        return size ? '<small class="catalog-card-size">' + esc(size) + '</small>' : '';
+      })() +
       '<span class="catalog-card-price"><small>' + priceNote + '</small><b>' + from + Number(p.price).toLocaleString('ru-RU') + ' ₽</b></span>' +
       '</span></a>';
   }
@@ -708,6 +714,7 @@
           category = 'Все товары';
           character = '';
           filter = '';
+          closeReadySheet();
           unitStep = '';
           sheetQuery = '';
         }
@@ -791,25 +798,71 @@
     ];
     var occasions = READY_MORE.concat(['Гендер-пати']);
     var what = READY_WHAT.filter(function (name) { return name !== 'Гендер-пати'; });
-    var showWhat = readyWhatOpen;
     function hero(name, src, label) {
       var on = category === name ? ' is-on' : '';
       return '<button type="button" class="pick-hero' + on + '" data-idea="' + esc(name) + '">' +
         '<span class="pick-hero-ring"><img src="' + src + '" alt=""/></span><b>' + esc(label) + '</b></button>';
     }
-    var html = '<div class="pick-band pick-band-who"><p class="pick-kicker">Кому</p><div class="pick-heroes">' +
+    return '<div class="pick-band pick-band-who"><p class="pick-kicker">Кому</p><div class="pick-heroes">' +
       who.map(function (row) { return hero(row[0], row[1], row[0]); }).join('') + '</div></div>' +
       '<div class="pick-band pick-band-why"><p class="pick-kicker">Повод</p><div class="pick-more">' +
       occasions.map(function (name) {
         return '<button type="button" class="' + (category === name ? 'is-on' : '') + '" data-idea="' + esc(name) + '">' + esc(name) + '</button>';
-      }).join('') + '</div></div>';
-    if (!showWhat) {
-      html += '<button type="button" class="catalog-ready-what-toggle" data-what-toggle>Что заказать</button>';
-      return html;
-    }
-    html += '<div class="pick-band pick-band-what"><p class="pick-kicker">Что заказать</p><button type="button" class="pick-kicker-hide" data-what-toggle>Скрыть</button><div class="pick-heroes">' +
+      }).join('') + '</div></div>' +
+      '<div class="pick-band pick-band-what"><p class="pick-kicker">Что заказать</p><div class="pick-heroes">' +
       what.map(function (name) { return hero(name, READY_PHOTOS[name] || '', ideaLabel(name)); }).join('') + '</div></div>';
-    return html;
+  }
+
+  function closeReadySheet() {
+    if (readySheet) readySheet.remove();
+    readySheet = null;
+    if (!filterSheet) document.body.style.overflow = '';
+  }
+
+  function paintReadySheet() {
+    if (!readySheet) return;
+    var body = readySheet.querySelector('.catalog-filter-sheet-body');
+    body.innerHTML = readyBands();
+    body.querySelectorAll('[data-idea]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var name = b.getAttribute('data-idea');
+        category = category === name ? 'Все товары' : name;
+        character = '';
+        filter = '';
+        render({ resultsOnly: true });
+        paintReadySheet();
+      });
+    });
+  }
+
+  function openReadySheet() {
+    if (readySheet) return;
+    closeFilterSheet();
+    readySheet = document.createElement('div');
+    readySheet.className = 'catalog-filter-sheet catalog-ready-sheet';
+    readySheet.setAttribute('role', 'presentation');
+    readySheet.innerHTML =
+      '<button type="button" class="catalog-filter-sheet-backdrop" aria-label="Закрыть подбор"></button>' +
+      '<section class="catalog-filter-sheet-panel" role="dialog" aria-modal="true" aria-labelledby="catalog-ready-title">' +
+      '<div class="catalog-filter-sheet-handle" aria-hidden="true"></div>' +
+      '<header class="catalog-filter-sheet-head"><div><h2 id="catalog-ready-title">Каталог</h2></div>' +
+      '<button type="button" class="catalog-filter-sheet-close" aria-label="Закрыть">×</button></header>' +
+      '<div class="catalog-filter-sheet-body"></div>' +
+      '<footer class="catalog-filter-sheet-foot">' +
+      '<button type="button" class="catalog-filter-sheet-reset" data-ready-reset>Сбросить</button>' +
+      '<button type="button" class="catalog-filter-sheet-done" data-ready-done>Показать</button>' +
+      '</footer></section>';
+    document.body.appendChild(readySheet);
+    document.body.style.overflow = 'hidden';
+    paintReadySheet();
+    readySheet.querySelector('.catalog-filter-sheet-backdrop').addEventListener('click', closeReadySheet);
+    readySheet.querySelector('.catalog-filter-sheet-close').addEventListener('click', closeReadySheet);
+    readySheet.querySelector('[data-ready-done]').addEventListener('click', closeReadySheet);
+    readySheet.querySelector('[data-ready-reset]').addEventListener('click', function () {
+      category = 'Все товары';
+      render({ resultsOnly: true });
+      paintReadySheet();
+    });
   }
 
   function circleOn(selected, row) {
@@ -849,7 +902,12 @@
 
   function boardHtml() {
     if (group === 'ready') {
-      return readyBands();
+      var chip = '';
+      if (category !== 'Все товары') {
+        var chipLabel = READY_WHAT.indexOf(category) >= 0 ? ideaLabel(category) : category;
+        chip = '<button type="button" class="catalog-pick-chip" data-clear-ready>' + esc(chipLabel) + ' ×</button>';
+      }
+      return '<div class="catalog-pick-bar"><button type="button" data-open-ready>Кому, повод или что заказать</button>' + chip + '</div>';
     }
     if (group === 'holidays') {
       return bandCircles(HOLIDAY_PHOTOS, category, 'pick-band-why', 'Праздник');
@@ -910,12 +968,13 @@
       if (groupNav) groupNav.after(old);
     }
     old.innerHTML = boardHtml();
-    old.querySelectorAll('[data-what-toggle]').forEach(function (b) {
-      b.addEventListener('click', function (e) {
-        e.preventDefault();
-        e.stopPropagation();
-        readyWhatOpen = !readyWhatOpen;
-        render();
+    old.querySelectorAll('[data-open-ready]').forEach(function (b) {
+      b.addEventListener('click', openReadySheet);
+    });
+    old.querySelectorAll('[data-clear-ready]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        category = 'Все товары';
+        render({ resultsOnly: true });
       });
     });
     old.querySelectorAll('[data-idea]').forEach(function (b) {
@@ -1004,7 +1063,6 @@
       priceIdx !== 0 ? 1 : 0,
       age ? 1 : 0,
       ages.length,
-      readyWhatOpen ? 1 : 0,
       subcatList().join(',')
     ].join('|');
   }

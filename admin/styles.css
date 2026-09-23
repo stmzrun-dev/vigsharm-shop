@@ -757,6 +757,7 @@ body.admin-editor-open{overflow:hidden}
   width:100%;box-sizing:border-box;min-height:36px;padding:6px 10px;
   border:1px solid #E0E0E0;border-radius:8px;font:inherit;font-size:13px;background:#fff
 }
+.unit-price-fields{display:none;margin:0 0 12px}
 .unit-balloon-who-wrap{margin:8px 0 0}
 .unit-balloon-who-wrap.hidden{display:none!important}
 .unit-who-row{
@@ -1015,6 +1016,12 @@ body.admin-editor-open{overflow:hidden}
 #product-form.has-ai-card:not(.is-ai-review-detail) #step2-after-ai,
 #product-form.has-ai-card:not(.is-ai-review-detail) .step2-after-ai-block,
 #product-form.has-ai-card:not(.is-ai-review-detail) .step2-publish-btn{display:none!important}
+#product-form.is-unit-balloon #unit-price-fields{display:block}
+#product-form:not(.is-unit-balloon) #unit-price-fields{display:none!important}
+#product-form.is-editor-step-2.is-ai-review-detail:not(.is-unit-balloon) #unit-price-fields{display:block!important}
+#product-form.is-editor-step-2.is-ai-review-detail:not(.is-unit-balloon) #unit-balloon-who-wrap{display:none!important}
+#product-form.is-unit-balloon #publish-product-btn{display:inline-flex!important}
+#product-form.is-unit-balloon #save-draft-btn{display:none!important}
 #product-form.has-ai-card #template-from-last-btn{display:none!important}
 @media(max-width:720px){
   .ai-review-panel{max-height:96vh}

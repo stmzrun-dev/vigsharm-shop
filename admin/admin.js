@@ -1554,6 +1554,30 @@ const app = {
       return;
     }
 
+    if (data.scene === 'unit_balloon') {
+      if (!data.title) {
+        this.toast('Введите название как у поставщика', 'error');
+        document.getElementById('product-title')?.focus();
+        return;
+      }
+      const unitType = data.client_options?.unit_type || '';
+      if (!unitType) {
+        this.toast('На сцене выберите подтип: с рисунком или фольга', 'error');
+        this.goStep1Phase?.('a');
+        return;
+      }
+      const needsWho = unitType === 'print' || unitType === 'foil';
+      if (needsWho && !data.client_options?.unit_who) {
+        this.toast('Выберите, для кого шар', 'error');
+        return;
+      }
+      if (unitType === 'foil' && !data.client_options?.balloon_size) {
+        this.toast('Укажите размер фольги в см', 'error');
+        document.getElementById('unit-balloon-size')?.focus();
+        return;
+      }
+    }
+
     if (isDraft) {
       if (!data.title) {
         const fromComp = String(data.composition || '').trim().split(/\n/)[0].replace(/\s+/g, ' ').slice(0, 48);

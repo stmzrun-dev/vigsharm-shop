@@ -1431,8 +1431,9 @@ Object.assign(app, {
       if (unitMeta) {
         clientOptions.unit_type = unitType;
         if (unitMeta.hasSize) {
-          const size = (document.getElementById('unit-balloon-size')?.value || '').trim();
-          if (size) clientOptions.balloon_size = size;
+          const raw = (document.getElementById('unit-balloon-size')?.value || '').replace(/[^\d.,]/g, '').replace(',', '.');
+          const cm = raw ? String(Math.round(parseFloat(raw))) : '';
+          if (cm && cm !== 'NaN') clientOptions.balloon_size = `${cm} см`;
         }
         if (unitMeta.hasWho) {
           const who = this.getUnitBalloonWho?.() || '';

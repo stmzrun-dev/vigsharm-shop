@@ -8,6 +8,7 @@
   var DETAIL_FILTERS = ['Для мальчика', 'Для девочки', 'Детские', 'Для него', 'Для неё', 'На выписку', 'День рождения', 'Праздники', 'Персонажи', 'Универсальные'];
   var HOLIDAYS = ['Новый год', '14 февраля', '23 февраля', '8 марта', '9 мая', 'Выпускной', '1 сентября', 'День учителя', 'Хэллоуин'];
   var SINGLE_GIFTS = ['Фигуры из шаров', 'Цветы из шаров', 'Арки', 'Шар-сюрприз', 'Крафтовый букет', 'Коробка-сюрприз', 'Гендер-пати'];
+  var AUDIENCE = ['Для девочки', 'Для мальчика', 'Универсальные', 'Для неё', 'Для него', 'Для мамы', 'На выписку', '1 годик', 'Юбилей', 'Свадьба и девичник', 'Крещение', 'День рождения'];
   var GROUPS = [
     { id: 'ready', title: 'Готовые решения', mobile: 'Готовые', icon: 'ready', chipImg: 'icons/group-ready.png?v=7', note: 'Композиции для любого повода' },
     { id: 'characters', title: 'Персонажи', mobile: 'Персонажи', icon: 'characters', chipImg: 'icons/group-characters.png?v=7', note: 'Любимые герои детей' },
@@ -50,14 +51,19 @@
   function tagsOf(p) { return [p.category].concat(p.tags || []).filter(Boolean); }
   function inGroup(p, group) {
     var r = tagsOf(p);
-    var isUnit = !r.some(function (x) { return SINGLE_GIFTS.indexOf(x) >= 0; }) && (p.category === 'Шары поштучно' || r.indexOf('Шары поштучно') >= 0);
+    var cat = String(p.category || '');
+    var isUnit = cat === 'Шары поштучно' || UNIT_SUBCATS.indexOf(cat) >= 0 || (
+      !r.some(function (x) { return SINGLE_GIFTS.indexOf(x) >= 0; }) && r.indexOf('Шары поштучно') >= 0
+    );
     var isHoliday = r.some(function (x) { return HOLIDAYS.indexOf(x) >= 0; });
     var hasChar = !!(p.character_name || '').trim();
+    var isIdea = !isUnit && !isHoliday && !!cat && AUDIENCE.indexOf(cat) < 0;
     if (group === 'unit') return isUnit;
     if (group === 'holidays') return !isUnit && isHoliday;
     if (group === 'characters') return !isUnit && !isHoliday && hasChar;
     if (group === 'all') return true;
-    return !isUnit && !isHoliday && !hasChar;
+    if (group === 'ideas' || group === 'ready') return (!isUnit && !isHoliday && !hasChar) || isIdea;
+    return !isUnit && !isHoliday && !hasChar && !isIdea;
   }
   function productHasLabel(p, label) {
     return p.category === label || (p.tags || []).indexOf(label) >= 0;
@@ -67,7 +73,7 @@
   var products = [];
   var loading = true;
   var loadError = false;
-  var q = '', category = 'Все товары', priceIdx = 0, age = '', character = '', filter = '', group = 'all', sortMode = '';
+  var q = '', category = 'Все товары', priceIdx = 0, age = '', character = '', filter = '', group = 'ready', sortMode = '';
   var unitStep = '';
   var sheetDraft = '';
   var filtersOpen = false;
@@ -82,11 +88,13 @@
         a = sp.get('age'), f = sp.get('filter'), g = sp.get('group'), s = sp.get('sort'),
         mn = Number(sp.get('min') || 0), mxRaw = sp.get('max'), mx = mxRaw ? Number(mxRaw) : Infinity;
     if (s === 'price-asc' || s === 'price-desc') sortMode = s;
-    if (g === 'all' || GROUPS.some(function (x) { return x.id === g; })) group = g;
+    if (g === 'ideas') group = 'ready';
+    else if (g === 'all' || GROUPS.some(function (x) { return x.id === g; })) group = g;
     if (c) {
       category = (c === 'Шары поштучно') ? 'Все товары' : c;
       if (c === 'Шары поштучно' || UNIT_SUBCATS.indexOf(c) >= 0) group = 'unit';
       else if (HOLIDAYS.indexOf(c) >= 0) group = 'holidays';
+      else if (AUDIENCE.indexOf(c) < 0) group = 'ready';
     }
     if (query) q = query;
     if (ch) { character = ch; group = 'characters'; }
@@ -229,7 +237,7 @@
   }
 
   function resetAll() {
-    q = ''; category = 'Все товары'; priceIdx = 0; character = ''; age = ''; filter = ''; group = 'all'; sortMode = '';
+    q = ''; category = 'Все товары'; priceIdx = 0; character = ''; age = ''; filter = ''; group = 'ready'; sortMode = '';
     visibleCount = PAGE_SIZE;
     if (searchInput) searchInput.value = '';
     window.history.replaceState({}, '', 'catalog.html');
@@ -282,6 +290,8 @@
     var pr = PRICES[priceIdx];
     var list = products.filter(function (p) {
       var searched = terms.length > 0;
+      var audienceOnly = group === 'ready' && category === 'Все товары' && !searched;
+      var hideIdea = audienceOnly && !!p.category && AUDIENCE.indexOf(p.category) < 0;
       var excludedUnitRoot = group === 'unit' && category === 'Все товары' && terms.length === 0 && priceIdx === 0 && !age && UNIT_COLLECTIONS.indexOf(p.category) >= 0;
       var inG = searched || (group === 'all' ? !inGroup(p, 'unit') : inGroup(p, group));
       var hay = norm([p.title, p.sku, p.short_description, p.description, p.composition, p.category, p.character_name, p.age_group].concat(p.tags || []).filter(Boolean).join(' '));
@@ -291,7 +301,7 @@
       var matchF = !filter || p.category === filter || (p.tags || []).indexOf(filter) >= 0;
       var matchCh = !character || (p.character_name || '').toLowerCase().indexOf(character.toLowerCase()) >= 0 || (p.title || '').toLowerCase().indexOf(character.toLowerCase()) >= 0;
       var matchA = !age || p.age_group === age;
-      return !excludedUnitRoot && inG && matchQ && matchC && matchP && matchF && matchCh && matchA;
+      return !excludedUnitRoot && !hideIdea && inG && matchQ && matchC && matchP && matchF && matchCh && matchA;
     });
     if (sortMode === 'price-asc' || sortMode === 'price-desc') {
       var dir = sortMode === 'price-asc' ? 1 : -1;
@@ -367,21 +377,38 @@
 
   var SECTION_UI = [
     { id: 'ready', label: 'Готовые', off: 'icons/sections/section-ready-off.png', on: 'icons/sections/section-ready-on.png' },
-    { id: 'characters', label: 'Герои', off: 'icons/sections/section-heroes-off.png', on: 'icons/sections/section-heroes-on.png' },
+    { id: 'characters', label: 'Персонажи', off: 'icons/sections/section-heroes-off.png', on: 'icons/sections/section-heroes-on.png' },
     { id: 'unit', label: 'Шары', off: 'icons/sections/section-balloons-off.png', on: 'icons/sections/section-balloons-on.png' },
     { id: 'holidays', label: 'Праздники', off: 'icons/sections/section-holidays-off.png', on: 'icons/sections/section-holidays-on.png' }
   ];
-  var READY_PICKS = ['Для девочки', 'Для мальчика', 'Универсальные', 'Для неё', 'Для него', 'На выписку', 'День рождения'];
-  var WHO_PICKS = ['Для неё', 'Для него', 'На выписку', 'Геймерам', 'Для девочки', 'Для мальчика'];
+  var READY_WHO = AUDIENCE;
+  var READY_MAIN = ['Для девочки', 'Для мальчика', 'Для неё', 'Для него'];
+  var READY_MORE = ['На выписку', '1 годик', 'День рождения', 'Юбилей', 'Для мамы', 'Свадьба и девичник', 'Крещение'];
+  var READY_WHAT = ['Фигуры из шаров', 'Букет из шаров', 'Коробка-сюрприз', 'Фотозона', 'Цветы из шаров', 'Гендер-пати', 'Арки', 'Шар-сюрприз', 'Крафтовый букет', 'Оригинальные подарки', 'Оформление праздника'];
+  var READY_PHOTOS = {
+    'Фигуры из шаров': 'images/ready/figures.jpg?v=20260923',
+    'Букет из шаров': 'images/ready/bouquet.jpg?v=20260923',
+    'Коробка-сюрприз': 'images/ready/box.jpg?v=20260923',
+    'Фотозона': 'images/ready/photozone.jpg?v=20260923',
+    'Цветы из шаров': 'images/ready/flowers.jpg?v=20260923',
+    'Гендер-пати': 'images/ready/gender.jpg?v=20260923',
+    'Арки': 'images/ready/arch.jpg?v=20260923',
+    'Шар-сюрприз': 'images/ready/surprise.jpg?v=20260923',
+    'Крафтовый букет': 'images/ready/kraft.jpg?v=20260923',
+    'Оригинальные подарки': 'images/ready/gift.jpg?v=20260923',
+    'Оформление праздника': 'images/ready/party.jpg?v=20260923',
+    'День рождения': 'images/ready/birthday.jpg?v=20260923'
+  };
+  var WHO_PICKS = ['Для девочки', 'Для мальчика', 'Для неё', 'Для него', 'На выписку', 'День рождения', 'Юбилей', 'Геймерам', 'Универсальные'];
   var UNIT_TYPES = [
     ['Латекс', 'images/balloons/balloon-latex.jpg', 'latex', 'Латексные шары'],
     ['С рисунком', 'images/balloons/balloon-print.jpg', 'who', 'Шары с рисунком'],
-    ['Фольга', 'images/balloons/balloon-foil.jpg', 'who', 'Фольгированные фигуры'],
-    ['Ходячие', 'images/balloons/balloon-walker.jpg', 'who', 'Ходячие фигуры'],
+    ['Фольга', 'images/balloons/balloon-foil.jpg?v=20260923', 'who', 'Фольгированные фигуры'],
+    ['Ходячие', 'images/balloons/balloon-walker.jpg?v=20260923', 'who', 'Ходячие фигуры'],
     ['Круги и звёзды', 'images/balloons/balloon-shapes.jpg', '', 'Круги, звёзды и сердца'],
     ['Цифры', 'images/balloons/balloon-digit.jpg', '', 'Фольгированные цифры'],
     ['Bubble', 'images/balloons/balloon-bubble.jpg', '', 'Шары Bubble'],
-    ['Именные', 'images/balloons/balloon-name.jpg', '', 'Именные шары']
+    ['С именем', 'images/balloons/balloon-name.jpg?v=20260923', '', 'Именные шары']
   ];
   var LATEX_TYPES = [
     ['Обычный', 'images/balloons/balloon-latex.jpg', 'Латексные шары'],
@@ -446,6 +473,11 @@
     el.querySelector('.pick-sheet-back').addEventListener('click', closePickSheet);
     el.querySelector('.pick-close').addEventListener('click', closePickSheet);
     el.querySelector('#catalog-pick-back').addEventListener('click', function () {
+      if (unitStep === 'who' || unitStep === 'latex') {
+        sheetDraft = '';
+        applyPick();
+        return;
+      }
       if (unitStep) { unitStep = ''; paintPickSheet(); return; }
       sheetDraft = '';
       paintPickSheet();
@@ -475,6 +507,14 @@
     document.body.style.overflow = 'hidden';
   }
 
+  function readyPhotoButtons(list) {
+    return '<div class="pick-heroes">' + list.map(function (row) {
+      var on = sheetDraft === row[0];
+      return '<button type="button" class="pick-hero' + (on ? ' is-on' : '') + '" data-pick="' + esc(row[0]) + '">' +
+        '<span class="pick-hero-ring"><img src="' + row[1] + '" alt=""/></span><b>' + esc(row[2] || row[0]) + '</b></button>';
+    }).join('') + '</div>';
+  }
+
   function photoButtons(list, contain) {
     return '<div class="pick-heroes">' + list.map(function (row) {
       var on = sheetDraft === row[0] || sheetDraft === row[3];
@@ -490,6 +530,12 @@
     }).join('') + '</div>';
   }
 
+  function choicesWithProducts(list, grp) {
+    return list.filter(function (name) {
+      return products.some(function (p) { return inGroup(p, grp) && productHasLabel(p, name); });
+    });
+  }
+
   function paintPickSheet() {
     var el = document.getElementById('catalog-pick-sheet');
     if (!el) return;
@@ -498,15 +544,32 @@
     var html = '';
     var search = document.getElementById('catalog-pick-search');
     search.hidden = group !== 'characters' || !!unitStep;
-    document.getElementById('catalog-pick-back').textContent = unitStep ? 'Назад' : 'Все';
+    document.getElementById('catalog-pick-back').textContent = (unitStep === 'who' || unitStep === 'latex') ? 'Все шары' : (unitStep ? 'Назад' : 'Все');
     if (group === 'ready') {
-      title = 'Для кого праздник?';
-      lead = 'Выберите, кому собираем композицию.';
-      html = textButtons(READY_PICKS);
+      title = 'Категории';
+      lead = '';
+      var who = [
+        ['Для девочки', 'images/category-girl.png'],
+        ['Для мальчика', 'images/category-boy.png'],
+        ['Для неё', 'images/category-loved.png'],
+        ['Для него', 'images/category-him.png']
+      ];
+      var occasions = READY_MORE.concat(['Гендер-пати']);
+      var what = READY_WHAT.filter(function (name) { return name !== 'Гендер-пати'; }).map(function (name) {
+        return [name, READY_PHOTOS[name] || '', ideaLabel(name)];
+      });
+      html = '<div class="pick-band pick-band-who"><p class="pick-kicker">Кому</p>' + photoButtons(who, false) + '</div>' +
+        '<div class="pick-band pick-band-why"><p class="pick-kicker">Повод</p><div class="pick-more">' + occasions.map(function (name) {
+          return '<button type="button" class="' + (sheetDraft === name ? 'is-on' : '') + '" data-pick="' + esc(name) + '">' + esc(name) + '</button>';
+        }).join('') + '</div></div>' +
+        '<div class="pick-band pick-band-what"><p class="pick-kicker">Что заказать</p>' + readyPhotoButtons(what) + '</div>';
     } else if (group === 'holidays') {
       title = 'Какой праздник?';
       lead = 'Дата или повод — одним нажатием.';
-      html = photoButtons(HOLIDAY_PHOTOS, true);
+      var days = HOLIDAY_PHOTOS.filter(function (row) {
+        return products.some(function (p) { return inGroup(p, 'holidays') && productHasLabel(p, row[0]); });
+      });
+      html = photoButtons(days.length ? days : HOLIDAY_PHOTOS, true);
     } else if (group === 'unit' && unitStep === 'latex') {
       title = 'Какой латекс?';
       lead = 'Обычный шар и фактуры.';
@@ -517,7 +580,7 @@
       html = textButtons(WHO_PICKS);
     } else if (group === 'unit') {
       title = 'Какие шары?';
-      lead = 'Сначала вид. У латекса, рисунка, фольги и ходячих откроется уточнение.';
+      lead = 'Сначала вид. Если нужно — можно показать все шары этого вида.';
       html = photoButtons(UNIT_TYPES, false);
     } else if (group === 'characters') {
       title = 'Кого позовём?';
@@ -536,11 +599,24 @@
       }
     }
     document.getElementById('catalog-pick-title').textContent = title;
-    document.getElementById('catalog-pick-lead').textContent = lead;
+    var leadEl = document.getElementById('catalog-pick-lead');
+    leadEl.textContent = lead;
+    leadEl.hidden = !lead;
+    var done = document.getElementById('catalog-pick-done');
+    if (done) done.hidden = group === 'ready';
     var body = document.getElementById('catalog-pick-body');
     body.innerHTML = html;
     body.querySelectorAll('[data-pick]').forEach(function (b) {
-      b.addEventListener('click', function () { sheetDraft = b.getAttribute('data-pick'); paintPickSheet(); });
+      b.addEventListener('click', function () {
+        var name = b.getAttribute('data-pick');
+        if (group === 'ready') {
+          sheetDraft = sheetDraft === name ? '' : name;
+          applyPick();
+          return;
+        }
+        sheetDraft = name;
+        paintPickSheet();
+      });
     });
   }
 
@@ -582,13 +658,13 @@
     }
     unitStep = '';
     closePickSheet();
-    render();
+    render({ scroll: group === 'ready' && category !== 'Все товары' });
   }
 
   function renderCapsule() {
     var old = document.getElementById('catalog-pick-capsule');
     var label = pickLabel();
-    if (group === 'all' || !label) {
+    if (group === 'all' || group === 'ready' || group === 'characters' || group === 'unit' || group === 'holidays' || !label) {
       if (old) old.remove();
       return;
     }
@@ -609,8 +685,7 @@
     groupNav.classList.toggle('is-picked', group !== 'all');
     groupNav.innerHTML = SECTION_UI.map(function (g) {
       var on = group === g.id;
-      return '<button type="button" class="' + (on ? 'is-on' : '') + '" data-group="' + g.id + '" aria-label="' + g.label + '" aria-pressed="' + (on ? 'true' : 'false') + '">' +
-        '<img src="' + (on ? g.on : g.off) + '?v=20260923t" alt=""/></button>';
+      return '<button type="button" class="' + (on ? 'is-on' : '') + '" data-group="' + g.id + '" aria-pressed="' + (on ? 'true' : 'false') + '">' + g.label + '</button>';
     }).join('');
     groupNav.querySelectorAll('[data-group]').forEach(function (b) {
       b.addEventListener('click', function () {
@@ -620,9 +695,11 @@
           category = 'Все товары';
           character = '';
           filter = '';
+          unitStep = '';
+          sheetQuery = '';
         }
         render();
-        openPickSheet();
+        closePickSheet();
       });
     });
   }
@@ -634,7 +711,244 @@
     subNav.hidden = true;
     subNav.style.display = 'none';
     subNav.innerHTML = '';
+    renderBoard();
     renderCapsule();
+  }
+
+  function ideaLabel(name) {
+    if (name === 'Шар-сюрприз') return 'Сюрприз';
+    return String(name || '').replace(' из шаров', '').replace('-сюрприз', '');
+  }
+
+  function categoryRows(names, idea) {
+    var first = {};
+    products.forEach(function (p) {
+      if (!p.category || first[p.category]) return;
+      var cat = String(p.category);
+      var match = idea ? (AUDIENCE.indexOf(cat) < 0 && inGroup(p, 'ideas')) : (AUDIENCE.indexOf(cat) >= 0 && inGroup(p, 'ready'));
+      if (match) first[cat] = p;
+    });
+    var order = names.filter(function (name) { return first[name]; });
+    if (idea) {
+      Object.keys(first).forEach(function (name) {
+        if (order.indexOf(name) < 0) order.push(name);
+      });
+      order.sort(function (a, b) {
+        var ia = names.indexOf(a), ib = names.indexOf(b);
+        if (ia >= 0 && ib >= 0) return ia - ib;
+        if (ia >= 0) return -1;
+        if (ib >= 0) return 1;
+        return a.localeCompare(b, 'ru');
+      });
+    }
+    return order.map(function (name) { return { name: name, product: first[name] }; });
+  }
+
+  function circleRow(items) {
+    return '<div class="catalog-idea-grid catalog-rail">' + items.map(function (item) {
+      var src = READY_PHOTOS[item.name] || '';
+      if (!src && item.product) {
+        var key = window.vigProductPhoto ? window.vigProductPhoto(item.product) : '';
+        src = key && window.vigImage ? window.vigImage(key) : '';
+      }
+      var on = category === item.name;
+      return '<button type="button" class="pick-hero' + (on ? ' is-on' : '') + '" data-idea="' + esc(item.name) + '">' +
+        '<span class="pick-hero-ring">' + (src ? '<img src="' + src + '" alt=""/>' : '') + '</span><b>' + esc(ideaLabel(item.name)) + '</b></button>';
+    }).join('') + '</div>';
+  }
+
+  function readyWhatItems() {
+    var first = {};
+    products.forEach(function (p) {
+      if (p.category && !first[p.category]) first[p.category] = p;
+    });
+    return READY_WHAT.map(function (name) { return { name: name, product: first[name] || null }; });
+  }
+
+  function whoChip(name, extra) {
+    return '<button type="button" class="' + extra + (category === name ? ' is-on' : '') + '" data-idea="' + esc(name) + '">' + esc(name) + '</button>';
+  }
+
+  function readyBands() {
+    var who = [
+      ['Для девочки', 'images/category-girl.png'],
+      ['Для мальчика', 'images/category-boy.png'],
+      ['Для неё', 'images/category-loved.png'],
+      ['Для него', 'images/category-him.png']
+    ];
+    var occasions = READY_MORE.concat(['Гендер-пати']);
+    var what = READY_WHAT.filter(function (name) { return name !== 'Гендер-пати'; });
+    function hero(name, src, label) {
+      var on = category === name ? ' is-on' : '';
+      return '<button type="button" class="pick-hero' + on + '" data-idea="' + esc(name) + '">' +
+        '<span class="pick-hero-ring"><img src="' + src + '" alt=""/></span><b>' + esc(label) + '</b></button>';
+    }
+    return '<div class="pick-band pick-band-who"><p class="pick-kicker">Кому</p><div class="pick-heroes">' +
+      who.map(function (row) { return hero(row[0], row[1], row[0]); }).join('') + '</div></div>' +
+      '<div class="pick-band pick-band-why"><p class="pick-kicker">Повод</p><div class="pick-more">' +
+      occasions.map(function (name) {
+        return '<button type="button" class="' + (category === name ? 'is-on' : '') + '" data-idea="' + esc(name) + '">' + esc(name) + '</button>';
+      }).join('') + '</div></div>' +
+      '<div class="pick-band pick-band-what"><p class="pick-kicker">Что заказать</p><div class="pick-heroes">' +
+      what.map(function (name) { return hero(name, READY_PHOTOS[name] || '', ideaLabel(name)); }).join('') + '</div></div>';
+  }
+
+  function staticCircles(rows, selected, contain) {
+    return '<div class="catalog-idea-grid">' + rows.map(function (row) {
+      var on = selected === row[0] || selected === row[2] || selected === row[3];
+      return '<button type="button" class="pick-hero' + (on ? ' is-on' : '') + '" data-pick="' + esc(row[0]) + '">' +
+        '<span class="pick-hero-ring"><img class="' + (contain ? 'is-contain' : '') + '" src="' + row[1] + '" alt=""/></span><b>' + esc(row[0]) + '</b></button>';
+    }).join('') + '</div>';
+  }
+
+  function activeUnitType() {
+    return UNIT_TYPES.filter(function (row) {
+      if (category === row[3] || category === row[0]) return true;
+      if (row[2] === 'latex') return LATEX_TYPES.some(function (latex) { return latex[2] === category; });
+      return false;
+    })[0];
+  }
+
+  function bandCircles(rows, selected, bandClass, kicker) {
+    var buttons = rows.map(function (row) {
+      var on = selected === row[0] || selected === row[2] || selected === row[3];
+      return '<button type="button" class="pick-hero' + (on ? ' is-on' : '') + '" data-pick="' + esc(row[0]) + '">' +
+        '<span class="pick-hero-ring"><img src="' + row[1] + '" alt=""/></span><b>' + esc(row[0]) + '</b></button>';
+    }).join('');
+    return '<div class="pick-band ' + bandClass + '">' +
+      (kicker ? '<p class="pick-kicker">' + kicker + '</p>' : '') +
+      '<div class="pick-heroes">' + buttons + '</div></div>';
+  }
+
+  function boardHtml() {
+    if (group === 'ready') {
+      return readyBands();
+    }
+    if (group === 'holidays') {
+      return bandCircles(HOLIDAY_PHOTOS, category, 'pick-band-why', 'Праздник');
+    }
+    if (group === 'characters') {
+      var heroes = HERO_PHOTOS.filter(function (h) { return !sheetQuery || norm(h[0]).indexOf(sheetQuery) >= 0; });
+      var known = {};
+      HERO_PHOTOS.forEach(function (h) { known[norm(h[0])] = 1; });
+      var extra = subcatList().filter(function (name) {
+        return !known[norm(name)] && (!sheetQuery || norm(name).indexOf(sheetQuery) >= 0);
+      });
+      var html = '<input class="catalog-board-search" id="catalog-hero-search" type="search" placeholder="Найти персонажа" value="' + esc(sheetQuery) + '"/>' +
+        bandCircles(heroes, character, 'pick-band-who', 'Персонажи');
+      if (extra.length) {
+        html += '<div class="pick-band pick-band-why"><p class="pick-kicker">Ещё</p><div class="pick-more">' + extra.map(function (name) {
+          return '<button type="button" class="' + (character === name ? 'is-on' : '') + '" data-hero="' + esc(name) + '">' + esc(name) + '</button>';
+        }).join('') + '</div></div>';
+      }
+      return html;
+    }
+    if (group === 'unit') {
+      var type = activeUnitType();
+      var html = bandCircles(UNIT_TYPES, type ? type[0] : '', 'pick-band-what', 'Какие шары');
+      if (type && type[2] === 'latex') {
+        html += bandCircles(LATEX_TYPES, category, 'pick-band-who', 'Какой латекс');
+      } else if (type && type[2] === 'who') {
+        html += '<div class="pick-band pick-band-why"><p class="pick-kicker">Кому шар</p><div class="pick-more">' + WHO_PICKS.map(function (name) {
+          return '<button type="button" class="' + (filter === name ? 'is-on' : '') + '" data-who="' + esc(name) + '">' + esc(name) + '</button>';
+        }).join('') + '</div></div>';
+      }
+      return html;
+    }
+    return '';
+  }
+
+  function scrollToResults() {
+    if (!resultsSection) return;
+    var top = resultsSection.getBoundingClientRect().top + window.pageYOffset - 12;
+    window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+  }
+
+  function renderBoard() {
+    var old = document.getElementById('catalog-idea-board');
+    if (group === 'all') {
+      if (old) old.remove();
+      return;
+    }
+    var keepFocus = document.activeElement && document.activeElement.id === 'catalog-hero-search';
+    if (!old) {
+      old = document.createElement('div');
+      old.id = 'catalog-idea-board';
+      old.className = 'catalog-idea-board';
+      if (groupNav) groupNav.after(old);
+    }
+    old.innerHTML = boardHtml();
+    old.querySelectorAll('[data-idea]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var name = b.getAttribute('data-idea');
+        category = category === name ? 'Все товары' : name;
+        character = '';
+        filter = '';
+        render({ scroll: category !== 'Все товары' });
+      });
+    });
+    old.querySelectorAll('[data-pick]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var name = b.getAttribute('data-pick');
+        if (group === 'holidays') {
+          category = category === name ? 'Все товары' : name;
+          character = '';
+          filter = '';
+          render({ scroll: category !== 'Все товары' });
+          return;
+        }
+        if (group === 'characters') {
+          character = character === name ? '' : name;
+          category = 'Все товары';
+          filter = '';
+          render({ scroll: !!character });
+          return;
+        }
+        var type = UNIT_TYPES.filter(function (row) { return row[0] === name; })[0];
+        var latex = LATEX_TYPES.filter(function (row) { return row[0] === name; })[0];
+        if (latex && activeUnitType() && activeUnitType()[2] === 'latex') {
+          category = category === latex[2] ? 'Латексные шары' : latex[2];
+          filter = '';
+          render({ scroll: category !== 'Латексные шары' });
+          return;
+        }
+        if (type) {
+          var same = category === type[3] || (type[2] === 'latex' && LATEX_TYPES.some(function (row) { return row[2] === category; }));
+          category = same ? 'Все товары' : type[3];
+          filter = '';
+          character = '';
+          render({ scroll: !same && !type[2] });
+        }
+      });
+    });
+    old.querySelectorAll('[data-hero]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var name = b.getAttribute('data-hero');
+        character = character === name ? '' : name;
+        category = 'Все товары';
+        filter = '';
+        render({ scroll: !!character });
+      });
+    });
+    old.querySelectorAll('[data-who]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var name = b.getAttribute('data-who');
+        filter = filter === name ? '' : name;
+        render({ scroll: !!filter });
+      });
+    });
+    var search = old.querySelector('#catalog-hero-search');
+    if (search) {
+      search.addEventListener('input', function () {
+        sheetQuery = norm(search.value);
+        renderBoard();
+      });
+      if (keepFocus) {
+        search.focus();
+        var len = search.value.length;
+        try { search.setSelectionRange(len, len); } catch (e) {}
+      }
+    }
   }
 
   function computeNavSignature() {
@@ -668,15 +982,15 @@
     }
     if (!opts.resultsOnly) renderRecent();
     renderResults();
+    if (opts.scroll) scrollToResults();
   }
 
   function groupTitle() {
     if (filter) return filter;
     if (character) return character;
-    if (group === 'all') return 'Композиции';
     if (category !== 'Все товары') return category;
-    var g = GROUPS.filter(function (x) { return x.id === group; })[0];
-    return g ? g.title : 'Каталог';
+    if (q.trim()) return 'Поиск';
+    return '';
   }
 
   function renderResults() {
@@ -689,14 +1003,15 @@
       var on = sortMode === value;
       return '<button type="button" class="' + (on ? 'selected' : '') + '" data-sort="' + value + '" aria-pressed="' + (on ? 'true' : 'false') + '">' + label + '</button>';
     }
+    var title = groupTitle();
     var head =
-      '<div class="catalog-results-heading"><div><h2>' + esc(groupTitle()) + '</h2>' +
+      '<div class="catalog-results-heading"><div>' +
+      (title ? '<h2>' + esc(title) + '</h2>' : '') +
       (searching ? '<p class="catalog-search-scope">Ищем по всему каталогу</p>' : '') +
       '</div>' +
       '<div class="catalog-results-tools">' +
       '<span role="status" aria-live="polite">' + (loading ? 'Загружаем варианты…' : list.length + ' ' + plural(list.length)) + '</span>' +
       '<div class="catalog-sort" role="group" aria-label="Сортировка">' +
-      sortChip('', 'По умолчанию') +
       sortChip('price-asc', 'Дешевле') +
       sortChip('price-desc', 'Дороже') +
       '</div>' +
@@ -761,7 +1076,7 @@
     resultsSection.querySelectorAll('[data-sort]').forEach(function (b) {
       b.addEventListener('click', function () {
         var v = b.getAttribute('data-sort') || '';
-        sortMode = (v === 'price-asc' || v === 'price-desc') ? v : '';
+        sortMode = sortMode === v ? '' : v;
         render();
       });
     });

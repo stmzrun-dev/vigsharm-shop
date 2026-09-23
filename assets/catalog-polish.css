@@ -2,7 +2,7 @@
    Scoped to .catalog-page. Loads after style.css + catalog-mobile-patch.css */
 
 .catalog-page{
-  --cat-pad:max(16px,calc((100% - 1280px) / 2));
+  --cat-pad:max(16px,calc((100% - 1520px) / 2));
   --cat-line:#e8e8ec;
   --cat-line-strong:#d8d8de;
   --cat-text:#2a2a32;
@@ -351,17 +351,6 @@
   .catalog-page .catalog-card-image img{
     border-radius:18px!important;
   }
-  .catalog-page .catalog-group-nav{
-    display:grid!important;
-    grid-template-columns:repeat(5,minmax(0,1fr))!important;
-    gap:10px!important;
-    overflow:visible!important;
-  }
-  .catalog-page .catalog-group-nav > button{
-    min-height:64px!important;
-    border-radius:18px!important;
-    box-shadow:none!important;
-  }
   .catalog-page .catalog-controls select{
     box-shadow:none!important;
     border-radius:16px!important;
@@ -378,7 +367,7 @@
 /* ===== Desktop 1200+ : 3–4 columns ===== */
 @media (min-width:1021px){
   .catalog-page{
-    --cat-pad:max(24px,calc((100% - 1280px) / 2));
+    --cat-pad:max(24px,calc((100% - 1520px) / 2));
   }
   .catalog-page .catalog-controls{
     margin-top:14px!important;
@@ -387,20 +376,6 @@
   .catalog-page .catalog-controls select{
     border-radius:16px!important;
     box-shadow:none!important;
-  }
-  .catalog-page .catalog-group-nav{
-    display:grid!important;
-    grid-template-columns:repeat(5,minmax(0,1fr))!important;
-    gap:10px!important;
-    margin-bottom:10px!important;
-  }
-  .catalog-page .catalog-group-nav > button{
-    min-height:58px!important;
-    border-radius:18px!important;
-    box-shadow:none!important;
-  }
-  .catalog-page .catalog-group-nav > button.active{
-    box-shadow:0 0 0 1px var(--cat-accent)!important;
   }
   .catalog-page .catalog-grid{
     grid-template-columns:repeat(3,minmax(0,1fr))!important;

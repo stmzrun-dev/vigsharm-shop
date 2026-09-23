@@ -2,6 +2,1260 @@
   "ok": true,
   "products": [
     {
+      "id": "04dcfc9b-3418-41d8-8013-71c1d50fa201",
+      "title": "Огненный герой",
+      "article": "BOY-027",
+      "price": 3070,
+      "short_description": "Фольгированная фигура щенка-пожарного, именная звезда и яркие хромированные шары.",
+      "full_description": "Композиция с далматинцем в пожарной каске, именной звездой и хромированными шарами. Яркий микс для настоящего героя.",
+      "composition": [
+        "фольгированная фигура",
+        "фольгированная звезда с индивидуальной надписью",
+        "9 латексных шаров хром"
+      ],
+      "category": "Для мальчика",
+      "character": "Маршал",
+      "age_group": "Для детей",
+      "budget": "2 000–3 500 ₽",
+      "series_name": "Щенячий патруль",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары с Маршалом из Щенячьего патруля — Армавир",
+      "seo_description": "Композиция с далматинцем-пожарным, именной звездой и хромированными шарами. Доставка воздушных шаров в Армавире.",
+      "slug": "ognennyy-geroy",
+      "scene": "wall_only",
+      "tags": [
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790182811/vigsharm-products/df6y7ymb8aiwyre9pzlu.jpg"
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790182865/vigsharm-products/djeyfplietyebh1ds5gd.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790182865/vigsharm-products/djeyfplietyebh1ds5gd.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-23T17:02:02.639Z",
+      "updated_at": "2026-09-23T17:02:02.639Z"
+    },
+    {
+      "id": "47ca62fe-b7a7-4bb3-9b95-84164e18fb98",
+      "title": "Малиновый сюрприз",
+      "article": "BOX-009",
+      "price": 4100,
+      "short_description": "Яркая малиновая коробка с шарами в розово-серебряной гамме.",
+      "full_description": "Малиновая коробка-сюрприз с индивидуальной надписью, украшенная звёздами и наполненная воздушными шарами. Композиция выполнена в нежных розовых и серебряных тонах.",
+      "composition": [
+        "коробка 70x70x70 с индивидуальной надписью и декором",
+        "20 маленьких шаров"
+      ],
+      "category": "Коробка-сюрприз",
+      "character": null,
+      "age_group": "Для детей",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Коробка-сюрприз с шарами Армавир | VigSharm",
+      "seo_description": "Яркая малиновая коробка с индивидуальной надписью и воздушными шарами в розово-серебряной гамме. Доставка в Армавире.",
+      "slug": "malinovyy-syurpriz",
+      "scene": "floor",
+      "tags": [
+        "Коробка-сюрприз"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790182349/vigsharm-products/ymqx4lk6vo9azcsahii4.jpg"
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790182420/vigsharm-products/bvzqtlzospbywzjznt74.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790182420/vigsharm-products/bvzqtlzospbywzjznt74.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-23T16:54:36.902Z",
+      "updated_at": "2026-09-23T16:54:36.902Z"
+    },
+    {
+      "id": "d554dc09-3248-46d9-b3e8-e3542ef2c14d",
+      "title": "Алые поздравления",
+      "article": "GRL-062",
+      "price": 7480,
+      "short_description": "Три фонтана с красными и белыми шарами, центральный баблс с именной надписью и лентами тассел.",
+      "full_description": "Композиция из трёх фонтанов с красными и белыми латексными шарами и центральным баблсом с персональной надписью. Ленты тассел завершают образ.",
+      "composition": [
+        "26 стеклянных шаров",
+        "баблс с надписью и лентой тассел"
+      ],
+      "category": "Для девочки",
+      "character": null,
+      "age_group": "Для детей",
+      "budget": "5 000–8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Композиция из красных и белых шаров с баблс Армавир",
+      "seo_description": "Три фонтана с красными и белыми шарами, баблс с именной надписью и лентами тассел. Универсальная композиция для любого праздника в Армавире.",
+      "slug": "alye-pozdravleniya",
+      "scene": "floor",
+      "tags": [
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790181583/vigsharm-products/wgalow3hdnznxobs7nke.jpg"
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790182277/vigsharm-products/nyyhedybs6vv2hzvamk2.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790182277/vigsharm-products/nyyhedybs6vv2hzvamk2.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-23T16:52:15.178Z",
+      "updated_at": "2026-09-23T16:52:15.178Z"
+    },
+    {
+      "id": "0e728419-b594-4c3d-8d13-e5ee898ac2c7",
+      "title": "Мышка в горошек",
+      "article": "GRL-061",
+      "price": 2850,
+      "short_description": "Фольгированная фигура Минни Маус и фонтан из шаров с узорами.",
+      "full_description": "Композиция с фольгированной фигурой Минни Маус и фонтаном из шаров супер-агат и шаров в горошек. Яркое сочетание красного, розового и чёрно-белого.",
+      "composition": [
+        "фольгированная фигура Минни Маус",
+        "3 шара супер-агат",
+        "7 шаров с рисунком"
+      ],
+      "category": "Для девочки",
+      "character": "Минни Маус",
+      "age_group": "Для детей",
+      "budget": "2 000–3 500 ₽",
+      "series_name": "Disney",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары с Минни Маус — Армавир | VigSharm",
+      "seo_description": "Композиция с фольгированной фигурой Минни Маус и фонтаном из шаров супер-агат и в горошек. Доставка в Армавире.",
+      "slug": "myshka-v-goroshek",
+      "scene": "wall_only",
+      "tags": [
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790180898/vigsharm-products/q0vyz1y2beeijshtrn30.png"
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790181209/vigsharm-products/wm4edkpvby1ruegffbhi.jpg"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790181209/vigsharm-products/wm4edkpvby1ruegffbhi.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-23T16:33:56.779Z",
+      "updated_at": "2026-09-23T16:33:56.779Z"
+    },
+    {
+      "id": "c659bef7-16db-4888-980e-4acde94dc66e",
+      "title": "Готическая принцесса",
+      "article": "GRL-060",
+      "price": 4630,
+      "short_description": "Композиция в фиолетово-чёрных тонах с цифрой и прозрачным баблом.",
+      "full_description": "Стильная композиция с фольгированной цифрой, баблом с индивидуальной надписью и чёрными перьями, шарами с рисунком и фиолетовыми шарами.",
+      "composition": [
+        "цифра",
+        "баблс с надписью и перьями",
+        "3 шара с рисунком",
+        "7 латексных шаров"
+      ],
+      "category": "Для девочки",
+      "character": "уэнсдей",
+      "age_group": "Для детей",
+      "budget": "3 500–5 000 ₽",
+      "series_name": "уэнсдей",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Готическая принцесса — воздушные шары в Армавире",
+      "seo_description": "Стильная композиция с цифрой в фиолетово-чёрной гамме: баблс с надписью и перьями, шары с рисунком. Доставка по Армавиру.",
+      "slug": "goticheskaya-princessa",
+      "scene": "floor",
+      "tags": [
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": true,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790180424/vigsharm-products/uxxsoilfhnaryiifjtds.jpg",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790180536/vigsharm-products/lea2hzw8noswg0emhukx.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790180536/vigsharm-products/lea2hzw8noswg0emhukx.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-23T16:24:18.284Z",
+      "updated_at": "2026-09-23T16:24:18.284Z"
+    },
+    {
+      "id": "914c6ad3-3cf2-41b8-a1d5-636397887c16",
+      "title": "Магия единорога",
+      "article": "GRL-059",
+      "price": 4200,
+      "short_description": "Яркая композиция с фольгированной цифрой, звездой с надписью и радужным единорогом.",
+      "full_description": "Композиция включает крупную розовую цифру на подставке, фольгированную звезду с персональной надписью, радужного единорога и связку разноцветных шаров.",
+      "composition": [
+        "5 латексных шаров",
+        "3 напольные композиции"
+      ],
+      "category": "Для девочки",
+      "character": "Единорог",
+      "age_group": "Для детей",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Композиция с единорогом и цифрой — Армавир | VigSharm",
+      "seo_description": "Яркая напольная композиция с радужным единорогом, фольгированной цифрой и разноцветными шарами. Доставка воздушных шаров в Армавире.",
+      "slug": "magiya-edinoroga",
+      "scene": "floor",
+      "tags": [
+        "Для девочки",
+        "Напольные композиции"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790180045/vigsharm-products/qg73rd7v8tfzplcnuceq.jpg",
+        "floor_type": "air",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790180153/vigsharm-products/e2co7lshoplqbyvolwnu.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790180153/vigsharm-products/e2co7lshoplqbyvolwnu.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-23T16:18:35.315Z",
+      "updated_at": "2026-09-23T16:18:35.315Z"
+    },
+    {
+      "id": "142a85a6-fd77-45aa-965b-37365b2029f1",
+      "title": "Весенний восторг",
+      "article": "GRL-058",
+      "price": 3300,
+      "short_description": "Напольная композиция с крупной малиновой цифрой, цветами из шаров и зелёной аркой.",
+      "full_description": "Напольная композиция включает большую фольгированную цифру малинового цвета, украшенную цветами из шаров и зелёной аркой. Основание дополнено хромированными шарами салатового, розового и жёлтого оттенков.",
+      "composition": [
+        "напольная композиция"
+      ],
+      "category": "Цветы из шаров",
+      "character": null,
+      "age_group": "Для детей",
+      "budget": "2 000–3 500 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Весенний восторг — напольная композиция с цифрой, Армавир",
+      "seo_description": "Напольная композиция с крупной малиновой цифрой, цветами из шаров и зелёной аркой. Яркое оформление для праздника в Армавире.",
+      "slug": "vesenniy-vostorg",
+      "scene": "floor",
+      "tags": [
+        "Цветы из шаров"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790179813/vigsharm-products/dsdma3niy4mcwbzwsrv8.jpg",
+        "floor_type": "air",
+        "bouquet_type": "flowers",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790179874/vigsharm-products/fbu02ypjdgsbqvlzua5m.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790179874/vigsharm-products/fbu02ypjdgsbqvlzua5m.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-23T16:12:49.804Z",
+      "updated_at": "2026-09-23T16:12:49.804Z"
+    },
+    {
+      "id": "9852ecdb-7db4-457b-a2f3-3e03ae7f0d16",
+      "title": "Наше счастье",
+      "article": "Y1-009",
+      "price": 4760,
+      "short_description": "Нежная композиция с золотой цифрой, розовым баблсом с бантиками и фонтаном из шаров.",
+      "full_description": "Композиция включает фольгированную цифру шампань, розовый баблс с надписью и бантиками, фонтан из хромированных и матовых шаров в розово-золотой гамме.",
+      "composition": [
+        "цифра",
+        "баблс с индивидуальной надписью и бантиками",
+        "4 хромированных шара",
+        "6 латексных шаров"
+      ],
+      "category": "1 годик",
+      "character": null,
+      "age_group": "Для малышей",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Воздушные шары на годик девочке в Армавире",
+      "seo_description": "Композиция с цифрой, баблсом с бантиками и фонтаном шаров. Нежное оформление первого дня рождения в розово-золотой гамме.",
+      "slug": "nashe-schaste",
+      "scene": "floor",
+      "tags": [
+        "1 годик"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790179700/vigsharm-products/u9hcmaysdl6zjf6mfnp4.jpg"
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790179757/vigsharm-products/zvnhvcvorsu7b2fzjzkf.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790179757/vigsharm-products/zvnhvcvorsu7b2fzjzkf.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-23T16:10:01.699Z",
+      "updated_at": "2026-09-23T16:10:01.699Z"
+    },
+    {
+      "id": "5a358250-c877-4193-aebb-2126af26612d",
+      "title": "Бантики и сердца",
+      "article": "GRL-057",
+      "price": 3700,
+      "short_description": "Белая цифра с розовыми бантиками и букет фольгированных сердец.",
+      "full_description": "Композиция включает белую фольгированную цифру с розовыми бантиками и надписью Happy Birthday, а также букет из ярко-розовых фольгированных сердец.",
+      "composition": [
+        "цифра",
+        "7 фольгированных сердец"
+      ],
+      "category": "Для девочки",
+      "character": null,
+      "age_group": "Для детей",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Цифра с бантиками и сердца — шары на день рождения, Армавир",
+      "seo_description": "Нежная композиция для девочки: белая цифра с розовыми бантиками и букет ярко-розовых фольгированных сердец. Доставка по Армавиру.",
+      "slug": "bantiki-i-serdtsa",
+      "scene": "wall_only",
+      "tags": [
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": true,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790179606/vigsharm-products/f9usj8hphtgzngatxvis.jpg",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790179648/vigsharm-products/jfgyd2nj1yavi3sdodcz.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790179648/vigsharm-products/jfgyd2nj1yavi3sdodcz.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-23T16:08:05.992Z",
+      "updated_at": "2026-09-23T16:08:05.992Z"
+    },
+    {
+      "id": "eecf9e78-f0d2-4777-8c62-14c7514453cd",
+      "title": "Нежное торжество",
+      "article": "GRL-056",
+      "price": 2880,
+      "short_description": "Розовая цифра, золотая звезда и фонтан шаров в нежных оттенках.",
+      "full_description": "Композиция с крупной розовой цифрой, золотой звездой и фонтаном из розовых, белых и золотых хромированных шаров.",
+      "composition": [
+        "цифра",
+        "фольгированная звезда",
+        "3 хромированных шара",
+        "6 латексных шаров"
+      ],
+      "category": "Для девочки",
+      "character": null,
+      "age_group": "Для детей",
+      "budget": "2 000–3 500 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Воздушные шары с розовой цифрой и золотой звездой в Армавире",
+      "seo_description": "Композиция с фольгированной розовой цифрой, золотой звездой и фонтаном шаров. Идеально для детского праздника. Доставка по Армавиру.",
+      "slug": "zvezdnyy-triumf",
+      "scene": "wall_only",
+      "tags": [
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790179434/vigsharm-products/wfp09sjgfgnoju8frm7j.jpg",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790179491/vigsharm-products/xprstmoqcio6saqy1rtf.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790179491/vigsharm-products/xprstmoqcio6saqy1rtf.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-23T16:05:49.002Z",
+      "updated_at": "2026-09-23T16:05:49.002Z"
+    },
+    {
+      "id": "a97b49a8-ae39-4d96-aa2d-46db81779d18",
+      "title": "Леди Удача",
+      "article": "GRL-055",
+      "price": 5500,
+      "short_description": "Фольгированная фигура героини в красно-чёрном костюме с фирменным узором в горошек на фоне шаров.",
+      "full_description": "Фольгированная фигура Леди Баг в окружении красных латексных шаров с чёрными горошинами. Яркая композиция для поклонниц супергероини.",
+      "composition": [
+        "30 латексных шаров с рисунком",
+        "фольгированная фигура"
+      ],
+      "category": "Для девочки",
+      "character": "Леди Баг",
+      "age_group": "Для детей",
+      "budget": "5 000–8 000 ₽",
+      "series_name": "Леди Баг и Супер-Кот",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары Леди Баг для девочки в Армавире — VigSharm",
+      "seo_description": "Композиция с фольгированной фигурой Леди Баг и красными шарами в горошек. Яркий подарок для юной поклонницы супергероини. Доставка в Армавире.",
+      "slug": "ledi-udacha",
+      "scene": "wall_only",
+      "tags": [
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790179285/vigsharm-products/lvsyv5xcp6nexudaa9mf.jpg"
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790179347/vigsharm-products/gwv6dzj3ybkdkchpj7l2.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790179347/vigsharm-products/gwv6dzj3ybkdkchpj7l2.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-23T16:03:43.310Z",
+      "updated_at": "2026-09-23T16:03:43.310Z"
+    },
+    {
+      "id": "5677c823-53ca-4ed8-8eb9-163b0246c7ac",
+      "title": "Ёжик на полянке",
+      "article": "GRL-054",
+      "price": 3750,
+      "short_description": "Фигура ёжика из шаров с букетом ромашек, цифра и фонтан с пчелой.",
+      "full_description": "Композиция включает фигуру ёжика из шаров с букетом ромашек и клубникой, золотую цифру на подставке из ромашек и фонтан из жёлтых и прозрачных шаров с фольгированной пчелой.",
+      "composition": [
+        "3 шара с рисунком",
+        "4 шара",
+        "2 напольные композиции"
+      ],
+      "category": "Для девочки",
+      "character": "Ёжик",
+      "age_group": "Для детей",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Композиция с ёжиком из шаров на день рождения, Армавир",
+      "seo_description": "Напольная композиция с фигурой ёжика, золотой цифрой на подставке из ромашек и фонтаном шаров с пчелой. Доставка по Армавиру.",
+      "slug": "ezhik-na-polyanke",
+      "scene": "floor",
+      "tags": [
+        "Для девочки",
+        "Фигуры из шаров",
+        "Напольные композиции"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790179126/vigsharm-products/tsfkb3hgdrprv6cu7o93.jpg",
+        "floor_type": "air",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790179196/vigsharm-products/nx23fydoivv7dzolcyuk.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790179196/vigsharm-products/nx23fydoivv7dzolcyuk.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-23T16:01:14.634Z",
+      "updated_at": "2026-09-23T16:01:14.634Z"
+    },
+    {
+      "id": "7188a717-d3f2-49ab-a086-a243cca409d4",
+      "title": "Радужный единорог",
+      "article": "GRL-053",
+      "price": 2950,
+      "short_description": "Розовая цифра, кошка-единорог и яркие шары с конфетти.",
+      "full_description": "Композиция с крупной розовой цифрой, фольгированной фигурой кошки-единорога в радужном колпаке и набором шаров с конфетти.",
+      "composition": [
+        "цифра",
+        "фольгированная фигура кошки-единорога",
+        "2 хромированных шара",
+        "2 шара с конфетти",
+        "2 латексных шара",
+        "шар с надписью «С днём рождения»"
+      ],
+      "category": "Для девочки",
+      "character": "Кошка-единорог",
+      "age_group": "Для детей",
+      "budget": "2 000–3 500 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары с кошкой-единорогом на день рождения в Армавире",
+      "seo_description": "Композиция с розовой цифрой, фольгированной фигурой кошки-единорога и яркими шарами. Доставка воздушных шаров в Армавире.",
+      "slug": "raduzhnyi-edinorog",
+      "scene": "wall_only",
+      "tags": [
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": true,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790178998/vigsharm-products/fsfzkadgqfjmpkooqpkb.jpg",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790179063/vigsharm-products/hlrwythu5wk0rygste5s.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790179063/vigsharm-products/hlrwythu5wk0rygste5s.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-23T15:58:38.297Z",
+      "updated_at": "2026-09-23T15:58:38.297Z"
+    },
+    {
+      "id": "646417a1-aa19-4fc5-a540-b08135b7e3a0",
+      "title": "Крылатая почта",
+      "article": "GRL-052",
+      "price": 6920,
+      "short_description": "Композиция с золотыми цифрами, белой совой и розово-золотыми шарами.",
+      "full_description": "Композиция с крупными золотыми цифрами, фольгированной фигурой белой совы, двумя малиновыми звёздами и фонтанами из хромированных и супер-агатовых шаров в розово-золотой гамме.",
+      "composition": [
+        "2 цифры",
+        "фольгированная фигура Совы",
+        "2 фольгированные звезды",
+        "14 хромированных шаров",
+        "4 шара супер-агат"
+      ],
+      "category": "Для девочки",
+      "character": "Гарри Поттер",
+      "age_group": "Для детей",
+      "budget": "5 000–8 000 ₽",
+      "series_name": "Гарри Поттер",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Крылатая почта — композиция с совой и цифрами, Армавир",
+      "seo_description": "Композиция с золотыми цифрами, белой совой, малиновыми звёздами и розово-золотыми шарами. Доставка воздушных шаров в Армавире.",
+      "slug": "krylataya-pochta",
+      "scene": "wall_only",
+      "tags": [
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790178797/vigsharm-products/mqweguwbbv9a5ukj7pat.jpg",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 2
+        }
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790178864/vigsharm-products/wtpihy6peinyaidkzm0x.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790178864/vigsharm-products/wtpihy6peinyaidkzm0x.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-23T15:55:42.941Z",
+      "updated_at": "2026-09-23T15:55:42.941Z"
+    },
+    {
+      "id": "e2a79f7f-da05-484f-8ec3-576a104e184c",
+      "title": "Радужный котёнок",
+      "article": "GRL-051",
+      "price": 3000,
+      "short_description": "Напольная композиция с фольгированной цифрой, кошкой-единорогом и розовым сердцем.",
+      "full_description": "Яркая напольная композиция с крупной фольгированной цифрой, фигурой кошки-единорога с радужным хвостом и розовым сердцем с надписью. Основание из разноцветных латексных шаров в пастельных и ярких тонах.",
+      "composition": [
+        "напольная композиция"
+      ],
+      "category": "Для девочки",
+      "character": "Кошка-единорог",
+      "age_group": "Для детей",
+      "budget": "2 000–3 500 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Напольная композиция с кошкой-единорогом — Армавир",
+      "seo_description": "Яркая напольная композиция с фольгированной цифрой, кошкой-единорогом с радужным хвостом и розовым сердцем. Доставка в Армавире.",
+      "slug": "raduzhnyi-kotenok",
+      "scene": "floor",
+      "tags": [
+        "Для девочки",
+        "Напольные композиции"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790178624/vigsharm-products/qx7xibmwos6xmtmpywis.jpg",
+        "floor_type": "air",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790178724/vigsharm-products/tkvd3bpoh0hjti6abomj.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790178724/vigsharm-products/tkvd3bpoh0hjti6abomj.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-23T15:53:02.821Z",
+      "updated_at": "2026-09-23T15:53:02.821Z"
+    },
+    {
+      "id": "767d1c53-3197-4c31-9780-eb8a98250c43",
+      "title": "Пушистый бандит",
+      "article": "GRL-050",
+      "price": 2000,
+      "short_description": "Фольгированный енот с розово-серебряными шарами на стене.",
+      "full_description": "Композиция с фольгированной фигурой енота и букетом из розовых и серебряных хромированных шаров.",
+      "composition": [
+        "фольгированная фигура енота",
+        "3 хромированных шара",
+        "4 шара"
+      ],
+      "category": "Для девочки",
+      "character": "Енот",
+      "age_group": "Для детей",
+      "budget": "2 000–3 500 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Енот с розовыми и серебряными шарами — Армавир",
+      "seo_description": "Композиция с фольгированным енотом и букетом розовых и серебряных шаров. Доставка воздушных шаров в Армавире.",
+      "slug": "pushistyy-bandit",
+      "scene": "wall_only",
+      "tags": [
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790178511/vigsharm-products/q5a75dfkthrmtgamt42t.jpg"
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790178565/vigsharm-products/bnx7vsyan7sgpu1pziz3.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790178565/vigsharm-products/bnx7vsyan7sgpu1pziz3.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-23T15:50:05.608Z",
+      "updated_at": "2026-09-23T15:50:05.608Z"
+    },
+    {
+      "id": "7f828949-075f-432c-b3ba-f495fb8cd0fc",
+      "title": "Оливковый праздник",
+      "article": "GRL-049",
+      "price": 3860,
+      "short_description": "Прозрачный шар-баблс с надписью и фонтан из оливковых, золотых и белых шаров с конфетти.",
+      "full_description": "Композиция из большого прозрачного шара с персональной надписью и фонтана латексных шаров в оливковой, золотой и белой гамме. Дополнена шарами с золотым конфетти.",
+      "composition": [
+        "шар баблс с надписью",
+        "2 шара хром",
+        "2 шара с конфетти",
+        "6 шаров"
+      ],
+      "category": "Для девочки",
+      "character": null,
+      "age_group": "Для детей",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Оливковый праздник — шары на день рождения в Армавире",
+      "seo_description": "Композиция из шаров с баблс и персональной надписью в оливково-золотой гамме. Заказать воздушные шары на день рождения в Армавире.",
+      "slug": "olivkovyy-prazdnik",
+      "scene": "wall_only",
+      "tags": [
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790178220/vigsharm-products/nfyqgiglrbl9hja7jxlk.jpg"
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790178283/vigsharm-products/acvoycrwdfipyfm6sga8.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790178283/vigsharm-products/acvoycrwdfipyfm6sga8.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-23T15:47:58.138Z",
+      "updated_at": "2026-09-23T15:47:58.138Z"
+    },
+    {
+      "id": "cbc73e01-e1f4-430b-b82d-eb3878fa8ae9",
+      "title": "Верный щенок",
+      "article": "GRL-048",
+      "price": 2770,
+      "short_description": "Композиция с фольгированным щенком, розовой звездой с надписью и яркими шарами.",
+      "full_description": "Композиция с фольгированной фигурой щенка, розовой звездой с персональной надписью, хромированными и латексными шарами.",
+      "composition": [
+        "фольгированная фигура щенка",
+        "фольгированная звезда с индивидуальной надписью",
+        "3 хромированных шара",
+        "шар с конфетти",
+        "5 латексных шаров"
+      ],
+      "category": "Для девочки",
+      "character": "Щенок",
+      "age_group": "Для детей",
+      "budget": "2 000–3 500 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Воздушные шары с щенком и звездой в Армавире",
+      "seo_description": "Композиция с фольгированным щенком, персональной звездой и яркими шарами. Доставка по Армавиру.",
+      "slug": "vernyj-shchenok",
+      "scene": "wall_only",
+      "tags": [
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790177896/vigsharm-products/ae7fjnnft7rrura5vr9j.jpg"
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790177964/vigsharm-products/swolowwuaswgrjzlv59d.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790177964/vigsharm-products/swolowwuaswgrjzlv59d.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-23T15:43:28.516Z",
+      "updated_at": "2026-09-23T15:43:28.516Z"
+    },
+    {
+      "id": "2c48ad73-0daf-4771-8eaa-6449457c9a51",
+      "title": "Полосатая подружка",
+      "article": "GRL-047",
+      "price": 2500,
+      "short_description": "Две напольные композиции с фольгированной кошечкой и яркой цифрой.",
+      "full_description": "Две напольные композиции в розовых тонах: цифра с цветочным декором и фольгированная фигура кошки на подставках из шаров.",
+      "composition": [
+        "2 напольные композиции"
+      ],
+      "category": "Для девочки",
+      "character": "Кошка",
+      "age_group": "Для детей",
+      "budget": "2 000–3 500 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Воздушные шары с кошкой для девочки — Армавир",
+      "seo_description": "Напольные композиции с фольгированной кошечкой и яркой цифрой. Розовое оформление для детского праздника в Армавире.",
+      "slug": "polosataya-podruzhka",
+      "scene": "floor",
+      "tags": [
+        "Для девочки",
+        "Напольные композиции"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790176782/vigsharm-products/gxrqc1qkqnxhqijdujhm.jpg",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790176919/vigsharm-products/jpihw5urpezewlnjdmce.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790176919/vigsharm-products/jpihw5urpezewlnjdmce.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-23T15:22:44.766Z",
+      "updated_at": "2026-09-23T15:22:44.766Z"
+    },
+    {
+      "id": "73ea343f-f56d-4c30-a0e0-1df80a0f8f40",
+      "title": "Черновик 23.09, 17:16",
+      "article": "DG-008",
+      "price": 0,
+      "short_description": "",
+      "full_description": "",
+      "composition": [],
+      "category": "",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "barbi-style-2",
+      "scene": "wall_only",
+      "tags": [],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790172849/vigsharm-products/kclcaklxehgzz5iaizqp.jpg"
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790172979/vigsharm-products/uw44ozvib8hahvxiegdz.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790172979/vigsharm-products/uw44ozvib8hahvxiegdz.png",
+      "status": "draft",
+      "show_on_site": false,
+      "created_at": "2026-09-23T14:16:20.849Z",
+      "updated_at": "2026-09-23T14:16:20.849Z"
+    },
+    {
+      "id": "f18b748d-0023-4c4d-961a-56d1e1c1ed54",
+      "title": "Барби-стайл",
+      "article": "GRL-046",
+      "price": 3510,
+      "short_description": "Яркая розово-чёрная композиция с крупной цифрой и шарами с надписями.",
+      "full_description": "Композиция в стиле Барби с фольгированной цифрой, шарами с конфетти и дерзкими надписями.",
+      "composition": [
+        "цифра",
+        "2 шара с конфетти",
+        "13 шаров с рисунком"
+      ],
+      "category": "Для девочки",
+      "character": null,
+      "age_group": "Для детей",
+      "budget": "3 500–5 000 ₽",
+      "series_name": "Барби",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары в стиле Барби с цифрой — Армавир | VigSharm",
+      "seo_description": "Яркая композиция из воздушных шаров в розово-чёрной гамме Барби с крупной цифрой. Доставка в Армавире. VigSharm.",
+      "slug": "barbi-style",
+      "scene": "wall_only",
+      "tags": [
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790172600/vigsharm-products/au80ig8zekx5auryqxf9.jpg",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790172670/vigsharm-products/de6i8mmire7kuglzcdpd.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790172670/vigsharm-products/de6i8mmire7kuglzcdpd.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-23T14:13:54.957Z",
+      "updated_at": "2026-09-23T14:13:54.957Z"
+    },
+    {
+      "id": "a22517f8-7fc9-4952-9dba-166e33575dc6",
+      "title": "Золотая мечта",
+      "article": "GRL-041",
+      "price": 3000,
+      "short_description": "Две напольные композиции с фольгированной кошечкой в короне и золотой цифрой.",
+      "full_description": "Композиция из двух фигур: розовая кошка с золотой короной и зонтиком на подставке из шаров, а также крупная золотая цифра с короной и розово-золотым декором.",
+      "composition": [
+        "2 напольные композиции"
+      ],
+      "category": "Для девочки",
+      "character": "Кошка",
+      "age_group": "Для детей",
+      "budget": "2 000–3 500 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Композиция с кошкой и цифрой — воздушные шары в Армавире",
+      "seo_description": "Напольные композиции с розовой кошкой в короне и золотой цифрой. Розово-золотое оформление дня рождения в Армавире. VigSharm.",
+      "slug": "korolevskaya-shestnadtsat",
+      "scene": "floor",
+      "tags": [
+        "Для девочки",
+        "Напольные композиции"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790172336/vigsharm-products/mipxxeqngmfdqismtzwd.jpg",
+        "floor_type": "air",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790172383/vigsharm-products/u3mw2qdrlnbgsc2ursby.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790172383/vigsharm-products/u3mw2qdrlnbgsc2ursby.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-23T14:09:52.045Z",
+      "updated_at": "2026-09-23T14:09:52.045Z"
+    },
+    {
+      "id": "d817289b-487e-4b62-a0e4-6c1be9862758",
+      "title": "Розовый монстрик",
+      "article": "GRL-045",
+      "price": 2400,
+      "short_description": "Розовая фольгированная фигура Хагги Вагги в окружении ярких латексных шаров.",
+      "full_description": "Композиция с фольгированной фигурой Хагги Вагги и десятью латексными шарами в розовых, красных и сиреневых тонах. Яркое решение для поклонников игры.",
+      "composition": [
+        "10 латексных шаров",
+        "фольгированная фигура Хагги Вагги"
+      ],
+      "category": "Для девочки",
+      "character": "Хагги Вагги",
+      "age_group": "Для детей",
+      "budget": "2 000–3 500 ₽",
+      "series_name": "Poppy Playtime",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары с Хагги Вагги — Poppy Playtime в Армавире",
+      "seo_description": "Композиция с фольгированной фигурой Хагги Вагги и яркими латексными шарами. Для поклонников игры Poppy Playtime. Доставка в Армавире.",
+      "slug": "rozovyy-monstrik",
+      "scene": "wall_only",
+      "tags": [
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790171370/vigsharm-products/ovjbieixitpymcjc7vpw.jpg"
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790171457/vigsharm-products/yn99jolp114o44p1bdcu.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790171457/vigsharm-products/yn99jolp114o44p1bdcu.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-23T13:52:42.486Z",
+      "updated_at": "2026-09-23T13:52:42.486Z"
+    },
+    {
+      "id": "6192b643-ea98-454e-928d-a79f5421f037",
+      "title": "Черновик 23.09, 16:47",
+      "article": "DG-007",
+      "price": 0,
+      "short_description": "",
+      "full_description": "",
+      "composition": [],
+      "category": "Букет из шаров",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "cheshirskiy-vostorg-4",
+      "scene": "handheld_bouquet",
+      "tags": [
+        "Букет из шаров"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790171224/vigsharm-products/dij0ilafnzizdnkfkf9l.jpg"
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790171283/vigsharm-products/mzjw5xszpggoncdspcnj.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790171283/vigsharm-products/mzjw5xszpggoncdspcnj.png",
+      "status": "draft",
+      "show_on_site": false,
+      "created_at": "2026-09-23T13:48:04.460Z",
+      "updated_at": "2026-09-23T13:48:04.460Z"
+    },
+    {
+      "id": "9d947c97-d870-444a-8d26-3462c02957f9",
+      "title": "Черновик 23.09, 16:46",
+      "article": "DG-006",
+      "price": 0,
+      "short_description": "",
+      "full_description": "",
+      "composition": [],
+      "category": "Букет из шаров",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "cheshirskiy-vostorg-3",
+      "scene": "handheld_bouquet",
+      "tags": [
+        "Букет из шаров"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790171155/vigsharm-products/v5y5znklvdwznama2dgm.jpg"
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790171213/vigsharm-products/xqi6bvh2we3fmrq8ipci.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790171213/vigsharm-products/xqi6bvh2we3fmrq8ipci.png",
+      "status": "draft",
+      "show_on_site": false,
+      "created_at": "2026-09-23T13:46:54.864Z",
+      "updated_at": "2026-09-23T13:46:54.864Z"
+    },
+    {
+      "id": "b0b4910e-eb55-442b-aa7b-f65cbe2cff2a",
+      "title": "Черновик 23.09, 16:45",
+      "article": "DG-005",
+      "price": 0,
+      "short_description": "",
+      "full_description": "",
+      "composition": [],
+      "category": "Букет из шаров",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "cheshirskiy-vostorg-2",
+      "scene": "handheld_bouquet",
+      "tags": [
+        "Букет из шаров"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790170981/vigsharm-products/dinliftwkxri7vfuv5kq.jpg"
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790171135/vigsharm-products/vsmmik7fkwvzqfwfxkyp.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790171135/vigsharm-products/vsmmik7fkwvzqfwfxkyp.png",
+      "status": "draft",
+      "show_on_site": false,
+      "created_at": "2026-09-23T13:45:36.121Z",
+      "updated_at": "2026-09-23T13:45:36.121Z"
+    },
+    {
+      "id": "1bfdd137-b667-43f0-ae4c-047bf2d1a25e",
+      "title": "Божья коровка в цветах",
+      "article": "GRL-044",
+      "price": 4560,
+      "short_description": "Фигура божьей коровки из шаров с цветами и фонтан из разноцветных шаров с конфетти.",
+      "full_description": "Композиция из фигуры божьей коровки с яркими цветами и радужного фонтана шаров. В фонтане латексные шары разных цветов, хромированные и прозрачные с конфетти.",
+      "composition": [
+        "фигура из шаров",
+        "2 шара с конфетти",
+        "2 хромированных шара",
+        "6 латексных шаров"
+      ],
+      "category": "Фигуры из шаров",
+      "character": "Божья коровка",
+      "age_group": "Для детей",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Божья коровка из шаров с цветами — Армавир",
+      "seo_description": "Яркая фигура божьей коровки из шаров с цветами и фонтан разноцветных шаров. Оригинальное оформление детского праздника в Армавире.",
+      "slug": "bozhya-korovka-v-tsvetakh",
+      "scene": "floor",
+      "tags": [
+        "Фигуры из шаров"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790169941/vigsharm-products/vcophxgmce2wmpabhdz1.jpg",
+        "floor_type": "air",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790170045/vigsharm-products/gmyiddyld69nv4igvdki.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790170045/vigsharm-products/gmyiddyld69nv4igvdki.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-23T13:29:59.910Z",
+      "updated_at": "2026-09-23T13:29:59.910Z"
+    },
+    {
+      "id": "1336901c-70da-4d04-bd94-dfbcd91bf075",
+      "title": "Цветочная поляна",
+      "article": "GRL-043",
+      "price": 2500,
+      "short_description": "Розовая фольгированная цифра с пчёлкой, бабочкой, божьей коровкой и яркими цветами из шаров.",
+      "full_description": "Напольная композиция с розовой фольгированной цифрой, украшенной фигурами пчёлки, бабочки и божьей коровки. Основание декорировано цветами из шаров в розовых, жёлтых, оранжевых и сиреневых тонах.",
+      "composition": [
+        "напольная композиция"
+      ],
+      "category": "Для девочки",
+      "character": "Пчела",
+      "age_group": "Для детей",
+      "budget": "2 000–3 500 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Цветочная поляна — композиция с цифрой и пчёлкой в Армавире",
+      "seo_description": "Напольная композиция с розовой фольгированной цифрой, пчёлкой, бабочкой и цветами из шаров. Яркое оформление детского праздника в Армавире.",
+      "slug": "tsvetochnaya-polyana",
+      "scene": "floor",
+      "tags": [
+        "Для девочки",
+        "Фигуры из шаров",
+        "Напольные композиции"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790169708/vigsharm-products/bcxk0b1m1b7jupnzehox.jpg",
+        "floor_type": "air",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790169780/vigsharm-products/eueb65oyggptmxp1xq0i.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790169780/vigsharm-products/eueb65oyggptmxp1xq0i.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-23T13:24:08.193Z",
+      "updated_at": "2026-09-23T13:24:08.193Z"
+    },
+    {
       "id": "00e9eb90-d37f-43e8-a394-fac7fced3140",
       "title": "Стильная дива",
       "article": "GRL-042",
@@ -42,49 +1296,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T13:04:28.461Z",
-      "updated_at": "2026-09-23T13:04:37.770Z"
-    },
-    {
-      "id": "52ed738e-393c-4b6c-8282-6ea9add9e595",
-      "title": "Улыбка до ушей",
-      "article": "GRL-041",
-      "price": 2400,
-      "short_description": "Фольгированная фигура Чеширского кота с букетом розово-красных шаров.",
-      "full_description": "Композиция с узнаваемым героем из Страны чудес и яркими латексными шарами. Подарит хорошее настроение и улыбки.",
-      "composition": [
-        "10 латексных шаров",
-        "фольгированная фигура Чеширского кота"
-      ],
-      "category": "Для девочки",
-      "character": "Чеширский кот",
-      "age_group": "Для детей",
-      "budget": "2 000–3 500 ₽",
-      "series_name": "Алиса в Стране чудес",
-      "occasion": null,
-      "target_audience": null,
-      "seo_title": "Букет с Чеширским котом — Армавир | VigSharm",
-      "seo_description": "Яркая композиция с фольгированной фигурой Чеширского кота и латексными шарами. Доставка воздушных шаров по Армавиру.",
-      "slug": "ulybka-do-ushey",
-      "scene": "wall_only",
-      "tags": [
-        "Для девочки"
-      ],
-      "client_options": {
-        "available_on_request": false,
-        "advance_order_1_2_days": false,
-        "number_choice": false,
-        "personal_inscription": false,
-        "photozone_rental": false,
-        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790168038/vigsharm-products/go7etlnjtyxmmhab6v76.jpg"
-      },
-      "photos": [
-        "https://res.cloudinary.com/saiuc42a/image/upload/v1790168739/vigsharm-products/gm60pobkv8zg0zvndnb3.png"
-      ],
-      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790168739/vigsharm-products/gm60pobkv8zg0zvndnb3.png",
-      "status": "draft",
-      "show_on_site": true,
-      "created_at": "2026-09-23T12:58:52.827Z",
-      "updated_at": "2026-09-23T13:05:41.055Z"
+      "updated_at": "2026-09-23T15:37:32.612Z"
     },
     {
       "id": "a2d0ab0a-9025-4c6a-a236-e489ad4e6363",

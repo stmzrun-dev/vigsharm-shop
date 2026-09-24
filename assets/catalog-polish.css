@@ -403,6 +403,27 @@
   }
 }
 
+.catalog-page .catalog-active-budget{
+  background:#fff!important;
+  background-image:none!important;
+  border:1.5px solid var(--cat-line)!important;
+  border-radius:18px!important;
+  box-shadow:var(--cat-soft-shadow)!important;
+  color:var(--cat-text)!important;
+}
+.catalog-page .catalog-active-budget button{
+  color:var(--cat-accent)!important;
+}
+.catalog-page .catalog-active-budget > span .catalog-budget-ico{
+  width:36px!important;
+  height:36px!important;
+  flex:none;
+  display:block;
+  object-fit:contain;
+  background:transparent!important;
+  border-radius:0!important;
+}
+
 @media (prefers-reduced-motion:reduce){
   .catalog-page .catalog-card,
   .catalog-page .catalog-group-nav > button,

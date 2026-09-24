@@ -5,10 +5,10 @@
   var PHONE = '79284440142', PHONE_LABEL = '+7 928 444-01-42';
   var MAX_URL = 'https://max.ru/u/f9LHodD0cOJwY09H6Zj63nYK_X8tPZGb3CODIvTT7FWkRzrgbh5F582AiB8';
   var TG_URL = 'https://t.me/Olgamzz';
-  var WA_ICON = '<img src="icons/brand-whatsapp.png?v=9" alt="" width="40" height="40" decoding="async" aria-hidden="true"/>';
-  var TG_ICON = '<img src="icons/brand-telegram.png?v=9" alt="" width="40" height="40" decoding="async" aria-hidden="true"/>';
-  var MAX_ICON = '<img src="icons/brand-max.png?v=9" alt="" width="40" height="40" decoding="async" aria-hidden="true"/>';
-  var PHONE_ICON = '<img src="icons/phone-smartphone.png?v=1" alt="" width="40" height="40" decoding="async" aria-hidden="true"/>';
+  var WA_ICON = '<img src="icons/brand-whatsapp.webp?v=9" alt="" width="40" height="40" decoding="async" aria-hidden="true"/>';
+  var TG_ICON = '<img src="icons/brand-telegram.webp?v=9" alt="" width="40" height="40" decoding="async" aria-hidden="true"/>';
+  var MAX_ICON = '<img src="icons/brand-max.webp?v=9" alt="" width="40" height="40" decoding="async" aria-hidden="true"/>';
+  var PHONE_ICON = '<img src="icons/phone-smartphone.webp?v=1" alt="" width="40" height="40" decoding="async" aria-hidden="true"/>';
 
   function esc(s) {
     return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -16,26 +16,29 @@
   function compIconKey(label) {
     var t = String(label || '').toLowerCase();
     if (/хром|chrome|зеркал/.test(t)) return 'chrome';
+    if (/бабл|bubble|стеклян|прозрачн/.test(t)) return 'bubble';
     if (/конфетт/.test(t)) return 'confetti';
-    if (/звезд/.test(t)) return 'star';
-    if (/сердц|heart/.test(t)) return 'heart';
+    if (/ходяч/.test(t)) return 'walker';
+    if (/агат|agate/.test(t)) return 'agate';
+    if (/brush|браш|кист/.test(t)) return 'brush';
+    if (/зв[её]зд/.test(t)) return 'star';
+    if (/серд[её]?ц|heart/.test(t)) return 'heart';
     if (/цифр/.test(t)) return 'digit';
     if (/коробк|сюрприз|box/.test(t)) return 'box';
-    if (/бабл|bubble|прозрачн/.test(t)) return 'bubble';
-    if (/латекс/.test(t)) return 'latex';
     if (/фотозон|мольберт|каркас/.test(t)) return 'photozone';
     if (/фигур|персонаж|мишк|зайц|единорог/.test(t)) return 'figure';
     if (/напольн|стойк/.test(t)) return 'floor';
     if (/букет/.test(t)) return 'bouquet';
     if (/тюльпан|цветк/.test(t)) return 'tulip';
-    if (/печат|принтов|надпис/.test(t)) return 'print';
-    if (/гелиев/.test(t)) return 'latex';
+    if (/именн/.test(t)) return 'name';
+    if (/печат|принтов|рисун/.test(t)) return 'print';
+    if (/надпис/.test(t)) return 'name';
+    if (/латекс|гелиев|шар/.test(t)) return 'latex';
     return '';
   }
   function compIcon(label, i) {
-    var fallback = ['latex', 'bouquet', 'heart', 'digit'];
-    var key = compIconKey(label) || fallback[(i || 0) % fallback.length];
-    return '<img class="comp-ico" src="icons/comp-' + key + '.png?v=2" alt="" width="32" height="32" onerror="this.onerror=null;this.src=\'icons/comp-' + key + '.svg\'"/>';
+    var key = compIconKey(label) || 'latex';
+    return '<img class="comp-ico" src="icons/comp-' + key + '.webp?v=10" alt="" width="32" height="32" onerror="this.onerror=null;this.src=\'icons/comp-' + key + '.svg\'"/>';
   }
 
   var root = document.getElementById('product-root');
@@ -347,7 +350,7 @@
     var dCard = dateCardLabel();
     return '<div class="order-date-picker' + (datePickerOpen ? ' is-open' : '') + (orderDate ? ' has-value' : '') + '">' +
       '<button type="button" class="order-date-toggle order-dt-card' + (orderDate ? ' is-picked' : '') + '" data-act="date-toggle" aria-expanded="' + datePickerOpen + '" aria-haspopup="dialog" aria-label="' + (orderDate ? 'Дата: ' + dateLabel() : 'Выбрать дату') + '">' +
-      '<span class="ful-icon dt-icon" aria-hidden="true"><img src="icons/dt-date.png?v=2" alt="" width="56" height="56"/></span>' +
+      '<span class="ful-icon dt-icon" aria-hidden="true"><img src="icons/dt-date.webp?v=2" alt="" width="56" height="56"/></span>' +
       '<strong>' + esc(dCard.title) + '</strong><small>' + esc(dCard.hint) + '</small></button>' +
       '<div class="order-cal" role="dialog" aria-label="Календарь">' +
       '<div class="order-cal-head">' +
@@ -377,7 +380,7 @@
     var tCard = timeCardLabel();
     return '<div class="order-date-picker order-time-picker' + (timePickerOpen ? ' is-open' : '') + (orderTime ? ' has-value' : '') + '">' +
       '<button type="button" class="order-date-toggle order-dt-card' + (orderTime ? ' is-picked' : '') + '" data-act="time-toggle" aria-expanded="' + timePickerOpen + '" aria-haspopup="dialog" aria-label="' + (orderTime ? 'Время: ' + timeLabel() : 'Выбрать время') + '">' +
-      '<span class="ful-icon dt-icon" aria-hidden="true"><img src="icons/dt-time.png?v=2" alt="" width="56" height="56"/></span>' +
+      '<span class="ful-icon dt-icon" aria-hidden="true"><img src="icons/dt-time.webp?v=2" alt="" width="56" height="56"/></span>' +
       '<strong>' + esc(tCard.title) + '</strong><small>' + esc(tCard.hint) + '</small></button>' +
       '<div class="order-cal order-time-list" role="dialog" aria-label="Время">' +
       '<div class="order-time-grid">' + cells + '</div>' +
@@ -411,8 +414,8 @@
     var picked = pickedDigitList();
     return '<div class="order-story-digits client-digits">' + digits.map(function (d) {
       var on = picked.indexOf(d) !== -1;
-      var offSrc = 'icons/digits/off-' + d + '.png?v=1';
-      var onSrc = 'icons/digits/on-' + d + '.png?v=1';
+      var offSrc = 'icons/digits/off-' + d + '.webp?v=1';
+      var onSrc = 'icons/digits/on-' + d + '.webp?v=1';
       return '<button type="button" class="order-story-digit' + (on ? ' selected' : '') + '" data-act="digit" data-v="' + d + '" aria-label="Цифра ' + d + '" aria-pressed="' + on + '">' +
         '<span class="order-story-digit-ring" aria-hidden="true"></span>' +
         '<span class="order-story-digit-face">' +
@@ -508,7 +511,7 @@
       html += '<section class="client-block' + (next === 'client-ins' ? ' is-next' : inscriptionOk() ? ' is-done' : '') + '" id="client-ins">' +
         '<h3 class="client-block-title">Надпись на шаре</h3>' +
         '<div class="ins-balloon' + (inscriptionOk() ? ' is-filled' : '') + '">' +
-        '<img src="icons/ins-balloon.png?v=1" alt="" width="160" height="160"/>' +
+        '<img src="icons/ins-balloon.webp?v=1" alt="" width="160" height="160"/>' +
         '<span class="ins-balloon-text">' + esc(String(inscription || '').trim() || 'С Днём рождения!') + '</span></div>' +
         '<label class="client-ins' + (inscriptionOk() ? ' is-filled' : '') + '">' +
         '<input value="' + esc(inscription) + '" maxlength="60" data-act="inscription" placeholder="С Днём рождения!" inputmode="text" autocomplete="off"/>' +
@@ -525,9 +528,9 @@
         '<h3 class="client-block-title">Как получить</h3>' +
         '<p class="client-digit-picked">' + esc(fulStatusText()) + '</p>' +
         '<div class="client-ful fulfillment-options' + (!fulfillment ? ' is-pick' : '') + '">' +
-        '<button type="button" class="' + (fulfillment === 'pickup' ? 'selected' : '') + '" data-act="ful" data-v="pickup" aria-label="Самовывоз" aria-pressed="' + (fulfillment === 'pickup') + '"><span class="ful-icon"><img src="icons/ful-pickup.png?v=4" alt="" width="48" height="48"/></span><strong>Самовывоз</strong><small>Бесплатно</small></button>' +
-        '<button type="button" class="' + (fulfillment === 'armavir' ? 'selected' : '') + '" data-act="ful" data-v="armavir" aria-label="По городу" aria-pressed="' + (fulfillment === 'armavir') + '"><span class="ful-icon"><img src="icons/ful-city.png?v=4" alt="" width="48" height="48"/></span><strong>По городу</strong><small>+' + cityRub() + '</small></button>' +
-        '<button type="button" class="' + (fulfillment === 'nearby' ? 'selected' : '') + '" data-act="ful" data-v="nearby" aria-label="За город" aria-pressed="' + (fulfillment === 'nearby') + '"><span class="ful-icon"><img src="icons/ful-far.png?v=4" alt="" width="48" height="48"/></span><strong>За город</strong><small>Рассчитаем</small></button>' +
+        '<button type="button" class="' + (fulfillment === 'pickup' ? 'selected' : '') + '" data-act="ful" data-v="pickup" aria-label="Самовывоз" aria-pressed="' + (fulfillment === 'pickup') + '"><span class="ful-icon"><img src="icons/ful-pickup.webp?v=4" alt="" width="48" height="48"/></span><strong>Самовывоз</strong><small>Бесплатно</small></button>' +
+        '<button type="button" class="' + (fulfillment === 'armavir' ? 'selected' : '') + '" data-act="ful" data-v="armavir" aria-label="По городу" aria-pressed="' + (fulfillment === 'armavir') + '"><span class="ful-icon"><img src="icons/ful-city.webp?v=4" alt="" width="48" height="48"/></span><strong>По городу</strong><small>+' + cityRub() + '</small></button>' +
+        '<button type="button" class="' + (fulfillment === 'nearby' ? 'selected' : '') + '" data-act="ful" data-v="nearby" aria-label="За город" aria-pressed="' + (fulfillment === 'nearby') + '"><span class="ful-icon"><img src="icons/ful-far.webp?v=4" alt="" width="48" height="48"/></span><strong>За город</strong><small>Рассчитаем</small></button>' +
         '</div></section>';
     }
 
@@ -552,7 +555,7 @@
       html += '<section class="client-block client-contact' + (next === 'client-contact' ? ' is-next' : phoneOk() ? ' is-done' : '') + '" id="client-contact">' +
         '<h3 class="client-block-title">Контакт для заявки</h3>' +
         '<p class="client-digit-picked">' + esc(contactStatusText()) + '</p>' +
-        '<div class="contact-clay' + (phoneOk() ? ' is-on' : '') + '"><img src="icons/phone-smartphone.png?v=1" alt="" width="72" height="72"/></div>' +
+        '<div class="contact-clay' + (phoneOk() ? ' is-on' : '') + '"><img src="icons/phone-smartphone.webp?v=1" alt="" width="72" height="72"/></div>' +
         contactFieldsHtml() +
         '</section>';
     }
@@ -728,9 +731,9 @@
       '<div class="order-date-field">' + calendarHtml() + '</div>' +
       '<div class="order-time-field">' + timeHtml() + '</div></div>' +
       '<fieldset class="fulfillment-field' + (!fulfilled ? ' needs-pick' : '') + '"><legend>Как получить заказ?</legend><div class="fulfillment-options">' +
-      '<button type="button" class="' + (fulfilled === 'pickup' ? 'selected' : '') + '" data-act="ful" data-v="pickup" aria-label="Выбрать самовывоз, бесплатно" aria-pressed="' + (fulfilled === 'pickup') + '"><span class="ful-icon ful-pickup" aria-hidden="true"><img src="icons/ful-pickup.png?v=4" alt="" width="40" height="40"/></span><strong>Самовывоз</strong><small>Бесплатно</small></button>' +
-      '<button type="button" class="' + (fulfilled === 'armavir' ? 'selected' : '') + '" data-act="ful" data-v="armavir" aria-label="Выбрать доставку по Армавиру, ' + cityRub() + '" aria-pressed="' + (fulfilled === 'armavir') + '"><span class="ful-icon ful-city" aria-hidden="true"><img src="icons/ful-city.png?v=4" alt="" width="40" height="40"/></span><strong>По городу</strong><small>+' + cityRub() + '</small></button>' +
-      '<button type="button" class="' + (fulfilled === 'nearby' ? 'selected' : '') + '" data-act="ful" data-v="nearby" aria-label="Выбрать доставку за город, стоимость рассчитывается отдельно" aria-pressed="' + (fulfilled === 'nearby') + '"><span class="ful-icon ful-far" aria-hidden="true"><img src="icons/ful-far.png?v=4" alt="" width="40" height="40"/></span><strong>За город</strong><small>Рассчитаем</small></button>' +
+      '<button type="button" class="' + (fulfilled === 'pickup' ? 'selected' : '') + '" data-act="ful" data-v="pickup" aria-label="Выбрать самовывоз, бесплатно" aria-pressed="' + (fulfilled === 'pickup') + '"><span class="ful-icon ful-pickup" aria-hidden="true"><img src="icons/ful-pickup.webp?v=4" alt="" width="40" height="40"/></span><strong>Самовывоз</strong><small>Бесплатно</small></button>' +
+      '<button type="button" class="' + (fulfilled === 'armavir' ? 'selected' : '') + '" data-act="ful" data-v="armavir" aria-label="Выбрать доставку по Армавиру, ' + cityRub() + '" aria-pressed="' + (fulfilled === 'armavir') + '"><span class="ful-icon ful-city" aria-hidden="true"><img src="icons/ful-city.webp?v=4" alt="" width="40" height="40"/></span><strong>По городу</strong><small>+' + cityRub() + '</small></button>' +
+      '<button type="button" class="' + (fulfilled === 'nearby' ? 'selected' : '') + '" data-act="ful" data-v="nearby" aria-label="Выбрать доставку за город, стоимость рассчитывается отдельно" aria-pressed="' + (fulfilled === 'nearby') + '"><span class="ful-icon ful-far" aria-hidden="true"><img src="icons/ful-far.webp?v=4" alt="" width="40" height="40"/></span><strong>За город</strong><small>Рассчитаем</small></button>' +
       '</div></fieldset>' +
       (fulfilled && fulfilled !== 'pickup'
         ? '<label class="config-input' + (!addressOk() ? ' needs-pick' : '') + '"><span>Адрес доставки</span><input value="' + esc(address) + '" maxlength="140" data-act="address" placeholder="' + (fulfilled === 'armavir' ? 'Улица, дом, квартира' : 'Населённый пункт и адрес') + '"/></label>'
@@ -1458,7 +1461,7 @@
       '<h2 id="product-order-title">Как удобнее оформить?</h2>' +
       '<div class="order-modal-summary"><span>' + esc(p.title) + '</span><strong>' + (priceFrom() ? 'от ' : '') + T.toLocaleString('ru-RU') + ' ₽</strong></div>' +
       '<div class="order-choice-stack">' +
-      '<button type="button" class="order-choice-btn is-primary" data-choice="site"><img class="order-choice-ico" src="icons/phone-smartphone.png?v=1" alt="" width="44" height="44"/><span><strong>Оставить заявку на сайте</strong><small>Перезвоним по телефону · вы никуда не уходите</small></span></button>' +
+      '<button type="button" class="order-choice-btn is-primary" data-choice="site"><img class="order-choice-ico" src="icons/phone-smartphone.webp?v=1" alt="" width="44" height="44"/><span><strong>Оставить заявку на сайте</strong><small>Перезвоним по телефону · вы никуда не уходите</small></span></button>' +
       '<button type="button" class="order-choice-btn" data-choice="msg"><strong>Написать в мессенджер</strong><small>WhatsApp, Telegram или MAX</small></button>' +
       '</div>' +
       '<div class="order-choice-msg" hidden>' + messengerListHtml() + '</div>' +

@@ -515,7 +515,6 @@ html body .product-page .comp-ico{
   height:40px;
   object-fit:contain;
   display:block;
-  /* dissolve baked-in white PNG canvas */
   mix-blend-mode:multiply;
 }
 html body .product-page .composition-item strong{

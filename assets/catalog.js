@@ -10,12 +10,12 @@
   var SINGLE_GIFTS = ['Фигуры из шаров', 'Цветы из шаров', 'Арки', 'Шар-сюрприз', 'Крафтовый букет', 'Коробка-сюрприз', 'Гендер-пати'];
   var AUDIENCE = ['Для девочки', 'Для мальчика', 'Универсальные', 'Для неё', 'Для него', 'Для мамы', 'На выписку', '1 годик', 'Юбилей', 'Свадьба и девичник', 'Крещение', 'День рождения'];
   var GROUPS = [
-    { id: 'ready', title: 'Готовые решения', mobile: 'Готовые', icon: 'ready', chipImg: 'icons/group-ready.png?v=7', note: 'Композиции для любого повода' },
-    { id: 'characters', title: 'Персонажи', mobile: 'Персонажи', icon: 'characters', chipImg: 'icons/group-characters.png?v=7', note: 'Любимые герои детей' },
-    { id: 'unit', title: 'Шары поштучно', mobile: 'Шары', icon: 'unit', chipImg: 'icons/group-balloons.png?v=7', note: 'Отдельные шары и фигуры' },
-    { id: 'holidays', title: 'Праздники', mobile: 'Праздники', icon: 'holidays', chipImg: 'icons/group-holidays.png?v=7', note: 'Сезонные коллекции' }
+    { id: 'ready', title: 'Готовые решения', mobile: 'Готовые', icon: 'ready', chipImg: 'icons/group-ready.webp?v=7', note: 'Композиции для любого повода' },
+    { id: 'characters', title: 'Персонажи', mobile: 'Персонажи', icon: 'characters', chipImg: 'icons/group-characters.webp?v=7', note: 'Любимые герои детей' },
+    { id: 'unit', title: 'Шары поштучно', mobile: 'Шары', icon: 'unit', chipImg: 'icons/group-balloons.webp?v=7', note: 'Отдельные шары и фигуры' },
+    { id: 'holidays', title: 'Праздники', mobile: 'Праздники', icon: 'holidays', chipImg: 'icons/group-holidays.webp?v=7', note: 'Сезонные коллекции' }
   ];
-  var ALL_CHIP_IMG = 'icons/group-all.png?v=7';
+  var ALL_CHIP_IMG = 'icons/group-all.webp?v=7';
   var PRICES = [
     { label: 'Любая стоимость', min: 0, max: Infinity },
     { label: 'до 1 000 ₽', min: 0, max: 1000 },
@@ -376,25 +376,25 @@
   }
 
   var SECTION_UI = [
-    { id: 'ready', label: 'Готовые', off: 'icons/sections/section-ready-off.png', on: 'icons/sections/section-ready-on.png' },
-    { id: 'characters', label: 'Персонажи', off: 'icons/sections/section-heroes-off.png', on: 'icons/sections/section-heroes-on.png' },
-    { id: 'unit', label: 'Шары', off: 'icons/sections/section-balloons-off.png', on: 'icons/sections/section-balloons-on.png' },
-    { id: 'holidays', label: 'Праздники', off: 'icons/sections/section-holidays-off.png', on: 'icons/sections/section-holidays-on.png' }
+    { id: 'ready', label: 'Готовые', off: 'icons/sections/section-ready-off.webp', on: 'icons/sections/section-ready-on.webp' },
+    { id: 'characters', label: 'Персонажи', off: 'icons/sections/section-heroes-off.webp', on: 'icons/sections/section-heroes-on.webp' },
+    { id: 'unit', label: 'Шары', off: 'icons/sections/section-balloons-off.webp', on: 'icons/sections/section-balloons-on.webp' },
+    { id: 'holidays', label: 'Праздники', off: 'icons/sections/section-holidays-off.webp', on: 'icons/sections/section-holidays-on.webp' }
   ];
   var READY_WHO = AUDIENCE;
   var READY_MAIN = ['Для девочки', 'Для мальчика', 'Для неё', 'Для него'];
   var READY_MORE = ['На выписку', '1 годик', 'День рождения', 'Юбилей', 'Для мамы', 'Свадьба и девичник', 'Крещение'];
   var READY_WHAT = ['Фигуры из шаров', 'Букет из шаров', 'Коробка-сюрприз', 'Фотозона', 'Цветы из шаров', 'Гендер-пати', 'Арки', 'Шар-сюрприз', 'Крафтовый букет'];
   var READY_PHOTOS = {
-    'Фигуры из шаров': 'images/ready/figures.jpg?v=20260923',
-    'Букет из шаров': 'images/ready/bouquet.jpg?v=20260923',
-    'Коробка-сюрприз': 'images/ready/box.jpg?v=20260923',
-    'Фотозона': 'images/ready/photozone.jpg?v=20260923',
-    'Цветы из шаров': 'images/ready/flowers.jpg?v=20260923',
+    'Фигуры из шаров': 'images/ready/what-figures.webp?v=20260924',
+    'Букет из шаров': 'images/ready/what-bouquet.webp?v=20260924',
+    'Коробка-сюрприз': 'images/ready/what-box.webp?v=20260924',
+    'Фотозона': 'images/ready/what-photozone.webp?v=20260924',
+    'Цветы из шаров': 'images/ready/what-flowers.webp?v=20260924',
     'Гендер-пати': 'images/ready/gender.jpg?v=20260923',
-    'Арки': 'images/ready/arch.jpg?v=20260923',
-    'Шар-сюрприз': 'images/ready/surprise.jpg?v=20260923',
-    'Крафтовый букет': 'images/ready/kraft.jpg?v=20260923',
+    'Арки': 'images/ready/what-arch.webp?v=20260924',
+    'Шар-сюрприз': 'images/ready/what-surprise.webp?v=20260924',
+    'Крафтовый букет': 'images/ready/what-kraft.webp?v=20260924',
     'День рождения': 'images/ready/birthday.jpg?v=20260923'
   };
   var WHO_PICKS = ['Для девочки', 'Для мальчика', 'Для неё', 'Для него', 'На выписку', 'День рождения', 'Юбилей', 'Геймерам', 'Универсальные'];
@@ -547,10 +547,10 @@
       title = 'Категории';
       lead = '';
       var who = [
-        ['Для девочки', 'images/category-girl.png'],
-        ['Для мальчика', 'images/category-boy.png'],
-        ['Для неё', 'images/category-loved.png'],
-        ['Для него', 'images/category-him.png']
+        ['Для девочки', 'images/who/who-girl.webp?v=20260924'],
+        ['Для мальчика', 'images/who/who-boy.webp?v=20260924'],
+        ['Для неё', 'images/who/who-her.webp?v=20260924'],
+        ['Для него', 'images/who/who-him.webp?v=20260924']
       ];
       var occasions = READY_MORE.concat(['Гендер-пати']);
       var what = READY_WHAT.filter(function (name) { return name !== 'Гендер-пати'; }).map(function (name) {
@@ -769,10 +769,10 @@
 
   function readyBands() {
     var who = [
-      ['Для девочки', 'images/category-girl.png'],
-      ['Для мальчика', 'images/category-boy.png'],
-      ['Для неё', 'images/category-loved.png'],
-      ['Для него', 'images/category-him.png']
+      ['Для девочки', 'images/who/who-girl.webp?v=20260924'],
+      ['Для мальчика', 'images/who/who-boy.webp?v=20260924'],
+      ['Для неё', 'images/who/who-her.webp?v=20260924'],
+      ['Для него', 'images/who/who-him.webp?v=20260924']
     ];
     var occasions = READY_MORE.concat(['Гендер-пати']);
     var what = READY_WHAT.filter(function (name) { return name !== 'Гендер-пати'; });
@@ -1024,7 +1024,7 @@
       '</div></div>';
     var budget = '';
     if (priceIdx !== 0) {
-      budget = '<div class="catalog-active-budget" role="status"><span><b aria-hidden="true">₽</b> Бюджет: <strong>' + esc(PRICES[priceIdx].label) + '</strong></span><button type="button" data-clearprice>Показать все цены ×</button></div>';
+      budget = '<div class="catalog-active-budget" role="status"><span><img class="catalog-budget-ico" src="icons/budget-ruble.webp?v=1" alt="" width="36" height="36" decoding="async"/> Бюджет: <strong>' + esc(PRICES[priceIdx].label) + '</strong></span><button type="button" data-clearprice>Показать все цены ×</button></div>';
     }
     var collections = '';
     var showCollections = false;
@@ -1134,10 +1134,10 @@
   var PHONE = '79284440142', PHONE_LABEL = '+7 928 444-01-42';
   var MAX_URL = 'https://max.ru/u/f9LHodD0cOJwY09H6Zj63nYK_X8tPZGb3CODIvTT7FWkRzrgbh5F582AiB8';
   var TG_URL = 'https://t.me/Olgamzz';
-  var WA_ICON = '<img src="icons/brand-whatsapp.png?v=9" alt="" width="40" height="40" decoding="async" aria-hidden="true"/>';
-  var TG_ICON = '<img src="icons/brand-telegram.png?v=9" alt="" width="40" height="40" decoding="async" aria-hidden="true"/>';
-  var MAX_ICON = '<img src="icons/brand-max.png?v=9" alt="" width="40" height="40" decoding="async" aria-hidden="true"/>';
-  var PHONE_ICON = '<img src="icons/phone-smartphone.png?v=1" alt="" width="40" height="40" decoding="async" aria-hidden="true"/>';
+  var WA_ICON = '<img src="icons/brand-whatsapp.webp?v=9" alt="" width="40" height="40" decoding="async" aria-hidden="true"/>';
+  var TG_ICON = '<img src="icons/brand-telegram.webp?v=9" alt="" width="40" height="40" decoding="async" aria-hidden="true"/>';
+  var MAX_ICON = '<img src="icons/brand-max.webp?v=9" alt="" width="40" height="40" decoding="async" aria-hidden="true"/>';
+  var PHONE_ICON = '<img src="icons/phone-smartphone.webp?v=1" alt="" width="40" height="40" decoding="async" aria-hidden="true"/>';
 
   function openCatalogModal() {
     if (document.querySelector('.catalog-modal-wrap')) return;

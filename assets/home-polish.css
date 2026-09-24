@@ -280,7 +280,7 @@ main#main-content{
   .hero .hero-actions .button-outline{width:auto!important;padding-left:22px!important;padding-right:22px!important}
   .hero .hero-media{width:100%!important;margin:0!important;padding:0!important;height:auto!important;min-height:0!important}
   .hero .hero-media img{
-    width:100%!important;height:auto!important;max-height:none!important;aspect-ratio:auto!important;object-fit:contain!important;
+    width:100%!important;height:auto!important;max-height:none!important;aspect-ratio:1488/1394!important;object-fit:contain!important;
     object-position:center!important;border-radius:10px!important;
   }
 }
@@ -308,7 +308,7 @@ main#main-content{
   .hero .hero-actions .button-outline{width:auto!important;flex:1 1 160px!important;transform:none!important}
   .hero .hero-media{width:100%!important;height:auto!important;min-height:0!important;margin:0!important;padding:0!important}
   .hero .hero-media img{
-    width:100%!important;height:auto!important;max-height:none!important;aspect-ratio:auto!important;
+    width:100%!important;height:auto!important;max-height:none!important;aspect-ratio:1488/1394!important;
     object-fit:contain!important;object-position:center!important;border-radius:8px!important;
   }
 }
@@ -328,7 +328,7 @@ main#main-content{
   }
   .hero .hero-media{order:4!important;padding:0 24px!important;width:100%!important;box-sizing:border-box!important;height:auto!important;min-height:0!important}
   .hero .hero-media img{
-    width:100%!important;height:auto!important;max-height:none!important;aspect-ratio:auto!important;object-fit:contain!important;
+    width:100%!important;height:auto!important;max-height:none!important;aspect-ratio:1488/1394!important;object-fit:contain!important;
     object-position:center!important;border-radius:8px!important;
   }
   .hero .hero-actions{
@@ -353,7 +353,7 @@ main#main-content{
   .hero .hero-media{order:4!important;width:100%!important;margin:0!important;padding:0 16px!important;box-sizing:border-box!important;height:auto!important;min-height:0!important;overflow:hidden!important}
   .hero .hero-media img{
     display:block!important;width:100%!important;height:auto!important;max-height:none!important;border-radius:8px!important;
-    aspect-ratio:auto!important;object-fit:contain!important;object-position:center!important;margin:0!important;
+    aspect-ratio:1488/1394!important;object-fit:contain!important;object-position:center!important;margin:0!important;
   }
   .hero .hero-actions{order:5!important;display:flex!important;flex-direction:column!important;gap:8px!important;margin:12px 0 0!important;padding:0 16px!important;box-sizing:border-box!important;width:100%!important}
   .hero .hero-actions .button,

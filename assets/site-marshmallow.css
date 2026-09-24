@@ -984,11 +984,15 @@ html body main#main-content .hero .hero-actions a.button-primary:hover{
   from{opacity:0;transform:translateY(8px)}
   to{opacity:1;transform:translateY(0)}
 }
+html body main#main-content .hero .hero-media{
+  aspect-ratio:1488/1394!important;
+  width:100%!important;
+}
 html body main#main-content .hero .hero-media img{
   width:100%!important;
   height:auto!important;
   max-height:none!important;
-  aspect-ratio:auto!important;
+  aspect-ratio:1488/1394!important;
   object-fit:contain!important;
   object-position:center!important;
   animation:heroPhotoIn .28s ease-out both!important;
@@ -1086,7 +1090,7 @@ html body main#main-content .hero .hero-media img{
     margin:0!important;
   }
   html body main#main-content .hero .hero-media img{
-    aspect-ratio:auto!important;
+    aspect-ratio:1488/1394!important;
     max-height:none!important;
     width:100%!important;
     height:auto!important;
@@ -1124,7 +1128,7 @@ html body main#main-content .hero .hero-media img{
     padding-right:16px!important;
   }
   html body main#main-content .hero .hero-media img{
-    aspect-ratio:auto!important;
+    aspect-ratio:1488/1394!important;
     max-height:none!important;
     height:auto!important;
     object-fit:contain!important;
@@ -1187,7 +1191,7 @@ html body main#main-content .hero .hero-media img{
     background:#fff!important;
   }
   html body main#main-content .hero .hero-media img{
-    aspect-ratio:auto!important;
+    aspect-ratio:1488/1394!important;
     max-height:none!important;
     height:auto!important;
     object-fit:contain!important;
@@ -3828,6 +3832,9 @@ html body.price-page .price-explanation>span img{
   background:linear-gradient(90deg,#efeef1 0%,#f7f6f8 42%,#efeef1 100%)!important;
   background-size:200% 100%!important;
   animation:mm-photo-wait 1.15s linear infinite!important;
+}
+.product-page .product-page-main-image{
+  aspect-ratio:1/1!important;
 }
 .catalog-page .catalog-card-image:has(img.is-ready),
 .product-page .product-page-main-image:has(img.is-ready){

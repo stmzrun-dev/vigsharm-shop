@@ -153,13 +153,18 @@ const app = {
         return;
       }
       if (e.key === 'Escape') {
+        const lightbox = document.getElementById('photo-lightbox');
+        if (lightbox && !lightbox.classList.contains('hidden')) {
+          e.preventDefault();
+          if (typeof this.closeLightbox === 'function') this.closeLightbox();
+          return;
+        }
         const review = document.getElementById('ai-review-overlay');
         if (review && !review.classList.contains('hidden')) {
           e.preventDefault();
           this.closeAiReviewOverlay?.();
           return;
         }
-        if (typeof this.closeLightbox === 'function') this.closeLightbox();
         if (document.body.classList.contains('admin-editor-open')) this.cancelProductEdit();
       }
     });
@@ -1221,14 +1226,20 @@ const app = {
     const article = this.escapeHtml(p.article || '—');
     const category = this.escapeHtml(p.category || '—');
     const priceNum = Number(p.price || 0);
-    const photo = this.thumbUrl(p.main_photo || (Array.isArray(p.photos) && p.photos[0]) || '');
+    const fullPhoto = p.main_photo
+      || (Array.isArray(p.photos) && (typeof p.photos[0] === 'string' ? p.photos[0] : p.photos[0]?.url))
+      || '';
+    const photo = this.thumbUrl(fullPhoto);
     const thumb = photo
-      ? `<img src="${this.escapeHtml(photo)}" alt="" loading="lazy" decoding="async"/>`
+      ? `<img src="${this.escapeHtml(photo)}" data-full="${this.escapeHtml(fullPhoto)}" alt="" loading="lazy" decoding="async"/>`
       : '<span class="thumb-fallback" aria-hidden="true">🎈</span>';
     const nextStatus = published ? 'draft' : 'published';
+    const thumbAttrs = photo
+      ? ` role="button" tabindex="0" title="Увеличить фото" class="product-row-thumb is-zoomable" onclick="event.stopPropagation();app.openLightbox(this.querySelector('img')?.dataset?.full||'')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}"`
+      : ' class="product-row-thumb"';
     return `
       <article class="product-row" data-id="${this.escapeHtml(String(p.id ?? ''))}">
-        <div class="product-row-thumb">${thumb}</div>
+        <div${thumbAttrs}>${thumb}</div>
         <div class="product-row-info">
           <div class="product-row-title">${title}</div>
           <div class="product-row-meta">${article} · ${category}</div>

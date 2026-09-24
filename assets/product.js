@@ -776,14 +776,14 @@
       (shareState === 'shared' ? 'Отправлено ✓' : shareState === 'copied' ? 'Ссылка скопирована ✓' : shareState === 'failed' ? 'Не удалось скопировать' : 'Поделиться') + '</button></nav>' +
       '<section class="product-page-card"><div class="product-page-gallery">' +
       '<div class="product-page-main-image' + (photoGrown ? ' is-grown' : '') + '" role="button" aria-label="Фото композиции. Нажмите, чтобы увеличить" tabindex="0" data-gallery>' +
-      galleryImgHtml(galleryKey || mainKey, p.title, 'fetchpriority="high"') +
+      galleryImgHtml(galleryKey || mainKey, p.title, 'fetchpriority="high" width="1200" height="1200"') +
       '</div>' +
       (keys.length > 1
         ? '<div class="product-gallery-controls"><button type="button" data-act="prev" aria-label="Предыдущая фотография">←</button><span role="status" aria-live="polite">Фото ' + (imgIdx + 1) + ' из ' + keys.length + '</span><button type="button" data-act="next" aria-label="Следующая фотография">→</button></div>' +
           '<div class="product-thumbnails" aria-label="Все фотографии товара">' +
           keys.map(function (k, i) {
             return '<button type="button" class="' + (imgIdx === i ? 'active' : '') + '" data-act="thumb" data-v="' + i + '" aria-label="Показать фотографию ' + (i + 1) + '" aria-pressed="' + (imgIdx === i) + '">' +
-              galleryImgHtml(k, '', 'loading="lazy"') + '</button>';
+              galleryImgHtml(k, '', 'loading="lazy" width="160" height="160"') + '</button>';
           }).join('') + '</div>'
         : '') +
       '</div><div class="product-page-info">' +

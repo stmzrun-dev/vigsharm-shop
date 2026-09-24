@@ -345,9 +345,9 @@
           <p class="step-1-hint hidden" id="step-1-hint" hidden>Шаг 1</p>
           <div class="essentials-layout essentials-layout-compose" id="block-essentials">
             <div id="source-work-preview" class="source-work-preview hidden is-expanded">
-              <div class="source-work-preview-frame">
+              <button type="button" class="source-work-preview-frame" title="Увеличить фото" aria-label="Увеличить фото" onclick="app.openLightbox(app._sourceWorkPreviewUrl || document.getElementById('source-work-preview-img')?.src)">
                 <img id="source-work-preview-img" alt="Фото для состава"/>
-              </div>
+              </button>
             </div>
             <div class="essentials-fields">
               <div id="unit-price-fields" class="unit-price-fields">
@@ -779,7 +779,9 @@
     </header>
     <div class="ai-review-body">
       <div class="ai-review-photo">
-        <img id="ai-review-img" alt="Master"/>
+        <button type="button" class="ai-review-photo-zoom" title="Увеличить фото" aria-label="Увеличить фото" onclick="const s=document.getElementById('ai-review-img')?.src;if(s)app.openLightbox(s)">
+          <img id="ai-review-img" alt="Master"/>
+        </button>
         <p class="ai-review-meta" id="ai-review-meta"></p>
       </div>
       <div class="ai-review-fields">

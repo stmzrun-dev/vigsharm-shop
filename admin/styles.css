@@ -25,6 +25,11 @@
   --admin-shadow:0 1px 3px rgba(0,0,0,.04),0 6px 20px rgba(0,0,0,.04);
   --admin-touch:44px;
   --admin-space:16px;
+  /* Нижний док «Отмена / Черновик» — fixed; запас для скролла и превью */
+  --admin-action-dock:calc(72px + env(safe-area-inset-bottom,0px));
+}
+@media (max-width:768px){
+  :root{--admin-action-dock:calc(168px + env(safe-area-inset-bottom,0px))}
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
@@ -327,11 +332,14 @@ legend{font-size:15px;font-weight:600;padding:0 12px;color:#212121}
   z-index:120;
   overflow:auto;
   background:#F5F5F5;
-  padding:56px 16px 120px!important;
-  scroll-padding-bottom:120px
+  padding:56px 16px 16px!important;
+  scroll-padding-bottom:var(--admin-action-dock)
 }
 body.admin-editor-open{overflow:hidden}
-#tab-create .product-editor{background:#fff;border-radius:12px;box-shadow:0 8px 32px rgba(0,0,0,.08)}
+#tab-create .product-editor{
+  background:#fff;border-radius:12px;box-shadow:0 8px 32px rgba(0,0,0,.08);
+  padding-bottom:calc(var(--admin-action-dock) + 12px)
+}
 .settings-fold{margin:20px 0;padding:14px 16px;border:1px solid #E0E0E0;border-radius:12px;background:#FAFAFA}
 .settings-fold summary{cursor:pointer;font-weight:600;font-size:15px;color:#424242;outline:none}
 .settings-fold[open] summary{margin-bottom:12px}
@@ -341,9 +349,8 @@ body.admin-editor-open{overflow:hidden}
 .unit-mode-banner{margin:0 0 14px;padding:10px 12px;border-radius:8px;background:#E3F2FD;color:#1565C0;font-size:13px;line-height:1.4}
 .unit-mode-banner.hidden{display:none!important}
 
-/* Action Bar */
+/* Action Bar (базовые стили; в редакторе — fixed-док ниже) */
 .action-bar{display:flex;gap:12px;justify-content:flex-end;flex-wrap:wrap;padding-top:24px;border-top:1px solid #F5F5F5;margin-top:32px}
-#product-form.is-editor-step-1 .action-bar{position:sticky;bottom:0;z-index:5;background:linear-gradient(180deg,rgba(255,255,255,0),#fff 28%);padding-bottom:8px;margin-top:20px}
 
 /* Section Headers */
 .section-header{font-size:18px;font-weight:600;color:#212121;margin:32px 0 16px;padding-bottom:12px;border-bottom:2px solid #F5F5F5}
@@ -710,7 +717,7 @@ body.admin-editor-open{overflow:hidden}
   min-height:min(68vh,560px);border-radius:18px;margin:8px 0 0
 }
 .product-editor.is-upload-focus .action-bar{
-  justify-content:center;margin-top:16px;padding-top:0;border:none
+  justify-content:center
 }
 .product-editor.is-quiet-chrome .step1-photos{
   margin:0;padding:8px 0 0;border:none;background:transparent;box-shadow:none
@@ -821,23 +828,7 @@ body.admin-editor-open{overflow:hidden}
   display:grid;grid-template-columns:1fr 1fr;gap:5px
 }
 
-/* Шаг создания: запас под sticky action-bar — скролл выше дока */
-#tab-create.tab-content:not(.hidden):not([hidden]){
-  padding-bottom:120px!important;
-  scroll-padding-bottom:120px
-}
-/* Контент над доком — низ фото/полей не прячется под планку */
-#tab-create #step1-workspace{
-  padding-bottom:120px!important
-}
-#product-form.is-editor-step-2 #block-photos,
-#product-form.is-editor-step-2 #block-essentials,
-#product-form.is-editor-step-2 .essentials-layout-compose{
-  padding-bottom:120px!important
-}
-.product-editor.is-quiet-chrome #product-form.is-editor-step-1 .action-bar{
-  margin-top:12px;padding-top:12px;padding-bottom:4px
-}
+/* Запас под fixed action-dock задаётся у #tab-create .product-editor */
 .product-editor.is-quiet-chrome #step1-compose-cta{
   margin-top:10px;margin-bottom:0
 }
@@ -962,7 +953,7 @@ body.admin-editor-open{overflow:hidden}
 .photozone-type-early.hidden{display:none!important}
 .photozone-type-early-title{margin:0 0 4px;font-size:13px;font-weight:600;color:#E65100}
 .photozone-type-early .photozone-type-cards{margin-top:4px}
-.photo-lightbox{position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,.88);display:flex;align-items:center;justify-content:center;padding:24px}
+.photo-lightbox{position:fixed;inset:0;z-index:2200;background:rgba(0,0,0,.88);display:flex;align-items:center;justify-content:center;padding:24px}
 .photo-lightbox.hidden{display:none!important}
 .photo-lightbox img{max-width:min(96vw,1200px);max-height:90vh;object-fit:contain;border-radius:8px;box-shadow:0 20px 60px rgba(0,0,0,.5)}
 .lightbox-close{position:absolute;top:16px;right:16px;width:44px;height:44px;border:none;border-radius:50%;background:rgba(255,255,255,.15);color:#fff;font-size:28px;cursor:pointer;line-height:1}
@@ -1005,7 +996,7 @@ body.admin-editor-open{overflow:hidden}
   display:block;width:100%;height:100%;max-height:min(32vh,240px);object-fit:contain;background:#111
 }
 .ai-review-photo .ai-review-meta{
-  margin:0;padding:4px 8px;font-size:11px;color:#BDBDBD;background:#1a1a1a;line-height:1.3
+  margin:0;padding:4px 8px;font-size:11px;color:#BDBDBD;background:#1a1a1a;line-height:1.3;flex:none
 }
 .ai-review-fields{
   display:flex;flex-direction:column;gap:6px;min-height:0;max-height:100%;
@@ -1097,7 +1088,8 @@ body.admin-editor-open{overflow:hidden}
 @media(max-width:720px){
   .ai-review-panel{max-height:96vh}
   .ai-review-body{grid-template-columns:1fr;overflow:auto}
-  .ai-review-photo img{max-height:min(26vh,180px)}
+  .ai-review-photo img,
+  .ai-review-photo-zoom img{max-height:min(26vh,180px)}
   .ai-review-row-3{grid-template-columns:1fr 1fr}
   .ai-review-row-3 .form-group:last-child{grid-column:1/-1}
   .ai-review-title-wrap{max-width:none}
@@ -1112,15 +1104,16 @@ body.admin-editor-open{overflow:hidden}
 .essentials-layout:has(#source-work-preview:not(.hidden)){grid-template-columns:minmax(160px,220px) minmax(0,1fr)}
 .essentials-layout.is-preview-expanded,
 .essentials-layout-compose:has(#source-work-preview:not(.hidden)){grid-template-columns:minmax(0,1.4fr) minmax(220px,320px);gap:16px}
-#product-form.is-step1-c .source-work-preview{position:sticky;top:12px}
-#product-form.is-step1-c .source-work-preview.is-expanded .source-work-preview-frame{max-height:min(72vh,900px)}
-#product-form.is-step1-c .source-work-preview.is-expanded .source-work-preview-frame img{max-height:min(72vh,900px)}
+/* Высота превью: шапка/баннер + fixed action-dock */
+#product-form.is-step1-c .source-work-preview{position:sticky;top:12px;padding-bottom:8px}
+#product-form.is-step1-c .source-work-preview.is-expanded .source-work-preview-frame{max-height:min(calc(100dvh - 120px - var(--admin-action-dock)),68vh,900px)}
+#product-form.is-step1-c .source-work-preview.is-expanded .source-work-preview-frame img{max-height:min(calc(100dvh - 120px - var(--admin-action-dock)),68vh,900px)}
 .source-work-preview{border:1px solid #E0E0E0;border-radius:12px;background:#FAFAFA;padding:8px;position:sticky;top:12px;box-shadow:0 8px 28px rgba(0,0,0,.12)}
 .source-work-preview.hidden{display:none!important}
-.source-work-preview-frame{display:block;width:100%;padding:0;border:none;border-radius:10px;overflow:hidden;background:#0d0d0d;aspect-ratio:auto;max-height:min(78vh,920px)}
-.source-work-preview-frame img{display:block;width:100%;height:auto;max-height:min(78vh,920px);object-fit:contain}
-.source-work-preview.is-expanded .source-work-preview-frame{max-height:min(78vh,920px)}
-.source-work-preview.is-expanded .source-work-preview-frame img{max-height:min(78vh,920px)}
+.source-work-preview-frame{display:block;width:100%;padding:0;border:none;border-radius:10px;overflow:hidden;background:#0d0d0d;aspect-ratio:auto;max-height:min(calc(100dvh - 120px - var(--admin-action-dock)),70vh,920px);cursor:zoom-in}
+.source-work-preview-frame img{display:block;width:100%;height:auto;max-height:min(calc(100dvh - 120px - var(--admin-action-dock)),70vh,920px);object-fit:contain;pointer-events:none}
+.source-work-preview.is-expanded .source-work-preview-frame{max-height:min(calc(100dvh - 120px - var(--admin-action-dock)),70vh,920px)}
+.source-work-preview.is-expanded .source-work-preview-frame img{max-height:min(calc(100dvh - 120px - var(--admin-action-dock)),70vh,920px)}
 .btn-sm{padding:6px 10px;font-size:12px;line-height:1.2}
 @media(max-width:900px){
   .essentials-layout,
@@ -1135,6 +1128,10 @@ body.admin-editor-open{overflow:hidden}
   #product-form.is-step1-c .source-work-preview.is-expanded .source-work-preview-frame img{max-height:min(58vh,640px)}
 }
 .photo-item img.zoomable,.crop-preview,.crop-stage img.zoomable{cursor:zoom-in}
+.product-row-thumb.is-zoomable{cursor:zoom-in}
+.product-row-thumb.is-zoomable:focus-visible{outline:2px solid var(--admin-accent,#FF6B5A);outline-offset:2px}
+.ai-review-photo-zoom{display:block;width:100%;flex:1 1 auto;min-height:0;padding:0;border:none;background:#111;cursor:zoom-in}
+.ai-review-photo-zoom img{display:block;width:100%;height:100%;max-height:min(32vh,240px);object-fit:contain;background:#111;pointer-events:none}
 .crop-preview{cursor:zoom-in}
 #block-photos .photo-section{background:transparent;border:none;padding:0;margin:12px 0 0}
 #block-photos .photo-grid{gap:12px;margin-bottom:8px}
@@ -1438,14 +1435,14 @@ body.admin-editor-open{overflow:hidden}
 /* Phase 3: editor chrome — dropzone, gallery, busy, dock, wizard tabs */
 #tab-create.tab-content:not(.hidden):not([hidden]){
   background:var(--admin-bg);
-  padding:52px 12px 120px!important
+  padding:52px 12px 16px!important
 }
 #tab-create .product-editor{
   border:1px solid var(--admin-border);
   border-radius:var(--admin-radius);
   box-shadow:var(--admin-shadow);
   max-width:min(1040px,94vw);
-  padding-bottom:24px
+  padding-bottom:calc(var(--admin-action-dock) + 12px)
 }
 
 /* Wizard progress as clean tabs */
@@ -1601,16 +1598,16 @@ body.admin-editor-open{overflow:hidden}
 #tab-create .studio-busy-banner-text strong{color:var(--admin-text);font-size:14px}
 #tab-create .studio-busy-stage{color:var(--admin-accent)}
 
-/* Action dock */
+/* Action dock — fixed к низу экрана, не перекрывает фото sticky-превью */
 #tab-create .action-bar,
 #product-form .action-bar{
-  position:sticky;bottom:0;z-index:95;
+  position:fixed;left:0;right:0;bottom:0;z-index:130;
   display:flex;flex-wrap:wrap;gap:8px;justify-content:flex-end;align-items:center;
-  margin:20px -4px 0;padding:12px 8px calc(12px + env(safe-area-inset-bottom,0px));
+  margin:0;padding:12px 20px calc(12px + env(safe-area-inset-bottom,0px));
   border-top:1px solid var(--admin-border);
-  background:rgba(255,255,255,.92);
+  background:rgba(255,255,255,.96);
   -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
-  box-shadow:0 -8px 24px rgba(0,0,0,.04)
+  box-shadow:0 -8px 24px rgba(0,0,0,.06)
 }
 #tab-create .action-bar .btn,
 #product-form .action-bar .btn{min-height:44px}
@@ -1626,7 +1623,7 @@ body.admin-editor-open{overflow:hidden}
   #tab-create .action-bar,
   #product-form .action-bar{
     flex-direction:column;align-items:stretch;gap:8px;
-    margin-left:-8px;margin-right:-8px;padding-left:12px;padding-right:12px
+    padding-left:12px;padding-right:12px
   }
   #tab-create .action-bar .btn.primary,
   #product-form .action-bar .btn.primary{
@@ -1725,7 +1722,8 @@ body.ai-review-open{overflow:hidden}
   border-radius:12px;overflow:hidden;border:1px solid var(--admin-border);
   background:#111;align-self:start;position:sticky;top:0
 }
-#ai-review-overlay .ai-review-photo img{
+#ai-review-overlay .ai-review-photo img,
+#ai-review-overlay .ai-review-photo-zoom img{
   max-height:min(42vh,300px);width:100%;object-fit:contain
 }
 #ai-review-overlay .ai-review-meta{
@@ -1860,7 +1858,8 @@ body.ai-review-open{overflow:hidden}
     gap:10px 14px;padding:12px 20px 6px;
     overflow:hidden
   }
-  #ai-review-overlay .ai-review-photo img{max-height:min(38vh,280px)}
+  #ai-review-overlay .ai-review-photo img,
+  #ai-review-overlay .ai-review-photo-zoom img{max-height:min(38vh,280px)}
   #ai-review-overlay .ai-review-fields{
     gap:5px 10px;overflow-y:auto
   }
@@ -1897,7 +1896,8 @@ body.ai-review-open{overflow:hidden}
     grid-template-columns:1fr;padding:12px;gap:12px
   }
   #ai-review-overlay .ai-review-photo{position:static}
-  #ai-review-overlay .ai-review-photo img{max-height:min(28vh,200px)}
+  #ai-review-overlay .ai-review-photo img,
+  #ai-review-overlay .ai-review-photo-zoom img{max-height:min(28vh,200px)}
   #ai-review-overlay .ai-review-tags{grid-template-columns:1fr}
   #ai-review-overlay .ai-review-tags .chips-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
   #ai-review-overlay .ai-review-row-3{grid-template-columns:1fr 1fr}

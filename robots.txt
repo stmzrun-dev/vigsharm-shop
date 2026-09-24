@@ -1,0 +1,12 @@
+User-agent: *
+Allow: /
+
+Disallow: /admin/
+Disallow: /_archive/
+Disallow: /mockups/
+Disallow: /worker/
+Disallow: /preview-
+Disallow: /test-
+Disallow: /check-
+
+Sitemap: https://vigsharm.ru/sitemap.xml

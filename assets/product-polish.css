@@ -272,10 +272,16 @@
   position:relative!important;
   overflow:hidden;
   cursor:zoom-in;
+  aspect-ratio:1/1!important;
+  width:100%!important;
 }
 .product-page .product-page-main-image img{
   transition:transform .28s ease;
   transform-origin:center center;
+  width:100%!important;
+  height:100%!important;
+  object-fit:contain!important;
+  aspect-ratio:1/1!important;
 }
 .product-page .product-page-main-image.is-grown{
   cursor:zoom-out;

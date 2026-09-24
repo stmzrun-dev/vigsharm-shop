@@ -12,7 +12,7 @@
       "catalog_category": "Арки",
       "catalog_query": "Классическая арка",
       "subhead": "",
-      "updated_at": "2026-09-22T07:40:25.648Z"
+      "updated_at": "2026-09-24T22:27:53.549Z"
     },
     {
       "id": "arch-organic",
@@ -25,7 +25,7 @@
       "catalog_category": "Арки",
       "catalog_query": "Разнокалиберная арка",
       "subhead": "",
-      "updated_at": "2026-09-22T07:40:25.648Z"
+      "updated_at": "2026-09-24T22:27:53.549Z"
     },
     {
       "id": "foil-round",
@@ -38,7 +38,7 @@
       "catalog_category": "Шары поштучно",
       "catalog_query": "Круг, звезда или сердце",
       "subhead": "",
-      "updated_at": "2026-09-22T07:40:25.648Z"
+      "updated_at": "2026-09-24T22:27:53.549Z"
     },
     {
       "id": "foil-text",
@@ -51,7 +51,7 @@
       "catalog_category": "Шары поштучно",
       "catalog_query": "С надписью",
       "subhead": "",
-      "updated_at": "2026-09-22T07:40:25.648Z"
+      "updated_at": "2026-09-24T22:27:53.549Z"
     },
     {
       "id": "foil-figure",
@@ -64,7 +64,7 @@
       "catalog_category": "Шары поштучно",
       "catalog_query": "Фольгированная фигура",
       "subhead": "",
-      "updated_at": "2026-09-22T07:40:25.648Z"
+      "updated_at": "2026-09-24T22:27:53.549Z"
     },
     {
       "id": "walker",
@@ -77,7 +77,7 @@
       "catalog_category": "Шары поштучно",
       "catalog_query": "Ходячая фигура",
       "subhead": "",
-      "updated_at": "2026-09-22T07:40:25.648Z"
+      "updated_at": "2026-09-24T22:27:53.549Z"
     },
     {
       "id": "digit",
@@ -90,7 +90,7 @@
       "catalog_category": "Шары поштучно",
       "catalog_query": "Фольгированная цифра",
       "subhead": "",
-      "updated_at": "2026-09-22T07:40:25.648Z"
+      "updated_at": "2026-09-24T22:27:53.549Z"
     },
     {
       "id": "latex",
@@ -103,20 +103,20 @@
       "catalog_category": "Шары поштучно",
       "catalog_query": "Латексный шар",
       "subhead": "",
-      "updated_at": "2026-09-22T07:40:25.648Z"
+      "updated_at": "2026-09-24T22:27:53.549Z"
     },
     {
       "id": "print",
       "group_id": "latex",
       "sort_order": 2,
       "title": "Шар с рисунком",
-      "price": 140,
+      "price": 150,
       "price_from": 0,
       "unit": "",
       "catalog_category": "Шары поштучно",
       "catalog_query": "Шар с рисунком",
       "subhead": "",
-      "updated_at": "2026-09-22T07:40:25.648Z"
+      "updated_at": "2026-09-24T22:27:53.549Z"
     },
     {
       "id": "confetti",
@@ -129,7 +129,7 @@
       "catalog_category": "Шары поштучно",
       "catalog_query": "Шар с конфетти",
       "subhead": "",
-      "updated_at": "2026-09-22T07:40:25.648Z"
+      "updated_at": "2026-09-24T22:27:53.549Z"
     },
     {
       "id": "chrome",
@@ -142,7 +142,7 @@
       "catalog_category": "Шары поштучно",
       "catalog_query": "Шар хром",
       "subhead": "",
-      "updated_at": "2026-09-22T07:40:25.648Z"
+      "updated_at": "2026-09-24T22:27:53.549Z"
     },
     {
       "id": "agate",
@@ -155,7 +155,7 @@
       "catalog_category": "Шары поштучно",
       "catalog_query": "Шар супер-агат",
       "subhead": "",
-      "updated_at": "2026-09-22T07:40:25.648Z"
+      "updated_at": "2026-09-24T22:27:53.549Z"
     },
     {
       "id": "brush",
@@ -168,7 +168,7 @@
       "catalog_category": "Шары поштучно",
       "catalog_query": "Шар браш",
       "subhead": "",
-      "updated_at": "2026-09-22T07:40:25.648Z"
+      "updated_at": "2026-09-24T22:27:53.549Z"
     },
     {
       "id": "figure",
@@ -181,7 +181,7 @@
       "catalog_category": "Фигуры из шаров",
       "catalog_query": "Фигура из шаров",
       "subhead": "",
-      "updated_at": "2026-09-22T07:40:25.648Z"
+      "updated_at": "2026-09-24T22:27:53.549Z"
     },
     {
       "id": "flower",
@@ -194,7 +194,7 @@
       "catalog_category": "Цветы из шаров",
       "catalog_query": "Цветок из шаров",
       "subhead": "",
-      "updated_at": "2026-09-22T07:40:25.648Z"
+      "updated_at": "2026-09-24T22:27:53.549Z"
     },
     {
       "id": "gender",
@@ -207,7 +207,7 @@
       "catalog_category": "Гендер-пати",
       "catalog_query": "Гендерный шар",
       "subhead": "Коробки, баблс и сюрпризы",
-      "updated_at": "2026-09-22T07:40:25.648Z"
+      "updated_at": "2026-09-24T22:27:53.549Z"
     },
     {
       "id": "surprise",
@@ -220,7 +220,7 @@
       "catalog_category": "Шар-сюрприз",
       "catalog_query": "Шар-сюрприз",
       "subhead": "",
-      "updated_at": "2026-09-22T07:40:25.648Z"
+      "updated_at": "2026-09-24T22:27:53.549Z"
     },
     {
       "id": "kraft",
@@ -233,7 +233,7 @@
       "catalog_category": "Крафтовый букет",
       "catalog_query": "Крафтовый букет",
       "subhead": "",
-      "updated_at": "2026-09-22T07:40:25.648Z"
+      "updated_at": "2026-09-24T22:27:53.549Z"
     },
     {
       "id": "box",
@@ -246,7 +246,7 @@
       "catalog_category": "Коробка-сюрприз",
       "catalog_query": "Коробка-сюрприз",
       "subhead": "",
-      "updated_at": "2026-09-22T07:40:25.648Z"
+      "updated_at": "2026-09-24T22:27:53.549Z"
     },
     {
       "id": "bubble",
@@ -259,7 +259,7 @@
       "catalog_category": "Шары поштучно",
       "catalog_query": "Баблс с наполнением и надписью",
       "subhead": "",
-      "updated_at": "2026-09-22T07:40:25.648Z"
+      "updated_at": "2026-09-24T22:27:53.549Z"
     },
     {
       "id": "glass-bubble",
@@ -272,7 +272,7 @@
       "catalog_category": "Шары поштучно",
       "catalog_query": "Стеклянный баблс с надписью",
       "subhead": "",
-      "updated_at": "2026-09-22T07:40:25.648Z"
+      "updated_at": "2026-09-24T22:27:53.549Z"
     }
   ]
 }

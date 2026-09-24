@@ -49,53 +49,6 @@
       "updated_at": "2026-09-24T15:37:07.787Z"
     },
     {
-      "id": "2250478b-6f5d-4766-875c-1f12071ccd20",
-      "title": "Розовая магия",
-      "article": "BOX-029",
-      "price": 6200,
-      "short_description": "Розовая коробка с цифрой и букетом фольгированных сердец в бело-розовой гамме.",
-      "full_description": "Розовая коробка-сюрприз с атласной лентой и надписью, крупная розовая фольгированная цифра и фонтан из белых и розовых сердец.",
-      "composition": [
-        "коробка 70x70x70 с индивидуальной надписью и декором",
-        "цифра",
-        "10 фольгированных сердец"
-      ],
-      "category": "Коробка-сюрприз",
-      "character": null,
-      "age_group": "Для детей",
-      "budget": "5 000–8 000 ₽",
-      "series_name": null,
-      "occasion": null,
-      "target_audience": null,
-      "seo_title": "Коробка-сюрприз с цифрой и сердцами в Армавире",
-      "seo_description": "Розовая коробка с цифрой и букетом фольгированных сердец. Нежная бело-розовая композиция для детского праздника. Доставка по Армавиру.",
-      "slug": "rozovaya-magiya",
-      "scene": "floor",
-      "tags": [
-        "Коробка-сюрприз"
-      ],
-      "client_options": {
-        "available_on_request": false,
-        "advance_order_1_2_days": true,
-        "number_choice": true,
-        "personal_inscription": true,
-        "photozone_rental": false,
-        "studio_original_url": "https://i.ibb.co/Ng0HxFNV/f-41.jpg",
-        "digit_choice": {
-          "enabled": true,
-          "count_on_photo": 1
-        }
-      },
-      "photos": [
-        "https://i.ibb.co/mCR5jcJ3/studio-master.jpg"
-      ],
-      "main_photo": "https://i.ibb.co/mCR5jcJ3/studio-master.jpg",
-      "status": "draft",
-      "show_on_site": false,
-      "created_at": "2026-09-24T15:26:28.849Z",
-      "updated_at": "2026-09-24T15:26:28.849Z"
-    },
-    {
       "id": "44e682ab-a11f-4bcf-ba0c-a3e2ba955679",
       "title": "Звёздный взлёт",
       "article": "BOX-028",
@@ -139,53 +92,6 @@
       "updated_at": "2026-09-24T15:41:00.740Z"
     },
     {
-      "id": "998ee3bc-8a70-441b-bbdc-b92d8b735277",
-      "title": "Коробка нежности",
-      "article": "BOX-027",
-      "price": 6200,
-      "short_description": "Розовая коробка-сюрприз с белыми сердцами и крупной цифрой.",
-      "full_description": "Композиция включает розовую коробку с индивидуальной надписью, фольгированную цифру и фонтан из розово-белых сердец.",
-      "composition": [
-        "цифра",
-        "коробка 70x70x70 с индивидуальной надписью и декором",
-        "10 фольгированных сердец"
-      ],
-      "category": "Коробка-сюрприз",
-      "character": null,
-      "age_group": "Для детей",
-      "budget": "5 000–8 000 ₽",
-      "series_name": null,
-      "occasion": null,
-      "target_audience": null,
-      "seo_title": "Коробка-сюрприз с шарами-сердцами и цифрой — Армавир",
-      "seo_description": "Розовая коробка-сюрприз с фольгированной цифрой и фонтаном из розово-белых сердец. Доставка воздушных шаров в Армавире.",
-      "slug": "korobka-nezhnosti",
-      "scene": "floor",
-      "tags": [
-        "Коробка-сюрприз"
-      ],
-      "client_options": {
-        "available_on_request": false,
-        "advance_order_1_2_days": true,
-        "number_choice": true,
-        "personal_inscription": true,
-        "photozone_rental": false,
-        "studio_original_url": "https://i.ibb.co/wNTdRnDY/f-41.jpg",
-        "digit_choice": {
-          "enabled": true,
-          "count_on_photo": 1
-        }
-      },
-      "photos": [
-        "https://i.ibb.co/Df8pQx2c/studio-master.jpg"
-      ],
-      "main_photo": "https://i.ibb.co/Df8pQx2c/studio-master.jpg",
-      "status": "published",
-      "show_on_site": true,
-      "created_at": "2026-09-24T12:54:32.547Z",
-      "updated_at": "2026-09-24T12:54:32.547Z"
-    },
-    {
       "id": "f9fc5e33-862f-4e07-8e54-a259406e40a4",
       "title": "Семейное сердце",
       "article": "BOX-026",
@@ -222,13 +128,13 @@
         "studio_original_url": "https://i.ibb.co/7JgJND2b/f-43.jpg"
       },
       "photos": [
-        "https://i.ibb.co/3YmTCpfM/studio-master.jpg"
+        "https://storage.yandexcloud.net/vigsharm-photos/products/3c67cd91-7acd-446c-b943-00abf20ad807.jpg"
       ],
-      "main_photo": "https://i.ibb.co/3YmTCpfM/studio-master.jpg",
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/3c67cd91-7acd-446c-b943-00abf20ad807.jpg",
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-24T10:57:58.390Z",
-      "updated_at": "2026-09-24T10:57:58.390Z"
+      "updated_at": "2026-09-24T19:52:14.469Z"
     },
     {
       "id": "599c5756-e834-4ec2-b1f6-feae3fb86ce0",
@@ -266,13 +172,13 @@
         "studio_original_url": "https://i.ibb.co/21gzDyXt/f.jpg"
       },
       "photos": [
-        "https://i.ibb.co/MxRrqhnD/studio-master.jpg"
+        "https://storage.yandexcloud.net/vigsharm-photos/products/a47f1d15-0619-4765-9d11-f699e1c22a2b.jpg"
       ],
-      "main_photo": "https://i.ibb.co/MxRrqhnD/studio-master.jpg",
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/a47f1d15-0619-4765-9d11-f699e1c22a2b.jpg",
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-24T10:55:46.418Z",
-      "updated_at": "2026-09-24T10:55:46.418Z"
+      "updated_at": "2026-09-24T19:54:42.149Z"
     },
     {
       "id": "f70e7a54-76f4-4d06-b872-be79610df66d",
@@ -310,24 +216,26 @@
         "studio_original_url": "https://i.ibb.co/p6HcQvTG/file-1.jpg"
       },
       "photos": [
-        "https://i.ibb.co/2Y1PpS6m/studio-master.jpg"
+        "https://storage.yandexcloud.net/vigsharm-photos/products/9d0c02da-e944-4399-8d0b-30d523507e3a.jpg"
       ],
-      "main_photo": "https://i.ibb.co/2Y1PpS6m/studio-master.jpg",
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/9d0c02da-e944-4399-8d0b-30d523507e3a.jpg",
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-24T10:49:35.468Z",
-      "updated_at": "2026-09-24T10:49:35.468Z"
+      "updated_at": "2026-09-24T19:57:20.678Z"
     },
     {
       "id": "9e4ef0c8-636f-4375-9095-c0e537c079b5",
-      "title": "Белые бантики",
+      "title": "Весенний букет",
       "article": "BOX-023",
       "price": 4100,
-      "short_description": "Белая коробка с надписью «Полиночке!» и белые шары с чёрными бантиками.",
-      "full_description": "Белая коробка-сюрприз украшена надписью и изящными бантиками. Из неё вылетают белые шары с графичным принтом.",
+      "short_description": "Коробка с букетом тюльпанов из шаров и композицией из латексных и фольгированных шаров.",
+      "full_description": "Белая коробка с персональной надписью и объёмным букетом тюльпанов из воздушных шаров. Композицию дополняют латексные шары с конфетти, фольгированное сердце и нежные пастельные оттенки.",
       "composition": [
         "коробка 70x70x70 с индивидуальной надписью и декором",
-        "10 латексных шаров с бантиками"
+        "фольгированное сердце",
+        "3 шара с конфетти",
+        "6 шаров"
       ],
       "category": "Коробка-сюрприз",
       "character": null,
@@ -336,9 +244,9 @@
       "series_name": null,
       "occasion": null,
       "target_audience": null,
-      "seo_title": "Белая коробка-сюрприз с шарами в Армавире — VigSharm",
-      "seo_description": "Элегантная белая коробка-сюрприз с надписью и белыми шарами с чёрными бантиками. Стильное оформление для особого случая в Армавире.",
-      "slug": "belye-bantiki",
+      "seo_title": "Коробка-сюрприз с букетом тюльпанов из шаров — Армавир",
+      "seo_description": "Коробка-сюрприз с букетом тюльпанов из воздушных шаров, фольгированным сердцем и шарами с конфетти. Доставка в Армавире.",
+      "slug": "vesenniy-buket",
       "scene": "floor",
       "tags": [
         "Коробка-сюрприз"
@@ -352,13 +260,13 @@
         "studio_original_url": "https://i.ibb.co/4gW2CJsW/file-1.jpg"
       },
       "photos": [
-        "https://i.ibb.co/3yTZnGWc/studio-master.jpg"
+        "https://storage.yandexcloud.net/vigsharm-photos/products/48ec03e6-844b-4edc-91a4-8f73a08bd808.jpg"
       ],
-      "main_photo": "https://i.ibb.co/3yTZnGWc/studio-master.jpg",
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/48ec03e6-844b-4edc-91a4-8f73a08bd808.jpg",
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-24T10:47:30.719Z",
-      "updated_at": "2026-09-24T10:47:30.719Z"
+      "updated_at": "2026-09-24T19:58:48.166Z"
     },
     {
       "id": "16c0f0a7-eabf-493d-b06a-74447df1e4c2",
@@ -394,13 +302,13 @@
         "studio_original_url": "https://i.ibb.co/fzKgv5ZV/file-2.jpg"
       },
       "photos": [
-        "https://i.ibb.co/yFbqQ6Ps/studio-master.jpg"
+        "https://storage.yandexcloud.net/vigsharm-photos/products/cf0dad14-5332-439b-a72e-1c4f4a351ef5.jpg"
       ],
-      "main_photo": "https://i.ibb.co/yFbqQ6Ps/studio-master.jpg",
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/cf0dad14-5332-439b-a72e-1c4f4a351ef5.jpg",
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-24T10:38:53.244Z",
-      "updated_at": "2026-09-24T10:38:53.244Z"
+      "updated_at": "2026-09-24T19:59:52.007Z"
     },
     {
       "id": "7cd07d92-a74a-45c1-8b38-6b470c06114b",
@@ -437,13 +345,13 @@
         "studio_original_url": "https://i.ibb.co/sv3HSHv9/file.jpg"
       },
       "photos": [
-        "https://i.ibb.co/ksp8Dt1d/studio-master.jpg"
+        "https://storage.yandexcloud.net/vigsharm-photos/products/2e5fdf76-5117-4fe8-80a3-520015790f23.jpg"
       ],
-      "main_photo": "https://i.ibb.co/ksp8Dt1d/studio-master.jpg",
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/2e5fdf76-5117-4fe8-80a3-520015790f23.jpg",
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-24T10:35:30.855Z",
-      "updated_at": "2026-09-24T10:35:30.855Z"
+      "updated_at": "2026-09-24T20:00:39.882Z"
     },
     {
       "id": "2ae189c3-e546-4532-8258-3d1f0b1f6d8c",
@@ -480,13 +388,13 @@
         "studio_original_url": "https://i.ibb.co/ZztCGfVR/file.jpg"
       },
       "photos": [
-        "https://i.ibb.co/V0N5XWPp/studio-master.jpg"
+        "https://storage.yandexcloud.net/vigsharm-photos/products/a06c22e2-9c4b-4ba0-af52-805af38675cb.jpg"
       ],
-      "main_photo": "https://i.ibb.co/V0N5XWPp/studio-master.jpg",
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/a06c22e2-9c4b-4ba0-af52-805af38675cb.jpg",
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-24T10:31:54.711Z",
-      "updated_at": "2026-09-24T10:31:54.711Z"
+      "updated_at": "2026-09-24T20:01:34.228Z"
     },
     {
       "id": "6de847ac-a177-40cb-a3dc-09666981ef21",
@@ -527,13 +435,13 @@
         }
       },
       "photos": [
-        "https://i.ibb.co/sJVgc7qY/studio-master.jpg"
+        "https://storage.yandexcloud.net/vigsharm-photos/products/f76716ed-5d66-443a-832f-a900c7216310.jpg"
       ],
-      "main_photo": "https://i.ibb.co/sJVgc7qY/studio-master.jpg",
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/f76716ed-5d66-443a-832f-a900c7216310.jpg",
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-24T10:26:11.339Z",
-      "updated_at": "2026-09-24T10:26:11.339Z"
+      "updated_at": "2026-09-24T20:02:57.245Z"
     },
     {
       "id": "abe64851-e5ec-4b5f-a828-26de71e5acca",
@@ -620,13 +528,13 @@
         }
       },
       "photos": [
-        "https://i.ibb.co/V6QNyyf/studio-master.jpg"
+        "https://storage.yandexcloud.net/vigsharm-photos/products/817ba966-15d2-49d4-b53a-0bcefb38d879.jpg"
       ],
-      "main_photo": "https://i.ibb.co/V6QNyyf/studio-master.jpg",
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/817ba966-15d2-49d4-b53a-0bcefb38d879.jpg",
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-24T10:15:24.851Z",
-      "updated_at": "2026-09-24T10:15:24.851Z"
+      "updated_at": "2026-09-24T20:04:02.400Z"
     },
     {
       "id": "d63f09dd-55c0-4d5d-aeec-44b72302507d",
@@ -710,13 +618,13 @@
         }
       },
       "photos": [
-        "https://i.ibb.co/tTpTHBMT/studio-master.jpg"
+        "https://storage.yandexcloud.net/vigsharm-photos/products/6f0508ca-d56c-489e-bab6-72954b757b88.jpg"
       ],
-      "main_photo": "https://i.ibb.co/tTpTHBMT/studio-master.jpg",
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/6f0508ca-d56c-489e-bab6-72954b757b88.jpg",
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-24T08:15:44.761Z",
-      "updated_at": "2026-09-24T08:15:44.761Z"
+      "updated_at": "2026-09-24T20:07:00.190Z"
     },
     {
       "id": "0e2e4772-b936-4efa-b194-3df7d581c31c",

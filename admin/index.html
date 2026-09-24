@@ -7,46 +7,57 @@
 <meta name="robots" content="noindex, nofollow"/>
 <link rel="icon" href="../favicon.svg"/>
 <link rel="stylesheet" href="../assets/fonts.css"/>
-<link rel="stylesheet" href="styles.css?v=unit-card-6"/>
+<link rel="stylesheet" href="styles.css?v=20260925-admin-final"/>
 </head>
 <body>
 
 <header class="admin-header">
   <div class="brand">
     <span class="logo">ВигШарм</span>
-    <small>админ-панель</small>
+    <small>админ</small>
   </div>
-  <nav class="header-nav">
+  <nav class="header-nav" aria-label="Разделы админки">
     <a href="#products" class="header-link active" data-tab="products">Товары</a>
     <a href="#price" class="header-link" data-tab="price">Прайс</a>
     <a href="#orders" class="header-link" data-tab="orders">Заявки</a>
     <a href="#create" class="header-link" data-tab="create">+ Создать</a>
     <a href="#publish" class="header-link" data-tab="publish">Ключ</a>
     <a href="#settings" class="header-link" data-tab="settings">Настройки</a>
-    <a href="../index.html" class="header-link">← Витрина</a>
+    <a href="../index.html" class="header-link header-link-storefront">Витрина</a>
   </nav>
 </header>
 
 <main class="container">
   <!-- Tab: Products List -->
   <section id="tab-products" class="tab-content">
-    <div class="hero-section">
-      <h2>Каталог ВигШарм</h2>
-      <h1>Товары и цены</h1>
-      <p>Добавляйте композиции, фотографии и обновляйте стоимость самостоятельно.</p>
+    <div class="hero-section hero-compact">
+      <h2>Каталог</h2>
+      <h1>Товары</h1>
+      <p>Фото, цены и публикация.</p>
     </div>
     
-    <div class="card">
-      <div class="products-header">
+    <div class="card products-card">
+      <div class="products-toolbar">
+        <div class="products-filters">
+          <input type="search" id="search-products" placeholder="Название, артикул…"/>
+          <select id="filter-category"><option value="">Все категории</option></select>
+          <select id="filter-status">
+            <option value="">Все статусы</option>
+            <option value="draft">Черновик</option>
+            <option value="published">На сайте</option>
+          </select>
+          <span class="products-count" id="products-count">0</span>
+        </div>
         <div class="products-header-actions">
           <button class="btn primary" onclick="app.newProduct()">+ Добавить товар</button>
           <button type="button" class="btn outline" id="export-storefront-btn" onclick="app.exportStorefrontSnapshot()" title="Скачать data/products.json для сайта (РФ без VPN)">Обновить каталог для сайта</button>
         </div>
-        <div class="stats-row" aria-label="Статистика">
-          <div class="badge neutral">Всего: <strong id="stats-total">0</strong></div>
-          <div class="badge success">На сайте: <strong id="stats-published">0</strong></div>
-          <div class="badge warning">Черновиков: <strong id="stats-drafts">0</strong></div>
-        </div>
+      </div>
+
+      <div class="stats-row" aria-label="Статистика">
+        <div class="badge neutral">Всего: <strong id="stats-total">0</strong></div>
+        <div class="badge success">На сайте: <strong id="stats-published">0</strong></div>
+        <div class="badge warning">Черновиков: <strong id="stats-drafts">0</strong></div>
       </div>
 
       <div id="storefront-sync-banner" class="storefront-sync-banner hidden" role="status" hidden>
@@ -70,17 +81,6 @@
           <button type="button" class="btn outline sm" onclick="app.discardParkedEditorDraft(true)">Удалить</button>
         </div>
       </div>
-      
-      <div class="products-filters">
-        <input type="search" id="search-products" placeholder="Название, артикул…"/>
-        <select id="filter-category"><option value="">Все категории</option></select>
-        <select id="filter-status">
-          <option value="">Все статусы</option>
-          <option value="draft">Черновик</option>
-          <option value="published">На сайте</option>
-        </select>
-        <span class="products-count" id="products-count">0</span>
-      </div>
 
       <div id="products-list" class="products-grid">
         <div class="loading"><div class="loading-spinner"></div><p>Загрузка...</p></div>
@@ -89,10 +89,10 @@
   </section>
 
   <section id="tab-price" class="tab-content hidden" hidden aria-hidden="true">
-    <div class="hero-section">
+    <div class="hero-section hero-compact">
       <h2>Витрина</h2>
-      <h1>Прайс на сайте</h1>
-      <p>Цены за штуку и метр — и доставка по Армавиру. После сохранения скачайте JSON в <code>data/</code>, если сайт открывают без VPN.</p>
+      <h1>Прайс</h1>
+      <p>Цены за штуку/метр и доставка. После сохранения — JSON в <code>data/</code>.</p>
     </div>
     <div class="card">
       <div class="products-header">
@@ -124,10 +124,10 @@
   </section>
 
   <section id="tab-orders" class="tab-content hidden" hidden aria-hidden="true">
-    <div class="hero-section">
+    <div class="hero-section hero-compact">
       <h2>Витрина</h2>
-      <h1>Заявки с сайта</h1>
-      <p>Клиент оставляет заявку на карточке товара. Уведомление уходит в Telegram — можно на два аккаунта.</p>
+      <h1>Заявки</h1>
+      <p>С карточки товара → Telegram.</p>
     </div>
     <div class="card">
       <div class="products-header">
@@ -146,10 +146,10 @@
   </section>
 
   <section id="tab-publish" class="tab-content hidden" hidden aria-hidden="true">
-    <div class="hero-section">
+    <div class="hero-section hero-compact">
       <h2>Соцсети</h2>
       <h1>Ключ публикации</h1>
-      <p>Как в карточке: ИИ переснимает на студию Вигшарм, при необходимости правит текст на шаре. Потом — кадры поста и сторис и подписи. ZIP выкладываете в Instagram, Telegram и VK вручную.</p>
+      <p>Master → кадры поста/сторис → ZIP для Instagram, Telegram, VK.</p>
     </div>
     <div class="card">
       <div class="publish-layout">
@@ -242,8 +242,8 @@
             <div class="step1-photo-col">
               <div class="photo-section" id="photo-dropzone">
                 <div class="upload-zone upload-zone-hero" id="upload-zone-empty" role="button" tabindex="0" title="Загрузить фото">
-                  <div class="icon">📷</div>
-                  <p>Перетащите фото или нажмите сюда</p>
+                  <div class="icon upload-zone-icon" aria-hidden="true"></div>
+                  <p>Перетащите фото сюда или нажмите</p>
                   <small>JPG, PNG, WebP · до 10 МБ · до 6 шт.</small>
                 </div>
                 <input type="file" id="photo-input" accept="image/*" multiple class="hidden-file"/>
@@ -313,6 +313,7 @@
                 </div>
               </div>
               <p class="studio-mode-hint" id="studio-mode-hint" hidden></p>
+              <p class="studio-palette-hint" id="studio-palette-hint">Master сохраняет цвета и «пол» оригинала. Если набор спорный — после Master укажите в составе <code>(для мальчика)</code> / <code>(для девочки)</code>.</p>
               <div class="status" id="studio-status"></div>
               <button type="button" class="btn secondary hidden" id="process-studio-btn" onclick="app.processStudioProNew()">✨ Создать Master</button>
               <div class="step1-compose-cta" id="step1-compose-cta" hidden>
@@ -368,9 +369,10 @@
               <div class="form-group unit-hide" id="essentials-composition-wrap">
                 <label>Состав <span class="req">*</span></label>
                 <textarea id="product-composition" data-required-field="composition" rows="4" placeholder="Сырой состав, напр.: коробка, 10 шаров, 1 цифра"></textarea>
+                <p class="composition-gender-hint" id="composition-gender-hint">Пол / палитра: если важно — в скобках, напр. <code>(для мальчика, сине-бирюзовая)</code> или <code>(для девочки, розово-золотая)</code>. Без якоря ИИ иногда «перекидывает» пол.</p>
                 <details class="field-help">
                   <summary>Подсказка по составу</summary>
-                  <small class="text-muted">Сырой состав шаров. Всё в <code>(скобках)</code> — подсказка для ИИ, клиенту не попадёт. Примеры: <code>(цифра)</code>, <code>(для мальчика)</code>, <code>20 маленьких шаров</code>, <code>(1 сентября)</code>.</small>
+                  <small class="text-muted">Сырой состав шаров. Всё в <code>(скобках)</code> — подсказка для ИИ, клиенту не попадёт. Примеры: <code>(цифра)</code>, <code>(для мальчика)</code>, <code>20 маленьких шаров</code>, <code>(1 сентября)</code>. Master сам держит цвета оригинала; скобки помогают заполнению карточки и редким спорным случаям.</small>
                 </details>
               </div>
               <div class="form-group" id="essentials-price-wrap">
@@ -622,10 +624,10 @@
 
   <!-- Tab: Settings -->
   <section id="tab-settings" class="tab-content hidden" hidden aria-hidden="true">
-    <div class="hero-section">
+    <div class="hero-section hero-compact">
       <h2>Настройки</h2>
-      <h1>Подключение сервисов</h1>
-      <p>Worker, ключ админки и Cloudinary — обязательны. Эталоны Studio Pro — по необходимости.</p>
+      <h1>Сервисы</h1>
+      <p>Worker, ключ админки и хранилище фото.</p>
     </div>
     
     <div class="card">
@@ -633,43 +635,50 @@
       <div class="form-group">
         <label>Worker API URL</label>
         <input type="url" id="worker-url" placeholder="https://vigsharm-api.vigsharm.workers.dev" value="https://vigsharm-api.vigsharm.workers.dev"/>
-        <small class="text-muted">URL вашего Cloudflare Worker (API ключ NordRouter хранится в Worker secrets)</small>
       </div>
 
       <div class="form-group">
-        <label>Admin API Key <span style="color: #e74c3c;">*обязательно</span></label>
+        <label>Admin API Key <span class="req">*</span></label>
         <input type="password" id="admin-api-key" placeholder="Вставьте ключ, заданный через wrangler secret put ADMIN_API_KEY"/>
-        <small class="text-muted">Тот же ключ, что установлен в Worker (ADMIN_API_KEY). Нужен для товаров, заявок, загрузки фото, ИИ и Studio Pro.</small>
-      </div>
-
-      <div class="divider"></div>
-      <h3>📦 Хранилище фото — Yandex Object Storage</h3>
-      <p class="text-muted" style="margin:0 0 12px;font-size:13px;line-height:1.45">
-        Новые фото идут через Worker в <strong>Yandex Object Storage</strong>
-        (качество и скорость под 5000+ карточек, оплата картой РФ — обычно копейки–десятки ₽/мес).
-        Ключи задаются на сервере (<code>wrangler secret</code>), в админке ничего вводить не нужно.
-        Инструкция: <code>scripts/setup-yandex-storage.ps1</code> и шаги ниже.
-      </p>
-      <ol class="text-muted" style="margin:0 0 12px;padding-left:18px;font-size:13px;line-height:1.5">
-        <li>Создайте облако: <a href="https://console.yandex.cloud/" target="_blank" rel="noopener">console.yandex.cloud</a></li>
-        <li>Object Storage → бакет <code>vigsharm-photos</code>, доступ на чтение для всех (публичный)</li>
-        <li>Сервисный аккаунт → статический ключ доступа (Access Key + Secret)</li>
-        <li>В PowerShell: <code>powershell -File scripts\setup-yandex-storage.ps1</code></li>
-      </ol>
-
-      <div class="divider"></div>
-      <h3>🖼️ ImgBB (временный запасной)</h3>
-      <div class="form-group">
-        <label>ImgBB API Key</label>
-        <input type="text" id="imgbb-api-key" placeholder="вставьте ключ с api.imgbb.com" autocomplete="off"/>
-        <small class="text-muted">
-          Пока Yandex не настроен — Master берёт https отсюда.
-          После настройки Yandex можно очистить.
-        </small>
       </div>
 
       <details class="settings-fold">
-        <summary>☁️ Cloudinary (устарело — только старые карточки)</summary>
+        <summary>Справка: Worker и Admin API Key</summary>
+        <p class="text-muted settings-fold-lead">
+          Worker URL — ваш Cloudflare Worker. Admin API Key — тот же, что в
+          <code>wrangler secret put ADMIN_API_KEY</code>. Нужен для товаров, заявок, фото, ИИ и Studio Pro.
+          Ключ NordRouter хранится в Worker secrets, не в браузере.
+        </p>
+      </details>
+
+      <details class="settings-fold">
+        <summary>Хранилище фото — Yandex Object Storage</summary>
+        <p class="text-muted settings-fold-lead">
+          Новые фото идут через Worker в <strong>Yandex Object Storage</strong>.
+          Ключи на сервере (<code>wrangler secret</code>). Скрипт: <code>scripts/setup-yandex-storage.ps1</code>.
+        </p>
+        <ol class="text-muted settings-fold-list">
+          <li>Облако: <a href="https://console.yandex.cloud/" target="_blank" rel="noopener">console.yandex.cloud</a></li>
+          <li>Бакет <code>vigsharm-photos</code>, публичное чтение</li>
+          <li>Сервисный аккаунт → Access Key + Secret</li>
+          <li><code>powershell -File scripts\setup-yandex-storage.ps1</code></li>
+        </ol>
+      </details>
+
+      <details class="settings-fold">
+        <summary>ImgBB (временный запасной)</summary>
+        <div class="form-group">
+          <label>ImgBB API Key</label>
+          <input type="text" id="imgbb-api-key" placeholder="вставьте ключ с api.imgbb.com" autocomplete="off"/>
+          <small class="text-muted">
+            Пока Yandex не настроен — Master берёт https отсюда.
+            После настройки Yandex можно очистить.
+          </small>
+        </div>
+      </details>
+
+      <details class="settings-fold">
+        <summary>Cloudinary (устарело — только старые карточки)</summary>
         <div class="form-group">
           <label>Cloud Name</label>
           <input type="text" id="cloudinary-cloud-name" placeholder="например: my-cloud" autocomplete="off"/>
@@ -685,7 +694,7 @@
       <button class="btn danger mt-2" onclick="app.clearSettings()">Очистить все</button>
 
       <details class="settings-fold">
-        <summary>🎨 Эталонный фон Studio Pro (по необходимости)</summary>
+        <summary>Эталонный фон Studio Pro</summary>
         <p class="text-muted">
           Постоянный эталонный фон для композиции. Если не загружен — используется локальный
           <code>assets/reference/reference-background.png</code>.
@@ -694,20 +703,20 @@
         <div id="reference-bg-container">
           <div id="reference-bg-preview" style="display: none; margin-bottom: 16px;"></div>
           
-          <div id="reference-bg-status" style="margin-bottom: 16px; font-size: 14px;">
-            ⚠️ Эталонный фон ещё не загружен
+          <div id="reference-bg-status" class="settings-status">
+            Эталонный фон ещё не загружен
           </div>
           
-          <div class="form-group">
-            <input type="file" id="reference-bg-file" accept="image/*" style="display: none;"/>
+          <div class="form-group settings-ref-actions">
+            <input type="file" id="reference-bg-file" accept="image/*" class="hidden-file"/>
             <button type="button" class="btn secondary" id="upload-reference-bg-btn">
-              📤 Выбрать и загрузить фон
+              Выбрать и загрузить фон
             </button>
-            <button type="button" class="btn outline" id="replace-reference-bg-btn" onclick="app.replaceReferenceBackground()" style="display: none; margin-left: 8px;">
-              🔄 Заменить фон
+            <button type="button" class="btn outline" id="replace-reference-bg-btn" onclick="app.replaceReferenceBackground()" style="display: none;">
+              Заменить фон
             </button>
-            <button type="button" class="btn danger outline" onclick="app.removeReferenceBackground()" style="margin-left: 8px;">
-              🗑️ Удалить
+            <button type="button" class="btn danger outline" onclick="app.removeReferenceBackground()">
+              Удалить
             </button>
           </div>
           
@@ -718,26 +727,26 @@
       </details>
 
       <details class="settings-fold">
-        <summary>✋ Эталон руки — только сцена «Букет в руке»</summary>
+        <summary>Эталон руки — сцена «Букет в руке»</summary>
         <p class="text-muted">
-          PNG руки на прозрачном фоне. Нужен https (Cloudinary) —
-          при открытии админки как <code>file://</code> локальный файл блокируется браузером.
+          PNG руки на прозрачном фоне. Нужен https —
+          при <code>file://</code> локальный файл блокируется браузером.
         </p>
         <div id="reference-hand-container">
           <div id="reference-hand-preview" style="display: none; margin-bottom: 16px;"></div>
-          <div id="reference-hand-status" style="margin-bottom: 16px; font-size: 14px;">
-            ⚠️ Эталон руки ещё не в Cloudinary
+          <div id="reference-hand-status" class="settings-status">
+            Эталон руки ещё не загружен
           </div>
-          <div class="form-group">
-            <input type="file" id="reference-hand-file" accept="image/*" style="display: none;"/>
+          <div class="form-group settings-ref-actions">
+            <input type="file" id="reference-hand-file" accept="image/*" class="hidden-file"/>
             <button type="button" class="btn secondary" id="upload-reference-hand-btn">
-              📤 Выбрать и загрузить руку
+              Выбрать и загрузить руку
             </button>
-            <button type="button" class="btn outline" id="replace-reference-hand-btn" onclick="app.replaceReferenceHand()" style="display: none; margin-left: 8px;">
-              🔄 Заменить
+            <button type="button" class="btn outline" id="replace-reference-hand-btn" onclick="app.replaceReferenceHand()" style="display: none;">
+              Заменить
             </button>
-            <button type="button" class="btn danger outline" onclick="app.removeReferenceHand()" style="margin-left: 8px;">
-              🗑️ Удалить
+            <button type="button" class="btn danger outline" onclick="app.removeReferenceHand()">
+              Удалить
             </button>
           </div>
           <small class="text-muted">

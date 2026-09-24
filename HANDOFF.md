@@ -1,8 +1,19 @@
 # HANDOFF — Vigsharm
 
-_Последнее обновление: 25 сентября 2026, ~00:50 (UTC+3). Ветка `main`._
+_Последнее обновление: 25 сентября 2026, ~01:10 (UTC+3). Ветка `main`._
 
 Этот файл — выжимка для следующего агента/сессии, чтобы не гонять контекст заново. Общие правила проекта — в `AGENTS.md`, дизайн-токены — в `DESIGN.md`. Здесь только: что сделано, над чем шла работа прямо сейчас, какие файлы трогать и что осталось.
+
+## 0a. Admin UI refresh — завершён (`?v=20260925-admin-final`)
+
+CSS-first редизайн админки без смены Studio/AI/фото JS.
+- Phase 1–2: tokens, список SaaS / mobile cards
+- Phase 3: editor dropzone, gallery controls, busy glass, action dock, wizard tabs
+- Phase 4: AI review overlay hierarchy, chip grids, sticky footer CTA
+- Phase 5: header scroll-tabs + coral active, settings `<details>` folds
+- Файлы: `admin/styles.css`, `admin/index.html`
+- Регресс: list → create DnD → Master → AI review → publish/draft; settings save
+- Не трогать: state-классы формы, `syncAiReview*`, Studio/AI handlers
 
 ## 0. Спринт UI-polish + responsive (завершён, 24–25.09.2026)
 

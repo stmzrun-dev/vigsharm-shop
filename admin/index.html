@@ -7,7 +7,7 @@
 <meta name="robots" content="noindex, nofollow"/>
 <link rel="icon" href="../favicon.svg"/>
 <link rel="stylesheet" href="../assets/fonts.css"/>
-<link rel="stylesheet" href="styles.css?v=20260925-admin-final"/>
+<link rel="stylesheet" href="styles.css?v=20260925-admin-fix3"/>
 </head>
 <body>
 
@@ -20,7 +20,7 @@
     <a href="#products" class="header-link active" data-tab="products">Товары</a>
     <a href="#price" class="header-link" data-tab="price">Прайс</a>
     <a href="#orders" class="header-link" data-tab="orders">Заявки</a>
-    <a href="#create" class="header-link" data-tab="create">+ Создать</a>
+    <a href="#create" class="header-link header-link-create" data-tab="create">+ Создать</a>
     <a href="#publish" class="header-link" data-tab="publish">Ключ</a>
     <a href="#settings" class="header-link" data-tab="settings">Настройки</a>
     <a href="../index.html" class="header-link header-link-storefront">Витрина</a>
@@ -329,9 +329,9 @@
           <div class="step1-phase-nav">
             <button type="button" class="btn outline btn-sm" id="step1-c-back" onclick="app.goStep1Phase('a')">← К сцене</button>
             <div class="step1-phase-nav-right">
+              <span class="step1-phase-scene-chip" id="step1-phase-c-scene"></span>
               <button type="button" class="btn outline btn-sm hidden" data-studio-retry onclick="app.retryStudioMaster()">↻ Пересоздать</button>
               <button type="button" class="btn outline btn-sm" id="step1-c-replace" onclick="app.replaceMainPhoto()">Изменить фото</button>
-              <span class="step1-phase-scene-chip" id="step1-phase-c-scene"></span>
             </div>
           </div>
           <div id="studio-busy-banner" class="studio-busy-banner hidden" hidden role="status" aria-live="polite">
@@ -382,7 +382,7 @@
               <div class="form-group unit-hide" id="ai-fill-block">
                 <p class="ai-fill-hint" id="ai-fill-hint">Сначала: фото (Master) → цена → состав. Потом появится кнопка ИИ.</p>
                 <div id="ai-fill-wrap" class="hidden">
-                  <button type="button" class="btn primary block" id="generate-ai-btn" onclick="app.generateAIMetadata()">🤖 ИИ заполнит карточку</button>
+                  <button type="button" class="btn primary block" id="generate-ai-btn" onclick="app.generateAIMetadata()">✨ ИИ заполнит карточку</button>
                 </div>
                 <button type="button" class="btn outline block hidden" id="edit-card-btn" onclick="app.openAiReviewOverlay()">Править карточку</button>
                 <div class="status" id="ai-status"></div>
@@ -861,12 +861,12 @@
 </div>
 
 <script src="admin.js?v=unit-card-5"></script>
-<script src="admin-extended.js?v=yandex-1"></script>
+<script src="admin-extended.js?v=20260925-fix2"></script>
 <script src="cloudinary-upload.js?v=cloud-fix-2"></script>
 <script src="imgbb-upload.js?v=1"></script>
 <script src="cloudinary-patch.js?v=yandex-1"></script>
 <script src="admin-studio-pro.js?v=unit-card-6"></script>
-<script src="admin-ai.js?v=foil-edit-1"></script>
+<script src="admin-ai.js?v=20260925-fix2"></script>
 <script src="admin-reference-background.js"></script>
 <script src="admin-orders.js?v=1"></script>
 <script src="admin-price.js?v=3"></script>

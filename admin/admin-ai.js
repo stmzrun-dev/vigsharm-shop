@@ -744,7 +744,7 @@ Object.assign(app, {
     btn.disabled = true;
     btn.classList.add('is-busy');
     btn.innerHTML = '<span class="spinner"></span> Генерация...';
-    statusEl.textContent = '🤖 Анализ фото...';
+    statusEl.textContent = '✨ Анализ фото...';
 
     try {
       const photo = this.currentProduct.photos[0];
@@ -828,8 +828,8 @@ Object.assign(app, {
       }
 
       statusEl.textContent = foilDigits
-        ? `🤖 ИИ заполняет карточку... цифры ${foilDigits}`
-        : '🤖 ИИ заполняет карточку...';
+        ? `✨ ИИ заполняет карточку... цифры ${foilDigits}`
+        : '✨ ИИ заполняет карточку...';
 
       const res = await fetch(`${this.workerUrl}/api/ai/generate-card`, {
         method: 'POST',
@@ -930,7 +930,7 @@ Object.assign(app, {
       });
     } finally {
       btn.classList.remove('is-busy');
-      btn.innerHTML = '🤖 ИИ заполнит карточку';
+      btn.innerHTML = '✨ ИИ заполнит карточку';
       this.syncAIFillGate();
     }
   },

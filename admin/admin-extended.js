@@ -1120,7 +1120,7 @@ Object.assign(app, {
       this.toast('Ошибка: ' + e.message, 'error');
     } finally {
       aiBtn.disabled = false;
-      aiBtn.innerHTML = '🤖 Сгенерировать данные через ИИ';
+      aiBtn.innerHTML = '✨ Сгенерировать данные через ИИ';
     }
   },
 

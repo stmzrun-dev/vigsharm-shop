@@ -327,7 +327,8 @@ legend{font-size:15px;font-weight:600;padding:0 12px;color:#212121}
   z-index:120;
   overflow:auto;
   background:#F5F5F5;
-  padding:56px 16px 16px;
+  padding:56px 16px 120px!important;
+  scroll-padding-bottom:120px
 }
 body.admin-editor-open{overflow:hidden}
 #tab-create .product-editor{background:#fff;border-radius:12px;box-shadow:0 8px 32px rgba(0,0,0,.08)}
@@ -498,7 +499,7 @@ body.admin-editor-open{overflow:hidden}
 #photo-upload-progress-text{margin:6px 0 0;font-size:12px;color:#1565C0}
 
 /* === Product editor (старая админка: плотность) === */
-.product-editor{padding:14px 18px 16px;max-width:980px;margin:0 auto;width:100%;box-sizing:border-box}
+.product-editor{padding:14px 18px 16px;max-width:min(1040px,94vw);margin:0 auto;width:100%;box-sizing:border-box}
 .ai-fields-fold{margin:8px 0 16px;padding:10px 14px;border:1px solid #E0E0E0;border-radius:10px;background:#FAFAFA}
 .ai-fields-fold summary{cursor:pointer;font-weight:600;font-size:13px;color:#616161;outline:none}
 .ai-fields-fold[open] summary{margin-bottom:12px;color:#212121}
@@ -513,7 +514,7 @@ body.admin-editor-open{overflow:hidden}
 .title-alt-btn:hover{border-color:#FF7043;color:#E64A19}
 .title-alt-btn.is-active{border-color:#FF7043;background:#FFF3E0;color:#E65100;font-weight:600}
 .title-alt-btn-clear{border-style:dashed;color:#757575}
-.editor-header{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:12px;padding-bottom:12px;border-bottom:1px solid #F0F0F0;position:relative}
+.editor-header{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px;padding-bottom:12px;border-bottom:1px solid #F0F0F0;position:relative}
 .editor-progress{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin:0 0 12px;font-size:13px;line-height:1.3}
 .editor-progress-step{color:#9E9E9E;font-weight:600}
 .editor-progress-step.is-active{color:#E65100}
@@ -530,7 +531,7 @@ body.admin-editor-open{overflow:hidden}
 .step1-phase-title{margin:0 0 6px;font-size:18px;font-weight:700;color:#212121}
 .step1-phase-lead{margin:0 0 14px;font-size:13px;color:#757575;line-height:1.4}
 .step1-phase-nav{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin:0 0 12px}
-.step1-phase-nav-right{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-left:auto}
+.step1-phase-nav-right{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-left:auto}
 .step1-phase-scene-chip{font-size:12px;font-weight:600;color:#546E7A;background:#F5F5F5;border-radius:999px;padding:6px 10px}
 .step1-phase-actions{margin-top:16px;padding-top:12px;border-top:1px solid #EEEEEE}
 .step1-phase-actions .btn{width:100%}
@@ -539,8 +540,8 @@ body.admin-editor-open{overflow:hidden}
 #product-form.is-editor-step-2 .step1-wizard-progress{display:none!important}
 #product-form.is-editor-step-2{
   display:grid;
-  grid-template-columns:minmax(280px,380px) minmax(300px,1fr);
-  max-width:920px;
+  grid-template-columns:minmax(380px,420px) minmax(300px,1fr);
+  max-width:min(1040px,94vw);
   width:100%;
   margin:0 auto;
   justify-content:center;
@@ -673,16 +674,29 @@ body.admin-editor-open{overflow:hidden}
 }
 /* Пустой / тихий шаг 1: без верхней шапки */
 .product-editor.is-upload-focus,
-.product-editor.is-quiet-chrome{position:relative;padding-top:12px}
+.product-editor.is-quiet-chrome{position:relative;padding-top:52px}
 .product-editor.is-upload-focus .editor-header,
-.product-editor.is-quiet-chrome .editor-header{margin:0;padding:0;border:none;min-height:0}
+.product-editor.is-quiet-chrome .editor-header{
+  margin:0;padding:0;border:none;min-height:0;
+  display:flex;align-items:center;justify-content:flex-end;gap:10px
+}
 .product-editor.is-upload-focus .editor-header > div,
 .product-editor.is-quiet-chrome .editor-header > div{display:none!important}
 .product-editor.is-upload-focus .editor-header .modal-close,
 .product-editor.is-quiet-chrome .editor-header .modal-close{
-  position:absolute;top:8px;right:8px;z-index:8;width:40px;height:40px;
+  position:absolute;top:10px;right:10px;z-index:8;width:40px;height:40px;
   border-radius:50%;background:rgba(255,255,255,.92);border:1px solid #E0E0E0;
   box-shadow:0 2px 8px rgba(0,0,0,.08)
+}
+/* Не наезжать на ✕: сцена + «Изменить фото» слева от крестика */
+.product-editor.is-quiet-chrome .step1-phase-nav{
+  align-items:center;gap:10px;padding-right:52px;margin-top:0
+}
+.product-editor.is-quiet-chrome .step1-phase-nav-right{
+  align-items:center;gap:10px;flex-wrap:wrap;max-width:calc(100% - 8px)
+}
+.product-editor.is-quiet-chrome #step1-photo-actions{
+  align-items:center;gap:10px;padding-right:4px
 }
 .product-editor.is-upload-focus .editor-progress,
 .product-editor.is-upload-focus .step1-wizard-progress,
@@ -704,35 +718,53 @@ body.admin-editor-open{overflow:hidden}
 #product-form.is-step1-a:not(.has-step1-photos) #park-and-new-btn,
 #product-form.is-step1-a:not(.has-step1-photos) #save-draft-btn{display:none!important}
 
-.step1-photo-scene-grid{display:flex;flex-wrap:wrap;align-items:flex-start;justify-content:flex-start;gap:16px;max-width:860px}
-.step1-photo-scene-grid.has-photos{gap:16px 18px}
-.step1-photo-col{min-width:0;flex:1 1 420px;max-width:560px}
+.step1-photo-scene-grid{
+  display:grid;
+  grid-template-columns:minmax(380px,420px) minmax(280px,1fr);
+  align-items:start;
+  gap:20px;
+  width:100%;
+  max-width:960px;
+  margin:0 auto;
+  box-sizing:border-box
+}
+.step1-photo-scene-grid.has-photos{gap:20px}
+.step1-photo-col{min-width:0;flex:none;max-width:none;width:100%}
 .step1-photo-col .photo-grid{
   display:grid;grid-template-columns:1fr;gap:10px
 }
 .step1-photo-col .photo-item{
   max-width:100%;
-  aspect-ratio:auto;
+  aspect-ratio:1/1;
   height:auto;
-  overflow:visible;
-  background:transparent;
+  min-height:380px;
+  overflow:hidden;
+  background:#111;
   border-color:#1976D2;
 }
 .step1-photo-col .photo-item:not(.main){border-color:#E0E0E0}
 .step1-photo-col .photo-item img{
-  display:block;width:100%;height:auto;aspect-ratio:auto;
+  display:block;width:100%;height:100%;aspect-ratio:auto;
   object-fit:contain;background:#111;border-radius:10px;
-  max-height:min(68vh,640px)
+  max-height:none
 }
 .step1-photo-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
 .step1-photo-actions[hidden]{display:none!important}
 .step1-scene-heading{margin:0 0 8px;font-size:14px;font-weight:700;color:#212121}
-.step1-after-photo{margin:0;padding:0;border:none;flex:0 0 200px;width:200px}
+.step1-after-photo{
+  margin:0;padding:0;border:none;
+  flex:none;width:100%;min-width:0;max-width:none
+}
 .step1-after-photo[hidden]{display:none!important}
 #scene-active-label{display:none!important}
-.scene-rail-stack{display:flex;flex-direction:column;flex-wrap:nowrap;gap:5px;align-items:stretch}
+.scene-rail-stack{
+  display:grid!important;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+  align-items:stretch
+}
 .scene-rail-stack .scene-rail-btn{
-  width:100%;justify-content:flex-start;gap:8px;min-height:36px;padding:7px 10px;
+  width:100%;justify-content:flex-start;gap:8px;min-height:40px;padding:8px 10px;
   border-radius:10px;font-size:13px;font-weight:600
 }
 .scene-rail-stack .scene-rail-icon{font-size:16px}
@@ -789,9 +821,19 @@ body.admin-editor-open{overflow:hidden}
   display:grid;grid-template-columns:1fr 1fr;gap:5px
 }
 
-/* Шаг 1: место под sticky action-bar, чтобы «Далее» не перекрывалась */
-.product-editor.is-quiet-chrome #product-form.is-editor-step-1{
-  padding-bottom:8px
+/* Шаг создания: запас под sticky action-bar — скролл выше дока */
+#tab-create.tab-content:not(.hidden):not([hidden]){
+  padding-bottom:120px!important;
+  scroll-padding-bottom:120px
+}
+/* Контент над доком — низ фото/полей не прячется под планку */
+#tab-create #step1-workspace{
+  padding-bottom:120px!important
+}
+#product-form.is-editor-step-2 #block-photos,
+#product-form.is-editor-step-2 #block-essentials,
+#product-form.is-editor-step-2 .essentials-layout-compose{
+  padding-bottom:120px!important
 }
 .product-editor.is-quiet-chrome #product-form.is-editor-step-1 .action-bar{
   margin-top:12px;padding-top:12px;padding-bottom:4px
@@ -810,12 +852,15 @@ body.admin-editor-open{overflow:hidden}
 #process-studio-btn.hidden{display:none!important}
 @media(max-width:900px){
   .step1-photo-scene-grid,
-  .step1-photo-scene-grid.has-photos{max-width:none}
-  .step1-photo-col{flex:1 1 100%;max-width:none}
-  .step1-after-photo{flex:1 1 100%;width:100%}
-  .scene-rail-stack{flex-direction:row;flex-wrap:wrap}
-  .scene-rail-stack .scene-rail-btn{width:auto;flex:1 1 calc(50% - 8px);min-width:140px}
-  .step1-photo-col .photo-item img{max-height:min(62vh,560px)}
+  .step1-photo-scene-grid.has-photos{
+    grid-template-columns:1fr;max-width:none
+  }
+  .step1-photo-col{flex:none;max-width:none}
+  .step1-photo-col .photo-item{min-height:280px}
+  .step1-after-photo{flex:none;width:100%}
+  .scene-rail-stack{grid-template-columns:1fr 1fr}
+  .scene-rail-stack .scene-rail-btn{width:auto;min-width:0}
+  .step1-photo-col .photo-item img{max-height:none}
 }
 .studio-busy-banner{display:flex;align-items:flex-start;gap:12px;flex-wrap:wrap;margin:0 0 12px;padding:12px 14px;border-radius:10px;background:linear-gradient(90deg,#E3F2FD,#E8F5E9);border:1px solid #90CAF9;color:#1565C0;position:sticky;top:8px;z-index:6;box-shadow:0 4px 16px rgba(25,118,210,.12)}
 .studio-busy-banner.hidden{display:none!important}
@@ -863,7 +908,8 @@ body.admin-editor-open{overflow:hidden}
 .studio-toolbar-actions .btn{flex:1 1 auto}
 @media(max-width:640px){
   .scene-rail{flex-wrap:nowrap;overflow-x:auto;padding-bottom:2px;-webkit-overflow-scrolling:touch;scrollbar-width:thin}
-  .scene-rail-btn{min-height:40px;padding:8px 12px}
+  .scene-rail:not(.scene-rail-stack) .scene-rail-btn{min-height:40px;padding:8px 12px}
+  .scene-rail-stack{grid-template-columns:1fr 1fr;overflow:visible}
 }
 .studio-mode-hint{font-size:12px;color:#2E7D32;margin:0 0 8px;line-height:1.35;font-weight:600}
 .photozone-type-early-note{margin:0 0 8px;font-size:12px}
@@ -931,7 +977,7 @@ body.admin-editor-open{overflow:hidden}
 .ai-review-backdrop{position:absolute;inset:0;background:rgba(20,20,20,.55);backdrop-filter:blur(2px)}
 .ai-review-panel{
   position:relative;z-index:1;display:flex;flex-direction:column;
-  width:min(1080px,100%);max-height:min(96vh,860px);
+  width:min(980px,92vw);max-height:min(96vh,860px);
   background:#fff;border-radius:16px;box-shadow:0 24px 64px rgba(0,0,0,.28);
   overflow:hidden
 }
@@ -1392,13 +1438,14 @@ body.admin-editor-open{overflow:hidden}
 /* Phase 3: editor chrome — dropzone, gallery, busy, dock, wizard tabs */
 #tab-create.tab-content:not(.hidden):not([hidden]){
   background:var(--admin-bg);
-  padding:52px 12px calc(88px + env(safe-area-inset-bottom,0px))
+  padding:52px 12px 120px!important
 }
 #tab-create .product-editor{
   border:1px solid var(--admin-border);
   border-radius:var(--admin-radius);
   box-shadow:var(--admin-shadow);
-  padding-bottom:8px
+  max-width:min(1040px,94vw);
+  padding-bottom:24px
 }
 
 /* Wizard progress as clean tabs */
@@ -1485,10 +1532,25 @@ body.admin-editor-open{overflow:hidden}
 #tab-create .upload-zone-icon::before{width:4px;height:22px}
 #tab-create .upload-zone-icon::after{width:22px;height:4px}
 
-/* Photo gallery cards + controls */
-#tab-create #photos-grid.photo-grid,
-#tab-create .photo-grid{
-  display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px;margin-top:12px
+/* Photo gallery cards + controls — крупное квадратное превью (десктоп 380–420) */
+#tab-create #block-photos #photos-grid.photo-grid,
+#tab-create #photos-grid.photo-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(min(100%,380px),420px));
+  justify-content:start;
+  gap:14px;margin-top:12px;margin-bottom:8px
+}
+#tab-create .step1-photo-col #photos-grid .photo-item,
+#tab-create #photos-grid .photo-item{
+  aspect-ratio:1/1;width:100%;min-width:0;min-height:380px;
+  border:1px solid var(--admin-border);border-radius:14px;
+  overflow:hidden;background:#111;box-shadow:var(--admin-shadow);
+  height:auto
+}
+#tab-create .step1-photo-col #photos-grid .photo-item img,
+#tab-create #photos-grid .photo-item img{
+  display:block;width:100%;height:100%;max-height:none;
+  object-fit:contain;aspect-ratio:auto;border-radius:0
 }
 #tab-create .photo-item{
   aspect-ratio:1;border:1px solid var(--admin-border);border-radius:14px;
@@ -1575,7 +1637,12 @@ body.admin-editor-open{overflow:hidden}
     width:100%
   }
   #tab-create .editor-progress-step{padding:8px 6px;font-size:12px}
-  #tab-create #photos-grid.photo-grid{grid-template-columns:1fr 1fr}
+  #tab-create #block-photos #photos-grid.photo-grid,
+  #tab-create #photos-grid.photo-grid{
+    grid-template-columns:minmax(0,1fr);max-width:420px
+  }
+  #tab-create .step1-photo-col #photos-grid .photo-item,
+  #tab-create #photos-grid .photo-item{min-height:280px}
   #tab-create .photo-item .actions button{width:44px;height:44px}
   #studio-busy-banner.studio-busy-banner,
   #tab-create .studio-busy-banner{top:56px}
@@ -1619,8 +1686,8 @@ body.ai-review-open{overflow:hidden}
   -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)
 }
 #ai-review-overlay .ai-review-panel{
-  width:min(980px,100%);
-  max-height:min(92vh,880px);
+  width:min(980px,92vw);
+  max-height:90vh;
   display:flex;flex-direction:column;
   border:1px solid var(--admin-border);
   border-radius:18px;
@@ -1631,7 +1698,7 @@ body.ai-review-open{overflow:hidden}
 #ai-review-overlay .ai-review-head{
   flex:0 0 auto;
   display:flex;align-items:flex-start;justify-content:space-between;gap:12px;
-  padding:16px 18px 12px;
+  padding:12px 20px 8px;
   border-bottom:1px solid var(--admin-border);
   background:linear-gradient(180deg,#fff 0%,#faf8f6 100%)
 }
@@ -1640,33 +1707,35 @@ body.ai-review-open{overflow:hidden}
   text-transform:uppercase;color:var(--admin-accent)
 }
 #ai-review-overlay .ai-review-head h2{
-  margin:4px 0 0;font-size:22px;font-weight:800;letter-spacing:-.02em;color:var(--admin-text)
+  margin:2px 0 0;font-size:18px;font-weight:800;letter-spacing:-.02em;color:var(--admin-text)
 }
 #ai-review-overlay .ai-review-close{
-  width:40px;height:40px;border-radius:50%;
+  width:36px;height:36px;border-radius:50%;
   background:var(--admin-bg);border:1px solid var(--admin-border);color:var(--admin-muted)
 }
 #ai-review-overlay .ai-review-close:hover{background:#ebe8e4;color:var(--admin-text)}
 
 #ai-review-overlay .ai-review-body{
   flex:1 1 auto;min-height:0;
-  display:grid;grid-template-columns:minmax(180px,240px) minmax(0,1fr);
-  gap:16px 20px;padding:16px 18px 8px;
-  overflow:auto;-webkit-overflow-scrolling:touch
+  display:grid;grid-template-columns:minmax(200px,260px) minmax(0,1fr);
+  gap:12px 16px;padding:16px 20px 8px;
+  overflow:hidden;align-items:stretch
 }
 #ai-review-overlay .ai-review-photo{
-  border-radius:14px;overflow:hidden;border:1px solid var(--admin-border);
+  border-radius:12px;overflow:hidden;border:1px solid var(--admin-border);
   background:#111;align-self:start;position:sticky;top:0
 }
 #ai-review-overlay .ai-review-photo img{
-  max-height:min(36vh,280px);width:100%;object-fit:contain
+  max-height:min(42vh,300px);width:100%;object-fit:contain
 }
 #ai-review-overlay .ai-review-meta{
-  padding:8px 10px;font-size:12px;color:#cfcfcf;background:#1a1a1a
+  padding:6px 8px;font-size:11px;color:#cfcfcf;background:#1a1a1a
 }
 
 #ai-review-overlay .ai-review-fields{
-  display:flex;flex-direction:column;gap:14px;min-height:0;overflow:visible;padding:0 2px 12px
+  display:grid;grid-template-columns:1fr 1fr;gap:6px 10px;
+  align-content:start;min-height:0;max-height:100%;
+  overflow-x:hidden;overflow-y:auto;padding:0 2px 4px
 }
 #ai-review-overlay .ai-review-fields > .form-group,
 #ai-review-overlay .ai-review-fields > .ai-review-row,
@@ -1674,17 +1743,29 @@ body.ai-review-open{overflow:hidden}
 #ai-review-overlay .ai-review-fields > .ai-review-tags{
   margin:0
 }
-#ai-review-overlay .ai-review-fields label{
-  font-size:12px;font-weight:700;margin-bottom:6px;color:var(--admin-text)
+#ai-review-overlay .ai-review-title-wrap{
+  grid-column:1/-1;max-width:none
 }
-#ai-review-overlay .ai-review-title-wrap label{font-size:13px}
+#ai-review-overlay .ai-review-row-3,
+#ai-review-overlay .ai-review-opts,
+#ai-review-overlay .ai-review-tags{
+  grid-column:1/-1
+}
+#ai-review-overlay .ai-review-character-wrap{grid-column:1}
+#ai-review-overlay .ai-review-fields > .form-group:has(#ai-review-composition){grid-column:2}
+#ai-review-overlay .ai-review-series-wrap{grid-column:1/-1}
+
+#ai-review-overlay .ai-review-fields label{
+  font-size:11px;font-weight:700;margin-bottom:3px;color:var(--admin-text)
+}
+#ai-review-overlay .ai-review-title-wrap label{font-size:12px}
 #ai-review-overlay .ai-review-title-wrap input{
-  font-size:17px;font-weight:700;min-height:48px;padding:12px 14px;border-radius:12px
+  font-size:15px;font-weight:700;min-height:36px;padding:7px 10px;border-radius:10px
 }
 #ai-review-overlay .ai-review-fields input,
 #ai-review-overlay .ai-review-fields select,
 #ai-review-overlay .ai-review-fields textarea{
-  font-size:14px;padding:11px 12px;min-height:42px;border-radius:10px;
+  font-size:13px;padding:6px 9px;min-height:34px;border-radius:8px;
   border:1px solid var(--admin-border);background:#fafaf9
 }
 #ai-review-overlay .ai-review-fields input:focus,
@@ -1693,34 +1774,36 @@ body.ai-review-open{overflow:hidden}
   border-color:var(--admin-accent);box-shadow:0 0 0 3px rgba(255,107,90,.12);background:#fff
 }
 #ai-review-overlay #ai-review-composition{
-  min-height:4.5em;max-height:10em;resize:vertical;line-height:1.45;font-size:14px
+  min-height:2.4em;max-height:4.2em;resize:vertical;line-height:1.35;font-size:12px
 }
 #ai-review-overlay .ai-review-section-label{
-  margin:0 0 8px;font-size:13px;font-weight:800;color:var(--admin-text);letter-spacing:-.01em
+  margin:0 0 4px;font-size:12px;font-weight:800;color:var(--admin-text);letter-spacing:-.01em
 }
 #ai-review-overlay .ai-review-character-wrap,
 #ai-review-overlay .ai-review-series-wrap{
-  padding:12px;border-radius:12px;border:1px solid var(--admin-border);background:var(--admin-bg)
+  padding:6px 8px;border-radius:10px;border:1px solid var(--admin-border);background:var(--admin-bg)
 }
-#ai-review-overlay .ai-review-opt-chips{gap:8px}
+#ai-review-overlay .ai-review-fields .title-alts{gap:4px;margin-top:3px}
+#ai-review-overlay .ai-review-fields .title-alt-btn{font-size:11px;padding:3px 7px}
+#ai-review-overlay .ai-review-opt-chips{gap:6px}
 #ai-review-overlay .ai-review-opt span{
-  padding:8px 12px;border-radius:999px;font-size:13px;font-weight:600;
+  padding:4px 10px;border-radius:999px;font-size:12px;font-weight:600;
   border:1px solid var(--admin-border);background:#fff;color:var(--admin-text)
 }
 #ai-review-overlay .ai-review-opt:has(input:checked) span{
   border-color:var(--admin-accent);background:var(--admin-accent-soft);color:#b53d2e
 }
 
-/* Tags: clear blocks, 2–3 col chip grids */
+/* Tags: clear blocks, compact chips */
 #ai-review-overlay .ai-review-tags{
-  display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:4px
+  display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:0
 }
 #ai-review-overlay .ai-review-tags .ai-review-section-label{grid-column:1/-1}
 #ai-review-overlay .ai-review-tag-block{
-  padding:12px;border-radius:12px;border:1px solid var(--admin-border);background:#fff
+  padding:6px 8px;border-radius:10px;border:1px solid var(--admin-border);background:#fff
 }
 #ai-review-overlay .ai-review-tag-h{
-  display:block;margin-bottom:8px;font-size:11px;font-weight:800;
+  display:block;margin-bottom:4px;font-size:10px;font-weight:800;
   letter-spacing:.04em;text-transform:uppercase
 }
 #ai-review-overlay .ai-review-tag-who{border-color:#c5d8e4;background:#f5fafc}
@@ -1732,12 +1815,12 @@ body.ai-review-open{overflow:hidden}
 #ai-review-overlay .ai-review-tag-type{border-color:#ffc9c0;background:var(--admin-accent-soft)}
 #ai-review-overlay .ai-review-tag-type .ai-review-tag-h{color:#b53d2e}
 #ai-review-overlay .ai-review-tags .chips-grid{
-  grid-template-columns:repeat(2,minmax(0,1fr));gap:6px
+  grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:6px
 }
 #ai-review-overlay .ai-review-tags .chip label{
   display:block;width:100%;text-align:left;
-  padding:8px 10px;min-height:36px;border-radius:10px;font-size:12px;font-weight:600;
-  background:#fff;border:1px solid var(--admin-border);color:var(--admin-text)
+  padding:4px 10px;min-height:0;border-radius:8px;font-size:13px;font-weight:600;
+  line-height:1.25;background:#fff;border:1px solid var(--admin-border);color:var(--admin-text)
 }
 #ai-review-overlay .ai-review-tags .chip input:checked + label{
   background:var(--admin-accent)!important;border-color:var(--admin-accent)!important;color:#fff!important
@@ -1746,22 +1829,63 @@ body.ai-review-open{overflow:hidden}
 /* Sticky footer CTA */
 #ai-review-overlay .ai-review-actions{
   flex:0 0 auto;position:sticky;bottom:0;z-index:5;
-  display:flex;flex-wrap:wrap;gap:10px;justify-content:flex-end;align-items:center;
-  padding:12px 16px calc(12px + env(safe-area-inset-bottom,0px));
+  display:flex;flex-wrap:wrap;gap:8px;justify-content:flex-end;align-items:center;
+  padding:10px 20px calc(10px + env(safe-area-inset-bottom,0px));
   border-top:1px solid var(--admin-border);
-  background:rgba(255,255,255,.94);
+  background:rgba(255,255,255,.96);
   -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
-  box-shadow:0 -10px 28px rgba(0,0,0,.06)
+  box-shadow:0 -8px 20px rgba(0,0,0,.05)
 }
-#ai-review-overlay .ai-review-actions .btn{min-height:44px}
+#ai-review-overlay .ai-review-actions .btn{min-height:40px}
 #ai-review-overlay .ai-review-actions .btn.primary{
-  min-width:168px;order:10;font-weight:800
+  min-width:148px;order:10;font-weight:800
 }
 
 @media (min-width:900px){
   #ai-review-overlay .ai-review-tags .chips-grid{
     grid-template-columns:repeat(3,minmax(0,1fr))
   }
+}
+
+/* Ноутбук+: ещё компактнее — всё видно без скролла до «Опубликовать» */
+@media (min-width:1024px){
+  #ai-review-overlay .ai-review-panel{
+    width:min(980px,92vw);
+    max-height:90vh
+  }
+  #ai-review-overlay .ai-review-head{padding:10px 20px 6px}
+  #ai-review-overlay .ai-review-head h2{font-size:17px}
+  #ai-review-overlay .ai-review-body{
+    grid-template-columns:minmax(220px,280px) minmax(0,1fr);
+    gap:10px 14px;padding:12px 20px 6px;
+    overflow:hidden
+  }
+  #ai-review-overlay .ai-review-photo img{max-height:min(38vh,280px)}
+  #ai-review-overlay .ai-review-fields{
+    gap:5px 10px;overflow-y:auto
+  }
+  #ai-review-overlay .ai-review-title-wrap input{
+    font-size:14px;min-height:34px;padding:6px 10px
+  }
+  #ai-review-overlay .ai-review-fields input,
+  #ai-review-overlay .ai-review-fields select,
+  #ai-review-overlay .ai-review-fields textarea{
+    font-size:12px;padding:5px 8px;min-height:32px
+  }
+  #ai-review-overlay #ai-review-composition{min-height:2.2em;max-height:3.8em}
+  #ai-review-overlay .ai-review-character-wrap,
+  #ai-review-overlay .ai-review-series-wrap{padding:5px 7px}
+  #ai-review-overlay .ai-review-opt span{padding:4px 9px;font-size:12px}
+  #ai-review-overlay .ai-review-tags{gap:6px}
+  #ai-review-overlay .ai-review-tag-block{padding:5px 7px}
+  #ai-review-overlay .ai-review-tags .chips-grid{gap:5px}
+  #ai-review-overlay .ai-review-tags .chip label{
+    padding:4px 8px;font-size:12px;min-height:0
+  }
+  #ai-review-overlay .ai-review-actions{
+    padding:8px 20px calc(8px + env(safe-area-inset-bottom,0px))
+  }
+  #ai-review-overlay .ai-review-actions .btn{min-height:38px}
 }
 
 @media (max-width:720px){
@@ -1813,6 +1937,24 @@ body.ai-review-open{overflow:hidden}
   border-radius:2px;background:rgba(255,255,255,.85)
 }
 .header-link-storefront{color:var(--admin-info)}
+/* CTA «+ Создать» — не как активная вкладка */
+.header-link-create{
+  margin-left:4px;
+  color:#b53d2e;font-weight:700;
+  background:linear-gradient(180deg,#fff 0%,#fff5f3 100%);
+  border:1.5px solid #ffc9c0;
+  box-shadow:0 1px 3px rgba(255,107,90,.12)
+}
+.header-link-create:hover{
+  color:#b53d2e;background:var(--admin-accent-soft);border-color:var(--admin-accent)
+}
+.header-link-create.active{
+  color:#fff;
+  background:linear-gradient(135deg,#FF8A75 0%,#FF6B5A 55%,#E85A4F 100%);
+  border-color:transparent;
+  box-shadow:0 4px 14px rgba(255,107,90,.32)
+}
+.header-link-create.active::after{display:none}
 
 @media (max-width:768px){
   .admin-header{padding:8px 10px;gap:8px}

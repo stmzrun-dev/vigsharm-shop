@@ -1497,7 +1497,15 @@ function buildRephotographPrompt(scene, opts = {}) {
 - characters, foil figures, chrome/metallic surfaces, ribbons, knots, product stickers that belong to the item
 - do NOT add, remove, redraw, densify, beautify, or “improve” any product element (except the ALLOWED EXCEPTION below)
 - do NOT invent extra small filler balloons between larger ones; keep the original sparsity/density of every column and cluster
-- when uncertain about a product print or balloon count, keep the original — do NOT guess or embellish`;
+- when uncertain about a product print or balloon count, keep the original — do NOT guess or embellish
+
+GENDER / AUDIENCE PALETTE LOCK (critical — common failure):
+- Keep the product's gender coding and color family EXACTLY as in the source
+- Pink / lilac / rose / “для девочки” sets stay in that family — NEVER recolor toward blue/teal/navy “boy” tones
+- Blue / teal / navy / green / “для мальчика” sets stay in that family — NEVER recolor toward pink/lilac/rose “girl” tones
+- Character sets (Minions yellow-gold, Marvel, etc.) keep their franchise colors — do not “soften” into a different audience palette
+- Recipient names and greetings on the box/balloons stay EXACTLY as printed — do not invent a different name or switch implied gender
+- FORBIDDEN: flipping masculine↔feminine palette, “beautifying” by swapping audience colors, inventing a different birthday recipient`;
 
   const logoClean = `ALLOWED EXCEPTION — REMOVE supplier / marketplace packaging overlays and watermarks (critical for catalog photos, especially «шары поштучно» / unit balloons from Sima-land and similar):
 REMOVE completely (inpaint as if never there):
@@ -1519,7 +1527,7 @@ KEEP the balloon product; fill the hole with studio wall / laminate / more of th
 Do NOT confuse: foil/latex balloon sculptures, printed cartoon characters ON balloons, and balloon “фигуры из шаров” are PRODUCT — keep them. Only living photographed people go.
 FORBIDDEN leftover: ghost face, floating hair, half a dress, a person cropped at the edge.`;
 
-  const forbidden = `FORBIDDEN: people / models / faces / full human bodies in the catalog photo, sticker/cutout appearance, white or dark halo, invented text, changed colors, plastic CGI look, furniture, mirrors, vanity light frames, window, curtains from the original room, melting ribbons, harsh cast shadows, yellow/orange color cast, duplicate objects, collage, copying mirror reflections as extra balloons, dark moody look, evening lighting, underexposure, extra balloons, denser balloon columns than the original, new mini filler balloons, new foreground balloon clusters, inventing extra foil hearts/figures, objects not present in the original, store watermarks, supplier packaging badges, size/helium labels, marketplace URL overlays (sima-land.ru etc.), leftover half-erased text, circular shop hang-tags on ribbons`;
+  const forbidden = `FORBIDDEN: people / models / faces / full human bodies in the catalog photo, sticker/cutout appearance, white or dark halo, invented text, changed colors, gender/audience palette flip (pink↔blue, boy↔girl tones), plastic CGI look, furniture, mirrors, vanity light frames, window, curtains from the original room, melting ribbons, harsh cast shadows, yellow/orange color cast, duplicate objects, collage, copying mirror reflections as extra balloons, dark moody look, evening lighting, underexposure, extra balloons, denser balloon columns than the original, new mini filler balloons, new foreground balloon clusters, inventing extra foil hearts/figures, objects not present in the original, store watermarks, supplier packaging badges, size/helium labels, marketplace URL overlays (sima-land.ru etc.), leftover half-erased text, circular shop hang-tags on ribbons`;
 
   const light = `LIGHTING: soft even professional studio product photography. Remove harsh window backlight. Match exposure and white balance to the studio room. Real photograph, not CGI render.`;
 
@@ -1807,6 +1815,7 @@ ${room}
 Square 1:1, bright natural catalog light, soft contact shadow only. Real photo, not CGI.
 
 KEEP exactly: balloon count, colors, shapes, prints, foil characters, ribbons, and a gift box if it is part of the set.
+Keep the same gender/audience palette as the source (no pink↔blue or boy↔girl color flip; names on the product stay identical).
 DELETE in place, do not move: vase, glass, pampas, dried flowers, plants, stray floor objects, tables, chairs, mirrors, real people.
 Hang-tags: erase where they hang or leave them on the same balloon. Never move a tag.
 Do not add balloons. Do not copy mirror reflections.

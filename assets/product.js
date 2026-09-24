@@ -595,7 +595,7 @@
     var cost = fulfillment === 'nearby'
       ? 'Предварительная стоимость: ' + (priceFrom() ? 'от ' : '') + total().toLocaleString('ru-RU') + ' ₽ + доставка.'
       : (priceFrom() ? 'Ориентировочная стоимость: от' : 'Стоимость:') + ' ' + total().toLocaleString('ru-RU') + ' ₽.';
-    return 'Здравствуйте! Хочу заказать «' + p.title + '», артикул ' + p.sku + '.' + opts + '\n' + cost + '\nКарточка: https://new.vigsharm.ru/product/' + canonicalSlug();
+    return 'Здравствуйте! Хочу заказать «' + p.title + '», артикул ' + p.sku + '.' + opts + '\n' + cost + '\nКарточка: https://vigsharm.ru/product.html?slug=' + encodeURIComponent(canonicalSlug());
   }
 
   function contactFieldsHtml() {

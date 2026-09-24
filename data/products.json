@@ -2,6 +2,96 @@
   "ok": true,
   "products": [
     {
+      "id": "44e682ab-a11f-4bcf-ba0c-a3e2ba955679",
+      "title": "Красная коробка",
+      "article": "BOX-028",
+      "price": 4010,
+      "short_description": "Красная коробка-сюрприз с красной звездой и яркими шарами в красно-оранжевой гамме.",
+      "full_description": "Коробка-сюрприз в красном цвете с надписью и белыми звёздами на стенках. Из коробки вылетают латексные шары красных, оранжевых и белых оттенков, завершает композицию красная фольгированная звезда с персональной надписью.",
+      "composition": [
+        "коробка 70x70x70 с индивидуальной надписью и декором",
+        "фольгированная звезда с надписью",
+        "9 латексных шаров"
+      ],
+      "category": "Коробка-сюрприз",
+      "character": null,
+      "age_group": "Для детей",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Красная коробка-сюрприз с шарами — Армавир",
+      "seo_description": "Коробка-сюрприз в красном цвете с яркими шарами и персональной звездой. Доставка воздушных шаров в Армавире от VigSharm.",
+      "slug": "krasnaya-korobka",
+      "scene": "floor",
+      "tags": [
+        "Коробка-сюрприз"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://i.ibb.co/b5gCdrrM/f-40.jpg"
+      },
+      "photos": [
+        "https://i.ibb.co/Hf8L78j5/studio-master.jpg"
+      ],
+      "main_photo": "https://i.ibb.co/Hf8L78j5/studio-master.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-24T13:04:07.890Z",
+      "updated_at": "2026-09-24T13:04:07.890Z"
+    },
+    {
+      "id": "998ee3bc-8a70-441b-bbdc-b92d8b735277",
+      "title": "Коробка нежности",
+      "article": "BOX-027",
+      "price": 6200,
+      "short_description": "Розовая коробка-сюрприз с белыми сердцами и крупной цифрой.",
+      "full_description": "Композиция включает розовую коробку с индивидуальной надписью, фольгированную цифру и фонтан из розово-белых сердец.",
+      "composition": [
+        "цифра",
+        "коробка 70x70x70 с индивидуальной надписью и декором",
+        "10 фольгированных сердец"
+      ],
+      "category": "Коробка-сюрприз",
+      "character": null,
+      "age_group": "Для детей",
+      "budget": "5 000–8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Коробка-сюрприз с шарами-сердцами и цифрой — Армавир",
+      "seo_description": "Розовая коробка-сюрприз с фольгированной цифрой и фонтаном из розово-белых сердец. Доставка воздушных шаров в Армавире.",
+      "slug": "korobka-nezhnosti",
+      "scene": "floor",
+      "tags": [
+        "Коробка-сюрприз"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://i.ibb.co/wNTdRnDY/f-41.jpg",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://i.ibb.co/Df8pQx2c/studio-master.jpg"
+      ],
+      "main_photo": "https://i.ibb.co/Df8pQx2c/studio-master.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-24T12:54:32.547Z",
+      "updated_at": "2026-09-24T12:54:32.547Z"
+    },
+    {
       "id": "f9fc5e33-862f-4e07-8e54-a259406e40a4",
       "title": "Семейное сердце",
       "article": "BOX-026",

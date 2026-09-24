@@ -148,7 +148,8 @@ async function nordRequest(endpoint, method, body, env) {
     headers: {
       'Authorization': 'Bearer ' + env.NORDROUTER_API_KEY,
       'Content-Type': 'application/json'
-    }
+    },
+    signal: AbortSignal.timeout(20000)
   };
   if (body) opts.body = JSON.stringify(body);
   const resp = await fetch('https://nordrouter.com' + endpoint, opts);
@@ -1500,6 +1501,7 @@ REMOVE completely (inpaint as if never there):
 - Small © copyright stamps and supplier URL text overlaid on or near balloons that are NOT part of the balloon's own printed design
 - Any colored pill/rectangle with white text glued onto the catalog photo (packaging chrome), not printed into the latex/foil artwork
 - Circular / round hang tags and brand discs on ribbons or wrap (shop logos like «МАИК», heart+name discs, cardboard circle tags, plastic logo badges dangling from the bouquet)
+Erase each hang-tag IN PLACE (inpaint the ribbon or balloon that was already under it). NEVER relocate, reattach, or carry a tag onto another balloon, another ribbon, or a new spot in the frame. A moved tag is a failure.
 Inpaint the wall / balloon / ribbon surface underneath cleanly — no blur blotches, no leftover letters or half a circle.
 KEEP: Spider-Man / character art printed ON the balloon latex or foil; decorative words that are clearly part of that print (e.g. «HERO» baked into the balloon design); bubble lettering and custom personalization on the product itself; foil heart texts that are printed ON the balloon face.`;
 
@@ -1757,14 +1759,21 @@ ${mirrorHazard}
 
 Use the SECOND reference image as the real VigSharm studio environment — match it as closely as possible: warm beige-grey wall, white baseboard, LIGHT pale-oak / light grey-beige laminate floor with horizontal planks.
 
-SUPPORT — remove furniture, keep the balloon base:
-- REMOVE any non-balloon support under or around the composition: small table, stolik, glass table, wire stand, metal rack, stool, chair, crate, box, furniture legs — as if never there.
+WHAT MOVES INTO THE STUDIO — product only:
+- Carry ONLY the product: balloons, ribbons, balloon weights that belong to those balloons, and a gift / surprise box when it is part of the composition (printed birthday box, open lid with balloons).
+- Room props are NOT product. DELETE them in place — do NOT translate them with the composition: vase, glass, dried flowers, pampas grass, houseplant, random object on the floor, decor that is not tied to the balloons.
+- Hang-tags / бирки: do not move them. Erase each tag where it already hangs (ribbon or balloon underneath) OR leave it pixel-locked on the SAME balloon. FORBIDDEN: a tag in a new position, on a different balloon, or dangling in empty space.
+
+SUPPORT — remove furniture, keep the balloon base and any gift box that IS the product:
+- REMOVE any non-balloon support under or around the composition: small table, stolik, glass table, wire stand, metal rack, stool, chair, crate, furniture legs — as if never there.
+- A printed gift / surprise box that holds or presents the balloons is PRODUCT — keep it. Do NOT delete it as furniture.
 - Place the EXISTING balloon base (green / bottom cluster already in the photo) DIRECTLY on the laminate floor.
 - Soft contact shadow ONLY under those original base spheres that touch the floor — no large dark pool.
 - Do NOT invent a new stand. Do NOT invent NEW balloons under the base.
 - After removing the table: the lowest balloons that already existed must sit on the floor unchanged — zero added balloons below them.
 
 ${nearWall}
+When sliding the product toward the wall, slide ONLY the product unit above. Leave room props behind and delete them. Do not drag a vase, pampas, plant, or stray floor object into the studio.
 
 SCALE: floor composition should fill approximately 70–85% of frame height — not a small object floating in empty room.
 
@@ -1774,41 +1783,75 @@ ${brightFloor}
 
 ${forbidden}
 
-OUTPUT: one square 1:1 professional catalog photo — SAME balloon product as source (exact counts), studio room only, large near the wall on LIGHT laminate, no table or furniture under the base, natural catalog light.`;
+OUTPUT: one square 1:1 professional catalog photo — SAME balloon product as source (exact counts), gift box kept if it is part of the set, studio room only, large near the wall on LIGHT laminate, no table or furniture under the base, no vase / pampas / stray floor props, no relocated hang-tags, natural catalog light.`;
+}
+
+/** Flux edit limit is 5000 characters. Keep this well under that. */
+function buildFluxPrompt(scene) {
+  const room = ['wall_only', 'unit_balloon', 'handheld_bouquet'].includes(scene)
+    ? 'Replace the room with the SECOND reference: warm light beige-grey studio WALL only. No floor, no baseboard, no laminate.'
+    : 'Replace the room with the SECOND reference: warm light beige-grey wall, white baseboard, LIGHT pale-oak laminate. Put the product close to the baseboard.';
+  const extra = scene === 'handheld_bouquet'
+    ? 'Bouquet held by one adult female hand from the left or right. No face, no body. Ribbon tips stay inside the frame.'
+    : scene === 'unit_balloon'
+      ? 'Single balloon or small set. Strip marketplace badges, size labels, and watermarks. Keep the balloon print.'
+      : '';
+  return `Edit this VigSharm catalog photo. Change only the room and lighting. Do not rebuild the product.
+
+${room}
+Square 1:1, bright natural catalog light, soft contact shadow only. Real photo, not CGI.
+
+KEEP exactly: balloon count, colors, shapes, prints, foil characters, ribbons, and a gift box if it is part of the set.
+DELETE in place, do not move: vase, glass, pampas, dried flowers, plants, stray floor objects, tables, chairs, mirrors, real people.
+Hang-tags: erase where they hang or leave them on the same balloon. Never move a tag.
+Do not add balloons. Do not copy mirror reflections.
+${extra}`.trim();
 }
 
 function buildRephotographAttempts(imageUrl, referenceUrl, prompt, resolution = '2K', prefer = 'quality', scene = 'floor') {
   const res = ['1K', '2K', '4K'].includes(resolution) ? resolution : '2K';
-  const refFields = [
-    { reference_image: referenceUrl },
-    { reference: referenceUrl },
-    { image2: referenceUrl },
-    { reference_images: [referenceUrl] }
-  ];
   const wallOnly = ['wall_only', 'unit_balloon', 'handheld_bouquet'].includes(scene);
   const wallHint = '\n\nTarget room: VigSharm studio wall from the SECOND reference — warm light beige-grey plaster, natural catalog softbox daylight (not overexposed wash). Copy reference wall tone; do NOT darken into taupe/muddy grey and do NOT blow out to pure white. NO invented mottled/smudged wall.';
-  const floorHint = '\n\nTarget FLOOR from the SECOND reference — LIGHT pale oak / light grey-beige laminate matching reference brightness. Place product CLOSE to the white baseboard (short floor strip only — not mid-room). Soft contact shadows only under the original balloon base. REMOVE any table, stolik, glass table, stool, chair, wire stand or other furniture from the source — the existing balloon base sits directly on the laminate. Do NOT invent new balloons under the base. FORBIDDEN: dark brown/charcoal laminate; large empty floor toward the wall; keeping a table under the product; any real people/models in the frame. If source has a person posing with balloons: erase them completely, keep only the balloon product. If source has a mirror/vanity: remove it; count ONLY real balloons on the floor in front of the glass — NEVER copy balloons that exist only as mirror reflections (e.g. one real heart + reflection → output one heart).';
+  const floorHint = '\n\nTarget FLOOR from the SECOND reference — LIGHT pale oak / light grey-beige laminate matching reference brightness. Place ONLY the product CLOSE to the white baseboard (short floor strip only — not mid-room): balloons, ribbons, their weights, and a gift/surprise box if it is part of the composition. DELETE room props in place — do NOT move them with the product: vase, glass, dried flowers, pampas grass, houseplant, random floor object. Hang-tags: erase in place or keep pixel-locked on the same balloon — NEVER relocate a tag. Soft contact shadows only under the original balloon base. REMOVE any table, stolik, glass table, stool, chair, wire stand or other furniture from the source — the existing balloon base sits directly on the laminate. A printed gift box that presents the balloons is PRODUCT, not furniture — keep it. Do NOT invent new balloons under the base. FORBIDDEN: dark brown/charcoal laminate; large empty floor toward the wall; keeping a table under the product; carrying a vase/pampas/stray object into the studio; a hang-tag moved to a new spot or another balloon; any real people/models in the frame. If source has a person posing with balloons: erase them completely, keep only the balloon product. If source has a mirror/vanity: remove it; count ONLY real balloons on the floor in front of the glass — NEVER copy balloons that exist only as mirror reflections (e.g. one real heart + reflection → output one heart).';
   const roomHint = wallOnly ? wallHint : (wallHint + floorHint);
   const attempts = [];
 
   const pushBanana = () => {
-    for (const ref of refFields) {
-      attempts.push({
-        model: 'image/nano-banana-2',
-        input: { prompt: prompt + (wallOnly ? '' : floorHint), image: imageUrl, aspect_ratio: '1:1', ...ref }
-      });
-    }
-    for (const ref of refFields.slice(0, 2)) {
-      attempts.push({
-        model: 'image/nano-banana-pro',
-        input: { prompt: prompt + (wallOnly ? '' : floorHint), image: imageUrl, ...ref }
-      });
-      attempts.push({
-        model: 'image/nano-banana-edit',
-        input: { prompt: prompt + (wallOnly ? '' : floorHint), image: imageUrl, ...ref }
-      });
-    }
+    attempts.push({
+      model: 'image/nano-banana-2',
+      input: {
+        prompt: prompt + (wallOnly ? '' : floorHint),
+        image: imageUrl,
+        aspect_ratio: '1:1',
+        reference_image: referenceUrl
+      }
+    });
+    attempts.push({
+      model: 'image/nano-banana-edit',
+      input: {
+        prompt: prompt + (wallOnly ? '' : floorHint),
+        image: imageUrl,
+        reference_image: referenceUrl
+      }
+    });
   };
+
+  // Mid-run fallback: Flux only. This model rejects prompts over 5000 characters.
+  if (prefer === 'flux') {
+    const fluxPrompt = buildFluxPrompt(scene);
+    console.log('[Studio Rephotograph] flux prompt chars=', fluxPrompt.length);
+    attempts.push({
+      model: 'image/flux2-pro-edit',
+      input: {
+        prompt: fluxPrompt,
+        image: imageUrl,
+        reference_image: referenceUrl,
+        aspect_ratio: '1:1',
+        resolution: res === '4K' ? '2K' : res
+      }
+    });
+    return attempts;
+  }
 
   // Job-level fallback path: only proven banana (after gpt/flux failed mid-run)
   if (prefer === 'banana' || prefer === 'fast') {
@@ -1816,7 +1859,8 @@ function buildRephotographAttempts(imageUrl, referenceUrl, prompt, resolution = 
     return attempts;
   }
 
-  // quality: sunburst first (studio ref), then proven gpt, then flux. Banana is submit-fallback.
+  // One model per request. Client starts flux, then banana, if this job fails.
+  // A long chain in one Worker call gets cut by Cloudflare (browser then shows a CORS error).
   attempts.push({
     model: 'image/gpt-image-2.5-sunburst-edit',
     input: {
@@ -1837,24 +1881,15 @@ function buildRephotographAttempts(imageUrl, referenceUrl, prompt, resolution = 
       resolution: res
     }
   });
-  attempts.push({
-    model: 'image/flux2-pro-edit',
-    input: {
-      prompt: prompt + roomHint,
-      image: imageUrl,
-      reference_image: referenceUrl,
-      aspect_ratio: '1:1',
-      resolution: res === '4K' ? '2K' : res
-    }
-  });
-  pushBanana();
   return attempts;
 }
 
 async function handleStudioRephotograph(request, env) {
   const body = await request.json();
   const { image_url, reference_url, scene = 'floor', resolution = '2K' } = body;
-  const prefer = body.prefer === 'banana' || body.prefer === 'fast' ? 'banana' : 'quality';
+  const prefer = body.prefer === 'banana' || body.prefer === 'fast'
+    ? 'banana'
+    : (body.prefer === 'flux' ? 'flux' : 'quality');
   const photozone_type = body.photozone_type === 'easel' ? 'easel' : 'frame';
 
   if (!image_url || !reference_url) {
@@ -1876,10 +1911,14 @@ async function handleStudioRephotograph(request, env) {
 
   for (const attempt of attempts) {
     console.log('[Studio Rephotograph] scene=', scene, 'photozone_type=', photozone_type, 'prefer=', prefer, 'try model=', attempt.model);
-    generateResp = await nordRequest('/media/generate', 'POST', {
-      model: attempt.model,
-      input: attempt.input
-    }, env);
+    try {
+      generateResp = await nordRequest('/media/generate', 'POST', {
+        model: attempt.model,
+        input: attempt.input
+      }, env);
+    } catch (err) {
+      generateResp = { error: { message: err.message || String(err) } };
+    }
 
     if (!generateResp.error && generateResp.id) {
       usedModel = attempt.model;
@@ -2583,11 +2622,14 @@ async function handleCreateProduct(request, env) {
     const data = await request.json();
 
     const photos = Array.isArray(data.photos) ? data.photos : [];
-    const hugeDataUrl = photos.find(u => typeof u === 'string' && u.startsWith('data:'));
+    // Без Cloudinary фото хранятся прямо в товаре как dataURL — это ок, если
+    // они уже сжаты на устройстве. Отклоняем только неадекватно большие файлы.
+    const MAX_DATA_URL_LEN = 700 * 1024;
+    const hugeDataUrl = photos.find(u => typeof u === 'string' && u.startsWith('data:') && u.length > MAX_DATA_URL_LEN);
     if (hugeDataUrl) {
       return json({
         ok: false,
-        error: 'Фото пришли как dataURL (слишком большие для БД). Загрузите их в Cloudinary и сохраните снова.'
+        error: 'Фото слишком большое (без Cloudinary). Сожмите фото и загрузите заново.'
       }, 400);
     }
 
@@ -2652,10 +2694,12 @@ async function handleUpdateProduct(path, request, env) {
       ? (Array.isArray(data.photos) ? data.photos : [])
       : JSON.parse(existing.photos || '[]');
 
-    if (photos.some(u => typeof u === 'string' && u.startsWith('data:'))) {
+    const MAX_DATA_URL_LEN = 700 * 1024;
+    const hugeDataUrlUpdate = photos.find(u => typeof u === 'string' && u.startsWith('data:') && u.length > MAX_DATA_URL_LEN);
+    if (hugeDataUrlUpdate) {
       return json({
         ok: false,
-        error: 'Фото пришли как dataURL. Загрузите в Cloudinary и сохраните снова.'
+        error: 'Фото слишком большое (без Cloudinary). Сожмите фото и загрузите заново.'
       }, 400);
     }
 

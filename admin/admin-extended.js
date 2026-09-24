@@ -1280,19 +1280,31 @@ Object.assign(app, {
   },
 
   async uploadPhoto(file, opts = {}) {
+    // Сжимаем на устройстве перед отправкой — экономит и Cloudinary-трафик,
+    // и место при бесплатном запасном хранении (dataURL в самом товаре).
+    let uploadFile = file;
+    try {
+      if (typeof this.compressImageFile === 'function') {
+        uploadFile = await this.compressImageFile(file);
+      }
+    } catch (e) {
+      console.warn('Сжатие фото не удалось, отправляю оригинал:', e);
+      uploadFile = file;
+    }
+
     // Прямой Cloudinary — даже если cloudinary-patch.js не загрузился
     const cloud = this.cloudinaryCloudName || '';
     const preset = this.cloudinaryUploadPreset || '';
+    const label = file?.name || 'фото';
+    const onProgress = (pct) => {
+      this.showPhotoUploadProgress?.(pct, `Загрузка: ${label} · ${pct}%`);
+      if (typeof opts.onProgress === 'function') opts.onProgress(pct);
+    };
+
     if (cloud && preset && window.CloudinaryUploader?.uploadPhoto) {
       try {
-        const label = file?.name || 'фото';
         this.showPhotoUploadProgress?.(0, `Загрузка: ${label}`);
-        const result = await window.CloudinaryUploader.uploadPhoto(file, cloud, preset, {
-          onProgress: (pct) => {
-            this.showPhotoUploadProgress?.(pct, `Загрузка: ${label} · ${pct}%`);
-            if (typeof opts.onProgress === 'function') opts.onProgress(pct);
-          }
-        });
+        const result = await window.CloudinaryUploader.uploadPhoto(uploadFile, cloud, preset, { onProgress });
         if (result?.ok) this.showPhotoUploadProgress?.(100, 'Готово');
         else this.hidePhotoUploadProgress?.();
         setTimeout(() => this.hidePhotoUploadProgress?.(), result?.ok ? 600 : 0);
@@ -1304,14 +1316,77 @@ Object.assign(app, {
       }
     }
 
+    // Без Cloudinary, но с ключом ImgBB: бесплатный хостинг с публичной
+    // https-ссылкой — подходит и для витрины, и для ИИ-пересъёмки Studio Pro.
+    if (this.imgbbApiKey && window.ImgbbUploader?.uploadPhoto) {
+      try {
+        this.showPhotoUploadProgress?.(0, `Загрузка: ${label}`);
+        const result = await window.ImgbbUploader.uploadPhoto(uploadFile, this.imgbbApiKey, { onProgress });
+        if (result?.ok) this.showPhotoUploadProgress?.(100, 'Готово');
+        else this.hidePhotoUploadProgress?.();
+        setTimeout(() => this.hidePhotoUploadProgress?.(), result?.ok ? 600 : 0);
+        return result;
+      } catch (error) {
+        console.error('ImgBB upload error:', error);
+        this.hidePhotoUploadProgress?.();
+        return { ok: false, error: error.message || 'Ошибка загрузки в ImgBB' };
+      }
+    }
+
+    // Без Cloudinary и без ImgBB: бесплатный запасной путь — Worker сохраняет
+    // сжатое фото как data URL прямо в карточке товара (без AI-пересъёмки).
     const formData = new FormData();
-    formData.append('file', file);
+    formData.append('file', uploadFile);
     const res = await fetch(`${this.workerUrl}/api/upload/photo`, {
       method: 'POST',
       headers: this.authHeaders(),
       body: formData
     });
     return await res.json();
+  },
+
+  // Пережимает фото в браузере (canvas) до ширины maxWidth и качества JPEG.
+  // Держим итоговый файл маленьким — важно и для Cloudinary-трафика, и для
+  // запасного хранения dataURL прямо в товаре.
+  compressImageFile(file, maxWidth = 1000, quality = 0.74) {
+    return new Promise((resolve, reject) => {
+      if (!file || !file.type || !file.type.startsWith('image/')) {
+        resolve(file);
+        return;
+      }
+      const img = new Image();
+      const url = URL.createObjectURL(file);
+      img.onload = () => {
+        URL.revokeObjectURL(url);
+        try {
+          let { width, height } = img;
+          if (width > maxWidth) {
+            height = Math.round(height * (maxWidth / width));
+            width = maxWidth;
+          }
+          const canvas = document.createElement('canvas');
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, width, height);
+          canvas.toBlob((blob) => {
+            if (!blob) { resolve(file); return; }
+            // Если сжатая версия почему-то больше оригинала — берём оригинал.
+            if (blob.size >= file.size) { resolve(file); return; }
+            const name = (file.name || 'photo').replace(/\.[a-zA-Z0-9]+$/, '') + '.jpg';
+            resolve(new File([blob], name, { type: 'image/jpeg' }));
+          }, 'image/jpeg', quality);
+        } catch (e) {
+          URL.revokeObjectURL(url);
+          resolve(file);
+        }
+      };
+      img.onerror = () => {
+        URL.revokeObjectURL(url);
+        resolve(file);
+      };
+      img.src = url;
+    });
   },
 
   // === Form Data Collection ===

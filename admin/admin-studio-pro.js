@@ -793,7 +793,7 @@ Object.assign(app, {
     const referenceUrl = await this.ensureReferenceHttpsUrl();
     const startJob = async (prefer) => {
       let lastErr = null;
-      for (let attempt = 1; attempt <= 3; attempt++) {
+      for (let attempt = 1; attempt <= 2; attempt++) {
         try {
           const res = await fetch(`${this.workerUrl}/api/studio/rephotograph`, {
             method: 'POST',
@@ -815,9 +815,9 @@ Object.assign(app, {
         } catch (err) {
           lastErr = err;
           const net = /failed to fetch|networkerror|load failed|connection/i.test(String(err?.message || err));
-          if (!net || attempt === 3) throw err;
+          if (!net || attempt === 2) throw err;
           console.warn('[Studio Pro] rephotograph fetch retry', attempt, err);
-          if (statusEl) statusEl.textContent = `↻ Сеть сбойнула — повтор ${attempt + 1}/3…`;
+          if (statusEl) statusEl.textContent = `↻ Сеть сбойнула — повтор ${attempt + 1}/2…`;
           await new Promise((r) => setTimeout(r, 800 * attempt));
         }
       }
@@ -832,13 +832,12 @@ Object.assign(app, {
           : '📸 AI переснимает в студии (sunburst → banana)...';
     }
 
-    // 1) quality (sunburst, then gpt/flux). Short poll — if hang/fail → banana with longer wait.
-    const preferFirst = 'quality';
-    let data = await startJob(preferFirst);
-    if (statusEl) {
-      statusEl.textContent = `⏳ Master (${data.model || preferFirst})...`;
-    }
+    // quality (sunburst/gpt). If the request or the job dies — Flux, then banana.
+    const genFailRe = /не удалось сгенерировать|возвращены на баланс|обработка не удалась|модель отклонила|таймаут обработки|failed to fetch|networkerror|load failed|rephotograph http|ошибка rephotograph|не вернул job_id|abort/i;
+    let data;
     try {
+      data = await startJob('quality');
+      if (statusEl) statusEl.textContent = `⏳ Master (${data.model || 'quality'})...`;
       return await this.pollStudioStatusSimple(data.job_id, {
         maxAttempts: 40,
         statusEl,
@@ -846,19 +845,33 @@ Object.assign(app, {
       });
     } catch (err) {
       const msg = String(err?.message || err);
-      const genFail = /не удалось сгенерировать|возвращены на баланс|обработка не удалась|модель отклонила|таймаут обработки/i.test(msg);
       // Do NOT match bare "failed" — that catches "Failed to fetch" (503/CORS) incorrectly
-      if (!genFail) throw err;
-      console.warn('[Studio Pro] quality job failed, fallback banana:', msg);
-      if (statusEl) statusEl.textContent = '↻ sunburst/flux упал/таймаут — fallback nano-banana (до ~5 мин)...';
-      this.toast('Дорогая модель не выдала кадр — пробуем banana', 'info');
-      data = await startJob('banana');
-      if (statusEl) statusEl.textContent = `⏳ Master fallback (${data.model || 'banana'})...`;
-      return await this.pollStudioStatusSimple(data.job_id, {
-        maxAttempts: 100,
-        statusEl,
-        label: data.model || 'banana'
-      });
+      if (!genFailRe.test(msg)) throw err;
+      console.warn('[Studio Pro] quality job failed, fallback flux:', msg);
+      if (statusEl) statusEl.textContent = '↻ sunburst/gpt не выдал кадр — пробуем Flux...';
+      this.toast('Дорогая модель не выдала кадр — пробуем Flux', 'info');
+      try {
+        data = await startJob('flux');
+        if (statusEl) statusEl.textContent = `⏳ Master fallback (${data.model || 'flux'})...`;
+        return await this.pollStudioStatusSimple(data.job_id, {
+          maxAttempts: 50,
+          statusEl,
+          label: data.model || 'flux'
+        });
+      } catch (fluxErr) {
+        const fluxMsg = String(fluxErr?.message || fluxErr);
+        if (!genFailRe.test(fluxMsg)) throw fluxErr;
+        console.warn('[Studio Pro] flux job failed, fallback banana:', fluxMsg);
+        if (statusEl) statusEl.textContent = '↻ Flux не выдал кадр — fallback nano-banana (до ~5 мин)...';
+        this.toast('Flux не выдал кадр — пробуем banana', 'info');
+        data = await startJob('banana');
+        if (statusEl) statusEl.textContent = `⏳ Master fallback (${data.model || 'banana'})...`;
+        return await this.pollStudioStatusSimple(data.job_id, {
+          maxAttempts: 100,
+          statusEl,
+          label: data.model || 'banana'
+        });
+      }
     }
   },
 

@@ -25,6 +25,7 @@
     if (/серд[её]?ц|heart/.test(t)) return 'heart';
     if (/цифр/.test(t)) return 'digit';
     if (/коробк|сюрприз|box/.test(t)) return 'box';
+    if (/тассел|tassel/.test(t) && !/бабл|bubble|стеклян/.test(t)) return 'tassel';
     if (/фотозон|мольберт|каркас/.test(t)) return 'photozone';
     if (/фигур|персонаж|мишк|зайц|единорог/.test(t)) return 'figure';
     if (/напольн|стойк/.test(t)) return 'floor';
@@ -708,9 +709,6 @@
           (!B ? '<button type="button" class="' + (H === -1 ? 'selected' : '') + '" data-act="delta" data-v="-1" aria-pressed="' + (H === -1) + '"><strong>Нет, оставить одну</strong><small>−900 ₽</small></button>' : '') +
           '</div><p class="digit-count-note">' + (B ? 'В гелиевую композицию можно добавить не более двух цифр.' : 'При отказе от второй цифры стоимость уменьшится на 900 ₽.') + '</p></fieldset>';
       }
-      if (needDigit) {
-        inner += '<p class="digit-count-note">Выберите ' + (U === 2 ? 'обе цифры' : 'цифру') + ', чтобы оформить заказ.</p>';
-      }
       paramsDetails = '<section class="product-configurator product-step is-open" id="product-step-params" data-details="params">' +
         '<header class="config-title"><div><strong>1. Параметры</strong><small>' + esc(paramsTitle()) + '</small></div></header>' +
         '<div class="product-step-content">' + inner + '</div></section>';
@@ -730,7 +728,7 @@
       '<div class="order-date-row" role="group" aria-label="Дата и время">' +
       '<div class="order-date-field">' + calendarHtml() + '</div>' +
       '<div class="order-time-field">' + timeHtml() + '</div></div>' +
-      '<fieldset class="fulfillment-field' + (!fulfilled ? ' needs-pick' : '') + '"><legend>Как получить заказ?</legend><div class="fulfillment-options">' +
+      '<fieldset class="fulfillment-field' + (!fulfilled ? ' needs-pick' : '') + '"><legend>Как получить</legend><div class="fulfillment-options">' +
       '<button type="button" class="' + (fulfilled === 'pickup' ? 'selected' : '') + '" data-act="ful" data-v="pickup" aria-label="Выбрать самовывоз, бесплатно" aria-pressed="' + (fulfilled === 'pickup') + '"><span class="ful-icon ful-pickup" aria-hidden="true"><img src="icons/ful-pickup.webp?v=4" alt="" width="40" height="40"/></span><strong>Самовывоз</strong><small>Бесплатно</small></button>' +
       '<button type="button" class="' + (fulfilled === 'armavir' ? 'selected' : '') + '" data-act="ful" data-v="armavir" aria-label="Выбрать доставку по Армавиру, ' + cityRub() + '" aria-pressed="' + (fulfilled === 'armavir') + '"><span class="ful-icon ful-city" aria-hidden="true"><img src="icons/ful-city.webp?v=4" alt="" width="40" height="40"/></span><strong>По городу</strong><small>+' + cityRub() + '</small></button>' +
       '<button type="button" class="' + (fulfilled === 'nearby' ? 'selected' : '') + '" data-act="ful" data-v="nearby" aria-label="Выбрать доставку за город, стоимость рассчитывается отдельно" aria-pressed="' + (fulfilled === 'nearby') + '"><span class="ful-icon ful-far" aria-hidden="true"><img src="icons/ful-far.webp?v=4" alt="" width="40" height="40"/></span><strong>За город</strong><small>Рассчитаем</small></button>' +
@@ -788,7 +786,7 @@
         : '') +
       '</div><div class="product-page-info">' +
       '<div class="product-page-tags">' +
-      '<span class="product-tag">' + esc(p.category || 'Композиция Вигшарм') + '</span>' +
+      '<span class="product-tag">' + esc(p.category || 'Композиция') + '</span>' +
       (p.available_on_request ? '<span class="product-tag product-tag-request">Под заказ</span>' : '') +
       (p.needs_advance_order ? '<span class="product-tag product-tag-advance">Заказ за 1–2 дня</span>' : '') +
       '</div>' +
@@ -834,12 +832,12 @@
           var img = k ? '<img src="' + window.vigImage(k) + '" data-key="' + esc(k) + '" alt="' + esc(o.title) + '" loading="lazy" decoding="async" width="800" height="800"/>' : '';
           return '<a class="catalog-card color-' + ((i + 1) % 5) + '" href="product.html?slug=' + encodeURIComponent(o.slug || o.id) + '" aria-label="Подробнее: ' + esc(o.title) + '">' +
             '<span class="catalog-card-image">' + img + '</span>' +
-            '<span class="catalog-card-copy"><small>' + esc(o.category || 'Композиция Вигшарм') + '</small><strong>' + esc(o.title) + '</strong>' +
+            '<span class="catalog-card-copy"><small>' + esc(o.category || 'Композиция') + '</small><strong>' + esc(o.title) + '</strong>' +
             '<b><em>' + Number(o.price).toLocaleString('ru-RU') + ' ₽</em><span class="related-cta">Подробнее</span></b></span></a>';
         }).join('') + '</div>'
         : '<div class="related-custom-card"><div><strong>Сделаем под ваш праздник</strong><p>Напишите повод и бюджет — предложим идеи.</p></div><button type="button" data-act="order">Обсудить идею</button></div>') +
       '</section>')) +
-      '<aside class="mobile-order-bar' + (isSubmitReady() ? ' is-ready' : '') + (datePickerOpen || timePickerOpen ? ' is-away' : '') + '" aria-label="Отправить заявку"><div class="mobile-order-price"><small>' + (isSubmitReady() ? 'Заявка на сайте' : (fulfilled === 'nearby' ? 'От' : fulfilled ? 'Итого' : 'Цена')) + '</small><strong>' + (priceFrom() ? 'от ' : '') + T.toLocaleString('ru-RU') + ' ₽</strong></div>' +
+      '<aside class="mobile-order-bar' + (isSubmitReady() ? ' is-ready' : '') + (datePickerOpen || timePickerOpen ? ' is-away' : '') + '" aria-label="Отправить заявку"><div class="mobile-order-price"><small>' + (isSubmitReady() ? 'Можно отправить' : (fulfilled === 'nearby' ? 'От' : fulfilled ? 'Итого' : 'Цена')) + '</small><strong>' + (priceFrom() ? 'от ' : '') + T.toLocaleString('ru-RU') + ' ₽</strong></div>' +
       '<div class="mobile-order-actions">' + mobileBarActions + '</div></aside>' +
       '</main>';
 
@@ -885,6 +883,16 @@
       if (!el || !el.scrollIntoView) return;
       try { el.scrollIntoView({ behavior: 'smooth', block: 'center' }); } catch (e) { try { el.scrollIntoView(); } catch (_) {} }
     });
+  }
+
+  function revealOpenCal(box) {
+    if (!box || !box.classList.contains('is-open')) return;
+    var cal = box.querySelector('.order-cal');
+    if (!cal) return;
+    setTimeout(function () {
+      try { cal.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+      catch (e) { try { cal.scrollIntoView(); } catch (_) {} }
+    }, 160);
   }
 
   /** Re-render when a gated step should appear/disappear; keep typing focus when possible. */
@@ -1052,6 +1060,7 @@
           if (box) {
             box.classList.toggle('is-open', datePickerOpen);
             el.setAttribute('aria-expanded', datePickerOpen);
+            if (datePickerOpen) revealOpenCal(box);
           }
           syncOrderBar();
         });
@@ -1095,6 +1104,7 @@
           if (box) {
             box.classList.toggle('is-open', timePickerOpen);
             el.setAttribute('aria-expanded', timePickerOpen);
+            if (timePickerOpen) revealOpenCal(box);
           }
           syncOrderBar();
         });

@@ -4139,3 +4139,42 @@ html body main#main-content.catalog-page .catalog-group-nav.catalog-sections > b
   border-color:transparent!important;
 }
 html body main#main-content.catalog-page .catalog-group-nav.catalog-sections > button.is-on .pick-disc-ring{border-color:#ff6b5a!important}
+
+/* Calm icon hover — no looping motion. Delivery cards, delivery steps, home how-to. */
+html body.delivery-page main#main-content .info-card-icon img,
+html body.delivery-page main#main-content .info-hero-emoji img,
+html body.price-page .info-hero-emoji img,
+html body.delivery-page main#main-content .info-step-pic,
+html body main#main-content .step-icon img{
+  transition:transform .22s ease!important;
+}
+html body.delivery-page main#main-content article.info-card:hover .info-card-icon img,
+html body.delivery-page main#main-content .info-steps>div:hover .info-step-pic,
+html body main#main-content .step-card:hover .step-icon img{
+  transform:translateY(-3px) scale(1.05)!important;
+}
+html body.delivery-page main#main-content .info-steps>div{
+  display:grid!important;
+  justify-items:start!important;
+  align-content:start!important;
+}
+html body.delivery-page main#main-content .info-step-pic{
+  width:56px!important;
+  height:56px!important;
+  object-fit:contain!important;
+  margin:0 0 10px!important;
+  display:block!important;
+}
+@media (prefers-reduced-motion:reduce){
+  html body.delivery-page main#main-content .info-card-icon img,
+  html body.delivery-page main#main-content .info-hero-emoji img,
+  html body.price-page .info-hero-emoji img,
+  html body.delivery-page main#main-content .info-step-pic,
+  html body main#main-content .step-icon img,
+  html body.delivery-page main#main-content article.info-card:hover .info-card-icon img,
+  html body.delivery-page main#main-content .info-steps>div:hover .info-step-pic,
+  html body main#main-content .step-card:hover .step-icon img{
+    transform:none!important;
+    transition:none!important;
+  }
+}

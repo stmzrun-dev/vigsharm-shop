@@ -402,10 +402,13 @@
     'Коробка-сюрприз': 'images/ready/what-box.webp?v=20260924',
     'Фотозона': 'images/ready/what-photozone.webp?v=20260924',
     'Цветы из шаров': 'images/ready/what-flowers.webp?v=20260924',
-    'Гендер-пати': 'images/idea-gender.jpg?v=5',
+    'Гендер-пати': 'images/idea-gender.webp?v=20260924',
     'Арки': 'images/ready/what-arch.webp?v=20260924',
     'Шар-сюрприз': 'images/ready/what-surprise.webp?v=20260924',
     'Крафтовый букет': 'images/ready/what-kraft.webp?v=20260924',
+    'На выписку': 'images/idea-discharge.webp?v=20260924',
+    'Юбилей': 'images/idea-jubilee.webp?v=20260924',
+    '1 годик': 'images/idea-1year.webp?v=20260924',
     'День рождения': ''
   };
   var WHO_PICKS = [
@@ -570,7 +573,7 @@
     search.hidden = group !== 'characters' || !!unitStep;
     document.getElementById('catalog-pick-back').textContent = (unitStep === 'who' || unitStep === 'latex') ? 'Все шары' : (unitStep ? 'Назад' : 'Все');
     if (group === 'ready') {
-      title = 'Категории';
+      title = 'Кому и что';
       lead = '';
       var who = [
         ['Для девочки', 'images/who/who-girl.webp?v=20260924'],
@@ -603,25 +606,25 @@
       }).join('') + '</div>';
     } else if (group === 'unit' && unitStep === 'who') {
       title = 'Кому шар?';
-      lead = 'Список без картинок.';
+      lead = '';
       html = '<div class="pick-choices">' + WHO_PICKS.map(function (row) {
         var on = sheetDraft === row[1] || sheetDraft === row[0];
         return '<button type="button" class="' + (on ? 'is-on' : '') + '" data-pick="' + esc(row[1]) + '">' + esc(row[0]) + '</button>';
       }).join('') + '</div>';
     } else if (group === 'unit') {
       title = 'Какие шары?';
-      lead = 'Сначала вид. Если нужно — можно показать все шары этого вида.';
+      lead = 'Выберите вид шара';
       html = photoButtons(UNIT_TYPES, false);
     } else if (group === 'characters') {
       title = 'Кого позовём?';
-      lead = 'Сначала герои с главной, ниже остальные из ассортимента.';
+      lead = 'Сначала те, кого чаще заказывают';
       var heroes = HERO_PHOTOS.filter(function (h) { return !sheetQuery || norm(h[0]).indexOf(sheetQuery) >= 0; });
       var known = {};
       HERO_PHOTOS.forEach(function (h) { known[norm(h[0])] = 1; });
       var extra = subcatList().filter(function (name) {
         return !known[norm(name)] && (!sheetQuery || norm(name).indexOf(sheetQuery) >= 0);
       });
-      html = '<p class="pick-kicker">С главной</p>' + photoButtons(heroes, false);
+      html = '<p class="pick-kicker">Часто заказывают</p>' + photoButtons(heroes, false);
       if (extra.length) {
         html += '<p class="pick-kicker">Ещё в ассортименте</p><div class="pick-more">' + extra.map(function (name) {
           return '<button type="button" class="' + (sheetDraft === name ? 'is-on' : '') + '" data-pick="' + esc(name) + '">' + esc(name) + '</button>';
@@ -1127,7 +1130,7 @@
       '</div>';
     var budget = '';
     if (priceIdx !== 0) {
-      budget = '<div class="catalog-active-budget" role="status"><span><img class="catalog-budget-ico" src="icons/budget-ruble.webp?v=1" alt="" width="36" height="36" decoding="async"/> Бюджет: <strong>' + esc(PRICES[priceIdx].label) + '</strong></span><button type="button" data-clearprice>Показать все цены ×</button></div>';
+      budget = '<div class="catalog-active-budget" role="status"><span><img class="catalog-budget-ico" src="icons/budget-ruble.webp?v=1" alt="" width="36" height="36" decoding="async"/> Бюджет: <strong>' + esc(PRICES[priceIdx].label) + '</strong></span><button type="button" data-clearprice>Сбросить бюджет</button></div>';
     }
     var collections = '';
     var showCollections = false;
@@ -1173,7 +1176,7 @@
       body = '<div class="catalog-empty"><h3>Пока ничего не нашли</h3><p>' + emptyLead + '</p>' +
         '<div class="catalog-empty-actions"><button type="button" class="secondary" data-reset>Сбросить поиск и фильтры</button><button type="button" data-help>Помочь с выбором</button></div></div>';
       if (sugg.length) {
-        body += '<section class="catalog-empty-suggestions" aria-labelledby="empty-suggestions-title"><div><p class="eyebrow">Возможно, вам подойдёт</p><h3 id="empty-suggestions-title">Популярные варианты из этого раздела</h3></div>' +
+        body += '<section class="catalog-empty-suggestions" aria-labelledby="empty-suggestions-title"><div><p class="eyebrow">Возможно, вам подойдёт</p><h3 id="empty-suggestions-title">Посмотрите ещё</h3></div>' +
           '<div class="catalog-grid">' + sugg.map(cardHtml).join('') + '</div></section>';
       }
     }

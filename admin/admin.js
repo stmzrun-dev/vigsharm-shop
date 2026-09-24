@@ -102,6 +102,7 @@ const app = {
   adminApiKey: '',
   cloudinaryCloudName: '',
   cloudinaryUploadPreset: '',
+  imgbbApiKey: '',
 
   // Заголовок авторизации для admin-only запросов к Worker (создание/изменение/удаление
   // товаров, загрузка фото, ИИ-генерация, Studio Pro). Публичное чтение каталога
@@ -995,6 +996,7 @@ const app = {
       this.adminApiKey = settings.adminApiKey || '';
       this.cloudinaryCloudName = settings.cloudinaryCloudName || '';
       this.cloudinaryUploadPreset = settings.cloudinaryUploadPreset || '';
+      this.imgbbApiKey = settings.imgbbApiKey || '';
 
       // Миграция: удаляем старый небезопасный ключ
       if (settings.nordrouterKey) {
@@ -1016,6 +1018,7 @@ const app = {
       setVal('admin-api-key', this.adminApiKey);
       setVal('cloudinary-cloud-name', this.cloudinaryCloudName);
       setVal('cloudinary-upload-preset', this.cloudinaryUploadPreset);
+      setVal('imgbb-api-key', this.imgbbApiKey);
     } catch (e) {}
   },
 
@@ -1024,6 +1027,7 @@ const app = {
     this.adminApiKey = document.getElementById('admin-api-key')?.value.trim() || '';
     this.cloudinaryCloudName = document.getElementById('cloudinary-cloud-name')?.value.trim() || '';
     this.cloudinaryUploadPreset = document.getElementById('cloudinary-upload-preset')?.value.trim() || '';
+    this.imgbbApiKey = document.getElementById('imgbb-api-key')?.value.trim() || '';
     try {
       // Важно: merge, а не замена объекта — иначе Cloudinary/эталоны сбрасываются
       this.writeAdminSettings({
@@ -1031,6 +1035,7 @@ const app = {
         adminApiKey: this.adminApiKey,
         cloudinaryCloudName: this.cloudinaryCloudName,
         cloudinaryUploadPreset: this.cloudinaryUploadPreset,
+        imgbbApiKey: this.imgbbApiKey,
         studioReferenceBackgroundUrl: this.studioReferenceBackgroundUrl || '',
         studioReferenceHandUrl: this.studioReferenceHandUrl || '',
         studioReferenceHandVersion: this.studioReferenceHandVersion || ''
@@ -1050,6 +1055,7 @@ const app = {
     this.adminApiKey = '';
     this.cloudinaryCloudName = '';
     this.cloudinaryUploadPreset = '';
+    this.imgbbApiKey = '';
     this.studioReferenceBackgroundUrl = '';
     this.studioReferenceHandUrl = '';
     this.studioReferenceHandVersion = '';
@@ -1684,8 +1690,13 @@ const app = {
       data.photos = this.currentProduct.photos.map(p => p.url).filter(Boolean);
       data.main_photo = data.photos[0] || null;
 
-      if (data.photos.some(u => String(u).startsWith('data:'))) {
-        throw new Error('Фото не загружены в облако (dataURL). Повторите Studio Pro или загрузите фото заново.');
+      // data: URL — это нормальный запасной путь без Cloudinary (Worker хранит
+      // сжатое фото прямо в товаре). Отклоняем только совсем огромные файлы —
+      // они раздуют карточку и базу товаров.
+      const MAX_DATA_URL_LEN = 700 * 1024; // ~500 КБ реального файла в base64
+      const tooBig = data.photos.find(u => String(u).startsWith('data:') && u.length > MAX_DATA_URL_LEN);
+      if (tooBig) {
+        throw new Error('Фото слишком большое для сохранения без Cloudinary. Уменьшите фото (сжатие уже применяется автоматически) и попробуйте снова.');
       }
 
       this.renderPhotos();

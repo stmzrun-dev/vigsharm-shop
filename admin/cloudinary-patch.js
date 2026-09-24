@@ -18,48 +18,82 @@
     app.cloudinaryUploadPreset = app.cloudinaryUploadPreset || '';
 
     app.uploadPhoto = async function(file, opts = {}) {
-      const uploader = window.CloudinaryUploader;
-      if (!uploader || typeof uploader.uploadPhoto !== 'function') {
-        return {
-          ok: false,
-          error: 'Модуль Cloudinary не загружен. Обновите страницу (Ctrl+F5).'
-        };
-      }
-      if (!this.cloudinaryCloudName || !this.cloudinaryUploadPreset) {
-        return {
-          ok: false,
-          error: 'Cloudinary не настроен. Перейдите в Настройки и укажите Cloud Name и Upload Preset.'
-        };
-      }
       if (!file) {
         return { ok: false, error: 'Нет файла для загрузки' };
       }
 
+      // Сжимаем перед отправкой — и для Cloudinary, и для запасного пути.
+      let uploadFile = file;
       try {
-        const label = file.name || 'фото';
-        this.showPhotoUploadProgress?.(0, `Загрузка: ${label}`);
-        const result = await uploader.uploadPhoto(
-          file,
-          this.cloudinaryCloudName,
-          this.cloudinaryUploadPreset,
-          {
-            onProgress: (pct) => {
-              this.showPhotoUploadProgress?.(pct, `Загрузка: ${label} · ${pct}%`);
-              if (typeof opts.onProgress === 'function') opts.onProgress(pct);
-            }
-          }
-        );
-        if (result?.ok) this.showPhotoUploadProgress?.(100, 'Готово');
-        else this.hidePhotoUploadProgress?.();
-        setTimeout(() => this.hidePhotoUploadProgress?.(), result?.ok ? 600 : 0);
-        return result;
+        if (typeof this.compressImageFile === 'function') {
+          uploadFile = await this.compressImageFile(file);
+        }
+      } catch (e) {
+        console.warn('Сжатие фото не удалось, отправляю оригинал:', e);
+        uploadFile = file;
+      }
+
+      const cloudinaryUploader = window.CloudinaryUploader;
+      const cloudReady = !!(this.cloudinaryCloudName && this.cloudinaryUploadPreset && cloudinaryUploader?.uploadPhoto);
+      const imgbbReady = !cloudReady && !!(this.imgbbApiKey && window.ImgbbUploader?.uploadPhoto);
+
+      const label = file.name || 'фото';
+      const onProgress = (pct) => {
+        this.showPhotoUploadProgress?.(pct, `Загрузка: ${label} · ${pct}%`);
+        if (typeof opts.onProgress === 'function') opts.onProgress(pct);
+      };
+
+      if (cloudReady) {
+        try {
+          this.showPhotoUploadProgress?.(0, `Загрузка: ${label}`);
+          const result = await cloudinaryUploader.uploadPhoto(
+            uploadFile, this.cloudinaryCloudName, this.cloudinaryUploadPreset, { onProgress }
+          );
+          if (result?.ok) this.showPhotoUploadProgress?.(100, 'Готово');
+          else this.hidePhotoUploadProgress?.();
+          setTimeout(() => this.hidePhotoUploadProgress?.(), result?.ok ? 600 : 0);
+          return result;
+        } catch (error) {
+          console.error('Cloudinary upload error:', error);
+          this.hidePhotoUploadProgress?.();
+          return { ok: false, error: error.message || 'Ошибка загрузки в Cloudinary' };
+        }
+      }
+
+      // Без Cloudinary, но с ключом ImgBB: бесплатный хостинг с настоящей
+      // публичной https-ссылкой — подходит и для витрины, и для ИИ-пересъёмки
+      // Studio Pro (NordRouter скачивает фото по этой ссылке).
+      if (imgbbReady) {
+        try {
+          this.showPhotoUploadProgress?.(0, `Загрузка: ${label}`);
+          const result = await window.ImgbbUploader.uploadPhoto(uploadFile, this.imgbbApiKey, { onProgress });
+          if (result?.ok) this.showPhotoUploadProgress?.(100, 'Готово');
+          else this.hidePhotoUploadProgress?.();
+          setTimeout(() => this.hidePhotoUploadProgress?.(), result?.ok ? 600 : 0);
+          return result;
+        } catch (error) {
+          console.error('ImgBB upload error:', error);
+          this.hidePhotoUploadProgress?.();
+          return { ok: false, error: error.message || 'Ошибка загрузки в ImgBB' };
+        }
+      }
+
+      // Нет ни Cloudinary, ни ImgBB: последний запасной путь — Worker сохраняет
+      // сжатое фото как data URL прямо в товаре. Это НЕ публичная https-ссылка,
+      // поэтому ИИ-пересъёмка (Studio Pro) так работать не может — можно только
+      // сохранить фото как есть, без AI-фона.
+      try {
+        const formData = new FormData();
+        formData.append('file', uploadFile);
+        const res = await fetch(`${this.workerUrl}/api/upload/photo`, {
+          method: 'POST',
+          headers: this.authHeaders(),
+          body: formData
+        });
+        return await res.json();
       } catch (error) {
-        console.error('Upload error:', error);
-        this.hidePhotoUploadProgress?.();
-        return {
-          ok: false,
-          error: error.message || 'Ошибка загрузки фото'
-        };
+        console.error('Fallback upload error:', error);
+        return { ok: false, error: error.message || 'Ошибка загрузки фото' };
       }
     };
 

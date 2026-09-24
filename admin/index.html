@@ -657,6 +657,18 @@
         <small class="text-muted">Settings → Upload → Upload Presets → Create unsigned</small>
       </div>
 
+      <div class="divider"></div>
+      <h3>🖼️ ImgBB (бесплатный запасной хостинг фото)</h3>
+      <div class="form-group">
+        <label>ImgBB API Key</label>
+        <input type="text" id="imgbb-api-key" placeholder="вставьте ключ с api.imgbb.com" autocomplete="off"/>
+        <small class="text-muted">
+          Бесплатно, без карты: откройте <a href="https://api.imgbb.com/" target="_blank" rel="noopener">api.imgbb.com</a>,
+          войдите и скопируйте ключ. Если заполнено это поле, а Cloudinary — нет,
+          новые фото (в том числе для Studio Pro ИИ) загружаются сюда вместо Cloudinary.
+        </small>
+      </div>
+
       <button class="btn primary" onclick="app.saveSettings()">Сохранить</button>
       <button class="btn danger mt-2" onclick="app.clearSettings()">Очистить все</button>
 
@@ -830,7 +842,8 @@
 <script src="admin.js?v=unit-card-5"></script>
 <script src="admin-extended.js?v=unit-card-7"></script>
 <script src="cloudinary-upload.js?v=cloud-fix-2"></script>
-<script src="cloudinary-patch.js?v=settings-merge-2"></script>
+<script src="imgbb-upload.js?v=1"></script>
+<script src="cloudinary-patch.js?v=imgbb-fallback-1"></script>
 <script src="admin-studio-pro.js?v=unit-card-6"></script>
 <script src="admin-ai.js?v=foil-edit-1"></script>
 <script src="admin-reference-background.js"></script>

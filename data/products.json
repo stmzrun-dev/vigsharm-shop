@@ -2,6 +2,48 @@
   "ok": true,
   "products": [
     {
+      "id": "0e2e4772-b936-4efa-b194-3df7d581c31c",
+      "title": "Романтичный вопрос",
+      "article": "BOX-015",
+      "price": 3800,
+      "short_description": "Белая коробка с романтичной надписью, подарок с бантом и пять красных фольгированных сердец.",
+      "full_description": "Коробка-сюрприз с трогательной надписью «Бубочка, как тебя можно не любить?», красной лентой и букетом из пяти фольгированных сердец. Внутри — подарок с бантом.",
+      "composition": [
+        "5 фольгированных сердец",
+        "коробка 70x70x70 с индивидуальной надписью и декором"
+      ],
+      "category": "Коробка-сюрприз",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Коробка-сюрприз с красными сердцами — Армавир | VigSharm",
+      "seo_description": "Романтичная коробка-сюрприз с надписью и пятью фольгированными сердцами. Идеальный подарок для признания в чувствах. Доставка в Армавире.",
+      "slug": "romantichnyj-vopros",
+      "scene": "floor",
+      "tags": [
+        "Коробка-сюрприз"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790234527/vigsharm-products/s9ikplfx9qyngvpilp5u.webp"
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790234578/vigsharm-products/ou3lh5l1vjgkfmgjpcz1.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790234578/vigsharm-products/ou3lh5l1vjgkfmgjpcz1.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-24T07:24:21.998Z",
+      "updated_at": "2026-09-24T07:24:21.998Z"
+    },
+    {
       "id": "bb523f88-2081-4a4f-85c5-29f0eca39b1c",
       "title": "ходячая фигура, сердце, звезда, коробка, 2 шара ",
       "article": "DG-009",

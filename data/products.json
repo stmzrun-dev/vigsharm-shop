@@ -2,6 +2,386 @@
   "ok": true,
   "products": [
     {
+      "id": "0b039025-fcf4-46c8-9f0e-f43eaf7b2d10",
+      "title": "Золотая дата",
+      "article": "BOX-048",
+      "price": 5740,
+      "short_description": "Коробка-сюрприз с золотыми цифрами и фонтаном из хромированных шаров в чёрно-золотой гамме.",
+      "full_description": "Элегантная композиция с крупными фольгированными цифрами золотого цвета и коробкой с индивидуальной надписью. Дополнена фонтаном из хромированных шаров золотого и чёрного оттенков.",
+      "composition": [
+        "коробка 70x70x70 с индивидуальной надписью и декором",
+        "2 цифры",
+        "6 хромированных шаров",
+        "4 латексных шара"
+      ],
+      "category": "Коробка-сюрприз",
+      "character": null,
+      "age_group": "Для детей",
+      "budget": "5 000–8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Коробка-сюрприз с золотыми цифрами и шарами в Армавире",
+      "seo_description": "Коробка-сюрприз с фольгированными цифрами и фонтаном из хромированных шаров. Чёрно-золотая композиция с индивидуальной надписью.",
+      "slug": "zolotaya-data",
+      "scene": "floor",
+      "tags": [
+        "Коробка-сюрприз"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/61c0a0b9-5a34-4e36-a619-f27ebdd62dd5.jpg",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 2
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/933c94cb-2ef0-489f-92bd-767889f4d311.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/933c94cb-2ef0-489f-92bd-767889f4d311.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-24T22:02:47.888Z",
+      "updated_at": "2026-09-24T22:02:47.888Z"
+    },
+    {
+      "id": "48b3b4ec-d3b1-4625-b414-78684c17c084",
+      "title": "Жирафья история",
+      "article": "BOX-047",
+      "price": 7150,
+      "short_description": "Коробка-сюрприз с жирафом, стеклянным баблом и фонтаном из шаров в жёлто-зелёной гамме.",
+      "full_description": "Напольная композиция с белой коробкой, украшенной жирафами, фольгированной фигурой жирафа и стеклянным баблом с надписью. Фонтан из жёлтых, зелёных и хромированных шаров с принтом под жирафа дополняет композицию.",
+      "composition": [
+        "коробка 70x70x70 с индивидуальной надписью и декором",
+        "фольгированная фигура жирафа",
+        "стеклянный баблс с надписью и конфетти",
+        "2 шара с рисунком",
+        "2 шара хром",
+        "6 шаров"
+      ],
+      "category": "Коробка-сюрприз",
+      "character": "Жираф",
+      "age_group": "Для малышей",
+      "budget": "5 000–8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Коробка-сюрприз с жирафом на 1 годик в Армавире",
+      "seo_description": "Коробка-сюрприз с фигурой жирафа, стеклянным баблом и фонтаном шаров в жёлто-зелёной гамме. Доставка воздушных шаров в Армавире.",
+      "slug": "zhirafya-istoriya",
+      "scene": "floor",
+      "tags": [
+        "Коробка-сюрприз"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/f3addd29-3026-494f-89d1-72f4979483c9.jpg"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/25413d19-24ab-4883-8da4-215fc3cfce5d.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/25413d19-24ab-4883-8da4-215fc3cfce5d.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-24T21:55:18.714Z",
+      "updated_at": "2026-09-24T21:55:18.714Z"
+    },
+    {
+      "id": "3e6e3485-187a-45cf-abf2-490c015cb31f",
+      "title": "Лучшему из мужчин",
+      "article": "BOX-046",
+      "price": 9660,
+      "short_description": "Чёрно-серебряная композиция с коробкой, баблсом с надписью и кубиками LOVE.",
+      "full_description": "Элегантная композиция в чёрно-серебряной гамме. В центре — коробка с надписью и декором, рядом стеклянный баблс с конфетти, стильные кубики с буквами и фонтан из хромированных и латексных шаров.",
+      "composition": [
+        "коробка 70x70x70 с индивидуальной надписью и декором",
+        "стеклянный баблс с конфетти и надписью",
+        "4 кубика с шариками",
+        "3 круга",
+        "шар с конфетти",
+        "2 шара хром",
+        "3 шара"
+      ],
+      "category": "Коробка-сюрприз",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "от 8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Коробка-сюрприз для мужчины в Армавире — VigSharm",
+      "seo_description": "Элегантная чёрно-серебряная коробка-сюрприз с баблсом, кубиками LOVE и фонтаном хромированных шаров. Стильный подарок для мужчины.",
+      "slug": "luchshemu-iz-muzhchin",
+      "scene": "floor",
+      "tags": [
+        "Коробка-сюрприз"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/4a5dda95-ca9d-4016-b34a-32f15ef8bf7d.jpg"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/2aeea236-5640-4e31-9404-1820a9259f58.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/2aeea236-5640-4e31-9404-1820a9259f58.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-24T21:51:30.880Z",
+      "updated_at": "2026-09-24T21:51:30.880Z"
+    },
+    {
+      "id": "31165ad6-c69c-454f-8f0c-3bd467cde7df",
+      "title": "Лиловое настроение",
+      "article": "BOX-045",
+      "price": 6140,
+      "short_description": "Фиолетовая коробка с шарами, баблс и сердцами в нежных лавандовых оттенках.",
+      "full_description": "Фиолетовая коробка с персональной надписью, украшенная белыми сердечками. Композицию дополняют стеклянный баблс с конфетти и надписью, фольгированные сердца и хромированные шары в сиреневых тонах.",
+      "composition": [
+        "коробка 70x70x70 с индивидуальной надписью и декором",
+        "стеклянный баблс с конфетти и надписью",
+        "2 фольгированных сердца",
+        "3 хромированных шара",
+        "5 латексных шаров"
+      ],
+      "category": "Коробка-сюрприз",
+      "character": null,
+      "age_group": "Для детей",
+      "budget": "5 000–8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Сиреневый восторг — коробка-сюрприз с шарами в Армавире",
+      "seo_description": "Фиолетовая коробка-сюрприз с шарами, баблс и сердцами в лавандовых оттенках. Персональная надпись и стильный декор. Доставка по Армавиру.",
+      "slug": "sirenevyy-vostorg-2",
+      "scene": "floor",
+      "tags": [
+        "Коробка-сюрприз"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/fe699a14-1e61-4619-92be-b5f50db0a8c2.jpg"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/b48e07e4-6403-494d-8654-dcc9369368fb.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/b48e07e4-6403-494d-8654-dcc9369368fb.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-24T21:40:42.370Z",
+      "updated_at": "2026-09-24T21:40:42.370Z"
+    },
+    {
+      "id": "45201f60-92fd-4e1e-94d8-bcab4b2bad57",
+      "title": "Цветочная фея",
+      "article": "BOX-044",
+      "price": 6080,
+      "short_description": "Коробка-сюрприз с фольгированной феей в венке, цифрой и напольными композициями из шаров.",
+      "full_description": "Коробка с персонализированной надписью, декорированная золотым бантом. Рядом фольгированная фигура феи в цветочном венке и розовая цифра, две напольные композиции из розовых, белых и золотых шаров.",
+      "composition": [
+        "коробка 70x70x70 с индивидуальной надписью и декором",
+        "2 напольные композиции",
+        "2 хромированных шара",
+        "3 шара"
+      ],
+      "category": "Коробка-сюрприз",
+      "character": "Фея",
+      "age_group": "Для детей",
+      "budget": "5 000–8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Коробка-сюрприз с феей и цифрой — Армавир | VigSharm",
+      "seo_description": "Коробка-сюрприз с фольгированной феей в венке, цифрой и композициями из розовых, белых и золотых шаров. Доставка в Армавире.",
+      "slug": "tsvetochnaya-feya",
+      "scene": "floor",
+      "tags": [
+        "Коробка-сюрприз"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/1f84f3e8-30dd-4e6e-8a11-762a9ca86715.jpg",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/71ae31fb-2599-4e43-bb3a-d78cdc1dbed3.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/71ae31fb-2599-4e43-bb3a-d78cdc1dbed3.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-24T21:38:47.767Z",
+      "updated_at": "2026-09-24T21:38:47.767Z"
+    },
+    {
+      "id": "e166d674-96df-47d4-a28a-3f44fc30f807",
+      "title": "Серебряный юбилей",
+      "article": "BOX-043",
+      "price": 5660,
+      "short_description": "Коробка-сюрприз с серебряными цифрами и элегантной композицией из серо-голубых шаров.",
+      "full_description": "Стильная коробка с персональной надписью, крупные серебряные фольгированные цифры и воздушная композиция из хромированных и серо-голубых шаров. Сдержанная элегантность для важной даты.",
+      "composition": [
+        "коробка 70x70x70 с индивидуальной надписью и декором",
+        "2 цифры",
+        "4 хромированных шара",
+        "6 латексных шаров"
+      ],
+      "category": "Коробка-сюрприз",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "5 000–8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Коробка-сюрприз с шарами на юбилей 50 лет в Армавире",
+      "seo_description": "Элегантная коробка-сюрприз с серебряными цифрами и серо-голубыми шарами. Стильное оформление юбилея. Доставка по Армавиру.",
+      "slug": "serebryanyy-yubiley",
+      "scene": "floor",
+      "tags": [
+        "Коробка-сюрприз"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/c5e136e6-f0a9-4925-88c5-7f47e761114c.jpg",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 2
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/8739f343-7f31-472f-9e4c-73e7f6ac2ca2.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/8739f343-7f31-472f-9e4c-73e7f6ac2ca2.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-24T21:36:59.759Z",
+      "updated_at": "2026-09-24T21:36:59.759Z"
+    },
+    {
+      "id": "6ae940ee-5702-42f9-9c8c-4d3ff705b4cb",
+      "title": "Крутой кот",
+      "article": "BOX-042",
+      "price": 8020,
+      "short_description": "Синяя коробка с фигурой кота в солнечных очках, оранжевыми шарами и белой звездой.",
+      "full_description": "Яркая композиция с коробкой-сюрприз и фольгированным котом в тёмных очках. Дополнена прозрачным баблсом, оранжевыми шарами, белой звездой и лентой тассел.",
+      "composition": [
+        "коробка 70x70x70 с индивидуальной надписью и декором",
+        "стеклянный баблс с надписью",
+        "фольгированная фигура кота",
+        "2 фольгированных круга",
+        "3 латексных шара",
+        "большая фольгированная звезда с надписью",
+        "лента тассел"
+      ],
+      "category": "Коробка-сюрприз",
+      "character": "Кот",
+      "age_group": "Для детей",
+      "budget": "от 8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Коробка-сюрприз с котом и шарами — Армавир",
+      "seo_description": "Яркая коробка-сюрприз с фигурой кота в очках, оранжевыми шарами и белой звездой. Доставка воздушных шаров в Армавире от VigSharm.",
+      "slug": "krutoy-kot",
+      "scene": "floor",
+      "tags": [
+        "Коробка-сюрприз"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/e1e3b6de-26f0-4616-9a2b-cb36602f840b.jpg"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/201f6dfc-fd9d-4738-9740-adda72e9f985.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/201f6dfc-fd9d-4738-9740-adda72e9f985.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-24T21:29:11.870Z",
+      "updated_at": "2026-09-24T21:29:11.870Z"
+    },
+    {
+      "id": "b102e226-a433-48e3-b7e3-353b832543c5",
+      "title": "Сказочный сюрприз",
+      "article": "BOX-041",
+      "price": 6350,
+      "short_description": "Белая коробка-сюрприз с фольгированным единорогом, золотой цифрой, розовой звездой с надписью и букетом шаров.",
+      "full_description": "Композиция включает белую коробку с надписью, фольгированную фигуру единорога с розовой гривой, золотую цифру, розовую звезду с именем, золотое сердце и букет из хромированных и латексных шаров в бело-розово-золотой гамме.",
+      "composition": [
+        "коробка 70x70x70 с индивидуальной надписью и декором",
+        "цифра",
+        "фольгированная фигура единорога",
+        "фольгированная звезда с надписью",
+        "фольгированное сердце",
+        "4 хромированных шара",
+        "7 латексных шаров"
+      ],
+      "category": "Коробка-сюрприз",
+      "character": "Единорог",
+      "age_group": "Для детей",
+      "budget": "5 000–8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Коробка-сюрприз с единорогом и шарами — Армавир",
+      "seo_description": "Белая коробка-сюрприз с фольгированным единорогом, золотой цифрой, звездой с надписью и букетом шаров. Доставка в Армавире.",
+      "slug": "skazochnyj-syurpriz",
+      "scene": "floor",
+      "tags": [
+        "Коробка-сюрприз"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/821c535b-daf4-4773-9df7-84f411f1f565.jpg",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/090a85b9-d7f0-4c41-8021-8bf374a46781.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/090a85b9-d7f0-4c41-8021-8bf374a46781.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-24T21:14:02.246Z",
+      "updated_at": "2026-09-24T21:14:02.246Z"
+    },
+    {
       "id": "42a1f6d8-5c64-45ef-8514-981a0afaf801",
       "title": "Тёмная элегантность",
       "article": "BOX-040",

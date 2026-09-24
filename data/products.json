@@ -2,6 +2,53 @@
   "ok": true,
   "products": [
     {
+      "id": "fdebc798-3271-449d-bd79-6c30d2d5cbc9",
+      "title": "Алый старт",
+      "article": "HER-012",
+      "price": 3620,
+      "short_description": "Красные фольгированные цифры и фонтан из красных, белых и прозрачных шаров с конфетти.",
+      "full_description": "Композиция с крупными красными цифрами и фонтаном из шаров красного, белого цвета и прозрачных с конфетти. Яркое оформление для совершеннолетия.",
+      "composition": [
+        "2 цифры",
+        "3 хромированных шара",
+        "7 латексных шаров"
+      ],
+      "category": "Для неё",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары на совершеннолетие с цифрами — Армавир",
+      "seo_description": "Красные фольгированные цифры с фонтаном из красных, белых шаров и конфетти. Яркое оформление для взрослого праздника. Доставка по Армавиру.",
+      "slug": "alyy-start",
+      "scene": "wall_only",
+      "tags": [
+        "Для неё"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://i.ibb.co/bj8CFxHn/shary-18-let-29-1007x1024.jpg",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 2
+        }
+      },
+      "photos": [
+        "https://i.ibb.co/tTpTHBMT/studio-master.jpg"
+      ],
+      "main_photo": "https://i.ibb.co/tTpTHBMT/studio-master.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-24T08:15:44.761Z",
+      "updated_at": "2026-09-24T08:15:44.761Z"
+    },
+    {
       "id": "0e2e4772-b936-4efa-b194-3df7d581c31c",
       "title": "Романтичный вопрос",
       "article": "BOX-015",

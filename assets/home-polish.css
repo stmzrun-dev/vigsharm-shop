@@ -380,16 +380,12 @@ main#main-content{
 }
 .quick-recipient-card{
   background:#fff!important;
-  border:1.5px solid #e8e8ec!important;
-  border-radius:14px!important;
-  box-shadow:none!important;
+  /* surface (border/shadow/radius) owned by site-marshmallow.css */
   transform:none!important;
   overflow:hidden!important;
 }
 .quick-recipient-card:hover{
   transform:translateY(-2px)!important;
-  box-shadow:0 10px 22px rgba(30,30,40,.07)!important;
-  border-color:#d8d8de!important;
 }
 /* Soft identity wash — very light, photo carries color */
 .quick-recipient-card.pink{
@@ -590,9 +586,7 @@ main#main-content{
 a.live-product-card{
   background:#fff!important;
   background-image:none!important;
-  border:1.5px solid #e8e8ec!important;
-  border-radius:14px!important;
-  box-shadow:none!important;
+  /* surface (border/shadow/radius) owned by site-marshmallow.css */
   transform:none!important;
   padding:8px 8px 12px!important;
   overflow:hidden!important;
@@ -609,8 +603,6 @@ a.live-product-card{
 .live-product-card:hover,
 a.live-product-card:hover{
   transform:translateY(-2px)!important;
-  box-shadow:0 10px 22px rgba(30,30,40,.07)!important;
-  border-color:#d8d8de!important;
 }
 .live-product-image{
   aspect-ratio:1 / 1!important;
@@ -1049,9 +1041,7 @@ a.category{
   flex-direction:column!important;
   gap:12px!important;
   padding:12px 12px 16px!important;
-  border:1.5px solid #e8e8ec!important;
-  border-radius:22px!important;
-  box-shadow:none!important;
+  /* surface (border/shadow/radius) owned by site-marshmallow.css */
   transform:none!important;
   background:#fff!important;
   background-image:none!important;
@@ -1061,8 +1051,6 @@ a.category{
 .category:hover,
 a.category:hover{
   transform:translateY(-2px)!important;
-  box-shadow:0 12px 28px rgba(30,30,40,.08)!important;
-  border-color:#d8d8de!important;
 }
 .category.pink,
 .category.blue,

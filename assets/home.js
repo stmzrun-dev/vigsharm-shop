@@ -38,6 +38,7 @@
             : '';
           var requestBadge = p.available_on_request ? '<em class="product-request-badge">Под заказ</em>' : '';
           var cat = String(p.category || '').trim();
+          if (cat === 'Универсальные') cat = '';
           var advanceBadge = (!requestBadge && p.needs_advance_order && !cat)
             ? '<em class="product-advance-badge">Заказ за 1–2 дня</em>'
             : '';
@@ -49,7 +50,7 @@
             '<span class="live-product-meta"><small>' + escapeHtml(cat || 'Композиция') + '</small>' + badge + '</span>' +
             '<strong>' + escapeHtml(p.title) + '</strong>' +
             '<span>' + escapeHtml(p.short_description || '') + '</span>' +
-            '<b>' + Number(p.price).toLocaleString('ru-RU') + ' ₽ <i aria-hidden="true">Подробнее</i></b>' +
+            '<span class="live-product-price-row"><b class="live-product-price">' + Number(p.price).toLocaleString('ru-RU') + ' ₽</b><span class="live-product-more" aria-hidden="true">Подробнее</span></span>' +
             '</span></a>'
           );
         }).join('');

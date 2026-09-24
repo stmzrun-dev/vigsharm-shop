@@ -2,10 +2,11 @@
 (function () {
   'use strict';
 
-  var READY_SUBCATS = ['Для девочки', 'Для мальчика', 'Универсальные', 'Для неё', 'Для мамы', 'Для него', 'На выписку', 'Фигуры из шаров', 'Цветы из шаров', 'Арки', 'Шар-сюрприз', 'Крафтовый букет', 'Коробка-сюрприз', 'Гендер-пати'];
+  /* «Универсальные» — внутренняя полка (данные/ИИ), на витрине не показываем */
+  var READY_SUBCATS = ['Для девочки', 'Для мальчика', 'Для неё', 'Для мамы', 'Для него', 'На выписку', 'Фигуры из шаров', 'Цветы из шаров', 'Арки', 'Шар-сюрприз', 'Крафтовый букет', 'Коробка-сюрприз', 'Гендер-пати'];
   var UNIT_SUBCATS = ['Латексные шары', 'Кристалл Ассорти', 'Металлик Ассорти', 'Пастель MACARON Ассорти', 'Пастель Ассорти', 'Сердце Ассорти', 'Шары с рисунком', 'Фольгированные фигуры', 'Ходячие фигуры', 'Круги, звёзды и сердца', 'Шары с конфетти', 'Шары хром', 'Шары Brush', 'Шары Super Agate', 'Шары Bubble', 'Фольгированные цифры', 'Именные шары'];
   var UNIT_COLLECTIONS = ['Шары с рисунком', 'Латексные шары', 'Фольгированные фигуры', 'Ходячие фигуры', 'Круги, звёзды и сердца', 'Шары с конфетти', 'Шары хром', 'Шары Brush', 'Шары Super Agate', 'Шары Bubble', 'Фольгированные цифры'];
-  var DETAIL_FILTERS = ['Для мальчика', 'Для девочки', 'Детские', 'Для него', 'Для неё', 'На выписку', 'Праздники', 'Персонажи', 'Универсальные'];
+  var DETAIL_FILTERS = ['Для мальчика', 'Для девочки', 'Детские', 'Для него', 'Для неё', 'На выписку', 'Праздники', 'Персонажи'];
   var HOLIDAYS = ['Новый год', '14 февраля', '23 февраля', '8 марта', '9 мая', 'Выпускной', '1 сентября', 'День учителя', 'Хэллоуин'];
   var SINGLE_GIFTS = ['Фигуры из шаров', 'Цветы из шаров', 'Арки', 'Шар-сюрприз', 'Крафтовый букет', 'Коробка-сюрприз', 'Гендер-пати'];
   var AUDIENCE = ['Для девочки', 'Для мальчика', 'Универсальные', 'Для неё', 'Для него', 'Для мамы', 'На выписку', '1 годик', 'Юбилей', 'Свадьба и девичник', 'Крещение'];
@@ -49,6 +50,10 @@
     });
   }
   function tagsOf(p) { return [p.category].concat(p.tags || []).filter(Boolean); }
+  function displayCategory(cat) {
+    var s = String(cat || '').trim();
+    return (!s || s === 'Универсальные') ? 'Композиция' : s;
+  }
   function inGroup(p, group) {
     var r = tagsOf(p);
     var cat = String(p.category || '');
@@ -340,7 +345,7 @@
     var badge = requestBadge || advanceBadge;
     return '<a class="catalog-card color-' + (i % 5) + '" href="product.html?slug=' + encodeURIComponent(p.slug || p.id) + '" aria-label="Подробнее: ' + esc(p.title) + '">' +
       '<span class="catalog-card-image">' + img + '</span>' +
-      '<span class="catalog-card-copy"><span class="catalog-card-meta"><small>' + esc(cat || 'Композиция') + '</small>' + badge + '</span>' +
+      '<span class="catalog-card-copy"><span class="catalog-card-meta"><small>' + esc(displayCategory(cat)) + '</small>' + badge + '</span>' +
       '<strong>' + esc(p.title) + '</strong>' +
       (function () {
         var opts = p.client_options || {};
@@ -354,7 +359,7 @@
   function requestSummary() {
     var parts = [];
     if (priceIdx !== 0) parts.push('бюджет — ' + PRICES[priceIdx].label);
-    if (category !== 'Все товары') parts.push('категория — ' + category);
+    if (category !== 'Все товары') parts.push('категория — ' + displayCategory(category));
     if (filter) parts.push('повод — ' + filter);
     if (character) parts.push('персонаж — ' + character);
     if (age) parts.push('возраст — ' + age);
@@ -475,7 +480,7 @@
   function pickLabel() {
     if (group === 'characters' && character) return character;
     if (filter) return filter;
-    if (category !== 'Все товары') return category;
+    if (category !== 'Все товары') return displayCategory(category);
     return '';
   }
 
@@ -1095,7 +1100,7 @@
   function groupTitle() {
     if (filter) return filter;
     if (character) return character;
-    if (category !== 'Все товары') return category;
+    if (category !== 'Все товары') return displayCategory(category);
     if (q.trim()) return 'Поиск';
     return '';
   }

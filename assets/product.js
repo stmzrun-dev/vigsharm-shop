@@ -788,7 +788,7 @@
         : '') +
       '</div><div class="product-page-info">' +
       '<div class="product-page-tags">' +
-      '<span class="product-tag">' + esc(p.category || 'Композиция') + '</span>' +
+      '<span class="product-tag">' + esc((!p.category || p.category === 'Универсальные') ? 'Композиция' : p.category) + '</span>' +
       (p.available_on_request ? '<span class="product-tag product-tag-request">Под заказ</span>' : '') +
       (p.needs_advance_order ? '<span class="product-tag product-tag-advance">Заказ за 1–2 дня</span>' : '') +
       '</div>' +
@@ -834,7 +834,7 @@
           var img = k ? '<img src="' + window.vigImage(k) + '" data-key="' + esc(k) + '" alt="' + esc(o.title) + '" loading="lazy" decoding="async" width="800" height="800"/>' : '';
           return '<a class="catalog-card color-' + ((i + 1) % 5) + '" href="product.html?slug=' + encodeURIComponent(o.slug || o.id) + '" aria-label="Подробнее: ' + esc(o.title) + '">' +
             '<span class="catalog-card-image">' + img + '</span>' +
-            '<span class="catalog-card-copy"><small>' + esc(o.category || 'Композиция') + '</small><strong>' + esc(o.title) + '</strong>' +
+            '<span class="catalog-card-copy"><small>' + esc((!o.category || o.category === 'Универсальные') ? 'Композиция' : o.category) + '</small><strong>' + esc(o.title) + '</strong>' +
             '<b><em>' + Number(o.price).toLocaleString('ru-RU') + ' ₽</em><span class="related-cta">Подробнее</span></b></span></a>';
         }).join('') + '</div>'
         : '<div class="related-custom-card"><div><strong>Сделаем под ваш праздник</strong><p>Напишите повод и бюджет — предложим идеи.</p></div><button type="button" data-act="order">Обсудить идею</button></div>') +

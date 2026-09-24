@@ -2,12 +2,106 @@
   "ok": true,
   "products": [
     {
+      "id": "e37cedc2-3520-4d3e-ba0b-505557a110e8",
+      "title": "Сердечный вихрь",
+      "article": "BOX-030",
+      "price": 6200,
+      "short_description": "Розовая коробка с персональной надписью, фольгированная цифра и букет бело-розовых сердец.",
+      "full_description": "Розовая коробка-сюрприз украшена белыми сердечками и персональной надписью. Рядом крупная фольгированная цифра и композиция из белых и розовых сердец.",
+      "composition": [
+        "цифра",
+        "коробка 70x70x70 с индивидуальной надписью и декором",
+        "10 фольгированных сердец"
+      ],
+      "category": "Коробка-сюрприз",
+      "character": null,
+      "age_group": "Для детей",
+      "budget": "5 000–8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Коробка-сюрприз с цифрой и сердцами — Армавир",
+      "seo_description": "Розовая коробка с персональной надписью, фольгированная цифра и композиция из белых и розовых сердец. Доставка в Армавире.",
+      "slug": "serdechnyy-vikhr",
+      "scene": "floor",
+      "tags": [
+        "Коробка-сюрприз"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/e8e8292b-27d4-4256-a4aa-33008934d3f8.jpg",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/c009ce99-6e05-4b24-adef-0d6bfb232e34.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/c009ce99-6e05-4b24-adef-0d6bfb232e34.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-24T15:37:07.787Z",
+      "updated_at": "2026-09-24T15:37:07.787Z"
+    },
+    {
+      "id": "2250478b-6f5d-4766-875c-1f12071ccd20",
+      "title": "Розовая магия",
+      "article": "BOX-029",
+      "price": 6200,
+      "short_description": "Розовая коробка с цифрой и букетом фольгированных сердец в бело-розовой гамме.",
+      "full_description": "Розовая коробка-сюрприз с атласной лентой и надписью, крупная розовая фольгированная цифра и фонтан из белых и розовых сердец.",
+      "composition": [
+        "коробка 70x70x70 с индивидуальной надписью и декором",
+        "цифра",
+        "10 фольгированных сердец"
+      ],
+      "category": "Коробка-сюрприз",
+      "character": null,
+      "age_group": "Для детей",
+      "budget": "5 000–8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Коробка-сюрприз с цифрой и сердцами в Армавире",
+      "seo_description": "Розовая коробка с цифрой и букетом фольгированных сердец. Нежная бело-розовая композиция для детского праздника. Доставка по Армавиру.",
+      "slug": "rozovaya-magiya",
+      "scene": "floor",
+      "tags": [
+        "Коробка-сюрприз"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://i.ibb.co/Ng0HxFNV/f-41.jpg",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://i.ibb.co/mCR5jcJ3/studio-master.jpg"
+      ],
+      "main_photo": "https://i.ibb.co/mCR5jcJ3/studio-master.jpg",
+      "status": "draft",
+      "show_on_site": false,
+      "created_at": "2026-09-24T15:26:28.849Z",
+      "updated_at": "2026-09-24T15:26:28.849Z"
+    },
+    {
       "id": "44e682ab-a11f-4bcf-ba0c-a3e2ba955679",
-      "title": "Красная коробка",
+      "title": "Звёздный взлёт",
       "article": "BOX-028",
       "price": 4010,
-      "short_description": "Красная коробка-сюрприз с красной звездой и яркими шарами в красно-оранжевой гамме.",
-      "full_description": "Коробка-сюрприз в красном цвете с надписью и белыми звёздами на стенках. Из коробки вылетают латексные шары красных, оранжевых и белых оттенков, завершает композицию красная фольгированная звезда с персональной надписью.",
+      "short_description": "Красная коробка с персонализированной надписью, фольгированной звездой и девятью латексными шарами.",
+      "full_description": "Яркая красная коробка-сюрприз с индивидуальным поздравлением и звёздами. Композицию дополняют фольгированная звезда с надписью и девять латексных шаров в красно-оранжево-белой гамме.",
       "composition": [
         "коробка 70x70x70 с индивидуальной надписью и декором",
         "фольгированная звезда с надписью",
@@ -20,9 +114,9 @@
       "series_name": null,
       "occasion": null,
       "target_audience": null,
-      "seo_title": "Красная коробка-сюрприз с шарами — Армавир",
-      "seo_description": "Коробка-сюрприз в красном цвете с яркими шарами и персональной звездой. Доставка воздушных шаров в Армавире от VigSharm.",
-      "slug": "krasnaya-korobka",
+      "seo_title": "Коробка-сюрприз со звездой и шарами в Армавире — VigSharm",
+      "seo_description": "Красная коробка-сюрприз с персональной надписью, фольгированной звездой и латексными шарами. Доставка в Армавире.",
+      "slug": "zvezdnyy-vzlyot",
       "scene": "floor",
       "tags": [
         "Коробка-сюрприз"
@@ -36,13 +130,13 @@
         "studio_original_url": "https://i.ibb.co/b5gCdrrM/f-40.jpg"
       },
       "photos": [
-        "https://i.ibb.co/Hf8L78j5/studio-master.jpg"
+        "https://storage.yandexcloud.net/vigsharm-photos/products/eb46935a-7b7d-472d-85ce-76c8829d55cc.jpg"
       ],
-      "main_photo": "https://i.ibb.co/Hf8L78j5/studio-master.jpg",
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/eb46935a-7b7d-472d-85ce-76c8829d55cc.jpg",
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-24T13:04:07.890Z",
-      "updated_at": "2026-09-24T13:04:07.890Z"
+      "updated_at": "2026-09-24T15:41:00.740Z"
     },
     {
       "id": "998ee3bc-8a70-441b-bbdc-b92d8b735277",

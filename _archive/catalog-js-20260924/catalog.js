@@ -387,14 +387,14 @@
   var READY_WHAT = ['Фигуры из шаров', 'Букет из шаров', 'Коробка-сюрприз', 'Фотозона', 'Цветы из шаров', 'Гендер-пати', 'Арки', 'Шар-сюрприз', 'Крафтовый букет'];
   var READY_PHOTOS = {
     'Фигуры из шаров': 'images/ready/what-figures.webp?v=20260924',
-    'Букет из шаров': 'images/ready/what-bouquet.webp?v=20260924',
+    'Букет из шаров': 'images/ready/what-bouquet.webp?v=20260924hearts',
     'Коробка-сюрприз': 'images/ready/what-box.webp?v=20260924',
-    'Фотозона': 'images/ready/what-photozone.webp?v=20260924',
+    'Фотозона': 'images/ready/what-photozone.webp?v=20260924clay2',
     'Цветы из шаров': 'images/ready/what-flowers.webp?v=20260924',
     'Гендер-пати': 'images/ready/gender.jpg?v=20260923',
-    'Арки': 'images/ready/what-arch.webp?v=20260924',
+    'Арки': 'images/ready/what-arch.webp?v=20260924clay2',
     'Шар-сюрприз': 'images/ready/what-surprise.webp?v=20260924',
-    'Крафтовый букет': 'images/ready/what-kraft.webp?v=20260924',
+    'Крафтовый букет': 'images/ready/what-kraft.webp?v=20260924clay2',
     'День рождения': 'images/ready/birthday.jpg?v=20260923'
   };
   var WHO_PICKS = ['Для девочки', 'Для мальчика', 'Для неё', 'Для него', 'На выписку', 'День рождения', 'Юбилей', 'Геймерам', 'Универсальные'];

@@ -34,12 +34,14 @@
     if (/именн/.test(t)) return 'name';
     if (/печат|принтов|рисун/.test(t)) return 'print';
     if (/надпис/.test(t)) return 'name';
+    // Маленькие / мини-шары — до общего «латекс|шар»
+    if (/маленьк|мини[\s-]?шар|шарик/.test(t)) return 'mini';
     if (/латекс|гелиев|шар/.test(t)) return 'latex';
     return '';
   }
   function compIcon(label, i) {
     var key = compIconKey(label) || 'latex';
-    return '<img class="comp-ico" src="icons/comp-' + key + '.webp?v=10" alt="" width="32" height="32" onerror="this.onerror=null;this.src=\'icons/comp-' + key + '.svg\'"/>';
+    return '<img class="comp-ico" src="icons/comp-' + key + '.webp?v=11" alt="" width="32" height="32" onerror="this.onerror=null;this.src=\'icons/comp-' + key + '.svg\'"/>';
   }
 
   var root = document.getElementById('product-root');

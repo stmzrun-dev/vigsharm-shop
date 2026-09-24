@@ -4397,3 +4397,81 @@ html body main#main-content #products .popular-footer > span{
 html body main#main-content #products .popular-footer{
   justify-content:flex-end!important;
 }
+
+/* ============================================================
+   Product page audit (phases A–C) — price / CTA / cascade
+   ============================================================ */
+
+/* Phase A: price under title on mobile + stronger sticky price */
+@media (max-width:1020px){
+  html body .product-page .product-base-price{
+    display:flex!important;
+    flex-direction:column!important;
+    align-items:flex-start!important;
+    gap:2px!important;
+    margin:8px 0 12px!important;
+  }
+  html body .product-page .product-base-price small{
+    font-size:12px!important;
+    font-weight:700!important;
+    color:var(--mm-muted)!important;
+    letter-spacing:.02em!important;
+  }
+  html body .product-page .product-base-price strong{
+    font-size:22px!important;
+    font-weight:800!important;
+    letter-spacing:-.03em!important;
+    color:var(--mm-ink)!important;
+    line-height:1.1!important;
+  }
+  html body .mobile-order-price small{
+    font-size:12px!important;
+    font-weight:700!important;
+    color:var(--mm-muted)!important;
+  }
+  html body .mobile-order-price strong{
+    font-size:18px!important;
+    font-weight:800!important;
+    letter-spacing:-.03em!important;
+    color:var(--mm-ink)!important;
+  }
+  html body .mobile-order-bar.is-ready .mobile-order-price small{
+    font-size:12px!important;
+    color:#c2650f!important;
+  }
+}
+
+/* Phase B: one gradient CTA — form + sticky (incl. is-ready) */
+html body .product-page .product-order-button.button-primary,
+html body .product-page .button.button-primary.product-order-button,
+html body .product-page .mobile-order-cta,
+html body .mobile-order-bar .mobile-order-cta,
+html body .mobile-order-bar.is-ready .mobile-order-cta,
+html body .mobile-order-bar.is-ready .mobile-order-cta.mobile-order-cta,
+html body .mobile-order-bar:not(.is-ready) .mobile-order-cta{
+  background:var(--mm-accent-grad)!important;
+  background-image:var(--mm-accent-grad)!important;
+  border:0!important;
+  border-radius:999px!important;
+  color:#fff!important;
+  font-weight:800!important;
+  min-height:52px!important;
+  box-shadow:0 10px 24px rgba(255,107,107,.28),0 4px 10px rgba(255,142,83,.16)!important;
+  opacity:1!important;
+}
+html body .product-page .product-order-button.button-primary:hover,
+html body .product-page .button.button-primary.product-order-button:hover,
+html body .mobile-order-bar .mobile-order-cta:hover{
+  background:linear-gradient(135deg,#ff5a5a 0%,#ff7a3d 100%)!important;
+  background-image:linear-gradient(135deg,#ff5a5a 0%,#ff7a3d 100%)!important;
+  box-shadow:0 14px 30px rgba(255,107,107,.34),0 6px 14px rgba(255,142,83,.2)!important;
+}
+
+/* Phase C: step surface canon (coral marshmallow, not lilac polish) */
+html body .product-page .product-configurator,
+html body .product-page .order-details,
+html body .product-page .product-step{
+  border:1.5px solid #ffd9d0!important;
+  background:linear-gradient(180deg,#ffffff 0%,#fff6f2 100%)!important;
+  box-shadow:0 10px 28px rgba(255,107,90,.08),0 2px 8px rgba(0,0,0,.02)!important;
+}

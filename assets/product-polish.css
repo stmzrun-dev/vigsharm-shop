@@ -80,14 +80,11 @@
   color:#2a2a32!important;
 }
 
-/* Order steps — soft cream / lilac wash */
+/* Order steps — layout only; surface owned by site-marshmallow.css */
 .product-page .product-configurator,
 .product-page .order-details,
 .product-page .product-step{
-  border:1.5px solid #ece8f0!important;
   border-radius:18px!important;
-  background:linear-gradient(180deg,#fffdfb 0%,#faf8fc 100%)!important;
-  box-shadow:0 8px 22px rgba(40,36,60,.05)!important;
   transform:none!important;
 }
 
@@ -200,19 +197,15 @@
 }
 .order-story-digit:active .order-story-digit-face{transform:scale(.96)}
 
-/* CTA — coral, not green */
+/* CTA — surface owned by site-marshmallow.css (--mm-accent-grad) */
 .product-page .product-order-button.button-primary,
 .product-page .button.button-primary.product-order-button{
-  background:#ff6b5a!important;
-  background-image:none!important;
   border:0!important;
   border-radius:999px!important;
-  box-shadow:none!important;
   color:#fff!important;
 }
 .product-page .product-order-button.button-primary:hover,
 .product-page .button.button-primary.product-order-button:hover{
-  background:#e85a4a!important;
   transform:none!important;
 }
 
@@ -635,18 +628,17 @@
   }
   .mobile-order-bar .mobile-order-cta{
     flex:1 1 auto;
-    min-height:48px!important;
+    min-height:52px!important;
     border:0!important;
     border-radius:999px!important;
-    background:#ff6b5a!important;
+    /* fill owned by site-marshmallow.css */
     color:#fff!important;
     font:inherit!important;
     font-weight:800!important;
     cursor:pointer;
   }
   .mobile-order-bar:not(.is-ready) .mobile-order-cta{
-    background:#ff8a7c!important;
-    opacity:.96;
+    opacity:1;
   }
   .product-page{
     padding-bottom:calc(140px + env(safe-area-inset-bottom,0px))!important;

@@ -1,77 +1,66 @@
 # HANDOFF — Vigsharm
 
-_Последнее обновление: 21 сентября 2026, ~14:30 (UTC+3). Ветка `main` (актуальный `HEAD`: `33fa0e4`)._
+_Последнее обновление: 25 сентября 2026, ~00:20 (UTC+3). Ветка `main`._
 
 Этот файл — выжимка для следующего агента/сессии, чтобы не гонять контекст заново. Общие правила проекта — в `AGENTS.md`, дизайн-токены — в `DESIGN.md`. Здесь только: что сделано, над чем шла работа прямо сейчас, какие файлы трогать и что осталось.
 
+## 0. Спринт UI-polish (завершён, 24–25.09.2026)
+
+Два связанных спринта по витрине — **сделано и в `main`**.
+
+### Главная (`index.html`) — Phase 1–5
+- Touch-таргеты меню 44px, читаемые мессенджеры в бургере (12px), без page x-scroll на popular.
+- Цена на popular-карточках как якорь (разметка в `home.js` + CSS).
+- Hero: один primary CTA + текстовая secondary + trust-chip про доставку.
+- Единый surface карточек в `site-marshmallow.css`; дубли border/shadow убраны из `home-polish.css`; rainbow-классы категорий сняты с HTML.
+- Footer CTA / прайс / coral-ссылки; «Листайте карточки» убрано.
+- Коммит: `6a0e2d3`. Кеш: `index.html` → `?v=20260925-uireview`.
+
+### Карточка товара (`product.html`) — Phase A–C
+- На ≤1020px снова виден `.product-base-price` под заголовком (22px); sticky-цена 18px.
+- CTA form + sticky (в т.ч. `is-ready`) — единый `--mm-accent-grad`, min-height 52px.
+- Lilac wash шагов убран из `product-polish.css`; канон surface/CTA в `site-marshmallow.css`.
+- Кеш: `product.html` → `product-polish.css` / `site-marshmallow.css` `?v=20260925-productui`.
+
+**Правило каскада:** новые правки витрины класть в конец `assets/site-marshmallow.css` (последний в `<head>`), не плодить четвёртый override. JS-логику заказа не трогали.
+
 ## 1. Статус сайта
 
-- Прод: https://stmzrun-dev.github.io/vigsharm-shop/index.html — деплоится через `.github/workflows/pages.yml` **только с push в `main`** (workflow `on: push: branches: ["main"]`).
-- Ветка `main` сейчас содержит все актуальные правки (мержили `cursor/admin-cloudinary-storefront-polish` → `main`, коммит `33fa0e4`). Деплой `35591707188` прошёл успешно.
-- Локальный превью-сервер — **не** `python -m http.server`, а `python scripts/_dev_server_5500.py` (см. `AGENTS.md`, там же troubleshooting 404 на путях без `.html`).
+- Прод: https://stmzrun-dev.github.io/vigsharm-shop/index.html — деплоится через `.github/workflows/pages.yml` **только с push в `main`**.
+- Локальный превью-сервер — **не** `python -m http.server`, а `python scripts/_dev_server_5500.py` (см. `AGENTS.md`).
 
-### Что уже сделано (в хронологии последних сессий)
-1. **Мобильная форма заказа на `product.html`** (`assets/product.js`, `assets/product-polish.css`):
-   - Дата/время — обязательные поля, CTA подсказывает конкретный недостающий шаг («Укажите дату» / «Укажите время»).
-   - Прогрессивное раскрытие шагов на мобилке: цифры → надпись → получение(+аренда) → адрес → дата/время → мессенджеры. Следующий блок появляется только после заполнения текущего (`clientNextId`, `clientStepVisible` в `product.js`).
-   - Открытие следующего шага срабатывает уже во время ввода (debounce ~0.4с), не только по `blur`.
-   - Зелёные ✓ в заголовках заполненных блоков (адрес/надпись — по мере ввода, не только по `blur`).
-   - Состав/похожие товары скрыты на мобилке, пока заказ не готов (`is-order-ready` / `order-classic-flow`).
-2. **Единый стиль иконок навигации/футера («marshmallow» / soft-3d, шарики)**:
-   - Заменены 4 иконки из чужого generic-набора на новые в стиле шаров (сгенерированы через `GenerateImage`, референсы — `menu-catalog.png`, `ful-pickup.png`):
-     - `icons/menu-phone.png` (было: телефон-в-витрине-магазина с козырьком — не подходил)
-     - `icons/menu-price.png`
-     - `icons/menu-delivery.png`
-     - `icons/menu-checklist.png`
-   - `menu-catalog.png` и `menu-about.png` уже были в нужном стиле — не трогали.
-   - Кэш-версии в HTML проставлены: `menu-phone.png?v=3`, `menu-price.png?v=3`, `menu-delivery.png?v=3`, `menu-checklist.png?v=3`, `menu-catalog.png?v=2` (используются в `index.html`, `catalog.html`, `price.html`, `delivery.html`, `product.html`).
-3. **Увеличение иконок «Позвонить» / «Написать в мессенджер» в футере** (последняя выполненная задача перед этим файлом):
-   - `.footer-phone .vig-emoji` — с `28px` до `38px` (десктоп/базовый брейкпоинт) и до `42px` в самом узком мобильном брейкпоинте; контейнер (`grid-template-columns`) расширен с `36px`/`40px` до `40px`/`44px` под иконку.
-   - То же применено к `.footer-chat .vig-emoji` / `.footer-chat .line-icon` (кнопка «Написать в мессенджер») на главной (`home-polish.css`) и товарной странице (`product-polish.css`) — размеры выровнены с кнопкой звонка.
-   - Кэш-версии бампнуты: `product.html` → `style.css?v=product-polish-16`, `product-polish.css?v=28`; `index.html` → `home-polish.css?v=19`.
-   - Изменения закоммичены и запушены в `main` (в составе merge `33fa0e4`).
+### Что уже сделано ранее (кратко)
+1. Мобильная форма заказа на `product.html` (прогрессивные шаги, `is-order-ready`) — `product.js` / `product-polish.css`.
+2. Soft-3d иконки меню (`icons/menu-*.png`) + увеличенные иконки звонка/чата в футере.
+3. UI-polish главной и карточки товара — см. §0 выше.
 
 ## 2. Задача, которую решали прямо сейчас
 
-**Тема:** единая иконочная семья (soft-3d, «шарики») по всему сайту + визуальный баланс кнопок «Позвонить» / «Написать в мессенджер» в футере.
+**Тема:** дизайн-ревью → правки главной (Phase 1–5) и карточки товара (Phase A–C): иерархия цены/CTA, touch, каскад polish↔marshmallow, sync cache busting.
 
-Пользователя раздражала иконка `menu-phone.png` (не в стиле остального сайта — «магазин с козырьком», без шаров) и то, что после замены иконка в футере (28px) казалась слишком мелкой на фоне остального интерфейса (40–46px в других местах). Решение:
-1. Перегенерировали 4 generic-иконки в стиле «шары + предмет» (см. выше).
-2. Подняли размер иконок в футере с 28px до 38/42px, синхронно для обеих кнопок (звонок + мессенджер), чтобы они были одного масштаба.
-
-**Статус:** сделано и запушено. Пользователь ещё не подтвердил визуально после последнего размера (38/42px) — возможно, потребуется ещё одна итерация по размеру/отступам, если не понравится.
+**Статус:** оба спринта закрыты.
 
 ## 3. Файлы, которые за это отвечают
 
 | Файл | За что отвечает |
 |---|---|
-| `assets/style.css` | Базовые стили `.footer-phone`, `.footer-phone .vig-emoji` (3 media-блока под разные брейкпоинты — desktop/tablet/mobile), общие иконки nav (`.nav-icon`) |
-| `assets/home-polish.css` | Стили `.footer-chat` («Написать в мессенджер») на главной, доп. правки footer/hero под мобилку |
-| `assets/product-polish.css` | Стили `.footer-chat` на `product.html`, вся логика прогрессивной мобильной формы заказа (класс `.client-*`, `is-order-ready`, `order-classic-flow`) |
-| `assets/product.js` | JS-логика формы заказа: `clientNextId()`, `clientStepVisible()`, `digitsOk()`, `inscriptionOk()`, `fulfillmentOk()`, `whenOk()`, рендер шагов, debounce-раскрытие следующего блока |
-| `assets/menu-marshmallow.css` | Стили мобильного меню (бургер), тоже завязан на `icons/menu-*.png` |
-| `assets/site.js` / `assets/site-marshmallow.css` | Общая логика сайта, футер-соцсети, `data-emoji` маппинг |
-| `icons/menu-phone.png`, `menu-price.png`, `menu-delivery.png`, `menu-checklist.png` | Новые soft-3d PNG-иконки (заменены полностью, имена файлов те же — версионирование через `?v=` в HTML) |
-| `icons/menu-catalog.png`, `menu-about.png` | Эталонные иконки «родного» стиля — ориентир при дальнейшей генерации |
-| `icons/footer-chat.png` (если существует отдельно) / `.footer-chat .vig-emoji` | Иконка кнопки «Написать в мессенджер» |
-| `index.html`, `product.html`, `catalog.html`, `price.html`, `delivery.html` | `<link>` с версиями CSS/иконок — при любой правке стилей/картинок надо бампать `?v=` тут, иначе кэш браузера не обновится |
-| `.github/workflows/pages.yml` | Деплой на GitHub Pages — триггерится только push в `main` |
+| `assets/site-marshmallow.css` | Канон витрины (DESIGN.md v3): карточки, CTA, product price/sticky, homepage phases 1–5 + product A–C |
+| `assets/home-polish.css` | Layout главной; surface карточек не дублировать |
+| `assets/product-polish.css` | Layout/форма product; fill CTA / lilac steps — не дублировать |
+| `assets/home.js` | Шаблон popular: `.live-product-price-row` |
+| `assets/product.js` | Рендер галереи / цены / sticky bar (логика заказа без изменений в UI-спринте) |
+| `index.html`, `product.html` | `?v=` кеш CSS/JS — бампать при правках стилей |
+| `.github/workflows/pages.yml` | Деплой Pages с `main` |
 
-**Важно:** кэш-бастинг версий (`?v=N`) разбросан по каждому HTML отдельно (не общий счётчик), плюс у `product.html` версии `style.css` вида `product-polish-N` отличаются от версии `product-polish.css?v=N`. При правках — сверяться, что бампнули везде, где подключён изменённый файл.
+## 4. Следующие шаги
 
-## 4. Следующие шаги (по приоритету, из прошлой сессии)
-
-1. **Подтвердить у пользователя визуально** новый размер иконок звонка/мессенджера (38/42px) — не финализировано, ждём фидбэка «норм / ещё крупнее / другое».
-2. **«Написать в мессенджер»** — довести карточку до полной визуальной пары с «Позвонить» (проверить, использует ли она ту же soft-3d иконку `footer-chat`, нет ли рассинхрона по паддингам/рамке карточки).
-3. **Telegram-иконка в соцкнопках футера** — ранее была битая/плейсхолдер (`brand-telegram.svg` уже переделывали один раз, но регрессия могла повториться после мерджей — перепроверить на всех страницах).
-4. **Мелочи футера** (по желанию, не блокер) — белый квадрат-подложка вокруг соцкнопок, не растворяется в фоне.
-5. Общий фоновый долг с прошлых итераций (не факт что ещё актуален — перепроверить по коду перед тем как трогать):
-   - Заголовки в футере не должны быть акцентным цветом (охра/бирюза) — должны быть графит/`--text`, акцент — только у кнопок/ссылок.
-   - Блок «Что входит» на `product.html` — не показывать слишком рано, до готовности формы заказа (частично уже сделано через `is-order-ready`, но стоит перепроверить edge-кейсы).
+1. Визуально проверить 375px: главная (hero/popular/меню) и `product.html` (цена под h1 + sticky gradient CTA).
+2. По желанию — выровнять `?v=` marshmallow на `catalog.html` / `price.html` / `delivery.html` с `20260925-*`.
+3. Старый долг (не блокер): паритет карточек «Позвонить» / «Написать» в футере; Telegram в соцкнопках.
 
 ## 5. Как проверять
 
-1. `python scripts/_dev_server_5500.py` из `C:\vigsharm-shop`.
-2. Открыть `http://127.0.0.1:5500/` (или `/product`, `/catalog` и т.д. без `.html`).
-3. Жёсткий рефреш (Ctrl+F5), т.к. большинство ассетов — с `?v=` кэш-бастингом, но браузер иногда всё равно кэширует агрессивно.
-4. После правок — коммит и `git push origin main` (или push в feature-ветку + merge в `main`), иначе GitHub Pages не обновится (Pages деплоится только с `main`, см. `.github/workflows/pages.yml`).
+1. `powershell -File scripts/start_dev_5500.ps1` из `C:\vigsharm-shop`.
+2. Chrome/Edge: `http://127.0.0.1:5500/` и `/product?slug=…` на 375px.
+3. Ctrl+F5 после смены `?v=`.
+4. После правок — commit + `git push origin main` (Pages только с `main`).

@@ -2,6 +2,271 @@
   "ok": true,
   "products": [
     {
+      "id": "fdebc798-3271-449d-bd79-6c30d2d5cbc9",
+      "title": "Алый старт",
+      "article": "HER-012",
+      "price": 3620,
+      "short_description": "Красные фольгированные цифры и фонтан из красных, белых и прозрачных шаров с конфетти.",
+      "full_description": "Композиция с крупными красными цифрами и фонтаном из шаров красного, белого цвета и прозрачных с конфетти. Яркое оформление для совершеннолетия.",
+      "composition": [
+        "2 цифры",
+        "3 хромированных шара",
+        "7 латексных шаров"
+      ],
+      "category": "Для неё",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары на совершеннолетие с цифрами — Армавир",
+      "seo_description": "Красные фольгированные цифры с фонтаном из красных, белых шаров и конфетти. Яркое оформление для взрослого праздника. Доставка по Армавиру.",
+      "slug": "alyy-start",
+      "scene": "wall_only",
+      "tags": [
+        "Для неё"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://i.ibb.co/bj8CFxHn/shary-18-let-29-1007x1024.jpg",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 2
+        }
+      },
+      "photos": [
+        "https://i.ibb.co/tTpTHBMT/studio-master.jpg"
+      ],
+      "main_photo": "https://i.ibb.co/tTpTHBMT/studio-master.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-24T08:15:44.761Z",
+      "updated_at": "2026-09-24T08:15:44.761Z"
+    },
+    {
+      "id": "0e2e4772-b936-4efa-b194-3df7d581c31c",
+      "title": "Романтичный вопрос",
+      "article": "BOX-015",
+      "price": 3800,
+      "short_description": "Белая коробка с романтичной надписью, подарок с бантом и пять красных фольгированных сердец.",
+      "full_description": "Коробка-сюрприз с трогательной надписью «Бубочка, как тебя можно не любить?», красной лентой и букетом из пяти фольгированных сердец. Внутри — подарок с бантом.",
+      "composition": [
+        "5 фольгированных сердец",
+        "коробка 70x70x70 с индивидуальной надписью и декором"
+      ],
+      "category": "Коробка-сюрприз",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Коробка-сюрприз с красными сердцами — Армавир | VigSharm",
+      "seo_description": "Романтичная коробка-сюрприз с надписью и пятью фольгированными сердцами. Идеальный подарок для признания в чувствах. Доставка в Армавире.",
+      "slug": "romantichnyj-vopros",
+      "scene": "floor",
+      "tags": [
+        "Коробка-сюрприз"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790234527/vigsharm-products/s9ikplfx9qyngvpilp5u.webp"
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790234578/vigsharm-products/ou3lh5l1vjgkfmgjpcz1.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790234578/vigsharm-products/ou3lh5l1vjgkfmgjpcz1.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-24T07:24:21.998Z",
+      "updated_at": "2026-09-24T07:24:21.998Z"
+    },
+    {
+      "id": "bb523f88-2081-4a4f-85c5-29f0eca39b1c",
+      "title": "ходячая фигура, сердце, звезда, коробка, 2 шара ",
+      "article": "DG-009",
+      "price": 5560,
+      "short_description": "",
+      "full_description": "",
+      "composition": [
+        "ходячая фигура, сердце, звезда, коробка, 2 шара с конфетти, 5 шаров"
+      ],
+      "category": "Коробка-сюрприз",
+      "character": null,
+      "age_group": "Для детей",
+      "budget": "5 000–8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "morskoy-briz-2",
+      "scene": "floor",
+      "tags": [
+        "Коробка-сюрприз"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790232300/vigsharm-products/vumvf5pb9kq9twjfkiuo.webp"
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790232300/vigsharm-products/vumvf5pb9kq9twjfkiuo.webp"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790232300/vigsharm-products/vumvf5pb9kq9twjfkiuo.webp",
+      "status": "draft",
+      "show_on_site": false,
+      "created_at": "2026-09-24T06:49:51.674Z",
+      "updated_at": "2026-09-24T06:49:51.674Z"
+    },
+    {
+      "id": "8d80c6c0-4ae9-4e93-91f6-da3de5e5b5ad",
+      "title": "Морской бриз",
+      "article": "BOX-014",
+      "price": 4100,
+      "short_description": "Коробка-сюрприз в сине-бирюзовой гамме с фонтаном из шаров и звёзд.",
+      "full_description": "Голубая коробка с надписью «С Днём Рождения» и фонтан из сине-зелёных латексных и фольгированных шаров. Завершают композицию прозрачные шары с конфетти и две фольгированные звезды.",
+      "composition": [
+        "коробка 70x70x70 с индивидуальной надписью и декором",
+        "2 фольгированные звезды",
+        "2 шара с конфетти",
+        "6 латексных шаров"
+      ],
+      "category": "Коробка-сюрприз",
+      "character": null,
+      "age_group": "Для детей",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Коробка-сюрприз с шарами в сине-бирюзовых тонах | Армавир",
+      "seo_description": "Коробка-сюрприз в морских оттенках с фонтаном из шаров, звёзд и конфетти. Универсальный подарок на день рождения в Армавире.",
+      "slug": "morskoy-briz",
+      "scene": "floor",
+      "tags": [
+        "Коробка-сюрприз"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790232086/vigsharm-products/bqltyckrm4fhiibwwjxe.webp"
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790232161/vigsharm-products/mindxug0sg5ygeiv1wx6.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790232161/vigsharm-products/mindxug0sg5ygeiv1wx6.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-24T06:44:48.532Z",
+      "updated_at": "2026-09-24T06:44:48.532Z"
+    },
+    {
+      "id": "1f8cf291-8f48-4b53-a652-ac5918072b0b",
+      "title": "Звёздный сюрприз",
+      "article": "BOX-013",
+      "price": 3700,
+      "short_description": "Белая коробка с голубым бантом и фонтаном из 10 бело-голубых шаров.",
+      "full_description": "Коробка-сюрприз со звёздами и надписью, украшенная голубым бантом. Из коробки поднимается фонтан из 10 латексных шаров нежных бело-голубых оттенков.",
+      "composition": [
+        "коробка 70x70x70 с индивидуальной надписью и декором",
+        "10 латексных шаров"
+      ],
+      "category": "Коробка-сюрприз",
+      "character": null,
+      "age_group": "Для детей",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Коробка-сюрприз с шарами в Армавире — VigSharm",
+      "seo_description": "Коробка-сюрприз с 10 бело-голубыми шарами. Индивидуальная надпись и декор. Доставка воздушных шаров по Армавиру от VigSharm.",
+      "slug": "zvezdnyj-syurpriz",
+      "scene": "floor",
+      "tags": [
+        "Коробка-сюрприз"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790231851/vigsharm-products/kehguwhsrgvr0txcmacn.webp"
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790231895/vigsharm-products/arceoxiy1j2slpxvwtta.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790231895/vigsharm-products/arceoxiy1j2slpxvwtta.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-24T06:41:01.984Z",
+      "updated_at": "2026-09-24T06:41:01.984Z"
+    },
+    {
+      "id": "122ead18-103e-4aef-ac98-3b0fd994df3f",
+      "title": "Игровой сюрприз",
+      "article": "BOX-012",
+      "price": 6150,
+      "short_description": "Синяя коробка с серебряными цифрами, фольгированным джойстиком и звёздами.",
+      "full_description": "Композиция с цифрами, фольгированной фигурой джойстика Epic Birthday и синей звездой. Дополнена шарами с персонажами Brawl Stars.",
+      "composition": [
+        "2 цифры",
+        "фольгированная фигура джойстика",
+        "коробка 70x70x70 с индивидуальной надписью и декором",
+        "2 фольгированные звезды",
+        "4 хромированных шара с рисунком"
+      ],
+      "category": "Коробка-сюрприз",
+      "character": null,
+      "age_group": "Для детей",
+      "budget": "5 000–8 000 ₽",
+      "series_name": "Brawl Stars",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Коробка-сюрприз с джойстиком и цифрами в Армавире",
+      "seo_description": "Синяя коробка-сюрприз с фольгированным джойстиком Epic Birthday, цифрами и шарами Brawl Stars. Доставка по Армавиру.",
+      "slug": "igrovoy-syurpriz",
+      "scene": "floor",
+      "tags": [
+        "Коробка-сюрприз"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790231468/vigsharm-products/uluxjdajhpovarsizhvq.webp",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 2
+        }
+      },
+      "photos": [
+        "https://res.cloudinary.com/saiuc42a/image/upload/v1790231538/vigsharm-products/w2a2ww76t9bhxk2dixuj.png"
+      ],
+      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790231538/vigsharm-products/w2a2ww76t9bhxk2dixuj.png",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-24T06:37:18.373Z",
+      "updated_at": "2026-09-24T06:37:18.373Z"
+    },
+    {
       "id": "5a9800d9-bb58-4a83-b1bc-8a32555b3ac8",
       "title": "Нежный сюрприз",
       "article": "BOX-011",

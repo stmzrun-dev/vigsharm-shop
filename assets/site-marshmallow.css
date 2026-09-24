@@ -3414,7 +3414,7 @@ html body .contact-request-summary{
     box-shadow:0 10px 30px rgba(0,0,0,.08),0 2px 8px rgba(0,0,0,.03)!important;
   }
   html body .mobile-order-bar.is-away,
-  html body .product-page:has(.order-date-picker.is-open) ~ .mobile-order-bar{
+  html body .product-page:has(.order-date-picker.is-open) .mobile-order-bar{
     display:none!important;
   }
   html body .mobile-order-bar.is-ready{
@@ -4539,8 +4539,24 @@ html body .product-page .product-step{
     padding-bottom:calc(88px + env(safe-area-inset-bottom,0px))!important;
   }
 }
+/* Hide sticky while typing (bar lives inside .product-page).
+   Prefer :focus-within — :focus alone can miss in some WebViews. */
 @media (max-width:1020px){
-  html body .product-page:has(input:focus, textarea:focus) .mobile-order-bar{
+  html body .product-page:has(.client-ins:focus-within, .client-contact:focus-within, .config-input:focus-within, :is(input,textarea):focus) .mobile-order-bar{
     display:none!important;
+  }
+}
+
+/* Patch C: price jump chips — wrap on ultra-narrow so «Арки» isn't clipped */
+@media (max-width:360px){
+  html body.price-page .price-jump{
+    flex-wrap:wrap!important;
+    overflow-x:visible!important;
+    width:calc(100% - 24px)!important;
+    max-width:none!important;
+    justify-content:flex-start!important;
+    gap:8px!important;
+    margin-left:auto!important;
+    margin-right:auto!important;
   }
 }

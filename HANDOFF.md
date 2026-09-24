@@ -1,6 +1,6 @@
 # HANDOFF — Vigsharm
 
-_Последнее обновление: 25 сентября 2026, ~00:35 (UTC+3). Ветка `main`._
+_Последнее обновление: 25 сентября 2026, ~00:50 (UTC+3). Ветка `main`._
 
 Этот файл — выжимка для следующего агента/сессии, чтобы не гонять контекст заново. Общие правила проекта — в `AGENTS.md`, дизайн-токены — в `DESIGN.md`. Здесь только: что сделано, над чем шла работа прямо сейчас, какие файлы трогать и что осталось.
 
@@ -36,13 +36,15 @@ _Последнее обновление: 25 сентября 2026, ~00:35 (UTC+
 - Локальный превью-сервер — **не** `python -m http.server`, а `python scripts/_dev_server_5500.py` (см. `AGENTS.md`).
 
 ### Публичные страницы витрины (охватывать адаптивностью)
-| Страница | CSS marshmallow `?v=` | Статус по кешу vs index/product |
+| Страница | CSS marshmallow `?v=` | Статус |
 |---|---|---|
-| `index.html` | `20260925-rwd` | актуальный |
-| `product.html` | `20260925-rwd` | актуальный |
-| `catalog.html` | `20260923o` | **отстаёт** — бампнуть до `20260925-rwd` |
-| `delivery.html` | `20260924-iconhover` | **отстаёт** |
-| `price.html` | `20260922` | **отстаёт** |
+| `index.html` | `20260925-rwd2` | sync |
+| `product.html` | `20260925-rwd2` | sync |
+| `catalog.html` | `20260925-rwd2` | sync |
+| `delivery.html` | `20260925-rwd2` | sync |
+| `price.html` | `20260925-rwd2` | sync |
+
+Доп. в `site-marshmallow.css` (rwd2): Patch C — wrap `.price-jump` на ≤360; focus-hide sticky через `.client-ins:focus-within` (+ contact/config-input); date-picker hide — descendant (не `~`).
 
 Не витрина (не трогать в UI-спринтах без явной задачи): `admin/*`, `preview-*.html`, `test-*.html`, `check-remove-bg.html`, `_archive/**`.
 
@@ -73,10 +75,9 @@ _Последнее обновление: 25 сентября 2026, ~00:35 (UTC+
 
 ## 4. Следующие шаги
 
-1. Бампнуть `site-marshmallow.css?v=` на `catalog` / `price` / `delivery` → `20260925-rwd` (и visually smoke-check).
-2. Точечный responsive-pass по каталогу/прайсу/доставке на 320 / 768 / 1440 (см. аудит в последней сессии).
-3. Старый долг (не блокер): паритет карточек «Позвонить» / «Написать» в футере; Telegram в соцкнопках.
-4. В working tree лежат **незакоммиченные** правки Studio Pro (gender/palette lock в prompts + admin hints) — отдельно от UI; коммитить только по явной просьбе.
+1. Smoke-check Pages после push: `/price` на 320 (jump chips wrap), `/product` landscape + focus в input (sticky скрывается).
+2. Старый долг (не блокер): паритет карточек «Позвонить» / «Написать» в футере; Telegram в соцкнопках.
+3. В working tree могут лежать **незакоммиченные** правки Studio Pro (gender/palette) — отдельно от UI; коммитить только по явной просьбе.
 
 ## 5. Как проверять
 

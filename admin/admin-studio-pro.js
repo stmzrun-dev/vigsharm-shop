@@ -828,18 +828,19 @@ Object.assign(app, {
       statusEl.textContent = scene === 'handheld_bouquet'
         ? '✋ Manus: AI переснимает букет — стена + рука...'
         : (scene === 'wall_only' || scene === 'unit_balloon')
-          ? '🧱 Manus: sunburst/flux → при сбое banana...'
-          : '📸 AI переснимает в студии (sunburst → banana)...';
+          ? '🧱 Manus: sunburst → banana → Flux...'
+          : '📸 AI переснимает в студии (sunburst → banana → Flux)...';
     }
 
-    // quality (sunburst/gpt). If the request or the job dies — Flux, then banana.
+    // quality (sunburst/gpt) ждём дольше — часто медленная, но лучше Flux.
+    // При сбое: banana (каталог), затем Flux как последний запасной.
     const genFailRe = /не удалось сгенерировать|возвращены на баланс|обработка не удалась|модель отклонила|таймаут обработки|failed to fetch|networkerror|load failed|rephotograph http|ошибка rephotograph|не вернул job_id|abort/i;
     let data;
     try {
       data = await startJob('quality');
-      if (statusEl) statusEl.textContent = `⏳ Master (${data.model || 'quality'})...`;
+      if (statusEl) statusEl.textContent = `⏳ Master (${data.model || 'quality'}, до ~4.5 мин)...`;
       return await this.pollStudioStatusSimple(data.job_id, {
-        maxAttempts: 40,
+        maxAttempts: 90,
         statusEl,
         label: data.model || 'quality'
       });
@@ -847,29 +848,29 @@ Object.assign(app, {
       const msg = String(err?.message || err);
       // Do NOT match bare "failed" — that catches "Failed to fetch" (503/CORS) incorrectly
       if (!genFailRe.test(msg)) throw err;
-      console.warn('[Studio Pro] quality job failed, fallback flux:', msg);
-      if (statusEl) statusEl.textContent = '↻ sunburst/gpt не выдал кадр — пробуем Flux...';
-      this.toast('Дорогая модель не выдала кадр — пробуем Flux', 'info');
+      console.warn('[Studio Pro] quality job failed, fallback banana:', msg);
+      if (statusEl) statusEl.textContent = '↻ sunburst/gpt не выдал кадр — пробуем nano-banana...';
+      this.toast('Дорогая модель не выдала кадр — пробуем banana', 'info');
       try {
-        data = await startJob('flux');
-        if (statusEl) statusEl.textContent = `⏳ Master fallback (${data.model || 'flux'})...`;
-        return await this.pollStudioStatusSimple(data.job_id, {
-          maxAttempts: 50,
-          statusEl,
-          label: data.model || 'flux'
-        });
-      } catch (fluxErr) {
-        const fluxMsg = String(fluxErr?.message || fluxErr);
-        if (!genFailRe.test(fluxMsg)) throw fluxErr;
-        console.warn('[Studio Pro] flux job failed, fallback banana:', fluxMsg);
-        if (statusEl) statusEl.textContent = '↻ Flux не выдал кадр — fallback nano-banana (до ~5 мин)...';
-        this.toast('Flux не выдал кадр — пробуем banana', 'info');
         data = await startJob('banana');
         if (statusEl) statusEl.textContent = `⏳ Master fallback (${data.model || 'banana'})...`;
         return await this.pollStudioStatusSimple(data.job_id, {
           maxAttempts: 100,
           statusEl,
           label: data.model || 'banana'
+        });
+      } catch (bananaErr) {
+        const bananaMsg = String(bananaErr?.message || bananaErr);
+        if (!genFailRe.test(bananaMsg)) throw bananaErr;
+        console.warn('[Studio Pro] banana job failed, fallback flux:', bananaMsg);
+        if (statusEl) statusEl.textContent = '↻ banana не выдал кадр — последний шанс Flux...';
+        this.toast('Banana не выдал кадр — пробуем Flux', 'info');
+        data = await startJob('flux');
+        if (statusEl) statusEl.textContent = `⏳ Master fallback (${data.model || 'flux'})...`;
+        return await this.pollStudioStatusSimple(data.job_id, {
+          maxAttempts: 60,
+          statusEl,
+          label: data.model || 'flux'
         });
       }
     }

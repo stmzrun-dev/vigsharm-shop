@@ -1,8 +1,7 @@
 // VigSharm API — Cloudflare Worker
-// Хранит ключ NordRouter, проксирует запросы, управляет D1 + R2
+// Хранит ключ NordRouter, проксирует запросы, управляет D1 + R2 / Yandex Object Storage
 
-// VigSharm API — Cloudflare Worker
-// Хранит ключ NordRouter, проксирует запросы, управляет D1 + R2
+import { AwsClient } from 'aws4fetch';
 
 /** Текущий request для CORS (file:// → Origin: null) */
 let _corsRequest = null;
@@ -20,13 +19,15 @@ export default {
     }
 
     try {
-      // Публичное чтение каталога — доступно витрине без авторизации.
+      // Публичное чтение каталога и медиа — доступно витрине без авторизации.
       // Всё остальное (создание/изменение/удаление товаров, загрузка фото,
       // ИИ-генерация, Studio Pro) требует заголовок Authorization: Bearer <ADMIN_API_KEY>.
+      const isPublicMedia = method === 'GET' && /^\/api\/media\/[^/]+$/.test(path);
       const isPublicRead = method === 'GET' && (
         path === '/api/products' || /^\/api\/products\/[^/]+$/.test(path)
         || path === '/api/price-list'
         || path === '/api/delivery'
+        || isPublicMedia
       );
       const isPublicOrder = path === '/api/orders' && method === 'POST';
       if (!isPublicRead && !isPublicOrder) {
@@ -35,6 +36,10 @@ export default {
         if (!env.ADMIN_API_KEY || authHeader !== expected) {
           return json({ ok: false, error: 'Unauthorized' }, 401);
         }
+      }
+
+      if (isPublicMedia) {
+        return handleGetMedia(path, env);
       }
 
       // Router
@@ -2772,33 +2777,161 @@ async function handleToggleStatus(path, request, env) {
 
 // ─── Upload Photo ────────────────────────────────────────
 
+function mediaPublicBase(env, request) {
+  const configured = String(env.PUBLIC_API_BASE || '').replace(/\/$/, '');
+  if (configured) return configured;
+  try {
+    return new URL(request.url).origin;
+  } catch {
+    return 'https://vigsharm-api.vigsharm.workers.dev';
+  }
+}
+
+function mediaObjectKey(id, mimeType, fileName) {
+  const safeId = String(id || crypto.randomUUID()).replace(/[^a-zA-Z0-9_-]/g, '');
+  const fromName = String(fileName || '').split('.').pop()?.toLowerCase();
+  const fromMime = {
+    'image/jpeg': 'jpg',
+    'image/jpg': 'jpg',
+    'image/png': 'png',
+    'image/webp': 'webp',
+    'image/gif': 'gif'
+  }[String(mimeType || '').toLowerCase()];
+  const ext = (fromMime || (fromName && /^[a-z0-9]{2,5}$/.test(fromName) ? fromName : 'jpg'));
+  return `products/${safeId}.${ext}`;
+}
+
+function yandexConfigured(env) {
+  return !!(
+    env.YANDEX_ACCESS_KEY_ID &&
+    env.YANDEX_SECRET_ACCESS_KEY &&
+    env.YANDEX_BUCKET
+  );
+}
+
+function yandexPublicUrl(env, key) {
+  const base = String(env.YANDEX_PUBLIC_BASE || '').replace(/\/$/, '');
+  if (base) return `${base}/${key}`;
+  const bucket = env.YANDEX_BUCKET;
+  return `https://storage.yandexcloud.net/${bucket}/${key}`;
+}
+
+/** PUT object в Yandex Object Storage (S3 API via aws4fetch). */
+async function yandexPutObject(env, key, bytes, contentType) {
+  const accessKey = env.YANDEX_ACCESS_KEY_ID;
+  const secretKey = env.YANDEX_SECRET_ACCESS_KEY;
+  const bucket = env.YANDEX_BUCKET;
+  const region = env.YANDEX_REGION || 'ru-central1';
+
+  const client = new AwsClient({
+    accessKeyId: accessKey,
+    secretAccessKey: secretKey,
+    service: 's3',
+    region
+  });
+
+  // path-style: https://storage.yandexcloud.net/bucket/key
+  const url = `https://storage.yandexcloud.net/${bucket}/${key.split('/').map(encodeURIComponent).join('/')}`;
+  const res = await client.fetch(url, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': contentType || 'application/octet-stream'
+    },
+    body: bytes
+  });
+
+  if (!res.ok) {
+    const text = await res.text().catch(() => '');
+    throw new Error(`Yandex S3 PUT ${res.status}: ${text.slice(0, 400)}`);
+  }
+  return yandexPublicUrl(env, key);
+}
+
 async function handleUploadPhoto(request, env) {
   const formData = await request.formData();
   const file = formData.get('file');
   if (!file) return json({ ok: false, error: 'No file' }, 400);
 
-  // Fallback без Cloudinary: data URL. Не использовать spread в fromCharCode — stack overflow на больших фото.
   try {
     const arrayBuffer = await file.arrayBuffer();
     const bytes = new Uint8Array(arrayBuffer);
-    const base64 = bytesToBase64(bytes);
     const mimeType = file.type || 'image/jpeg';
-    const dataUrl = `data:${mimeType};base64,${base64}`;
-
     const id = crypto.randomUUID();
-    console.log('Photo uploaded as data URL, size:', base64.length, 'chars');
+    const key = mediaObjectKey(id, mimeType, file.name);
 
-    return json({ ok: true, url: dataUrl, id });
+    // 1) Yandex Object Storage — основной склад (РФ, до 5000+ карточек)
+    if (yandexConfigured(env)) {
+      const url = await yandexPutObject(env, key, bytes, mimeType);
+      console.log('Photo uploaded to Yandex', key, 'bytes=', bytes.length);
+      return json({ ok: true, url, id, key, storage: 'yandex' });
+    }
+
+    // 2) Cloudflare R2 (если когда-нибудь включат карту)
+    if (env.PHOTOS) {
+      const r2Key = key.includes('/') ? key.split('/').pop() : key;
+      await env.PHOTOS.put(r2Key, bytes, {
+        httpMetadata: {
+          contentType: mimeType,
+          cacheControl: 'public, max-age=31536000, immutable'
+        }
+      });
+      const base = mediaPublicBase(env, request);
+      const url = `${base}/api/media/${encodeURIComponent(r2Key)}`;
+      console.log('Photo uploaded to R2', r2Key, 'bytes=', bytes.length);
+      return json({ ok: true, url, id, key: r2Key, storage: 'r2' });
+    }
+
+    // 3) Fallback: data URL (Studio Pro так не работает)
+    const base64 = bytesToBase64(bytes);
+    const dataUrl = `data:${mimeType};base64,${base64}`;
+    console.warn('No Yandex/R2 — stored as data URL, size:', base64.length);
+    return json({
+      ok: true,
+      url: dataUrl,
+      id,
+      storage: 'data-url',
+      warning: 'Yandex Object Storage не настроен. Задайте секреты YANDEX_* (см. scripts/setup-yandex-storage.ps1).'
+    });
   } catch (error) {
     console.error('Upload error:', error);
     return json({ ok: false, error: 'Upload failed: ' + error.message }, 500);
   }
 }
 
+async function handleGetMedia(path, env) {
+  if (!env.PHOTOS) {
+    return json({ ok: false, error: 'R2 not configured' }, 503);
+  }
+  const key = decodeURIComponent(path.replace(/^\/api\/media\//, '')).replace(/^\/+/, '');
+  if (!key || key.includes('..') || key.includes('/') || key.length > 180) {
+    return json({ ok: false, error: 'Bad key' }, 400);
+  }
+
+  const obj = await env.PHOTOS.get(key);
+  if (!obj) return json({ ok: false, error: 'Not found' }, 404);
+
+  const headers = new Headers();
+  const ct = obj.httpMetadata?.contentType || 'image/jpeg';
+  headers.set('Content-Type', ct);
+  headers.set('Cache-Control', obj.httpMetadata?.cacheControl || 'public, max-age=31536000, immutable');
+  headers.set('Access-Control-Allow-Origin', '*');
+  if (obj.httpEtag) headers.set('ETag', obj.httpEtag);
+
+  return new Response(obj.body, { status: 200, headers });
+}
+
 async function handleDeletePhoto(path, env) {
   const id = path.split('/').pop();
-  // R2 отключен — NordRouter не поддерживает удаление файлов через API
-  // Просто возвращаем успех (файлы на NordRouter остаются, но это не критично)
+  if (env.PHOTOS && id) {
+    const raw = decodeURIComponent(id);
+    const candidates = [raw];
+    if (!/\.[a-z0-9]+$/i.test(raw)) {
+      candidates.push(`${raw}.jpg`, `${raw}.webp`, `${raw}.png`);
+    }
+    for (const key of candidates) {
+      try { await env.PHOTOS.delete(key); } catch (_) { /* ignore */ }
+    }
+  }
   return json({ ok: true });
 }
 

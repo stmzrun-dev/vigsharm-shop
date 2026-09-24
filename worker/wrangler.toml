@@ -8,10 +8,28 @@ binding = "DB"
 database_name = "vigsharm-db"
 database_id = "159f50ce-f89f-4ecb-8c4d-c4796276cfb7"
 
-
+# R2 — раскомментируйте ПОСЛЕ включения R2 в Dashboard
+# (https://dash.cloudflare.com → R2 → Accept / Enable) и:
+#   npx wrangler r2 bucket create vigsharm-photos
+# [[r2_buckets]]
+# binding = "PHOTOS"
+# bucket_name = "vigsharm-photos"
 
 # Environment variables
 [vars]
+# Yandex Object Storage (основное хранилище фото)
+YANDEX_BUCKET = "vigsharm-photos"
+YANDEX_REGION = "ru-central1"
+# Публичная база URL (после создания бакета можно оставить пустым —
+# тогда будет https://storage.yandexcloud.net/<bucket>/...)
+# YANDEX_PUBLIC_BASE = "https://storage.yandexcloud.net/vigsharm-photos"
+#
+# Secrets (wrangler secret put):
+#   YANDEX_ACCESS_KEY_ID
+#   YANDEX_SECRET_ACCESS_KEY
+# См. scripts/setup-yandex-storage.ps1
+#
+PUBLIC_API_BASE = "https://vigsharm-api.vigsharm.workers.dev"
 # Secrets (задаются через wrangler secret put)
 # NORDROUTER_API_KEY — ключ NordRouter
 # ADMIN_API_KEY — общий ключ авторизации админ-панели (Authorization: Bearer <ключ>).

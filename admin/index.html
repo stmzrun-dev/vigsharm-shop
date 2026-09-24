@@ -643,31 +643,43 @@
       </div>
 
       <div class="divider"></div>
-      <h3>☁️ Cloudinary (хранилище фото)</h3>
-      
-      <div class="form-group">
-        <label>Cloud Name <span style="color: #e74c3c;">*обязательно</span></label>
-        <input type="text" id="cloudinary-cloud-name" placeholder="например: my-cloud" autocomplete="off"/>
-        <small class="text-muted">Найдите в Dashboard Cloudinary</small>
-      </div>
-
-      <div class="form-group">
-        <label>Upload Preset <span style="color: #e74c3c;">*обязательно</span></label>
-        <input type="text" id="cloudinary-upload-preset" placeholder="например: vigsharm_unsigned" autocomplete="off"/>
-        <small class="text-muted">Settings → Upload → Upload Presets → Create unsigned</small>
-      </div>
+      <h3>📦 Хранилище фото — Yandex Object Storage</h3>
+      <p class="text-muted" style="margin:0 0 12px;font-size:13px;line-height:1.45">
+        Новые фото идут через Worker в <strong>Yandex Object Storage</strong>
+        (качество и скорость под 5000+ карточек, оплата картой РФ — обычно копейки–десятки ₽/мес).
+        Ключи задаются на сервере (<code>wrangler secret</code>), в админке ничего вводить не нужно.
+        Инструкция: <code>scripts/setup-yandex-storage.ps1</code> и шаги ниже.
+      </p>
+      <ol class="text-muted" style="margin:0 0 12px;padding-left:18px;font-size:13px;line-height:1.5">
+        <li>Создайте облако: <a href="https://console.yandex.cloud/" target="_blank" rel="noopener">console.yandex.cloud</a></li>
+        <li>Object Storage → бакет <code>vigsharm-photos</code>, доступ на чтение для всех (публичный)</li>
+        <li>Сервисный аккаунт → статический ключ доступа (Access Key + Secret)</li>
+        <li>В PowerShell: <code>powershell -File scripts\setup-yandex-storage.ps1</code></li>
+      </ol>
 
       <div class="divider"></div>
-      <h3>🖼️ ImgBB (бесплатный запасной хостинг фото)</h3>
+      <h3>🖼️ ImgBB (временный запасной)</h3>
       <div class="form-group">
         <label>ImgBB API Key</label>
         <input type="text" id="imgbb-api-key" placeholder="вставьте ключ с api.imgbb.com" autocomplete="off"/>
         <small class="text-muted">
-          Бесплатно, без карты: откройте <a href="https://api.imgbb.com/" target="_blank" rel="noopener">api.imgbb.com</a>,
-          войдите и скопируйте ключ. Если заполнено это поле, а Cloudinary — нет,
-          новые фото (в том числе для Studio Pro ИИ) загружаются сюда вместо Cloudinary.
+          Пока Yandex не настроен — Master берёт https отсюда.
+          После настройки Yandex можно очистить.
         </small>
       </div>
+
+      <details class="settings-fold">
+        <summary>☁️ Cloudinary (устарело — только старые карточки)</summary>
+        <div class="form-group">
+          <label>Cloud Name</label>
+          <input type="text" id="cloudinary-cloud-name" placeholder="например: my-cloud" autocomplete="off"/>
+        </div>
+        <div class="form-group">
+          <label>Upload Preset</label>
+          <input type="text" id="cloudinary-upload-preset" placeholder="например: vigsharm_unsigned" autocomplete="off"/>
+          <small class="text-muted">Новые загрузки сюда не идут, если работает Yandex или ImgBB.</small>
+        </div>
+      </details>
 
       <button class="btn primary" onclick="app.saveSettings()">Сохранить</button>
       <button class="btn danger mt-2" onclick="app.clearSettings()">Очистить все</button>
@@ -840,10 +852,10 @@
 </div>
 
 <script src="admin.js?v=unit-card-5"></script>
-<script src="admin-extended.js?v=unit-card-7"></script>
+<script src="admin-extended.js?v=yandex-1"></script>
 <script src="cloudinary-upload.js?v=cloud-fix-2"></script>
 <script src="imgbb-upload.js?v=1"></script>
-<script src="cloudinary-patch.js?v=imgbb-fallback-1"></script>
+<script src="cloudinary-patch.js?v=yandex-1"></script>
 <script src="admin-studio-pro.js?v=unit-card-6"></script>
 <script src="admin-ai.js?v=foil-edit-1"></script>
 <script src="admin-reference-background.js"></script>

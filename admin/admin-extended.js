@@ -1280,8 +1280,8 @@ Object.assign(app, {
   },
 
   async uploadPhoto(file, opts = {}) {
-    // Сжимаем на устройстве перед отправкой — экономит и Cloudinary-трафик,
-    // и место при бесплатном запасном хранении (dataURL в самом товаре).
+    // Порядок: Worker/R2 → ImgBB → Cloudinary. Патч в cloudinary-patch.js
+    // переопределяет эту функцию; здесь — тот же порядок на случай, если патч не загрузился.
     let uploadFile = file;
     try {
       if (typeof this.compressImageFile === 'function') {
@@ -1292,23 +1292,57 @@ Object.assign(app, {
       uploadFile = file;
     }
 
-    // Прямой Cloudinary — даже если cloudinary-patch.js не загрузился
-    const cloud = this.cloudinaryCloudName || '';
-    const preset = this.cloudinaryUploadPreset || '';
     const label = file?.name || 'фото';
     const onProgress = (pct) => {
       this.showPhotoUploadProgress?.(pct, `Загрузка: ${label} · ${pct}%`);
       if (typeof opts.onProgress === 'function') opts.onProgress(pct);
     };
+    const isHttps = (u) => typeof u === 'string' && /^https?:\/\//i.test(u);
+    const finish = (result) => {
+      if (result?.ok) this.showPhotoUploadProgress?.(100, 'Готово');
+      else this.hidePhotoUploadProgress?.();
+      setTimeout(() => this.hidePhotoUploadProgress?.(), result?.ok ? 600 : 0);
+      return result;
+    };
 
+    if (this.workerUrl) {
+      try {
+        this.showPhotoUploadProgress?.(0, `Загрузка на сервер: ${label}`);
+        const formData = new FormData();
+        formData.append('file', uploadFile);
+        const res = await fetch(`${this.workerUrl}/api/upload/photo`, {
+          method: 'POST',
+          headers: this.authHeaders(),
+          body: formData
+        });
+        const result = await res.json().catch(() => ({}));
+        if (res.ok && result?.ok && isHttps(result.url) && result.storage !== 'data-url') {
+          return finish(result);
+        }
+      } catch (error) {
+        console.warn('Worker upload error:', error);
+      }
+    }
+
+    if (this.imgbbApiKey && window.ImgbbUploader?.uploadPhoto) {
+      try {
+        this.showPhotoUploadProgress?.(0, `Загрузка ImgBB: ${label}`);
+        const result = await window.ImgbbUploader.uploadPhoto(uploadFile, this.imgbbApiKey, { onProgress });
+        if (result?.ok) return finish(result);
+        this.hidePhotoUploadProgress?.();
+      } catch (error) {
+        console.error('ImgBB upload error:', error);
+        this.hidePhotoUploadProgress?.();
+      }
+    }
+
+    const cloud = this.cloudinaryCloudName || '';
+    const preset = this.cloudinaryUploadPreset || '';
     if (cloud && preset && window.CloudinaryUploader?.uploadPhoto) {
       try {
-        this.showPhotoUploadProgress?.(0, `Загрузка: ${label}`);
+        this.showPhotoUploadProgress?.(0, `Загрузка Cloudinary: ${label}`);
         const result = await window.CloudinaryUploader.uploadPhoto(uploadFile, cloud, preset, { onProgress });
-        if (result?.ok) this.showPhotoUploadProgress?.(100, 'Готово');
-        else this.hidePhotoUploadProgress?.();
-        setTimeout(() => this.hidePhotoUploadProgress?.(), result?.ok ? 600 : 0);
-        return result;
+        return finish(result);
       } catch (error) {
         console.error('Cloudinary upload error:', error);
         this.hidePhotoUploadProgress?.();
@@ -1316,39 +1350,16 @@ Object.assign(app, {
       }
     }
 
-    // Без Cloudinary, но с ключом ImgBB: бесплатный хостинг с публичной
-    // https-ссылкой — подходит и для витрины, и для ИИ-пересъёмки Studio Pro.
-    if (this.imgbbApiKey && window.ImgbbUploader?.uploadPhoto) {
-      try {
-        this.showPhotoUploadProgress?.(0, `Загрузка: ${label}`);
-        const result = await window.ImgbbUploader.uploadPhoto(uploadFile, this.imgbbApiKey, { onProgress });
-        if (result?.ok) this.showPhotoUploadProgress?.(100, 'Готово');
-        else this.hidePhotoUploadProgress?.();
-        setTimeout(() => this.hidePhotoUploadProgress?.(), result?.ok ? 600 : 0);
-        return result;
-      } catch (error) {
-        console.error('ImgBB upload error:', error);
-        this.hidePhotoUploadProgress?.();
-        return { ok: false, error: error.message || 'Ошибка загрузки в ImgBB' };
-      }
-    }
-
-    // Без Cloudinary и без ImgBB: бесплатный запасной путь — Worker сохраняет
-    // сжатое фото как data URL прямо в карточке товара (без AI-пересъёмки).
-    const formData = new FormData();
-    formData.append('file', uploadFile);
-    const res = await fetch(`${this.workerUrl}/api/upload/photo`, {
-      method: 'POST',
-      headers: this.authHeaders(),
-      body: formData
-    });
-    return await res.json();
+    this.hidePhotoUploadProgress?.();
+    return {
+      ok: false,
+      error: 'Нет рабочего хранилища фото. Настройте Yandex (scripts/setup-yandex-storage.ps1) или ImgBB API Key.'
+    };
   },
 
-  // Пережимает фото в браузере (canvas) до ширины maxWidth и качества JPEG.
-  // Держим итоговый файл маленьким — важно и для Cloudinary-трафика, и для
-  // запасного хранения dataURL прямо в товаре.
-  compressImageFile(file, maxWidth = 1000, quality = 0.74) {
+  // Пережимает фото в браузере (canvas). 1400px / 0.88 — резко лучше текст на коробках,
+  // при этом файл обычно 200–400 КБ (хватает и для Yandex, и для ImgBB).
+  compressImageFile(file, maxWidth = 1400, quality = 0.88) {
     return new Promise((resolve, reject) => {
       if (!file || !file.type || !file.type.startsWith('image/')) {
         resolve(file);

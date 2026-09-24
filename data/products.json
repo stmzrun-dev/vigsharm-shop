@@ -633,8 +633,8 @@
       "title": "Фиолетовая мечта",
       "article": "BOX-016",
       "price": 3720,
-      "short_description": "Яркая коробка-сюрприз с воздушными шарами в нежной лавандово-золотой гамме.",
-      "full_description": "Фиолетовая коробка с надписью «С Днём рождения!» и россыпью звёзд. Из неё взмывают лавандовые, золотые шары и прозрачные шары с золотым конфетти.",
+      "short_description": "Фиолетовая коробка-сюрприз с нежными шарами в сиреневых и золотых тонах.",
+      "full_description": "Яркая фиолетовая коробка с серебряной надписью и декором из звёзд. Из неё вылетают лиловые шары и шары с золотым конфетти.",
       "composition": [
         "коробка 70x70x70 с индивидуальной надписью и декором",
         "3 шара с конфетти",
@@ -647,8 +647,8 @@
       "series_name": null,
       "occasion": null,
       "target_audience": null,
-      "seo_title": "Коробка-сюрприз с шарами в Армавире — фиолетовая с золотом",
-      "seo_description": "Яркая фиолетовая коробка-сюрприз с лавандовыми, золотыми шарами и конфетти. Эффектное поздравление с доставкой по Армавиру.",
+      "seo_title": "Коробка-сюрприз с шарами в Армавире — Фиолетовая мечта",
+      "seo_description": "Фиолетовая коробка-сюрприз с шарами в сиреневых и золотых тонах. Индивидуальная надпись и декор. Доставка по Армавиру.",
       "slug": "fioletovaya-mechta",
       "scene": "floor",
       "tags": [
@@ -663,13 +663,13 @@
         "studio_original_url": "https://i.ibb.co/dszPfYvH/abb3bef19d7e822523c5a862db0746bd.jpg"
       },
       "photos": [
-        "https://i.ibb.co/7dc07m8y/studio-master.jpg"
+        "https://storage.yandexcloud.net/vigsharm-photos/products/59bfbc5c-cf5a-4415-8643-4550acb948be.jpg"
       ],
-      "main_photo": "https://i.ibb.co/7dc07m8y/studio-master.jpg",
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/59bfbc5c-cf5a-4415-8643-4550acb948be.jpg",
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-24T10:13:32.411Z",
-      "updated_at": "2026-09-24T10:13:32.411Z"
+      "updated_at": "2026-09-24T18:11:14.645Z"
     },
     {
       "id": "fdebc798-3271-449d-bd79-6c30d2d5cbc9",

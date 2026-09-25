@@ -31,6 +31,7 @@ jobs:
       - name: Export catalog, delivery and price from Worker
         env:
           VIG_API: https://vigsharm-api.vigsharm.workers.dev
+          ADMIN_API_KEY: ${{ secrets.ADMIN_API_KEY }}
         run: node scripts/export-products-snapshot.mjs
 
       - name: Commit and push if changed

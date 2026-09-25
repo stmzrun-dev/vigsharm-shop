@@ -112,7 +112,6 @@ function buildPage(product) {
 <meta name="twitter:title" content="${esc(ogTitle)}"/>
 <meta name="twitter:description" content="${esc(ogDescription)}"/>
 <meta name="twitter:image" content="${esc(ogImage)}"/>
-<link rel="canonical" href="${esc(productUrl)}"/>
 <link rel="icon" href="/favicon.svg" type="image/svg+xml"/>
 <script>location.replace(${JSON.stringify('/product.html?slug=' + slug)});</script>
 </head>

@@ -1313,7 +1313,7 @@
     sec.innerHTML = '<div class="recent-products-heading"><div><p class="eyebrow">Можно вернуться</p><h2 id="recent-products-title">Недавно смотрели</h2></div><button type="button">Очистить</button></div>' +
       '<div class="recent-products-list">' + items.map(function (p) {
         var key = (window.vigProductPhoto ? window.vigProductPhoto(p) : '') || (p.image_keys && p.image_keys[0]) || '';
-        var img = key ? '<img src="' + window.vigImage(key) + '" data-key="' + esc(key) + '" alt="' + esc(p.title) + '" loading="lazy" decoding="async"/>' : '';
+        var img = key ? '<img src="' + window.vigImage(key, 480) + '" data-key="' + esc(key) + '" alt="' + esc(p.title) + '" loading="lazy" decoding="async" width="480" height="480"/>' : '';
         return '<a href="product.html?slug=' + encodeURIComponent(p.slug || p.id) + '"><span>' + img + '</span><span><strong>' + esc(p.title) + '</strong><small>' + Number(p.price).toLocaleString('ru-RU') + ' ₽</small></span></a>';
       }).join('') + '</div>';
     sec.querySelector('button').addEventListener('click', function () {

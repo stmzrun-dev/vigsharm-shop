@@ -275,14 +275,15 @@
     if (imgIdx < 0 || imgIdx >= keys.length) imgIdx = 0;
     return keys[imgIdx] || main;
   }
-  function galleryImgHtml(key, alt, attrs) {
+  function galleryImgHtml(key, alt, attrs, width) {
     var main = mainImageKey();
     var show = key || main;
     if (!show) return '';
     var extra = attrs || '';
+    var w = width || 1200;
     // Inline onerror: digit/variant failure → main composition photo (never empty block).
-    var onerr = 'var m=this.getAttribute(\'data-main-key\');var k=this.getAttribute(\'data-key\');if(m&&k!==m){this.onerror=null;this.setAttribute(\'data-key\',m);this.setAttribute(\'data-fb\',\'0\');this.src=(window.vigImage?window.vigImage(m,1200):m);}';
-    return '<img src="' + window.vigImage(show, 1200) + '" data-key="' + esc(show) + '" data-main-key="' + esc(main) + '" alt="' + esc(alt || '') + '" decoding="async" onload="this.classList.add(\'is-ready\')" onerror="' + onerr + '" ' + extra + '/>';
+    var onerr = 'var m=this.getAttribute(\'data-main-key\');var k=this.getAttribute(\'data-key\');if(m&&k!==m){this.onerror=null;this.setAttribute(\'data-key\',m);this.setAttribute(\'data-fb\',\'0\');this.src=(window.vigImage?window.vigImage(m,' + w + '):m);}';
+    return '<img src="' + window.vigImage(show, w) + '" data-key="' + esc(show) + '" data-main-key="' + esc(main) + '" alt="' + esc(alt || '') + '" decoding="async" onload="this.classList.add(\'is-ready\')" onerror="' + onerr + '" ' + extra + '/>';
   }
 
   function paramsSummary() {
@@ -912,7 +913,7 @@
           '<div class="product-thumbnails" aria-label="Все фотографии товара">' +
           keys.map(function (k, i) {
             return '<button type="button" class="' + (imgIdx === i ? 'active' : '') + '" data-act="thumb" data-v="' + i + '" aria-label="Показать фотографию ' + (i + 1) + '" aria-pressed="' + (imgIdx === i) + '">' +
-              galleryImgHtml(k, '', 'loading="lazy" width="160" height="160"') + '</button>';
+              galleryImgHtml(k, '', 'loading="lazy" width="160" height="160"', 320) + '</button>';
           }).join('') + '</div>'
         : '') +
       '</div><div class="product-page-info">' +
@@ -960,7 +961,7 @@
       (rel.length
         ? '<div class="related-products-grid">' + rel.map(function (o, i) {
           var k = (window.vigProductPhoto ? window.vigProductPhoto(o) : '') || (o.image_keys && o.image_keys[0]) || '';
-          var img = k ? '<img src="' + window.vigImage(k) + '" data-key="' + esc(k) + '" alt="' + esc(o.title) + '" loading="lazy" decoding="async" width="800" height="800"/>' : '';
+          var img = k ? '<img src="' + window.vigImage(k, 480) + '" data-key="' + esc(k) + '" alt="' + esc(o.title) + '" loading="lazy" decoding="async" width="480" height="480"/>' : '';
           return '<a class="catalog-card color-' + ((i + 1) % 5) + '" href="product.html?slug=' + encodeURIComponent(o.slug || o.id) + '" aria-label="Подробнее: ' + esc(o.title) + '">' +
             '<span class="catalog-card-image">' + img + '</span>' +
             '<span class="catalog-card-copy"><small>' + esc((!o.category || o.category === 'Универсальные') ? 'Композиция' : o.category) + '</small><strong>' + esc(o.title) + '</strong>' +

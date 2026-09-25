@@ -34,7 +34,7 @@
             p.main_photo ||
             '';
           var img = key
-            ? '<img src="' + window.vigImage(key) + '" data-key="' + escapeHtml(key) + '" alt="' + escapeHtml(p.title) + '" loading="lazy" decoding="async"/>'
+            ? '<img src="' + window.vigImage(key, 480) + '" data-key="' + escapeHtml(key) + '" alt="' + escapeHtml(p.title) + '" loading="lazy" decoding="async" width="480" height="480"/>'
             : '';
           var requestBadge = p.available_on_request ? '<em class="product-request-badge">Под заказ</em>' : '';
           var cat = String(p.category || '').trim();

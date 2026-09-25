@@ -3257,7 +3257,25 @@ const STOREFRONT_ORIGIN_DEFAULT = 'https://stmzrun-dev.github.io/vigsharm-shop';
 const OG_BOT_UA_RE = /WhatsApp(?:\/|Bot)|facebookexternalhit|Facebot|Twitterbot|LinkedInBot|Slackbot|Discordbot|TelegramBot|vkShare|VKBot|Applebot|BingPreview|Embedly|Pinterest|Redditbot|SkypeUriPreview|Googlebot|bingbot|Yandex(?:Bot|Metrika|Images)|Baiduspider|DuckDuckBot|Bytespider|PetalBot|SemrushBot|AhrefsBot|ia_archiver|Slack-ImgProxy|meta-externalagent/i;
 
 function isProductPagePath(path) {
-  return path === '/product.html' || path === '/product.html/';
+  // /product.html?slug=...  — основной формат
+  if (path === '/product.html' || path === '/product.html/') return true;
+  // /p/slug.html  — короткий формат для мессенджеров (OG Plan Б)
+  if (/^\/p\/[^/]+$/.test(path)) return true;
+  return false;
+}
+
+/**
+ * Извлекает slug из URL. Поддерживает два формата:
+ *   /product.html?slug=mamina-gordost
+ *   /p/mamina-gordost.html  (расширение .html обрезается)
+ */
+function extractSlug(url) {
+  const path = url.pathname;
+  // /p/slug.html → slug
+  const pMatch = path.match(/^\/p\/(.+?)(?:\.html)?$/);
+  if (pMatch) return decodeURIComponent(pMatch[1]).trim();
+  // /product.html?slug=...
+  return (url.searchParams.get('slug') || '').trim();
 }
 
 function siteOrigin(env) {
@@ -3531,7 +3549,10 @@ async function handleProductPageOg(request, env, url) {
     return rewriteHumanProductHtml(out, env);
   }
 
-  const slug = (url.searchParams.get('slug') || '').trim();
+  // Поддерживаем оба формата URL:
+  //   /product.html?slug=mamina-gordost   (основной)
+  //   /p/mamina-gordost.html              (короткий для мессенджеров)
+  const slug = extractSlug(url);
   const productPromise = slug
     ? getProductBySlugOrId(env, slug).catch((e) => {
         console.error('OG product lookup failed', e);
@@ -3539,8 +3560,15 @@ async function handleProductPageOg(request, env, url) {
       })
     : Promise.resolve(null);
 
+  // Для /p/ формата тянем shell с /product.html (там правильный HTML-шаблон).
+  const shellUrl = new URL(url.href);
+  if (/^\/p\//.test(url.pathname)) {
+    shellUrl.pathname = '/product.html';
+    shellUrl.searchParams.set('slug', slug);
+  }
+
   const [shell, product] = await Promise.all([
-    fetchProductShell(request, env, url),
+    fetchProductShell(request, env, shellUrl),
     productPromise
   ]);
 

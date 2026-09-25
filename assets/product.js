@@ -711,6 +711,91 @@
     return allProducts.filter(function (o) { return o.id !== p.id; }).sort(function (a, b) { return score(b) - score(a); }).slice(0, 3);
   }
 
+  /* ---------------- OG / Schema.org sync ---------------- */
+
+  function setMeta(attr, val, content) {
+    var sel = 'meta[' + attr + '="' + val + '"]';
+    var el = document.querySelector(sel);
+    if (!el) {
+      el = document.createElement('meta');
+      el.setAttribute(attr, val);
+      document.head.appendChild(el);
+    }
+    el.setAttribute('content', content);
+  }
+
+  function syncMetaTags() {
+    if (!p) return;
+
+    var title = pageTitle();
+
+    // Description: short_description → первый абзац description → fallback
+    var rawDesc = String(p.short_description || p.description || '').trim();
+    var firstLine = rawDesc.split(/\n+/)[0].trim();
+    var desc = (firstLine.length > 20 ? firstLine : rawDesc).slice(0, 160)
+      || (p.title + ' — заказать воздушные шары в Армавире от студии Вигшарм.');
+
+    // Изображение: главный ключ → Cloudinary URL
+    var imgKey = mainImageKey();
+    var imgUrl = imgKey
+      ? window.vigImage(imgKey, 1200)
+      : 'https://vigsharm.ru/images/hero-balloon-character-party.webp';
+
+    var slug_ = canonicalSlug();
+    var pageUrl = slug_
+      ? 'https://vigsharm.ru/product.html?slug=' + encodeURIComponent(slug_)
+      : 'https://vigsharm.ru/product.html';
+
+    // --- Open Graph ---
+    setMeta('property', 'og:title', title);
+    setMeta('property', 'og:description', desc);
+    setMeta('property', 'og:image', imgUrl);
+    setMeta('property', 'og:image:alt', String(p.title));
+    setMeta('property', 'og:url', pageUrl);
+    setMeta('property', 'og:type', 'product');
+    setMeta('property', 'product:price:amount', String(p.price));
+    setMeta('property', 'product:price:currency', 'RUB');
+
+    // --- meta description ---
+    setMeta('name', 'description', desc);
+
+    // --- canonical ---
+    var canon = document.querySelector('link[rel="canonical"]');
+    if (canon) canon.href = pageUrl;
+
+    // --- JSON-LD Product ---
+    var ldId = 'vig-product-ld';
+    var existing = document.getElementById(ldId);
+    if (existing) existing.remove();
+    var ld = document.createElement('script');
+    ld.type = 'application/ld+json';
+    ld.id = ldId;
+    var availability = p.available_on_request
+      ? 'https://schema.org/PreOrder'
+      : 'https://schema.org/InStock';
+    // priceValidUntil: +30 дней от текущей даты
+    var expire = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
+    ld.textContent = JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'Product',
+      'name': p.title,
+      'image': imgUrl,
+      'description': desc,
+      'sku': String(p.sku || p.id || ''),
+      'brand': { '@type': 'Brand', 'name': 'Вигшарм' },
+      'offers': {
+        '@type': 'Offer',
+        'url': pageUrl,
+        'price': p.price,
+        'priceCurrency': 'RUB',
+        'availability': availability,
+        'priceValidUntil': expire,
+        'seller': { '@type': 'Organization', 'name': 'Вигшарм' }
+      }
+    });
+    document.head.appendChild(ld);
+  }
+
   /* ---------------- render ---------------- */
 
   function render() {
@@ -882,6 +967,7 @@
 
     document.title = pageTitle();
     syncCanonicalUrl();
+    syncMetaTags();
     document.body.classList.remove('order-story-lock');
     root.querySelectorAll('.product-page-main-image img, .product-thumbnails img').forEach(function (img) {
       if (img.complete && img.naturalWidth) img.classList.add('is-ready');

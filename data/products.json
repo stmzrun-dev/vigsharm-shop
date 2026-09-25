@@ -2,6 +2,96 @@
   "ok": true,
   "products": [
     {
+      "id": "d20cb005-d2b7-4388-9791-6945f6fe3d39",
+      "title": "Сказочный патруль",
+      "article": "UNT-018",
+      "price": 150,
+      "short_description": "Сказочный патруль",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": "Сказочный патруль",
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": "Сказочный патруль",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "s-dr-nindzya-assorti-3",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Шары с рисунком",
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/b310dd9c-55b9-4d93-95ba-6e27002deb34.jpg",
+        "unit_type": "print",
+        "unit_who": [
+          "Для девочки"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/08e44f98-0737-4e29-b823-e2d147e4ff74.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/08e44f98-0737-4e29-b823-e2d147e4ff74.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-25T13:00:18.286Z",
+      "updated_at": "2026-09-25T13:00:18.286Z"
+    },
+    {
+      "id": "ffdb49d0-8434-4f34-bab9-b75852692d0e",
+      "title": "Паучок и друзья",
+      "article": "UNT-017",
+      "price": 150,
+      "short_description": "Паучок и друзья",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": "Человек-паук",
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": "Marvel",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "s-dr-nindzya-assorti-2",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Шары с рисунком",
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://i.ibb.co/Kc7zS7kv/image-22.jpg",
+        "unit_type": "print",
+        "unit_who": [
+          "Для мальчика"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/14ed8df4-c42d-43e5-8006-0793e2efd080.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/14ed8df4-c42d-43e5-8006-0793e2efd080.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-25T12:58:58.704Z",
+      "updated_at": "2026-09-25T12:58:58.704Z"
+    },
+    {
       "id": "1fae0311-c3df-47a5-9e53-8224152f3055",
       "title": "С ДР! Ниндзя Ассорти",
       "article": "UNT-016",

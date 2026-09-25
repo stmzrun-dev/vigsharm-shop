@@ -2,6 +2,91 @@
   "ok": true,
   "products": [
     {
+      "id": "a338146a-0edf-463e-a089-225e786996c8",
+      "title": "Кошачье трио",
+      "article": "BOX-060",
+      "price": 3800,
+      "short_description": "Белая коробка с надписью «Вынесите 3 года» и 10 шарами с героями мультсериала.",
+      "full_description": "Коробка-сюрприз с персонажами популярного мультфильма. Внутри коробки — подарок, сверху — связка из 10 белых шаров с яркими рисунками котят.",
+      "composition": [
+        "коробка 70x70x70 с индивидуальной надписью и декором",
+        "10 шаров с рисунком"
+      ],
+      "category": "Коробка-сюрприз",
+      "character": "Три кота",
+      "age_group": "Для детей",
+      "budget": "3 500–5 000 ₽",
+      "series_name": "Три кота",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Коробка-сюрприз Три кота с шарами в Армавире",
+      "seo_description": "Коробка-сюрприз с героями мультфильма Три кота и 10 шарами. Яркое оформление для детского праздника. Доставка в Армавире.",
+      "slug": "tri-kota-3",
+      "scene": "floor",
+      "tags": [
+        "Коробка-сюрприз"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/8f76caea-ad20-4fd0-8608-303443de9933.jpg"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/b23d2fa6-6483-4f8f-8633-789210b06ab9.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/b23d2fa6-6483-4f8f-8633-789210b06ab9.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-25T06:33:59.227Z",
+      "updated_at": "2026-09-25T06:33:59.227Z"
+    },
+    {
+      "id": "e38d5c59-f15c-4232-8bdc-793c495ed767",
+      "title": "Небо защитника",
+      "article": "BOX-059",
+      "price": 3840,
+      "short_description": "Коробка-сюрприз с зелёными шарами в камуфляжном стиле и надписью «Моему защитнику».",
+      "full_description": "Белая коробка с патриотической надписью и силуэтами истребителей. Внутри — композиция из зелёных шаров с золотым камуфляжным рисунком и конфетти.",
+      "composition": [
+        "коробка 70x70x70 с индивидуальной надписью и декором",
+        "2 шара с конфетти",
+        "7 шаров с рисунком"
+      ],
+      "category": "Коробка-сюрприз",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Коробка-сюрприз с зелёными шарами — Армавир | VigSharm",
+      "seo_description": "Коробка-сюрприз с зелёными камуфляжными шарами и надписью «Моему защитнику». Патриотичный подарок в Армавире от VigSharm.",
+      "slug": "nebo-zashchitnika",
+      "scene": "floor",
+      "tags": [
+        "Коробка-сюрприз"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/0e69c5ca-e4bc-4e04-ae5b-79782ae7a812.jpg"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/f148b74c-3f03-4694-88b7-23fd58faeaf9.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/f148b74c-3f03-4694-88b7-23fd58faeaf9.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-25T06:31:39.593Z",
+      "updated_at": "2026-09-25T06:31:53.039Z"
+    },
+    {
       "id": "cc6e0e63-4fd5-4986-b6e3-2bc72c477477",
       "title": "Кошкин дом",
       "article": "BOX-058",

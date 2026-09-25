@@ -43,6 +43,8 @@ node_modules/
 *.prev.webp
 test-results/
 scripts/_tmp_*.py
+_archive/
+_preview/
 deploy-output*.txt
 deploy.log
 models-response.json

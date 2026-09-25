@@ -1060,17 +1060,8 @@ Object.assign(app, {
 
   // === Form Events ===
   setupFormEvents() {
-    // ОТКЛЮЧЕНО: кнопка "Сгенерировать данные через ИИ" использует onclick="app.generateAIMetadata()"
-    // из HTML (admin-ai.js). Раньше здесь же вешался ещё и addEventListener на generateAICard(),
-    // из-за чего один клик отправлял ДВА запроса к ИИ одновременно (нарушение "1 карточка = 1 запрос").
-
-    // const aiBtn = document.getElementById('generate-ai-btn');
-    // if (aiBtn) aiBtn.addEventListener('click', () => this.generateAICard());
-
-    // ОТКЛЮЧЕНО: теперь кнопка Studio Pro использует onclick="app.processStudioProNew()" из HTML
-
-    // const studioBtn = document.getElementById('process-studio-btn');
-    // if (studioBtn) studioBtn.addEventListener('click', () => this.processStudioPro());
+    // Кнопки ИИ и Studio Pro используют onclick="..." прямо из HTML (admin-ai.js, admin-studio-pro.js).
+    // Слушатели здесь не нужны — иначе один клик отправлял бы ДВА запроса.
   },
 
   // === Tags ===
@@ -1091,54 +1082,6 @@ Object.assign(app, {
         <label for="${containerId}-${i}">${tag}</label>
       </div>
     `).join('');
-  },
-
-  // === AI Generation ===
-  async generateAICard() {
-    if (this.currentProduct.photos.length === 0) { this.toast('Загрузите фото', 'error'); return; }
-    
-    const aiBtn = document.getElementById('generate-ai-btn');
-    const statusEl = document.getElementById('ai-status');
-    aiBtn.disabled = true;
-    aiBtn.innerHTML = '<span class="spinner"></span> Генерация...';
-    statusEl.textContent = 'Отправка запроса...';
-    
-    try {
-      let imageUrl = this.currentProduct.photos[0].url;
-      if (!this.currentProduct.photos[0].uploaded) {
-        statusEl.textContent = 'Загрузка фото...';
-        const uploadResult = await this.uploadPhoto(this.currentProduct.photos[0].file);
-        if (uploadResult.ok) {
-          imageUrl = uploadResult.url;
-          this.currentProduct.photos[0].url = imageUrl;
-          this.currentProduct.photos[0].uploaded = true;
-        }
-      }
-      
-      statusEl.textContent = 'Генерация через ИИ...';
-      const res = await fetch(`${this.workerUrl}/api/ai/generate-card`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', ...this.authHeaders() },
-        body: JSON.stringify({
-          image_url: imageUrl,
-          scene: this.currentProduct.scene,
-          price: document.getElementById('product-price').value || 0
-        })
-      });
-      
-      const data = await res.json();
-      if (data.ok && data.card) {
-        this.fillFormWithAIData(data.card);
-        statusEl.textContent = '✓ Данные сгенерированы';
-        this.toast('Карточка сгенерирована', 'success');
-      } else throw new Error(data.error || 'Ошибка генерации');
-    } catch (e) {
-      statusEl.textContent = '✗ ' + e.message;
-      this.toast('Ошибка: ' + e.message, 'error');
-    } finally {
-      aiBtn.disabled = false;
-      aiBtn.innerHTML = '✨ Сгенерировать данные через ИИ';
-    }
   },
 
   fillFormWithAIData(card) {
@@ -1883,6 +1826,5 @@ app.loadProductToForm = function(product) {
   }
 };
 
-console.log('✓ VigSharm Admin Extended Functions loaded');
 
 

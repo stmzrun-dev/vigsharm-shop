@@ -2,6 +2,363 @@
   "ok": true,
   "products": [
     {
+      "id": "faa6c1d2-23bc-49ce-876b-b1b261582cb5",
+      "title": "Кольцо с бриллиантом",
+      "article": "HER-013",
+      "price": 1950,
+      "short_description": "Композиция с фольгированным кольцом и именным сердцем в розово-золотых тонах.",
+      "full_description": "Композиция из фольгированного кольца с бриллиантом, белого сердца с надписью и розово-золотых шаров. Нежное сочетание для романтичного момента.",
+      "composition": [
+        "фольгированная фигура кольца с бриллиантом",
+        "фольгированное сердце с индивидуальной надписью",
+        "3 латексных шара",
+        "1 хромированный шар"
+      ],
+      "category": "Для неё",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "1 000–2 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары с кольцом и бриллиантом в Армавире | VigSharm",
+      "seo_description": "Композиция с фольгированным кольцом и именным сердцем. Розово-золотая палитра для романтичного события. Доставка по Армавиру.",
+      "slug": "kolco-s-brilliantom",
+      "scene": "wall_only",
+      "tags": [
+        "Свадьба и девичник"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/3499e12f-86cd-4375-91b1-05ce242ee5fe.jpg"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/6fdcbae3-c00b-46f9-9685-26b1cbf100d9.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/6fdcbae3-c00b-46f9-9685-26b1cbf100d9.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-25T08:12:56.400Z",
+      "updated_at": "2026-09-25T08:12:56.400Z"
+    },
+    {
+      "id": "e818fa48-d0be-4678-9eff-4163740a4921",
+      "title": "Союз двух",
+      "article": "WED-002",
+      "price": 3200,
+      "short_description": "Два белых шара бабл с каллиграфией Mr и Mrs и изящными лентами тассел.",
+      "full_description": "Два белых шара бабл с надписями Mr и Mrs в розово-золотой каллиграфии. Белые ленты тассел и мини-кластеры у основания.",
+      "composition": [
+        "2 шара бабл с надписью",
+        "2 ленты тассел"
+      ],
+      "category": "Свадьба и девичник",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "2 000–3 500 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары на свадьбу Mr и Mrs в Армавире",
+      "seo_description": "Элегантная композиция из белых шаров бабл с каллиграфией Mr и Mrs. Минималистичный декор для свадьбы и торжества в Армавире.",
+      "slug": "dva-golosa",
+      "scene": "floor",
+      "tags": [
+        "Свадьба и девичник"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/a628a008-810d-4e8c-844e-7abb58ae9683.jpg"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/9701d876-3fff-4f28-a694-22adc8789595.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/9701d876-3fff-4f28-a694-22adc8789595.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-25T08:10:53.539Z",
+      "updated_at": "2026-09-25T08:10:53.539Z"
+    },
+    {
+      "id": "dcf52f0c-ee72-4859-af40-4bb1ccb89666",
+      "title": "Интрига раскрытия",
+      "article": "PHT-019",
+      "price": 10000,
+      "short_description": "Фотозона с круглым баннером в розово-голубой гамме и золотыми акцентами.",
+      "full_description": "Фотозона с белым круглым баннером на каркасе, украшенная гирляндами из розовых и голубых шаров разного размера с золотыми акцентами. Идеальна для гендер-пати.",
+      "composition": [
+        "фотозона"
+      ],
+      "category": "Фотозона",
+      "character": null,
+      "age_group": "Для малышей",
+      "budget": "от 8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Фотозона для гендер-пати в Армавире — розовый и голубой",
+      "seo_description": "Фотозона с круглым баннером для раскрытия пола малыша. Розово-голубая гамма, золотые акценты. Заказать в Армавире.",
+      "slug": "tajna-pola",
+      "scene": "photozone",
+      "tags": [
+        "Фотозона"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": true,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/fb438ac1-a0a9-41ad-a3cc-804be500d2a6.jpg",
+        "photozone_type": "frame",
+        "rental": {
+          "enabled": true,
+          "item": "Каркас фотозоны",
+          "days": 3,
+          "keep_price_delta": 500
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/cc373f37-1537-43d1-9d29-ead42053aa3c.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/cc373f37-1537-43d1-9d29-ead42053aa3c.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-25T07:55:44.786Z",
+      "updated_at": "2026-09-25T07:55:44.786Z"
+    },
+    {
+      "id": "432d0f53-063e-4628-9559-7dab6d2e111e",
+      "title": "Голубая интрига",
+      "article": "BOX-064",
+      "price": 3700,
+      "short_description": "Коробка-сюрприз с голубыми хромированными шарами для гендер-пати.",
+      "full_description": "Белая коробка с надписью «Мальчик или Девочка?» и голубыми хромированными шарами. Идеально подходит для раскрытия пола будущего малыша.",
+      "composition": [
+        "коробка 70x70x70 с индивидуальной надписью и декором",
+        "15 маленьких шаров"
+      ],
+      "category": "Коробка-сюрприз",
+      "character": null,
+      "age_group": "Для малышей",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Коробка-сюрприз для гендер-пати с голубыми шарами | Армавир",
+      "seo_description": "Коробка-сюрприз для раскрытия пола малыша с голубыми хромированными шарами. Оформление на заказ в Армавире. Доставка по городу.",
+      "slug": "golubaya-intriga",
+      "scene": "floor",
+      "tags": [
+        "Коробка-сюрприз"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/f46fe712-f897-48db-a547-5e54df544aae.jpg"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/46be3641-03ce-4238-b5fb-fb402b558106.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/46be3641-03ce-4238-b5fb-fb402b558106.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-25T07:50:34.616Z",
+      "updated_at": "2026-09-25T07:50:34.616Z"
+    },
+    {
+      "id": "f814e7aa-c991-44d0-87d1-b72acbe72583",
+      "title": "Сиреневый манифест",
+      "article": "BQT-018",
+      "price": 2000,
+      "short_description": "Букет из семи фольгированных сердец с добрыми пожеланиями в лавандовой упаковке.",
+      "full_description": "Букет из семи фольгированных сердец лавандового оттенка с тёплыми надписями. Оформлен в воздушную органзу с атласными лентами.",
+      "composition": [
+        "букет из шаров с надписями"
+      ],
+      "category": "Букет из шаров",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": "2 000–3 500 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Букет из шаров с надписями в Армавире — Семь желаний",
+      "seo_description": "Букет из семи фольгированных сердец с добрыми пожеланиями. Лавандовая упаковка с атласными лентами. Доставка воздушных шаров в Армавире.",
+      "slug": "sem-zhelaniy",
+      "scene": "handheld_bouquet",
+      "tags": [
+        "Букет из шаров"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/93880525-e8bb-4cfa-b1db-79cf50cf64b5.jpg"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/e3fca1ee-7aeb-4ea3-be76-11d73d77dba7.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/e3fca1ee-7aeb-4ea3-be76-11d73d77dba7.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-25T07:48:10.228Z",
+      "updated_at": "2026-09-25T07:48:10.228Z"
+    },
+    {
+      "id": "3fa6ca45-4f6f-45bd-9065-87276a90cbcf",
+      "title": "Графитовый шик",
+      "article": "BOX-063",
+      "price": 5740,
+      "short_description": "Элегантная композиция в чёрно-золотой гамме с коробкой-сюрпризом и фольгированными цифрами.",
+      "full_description": "Стильное сочетание графитовой коробки с золотым декором, крупных фольгированных цифр и связки хромированных шаров. Лаконичная палитра чёрного и золота создаёт изысканную атмосферу праздника.",
+      "composition": [
+        "коробка 70x70x70 с индивидуальной надписью и декором",
+        "2 цифры",
+        "6 хромированных шаров",
+        "4 латексных шара"
+      ],
+      "category": "Коробка-сюрприз",
+      "character": null,
+      "age_group": "Для детей",
+      "budget": "5 000–8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Графитовый шик — композиция на юбилей в Армавире",
+      "seo_description": "Элегантная чёрно-золотая композиция с коробкой-сюрпризом и фольгированными цифрами. Стильное оформление юбилея. Доставка по Армавиру.",
+      "slug": "grafitovyy-shik",
+      "scene": "floor",
+      "tags": [
+        "Коробка-сюрприз"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/509a83e0-3c84-43e8-9805-efc22b21a236.jpg",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 2
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/caf37ea5-9002-47b6-a85e-b66c5a0991cc.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/caf37ea5-9002-47b6-a85e-b66c5a0991cc.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-25T07:42:58.686Z",
+      "updated_at": "2026-09-25T07:42:58.686Z"
+    },
+    {
+      "id": "197a91b5-48ed-4ea7-ad70-68ac760bab34",
+      "title": "Подиум LOL",
+      "article": "BOX-062",
+      "price": 7460,
+      "short_description": "Белая коробка с красными звёздами, три куклы LOL, красная цифра и фонтаны с золотым конфетти.",
+      "full_description": "Коробка-сюрприз с тремя фольгированными куклами LOL, красной цифрой и двумя фонтанами из белых и золотых шаров с конфетти. Красные звёзды завершают композицию.",
+      "composition": [
+        "коробка 70x70x70 с индивидуальной надписью и декором",
+        "3 фольгированные фигуры LOL",
+        "цифра",
+        "3 фольгированные звезды",
+        "4 латексных шара с конфетти",
+        "6 латексных шаров"
+      ],
+      "category": "Коробка-сюрприз",
+      "character": "LOL",
+      "age_group": "Для детей",
+      "budget": "5 000–8 000 ₽",
+      "series_name": "LOL Surprise",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Коробка-сюрприз с куклами LOL и цифрой — VigSharm Армавир",
+      "seo_description": "Коробка-сюрприз с тремя фольгированными куклами LOL, красной цифрой и фонтанами из шаров с золотым конфетти. Доставка в Армавире.",
+      "slug": "podium-lol",
+      "scene": "floor",
+      "tags": [
+        "Коробка-сюрприз"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/dab6a17f-46a5-42be-89f9-e98079920686.webp",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/3e16614c-ea29-471f-ae39-65646a0e474f.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/3e16614c-ea29-471f-ae39-65646a0e474f.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-25T07:29:36.463Z",
+      "updated_at": "2026-09-25T07:29:36.463Z"
+    },
+    {
+      "id": "bc1182ef-4d0c-4454-9cd4-868d746e58df",
+      "title": "Розовый контраст",
+      "article": "BOX-061",
+      "price": 3700,
+      "short_description": "Розовая коробка с чёрными шарами и надписью «С Днём Рождения».",
+      "full_description": "Розовая коробка-сюрприз с чёрной лентой и каллиграфической надписью. Из неё вылетают 10 чёрных латексных шаров.",
+      "composition": [
+        "коробка 70x70x70 с индивидуальной надписью и декором",
+        "10 латексных шаров"
+      ],
+      "category": "Коробка-сюрприз",
+      "character": null,
+      "age_group": "Для детей",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Коробка-сюрприз с чёрными шарами в Армавире — VigSharm",
+      "seo_description": "Розовая коробка с чёрными шарами и надписью «С Днём Рождения». Стильный контраст для эффектного сюрприза. Доставка в Армавире.",
+      "slug": "rozovyy-kontrast",
+      "scene": "floor",
+      "tags": [
+        "Коробка-сюрприз"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/230b996d-3705-4ff8-9d27-28f9ac65264c.webp"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/6c350877-9560-4104-a3b8-827bd1d37ac3.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/6c350877-9560-4104-a3b8-827bd1d37ac3.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-25T07:26:30.795Z",
+      "updated_at": "2026-09-25T07:26:30.795Z"
+    },
+    {
       "id": "a338146a-0edf-463e-a089-225e786996c8",
       "title": "Кошачье трио",
       "article": "BOX-060",

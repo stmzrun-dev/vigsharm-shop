@@ -963,7 +963,96 @@ Object.assign(app, {
     const whoWrap = document.getElementById('unit-balloon-who-wrap');
     if (whoWrap) whoWrap.classList.toggle('hidden', !value);
     this.syncUnitCharacterWrap?.();
+    this.syncUnitHolidayControl?.();
     this.scheduleUnitCharacterDetect?.();
+  },
+
+  unitHolidayAllowed() {
+    if (!this.isUnitBalloonMode?.()) return false;
+    const type = this.getUnitBalloonType?.() || '';
+    if (!type) return true;
+    return !!(typeof UNIT_BALLOON_TYPES !== 'undefined' && UNIT_BALLOON_TYPES[type]?.hasHoliday);
+  },
+
+  renderUnitHolidayMenu() {
+    const menu = document.getElementById('unit-holiday-menu');
+    if (!menu || menu.dataset.ready === '1') return;
+    const list = (typeof UNIT_HOLIDAYS !== 'undefined' && UNIT_HOLIDAYS) || [];
+    const esc = (s) => String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
+    menu.innerHTML = list.map((name) =>
+      `<button type="button" data-unit-holiday="${esc(name)}">${esc(name)}</button>`
+    ).join('') + '<button type="button" data-unit-holiday="">Без праздника</button>';
+    menu.dataset.ready = '1';
+    menu.addEventListener('click', (e) => {
+      const btn = e.target.closest('[data-unit-holiday]');
+      if (!btn) return;
+      e.preventDefault();
+      e.stopPropagation();
+      this.setUnitHoliday(btn.getAttribute('data-unit-holiday') || '');
+      this.closeUnitHolidayPop?.();
+    });
+  },
+
+  syncUnitHolidayControl() {
+    const pop = document.getElementById('unit-holiday-pop');
+    if (!pop) return;
+    const show = this.unitHolidayAllowed();
+    pop.classList.toggle('hidden', !show);
+    if (!show) {
+      this.closeUnitHolidayPop?.();
+      if (this.getUnitBalloonType?.() && !UNIT_BALLOON_TYPES[this.getUnitBalloonType()]?.hasHoliday) {
+        this.setUnitHoliday?.('');
+      }
+    }
+    this.paintUnitHolidayToggle?.();
+  },
+
+  paintUnitHolidayToggle() {
+    const btn = document.getElementById('unit-holiday-toggle');
+    const holiday = this.getUnitHoliday?.() || '';
+    if (!btn) return;
+    btn.textContent = holiday || 'Праздник';
+    btn.classList.toggle('is-set', !!holiday);
+    document.querySelectorAll('#unit-holiday-menu [data-unit-holiday]').forEach((el) => {
+      el.classList.toggle('is-on', el.getAttribute('data-unit-holiday') === holiday);
+    });
+  },
+
+  getUnitHoliday() {
+    const list = (typeof UNIT_HOLIDAYS !== 'undefined' && UNIT_HOLIDAYS) || [];
+    const value = this.currentProduct?.client_options?.unit_holiday || this.currentProduct?.holiday_only || '';
+    return list.includes(value) ? value : '';
+  },
+
+  setUnitHoliday(name) {
+    const list = (typeof UNIT_HOLIDAYS !== 'undefined' && UNIT_HOLIDAYS) || [];
+    const value = list.includes(name) ? name : '';
+    this.currentProduct = this.currentProduct || { photos: [], scene: 'auto', tags: [], client_options: {} };
+    this.currentProduct.client_options = this.currentProduct.client_options || {};
+    if (value) this.currentProduct.client_options.unit_holiday = value;
+    else delete this.currentProduct.client_options.unit_holiday;
+    this.currentProduct.holiday_only = value;
+    this.paintUnitHolidayToggle?.();
+    this.scheduleSaveActiveStudioDraft?.();
+  },
+
+  toggleUnitHolidayPop(event) {
+    event?.preventDefault?.();
+    event?.stopPropagation?.();
+    this.renderUnitHolidayMenu?.();
+    const menu = document.getElementById('unit-holiday-menu');
+    if (!menu) return;
+    const open = menu.classList.contains('hidden');
+    menu.classList.toggle('hidden', !open);
+    menu.hidden = !open;
+    this.paintUnitHolidayToggle?.();
+  },
+
+  closeUnitHolidayPop() {
+    const menu = document.getElementById('unit-holiday-menu');
+    if (!menu) return;
+    menu.classList.add('hidden');
+    menu.hidden = true;
   },
 
   /** Персонаж/серия видны для поштучных с рисунком или фольгой (не простой латекс). */
@@ -1032,6 +1121,8 @@ Object.assign(app, {
     }
     const hay = [product?.category].concat(product?.tags || []);
     if (hay.includes('Шары с рисунком')) return 'print';
+    if (hay.includes('Ходячие фигуры')) return 'walker';
+    if (hay.includes('Круги, звёзды и сердца')) return 'shapes';
     if (hay.includes('Фольгированные фигуры')) return 'foil';
     if (hay.includes('Латексные шары')) return 'latex';
     return '';
@@ -1488,6 +1579,10 @@ Object.assign(app, {
         }
         const whoList = this.getUnitBalloonWhoList?.() || [];
         if (whoList.length) clientOptions.unit_who = whoList;
+        if (unitMeta.hasHoliday) {
+          const unitHoliday = this.getUnitHoliday?.() || '';
+          if (unitHoliday) clientOptions.unit_holiday = unitHoliday;
+        }
       }
     }
     if (rentalChecked) {
@@ -1515,7 +1610,7 @@ Object.assign(app, {
     let finalTags = [...tags];
     const occasionShelf = !unit && !holidayOnly && !isBox && !isBouquet && !isBalloonFlowers && !isFigures
       && (typeof OCCASION_SHELVES !== 'undefined' ? OCCASION_SHELVES.includes(category) : false);
-    if (holidayOnly) {
+    if (holidayOnly && !unit) {
       category = holidayOnly;
       finalTags = [holidayOnly];
       if (isPhotozone && !finalTags.includes('Фотозона')) finalTags.push('Фотозона');
@@ -1553,10 +1648,17 @@ Object.assign(app, {
     if (unit) {
       const unitType = this.getUnitBalloonType?.() || '';
       const unitMeta = (typeof UNIT_BALLOON_TYPES !== 'undefined' && UNIT_BALLOON_TYPES[unitType]) || null;
+      if (!finalTags.includes('Шары поштучно')) finalTags.push('Шары поштучно');
       if (unitMeta?.tag && !finalTags.includes(unitMeta.tag)) finalTags.push(unitMeta.tag);
       (this.getUnitBalloonWhoList?.() || []).forEach((who) => {
         if (who && !finalTags.includes(who)) finalTags.push(who);
       });
+      const unitHoliday = (unitMeta?.hasHoliday || !unitType) ? (this.getUnitHoliday?.() || '') : '';
+      if (unitHoliday) {
+        category = unitHoliday;
+        if (!finalTags.includes(unitHoliday)) finalTags.push(unitHoliday);
+        clientOptions.unit_holiday = unitHoliday;
+      }
     }
     if (deferred.includes(category)) category = finalTags[0] || '';
 
@@ -1803,6 +1905,9 @@ app.loadProductToForm = function(product) {
   this.setBouquetType?.(bouquetTypeSaved);
   this.setUnitBalloonType?.(this.inferUnitBalloonType?.(product) || '');
   this.setUnitBalloonWho?.(this.inferUnitBalloonWho?.(product) || '');
+  const holidayList = (typeof UNIT_HOLIDAYS !== 'undefined' && UNIT_HOLIDAYS) || [];
+  const savedHoliday = opts.unit_holiday || (holidayList.includes(product.category) ? product.category : '');
+  this.setUnitHoliday?.(holidayList.includes(savedHoliday) ? savedHoliday : '');
   const unitSizeEl = document.getElementById('unit-balloon-size');
   if (unitSizeEl) unitSizeEl.value = opts.balloon_size || '';
   this.wirePhotozoneTypeControls?.();

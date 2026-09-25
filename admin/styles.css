@@ -1117,6 +1117,14 @@ body.admin-editor-open{overflow:hidden}
 .source-work-preview.hidden{display:none!important}
 .source-work-preview-frame{display:block;width:100%;padding:0;border:none;border-radius:10px;overflow:hidden;background:#0d0d0d;aspect-ratio:auto;max-height:min(calc(100dvh - 120px - var(--admin-action-dock)),70vh,920px);cursor:zoom-in}
 .source-work-preview-frame img{display:block;width:100%;height:auto;max-height:min(calc(100dvh - 120px - var(--admin-action-dock)),70vh,920px);object-fit:contain;pointer-events:none}
+.unit-holiday-pop{position:absolute;top:14px;left:14px;z-index:3}
+.unit-holiday-pop.hidden{display:none!important}
+.unit-holiday-toggle{border:0;border-radius:999px;background:rgba(20,20,20,.45);color:#fff;font-size:11px;line-height:1;padding:5px 8px;cursor:pointer;opacity:.72}
+.unit-holiday-toggle:hover,.unit-holiday-toggle.is-set{opacity:1;background:rgba(20,20,20,.72)}
+.unit-holiday-menu{position:absolute;top:calc(100% + 6px);left:0;display:flex;flex-wrap:wrap;gap:4px;width:max-content;max-width:220px;padding:6px;border-radius:10px;background:rgba(20,20,20,.88)}
+.unit-holiday-menu.hidden{display:none!important}
+.unit-holiday-menu button{border:0;border-radius:999px;background:transparent;color:#fff;font-size:11px;padding:4px 7px;cursor:pointer}
+.unit-holiday-menu button.is-on{background:#fff;color:#1a1a1a}
 .source-work-preview.is-expanded .source-work-preview-frame{max-height:min(calc(100dvh - 120px - var(--admin-action-dock)),70vh,920px)}
 .source-work-preview.is-expanded .source-work-preview-frame img{max-height:min(calc(100dvh - 120px - var(--admin-action-dock)),70vh,920px)}
 .btn-sm{padding:6px 10px;font-size:12px;line-height:1.2}

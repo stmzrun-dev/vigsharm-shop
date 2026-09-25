@@ -2,6 +2,380 @@
   "ok": true,
   "products": [
     {
+      "id": "22fd1a0e-0c9a-436b-9e46-a9e1c630f29c",
+      "title": "Лайки",
+      "article": "UNT-045",
+      "price": 150,
+      "short_description": "Лайки",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": "Лайки",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "tiktok-party-2",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Шары с рисунком",
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/35fa6379-ca0e-4353-beaa-60195c431b15.jpg",
+        "unit_type": "print",
+        "unit_who": [
+          "Для девочки"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/c0758ad1-d3ba-4231-9c16-e5d16dccb091.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/c0758ad1-d3ba-4231-9c16-e5d16dccb091.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-25T17:01:27.348Z",
+      "updated_at": "2026-09-25T17:01:27.348Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "b1942f76-8119-4ee1-91a9-95bd367d7801",
+      "title": "TikTok Party",
+      "article": "UNT-044",
+      "price": 150,
+      "short_description": "TikTok Party",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": "TikTok",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "tiktok-party",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Шары с рисунком",
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/f4ca526b-ffd6-4689-aa0d-f06e4e985c4a.jpg",
+        "unit_type": "print",
+        "unit_who": [
+          "Для девочки"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/aa45b131-920c-4933-8f08-5a6c923580e5.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/aa45b131-920c-4933-8f08-5a6c923580e5.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-25T16:58:20.977Z",
+      "updated_at": "2026-09-25T16:58:20.977Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "be0cfe6e-f206-4bd3-a3ca-ee22e4a00fca",
+      "title": "Бабочки",
+      "article": "UNT-043",
+      "price": 150,
+      "short_description": "Бабочки",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "k-rozhdeniyu-devochki-12",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Шары с рисунком",
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/46879100-d437-4375-a04b-5d6c8aee9333.jpg",
+        "unit_type": "print",
+        "unit_who": [
+          "Для девочки"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/a044a047-45c9-43b7-a320-7320e265debe.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/a044a047-45c9-43b7-a320-7320e265debe.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-25T16:42:12.954Z",
+      "updated_at": "2026-09-25T16:42:12.954Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "3c463150-3332-4020-b9f4-5a33a1c3335b",
+      "title": "Бабочки. С днем рождения",
+      "article": "UNT-042",
+      "price": 150,
+      "short_description": "Бабочки. С днем рождения",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "k-rozhdeniyu-devochki-11",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Шары с рисунком",
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/b31f57c0-d147-4720-968a-04ac0cd145d1.jpg",
+        "unit_type": "print",
+        "unit_who": [
+          "Для девочки"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/6211a95e-7cf3-4fc4-aac1-3e376257d1bb.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/6211a95e-7cf3-4fc4-aac1-3e376257d1bb.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-25T16:30:09.122Z",
+      "updated_at": "2026-09-25T16:30:09.122Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "775ba6b8-03b5-4517-aaec-775dda8e8e11",
+      "title": "С ДР Звездная вечеринка",
+      "article": "UNT-041",
+      "price": 150,
+      "short_description": "С ДР Звездная вечеринка",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "k-rozhdeniyu-devochki-10",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Шары с рисунком",
+        "Для девочки",
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/05426d73-747c-4123-b0b9-8005aea77bf4.jpg",
+        "unit_type": "print",
+        "unit_who": [
+          "Для девочки",
+          "Для мальчика"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/ef36a04b-d11e-457e-a6d1-d2310b881212.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/ef36a04b-d11e-457e-a6d1-d2310b881212.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-25T16:28:14.250Z",
+      "updated_at": "2026-09-25T16:28:14.250Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "b3ab6db7-181b-41b7-85f3-997cb74e6d98",
+      "title": "С ДР Шелк",
+      "article": "UNT-040",
+      "price": 150,
+      "short_description": "С ДР Шелк",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "k-rozhdeniyu-devochki-9",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Шары с рисунком",
+        "Для девочки",
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/13170676-6411-4970-97b2-319dbc52263f.jpg",
+        "unit_type": "print",
+        "unit_who": [
+          "Для девочки",
+          "Для мальчика"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/4f75b6b2-7c92-4d26-ab67-5908f7ed18de.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/4f75b6b2-7c92-4d26-ab67-5908f7ed18de.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-25T16:21:04.007Z",
+      "updated_at": "2026-09-25T16:21:04.007Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "a4a578ed-69ae-411b-8327-2ea7cd9eea79",
+      "title": "С ДР Шарики",
+      "article": "UNT-039",
+      "price": 150,
+      "short_description": "С ДР Шарики",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "k-rozhdeniyu-devochki-8",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Шары с рисунком",
+        "Для девочки",
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/5fcda97c-a9c2-4881-95f5-230b996c2d43.jpg",
+        "unit_type": "print",
+        "unit_who": [
+          "Для девочки",
+          "Для мальчика"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/27b25f85-a866-4606-a986-dabe7c0f119b.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/27b25f85-a866-4606-a986-dabe7c0f119b.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-25T16:17:40.896Z",
+      "updated_at": "2026-09-25T16:17:40.896Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "7c2a1488-5ea6-4d2a-ad61-0830163d9419",
+      "title": "Макаронс Baby Girls",
+      "article": "UNT-038",
+      "price": 150,
+      "short_description": "Макаронс Baby Girls",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": "Модная девочка",
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": "Макаронс Baby Girls",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "k-rozhdeniyu-devochki-7",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Шары с рисунком",
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/55d8289c-50fb-4a21-9ca9-7ae84365d147.jpg",
+        "unit_type": "print",
+        "unit_who": [
+          "Для девочки"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/87b62199-aaf7-4bb7-8867-4a32e2e3a599.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/87b62199-aaf7-4bb7-8867-4a32e2e3a599.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-25T16:14:51.916Z",
+      "updated_at": "2026-09-25T16:14:51.916Z",
+      "thumb_photo": null
+    },
+    {
       "id": "7a4d7115-0c71-4407-bfc3-e7acbfdacade",
       "title": "Белый, мальчик!",
       "article": "UNT-037",

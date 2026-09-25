@@ -759,12 +759,15 @@ const app = {
       if (titleEl) titleEl.placeholder = 'Точное название как у поставщика';
       if (!this.currentProduct?.id) this.assignFreshArticle?.();
       this.syncStudioModeHint?.();
+      this.syncUnitCharacterWrap?.();
+      this.scheduleUnitCharacterDetect?.();
     } else {
       if (fromUser && sceneEl?.value === 'unit_balloon') {
         if (this.currentProduct) this.currentProduct.scene = 'auto';
         sceneEl.value = 'auto';
       }
       if (titleEl) titleEl.placeholder = 'Например: Тёмный рыцарь';
+      this.syncUnitCharacterWrap?.();
     }
     this.syncEditorSteps?.();
   },

@@ -1010,18 +1010,32 @@ Object.assign(app, {
     this.renderPhotos();
     this.setStudioBusy?.(false);
     this.showSourceWorkPreview?.(masterImageUrl);
+    this.invalidateAiAutoFill?.({ clearFilled: true });
     this.syncEditorSteps?.();
 
-    if (statusEl) statusEl.textContent = '✅ Master готов — при кривых буквах: «Исправить надпись», затем цена + состав → ИИ';
-    this.toast('Master готов — одно фото в карточке', 'success');
+    if (statusEl) {
+      statusEl.textContent = this.isUnitBalloonMode?.()
+        ? '✅ Master готов — цена → ИИ определит персонажа'
+        : '✅ Master готов — цена + состав → ИИ заполнит сам';
+    }
+    this.toast(
+      this.isUnitBalloonMode?.()
+        ? 'Master готов — укажите цену'
+        : 'Master готов — укажите цену и состав',
+      'success'
+    );
     this.notifyMasterDone?.('ok', {
       title: 'Master готов',
-      body: 'Фото обработано — можно писать состав и цену'
+      body: this.isUnitBalloonMode?.()
+        ? 'Цена — ИИ определит персонажа'
+        : 'Цена и состав — ИИ заполнит карточку сам'
     });
     this.syncAIFillGate?.();
+    this.syncUnitCharacterWrap?.();
+    this.scheduleUnitCharacterDetect?.();
     this.saveActiveStudioDraft?.();
     this.goStep1Phase?.('c', { skipGate: true });
-    // Если цена и состав уже заполнены — сразу открыть шаг 2
+    // Если цена и состав уже заполнены — сразу открыть шаг 2 (ИИ стартует сам)
     if (this.canUnlockEditorStep2?.()) {
       setTimeout(() => this.goEditorStep2?.(), 300);
     }

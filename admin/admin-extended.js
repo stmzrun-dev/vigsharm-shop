@@ -241,6 +241,7 @@ Object.assign(app, {
       return;
     }
     this._replaceMainPhotoOnce = true;
+    this.invalidateAiAutoFill?.({ clearFilled: true });
     const input = document.getElementById('photo-input');
     if (input) {
       input.value = '';
@@ -961,6 +962,22 @@ Object.assign(app, {
     }
     const whoWrap = document.getElementById('unit-balloon-who-wrap');
     if (whoWrap) whoWrap.classList.toggle('hidden', !value);
+    this.syncUnitCharacterWrap?.();
+    this.scheduleUnitCharacterDetect?.();
+  },
+
+  /** Персонаж/серия видны для поштучных с рисунком или фольгой (не простой латекс). */
+  syncUnitCharacterWrap() {
+    const wrap = document.getElementById('unit-character-wrap');
+    if (!wrap) return;
+    const unit = this.isUnitBalloonMode?.();
+    if (!unit) {
+      wrap.classList.remove('hidden');
+      return;
+    }
+    const type = this.getUnitBalloonType?.() || '';
+    // Пока тип не выбран или print/foil — показываем; latex — скрываем
+    wrap.classList.toggle('hidden', type === 'latex');
   },
 
   getUnitBalloonWhoList() {
@@ -1600,7 +1617,6 @@ Object.assign(app, {
     }
     if (deferred.includes(category)) category = finalTags[0] || '';
 
-    const skipCharSeries = !!unit;
     if (!unit && category !== 'Юбилей' && (holidayOnly || occasionShelf || this.isOccasionShelf?.(category))) {
       this.applyAgeFromCategory?.(category || holidayOnly);
     }
@@ -1619,10 +1635,10 @@ Object.assign(app, {
       full_description: unit ? '' : document.getElementById('product-full-desc').value.trim(),
       composition: composition,
       category: category || (isPhotozone ? 'Фотозона' : category),
-      character: skipCharSeries ? null : (document.getElementById('product-character')?.value.trim() || null),
+      character: document.getElementById('product-character')?.value.trim() || null,
       age_group: ageVal,
       budget: unit ? null : (document.getElementById('product-budget')?.value.trim() || null),
-      series_name: skipCharSeries ? null : (document.getElementById('product-series')?.value.trim() || null),
+      series_name: document.getElementById('product-series')?.value.trim() || null,
       occasion: null,
       target_audience: null,
       seo_title: unit ? '' : document.getElementById('product-seo-title').value.trim(),
@@ -1665,6 +1681,8 @@ Object.assign(app, {
     this._step1PhotoCount = 0;
     this._aiCardFilled = false;
     this._lastAiCardData = null;
+    this.resetAiAutoFillState?.();
+    this.resetUnitCharacterDetectState?.();
     this.closeAiReviewOverlay?.({ skipSync: true });
     const alts = document.getElementById('title-alts');
     if (alts) { alts.classList.add('hidden'); alts.innerHTML = ''; }

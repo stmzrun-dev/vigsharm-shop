@@ -147,9 +147,244 @@ Object.assign(app, {
       return false;
     }
     document.getElementById('block-essentials')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    document.getElementById('generate-ai-btn')?.focus({ preventScroll: true });
-    this.toast('Шаг 2: ИИ заполнит карточку', 'success');
+    this.scheduleAutoGenerateAICard?.();
+    this.toast(this._aiCardFilled ? 'Шаг 2 готов' : 'Шаг 2: ИИ заполняет карточку…', 'success');
     return true;
+  },
+
+  /** Ключ Master/фото — смена фото снова включает автозаполнение. */
+  getAiCardMasterKey() {
+    const photo = this.currentProduct?.photos?.[0];
+    const url = this.studioMasterDataUrl
+      || this.studioMasterBackupUrl
+      || this.studioCompare?.master
+      || photo?.url
+      || '';
+    return String(url).split('?')[0];
+  },
+
+  getAiCardSignature() {
+    const price = parseInt(document.getElementById('product-price')?.value, 10) || 0;
+    const composition = (document.getElementById('product-composition')?.value || '').trim();
+    return `${this.getAiCardMasterKey()}|${price}|${composition}`;
+  },
+
+  resetAiAutoFillState() {
+    clearTimeout(this._aiAutoTimer);
+    this._aiAutoTimer = null;
+    this._aiAutoDone = false;
+    this._aiAutoFailedSig = '';
+    this._aiAutoPendingSig = '';
+  },
+
+  /** Новое Master-фото — разрешить автозаполнение снова. */
+  invalidateAiAutoFill(opts = {}) {
+    this.resetAiAutoFillState();
+    this.resetUnitCharacterDetectState?.();
+    if (opts.clearFilled && this._aiCardFilled) {
+      this._aiCardFilled = false;
+      this.syncStep2AiCardUi?.();
+    }
+  },
+
+  /** Авто: один раз при Master + цена + состав. Правка состава после успеха не перезапускает. */
+  scheduleAutoGenerateAICard() {
+    if (this.currentProduct?.id) return;
+    if (this.isUnitBalloonMode?.()) {
+      this.scheduleUnitCharacterDetect?.();
+      return;
+    }
+    if (!this.canGenerateAICard()) return;
+    if (this._aiCardBusy) return;
+    if (this._aiAutoDone) return;
+    if (document.getElementById('product-form')?.classList.contains('is-studio-busy')) return;
+
+    // Уже есть карточка (черновик / прошлый ИИ) — не гоняем снова
+    if (this._aiCardFilled) {
+      this._aiAutoDone = true;
+      return;
+    }
+    const titled = (document.getElementById('product-title')?.value || '').trim();
+    const shorted = (document.getElementById('product-short-desc')?.value || '').trim();
+    if (titled && shorted) {
+      this._aiCardFilled = true;
+      this._aiAutoDone = true;
+      this.syncStep2AiCardUi?.();
+      return;
+    }
+
+    const sig = this.getAiCardSignature();
+    if (!sig || sig === this._aiAutoFailedSig) return;
+
+    clearTimeout(this._aiAutoTimer);
+    this._aiAutoPendingSig = sig;
+    const statusEl = document.getElementById('ai-status');
+    if (statusEl && !this._aiCardBusy && !this._aiCardFilled) {
+      statusEl.textContent = '✨ ИИ заполнит карточку сам…';
+    }
+    this._aiAutoTimer = setTimeout(() => {
+      this._aiAutoTimer = null;
+      if (this._aiAutoDone || this._aiCardBusy) return;
+      if (!this.canGenerateAICard()) return;
+      if (this.getAiCardSignature() !== sig) return;
+      this.generateAIMetadata({ auto: true });
+    }, 750);
+  },
+
+  canDetectUnitCharacter() {
+    if (!this.isUnitBalloonMode?.()) return false;
+    if (this.currentProduct?.id) return false;
+    const type = this.getUnitBalloonType?.() || '';
+    if (type === 'latex') return false;
+    const hasPhoto = (this.currentProduct?.photos || []).length > 0 || this.hasStudioMasterReady?.();
+    const price = parseInt(document.getElementById('product-price')?.value, 10) || 0;
+    return hasPhoto && price > 0;
+  },
+
+  getUnitCharacterSignature() {
+    const photo = this.currentProduct?.photos?.[0];
+    const url = this.studioMasterDataUrl
+      || this.studioMasterBackupUrl
+      || this.studioCompare?.master
+      || photo?.url
+      || '';
+    const price = parseInt(document.getElementById('product-price')?.value, 10) || 0;
+    const type = this.getUnitBalloonType?.() || '';
+    return `${String(url).split('?')[0]}|${price}|${type}`;
+  },
+
+  resetUnitCharacterDetectState() {
+    clearTimeout(this._unitCharTimer);
+    this._unitCharTimer = null;
+    this._unitCharDone = false;
+    this._unitCharFailedSig = '';
+  },
+
+  /** Поштучные print/foil: после фото+цены ИИ сам пишет персонажа (без полной карточки). */
+  scheduleUnitCharacterDetect() {
+    if (!this.canDetectUnitCharacter()) return;
+    if (this._unitCharBusy || this._aiCardBusy) return;
+    if (this._unitCharDone) return;
+    if (document.getElementById('product-form')?.classList.contains('is-studio-busy')) return;
+
+    const existing = (document.getElementById('product-character')?.value || '').trim();
+    if (existing) {
+      this._unitCharDone = true;
+      return;
+    }
+
+    const sig = this.getUnitCharacterSignature();
+    if (!sig || sig === this._unitCharFailedSig) return;
+
+    clearTimeout(this._unitCharTimer);
+    const statusEl = document.getElementById('unit-char-status');
+    if (statusEl) statusEl.textContent = '✨ ИИ определит персонажа…';
+    this._unitCharTimer = setTimeout(() => {
+      this._unitCharTimer = null;
+      if (this._unitCharDone || this._unitCharBusy) return;
+      if (!this.canDetectUnitCharacter()) return;
+      if (this.getUnitCharacterSignature() !== sig) return;
+      this.detectUnitCharacter({ auto: true });
+    }, 700);
+  },
+
+  async detectUnitCharacter(opts = {}) {
+    const auto = !!opts.auto;
+    const force = !!opts.force;
+    const hasPhoto = (this.currentProduct?.photos || []).length > 0 || this.hasStudioMasterReady?.();
+    if (force) {
+      if (!this.isUnitBalloonMode?.() || !hasPhoto) {
+        this.toast('Нужны режим поштучно и фото', 'info');
+        return;
+      }
+    } else if (!this.canDetectUnitCharacter()) {
+      if (!auto) this.toast('Нужны фото и цена', 'info');
+      return;
+    }
+    if (this._unitCharBusy) {
+      if (!auto) this.toast('ИИ уже определяет персонажа…', '');
+      return;
+    }
+    if (auto && this._unitCharDone && !force) return;
+
+    const statusEl = document.getElementById('unit-char-status');
+    const btn = document.getElementById('unit-char-detect-btn');
+    const runSig = this.getUnitCharacterSignature();
+    this._unitCharBusy = true;
+    if (auto) this._unitCharDone = true;
+    if (force) {
+      this._unitCharDone = true;
+      this._unitCharFailedSig = '';
+    }
+    if (btn) btn.disabled = true;
+    if (statusEl) statusEl.textContent = '✨ Смотрю персонажа на фото…';
+
+    try {
+      const photo = this.currentProduct?.photos?.[0];
+      let imageUrl = photo?.url
+        || this.studioMasterDataUrl
+        || this.studioCompare?.master
+        || '';
+      if (!imageUrl) throw new Error('Нет фото');
+
+      if (String(imageUrl).startsWith('data:')) {
+        if (statusEl) statusEl.textContent = '☁️ Загрузка фото…';
+        imageUrl = await this.ensureHttpsPhotoUrl(imageUrl, 'unit-char.webp');
+        if (photo) {
+          photo.url = imageUrl;
+          photo.uploaded = true;
+        }
+      }
+
+      const titleHint = (document.getElementById('product-title')?.value || '').trim();
+      const res = await fetch(`${this.workerUrl}/api/ai/detect-character`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', ...this.authHeaders() },
+        body: JSON.stringify({ image_url: imageUrl, title_hint: titleHint })
+      });
+      const result = await res.json().catch(() => ({}));
+      if (!res.ok || !result.ok || !result.data) {
+        throw new Error(result.error || `Ошибка ИИ (${res.status})`);
+      }
+
+      const data = result.data;
+      const charEl = document.getElementById('product-character');
+      const seriesEl = document.getElementById('product-series');
+      if (charEl) charEl.value = data.character || '';
+      if (seriesEl && (data.series_name || force)) seriesEl.value = data.series_name || seriesEl.value;
+      if (this.currentProduct) {
+        this.currentProduct.character = data.character || '';
+        if (data.series_name) this.currentProduct.series_name = data.series_name;
+      }
+      this.renderCharacterAlts?.(data.character, data.character_alts || [], data.character_confidence || '');
+      this.renderSeriesAlts?.(data.series_name, data.series_alts || [], data.series_confidence || '');
+      this._unitCharFailedSig = '';
+
+      if (data.character) {
+        if (statusEl) {
+          statusEl.textContent = data.ask_character
+            ? `Персонаж: ${data.character} — уточните при необходимости`
+            : `Персонаж: ${data.character}`;
+        }
+        this.toast(
+          data.ask_character ? 'Уточните персонажа' : `Персонаж: ${data.character}`,
+          data.ask_character ? '' : 'success'
+        );
+      } else {
+        if (statusEl) statusEl.textContent = 'Персонаж на фото не найден — можно вписать вручную';
+        this._unitCharDone = true;
+      }
+    } catch (e) {
+      console.error('[unit-char]', e);
+      const msg = e.message || String(e);
+      if (statusEl) statusEl.textContent = '✗ ' + msg;
+      this._unitCharDone = false;
+      this._unitCharFailedSig = runSig;
+      if (!auto) this.toast('Не удалось определить персонажа: ' + msg, 'error');
+    } finally {
+      this._unitCharBusy = false;
+      if (btn) btn.disabled = false;
+    }
   },
 
   getStep1Phase() {
@@ -338,7 +573,7 @@ Object.assign(app, {
       if (busy) {
         hint.textContent = 'Master ещё генерируется — состав и цену можно заполнять';
       } else if (step2) {
-        hint.textContent = 'Шаг 1 готов — можно к названию и ИИ';
+        hint.textContent = 'Шаг 1 готов — ИИ заполнит карточку сам';
       } else {
         hint.textContent = gaps.length ? `Чтобы продолжить, нужно: ${gaps.join(', ')}` : '';
       }
@@ -349,7 +584,7 @@ Object.assign(app, {
         btn.textContent = 'Ждём Master…';
       } else {
         btn.disabled = false;
-        btn.textContent = step2 ? 'Дальше: название и ИИ →' : 'Проверить шаг 1';
+        btn.textContent = step2 ? 'К карточке →' : 'Проверить шаг 1';
       }
     }
     if (step2) {
@@ -357,7 +592,7 @@ Object.assign(app, {
       if (!wasStep2) {
         setTimeout(() => {
           this.autosizeCompositionField?.();
-          document.getElementById('generate-ai-btn')?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          document.getElementById('ai-fill-block')?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }, 50);
       } else {
         this.autosizeCompositionField?.();
@@ -528,14 +763,31 @@ Object.assign(app, {
     const hint = document.getElementById('ai-fill-hint');
     const btn = document.getElementById('generate-ai-btn');
     const ready = this.canGenerateAICard();
-    if (wrap) wrap.classList.toggle('hidden', !ready);
-    if (hint) hint.classList.toggle('hidden', ready);
+    const filled = !!this._aiCardFilled;
+    const busy = !!this._aiCardBusy;
+    // Кнопка видна после первого заполнения (перезапуск) или если авто недоступно / сбой
+    const showBtn = ready && (filled || !!this._aiAutoFailedSig || this.currentProduct?.id);
+    if (wrap) wrap.classList.toggle('hidden', !showBtn);
+    if (hint) {
+      hint.classList.toggle('hidden', ready && (busy || filled || !this._aiAutoFailedSig));
+      if (!ready) {
+        hint.textContent = 'Master → цена → состав — ИИ сам заполнит карточку (персонаж, название…).';
+        hint.classList.remove('hidden');
+      } else if (this._aiAutoFailedSig && !filled && !busy) {
+        hint.textContent = 'ИИ не сработал — нажмите «Перезаполнить» или поправьте состав/цену.';
+        hint.classList.remove('hidden');
+      }
+    }
     if (btn && !btn.classList.contains('is-busy')) {
       btn.disabled = !ready;
+      btn.textContent = filled ? '↻ Перезаполнить' : '↻ Заполнить карточку';
+      btn.classList.toggle('primary', !filled);
+      btn.classList.toggle('outline', !!filled);
     }
     this.syncEditorSteps?.();
     this.syncRequiredFieldHighlights?.();
     this.syncStep2AiCardUi?.();
+    this.scheduleAutoGenerateAICard?.();
   },
 
   /** Шаг 2: поля карточки только после ИИ (или при редактировании / поштучно). */
@@ -573,6 +825,10 @@ Object.assign(app, {
 
   markAiCardFilled(filled = true) {
     this._aiCardFilled = !!filled;
+    if (filled) {
+      this._aiAutoDone = true;
+      this._aiAutoFailedSig = '';
+    }
     this.syncStep2AiCardUi?.();
   },
 
@@ -724,9 +980,11 @@ Object.assign(app, {
     return this.escapeHtml(s).replace(/'/g, '&#39;');
   },
 
-  async generateAIMetadata() {
+  async generateAIMetadata(opts = {}) {
+    const force = !!opts.force;
+    const auto = !!opts.auto;
     if (!this.canGenerateAICard()) {
-      this.toast('Сначала фото, цена и состав', 'error');
+      if (!auto) this.toast('Сначала фото, цена и состав', 'error');
       this.syncAIFillGate();
       return;
     }
@@ -736,19 +994,26 @@ Object.assign(app, {
     const btn = document.getElementById('generate-ai-btn');
     const statusEl = document.getElementById('ai-status');
 
-    if (!btn || !statusEl) {
+    if (!statusEl) {
       console.error('AI UI elements not found');
       return;
     }
-    if (btn.classList.contains('is-busy') || this._aiCardBusy) {
-      this.toast('ИИ уже работает — подождите', '');
+    if ((btn && btn.classList.contains('is-busy')) || this._aiCardBusy) {
+      if (!auto) this.toast('ИИ уже работает — подождите', '');
       return;
     }
-    this._aiCardBusy = true;
+    if (auto && this._aiAutoDone && !force) return;
 
-    btn.disabled = true;
-    btn.classList.add('is-busy');
-    btn.innerHTML = '<span class="spinner"></span> Генерация...';
+    const runSig = this.getAiCardSignature();
+    this._aiCardBusy = true;
+    if (auto) this._aiAutoDone = true;
+    if (force) this._aiAutoFailedSig = '';
+
+    if (btn) {
+      btn.disabled = true;
+      btn.classList.add('is-busy');
+      btn.innerHTML = '<span class="spinner"></span> Генерация...';
+    }
     statusEl.textContent = '✨ Анализ фото...';
 
     try {
@@ -908,6 +1173,7 @@ Object.assign(app, {
 
       this.markAiCardFilled?.(true);
       this._lastAiCardData = data;
+      this._aiAutoFailedSig = '';
       this.notifyMasterDone?.('ok', {
         title: 'Карточка заполнена',
         body: 'ИИ готов — проверьте и опубликуйте'
@@ -933,14 +1199,20 @@ Object.assign(app, {
       }
       statusEl.textContent = '✗ ' + msg;
       this.toast('Ошибка AI: ' + msg, 'error');
+      this._aiAutoDone = false;
+      this._aiAutoFailedSig = runSig || this.getAiCardSignature();
       this.notifyMasterDone?.('error', {
         title: 'ИИ не заполнил карточку',
         body: msg || 'Ошибка генерации'
       });
     } finally {
       this._aiCardBusy = false;
-      btn.classList.remove('is-busy');
-      btn.innerHTML = '✨ ИИ заполнит карточку';
+      if (btn) {
+        btn.classList.remove('is-busy');
+        btn.innerHTML = this._aiCardFilled ? '↻ Перезаполнить' : '↻ Заполнить карточку';
+        btn.classList.toggle('primary', !this._aiCardFilled);
+        btn.classList.toggle('outline', !!this._aiCardFilled);
+      }
       this.syncAIFillGate();
     }
   },

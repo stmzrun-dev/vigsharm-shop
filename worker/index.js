@@ -52,6 +52,8 @@ export default {
       // Router
       if (path === '/api/ai/read-foil-digits' && method === 'POST')
         return handleReadFoilDigits(request, env);
+      if (path === '/api/ai/detect-character' && method === 'POST')
+        return handleDetectCharacter(request, env);
       if (path === '/api/ai/generate-card' && method === 'POST')
         return handleGenerateCard(request, env);
       if (path === '/api/ai/suggest-category' && method === 'POST')
@@ -509,6 +511,107 @@ async function handleReadFoilDigits(request, env) {
     digits = String(text).replace(/\D/g, '').slice(0, 4);
   }
   return json({ ok: true, foil_digits: digits });
+}
+
+/** Лёгкое определение персонажа/серии по фото (поштучные шары с рисунком/фольгой). */
+async function handleDetectCharacter(request, env) {
+  const body = await request.json().catch(() => ({}));
+  const image_url = body.image_url;
+  if (!image_url) return json({ ok: false, error: 'Missing image_url' }, 400);
+  const titleHint = String(body.title_hint || '').trim().slice(0, 80);
+
+  const aiResp = await nordRequest('/v1/chat/completions', 'POST', {
+    model: 'claude-sonnet-5',
+    temperature: 0,
+    response_format: { type: 'json_object' },
+    messages: [
+      {
+        role: 'system',
+        content: `Ты определяешь персонажа на фото воздушного шара (латекс с принтом или фольгированная фигура) для каталога VigSharm.
+Верни ТОЛЬКО JSON:
+{
+  "character": "имя героя по-русски или пустая строка",
+  "character_alts": ["вариант 1", "вариант 2"],
+  "character_confidence": "high|medium|low",
+  "series_name": "франшиза/тема или пустая строка",
+  "series_alts": [],
+  "series_confidence": "high|medium|low"
+}
+Правила:
+- Смотри принт на шаре, фольгированную фигуру, надписи на товаре (ВЛАД БУМАГА, А4, Spiderman…).
+- character по-русски: «Влад А4», «Человек-паук», «Миньон», «Пикачу» — не английский бренд в латинице, если есть русское имя.
+- Если на шаре явная надпись с именем героя — character = это имя (нормализуй: «ВЛАД БУМАГА А4» → «Влад А4»).
+- Нет узнаваемого героя (однотонный латекс, сердце без персонажа, цифра) → character "".
+- series_name — франшиза/канал/вселенная («Влад А4», «Marvel», «Миньоны») или пусто.
+- При medium/low заполни character_alts (2–3 варианта). Не выдумывай героя без признаков.`
+      },
+      {
+        role: 'user',
+        content: [
+          {
+            type: 'text',
+            text: titleHint
+              ? `Кто персонаж на этом шаре? Подсказка названия: «${titleHint}».`
+              : 'Кто персонаж на этом шаре? Если героя нет — пустые строки.'
+          },
+          { type: 'image_url', image_url: { url: image_url } }
+        ]
+      }
+    ]
+  }, env, 45000);
+
+  if (aiResp.error) {
+    return json({
+      ok: false,
+      error: 'NordRouter API ошибка: ' + (aiResp.error.message || JSON.stringify(aiResp.error))
+    });
+  }
+
+  const text = aiResp.choices?.[0]?.message?.content || '';
+  let data = {};
+  try {
+    data = JSON.parse(text);
+  } catch {
+    return json({ ok: false, error: 'Не удалось разобрать ответ ИИ' }, 502);
+  }
+
+  const strip = (v) => String(v || '').replace(/\s+/g, ' ').trim().slice(0, 80);
+  const normAlts = (list, primary) => {
+    const main = strip(primary).toLowerCase();
+    return (Array.isArray(list) ? list : [])
+      .map(strip)
+      .filter(Boolean)
+      .filter((t) => t.toLowerCase() !== main)
+      .filter((t, i, arr) => arr.findIndex((x) => x.toLowerCase() === t.toLowerCase()) === i)
+      .slice(0, 3);
+  };
+  const normConf = (v) => {
+    const c = String(v || '').toLowerCase();
+    return c === 'high' || c === 'medium' || c === 'low' ? c : '';
+  };
+
+  const character = strip(data.character);
+  const series_name = strip(data.series_name);
+  const character_alts = normAlts(data.character_alts, character);
+  const series_alts = normAlts(data.series_alts, series_name);
+  const character_confidence = normConf(data.character_confidence)
+    || (character_alts.length ? 'medium' : (character ? 'high' : ''));
+  const series_confidence = normConf(data.series_confidence)
+    || (series_alts.length ? 'medium' : (series_name ? 'high' : ''));
+
+  return json({
+    ok: true,
+    data: {
+      character,
+      character_alts,
+      character_confidence,
+      series_name,
+      series_alts,
+      series_confidence,
+      ask_character: character_confidence === 'medium' || character_confidence === 'low'
+        || series_confidence === 'medium' || series_confidence === 'low'
+    }
+  });
 }
 
 /** Крупная фольгированная «1» (одна цифра) → «1 годик». «10» сюда не попадает. */

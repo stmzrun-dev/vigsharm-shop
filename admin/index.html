@@ -361,6 +361,22 @@
                   <p class="scene-subchips-label">Для кого <span class="text-muted">необязательно</span></p>
                   <div id="unit-who-row" class="unit-who-row" role="group" aria-label="Полки, можно несколько"></div>
                 </div>
+                <div id="unit-character-wrap" class="unit-character-wrap hidden">
+                  <div class="form-group">
+                    <label for="product-character">Персонаж <small class="text-muted">(ИИ по фото)</small></label>
+                    <input id="product-character" placeholder="Например: Влад А4" autocomplete="off"/>
+                    <div id="character-alts" class="title-alts hidden"></div>
+                  </div>
+                  <div class="form-group">
+                    <label for="product-series">Серия <small class="text-muted">(необязательно)</small></label>
+                    <input id="product-series" placeholder="Например: Влад А4 / Marvel" autocomplete="off"/>
+                    <div id="series-alts" class="title-alts hidden"></div>
+                  </div>
+                  <div class="unit-char-actions">
+                    <button type="button" class="btn outline sm" id="unit-char-detect-btn" onclick="app.detectUnitCharacter({ force: true })">↻ Персонаж по фото</button>
+                    <p class="status" id="unit-char-status"></p>
+                  </div>
+                </div>
                 <div id="unit-balloon-size-wrap" class="unit-balloon-size-wrap hidden">
                   <label for="unit-balloon-size">Размер, см</label>
                   <input id="unit-balloon-size" type="text" inputmode="numeric" placeholder="56" autocomplete="off"/>
@@ -380,9 +396,9 @@
                 <input id="product-price" data-required-field="price" type="number" min="0" step="1" inputmode="numeric" placeholder="0"/>
               </div>
               <div class="form-group unit-hide" id="ai-fill-block">
-                <p class="ai-fill-hint" id="ai-fill-hint">Сначала: фото (Master) → цена → состав. Потом появится кнопка ИИ.</p>
+                <p class="ai-fill-hint" id="ai-fill-hint">Master → цена → состав — ИИ сам заполнит карточку (персонаж, название…).</p>
                 <div id="ai-fill-wrap" class="hidden">
-                  <button type="button" class="btn primary block" id="generate-ai-btn" onclick="app.generateAIMetadata()">✨ ИИ заполнит карточку</button>
+                  <button type="button" class="btn outline block" id="generate-ai-btn" onclick="app.generateAIMetadata({ force: true })">↻ Перезаполнить</button>
                 </div>
                 <button type="button" class="btn outline block hidden" id="edit-card-btn" onclick="app.openAiReviewOverlay()">Править карточку</button>
                 <div class="status" id="ai-status"></div>
@@ -434,7 +450,7 @@
 
         <!-- Шаг 2: поля после ИИ (до ИИ скрыты) -->
         <section class="card-block editor-step-2" id="block-main">
-          <p class="unit-mode-banner hidden" id="unit-mode-banner">Шары поштучно: название и цена. «Для кого» — только если шар к кому-то относится.</p>
+          <p class="unit-mode-banner hidden" id="unit-mode-banner">Шары поштучно: название, цена и персонаж (для рисунка/фольги). «Для кого» — по желанию.</p>
           <div id="step2-after-ai" class="step2-after-ai">
           <div class="form-row form-row-2">
             <div class="form-group">
@@ -448,13 +464,8 @@
             </div>
           </div>
 
-          <div class="form-row form-row-2">
-            <div class="form-group unit-hide">
-              <label>Персонаж <small class="text-muted">(необязательно — ИИ)</small></label>
-              <input id="product-character" placeholder="Например: Человек-паук" autocomplete="off"/>
-              <div id="character-alts" class="title-alts hidden"></div>
-            </div>
-            <div class="form-group unit-hide">
+          <div class="form-row form-row-2 unit-hide">
+            <div class="form-group">
               <label>Возраст <span class="req">*</span></label>
               <select id="product-age" data-required-field="age">
                 <option value="">— выберите —</option>
@@ -465,9 +476,6 @@
                 <option>Для любого возраста</option>
               </select>
             </div>
-          </div>
-
-          <div class="form-row form-row-2 unit-hide">
             <div class="form-group">
               <label>Бюджет <span class="req">*</span></label>
               <select id="product-budget" data-required-field="budget">
@@ -479,11 +487,6 @@
                 <option value="5 000–8 000 ₽">5 000–8 000 ₽ — Настоящий вау-эффект</option>
                 <option value="от 8 000 ₽">от 8 000 ₽ — Оформление и масштаб</option>
               </select>
-            </div>
-            <div class="form-group">
-              <label>Тематическая серия <small class="text-muted">(необязательно — ИИ)</small></label>
-              <input id="product-series" placeholder="Например: Человек-паук / Миньоны" autocomplete="off"/>
-              <div id="series-alts" class="title-alts hidden"></div>
             </div>
           </div>
 

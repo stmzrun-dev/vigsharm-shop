@@ -642,9 +642,9 @@ body.admin-editor-open{overflow:hidden}
 #product-form.is-editor-step-2 #ai-fill-wrap{
   display:flex!important;flex-direction:column;gap:8px
 }
-#product-form.is-editor-step-2 #ai-fill-wrap.hidden{display:flex!important;opacity:.45;pointer-events:none}
+#product-form.is-editor-step-2 #ai-fill-wrap.hidden{display:none!important}
 #product-form.is-editor-step-2 #generate-ai-btn{
-  min-height:52px;font-size:16px;font-weight:700;width:100%
+  min-height:44px;font-size:15px;font-weight:600;width:100%
 }
 #product-form.is-editor-step-2 #ai-status{font-size:12px;min-height:1.2em}
 #product-form.is-editor-step-2 #block-main{
@@ -824,6 +824,12 @@ body.admin-editor-open{overflow:hidden}
 .unit-price-fields{display:none;margin:0 0 12px}
 .unit-balloon-who-wrap{margin:8px 0 0}
 .unit-balloon-who-wrap.hidden{display:none!important}
+.unit-character-wrap{margin:10px 0 0;padding:10px;border:1px solid #E3F2FD;border-radius:10px;background:#F8FBFF}
+.unit-character-wrap.hidden{display:none!important}
+.unit-character-wrap .form-group{margin:0 0 8px}
+.unit-character-wrap .form-group:last-of-type{margin-bottom:4px}
+.unit-char-actions{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:4px}
+.unit-char-actions .status{margin:0;font-size:12px;min-height:1.2em;flex:1 1 140px}
 .unit-who-row{
   display:grid;grid-template-columns:1fr 1fr;gap:5px
 }

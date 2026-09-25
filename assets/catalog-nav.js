@@ -371,7 +371,7 @@
       p.main_photo ||
       '';
     var img = key
-      ? '<img src="' + window.vigImage(key) + '" data-key="' + esc(key) + '" alt="' + esc(p.title) + '" loading="' + (i < 4 ? 'eager' : 'lazy') + '" decoding="async" width="800" height="800" onload="this.classList.add(\'is-ready\')"/>'
+      ? '<img src="' + window.vigImage(key, 480) + '" data-key="' + esc(key) + '" alt="' + esc(p.title) + '" loading="' + (i < 4 ? 'eager' : 'lazy') + '" decoding="async" width="480" height="480" onload="this.classList.add(\'is-ready\')"/>'
       : '';
     var from = (p.tags || []).indexOf('Цена от') >= 0 ? 'от ' : '';
     var priceNote = p.category === 'Шары поштучно' ? 'Цена за штуку' : 'Цена за композицию';
@@ -1348,12 +1348,20 @@
     searchInput.addEventListener('input', function () {
       q = searchInput.value;
       clearTimeout(searchTimer);
+      // Только обновляем выдачу — без scroll, иначе якорь рвёт набор на телефоне.
       searchTimer = setTimeout(function () {
-        var searching = !!q.trim();
-        var scroll = searching && !searchWasActive;
-        searchWasActive = searching;
-        render({ resultsOnly: true, scroll: scroll });
-      }, 180);
+        searchWasActive = !!q.trim();
+        render({ resultsOnly: true, scroll: false });
+      }, 320);
+    });
+    searchInput.addEventListener('keydown', function (e) {
+      if (e.key !== 'Enter') return;
+      e.preventDefault();
+      clearTimeout(searchTimer);
+      q = searchInput.value;
+      searchWasActive = !!q.trim();
+      searchInput.blur();
+      render({ resultsOnly: true, scroll: !!q.trim() });
     });
   }
   if (priceSelect) priceSelect.addEventListener('change', function () {

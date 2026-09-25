@@ -1082,22 +1082,26 @@
           if (useMobileFlow() && addressOk()) softScrollTo(clientNextId());
         });
       } else if (act === 'phone') {
-        el.addEventListener('input', function () {
+        var phonePoll = null;
+        function stopPhonePoll() {
+          if (phonePoll) { clearInterval(phonePoll); phonePoll = null; }
+        }
+        function onPhoneEdit() {
           customerPhone = el.value;
           saveDraft();
           refreshTotals();
-          var wrap = el.closest('.client-ins') || el.closest('.config-input');
-          if (wrap) wrap.classList.toggle('is-filled', phoneOk());
-          if (wrap) wrap.classList.toggle('needs-pick', isOrderReady() && !phoneOk());
-          var block = el.closest('.client-block');
-          if (block) {
-            block.classList.toggle('is-done', phoneOk());
-            block.classList.toggle('is-next', !phoneOk());
-            var status = block.querySelector('.client-digit-picked');
-            var clay = block.querySelector('.contact-clay');
-            if (status) status.textContent = contactStatusText();
-            if (clay) clay.classList.toggle('is-on', phoneOk());
-          }
+          paintContactUi();
+        }
+        el.addEventListener('input', onPhoneEdit);
+        el.addEventListener('change', onPhoneEdit);
+        el.addEventListener('blur', function () {
+          stopPhonePoll();
+          onPhoneEdit();
+        });
+        el.addEventListener('focus', function () {
+          stopPhonePoll();
+          // Автозаполнение часто не шлёт input — подхватываем значение из DOM.
+          phonePoll = setInterval(function () { applyContactFields(); }, 280);
         });
         el.addEventListener('keydown', function (e) {
           if (e.key !== 'Enter') return;
@@ -1106,14 +1110,25 @@
           else el.blur();
         });
       } else if (act === 'name') {
-        el.addEventListener('input', function () {
+        var namePoll = null;
+        function stopNamePoll() {
+          if (namePoll) { clearInterval(namePoll); namePoll = null; }
+        }
+        function onNameEdit() {
           customerName = el.value;
           saveDraft();
-          var wrap = el.closest('.client-ins');
-          if (wrap) wrap.classList.toggle('is-filled', !!String(customerName || '').trim());
-          var block = el.closest('.client-block');
-          var status = block && block.querySelector('.client-digit-picked');
-          if (status) status.textContent = contactStatusText();
+          paintContactUi();
+          refreshTotals();
+        }
+        el.addEventListener('input', onNameEdit);
+        el.addEventListener('change', onNameEdit);
+        el.addEventListener('blur', function () {
+          stopNamePoll();
+          onNameEdit();
+        });
+        el.addEventListener('focus', function () {
+          stopNamePoll();
+          namePoll = setInterval(function () { applyContactFields(); }, 280);
         });
       } else if (act === 'hp') {
         el.addEventListener('input', function () { honeypot = el.value; });
@@ -1299,7 +1314,64 @@
     if (bar) bar.classList.toggle('is-away', !!(datePickerOpen || timePickerOpen));
   }
 
+  function syncContactsFromDom() {
+    var phoneEl = root.querySelector('[data-act="phone"]');
+    var nameEl = root.querySelector('[data-act="name"]');
+    var changed = false;
+    if (phoneEl && phoneEl.value !== customerPhone) {
+      customerPhone = phoneEl.value;
+      changed = true;
+    }
+    if (nameEl && nameEl.value !== customerName) {
+      customerName = nameEl.value;
+      changed = true;
+    }
+    return changed;
+  }
+
+  function paintContactUi() {
+    var phoneEl = root.querySelector('[data-act="phone"]');
+    if (phoneEl) {
+      var wrap = phoneEl.closest('.client-ins') || phoneEl.closest('.config-input');
+      if (wrap) {
+        wrap.classList.toggle('is-filled', phoneOk());
+        wrap.classList.toggle('needs-pick', isOrderReady() && !phoneOk());
+      }
+      var block = phoneEl.closest('.client-block');
+      if (block) {
+        block.classList.toggle('is-done', phoneOk());
+        block.classList.toggle('is-next', !phoneOk());
+        var status = block.querySelector('.client-digit-picked');
+        var clay = block.querySelector('.contact-clay');
+        if (status) status.textContent = contactStatusText();
+        if (clay) clay.classList.toggle('is-on', phoneOk());
+      }
+    }
+    var nameEl = root.querySelector('[data-act="name"]');
+    if (nameEl) {
+      var nameWrap = nameEl.closest('.client-ins') || nameEl.closest('.config-input');
+      if (nameWrap) nameWrap.classList.toggle('is-filled', !!String(customerName || '').trim());
+      var nameBlock = nameEl.closest('.client-block');
+      var nameStatus = nameBlock && nameBlock.querySelector('.client-digit-picked');
+      if (nameStatus) nameStatus.textContent = contactStatusText();
+    }
+    if (typeof markClientNext === 'function') markClientNext();
+  }
+
+  function applyContactFields(opts) {
+    opts = opts || {};
+    var changed = syncContactsFromDom();
+    if (changed || opts.force) {
+      saveDraft();
+      refreshTotals();
+      paintContactUi();
+    }
+  }
+
   function refreshTotals() {
+    // Autofill (iOS/Android) often fills the DOM without firing input —
+    // read fields before computing phoneOk / isSubmitReady.
+    syncContactsFromDom();
     // Update only the price-dependent nodes in place. We must NOT call render()
     // here: rebuilding the DOM would detach the inscription input and close the
     // on-screen keyboard on mobile after every keystroke.

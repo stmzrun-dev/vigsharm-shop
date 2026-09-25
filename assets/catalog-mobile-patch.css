@@ -26,6 +26,8 @@
   display:flex;
   flex-direction:column;
   height:100%;
+  content-visibility:auto;
+  contain-intrinsic-size:auto 320px;
 }
 .catalog-card-copy{
   display:flex!important;

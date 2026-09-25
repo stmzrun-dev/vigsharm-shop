@@ -2005,4 +2005,40 @@ body.ai-review-open{overflow:hidden}
 #tab-settings .card > .btn.primary{min-height:44px;margin-top:8px}
 #tab-create{scroll-padding-top:64px}
 
-
+/* ─── Bulk thumb generation overlay ─────────────────────────────────────── */
+.bulk-thumb-overlay{
+  position:fixed;inset:0;background:rgba(0,0,0,.46);z-index:9100;
+  display:flex;align-items:center;justify-content:center;
+  animation:fadeIn .15s ease
+}
+.bulk-thumb-overlay.hidden{display:none}
+.bulk-thumb-dialog{
+  background:var(--admin-surface);border:1px solid var(--admin-border);
+  border-radius:var(--admin-radius);padding:24px;width:min(400px,90vw);
+  box-shadow:0 12px 40px rgba(0,0,0,.2)
+}
+.bulk-thumb-header{
+  display:flex;align-items:center;justify-content:space-between;margin-bottom:16px
+}
+.bulk-thumb-title{font-weight:700;font-size:.95rem;color:var(--admin-text)}
+.bulk-thumb-abort-btn{
+  background:none;border:none;cursor:pointer;font-size:1rem;
+  color:var(--admin-muted);padding:4px 8px;border-radius:6px;
+  transition:.15s;min-height:32px
+}
+.bulk-thumb-abort-btn:hover{background:var(--admin-bg);color:var(--admin-danger)}
+.bulk-thumb-progress-wrap{
+  height:8px;background:var(--admin-bg);border-radius:4px;
+  overflow:hidden;margin-bottom:12px;border:1px solid var(--admin-border)
+}
+.bulk-thumb-progress-fill{
+  height:100%;background:var(--admin-ok);border-radius:4px;
+  width:0%;transition:width .35s ease
+}
+.bulk-thumb-status{
+  font-size:.85rem;font-weight:600;color:var(--admin-text);margin:0 0 4px
+}
+.bulk-thumb-current{
+  font-size:.8rem;color:var(--admin-muted);margin:0;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-height:1.2em
+}

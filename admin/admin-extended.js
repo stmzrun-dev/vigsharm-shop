@@ -1852,6 +1852,184 @@ Object.assign(app, {
   }
 });
 
+// === Bulk Thumb Generation ===
+Object.assign(app, {
+
+  // ─── Показать прогресс-оверлей ────────────────────────────────────────────
+  showThumbGenProgress(done, total, currentName) {
+    const overlay = document.getElementById('bulk-thumb-overlay');
+    if (overlay) { overlay.classList.remove('hidden'); overlay.hidden = false; }
+    this.updateThumbGenProgress(done, total, currentName);
+  },
+
+  updateThumbGenProgress(done, total, currentName) {
+    const fill = document.getElementById('bulk-thumb-fill');
+    const status = document.getElementById('bulk-thumb-status');
+    const current = document.getElementById('bulk-thumb-current');
+    const pct = total > 0 ? Math.round((done / total) * 100) : 0;
+    if (fill) fill.style.width = `${pct}%`;
+    const n = total;
+    const suffix = n === 1 ? 'а' : (n < 5 ? 'ов' : 'ов');
+    if (status) status.textContent = `Обработано ${done} из ${n} товар${suffix}`;
+    if (current) current.textContent = currentName || '';
+  },
+
+  hideThumbGenProgress() {
+    const overlay = document.getElementById('bulk-thumb-overlay');
+    if (overlay) { overlay.classList.add('hidden'); overlay.hidden = true; }
+  },
+
+  abortBulkThumbs() {
+    if (!this._bulkThumbRunning) { this.hideThumbGenProgress(); return; }
+    this._bulkThumbAbort = true;
+    const current = document.getElementById('bulk-thumb-current');
+    if (current) current.textContent = 'Прерываю после текущего товара…';
+  },
+
+  // ─── Пакетная генерация превью ────────────────────────────────────────────
+  async bulkGenerateThumbs() {
+    if (this._bulkThumbRunning) {
+      this.toast('Оптимизация уже идёт', 'info');
+      return;
+    }
+    if (!this.workerUrl) {
+      this.toast('Настройте Worker URL во вкладке «Настройки»', 'error');
+      return;
+    }
+
+    // Подбираем товары без thumb_photo, у которых есть фото-URL
+    const getMainUrl = (p) =>
+      p.main_photo
+      || (Array.isArray(p.photos) && (
+        typeof p.photos[0] === 'string' ? p.photos[0] : p.photos[0]?.url
+      ))
+      || '';
+
+    const toProcess = this.products.filter((p) => !p.thumb_photo && !!getMainUrl(p));
+
+    if (!toProcess.length) {
+      this.toast('У всех товаров с фото уже есть превью 👍', 'info');
+      return;
+    }
+
+    const n = toProcess.length;
+    const approxSec = Math.ceil(n * 0.6);
+    const confirmed = confirm(
+      `Сгенерировать WebP-превью (480px) для ${n} товар${n === 1 ? 'а' : 'ов'} без превью?\n\n` +
+      `• Скачивает оригинал по URL фото\n` +
+      `• Сжимает через canvas → WebP 480px / 0.82\n` +
+      `• Загружает как thumb_photo\n\n` +
+      `Примерное время: ~${approxSec} сек. Если CORS заблокирован — товар пропускается.`
+    );
+    if (!confirmed) return;
+
+    this._bulkThumbRunning = true;
+    this._bulkThumbAbort = false;
+    const btn = document.getElementById('bulk-thumb-btn');
+    if (btn) { btn.disabled = true; btn.textContent = '⏳ Идёт оптимизация…'; }
+
+    this.showThumbGenProgress(0, n, '');
+
+    let done = 0, success = 0, skipped = 0;
+
+    for (const product of toProcess) {
+      if (this._bulkThumbAbort) break;
+
+      const mainUrl = getMainUrl(product);
+      const label = (product.title || `#${product.id}`).slice(0, 48);
+      this.updateThumbGenProgress(done, n, label);
+
+      try {
+        // 1. Скачиваем оригинал (нужен CORS на хосте фото)
+        let blob;
+        try {
+          const fetchRes = await fetch(mainUrl, { mode: 'cors' });
+          if (!fetchRes.ok) throw new Error(`HTTP ${fetchRes.status}`);
+          blob = await fetchRes.blob();
+        } catch (fetchErr) {
+          console.warn(`[bulkThumb] пропуск ${product.id} — fetch failed:`, fetchErr.message);
+          skipped++;
+          done++;
+          this.updateThumbGenProgress(done, n, '');
+          continue;
+        }
+
+        // 2. Canvas → WebP 480px / 0.82
+        const file = new File([blob], 'photo.jpg', { type: blob.type || 'image/jpeg' });
+        const thumbBlob = await this.generateThumbBlob(file);
+        if (!thumbBlob) {
+          console.warn(`[bulkThumb] пропуск ${product.id} — generateThumbBlob вернул null`);
+          skipped++;
+          done++;
+          this.updateThumbGenProgress(done, n, '');
+          continue;
+        }
+
+        // 3. Загружаем превью на /api/upload/thumb
+        const uuid = (typeof crypto !== 'undefined' && crypto.randomUUID)
+          ? crypto.randomUUID()
+          : (Date.now().toString(36) + Math.random().toString(36).slice(2));
+        const thumbFile = new File([thumbBlob], `${uuid}.webp`, { type: 'image/webp' });
+        const formData = new FormData();
+        formData.append('file', thumbFile);
+
+        const upRes = await fetch(`${this.workerUrl}/api/upload/thumb`, {
+          method: 'POST',
+          headers: this.authHeaders(),
+          body: formData
+        });
+        const upData = await upRes.json().catch(() => ({}));
+        if (!upRes.ok || !upData.ok || !upData.url) {
+          throw new Error(upData.error || `Upload failed: HTTP ${upRes.status}`);
+        }
+
+        // 4. Сохраняем thumb_photo в товаре через PUT
+        const putRes = await fetch(`${this.workerUrl}/api/products/${product.id}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json', ...this.authHeaders() },
+          body: JSON.stringify({ thumb_photo: upData.url })
+        });
+        const putData = await putRes.json().catch(() => ({}));
+        if (!putRes.ok || !putData.ok) {
+          throw new Error(putData.error || `PUT failed: HTTP ${putRes.status}`);
+        }
+
+        // 5. Обновляем локальный кеш
+        const local = this.products.find((p) => String(p.id) === String(product.id));
+        if (local) local.thumb_photo = upData.url;
+
+        success++;
+      } catch (err) {
+        console.warn(`[bulkThumb] ошибка для ${product.id}:`, err);
+        skipped++;
+      }
+
+      done++;
+      this.updateThumbGenProgress(done, n, '');
+
+      // Небольшая пауза, чтобы не перегружать сеть и Worker
+      if (!this._bulkThumbAbort) {
+        await new Promise((r) => setTimeout(r, 350));
+      }
+    }
+
+    this._bulkThumbRunning = false;
+    this.hideThumbGenProgress();
+    if (btn) { btn.disabled = false; btn.textContent = '🖼 Оптимизировать фото'; }
+
+    const aborted = this._bulkThumbAbort;
+    const msg = aborted
+      ? `Прервано. Готово: ${success}, пропущено: ${skipped}`
+      : skipped === 0
+        ? `Готово! Превью сгенерированы для ${success} товар${success === 1 ? 'а' : 'ов'} 🎉`
+        : `Готово: ${success} превью. Пропущено (CORS/ошибка): ${skipped}`;
+    this.toast(msg, success > 0 ? 'success' : 'info');
+
+    if (success > 0) this.markStorefrontDirty('updated');
+  },
+
+});
+
 // === Publish / Save — реализованы в admin.js (app.saveProduct, app.publishProduct, app.saveDraft) ===
 
 app.editProduct = async function(id) {

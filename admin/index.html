@@ -7,7 +7,7 @@
 <meta name="robots" content="noindex, nofollow"/>
 <link rel="icon" href="../favicon.svg"/>
 <link rel="stylesheet" href="../assets/fonts.css"/>
-<link rel="stylesheet" href="styles.css?v=20260925-fixes2"/>
+<link rel="stylesheet" href="styles.css?v=20260925-bulkthumb"/>
 </head>
 <body>
 
@@ -51,6 +51,7 @@
         <div class="products-header-actions">
           <button class="btn primary" onclick="app.newProduct()">+ Добавить товар</button>
           <button type="button" class="btn outline" id="export-storefront-btn" onclick="app.exportStorefrontSnapshot()" title="Скачать data/products.json для сайта (РФ без VPN)">Обновить каталог для сайта</button>
+          <button type="button" class="btn outline" id="bulk-thumb-btn" onclick="app.bulkGenerateThumbs()" title="Сгенерировать WebP-превью 480px для товаров без thumb_photo">🖼 Оптимизировать фото</button>
         </div>
       </div>
 
@@ -877,8 +878,23 @@
   </div>
 </div>
 
-<script src="admin.js?v=20260925-thumb"></script>
-<script src="admin-extended.js?v=20260925-thumb"></script>
+<!-- Bulk thumb generation progress overlay -->
+<div id="bulk-thumb-overlay" class="bulk-thumb-overlay hidden" hidden role="dialog" aria-modal="true" aria-label="Оптимизация фото товаров" aria-live="polite">
+  <div class="bulk-thumb-dialog">
+    <div class="bulk-thumb-header">
+      <span class="bulk-thumb-title">🖼 Оптимизация фото товаров</span>
+      <button type="button" class="bulk-thumb-abort-btn" onclick="app.abortBulkThumbs()" title="Прервать">✕</button>
+    </div>
+    <div class="bulk-thumb-progress-wrap">
+      <div class="bulk-thumb-progress-fill" id="bulk-thumb-fill"></div>
+    </div>
+    <p class="bulk-thumb-status" id="bulk-thumb-status">Подготовка…</p>
+    <p class="bulk-thumb-current" id="bulk-thumb-current"></p>
+  </div>
+</div>
+
+<script src="admin.js?v=20260925-bulkthumb"></script>
+<script src="admin-extended.js?v=20260925-bulkthumb"></script>
 <script src="cloudinary-upload.js?v=cloud-fix-2"></script>
 <script src="imgbb-upload.js?v=1"></script>
 <script src="cloudinary-patch.js?v=yandex-1"></script>

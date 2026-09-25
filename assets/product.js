@@ -134,6 +134,24 @@
   }
   function inscriptionOk() { return !(p && p.has_inscription) || !!String(inscription || '').trim(); }
   function whenOk() { return !!(orderDate && orderTime); }
+  /** Strips letters/junk from phone input, keeps a leading + and caps at 11 digits. */
+  function sanitizePhoneInput(raw) {
+    var s = String(raw == null ? '' : raw);
+    s = s.replace(/[^\d+\-()\s]/g, '');
+    var hasPlus = s.charAt(0) === '+';
+    s = s.split('+').join('');
+    var digitCount = 0;
+    var out = '';
+    for (var i = 0; i < s.length; i++) {
+      var ch = s.charAt(i);
+      if (/\d/.test(ch)) {
+        if (digitCount >= 11) continue;
+        digitCount++;
+      }
+      out += ch;
+    }
+    return (hasPlus ? '+' : '') + out;
+  }
   function phoneDigits() {
     var d = String(customerPhone || '').replace(/\D/g, '');
     if (d.length === 11 && d.charAt(0) === '8') d = '7' + d.slice(1);
@@ -620,7 +638,7 @@
   function contactFieldsHtml() {
     return '<label class="client-ins' + (phoneOk() ? ' is-filled' : '') + '">' +
       '<span class="client-digit-label">Телефон</span>' +
-      '<input value="' + esc(customerPhone) + '" data-act="phone" type="tel" inputmode="tel" autocomplete="tel" maxlength="22" placeholder="+7 928 000-00-00"/>' +
+      '<input value="' + esc(customerPhone) + '" data-act="phone" type="tel" inputmode="tel" autocomplete="tel" maxlength="17" pattern="[0-9+()\\-\\s]*" placeholder="+7 928 000-00-00"/>' +
       '</label>' +
       '<label class="client-ins' + (String(customerName || '').trim() ? ' is-filled' : '') + '" style="margin-top:10px">' +
       '<span class="client-digit-label">Имя <small style="font-weight:600;color:#9a9aa3">(необязательно)</small></span>' +
@@ -759,7 +777,7 @@
         : '') +
       '<div class="order-contact-fields">' +
       '<label class="config-input' + (isOrderReady() && !phoneOk() ? ' needs-pick' : '') + '"><span>Телефон для заявки</span>' +
-      '<input value="' + esc(customerPhone) + '" data-act="phone" type="tel" inputmode="tel" autocomplete="tel" maxlength="22" placeholder="+7 928 000-00-00"/></label>' +
+      '<input value="' + esc(customerPhone) + '" data-act="phone" type="tel" inputmode="tel" autocomplete="tel" maxlength="17" pattern="[0-9+()\\-\\s]*" placeholder="+7 928 000-00-00"/></label>' +
       '<label class="config-input"><span>Имя (необязательно)</span>' +
       '<input value="' + esc(customerName) + '" data-act="name" type="text" autocomplete="name" maxlength="80" placeholder="Как к вам обратиться"/></label>' +
       '<input class="order-hp" tabindex="-1" autocomplete="off" data-act="hp" value="' + esc(honeypot) + '" aria-hidden="true"/>' +
@@ -1087,7 +1105,9 @@
           if (phonePoll) { clearInterval(phonePoll); phonePoll = null; }
         }
         function onPhoneEdit() {
-          customerPhone = el.value;
+          var sanitized = sanitizePhoneInput(el.value);
+          if (sanitized !== el.value) el.value = sanitized;
+          customerPhone = sanitized;
           saveDraft();
           refreshTotals();
           paintContactUi();
@@ -1319,7 +1339,9 @@
     var nameEl = root.querySelector('[data-act="name"]');
     var changed = false;
     if (phoneEl && phoneEl.value !== customerPhone) {
-      customerPhone = phoneEl.value;
+      var sanitized = sanitizePhoneInput(phoneEl.value);
+      if (sanitized !== phoneEl.value) phoneEl.value = sanitized;
+      customerPhone = sanitized;
       changed = true;
     }
     if (nameEl && nameEl.value !== customerName) {

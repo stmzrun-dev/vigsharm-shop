@@ -86,6 +86,7 @@
   /** First usable product photo from D1 (photos/main_photo) or legacy image_keys. */
   window.vigProductPhoto = function (p) {
     if (!p) return '';
+    if (p.thumb_photo) return p.thumb_photo;
     var keys = p.image_keys;
     if ((!keys || !keys.length) && Array.isArray(p.photos) && p.photos.length) keys = p.photos;
     if (keys && keys.length && keys[0]) return keys[0];

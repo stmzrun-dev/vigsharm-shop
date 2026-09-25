@@ -108,6 +108,8 @@ export default {
         return handlePutDelivery(request, env);
       if (path === '/api/upload/photo' && method === 'POST')
         return handleUploadPhoto(request, env);
+      if (path === '/api/upload/thumb' && method === 'POST')
+        return handleUploadThumb(request, env);
       if (path.match(/^\/api\/upload\/photo\/[^/]+$/) && method === 'DELETE')
         return handleDeletePhoto(path, env);
 
@@ -2870,8 +2872,8 @@ async function handleCreateProduct(request, env) {
       id, title, article, price, short_description, full_description, composition,
       category, character, age_group, budget, series_name, occasion, target_audience,
       seo_title, seo_description, slug, scene, tags, client_options, photos, main_photo,
-      status, show_on_site, created_at, updated_at
-    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`).bind(
+      thumb_photo, status, show_on_site, created_at, updated_at
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`).bind(
       id,
       d1(data.title),
       article,
@@ -2894,6 +2896,7 @@ async function handleCreateProduct(request, env) {
       JSON.stringify(data.client_options || {}),
       JSON.stringify(photos),
       d1(data.main_photo) || photos[0] || null,
+      d1(data.thumb_photo) || null,
       d1(data.status) || 'draft',
       data.show_on_site ? 1 : 0,
       now,
@@ -2945,7 +2948,7 @@ async function handleUpdateProduct(path, request, env) {
       composition = ?, category = ?, character = ?, age_group = ?, budget = ?,
       series_name = ?, occasion = ?, target_audience = ?,
       seo_title = ?, seo_description = ?, slug = ?, scene = ?,
-      tags = ?, client_options = ?, photos = ?, main_photo = ?,
+      tags = ?, client_options = ?, photos = ?, main_photo = ?, thumb_photo = ?,
       status = ?, show_on_site = ?, updated_at = ?
     WHERE id = ?`).bind(
       d1(data.title ?? existing.title),
@@ -2969,6 +2972,7 @@ async function handleUpdateProduct(path, request, env) {
       JSON.stringify(data.client_options ?? JSON.parse(existing.client_options || '{}')),
       JSON.stringify(photos),
       d1(data.main_photo ?? existing.main_photo) || photos[0] || null,
+      d1(data.thumb_photo !== undefined ? data.thumb_photo : existing.thumb_photo) || null,
       d1(data.status ?? existing.status) || 'draft',
       data.show_on_site !== undefined ? (data.show_on_site ? 1 : 0) : (existing.show_on_site ? 1 : 0),
       now,
@@ -3124,6 +3128,40 @@ async function handleUploadPhoto(request, env) {
     });
   } catch (error) {
     console.error('Upload error:', error);
+    return json({ ok: false, error: 'Upload failed: ' + error.message }, 500);
+  }
+}
+
+async function handleUploadThumb(request, env) {
+  const formData = await request.formData();
+  const file = formData.get('file');
+  if (!file) return json({ ok: false, error: 'No file' }, 400);
+
+  try {
+    const arrayBuffer = await file.arrayBuffer();
+    const bytes = new Uint8Array(arrayBuffer);
+    const id = crypto.randomUUID();
+    const key = `products-thumb/${id}.webp`;
+
+    if (yandexConfigured(env)) {
+      const url = await yandexPutObject(env, key, bytes, 'image/webp');
+      return json({ ok: true, url, id, key, storage: 'yandex' });
+    }
+
+    if (env.PHOTOS) {
+      const r2Key = `thumb-${id}.webp`;
+      await env.PHOTOS.put(r2Key, bytes, {
+        httpMetadata: { contentType: 'image/webp', cacheControl: 'public, max-age=31536000, immutable' }
+      });
+      const base = mediaPublicBase(env, request);
+      const url = `${base}/api/media/${encodeURIComponent(r2Key)}`;
+      return json({ ok: true, url, id, key: r2Key, storage: 'r2' });
+    }
+
+    // Хранилище не настроено — превью опционально, не блокируем сохранение
+    return json({ ok: false, error: 'No storage configured for thumb', storage: 'none' }, 503);
+  } catch (error) {
+    console.error('Thumb upload error:', error);
     return json({ ok: false, error: 'Upload failed: ' + error.message }, 500);
   }
 }

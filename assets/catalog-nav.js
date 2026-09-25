@@ -403,7 +403,8 @@
   }
 
   function cardHtml(p, i) {
-    var key = (window.vigProductPhoto ? window.vigProductPhoto(p) : '') ||
+    var key = p.thumb_photo ||
+      (window.vigProductPhoto ? window.vigProductPhoto(p) : '') ||
       (p.image_keys && p.image_keys[0]) ||
       (p.photos && p.photos[0]) ||
       p.main_photo ||

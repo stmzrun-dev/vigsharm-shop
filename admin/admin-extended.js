@@ -975,48 +975,52 @@ Object.assign(app, {
   },
 
   renderUnitHolidayMenu() {
-    const menu = document.getElementById('unit-holiday-menu');
-    if (!menu || menu.dataset.ready === '1') return;
+    const chips = document.getElementById('unit-holiday-chips');
+    if (!chips || chips.dataset.ready === '1') return;
     const list = (typeof UNIT_HOLIDAYS !== 'undefined' && UNIT_HOLIDAYS) || [];
     const esc = (s) => String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
-    menu.innerHTML = list.map((name) =>
-      `<button type="button" data-unit-holiday="${esc(name)}">${esc(name)}</button>`
-    ).join('') + '<button type="button" data-unit-holiday="">Без праздника</button>';
-    menu.dataset.ready = '1';
-    menu.addEventListener('click', (e) => {
+    chips.innerHTML = list.map((name) =>
+      `<button type="button" class="unit-holiday-chip" data-unit-holiday="${esc(name)}">${esc(name)}</button>`
+    ).join('') + '<button type="button" class="unit-holiday-chip unit-holiday-chip-clear" data-unit-holiday="">Без праздника</button>';
+    chips.dataset.ready = '1';
+    chips.addEventListener('click', (e) => {
       const btn = e.target.closest('[data-unit-holiday]');
       if (!btn) return;
       e.preventDefault();
-      e.stopPropagation();
       this.setUnitHoliday(btn.getAttribute('data-unit-holiday') || '');
-      this.closeUnitHolidayPop?.();
     });
   },
 
   syncUnitHolidayControl() {
-    const pop = document.getElementById('unit-holiday-pop');
-    if (!pop) return;
+    const wrap = document.getElementById('unit-holiday-wrap');
     const show = this.unitHolidayAllowed();
-    pop.classList.toggle('hidden', !show);
-    if (!show) {
-      this.closeUnitHolidayPop?.();
-      if (this.getUnitBalloonType?.() && !UNIT_BALLOON_TYPES[this.getUnitBalloonType()]?.hasHoliday) {
-        this.setUnitHoliday?.('');
-      }
+    if (wrap) {
+      wrap.classList.toggle('hidden', !show);
+      wrap.hidden = !show;
+      if (show) this.renderUnitHolidayMenu?.();
+    }
+    if (!show && this.getUnitBalloonType?.() && !UNIT_BALLOON_TYPES[this.getUnitBalloonType()]?.hasHoliday) {
+      this.setUnitHoliday?.('');
     }
     this.paintUnitHolidayToggle?.();
+    // Кнопка «Опубликовать» в шапке шага 1C — только для поштучных
+    const topPub = document.getElementById('unit-step1-publish-btn');
+    if (topPub) {
+      const unit = !!(this.isUnitBalloonMode?.());
+      topPub.hidden = !unit;
+    }
   },
 
   paintUnitHolidayToggle() {
-    const btn = document.getElementById('unit-holiday-toggle');
     const holiday = this.getUnitHoliday?.() || '';
-    if (!btn) return;
-    btn.textContent = holiday || 'Праздник';
-    btn.classList.toggle('is-set', !!holiday);
-    document.querySelectorAll('#unit-holiday-menu [data-unit-holiday]').forEach((el) => {
-      el.classList.toggle('is-on', el.getAttribute('data-unit-holiday') === holiday);
+    document.querySelectorAll('#unit-holiday-chips [data-unit-holiday]').forEach((el) => {
+      const val = el.getAttribute('data-unit-holiday');
+      el.classList.toggle('is-on', holiday ? val === holiday : val === '');
     });
   },
+
+  toggleUnitHolidayPop() { /* устарело — чипы встроены в форму */ },
+  closeUnitHolidayPop() { /* устарело */ },
 
   getUnitHoliday() {
     const list = (typeof UNIT_HOLIDAYS !== 'undefined' && UNIT_HOLIDAYS) || [];
@@ -1408,6 +1412,73 @@ Object.assign(app, {
     };
   },
 
+  // ─── Thumbnail (превью для витрины) ───────────────────────────────────────
+  /**
+   * Генерирует Blob-превью WebP max 480px / 0.82 из локального File-объекта.
+   * Работает без CORS — читает с локального File напрямую через canvas.
+   * @param {File} file
+   * @param {number} maxWidth
+   * @param {number} quality
+   * @returns {Promise<Blob|null>}
+   */
+  generateThumbBlob(file, maxWidth = 480, quality = 0.82) {
+    return new Promise((resolve) => {
+      if (!file || !file.type?.startsWith('image/')) { resolve(null); return; }
+      const img = new Image();
+      const url = URL.createObjectURL(file);
+      img.onload = () => {
+        URL.revokeObjectURL(url);
+        try {
+          let { width, height } = img;
+          if (width > maxWidth) {
+            height = Math.round(height * (maxWidth / width));
+            width = maxWidth;
+          }
+          const canvas = document.createElement('canvas');
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, width, height);
+          canvas.toBlob((blob) => resolve(blob || null), 'image/webp', quality);
+        } catch (e) {
+          resolve(null);
+        }
+      };
+      img.onerror = () => { URL.revokeObjectURL(url); resolve(null); };
+      img.src = url;
+    });
+  },
+
+  /**
+   * Генерирует WebP-превью из File-объекта и загружает как products-thumb/<uuid>.webp.
+   * Возвращает публичный URL превью или null при ошибке/отсутствии хранилища.
+   * @param {File} file
+   * @returns {Promise<string|null>}
+   */
+  async generateAndUploadThumb(file) {
+    const blob = await this.generateThumbBlob(file);
+    if (!blob) return null;
+    const uuid = typeof crypto !== 'undefined' && crypto.randomUUID
+      ? crypto.randomUUID()
+      : (Date.now().toString(36) + Math.random().toString(36).slice(2));
+    const thumbFile = new File([blob], `${uuid}.webp`, { type: 'image/webp' });
+    try {
+      const formData = new FormData();
+      formData.append('file', thumbFile);
+      const res = await fetch(`${this.workerUrl}/api/upload/thumb`, {
+        method: 'POST',
+        headers: this.authHeaders(),
+        body: formData
+      });
+      const result = await res.json().catch(() => ({}));
+      if (res.ok && result?.ok && result.url) return result.url;
+      console.warn('[thumb] upload returned:', result);
+    } catch (e) {
+      console.warn('[thumb] upload error:', e);
+    }
+    return null;
+  },
+
   // Пережимает фото в браузере (canvas). 1400px / 0.88 — резко лучше текст на коробках,
   // при этом файл обычно 200–400 КБ (хватает и для Yandex, и для ImgBB).
   compressImageFile(file, maxWidth = 1400, quality = 0.88) {
@@ -1694,6 +1765,7 @@ Object.assign(app, {
       client_options: clientOptions,
       photos: this.currentProduct.photos.map(p => p.url),
       main_photo: this.currentProduct.photos[0]?.url || null,
+      thumb_photo: this.currentProduct.thumb_photo || null,
       show_on_site: unit ? true : (document.getElementById('show-on-site')?.checked || false)
     };
   },
@@ -1816,6 +1888,7 @@ app.loadProductToForm = function(product) {
   this.currentProduct.client_options = product.client_options && typeof product.client_options === 'object'
     ? { ...product.client_options }
     : {};
+  this.currentProduct.thumb_photo = product.thumb_photo || null;
 
   // Фото
   this.currentProduct.photos = (product.photos || []).map((url, i) => ({

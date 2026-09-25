@@ -810,7 +810,6 @@ const app = {
 
   syncUnitBalloonForm(fromUser = false) {
     const form = document.getElementById('product-form');
-    const banner = document.getElementById('unit-mode-banner');
     const titleEl = document.getElementById('product-title');
     const catEl = document.getElementById('product-category');
     const sceneEl = document.getElementById('scene-select');
@@ -823,7 +822,6 @@ const app = {
 
     const unit = this.isUnitBalloonMode();
     if (form) form.classList.toggle('is-unit-balloon', unit);
-    if (banner) banner.classList.toggle('hidden', !unit);
 
     if (unit) {
       if (this.currentProduct) this.currentProduct.scene = 'unit_balloon';
@@ -870,7 +868,7 @@ const app = {
     this.renderProducts();
   },
 
-  /** Полка внутри группы. Праздники — по дате, персонажи — по герою, остальные — по категории. */
+  /** Полка внутри группы. Праздники — по дате, персонажи — по герою, поштучные — по подтипу. */
   productShelfLabel(groupId, product) {
     if (groupId === 'holidays') {
       const tags = [product.category].concat(product.tags || []).filter(Boolean);
@@ -879,11 +877,58 @@ const app = {
     if (groupId === 'characters') {
       return String(product.character || product.character_name || '').trim() || 'Без имени';
     }
+    if (groupId === 'unit') {
+      const UNIT_SHELF_ORDER = ['Шары с рисунком', 'Ходячие фигуры', 'Круги, звёзды и сердца', 'Фольгированные фигуры', 'Латексные шары'];
+      const allTags = [product.category].concat(product.tags || []).filter(Boolean);
+      const found = UNIT_SHELF_ORDER.find((s) => allTags.includes(s));
+      if (found) return found;
+      if (LIST_HOLIDAYS.includes(product.category)) return product.category;
+      return 'Разное';
+    }
     return product.category || 'Без категории';
   },
 
   renderGroupBody(groupId, items, searching) {
     if (!items.length) return '';
+
+    // Для праздников и поштучных — всегда раскладываем по полкам
+    const alwaysShelve = !searching && (groupId === 'holidays' || groupId === 'unit');
+    if (alwaysShelve) {
+      const UNIT_SHELF_ORDER = ['Шары с рисунком', 'Ходячие фигуры', 'Круги, звёзды и сердца', 'Фольгированные фигуры', 'Латексные шары'];
+      const shelfOrder = groupId === 'holidays' ? LIST_HOLIDAYS : [...UNIT_SHELF_ORDER, ...LIST_HOLIDAYS, 'Разное'];
+      const buckets = new Map();
+      items.forEach((p) => {
+        const label = this.productShelfLabel(groupId, p);
+        if (!buckets.has(label)) buckets.set(label, []);
+        buckets.get(label).push(p);
+      });
+      const sorted = [...buckets.entries()].sort((a, b) => {
+        const ai = shelfOrder.indexOf(a[0]);
+        const bi = shelfOrder.indexOf(b[0]);
+        if (ai >= 0 && bi >= 0) return ai - bi;
+        if (ai >= 0) return -1;
+        if (bi >= 0) return 1;
+        return a[0].localeCompare(b[0], 'ru');
+      });
+      if (sorted.length <= 1) return items.map((p) => this.renderProductRow(p)).join('');
+      return sorted.map(([label, shelfItems]) => {
+        const key = `${groupId}::${label}`;
+        const subOpen = !!(this.listExpandedSubgroups && this.listExpandedSubgroups[key]);
+        const labelJs = String(label).replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+        const rows = subOpen ? shelfItems.map((p) => this.renderProductRow(p)).join('') : '';
+        return `
+          <section class="product-subgroup${subOpen ? ' is-open' : ''}">
+            <button type="button" class="product-subgroup-header" onclick="app.toggleListSubgroup('${groupId}', '${labelJs}')" aria-expanded="${subOpen}">
+              <strong>${this.escapeHtml(label)}</strong>
+              <span class="product-subgroup-count">${shelfItems.length}</span>
+              <span class="product-subgroup-toggle" aria-hidden="true">${subOpen ? '−' : '+'}</span>
+            </button>
+            <div class="product-subgroup-body${subOpen ? '' : ' hidden'}">${rows}</div>
+          </section>`;
+      }).join('');
+    }
+
+    // Остальные группы: первые 20 плоско, дальше по полкам
     const freshCount = 20;
     const split = !searching && items.length > freshCount;
     const fresh = split ? items.slice(0, freshCount) : items;
@@ -1779,6 +1824,22 @@ const app = {
 
       data.photos = this.currentProduct.photos.map(p => p.url).filter(Boolean);
       data.main_photo = data.photos[0] || null;
+
+      // ─── Thumbnail: WebP 480px / 0.82 из локального File-объекта (без CORS) ───
+      // Генерируем только если главное фото — новый локальный файл.
+      // При редактировании без смены фото thumb_photo берётся из collectFormData (currentProduct).
+      const mainFile = this.currentProduct.photos[0]?.file;
+      if (mainFile && typeof this.generateAndUploadThumb === 'function') {
+        try {
+          const thumbUrl = await this.generateAndUploadThumb(mainFile);
+          if (thumbUrl) {
+            data.thumb_photo = thumbUrl;
+            this.currentProduct.thumb_photo = thumbUrl;
+          }
+        } catch (e) {
+          console.warn('[saveProduct] thumb generation skipped:', e);
+        }
+      }
 
       // data: URL — это нормальный запасной путь без Cloudinary (Worker хранит
       // сжатое фото прямо в товаре). Отклоняем только совсем огромные файлы —

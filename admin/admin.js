@@ -1290,20 +1290,29 @@ const app = {
   },
 
   async loadProducts() {
+    const container = document.getElementById('products-list');
     if (!this.workerUrl) {
-      const container = document.getElementById('products-list');
       if (container) container.innerHTML = '<div class="empty-state"><div class="icon">🔗</div><div class="title">Worker не настроен</div><p class="text-muted mt-1">Укажите Worker API URL во вкладке «Настройки»</p></div>';
       return;
     }
     try {
-      const res = await fetch(`${this.workerUrl}/api/products`);
+      const res = await fetch(`${this.workerUrl}/api/products`, {
+        cache: 'no-store',
+        signal: AbortSignal.timeout(25000)
+      });
+      if (!res.ok) throw new Error('HTTP ' + res.status + (res.status === 401 ? ' — нужен ключ администратора' : ''));
       const data = await res.json();
-      if (data.ok) {
-        this.products = data.products || [];
-        this.renderProducts();
-      }
+      if (!data.ok) throw new Error(data.error || 'Ответ API без ok');
+      this.products = data.products || [];
+      this.renderProducts();
     } catch (e) {
       console.error('Failed to load products', e);
+      const msg = (e && e.name === 'TimeoutError')
+        ? 'сервер не ответил за 25 секунд'
+        : (e && e.message ? e.message : 'неизвестная ошибка');
+      if (container) {
+        container.innerHTML = '<div class="empty-state"><div class="icon">⚠️</div><div class="title">Загрузка не удалась</div><p class="text-muted mt-1">' + this.escapeHtml(msg) + '</p></div>';
+      }
     }
   },
 

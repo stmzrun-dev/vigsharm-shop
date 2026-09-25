@@ -1940,14 +1940,18 @@ Object.assign(app, {
       this.updateThumbGenProgress(done, n, label);
 
       try {
-        // 1. Скачиваем оригинал (нужен CORS на хосте фото)
+        // 1. Скачиваем оригинал через прокси-воркер (обходим CORS Yandex/любого хранилища)
         let blob;
         try {
-          const fetchRes = await fetch(mainUrl, { mode: 'cors' });
-          if (!fetchRes.ok) throw new Error(`HTTP ${fetchRes.status}`);
-          blob = await fetchRes.blob();
+          const proxyRes = await fetch(`${this.workerUrl}/api/admin/proxy-image`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', ...this.authHeaders() },
+            body: JSON.stringify({ url: mainUrl })
+          });
+          if (!proxyRes.ok) throw new Error(`Proxy HTTP ${proxyRes.status}`);
+          blob = await proxyRes.blob();
         } catch (fetchErr) {
-          console.warn(`[bulkThumb] пропуск ${product.id} — fetch failed:`, fetchErr.message);
+          console.warn(`[bulkThumb] пропуск ${product.id} — proxy failed:`, fetchErr.message);
           skipped++;
           done++;
           this.updateThumbGenProgress(done, n, '');

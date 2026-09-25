@@ -112,6 +112,8 @@ export default {
         return handleUploadThumb(request, env);
       if (path.match(/^\/api\/upload\/photo\/[^/]+$/) && method === 'DELETE')
         return handleDeletePhoto(path, env);
+      if (path === '/api/admin/proxy-image' && method === 'POST')
+        return handleProxyImage(request, env);
 
       return json({ ok: false, error: 'Not found' }, 404);
     } catch (e) {
@@ -3130,6 +3132,35 @@ async function handleUploadPhoto(request, env) {
     console.error('Upload error:', error);
     return json({ ok: false, error: 'Upload failed: ' + error.message }, 500);
   }
+}
+
+/** Прокси для скачивания фото с Yandex/любого хоста без CORS.
+ *  POST /api/admin/proxy-image  body: { url: "https://..." }
+ *  Требует Authorization. Возвращает байты изображения. */
+async function handleProxyImage(request, env) {
+  const body = await request.json().catch(() => ({}));
+  const url = body?.url;
+  if (!url || !/^https?:\/\//i.test(url)) {
+    return json({ ok: false, error: 'Bad url' }, 400);
+  }
+  let res;
+  try {
+    res = await fetch(url, { cf: { cacheTtl: 60 } });
+  } catch (e) {
+    return json({ ok: false, error: 'Fetch failed: ' + e.message }, 502);
+  }
+  if (!res.ok) {
+    return json({ ok: false, error: `Remote HTTP ${res.status}` }, 502);
+  }
+  const ct = res.headers.get('Content-Type') || 'image/jpeg';
+  return new Response(res.body, {
+    status: 200,
+    headers: {
+      'Content-Type': ct,
+      'Access-Control-Allow-Origin': '*',
+      'Cache-Control': 'private, no-store',
+    }
+  });
 }
 
 async function handleUploadThumb(request, env) {

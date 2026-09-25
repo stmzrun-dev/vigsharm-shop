@@ -2,6 +2,192 @@
   "ok": true,
   "products": [
     {
+      "id": "c457035e-d7b4-4b42-83f6-cfa40d5efe3e",
+      "title": "Горошек, Красные в черный горошек",
+      "article": "UNT-049",
+      "price": 150,
+      "short_description": "Горошек, Красные в черный горошек",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "socseti-miks-4",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Шары с рисунком",
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/6e18ea77-3c2c-46e1-b472-8f63a9eb1a68.jpg",
+        "unit_type": "print",
+        "unit_who": [
+          "Для девочки"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/306772ee-045c-4545-956b-911c7bc7b613.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/306772ee-045c-4545-956b-911c7bc7b613.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-25T20:07:26.511Z",
+      "updated_at": "2026-09-25T20:07:26.511Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "090cd37d-38cb-4daf-a1e1-14b0f3c58ae0",
+      "title": "Горошек Ассорти",
+      "article": "UNT-048",
+      "price": 150,
+      "short_description": "Горошек Ассорти",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "socseti-miks-3",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Шары с рисунком",
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/b8e4ccb1-6ac3-4c3c-85f1-a960cf77b6ef.jpg",
+        "unit_type": "print",
+        "unit_who": [
+          "Для девочки"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/86c1fea7-1c1d-419a-a0d0-a9cb11cd16f3.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/86c1fea7-1c1d-419a-a0d0-a9cb11cd16f3.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-25T20:06:06.607Z",
+      "updated_at": "2026-09-25T20:06:06.607Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "f8dd5f26-6385-4219-b33e-8dcf7c2921a7",
+      "title": "Among US",
+      "article": "UNT-047",
+      "price": 150,
+      "short_description": "Among US",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "socseti-miks-2",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Шары с рисунком",
+        "Для мальчика",
+        "Геймерам"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/a825254f-261e-4824-a08e-623160e72d25.jpg",
+        "unit_type": "print",
+        "unit_who": [
+          "Для мальчика",
+          "Геймерам"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/ecdb329e-5fc0-45f5-a781-a9978bceaf2a.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/ecdb329e-5fc0-45f5-a781-a9978bceaf2a.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-25T20:03:02.141Z",
+      "updated_at": "2026-09-25T20:03:02.141Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "4e735886-44d2-428a-852e-bdb2d727a3ab",
+      "title": "Соцсети Микс",
+      "article": "UNT-046",
+      "price": 150,
+      "short_description": "Соцсети Микс",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "socseti-miks",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Шары с рисунком",
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/b0e50133-bbba-4659-95a0-c884a0a8ed48.jpg",
+        "unit_type": "print",
+        "unit_who": [
+          "Для девочки"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/bbafb9ad-52bf-4d27-a195-a6b443f372b9.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/bbafb9ad-52bf-4d27-a195-a6b443f372b9.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-25T20:01:22.621Z",
+      "updated_at": "2026-09-25T20:01:22.621Z",
+      "thumb_photo": null
+    },
+    {
       "id": "22fd1a0e-0c9a-436b-9e46-a9e1c630f29c",
       "title": "Лайки",
       "article": "UNT-045",

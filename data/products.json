@@ -2,6 +2,93 @@
   "ok": true,
   "products": [
     {
+      "id": "cc6e0e63-4fd5-4986-b6e3-2bc72c477477",
+      "title": "Кошкин дом",
+      "article": "BOX-058",
+      "price": 3980,
+      "short_description": "Голубая коробка с надписью, фольгированная фигура кота-единорога и шары в пастельных тонах.",
+      "full_description": "Композиция с голубой коробкой-сюрпризом с надписью «Кошкин дом» и декором в виде лапок и силуэтов котов. Над коробкой — фольгированная фигура кота-единорога с радужным хвостом, два фольгированных сердца, шар с конфетти и пять латексных шаров.",
+      "composition": [
+        "коробка 70x70x70 с индивидуальной надписью и декором",
+        "фольгированная фигура кота-единорога",
+        "2 фольгированных сердца",
+        "шар с конфетти",
+        "5 латексных шаров"
+      ],
+      "category": "Коробка-сюрприз",
+      "character": "Кот-единорог",
+      "age_group": "Для детей",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Коробка-сюрприз с котом-единорогом — Армавир",
+      "seo_description": "Голубая коробка-сюрприз с фольгированной фигурой кота-единорога, сердцами и шарами в пастельных тонах. Доставка в Армавире.",
+      "slug": "koshkin-dom",
+      "scene": "floor",
+      "tags": [
+        "Коробка-сюрприз"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/f7903cde-98f4-46fd-85ef-7485eace4c64.jpg"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/b0f48c38-14ac-4511-81b2-1860cc4b0cec.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/b0f48c38-14ac-4511-81b2-1860cc4b0cec.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-24T23:32:01.749Z",
+      "updated_at": "2026-09-24T23:32:01.749Z"
+    },
+    {
+      "id": "fa9e4127-ef1c-4b36-8774-bce741f3e17c",
+      "title": "Радужный взлёт",
+      "article": "BOX-057",
+      "price": 3380,
+      "short_description": "Белая коробка с золотым бантом и семью разноцветными шарами внутри.",
+      "full_description": "Коробка-сюрприз с индивидуальной надписью и яркими воздушными шарами. Радужная палитра из семи латексных шаров создаёт праздничное настроение.",
+      "composition": [
+        "коробка 70x70x70 с индивидуальной надписью и декором",
+        "7 латексных шаров"
+      ],
+      "category": "Коробка-сюрприз",
+      "character": "буба",
+      "age_group": "Для детей",
+      "budget": "2 000–3 500 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Коробка-сюрприз с воздушными шарами — Армавир",
+      "seo_description": "Коробка-сюрприз с индивидуальной надписью и семью разноцветными шарами. Яркое оформление для праздника в Армавире.",
+      "slug": "raduzhnyi-vzlyot",
+      "scene": "floor",
+      "tags": [
+        "Коробка-сюрприз"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/7b2b0eeb-284d-4091-bb32-1ecced0b04e5.jpg"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/08d4c805-e484-4e98-b551-be952ac6896b.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/08d4c805-e484-4e98-b551-be952ac6896b.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-24T23:28:49.086Z",
+      "updated_at": "2026-09-24T23:28:49.086Z"
+    },
+    {
       "id": "2fc20504-de84-46b3-9d53-06804d5d4fce",
       "title": "Небесная коробка",
       "article": "BOX-056",

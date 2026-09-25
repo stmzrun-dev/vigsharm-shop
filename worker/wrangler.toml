@@ -2,6 +2,14 @@ name = "vigsharm-api"
 main = "index.js"
 compatibility_date = "2026-09-01"
 
+# Роуты для перехвата OG-запросов ботов на боевом домене.
+# Worker видит только /product.html* — весь остальной трафик идёт напрямую на GitHub Pages.
+# ВАЖНО: routes должен быть до любых [[секций]], иначе TOML считает его полем [[d1_databases]].
+routes = [
+  { pattern = "vigsharm.ru/product.html*",     zone_name = "vigsharm.ru" },
+  { pattern = "www.vigsharm.ru/product.html*", zone_name = "vigsharm.ru" }
+]
+
 # D1 Database
 [[d1_databases]]
 binding = "DB"
@@ -33,10 +41,6 @@ PUBLIC_API_BASE = "https://vigsharm-api.vigsharm.workers.dev"
 # Sprint 2 — OG / product.html (после переноса DNS, см. OG_DNS_SETUP.md)
 SITE_ORIGIN = "https://vigsharm.ru"
 STOREFRONT_ORIGIN = "https://stmzrun-dev.github.io/vigsharm-shop"
-# Route вешается в Dashboard после смены NS (или раскомментируйте, подставив zone_id):
-# [[routes]]
-# pattern = "vigsharm.ru/product.html*"
-# zone_name = "vigsharm.ru"
 # Secrets (задаются через wrangler secret put)
 # NORDROUTER_API_KEY — ключ NordRouter
 # ADMIN_API_KEY — общий ключ авторизации админ-панели (Authorization: Bearer <ключ>).

@@ -2,19 +2,17 @@ name = "vigsharm-api"
 main = "index.js"
 compatibility_date = "2026-09-01"
 
-# workers_dev = true обязателен при использовании routes:
-# без него Cloudflare отключает vigsharm-api.vigsharm.workers.dev (API перестаёт отвечать).
+# Воркер живёт только на своём subdomain (vigsharm-api.vigsharm.workers.dev).
+# vigsharm.ru работает в режиме DNS Only (серое облако) → роуты на apex не нужны
+# и работать не будут. OG-превью отдаются через статические /p/*.html на GitHub Pages.
+# Если в будущем включить CF Proxy (оранжевое облако), раскомментировать:
+# routes = [
+#   { pattern = "vigsharm.ru/product.html*",     zone_name = "vigsharm.ru" },
+#   { pattern = "www.vigsharm.ru/product.html*", zone_name = "vigsharm.ru" },
+#   { pattern = "vigsharm.ru/p/*",               zone_name = "vigsharm.ru" },
+#   { pattern = "www.vigsharm.ru/p/*",           zone_name = "vigsharm.ru" }
+# ]
 workers_dev = true
-
-# Роуты для перехвата OG-запросов ботов на боевом домене.
-# Worker видит только эти пути — весь остальной трафик идёт напрямую.
-# ВАЖНО: routes должен быть до любых [[секций]], иначе TOML считает его полем [[d1_databases]].
-routes = [
-  { pattern = "vigsharm.ru/product.html*",     zone_name = "vigsharm.ru" },
-  { pattern = "www.vigsharm.ru/product.html*", zone_name = "vigsharm.ru" },
-  { pattern = "vigsharm.ru/p/*",               zone_name = "vigsharm.ru" },
-  { pattern = "www.vigsharm.ru/p/*",           zone_name = "vigsharm.ru" }
-]
 
 # D1 Database
 [[d1_databases]]

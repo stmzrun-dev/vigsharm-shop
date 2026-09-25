@@ -64,9 +64,10 @@
     var hasChar = !!(p.character_name || '').trim();
     var isIdea = !isUnit && !isHoliday && !!cat && AUDIENCE.indexOf(cat) < 0;
     if (group === 'unit') return isUnit;
-    if (group === 'holidays') return !isUnit && isHoliday;
-    // Персонажи: любые карточки с героем, в т.ч. шары поштучно (фольга/принт)
-    if (group === 'characters') return !isHoliday && hasChar;
+    // Праздники: в т.ч. фольга/ходячие/круги поштучно с тегом праздника
+    if (group === 'holidays') return isHoliday;
+    // Персонажи: любой товар с героем (включая поштучную фольгу), даже если есть праздник
+    if (group === 'characters') return hasChar;
     if (group === 'all') return true;
     if (group === 'ideas' || group === 'ready') return (!isUnit && !isHoliday && !hasChar) || isIdea;
     return !isUnit && !isHoliday && !hasChar && !isIdea;
@@ -981,7 +982,7 @@
 
   function renderBoard() {
     var old = document.getElementById('catalog-idea-board');
-    if (group === 'all') {
+    if (group === 'all' || q.trim()) {
       if (old) old.remove();
       return;
     }
@@ -1079,6 +1080,7 @@
       category,
       character,
       filter,
+      q.trim() ? 1 : 0,
       filtersOpen ? 1 : 0,
       loading ? 1 : 0,
       products.length,
@@ -1313,11 +1315,15 @@
     }
   });
   if (searchInput) {
+    var searchWasActive = false;
     searchInput.addEventListener('input', function () {
       q = searchInput.value;
       clearTimeout(searchTimer);
       searchTimer = setTimeout(function () {
-        render({ resultsOnly: true });
+        var searching = !!q.trim();
+        var scroll = searching && !searchWasActive;
+        searchWasActive = searching;
+        render({ resultsOnly: true, scroll: scroll });
       }, 180);
     });
   }
@@ -1357,5 +1363,6 @@
 
   readUrl();
   fromUrl = true;
+  if (searchInput) searchWasActive = !!q.trim();
   load();
 })();

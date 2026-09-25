@@ -2,6 +2,20 @@
 .catalog-filter-panel{display:contents}
 .catalog-group-all{display:none}
 .catalog-mobile-filter-toggle{display:none!important}
+
+/* Search hit status — visible under the field without scrolling to cards */
+.catalog-search-hit{
+  width:calc(100% - 24px);
+  margin:2px auto 8px;
+  padding:0 2px;
+  font-size:14px;
+  font-weight:750;
+  line-height:1.3;
+  color:#5a5a64;
+}
+.catalog-search-hit.is-empty{color:#b4534a}
+.catalog-search-hit[hidden]{display:none!important}
+.catalog-group-nav[hidden]{display:none!important}
 .catalog-load-more{display:grid;justify-items:center;gap:8px;margin:28px 0 8px}
 .catalog-load-more button{min-height:52px;cursor:pointer;color:var(--ink);background:#fff;border:1.5px solid #e8e8ec;border-radius:999px;padding:0 28px;font:inherit;font-weight:800;box-shadow:none}
 .catalog-load-more button span{color:#ff6b5a}

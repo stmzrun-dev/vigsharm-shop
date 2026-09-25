@@ -75,6 +75,35 @@
   function productHasLabel(p, label) {
     return p.category === label || (p.tags || []).indexOf(label) >= 0;
   }
+  /** Home / sheet labels often differ from D1 character field — expand aliases. */
+  var CHAR_ALIASES = {
+    'леди баг и супер-кот': ['леди баг'],
+    'единороги': ['единорог'],
+    'свинка пеппа': ['пеппа', 'свинка пеппа'],
+    'уэнздей': ['уэнсдей', 'уэнздей'],
+    'хаги ваги': ['хагги вагги', 'хаги ваги', 'хагги'],
+    'миньоны': ['миньон', 'миньоны'],
+    'куклы lol': ['куклы lol', 'кукла lol', 'lol'],
+    'микки маус и минни маус': ['минни маус', 'микки маус', 'микки', 'минни'],
+    'холодное сердце': ['холодное сердце', 'эльза'],
+    'герои в масках': ['герои в масках', 'герои в пижамах'],
+    'спанч боб': ['спанч боб', 'спанч', 'sponge'],
+    'my little pony': ['my little pony', 'пинки пай', 'радуга дэш'],
+    'мстители': ['мстители', 'капитан америка', 'тор', 'халк']
+  };
+  function characterMatches(p, character) {
+    if (!character) return true;
+    var ch = String(character).toLowerCase().replace(/ё/g, 'е');
+    var name = String(p.character_name || '').toLowerCase().replace(/ё/g, 'е');
+    var title = String(p.title || '').toLowerCase().replace(/ё/g, 'е');
+    var terms = CHAR_ALIASES[ch] || [ch];
+    for (var i = 0; i < terms.length; i++) {
+      var t = terms[i];
+      if (!t) continue;
+      if (name.indexOf(t) >= 0 || title.indexOf(t) >= 0) return true;
+    }
+    return name.indexOf(ch) >= 0 || title.indexOf(ch) >= 0;
+  }
 
   // ---------- state ----------
   var products = [];
@@ -320,7 +349,7 @@
       var matchC = category === 'Все товары' || productHasLabel(p, category);
       var matchP = priceInBucket(p.price, priceIdx);
       var matchF = !filter || p.category === filter || (p.tags || []).indexOf(filter) >= 0;
-      var matchCh = !character || (p.character_name || '').toLowerCase().indexOf(character.toLowerCase()) >= 0 || (p.title || '').toLowerCase().indexOf(character.toLowerCase()) >= 0;
+      var matchCh = !character || characterMatches(p, character);
       var matchA = !age || p.age_group === age;
       return !excludedUnitRoot && !hideIdea && inG && matchQ && matchC && matchP && matchF && matchCh && matchA;
     });

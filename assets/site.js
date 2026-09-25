@@ -78,9 +78,10 @@
   }
   window.vigIsStorefrontVisible = function (p) {
     if (!p) return false;
-    // Hide drafts only. Many published rows still have show_on_site=0 from older saves.
     if (p.status && p.status !== 'published') return false;
-    return true;
+    // Explicit hide without deleting. Missing field = legacy / pre-migration → still visible.
+    if (p.show_on_site == null || p.show_on_site === '') return true;
+    return vigTruthy(p.show_on_site);
   };
   /** First usable product photo from D1 (photos/main_photo) or legacy image_keys. */
   window.vigProductPhoto = function (p) {
@@ -486,9 +487,9 @@
       '<h2 id="contact-title">Как удобнее написать?</h2>' +
       '<p>Выберите мессенджер или позвоните — обсудим композицию и доставку.</p>' +
       '<div class="contact-options">' +
-      '<a class="contact-option whatsapp" target="_blank" rel="noreferrer" href="https://wa.me/' + PHONE + '?text=' + encodeURIComponent(WA_TEXT) + '"><span>' + WA_ICON + '</span><div><strong>WhatsApp</strong><small>Написать сообщение</small></div></a>' +
-      '<a class="contact-option telegram" target="_blank" rel="noreferrer" href="' + TG_URL + '?text=' + encodeURIComponent(WA_TEXT) + '"><span>' + TG_ICON + '</span><div><strong>Telegram</strong><small>Написать в личный чат</small></div></a>' +
-      '<a class="contact-option max" target="_blank" rel="noreferrer" href="' + MAX_URL + '"><span>' + MAX_ICON + '</span><div><strong>MAX</strong><small>Открыть переписку с Вигшарм</small></div></a>' +
+      '<a class="contact-option whatsapp" target="_blank" rel="noreferrer" href="https://wa.me/' + PHONE + '?text=' + encodeURIComponent(WA_TEXT) + '"><span>' + WA_ICON + '</span><div><strong>WhatsApp</strong><small>Сообщение уже подготовлено</small></div></a>' +
+      '<a class="contact-option telegram" target="_blank" rel="noreferrer" href="' + TG_URL + '?text=' + encodeURIComponent(WA_TEXT) + '"><span>' + TG_ICON + '</span><div><strong>Telegram</strong><small>Текст скопируется · личный чат</small></div></a>' +
+      '<a class="contact-option max" target="_blank" rel="noreferrer" href="' + MAX_URL + '"><span>' + MAX_ICON + '</span><div><strong>MAX</strong><small>Текст скопируется · вставьте в чат</small></div></a>' +
       '<a class="contact-option phone" href="tel:+' + PHONE + '"><span>' + PHONE_ICON + '</span><div><strong>Позвонить</strong><small>' + PHONE_LABEL + '</small></div></a>' +
       '</div>' +
       '<p class="modal-note">Заказ оформляется только после нашего подтверждения.</p>' +
@@ -500,6 +501,14 @@
       e.stopPropagation();
     });
     wrap.querySelector('.modal-close').addEventListener('click', closeModal);
+    wrap.querySelector('.contact-option.telegram').addEventListener('click', function () {
+      window.vigCopy(WA_TEXT);
+    });
+    wrap.querySelector('.contact-option.max').addEventListener('click', function () {
+      window.vigCopy(WA_TEXT).then(function () {
+        window.vigToast('Текст обращения скопирован в буфер! Зажмите поле ввода в MAX и нажмите «Вставить».');
+      });
+    });
     return wrap;
   }
 

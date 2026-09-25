@@ -143,7 +143,16 @@ function main() {
   const used = new Set();
 
   for (const product of data.products) {
-    if (!product || product.show_on_site === false) {
+    if (!product) {
+      skipped++;
+      continue;
+    }
+    const status = product.status;
+    if (status && status !== 'published') {
+      skipped++;
+      continue;
+    }
+    if (product.show_on_site === false || product.show_on_site === 0 || product.show_on_site === '0') {
       skipped++;
       continue;
     }

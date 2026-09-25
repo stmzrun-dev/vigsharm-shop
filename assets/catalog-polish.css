@@ -46,6 +46,20 @@
 .catalog-page .catalog-search input{
   color:var(--cat-text)!important;
 }
+.catalog-page .catalog-search-hit{
+  width:auto!important;
+  max-width:none!important;
+  margin-left:var(--cat-pad)!important;
+  margin-right:var(--cat-pad)!important;
+  margin-top:0!important;
+  margin-bottom:6px!important;
+  color:var(--cat-muted)!important;
+  font-size:14px!important;
+  font-weight:750!important;
+}
+.catalog-page .catalog-search-hit.is-empty{
+  color:#b4534a!important;
+}
 .catalog-page .catalog-controls select{
   background-color:#fff!important;
   border:1.5px solid var(--cat-line)!important;

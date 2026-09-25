@@ -2888,8 +2888,17 @@ async function handleDeleteProduct(path, env) {
 async function handleToggleStatus(path, request, env) {
   const id = path.split('/')[3]; // /api/products/:id/status
   const { status } = await request.json();
-  await env.DB.prepare("UPDATE products SET status = ?, updated_at = ? WHERE id = ?")
-    .bind(status, new Date().toISOString(), id).run();
+  const now = new Date().toISOString();
+  // Publish from list → back on storefront. Draft → hide via status; keep show_on_site for re-publish.
+  if (status === 'published') {
+    await env.DB.prepare(
+      'UPDATE products SET status = ?, show_on_site = 1, updated_at = ? WHERE id = ?'
+    ).bind(status, now, id).run();
+  } else {
+    await env.DB.prepare(
+      'UPDATE products SET status = ?, updated_at = ? WHERE id = ?'
+    ).bind(status, now, id).run();
+  }
   return json({ ok: true });
 }
 

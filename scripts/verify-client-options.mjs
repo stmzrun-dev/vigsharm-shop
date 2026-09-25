@@ -61,7 +61,15 @@ const floorFallback = vigNormalizeProduct({
   status: 'published',
   client_options: {}
 });
-assert(floorFallback.needs_advance_order === true, 'floor scene implies advance order');
+assert(floorFallback.needs_advance_order !== true, 'plain floor does not auto-advance');
+
+const floorAirAdvance = vigNormalizeProduct({
+  title: 'Floor air',
+  scene: 'floor',
+  status: 'published',
+  client_options: { floor_type: 'air' }
+});
+assert(floorAirAdvance.needs_advance_order === true, 'floor_type air implies advance order');
 
 const figuresAdvance = vigNormalizeProduct({
   title: 'Figure',
@@ -167,7 +175,7 @@ const bareDigitsWord = vigNormalizeProduct({
   client_options: {}
 });
 assert(bareDigitsWord.has_digit_choice === true, 'просто «цифры» → digit choice');
-assert(bareDigitsWord.digit_count_on_photo === 2, 'просто «цифры» → count 2');
+assert(bareDigitsWord.digit_count_on_photo === 1, 'просто «цифры» → count 1');
 
 const pzFrame = vigNormalizeProduct({
   title: 'PZ frame',
@@ -231,7 +239,10 @@ assert(legacy.has_rental && legacy.rental_item === 'Арка' && legacy.rental_d
 
 assert(vigIsStorefrontVisible({ status: 'published', show_on_site: true }) === true, 'visible published+on');
 assert(vigIsStorefrontVisible({ status: 'draft', show_on_site: true }) === false, 'hide draft');
-assert(vigIsStorefrontVisible({ status: 'published', show_on_site: false }) === true, 'published still visible if show_on_site false');
+assert(vigIsStorefrontVisible({ status: 'published', show_on_site: false }) === false, 'hide published if show_on_site false');
+assert(vigIsStorefrontVisible({ status: 'published', show_on_site: 0 }) === false, 'hide show_on_site=0');
+assert(vigIsStorefrontVisible({ status: 'published' }) === true, 'legacy published without flag stays visible');
+assert(vigIsStorefrontVisible({ status: 'published', show_on_site: 1 }) === true, 'visible show_on_site=1');
 
 const withPhotos = vigNormalizeProduct({
   title: 'C',
@@ -249,7 +260,8 @@ const list = vigStorefrontProducts([
   { id: 2, status: 'draft', show_on_site: true, client_options: {} },
   { id: 3, status: 'published', show_on_site: false, client_options: {}, photos: ['https://x/3.png'] }
 ]);
-assert(list.length === 2, 'vigStorefrontProducts keeps published even if show_on_site false');
+assert(list.length === 1, 'vigStorefrontProducts drops published with show_on_site false');
+assert(list[0].id === 1, 'only visible published kept');
 assert(list[0].has_digit_choice === true, 'storefront list still maps options');
 assert(list.every(function (p) { return !!sandbox.window.vigProductPhoto(p); }), 'photos resolved');
 

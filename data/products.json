@@ -2,6 +2,180 @@
   "ok": true,
   "products": [
     {
+      "id": "1fae0311-c3df-47a5-9e53-8224152f3055",
+      "title": "С ДР! Ниндзя Ассорти",
+      "article": "UNT-016",
+      "price": 150,
+      "short_description": "С ДР! Ниндзя Ассорти",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": "Наруто",
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": "Naruto",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "s-dr-nindzya-assorti",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Шары с рисунком",
+        "Для девочки",
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/5c9500d8-04aa-4278-92f5-66d89fd99384.jpg",
+        "unit_type": "print",
+        "unit_who": [
+          "Для девочки",
+          "Для мальчика"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/d6fbbd1e-8d84-4578-a626-f586e2e9ceb6.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/d6fbbd1e-8d84-4578-a626-f586e2e9ceb6.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-25T11:37:18.084Z",
+      "updated_at": "2026-09-25T11:37:18.084Z"
+    },
+    {
+      "id": "c1a74a2d-f55f-4890-8162-b286191fd2cd",
+      "title": "Черновик",
+      "article": "UNT-006",
+      "price": 0,
+      "short_description": "Черновик",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "chernovik",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Шары с рисунком"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/a74ec78a-cd18-437a-a1eb-fa1b7e9a0e21.jpg",
+        "unit_type": "print"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/15f4d147-04f0-4e88-ab91-cece7d773149.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/15f4d147-04f0-4e88-ab91-cece7d773149.jpg",
+      "status": "draft",
+      "show_on_site": true,
+      "created_at": "2026-09-25T11:28:34.267Z",
+      "updated_at": "2026-09-25T11:28:34.267Z"
+    },
+    {
+      "id": "b53148bf-3d13-47b3-8ef4-5d8c8cce0a47",
+      "title": "Паучок",
+      "article": "UNT-005",
+      "price": 150,
+      "short_description": "Паучок",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": "Человек-паук",
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": "Marvel",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "serdechnye-poslaniya-2",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Шары с рисунком",
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/7e57e2d3-eaa9-4349-86b3-09ada41715eb.jpg",
+        "unit_type": "print",
+        "unit_who": [
+          "Для мальчика"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/fb75d5ad-5e94-42fe-b4b4-eaca4a1189fa.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/fb75d5ad-5e94-42fe-b4b4-eaca4a1189fa.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-25T11:25:03.413Z",
+      "updated_at": "2026-09-25T11:25:03.413Z"
+    },
+    {
+      "id": "76ea64db-ac54-497b-8e03-ab9fd1966ff6",
+      "title": "Сердечные послания",
+      "article": "BQT-019",
+      "price": 2000,
+      "short_description": "Букет из розовых фольгированных сердец с персональными надписями и золотым центром.",
+      "full_description": "Букет из девяти фольгированных сердец с индивидуальными пожеланиями. В центре — золотое сердце с инициалами и датой.",
+      "composition": [
+        "букет из шаров с надписями"
+      ],
+      "category": "Букет из шаров",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": "2 000–3 500 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Букет из шаров с надписями — Армавир | VigSharm",
+      "seo_description": "Букет из фольгированных сердец с персональными надписями. Романтичный подарок с индивидуальным оформлением в Армавире.",
+      "slug": "serdechnye-poslaniya",
+      "scene": "handheld_bouquet",
+      "tags": [
+        "Букет из шаров"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/d977516d-cce2-490d-9d16-8f613d12618e.jpg"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/58d0c1a4-bb82-47e6-9711-f58df8d74da8.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/58d0c1a4-bb82-47e6-9711-f58df8d74da8.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-25T11:16:39.158Z",
+      "updated_at": "2026-09-25T11:16:39.158Z"
+    },
+    {
       "id": "bdc59770-2b22-4fb5-9c10-670287e470d6",
       "title": "Эльфы плюшевые",
       "article": "UNT-004",

@@ -7,7 +7,7 @@
 <meta name="robots" content="noindex, nofollow"/>
 <link rel="icon" href="../favicon.svg"/>
 <link rel="stylesheet" href="../assets/fonts.css"/>
-<link rel="stylesheet" href="styles.css?v=20260925-bulkthumb"/>
+<link rel="stylesheet" href="styles.css?v=20260925-admin-gate"/>
 </head>
 <body>
 
@@ -24,8 +24,20 @@
     <a href="#publish" class="header-link" data-tab="publish">Ключ</a>
     <a href="#settings" class="header-link" data-tab="settings">Настройки</a>
     <a href="../index.html" class="header-link header-link-storefront">Витрина</a>
+    <button type="button" class="header-link header-logout" id="admin-logout">Выйти</button>
   </nav>
 </header>
+<div id="admin-gate" class="admin-gate hidden" role="dialog" aria-modal="true" aria-labelledby="admin-gate-title">
+  <form class="admin-gate-card" id="admin-gate-form">
+    <p class="admin-gate-eyebrow">VigSharm</p>
+    <h2 id="admin-gate-title">Ключ администратора</h2>
+    <p class="admin-gate-text">Тот же ключ, что задан секретом <code>ADMIN_API_KEY</code> у Worker. Без него изменение каталога недоступно.</p>
+    <label for="admin-gate-key">Admin API Key</label>
+    <input id="admin-gate-key" type="password" autocomplete="current-password" required/>
+    <p class="admin-gate-error" id="admin-gate-error" hidden>Неверный ключ. Проверьте значение и попробуйте снова.</p>
+    <button type="submit" class="admin-gate-submit">Войти</button>
+  </form>
+</div>
 
 <main class="container">
   <!-- Tab: Products List -->
@@ -893,7 +905,7 @@
   </div>
 </div>
 
-<script src="admin.js?v=20260925-bulkthumb"></script>
+<script src="admin.js?v=20260925-admin-gate"></script>
 <script src="admin-extended.js?v=20260925-proxythumb"></script>
 <script src="cloudinary-upload.js?v=cloud-fix-2"></script>
 <script src="imgbb-upload.js?v=1"></script>

@@ -33,6 +33,9 @@ node_modules/
 # OG share pages — генерируются в CI (scripts/generate-og-pages.mjs)
 /p/
 
+# Локальные слепки D1 — не публиковать
+backups/
+
 # Debug/backup файлы из ручных сессий отладки (не часть продакшн-кода)
 *-backup.js
 *-old.js

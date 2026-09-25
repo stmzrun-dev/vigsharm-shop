@@ -143,7 +143,14 @@ const app = {
     this.wireFormHelpers();
     this.wireFilters();
     this.switchTab('products');
-    this.loadProducts();
+    this.installAuthGate();
+    document.getElementById('admin-logout')?.addEventListener('click', () => this.logoutAdmin());
+    document.getElementById('admin-gate-form')?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      this.submitAdminGate();
+    });
+    if (!this.adminApiKey) this.showAdminGate();
+    else this.loadProducts();
     this.restoreStorefrontDirty?.();
     if (refreshedWhileOpen) this.saveOpenEditorAsDraftAfterRefresh?.();
     this.setupEditorAutosave?.();
@@ -1171,6 +1178,60 @@ const app = {
     } catch (e) {
       this.toast('Ошибка сохранения', 'error');
     }
+  },
+
+  installAuthGate() {
+    if (this._authGateInstalled) return;
+    this._authGateInstalled = true;
+    const orig = window.fetch.bind(window);
+    const self = this;
+    window.fetch = async function (input, init) {
+      const res = await orig(input, init);
+      try {
+        const url = typeof input === 'string' ? input : (input && input.url) || '';
+        if (res.status === 401 && self.workerUrl && String(url).indexOf(self.workerUrl) === 0) {
+          self.showAdminGate(true);
+        }
+      } catch (e) { /* ignore */ }
+      return res;
+    };
+  },
+
+  showAdminGate(badKey) {
+    const gate = document.getElementById('admin-gate');
+    const err = document.getElementById('admin-gate-error');
+    const input = document.getElementById('admin-gate-key');
+    if (!gate) return;
+    if (err) err.hidden = !badKey;
+    if (input && !badKey) input.value = '';
+    gate.classList.remove('hidden');
+    input?.focus();
+  },
+
+  hideAdminGate() {
+    document.getElementById('admin-gate')?.classList.add('hidden');
+    const err = document.getElementById('admin-gate-error');
+    if (err) err.hidden = true;
+  },
+
+  submitAdminGate() {
+    const value = document.getElementById('admin-gate-key')?.value.trim() || '';
+    if (!value) return;
+    this.adminApiKey = value;
+    this.writeAdminSettings({ adminApiKey: value });
+    const field = document.getElementById('admin-api-key');
+    if (field) field.value = value;
+    this.hideAdminGate();
+    this.loadProducts();
+    this.toast('Ключ сохранён', 'success');
+  },
+
+  logoutAdmin() {
+    this.adminApiKey = '';
+    this.writeAdminSettings({ adminApiKey: '' });
+    const field = document.getElementById('admin-api-key');
+    if (field) field.value = '';
+    this.showAdminGate(false);
   },
 
   clearSettings() {

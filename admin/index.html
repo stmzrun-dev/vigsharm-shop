@@ -7,7 +7,7 @@
 <meta name="robots" content="noindex, nofollow"/>
 <link rel="icon" href="../favicon.svg"/>
 <link rel="stylesheet" href="../assets/fonts.css"/>
-<link rel="stylesheet" href="styles.css?v=20260925-admin-fix3"/>
+<link rel="stylesheet" href="styles.css?v=20260925-unit-holiday"/>
 </head>
 <body>
 
@@ -310,6 +310,14 @@
                     <input type="radio" name="unit-balloon-type-early" id="unit-type-latex-early" value="latex"/>
                     <span>Латекс</span>
                   </label>
+                  <label class="scene-subchip">
+                    <input type="radio" name="unit-balloon-type-early" id="unit-type-walker-early" value="walker"/>
+                    <span>Ходячие</span>
+                  </label>
+                  <label class="scene-subchip">
+                    <input type="radio" name="unit-balloon-type-early" id="unit-type-shapes-early" value="shapes"/>
+                    <span>Круги и звёзды</span>
+                  </label>
                 </div>
               </div>
               <p class="studio-mode-hint" id="studio-mode-hint" hidden></p>
@@ -348,6 +356,10 @@
               <button type="button" class="source-work-preview-frame" title="Увеличить фото" aria-label="Увеличить фото" onclick="app.openLightbox(app._sourceWorkPreviewUrl || document.getElementById('source-work-preview-img')?.src)">
                 <img id="source-work-preview-img" alt="Фото для состава"/>
               </button>
+              <div id="unit-holiday-pop" class="unit-holiday-pop hidden">
+                <button type="button" class="unit-holiday-toggle" id="unit-holiday-toggle" onclick="app.toggleUnitHolidayPop(event)">Праздник</button>
+                <div id="unit-holiday-menu" class="unit-holiday-menu hidden" hidden></div>
+              </div>
             </div>
             <div class="essentials-fields">
               <div id="unit-price-fields" class="unit-price-fields">
@@ -865,12 +877,12 @@
   </div>
 </div>
 
-<script src="admin.js?v=unit-card-5"></script>
-<script src="admin-extended.js?v=20260925-fix2"></script>
+<script src="admin.js?v=20260925-unit-holiday"></script>
+<script src="admin-extended.js?v=20260925-unit-holiday"></script>
 <script src="cloudinary-upload.js?v=cloud-fix-2"></script>
 <script src="imgbb-upload.js?v=1"></script>
 <script src="cloudinary-patch.js?v=yandex-1"></script>
-<script src="admin-studio-pro.js?v=20260925-nocutout"></script>
+<script src="admin-studio-pro.js?v=20260925-unit-holiday"></script>
 <script src="admin-ai.js?v=20260925-ai-fetch"></script>
 <script src="admin-reference-background.js"></script>
 <script src="admin-orders.js?v=1"></script>

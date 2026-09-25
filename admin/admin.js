@@ -68,9 +68,14 @@ const BOUQUET_TYPES = {
 /** Подтип «Шары поштучно»: полка каталога + размер у фольги. */
 const UNIT_BALLOON_TYPES = {
   latex: { value: 'latex', title: 'Латекс', tag: 'Латексные шары' },
-  print: { value: 'print', title: 'С рисунком', tag: 'Шары с рисунком', hasWho: true },
-  foil: { value: 'foil', title: 'Фольга', tag: 'Фольгированные фигуры', hasSize: true, hasWho: true }
+  print: { value: 'print', title: 'С рисунком', tag: 'Шары с рисунком', hasWho: true, hasHoliday: true },
+  foil: { value: 'foil', title: 'Фольга', tag: 'Фольгированные фигуры', hasSize: true, hasWho: true, hasHoliday: true },
+  walker: { value: 'walker', title: 'Ходячие', tag: 'Ходячие фигуры', hasWho: true, hasHoliday: true },
+  shapes: { value: 'shapes', title: 'Круги и звёзды', tag: 'Круги, звёзды и сердца', hasHoliday: true }
 };
+
+/** Праздник у поштучных с рисунком / фольги / ходячих / кругов — та же полка, что у готовых работ. */
+const UNIT_HOLIDAYS = ['Новый год', '14 февраля', '23 февраля', '8 марта', '9 мая', 'Выпускной', '1 сентября', 'День учителя', 'Хэллоуин'];
 
 /** «Для кого» только у поштучных с рисунком / фольги — тег = якорь в каталоге. */
 const UNIT_WHO_PICKS = [
@@ -124,6 +129,7 @@ const app = {
   currentProduct: { photos: [], scene: 'auto', tags: [], client_options: {} },
 
   init() {
+    const refreshedWhileOpen = this.consumeEditorOpenFlag();
     this.loadSettings();
     this.setupTabs();
     this.setupPhotoUpload();
@@ -138,11 +144,16 @@ const app = {
     this.wireFilters();
     this.switchTab('products');
     this.loadProducts();
-    this.restoreActiveStudioDraftIfAny?.();
     this.restoreStorefrontDirty?.();
+    if (refreshedWhileOpen) this.saveOpenEditorAsDraftAfterRefresh?.();
     this.setupEditorAutosave?.();
     this.updateParkedDraftBanner?.();
     this.updateLastTemplateButton?.();
+    window.addEventListener('pagehide', () => {
+      if (!document.body.classList.contains('admin-editor-open')) return;
+      this.parkEditorDraft?.(true);
+      this.markEditorOpen(true);
+    });
     document.addEventListener('keydown', (e) => {
       if ((e.ctrlKey || e.metaKey) && (e.key === 's' || e.key === 'S')) {
         if (document.body.classList.contains('admin-editor-open')) {
@@ -358,6 +369,7 @@ const app = {
 
   // === Локальный черновик формы (выход без потери + автосейв) ===
   EDITOR_PARK_KEY: 'vigsharm_editor_park',
+  EDITOR_OPEN_FLAG: 'vigsharm_editor_open',
 
   valById(id) {
     return document.getElementById(id)?.value ?? '';
@@ -584,7 +596,66 @@ const app = {
     this.updateEditorAutosaveHint('');
   },
 
-  async restoreParkedEditorDraft() {
+  consumeEditorOpenFlag() {
+    try {
+      const open = sessionStorage.getItem(this.EDITOR_OPEN_FLAG) === '1';
+      sessionStorage.removeItem(this.EDITOR_OPEN_FLAG);
+      return open;
+    } catch {
+      return false;
+    }
+  },
+
+  markEditorOpen(open) {
+    try {
+      if (open) sessionStorage.setItem(this.EDITOR_OPEN_FLAG, '1');
+      else sessionStorage.removeItem(this.EDITOR_OPEN_FLAG);
+    } catch { /* ignore */ }
+  },
+
+  /** Обновление при открытом редакторе: сохранить на сервер черновиком и не открывать окно снова. */
+  async saveOpenEditorAsDraftAfterRefresh() {
+    if (this._flushingRefreshDraft) return;
+    this._flushingRefreshDraft = true;
+    try {
+      const parked = this.readParkedEditorDraft();
+      const studio = await this.loadActiveStudioDraft?.();
+      if (!parked && !studio?.masterUrl) return;
+
+      if (parked) await this.restoreParkedEditorDraft({ keepClosed: true });
+      const snap = {
+        title: document.getElementById('product-title')?.value || '',
+        price: document.getElementById('product-price')?.value || '',
+        composition: document.getElementById('product-composition')?.value || ''
+      };
+      const needsStudio = !!(studio?.masterUrl) && !(this.currentProduct?.photos || []).some((p) => p.url);
+      if (needsStudio || (!parked && studio?.masterUrl)) {
+        await this.restoreActiveStudioDraftIfAny?.({ keepClosed: true });
+        const put = (id, value) => {
+          const el = document.getElementById(id);
+          if (el && value) el.value = value;
+        };
+        put('product-title', snap.title);
+        put('product-price', snap.price);
+        put('product-composition', snap.composition);
+      }
+      if (!this.editorHasMeaningfulContent?.()) return;
+
+      const titleEl = document.getElementById('product-title');
+      if (titleEl && !titleEl.value.trim()) titleEl.value = 'Черновик';
+
+      const status = this.currentProduct?.status === 'published' ? 'published' : 'draft';
+      await this.saveProduct(status, { andNew: false });
+    } catch (err) {
+      console.warn('[editor] refresh draft save failed:', err);
+      this.toast('Не удалось убрать карточку в черновик. Она в зелёном баннере — «Продолжить».', 'error');
+    } finally {
+      this._flushingRefreshDraft = false;
+    }
+  },
+
+  async restoreParkedEditorDraft(opts = {}) {
+    const keepClosed = !!opts.keepClosed;
     const draft = this.readParkedEditorDraft();
     if (!draft) {
       this.toast('Локальный черновик не найден', 'error');
@@ -642,6 +713,7 @@ const app = {
     this.syncStudioModeHint?.();
     this.setUnitBalloonType?.(draft.unit_type || draft.client_options?.unit_type || '');
     this.setUnitBalloonWho?.(draft.unit_who || draft.client_options?.unit_who || '');
+    this.setUnitHoliday?.(draft.client_options?.unit_holiday || '');
     this.syncEditorSteps?.();
     this.syncAIFillGate?.();
     this.syncAdvanceOrderFromScene?.();
@@ -663,15 +735,15 @@ const app = {
     const titleEl = document.getElementById('editor-title');
     if (titleEl) titleEl.textContent = draft.title || 'Черновик';
 
-    this.switchTab('create');
+    if (!keepClosed) this.switchTab('create');
     this.updateParkedDraftBanner();
 
     if (!draft.productId && draft.studio?.hasIdbDraft && !this.currentProduct.photos.length) {
-      await this.restoreActiveStudioDraftIfAny?.();
+      await this.restoreActiveStudioDraftIfAny?.({ keepClosed });
     }
 
     this.updateEditorAutosaveHint(draft.savedAt);
-    this.toast('Локальный черновик восстановлен', 'success');
+    if (!keepClosed) this.toast('Локальный черновик восстановлен', 'success');
   },
 
   // === Автозаполнение: артикул и slug ===
@@ -760,6 +832,7 @@ const app = {
       if (!this.currentProduct?.id) this.assignFreshArticle?.();
       this.syncStudioModeHint?.();
       this.syncUnitCharacterWrap?.();
+      this.syncUnitHolidayControl?.();
       this.scheduleUnitCharacterDetect?.();
     } else {
       if (fromUser && sceneEl?.value === 'unit_balloon') {
@@ -768,6 +841,7 @@ const app = {
       }
       if (titleEl) titleEl.placeholder = 'Например: Тёмный рыцарь';
       this.syncUnitCharacterWrap?.();
+      this.syncUnitHolidayControl?.();
     }
     this.syncEditorSteps?.();
   },
@@ -1096,9 +1170,11 @@ const app = {
     });
     if (tab !== 'create') {
       document.body.classList.remove('admin-editor-open');
+      this.markEditorOpen?.(false);
       this.updateParkedDraftBanner?.();
     } else {
       document.body.classList.add('admin-editor-open');
+      this.markEditorOpen?.(true);
       this.updateParkedDraftBanner?.();
       this.updateEditorAutosaveHint?.(this._editorParkedAt || '');
       window.scrollTo(0, 0);

@@ -699,6 +699,7 @@ Object.assign(app, {
       bouquet_type: this.getBouquetType?.() || '',
       unit_type: this.getUnitBalloonType?.() || '',
       unit_who: this.getUnitBalloonWho?.() || '',
+      unit_holiday: this.getUnitHoliday?.() || '',
       balloon_size: document.getElementById('unit-balloon-size')?.value || '',
       ts: Date.now(),
       ...extra
@@ -773,7 +774,8 @@ Object.assign(app, {
     }
   },
 
-  async restoreActiveStudioDraftIfAny() {
+  async restoreActiveStudioDraftIfAny(opts = {}) {
+    const keepClosed = !!opts.keepClosed;
     if (this.currentProduct?.id) return false;
     const draft = await this.loadActiveStudioDraft();
     if (!draft?.masterUrl) return false;
@@ -816,6 +818,7 @@ Object.assign(app, {
       this.setBouquetType?.(draft.bouquet_type || '');
       this.setUnitBalloonType?.(draft.unit_type || '');
       this.setUnitBalloonWho?.(draft.unit_who || '');
+      this.setUnitHoliday?.(draft.unit_holiday || draft.holiday_only || '');
       const sizeEl = document.getElementById('unit-balloon-size');
       if (sizeEl && draft.balloon_size != null) sizeEl.value = draft.balloon_size;
 
@@ -846,8 +849,10 @@ Object.assign(app, {
         statusEl.textContent = '✅ Master восстановлен после обновления страницы — можно продолжить цену + состав → ИИ';
       }
 
-      this.switchTab?.('create');
-      this.toast('Master восстановлен после обновления', 'success');
+      if (!keepClosed) {
+        this.switchTab?.('create');
+        this.toast('Master восстановлен после обновления', 'success');
+      }
       return true;
     } catch (err) {
       console.warn('[Studio Pro] active draft restore failed:', err);

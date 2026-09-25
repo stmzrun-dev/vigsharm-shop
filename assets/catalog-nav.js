@@ -65,7 +65,8 @@
     var isIdea = !isUnit && !isHoliday && !!cat && AUDIENCE.indexOf(cat) < 0;
     if (group === 'unit') return isUnit;
     if (group === 'holidays') return !isUnit && isHoliday;
-    if (group === 'characters') return !isUnit && !isHoliday && hasChar;
+    // Персонажи: любые карточки с героем, в т.ч. шары поштучно (фольга/принт)
+    if (group === 'characters') return !isHoliday && hasChar;
     if (group === 'all') return true;
     if (group === 'ideas' || group === 'ready') return (!isUnit && !isHoliday && !hasChar) || isIdea;
     return !isUnit && !isHoliday && !hasChar && !isIdea;

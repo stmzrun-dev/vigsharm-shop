@@ -30,6 +30,13 @@ YANDEX_REGION = "ru-central1"
 # См. scripts/setup-yandex-storage.ps1
 #
 PUBLIC_API_BASE = "https://vigsharm-api.vigsharm.workers.dev"
+# Sprint 2 — OG / product.html (после переноса DNS, см. OG_DNS_SETUP.md)
+SITE_ORIGIN = "https://vigsharm.ru"
+STOREFRONT_ORIGIN = "https://stmzrun-dev.github.io/vigsharm-shop"
+# Route вешается в Dashboard после смены NS (или раскомментируйте, подставив zone_id):
+# [[routes]]
+# pattern = "vigsharm.ru/product.html*"
+# zone_name = "vigsharm.ru"
 # Secrets (задаются через wrangler secret put)
 # NORDROUTER_API_KEY — ключ NordRouter
 # ADMIN_API_KEY — общий ключ авторизации админ-панели (Authorization: Bearer <ключ>).

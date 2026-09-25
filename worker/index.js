@@ -19,6 +19,13 @@ export default {
     }
 
     try {
+      // Sprint 2: динамический Open Graph для карточки товара.
+      // Route на vigsharm.ru/product.html* (см. worker/OG_DNS_SETUP.md).
+      // Люди — pass-through на GitHub Pages; боты — D1 + HTMLRewriter.
+      if ((method === 'GET' || method === 'HEAD') && isProductPagePath(path)) {
+        return handleProductPageOg(request, env, url);
+      }
+
       // Публичное чтение каталога и медиа — доступно витрине без авторизации.
       // Всё остальное (создание/изменение/удаление товаров, загрузка фото,
       // ИИ-генерация, Studio Pro) требует заголовок Authorization: Bearer <ADMIN_API_KEY>.
@@ -714,6 +721,9 @@ async function handleGenerateCard(request, env) {
 КОРОБКА-СЮРПРИЗ (в составе есть «коробка»; без тематики в скобках): category = РОВНО «Коробка-сюрприз».
 - tags: ТОЛЬКО «Коробка-сюрприз» — БЕЗ «Для неё/него/девочки/мальчика» и прочих аудиторий/поводов
 - ОБЯЗАТЕЛЬНО заполни age_group по фото (герои/цифры/дети → «Для детей»)
+- ПЕРСОНАЖ НА КОРОБКЕ: смотри принт/наклейку/иллюстрацию на стенках и крышке коробки (не только фольгу).
+  Узнаваемый герой на коробке → character ОБЯЗАТЕЛЕН (и series_name по франшизе, если есть).
+  Сомнение → character_confidence medium/low + character_alts (2–3 варианта). НЕ оставляй character пустым, если герой на принте виден.
 - target_audience и occasion оставь пустыми (пол/повод — не в этих полях)`
     : '';
   const bouquetRule = bouquetOnly
@@ -820,9 +830,18 @@ ${BUDGET_OPTIONS.join(' | ')}
 - «Фигуры из шаров» — ТОЛЬКО скрутка/лепка из множества шаров, стоящая на полу. НЕ ставь этот тег для фольгированных персонажей (Пикачу, Гонщик, зайчик, жираф), баблов, фонтанов и композиций на стене
 - Мольберт / пенопластовый круг / каркас-обруч (фотозона) → в tags «Фотозона». Если foil_digits = "1", category всё равно «1 годик», тег «Фотозона» рядом
 - ПЕРСОНАЖ И СЕРИЯ — критично, определяй по фото:
-  • Смотри фигуры (скрутка из шаров тоже!), принты, цвета, декор, паутину, логотипы, типичные сочетания
+  • Смотри фигуры (скрутка из шаров тоже!), принты/наклейки/иллюстрации на коробке и шарах, цвета, декор, паутину, логотипы, типичные сочетания
+  • Принт на коробке-сюрпризе = тот же character, что и фольгированная фигура: герой на стенке/крышке коробки ОБЯЗАТЕЛЕН в character
   • Скрутка: красная шуба + белая борода + шапка + чёрные сапоги → character «Дед Мороз» (Санта). НЕ «принцесса», не «барышня», не «для девочки» только из‑за красного
   • Снегурочка, снеговик, кошка/заяц/мишка из шаров — тоже character, не пустая строка
+  • УЭНСДЕЙ / СЕМЕЙКА АДДАМС — не оставляй character пустым при готике «в общем»:
+    девочка с двумя косичками, чёрное платье с белым воротником, бледное лицо; и/или чёрно-фиолетовая палитра + готический декор на коробке/шарах → character «Уэнсдей Аддамс», series_name «Уэнсдей»
+    НЕ только «готический крючок» в title без персонажа («Готическая загадка» ок в title, но character всё равно «Уэнсдей Аддамс»)
+    сомнение → character_confidence medium + character_alts: «Уэнсдей Аддамс», «Семейка Аддамс»
+  • БУБА — не оставляй character пустым при узнаваемом принте/фигуре:
+    маленький бородатый зверёк (длинная борода, большие глаза, два крупных зуба, круглый нос), часто чёрно-белый контур на коробке; рядом часто сырные треугольники/кубики с дырками → character «Буба»
+    фольгированная фигура Бубы или шар поштучно с ним — тоже character «Буба»
+    сомнение → character_confidence medium/low + character_alts: «Буба»
   • КОШКА vs ЗАЯЦ (скрутка) — не ставь «зайчик» любому белому зверю:
     короткие/треугольные уши, усы, круглая морда, часто букет в лапах → character «Кошка» (не «Заяц»)
     длинные уши (торчат вверх/назад, длиннее головы) → «Заяц»
@@ -835,16 +854,16 @@ ${BUDGET_OPTIONS.join(' | ')}
     Скрипка/гитара — корпус-резонатор, гриф с головкой, струны, смычок. «Палка в руках» без корпуса ≠ инструмент.
     title: армейский крючок («На посту», «Боевой расчёт»), НЕ «Скрипичный виртуоз» / «Струнный маэстро»
   • Примеры: красно-синие шары + паутина / звезда → character «Человек-паук», series_name «Человек-паук»
-  • Миньоны, Единорог, LOL, Холодное сердце, Гонщик, Пикачу, Барби — по узнаваемым признакам
+  • Миньоны, Единорог, LOL, Холодное сердце, Гонщик, Пикачу, Барби, Уэнсдей, Буба — по узнаваемым признакам
   • title при зимнем герое — зимний крючок («Зимний гость», «Мешок подарков»), НЕ «Красная принцесса» / «Алая барышня»
-  • series_name = франшиза/тематика (Человек-паук, Marvel, Миньоны…), не «День рождения»
-  • character = конкретный герой по-русски («Человек-паук», не Spider-Man), если героя нет — пустая строка
+  • series_name = франшиза/тематика (Человек-паук, Marvel, Миньоны, Уэнсдей…), не «День рождения»
+  • character = конкретный герой по-русски («Человек-паук», не Spider-Man; «Уэнсдей Аддамс», не Wednesday), если героя нет — пустая строка
   • character_confidence / series_confidence: high если уверен, medium если вероятнее всего, low если сомневаешься
   • При medium/low ОБЯЗАТЕЛЬНО заполни character_alts / series_alts (2–3 варианта для выбора оператором)
   • При high тоже можно дать 1 alt, если есть близкий синоним
   • НЕ выдумывай героя без признаков на фото
   • Мишка/зайчик/сердце на выписке — character = «Мишка»/«Зайчик» и т.п. (это персонаж карточки), не франшиза Marvel
-  • На ЛЮБОЙ полке (включая «Универсальные», «1 годик», выписку) — если на фото есть узнаваемый фольгированный зверёк/герой, character ОБЯЗАТЕЛЕН
+  • На ЛЮБОЙ полке (включая «Универсальные», «1 годик», выписку, «Коробка-сюрприз», «Шары поштучно») — если на фото есть узнаваемый фольгированный зверёк/герой ИЛИ принт героя на коробке/шаре (в т.ч. один шар поштучно), character ОБЯЗАТЕЛЕН: карточка попадёт в раздел «Персонажи»
   • series_name — франшиза или та же тема; если франшизы нет — можно пусто или имя зверя
 - age_group: ОБЯЗАТЕЛЬНО одно значение из списка:
   • выписка / 1 годик → «Для малышей»
@@ -2625,10 +2644,26 @@ async function handleGetProducts(env) {
 }
 
 async function handleGetProduct(path, env) {
-  const id = path.split('/').pop();
-  const product = await env.DB.prepare("SELECT * FROM products WHERE id = ?").bind(id).first();
+  const key = decodeURIComponent(path.split('/').pop() || '');
+  const product = await getProductBySlugOrId(env, key);
   if (!product) return json({ ok: false, error: 'Not found' }, 404);
-  return json({ ok: true, product: parseProduct(product) });
+  return json({ ok: true, product });
+}
+
+/** Товар по slug (сначала) или по id. */
+async function getProductBySlugOrId(env, key) {
+  const k = String(key || '').trim();
+  if (!k || !env.DB) return null;
+  let row = await env.DB.prepare(
+    'SELECT * FROM products WHERE slug = ? LIMIT 1'
+  ).bind(k).first();
+  if (!row) {
+    row = await env.DB.prepare(
+      'SELECT * FROM products WHERE id = ? LIMIT 1'
+    ).bind(k).first();
+  }
+  if (!row) return null;
+  return parseProduct(row);
 }
 
 async function handleCreateProduct(request, env) {
@@ -2955,6 +2990,262 @@ function parseProduct(row) {
     photos: JSON.parse(row.photos || '[]'),
     show_on_site: !!row.show_on_site
   };
+}
+
+// ─── Sprint 2: Dynamic Open Graph (product.html) ─────────
+
+const SITE_ORIGIN_DEFAULT = 'https://vigsharm.ru';
+/** Origin статики без петли Worker → GitHub Pages project site */
+const STOREFRONT_ORIGIN_DEFAULT = 'https://stmzrun-dev.github.io/vigsharm-shop';
+
+/** Только превьюеры/краулеры. Не трогаем in-app браузеры (иначе ломается CSS). */
+const OG_BOT_UA_RE = /WhatsApp(?:\/|Bot)|facebookexternalhit|Facebot|Twitterbot|LinkedInBot|Slackbot|Discordbot|TelegramBot|vkShare|VKBot|Applebot|BingPreview|Embedly|Pinterest|Redditbot|SkypeUriPreview|Googlebot|bingbot|Yandex(?:Bot|Metrika|Images)|Baiduspider|DuckDuckBot|Bytespider|PetalBot|SemrushBot|AhrefsBot|ia_archiver|Slack-ImgProxy|meta-externalagent/i;
+
+function isProductPagePath(path) {
+  return path === '/product.html' || path === '/product.html/';
+}
+
+function siteOrigin(env) {
+  return String(env.SITE_ORIGIN || SITE_ORIGIN_DEFAULT).replace(/\/$/, '');
+}
+
+function storefrontOrigin(env) {
+  return String(env.STOREFRONT_ORIGIN || STOREFRONT_ORIGIN_DEFAULT).replace(/\/$/, '');
+}
+
+function isOgBot(request) {
+  const ua = request.headers.get('User-Agent') || '';
+  if (!ua) return false;
+  return OG_BOT_UA_RE.test(ua);
+}
+
+function formatPriceRu(n) {
+  const num = Number(n);
+  if (!Number.isFinite(num)) return '0';
+  return Math.round(num).toLocaleString('ru-RU');
+}
+
+function formatCompositionDesc(product) {
+  let parts = product && product.composition;
+  if (Array.isArray(parts)) {
+    parts = parts.map((s) => String(s || '').trim()).filter(Boolean);
+  } else {
+    parts = String(parts || '')
+      .split(/\n+|•|;/)
+      .map((s) => s.trim())
+      .filter(Boolean);
+  }
+  if (parts.length) return parts.join(' · ').slice(0, 300);
+  const short = String(product?.short_description || product?.seo_description || '').trim();
+  return short.slice(0, 300);
+}
+
+function productMainImage(product, env) {
+  const candidates = [];
+  if (product?.main_photo) candidates.push(product.main_photo);
+  if (Array.isArray(product?.photos)) {
+    for (const p of product.photos) {
+      if (typeof p === 'string') candidates.push(p);
+      else if (p && typeof p.url === 'string') candidates.push(p.url);
+    }
+  }
+  for (const raw of candidates) {
+    const u = String(raw || '').trim();
+    if (!u || u.startsWith('data:')) continue;
+    if (/^https?:\/\//i.test(u)) return u;
+    if (u.startsWith('//')) return 'https:' + u;
+    const path = u.replace(/^\.\//, '').replace(/^(\.\.\/)+/, '');
+    if (path.startsWith('/')) return siteOrigin(env) + path;
+    return siteOrigin(env) + '/' + path;
+  }
+  return siteOrigin(env) + '/images/hero-balloon-character-party.webp';
+}
+
+function buildOgFields(product, slug, env) {
+  const origin = siteOrigin(env);
+  const canonicalSlug = String(product?.slug || slug || '').trim();
+  const pageUrl = canonicalSlug
+    ? origin + '/product.html?slug=' + encodeURIComponent(canonicalSlug)
+    : origin + '/product.html';
+  const titleName = String(product?.title || 'Композиция из шаров').trim();
+  const priceLabel = formatPriceRu(product?.price);
+  const ogTitle = titleName + ' — ' + priceLabel + ' ₽ | VigSharm';
+  const ogDescription = formatCompositionDesc(product)
+    || 'Композиция из воздушных шаров с доставкой по Армавиру от студии VigSharm.';
+  const ogImage = productMainImage(product, env);
+  return { ogTitle, ogDescription, ogImage, pageUrl, titleName };
+}
+
+function setMetaContent(el, value) {
+  el.setAttribute('content', value);
+}
+
+/** Относительные ссылки меню/карточек → абсолютные на боевой домен. */
+function absolutizeSiteHref(href, env) {
+  const t = String(href || '').trim();
+  if (!t) return href;
+  if (
+    t.startsWith('#')
+    || t.startsWith('mailto:')
+    || t.startsWith('tel:')
+    || t.startsWith('javascript:')
+    || t.startsWith('data:')
+  ) {
+    return href;
+  }
+  if (/^https?:\/\//i.test(t) || t.startsWith('//')) return href;
+  try {
+    return new URL(t, siteOrigin(env) + '/').href;
+  } catch (_) {
+    return href;
+  }
+}
+
+function stripHopHeaders(res) {
+  res.headers.delete('content-encoding');
+  res.headers.delete('content-length');
+  res.headers.set('Content-Type', 'text/html; charset=utf-8');
+}
+
+/**
+ * Shell HTML всегда с github.io (другой host → нет петли Worker).
+ * Для людей: <base> на github.io, чтобы CSS/JS не зависели от CF-прокси apex,
+ * а <a href> переписываем на vigsharm.ru.
+ */
+async function fetchProductShell(request, env, url) {
+  const origin = storefrontOrigin(env);
+  const target = origin + '/product.html' + (url.search || '');
+  const headers = new Headers();
+  const ua = request.headers.get('User-Agent');
+  const accept = request.headers.get('Accept');
+  const acceptLang = request.headers.get('Accept-Language');
+  if (ua) headers.set('User-Agent', ua);
+  if (accept) headers.set('Accept', accept);
+  if (acceptLang) headers.set('Accept-Language', acceptLang);
+  headers.set('Accept-Encoding', 'identity');
+
+  return fetch(target, {
+    method: 'GET',
+    headers,
+    redirect: 'follow',
+    cf: { cacheTtl: 120, cacheEverything: true }
+  });
+}
+
+function rewriteHumanProductHtml(response, env) {
+  const staticBase = storefrontOrigin(env) + '/';
+  return new HTMLRewriter()
+    .on('head', {
+      element(el) {
+        el.prepend('<base href="' + staticBase + '">', { html: true });
+      }
+    })
+    .on('a[href]', {
+      element(el) {
+        const href = el.getAttribute('href');
+        const next = absolutizeSiteHref(href, env);
+        if (next && next !== href) el.setAttribute('href', next);
+      }
+    })
+    .transform(response);
+}
+
+function rewriteProductOg(response, fields) {
+  const { ogTitle, ogDescription, ogImage, pageUrl } = fields;
+  return new HTMLRewriter()
+    .on('title', {
+      element(el) {
+        el.setInnerContent(ogTitle);
+      }
+    })
+    .on('meta[name="description"]', {
+      element(el) { setMetaContent(el, ogDescription); }
+    })
+    .on('meta[property="og:title"]', {
+      element(el) { setMetaContent(el, ogTitle); }
+    })
+    .on('meta[property="og:description"]', {
+      element(el) { setMetaContent(el, ogDescription); }
+    })
+    .on('meta[property="og:image"]', {
+      element(el) { setMetaContent(el, ogImage); }
+    })
+    .on('meta[property="og:url"]', {
+      element(el) { setMetaContent(el, pageUrl); }
+    })
+    .on('meta[property="og:type"]', {
+      element(el) { setMetaContent(el, 'product'); }
+    })
+    .on('meta[property="og:image:width"]', {
+      element(el) { el.remove(); }
+    })
+    .on('meta[property="og:image:height"]', {
+      element(el) { el.remove(); }
+    })
+    .on('meta[property="og:image:type"]', {
+      element(el) {
+        const lower = ogImage.toLowerCase();
+        if (lower.includes('.png')) setMetaContent(el, 'image/png');
+        else if (lower.includes('.jpg') || lower.includes('.jpeg')) setMetaContent(el, 'image/jpeg');
+        else if (lower.includes('.webp')) setMetaContent(el, 'image/webp');
+        else el.remove();
+      }
+    })
+    .on('link[rel="canonical"]', {
+      element(el) { el.setAttribute('href', pageUrl); }
+    })
+    .transform(response);
+}
+
+async function handleProductPageOg(request, env, url) {
+  // Люди: HTML с github.io + base на статику GH + ссылки на vigsharm.ru.
+  // Не ходим на vigsharm.ru за CSS (избегаем SSL/прокси-петли на apex).
+  if (!isOgBot(request)) {
+    const shell = await fetchProductShell(request, env, url);
+    const out = new Response(shell.body, {
+      status: shell.status,
+      statusText: shell.statusText,
+      headers: shell.headers
+    });
+    stripHopHeaders(out);
+    out.headers.set('X-Vig-OG', 'passthrough');
+    out.headers.set('Cache-Control', 'public, max-age=60');
+    return rewriteHumanProductHtml(out, env);
+  }
+
+  const slug = (url.searchParams.get('slug') || '').trim();
+  const productPromise = slug
+    ? getProductBySlugOrId(env, slug).catch((e) => {
+        console.error('OG product lookup failed', e);
+        return null;
+      })
+    : Promise.resolve(null);
+
+  const [shell, product] = await Promise.all([
+    fetchProductShell(request, env, url),
+    productPromise
+  ]);
+
+  // Draft / не найден — дефолтные OG из shell.
+  if (!product || (product.status && product.status !== 'published')) {
+    const out = new Response(shell.body, shell);
+    stripHopHeaders(out);
+    out.headers.set('X-Vig-OG', product ? 'draft' : 'fallback');
+    out.headers.set('Cache-Control', 'public, max-age=60');
+    return out;
+  }
+
+  const fields = buildOgFields(product, slug, env);
+  const base = new Response(shell.body, {
+    status: shell.status,
+    statusText: shell.statusText,
+    headers: shell.headers
+  });
+  stripHopHeaders(base);
+  base.headers.set('Cache-Control', 'public, max-age=300');
+  base.headers.set('X-Vig-OG', 'rewritten');
+
+  return rewriteProductOg(base, fields);
 }
 
 // ─── Storefront orders ───────────────────────────────────

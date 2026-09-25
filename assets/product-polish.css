@@ -701,7 +701,8 @@
     display:grid!important;
     gap:14px;
     margin-top:14px;
-    padding-bottom:calc(88px + env(safe-area-inset-bottom,0px));
+    /* Bottom bar (~88) + room so the last step can sit below the sticky header */
+    padding-bottom:calc(70vh - 76px);
   }
   .product-page.is-client-order .product-lead{
     display:none!important;
@@ -713,6 +714,9 @@
     background:#fff;
     padding:14px 12px 16px;
     transition:border-color .15s ease, background .15s ease, box-shadow .15s ease;
+    /* Sticky header (~76) + bottom order bar (~88) — keep step targets in the clear band */
+    scroll-margin-top:88px;
+    scroll-margin-bottom:calc(96px + env(safe-area-inset-bottom,0px));
   }
   .client-block.is-next{
     border-color:#ff6b5a;

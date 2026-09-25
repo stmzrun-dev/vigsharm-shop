@@ -16,7 +16,8 @@
   function compIconKey(label) {
     var t = String(label || '').toLowerCase();
     if (/хром|chrome|зеркал/.test(t)) return 'chrome';
-    if (/бабл|bubble|стеклян|прозрачн/.test(t)) return 'bubble';
+    // Баблс = стеклянный шар: внутренний шар + прозрачная оболочка
+    if (/бабл|bubble|стеклянн|прозрачн|glass/.test(t)) return 'bubble';
     if (/конфетт/.test(t)) return 'confetti';
     if (/ходяч/.test(t)) return 'walker';
     if (/агат|agate/.test(t)) return 'agate';
@@ -25,6 +26,8 @@
     if (/серд[её]?ц|heart/.test(t)) return 'heart';
     if (/цифр/.test(t)) return 'digit';
     if (/коробк|сюрприз|box/.test(t)) return 'box';
+    // Кубики с шариками — до «шарик»→mini
+    if (/кубик/.test(t)) return 'cubes';
     if (/тассел|tassel/.test(t) && !/бабл|bubble|стеклян/.test(t)) return 'tassel';
     if (/фотозон|мольберт|каркас/.test(t)) return 'photozone';
     if (/фигур|персонаж|мишк|зайц|единорог/.test(t)) return 'figure';
@@ -41,7 +44,7 @@
   }
   function compIcon(label, i) {
     var key = compIconKey(label) || 'latex';
-    return '<img class="comp-ico" src="icons/comp-' + key + '.webp?v=11" alt="" width="32" height="32" onerror="this.onerror=null;this.src=\'icons/comp-' + key + '.svg\'"/>';
+    return '<img class="comp-ico" src="icons/comp-' + key + '.webp?v=13" alt="" width="32" height="32" onerror="this.onerror=null;this.src=\'icons/comp-' + key + '.svg\'"/>';
   }
 
   var root = document.getElementById('product-root');
@@ -70,6 +73,7 @@
   var flowMedia = null;
   var deltaAck = false;
   var stepUnlockTimer = null;
+  var softScrollTimer = null;
 
   (function () {
     var d = new Date();
@@ -462,6 +466,17 @@
     return '';
   }
 
+  function markClientNext() {
+    if (!useMobileFlow()) return;
+    var nid = clientNextId();
+    root.querySelectorAll('.client-block.is-next').forEach(function (b) {
+      b.classList.remove('is-next');
+    });
+    if (!nid) return;
+    var nb = root.querySelector('#' + nid);
+    if (nb) nb.classList.add('is-next');
+  }
+
   /** Progressive mobile form: only current + completed steps are visible. */
   function clientStepVisible(id) {
     if (id === 'client-qty') return isUnit();
@@ -562,6 +577,9 @@
         contactFieldsHtml() +
         '</section>';
     }
+
+    /* Spacer so sticky header + bottom CTA leave room to park any step. */
+    html += '<div class="client-order-scroll-pad" aria-hidden="true" style="height:min(560px,72vh);pointer-events:none"></div>';
 
     html += '</div>';
     return html;
@@ -852,13 +870,45 @@
     wire();
   }
 
+  function orderScrollPad() {
+    var header = document.querySelector('.site-header, .header');
+    var headerH = header ? header.getBoundingClientRect().height : 76;
+    var bar = root.querySelector('.mobile-order-bar');
+    var barH = 0;
+    if (bar && !bar.classList.contains('is-away')) {
+      var br = bar.getBoundingClientRect();
+      if (br.height && br.bottom >= window.innerHeight - 4) barH = br.height;
+    }
+    return { top: headerH + 12, bottom: barH + 12 };
+  }
+
+  /** Reliable step scroll: sticky header + bottom CTA must not cover the target. */
+  function scrollToOrderEl(el, opt) {
+    if (!el) return;
+    opt = opt || {};
+    var pad = orderScrollPad();
+    var rect = el.getBoundingClientRect();
+    var viewH = Math.max(120, window.innerHeight - pad.top - pad.bottom);
+    var y;
+    if (opt.block === 'center' && rect.height < viewH) {
+      y = rect.top + window.scrollY - pad.top - (viewH - rect.height) / 2;
+    } else {
+      y = rect.top + window.scrollY - pad.top;
+    }
+    var maxY = Math.max(0, document.scrollingElement.scrollHeight - window.innerHeight);
+    y = Math.max(0, Math.min(maxY, Math.round(y)));
+    try {
+      window.scrollTo({ top: y, behavior: opt.instant ? 'auto' : 'smooth' });
+    } catch (e) {
+      window.scrollTo(0, y);
+    }
+  }
+
   function openDetails(which) {
     var d = root.querySelector('[data-details="' + which + '"]');
     if (!d) return;
     requestAnimationFrame(function () {
-      try {
-        if (d.scrollIntoView) d.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      } catch (e) { try { d.scrollIntoView(); } catch (_) {} }
+      scrollToOrderEl(d, { block: 'start' });
       var focusEl = null;
       if (which === 'params') {
         focusEl = d.querySelector('.digit-options button:not(.selected)') || d.querySelector('[data-act="digit"]');
@@ -880,21 +930,33 @@
 
   function softScrollTo(id) {
     if (!useMobileFlow() || !id) return;
-    requestAnimationFrame(function () {
-      var el = root.querySelector('#' + id);
-      if (!el || !el.scrollIntoView) return;
-      try { el.scrollIntoView({ behavior: 'smooth', block: 'center' }); } catch (e) { try { el.scrollIntoView(); } catch (_) {} }
-    });
+    clearTimeout(softScrollTimer);
+    /* After render the next block may still be laying out (images). */
+    softScrollTimer = setTimeout(function () {
+      requestAnimationFrame(function () {
+        var el = root.querySelector('#' + id);
+        if (!el) return;
+        /* Instant after DOM swap — smooth scrollIntoView was overshooting / stalling. */
+        scrollToOrderEl(el, { block: 'start', instant: true });
+        /* Correct once images/fonts settle. */
+        setTimeout(function () {
+          var again = root.querySelector('#' + id);
+          if (!again) return;
+          var top = again.getBoundingClientRect().top;
+          var pad = orderScrollPad();
+          if (Math.abs(top - pad.top) > 36) {
+            scrollToOrderEl(again, { block: 'start', instant: true });
+          }
+        }, 280);
+      });
+    }, 60);
   }
 
   function revealOpenCal(box) {
     if (!box || !box.classList.contains('is-open')) return;
     var cal = box.querySelector('.order-cal');
     if (!cal) return;
-    setTimeout(function () {
-      try { cal.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
-      catch (e) { try { cal.scrollIntoView(); } catch (_) {} }
-    }, 160);
+    setTimeout(function () { scrollToOrderEl(cal, { block: 'start' }); }, 160);
   }
 
   /** Re-render when a gated step should appear/disappear; keep typing focus when possible. */
@@ -973,14 +1035,12 @@
           var wrap = el.closest('.client-ins');
           if (wrap) wrap.classList.toggle('is-filled', hasText);
           var insBlock = el.closest('.client-block');
-          if (insBlock) {
-            insBlock.classList.toggle('is-done', hasText);
-            insBlock.classList.toggle('is-next', !hasText);
-          }
+          if (insBlock) insBlock.classList.toggle('is-done', hasText);
           var preview = insBlock && insBlock.querySelector('.ins-balloon-text');
           var balloon = insBlock && insBlock.querySelector('.ins-balloon');
           if (preview) preview.textContent = hasText ? inscription.trim() : 'С Днём рождения!';
           if (balloon) balloon.classList.toggle('is-filled', hasText);
+          markClientNext();
         });
         el.addEventListener('change', function () {
           clearFlowEditIf('inscription');
@@ -990,9 +1050,12 @@
           e.preventDefault();
           el.blur();
         });
+        el.addEventListener('blur', function () {
+          clearFlowEditIf('inscription');
+          if (useMobileFlow() && inscriptionOk()) softScrollTo(clientNextId());
+        });
       } else if (act === 'address') {
         el.addEventListener('input', function () {
-          var had = addressOk();
           address = el.value;
           var has = addressOk();
           saveDraft();
@@ -1000,12 +1063,10 @@
           var wrap = el.closest('.client-ins');
           if (wrap) wrap.classList.toggle('is-filled', has);
           var addrBlock = el.closest('.client-block');
-          if (addrBlock) {
-            addrBlock.classList.toggle('is-done', has);
-            addrBlock.classList.toggle('is-next', !has);
-          }
+          if (addrBlock) addrBlock.classList.toggle('is-done', has);
           var ok = root.querySelector('[data-act="flow-addr-ok"]');
           if (ok) ok.disabled = !has;
+          markClientNext();
         });
         el.addEventListener('change', function () {
           clearFlowEditIf('address');
@@ -1014,6 +1075,10 @@
           if (e.key !== 'Enter') return;
           e.preventDefault();
           el.blur();
+        });
+        el.addEventListener('blur', function () {
+          clearFlowEditIf('address');
+          if (useMobileFlow() && addressOk()) softScrollTo(clientNextId());
         });
       } else if (act === 'phone') {
         el.addEventListener('input', function () {
@@ -1124,6 +1189,7 @@
           if (fulfillment === 'pickup') address = '';
           clearFlowEditIf('fulfill');
           render();
+          softScrollTo(clientNextId());
         });
       } else if (act === 'flow-edit') {
         el.addEventListener('click', function () {

@@ -2,6 +2,190 @@
   "ok": true,
   "products": [
     {
+      "id": "ed1c019c-09b4-410d-99e4-c4dcb7431a5e",
+      "title": "Клубника",
+      "article": "UNT-015",
+      "price": 150,
+      "short_description": "Клубника",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "futbol-2",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Шары с рисунком",
+        "Для неё",
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/f85795e3-45d9-4cab-aaf6-1cbc629c2791.jpg",
+        "unit_type": "print",
+        "unit_who": [
+          "Для неё",
+          "Для девочки"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/d94b04b8-4224-48ea-a4d8-e1e752eed0cc.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/d94b04b8-4224-48ea-a4d8-e1e752eed0cc.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-25T09:02:19.215Z",
+      "updated_at": "2026-09-25T09:02:19.215Z"
+    },
+    {
+      "id": "c0caa075-b769-48d8-9a47-41ef2bc5f457",
+      "title": "Футбол",
+      "article": "UNT-014",
+      "price": 150,
+      "short_description": "Футбол",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "futbol",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Шары с рисунком",
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/e480fc87-6edf-4f20-ab7d-361a2aa6a7e8.jpg",
+        "unit_type": "print",
+        "unit_who": [
+          "Для мальчика"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/81a87d93-c4ff-4c5a-bbd6-94231275f2eb.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/81a87d93-c4ff-4c5a-bbd6-94231275f2eb.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-25T08:56:16.227Z",
+      "updated_at": "2026-09-25T08:56:16.227Z"
+    },
+    {
+      "id": "6636fd7a-0afc-46e2-b2dd-434c906f8493",
+      "title": "Черепашки",
+      "article": "UNT-013",
+      "price": 150,
+      "short_description": "Латексные шары с принтами Черепашек-ниндзя и надписью «КАВАБАНГА».",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": "Черепашки-ниндзя",
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": "Черепашки-ниндзя",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "kavabanga-cherepashki",
+      "scene": "unit_balloon",
+      "tags": [
+        "Для мальчика",
+        "Шары поштучно",
+        "Шары с рисунком"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/7ccde9b4-05d7-472f-a754-fd53fa7ecc01.jpg",
+        "unit_type": "print",
+        "unit_who": [
+          "Для мальчика"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/f6ca368f-a665-449f-81ee-a29f8e40d713.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/f6ca368f-a665-449f-81ee-a29f8e40d713.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-25T08:51:58.544Z",
+      "updated_at": "2026-09-25T09:11:31.808Z"
+    },
+    {
+      "id": "30d9822e-3ad2-463d-a8bb-7f70117ee521",
+      "title": "СДР Брутальный",
+      "article": "UNT-012",
+      "price": 150,
+      "short_description": "СДР Брутальный",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "slonik-v-kolpachke-rozovyy-3-2",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Шары с рисунком",
+        "Для него",
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/52df0d02-07eb-4ef5-bbf6-9ce4e686a1eb.jpg",
+        "unit_type": "print",
+        "unit_who": [
+          "Для него",
+          "Для мальчика"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/5ad39e2e-2efb-45b2-96c6-6b2dfe4e4884.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/5ad39e2e-2efb-45b2-96c6-6b2dfe4e4884.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-25T08:47:15.269Z",
+      "updated_at": "2026-09-25T08:47:15.269Z"
+    },
+    {
       "id": "faa6c1d2-23bc-49ce-876b-b1b261582cb5",
       "title": "Кольцо с бриллиантом",
       "article": "HER-013",

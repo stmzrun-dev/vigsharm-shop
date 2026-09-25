@@ -297,9 +297,17 @@
     });
   }
 
+  /** Half-open [min, max); last bucket (max=Infinity) => price >= min */
+  function priceInBucket(price, idx) {
+    if (!idx) return true;
+    var pr = PRICES[idx];
+    var n = Number(price) || 0;
+    if (!isFinite(pr.max)) return n >= pr.min;
+    return n >= pr.min && n < pr.max;
+  }
+
   function filtered() {
     var terms = norm(q).split(' ').filter(Boolean);
-    var pr = PRICES[priceIdx];
     var list = products.filter(function (p) {
       var searched = terms.length > 0;
       var audienceOnly = group === 'ready' && category === 'Все товары' && !searched;
@@ -309,7 +317,7 @@
       var hay = norm([p.title, p.sku, p.short_description, p.description, p.composition, p.category, p.character_name, p.age_group].concat(p.tags || []).filter(Boolean).join(' '));
       var matchQ = terms.every(function (t) { return hay.indexOf(t) >= 0; });
       var matchC = category === 'Все товары' || productHasLabel(p, category);
-      var matchP = p.price >= pr.min && p.price <= pr.max;
+      var matchP = priceInBucket(p.price, priceIdx);
       var matchF = !filter || p.category === filter || (p.tags || []).indexOf(filter) >= 0;
       var matchCh = !character || (p.character_name || '').toLowerCase().indexOf(character.toLowerCase()) >= 0 || (p.title || '').toLowerCase().indexOf(character.toLowerCase()) >= 0;
       var matchA = !age || p.age_group === age;
@@ -1172,9 +1180,8 @@
       }
     } else {
       var emptyUnitType = group === 'unit' && category !== 'Все товары';
-      var pr = PRICES[priceIdx];
       var sugg = emptyUnitType ? [] : products.filter(function (p) { return group === 'all' || inGroup(p, group); })
-        .filter(function (p) { return priceIdx === 0 || (p.price >= pr.min && p.price <= pr.max); }).slice(0, 4);
+        .filter(function (p) { return priceInBucket(p.price, priceIdx); }).slice(0, 4);
       var emptyLead = emptyUnitType
         ? 'Таких шаров в каталоге пока нет. Сбросьте фильтр или напишите нам — подскажем, что можно заказать.'
         : 'Попробуйте изменить запрос или напишите нам — подберём композицию под ваш праздник и бюджет.';

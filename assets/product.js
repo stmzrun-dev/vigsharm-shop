@@ -134,28 +134,32 @@
   }
   function inscriptionOk() { return !(p && p.has_inscription) || !!String(inscription || '').trim(); }
   function whenOk() { return !!(orderDate && orderTime); }
-  /** Strips letters/junk from phone input, keeps a leading + and caps at 11 digits. */
+  /** Formats phone as +7 XXX XXX-XX-XX, auto-inserts +7, caps at 10 digits after 7. */
   function sanitizePhoneInput(raw) {
     var s = String(raw == null ? '' : raw);
-    s = s.replace(/[^\d+\-()\s]/g, '');
-    var hasPlus = s.charAt(0) === '+';
-    s = s.split('+').join('');
-    var digitCount = 0;
-    var out = '';
-    for (var i = 0; i < s.length; i++) {
-      var ch = s.charAt(i);
-      if (/\d/.test(ch)) {
-        if (digitCount >= 11) continue;
-        digitCount++;
-      }
-      out += ch;
-    }
-    return (hasPlus ? '+' : '') + out;
+    // Extract only digits
+    var digits = s.replace(/\D/g, '');
+    // Normalize leading country code: 8 or 7 → treat as country code
+    if (digits.charAt(0) === '8') digits = '7' + digits.slice(1);
+    if (digits.charAt(0) === '7') digits = digits.slice(1);
+    // Cap at 10 digits (after country code)
+    digits = digits.slice(0, 10);
+    if (!digits) return '';
+    // Build formatted string: +7 XXX XXX-XX-XX
+    var d = digits;
+    var out = '+7';
+    if (d.length > 0) out += ' ' + d.slice(0, 3);
+    if (d.length > 3) out += ' ' + d.slice(3, 6);
+    if (d.length > 6) out += '-' + d.slice(6, 8);
+    if (d.length > 8) out += '-' + d.slice(8, 10);
+    return out;
   }
   function phoneDigits() {
     var d = String(customerPhone || '').replace(/\D/g, '');
+    // Normalize 8-XXX → 7-XXX
     if (d.length === 11 && d.charAt(0) === '8') d = '7' + d.slice(1);
-    if (d.length === 10) d = '7' + d;
+    // Do NOT auto-pad to 11: +7 is already included in our format,
+    // so 10 digits means only 9 local digits — not a complete number.
     return d;
   }
   function phoneOk() {
@@ -396,9 +400,9 @@
   function timeHtml() {
     var slots = [];
     var h;
-    for (h = 9; h <= 21; h++) {
-      slots.push(pad2(h) + ':00');
-      if (h < 21) slots.push(pad2(h) + ':30');
+    for (h = 7; h <= 24; h++) {
+      slots.push(h === 24 ? '24:00' : pad2(h) + ':00');
+      if (h < 24) slots.push(pad2(h) + ':30');
     }
     var cells = slots.map(function (t) {
       return '<button type="button" class="time-slot' + (orderTime === t ? ' is-selected' : '') + '" data-act="time-slot" data-v="' + t + '">' + t + '</button>';
@@ -1199,9 +1203,16 @@
           if (phonePoll) { clearInterval(phonePoll); phonePoll = null; }
         }
         function onPhoneEdit() {
-          var sanitized = sanitizePhoneInput(el.value);
-          if (sanitized !== el.value) el.value = sanitized;
-          customerPhone = sanitized;
+          var pos = el.selectionStart;
+          var oldVal = el.value;
+          var sanitized = sanitizePhoneInput(oldVal);
+          if (sanitized !== oldVal) {
+            el.value = sanitized;
+            // Keep cursor at end after formatting
+            var end = sanitized.length;
+            try { el.setSelectionRange(end, end); } catch (e) {}
+          }
+          customerPhone = el.value;
           saveDraft();
           refreshTotals();
           paintContactUi();
@@ -1210,10 +1221,14 @@
         el.addEventListener('change', onPhoneEdit);
         el.addEventListener('blur', function () {
           stopPhonePoll();
+          // Clear lonely "+7" prefix if no actual digits entered
+          if (el.value === '+7') { el.value = ''; customerPhone = ''; }
           onPhoneEdit();
         });
         el.addEventListener('focus', function () {
           stopPhonePoll();
+          // Pre-fill +7 on focus so user just types digits
+          if (!el.value) { el.value = '+7 '; customerPhone = '+7 '; try { el.setSelectionRange(3, 3); } catch(e){} }
           // Автозаполнение часто не шлёт input — подхватываем значение из DOM.
           phonePoll = setInterval(function () { applyContactFields(); }, 280);
         });

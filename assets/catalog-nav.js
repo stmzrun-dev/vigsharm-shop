@@ -1283,7 +1283,7 @@
     if (showReady) showReady.addEventListener('click', function () {
       showAllReady = true;
       visibleCount = PAGE_SIZE;
-      render({ scroll: true });
+      render({ resultsOnly: true, keepVisible: true });
     });
     var more = resultsSection.querySelector('[data-more]');
     if (more) more.addEventListener('click', function () {

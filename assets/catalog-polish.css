@@ -46,6 +46,41 @@
 .catalog-page .catalog-search input{
   color:var(--cat-text)!important;
 }
+.catalog-page .catalog-search{
+  position:relative;
+}
+.catalog-page .catalog-search.has-clear input{
+  padding-right:44px!important;
+}
+.catalog-page .catalog-search-clear{
+  position:absolute;
+  right:6px;
+  top:50%;
+  transform:translateY(-50%);
+  width:36px;
+  height:36px;
+  margin:0;
+  padding:0;
+  border:0;
+  border-radius:50%;
+  background:#f0eef2;
+  color:#5a5a64;
+  font:inherit;
+  font-size:22px;
+  font-weight:700;
+  line-height:1;
+  cursor:pointer;
+  display:grid;
+  place-items:center;
+  z-index:2;
+}
+.catalog-page .catalog-search-clear[hidden]{
+  display:none!important;
+}
+.catalog-page .catalog-search-clear:active{
+  background:#e4e2e8;
+  transform:translateY(-50%) scale(.96);
+}
 .catalog-page .catalog-search-hit{
   width:auto!important;
   max-width:none!important;

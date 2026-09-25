@@ -274,6 +274,44 @@
     } else if (!show && btn) {
       btn.remove();
     }
+    ensureSearchClear();
+  }
+
+  function hasActiveFilters() {
+    return !!(
+      String(q || '').trim() ||
+      category !== 'Все товары' ||
+      priceIdx !== 0 ||
+      character ||
+      age ||
+      filter ||
+      sortMode
+    );
+  }
+
+  function ensureSearchClear() {
+    var wrap = document.querySelector('.catalog-search');
+    if (!wrap || !searchInput) return;
+    var btn = wrap.querySelector('.catalog-search-clear');
+    if (!btn) {
+      btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'catalog-search-clear';
+      btn.setAttribute('aria-label', 'Сбросить поиск и фильтры');
+      btn.innerHTML = '<span aria-hidden="true">×</span>';
+      btn.addEventListener('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        clearTimeout(searchTimer);
+        resetAll();
+        if (searchInput) searchInput.focus();
+      });
+      wrap.appendChild(btn);
+    }
+    var on = hasActiveFilters();
+    btn.hidden = !on;
+    btn.setAttribute('aria-hidden', on ? 'false' : 'true');
+    wrap.classList.toggle('has-clear', on);
   }
 
   function resetAll() {
@@ -1347,6 +1385,7 @@
     var searchWasActive = false;
     searchInput.addEventListener('input', function () {
       q = searchInput.value;
+      ensureSearchClear();
       clearTimeout(searchTimer);
       // Только обновляем выдачу — без scroll, иначе якорь рвёт набор на телефоне.
       searchTimer = setTimeout(function () {

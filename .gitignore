@@ -30,6 +30,9 @@ fix-admin.js
 # Dependencies (устанавливаются через npm install, не должны попадать в git)
 node_modules/
 
+# OG share pages — генерируются в CI (scripts/generate-og-pages.mjs)
+/p/
+
 # Debug/backup файлы из ручных сессий отладки (не часть продакшн-кода)
 *-backup.js
 *-old.js

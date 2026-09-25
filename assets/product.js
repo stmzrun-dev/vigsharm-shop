@@ -631,8 +631,15 @@
     var cost = fulfillment === 'nearby'
       ? 'Предварительная стоимость: ' + (priceFrom() ? 'от ' : '') + total().toLocaleString('ru-RU') + ' ₽ + доставка.'
       : (priceFrom() ? 'Ориентировочная стоимость: от' : 'Стоимость:') + ' ' + total().toLocaleString('ru-RU') + ' ₽.';
+    // Контакты клиента (если заполнены в форме)
+    var clientLines = [];
+    var clientName = String(customerName || '').trim();
+    var clientPhone = String(customerPhone || '').trim();
+    if (clientName) clientLines.push('Имя: ' + clientName);
+    if (clientPhone) clientLines.push('Телефон: ' + clientPhone);
+    var clientBlock = clientLines.length ? '\n' + clientLines.join('\n') : '';
     // OG План Б: /p/<slug>.html — статика с og:* для мессенджеров (серые облака CF)
-    return 'Здравствуйте! Хочу заказать «' + p.title + '», артикул ' + p.sku + '.' + opts + '\n' + cost + '\nКарточка: https://vigsharm.ru/p/' + encodeURIComponent(canonicalSlug()) + '.html';
+    return 'Здравствуйте! Хочу заказать «' + p.title + '», артикул ' + p.sku + '.' + opts + '\n' + cost + clientBlock + '\nКарточка: https://vigsharm.ru/p/' + encodeURIComponent(canonicalSlug()) + '.html';
   }
 
   function contactFieldsHtml() {

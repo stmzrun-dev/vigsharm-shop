@@ -4567,3 +4567,63 @@ html body .product-page .product-step{
     margin-right:auto!important;
   }
 }
+
+/* ── Footer contacts parity (Шаг 1, 25.09.2026) ─────────────────────────────
+   .footer-phone (<a>) and .footer-chat (<button>) must share identical layout:
+   flex row, 48px touch target, 16px h-padding, 12px icon gap. Icon size locked
+   to 28×28 via CSS so HTML img attrs don't matter. Works on 320px+.
+   ─────────────────────────────────────────────────────────────────────────── */
+html body footer .footer-phone,
+html body footer .footer-chat,
+html body main#main-content footer .footer-phone,
+html body main#main-content footer .footer-chat{
+  display:flex!important;
+  flex-direction:row!important;
+  align-items:center!important;
+  gap:12px!important;
+  min-height:48px!important;
+  padding:10px 16px!important;
+  width:100%!important;
+  box-sizing:border-box!important;
+}
+/* icon size parity — override any width/height attrs */
+html body footer .footer-phone .line-icon,
+html body footer .footer-phone .vig-emoji,
+html body footer .footer-chat .line-icon,
+html body footer .footer-chat .vig-emoji,
+html body main#main-content footer .footer-phone .line-icon,
+html body main#main-content footer .footer-phone .vig-emoji,
+html body main#main-content footer .footer-chat .line-icon,
+html body main#main-content footer .footer-chat .vig-emoji{
+  width:28px!important;
+  height:28px!important;
+  flex-shrink:0!important;
+  object-fit:contain!important;
+}
+/* text stack inside the button */
+html body footer .footer-phone span,
+html body footer .footer-chat span,
+html body main#main-content footer .footer-phone span,
+html body main#main-content footer .footer-chat span{
+  display:flex!important;
+  flex-direction:column!important;
+  gap:2px!important;
+  line-height:1.2!important;
+}
+html body footer .footer-phone strong,
+html body footer .footer-chat strong,
+html body main#main-content footer .footer-phone strong,
+html body main#main-content footer .footer-chat strong{
+  font-size:15px!important;
+  font-weight:600!important;
+}
+/* 320px — buttons fill column but remain 48px tall */
+@media (max-width:400px){
+  html body footer .footer-phone,
+  html body footer .footer-chat,
+  html body main#main-content footer .footer-phone,
+  html body main#main-content footer .footer-chat{
+    padding:10px 14px!important;
+    gap:10px!important;
+  }
+}

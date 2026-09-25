@@ -32,13 +32,13 @@ Object.assign(app, {
   _studioDraftKey: null,
   _placementDrag: null,
 
-  isWallOnlyScene(scene) {
-    return ['wall_only', 'unit_balloon', 'handheld_bouquet'].includes(scene);
+  /** Cutout / «Персонаж» mode removed — quality ceiling too low for catalog */
+  usesCompositeMode() {
+    return false;
   },
 
-  /** Legacy cutout path — unused while all scenes use Manus rephotograph */
-  usesCompositeMode(scene) {
-    return false;
+  isWallOnlyScene(scene) {
+    return ['wall_only', 'unit_balloon', 'handheld_bouquet'].includes(scene);
   },
 
   /** All catalog scenes: AI rephotograph (Manus-style) against studio reference */
@@ -57,7 +57,6 @@ Object.assign(app, {
     if (earlyBouquet) earlyBouquet.classList.toggle('hidden', scene !== 'handheld_bouquet');
     const earlyUnit = document.getElementById('unit-type-early');
     if (earlyUnit) earlyUnit.classList.toggle('hidden', scene !== 'unit_balloon');
-    // Подсказку Manus на экране сцен не показываем
     if (el) {
       el.hidden = true;
       el.textContent = '';
@@ -123,11 +122,11 @@ Object.assign(app, {
   getProductPositioning(scene, productWidth, productHeight, canvasSize) {
     const positioning = {
       floor: {
-        targetWidth: 0.70,
+        targetWidth: 0.72,
         centerX: 0.5,
-        floorY: 0.74,
+        floorY: 0.78,
         useFloorAlignment: true,
-        maxHeight: 0.88,
+        maxHeight: 0.90,
         description: 'Напольная композиция — у стены у плинтуса'
       },
       balloon_figures: {
@@ -305,8 +304,80 @@ Object.assign(app, {
     };
   },
 
-  /** Soft alpha + padded bbox → PNG (preserve chrome edges & ribbons) */
-  async prepareCutoutFromPng(transparentPngDataUrl) {
+  /**
+   * Catalog-grade cutout cleanup (no AI): white fringe / halo → soft edge like Manus masters.
+   */
+  refineCutoutAlpha(imageData) {
+    const { data, width, height } = imageData;
+    const w = width;
+    const h = height;
+    const a0 = new Uint8ClampedArray(w * h);
+
+    for (let y = 0; y < h; y++) {
+      for (let x = 0; x < w; x++) {
+        const i = (y * w + x) * 4;
+        let a = data[i + 3];
+        if (a <= 4) {
+          data[i] = data[i + 1] = data[i + 2] = 0;
+          data[i + 3] = 0;
+          a0[y * w + x] = 0;
+          continue;
+        }
+        const r = data[i];
+        const g = data[i + 1];
+        const b = data[i + 2];
+        const maxc = Math.max(r, g, b);
+        const minc = Math.min(r, g, b);
+        const lum = 0.299 * r + 0.587 * g + 0.114 * b;
+        const sat = maxc - minc;
+        // Pale fringe from old room / remove-bg halo
+        const paleFringe = a < 250 && lum > 175 && sat < 42;
+        const nearWhite = a < 230 && lum > 210 && sat < 28;
+        if (nearWhite) a = Math.round(a * 0.15);
+        else if (paleFringe) a = Math.round(a * 0.35);
+        if (a < 18) a = 0;
+        else if (a < 255) a = Math.min(255, Math.round(14 + a * 0.92));
+        data[i + 3] = a;
+        if (a === 0) data[i] = data[i + 1] = data[i + 2] = 0;
+        a0[y * w + x] = a;
+      }
+    }
+
+    // 1px erode on fringe + light blur → soft photographic edge
+    const a1 = new Uint8ClampedArray(w * h);
+    for (let y = 1; y < h - 1; y++) {
+      for (let x = 1; x < w - 1; x++) {
+        const idx = y * w + x;
+        const c = a0[idx];
+        if (c === 0) { a1[idx] = 0; continue; }
+        if (c === 255) {
+          const minN = Math.min(a0[idx - 1], a0[idx + 1], a0[idx - w], a0[idx + w]);
+          a1[idx] = minN < 200 ? Math.min(c, minN + 40) : c;
+        } else {
+          a1[idx] = Math.min(c, a0[idx - 1], a0[idx + 1], a0[idx - w], a0[idx + w]);
+        }
+      }
+    }
+    for (let y = 1; y < h - 1; y++) {
+      for (let x = 1; x < w - 1; x++) {
+        const idx = y * w + x;
+        const i = idx * 4;
+        const blur = Math.round(
+          (a1[idx] * 4 + a1[idx - 1] + a1[idx + 1] + a1[idx - w] + a1[idx + w]) / 8
+        );
+        data[i + 3] = blur;
+        if (blur < 8) {
+          data[i] = data[i + 1] = data[i + 2] = 0;
+          data[i + 3] = 0;
+        }
+      }
+    }
+    return imageData;
+  },
+
+  /** Soft alpha + padded bbox → PNG */
+  async prepareCutoutFromPng(transparentPngDataUrl, opts = {}) {
+    const catalogGrade = opts.catalogGrade !== false;
     const productImg = await this.loadImage(transparentPngDataUrl);
     const tempCanvas = document.createElement('canvas');
     const tempCtx = tempCanvas.getContext('2d');
@@ -315,10 +386,11 @@ Object.assign(app, {
     tempCtx.drawImage(productImg, 0, 0);
 
     let imageData = tempCtx.getImageData(0, 0, productImg.width, productImg.height);
-    this.hardenAlphaChannel(imageData);
+    if (catalogGrade) this.refineCutoutAlpha(imageData);
+    else this.hardenAlphaChannel(imageData);
     tempCtx.putImageData(imageData, 0, 0);
 
-    const boundingBox = this.getAlphaBoundingBox(imageData);
+    const boundingBox = this.getAlphaBoundingBox(imageData, catalogGrade ? 10 : 16);
     const croppedCanvas = document.createElement('canvas');
     croppedCanvas.width = boundingBox.width;
     croppedCanvas.height = boundingBox.height;
@@ -335,7 +407,6 @@ Object.assign(app, {
     };
   },
 
-  /** Keep product inset from canvas edges — prevents flat clipped sphere edges */
   clampPlacementInset(placement, inset = 0.06) {
     if (!placement) return placement;
     let { x, y, w, h } = placement;
@@ -346,8 +417,44 @@ Object.assign(app, {
     return { x, y, w, h };
   },
 
-  /** Canvas contact shadow (no AI) — safe for text/chrome/ribbons */
-  drawSoftContactShadow(ctx, sourceCanvas, drawX, drawY, drawWidth, drawHeight, { wall = false } = {}) {
+  /**
+   * Contact shadow like catalog masters: soft ellipse near the feet / base,
+   * not a full-silhouette glow (that reads as "sticker").
+   */
+  drawSoftContactShadow(ctx, sourceCanvas, drawX, drawY, drawWidth, drawHeight, { wall = false, catalog = false } = {}) {
+    if (catalog && !wall) {
+      const cx = drawX + drawWidth * 0.5;
+      const cy = drawY + drawHeight * 0.935;
+      const rx = Math.max(28, drawWidth * 0.30);
+      const ry = Math.max(10, drawHeight * 0.038);
+      ctx.save();
+      ctx.translate(cx, cy);
+      ctx.scale(1, ry / rx);
+      const g = ctx.createRadialGradient(0, 0, 0, 0, 0, rx);
+      g.addColorStop(0, 'rgba(35,28,22,0.40)');
+      g.addColorStop(0.5, 'rgba(35,28,22,0.14)');
+      g.addColorStop(1, 'rgba(35,28,22,0)');
+      ctx.beginPath();
+      ctx.arc(0, 0, rx, 0, Math.PI * 2);
+      ctx.fillStyle = g;
+      ctx.fill();
+      ctx.restore();
+      if (drawWidth > drawHeight * 0.85) {
+        const cx2 = drawX + drawWidth * 0.62;
+        ctx.save();
+        ctx.translate(cx2, cy);
+        ctx.scale(1, (ry * 0.9) / (rx * 0.7));
+        const g2 = ctx.createRadialGradient(0, 0, 0, 0, 0, rx * 0.7);
+        g2.addColorStop(0, 'rgba(35,28,22,0.24)');
+        g2.addColorStop(1, 'rgba(35,28,22,0)');
+        ctx.beginPath();
+        ctx.arc(0, 0, rx * 0.7, 0, Math.PI * 2);
+        ctx.fillStyle = g2;
+        ctx.fill();
+        ctx.restore();
+      }
+      return;
+    }
     ctx.save();
     ctx.globalAlpha = wall ? 0.22 : 0.28;
     if (wall) {
@@ -834,7 +941,7 @@ Object.assign(app, {
 
     // quality (sunburst/gpt) ждём дольше — часто медленная, но лучше Flux.
     // При сбое: banana (каталог), затем Flux как последний запасной.
-    const genFailRe = /не удалось сгенерировать|возвращены на баланс|обработка не удалась|модель отклонила|таймаут обработки|failed to fetch|networkerror|load failed|rephotograph http|ошибка rephotograph|не вернул job_id|abort/i;
+    const genFailRe = /не удалось сгенерировать|возвращены на баланс|обработка не удалась|модель отклонила|таймаут обработки|failed to fetch|networkerror|load failed|rephotograph http|ошибка rephotograph|не вернул job_id|abort|content.?policy|copyright|авторск|safety|nsfw|moderation|rejected|violat/i;
     let data;
     try {
       data = await startJob('quality');
@@ -921,7 +1028,7 @@ Object.assign(app, {
   },
 
   async callCompositeMaster(imageUrl, scene, statusEl) {
-    if (statusEl) statusEl.textContent = '🎨 Удаление фона...';
+    if (statusEl) statusEl.textContent = '✂️ Маска товара: удаление фона...';
     const res = await fetch(`${this.workerUrl}/api/studio/process`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', ...this.authHeaders() },
@@ -935,11 +1042,15 @@ Object.assign(app, {
       throw new Error(data.error || 'Не удалось запустить Remove BG');
     }
 
-    if (statusEl) statusEl.textContent = '⏳ Remove BG... (30–60 сек)';
-    const transparentPng = await this.pollStudioStatusSimple(data.job_id);
+    if (statusEl) statusEl.textContent = '⏳ Remove BG... (30–90 сек)';
+    const transparentPng = await this.pollStudioStatusSimple(data.job_id, {
+      maxAttempts: 40,
+      statusEl,
+      label: 'Remove BG'
+    });
 
-    if (statusEl) statusEl.textContent = '✂️ Cutout + ваш эталон...';
-    const cutout = await this.prepareCutoutFromPng(transparentPng);
+    if (statusEl) statusEl.textContent = '🖼️ Композит на эталон + маска...';
+    const cutout = await this.prepareCutoutFromPng(transparentPng, { catalogGrade: true });
     const MASTER_SIZE = this.MASTER_SIZE || 2048;
     const pos = this.getProductPositioning(scene, cutout.width, cutout.height, MASTER_SIZE);
     const placement = this.clampPlacementInset({
@@ -947,16 +1058,52 @@ Object.assign(app, {
       y: pos.drawY / MASTER_SIZE,
       w: pos.drawWidth / MASTER_SIZE,
       h: pos.drawHeight / MASTER_SIZE
-    }, this.isWallOnlyScene(scene) ? 0.07 : 0.05);
+    }, this.isWallOnlyScene(scene) ? 0.07 : 0.04);
 
     const bgUrl = await this.ensureReferenceHttpsUrl();
-    return await this.composeWithBackground(cutout.dataUrl, bgUrl, scene, placement, { alreadyCropped: true });
+    const layers = await this.composeWithBackground(cutout.dataUrl, bgUrl, scene, placement, {
+      alreadyCropped: true,
+      catalogCutout: true,
+      returnLayers: true
+    });
+
+    // AI: only room/shadows; then force product pixels back (mask lock)
+    try {
+      if (statusEl) statusEl.textContent = '☁️ Загрузка композита для сшивки фона...';
+      const compositeHttps = await this.ensureHttpsPhotoUrl(layers.masterDataUrl, 'studio-bg-lock.webp');
+      if (statusEl) statusEl.textContent = '✨ ИИ сшивает только фон (товар зафиксирован)...';
+      const enhRes = await fetch(`${this.workerUrl}/api/studio/enhance`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', ...this.authHeaders() },
+        body: JSON.stringify({
+          image_url: compositeHttps,
+          reference_url: bgUrl,
+          scene,
+          resolution: '2K',
+          mode: 'bg_lock'
+        })
+      });
+      const enhData = await enhRes.json().catch(() => ({}));
+      if (!enhRes.ok || !enhData.ok || !enhData.job_id) {
+        throw new Error(enhData.error || `bg_lock HTTP ${enhRes.status}`);
+      }
+      if (statusEl) statusEl.textContent = '⏳ Сшивка фона... (1–3 мин)';
+      const aiUrl = await this.pollStudioStatusSimple(enhData.job_id, {
+        maxAttempts: 70,
+        statusEl,
+        label: 'Сшивка фона'
+      });
+      if (statusEl) statusEl.textContent = '🔒 Возвращаем товар по маске...';
+      return await this.lockProductOverAi(aiUrl, layers.masterDataUrl, layers.maskDataUrl);
+    } catch (err) {
+      console.warn('[Studio Pro] bg_lock failed, plain composite:', err);
+      this.toast('ИИ не сшил фон — оставляем композит на эталоне', 'info');
+      if (statusEl) statusEl.textContent = '⚠️ Без ИИ-сшивки — композит на эталоне';
+      return layers.masterDataUrl;
+    }
   },
 
   async createMasterForScene(imageUrl, scene, statusEl) {
-    if (this.usesCompositeMode(scene)) {
-      return await this.callCompositeMaster(imageUrl, scene, statusEl);
-    }
     return await this.callRephotographMaster(imageUrl, scene, statusEl);
   },
 
@@ -1410,16 +1557,116 @@ Object.assign(app, {
     if (this.isWallOnlyScene(scene)) {
       const wallH = Math.round(bgImg.height * 0.58);
       finalCtx.drawImage(bgImg, 0, 0, bgImg.width, wallH, 0, 0, MASTER_SIZE, MASTER_SIZE);
-      this.drawSoftContactShadow(finalCtx, croppedCanvas, drawX, drawY, drawWidth, drawHeight, { wall: true });
+      this.drawSoftContactShadow(finalCtx, croppedCanvas, drawX, drawY, drawWidth, drawHeight, {
+        wall: true,
+        catalog: !!opts.catalogCutout
+      });
     } else {
       finalCtx.drawImage(bgImg, 0, 0, MASTER_SIZE, MASTER_SIZE);
-      this.drawSoftContactShadow(finalCtx, croppedCanvas, drawX, drawY, drawWidth, drawHeight, { wall: false });
+      this.drawSoftContactShadow(finalCtx, croppedCanvas, drawX, drawY, drawWidth, drawHeight, {
+        wall: false,
+        catalog: !!opts.catalogCutout
+      });
     }
 
     // Hand plate composite disabled — handheld uses Manus AI rephotograph instead
     finalCtx.drawImage(croppedCanvas, drawX, drawY, drawWidth, drawHeight);
 
-    return finalCanvas.toDataURL('image/webp', this.WEBP_QUALITY ?? 1.0);
+    const masterDataUrl = finalCanvas.toDataURL('image/webp', this.WEBP_QUALITY ?? 1.0);
+    if (!opts.returnLayers) return masterDataUrl;
+
+    // Product-only layer + soft mask (for bg_lock: AI paints room, we restore product pixels)
+    const productCanvas = document.createElement('canvas');
+    productCanvas.width = MASTER_SIZE;
+    productCanvas.height = MASTER_SIZE;
+    const pctx = productCanvas.getContext('2d');
+    pctx.drawImage(croppedCanvas, drawX, drawY, drawWidth, drawHeight);
+
+    const maskCanvas = document.createElement('canvas');
+    maskCanvas.width = MASTER_SIZE;
+    maskCanvas.height = MASTER_SIZE;
+    const mctx = maskCanvas.getContext('2d');
+    mctx.fillStyle = '#000';
+    mctx.fillRect(0, 0, MASTER_SIZE, MASTER_SIZE);
+    mctx.drawImage(productCanvas, 0, 0);
+    const mdata = mctx.getImageData(0, 0, MASTER_SIZE, MASTER_SIZE);
+    const md = mdata.data;
+    for (let i = 0; i < md.length; i += 4) {
+      const a = md[i + 3];
+      md[i] = md[i + 1] = md[i + 2] = a;
+      md[i + 3] = 255;
+    }
+    mctx.putImageData(mdata, 0, 0);
+    // Feather mask ~3px so AI can own the seam
+    const feather = document.createElement('canvas');
+    feather.width = MASTER_SIZE;
+    feather.height = MASTER_SIZE;
+    const fctx = feather.getContext('2d');
+    fctx.filter = 'blur(2.5px)';
+    fctx.drawImage(maskCanvas, 0, 0);
+    fctx.filter = 'none';
+    mctx.clearRect(0, 0, MASTER_SIZE, MASTER_SIZE);
+    mctx.drawImage(feather, 0, 0);
+
+    return {
+      masterDataUrl,
+      productDataUrl: productCanvas.toDataURL('image/png'),
+      maskDataUrl: maskCanvas.toDataURL('image/png')
+    };
+  },
+
+  /**
+   * AI may redraw the room; force original product pixels back via soft mask.
+   * out = lerp(ai, lockedComposite, mask)
+   */
+  async lockProductOverAi(aiUrl, lockedCompositeUrl, maskUrl) {
+    const SIZE = this.MASTER_SIZE || 2048;
+    const [aiImg, lockedImg, maskImg] = await Promise.all([
+      this.loadImage(aiUrl),
+      this.loadImage(lockedCompositeUrl),
+      this.loadImage(maskUrl)
+    ]);
+    const out = document.createElement('canvas');
+    out.width = SIZE;
+    out.height = SIZE;
+    const ctx = out.getContext('2d');
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = 'high';
+    ctx.drawImage(aiImg, 0, 0, SIZE, SIZE);
+    const aiData = ctx.getImageData(0, 0, SIZE, SIZE);
+
+    const lc = document.createElement('canvas');
+    lc.width = SIZE;
+    lc.height = SIZE;
+    lc.getContext('2d').drawImage(lockedImg, 0, 0, SIZE, SIZE);
+    const lockedData = lc.getContext('2d').getImageData(0, 0, SIZE, SIZE);
+
+    const mc = document.createElement('canvas');
+    mc.width = SIZE;
+    mc.height = SIZE;
+    mc.getContext('2d').drawImage(maskImg, 0, 0, SIZE, SIZE);
+    const maskData = mc.getContext('2d').getImageData(0, 0, SIZE, SIZE);
+
+    const a = aiData.data;
+    const l = lockedData.data;
+    const m = maskData.data;
+    for (let i = 0; i < a.length; i += 4) {
+      const t = m[i] / 255; // white = keep locked product
+      if (t <= 0.02) continue;
+      if (t >= 0.98) {
+        a[i] = l[i];
+        a[i + 1] = l[i + 1];
+        a[i + 2] = l[i + 2];
+        a[i + 3] = 255;
+        continue;
+      }
+      a[i] = Math.round(a[i] * (1 - t) + l[i] * t);
+      a[i + 1] = Math.round(a[i + 1] * (1 - t) + l[i + 1] * t);
+      a[i + 2] = Math.round(a[i + 2] * (1 - t) + l[i + 2] * t);
+      a[i + 3] = 255;
+    }
+    ctx.putImageData(aiData, 0, 0);
+    return out.toDataURL('image/webp', this.WEBP_QUALITY ?? 1.0);
   },
 
   async pollStudioStatusSimple(jobId, opts = {}) {

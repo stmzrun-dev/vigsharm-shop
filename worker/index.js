@@ -15,7 +15,7 @@ export default {
 
     // CORS (в т.ч. file:// → Origin: null)
     if (method === 'OPTIONS') {
-      return new Response(null, { headers: corsHeaders() });
+      return new Response(null, { headers: corsHeaders(request) });
     }
 
     try {
@@ -112,15 +112,18 @@ export default {
       return json({ ok: false, error: 'Not found' }, 404);
     } catch (e) {
       console.error(e);
-      return json({ ok: false, error: e.message }, 500);
+      const msg = e?.name === 'TimeoutError' || e?.name === 'AbortError'
+        ? 'ИИ не ответил вовремя (таймаут). Нажмите ещё раз через несколько секунд.'
+        : (e.message || String(e));
+      return json({ ok: false, error: msg }, 500);
     }
   }
 };
 
 // ─── CORS ────────────────────────────────────────────────
 
-function corsHeaders() {
-  const origin = _corsRequest?.headers?.get('Origin');
+function corsHeaders(request = _corsRequest) {
+  const origin = request?.headers?.get('Origin');
   // Chrome: для file:// Origin === "null", нельзя отвечать "*"
   let allowOrigin = '*';
   if (origin === 'null') allowOrigin = 'null';
@@ -154,30 +157,42 @@ function bytesToBase64(bytes) {
 
 // ─── NordRouter ──────────────────────────────────────────
 
-async function nordRequest(endpoint, method, body, env) {
+async function nordRequest(endpoint, method, body, env, timeoutMs = 20000) {
   const opts = {
     method,
     headers: {
       'Authorization': 'Bearer ' + env.NORDROUTER_API_KEY,
       'Content-Type': 'application/json'
     },
-    signal: AbortSignal.timeout(20000)
+    signal: AbortSignal.timeout(timeoutMs)
   };
   if (body) opts.body = JSON.stringify(body);
-  const resp = await fetch('https://nordrouter.com' + endpoint, opts);
-  
+  let resp;
+  try {
+    resp = await fetch('https://nordrouter.com' + endpoint, opts);
+  } catch (e) {
+    if (e?.name === 'TimeoutError' || e?.name === 'AbortError') {
+      throw new Error(`NordRouter таймаут ${Math.round(timeoutMs / 1000)}с (${endpoint}). Попробуйте ещё раз.`);
+    }
+    throw e;
+  }
+
   const responseText = await resp.text();
-  
+
   if (!resp.ok) {
     console.error('[NordRouter] HTTP ERROR', {
       endpoint,
       status: resp.status,
-      body: responseText
+      body: responseText.slice(0, 500)
     });
-    throw new Error(`NordRouter HTTP ${resp.status}: ${responseText}`);
+    throw new Error(`NordRouter HTTP ${resp.status}: ${responseText.slice(0, 300)}`);
   }
-  
-  return JSON.parse(responseText);
+
+  try {
+    return JSON.parse(responseText);
+  } catch {
+    throw new Error('NordRouter вернул не-JSON: ' + responseText.slice(0, 200));
+  }
 }
 
 async function nordUpload(file, env) {
@@ -481,7 +496,7 @@ async function handleReadFoilDigits(request, env) {
         ]
       }
     ]
-  }, env);
+  }, env, 45000);
 
   if (aiResp.error) {
     return json({ ok: false, error: 'NordRouter API ошибка: ' + (aiResp.error.message || JSON.stringify(aiResp.error)) });
@@ -948,23 +963,23 @@ ${image_url
     messages,
     temperature: 0.4,
     response_format: { type: 'json_object' }
-  }, env);
+  }, env, image_url ? 55000 : 25000);
 
   if (aiResp.error) {
     console.error('NordRouter API error:', aiResp.error);
-    return json({ ok: false, error: 'NordRouter API ошибка: ' + (aiResp.error.message || JSON.stringify(aiResp.error)) });
+    return json({ ok: false, error: 'NordRouter API ошибка: ' + (aiResp.error.message || JSON.stringify(aiResp.error)) }, 502);
   }
 
   const text = aiResp.choices?.[0]?.message?.content || '';
   if (!text) {
-    return json({ ok: false, error: 'AI не вернул ответ' });
+    return json({ ok: false, error: 'AI не вернул ответ' }, 502);
   }
 
   let data;
   try {
     data = JSON.parse(text);
   } catch {
-    return json({ ok: false, error: 'AI вернул некорректный JSON: ' + text.slice(0, 200) });
+    return json({ ok: false, error: 'AI вернул некорректный JSON: ' + text.slice(0, 200) }, 502);
   }
 
   data = sanitizeCardMetadata(data, scene || 'floor', priceNum, rawComposition, takenTitles);
@@ -1470,7 +1485,7 @@ async function handleStudioProcess(request, env) {
     input: {
       image: image_url
     }
-  }, env);
+  }, env, 30000);
 
   console.log('[Studio Pro NEW] Remove BG job started', {
     job_id: generateResp.id,
@@ -2013,6 +2028,26 @@ function buildEnhancePrompt(scene, mode = 'rephotograph') {
   if (mode === 'gentle') {
     return buildGentleEnhancePrompt(scene);
   }
+  if (mode === 'bg_lock') {
+    return `VigSharm balloon catalog — background integration ONLY.
+
+This image is a composite: REAL product (foil balloons, gift box, latex) already cut and placed on the VigSharm studio reference room.
+
+ABSOLUTE PRODUCT LOCK (copyright-safe — do not regenerate characters):
+- Keep EVERY product pixel unchanged: foil figures, cartoon prints, gift-box lettering, ribbons, balloon colors/counts/shapes
+- Do NOT redraw, restyle, beautify, or invent Disney/Marvel/cartoon characters
+- Do NOT move or resize the product plate
+
+ONLY change the ROOM around the product:
+- Continuity of warm beige-grey wall + white baseboard + light pale-oak laminate (match a real studio photo)
+- Remove white cutout halo / sticker fringe along the silhouette
+- Soft realistic contact shadows on the floor under product contact points
+- Match softbox catalog daylight on wall/floor only
+
+FORBIDDEN: full rephotograph of the product, new balloons, text changes, plastic CGI rewrite of foil art, people/models.
+
+SCENE: ${scene || 'floor'}. Output one square 1:1 real catalog photograph.`;
+  }
 
   const base = `Rephotograph this VigSharm balloon product in the studio room — make it look like ONE real catalog photo taken in this space, not a cutout pasted on top.
 
@@ -2054,7 +2089,7 @@ SCENE: floor composition on laminate NEAR baseboard (short floor strip — not f
 
 async function handleStudioEnhance(request, env) {
   const body = await request.json();
-  const { image_url, scene = 'floor', resolution = '2K' } = body;
+  const { image_url, scene = 'floor', resolution = '2K', reference_url = null } = body;
   let mode = body.mode || 'rephotograph';
 
   // wall_only / unit_balloon / handheld use full enhance/rephotograph prompts (Manus), not gentle-only
@@ -2071,9 +2106,48 @@ async function handleStudioEnhance(request, env) {
 
   const prompt = buildEnhancePrompt(scene, mode);
   const res = ['1K', '2K', '4K'].includes(resolution) ? resolution : '2K';
+  const referenceUrl = reference_url || null;
 
-  // Gentle: lighter models first (less rewrite). Rephotograph: sunburst 2K, then gpt.
-  const enhanceAttempts = mode === 'gentle'
+  // bg_lock: models less likely to refuse characters; prefer banana/seedream/flux over GPT
+  const enhanceAttempts = mode === 'bg_lock'
+    ? [
+        {
+          model: 'image/nano-banana-2',
+          input: {
+            prompt,
+            image: image_url,
+            aspect_ratio: '1:1',
+            ...(referenceUrl ? { reference_image: referenceUrl } : {})
+          }
+        },
+        {
+          model: 'image/nano-banana-edit',
+          input: {
+            prompt,
+            image: image_url,
+            ...(referenceUrl ? { reference_image: referenceUrl } : {})
+          }
+        },
+        {
+          model: 'image/seedream-5.0-pro-edit',
+          input: { prompt, image: image_url, aspect_ratio: '1:1', quality: 'high' }
+        },
+        {
+          model: 'image/flux2-pro-edit',
+          input: {
+            prompt: prompt.slice(0, 4800),
+            image: image_url,
+            aspect_ratio: '1:1',
+            resolution: res === '4K' ? '2K' : res,
+            ...(referenceUrl ? { reference_image: referenceUrl } : {})
+          }
+        },
+        {
+          model: 'image/qwen3-pro-edit',
+          input: { prompt, image: image_url }
+        }
+      ]
+    : mode === 'gentle'
     ? [
         { model: 'image/nano-banana-edit', input: { prompt, image: image_url } },
         { model: 'image/gpt-image-2-edit', input: { prompt, image: image_url, aspect_ratio: '1:1', resolution: res } },

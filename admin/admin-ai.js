@@ -740,6 +740,11 @@ Object.assign(app, {
       console.error('AI UI elements not found');
       return;
     }
+    if (btn.classList.contains('is-busy') || this._aiCardBusy) {
+      this.toast('ИИ уже работает — подождите', '');
+      return;
+    }
+    this._aiCardBusy = true;
 
     btn.disabled = true;
     btn.classList.add('is-busy');
@@ -807,7 +812,7 @@ Object.assign(app, {
       }
       const priceHint = parseInt(priceEl?.value, 10) || 0;
       const sceneHint = this.currentProduct.scene || 'floor';
-      const existingTitles = this.getExistingCatalogTitles?.() || [];
+      const existingTitles = (this.getExistingCatalogTitles?.() || []).slice(0, 80);
 
       let foilDigits = '';
       if (imageUrl) {
@@ -922,13 +927,18 @@ Object.assign(app, {
       console.log('Generated metadata:', data);
     } catch (e) {
       console.error('AI generation error:', e);
-      statusEl.textContent = '✗ ' + e.message;
-      this.toast('Ошибка AI: ' + e.message, 'error');
+      let msg = e.message || String(e);
+      if (/Failed to fetch|NetworkError|Load failed|network/i.test(msg)) {
+        msg = 'Сеть/таймаут до API. Подождите 5–10 сек и нажмите ещё раз (не спамьте кнопку).';
+      }
+      statusEl.textContent = '✗ ' + msg;
+      this.toast('Ошибка AI: ' + msg, 'error');
       this.notifyMasterDone?.('error', {
         title: 'ИИ не заполнил карточку',
-        body: e.message || 'Ошибка генерации'
+        body: msg || 'Ошибка генерации'
       });
     } finally {
+      this._aiCardBusy = false;
       btn.classList.remove('is-busy');
       btn.innerHTML = '✨ ИИ заполнит карточку';
       this.syncAIFillGate();

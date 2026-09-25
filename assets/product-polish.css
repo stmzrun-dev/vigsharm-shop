@@ -668,12 +668,16 @@
     display:block!important;
     width:100%;
     margin-top:14px;
-    min-height:48px;
+    min-height:52px;
     border:0;
     border-radius:16px;
-    background:#ff6b5a;
+    background:linear-gradient(135deg,#ff6b5a 0%,#ff8e53 100%);
     color:#fff;
     font-weight:800;
+    box-shadow:0 10px 24px rgba(255,107,107,.28);
+  }
+  .product-page .client-contact .product-order-button.client-submit[hidden]{
+    display:none!important;
   }
   .product-page .product-order-total:not(.is-detailed){
     display:none!important;

@@ -4546,10 +4546,10 @@ html body .product-page .product-step{
     padding-bottom:calc(88px + env(safe-area-inset-bottom,0px))!important;
   }
 }
-/* Hide sticky while typing (bar lives inside .product-page).
-   Prefer :focus-within — :focus alone can miss in some WebViews. */
+/* Hide sticky while typing — but keep it when the order is ready to submit
+   (autofill leaves focus in the phone field and users never see the CTA). */
 @media (max-width:1020px){
-  html body .product-page:has(.client-ins:focus-within, .client-contact:focus-within, .config-input:focus-within, :is(input,textarea):focus) .mobile-order-bar{
+  html body .product-page:has(.client-ins:focus-within, .client-contact:focus-within, .config-input:focus-within, :is(input,textarea):focus) .mobile-order-bar:not(.is-ready){
     display:none!important;
   }
 }

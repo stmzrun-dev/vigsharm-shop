@@ -575,6 +575,11 @@
         '<p class="client-digit-picked">' + esc(contactStatusText()) + '</p>' +
         '<div class="contact-clay' + (phoneOk() ? ' is-on' : '') + '"><img src="icons/phone-smartphone.webp?v=1" alt="" width="72" height="72"/></div>' +
         contactFieldsHtml() +
+        '<button type="button" class="button button-primary product-order-button client-submit" data-act="order"' +
+        (isSubmitReady() ? '' : ' hidden') +
+        (orderSending ? ' disabled' : '') + '>' +
+        esc(orderSending ? 'Отправляем…' : 'Оформить заказ') +
+        '</button>' +
         '</section>';
     }
 
@@ -1360,11 +1365,20 @@
 
   function applyContactFields(opts) {
     opts = opts || {};
+    var wasReady = isSubmitReady();
     var changed = syncContactsFromDom();
     if (changed || opts.force) {
       saveDraft();
       refreshTotals();
       paintContactUi();
+      // После автозаполнения кнопка появляется в блоке контакта — подкрутим к ней.
+      if (!wasReady && isSubmitReady()) {
+        var submitBtn = root.querySelector('.client-submit');
+        if (submitBtn && submitBtn.scrollIntoView) {
+          try { submitBtn.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }
+          catch (e) { submitBtn.scrollIntoView(); }
+        }
+      }
     }
   }
 
@@ -1422,7 +1436,8 @@
     }
     var submitBtn = root.querySelector('.client-submit');
     if (submitBtn) {
-      submitBtn.textContent = orderSending ? 'Отправляем…' : orderCta('short');
+      submitBtn.hidden = !submitNow;
+      submitBtn.textContent = orderSending ? 'Отправляем…' : 'Оформить заказ';
       submitBtn.disabled = !!orderSending;
     }
     var alt = root.querySelector('.order-alt-contacts');

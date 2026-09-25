@@ -3335,6 +3335,43 @@ function setMetaContent(el, value) {
   el.setAttribute('content', value);
 }
 
+/** Повторяет логику vigIsStorefrontVisible из assets/site.js */
+function isStorefrontVisible(product) {
+  if (!product) return false;
+  if (product.status && product.status !== 'published') return false;
+  // show_on_site: null/'' → считаем видимым; 0/false → скрыт
+  if (product.show_on_site == null || product.show_on_site === '') return true;
+  return !!product.show_on_site;
+}
+
+function buildJsonLd(product, fields) {
+  const { ogTitle, ogDescription, ogImage, pageUrl } = fields;
+  const price = Number(product.price) || 0;
+  const sku   = String(product.article || product.id || '').trim();
+  const available = isStorefrontVisible(product)
+    ? 'https://schema.org/InStock'
+    : 'https://schema.org/PreOrder';
+  const expire = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
+  return JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    'name': String(product.title || '').trim(),
+    'image': ogImage,
+    'description': ogDescription,
+    'sku': sku,
+    'brand': { '@type': 'Brand', 'name': 'Вигшарм' },
+    'offers': {
+      '@type': 'Offer',
+      'url': pageUrl,
+      'price': price,
+      'priceCurrency': 'RUB',
+      'availability': available,
+      'priceValidUntil': expire,
+      'seller': { '@type': 'Organization', 'name': 'Вигшарм' }
+    }
+  });
+}
+
 /** Относительные ссылки меню/карточек → абсолютные на боевой домен. */
 function absolutizeSiteHref(href, env) {
   const t = String(href || '').trim();
@@ -3405,9 +3442,26 @@ function rewriteHumanProductHtml(response, env) {
     .transform(response);
 }
 
-function rewriteProductOg(response, fields) {
+function rewriteProductOg(response, fields, product) {
   const { ogTitle, ogDescription, ogImage, pageUrl } = fields;
+  const jsonLd = buildJsonLd(product, fields);
+  const price  = Number(product.price) || 0;
+  const imgAlt = String(product.title || '').trim();
+
+  // Теги, которых нет в статическом product.html — инжектируем в конец <head>
+  const extraMeta = [
+    `<meta property="og:image:alt" content="${escAttr(imgAlt)}"/>`,
+    `<meta property="product:price:amount" content="${price}"/>`,
+    `<meta property="product:price:currency" content="RUB"/>`,
+    `<script type="application/ld+json">${jsonLd}</script>`,
+  ].join('\n');
+
   return new HTMLRewriter()
+    .on('head', {
+      element(el) {
+        el.append(extraMeta, { html: true });
+      }
+    })
     .on('title', {
       element(el) {
         el.setInnerContent(ogTitle);
@@ -3452,6 +3506,15 @@ function rewriteProductOg(response, fields) {
     .transform(response);
 }
 
+/** Экранирует значения для HTML-атрибутов */
+function escAttr(s) {
+  return String(s == null ? '' : s)
+    .replace(/&/g, '&amp;')
+    .replace(/"/g, '&quot;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+}
+
 async function handleProductPageOg(request, env, url) {
   // Люди: HTML с github.io + base на статику GH + ссылки на vigsharm.ru.
   // Не ходим на vigsharm.ru за CSS (избегаем SSL/прокси-петли на apex).
@@ -3481,8 +3544,8 @@ async function handleProductPageOg(request, env, url) {
     productPromise
   ]);
 
-  // Draft / не найден — дефолтные OG из shell.
-  if (!product || (product.status && product.status !== 'published')) {
+  // Черновики / скрытые товары — дефолтные OG из shell (без утечки данных).
+  if (!isStorefrontVisible(product)) {
     const out = new Response(shell.body, shell);
     stripHopHeaders(out);
     out.headers.set('X-Vig-OG', product ? 'draft' : 'fallback');
@@ -3500,7 +3563,7 @@ async function handleProductPageOg(request, env, url) {
   base.headers.set('Cache-Control', 'public, max-age=300');
   base.headers.set('X-Vig-OG', 'rewritten');
 
-  return rewriteProductOg(base, fields);
+  return rewriteProductOg(base, fields, product);
 }
 
 // ─── Storefront orders ───────────────────────────────────

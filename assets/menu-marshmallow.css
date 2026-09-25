@@ -6,6 +6,37 @@
 
 @media (width<=1020px){
 
+.menu-button,
+.header .nav > a,
+.header .nav > button,
+.header .nav .mobile-menu-head > button,
+.header .nav .mobile-phone,
+.header .nav .mobile-contact-options > a,
+.menu-backdrop{
+  touch-action:manipulation;
+}
+
+/* GPU drawer: keep the panel off-canvas with transform, not left/width/display. */
+.header .nav{
+  transform:translateX(100%)!important;
+  visibility:hidden;
+  pointer-events:none;
+  will-change:transform;
+  transition:transform .22s cubic-bezier(.4,0,.2,1),visibility 0s linear .22s;
+}
+.header .nav.nav-open{
+  transform:translateX(0)!important;
+  visibility:visible!important;
+  pointer-events:auto!important;
+  transition:transform .22s cubic-bezier(.4,0,.2,1),visibility 0s linear 0s;
+}
+@media (prefers-reduced-motion:reduce){
+  .header .nav,
+  .header .nav.nav-open{
+    transition:none!important;
+  }
+}
+
 /* Panel — hug content; scroll only on very short viewports.
    NOTE: overflow-x:hidden + overflow-y:visible computes to auto (CSS quirk). */
 .header .nav.nav-open{

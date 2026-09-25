@@ -409,7 +409,7 @@
       p.main_photo ||
       '';
     var img = key
-      ? '<img src="' + window.vigImage(key, 480) + '" data-key="' + esc(key) + '" alt="' + esc(p.title) + '" loading="' + (i < 4 ? 'eager' : 'lazy') + '" decoding="async" width="480" height="480" onload="this.classList.add(\'is-ready\')"/>'
+      ? '<img src="' + window.vigImage(key, 480) + '" data-key="' + esc(key) + '" alt="' + esc(p.title) + '" loading="' + (i < 4 ? 'eager' : 'lazy') + '" decoding="async"' + (i === 0 ? ' fetchpriority="high"' : '') + ' width="480" height="480" onload="this.classList.add(\'is-ready\')"/>'
       : '';
     var from = (p.tags || []).indexOf('Цена от') >= 0 ? 'от ' : '';
     var priceNote = p.category === 'Шары поштучно' ? 'Цена за штуку' : 'Цена за композицию';
@@ -867,7 +867,7 @@
       var src = READY_PHOTOS[item.name] || '';
       if (!src && item.product) {
         var key = window.vigProductPhoto ? window.vigProductPhoto(item.product) : '';
-        src = key && window.vigImage ? window.vigImage(key) : '';
+        src = key && window.vigImage ? window.vigImage(key, 200) : '';
       }
       var on = category === item.name;
       return '<button type="button" class="pick-hero' + (on ? ' is-on' : '') + '" data-idea="' + esc(item.name) + '">' +
@@ -1222,7 +1222,7 @@
         if (!items.length) return '';
         var imgs = items.slice(0, 3).map(function (p) {
           var k = (window.vigProductPhoto ? window.vigProductPhoto(p) : '') || (p.image_keys && p.image_keys[0]) || '';
-          return k ? '<img src="' + window.vigImage(k) + '" data-key="' + esc(k) + '" alt="" loading="lazy" decoding="async"/>' : '';
+          return k ? '<img src="' + window.vigImage(k, 200) + '" data-key="' + esc(k) + '" alt="" loading="lazy" decoding="async"/>' : '';
         }).join('');
         return '<button type="button" class="catalog-collection-card" data-coll="' + esc(name) + '"><span class="catalog-collection-images" aria-hidden="true">' + imgs + '</span>' +
           '<span class="catalog-collection-copy"><small>Отдельная категория</small><strong>' + esc(name) + '</strong><span>' + items.length + ' ' + plural(items.length) + '</span></span><b aria-hidden="true">→</b></button>';

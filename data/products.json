@@ -2,6 +2,844 @@
   "ok": true,
   "products": [
     {
+      "id": "add9bd03-1497-48f4-88fe-b8d364df343a",
+      "title": "1 Сентября",
+      "article": "UNT-097",
+      "price": 150,
+      "short_description": "1 Сентября",
+      "full_description": "",
+      "composition": [],
+      "category": "1 сентября",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "super-hero-chelovek-pauk-41",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Шары с рисунком",
+        "1 сентября"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/0645b458-fe0a-4f52-b2ae-653f10b1d44a.jpg",
+        "unit_type": "print",
+        "unit_holiday": "1 сентября"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/d252c0c5-ea5e-44be-af4b-86fe206efac4.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/d252c0c5-ea5e-44be-af4b-86fe206efac4.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-25T23:10:45.271Z",
+      "updated_at": "2026-09-25T23:10:45.271Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "70a1d61c-d5c7-4525-97aa-2a0fc8992685",
+      "title": "Мрамор",
+      "article": "UNT-096",
+      "price": 150,
+      "short_description": "Мрамор",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "super-hero-chelovek-pauk-40",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Шары с рисунком",
+        "Для девочки",
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/de80a0c8-6526-4420-bc24-4d29f7d9eab3.jpg",
+        "unit_type": "print",
+        "unit_who": [
+          "Для девочки",
+          "Для мальчика"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/05a3a196-8b86-4d41-8e2e-f86c6739786b.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/05a3a196-8b86-4d41-8e2e-f86c6739786b.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-25T22:52:12.021Z",
+      "updated_at": "2026-09-25T22:52:12.021Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "a184e393-cefa-45c9-8ac5-e726f6d14f62",
+      "title": "Для истинных Леди",
+      "article": "UNT-095",
+      "price": 150,
+      "short_description": "Для истинных Леди",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "super-hero-chelovek-pauk-39",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Шары с рисунком",
+        "Для неё"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/eead179f-fc4a-47e3-9205-fd10e0453fcc.jpg",
+        "unit_type": "print",
+        "unit_who": [
+          "Для неё"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/1f519fa5-6093-45cd-8bcc-a964fbb8b159.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/1f519fa5-6093-45cd-8bcc-a964fbb8b159.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-25T22:48:31.574Z",
+      "updated_at": "2026-09-25T22:48:31.574Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "2d68d62b-2ef9-4c0a-a633-1130f745c827",
+      "title": "Комплимент самая-самая",
+      "article": "UNT-094",
+      "price": 150,
+      "short_description": "Комплимент самая-самая",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "super-hero-chelovek-pauk-38",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Шары с рисунком",
+        "Для неё"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/37e56008-379d-41e6-92dc-4661298778af.jpg",
+        "unit_type": "print",
+        "unit_who": [
+          "Для неё"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/65c2bf50-fc72-49cf-ad31-4dd3012d2a35.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/65c2bf50-fc72-49cf-ad31-4dd3012d2a35.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-25T22:47:33.672Z",
+      "updated_at": "2026-09-25T22:47:33.672Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "386dab28-5efc-42fb-ade5-bb54e0fe95bf",
+      "title": "Оскорбительные для неё",
+      "article": "UNT-093",
+      "price": 150,
+      "short_description": "Оскорбительные для неё",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "super-hero-chelovek-pauk-37",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Шары с рисунком",
+        "Для неё"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/4bab0e54-3430-443a-9bff-5a6fadd6ca06.jpg",
+        "unit_type": "print",
+        "unit_who": [
+          "Для неё"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/5b03b203-cf89-4c0d-b5f3-743cf4ccd2e6.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/5b03b203-cf89-4c0d-b5f3-743cf4ccd2e6.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-25T22:46:36.257Z",
+      "updated_at": "2026-09-25T22:46:36.257Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "c98167b2-31ff-41e0-9bba-782ed6830d0d",
+      "title": "Приколы для неё",
+      "article": "UNT-092",
+      "price": 150,
+      "short_description": "Приколы для неё",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "super-hero-chelovek-pauk-36",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Шары с рисунком",
+        "Для неё"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/ce51179a-8e30-4e08-97ee-34ead14d51d6.jpg",
+        "unit_type": "print",
+        "unit_who": [
+          "Для неё"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/db58c9ea-f698-44b0-9d2f-bc2a1a33af53.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/db58c9ea-f698-44b0-9d2f-bc2a1a33af53.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-25T22:45:31.608Z",
+      "updated_at": "2026-09-25T22:45:31.608Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "40da0d96-4f31-4a89-912b-23568573966e",
+      "title": "Шальная императрица",
+      "article": "UNT-091",
+      "price": 150,
+      "short_description": "Шальная императрица",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "super-hero-chelovek-pauk-35",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Шары с рисунком",
+        "Для неё"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/d10f2df7-7cee-4fa3-9c4e-5f7e7c697105.jpg",
+        "unit_type": "print",
+        "unit_who": [
+          "Для неё"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/6359383f-9b3d-4b11-9f4f-e9ed18c01ac2.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/6359383f-9b3d-4b11-9f4f-e9ed18c01ac2.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-25T22:44:28.762Z",
+      "updated_at": "2026-09-25T22:44:28.762Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "2da61e13-d90b-4e38-98e0-1ae04dd95c7a",
+      "title": "Банда невесты",
+      "article": "UNT-090",
+      "price": 150,
+      "short_description": "Банда невесты",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "super-hero-chelovek-pauk-34",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Шары с рисунком",
+        "Свадьба и девичник"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/8762f06a-b402-476e-8a45-b3ab399f4199.jpg",
+        "unit_type": "print",
+        "unit_who": [
+          "Свадьба и девичник"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/ea6b798a-7174-43be-9ab9-8b092dcb2fe7.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/ea6b798a-7174-43be-9ab9-8b092dcb2fe7.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-25T22:42:50.590Z",
+      "updated_at": "2026-09-25T22:42:50.590Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "7d3cc417-51e7-4f0a-9a97-ee91785e6c0a",
+      "title": "Признания в любви",
+      "article": "UNT-089",
+      "price": 150,
+      "short_description": "Признания в любви",
+      "full_description": "",
+      "composition": [],
+      "category": "14 февраля",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "super-hero-chelovek-pauk-33",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Шары с рисунком",
+        "Для неё",
+        "14 февраля"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/3b903210-de56-42ec-8b45-7dbca7ed82cd.jpg",
+        "unit_type": "print",
+        "unit_who": [
+          "Для неё"
+        ],
+        "unit_holiday": "14 февраля"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/d82eae6a-79ab-4206-8efa-cb22abc40027.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/d82eae6a-79ab-4206-8efa-cb22abc40027.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-25T22:41:25.542Z",
+      "updated_at": "2026-09-25T22:41:25.542Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "20b2037e-63d3-4dbc-a7fd-1bba0bc91486",
+      "title": "Люблю тебя с мишками",
+      "article": "UNT-088",
+      "price": 150,
+      "short_description": "Люблю тебя с мишками",
+      "full_description": "",
+      "composition": [],
+      "category": "14 февраля",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "super-hero-chelovek-pauk-32",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Шары с рисунком",
+        "Для неё",
+        "14 февраля"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/630da8f1-f697-4f4d-b1c8-eba5e520a6f7.jpg",
+        "unit_type": "print",
+        "unit_who": [
+          "Для неё"
+        ],
+        "unit_holiday": "14 февраля"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/2de1c3cf-3cd2-4a15-a9a3-43fb8a6c8e31.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/2de1c3cf-3cd2-4a15-a9a3-43fb8a6c8e31.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-25T22:39:53.872Z",
+      "updated_at": "2026-09-25T22:39:53.872Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "e8a09611-08a1-4ba7-b413-a9103733c4b4",
+      "title": "Мужская тема",
+      "article": "UNT-087",
+      "price": 150,
+      "short_description": "Мужская тема",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "super-hero-chelovek-pauk-31",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Шары с рисунком",
+        "Для него"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/f59c0ca4-21f1-43a8-a3a3-0a0f1d59b13c.jpg",
+        "unit_type": "print",
+        "unit_who": [
+          "Для него"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/bb70ea94-f635-4b34-94b4-dee45a71532c.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/bb70ea94-f635-4b34-94b4-dee45a71532c.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-25T22:38:49.692Z",
+      "updated_at": "2026-09-25T22:38:49.692Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "f2d09a96-0b54-4b54-912a-518fb3549705",
+      "title": "Суровый мужик",
+      "article": "UNT-086",
+      "price": 150,
+      "short_description": "Суровый мужик",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "super-hero-chelovek-pauk-30",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Шары с рисунком",
+        "Для него"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/0e8026dd-9c2c-4a59-aa8d-f29803ab4e39.jpg",
+        "unit_type": "print",
+        "unit_who": [
+          "Для него"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/61fbd2cf-0367-4852-bfce-21ff7160e63f.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/61fbd2cf-0367-4852-bfce-21ff7160e63f.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-25T22:37:33.956Z",
+      "updated_at": "2026-09-25T22:37:33.956Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "316067ad-d772-4b65-8eab-09984f7e3238",
+      "title": "Поздравляем с днем рождения",
+      "article": "UNT-085",
+      "price": 150,
+      "short_description": "Поздравляем с днем рождения",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "super-hero-chelovek-pauk-29",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Шары с рисунком",
+        "Для неё",
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/ab8209f2-3e8c-43b2-bebd-7713eea856a9.jpg",
+        "unit_type": "print",
+        "unit_who": [
+          "Для неё",
+          "Для девочки"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/8b6e0691-9288-44d0-a5b9-e188e42e48bf.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/8b6e0691-9288-44d0-a5b9-e188e42e48bf.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-25T22:35:19.809Z",
+      "updated_at": "2026-09-25T22:35:19.809Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "bf254050-6fd2-4c31-aade-650657a1241e",
+      "title": "Мужские приколы с ДР!",
+      "article": "UNT-084",
+      "price": 150,
+      "short_description": "Мужские приколы с ДР!",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "super-hero-chelovek-pauk-28",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Шары с рисунком",
+        "Для него"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/b8d87151-a22d-4e72-b876-3b9e38a66a49.jpg",
+        "unit_type": "print",
+        "unit_who": [
+          "Для него"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/c39a5b30-4d9c-4436-85ea-29bca22343f6.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/c39a5b30-4d9c-4436-85ea-29bca22343f6.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-25T22:34:00.764Z",
+      "updated_at": "2026-09-25T22:34:00.764Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "5c404748-46d8-4863-8708-b289836e4376",
+      "title": "Мужской стиль",
+      "article": "UNT-083",
+      "price": 150,
+      "short_description": "Мужской стиль",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "super-hero-chelovek-pauk-27",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Шары с рисунком",
+        "Для него",
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/7f506e54-4068-4c83-afaa-6d151b692987.jpg",
+        "unit_type": "print",
+        "unit_who": [
+          "Для него",
+          "Для мальчика"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/03f264fb-9c12-4373-b99c-166495a413dd.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/03f264fb-9c12-4373-b99c-166495a413dd.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-25T22:32:54.691Z",
+      "updated_at": "2026-09-25T22:32:54.691Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "8d529570-8996-402d-a3eb-983cb833cb17",
+      "title": "Лучший босс!",
+      "article": "UNT-082",
+      "price": 150,
+      "short_description": "Лучший босс!",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "super-hero-chelovek-pauk-26",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Шары с рисунком",
+        "Для него"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/007237b2-5a5f-4579-b9e9-fa4c9c2a886e.jpg",
+        "unit_type": "print",
+        "unit_who": [
+          "Для него"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/80b4c26c-8063-4a34-a13d-299d8932babe.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/80b4c26c-8063-4a34-a13d-299d8932babe.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-25T22:31:51.706Z",
+      "updated_at": "2026-09-25T22:31:51.706Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "3a4de5f9-8226-4633-be56-b40469528513",
+      "title": "С ДР торт и свечи",
+      "article": "UNT-081",
+      "price": 150,
+      "short_description": "С ДР торт и свечи",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "super-hero-chelovek-pauk-25",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Шары с рисунком",
+        "Для девочки",
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/f37a332a-645b-41f7-be32-e46be3995c54.jpg",
+        "unit_type": "print",
+        "unit_who": [
+          "Для девочки",
+          "Для мальчика"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/0d55052d-0ff2-4a26-a632-2e14b8aaa7f9.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/0d55052d-0ff2-4a26-a632-2e14b8aaa7f9.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-25T22:30:42.823Z",
+      "updated_at": "2026-09-25T22:30:42.823Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "0b2dd35b-4ffe-4cf3-a946-46c150c00cd9",
+      "title": "Ромашки",
+      "article": "UNT-080",
+      "price": 150,
+      "short_description": "Ромашки",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "super-hero-chelovek-pauk-24",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Шары с рисунком",
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/e4e33c5e-2550-468a-a79b-48bdb8773864.jpg",
+        "unit_type": "print",
+        "unit_who": [
+          "Для девочки"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/82b5fc2d-28ac-49fc-be37-6340fa8c12c2.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/82b5fc2d-28ac-49fc-be37-6340fa8c12c2.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-25T22:29:23.955Z",
+      "updated_at": "2026-09-25T22:29:23.955Z",
+      "thumb_photo": null
+    },
+    {
       "id": "773ba994-25fa-4917-a87c-a48082ddc815",
       "title": "Граффити розовые",
       "article": "UNT-079",

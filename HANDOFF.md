@@ -82,11 +82,27 @@ CSS-first редизайн админки без смены Studio/AI/фото J
 | `assets/site-marshmallow.css` | Канон витрины + responsive patches |
 | `admin/styles.css` | Admin UI refresh |
 
+## 0c. Footer parity + client contacts + sitemap.xml (25.09.2026, `?v=20260925-footer-parity`)
+
+### Шаг 1 — Footer UI
+- `.footer-phone` и `.footer-chat` теперь одинаково: `display:flex`, `min-height:48px`, `padding:10px 16px`, `gap:12px`, иконка 28×28px, работает на 320px+.
+- Стили добавлены в конец `assets/site-marshmallow.css` (раздел «Footer contacts parity»).
+- Кеш: `index.html` + `product.html` → `?v=20260925-footer-parity`.
+
+### Шаг 2 — Контакты клиента в orderMessage()
+- В `assets/product.js` → `orderMessage()` добавлен блок «Имя: …» + «Телефон: …» (только если поля заполнены).
+- Кеш: `product.js?v=20260925-client-contacts`.
+
+### Шаг 3 — sitemap.xml
+- Файл `sitemap.xml` содержит 372 URL: 4 статических + 368 товаров (`/p/<slug>.html`).
+- Скрипт-генератор: `scripts/generate_sitemap.py` (запускать при добавлении товаров).
+- `robots.txt` уже содержал `Sitemap: https://vigsharm.ru/sitemap.xml` ✓
+- Коммит: `3200600`.
+
 ## 4. Следующие шаги
 
-1. Smoke на проде: карточка → оформить → WhatsApp/Telegram — в тексте ссылка на `vigsharm.ru/product.html?slug=…`.
-2. По желанию: добавить телефон/имя клиента в `orderMessage()` (сейчас только в API-заявке).
-3. Старый долг UI: паритет «Позвонить» / «Написать» в футере.
+1. Smoke на проде: карточка → заполнить имя/телефон → «Написать» — убедиться что имя и телефон присутствуют в тексте WhatsApp/Telegram.
+2. При добавлении новых товаров — перезапустить `python scripts/generate_sitemap.py` и закоммитить обновлённый `sitemap.xml`.
 
 ## 5. Как проверять
 

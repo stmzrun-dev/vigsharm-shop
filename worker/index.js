@@ -85,7 +85,7 @@ export default {
       if (path.match(/^\/api\/orders\/[^/]+\/status$/) && method === 'PATCH')
         return handleOrderStatus(path, request, env);
       if (path === '/api/products' && method === 'GET')
-        return handleGetProducts(env);
+        return handleGetProducts(request, env, url);
       if (path.match(/^\/api\/products\/[^/]+$/) && method === 'GET')
         return handleGetProduct(path, env);
       if (path === '/api/products' && method === 'POST')
@@ -2817,11 +2817,48 @@ async function ensureUniqueArticle(env, desired, excludeId = null) {
   return `${prefix}-${Date.now().toString(36).toUpperCase()}`;
 }
 
-async function handleGetProducts(env) {
+function httpUrl(value) {
+  return typeof value === 'string' && /^https?:\/\//i.test(value) ? value : '';
+}
+
+/** Превью для списка: https-адрес, без data:-фотографий. */
+function listPreviewUrl(product) {
+  const thumb = httpUrl(product.thumb_photo);
+  if (thumb) return thumb;
+  const main = httpUrl(product.main_photo);
+  if (main) return main;
+  const photos = Array.isArray(product.photos) ? product.photos : [];
+  for (const photo of photos) {
+    const url = httpUrl(typeof photo === 'string' ? photo : photo && photo.url);
+    if (url) return url;
+  }
+  return '';
+}
+
+function slimProductForList(product) {
+  const preview = listPreviewUrl(product);
+  return {
+    ...product,
+    photos: preview ? [preview] : [],
+    main_photo: preview || '',
+    thumb_photo: httpUrl(product.thumb_photo)
+  };
+}
+
+async function handleGetProducts(request, env, url) {
+  const wantFull = url.searchParams.get('full') === '1';
+  if (wantFull) {
+    const authHeader = request.headers.get('Authorization') || '';
+    const expected = 'Bearer ' + (env.ADMIN_API_KEY || '');
+    if (!env.ADMIN_API_KEY || authHeader !== expected) {
+      return json({ ok: false, error: 'Unauthorized' }, 401);
+    }
+  }
   const { results } = await env.DB.prepare(
     "SELECT * FROM products ORDER BY created_at DESC"
   ).all();
-  return json({ ok: true, products: results.map(parseProduct) });
+  const products = results.map(parseProduct);
+  return json({ ok: true, products: wantFull ? products : products.map(slimProductForList) });
 }
 
 async function handleGetProduct(path, env) {

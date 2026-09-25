@@ -1334,7 +1334,10 @@ const app = {
       btn.textContent = 'Выгрузка…';
     }
     try {
-      const res = await fetch(`${this.workerUrl}/api/products`, { cache: 'no-store' });
+      const res = await fetch(`${this.workerUrl}/api/products?full=1`, {
+        cache: 'no-store',
+        headers: this.authHeaders()
+      });
       if (!res.ok) throw new Error('HTTP ' + res.status);
       const data = await res.json();
       if (!data || data.ok !== true || !Array.isArray(data.products) || !data.products.length) {

@@ -1768,21 +1768,32 @@
   }
 
   // ---------- boot ----------
-  Promise.all([
-    (window.vigFetchProducts
+  function loadProductList() {
+    return (window.vigFetchProducts
       ? window.vigFetchProducts()
       : fetch('https://vigsharm-api.vigsharm.workers.dev/api/products', { cache: 'no-store' })
           .then(function (r) { if (!r.ok) throw new Error('x'); return r.json(); })
-          .then(function (data) { return (data.ok && Array.isArray(data.products)) ? data.products : []; })),
-    loadDeliverySettings()
-  ])
-    .then(function (pair) {
-      var raw = pair[0];
+          .then(function (data) { return (data.ok && Array.isArray(data.products)) ? data.products : []; }));
+  }
+  function loadFullProduct() {
+    if (!slug) return Promise.resolve(null);
+    return fetch('https://vigsharm-api.vigsharm.workers.dev/api/products/' + encodeURIComponent(slug), { cache: 'no-store' })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (data) { return (data && data.ok && data.product) ? data.product : null; })
+      .catch(function () { return null; });
+  }
+
+  Promise.all([loadProductList(), loadFullProduct(), loadDeliverySettings()])
+    .then(function (triple) {
+      var raw = triple[0];
+      var full = triple[1];
       var normalized = window.vigNormalizeProducts(raw || []);
-      var found = null;
-      for (var i = 0; i < normalized.length; i++) {
-        var o = normalized[i];
-        if (String(o.slug) === slug || String(o.id) === slug) { found = o; break; }
+      var found = full ? window.vigNormalizeProducts([full])[0] : null;
+      if (!found) {
+        for (var i = 0; i < normalized.length; i++) {
+          var o = normalized[i];
+          if (String(o.slug) === slug || String(o.id) === slug) { found = o; break; }
+        }
       }
       if (!found) { renderNotFound('Композиция не найдена'); return; }
       // Related: only storefront-visible items (current product kept even if draft)

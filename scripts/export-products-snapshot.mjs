@@ -26,12 +26,12 @@ function parseArgs(argv) {
   return { url: url.replace(/\/$/, '') };
 }
 
-async function getJson(endpoint) {
+async function getJson(endpoint, headers = {}) {
   let res;
   try {
     res = await fetch(endpoint, {
       cache: 'no-store',
-      headers: { Accept: 'application/json' }
+      headers: { Accept: 'application/json', ...headers }
     });
   } catch (e) {
     throw new Error(
@@ -56,7 +56,10 @@ async function main() {
   const { url } = parseArgs(process.argv.slice(2));
   const written = [];
 
-  const productsData = await getJson(`${url}/api/products`);
+  const adminKey = process.env.ADMIN_API_KEY || '';
+  const productsData = await getJson(`${url}/api/products?full=1`, adminKey
+    ? { Authorization: 'Bearer ' + adminKey }
+    : {});
   if (!productsData || productsData.ok !== true || !Array.isArray(productsData.products)) {
     throw new Error('Каталог: нужен { ok: true, products: [...] }');
   }

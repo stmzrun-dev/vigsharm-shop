@@ -2,6 +2,138 @@
   "ok": true,
   "products": [
     {
+      "id": "1b42d772-455e-41cd-9cdd-5a6116d3cdc3",
+      "title": "8 Марта",
+      "article": "UNT-030",
+      "price": 150,
+      "short_description": "8 Марта",
+      "full_description": "",
+      "composition": [],
+      "category": "8 марта",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "veselaya-tykva-3",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Шары с рисунком",
+        "8 марта"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/c937fec0-1e21-4424-a0e5-820581775d37.jpg",
+        "unit_type": "print",
+        "unit_holiday": "8 марта"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/0430157b-4c90-4c95-8279-c1b51cb13d9a.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/0430157b-4c90-4c95-8279-c1b51cb13d9a.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-25T14:27:11.978Z",
+      "updated_at": "2026-09-25T14:27:11.978Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "8afa003c-96f8-446d-8fa8-be9bdf0388ff",
+      "title": "8 Марта Тюльпаны",
+      "article": "UNT-029",
+      "price": 150,
+      "short_description": "8 Марта Тюльпаны",
+      "full_description": "",
+      "composition": [],
+      "category": "8 марта",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "veselaya-tykva-2",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Шары с рисунком",
+        "8 марта"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/5e51e93f-b7e1-447f-bee7-4d7e618e7d88.jpg",
+        "unit_type": "print",
+        "unit_holiday": "8 марта"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/eb9db580-28bc-461d-92f3-e68d8a9dd8f3.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/eb9db580-28bc-461d-92f3-e68d8a9dd8f3.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-25T14:26:05.563Z",
+      "updated_at": "2026-09-25T14:26:05.563Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "4a9da453-81a6-471b-9d33-ba3c5cba9b69",
+      "title": "Веселая Тыква",
+      "article": "UNT-028",
+      "price": 150,
+      "short_description": "Веселая Тыква",
+      "full_description": "",
+      "composition": [],
+      "category": "Хэллоуин",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "veselaya-tykva",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Шары с рисунком",
+        "Хэллоуин"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/74e061ad-d861-4a28-bc37-1d62b1b339e5.jpg",
+        "unit_type": "print",
+        "unit_holiday": "Хэллоуин"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/4c8a64c5-1ab4-4c36-9b63-33174b827214.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/4c8a64c5-1ab4-4c36-9b63-33174b827214.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-25T14:25:07.759Z",
+      "updated_at": "2026-09-25T14:25:07.759Z",
+      "thumb_photo": null
+    },
+    {
       "id": "9f088e91-b8c5-4843-80b5-1aa18e8afa1f",
       "title": "Самый сильный",
       "article": "UNT-027",
@@ -3428,8 +3560,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-24T10:24:17.683Z",
-      "updated_at": "2026-09-24T10:24:17.683Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:35:41.939Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/9d42facd-d971-4c1c-9d08-ad3f73b67212.webp"
     },
     {
       "id": "fe2dc2ef-f2ec-4a79-af96-191b3f07f489",
@@ -3613,8 +3745,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-24T07:24:21.998Z",
-      "updated_at": "2026-09-24T07:24:21.998Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:35:47.052Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/2912d299-3c0d-4d53-bcce-333c8ce59d6d.webp"
     },
     {
       "id": "bb523f88-2081-4a4f-85c5-29f0eca39b1c",
@@ -3655,8 +3787,8 @@
       "status": "draft",
       "show_on_site": false,
       "created_at": "2026-09-24T06:49:51.674Z",
-      "updated_at": "2026-09-24T06:49:51.674Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:35:49.559Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/2274547f-7bb1-4d8a-a357-2da72b46aacb.webp"
     },
     {
       "id": "8d80c6c0-4ae9-4e93-91f6-da3de5e5b5ad",
@@ -3700,8 +3832,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-24T06:44:48.532Z",
-      "updated_at": "2026-09-24T06:44:48.532Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:35:54.507Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/805d5467-f4b1-49d6-84ac-2b6028c4bbda.webp"
     },
     {
       "id": "1f8cf291-8f48-4b53-a652-ac5918072b0b",
@@ -3743,8 +3875,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-24T06:41:01.984Z",
-      "updated_at": "2026-09-24T06:41:01.984Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:35:57.337Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/bf4b88b0-f582-475e-889d-a7c40a6bcbcf.webp"
     },
     {
       "id": "122ead18-103e-4aef-ac98-3b0fd994df3f",
@@ -3793,8 +3925,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-24T06:37:18.373Z",
-      "updated_at": "2026-09-24T06:37:18.373Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:36:00.552Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/3fcde39e-69a3-44f4-a47a-2551fcce0f7f.webp"
     },
     {
       "id": "5a9800d9-bb58-4a83-b1bc-8a32555b3ac8",
@@ -3841,8 +3973,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T23:09:31.565Z",
-      "updated_at": "2026-09-23T23:09:31.565Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:36:03.877Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/459c186b-7fdb-46ad-8f57-4c6707991322.webp"
     },
     {
       "id": "8c1f0ae8-3235-4fe1-827e-249969477a1f",
@@ -3885,8 +4017,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T22:07:07.707Z",
-      "updated_at": "2026-09-23T22:07:07.707Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:36:07.711Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/e94834ed-f92c-41ab-b736-89237304ab40.webp"
     },
     {
       "id": "b841fd2b-70b6-45fe-9569-f8404eecbcd4",
@@ -3930,8 +4062,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T22:04:13.278Z",
-      "updated_at": "2026-09-23T22:04:13.278Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:36:11.055Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/c4395a49-96b6-4965-8743-100878615670.webp"
     },
     {
       "id": "a207699a-9495-410a-aa9d-24c75ce564d3",
@@ -3973,8 +4105,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T21:56:20.097Z",
-      "updated_at": "2026-09-23T21:56:20.097Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:36:14.983Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/3a8fa839-67fe-4ea5-af8b-a9c68f9a840a.webp"
     },
     {
       "id": "10c6397a-cb44-4315-a9e9-85e187d34eef",
@@ -4021,8 +4153,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T21:38:40.393Z",
-      "updated_at": "2026-09-23T21:38:40.393Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:36:18.824Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/701d8b79-e93c-41cd-9928-4c905d494c46.webp"
     },
     {
       "id": "0a127b7a-52b0-4979-a573-f9416b6c9635",
@@ -4067,8 +4199,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T21:35:53.289Z",
-      "updated_at": "2026-09-23T21:35:53.289Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:36:22.275Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/5dd84e34-844a-40fa-9141-bb79c5b55aee.webp"
     },
     {
       "id": "444fe5d0-6d46-4b20-9187-7425f8215ecd",
@@ -4116,8 +4248,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T21:31:31.580Z",
-      "updated_at": "2026-09-23T21:31:31.580Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:36:25.603Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/413f1807-e673-40d8-bf09-83cd4cd21272.webp"
     },
     {
       "id": "85f0ed77-1080-4632-8b73-e77ee640e134",
@@ -4159,8 +4291,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T21:24:41.071Z",
-      "updated_at": "2026-09-23T21:24:41.071Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:36:28.196Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/5fc612d3-8a52-4387-b471-f1ea35f5f4c6.webp"
     },
     {
       "id": "dce3ed25-e1ab-452f-89e7-8757fbee8f5c",
@@ -4204,8 +4336,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T21:04:06.599Z",
-      "updated_at": "2026-09-23T21:04:06.599Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:36:31.212Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/a2dbd9f3-5f7a-42b7-b07f-b2ea753a4860.webp"
     },
     {
       "id": "b0e552b4-aad2-4813-b004-9d5a9af9de4d",
@@ -4248,8 +4380,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T21:00:34.445Z",
-      "updated_at": "2026-09-23T21:00:34.445Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:36:34.432Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/5aa29205-473e-4417-9694-462e4859fc94.webp"
     },
     {
       "id": "a5790385-adfd-4e8f-9b36-ff326c05f8a8",
@@ -4290,8 +4422,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T20:38:15.351Z",
-      "updated_at": "2026-09-23T20:38:15.351Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:36:38.372Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/825ac3d8-c47e-4d39-9a50-4cebdcbfc2ca.webp"
     },
     {
       "id": "9800377d-6175-4480-bece-7ea7fc3632b6",
@@ -4335,8 +4467,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T20:26:44.722Z",
-      "updated_at": "2026-09-23T20:26:44.722Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:36:42.167Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/07901ffc-1820-44b3-8334-92fd93ed8415.webp"
     },
     {
       "id": "ad93cd7c-5ca6-41ac-9e5e-5c2f7af2fa01",
@@ -4384,8 +4516,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T20:24:11.643Z",
-      "updated_at": "2026-09-23T20:24:11.643Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:36:45.948Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/66420cc8-615f-4e69-9f61-1e4272a0fde4.webp"
     },
     {
       "id": "b090c71e-9d3f-4438-a5ef-0ff19dd58b71",
@@ -4428,8 +4560,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T20:20:39.108Z",
-      "updated_at": "2026-09-23T20:20:39.108Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:36:49.617Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/7aa5cdc1-e0c4-4ab4-b084-ec2531b8df7d.webp"
     },
     {
       "id": "9d04150e-92b6-474a-b855-33a3a7b70d6d",
@@ -4476,8 +4608,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T20:14:13.414Z",
-      "updated_at": "2026-09-23T20:14:13.414Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:36:53.349Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/f6cee63a-b3f4-4369-be1b-d951d01cb84b.webp"
     },
     {
       "id": "d84fb2d2-b8fa-4b40-8b21-2150a4d02fa8",
@@ -4524,8 +4656,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T20:06:36.138Z",
-      "updated_at": "2026-09-23T20:06:36.138Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:36:56.927Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/fdc303b2-9a42-4318-ae85-bafe1248ed3d.webp"
     },
     {
       "id": "7e860284-17c7-4a10-aed6-124b91c9cc0e",
@@ -4572,8 +4704,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T20:03:53.267Z",
-      "updated_at": "2026-09-23T20:06:47.139Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:37:00.798Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/db50a294-7e29-45c7-ac49-31a045aa2586.webp"
     },
     {
       "id": "67ca1c6a-aca8-4cec-b9b0-e0d6f54be6cc",
@@ -4620,8 +4752,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T19:54:50.809Z",
-      "updated_at": "2026-09-23T19:58:00.248Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:37:05.166Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/606218ec-67f1-4bc3-96db-58f61bbc10d9.webp"
     },
     {
       "id": "5cadffdc-a2f9-4c93-b319-1eb0499e4eab",
@@ -4669,8 +4801,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T19:45:14.949Z",
-      "updated_at": "2026-09-23T19:45:14.949Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:37:08.937Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/9d0fd824-3658-4c4a-a768-92ae793cec15.webp"
     },
     {
       "id": "b4e6f0eb-01dd-4da7-9998-8775cf203a21",
@@ -4712,8 +4844,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T19:41:14.354Z",
-      "updated_at": "2026-09-23T19:41:14.354Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:37:12.560Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/d57b83c8-2c01-4679-af55-361b51e18c4e.webp"
     },
     {
       "id": "5dd6d099-63f6-498a-a10c-6ab3b5d12756",
@@ -4755,8 +4887,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T19:38:25.990Z",
-      "updated_at": "2026-09-23T19:38:25.990Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:37:16.288Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/bbf41963-9b76-48be-9c4b-8fabbd7672bc.webp"
     },
     {
       "id": "f8b7936c-b61b-4b76-950e-3e790d9c44d3",
@@ -4803,8 +4935,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T19:35:41.360Z",
-      "updated_at": "2026-09-23T19:35:41.360Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:37:20.226Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/655b3af5-9ed8-4f94-b583-b0a877d1aff6.webp"
     },
     {
       "id": "4ab8adcc-bb44-4f80-ac23-b4a9e16377db",
@@ -4846,8 +4978,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T19:32:32.897Z",
-      "updated_at": "2026-09-23T19:32:32.897Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:37:23.292Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/b175098b-7ff7-467f-a724-146836e0fd4c.webp"
     },
     {
       "id": "932162dc-cfe4-4dba-9ed3-80668b9eedd3",
@@ -4891,8 +5023,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T19:30:32.553Z",
-      "updated_at": "2026-09-23T19:30:32.553Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:37:26.435Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/db10fff6-9370-4a31-a72f-3eb1aa9a0ee0.webp"
     },
     {
       "id": "0bb41fc7-aa5f-4b25-ac3f-f71ba42a1767",
@@ -4935,8 +5067,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T19:24:53.438Z",
-      "updated_at": "2026-09-23T19:24:53.438Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:37:29.453Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/649f31c9-d852-43bd-871f-f836516a4006.webp"
     },
     {
       "id": "dd2fc399-0d86-4fac-80bc-3d8b60f8e89a",
@@ -4983,8 +5115,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T19:22:08.916Z",
-      "updated_at": "2026-09-23T19:22:08.916Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:37:33.339Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/06e42fc9-b533-44d6-8045-68a7093b312b.webp"
     },
     {
       "id": "cab458d5-7823-41e6-9230-767c49d458fe",
@@ -5034,8 +5166,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T19:19:20.938Z",
-      "updated_at": "2026-09-23T19:19:20.938Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:37:36.785Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/cce23400-0cab-46b5-8990-f227dabf6fde.webp"
     },
     {
       "id": "40a0e746-5b17-4270-8769-0140c68d61fd",
@@ -5082,8 +5214,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T19:13:47.953Z",
-      "updated_at": "2026-09-23T19:13:47.953Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:37:38.554Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/17490696-4b1c-4f0a-869f-05c8ca0dc0bb.webp"
     },
     {
       "id": "7c1ef51f-d1ea-4780-b550-01a2b8c7c9e5",
@@ -5130,8 +5262,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T19:09:46.472Z",
-      "updated_at": "2026-09-23T19:09:46.472Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:37:41.952Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/dbb505b8-2c99-471d-90a4-486fc2d44034.webp"
     },
     {
       "id": "c118a18c-c432-4c0f-9154-e466f2db4520",
@@ -5178,8 +5310,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T19:06:30.324Z",
-      "updated_at": "2026-09-25T06:02:34.947Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:37:46.479Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/6d99d18d-5363-4926-aa37-23411099e9f9.webp"
     },
     {
       "id": "a5e7c103-324b-456e-9fa8-973705984413",
@@ -5229,8 +5361,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T19:04:03.369Z",
-      "updated_at": "2026-09-23T19:04:03.369Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:37:50.132Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/faed4ea8-f57b-470e-9529-3879a2ab20b8.webp"
     },
     {
       "id": "d7d51625-8b45-426d-ac40-640ebbef998a",
@@ -5273,8 +5405,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T18:59:18.349Z",
-      "updated_at": "2026-09-23T18:59:18.349Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:37:59.286Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/6efe87a9-71fe-4542-97e1-dad983a5ab42.webp"
     },
     {
       "id": "5e45d082-a5fa-4a4b-aa21-9dd2dd44e1a4",
@@ -5322,8 +5454,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T18:56:34.186Z",
-      "updated_at": "2026-09-23T18:56:34.186Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:38:02.305Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/c5c9ab3c-75b1-46ad-b5f1-7cc3bcfa8b65.webp"
     },
     {
       "id": "cab5f025-7efa-4ebb-a756-b4f073b961fd",
@@ -5368,8 +5500,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T18:52:22.363Z",
-      "updated_at": "2026-09-23T18:52:22.363Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:38:07.456Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/8aee74a4-45b8-4517-8ea8-d99d56ec7c8d.webp"
     },
     {
       "id": "4384bb9e-7c38-4870-bfae-8efa036750b7",
@@ -5417,8 +5549,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T18:45:46.850Z",
-      "updated_at": "2026-09-23T18:45:46.850Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:38:13.907Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/10aeced3-5a11-466b-a652-c7beece1c830.webp"
     },
     {
       "id": "35bd6b13-8f8e-4b4b-8816-f1174eaf8e72",
@@ -5466,8 +5598,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T18:43:27.930Z",
-      "updated_at": "2026-09-23T18:43:27.930Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:38:16.535Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/93af6b94-f20b-4e20-a075-a012278c2894.webp"
     },
     {
       "id": "5d28aae3-88f7-4a65-affa-a6ecaecbb9c3",
@@ -5510,8 +5642,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T18:40:23.793Z",
-      "updated_at": "2026-09-23T18:40:23.793Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:38:18.693Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/79ac776a-b54e-48ed-94c6-f822d04f6055.webp"
     },
     {
       "id": "04dcfc9b-3418-41d8-8013-71c1d50fa201",
@@ -5554,8 +5686,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T17:02:02.639Z",
-      "updated_at": "2026-09-23T17:02:02.639Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:38:21.236Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/413151b1-2066-4597-9eb8-7cfccba26ff4.webp"
     },
     {
       "id": "47ca62fe-b7a7-4bb3-9b95-84164e18fb98",
@@ -5597,8 +5729,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T16:54:36.902Z",
-      "updated_at": "2026-09-23T16:54:36.902Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:38:24.659Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/2d3dc183-3dc6-4606-b106-4562273e690f.webp"
     },
     {
       "id": "d554dc09-3248-46d9-b3e8-e3542ef2c14d",
@@ -5640,8 +5772,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T16:52:15.178Z",
-      "updated_at": "2026-09-23T16:52:15.178Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:38:27.655Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/90db8453-356e-48bb-b5e7-5fdbf1d22f3b.webp"
     },
     {
       "id": "0e728419-b594-4c3d-8d13-e5ee898ac2c7",
@@ -5684,8 +5816,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T16:33:56.779Z",
-      "updated_at": "2026-09-23T16:33:56.779Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:38:29.471Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/370a461a-6522-4c5c-8592-b24a82b1108d.webp"
     },
     {
       "id": "c659bef7-16db-4888-980e-4acde94dc66e",
@@ -5733,8 +5865,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T16:24:18.284Z",
-      "updated_at": "2026-09-23T16:24:18.284Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:38:37.757Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/3a7943d4-3d88-498a-8348-1c55adef308a.webp"
     },
     {
       "id": "914c6ad3-3cf2-41b8-a1d5-636397887c16",
@@ -5782,8 +5914,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T16:18:35.315Z",
-      "updated_at": "2026-09-23T16:18:35.315Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:38:40.941Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/0ec96ac2-cda9-465b-833b-b12537cf7102.webp"
     },
     {
       "id": "142a85a6-fd77-45aa-965b-37365b2029f1",
@@ -5826,8 +5958,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T16:12:49.804Z",
-      "updated_at": "2026-09-23T19:07:41.638Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:38:45.098Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/efa38b17-be98-48c4-978c-319df9b48002.webp"
     },
     {
       "id": "9852ecdb-7db4-457b-a2f3-3e03ae7f0d16",
@@ -5871,8 +6003,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T16:10:01.699Z",
-      "updated_at": "2026-09-23T16:10:01.699Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:38:49.109Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/456b0bec-061f-4d0b-b5fe-896e702d21d3.webp"
     },
     {
       "id": "5a358250-c877-4193-aebb-2126af26612d",
@@ -5918,8 +6050,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T16:08:05.992Z",
-      "updated_at": "2026-09-23T16:08:05.992Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:38:55.428Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/96747edb-46ca-4c1a-8cb0-21ac86e862e3.webp"
     },
     {
       "id": "eecf9e78-f0d2-4777-8c62-14c7514453cd",
@@ -5967,8 +6099,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T16:05:49.002Z",
-      "updated_at": "2026-09-23T16:05:49.002Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:38:58.805Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/510d0665-fe02-46e3-9f63-4c1b72c51891.webp"
     },
     {
       "id": "a97b49a8-ae39-4d96-aa2d-46db81779d18",
@@ -6010,8 +6142,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T16:03:43.310Z",
-      "updated_at": "2026-09-23T16:03:43.310Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:39:03.549Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/876f8516-f047-4dbf-9fd7-b399fbaf2887.webp"
     },
     {
       "id": "5677c823-53ca-4ed8-8eb9-163b0246c7ac",
@@ -6061,8 +6193,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T16:01:14.634Z",
-      "updated_at": "2026-09-23T16:01:14.634Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:39:07.407Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/1ddc36eb-5ded-4281-b16e-db1a36391f67.webp"
     },
     {
       "id": "7188a717-d3f2-49ab-a086-a243cca409d4",
@@ -6112,8 +6244,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T15:58:38.297Z",
-      "updated_at": "2026-09-23T15:58:38.297Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:39:10.608Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/f2078f25-74bf-4e51-a688-0042f1ac4df9.webp"
     },
     {
       "id": "646417a1-aa19-4fc5-a540-b08135b7e3a0",
@@ -6162,8 +6294,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T15:55:42.941Z",
-      "updated_at": "2026-09-23T15:55:42.941Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:39:13.420Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/bacd2942-0868-4eca-9c23-9d5867d84b5c.webp"
     },
     {
       "id": "e2a79f7f-da05-484f-8ec3-576a104e184c",
@@ -6210,8 +6342,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T15:53:02.821Z",
-      "updated_at": "2026-09-23T15:53:02.821Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:39:16.691Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/30cbf0f1-807c-442c-a47b-a64239fb8521.webp"
     },
     {
       "id": "767d1c53-3197-4c31-9780-eb8a98250c43",
@@ -6254,8 +6386,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T15:50:05.608Z",
-      "updated_at": "2026-09-23T15:50:05.608Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:39:18.933Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/6b41f0bf-280d-4f33-a358-97eaa10efb64.webp"
     },
     {
       "id": "7f828949-075f-432c-b3ba-f495fb8cd0fc",
@@ -6299,8 +6431,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T15:47:58.138Z",
-      "updated_at": "2026-09-23T15:47:58.138Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:39:22.176Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/17c23ef2-3af0-4c18-8c02-0ca9ae9f0c9c.webp"
     },
     {
       "id": "cbc73e01-e1f4-430b-b82d-eb3878fa8ae9",
@@ -6345,8 +6477,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T15:43:28.516Z",
-      "updated_at": "2026-09-23T15:43:28.516Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:39:25.433Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/1b5db6fd-bfec-42a5-b1eb-20b427aa36fa.webp"
     },
     {
       "id": "2c48ad73-0daf-4771-8eaa-6449457c9a51",
@@ -6392,8 +6524,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T15:22:44.766Z",
-      "updated_at": "2026-09-23T15:22:44.766Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:40:06.514Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/bbb462af-2abf-4cc9-8155-1d9b37664e82.webp"
     },
     {
       "id": "73ea343f-f56d-4c30-a0e0-1df80a0f8f40",
@@ -6430,8 +6562,8 @@
       "status": "draft",
       "show_on_site": false,
       "created_at": "2026-09-23T14:16:20.849Z",
-      "updated_at": "2026-09-23T14:16:20.849Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:40:09.556Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/4955627a-436b-4a89-a318-402582a6cd2f.webp"
     },
     {
       "id": "f18b748d-0023-4c4d-961a-56d1e1c1ed54",
@@ -6478,8 +6610,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T14:13:54.957Z",
-      "updated_at": "2026-09-23T14:13:54.957Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:40:13.344Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/95dcd03a-2f16-44cc-9115-a4cff65afdc5.webp"
     },
     {
       "id": "a22517f8-7fc9-4952-9dba-166e33575dc6",
@@ -6526,8 +6658,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T14:09:52.045Z",
-      "updated_at": "2026-09-23T14:09:52.045Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:40:15.972Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/7f94259c-e47a-47cd-b986-f86ff220811c.webp"
     },
     {
       "id": "d817289b-487e-4b62-a0e4-6c1be9862758",
@@ -6569,8 +6701,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T13:52:42.486Z",
-      "updated_at": "2026-09-23T13:52:42.486Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:40:25.025Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/91b8c82e-cd6a-436d-8014-3e9804fa67ad.webp"
     },
     {
       "id": "6192b643-ea98-454e-928d-a79f5421f037",
@@ -6609,8 +6741,8 @@
       "status": "draft",
       "show_on_site": false,
       "created_at": "2026-09-23T13:48:04.460Z",
-      "updated_at": "2026-09-23T13:48:04.460Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:40:28.590Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/ec414536-0ad7-44e9-8e20-e051085f12a2.webp"
     },
     {
       "id": "9d947c97-d870-444a-8d26-3462c02957f9",
@@ -6649,8 +6781,8 @@
       "status": "draft",
       "show_on_site": false,
       "created_at": "2026-09-23T13:46:54.864Z",
-      "updated_at": "2026-09-23T13:46:54.864Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:40:31.326Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/743d65b3-20d8-4dd3-8dfe-cfc5c7ccb780.webp"
     },
     {
       "id": "b0b4910e-eb55-442b-aa7b-f65cbe2cff2a",
@@ -6689,8 +6821,8 @@
       "status": "draft",
       "show_on_site": false,
       "created_at": "2026-09-23T13:45:36.121Z",
-      "updated_at": "2026-09-23T13:45:36.121Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:40:33.944Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/c3289f3c-85ac-42f5-99bf-db7833565bbc.webp"
     },
     {
       "id": "1bfdd137-b667-43f0-ae4c-047bf2d1a25e",
@@ -6739,8 +6871,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T13:29:59.910Z",
-      "updated_at": "2026-09-23T13:29:59.910Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:40:36.700Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/b5e22d37-8a55-400c-955f-b4e5c1c330d7.webp"
     },
     {
       "id": "1336901c-70da-4d04-bd94-dfbcd91bf075",
@@ -6788,8 +6920,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T13:24:08.193Z",
-      "updated_at": "2026-09-23T13:24:08.193Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:40:39.164Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/950eedf7-4e42-49dd-90de-79542d504f50.webp"
     },
     {
       "id": "00e9eb90-d37f-43e8-a394-fac7fced3140",
@@ -6832,8 +6964,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T13:04:28.461Z",
-      "updated_at": "2026-09-23T15:37:32.612Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:40:41.736Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/914ad794-56e6-4a29-bed5-12212f0e2edb.webp"
     },
     {
       "id": "a2d0ab0a-9025-4c6a-a236-e489ad4e6363",
@@ -6880,8 +7012,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T12:53:25.544Z",
-      "updated_at": "2026-09-23T12:53:25.544Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:40:43.599Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/43a8042b-b98e-4487-b171-d7769060ca74.webp"
     },
     {
       "id": "48d2f69b-2b0e-427e-90a6-b0e40b52d12c",
@@ -6924,8 +7056,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T12:49:26.717Z",
-      "updated_at": "2026-09-23T12:49:26.717Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:40:45.636Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/b65dee80-0555-4e40-a734-6ba5a6db9e5b.webp"
     },
     {
       "id": "8688df1c-076c-4c43-b39f-5380e1f41dad",
@@ -6975,8 +7107,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T12:45:15.526Z",
-      "updated_at": "2026-09-23T12:45:15.526Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:40:47.615Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/86307eac-bd37-4240-80c0-4056ac64f54a.webp"
     },
     {
       "id": "38b32803-1ef4-4dac-9ca2-95b09857eaef",
@@ -7023,8 +7155,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T12:43:37.474Z",
-      "updated_at": "2026-09-23T12:43:37.474Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:40:49.748Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/8126a9ee-95f8-40da-a2cf-58fa886da792.webp"
     },
     {
       "id": "167c2d5e-e04a-4e41-94cf-8b06857bd25c",
@@ -7068,8 +7200,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T12:39:58.610Z",
-      "updated_at": "2026-09-23T12:39:58.610Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:40:53.155Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/6f1ed41f-55f1-436a-a19f-6213c589a1d6.webp"
     },
     {
       "id": "5afa4b79-8c73-407e-be13-2b55d725777a",
@@ -7112,8 +7244,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T12:33:53.893Z",
-      "updated_at": "2026-09-23T12:33:53.893Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:40:56.969Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/9611ef42-1fb4-4e63-839a-6143219760a9.webp"
     },
     {
       "id": "dca43757-61ce-49a3-be09-bd0b8271b541",
@@ -7163,8 +7295,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T12:32:00.490Z",
-      "updated_at": "2026-09-23T12:32:00.490Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:40:59.590Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/c09f748d-878c-4372-8ed2-bc7454f2ff80.webp"
     },
     {
       "id": "d77dbe05-9a72-4dc0-a24f-dab897adf989",
@@ -7214,8 +7346,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T12:28:50.275Z",
-      "updated_at": "2026-09-23T12:29:16.108Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:41:02.345Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/498edbb3-6e11-4830-b28b-ad7d983428cd.webp"
     },
     {
       "id": "1a4b6c05-fd6d-4c22-b33a-24b0941712cd",
@@ -7262,8 +7394,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T12:24:28.423Z",
-      "updated_at": "2026-09-23T12:24:28.423Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:41:04.870Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/d08a265e-35b4-4ac2-bdeb-d57a89ca0a47.webp"
     },
     {
       "id": "61780289-b077-4a3e-bdb7-6dfda6b4fbc9",
@@ -7310,8 +7442,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T12:20:56.117Z",
-      "updated_at": "2026-09-23T12:20:56.117Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:41:07.696Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/cb429ff2-d306-463c-b82d-4233aa5cd616.webp"
     },
     {
       "id": "c2ad1ed2-9852-42c5-85ad-1cdf795ed959",
@@ -7357,8 +7489,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T12:18:14.415Z",
-      "updated_at": "2026-09-23T12:18:14.415Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:41:10.090Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/e12445d7-9769-4335-a11a-49b30e1b31a9.webp"
     },
     {
       "id": "cdfe546f-e507-401c-b47d-b69d5bf72a6b",
@@ -7406,8 +7538,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T12:16:04.528Z",
-      "updated_at": "2026-09-23T12:16:04.528Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:41:12.696Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/c67fa309-7ad7-4a7c-91a6-86d1ebcd8162.webp"
     },
     {
       "id": "aa4c7987-9704-4f5c-89e4-c92ff73fa96b",
@@ -7454,8 +7586,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T12:12:55.926Z",
-      "updated_at": "2026-09-23T12:12:55.926Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:41:15.209Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/e895dd5c-b3d9-4044-b7fb-e2c63d160b87.webp"
     },
     {
       "id": "7b53045d-ce7b-42ed-9837-fa7c4d415b1a",
@@ -7504,8 +7636,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T12:09:54.286Z",
-      "updated_at": "2026-09-23T12:09:54.286Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:41:17.179Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/bb665ae6-f801-40b6-9560-d63b2b9a1b82.webp"
     },
     {
       "id": "c4e09ebb-7d10-4673-9694-4c63992145ad",
@@ -7549,8 +7681,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T11:58:39.108Z",
-      "updated_at": "2026-09-23T11:58:39.108Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:41:19.475Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/71251470-713d-47ce-a178-ee96f1e08f93.webp"
     },
     {
       "id": "27af85f3-c878-4836-a7e4-56a84881d496",
@@ -7600,8 +7732,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T11:48:36.838Z",
-      "updated_at": "2026-09-23T11:48:36.838Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:41:21.942Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/73caf77a-eeb3-4966-b200-2c511c17bd46.webp"
     },
     {
       "id": "38f6c40b-32d2-435c-81a5-f8f00d00fab1",
@@ -7643,8 +7775,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T11:15:14.455Z",
-      "updated_at": "2026-09-23T11:15:14.455Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:41:24.309Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/baa5402f-9bbf-4f52-a5bc-c17a214fd6f3.webp"
     },
     {
       "id": "02e9e2e7-e3c0-4ecb-b794-ab51da0e2ee4",
@@ -7690,8 +7822,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T11:12:59.377Z",
-      "updated_at": "2026-09-23T11:12:59.377Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:41:26.990Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/54900eea-6fa5-428e-a987-02acfd54374b.webp"
     },
     {
       "id": "5bc157ef-8136-4120-9a61-b9548a04ab58",
@@ -7737,8 +7869,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T11:11:14.174Z",
-      "updated_at": "2026-09-23T11:11:14.174Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:41:29.219Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/76b68ac7-de34-4077-b302-cf8a3c51f49e.webp"
     },
     {
       "id": "c92b6891-c610-4dd9-987c-ef0c3fe6c967",
@@ -7783,8 +7915,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T11:09:25.615Z",
-      "updated_at": "2026-09-23T11:09:25.615Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:41:31.563Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/89abc825-b72a-412d-a15a-61ceae9b0f3e.webp"
     },
     {
       "id": "f34cba4f-03c1-4cb1-963e-354bdad3393b",
@@ -7830,8 +7962,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T11:03:20.134Z",
-      "updated_at": "2026-09-23T11:03:20.134Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:41:34.097Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/7c55433f-cedb-4610-8b03-3fcef389a67a.webp"
     },
     {
       "id": "dfdfcd1a-3a91-4a46-b879-011a08966814",
@@ -7880,8 +8012,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T10:56:41.167Z",
-      "updated_at": "2026-09-23T10:56:41.167Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:41:37.197Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/d4c93ae7-fb44-481c-a148-a875cd471a5b.webp"
     },
     {
       "id": "18a09772-9ffe-4864-84fd-178346d15403",
@@ -7930,8 +8062,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T10:54:48.665Z",
-      "updated_at": "2026-09-23T10:54:48.665Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:41:40.165Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/49baf9c0-64fe-4c92-82a9-16e8e1e3313f.webp"
     },
     {
       "id": "ed6bded6-fac2-41e4-a6d6-14f50fe8f1f7",
@@ -7974,8 +8106,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T10:51:53.427Z",
-      "updated_at": "2026-09-23T10:51:53.427Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:41:43.676Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/0946210d-4607-4963-b098-861bd802e203.webp"
     },
     {
       "id": "01c4dcdd-aa8f-4442-b49f-91c7b8623149",
@@ -8023,8 +8155,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T10:48:47.035Z",
-      "updated_at": "2026-09-23T10:48:47.035Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:41:46.990Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/50d7ac99-ca0f-4d2e-a8b9-9cc5a2d7abc0.webp"
     },
     {
       "id": "8ab66da3-ad4c-4b86-bef2-4962e3e3d3b3",
@@ -8072,8 +8204,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T05:33:48.457Z",
-      "updated_at": "2026-09-23T10:56:51.342Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:41:50.467Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/8018ff0a-7ea9-484a-8978-f7c339dd9959.webp"
     },
     {
       "id": "674564c8-cf7b-47df-a672-cdd3a01ceec8",
@@ -8120,8 +8252,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T05:28:46.697Z",
-      "updated_at": "2026-09-23T05:28:46.697Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:41:54.370Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/87fa5762-725a-4819-bd33-ecd14b520c2f.webp"
     },
     {
       "id": "d1106fe5-c1cd-453b-98c5-77a1949184b6",
@@ -8166,8 +8298,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-22T22:24:07.636Z",
-      "updated_at": "2026-09-22T22:24:07.636Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:41:56.696Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/439d4b3d-1704-4d72-b387-aeb12bbc5ea1.webp"
     },
     {
       "id": "1e913f79-0ba9-4fc1-abc2-2f4a3ad12fa2",
@@ -8214,8 +8346,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-22T22:21:13.479Z",
-      "updated_at": "2026-09-22T22:21:13.479Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:41:59.908Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/6e382e4b-6128-4df7-a43e-8e3e11cd34a3.webp"
     },
     {
       "id": "bd2d3e20-f4c6-4d61-9a83-fc4ac721182b",
@@ -8263,8 +8395,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-22T22:10:16.641Z",
-      "updated_at": "2026-09-22T22:10:16.641Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:42:03.401Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/dd83052f-08a4-4d47-8a68-ccae167fc664.webp"
     },
     {
       "id": "34ee0135-8fd9-419b-ad9d-4fbaa1896470",
@@ -8307,8 +8439,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-22T21:58:38.019Z",
-      "updated_at": "2026-09-22T21:58:38.019Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:42:06.737Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/65b11474-2d16-42da-ba0a-b5413e027473.webp"
     },
     {
       "id": "2b9ab66e-22e1-4b9c-977e-e030ab70a7a4",
@@ -8349,8 +8481,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-22T21:50:02.875Z",
-      "updated_at": "2026-09-22T21:50:02.875Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:42:10.536Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/8127f7b5-ab1a-4bd0-a737-5082a20c2f8c.webp"
     },
     {
       "id": "39aec565-6178-4b0b-98e2-dc016b3271fa",
@@ -8391,8 +8523,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-22T21:48:20.417Z",
-      "updated_at": "2026-09-22T21:48:20.417Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:42:13.276Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/3dfd4da7-c066-4a34-9dec-cb84838f7f6c.webp"
     },
     {
       "id": "97d5861a-8f1d-4d6b-a22a-897d287bfd02",
@@ -8433,8 +8565,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-22T21:38:53.853Z",
-      "updated_at": "2026-09-22T21:38:53.853Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:42:16.566Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/66761c6d-7415-4394-ac61-b09f88dfd860.webp"
     },
     {
       "id": "39c3a5aa-8db4-484a-8fdb-b074a258b331",
@@ -8476,8 +8608,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-22T21:26:57.834Z",
-      "updated_at": "2026-09-22T21:26:57.834Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:42:19.352Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/7dd1ced9-0d33-435b-93f5-a0d816d0cced.webp"
     },
     {
       "id": "7c4772b6-6b33-4d3d-9ee6-b074b228cec4",
@@ -8518,8 +8650,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-22T21:22:01.416Z",
-      "updated_at": "2026-09-22T21:22:01.416Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:42:22.593Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/dd349218-18b9-44aa-8d84-a8bcf58b371d.webp"
     },
     {
       "id": "2d82fc7b-3c88-4708-b53d-9909fa167444",
@@ -8560,8 +8692,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-22T21:19:08.371Z",
-      "updated_at": "2026-09-22T21:19:08.371Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:42:25.394Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/50a02dfe-924c-4044-853f-8e2eb3a84626.webp"
     },
     {
       "id": "b4f342d6-e06c-48a0-b487-f0ad4fbe4330",
@@ -8602,8 +8734,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-22T21:15:50.932Z",
-      "updated_at": "2026-09-22T21:15:50.932Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:42:28.972Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/17660a4d-5ad3-4a83-959e-471878221142.webp"
     },
     {
       "id": "342c0e99-ce80-4e05-92ce-db37863ab205",
@@ -8644,8 +8776,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-22T21:13:50.618Z",
-      "updated_at": "2026-09-22T21:13:50.618Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:42:33.077Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/1655b03a-2134-4159-bc97-75259281ecb2.webp"
     },
     {
       "id": "c459a005-b064-44a1-8fee-4989a2aef71f",
@@ -8686,8 +8818,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-22T21:10:25.297Z",
-      "updated_at": "2026-09-22T21:10:25.297Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:42:36.761Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/3f0eb2b3-13d2-42bb-bb26-5ebc4c1b494c.webp"
     },
     {
       "id": "3f03d96c-789b-4f39-8413-e68d86ab7c3d",
@@ -8730,8 +8862,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-22T18:39:28.941Z",
-      "updated_at": "2026-09-22T20:52:58.133Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:42:39.450Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/1b0814d1-5de3-42e0-b6d4-040d10e2c162.webp"
     },
     {
       "id": "f34bcbde-36b7-4338-9a32-d678fd423abd",
@@ -8778,8 +8910,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-22T14:28:54.419Z",
-      "updated_at": "2026-09-22T14:28:54.419Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:42:42.567Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/65f2e296-f0ee-4dd9-a702-6290e965f11e.webp"
     },
     {
       "id": "be9aa4d6-2e4b-4e8e-b56c-93c7e1bbab66",
@@ -8826,8 +8958,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-22T13:33:34.046Z",
-      "updated_at": "2026-09-22T13:33:34.046Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:42:44.543Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/c80b17dc-e557-46bd-b05e-a7312d329c9d.webp"
     },
     {
       "id": "32f41f5d-fd74-4b02-b3b5-949d14f903b7",
@@ -8870,8 +9002,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-22T13:28:01.015Z",
-      "updated_at": "2026-09-22T13:28:01.015Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:42:47.531Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/3b8bb207-6b86-499f-9e1b-3d7eaff1a821.webp"
     },
     {
       "id": "abe22aa2-6a9f-4a8d-bd0b-6ea8469959ac",
@@ -8913,8 +9045,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-22T13:23:40.638Z",
-      "updated_at": "2026-09-22T13:23:40.638Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:42:50.251Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/e4ad3ad6-04d6-467e-804a-6878d1381ef5.webp"
     },
     {
       "id": "77998411-69b6-4a71-b38f-4ebc95bd6c6b",
@@ -8964,8 +9096,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-22T13:16:12.203Z",
-      "updated_at": "2026-09-22T14:31:12.493Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:42:54.225Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/d00a4d5c-1c67-4bb5-801d-2736130fe9d0.webp"
     },
     {
       "id": "60b8a39b-625c-46cd-92c1-2e6fe064ad77",
@@ -9008,8 +9140,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-22T13:04:48.644Z",
-      "updated_at": "2026-09-22T13:04:48.644Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:42:58.026Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/f89ddc00-4e13-4917-8e61-33983773b4d2.webp"
     },
     {
       "id": "98743bd6-90d3-4fe0-86c6-7d8091472dc0",
@@ -9053,8 +9185,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-22T12:59:20.936Z",
-      "updated_at": "2026-09-22T12:59:20.936Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:43:00.726Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/3255d3e4-5f3c-4b66-a1fa-bbf7ab60d929.webp"
     },
     {
       "id": "f5dcfb42-7412-4c0d-b771-3fafc3398ceb",
@@ -9106,8 +9238,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-22T12:49:33.953Z",
-      "updated_at": "2026-09-22T12:49:33.953Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:43:02.396Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/7be2e4a5-9973-4c9b-a281-2949afa949c4.webp"
     },
     {
       "id": "3de4c396-9be2-419c-aac6-b85714c3eaa7",
@@ -9148,8 +9280,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-22T12:43:08.820Z",
-      "updated_at": "2026-09-22T12:43:08.820Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:43:05.656Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/03f4ccf5-b100-4474-a145-a02b15a09312.webp"
     },
     {
       "id": "1eba5f64-5f23-46bb-87ea-730ab6ee93e3",
@@ -9190,8 +9322,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-22T08:51:01.450Z",
-      "updated_at": "2026-09-22T08:51:01.450Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:43:09.138Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/080b5cf4-10b4-4443-ad7d-14d8671f6318.webp"
     },
     {
       "id": "901665f3-fe3f-4855-8fdf-feff72c95353",
@@ -9239,8 +9371,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-22T08:44:27.380Z",
-      "updated_at": "2026-09-22T08:44:27.380Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:43:13.130Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/6edcfd34-56bd-404c-998d-7696ab7d7133.webp"
     },
     {
       "id": "d583ca16-7f0a-443c-a600-3862688be52f",
@@ -9289,8 +9421,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-22T08:41:08.246Z",
-      "updated_at": "2026-09-22T08:41:08.246Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:43:16.509Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/1dbaa6da-5163-421a-962c-3780d4a97c09.webp"
     },
     {
       "id": "57978dd2-9831-4750-8253-cf44da94c56c",
@@ -9333,8 +9465,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-22T08:32:48.600Z",
-      "updated_at": "2026-09-22T08:32:48.600Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:43:21.943Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/077498c3-c27a-4b21-aa67-035fff77115b.webp"
     },
     {
       "id": "a0810183-9209-4a4e-9b80-4dadbd94b963",
@@ -9378,8 +9510,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-22T08:27:47.747Z",
-      "updated_at": "2026-09-22T08:27:47.747Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:43:24.872Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/bc15c0e1-0197-4189-8df0-aaa795ba33c9.webp"
     },
     {
       "id": "648a14f0-3bd8-470b-ab7c-fb26bf6bbad9",
@@ -9429,8 +9561,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-22T08:22:34.341Z",
-      "updated_at": "2026-09-22T08:22:34.341Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:43:30.278Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/53526c82-011a-42c6-bbb8-671d49f54ade.webp"
     },
     {
       "id": "b91ed2a3-cbb7-417c-851b-fd554748bf74",
@@ -9480,8 +9612,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-22T08:14:38.010Z",
-      "updated_at": "2026-09-22T08:14:38.010Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:43:38.345Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/c8c20c5f-7202-4b98-9f4d-99d58815fc75.webp"
     },
     {
       "id": "a30e9f12-ac2a-409a-80b0-a9403e350762",
@@ -9529,8 +9661,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-22T08:04:41.996Z",
-      "updated_at": "2026-09-22T08:04:41.996Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:43:41.510Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/eb41972f-a461-4815-9968-9f8334800588.webp"
     },
     {
       "id": "2d01c10e-9146-4b7e-8daf-29e5eb59c1a0",
@@ -9578,8 +9710,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-22T07:36:09.444Z",
-      "updated_at": "2026-09-22T07:36:09.444Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:43:43.721Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/b69a10d7-f370-4063-8f01-833a48f052e9.webp"
     },
     {
       "id": "ff023d04-c818-4bba-a643-1ccd44f51729",
@@ -9628,8 +9760,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-22T07:31:55.716Z",
-      "updated_at": "2026-09-22T07:31:55.716Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:43:47.755Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/05785b74-4b28-449b-a0a2-6289346f05c4.webp"
     },
     {
       "id": "89f5b7d7-85ed-4400-9151-e5608e026fb1",
@@ -9674,8 +9806,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-22T07:27:11.214Z",
-      "updated_at": "2026-09-22T07:27:11.214Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:43:51.068Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/8c4ef3b7-5c80-4057-b822-657531537d1b.webp"
     },
     {
       "id": "e8284956-48fe-4928-b285-bc6bbb530657",
@@ -9728,8 +9860,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-21T21:09:46.248Z",
-      "updated_at": "2026-09-21T21:09:46.248Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:43:54.057Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/8644af5b-6e4a-426b-8d53-7c2078097b81.webp"
     },
     {
       "id": "75c0caeb-b394-4409-9ac9-642657c06b47",
@@ -9777,8 +9909,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-21T21:02:03.118Z",
-      "updated_at": "2026-09-21T21:02:03.118Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:43:57.862Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/152df9e9-1de7-45d3-a9f9-22a2ce820a7c.webp"
     },
     {
       "id": "c2d304ac-9f30-4003-8445-e608f8016253",
@@ -9832,8 +9964,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-21T20:57:03.624Z",
-      "updated_at": "2026-09-21T20:57:03.624Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:44:00.997Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/849b94c7-00a7-48be-a56c-215a8c228107.webp"
     },
     {
       "id": "ceefe451-1b5b-4cf9-b708-c6f6882fbf15",
@@ -9881,8 +10013,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-21T20:53:27.662Z",
-      "updated_at": "2026-09-21T20:53:27.662Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:44:04.609Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/44a34677-b53a-481d-8a27-4de686fedb07.webp"
     },
     {
       "id": "9c22af8a-a722-4b38-a311-6a299921c93d",
@@ -9930,8 +10062,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-21T20:41:18.328Z",
-      "updated_at": "2026-09-21T20:41:18.328Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:44:09.684Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/3c8e91d5-a99a-4c7d-903f-1e92fb21cfe5.webp"
     },
     {
       "id": "60212e5f-d9ee-4a75-a568-8064b0c0a603",
@@ -9983,8 +10115,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-21T20:35:14.298Z",
-      "updated_at": "2026-09-21T20:35:14.298Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:44:13.440Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/7da2751a-7516-4096-ac6c-99b0cf9e12f2.webp"
     },
     {
       "id": "828bf927-4d39-4cae-837a-f9bde44fd692",
@@ -10032,8 +10164,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-21T20:30:17.539Z",
-      "updated_at": "2026-09-21T20:30:17.539Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:44:16.361Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/9cd124da-b3ca-4cfe-ba3b-58152f055062.webp"
     },
     {
       "id": "1662fd4e-f7ce-40d6-90bf-7e18059c6c6c",
@@ -10084,8 +10216,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-21T20:22:13.049Z",
-      "updated_at": "2026-09-21T20:22:13.049Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:44:19.440Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/24ac3b27-1c14-49a2-864f-efa906894338.webp"
     },
     {
       "id": "0c49cad3-840f-456f-8774-c87ce95dd4a9",
@@ -10137,8 +10269,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-21T19:47:20.102Z",
-      "updated_at": "2026-09-21T21:12:49.836Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:44:22.825Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/43bdcf09-0f5f-4e0f-9c92-a6a6fd7075d9.webp"
     },
     {
       "id": "97c01871-0077-42ef-b198-75391aca4241",
@@ -10187,8 +10319,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-21T19:27:39.892Z",
-      "updated_at": "2026-09-21T19:53:23.992Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:44:27.957Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/d601f743-f4f3-402c-80d6-91aba939d20b.webp"
     },
     {
       "id": "415168d4-ed23-463c-bb37-625a382d1412",
@@ -10238,8 +10370,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-21T19:22:50.767Z",
-      "updated_at": "2026-09-22 08:20:18",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:44:32.554Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/ad7f019a-3b25-49d1-bc62-a7bbd85a957c.webp"
     },
     {
       "id": "feb5afa0-ac57-4c22-a1b6-565af934ec09",
@@ -10287,8 +10419,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-21T19:10:16.975Z",
-      "updated_at": "2026-09-21T19:10:16.975Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:44:35.724Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/caf16c46-eba2-4b2a-8817-3c5d83768e00.webp"
     },
     {
       "id": "d9fa6d5a-8986-44c8-9957-602a578d8cc8",
@@ -10336,8 +10468,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-21T19:01:57.356Z",
-      "updated_at": "2026-09-21T19:01:57.356Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:44:38.571Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/88581fcc-1c86-48e4-9089-e384d8a3acab.webp"
     },
     {
       "id": "816d2834-87c5-4aaa-bcd8-103f5a71bdf1",
@@ -10386,8 +10518,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-21T18:50:32.478Z",
-      "updated_at": "2026-09-21T18:50:32.478Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:44:41.417Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/37379462-cead-43c0-8ecc-3a55bf103a0e.webp"
     },
     {
       "id": "8557c9cf-9cfb-4e98-9e42-2fd90ef6ed5f",
@@ -10428,8 +10560,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-21T17:05:38.825Z",
-      "updated_at": "2026-09-21T17:05:38.825Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:44:43.640Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/3268cf68-ae21-4cec-bc58-bef91eeed575.webp"
     },
     {
       "id": "c550da85-7e46-4624-9dbc-5528bb3dac19",
@@ -10470,8 +10602,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-21T17:00:31.337Z",
-      "updated_at": "2026-09-21T18:56:27.031Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:44:46.346Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/3be18d4a-c555-41d3-89ed-e96881be007e.webp"
     },
     {
       "id": "7c4bd082-266e-44f4-a895-fe7f8873750f",
@@ -10516,8 +10648,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-21T16:57:45.220Z",
-      "updated_at": "2026-09-21T16:57:45.220Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:44:49.428Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/602dd53c-27b3-4d1c-ab48-06f73fd27545.webp"
     },
     {
       "id": "884bb1c2-81b4-4d61-9061-65b79fbc0b3d",
@@ -10558,8 +10690,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-21T16:47:32.309Z",
-      "updated_at": "2026-09-21T16:47:32.309Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:44:52.688Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/448a0eb9-d9f1-48cc-bf7f-6baea6590417.webp"
     },
     {
       "id": "8682ed31-5b8f-4c4b-960d-4c8761e67edc",
@@ -10600,8 +10732,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-21T16:41:43.769Z",
-      "updated_at": "2026-09-21T16:41:43.769Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:44:55.322Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/4f1f7fd7-e6d5-4144-8178-cf54943e716a.webp"
     },
     {
       "id": "7cdd4590-550c-47b0-9287-69ea43241520",
@@ -10642,8 +10774,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-21T16:38:03.306Z",
-      "updated_at": "2026-09-21T18:41:23.235Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:44:57.811Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/3efd6a0b-588a-4dc3-86e3-7d4d3bb48d36.webp"
     },
     {
       "id": "8d289a53-b8c0-48aa-ab56-3604de009f2d",
@@ -10684,8 +10816,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-21T14:44:16.718Z",
-      "updated_at": "2026-09-21T14:44:16.718Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:45:00.925Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/02c36731-cdc0-4b18-bbec-f4f1f7fb6f64.webp"
     },
     {
       "id": "fb85313d-af55-4ddb-bb74-d8fd472ce31d",
@@ -10726,8 +10858,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-21T14:41:55.430Z",
-      "updated_at": "2026-09-21T14:41:55.430Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:45:03.864Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/976077db-aeb5-4561-af35-0f3189d261ba.webp"
     },
     {
       "id": "d2889a10-370a-4d0c-8395-360e9c7de083",
@@ -10768,8 +10900,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-21T13:51:16.947Z",
-      "updated_at": "2026-09-21T13:51:16.947Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:45:07.797Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/87b5d699-1228-412e-b0bc-f0f3cc800cf5.webp"
     },
     {
       "id": "b2a11b80-960b-43f8-be4c-1756ddd3f547",
@@ -10810,8 +10942,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-21T13:47:45.726Z",
-      "updated_at": "2026-09-21T13:47:45.726Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:45:11.780Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/8c0bf5eb-db5a-45b8-a2c4-e7462f1da0e2.webp"
     },
     {
       "id": "faf06c25-9f3a-4b57-8d46-912c295b09bc",
@@ -10852,8 +10984,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-21T13:30:04.641Z",
-      "updated_at": "2026-09-21T13:30:04.641Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:45:15.615Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/3efcf6a8-3766-4750-a35b-3d49f7ae9c3e.webp"
     },
     {
       "id": "1021b228-d996-4f5b-ae45-c520651e3708",
@@ -10894,8 +11026,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-21T12:48:34.523Z",
-      "updated_at": "2026-09-21T12:48:34.523Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:45:17.409Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/f92f0130-5ac9-46af-bbb7-0328733edb30.webp"
     },
     {
       "id": "5d3b4bc4-6edb-4428-9252-4b26bd285bc1",
@@ -10936,8 +11068,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-21T12:43:28.790Z",
-      "updated_at": "2026-09-21T12:43:28.790Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:45:19.274Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/6fa6367c-ad66-4e14-940e-8b394e84475f.webp"
     },
     {
       "id": "dce14434-c810-4c26-8dce-260dfcebf6eb",
@@ -10978,8 +11110,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-21T12:37:29.526Z",
-      "updated_at": "2026-09-21T12:37:29.526Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:45:22.351Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/518dfa0b-e454-4ef6-9308-ae62a226684b.webp"
     },
     {
       "id": "015e6c41-2fdb-4c0b-8bd3-0be30e35ee1c",
@@ -11020,8 +11152,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-21T12:33:12.521Z",
-      "updated_at": "2026-09-21T19:49:38.770Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:45:25.649Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/54dd6faa-bc31-471f-9b47-ac46209b6d21.webp"
     },
     {
       "id": "5d7017da-baf3-4eee-ab50-c0f83c39aecb",
@@ -11062,8 +11194,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-21T12:30:51.472Z",
-      "updated_at": "2026-09-21T12:30:51.472Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:45:30.179Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/b4265e79-0ba4-4736-bfe3-01f1d3c1528f.webp"
     },
     {
       "id": "67a38c80-42df-4d13-8521-16f99281c62f",
@@ -11104,8 +11236,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-21T12:26:34.175Z",
-      "updated_at": "2026-09-21T12:26:34.175Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:45:35.449Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/e2a207d2-11e6-4a9f-b1e9-ebb763045d38.webp"
     },
     {
       "id": "553fc989-b6b1-4a3e-a403-c425b37c73e7",
@@ -11146,8 +11278,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-21T12:21:35.350Z",
-      "updated_at": "2026-09-21T12:21:35.350Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:45:39.618Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/be056f1f-8b9b-4f2f-b03c-036348825a29.webp"
     },
     {
       "id": "acfd5023-3f5f-4691-88a0-7004621e63a5",
@@ -11192,8 +11324,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-21T10:07:09.659Z",
-      "updated_at": "2026-09-21T10:07:09.659Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:45:45.339Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/80f7b87d-bd4a-4251-8942-a0acd0df60d9.webp"
     },
     {
       "id": "02e83ed3-bedb-418e-9c73-c6ca2ad3ffa3",
@@ -11235,8 +11367,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-21T09:58:10.603Z",
-      "updated_at": "2026-09-21T09:58:10.603Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:45:48.548Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/0543248c-60ed-4ac1-adaa-628a2ecf1e52.webp"
     },
     {
       "id": "20eb1186-f93d-4f75-b1c2-135794b6ffe0",
@@ -11281,8 +11413,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-21T09:43:44.060Z",
-      "updated_at": "2026-09-21T09:43:44.060Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:45:51.127Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/c2d055a3-f4dd-422c-8657-ef7f85d9d650.webp"
     },
     {
       "id": "5db94be8-dc89-4789-8cd9-6d3d9c480296",
@@ -11330,8 +11462,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-21T09:30:48.444Z",
-      "updated_at": "2026-09-21T09:30:48.444Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:45:54.994Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/d4a2aab4-aeb4-40cf-b86f-4436ae49ed29.webp"
     },
     {
       "id": "589579c0-0b4c-4387-a9f3-6aad33b40c57",
@@ -11372,8 +11504,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-21T09:27:11.096Z",
-      "updated_at": "2026-09-21T09:27:11.096Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:46:01.634Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/dba00a8f-becd-46ec-a7fc-eb4e90fb692d.webp"
     },
     {
       "id": "3cf6c358-63d0-448c-b3ca-44742331afd6",
@@ -11414,8 +11546,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-21T09:21:49.790Z",
-      "updated_at": "2026-09-21T09:21:49.790Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:46:05.143Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/a2a08c2d-86ef-4c7e-8ff5-d5ab63ca3389.webp"
     },
     {
       "id": "299ddbea-dd5d-4b2c-a106-43b2096fead7",
@@ -11460,8 +11592,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-21T09:16:43.567Z",
-      "updated_at": "2026-09-21T09:16:43.567Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:46:09.682Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/8cc7a9cd-78b2-4451-bcca-36a38a7bf739.webp"
     },
     {
       "id": "d41afbe8-4226-4c66-9731-e7a31fb08f0d",
@@ -11504,8 +11636,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-21T09:08:12.119Z",
-      "updated_at": "2026-09-21T09:08:12.119Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:46:12.841Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/c26706d5-580f-4ff9-a305-089940861782.webp"
     },
     {
       "id": "00763b82-9474-489f-b811-7ec6ca52d9b6",
@@ -11550,8 +11682,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-21T08:06:53.437Z",
-      "updated_at": "2026-09-21T08:06:53.437Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:46:16.465Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/16ef9667-ed2c-4e17-93d2-0eac95e5dbcc.webp"
     },
     {
       "id": "a9ddc266-4e7e-49c7-8fc1-592b5e5112a0",
@@ -11596,8 +11728,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-21T07:58:22.890Z",
-      "updated_at": "2026-09-21T07:58:22.890Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:46:21.394Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/07dedd35-91f5-4715-8299-bc03205e7693.webp"
     },
     {
       "id": "d73a1501-6cc2-4834-863f-3693b6e3895c",
@@ -11645,8 +11777,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-21T07:49:32.964Z",
-      "updated_at": "2026-09-21T07:49:32.964Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:46:26.079Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/6223fcfd-72c8-4690-bcc6-3b49487645ce.webp"
     },
     {
       "id": "8a306cdf-a761-49d3-bf59-70db020fe1d2",
@@ -11692,8 +11824,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-20T21:53:02.689Z",
-      "updated_at": "2026-09-20T21:53:02.689Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:46:30.512Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/a9dff5c3-dc49-4996-a55c-370d50958278.webp"
     },
     {
       "id": "dd56f52a-6ac0-446e-bd66-05c469c47df5",
@@ -11735,8 +11867,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-20T21:36:09.452Z",
-      "updated_at": "2026-09-20T21:36:09.452Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:46:34.960Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/e4b1f242-5777-46b2-acfa-1c969842f1d2.webp"
     },
     {
       "id": "57b04b55-5771-4373-9e93-3a80fa6f02e6",
@@ -11779,8 +11911,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-20T21:00:36.271Z",
-      "updated_at": "2026-09-20T21:00:36.271Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:46:37.365Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/38a8a8a1-a2d6-4f28-8a97-c886dc67721a.webp"
     },
     {
       "id": "89253337-014b-45d1-89e8-4a64d82f6576",
@@ -11824,8 +11956,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-20T20:43:28.381Z",
-      "updated_at": "2026-09-20T20:43:28.381Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:46:40.781Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/9b1d3433-9bdb-46fa-9a45-4a755beadb6e.webp"
     },
     {
       "id": "7d39f3b3-3055-4b1d-8dcb-d4524368f857",
@@ -11870,8 +12002,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-20T20:26:24.683Z",
-      "updated_at": "2026-09-20T20:26:24.683Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:46:43.306Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/f4e9d678-46fe-476d-b585-4c25330e3a01.webp"
     },
     {
       "id": "cb8dd142-c4b0-4a5c-b3ff-7055408a4de9",
@@ -11916,8 +12048,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-20T20:12:37.472Z",
-      "updated_at": "2026-09-20T20:12:37.472Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:46:46.452Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/54032a20-89b0-4d48-b8bc-63cb814aaa06.webp"
     },
     {
       "id": "8b8b036e-089d-41b9-852a-7bee30d90216",
@@ -11961,8 +12093,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-20T19:52:09.930Z",
-      "updated_at": "2026-09-20T19:52:09.930Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:46:48.843Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/01f22a56-4c21-4501-aa97-46950299c1b6.webp"
     },
     {
       "id": "73780589-6c25-4dfe-92f0-a6b7ce15a676",
@@ -12005,8 +12137,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-20T19:39:09.715Z",
-      "updated_at": "2026-09-20T19:39:09.715Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:46:52.160Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/0dc8bee4-a9d7-4874-9b88-beb46fb17588.webp"
     },
     {
       "id": "3b33b842-7e6f-4487-bdb6-15bf5e7ac5c6",
@@ -12051,8 +12183,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-20T19:21:44.475Z",
-      "updated_at": "2026-09-22 08:20:18",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:46:55.045Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/f2fd2e8e-0fee-4818-a057-9f3a5c175671.webp"
     },
     {
       "id": "f32da3e1-f483-41a5-862c-4fbf3a51cfea",
@@ -12105,8 +12237,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-20T19:16:23.874Z",
-      "updated_at": "2026-09-21T09:51:05.259Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:46:59.255Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/7de34106-4437-4d31-9bc1-90f2354375a2.webp"
     },
     {
       "id": "488a857b-6952-4b16-b543-4cf45c387518",
@@ -12151,8 +12283,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-20T19:06:35.280Z",
-      "updated_at": "2026-09-20T19:06:35.280Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:47:03.235Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/18a17589-0cbb-48a1-a7a2-37b2a0bd7929.webp"
     },
     {
       "id": "e9a20f26-bc1d-44fd-8954-f0f0b567b00f",
@@ -12195,8 +12327,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-20T18:40:08.191Z",
-      "updated_at": "2026-09-20T18:40:08.191Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:47:06.702Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/59b59f1b-d9f5-4435-aa7c-2deb1f65b7dd.webp"
     },
     {
       "id": "ac9752a3-3cbc-47a0-bbe7-4980838a155f",
@@ -12241,8 +12373,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-20T18:32:12.750Z",
-      "updated_at": "2026-09-20T18:32:12.750Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:47:09.886Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/9ca48b89-dcea-4a18-8d31-bbd556ce1328.webp"
     },
     {
       "id": "873cdae8-4f56-47c3-9c9b-560c457affa9",
@@ -12292,8 +12424,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-20T18:13:35.467Z",
-      "updated_at": "2026-09-20T18:13:35.467Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:47:13.222Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/4e7ce76f-5a96-4897-b3a4-3f2ac317c109.webp"
     },
     {
       "id": "64b8570a-f7b8-4e57-bcf3-31fad7590623",
@@ -12338,8 +12470,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-20T18:08:16.927Z",
-      "updated_at": "2026-09-20T18:08:16.927Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:47:15.854Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/b4753c16-9340-44cd-a824-682e367f580e.webp"
     },
     {
       "id": "2b28ff9b-7f15-4d5c-9de1-c43e96ddde61",
@@ -12383,8 +12515,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-20T17:59:48.352Z",
-      "updated_at": "2026-09-20T17:59:48.352Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:47:18.998Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/1e44347a-73e3-40d8-8e62-998a2405d652.webp"
     },
     {
       "id": "3ba85023-bbeb-4e2f-8382-2f0739c3b877",
@@ -12436,8 +12568,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-20T17:39:00.423Z",
-      "updated_at": "2026-09-20T17:39:00.423Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:47:23.569Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/ceccec05-11bb-4bcd-a2e8-8479394d8c2b.webp"
     },
     {
       "id": "4c186159-95b8-465b-bce4-45930884eb66",
@@ -12483,8 +12615,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-20T17:26:39.150Z",
-      "updated_at": "2026-09-20T17:26:39.150Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:47:26.085Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/123dd35c-9099-4e58-b05c-8a6fe1be78f5.webp"
     },
     {
       "id": "b6f8c48f-1bfc-484d-8c0a-6987793b4953",
@@ -12526,8 +12658,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-20T17:22:27.488Z",
-      "updated_at": "2026-09-20T17:22:27.488Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:47:29.103Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/bd6dc2b0-614f-480d-b188-d23656488512.webp"
     },
     {
       "id": "9955005d-fd5a-47d7-972c-376b5b63ee76",
@@ -12572,8 +12704,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-20T09:47:06.741Z",
-      "updated_at": "2026-09-20T09:47:06.741Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:47:32.420Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/92d65da5-710d-47a8-b0a6-0c280a6de93b.webp"
     },
     {
       "id": "4a21fb7e-2db8-4d90-8898-e8cc966eb8fa",
@@ -12616,8 +12748,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-20T09:23:27.392Z",
-      "updated_at": "2026-09-20T15:40:29.448Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:47:35.548Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/846d284b-7509-420c-81fe-5449267a4674.webp"
     },
     {
       "id": "cf610690-83b3-4993-aa57-3e175c9f60cf",
@@ -12673,8 +12805,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-20T08:04:05.465Z",
-      "updated_at": "2026-09-20T08:04:05.465Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:47:39.106Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/274dfbd4-1cf0-4982-bb02-fb502ffa6e99.webp"
     },
     {
       "id": "34c03f9f-cd79-42d4-b48d-3dae46c8fd8d",
@@ -12715,8 +12847,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-19T22:50:08.564Z",
-      "updated_at": "2026-09-19T22:50:08.564Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:47:43.076Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/b86d39f0-b170-4d2d-915b-b4eec01bfc14.webp"
     },
     {
       "id": "08dc966f-7858-4fec-91a7-ad15e7f4a480",
@@ -12757,8 +12889,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-19T22:37:42.918Z",
-      "updated_at": "2026-09-19T22:37:42.918Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:47:46.622Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/c780b69d-710f-43b5-84a0-0e9ac6370726.webp"
     },
     {
       "id": "b111188e-71e3-4d0d-9c8a-7ffe1e53907b",
@@ -12804,8 +12936,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-19T22:33:33.504Z",
-      "updated_at": "2026-09-20T09:35:13.929Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:47:51.063Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/b6ba7c2c-cc7f-4ef1-9030-db86cf93e5dc.webp"
     },
     {
       "id": "f6d59017-89fc-4a63-be34-749b5e49249b",
@@ -12850,8 +12982,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-19T22:21:10.525Z",
-      "updated_at": "2026-09-19T22:21:10.525Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:47:56.265Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/7e08f95d-822e-4363-92ac-3d0f8dfb3aa8.webp"
     },
     {
       "id": "6c2649c6-c66c-4074-90a7-0b97a99249ee",
@@ -12900,8 +13032,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-19T22:17:30.140Z",
-      "updated_at": "2026-09-19T22:17:30.140Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:47:59.194Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/c935a485-3470-46f4-a8c5-9720f4be2339.webp"
     },
     {
       "id": "b184e6a7-7d28-465f-b0a9-60a89ea91b60",
@@ -12945,8 +13077,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-19T22:14:06.160Z",
-      "updated_at": "2026-09-19T22:14:06.160Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:48:03.163Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/5b7e30be-73a8-4a49-b839-7ebd2a3b9059.webp"
     },
     {
       "id": "f2387574-48ac-4620-a11f-004b9d1c1462",
@@ -12990,8 +13122,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-19T15:41:13.981Z",
-      "updated_at": "2026-09-19T15:41:13.981Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:48:06.194Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/4e2fd2b8-704a-402d-a147-3365f79d7941.webp"
     },
     {
       "id": "5a462900-3585-4fdc-a3b2-39539239f49f",
@@ -13041,8 +13173,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-19T15:32:27.536Z",
-      "updated_at": "2026-09-19T15:32:27.536Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:48:09.540Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/01c5501a-4869-4f88-93ad-90ba29e59a96.webp"
     },
     {
       "id": "f1f1956a-95ad-4139-ba0b-945176d1b371",
@@ -13091,8 +13223,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-19T15:26:37.230Z",
-      "updated_at": "2026-09-19T15:26:49.338Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:48:14.484Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/7cb9e422-ee8c-4220-b2db-d1d349eef5bb.webp"
     },
     {
       "id": "623139f9-665c-45cb-8b71-127b6765400a",
@@ -13139,8 +13271,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-19T15:20:59.349Z",
-      "updated_at": "2026-09-19T15:20:59.349Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:48:17.702Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/283ccb06-4c0c-480d-b33b-f398fe59a616.webp"
     },
     {
       "id": "015ba659-6d09-46b1-b559-14a609dfb6ce",
@@ -13188,8 +13320,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-19T15:05:42.457Z",
-      "updated_at": "2026-09-19T15:05:42.457Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:48:19.610Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/bf475aa6-e2b9-4209-ae11-36447ab1e7ef.webp"
     },
     {
       "id": "9bd0a65d-c706-4623-a792-e2e6e654b441",
@@ -13234,8 +13366,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-19T14:57:07.415Z",
-      "updated_at": "2026-09-19T14:57:07.415Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:48:21.904Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/2738c352-8f06-4286-b2e0-febd032480e3.webp"
     },
     {
       "id": "a1a29288-81d1-4f9f-8d0b-768a716558cb",
@@ -13285,8 +13417,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-19T14:43:39.161Z",
-      "updated_at": "2026-09-19T14:43:39.161Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:48:25.101Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/1cf1a190-764d-44d8-9d83-9fd96223a0a5.webp"
     },
     {
       "id": "762f49dd-c7b4-4da3-84da-0a2a5563c287",
@@ -13327,8 +13459,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-19T14:07:33.118Z",
-      "updated_at": "2026-09-19T14:07:33.118Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:48:28.628Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/42c3f75f-3ab3-4f3c-9dd8-4596b218f346.webp"
     },
     {
       "id": "1bafcbce-1e40-480a-98b7-9f92faf84eef",
@@ -13371,8 +13503,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-19T13:51:48.449Z",
-      "updated_at": "2026-09-19T13:51:48.449Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:48:32.481Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/3c11c797-ab71-4d79-be4a-e76a976506e3.webp"
     },
     {
       "id": "fe37e1a3-7c14-41db-aafd-cac995bfebef",
@@ -13415,8 +13547,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-19T13:43:19.215Z",
-      "updated_at": "2026-09-19T13:43:19.215Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:48:35.867Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/d374ae80-c8ec-4637-8d39-ab2096be566f.webp"
     },
     {
       "id": "af44b870-75f9-440b-b2a1-9ec63df27ef8",
@@ -13463,8 +13595,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-19T13:35:46.469Z",
-      "updated_at": "2026-09-19T13:35:46.469Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:48:40.029Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/b274dce4-ca75-4acd-86d0-59003cd43bf0.webp"
     },
     {
       "id": "dbdaffda-5332-4037-902e-0d412e559655",
@@ -13505,8 +13637,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-19T11:50:39.334Z",
-      "updated_at": "2026-09-19T11:50:39.334Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:48:44.741Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/b9d0feea-0def-4ec9-a8b3-5e74f22cd945.webp"
     },
     {
       "id": "ae643c5f-8b76-49a6-ae43-586843a00d40",
@@ -13546,8 +13678,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-19T11:43:52.007Z",
-      "updated_at": "2026-09-19T11:43:52.007Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:48:47.724Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/982fdff0-f974-4354-8fa1-04323037f1b4.webp"
     },
     {
       "id": "ce9764fa-0104-45ee-9977-3027d7046aa5",
@@ -13594,8 +13726,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-19T11:39:53.567Z",
-      "updated_at": "2026-09-19T11:39:53.567Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:48:49.631Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/77ba924c-a134-4db0-86e6-6447f6a19824.webp"
     },
     {
       "id": "de573bc8-ecb8-4900-9ec0-3dec7ba5a77e",
@@ -13641,8 +13773,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-19T11:31:49.604Z",
-      "updated_at": "2026-09-19T11:31:49.604Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:48:54.257Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/c7e7af2f-3d06-4a0e-af8f-4ab322b2ede2.webp"
     },
     {
       "id": "67c3e3b9-1b3b-4fe6-ad56-c08baa3ad6bf",
@@ -13690,8 +13822,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-19T11:25:50.843Z",
-      "updated_at": "2026-09-19T11:25:50.843Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:48:58.761Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/d9f9b661-091b-4f37-aeb4-a7ad33f373dc.webp"
     },
     {
       "id": "b1aed28b-a0ec-48a9-ac45-89220965c24d",
@@ -13736,8 +13868,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-19T11:22:04.563Z",
-      "updated_at": "2026-09-19T11:22:04.563Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:49:03.788Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/5e0242c2-8c28-46f7-977f-9f1064890df1.webp"
     },
     {
       "id": "91a44361-166e-419e-b722-220246e4f3bb",
@@ -13784,8 +13916,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-19T11:15:55.827Z",
-      "updated_at": "2026-09-19T11:15:55.827Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:49:07.910Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/67e05b33-c175-4fb3-9752-0e3869457ae4.webp"
     },
     {
       "id": "f1b1a003-649d-471f-b8bf-37acee3d6de5",
@@ -13825,8 +13957,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-19T11:11:58.156Z",
-      "updated_at": "2026-09-19T11:11:58.156Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:49:10.609Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/ccf2f90b-6391-446a-aa54-8cd3f9005b4c.webp"
     },
     {
       "id": "258760d1-4977-4163-beff-1731ac88d219",
@@ -13873,8 +14005,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-19T11:03:44.761Z",
-      "updated_at": "2026-09-19T11:03:44.761Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:49:13.387Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/af7e3fe0-d70f-4796-a8d0-e97fa6f25581.webp"
     },
     {
       "id": "1068b0a6-b003-4592-b79f-d68b0413bf2d",
@@ -13921,8 +14053,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-19T10:57:50.620Z",
-      "updated_at": "2026-09-19T10:57:50.620Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:49:16.688Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/4cf544eb-df26-453c-991b-d6f60c532a8a.webp"
     },
     {
       "id": "9ef9888a-718c-46ef-b061-77146401ba2e",
@@ -13965,8 +14097,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-19T10:52:47.914Z",
-      "updated_at": "2026-09-19T10:58:04.757Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:49:19.952Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/b11c9e9f-fcdb-47b4-80fd-d624666bed17.webp"
     },
     {
       "id": "c0d3cc3a-9446-4927-8ff5-f819577c5e0e",
@@ -14013,8 +14145,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-19T10:36:04.305Z",
-      "updated_at": "2026-09-19T10:36:04.305Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:49:24.120Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/886a83bc-48c8-4dee-870f-7c209adefbd3.webp"
     },
     {
       "id": "2ac24320-446a-4ad3-9326-1396973886ed",
@@ -14056,8 +14188,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-19T10:20:33.461Z",
-      "updated_at": "2026-09-19T10:21:24.141Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:49:28.148Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/7aadde09-60c3-4ba0-8391-97752980f26b.webp"
     },
     {
       "id": "3ac049d0-2bae-4809-b992-3ee7ae4cf947",
@@ -14099,8 +14231,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-19T10:02:43.191Z",
-      "updated_at": "2026-09-19T10:02:43.191Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:49:31.412Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/45b05f93-9849-4ff1-8463-8a04453c741e.webp"
     },
     {
       "id": "2bdc88cb-c4bf-4eaf-85db-85b1fef24814",
@@ -14147,8 +14279,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-19T09:51:09.150Z",
-      "updated_at": "2026-09-19T09:51:09.150Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:49:34.890Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/e734cfd6-31ed-4ee2-a1f2-002b5a12f74e.webp"
     },
     {
       "id": "0166dbb7-2da2-4808-878c-f74ccb9fe9ca",
@@ -14194,8 +14326,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-19T09:41:05.704Z",
-      "updated_at": "2026-09-19T09:41:05.704Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:49:37.789Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/36a9f5c0-9bdd-436c-ad6c-193baf897006.webp"
     },
     {
       "id": "4d1990fa-cac9-4db5-b371-aa2898eb3589",
@@ -14243,8 +14375,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-19T09:33:04.433Z",
-      "updated_at": "2026-09-19T09:33:04.433Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:49:41.740Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/1a32b014-a9c9-46f6-ba96-a3ae2fe68bd9.webp"
     },
     {
       "id": "22c4ef0f-80e7-45ec-a55f-a40008547d56",
@@ -14290,8 +14422,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-19T09:21:30.223Z",
-      "updated_at": "2026-09-19T09:21:30.223Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:49:45.040Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/c6a61770-672d-4060-8f30-00739b042104.webp"
     },
     {
       "id": "4eda4101-8f43-4232-b206-5f0a8e2d31f9",
@@ -14334,8 +14466,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-19T09:04:44.627Z",
-      "updated_at": "2026-09-19T09:04:44.627Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:49:47.784Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/914aa5eb-5594-4c6d-89a9-a9e9ef6e6293.webp"
     },
     {
       "id": "4797d414-b416-4bcd-8b7b-a25552c45790",
@@ -14385,8 +14517,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-19T08:41:51.643Z",
-      "updated_at": "2026-09-20T10:12:06.940Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:49:49.809Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/71d3c975-9880-4dad-a30e-46b2b26bf736.webp"
     },
     {
       "id": "b58f4690-2596-4999-959c-ed79635d3509",
@@ -14431,8 +14563,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-18T21:09:21.236Z",
-      "updated_at": "2026-09-18T21:09:21.236Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:49:51.383Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/2f6d7a91-a125-405a-bd84-1576e6af26b0.webp"
     },
     {
       "id": "1790ebfa-f27c-4009-86b4-987add9e4392",
@@ -14474,8 +14606,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-18T20:56:51.540Z",
-      "updated_at": "2026-09-18T20:56:51.540Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:49:54.200Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/dd9cfaa8-d3f4-4de9-a709-742f36dbc988.webp"
     },
     {
       "id": "3e25ebe1-0614-4f4b-8ba9-43f0d9d5e502",
@@ -14519,8 +14651,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-18T20:45:28.271Z",
-      "updated_at": "2026-09-18T20:45:28.271Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:49:58.152Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/5b0a744a-5ce7-4d42-aab4-dd8dd8111e27.webp"
     },
     {
       "id": "73fad62f-21ba-48ca-bde8-e9fa5625f5a8",
@@ -14568,8 +14700,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-18T20:37:43.425Z",
-      "updated_at": "2026-09-18T20:37:43.425Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:49:59.700Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/c80a8d9a-5656-4c4a-9eb4-e802f0bd6f8f.webp"
     },
     {
       "id": "6c775540-8849-4b5a-a640-4faf1a6e1081",
@@ -14620,8 +14752,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-18T19:45:04.863Z",
-      "updated_at": "2026-09-18T19:45:04.863Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:50:01.881Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/96e03e24-e3a3-4c83-bd66-34076b0a91f3.webp"
     },
     {
       "id": "3148cc27-803e-449e-a492-76b33aa86067",
@@ -14661,8 +14793,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-18T19:01:34.440Z",
-      "updated_at": "2026-09-18T19:01:34.440Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:50:06.396Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/9abceee9-edc9-495a-a295-5ce24756d9d4.webp"
     },
     {
       "id": "a340189b-0189-4ec9-ba10-73237cf7c959",
@@ -14706,8 +14838,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-18T13:43:09.199Z",
-      "updated_at": "2026-09-18T13:43:09.199Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:50:10.097Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/925e48bf-14ee-4b93-bcbd-aaa9944e1c8e.webp"
     },
     {
       "id": "ed010990-bf3b-4d8d-82cd-2a82618ca852",
@@ -14756,8 +14888,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-18T13:25:48.438Z",
-      "updated_at": "2026-09-18T13:25:48.438Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:50:12.997Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/100961ae-cf45-4af3-be2d-7be546cabd21.webp"
     },
     {
       "id": "1dd212dc-fb68-40e8-b5c3-77c7667f2676",
@@ -14798,8 +14930,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-18T13:12:47.971Z",
-      "updated_at": "2026-09-18T13:12:47.971Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:50:15.765Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/0b2e09e4-862a-4ff3-9228-78d2a70fa11a.webp"
     },
     {
       "id": "700e3716-eaf8-44bc-8502-1e5dcdc6d138",
@@ -14847,8 +14979,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-18T12:57:04.255Z",
-      "updated_at": "2026-09-18T12:57:04.255Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:50:17.645Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/cfaa9222-d41e-4c0d-a3e4-43bd64749d64.webp"
     },
     {
       "id": "c37e64bb-3d9d-470c-b4b6-5872053f5c44",
@@ -14895,8 +15027,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-18T12:24:34.967Z",
-      "updated_at": "2026-09-18T12:24:34.967Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:50:20.580Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/aa4fe8a5-2f95-4448-b1a6-9c7e7925f55a.webp"
     },
     {
       "id": "a6a5d533-7386-40cb-aee7-414613b6e55d",
@@ -14939,8 +15071,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-18T12:14:54.029Z",
-      "updated_at": "2026-09-18T12:14:54.029Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:50:23.047Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/ee9d19f3-a436-4e35-899a-3c244ce51251.webp"
     },
     {
       "id": "f0f2cb63-9af4-4ef6-b05a-d290062eb9b2",
@@ -14980,8 +15112,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-18T12:05:17.297Z",
-      "updated_at": "2026-09-18T12:05:17.297Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:50:26.080Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/740af0f8-4f42-4a21-b7d4-38cbe0bac149.webp"
     },
     {
       "id": "a744f79d-3d46-4cc7-aa17-8a6d24847580",
@@ -15022,8 +15154,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-18T11:57:30.456Z",
-      "updated_at": "2026-09-18T11:57:30.456Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:50:28.896Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/59ca87ee-ce84-491b-9cb0-944cb5d44eed.webp"
     },
     {
       "id": "296596ad-e0e3-4c84-ad05-82372dd4d778",
@@ -15067,8 +15199,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-18T11:46:07.856Z",
-      "updated_at": "2026-09-18T11:46:07.856Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:50:35.046Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/ded5131d-b9e5-4eea-9956-8add49417dd3.webp"
     },
     {
       "id": "9f92848e-1ee8-4747-be0e-ea61521301f0",
@@ -15115,8 +15247,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-18T11:30:42.177Z",
-      "updated_at": "2026-09-18T11:30:42.177Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:50:40.692Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/0f3be438-7efd-496a-b85c-f0c493974bb9.webp"
     },
     {
       "id": "58c7c8e0-7cf8-4e29-83d2-84563ac570da",
@@ -15156,8 +15288,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-18T10:13:44.957Z",
-      "updated_at": "2026-09-18T10:13:44.957Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:50:43.425Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/8c8885bf-32af-4354-8ee7-7e6923c4a3dc.webp"
     },
     {
       "id": "5409a3c0-6ef9-4499-adfb-8a1a277f7b66",
@@ -15198,8 +15330,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-17T21:25:27.244Z",
-      "updated_at": "2026-09-18T09:11:02.138Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:50:46.413Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/2fe541ff-bc5d-460a-b877-889331c14fe7.webp"
     },
     {
       "id": "e8898967-fc33-4b2b-9a54-bf62db21af39",
@@ -15239,8 +15371,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-17T21:19:59.515Z",
-      "updated_at": "2026-09-18T09:08:30.810Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:50:49.438Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/e6ee191a-2eaf-4140-beef-63c4a3f3c26a.webp"
     },
     {
       "id": "f0a39fcd-3e66-45c9-be80-c98ec0bf46b3",
@@ -15280,8 +15412,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-17T19:25:52.345Z",
-      "updated_at": "2026-09-18T09:08:03.527Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:51:27.504Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/de7e6750-0891-4da1-b332-7d5e72f00157.webp"
     },
     {
       "id": "ae5f08f9-ae2a-4fe8-824d-c54ba92c3b32",
@@ -15329,8 +15461,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-17T11:41:05.381Z",
-      "updated_at": "2026-09-17T21:55:16.114Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:51:29.909Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/b6ca0ea4-85fa-4e3f-b6e5-14c3f29eb018.webp"
     },
     {
       "id": "4e9fdb5e-8498-4407-abf4-046fde5a3d0a",
@@ -15385,8 +15517,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-17T11:20:18.803Z",
-      "updated_at": "2026-09-17T22:49:24.285Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:51:32.266Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/b23ce4d6-a2e0-44e1-a1f0-748b812b49a1.webp"
     },
     {
       "id": "0be64ab3-0e4e-4f80-b944-5cb3eb982b26",
@@ -15434,8 +15566,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-17T11:08:37.440Z",
-      "updated_at": "2026-09-17T22:46:47.733Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:51:34.356Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/5af74e3e-cca2-4d19-94cb-3217d434301a.webp"
     },
     {
       "id": "19d37ecc-28d5-44b4-8200-702904d0c6f5",
@@ -15480,8 +15612,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-17T10:40:56.149Z",
-      "updated_at": "2026-09-18T09:06:21.929Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:51:36.273Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/7090c97a-b59f-439e-bdf5-659f3b5338dc.webp"
     },
     {
       "id": "c27b77e6-1178-4d5f-b0c4-fb555935741a",
@@ -15521,8 +15653,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-16T22:37:09.234Z",
-      "updated_at": "2026-09-18T09:03:15.850Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:51:38.883Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/c961fabc-5f67-4b89-844b-566ede8bf197.webp"
     },
     {
       "id": "79d80918-2038-4ca6-92b3-3398a50e841e",
@@ -15562,8 +15694,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-16T22:12:00.079Z",
-      "updated_at": "2026-09-18T09:00:10.477Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:52:36.379Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/e3074a03-46d5-4acd-be6a-b53914cda03f.webp"
     },
     {
       "id": "b763e7c7-aef5-4452-8d8c-736ad35737f0",
@@ -15610,8 +15742,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-16T22:00:46.984Z",
-      "updated_at": "2026-09-18T08:56:58.638Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:52:39.610Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/397722f6-6996-4bcc-8b07-d3fd038ccfae.webp"
     },
     {
       "id": "ae0f8c1f-49f0-4f98-ba52-d35257f8a4ab",
@@ -15652,8 +15784,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-16T21:48:55.654Z",
-      "updated_at": "2026-09-17T22:41:18.614Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:52:42.555Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/0cacc1f5-3837-49dd-88d1-b50b5a1aa567.webp"
     },
     {
       "id": "0528656c-ff22-43c4-99d7-dea88d030176",
@@ -15701,8 +15833,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-16T21:44:35.023Z",
-      "updated_at": "2026-09-17T23:06:11.535Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:52:45.263Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/4ec86a20-7ebe-4df2-a989-cf6515adba9c.webp"
     },
     {
       "id": "59cbcb25-e44f-4953-b8e8-64c75b27f199",
@@ -15750,8 +15882,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-16T21:34:05.805Z",
-      "updated_at": "2026-09-20T10:09:30.603Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:52:48.216Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/3ce477e2-7fbf-4169-a716-ae4ebff6a803.webp"
     },
     {
       "id": "4b23dbd8-6175-47b5-a46a-2d9b254aa6c9",
@@ -15794,8 +15926,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-16T21:15:48.060Z",
-      "updated_at": "2026-09-17T22:31:42.432Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:52:50.282Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/7e764ea6-7856-4590-bdc1-02bb1ad627bb.webp"
     },
     {
       "id": "c6b50c91-82f2-4cf3-afec-185269d543f2",
@@ -15836,8 +15968,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-16T21:06:18.507Z",
-      "updated_at": "2026-09-18T04:33:08.568Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:52:53.271Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/57807e9a-f20f-4097-90bd-63b4303eb750.webp"
     },
     {
       "id": "d19df113-e5cb-4ad9-bd94-0c829658351c",
@@ -15878,8 +16010,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-16T21:00:45.260Z",
-      "updated_at": "2026-09-18T04:30:25.092Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:52:56.126Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/21a68713-0d31-4529-99a9-7f3d88b85f09.webp"
     },
     {
       "id": "501ce24d-4727-4578-ad79-79e3c9024e8e",
@@ -15924,8 +16056,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-16T20:36:56.247Z",
-      "updated_at": "2026-09-17T22:19:08.815Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:52:59.419Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/d18b6202-486f-4d95-b8c5-1eccad9c0461.webp"
     },
     {
       "id": "7e464cb6-d7fb-484e-8584-792c948a5538",
@@ -15969,8 +16101,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-16T16:49:55.644Z",
-      "updated_at": "2026-09-17T22:14:13.458Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:53:03.774Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/79bb7554-fafa-43b3-9257-09db20fe4474.webp"
     },
     {
       "id": "2073c129-a6e2-4ab4-8df4-5d2366d02565",
@@ -16013,8 +16145,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-16T16:30:44.804Z",
-      "updated_at": "2026-09-17T22:04:50.644Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:53:06.385Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/6e544357-1c94-472c-8526-77a6aa297cc7.webp"
     },
     {
       "id": "a0716d6a-4984-4045-8ec4-b09b0feae008",
@@ -16055,8 +16187,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-16T15:41:44.216Z",
-      "updated_at": "2026-09-17T22:00:22.640Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:53:09.170Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/1c2b3e5b-5032-4553-9138-d51a4f2e4be4.webp"
     },
     {
       "id": "ae93cdea-894c-49c0-9363-8097f2ec0509",
@@ -16101,8 +16233,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-15T20:20:21.324Z",
-      "updated_at": "2026-09-17T21:53:32.903Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-25T14:53:11.154Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/5db5ff9c-93f2-41b1-b35d-313c6aa0cf78.webp"
     }
   ]
 }

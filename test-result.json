@@ -1,5 +1,0 @@
-{
-  "status": 200,
-  "response": "{\"ok\":false,\"error\":\"NordRouter API ошибка: unknown model \\\"openai/gpt-4o-mini\\\"\"}",
-  "timestamp": "2026-09-14T10:07:00.859Z"
-}

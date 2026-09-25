@@ -876,7 +876,6 @@ body.admin-editor-open{overflow:hidden}
 #product-form.is-studio-busy #sign-text-editor,
 #product-form.is-studio-busy .studio-help,
 #product-form.is-studio-busy #studio-status{display:none!important}
-#product-form.is-studio-busy .photo-grid{max-height:72px;overflow:hidden;opacity:.55}
 #product-form.is-studio-busy .essentials-fields{padding:12px;border-radius:10px;background:#F1F8E9;box-shadow:inset 0 0 0 1px #C5E1A5}
 #product-form.is-studio-busy #product-composition,
 #product-form.is-studio-busy #product-price{border-color:#81C784;background:#fff}

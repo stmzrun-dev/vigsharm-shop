@@ -2,8 +2,814 @@
   "ok": true,
   "products": [
     {
+      "id": "bd05a8a5-0927-4ebb-a52b-dc6309f2794e",
+      "title": "Цифры белые",
+      "article": "UNT-182",
+      "price": 900,
+      "short_description": "Цифры белые",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "air-ded-moroz-5-3",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные цифры"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/50fec4b6-3625-4d15-9c74-1690849c0601.jpg",
+        "unit_type": "digit",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/2da31d5b-4382-4b12-a90a-8bdc7a5a89f3.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/2da31d5b-4382-4b12-a90a-8bdc7a5a89f3.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-26T22:10:49.256Z",
+      "updated_at": "2026-09-26T22:10:49.256Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "0526a717-5aae-406b-883b-0ac496c1d70d",
+      "title": "Цифры черные",
+      "article": "UNT-181",
+      "price": 900,
+      "short_description": "Цифры черные",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "air-ded-moroz-5-2",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные цифры"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/23f0056b-98f4-468f-b22e-8c43c89779ed.jpg",
+        "unit_type": "digit",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/3548c1bb-bc80-43cf-a942-616f639eb557.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/3548c1bb-bc80-43cf-a942-616f639eb557.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-26T22:09:53.204Z",
+      "updated_at": "2026-09-26T22:09:53.204Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "c3e9534a-797a-46f9-8203-64a12b7ef952",
+      "title": "Цифры сатин бордовый",
+      "article": "UNT-180",
+      "price": 900,
+      "short_description": "Цифры сатин бордовый",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "air-ded-moroz-5",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные цифры"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/629ea193-16ba-4ec8-8055-020529f6e75e.jpg",
+        "unit_type": "digit",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/629ea193-16ba-4ec8-8055-020529f6e75e.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/629ea193-16ba-4ec8-8055-020529f6e75e.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-26T22:07:48.964Z",
+      "updated_at": "2026-09-26T22:07:48.964Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/b8974d1b-d3b3-4f24-9646-1d6072b2c5e8.webp"
+    },
+    {
+      "id": "51322581-f95d-4adf-9f20-b6157877c3f1",
+      "title": "Цифры олива",
+      "article": "UNT-179",
+      "price": 900,
+      "short_description": "Цифры олива",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "air-ded-moroz-4",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные цифры"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/259d62ea-29ac-4b56-ac6e-860e862ec360.jpg",
+        "unit_type": "digit",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/af784f4e-409b-4ed1-ae85-58c19a3bfe88.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/af784f4e-409b-4ed1-ae85-58c19a3bfe88.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-26T22:07:25.786Z",
+      "updated_at": "2026-09-26T22:07:25.786Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "98c01bdd-714c-47ed-8493-023c5ac743b8",
+      "title": "Цифры орхидея",
+      "article": "UNT-178",
+      "price": 900,
+      "short_description": "Цифры орхидея",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "air-ded-moroz-3",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные цифры"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/334327c0-7ab9-43c7-8d6c-5ea1f1942866.jpg",
+        "unit_type": "digit",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/3192a930-2453-45b5-8bdf-da8379fa08ed.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/3192a930-2453-45b5-8bdf-da8379fa08ed.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-26T22:06:18.129Z",
+      "updated_at": "2026-09-26T22:06:18.129Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "6ac1d31d-dd34-4c61-9323-b7e99bb2c9b4",
+      "title": "Цифры оранжевые",
+      "article": "UNT-177",
+      "price": 900,
+      "short_description": "Цифры оранжевые",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "air-ded-moroz-2",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные цифры"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/56aa403a-6265-48d4-83d0-1d40c5a3cf63.jpg",
+        "unit_type": "digit",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/6ddf01bf-804d-4a90-88c7-b2e506e42766.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/6ddf01bf-804d-4a90-88c7-b2e506e42766.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-26T22:04:06.676Z",
+      "updated_at": "2026-09-26T22:04:06.676Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "23d9f82c-9d3f-40e4-8cf8-92c46964ffcd",
+      "title": "Цифры зеленые",
+      "article": "UNT-176",
+      "price": 900,
+      "short_description": "Зеленые",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "air-ded-moroz",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные цифры"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/271f12db-8f72-4dc0-a3b9-2381764b194a.jpg",
+        "unit_type": "digit",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/c25fb0cb-4c13-4e4c-b782-eac6fda664a4.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/c25fb0cb-4c13-4e4c-b782-eac6fda664a4.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-26T22:02:51.596Z",
+      "updated_at": "2026-09-26T22:04:22.101Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "f484be5d-3661-4167-96c3-a22dd3f5f631",
+      "title": "Голова, Зеленый Огр",
+      "article": "UNT-175",
+      "price": 500,
+      "short_description": "Голова, Зеленый Огр",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": "Шрек",
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": "Шрек",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "oblachnaya-metrika-9-5-2",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Для девочки",
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/ffd82919-fcb5-4efc-81d9-9d0dbfc01a45.jpg",
+        "unit_type": "foil",
+        "balloon_size": "53 см",
+        "unit_who": [
+          "Для девочки",
+          "Для мальчика"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/797545ee-b693-4337-8841-102e47bdc384.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/797545ee-b693-4337-8841-102e47bdc384.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-26T21:39:36.431Z",
+      "updated_at": "2026-09-26T21:39:36.431Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "b1ce39af-7912-4456-849c-1d28fca3c557",
+      "title": "Цветок Роза Красная",
+      "article": "UNT-174",
+      "price": 600,
+      "short_description": "Цветок Роза Красная",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "oblachnaya-metrika-9-6",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Для неё",
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/138a29e1-e342-4156-94a2-d445485c8388.jpg",
+        "unit_type": "foil",
+        "balloon_size": "91 см",
+        "unit_who": [
+          "Для неё",
+          "Для девочки"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/710f9e30-45d0-44ff-bc43-741920f53f54.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/710f9e30-45d0-44ff-bc43-741920f53f54.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-26T21:33:56.449Z",
+      "updated_at": "2026-09-26T21:33:56.449Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "b6529c77-0342-4662-9967-e95e866f2ba8",
+      "title": "Перец Чили",
+      "article": "UNT-173",
+      "price": 550,
+      "short_description": "Перец Чили",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "oblachnaya-metrika-9-5",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/c6784359-3d0c-4aa1-9970-eb0e957bd41c.webp",
+        "unit_type": "foil",
+        "balloon_size": "66 см"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/d2a8bb7a-0f54-4b8c-9e75-e38f8f4afe82.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/d2a8bb7a-0f54-4b8c-9e75-e38f8f4afe82.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-26T21:32:37.900Z",
+      "updated_at": "2026-09-26T21:32:37.900Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "935b1b55-6693-48f9-a20e-e7d96d2ffcb6",
+      "title": "Ты сияешь",
+      "article": "UNT-172",
+      "price": 550,
+      "short_description": "Ты сияешь",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "oblachnaya-metrika-9-4",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Для неё",
+        "Для него"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/a9432e7f-4fe0-4a63-93e5-0eca5934ab26.jpg",
+        "unit_type": "foil",
+        "balloon_size": "45 см",
+        "unit_who": [
+          "Для неё",
+          "Для него"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/79a36a7e-41dd-4e02-972a-9ed65fe8451c.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/79a36a7e-41dd-4e02-972a-9ed65fe8451c.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-26T21:29:17.855Z",
+      "updated_at": "2026-09-26T21:29:17.855Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "76f0b9e1-3cdc-4e7e-b6a1-0ef8333a1658",
+      "title": "Браш Белый",
+      "article": "UNT-171",
+      "price": 150,
+      "short_description": "Браш Белый",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "oblachnaya-metrika-9-3",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Шары Brush"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/cad020df-7398-42c8-9c14-d904f02d2ae5.jpg",
+        "unit_type": "brush"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/a28b024b-afcd-4085-8842-d1cb97b201e5.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/a28b024b-afcd-4085-8842-d1cb97b201e5.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-26T21:26:41.385Z",
+      "updated_at": "2026-09-26T21:26:41.385Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "3be2905b-c05b-4b56-b43c-3b63139eabce",
+      "title": "Браш Красный",
+      "article": "UNT-170",
+      "price": 150,
+      "short_description": "Браш Красный",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "oblachnaya-metrika-9-2",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Шары Brush"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/432cb1f8-c865-4b34-83dc-c0adc49fce27.jpg",
+        "unit_type": "brush"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/4c50282c-e099-4b2e-843b-8a85ec7c7d15.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/4c50282c-e099-4b2e-843b-8a85ec7c7d15.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-26T21:25:21.468Z",
+      "updated_at": "2026-09-26T21:25:21.468Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "522d9e24-7ac8-4e90-941a-279ef788cd19",
+      "title": "Браш Розовый",
+      "article": "UNT-169",
+      "price": 150,
+      "short_description": "Браш Розовый",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "oblachnaya-metrika-10",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Шары Brush"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/318527b9-b44e-43e4-974c-808146255d66.jpg",
+        "unit_type": "brush"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/bfba76fd-2f1f-4267-b64f-ddb2b2b0e498.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/bfba76fd-2f1f-4267-b64f-ddb2b2b0e498.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-26T21:21:03.818Z",
+      "updated_at": "2026-09-26T21:22:01.616Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "c1c56b05-f25c-498b-bf22-3494586ec9eb",
+      "title": "Браш Голубой",
+      "article": "UNT-168",
+      "price": 150,
+      "short_description": "Голубой",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "oblachnaya-metrika-9",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Шары Brush"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/e0a01532-341f-4339-94f3-d39a448ad482.jpg",
+        "unit_type": "brush"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/f18223c2-d562-4b6a-8603-86870f3be8a7.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/f18223c2-d562-4b6a-8603-86870f3be8a7.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-26T21:20:07.212Z",
+      "updated_at": "2026-09-26T21:22:32.566Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "4a97a4e1-51e4-4e2f-afd7-ba026e36a8d7",
+      "title": "Браш Желтый",
+      "article": "UNT-167",
+      "price": 150,
+      "short_description": "Желтый",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "oblachnaya-metrika-8",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Шары Brush"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/8604e4bd-32ab-4f1a-980d-c9319586267e.jpg",
+        "unit_type": "brush"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/2affc69d-6381-438a-b8a9-84e32e0291a3.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/2affc69d-6381-438a-b8a9-84e32e0291a3.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-26T21:19:02.546Z",
+      "updated_at": "2026-09-26T21:22:26.016Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "50ea30a7-964d-401c-8a6a-27cb85047bd1",
+      "title": "Браш Тиффани",
+      "article": "UNT-166",
+      "price": 150,
+      "short_description": "Тиффани",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "oblachnaya-metrika-7",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Шары Brush"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/b633329c-d231-4c52-85c2-6b7c43920655.jpg",
+        "unit_type": "brush"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/22365cdd-9106-491f-b206-82d46f1b68cd.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/22365cdd-9106-491f-b206-82d46f1b68cd.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-26T21:17:18.633Z",
+      "updated_at": "2026-09-26T21:22:18.829Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "538940de-4ce3-43f6-9ba8-800324a9f905",
+      "title": "Браш Сиреневый",
+      "article": "UNT-165",
+      "price": 150,
+      "short_description": "Сиреневый",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "oblachnaya-metrika-6",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Шары Brush"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/9c22fc3f-5426-4a91-b404-381f449600ea.jpg",
+        "unit_type": "brush"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/4314a4fd-0779-49ae-ae20-f24d309f055c.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/4314a4fd-0779-49ae-ae20-f24d309f055c.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-26T21:14:59.480Z",
+      "updated_at": "2026-09-26T21:22:11.508Z",
+      "thumb_photo": null
+    },
+    {
       "id": "489d1bef-deba-46ff-917f-51f50b158325",
-      "title": "Малиновый",
+      "title": "Браш Малиновый",
       "article": "UNT-164",
       "price": 150,
       "short_description": "Малиновый",
@@ -40,12 +846,12 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-26T21:10:53.006Z",
-      "updated_at": "2026-09-26T21:10:53.006Z",
+      "updated_at": "2026-09-26T21:21:33.101Z",
       "thumb_photo": null
     },
     {
       "id": "df84f0bc-a959-43fc-83cc-0861ed087ce2",
-      "title": "Синий",
+      "title": "Браш Синий",
       "article": "UNT-163",
       "price": 150,
       "short_description": "Синий",
@@ -82,7 +888,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-26T21:10:02.549Z",
-      "updated_at": "2026-09-26T21:10:02.549Z",
+      "updated_at": "2026-09-26T21:21:24.673Z",
       "thumb_photo": null
     },
     {

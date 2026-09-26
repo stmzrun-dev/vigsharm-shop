@@ -20,8 +20,9 @@
     if (/бабл|bubble|стеклянн|прозрачн|glass/.test(t)) return 'bubble';
     if (/конфетт/.test(t)) return 'confetti';
     if (/ходяч/.test(t)) return 'walker';
-    if (/агат|agate/.test(t)) return 'agate';
-    if (/brush|браш|кист/.test(t)) return 'brush';
+    if (/агат|agate|развод/.test(t)) return 'agate';
+    if (/brush|браш|кист|мазк/.test(t)) return 'brush';
+    if (/круг|circle/.test(t)) return 'circle';
     if (/зв[её]зд/.test(t)) return 'star';
     if (/серд[её]?ц|heart/.test(t)) return 'heart';
     if (/цифр/.test(t)) return 'digit';
@@ -44,7 +45,7 @@
   }
   function compIcon(label, i) {
     var key = compIconKey(label) || 'latex';
-    return '<img class="comp-ico" src="icons/comp-' + key + '.webp?v=13" alt="" width="32" height="32" onerror="this.onerror=null;this.src=\'icons/comp-' + key + '.svg\'"/>';
+    return '<img class="comp-ico" src="icons/comp-' + key + '.webp?v=14" alt="" width="32" height="32" onerror="this.onerror=null;this.src=\'icons/comp-' + key + '.svg\'"/>';
   }
 
   var root = document.getElementById('product-root');
@@ -525,7 +526,7 @@
     if (clientStepVisible('client-qty')) {
       html += '<section class="client-block" id="client-qty">' +
         '<h3 class="client-block-title">' + (isPerMeter() ? 'Длина' : 'Количество') + '</h3>' +
-        '<label class="client-qty"><input type="number" min="1" max="100" value="' + qty + '" data-act="qty"/></label></section>';
+        qtyStepperHtml() + '</section>';
     }
 
     if (clientStepVisible('client-digits')) {
@@ -825,8 +826,8 @@
     if (isUnit() || p.has_digit_choice) {
       var inner = '';
       if (isUnit()) {
-        inner += '<label class="config-input"><span>' + (isPerMeter() ? 'Длина арки' : 'Количество') + '</span>' +
-          '<input type="number" min="1" max="100" value="' + qty + '" data-act="qty"/></label>';
+        inner += '<div class="config-input"><span>' + (isPerMeter() ? 'Длина арки' : 'Количество') + '</span>' +
+          qtyStepperHtml() + '</div>';
       }
       if (p.has_digit_choice && U >= 1) {
         inner += '<fieldset class="' + (needDigit ? 'needs-pick' : '') + '"><legend>Какая цифра нужна?</legend>' +
@@ -1111,11 +1112,28 @@
     softScrollTo(clientNextId());
   }
 
+  function qtyStepperHtml() {
+    var unit = isPerMeter() ? 'метров' : 'штук';
+    return '<div class="qty-stepper">' +
+      '<button type="button" data-act="qty-step" data-v="-1" aria-label="Уменьшить число ' + unit + '"' + (qty <= 1 ? ' disabled' : '') + '>−</button>' +
+      '<input type="number" inputmode="numeric" min="1" max="100" value="' + qty + '" data-act="qty" aria-label="' + (isPerMeter() ? 'Длина, метры' : 'Количество, штуки') + '"/>' +
+      '<button type="button" data-act="qty-step" data-v="1" aria-label="Увеличить число ' + unit + '"' + (qty >= 100 ? ' disabled' : '') + '>+</button>' +
+      '</div>';
+  }
+
+  function setQty(next) {
+    qty = Math.max(1, Math.min(100, Number(next) || 1));
+    clearFlowEditIf('qty');
+    render();
+  }
+
   function wire() {
     root.querySelectorAll('[data-act]').forEach(function (el) {
       var act = el.getAttribute('data-act');
       if (act === 'qty') {
-        el.addEventListener('change', function () { qty = Math.max(1, Math.min(100, Number(el.value) || 1)); clearFlowEditIf('qty'); render(); });
+        el.addEventListener('change', function () { setQty(el.value); });
+      } else if (act === 'qty-step') {
+        el.addEventListener('click', function () { setQty(qty + Number(el.getAttribute('data-v') || 0)); });
       } else if (act === 'digit') {
         el.addEventListener('click', function () {
           applyDigitTap(el.getAttribute('data-v'));
@@ -1791,25 +1809,14 @@
           .then(function (r) { if (!r.ok) throw new Error('x'); return r.json(); })
           .then(function (data) { return (data.ok && Array.isArray(data.products)) ? data.products : []; }));
   }
-  function loadFullProduct() {
-    if (!slug) return Promise.resolve(null);
-    return fetch('https://vigsharm-api.vigsharm.workers.dev/api/products/' + encodeURIComponent(slug), { cache: 'no-store' })
-      .then(function (r) { return r.ok ? r.json() : null; })
-      .then(function (data) { return (data && data.ok && data.product) ? data.product : null; })
-      .catch(function () { return null; });
-  }
-
-  Promise.all([loadProductList(), loadFullProduct(), loadDeliverySettings()])
-    .then(function (triple) {
-      var raw = triple[0];
-      var full = triple[1];
+  Promise.all([loadProductList(), loadDeliverySettings()])
+    .then(function (pair) {
+      var raw = pair[0];
       var normalized = window.vigNormalizeProducts(raw || []);
-      var found = full ? window.vigNormalizeProducts([full])[0] : null;
-      if (!found) {
-        for (var i = 0; i < normalized.length; i++) {
-          var o = normalized[i];
-          if (String(o.slug) === slug || String(o.id) === slug) { found = o; break; }
-        }
+      var found = null;
+      for (var i = 0; i < normalized.length; i++) {
+        var o = normalized[i];
+        if (String(o.slug) === slug || String(o.id) === slug) { found = o; break; }
       }
       if (!found) { renderNotFound('Композиция не найдена'); return; }
       // Related: only storefront-visible items (current product kept even if draft)

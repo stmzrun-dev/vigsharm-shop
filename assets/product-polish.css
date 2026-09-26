@@ -825,7 +825,30 @@
     font-size:14px;
     color:#6f6f78;
   }
-  .client-qty input{
+  .qty-stepper{
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .qty-stepper button{
+    flex:0 0 48px;
+    width:48px;
+    height:48px;
+    border:1.5px solid #ebe6e3;
+    border-radius:14px;
+    background:#fff;
+    color:#2b2b30;
+    font:inherit;
+    font-size:22px;
+    line-height:1;
+    cursor:pointer;
+  }
+  .qty-stepper button:disabled{
+    opacity:.35;
+    cursor:default;
+  }
+  .client-qty input,
+  .qty-stepper input{
     width:100%;
     min-height:48px;
     border:1.5px solid #ebe6e3;
@@ -835,6 +858,7 @@
     font-size:16px;
     background:#fff;
     box-sizing:border-box;
+    text-align:center;
   }
   .client-ins{
     position:relative;

@@ -7,9 +7,9 @@
   var MAX_URL = 'https://max.ru/u/f9LHodD0cOJwY09H6Zj63nYK_X8tPZGb3CODIvTT7FWkRzrgbh5F582AiB8';
   var TG_URL = 'https://t.me/Olgamzz';
   var WA_TEXT = 'Здравствуйте! Хочу сделать заказ в Вигшарм.';
-  // Worker API (Cloudflare). В РФ *.workers.dev часто недоступен без VPN —
-  // тогда витрина берёт снимок data/products.json с того же хоста, что и сайт.
-  window.VIG_API = 'https://vigsharm-api.vigsharm.workers.dev';
+  // Worker API. *.workers.dev в РФ часто недоступен без VPN — используем свой домен.
+  // Если и он не ответит, витрина берёт снимок data/products.json с того же хоста.
+  window.VIG_API = 'https://api.vigsharm.ru';
   window.VIG_PRODUCTS_FALLBACK = 'data/products.json';
 
   // В РФ Worker часто недоступен/висит. Витрина сначала берёт снимок с хоста сайта

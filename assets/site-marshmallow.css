@@ -3545,11 +3545,12 @@ html body .contact-request-summary{
   }
   html body .product-page .client-ful > button,
   html body .product-page .client-ins input,
-  html body .product-page .client-qty input{
+  html body .product-page .qty-stepper input,
+  html body .product-page .qty-stepper button{
     border-radius:16px!important;
   }
   html body .product-page .client-ins input:focus,
-  html body .product-page .client-qty input:focus{
+  html body .product-page .qty-stepper input:focus{
     outline:0!important;
     box-shadow:0 0 0 4px rgba(255,107,107,.16)!important;
     border-color:#ff6b6b!important;

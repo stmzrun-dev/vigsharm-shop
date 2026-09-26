@@ -3056,7 +3056,7 @@ function mediaPublicBase(env, request) {
   try {
     return new URL(request.url).origin;
   } catch {
-    return 'https://vigsharm-api.vigsharm.workers.dev';
+    return 'https://api.vigsharm.ru';
   }
 }
 

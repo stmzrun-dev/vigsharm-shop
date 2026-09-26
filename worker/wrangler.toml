@@ -2,16 +2,12 @@ name = "vigsharm-api"
 main = "index.js"
 compatibility_date = "2026-09-01"
 
-# Воркер живёт только на своём subdomain (vigsharm-api.vigsharm.workers.dev).
-# vigsharm.ru работает в режиме DNS Only (серое облако) → роуты на apex не нужны
-# и работать не будут. OG-превью отдаются через статические /p/*.html на GitHub Pages.
-# Если в будущем включить CF Proxy (оранжевое облако), раскомментировать:
-# routes = [
-#   { pattern = "vigsharm.ru/product.html*",     zone_name = "vigsharm.ru" },
-#   { pattern = "www.vigsharm.ru/product.html*", zone_name = "vigsharm.ru" },
-#   { pattern = "vigsharm.ru/p/*",               zone_name = "vigsharm.ru" },
-#   { pattern = "www.vigsharm.ru/p/*",           zone_name = "vigsharm.ru" }
-# ]
+# Витрина vigsharm.ru — серое облако (DNS only → GitHub Pages). Оранжевый прокси
+# на apex из РФ не открывается, роуты на сам сайт не включать.
+# API — отдельный поддомен. *.workers.dev в РФ часто режется без VPN, свой домен — нет.
+routes = [
+  { pattern = "api.vigsharm.ru", custom_domain = true }
+]
 workers_dev = true
 
 # D1 Database
@@ -41,7 +37,7 @@ YANDEX_REGION = "ru-central1"
 #   YANDEX_SECRET_ACCESS_KEY
 # См. scripts/setup-yandex-storage.ps1
 #
-PUBLIC_API_BASE = "https://vigsharm-api.vigsharm.workers.dev"
+PUBLIC_API_BASE = "https://api.vigsharm.ru"
 # Sprint 2 — OG / product.html (после переноса DNS, см. OG_DNS_SETUP.md)
 SITE_ORIGIN = "https://vigsharm.ru"
 STOREFRONT_ORIGIN = "https://stmzrun-dev.github.io/vigsharm-shop"

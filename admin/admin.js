@@ -101,7 +101,7 @@ const LIST_GROUPS = [
 const LIST_HOLIDAYS = ['Новый год', '14 февраля', '23 февраля', '8 марта', '9 мая', 'Выпускной', '1 сентября', 'День учителя', 'Хэллоуин'];
 
 const app = {
-  workerUrl: 'https://vigsharm-api.vigsharm.workers.dev',
+  workerUrl: 'https://api.vigsharm.ru',
   studioReferenceBackgroundUrl: '',
   studioReferenceHandUrl: '',
   adminApiKey: '',
@@ -1126,7 +1126,15 @@ const app = {
   loadSettings() {
     try {
       const settings = this.readAdminSettings();
-      this.workerUrl = settings.workerUrl || this.workerUrl || '';
+      const legacyWorker = 'https://vigsharm-api.vigsharm.workers.dev';
+      const savedWorker = String(settings.workerUrl || '').replace(/\/$/, '');
+      this.workerUrl = (!savedWorker || savedWorker === legacyWorker)
+        ? (this.workerUrl || 'https://api.vigsharm.ru')
+        : savedWorker;
+      if (savedWorker === legacyWorker) {
+        settings.workerUrl = this.workerUrl;
+        localStorage.setItem('vigsharm_admin_settings', JSON.stringify(settings));
+      }
       this.adminApiKey = settings.adminApiKey || '';
       this.cloudinaryCloudName = settings.cloudinaryCloudName || '';
       this.cloudinaryUploadPreset = settings.cloudinaryUploadPreset || '';
@@ -1239,7 +1247,7 @@ const app = {
     try {
       localStorage.removeItem('vigsharm_admin_settings');
     } catch (e) { /* ignore */ }
-    this.workerUrl = 'https://vigsharm-api.vigsharm.workers.dev';
+    this.workerUrl = 'https://api.vigsharm.ru';
     this.adminApiKey = '';
     this.cloudinaryCloudName = '';
     this.cloudinaryUploadPreset = '';
@@ -1289,29 +1297,54 @@ const app = {
     if (tab === 'price') this.loadPriceList?.();
   },
 
+  async loadProductsSnapshot() {
+    const res = await fetch('../data/products.json', { cache: 'no-store' });
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const data = await res.json();
+    const list = Array.isArray(data) ? data : (data && data.products);
+    if (!Array.isArray(list) || !list.length) throw new Error('пустой снимок');
+    return list;
+  },
+
   async loadProducts() {
     const container = document.getElementById('products-list');
+    const showSnapshot = async () => {
+      const list = await this.loadProductsSnapshot();
+      this.products = list;
+      this.catalogFromSnapshot = true;
+      this.renderProducts();
+      this.toast('Каталог из снимка сайта (API недоступен). Сохранение заработает, когда API ответит.', 'info');
+    };
     if (!this.workerUrl) {
-      if (container) container.innerHTML = '<div class="empty-state"><div class="icon">🔗</div><div class="title">Worker не настроен</div><p class="text-muted mt-1">Укажите Worker API URL во вкладке «Настройки»</p></div>';
+      try {
+        await showSnapshot();
+      } catch (e) {
+        if (container) container.innerHTML = '<div class="empty-state"><div class="icon">🔗</div><div class="title">Worker не настроен</div><p class="text-muted mt-1">Укажите Worker API URL во вкладке «Настройки»</p></div>';
+      }
       return;
     }
     try {
       const res = await fetch(`${this.workerUrl}/api/products`, {
         cache: 'no-store',
-        signal: AbortSignal.timeout(25000)
+        signal: AbortSignal.timeout(4000)
       });
       if (!res.ok) throw new Error('HTTP ' + res.status + (res.status === 401 ? ' — нужен ключ администратора' : ''));
       const data = await res.json();
       if (!data.ok) throw new Error(data.error || 'Ответ API без ok');
+      this.catalogFromSnapshot = false;
       this.products = data.products || [];
       this.renderProducts();
     } catch (e) {
       console.error('Failed to load products', e);
-      const msg = (e && e.name === 'TimeoutError')
-        ? 'сервер не ответил за 25 секунд'
-        : (e && e.message ? e.message : 'неизвестная ошибка');
-      if (container) {
-        container.innerHTML = '<div class="empty-state"><div class="icon">⚠️</div><div class="title">Загрузка не удалась</div><p class="text-muted mt-1">' + this.escapeHtml(msg) + '</p></div>';
+      try {
+        await showSnapshot();
+      } catch (snapErr) {
+        const msg = (e && (e.name === 'TimeoutError' || e.name === 'AbortError'))
+          ? 'сервер не ответил'
+          : (e && e.message ? e.message : 'неизвестная ошибка');
+        if (container) {
+          container.innerHTML = '<div class="empty-state"><div class="icon">⚠️</div><div class="title">Загрузка не удалась</div><p class="text-muted mt-1">' + this.escapeHtml(msg) + '</p></div>';
+        }
       }
     }
   },

@@ -523,3 +523,75 @@ html body main#main-content.catalog-page .catalog-results-heading:not(:has(h2)){
     flex:0 0 104px;
   }
 }
+
+/* Desktop: filters in a left column, products beside them. Phones stay stacked. */
+@media (min-width:1021px){
+  main#main-content.catalog-page{
+    display:grid;
+    grid-template-columns:312px minmax(0,1fr);
+    column-gap:28px;
+    align-items:start;
+  }
+  main#main-content.catalog-page > .catalog-controls,
+  main#main-content.catalog-page > .catalog-group-nav,
+  main#main-content.catalog-page > .catalog-subcategories{
+    grid-column:1 / -1;
+  }
+  main#main-content.catalog-page > .catalog-idea-board{
+    grid-column:1;
+    width:100%;
+    margin:0;
+    position:sticky;
+    top:88px;
+    max-height:calc(100vh - 104px);
+    overflow:auto;
+    padding-right:4px;
+  }
+  main#main-content.catalog-page > .catalog-results{
+    grid-column:2;
+    margin-top:0!important;
+  }
+  main#main-content.catalog-page:not(:has(#catalog-idea-board)) > .catalog-results{
+    grid-column:1 / -1;
+  }
+  main#main-content.catalog-page > .catalog-idea-board .pick-heroes{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:14px 10px;
+  }
+  main#main-content.catalog-page > .catalog-idea-board .pick-hero{
+    width:100%;
+    flex-basis:auto;
+  }
+  main#main-content.catalog-page > .catalog-idea-board .pick-hero-ring{
+    width:84px;
+    height:84px;
+  }
+  main#main-content.catalog-page > .catalog-idea-board .pick-hero-ring img{
+    width:68px;
+    height:68px;
+  }
+  main#main-content.catalog-page > .catalog-idea-board .pick-hero b{
+    font-size:13px;
+  }
+  main#main-content.catalog-page > .catalog-idea-board .pick-kicker{
+    font-size:13px;
+  }
+  main#main-content.catalog-page > .catalog-idea-board .pick-more{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+  }
+  main#main-content.catalog-page > .catalog-idea-board .pick-more button{
+    min-height:36px;
+    padding:8px 12px;
+    font-size:14px;
+  }
+  .catalog-page:has(#catalog-idea-board) .catalog-grid{
+    grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  }
+}
+@media (min-width:1500px){
+  .catalog-page:has(#catalog-idea-board) .catalog-grid{
+    grid-template-columns:repeat(4,minmax(0,1fr))!important;
+  }
+}

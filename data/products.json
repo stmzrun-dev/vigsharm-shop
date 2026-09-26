@@ -2,8 +2,1174 @@
   "ok": true,
   "products": [
     {
+      "id": "95e6e223-41e4-421d-90f0-edcacbec446b",
+      "title": "AIR Человек-Паук",
+      "article": "UNT-207",
+      "price": 700,
+      "short_description": "AIR Человек-Паук",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": "Человек-паук",
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": "Marvel",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "cifra-p-4-9",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Ходячие фигуры"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/e3563601-ccc3-4531-afaf-2b452f02fde3.jpg",
+        "unit_type": "walker",
+        "balloon_size": "56 см"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/73ca3450-55ed-48d8-96aa-8cccd01a2067.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/73ca3450-55ed-48d8-96aa-8cccd01a2067.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-26T23:01:46.492Z",
+      "updated_at": "2026-09-26T23:03:03.251Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/9960e513-b775-44b8-b5f0-ede4a67c969d.webp"
+    },
+    {
+      "id": "db1e03fc-1e94-4435-bfdb-7f08dd2f2601",
+      "title": "Черный кот",
+      "article": "UNT-206",
+      "price": 350,
+      "short_description": "Черный кот",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "cifra-p-4-8",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Ходячие фигуры"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/df891490-eb35-43af-bf89-4ffe317753c0.jpg",
+        "unit_type": "walker",
+        "balloon_size": "61 см"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/d567129e-b3f7-4934-824d-699a8999e9e6.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/d567129e-b3f7-4934-824d-699a8999e9e6.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-26T22:59:59.660Z",
+      "updated_at": "2026-09-26T23:03:05.206Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/d15ed37d-5c23-4180-a9c4-fdd023168b9f.webp"
+    },
+    {
+      "id": "005ad2af-e30a-407e-a877-9b6ae6894e66",
+      "title": "3D Новогодняя елка",
+      "article": "UNT-205",
+      "price": 1200,
+      "short_description": "3D Новогодняя елка",
+      "full_description": "",
+      "composition": [],
+      "category": "Новый год",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "cifra-p-4-7",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Ходячие фигуры",
+        "Новый год"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/3acfd63b-fc92-4e2e-bd0f-76a794193f81.jpg",
+        "unit_type": "walker",
+        "balloon_size": "119 см",
+        "unit_holiday": "Новый год"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/0e741dcb-b50a-42fb-a2ab-70daa1f02013.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/0e741dcb-b50a-42fb-a2ab-70daa1f02013.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-26T22:58:41.815Z",
+      "updated_at": "2026-09-26T23:03:07.073Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/b57009b4-1809-496d-8682-4074867014a4.webp"
+    },
+    {
+      "id": "2d754eed-5894-476a-bb05-b42679b02c55",
+      "title": "AIR Дед Мороз",
+      "article": "UNT-204",
+      "price": 1500,
+      "short_description": "AIR Дед Мороз",
+      "full_description": "",
+      "composition": [],
+      "category": "Новый год",
+      "character": "Дед Мороз",
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "cifra-p-4-6",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Ходячие фигуры",
+        "Новый год"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/039d89b3-13bd-427d-ad85-3e190a77f8ce.jpg",
+        "unit_type": "walker",
+        "balloon_size": "150 см",
+        "unit_holiday": "Новый год"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/4df49ea2-b4bb-41ee-ae13-96f688f7b987.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/4df49ea2-b4bb-41ee-ae13-96f688f7b987.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-26T22:57:48.201Z",
+      "updated_at": "2026-09-26T23:03:09.331Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/63a009a2-4f6e-45d5-8129-884f83eb4b63.webp"
+    },
+    {
+      "id": "8d18b646-ea02-41ed-9f02-65779d596ab6",
+      "title": "С ДР! Новый Уровень!",
+      "article": "UNT-203",
+      "price": 350,
+      "short_description": "С ДР! Новый Уровень!",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "cifra-p-4-5",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Круги, звёзды и сердца",
+        "Для мальчика",
+        "Геймерам"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/6f9854c4-3f2d-49b5-b940-985835101234.jpg",
+        "unit_type": "shapes",
+        "unit_who": [
+          "Для мальчика",
+          "Геймерам"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/2168f92e-980e-4e54-a7f5-e4995efb5ed0.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/2168f92e-980e-4e54-a7f5-e4995efb5ed0.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-26T22:56:11.653Z",
+      "updated_at": "2026-09-26T23:03:11.310Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/5fd4e583-2106-415d-90f2-3f630788bbfb.webp"
+    },
+    {
+      "id": "3d4ae4ec-4909-4756-a8bf-cc207cd9fb3c",
+      "title": "Цифра Осенние листья",
+      "article": "UNT-202",
+      "price": 900,
+      "short_description": "Цифра Осенние листья",
+      "full_description": "",
+      "composition": [],
+      "category": "1 сентября",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "cifra-p-4-4",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные цифры",
+        "1 сентября"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/337d0a1e-a5d5-4cf5-a3df-f6acafd407c5.jpg",
+        "unit_type": "digit",
+        "unit_holiday": "1 сентября",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/ad4465c0-d728-4330-8d98-12e83417884b.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/ad4465c0-d728-4330-8d98-12e83417884b.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-26T22:55:00.702Z",
+      "updated_at": "2026-09-26T23:03:13.367Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/9ad0a2b7-3c31-4555-85db-1c050a4d174e.webp"
+    },
+    {
+      "id": "fcfed3b5-2ebe-4bbc-b995-65c7d700a899",
+      "title": "Цифра 1 Сентября",
+      "article": "UNT-201",
+      "price": 900,
+      "short_description": "Цифра 1 Сентября",
+      "full_description": "",
+      "composition": [],
+      "category": "1 сентября",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "cifra-p-4-3",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные цифры",
+        "1 сентября"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/cb87636c-7125-45ed-ae26-2730105c74ff.jpg",
+        "unit_type": "digit",
+        "unit_holiday": "1 сентября",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/cdff648a-c3b5-4921-8d8a-b7b2554e2262.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/cdff648a-c3b5-4921-8d8a-b7b2554e2262.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-26T22:52:52.350Z",
+      "updated_at": "2026-09-26T23:03:15.300Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/d1a46f9f-de54-4be4-9960-1507129a814c.webp"
+    },
+    {
+      "id": "14a0c0ef-682f-4a12-b149-6acc58aac032",
+      "title": "Цифры С днем защитника",
+      "article": "UNT-200",
+      "price": 1800,
+      "short_description": "Цифры С днем защитника",
+      "full_description": "",
+      "composition": [],
+      "category": "23 февраля",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "cifra-p-4-2",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные цифры",
+        "23 февраля"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/ce0200e5-72c6-4c64-8af5-796128de9db2.jpg",
+        "unit_type": "digit",
+        "unit_holiday": "23 февраля",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/e7760011-984e-4774-b128-6d85d27449ff.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/e7760011-984e-4774-b128-6d85d27449ff.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-26T22:51:57.254Z",
+      "updated_at": "2026-09-26T23:03:17.052Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/7e053b50-5ebb-488f-8b17-72daa998b01a.webp"
+    },
+    {
+      "id": "3b99114a-c4ea-4fc6-b1e7-58d33608d0f1",
+      "title": "Цифра 18 Совершеннолетие",
+      "article": "UNT-199",
+      "price": 1800,
+      "short_description": "Цифра 18 Совершеннолетие",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "cifra-p-4",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные цифры"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/3538f05d-7bcd-4cac-9374-6b526a19dfee.jpg",
+        "unit_type": "digit",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/9f32a141-0d71-470c-b5cd-bf19d1c8cf84.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/9f32a141-0d71-470c-b5cd-bf19d1c8cf84.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-26T22:48:15.864Z",
+      "updated_at": "2026-09-26T22:50:11.383Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/60fc9298-40c2-48ee-bd42-962b8d457cf5.webp"
+    },
+    {
+      "id": "e5aef7cc-d5ef-42f0-bad2-6faef2c210e9",
+      "title": "Цифра Годик Малыш",
+      "article": "UNT-198",
+      "price": 900,
+      "short_description": "Цифра Годик Малыш",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "cifra-p-3",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные цифры",
+        "1 годик"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/eccaf7cb-b35f-4726-80f1-407b85e48615.jpg",
+        "unit_type": "digit",
+        "unit_who": [
+          "1 годик"
+        ],
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/57856a03-acaa-4be1-b531-b4f2fc3636e9.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/57856a03-acaa-4be1-b531-b4f2fc3636e9.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-26T22:47:46.002Z",
+      "updated_at": "2026-09-26T23:03:19.011Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/e76a965f-507b-492a-896f-66ae6ec0d237.webp"
+    },
+    {
+      "id": "cd69a56a-ae33-49dc-9634-619668035ac4",
+      "title": "Цифра Годик Малышка",
+      "article": "UNT-197",
+      "price": 900,
+      "short_description": "Цифра Годик Малышка",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "cifra-p-2",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные цифры",
+        "1 годик"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/8f3a5ef5-fdd6-43ed-8081-6c40273a5f6a.jpg",
+        "unit_type": "digit",
+        "unit_who": [
+          "1 годик"
+        ],
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/314d2b76-a39f-4358-8af3-d9ad02da3455.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/314d2b76-a39f-4358-8af3-d9ad02da3455.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-26T22:46:13.020Z",
+      "updated_at": "2026-09-26T23:03:20.863Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/c46c81af-db96-44ae-b69b-ad1b4d93e5c2.webp"
+    },
+    {
+      "id": "3a41bbc9-38a1-42c9-b97f-0a241226d71a",
+      "title": "Цифра Первый день рождения",
+      "article": "UNT-196",
+      "price": 900,
+      "short_description": "Цифра Первый день рождения",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "cifra-p",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные цифры",
+        "1 годик"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/19bb4057-e158-4db4-9368-5669acd977a5.jpg",
+        "unit_type": "digit",
+        "unit_who": [
+          "1 годик"
+        ],
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/4836593b-6936-468e-b1cb-9184da8c8e90.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/4836593b-6936-468e-b1cb-9184da8c8e90.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-26T22:40:48.344Z",
+      "updated_at": "2026-09-26T23:03:22.744Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/c2cba096-0312-48e7-897e-e0483e2969a5.webp"
+    },
+    {
+      "id": "c4a3d741-e0f5-42f8-a152-60abdc8964cb",
+      "title": "Цифры Пончик",
+      "article": "UNT-195",
+      "price": 900,
+      "short_description": "Цифры Пончик",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "air-ded-moroz-5-11-6",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные цифры"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/9acf7be7-f5b7-4c4a-b861-d4bdecc7d523.jpg",
+        "unit_type": "digit",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/3dbb03cb-af71-4b31-97a8-73b1c2f2b00d.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/3dbb03cb-af71-4b31-97a8-73b1c2f2b00d.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-26T22:37:50.533Z",
+      "updated_at": "2026-09-26T23:03:25.237Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/77eb3af1-0570-4a1d-a864-0ad15dc1d525.webp"
+    },
+    {
+      "id": "d42bde21-8ebb-48fe-91a6-7a96152ad38e",
+      "title": "Цифры Gold напольные",
+      "article": "UNT-194",
+      "price": 450,
+      "short_description": "Цифры Gold напольные",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "air-ded-moroz-5-11-5",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные цифры"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/2864676d-d02d-450e-82fd-9df89203ae6c.jpg",
+        "unit_type": "digit",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/fbd4f864-79fc-44b7-bee6-b5e7a06adbaf.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/fbd4f864-79fc-44b7-bee6-b5e7a06adbaf.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-26T22:35:16.020Z",
+      "updated_at": "2026-09-26T23:03:27.240Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/fd005337-e42b-4954-8cc8-de4434fa66a4.webp"
+    },
+    {
+      "id": "8338ca72-168f-464f-8b7b-da725fbd0789",
+      "title": "Цифры Красные",
+      "article": "UNT-193",
+      "price": 900,
+      "short_description": "Цифры Красные",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "air-ded-moroz-5-11-4",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные цифры"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/b9f8e155-5f02-4641-ab24-eceafdea803f.jpg",
+        "unit_type": "digit",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/5a292f60-ea6c-484a-96a8-eb940906e37e.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/5a292f60-ea6c-484a-96a8-eb940906e37e.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-26T22:34:13.842Z",
+      "updated_at": "2026-09-26T23:03:29.337Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/abfd8c81-aac5-42fe-8ba7-8f667c9e62fe.webp"
+    },
+    {
+      "id": "9feb41d9-c768-41b1-82d4-7787d71a70b4",
+      "title": "Цифры Розовое золото",
+      "article": "UNT-192",
+      "price": 900,
+      "short_description": "Цифры Розовое золото",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "air-ded-moroz-5-11-3",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные цифры"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/988c88ec-8809-4a90-abc6-72ffc0124a28.jpg",
+        "unit_type": "digit",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/fc955656-a4ad-473b-a161-89f115364648.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/fc955656-a4ad-473b-a161-89f115364648.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-26T22:33:07.090Z",
+      "updated_at": "2026-09-26T23:03:31.414Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/e4227ae2-d9a2-4dda-8a43-c51d6d8b89ad.webp"
+    },
+    {
+      "id": "bbc1f2ff-e820-46cc-afaa-7cef435229b0",
+      "title": "Цифры Голубые",
+      "article": "UNT-191",
+      "price": 900,
+      "short_description": "Цифры Голубые",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "air-ded-moroz-5-11-2",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные цифры"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/3ccaa4d5-6cfe-4528-8e25-97e6cb82ed01.jpg",
+        "unit_type": "digit",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/81121a09-b762-49ff-bfce-579a856a7d17.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/81121a09-b762-49ff-bfce-579a856a7d17.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-26T22:32:10.460Z",
+      "updated_at": "2026-09-26T23:03:34.182Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/a844d1e8-245f-472e-8527-b2938e6be037.webp"
+    },
+    {
+      "id": "cb1dd8f8-3b0d-4850-b648-d03e8ad43d1a",
+      "title": "Цифры Бискайский зеленый",
+      "article": "UNT-190",
+      "price": 900,
+      "short_description": "Цифры бискайский зеленый",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "air-ded-moroz-5-11",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные цифры"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/073e6b2d-1337-4068-a2d4-abb40fe7e02b.jpg",
+        "unit_type": "digit",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/8857dcd0-faeb-466b-b891-1a2f0028c04d.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/8857dcd0-faeb-466b-b891-1a2f0028c04d.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-26T22:29:05.463Z",
+      "updated_at": "2026-09-26T23:03:36.047Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/32bde8de-a0c4-4312-b7cd-e9c3538039af.webp"
+    },
+    {
+      "id": "ce8366db-7a5e-49d5-be13-57e4ccc92bac",
+      "title": "Цифры Slim Серебро",
+      "article": "UNT-189",
+      "price": 900,
+      "short_description": "Цифры Slim Серебро",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "air-ded-moroz-5-10",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные цифры"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/fc2060d2-9d4c-45c2-a39b-620aeba53087.jpg",
+        "unit_type": "digit",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/9e1a4ab0-ea92-455f-8572-145560e44659.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/9e1a4ab0-ea92-455f-8572-145560e44659.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-26T22:28:05.055Z",
+      "updated_at": "2026-09-26T23:03:38.104Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/6b414741-39b3-49ad-a8e3-88fd421866c5.webp"
+    },
+    {
+      "id": "acea1649-a0e0-4900-a56e-de44fd6a6bbb",
+      "title": "Цифры Slim Золото",
+      "article": "UNT-188",
+      "price": 900,
+      "short_description": "Цифры Slim Золото",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "air-ded-moroz-5-9",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные цифры"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/bec06fa9-123e-4087-b126-29e06fe867b0.jpg",
+        "unit_type": "digit",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/ec3c5ffa-97aa-4737-af62-851c590a6d5f.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/ec3c5ffa-97aa-4737-af62-851c590a6d5f.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-26T22:27:08.893Z",
+      "updated_at": "2026-09-26T23:03:40.141Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/5a56001a-09e1-4496-b2ca-a1708fc2b6e3.webp"
+    },
+    {
+      "id": "fe76575b-5240-42d5-8380-da84f7d5272a",
+      "title": "Цифры Космонавтики",
+      "article": "UNT-187",
+      "price": 900,
+      "short_description": "Цифры космонавтики",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": "Амонг Ас",
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": "Among Us",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "air-ded-moroz-5-8",
+      "scene": "unit_balloon",
+      "tags": [
+        "Геймерам",
+        "Шары поштучно",
+        "Фольгированные цифры"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/ae18e782-09ba-4cb6-83cd-a2b10f0aee4b.jpg",
+        "unit_type": "digit",
+        "unit_who": [
+          "Геймерам"
+        ],
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/fbed0ca9-7e46-4630-8425-f0c1e3fb611d.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/fbed0ca9-7e46-4630-8425-f0c1e3fb611d.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-26T22:25:18.319Z",
+      "updated_at": "2026-09-26T23:03:42.354Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/1f8d5986-dbac-47ad-9af2-655e79a3ef20.webp"
+    },
+    {
+      "id": "5047e4da-c5d7-4e40-8eb5-f03062f15b8e",
+      "title": "Цифры Серебро",
+      "article": "UNT-186",
+      "price": 900,
+      "short_description": "Цифры серебро",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "air-ded-moroz-5-7",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные цифры"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/aaa88887-b8eb-4343-851e-0390dc873e00.jpg",
+        "unit_type": "digit",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/65a3bc63-3285-445d-a504-96f791929f20.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/65a3bc63-3285-445d-a504-96f791929f20.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-26T22:16:21.716Z",
+      "updated_at": "2026-09-26T23:03:45.301Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/3644e414-81b3-492b-aeba-8e1134955805.webp"
+    },
+    {
+      "id": "4975ea19-477a-4bee-a0c4-58d7a1829787",
+      "title": "Цифры Золото",
+      "article": "UNT-185",
+      "price": 900,
+      "short_description": "Цифры золото",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "air-ded-moroz-5-6",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные цифры"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/accd6d67-e302-49ca-b00e-7092f231b3a7.jpg",
+        "unit_type": "digit",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/a117ddd5-8e23-43f1-b4e3-7c585f9034f9.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/a117ddd5-8e23-43f1-b4e3-7c585f9034f9.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-26T22:14:47.362Z",
+      "updated_at": "2026-09-26T23:03:47.252Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/58b015e3-270c-4581-9239-cbfa40ad2089.webp"
+    },
+    {
+      "id": "629cfd32-b710-4e2b-bbc2-34f29627df97",
+      "title": "Цифры Кремовые",
+      "article": "UNT-184",
+      "price": 900,
+      "short_description": "Цифры Кремовые",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "air-ded-moroz-5-5",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные цифры"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/f4a5ea28-946a-4f58-baa9-ba026da384a5.jpg",
+        "unit_type": "digit",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/57de78d8-e73f-4588-a44b-2fa77dd9a2f1.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/57de78d8-e73f-4588-a44b-2fa77dd9a2f1.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-26T22:12:47.941Z",
+      "updated_at": "2026-09-26T23:03:48.985Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/c492f875-6954-444d-b42e-b13c389db1bb.webp"
+    },
+    {
+      "id": "20755a73-3c46-452f-811a-65c78410191e",
+      "title": "Цифры Синие",
+      "article": "UNT-183",
+      "price": 900,
+      "short_description": "Цифры синие",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "air-ded-moroz-5-4",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные цифры"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/2d8f85ca-1b48-4940-899c-5915b057ed60.jpg",
+        "unit_type": "digit",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/3bb3b60c-9f5f-481b-af28-f1f982afdb78.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/3bb3b60c-9f5f-481b-af28-f1f982afdb78.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-26T22:11:53.571Z",
+      "updated_at": "2026-09-26T23:03:51.186Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/723a73cb-c695-4b79-afae-2bf7c29ad5c5.webp"
+    },
+    {
       "id": "bd05a8a5-0927-4ebb-a52b-dc6309f2794e",
-      "title": "Цифры белые",
+      "title": "Цифры Белые",
       "article": "UNT-182",
       "price": 900,
       "short_description": "Цифры белые",
@@ -44,12 +1210,12 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-26T22:10:49.256Z",
-      "updated_at": "2026-09-26T22:10:49.256Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-26T23:03:52.913Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/5ef87ddb-3bba-4285-a69d-02b91d916c2b.webp"
     },
     {
       "id": "0526a717-5aae-406b-883b-0ac496c1d70d",
-      "title": "Цифры черные",
+      "title": "Цифры Черные",
       "article": "UNT-181",
       "price": 900,
       "short_description": "Цифры черные",
@@ -90,12 +1256,12 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-26T22:09:53.204Z",
-      "updated_at": "2026-09-26T22:09:53.204Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-26T23:03:55.217Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/430c620d-accb-4bcd-bf83-e67774792428.webp"
     },
     {
       "id": "c3e9534a-797a-46f9-8203-64a12b7ef952",
-      "title": "Цифры сатин бордовый",
+      "title": "Цифры Сатин бордовый",
       "article": "UNT-180",
       "price": 900,
       "short_description": "Цифры сатин бордовый",
@@ -136,12 +1302,12 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-26T22:07:48.964Z",
-      "updated_at": "2026-09-26T22:07:48.964Z",
+      "updated_at": "2026-09-26T22:29:54.221Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/b8974d1b-d3b3-4f24-9646-1d6072b2c5e8.webp"
     },
     {
       "id": "51322581-f95d-4adf-9f20-b6157877c3f1",
-      "title": "Цифры олива",
+      "title": "Цифры Олива",
       "article": "UNT-179",
       "price": 900,
       "short_description": "Цифры олива",
@@ -182,12 +1348,12 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-26T22:07:25.786Z",
-      "updated_at": "2026-09-26T22:07:25.786Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-26T23:03:57.007Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/4046ecc8-1159-4692-8186-2584de2405a0.webp"
     },
     {
       "id": "98c01bdd-714c-47ed-8493-023c5ac743b8",
-      "title": "Цифры орхидея",
+      "title": "Цифры Орхидея",
       "article": "UNT-178",
       "price": 900,
       "short_description": "Цифры орхидея",
@@ -228,12 +1394,12 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-26T22:06:18.129Z",
-      "updated_at": "2026-09-26T22:06:18.129Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-26T23:03:59.157Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/72053b5b-b394-420a-ac46-9efa27137121.webp"
     },
     {
       "id": "6ac1d31d-dd34-4c61-9323-b7e99bb2c9b4",
-      "title": "Цифры оранжевые",
+      "title": "Цифры Оранжевые",
       "article": "UNT-177",
       "price": 900,
       "short_description": "Цифры оранжевые",
@@ -274,12 +1440,12 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-26T22:04:06.676Z",
-      "updated_at": "2026-09-26T22:04:06.676Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-26T23:04:01.039Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/ad697dbb-c658-4f41-92f7-601b9436f2dc.webp"
     },
     {
       "id": "23d9f82c-9d3f-40e4-8cf8-92c46964ffcd",
-      "title": "Цифры зеленые",
+      "title": "Цифры Зеленые",
       "article": "UNT-176",
       "price": 900,
       "short_description": "Зеленые",
@@ -320,8 +1486,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-26T22:02:51.596Z",
-      "updated_at": "2026-09-26T22:04:22.101Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-26T23:04:03.186Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/e3f3b786-9928-40c0-8327-fa2bc1f93503.webp"
     },
     {
       "id": "f484be5d-3661-4167-96c3-a22dd3f5f631",
@@ -369,8 +1535,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-26T21:39:36.431Z",
-      "updated_at": "2026-09-26T21:39:36.431Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-26T23:04:05.281Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/2633301d-64ad-4e34-9e2e-971659082b66.webp"
     },
     {
       "id": "b1ce39af-7912-4456-849c-1d28fca3c557",
@@ -418,8 +1584,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-26T21:33:56.449Z",
-      "updated_at": "2026-09-26T21:33:56.449Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-26T23:04:07.215Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/cb4d3b94-5c19-4c21-a178-3fb2fb9aa049.webp"
     },
     {
       "id": "b6529c77-0342-4662-9967-e95e866f2ba8",
@@ -461,8 +1627,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-26T21:32:37.900Z",
-      "updated_at": "2026-09-26T21:32:37.900Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-26T23:04:09.137Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/0f106823-1fb8-45aa-9b8e-7c4274f17859.webp"
     },
     {
       "id": "935b1b55-6693-48f9-a20e-e7d96d2ffcb6",
@@ -510,8 +1676,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-26T21:29:17.855Z",
-      "updated_at": "2026-09-26T21:29:17.855Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-26T23:04:11.079Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/75b6c5b5-adfd-4a6e-8ec3-2ddee1c663da.webp"
     },
     {
       "id": "76f0b9e1-3cdc-4e7e-b6a1-0ef8333a1658",
@@ -552,8 +1718,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-26T21:26:41.385Z",
-      "updated_at": "2026-09-26T21:26:41.385Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-26T23:04:13.031Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/84f62588-0a96-4c61-960f-5c9338b79601.webp"
     },
     {
       "id": "3be2905b-c05b-4b56-b43c-3b63139eabce",
@@ -594,8 +1760,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-26T21:25:21.468Z",
-      "updated_at": "2026-09-26T21:25:21.468Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-26T23:04:15.154Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/d3763960-7f33-4451-a882-696a83e9478e.webp"
     },
     {
       "id": "522d9e24-7ac8-4e90-941a-279ef788cd19",
@@ -636,8 +1802,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-26T21:21:03.818Z",
-      "updated_at": "2026-09-26T21:22:01.616Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-26T23:04:17.004Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/26d5c4b4-ff4b-4263-81c2-f5226146b544.webp"
     },
     {
       "id": "c1c56b05-f25c-498b-bf22-3494586ec9eb",
@@ -678,8 +1844,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-26T21:20:07.212Z",
-      "updated_at": "2026-09-26T21:22:32.566Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-26T23:04:19.077Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/44d628d4-5123-4a7f-8738-30da03ca130b.webp"
     },
     {
       "id": "4a97a4e1-51e4-4e2f-afd7-ba026e36a8d7",
@@ -720,8 +1886,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-26T21:19:02.546Z",
-      "updated_at": "2026-09-26T21:22:26.016Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-26T23:04:20.966Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/eebbe001-44d5-497a-99a5-07c76a3b8b46.webp"
     },
     {
       "id": "50ea30a7-964d-401c-8a6a-27cb85047bd1",
@@ -762,8 +1928,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-26T21:17:18.633Z",
-      "updated_at": "2026-09-26T21:22:18.829Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-26T23:04:22.809Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/bde99d01-9df4-49e6-a9a2-f194129f87fd.webp"
     },
     {
       "id": "538940de-4ce3-43f6-9ba8-800324a9f905",
@@ -804,8 +1970,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-26T21:14:59.480Z",
-      "updated_at": "2026-09-26T21:22:11.508Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-26T23:04:25.125Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/f070f788-0af1-4bea-88b0-f099ceb1ce0e.webp"
     },
     {
       "id": "489d1bef-deba-46ff-917f-51f50b158325",
@@ -846,8 +2012,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-26T21:10:53.006Z",
-      "updated_at": "2026-09-26T21:21:33.101Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-26T23:04:27.105Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/22820625-ea35-4686-97a1-a787638672c2.webp"
     },
     {
       "id": "df84f0bc-a959-43fc-83cc-0861ed087ce2",
@@ -888,8 +2054,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-26T21:10:02.549Z",
-      "updated_at": "2026-09-26T21:21:24.673Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-26T23:04:29.185Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/e4a497c1-8ecb-44b7-a59b-3e4a9a530204.webp"
     },
     {
       "id": "10933701-a5d3-4c0e-9fc4-5c6b660c13ed",
@@ -930,8 +2096,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-26T21:07:38.756Z",
-      "updated_at": "2026-09-26T21:07:38.756Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-26T23:04:31.086Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/d8f8d79d-f989-405b-8527-77e20923d887.webp"
     },
     {
       "id": "f33a9fb2-0abc-4f88-b46a-457e92d0e4b6",
@@ -972,8 +2138,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-26T21:06:17.197Z",
-      "updated_at": "2026-09-26T21:06:17.197Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-26T23:04:33.221Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/eec4b824-3c6c-4970-bc86-58b244831130.webp"
     },
     {
       "id": "c2dd0bbd-de76-4d4a-a769-75581152635a",

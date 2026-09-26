@@ -2,6 +2,356 @@
   "ok": true,
   "products": [
     {
+      "id": "a79a0d64-9606-45d4-9301-14d6a0dd23dc",
+      "title": "Небесный старт",
+      "article": "Y1-011",
+      "price": 8500,
+      "short_description": "Фотозона с мольбертом, кубиками и напольной композицией в бело-голубых тонах.",
+      "full_description": "Фотозона включает круглый мольберт с индивидуальной надписью, декоративные кубики с буквами и напольную композицию из голубых, белых и хромированных шаров.",
+      "composition": [
+        "фотозона",
+        "кубики",
+        "напольная композиция"
+      ],
+      "category": "1 годик",
+      "character": null,
+      "age_group": "Для малышей",
+      "budget": "от 8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Фотозона с кубиками на первый день рождения в Армавире",
+      "seo_description": "Фотозона с мольбертом, декоративными кубиками и напольной композицией из шаров. Индивидуальное оформление для малыша.",
+      "slug": "nebesnyj-start",
+      "scene": "photozone",
+      "tags": [
+        "1 годик",
+        "Фотозона"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": true,
+        "photozone_rental": true,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/705be848-a15d-4f5f-bc76-8cc8fb5fb811.jpg",
+        "photozone_type": "easel",
+        "rental": {
+          "enabled": true,
+          "item": "Мольберт с кругом из полистирола",
+          "days": 3,
+          "keep_price_delta": 500
+        },
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/01914563-b9ef-4ab5-b418-b57a0ae4e3a7.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/01914563-b9ef-4ab5-b418-b57a0ae4e3a7.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-26T12:04:20.436Z",
+      "updated_at": "2026-09-26T12:11:47.161Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/b690bbf4-edb0-469b-ab7a-d9f9dc02c8eb.webp"
+    },
+    {
+      "id": "876570bc-6dbe-48c1-9dfc-c5f2c68784f9",
+      "title": "Черновик",
+      "article": "UNT-122",
+      "price": 0,
+      "short_description": "Черновик",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "chernovik-2",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Шары с рисунком"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/801ba3ca-36fd-4642-b017-c2233095aa56.jpg",
+        "unit_type": "print"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/92ece77d-0bd4-4bca-8881-1e6c0df1f607.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/92ece77d-0bd4-4bca-8881-1e6c0df1f607.jpg",
+      "status": "draft",
+      "show_on_site": true,
+      "created_at": "2026-09-26T11:55:13.321Z",
+      "updated_at": "2026-09-26T12:11:49.539Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/01d03f23-d4f1-4c08-81c7-734525029fab.webp"
+    },
+    {
+      "id": "39d86c92-b3b7-4bd2-afc9-ec0b0101f045",
+      "title": "Черновик",
+      "article": "UNT-006",
+      "price": 0,
+      "short_description": "Черновик",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "chernovik",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Шары с рисунком"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/eab781e4-1406-4445-89bc-edeb2f308b6b.jpg",
+        "unit_type": "print"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/bddd83c7-4252-4a20-bb26-50262b6164dc.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/bddd83c7-4252-4a20-bb26-50262b6164dc.jpg",
+      "status": "draft",
+      "show_on_site": true,
+      "created_at": "2026-09-26T11:52:39.786Z",
+      "updated_at": "2026-09-26T12:11:51.556Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/86f99132-a4d4-4ed6-babb-8a786a91bc8d.webp"
+    },
+    {
+      "id": "30e09de9-ce34-4668-831a-9f09979398fa",
+      "title": "Золотые круги",
+      "article": "UNT-121",
+      "price": 180,
+      "short_description": "Золотые круги",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "http-127-0-0-1-5500-admin-5",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Латексные шары"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/d67b8b89-2a34-404f-9a8a-7dccfe6e83fb.jpg",
+        "unit_type": "latex"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/41937287-0fa1-4722-99cb-c880ab5ba0df.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/41937287-0fa1-4722-99cb-c880ab5ba0df.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-26T11:34:08.844Z",
+      "updated_at": "2026-09-26T11:34:31.365Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/1d189726-6020-4c4e-8801-00d5e9e517ab.webp"
+    },
+    {
+      "id": "d8b26432-674a-4efb-8feb-58ac48fc49bc",
+      "title": "Золотая и розовая стружка",
+      "article": "UNT-120",
+      "price": 180,
+      "short_description": "Золотая и розовая стружка",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "http-127-0-0-1-5500-admin-4",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Латексные шары"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/8f7cd3a3-c986-4668-8c40-c72a68379c00.jpg",
+        "unit_type": "latex"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/6868b385-b97c-4b81-bc2a-61f14691a8da.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/6868b385-b97c-4b81-bc2a-61f14691a8da.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-26T11:33:43.869Z",
+      "updated_at": "2026-09-26T12:11:53.135Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/cda09011-0119-44ec-882d-4a08e1462ea2.webp"
+    },
+    {
+      "id": "70be2894-9b86-4b5f-827f-70214decd597",
+      "title": "Синие и серебряные круги",
+      "article": "UNT-119",
+      "price": 180,
+      "short_description": "Синие и серебряные круги",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "http-127-0-0-1-5500-admin-3",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Латексные шары"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/96c6c45d-a9a5-4f19-92ce-8920c411d84c.jpg",
+        "unit_type": "latex"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/35ad7a5c-80b0-440b-8f4e-94ce626991d9.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/35ad7a5c-80b0-440b-8f4e-94ce626991d9.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-26T11:32:49.686Z",
+      "updated_at": "2026-09-26T12:11:54.873Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/7e9091f9-a786-4dad-839d-9f48a2900e8e.webp"
+    },
+    {
+      "id": "9f71dd4f-d7e1-4b6b-b216-e972532351c3",
+      "title": "Золотая и зеленая стружка",
+      "article": "UNT-118",
+      "price": 180,
+      "short_description": "Золотая и зеленая стружка",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "http-127-0-0-1-5500-admin-2",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Латексные шары"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/aa3664bc-4af0-473e-8cc0-7a47368a79cb.jpg",
+        "unit_type": "latex"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/08431497-d2ab-4034-b5fa-10b10b9d42cd.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/08431497-d2ab-4034-b5fa-10b10b9d42cd.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-26T11:29:40.829Z",
+      "updated_at": "2026-09-26T12:11:56.326Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/bef29e58-6efc-4154-97fe-67c673eb2347.webp"
+    },
+    {
+      "id": "af92d20c-6c2b-4f7c-a5d2-e4dc427a0e41",
+      "title": "Фиолетовые круги",
+      "article": "UNT-117",
+      "price": 180,
+      "short_description": "Фиолетовые круги",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "http-127-0-0-1-5500-admin",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Латексные шары"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/f5b4bef6-a96b-4f68-968d-c4b5541dfa1f.jpg",
+        "unit_type": "latex"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/dabe8f8c-f006-4a6f-8132-c1b28d71f72d.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/dabe8f8c-f006-4a6f-8132-c1b28d71f72d.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-26T11:28:45.528Z",
+      "updated_at": "2026-09-26T12:11:57.932Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/3e5469cc-024f-4b4a-8225-f1778c2383e4.webp"
+    },
+    {
       "id": "bb8a0ec1-b78a-45e5-8014-b6c70060b053",
       "title": "Синие круги",
       "article": "UNT-116",
@@ -40,8 +390,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-26T11:02:14.926Z",
-      "updated_at": "2026-09-26T11:02:14.926Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-26T12:11:59.510Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/b9d283f8-8010-4fbd-8e44-5af18030ae22.webp"
     },
     {
       "id": "44c981f9-eaed-41e2-bd16-12e22f13dcb2",
@@ -82,8 +432,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-26T10:59:10.808Z",
-      "updated_at": "2026-09-26T10:59:10.808Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-26T12:12:01.087Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/9868ec9f-53a8-420d-a2ca-5223719faebe.webp"
     },
     {
       "id": "eac4ec61-ce20-4c9e-b011-f7d592030d1b",
@@ -124,8 +474,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-26T10:58:22.554Z",
-      "updated_at": "2026-09-26T10:58:22.554Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-26T12:12:02.728Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/349fe894-ac58-4f5d-91ef-b9b4c529cee9.webp"
     },
     {
       "id": "99728695-79e2-464a-b991-50dde0a3b4f4",
@@ -166,8 +516,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-26T10:56:50.004Z",
-      "updated_at": "2026-09-26T10:56:50.004Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-26T12:12:04.138Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/1a194760-dc2f-4359-9eb2-3508a12441c7.webp"
     },
     {
       "id": "3519bf7d-1a36-4f26-95ae-c2ca562be60d",
@@ -208,8 +558,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-26T10:55:59.983Z",
-      "updated_at": "2026-09-26T10:55:59.983Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-26T12:12:05.706Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/29330f06-b06a-4824-9abf-7070d5aa7f63.webp"
     },
     {
       "id": "98a522e0-8047-4613-bae1-671fb77e0981",
@@ -250,8 +600,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-26T10:55:04.792Z",
-      "updated_at": "2026-09-26T10:55:04.792Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-26T12:12:07.244Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/14583835-f7a1-46da-a5a8-4e10486e5cc0.webp"
     },
     {
       "id": "458457c6-ede3-4af2-a095-35accfec74d8",
@@ -292,8 +642,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-26T10:50:54.482Z",
-      "updated_at": "2026-09-26T10:50:54.482Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-26T12:12:08.876Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/c15ed6dc-636d-43a0-894e-48708525d50e.webp"
     },
     {
       "id": "fe5ade61-6f6a-4ff9-a792-7c9259a9d24f",
@@ -334,8 +684,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-26T10:49:41.203Z",
-      "updated_at": "2026-09-26T10:49:41.203Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-26T12:12:10.423Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/9edc9e83-e04e-4f7c-b117-0728ae7ee6f8.webp"
     },
     {
       "id": "b2db6d4d-fa46-4295-8605-981f938cf287",
@@ -376,8 +726,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-26T10:37:56.157Z",
-      "updated_at": "2026-09-26T10:37:56.157Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-26T12:12:11.920Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/cc91aff5-ae3b-42aa-b0c0-2ee24985aebd.webp"
     },
     {
       "id": "728117d4-494a-42b0-a574-41d77ba38a98",
@@ -460,8 +810,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-26T10:34:38.174Z",
-      "updated_at": "2026-09-26T10:34:38.174Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-26T12:12:13.727Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/16f8a99b-1211-4709-8fa8-a828b82f39f8.webp"
     },
     {
       "id": "e1ff9b6a-2286-4e04-a6b5-8f2d38e4411f",
@@ -502,8 +852,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-26T10:32:24.014Z",
-      "updated_at": "2026-09-26T10:32:24.014Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-26T12:12:15.232Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/e4fb478c-802c-4f37-9936-d2963538a332.webp"
     },
     {
       "id": "1c638ac6-23c5-43cf-8805-0df624c40c44",
@@ -544,8 +894,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-26T10:30:38.686Z",
-      "updated_at": "2026-09-26T10:30:38.686Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-26T12:12:16.738Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/26c79210-1c67-470a-bee2-47eb10ecf453.webp"
     },
     {
       "id": "0bc38c4f-92be-4c39-aeec-04bdba63eb64",
@@ -586,8 +936,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-26T10:29:03.853Z",
-      "updated_at": "2026-09-26T10:29:03.853Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-26T12:12:18.344Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/1a07342b-ba9b-452e-b834-625d67b57614.webp"
     },
     {
       "id": "9dc9eeb4-f4dd-4ec0-8bbe-ad2e9e51a4fd",
@@ -628,8 +978,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-26T10:27:07.245Z",
-      "updated_at": "2026-09-26T10:27:07.245Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-26T12:12:19.857Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/425dbef2-6c88-4148-8089-d6edfce6e231.webp"
     },
     {
       "id": "fc2275bc-bd08-48a7-81ab-d81cc0e31960",
@@ -670,8 +1020,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-26T10:26:12.408Z",
-      "updated_at": "2026-09-26T10:26:12.408Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-26T12:12:21.400Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/7de85e34-0909-4106-88d6-d34627215e6a.webp"
     },
     {
       "id": "97805819-27a6-4e25-b6f6-1eecb4db790b",
@@ -712,8 +1062,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-26T10:21:50.767Z",
-      "updated_at": "2026-09-26T10:21:50.767Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-26T12:12:23.019Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/6d1e9891-80c7-4dc1-875a-e0daff2f2b41.webp"
     },
     {
       "id": "31687071-b456-44c6-b188-6ed1ef401dbd",
@@ -752,8 +1102,8 @@
       "status": "draft",
       "show_on_site": false,
       "created_at": "2026-09-25T23:42:29.164Z",
-      "updated_at": "2026-09-25T23:42:29.164Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-26T12:12:24.705Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/1ae0e670-87b4-4f15-9fe3-cb65032d1f0a.webp"
     },
     {
       "id": "ccc6ce10-191c-4f2a-9c50-f6ebc4dc6cde",
@@ -796,8 +1146,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-25T23:14:14.010Z",
-      "updated_at": "2026-09-25T23:14:14.010Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-26T12:12:26.339Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/1c4e5466-25ef-44d6-ad1f-d6ffeb822c52.webp"
     },
     {
       "id": "ee9f3fe0-a879-4467-a80f-7229f3cb61c1",
@@ -840,8 +1190,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-25T23:13:04.949Z",
-      "updated_at": "2026-09-25T23:13:04.949Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-26T12:12:28.066Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/5121348c-e604-48bf-a93c-0f22ea6b2372.webp"
     },
     {
       "id": "add9bd03-1497-48f4-88fe-b8d364df343a",
@@ -884,8 +1234,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-25T23:10:45.271Z",
-      "updated_at": "2026-09-25T23:10:45.271Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-26T12:12:29.997Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/3e21fa22-b025-46cb-8a18-b6ca05bbfaf7.webp"
     },
     {
       "id": "70a1d61c-d5c7-4525-97aa-2a0fc8992685",
@@ -932,8 +1282,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-25T22:52:12.021Z",
-      "updated_at": "2026-09-25T22:52:12.021Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-26T12:12:31.608Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/1c718041-bd20-4e55-8982-f4731368d2c0.webp"
     },
     {
       "id": "a184e393-cefa-45c9-8ac5-e726f6d14f62",
@@ -978,8 +1328,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-25T22:48:31.574Z",
-      "updated_at": "2026-09-25T22:48:31.574Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-26T12:12:33.145Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/c8db5810-2510-4215-90e9-44cdd6348030.webp"
     },
     {
       "id": "2d68d62b-2ef9-4c0a-a633-1130f745c827",
@@ -1024,8 +1374,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-25T22:47:33.672Z",
-      "updated_at": "2026-09-25T22:47:33.672Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-26T12:12:34.759Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/e02cfec5-962e-4076-b6f2-aa3709bf0aa7.webp"
     },
     {
       "id": "386dab28-5efc-42fb-ade5-bb54e0fe95bf",
@@ -1070,8 +1420,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-25T22:46:36.257Z",
-      "updated_at": "2026-09-25T22:46:36.257Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-26T12:12:36.270Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/ec8cfab5-fdc5-48a8-b225-de95bd704a31.webp"
     },
     {
       "id": "c98167b2-31ff-41e0-9bba-782ed6830d0d",
@@ -1116,8 +1466,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-25T22:45:31.608Z",
-      "updated_at": "2026-09-25T22:45:31.608Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-26T12:12:37.776Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/2bf7edad-e23d-4a6d-9c75-f2e48a469048.webp"
     },
     {
       "id": "40da0d96-4f31-4a89-912b-23568573966e",
@@ -1162,8 +1512,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-25T22:44:28.762Z",
-      "updated_at": "2026-09-25T22:44:28.762Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-26T12:12:39.264Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/7d2cc405-bcd3-4007-810a-047ecb66c5a4.webp"
     },
     {
       "id": "2da61e13-d90b-4e38-98e0-1ae04dd95c7a",
@@ -1208,8 +1558,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-25T22:42:50.590Z",
-      "updated_at": "2026-09-25T22:42:50.590Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-26T12:12:40.781Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/f2966982-148c-4429-a6ef-ec70872edbbe.webp"
     },
     {
       "id": "7d3cc417-51e7-4f0a-9a97-ee91785e6c0a",
@@ -1256,8 +1606,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-25T22:41:25.542Z",
-      "updated_at": "2026-09-25T22:41:25.542Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-26T12:12:42.372Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/b43477cb-eafe-4605-a228-d9c619de1748.webp"
     },
     {
       "id": "20b2037e-63d3-4dbc-a7fd-1bba0bc91486",
@@ -1304,8 +1654,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-25T22:39:53.872Z",
-      "updated_at": "2026-09-25T22:39:53.872Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-26T12:12:43.897Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/9ea0f476-cb20-4d9f-985b-50a98d1aebb0.webp"
     },
     {
       "id": "e8a09611-08a1-4ba7-b413-a9103733c4b4",
@@ -1350,8 +1700,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-25T22:38:49.692Z",
-      "updated_at": "2026-09-25T22:38:49.692Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-26T12:12:45.444Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/cfd1ee03-ec95-4111-b2f1-d21001d47048.webp"
     },
     {
       "id": "f2d09a96-0b54-4b54-912a-518fb3549705",
@@ -1396,8 +1746,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-25T22:37:33.956Z",
-      "updated_at": "2026-09-25T22:37:33.956Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-26T12:12:47.032Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/00f427cf-adf4-4cfe-8bf7-91c77b519a8d.webp"
     },
     {
       "id": "316067ad-d772-4b65-8eab-09984f7e3238",
@@ -1444,8 +1794,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-25T22:35:19.809Z",
-      "updated_at": "2026-09-25T22:35:19.809Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-26T12:12:48.556Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/389ceee9-7abe-4852-9354-c35c921af180.webp"
     },
     {
       "id": "bf254050-6fd2-4c31-aade-650657a1241e",
@@ -1490,8 +1840,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-25T22:34:00.764Z",
-      "updated_at": "2026-09-25T22:34:00.764Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-26T12:12:50.145Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/7a7be258-5cad-4972-8ba0-6912da5822a7.webp"
     },
     {
       "id": "5c404748-46d8-4863-8708-b289836e4376",
@@ -1538,8 +1888,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-25T22:32:54.691Z",
-      "updated_at": "2026-09-25T22:32:54.691Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-26T12:12:51.699Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/c8705813-6892-4858-a06d-485754da455d.webp"
     },
     {
       "id": "8d529570-8996-402d-a3eb-983cb833cb17",
@@ -1584,8 +1934,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-25T22:31:51.706Z",
-      "updated_at": "2026-09-25T22:31:51.706Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-26T12:12:53.285Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/de2b7d56-0f24-46d4-9e99-4df354b95af6.webp"
     },
     {
       "id": "3a4de5f9-8226-4633-be56-b40469528513",
@@ -1632,8 +1982,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-25T22:30:42.823Z",
-      "updated_at": "2026-09-25T22:30:42.823Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-26T12:12:54.836Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/335a204c-a524-4892-ba80-189eca532408.webp"
     },
     {
       "id": "0b2dd35b-4ffe-4cf3-a946-46c150c00cd9",
@@ -1678,8 +2028,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-25T22:29:23.955Z",
-      "updated_at": "2026-09-25T22:29:23.955Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-26T12:12:56.386Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/134ce6cc-4139-43b8-89e1-732ad904849e.webp"
     },
     {
       "id": "773ba994-25fa-4917-a87c-a48082ddc815",
@@ -1724,8 +2074,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-25T22:00:43.323Z",
-      "updated_at": "2026-09-25T22:00:43.323Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-26T12:12:58.015Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/44eb6803-1797-4082-a51b-fc080ada567d.webp"
     },
     {
       "id": "582c2de5-2653-492f-b6bb-25b273036c23",
@@ -1770,8 +2120,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-25T21:59:07.150Z",
-      "updated_at": "2026-09-25T21:59:07.150Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-26T12:12:59.687Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/49c9d288-d2ef-4046-81c4-21da0eb415a6.webp"
     },
     {
       "id": "3e0d1793-d8b7-41a4-9218-21868a6e9015",
@@ -1816,8 +2166,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-25T21:57:10.073Z",
-      "updated_at": "2026-09-25T21:57:10.073Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-26T12:13:01.340Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/eba588a1-b522-4f28-ad03-94083221fc3f.webp"
     },
     {
       "id": "0d9128d0-b5c9-4921-8075-2b226c863860",
@@ -1866,8 +2216,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-25T21:51:12.432Z",
-      "updated_at": "2026-09-25T21:51:12.432Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-26T12:13:03.016Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/42a23257-54af-49f8-9832-12ad49fd0ede.webp"
     },
     {
       "id": "e2c5cb74-ede2-4346-b4e2-43a3e5833d2d",
@@ -1912,8 +2262,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-25T21:47:35.216Z",
-      "updated_at": "2026-09-25T21:47:35.216Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-26T12:13:04.668Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/3542adfd-a827-48f1-874d-deb91765479e.webp"
     },
     {
       "id": "82e7c3d2-61f2-4065-b13f-f0d20ccf9a37",
@@ -1958,8 +2308,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-25T21:41:07.868Z",
-      "updated_at": "2026-09-25T21:41:07.868Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-26T12:13:06.243Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/3d092d8b-8a13-4241-b6b6-d5d79c6677ec.webp"
     },
     {
       "id": "0d2601c8-198d-421e-9560-73c95f7ad634",
@@ -2004,8 +2354,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-25T21:38:11.729Z",
-      "updated_at": "2026-09-25T21:38:11.729Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-26T12:13:07.791Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/c8f93587-d928-4344-912e-0e989207ef4d.webp"
     },
     {
       "id": "1c116af0-cbf0-444e-acdc-e34559c6e2ac",
@@ -2050,8 +2400,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-25T21:36:25.732Z",
-      "updated_at": "2026-09-25T21:36:25.732Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-26T12:13:09.646Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/e9b17d96-4878-42d7-b004-b02a351999c3.webp"
     },
     {
       "id": "2d86afde-4a41-46ca-bd69-f91da81d9775",
@@ -2096,8 +2446,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-25T21:34:30.211Z",
-      "updated_at": "2026-09-25T21:34:30.211Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-26T12:13:11.425Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/f31d66a1-ce35-48de-8f4a-ddd7bce79589.webp"
     },
     {
       "id": "5c60ce38-cce7-4d18-9ab2-244ae2415f05",
@@ -4652,48 +5002,6 @@
       "created_at": "2026-09-25T11:37:18.084Z",
       "updated_at": "2026-09-25T15:25:31.710Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/c58c2665-5308-4502-a0f4-b6e288622c63.webp"
-    },
-    {
-      "id": "c1a74a2d-f55f-4890-8162-b286191fd2cd",
-      "title": "Черновик",
-      "article": "UNT-006",
-      "price": 0,
-      "short_description": "Черновик",
-      "full_description": "",
-      "composition": [],
-      "category": "Шары поштучно",
-      "character": null,
-      "age_group": "Для любого возраста",
-      "budget": null,
-      "series_name": null,
-      "occasion": null,
-      "target_audience": null,
-      "seo_title": "",
-      "seo_description": "",
-      "slug": "chernovik",
-      "scene": "unit_balloon",
-      "tags": [
-        "Шары поштучно",
-        "Шары с рисунком"
-      ],
-      "client_options": {
-        "available_on_request": false,
-        "advance_order_1_2_days": false,
-        "number_choice": false,
-        "personal_inscription": false,
-        "photozone_rental": false,
-        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/a74ec78a-cd18-437a-a1eb-fa1b7e9a0e21.jpg",
-        "unit_type": "print"
-      },
-      "photos": [
-        "https://storage.yandexcloud.net/vigsharm-photos/products/15f4d147-04f0-4e88-ab91-cece7d773149.jpg"
-      ],
-      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/15f4d147-04f0-4e88-ab91-cece7d773149.jpg",
-      "status": "draft",
-      "show_on_site": true,
-      "created_at": "2026-09-25T11:28:34.267Z",
-      "updated_at": "2026-09-25T15:25:33.771Z",
-      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/39afa516-5f96-4229-b716-010346399a1c.webp"
     },
     {
       "id": "b53148bf-3d13-47b3-8ef4-5d8c8cce0a47",

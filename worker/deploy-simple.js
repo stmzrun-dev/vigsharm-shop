@@ -14,7 +14,6 @@ const wrangler = spawn('npx', ['wrangler', 'deploy'], {
 wrangler.on('close', (code) => {
   if (code === 0) {
     console.log('\n✅ Deployment successful!\n');
-    console.log('Run tests: cd c:\\vigsharm-shop && node test-api.js\n');
   } else {
     console.log(`\n❌ Deployment failed with code ${code}\n`);
   }

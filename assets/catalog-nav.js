@@ -489,9 +489,9 @@
     'Арки': 'images/ready/what-arch.webp?v=20260924clay2',
     'Шар-сюрприз': 'images/ready/what-surprise.webp?v=20260924',
     'Крафтовый букет': 'images/ready/what-kraft.webp?v=20260924clay2',
-    'На выписку': 'images/idea-discharge.webp?v=20260924',
-    'Юбилей': 'images/idea-jubilee.webp?v=20260924',
-    '1 годик': 'images/idea-1year.webp?v=20260924'
+    'На выписку': 'images/idea-discharge.webp?v=20260926c',
+    'Юбилей': 'images/idea-jubilee.webp?v=20260926',
+    '1 годик': 'images/idea-1year.webp?v=20260926b'
   };
   var WHO_PICKS = [
     ['Для неё', 'Для неё'],
@@ -515,7 +515,7 @@
     ['Super Agate', 'images/balloons/balloon-agate.webp?v=20260924e', '', 'Шары Super Agate'],
     ['Bubble', 'images/balloons/balloon-bubble.webp?v=20260924e', '', 'Шары Bubble'],
     ['Цифры', 'images/balloons/balloon-digit.webp?v=20260924c', '', 'Фольгированные цифры'],
-    ['С надписью', 'images/balloons/balloon-name.webp?v=20260924e', '', 'Именные шары']
+    ['С надписью', 'images/balloons/balloon-name.webp?v=20260926', '', 'Именные шары']
   ];
   var LATEX_TYPES = [
     ['Кристалл Ассорти', '', 'Кристалл Ассорти'],
@@ -527,12 +527,12 @@
   var HOLIDAY_PHOTOS = [
     ['Новый год', 'images/holidays/holiday-newyear.webp?v=20260924c'],
     ['14 февраля', 'images/holidays/holiday-feb14.webp?v=20260924c'],
-    ['23 февраля', 'images/holidays/holiday-feb23.webp?v=20260924c'],
-    ['8 марта', 'images/holidays/holiday-mar8.webp?v=20260924c'],
+    ['23 февраля', 'images/holidays/holiday-feb23.webp?v=20260926'],
+    ['8 марта', 'images/holidays/holiday-mar8.webp?v=20260926'],
     ['9 мая', 'images/holidays/holiday-may9.webp?v=20260924c'],
     ['Выпускной', 'images/holidays/holiday-grad.webp?v=20260924c'],
     ['1 сентября', 'images/holidays/holiday-sep1.webp?v=20260924c'],
-    ['День учителя', 'images/holidays/holiday-teacher.webp?v=20260924e'],
+    ['День учителя', 'images/holidays/holiday-teacher.webp?v=20260926'],
     ['Хэллоуин', 'images/holidays/holiday-halloween.webp?v=20260924c']
   ];
   var HERO_PHOTOS = [
@@ -1048,6 +1048,18 @@
     window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
   }
 
+  function scrollToUnitExtra() {
+    var board = document.getElementById('catalog-idea-board');
+    if (!board) return scrollToResults();
+    var bands = board.querySelectorAll('.pick-band');
+    var target = bands.length > 1 ? bands[bands.length - 1] : null;
+    if (!target) return scrollToResults();
+    var header = document.querySelector('.site-header');
+    var gap = (header ? header.getBoundingClientRect().height : 76) + 12;
+    var top = target.getBoundingClientRect().top + window.pageYOffset - gap;
+    window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+  }
+
   function renderBoard() {
     var old = document.getElementById('catalog-idea-board');
     if (group === 'all' || q.trim()) {
@@ -1113,6 +1125,7 @@
           character = '';
           showAllReady = false;
           render({ scroll: !same && !type[2] });
+          if (!same && type[2]) scrollToUnitExtra();
         }
       });
     });

@@ -7,7 +7,6 @@
   var MAX_URL = 'https://max.ru/u/f9LHodD0cOJwY09H6Zj63nYK_X8tPZGb3CODIvTT7FWkRzrgbh5F582AiB8';
   var TG_URL = 'https://t.me/Olgamzz';
   var WA_TEXT = 'Здравствуйте! Хочу сделать заказ в Вигшарм.';
-  var REMOTE = 'https://vigsharm-new.stmzrun.chatgpt.site';
   // Worker API (Cloudflare). В РФ *.workers.dev часто недоступен без VPN —
   // тогда витрина берёт снимок data/products.json с того же хоста, что и сайт.
   window.VIG_API = 'https://vigsharm-api.vigsharm.workers.dev';
@@ -315,29 +314,16 @@
   } else {
     applyLineEmojiMode();
   }
-  window.vigRemote = function (key) {
-    if (!key) return '';
-    if (key.indexOf('http') === 0) return key;
-    if (key.charAt(0) === '/') return REMOTE + key;
-    return REMOTE + '/api/images/' + key;
-  };
-  // Global img fallback: local -> remote -> main product photo (if set) -> placeholder
+  // Broken catalog photo: composition hero, then a missing-image state.
   document.addEventListener('error', function (e) {
     var t = e.target;
     if (t && t.tagName === 'IMG' && t.hasAttribute('data-key')) {
-      var stage = t.getAttribute('data-fb') || '0';
       var key = t.getAttribute('data-key');
       var main = t.getAttribute('data-main-key') || '';
-      if (stage === '0') {
-        t.setAttribute('data-fb', '1');
-        t.src = window.vigRemote(key);
-      } else if (stage === '1' && main && main !== key) {
-        // Digit/variant photo failed — always fall back to the composition hero shot.
-        t.setAttribute('data-fb', '0');
+      if (main && main !== key) {
         t.setAttribute('data-key', main);
         t.src = window.vigImage(main);
-      } else if (stage === '1') {
-        t.setAttribute('data-fb', '2');
+      } else {
         t.removeAttribute('data-key');
         t.removeAttribute('src');
         t.classList.add('is-missing');

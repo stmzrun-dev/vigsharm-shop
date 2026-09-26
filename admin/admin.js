@@ -75,7 +75,7 @@ const UNIT_BALLOON_TYPES = {
   bubble: { value: 'bubble', title: 'Bubble', tag: 'Шары Bubble', plainShelf: true },
   print: { value: 'print', title: 'С рисунком', tag: 'Шары с рисунком', hasWho: true, hasHoliday: true },
   foil: { value: 'foil', title: 'Фольга', tag: 'Фольгированные фигуры', hasSize: true, hasWho: true, hasHoliday: true },
-  digit: { value: 'digit', title: 'Цифры', tag: 'Фольгированные цифры', hasDigit: true },
+  digit: { value: 'digit', title: 'Цифры', tag: 'Фольгированные цифры', hasDigit: true, hasHoliday: true },
   walker: { value: 'walker', title: 'Ходячие', tag: 'Ходячие фигуры', hasSize: true, hasWho: true, hasHoliday: true },
   shapes: { value: 'shapes', title: 'Круги и звёзды', tag: 'Круги, звёзды и сердца', hasHoliday: true }
 };

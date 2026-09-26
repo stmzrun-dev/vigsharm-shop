@@ -11,11 +11,13 @@ Object.assign(app, {
       .trim();
   },
 
-  titlesTooSimilar(a, b) {
+  titlesTooSimilar(a, b, opts = {}) {
     const na = this.normalizeTitleKey(a);
     const nb = this.normalizeTitleKey(b);
     if (!na || !nb) return false;
     if (na === nb) return true;
+    // Поштучные: «Brawl Stars» и «Цифры Brawl Stars» — разные товары.
+    if (opts.exactOnly) return false;
     const shorter = na.length <= nb.length ? na : nb;
     const longer = na.length <= nb.length ? nb : na;
     if (shorter.length >= 6 && longer.includes(shorter) && shorter.length / longer.length >= 0.55) {
@@ -51,24 +53,30 @@ Object.assign(app, {
     return out;
   },
 
+  titleClashExactOnly() {
+    return !!(this.isUnitBalloonMode?.() || document.getElementById('scene-select')?.value === 'unit_balloon');
+  },
+
   findSimilarCatalogTitle(title) {
     const t = String(title || '').trim();
     if (!t) return null;
     const currentId = this.currentProduct?.id;
+    const exactOnly = this.titleClashExactOnly();
     for (const p of this.products || []) {
       if (currentId && p.id === currentId) continue;
-      if (this.titlesTooSimilar(t, p.title)) return p;
+      if (this.titlesTooSimilar(t, p.title, { exactOnly })) return p;
     }
     return null;
   },
 
   filterTitlesAgainstCatalog(primary, alts = []) {
     const taken = this.getExistingCatalogTitles();
+    const exactOnly = this.titleClashExactOnly();
     const pool = [primary, ...(alts || [])].map((t) => String(t || '').trim()).filter(Boolean);
     const free = [];
     for (const t of pool) {
-      if (taken.some((ex) => this.titlesTooSimilar(t, ex))) continue;
-      if (free.some((f) => this.titlesTooSimilar(t, f))) continue;
+      if (taken.some((ex) => this.titlesTooSimilar(t, ex, { exactOnly }))) continue;
+      if (free.some((f) => this.titlesTooSimilar(t, f, { exactOnly }))) continue;
       free.push(t);
     }
     return { title: free[0] || '', title_alts: free.slice(1, 3) };

@@ -286,7 +286,74 @@
     var wrap = document.createElement('div');
     wrap.className = 'modal-backdrop unit-list-wrap';
     wrap.setAttribute('role', 'presentation');
-    function draw() {
+    function modalEl() { return wrap.querySelector('.unit-list-modal'); }
+    function revealIn(kind) {
+      var modal = modalEl();
+      if (!modal || !kind) return;
+      var el = null;
+      if (kind === 'address') el = modal.querySelector('[data-u="address"]');
+      else if (kind === 'date') el = modal.querySelector('[data-u="date-toggle"]');
+      else if (kind === 'cal' || kind === 'slots') el = modal.querySelector('.unit-cal.is-open .unit-cal-pop');
+      else if (kind === 'time') el = modal.querySelector('[data-u="time-toggle"]');
+      else if (kind === 'phone') el = modal.querySelector('[data-u="phone"]');
+      else if (kind === 'go') el = modal.querySelector('[data-u="go"], .unit-list-choice');
+      if (!el) return;
+      var pad = 16;
+      var m = modal.getBoundingClientRect();
+      var r = el.getBoundingClientRect();
+      if (r.height > m.height - pad * 2) modal.scrollTop += r.top - m.top - pad;
+      else if (r.bottom > m.bottom - pad) modal.scrollTop += r.bottom - m.bottom + pad;
+      else if (r.top < m.top + pad) modal.scrollTop -= m.top + pad - r.top;
+    }
+    function paintFulfillment() {
+      var modal = modalEl();
+      if (!modal) return;
+      modal.querySelectorAll('[data-u="ful"]').forEach(function (btn) {
+        btn.classList.toggle('is-on', btn.getAttribute('data-v') === draft.fulfillment);
+      });
+      var form = modal.querySelector('.unit-list-form');
+      var when = modal.querySelector('.unit-list-when');
+      var addr = modal.querySelector('[data-u="address"]');
+      var needAddr = draft.fulfillment && draft.fulfillment !== 'pickup';
+      if (needAddr) {
+        if (!addr && form && when) {
+          addr = document.createElement('input');
+          addr.setAttribute('data-u', 'address');
+          addr.maxLength = 140;
+          addr.value = draft.address;
+          form.insertBefore(addr, when);
+          wireAddress(addr);
+        }
+        if (addr) {
+          addr.placeholder = draft.fulfillment === 'armavir' ? 'Улица, дом, квартира' : 'Населённый пункт и адрес';
+        }
+      } else if (addr) {
+        addr.remove();
+      }
+      var sums = modal.querySelectorAll('.unit-list-sum');
+      var sum = sums[sums.length - 1];
+      if (sum && step === 'order') {
+        var itemsNow = load();
+        var nearby = draft.fulfillment === 'nearby';
+        sum.innerHTML = '<span>' + (nearby ? 'Шары' : 'Итого') + '</span><strong>' +
+          money(nearby ? goodsSum(itemsNow) : grand(itemsNow)) +
+          (draft.fulfillment === 'armavir' ? ' <small>с доставкой</small>' : '') + '</strong>';
+      }
+      syncGo(wrap);
+      revealIn(needAddr ? 'address' : 'date');
+    }
+    function wireAddress(el) {
+      el.addEventListener('input', function () {
+        draft.address = el.value;
+        syncGo(wrap);
+      });
+      el.addEventListener('blur', function () {
+        if (String(draft.address || '').trim()) revealIn('date');
+      });
+    }
+    function draw(reveal) {
+      var prev = modalEl();
+      var keep = prev ? prev.scrollTop : 0;
       items = load();
       if (!items.length) { close(); return; }
       var err = ready();
@@ -330,6 +397,11 @@
         body + '</section>';
       wrap.querySelector('.modal-close').addEventListener('click', close);
       bind(wrap);
+      if (reveal) revealIn(reveal);
+      else if (keep) {
+        var next = modalEl();
+        if (next) next.scrollTop = keep;
+      }
     }
     function fulBtn(id, label, note, icon) {
       return '<button type="button" data-u="ful" data-v="' + id + '"' + (draft.fulfillment === id ? ' class="is-on"' : '') + '><img src="' + icon + '" alt="" width="40" height="40"/><strong>' + label + '</strong><small>' + note + '</small></button>';
@@ -359,35 +431,43 @@
             draw();
           });
         } else if (act === 'date-toggle') {
-          el.addEventListener('click', function () { calOpen = !calOpen; timeOpen = false; draw(); });
+          el.addEventListener('click', function () {
+            calOpen = !calOpen;
+            timeOpen = false;
+            draw(calOpen ? 'cal' : '');
+          });
         } else if (act === 'time-toggle') {
-          el.addEventListener('click', function () { timeOpen = !timeOpen; calOpen = false; draw(); });
+          el.addEventListener('click', function () {
+            timeOpen = !timeOpen;
+            calOpen = false;
+            draw(timeOpen ? 'slots' : '');
+          });
         } else if (act === 'cal-prev' || act === 'cal-next') {
           el.addEventListener('click', function () {
             calView.m += act === 'cal-next' ? 1 : -1;
             if (calView.m < 1) { calView.m = 12; calView.y -= 1; }
             if (calView.m > 12) { calView.m = 1; calView.y += 1; }
             calOpen = true;
-            draw();
+            draw('cal');
           });
         } else if (act === 'day') {
           el.addEventListener('click', function () {
             if (el.disabled) return;
             draft.date = el.getAttribute('data-v') || '';
             calOpen = false;
-            draw();
+            draw('time');
           });
         } else if (act === 'slot') {
           el.addEventListener('click', function () {
             draft.time = el.getAttribute('data-v') || '';
             timeOpen = false;
-            draw();
+            draw('phone');
           });
         } else if (act === 'ful') {
           el.addEventListener('click', function () {
             draft.fulfillment = el.getAttribute('data-v') || '';
             if (draft.fulfillment === 'pickup') draft.address = '';
-            draw();
+            paintFulfillment();
           });
         } else if (act === 'next') {
           el.addEventListener('click', function () { step = 'order'; draw(); });
@@ -411,6 +491,7 @@
             }
             draft.phone = el.value;
             syncGo(root);
+            if (phoneDigits(draft.phone).length >= 11) revealIn('go');
           });
           el.addEventListener('blur', function () {
             if (el.value === '+7' || el.value === '+7 ') {
@@ -418,11 +499,14 @@
               draft.phone = '';
             }
             syncGo(root);
+            if (phoneDigits(draft.phone).length >= 11) revealIn('go');
           });
+        } else if (act === 'address') {
+          wireAddress(el);
         } else {
           el.addEventListener('input', function () {
-            draft[act === 'address' ? 'address' : act] = el.value;
-            if (act === 'name' || act === 'address') syncGo(root);
+            draft[act] = el.value;
+            if (act === 'name') syncGo(root);
           });
         }
       });

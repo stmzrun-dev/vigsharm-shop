@@ -2,6 +2,194 @@
   "ok": true,
   "products": [
     {
+      "id": "11f7c0e0-e922-4d82-82b3-05fdc0ad7532",
+      "title": "Отбивайся С ДР!",
+      "article": "UNT-132",
+      "price": 350,
+      "short_description": "Отбивайся С ДР!",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "zolotaya-i-rozovaya-struzhka-3-5",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Круги, звёзды и сердца",
+        "Для неё",
+        "Для него"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/3c0502b0-7955-47ea-81d8-08f82449d9a7.jpg",
+        "unit_type": "shapes",
+        "unit_who": [
+          "Для неё",
+          "Для него"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/f0145a3b-eae2-42ab-ab21-63bda72f7b8f.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/f0145a3b-eae2-42ab-ab21-63bda72f7b8f.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-26T14:11:00.371Z",
+      "updated_at": "2026-09-26T14:11:00.371Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "7dd675de-205a-4762-a300-d9d1abe496d3",
+      "title": "Моя Ягодка, Диско Вишня",
+      "article": "UNT-131",
+      "price": 350,
+      "short_description": "Моя Ягодка, Диско Вишня",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "zolotaya-i-rozovaya-struzhka-3-4",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Круги, звёзды и сердца",
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/a79e0b86-e4a2-43cb-993e-de5ec1691f39.jpg",
+        "unit_type": "shapes",
+        "unit_who": [
+          "Для девочки"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/4500d9f2-3d6e-41e5-9621-8a6e7040c654.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/4500d9f2-3d6e-41e5-9621-8a6e7040c654.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-26T14:10:10.022Z",
+      "updated_at": "2026-09-26T14:10:10.022Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "ec18192a-05ae-40ff-9e02-35a8b6a0149e",
+      "title": "Чемпион, Забитый Футбольный Мяч",
+      "article": "UNT-130",
+      "price": 350,
+      "short_description": "Чемпион, Забитый Футбольный Мяч",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "zolotaya-i-rozovaya-struzhka-3-3",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Круги, звёзды и сердца",
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/de89486a-bae4-4ef6-8abf-a5b2948a6750.jpg",
+        "unit_type": "shapes",
+        "unit_who": [
+          "Для мальчика"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/95d075d6-4f5d-45e2-8f05-8e9dc2ec4e2a.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/95d075d6-4f5d-45e2-8f05-8e9dc2ec4e2a.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-26T14:06:38.615Z",
+      "updated_at": "2026-09-26T14:06:38.615Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "3d2e1813-1ea1-4e37-9b86-bb7b4ce85807",
+      "title": "Круг, эльфы",
+      "article": "UNT-129",
+      "price": 350,
+      "short_description": "Круг, эльфы",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": "Labubu",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "zolotaya-i-rozovaya-struzhka-3-2",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Круги, звёзды и сердца",
+        "Для девочки",
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/1ef9e748-5de0-4402-a62b-f997915ce566.jpg",
+        "unit_type": "shapes",
+        "unit_who": [
+          "Для девочки",
+          "Для мальчика"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/c855edaa-8e87-4285-a012-f88f3ef9c936.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/c855edaa-8e87-4285-a012-f88f3ef9c936.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-26T14:05:28.358Z",
+      "updated_at": "2026-09-26T14:05:28.358Z",
+      "thumb_photo": null
+    },
+    {
       "id": "6ada59b1-6bdd-47f4-91c8-c933a4aeec96",
       "title": "Красная стружка",
       "article": "UNT-128",
@@ -40,8 +228,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-26T12:46:51.116Z",
-      "updated_at": "2026-09-26T12:46:51.116Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-26T13:56:21.940Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/ff2281cd-f269-4ad2-b442-f5740bdb5ae3.webp"
     },
     {
       "id": "06d5d83c-485e-4231-b966-013eee4efbd7",
@@ -82,8 +270,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-26T12:45:40.620Z",
-      "updated_at": "2026-09-26T12:45:40.620Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-26T13:56:23.403Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/204ff8b7-112d-4176-9474-2751e051f319.webp"
     },
     {
       "id": "9023d51e-f6f1-487d-a226-8e06d4e0b0b7",
@@ -124,8 +312,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-26T12:43:12.907Z",
-      "updated_at": "2026-09-26T12:43:12.907Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-26T13:56:24.850Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/9117bedc-c3ef-46c5-a7d7-b9f916359f0e.webp"
     },
     {
       "id": "c3cc3b18-0e65-432f-901a-410be00b1522",
@@ -166,8 +354,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-26T12:41:57.463Z",
-      "updated_at": "2026-09-26T12:41:57.463Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-26T13:56:26.404Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/3f06bdb0-2d51-4078-b23e-a1682a97a879.webp"
     },
     {
       "id": "b972cfd1-d462-4496-ba4b-2cb4dc09bc3c",
@@ -208,8 +396,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-26T12:40:24.819Z",
-      "updated_at": "2026-09-26T12:40:24.819Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-26T13:56:27.958Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/30b89088-539b-448e-aa56-ee47dd7de721.webp"
     },
     {
       "id": "e37b2d3d-5fcd-44ef-8768-45a6f1b19ad1",
@@ -250,8 +438,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-26T12:39:40.177Z",
-      "updated_at": "2026-09-26T12:39:40.177Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-26T13:56:29.378Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/f775acd4-5483-4559-8305-388f0dc51475.webp"
     },
     {
       "id": "a79a0d64-9606-45d4-9301-14d6a0dd23dc",

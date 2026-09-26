@@ -7,7 +7,7 @@
 <meta name="robots" content="noindex, nofollow"/>
 <link rel="icon" href="../favicon.svg"/>
 <link rel="stylesheet" href="../assets/fonts.css"/>
-<link rel="stylesheet" href="styles.css?v=20260926-other-scenes"/>
+<link rel="stylesheet" href="styles.css?v=20260926-card-audit"/>
 </head>
 <body>
 
@@ -65,6 +65,7 @@
             <div class="products-more-menu">
               <button type="button" class="btn outline" id="export-storefront-btn" onclick="app.exportStorefrontSnapshot()" title="Скачать data/products.json для сайта (РФ без VPN)">Обновить каталог для сайта</button>
               <button type="button" class="btn outline" id="bulk-thumb-btn" onclick="app.bulkGenerateThumbs()" title="Сгенерировать WebP-превью 480px для товаров без thumb_photo">Оптимизировать фото</button>
+              <button type="button" class="btn outline" id="audit-cards-btn" onclick="app.auditCards()" title="Проверить все карточки: поля, дубли, категория, состав и цена">Проверить карточки</button>
             </div>
           </details>
         </div>
@@ -97,6 +98,8 @@
           <button type="button" class="btn outline sm" onclick="app.discardParkedEditorDraft(true)">Удалить</button>
         </div>
       </div>
+
+      <div id="card-audit" class="card-audit hidden" hidden></div>
 
       <div id="products-list" class="products-grid">
         <div class="loading"><div class="loading-spinner"></div><p>Загрузка...</p></div>
@@ -908,7 +911,7 @@
   </div>
 </div>
 
-<script src="admin.js?v=20260926-no-publish-confirm"></script>
+<script src="admin.js?v=20260926-card-audit"></script>
 <script src="admin-extended.js?v=20260926-unit-fit"></script>
 <script src="cloudinary-upload.js?v=cloud-fix-2"></script>
 <script src="imgbb-upload.js?v=1"></script>

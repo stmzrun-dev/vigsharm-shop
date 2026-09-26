@@ -196,6 +196,17 @@ legend{font-size:15px;font-weight:600;padding:0 12px;color:#212121}
 .products-header-actions{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
 .storefront-sync-banner{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:0 0 14px;padding:12px 14px;border-radius:10px;background:#FFF3E0;color:#E65100;border:1px solid #FFCC80}
 .storefront-sync-banner.hidden{display:none!important}
+.card-audit{margin:0 0 14px;padding:12px 14px;border-radius:10px;border:1px solid #E7E0D6;background:#fff}
+.card-audit.hidden{display:none!important}
+.card-audit-head{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:8px}
+.card-audit-filters{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0}
+.card-audit-filters button.is-on{outline:2px solid #C4A574}
+.card-audit-item{display:flex;gap:10px;align-items:flex-start;justify-content:space-between;padding:8px 0;border-top:1px solid #F0EBE3}
+.card-audit-item p{margin:2px 0 0;color:#6b6258;font-size:13px}
+.card-audit-sev{font-size:12px;font-weight:600;white-space:nowrap}
+.card-audit-sev.fix{color:#B71C1C}
+.card-audit-sev.review{color:#E65100}
+.card-audit-sev.extra{color:#5D4037}
 .storefront-sync-text{display:flex;flex-direction:column;gap:2px;font-size:13px;line-height:1.35;min-width:0}
 .storefront-sync-text strong{font-size:14px;color:#BF360C}
 .storefront-sync-actions{display:flex;flex-wrap:wrap;gap:8px;flex:none}
@@ -1724,6 +1735,16 @@ body.ai-review-open #tab-create .product-editor{visibility:hidden}
 }
 #tab-create .action-bar #park-and-new-btn{
   color:var(--admin-muted);border-style:dashed
+}
+@media (min-width:769px){
+  #tab-create .action-bar,
+  #product-form .action-bar{
+    left:50%;right:auto;
+    width:min(1040px,94vw);
+    transform:translateX(-50%);
+    box-sizing:border-box;
+    border-radius:16px 16px 0 0
+  }
 }
 
 @media (max-width:768px){

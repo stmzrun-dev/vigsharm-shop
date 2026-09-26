@@ -1003,12 +1003,26 @@ Object.assign(app, {
       this.setUnitHoliday?.('');
     }
     this.paintUnitHolidayToggle?.();
-    // Кнопка «Опубликовать» в шапке шага 1C — только для поштучных
     const topPub = document.getElementById('unit-step1-publish-btn');
-    if (topPub) {
-      const unit = !!(this.isUnitBalloonMode?.());
-      topPub.hidden = !unit;
+    if (topPub) topPub.hidden = true;
+    this.syncUnitPublishEnabled?.();
+  },
+
+  syncUnitPublishEnabled() {
+    const btn = document.getElementById('publish-product-btn');
+    const form = document.getElementById('product-form');
+    if (!btn || !form) return;
+    const unitStep = !!this.isUnitBalloonMode?.() && !form.classList.contains('is-editor-step-2');
+    if (!unitStep) {
+      if (btn.dataset.unitPriceLock) {
+        btn.disabled = false;
+        delete btn.dataset.unitPriceLock;
+      }
+      return;
     }
+    const price = parseInt(document.getElementById('product-price')?.value, 10) || 0;
+    btn.disabled = price <= 0;
+    btn.dataset.unitPriceLock = '1';
   },
 
   paintUnitHolidayToggle() {

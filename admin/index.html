@@ -7,7 +7,7 @@
 <meta name="robots" content="noindex, nofollow"/>
 <link rel="icon" href="../favicon.svg"/>
 <link rel="stylesheet" href="../assets/fonts.css"/>
-<link rel="stylesheet" href="styles.css?v=20260925-admin-gate"/>
+<link rel="stylesheet" href="styles.css?v=20260926-other-scenes"/>
 </head>
 <body>
 
@@ -52,25 +52,28 @@
       <div class="products-toolbar">
         <div class="products-filters">
           <input type="search" id="search-products" placeholder="Название, артикул…"/>
-          <select id="filter-category"><option value="">Все категории</option></select>
-          <select id="filter-status">
+          <select id="filter-status" aria-label="Статус">
             <option value="">Все статусы</option>
             <option value="draft">Черновик</option>
             <option value="published">На сайте</option>
           </select>
-          <span class="products-count" id="products-count">0</span>
         </div>
         <div class="products-header-actions">
           <button class="btn primary" onclick="app.newProduct()">+ Добавить товар</button>
-          <button type="button" class="btn outline" id="export-storefront-btn" onclick="app.exportStorefrontSnapshot()" title="Скачать data/products.json для сайта (РФ без VPN)">Обновить каталог для сайта</button>
-          <button type="button" class="btn outline" id="bulk-thumb-btn" onclick="app.bulkGenerateThumbs()" title="Сгенерировать WebP-превью 480px для товаров без thumb_photo">🖼 Оптимизировать фото</button>
+          <details class="products-more" id="products-more">
+            <summary class="btn outline">Ещё</summary>
+            <div class="products-more-menu">
+              <button type="button" class="btn outline" id="export-storefront-btn" onclick="app.exportStorefrontSnapshot()" title="Скачать data/products.json для сайта (РФ без VPN)">Обновить каталог для сайта</button>
+              <button type="button" class="btn outline" id="bulk-thumb-btn" onclick="app.bulkGenerateThumbs()" title="Сгенерировать WebP-превью 480px для товаров без thumb_photo">Оптимизировать фото</button>
+            </div>
+          </details>
         </div>
       </div>
 
-      <div class="stats-row" aria-label="Статистика">
-        <div class="badge neutral">Всего: <strong id="stats-total">0</strong></div>
-        <div class="badge success">На сайте: <strong id="stats-published">0</strong></div>
-        <div class="badge warning">Черновиков: <strong id="stats-drafts">0</strong></div>
+      <div class="stats-row" aria-label="Фильтр по статусу">
+        <button type="button" class="badge neutral is-on" id="stat-filter-all" onclick="app.setStatusFilter('')">Всего: <strong id="stats-total">0</strong></button>
+        <button type="button" class="badge success" id="stat-filter-published" onclick="app.setStatusFilter('published')">На сайте: <strong id="stats-published">0</strong></button>
+        <button type="button" class="badge warning" id="stat-filter-draft" onclick="app.setStatusFilter('draft')">Черновиков: <strong id="stats-drafts">0</strong></button>
       </div>
 
       <div id="storefront-sync-banner" class="storefront-sync-banner hidden" role="status" hidden>
@@ -905,13 +908,13 @@
   </div>
 </div>
 
-<script src="admin.js?v=20260926-snapshot-list"></script>
-<script src="admin-extended.js?v=20260925-proxythumb"></script>
+<script src="admin.js?v=20260926-no-publish-confirm"></script>
+<script src="admin-extended.js?v=20260926-unit-fit"></script>
 <script src="cloudinary-upload.js?v=cloud-fix-2"></script>
 <script src="imgbb-upload.js?v=1"></script>
 <script src="cloudinary-patch.js?v=yandex-1"></script>
 <script src="admin-studio-pro.js?v=20260925-unit-holiday"></script>
-<script src="admin-ai.js?v=20260925-ai-fetch"></script>
+<script src="admin-ai.js?v=20260926-unit-fit"></script>
 <script src="admin-reference-background.js"></script>
 <script src="admin-orders.js?v=1"></script>
 <script src="admin-price.js?v=3"></script>

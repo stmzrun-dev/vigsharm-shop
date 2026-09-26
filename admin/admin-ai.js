@@ -411,6 +411,7 @@ Object.assign(app, {
     }
     this._step1Phase = next;
     this.syncStep1WizardUi?.();
+    this.syncUnitPublishEnabled?.();
     if (next === 'c') {
       this.refreshSourceWorkPreview?.();
       this.toggleSourceWorkPreviewExpand?.(true);
@@ -587,6 +588,7 @@ Object.assign(app, {
         btn.textContent = step2 ? 'К карточке →' : 'Проверить шаг 1';
       }
     }
+    this.syncUnitPublishEnabled?.();
     if (step2) {
       this.hideSourceWorkPreview?.();
       if (!wasStep2) {
@@ -746,7 +748,9 @@ Object.assign(app, {
     const statusRaw = (document.getElementById('studio-status')?.textContent || '').trim();
     const stageEl = document.getElementById('studio-busy-stage');
     if (stageEl && statusRaw) {
-      stageEl.textContent = statusRaw.replace(/^[⏳✅❌☁️🎨✂️🔎📎✏️↻]+\s*/u, '').trim() || statusRaw;
+      const clean = statusRaw.replace(/^[⏳✅❌☁️🎨✂️🔎📎✏️↻]+\s*/u, '').trim();
+      const technical = /gpt-image|image\/|sunburst/i.test(clean);
+      stageEl.textContent = technical ? '' : (clean || '');
     }
 
     if (sec >= 180) {
@@ -844,6 +848,7 @@ Object.assign(app, {
       const kick = () => {
         this.ensureMasterPhotoFlag?.();
         this.syncAIFillGate();
+        if (id === 'product-price') this.syncUnitPublishEnabled?.();
         if (id === 'product-composition') this.autosizeCompositionField?.();
       };
       el.addEventListener('input', kick);

@@ -223,13 +223,14 @@ const app = {
 
   dismissStorefrontDirty() {
     this.clearStorefrontDirty();
-    this.toast('Напоминание скрыто. Кнопка «Обновить каталог» остаётся в шапке списка', 'info');
+    this.toast('Напоминание скрыто. Скачать каталог можно в меню «Ещё»', 'info');
   },
 
   updateStorefrontSyncUi() {
     const banner = document.getElementById('storefront-sync-banner');
     const reasonEl = document.getElementById('storefront-sync-reason');
     const btn = document.getElementById('export-storefront-btn');
+    const more = document.getElementById('products-more');
     const dirty = !!this._storefrontDirty;
     if (banner) {
       banner.classList.toggle('hidden', !dirty);
@@ -250,13 +251,7 @@ const app = {
       btn.classList.toggle('is-attention', dirty);
       btn.textContent = dirty ? 'Обновить каталог · нужно' : 'Обновить каталог для сайта';
     }
-  },
-
-  async offerStorefrontExportAfterPublish() {
-    const ok = confirm(
-      'Товар сохранён в Worker.\n\nСкачать products.json для витрины сейчас?\n(Положите файл в data/products.json и задеплойте сайт.)'
-    );
-    if (ok) await this.exportStorefrontSnapshot({ quiet: true });
+    if (more) more.classList.toggle('is-attention', dirty);
   },
 
   showPhotoUploadProgress(pct, text) {
@@ -852,7 +847,7 @@ const app = {
   },
 
   wireFilters() {
-    ['search-products', 'filter-category', 'filter-status'].forEach(id => {
+    ['search-products', 'filter-status'].forEach(id => {
       const el = document.getElementById(id);
       if (!el) return;
       const resetAndRender = () => {
@@ -936,7 +931,7 @@ const app = {
     }
 
     // Остальные группы: первые 20 плоско, дальше по полкам
-    const freshCount = 20;
+    const freshCount = 5;
     const split = !searching && items.length > freshCount;
     const fresh = split ? items.slice(0, freshCount) : items;
     const rest = split ? items.slice(freshCount) : [];
@@ -1414,12 +1409,18 @@ const app = {
     }
   },
 
+  setStatusFilter(status) {
+    const select = document.getElementById('filter-status');
+    if (select) select.value = status || '';
+    this.listVisible = this.listPageSize;
+    this.listGroupVisible = {};
+    this.renderProducts();
+  },
+
   getFilteredProducts() {
     const q = (document.getElementById('search-products')?.value || '').trim().toLowerCase();
-    const cat = document.getElementById('filter-category')?.value || '';
     const status = document.getElementById('filter-status')?.value || '';
     return this.products.filter(p => {
-      if (cat && p.category !== cat) return false;
       if (status && (p.status || 'draft') !== status) return false;
       if (q) {
         const hay = ((p.title || '') + ' ' + (p.article || '')).toLowerCase();
@@ -1502,8 +1503,6 @@ const app = {
     const container = document.getElementById('products-list');
     if (!container) return;
     const list = this.getFilteredProducts();
-    const countEl = document.getElementById('products-count');
-    if (countEl) countEl.textContent = `${list.length} из ${this.products.length}`;
 
     if (list.length === 0) {
       container.innerHTML = this.products.length === 0
@@ -1565,6 +1564,14 @@ const app = {
     set('stats-total', total);
     set('stats-published', published);
     set('stats-drafts', total - published);
+    const status = document.getElementById('filter-status')?.value || '';
+    const mark = (id, on) => {
+      const el = document.getElementById(id);
+      if (el) el.classList.toggle('is-on', on);
+    };
+    mark('stat-filter-all', !status);
+    mark('stat-filter-published', status === 'published');
+    mark('stat-filter-draft', status === 'draft');
   },
 
   async toggleStatus(id, status) {
@@ -1582,7 +1589,6 @@ const app = {
         this.toast(status === 'published' ? 'Товар опубликован' : 'Снят с публикации', 'success');
         this.markStorefrontDirty(status === 'published' ? 'published' : 'unpublished');
         this.renderProducts();
-        if (status === 'published' && !wasPublished) this.offerStorefrontExportAfterPublish();
       } else throw new Error(data.error || 'Ошибка');
     } catch (e) {
       this.toast('Ошибка: ' + e.message, 'error');
@@ -1691,8 +1697,6 @@ const app = {
     const options = CATEGORIES
       .filter((cat) => !deferred.includes(cat))
       .map(cat => `<option value="${cat}">${cat}</option>`).join('');
-    const filter = document.getElementById('filter-category');
-    if (filter) filter.innerHTML = '<option value="">Все категории</option>' + options;
     const formSelect = document.getElementById('product-category');
     if (formSelect) formSelect.innerHTML = '<option value="">— Выберите категорию —</option>' + options;
   },
@@ -2004,7 +2008,6 @@ const app = {
       this.switchTab('products');
       this.loadProducts();
       this.updateParkedDraftBanner?.();
-      if (status === 'published' && !wasPublished) await this.offerStorefrontExportAfterPublish();
     } catch (e) {
       this.toast('Ошибка: ' + e.message, 'error');
       console.error('[saveProduct]', e);

@@ -2,6 +2,837 @@
   "ok": true,
   "products": [
     {
+      "id": "489d1bef-deba-46ff-917f-51f50b158325",
+      "title": "Малиновый",
+      "article": "UNT-164",
+      "price": 150,
+      "short_description": "Малиновый",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "oblachnaya-metrika-5",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Шары Brush"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/cffbc90b-b635-413e-9313-948bf786488b.jpg",
+        "unit_type": "brush"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/b813d532-8f29-4ed3-bd63-a907f7996973.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/b813d532-8f29-4ed3-bd63-a907f7996973.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-26T21:10:53.006Z",
+      "updated_at": "2026-09-26T21:10:53.006Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "df84f0bc-a959-43fc-83cc-0861ed087ce2",
+      "title": "Синий",
+      "article": "UNT-163",
+      "price": 150,
+      "short_description": "Синий",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "oblachnaya-metrika-4",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Шары Brush"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/bd5b754a-f515-4b35-9550-47c307e03446.jpg",
+        "unit_type": "brush"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/c52b806a-1508-4110-a637-eb061f1c1b97.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/c52b806a-1508-4110-a637-eb061f1c1b97.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-26T21:10:02.549Z",
+      "updated_at": "2026-09-26T21:10:02.549Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "10933701-a5d3-4c0e-9fc4-5c6b660c13ed",
+      "title": "Браш Салатовый",
+      "article": "UNT-162",
+      "price": 150,
+      "short_description": "Браш Салатовый",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "oblachnaya-metrika-3",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Шары Brush"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/7d3ab8f9-9651-47d5-b192-b87ca6110ec5.jpg",
+        "unit_type": "brush"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/0dd5bbe0-68b2-4252-9f29-9ec363b93fd3.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/0dd5bbe0-68b2-4252-9f29-9ec363b93fd3.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-26T21:07:38.756Z",
+      "updated_at": "2026-09-26T21:07:38.756Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "f33a9fb2-0abc-4f88-b46a-457e92d0e4b6",
+      "title": "Браш Оранжевый",
+      "article": "UNT-161",
+      "price": 150,
+      "short_description": "Браш Оранжевый",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "oblachnaya-metrika-2",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Шары Brush"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/09f94f17-5a1d-4eb8-ab4e-e98fa981ec29.jpg",
+        "unit_type": "brush"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/342b6e18-c44e-4559-a05e-59eaf7204cfe.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/342b6e18-c44e-4559-a05e-59eaf7204cfe.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-26T21:06:17.197Z",
+      "updated_at": "2026-09-26T21:06:17.197Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "c2dd0bbd-de76-4d4a-a769-75581152635a",
+      "title": "Рыба Зеленая, Лосось",
+      "article": "UNT-160",
+      "price": 650,
+      "short_description": "Рыба Зеленая, Лосось",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "krasnaya-struzhka-4-4-3",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Для него"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/83434a13-9eab-4c0b-abc4-19b22e0a61a0.jpg",
+        "unit_type": "foil",
+        "balloon_size": "89 см",
+        "unit_who": [
+          "Для него"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/6adc1457-71a7-49c5-b73b-55a1b5cd18ae.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/6adc1457-71a7-49c5-b73b-55a1b5cd18ae.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-26T20:54:32.863Z",
+      "updated_at": "2026-09-26T20:56:10.049Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/8023b001-3906-47f8-9aa1-33664a27db60.webp"
+    },
+    {
+      "id": "25236968-7f13-418f-8ee2-4a1b5cee2114",
+      "title": "Облачко Спящее",
+      "article": "UNT-159",
+      "price": 550,
+      "short_description": "Облачко Спящее",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "krasnaya-struzhka-4-4-2",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "На выписку",
+        "1 годик"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/9867cf68-5766-4156-a8fc-cf900b0af088.jpg",
+        "unit_type": "foil",
+        "balloon_size": "65 см",
+        "unit_who": [
+          "На выписку",
+          "1 годик"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/c285a9e4-d69f-4a62-ba10-520988ecf438.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/c285a9e4-d69f-4a62-ba10-520988ecf438.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-26T20:53:02.178Z",
+      "updated_at": "2026-09-26T20:56:12.361Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/6dee9b1e-95f2-4c4c-abac-8bcb1c0aff3a.webp"
+    },
+    {
+      "id": "0ee2fa2e-8b0a-4edd-a3f9-c5eedb4bcc39",
+      "title": "Бант Розовый Сатин",
+      "article": "UNT-158",
+      "price": 700,
+      "short_description": "Бант Розовый Сатин",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "krasnaya-struzhka-4-7-2",
+      "scene": "unit_balloon",
+      "tags": [
+        "Для девочки",
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "На выписку"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/b8f1fac5-6e71-481a-9ea8-32177856d8de.jpg",
+        "unit_type": "foil",
+        "balloon_size": "127 см",
+        "unit_who": [
+          "Для девочки",
+          "На выписку"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/e0cab473-2695-42c7-86bb-e9dba88ee8b7.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/e0cab473-2695-42c7-86bb-e9dba88ee8b7.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-26T20:49:26.722Z",
+      "updated_at": "2026-09-26T20:56:14.164Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/ccafc0fb-ea41-4358-9394-71270caf2b10.webp"
+    },
+    {
+      "id": "2a762fe0-f009-4b1e-9597-873055326fa3",
+      "title": "Эльф Плюшевая Кукла, Розовый",
+      "article": "UNT-157",
+      "price": 600,
+      "short_description": "Эльф Плюшевая Кукла, Розовый",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": "лабубу",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "krasnaya-struzhka-4-7",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/e92f8eac-d49a-4c6e-b553-e8fb87903338.jpg",
+        "unit_type": "foil",
+        "balloon_size": "66 см",
+        "unit_who": [
+          "Для девочки"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/5ee0bf1c-8565-46e1-950f-7ebc7e428334.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/5ee0bf1c-8565-46e1-950f-7ebc7e428334.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-26T20:48:15.784Z",
+      "updated_at": "2026-09-26T20:56:16.272Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/0967170e-be19-4ab8-80db-f6bef33c7d2e.webp"
+    },
+    {
+      "id": "64fd6700-ac84-4891-8f38-6415922141ae",
+      "title": "Эльф Плюшевая Кукла, Голубой",
+      "article": "UNT-156",
+      "price": 600,
+      "short_description": "Эльф Плюшевая Кукла, Голубой",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": "Лабубу",
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": "Лабубу",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "krasnaya-struzhka-4-6",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Для девочки",
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/c901e05b-0fcf-4b4c-8cde-72c90db6dc6b.jpg",
+        "unit_type": "foil",
+        "balloon_size": "66 см",
+        "unit_who": [
+          "Для девочки",
+          "Для мальчика"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/3fd7344f-4452-421d-aa13-e0361189d339.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/3fd7344f-4452-421d-aa13-e0361189d339.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-26T20:47:11.678Z",
+      "updated_at": "2026-09-26T20:56:18.336Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/5c93690f-dcef-4809-92e9-23d42a689c6c.webp"
+    },
+    {
+      "id": "b0b67e3e-e7e0-4ae7-a2be-9eb59820c37a",
+      "title": "Бант Черный Сатин",
+      "article": "UNT-155",
+      "price": 700,
+      "short_description": "Бант Черный Сатин",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "krasnaya-struzhka-4-5",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/704f8091-bc8f-45c9-bf46-21783dd59700.webp",
+        "unit_type": "foil",
+        "balloon_size": "127 см",
+        "unit_who": [
+          "Для девочки"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/9f507461-fa4e-4cb1-950c-2d144bc95bb5.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/9f507461-fa4e-4cb1-950c-2d144bc95bb5.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-26T20:45:33.960Z",
+      "updated_at": "2026-09-26T20:56:20.962Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/6592bfa9-3708-4d17-a5b5-7f49513a4153.webp"
+    },
+    {
+      "id": "ac8811ce-6aac-4946-a8bc-10d0237f5fb9",
+      "title": "Бант Голубой Сатин",
+      "article": "UNT-154",
+      "price": 700,
+      "short_description": "Бант Голубой Сатин",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "krasnaya-struzhka-4-4",
+      "scene": "unit_balloon",
+      "tags": [
+        "Для девочки",
+        "На выписку",
+        "Шары поштучно",
+        "Фольгированные фигуры"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/4f8d908a-bf15-497e-b630-93db03d3367b.webp",
+        "unit_type": "foil",
+        "balloon_size": "127 см",
+        "unit_who": [
+          "Для девочки",
+          "На выписку"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/0bb336dc-a06f-4f41-b678-098d2bdd9d60.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/0bb336dc-a06f-4f41-b678-098d2bdd9d60.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-26T20:44:09.929Z",
+      "updated_at": "2026-09-26T20:56:23.364Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/55bf3c39-120e-4194-a18f-c12dc0b94011.webp"
+    },
+    {
+      "id": "95fb7b5d-dc75-4277-ad0d-dd69da1eaf25",
+      "title": "Герои Марвел Мстители",
+      "article": "UNT-153",
+      "price": 350,
+      "short_description": "Герои Марвел Мстители",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": "Мстители",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "krasnaya-struzhka-4-3",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Круги, звёзды и сердца",
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/4708edbd-1616-4d61-8717-7a1e99c90e1c.jpg",
+        "unit_type": "shapes",
+        "unit_who": [
+          "Для мальчика"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/6b3bed99-cac4-4189-b1f2-58a2a178490c.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/6b3bed99-cac4-4189-b1f2-58a2a178490c.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-26T20:40:47.192Z",
+      "updated_at": "2026-09-26T20:56:25.343Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/2f67c585-5d0b-46c8-bea8-7183a3d8ee3a.webp"
+    },
+    {
+      "id": "7ceab8c7-3414-4bef-ac3f-eb7ee812d8ba",
+      "title": "Гарри Поттер",
+      "article": "UNT-152",
+      "price": 350,
+      "short_description": "Гарри Поттер",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": "Гарри Поттер",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "krasnaya-struzhka-4-2",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Круги, звёзды и сердца",
+        "Для девочки",
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/5f0a2ed8-9ae7-4bde-9382-ac8308e31266.jpg",
+        "unit_type": "shapes",
+        "unit_who": [
+          "Для девочки",
+          "Для мальчика"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/95e58305-36f0-437a-b62f-ed319c3ce511.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/95e58305-36f0-437a-b62f-ed319c3ce511.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-26T20:32:24.477Z",
+      "updated_at": "2026-09-26T20:56:27.351Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/5e5d9b72-29d4-4203-b8d7-761418fc6941.webp"
+    },
+    {
+      "id": "518852fa-9965-48f3-90fe-7e628a158bcd",
+      "title": "Бэтмен в полете",
+      "article": "UNT-151",
+      "price": 350,
+      "short_description": "Бэтмен в полете",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": "Бэтмен",
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": "DC Comics",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "krasnaya-struzhka-4",
+      "scene": "unit_balloon",
+      "tags": [
+        "Для мальчика",
+        "Шары поштучно",
+        "Круги, звёзды и сердца"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/38b618d3-9cbe-47f1-8085-b95602c52ed9.jpg",
+        "unit_type": "shapes",
+        "unit_who": [
+          "Для мальчика"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/9aa50645-fdfa-41bb-9904-3ba7077c8069.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/9aa50645-fdfa-41bb-9904-3ba7077c8069.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-26T20:22:26.173Z",
+      "updated_at": "2026-09-26T20:25:14.627Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/8aa47aae-9fff-4d3b-b175-68e8e391bd94.webp"
+    },
+    {
+      "id": "78463ef2-e6da-4285-a332-13b3c68e7521",
+      "title": "Буба СДР",
+      "article": "UNT-150",
+      "price": 350,
+      "short_description": "Буба СДР",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": "Буба",
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": "Буба",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "krasnaya-struzhka-3",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Круги, звёзды и сердца",
+        "Для девочки",
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/ccff34a1-e325-4f31-affb-a7da90a9eedf.jpg",
+        "unit_type": "shapes",
+        "unit_who": [
+          "Для девочки",
+          "Для мальчика"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/c9d70496-4a27-42da-95ef-fcb9013426e7.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/c9d70496-4a27-42da-95ef-fcb9013426e7.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-26T20:19:00.714Z",
+      "updated_at": "2026-09-26T20:56:29.254Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/faeae0ae-59a5-4de1-87e1-c58cbffcbe4b.webp"
+    },
+    {
+      "id": "5eeb8e0d-16c8-407b-8c14-b8299c2c71ef",
+      "title": "Трактор СДР",
+      "article": "UNT-149",
+      "price": 350,
+      "short_description": "Трактор СДР",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": "Синий трактор",
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": "Синий трактор",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "krasnaya-struzhka-2",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Круги, звёзды и сердца",
+        "Для девочки",
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/a9c4a9e5-77c7-46af-9526-2b06bab55814.jpg",
+        "unit_type": "shapes",
+        "unit_who": [
+          "Для девочки",
+          "Для мальчика"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/88894c1d-83d7-4912-8ed2-15f2e174e49e.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/88894c1d-83d7-4912-8ed2-15f2e174e49e.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-26T20:17:05.012Z",
+      "updated_at": "2026-09-26T20:56:31.509Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/2b0567c3-5d93-490b-ae9a-bd9830089f82.webp"
+    },
+    {
+      "id": "7677ba6c-b5d8-4184-a584-ae785f79bcf1",
+      "title": "Миньоны Отто и Стюарт",
+      "article": "UNT-148",
+      "price": 350,
+      "short_description": "Миньоны Отто и Стюарт",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": "Отто и Стюарт",
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": "Миньоны",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "krutoy-podruge-9",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Круги, звёзды и сердца",
+        "Для девочки",
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/88a8970c-3a7c-40cb-8b3f-3a061b79f810.jpg",
+        "unit_type": "shapes",
+        "unit_who": [
+          "Для девочки",
+          "Для мальчика"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/8f3aa8c8-5feb-4fb2-86d2-ac6c7ed1dfd6.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/8f3aa8c8-5feb-4fb2-86d2-ac6c7ed1dfd6.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-26T20:14:08.955Z",
+      "updated_at": "2026-09-26T20:56:34.389Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/515d2c00-3706-40ab-9188-1eb5e2dfc6e6.webp"
+    },
+    {
+      "id": "5347fbc2-8de7-4d5e-96ed-a1c290924c0d",
+      "title": "Сириус, черный блеск",
+      "article": "UNT-147",
+      "price": 550,
+      "short_description": "Сириус, черный блеск",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "krutoy-podruge-8",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Круги, звёзды и сердца"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/90604e42-b1af-4d6c-b23e-e52adf50fc59.jpg",
+        "unit_type": "shapes"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/4f2b0823-451f-48f3-bc9d-1c80856608f2.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/4f2b0823-451f-48f3-bc9d-1c80856608f2.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-26T20:11:32.917Z",
+      "updated_at": "2026-09-26T20:56:37.240Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/c779afab-3002-4560-bb1e-7dc97fe77321.webp"
+    },
+    {
       "id": "9059c54e-f5b9-448a-a581-81c4f8368806",
       "title": "Оптимус Прайм",
       "article": "UNT-146",
@@ -44,8 +875,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-26T20:10:18.596Z",
-      "updated_at": "2026-09-26T20:10:18.596Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-26T20:56:39.410Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/433857c1-0cbe-46f7-bc8d-51e928e13ef7.webp"
     },
     {
       "id": "19c69423-ab95-42cb-bc56-21ab143e9f21",
@@ -90,8 +921,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-26T20:09:13.170Z",
-      "updated_at": "2026-09-26T20:09:13.170Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-26T20:56:42.337Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/cc22e0bc-5605-4158-b32c-b0a312a5c619.webp"
     },
     {
       "id": "9228b86c-1fac-489a-8c6c-722609e61c17",
@@ -136,8 +967,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-26T20:08:07.867Z",
-      "updated_at": "2026-09-26T20:08:07.867Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-26T20:56:44.306Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/c2120fbc-eebf-4f68-824f-2727c581f6c1.webp"
     },
     {
       "id": "34fb2992-d7bc-463b-bf1d-336d22ac0780",
@@ -182,8 +1013,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-26T20:07:10.884Z",
-      "updated_at": "2026-09-26T20:07:10.884Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-26T20:56:46.323Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/de9484ff-19cd-4e70-9b36-fbdb80d5979d.webp"
     },
     {
       "id": "59c0b0c9-7aaa-4442-825e-37dd1b8aaf7d",
@@ -859,7 +1690,7 @@
       "short_description": "Красная стружка",
       "full_description": "",
       "composition": [],
-      "category": "Шары с конфетти",
+      "category": "Шары поштучно",
       "character": null,
       "age_group": "Для любого возраста",
       "budget": null,
@@ -872,7 +1703,7 @@
       "scene": "unit_balloon",
       "tags": [
         "Шары поштучно",
-        "Шары с конфетти"
+        "Латексные шары"
       ],
       "client_options": {
         "available_on_request": false,
@@ -881,7 +1712,7 @@
         "personal_inscription": false,
         "photozone_rental": false,
         "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/92c43e80-b225-4914-9974-4966e6b51607.jpg",
-        "unit_type": "confetti"
+        "unit_type": "latex"
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/68edb39e-7994-494e-a6c8-4345ba089685.jpg"
@@ -901,7 +1732,7 @@
       "short_description": "Серебряная стружка",
       "full_description": "",
       "composition": [],
-      "category": "Шары с конфетти",
+      "category": "Шары поштучно",
       "character": null,
       "age_group": "Для любого возраста",
       "budget": null,
@@ -914,7 +1745,7 @@
       "scene": "unit_balloon",
       "tags": [
         "Шары поштучно",
-        "Шары с конфетти"
+        "Латексные шары"
       ],
       "client_options": {
         "available_on_request": false,
@@ -923,7 +1754,7 @@
         "personal_inscription": false,
         "photozone_rental": false,
         "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/dc749869-01cc-45cc-bceb-34d52c306675.jpg",
-        "unit_type": "confetti"
+        "unit_type": "latex"
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/ce962dde-f436-45b6-af20-f5e392ea2031.jpg"
@@ -943,7 +1774,7 @@
       "short_description": "Голубая и розовая стружка",
       "full_description": "",
       "composition": [],
-      "category": "Шары с конфетти",
+      "category": "Шары поштучно",
       "character": null,
       "age_group": "Для любого возраста",
       "budget": null,
@@ -956,7 +1787,7 @@
       "scene": "unit_balloon",
       "tags": [
         "Шары поштучно",
-        "Шары с конфетти"
+        "Латексные шары"
       ],
       "client_options": {
         "available_on_request": false,
@@ -965,7 +1796,7 @@
         "personal_inscription": false,
         "photozone_rental": false,
         "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/83233ad6-a501-4d52-b6ea-98ca1210f2c4.jpg",
-        "unit_type": "confetti"
+        "unit_type": "latex"
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/ea542256-164c-4fed-b37b-31c06e0d6f88.jpg"
@@ -985,7 +1816,7 @@
       "short_description": "Голубая стружка",
       "full_description": "",
       "composition": [],
-      "category": "Шары с конфетти",
+      "category": "Шары поштучно",
       "character": null,
       "age_group": "Для любого возраста",
       "budget": null,
@@ -998,7 +1829,7 @@
       "scene": "unit_balloon",
       "tags": [
         "Шары поштучно",
-        "Шары с конфетти"
+        "Латексные шары"
       ],
       "client_options": {
         "available_on_request": false,
@@ -1007,7 +1838,7 @@
         "personal_inscription": false,
         "photozone_rental": false,
         "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/2170f56e-c8b9-4ded-834c-f92ae2fa4fde.jpg",
-        "unit_type": "confetti"
+        "unit_type": "latex"
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/0f948b7e-114d-4119-81da-8a46c1bb9e2b.jpg"
@@ -1027,7 +1858,7 @@
       "short_description": "Черные круги",
       "full_description": "",
       "composition": [],
-      "category": "Шары с конфетти",
+      "category": "Шары поштучно",
       "character": null,
       "age_group": "Для любого возраста",
       "budget": null,
@@ -1040,7 +1871,7 @@
       "scene": "unit_balloon",
       "tags": [
         "Шары поштучно",
-        "Шары с конфетти"
+        "Латексные шары"
       ],
       "client_options": {
         "available_on_request": false,
@@ -1049,7 +1880,7 @@
         "personal_inscription": false,
         "photozone_rental": false,
         "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/6d276e3c-99b4-4161-b2c8-fc6c689cfe4a.jpg",
-        "unit_type": "confetti"
+        "unit_type": "latex"
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/59eaff0a-4276-48c4-8ad7-e05b41aa325d.jpg"
@@ -1069,7 +1900,7 @@
       "short_description": "Круги ассорти",
       "full_description": "",
       "composition": [],
-      "category": "Шары с конфетти",
+      "category": "Шары поштучно",
       "character": null,
       "age_group": "Для любого возраста",
       "budget": null,
@@ -1082,7 +1913,7 @@
       "scene": "unit_balloon",
       "tags": [
         "Шары поштучно",
-        "Шары с конфетти"
+        "Латексные шары"
       ],
       "client_options": {
         "available_on_request": false,
@@ -1091,7 +1922,7 @@
         "personal_inscription": false,
         "photozone_rental": false,
         "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/1908c205-8fde-4646-8047-576812bb414b.jpg",
-        "unit_type": "confetti"
+        "unit_type": "latex"
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/a9b93a49-b0f2-426e-9387-b613ac5acabe.jpg"
@@ -1251,7 +2082,7 @@
       "short_description": "Золотые круги",
       "full_description": "",
       "composition": [],
-      "category": "Шары с конфетти",
+      "category": "Шары поштучно",
       "character": null,
       "age_group": "Для любого возраста",
       "budget": null,
@@ -1264,7 +2095,7 @@
       "scene": "unit_balloon",
       "tags": [
         "Шары поштучно",
-        "Шары с конфетти"
+        "Латексные шары"
       ],
       "client_options": {
         "available_on_request": false,
@@ -1273,7 +2104,7 @@
         "personal_inscription": false,
         "photozone_rental": false,
         "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/d67b8b89-2a34-404f-9a8a-7dccfe6e83fb.jpg",
-        "unit_type": "confetti"
+        "unit_type": "latex"
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/41937287-0fa1-4722-99cb-c880ab5ba0df.jpg"
@@ -1293,7 +2124,7 @@
       "short_description": "Золотая и розовая стружка",
       "full_description": "",
       "composition": [],
-      "category": "Шары с конфетти",
+      "category": "Шары поштучно",
       "character": null,
       "age_group": "Для любого возраста",
       "budget": null,
@@ -1306,7 +2137,7 @@
       "scene": "unit_balloon",
       "tags": [
         "Шары поштучно",
-        "Шары с конфетти"
+        "Латексные шары"
       ],
       "client_options": {
         "available_on_request": false,
@@ -1315,7 +2146,7 @@
         "personal_inscription": false,
         "photozone_rental": false,
         "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/8f7cd3a3-c986-4668-8c40-c72a68379c00.jpg",
-        "unit_type": "confetti"
+        "unit_type": "latex"
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/6868b385-b97c-4b81-bc2a-61f14691a8da.jpg"
@@ -1335,7 +2166,7 @@
       "short_description": "Синие и серебряные круги",
       "full_description": "",
       "composition": [],
-      "category": "Шары с конфетти",
+      "category": "Шары поштучно",
       "character": null,
       "age_group": "Для любого возраста",
       "budget": null,
@@ -1348,7 +2179,7 @@
       "scene": "unit_balloon",
       "tags": [
         "Шары поштучно",
-        "Шары с конфетти"
+        "Латексные шары"
       ],
       "client_options": {
         "available_on_request": false,
@@ -1357,7 +2188,7 @@
         "personal_inscription": false,
         "photozone_rental": false,
         "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/96c6c45d-a9a5-4f19-92ce-8920c411d84c.jpg",
-        "unit_type": "confetti"
+        "unit_type": "latex"
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/35ad7a5c-80b0-440b-8f4e-94ce626991d9.jpg"
@@ -1377,7 +2208,7 @@
       "short_description": "Золотая и зеленая стружка",
       "full_description": "",
       "composition": [],
-      "category": "Шары с конфетти",
+      "category": "Шары поштучно",
       "character": null,
       "age_group": "Для любого возраста",
       "budget": null,
@@ -1390,7 +2221,7 @@
       "scene": "unit_balloon",
       "tags": [
         "Шары поштучно",
-        "Шары с конфетти"
+        "Латексные шары"
       ],
       "client_options": {
         "available_on_request": false,
@@ -1399,7 +2230,7 @@
         "personal_inscription": false,
         "photozone_rental": false,
         "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/aa3664bc-4af0-473e-8cc0-7a47368a79cb.jpg",
-        "unit_type": "confetti"
+        "unit_type": "latex"
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/08431497-d2ab-4034-b5fa-10b10b9d42cd.jpg"
@@ -1419,7 +2250,7 @@
       "short_description": "Фиолетовые круги",
       "full_description": "",
       "composition": [],
-      "category": "Шары с конфетти",
+      "category": "Шары поштучно",
       "character": null,
       "age_group": "Для любого возраста",
       "budget": null,
@@ -1432,7 +2263,7 @@
       "scene": "unit_balloon",
       "tags": [
         "Шары поштучно",
-        "Шары с конфетти"
+        "Латексные шары"
       ],
       "client_options": {
         "available_on_request": false,
@@ -1441,7 +2272,7 @@
         "personal_inscription": false,
         "photozone_rental": false,
         "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/f5b4bef6-a96b-4f68-968d-c4b5541dfa1f.jpg",
-        "unit_type": "confetti"
+        "unit_type": "latex"
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/dabe8f8c-f006-4a6f-8132-c1b28d71f72d.jpg"
@@ -1461,7 +2292,7 @@
       "short_description": "Синие круги",
       "full_description": "",
       "composition": [],
-      "category": "Шары с конфетти",
+      "category": "Шары поштучно",
       "character": null,
       "age_group": "Для любого возраста",
       "budget": null,
@@ -1474,7 +2305,7 @@
       "scene": "unit_balloon",
       "tags": [
         "Шары поштучно",
-        "Шары с конфетти"
+        "Латексные шары"
       ],
       "client_options": {
         "available_on_request": false,
@@ -1483,7 +2314,7 @@
         "personal_inscription": false,
         "photozone_rental": false,
         "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/673647d7-fbd0-4d9a-840f-9bd648590841.jpg",
-        "unit_type": "confetti"
+        "unit_type": "latex"
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/b3e62a5c-50f7-4cdf-8cff-fb18d9f973ac.jpg"
@@ -1503,7 +2334,7 @@
       "short_description": "Розовые круги",
       "full_description": "",
       "composition": [],
-      "category": "Шары с конфетти",
+      "category": "Шары поштучно",
       "character": null,
       "age_group": "Для любого возраста",
       "budget": null,
@@ -1516,7 +2347,7 @@
       "scene": "unit_balloon",
       "tags": [
         "Шары поштучно",
-        "Шары с конфетти"
+        "Латексные шары"
       ],
       "client_options": {
         "available_on_request": false,
@@ -1525,7 +2356,7 @@
         "personal_inscription": false,
         "photozone_rental": false,
         "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/25f21362-14b3-4109-b756-7a3805ef6fe4.jpg",
-        "unit_type": "confetti"
+        "unit_type": "latex"
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/b380ba42-9305-4919-9bac-705b41c3ecc8.jpg"
@@ -1545,7 +2376,7 @@
       "short_description": "Голубые круги",
       "full_description": "",
       "composition": [],
-      "category": "Шары с конфетти",
+      "category": "Шары поштучно",
       "character": null,
       "age_group": "Для любого возраста",
       "budget": null,
@@ -1558,7 +2389,7 @@
       "scene": "unit_balloon",
       "tags": [
         "Шары поштучно",
-        "Шары с конфетти"
+        "Латексные шары"
       ],
       "client_options": {
         "available_on_request": false,
@@ -1567,7 +2398,7 @@
         "personal_inscription": false,
         "photozone_rental": false,
         "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/0dd8671d-59e3-430f-8c85-4fcd271c1508.jpg",
-        "unit_type": "confetti"
+        "unit_type": "latex"
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/b9d90647-68f7-46f9-a647-9d6e2d759922.jpg"
@@ -1587,7 +2418,7 @@
       "short_description": "Зеленые круги",
       "full_description": "",
       "composition": [],
-      "category": "Шары с конфетти",
+      "category": "Шары поштучно",
       "character": null,
       "age_group": "Для любого возраста",
       "budget": null,
@@ -1600,7 +2431,7 @@
       "scene": "unit_balloon",
       "tags": [
         "Шары поштучно",
-        "Шары с конфетти"
+        "Латексные шары"
       ],
       "client_options": {
         "available_on_request": false,
@@ -1609,7 +2440,7 @@
         "personal_inscription": false,
         "photozone_rental": false,
         "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/9f61cb13-d11b-49ce-be2c-57d4da11c6d3.jpg",
-        "unit_type": "confetti"
+        "unit_type": "latex"
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/cd43190a-b0e3-4867-8d17-acd4ef20fcfc.jpg"
@@ -1629,7 +2460,7 @@
       "short_description": "Черные и желтые круги",
       "full_description": "",
       "composition": [],
-      "category": "Шары с конфетти",
+      "category": "Шары поштучно",
       "character": null,
       "age_group": "Для любого возраста",
       "budget": null,
@@ -1642,7 +2473,7 @@
       "scene": "unit_balloon",
       "tags": [
         "Шары поштучно",
-        "Шары с конфетти"
+        "Латексные шары"
       ],
       "client_options": {
         "available_on_request": false,
@@ -1651,7 +2482,7 @@
         "personal_inscription": false,
         "photozone_rental": false,
         "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/9a159779-c6f5-4d5c-b461-d746f96b10a5.jpg",
-        "unit_type": "confetti"
+        "unit_type": "latex"
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/0d8c30f3-d657-46a9-a983-082a1fed5293.jpg"
@@ -1671,7 +2502,7 @@
       "short_description": "Красные круги",
       "full_description": "",
       "composition": [],
-      "category": "Шары с конфетти",
+      "category": "Шары поштучно",
       "character": null,
       "age_group": "Для любого возраста",
       "budget": null,
@@ -1684,7 +2515,7 @@
       "scene": "unit_balloon",
       "tags": [
         "Шары поштучно",
-        "Шары с конфетти"
+        "Латексные шары"
       ],
       "client_options": {
         "available_on_request": false,
@@ -1693,7 +2524,7 @@
         "personal_inscription": false,
         "photozone_rental": false,
         "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/7af7770b-1ad6-4673-a08b-119333535fc3.jpg",
-        "unit_type": "confetti"
+        "unit_type": "latex"
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/9dc51bcd-4544-4af3-8ea6-af8dc7a3c800.jpg"
@@ -1713,7 +2544,7 @@
       "short_description": "Супер Агат Красный",
       "full_description": "",
       "composition": [],
-      "category": "Шары Super Agate",
+      "category": "Шары поштучно",
       "character": null,
       "age_group": "Для любого возраста",
       "budget": null,
@@ -1726,7 +2557,7 @@
       "scene": "unit_balloon",
       "tags": [
         "Шары поштучно",
-        "Шары Super Agate"
+        "Латексные шары"
       ],
       "client_options": {
         "available_on_request": false,
@@ -1735,7 +2566,7 @@
         "personal_inscription": false,
         "photozone_rental": false,
         "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/31a5dadc-6213-490e-8fcd-3a239dd1ed13.jpg",
-        "unit_type": "agate"
+        "unit_type": "latex"
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/85880478-1abc-4991-907c-9d36ec46504e.jpg"
@@ -1755,7 +2586,7 @@
       "short_description": "Супер Агат Fashion",
       "full_description": "",
       "composition": [],
-      "category": "Шары Super Agate",
+      "category": "Шары поштучно",
       "character": null,
       "age_group": "Для любого возраста",
       "budget": null,
@@ -1768,7 +2599,7 @@
       "scene": "unit_balloon",
       "tags": [
         "Шары поштучно",
-        "Шары Super Agate"
+        "Латексные шары"
       ],
       "client_options": {
         "available_on_request": false,
@@ -1777,7 +2608,7 @@
         "personal_inscription": false,
         "photozone_rental": false,
         "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/a0be48dd-21df-4674-b6da-034f922d6f75.jpg",
-        "unit_type": "agate"
+        "unit_type": "latex"
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/77df0fc1-9653-4261-8dac-5fb55882584a.jpg"
@@ -1797,7 +2628,7 @@
       "short_description": "Хром Фуше",
       "full_description": "",
       "composition": [],
-      "category": "Шары хром",
+      "category": "Шары поштучно",
       "character": null,
       "age_group": "Для любого возраста",
       "budget": null,
@@ -1810,7 +2641,7 @@
       "scene": "unit_balloon",
       "tags": [
         "Шары поштучно",
-        "Шары хром"
+        "Латексные шары"
       ],
       "client_options": {
         "available_on_request": false,
@@ -1819,7 +2650,7 @@
         "personal_inscription": false,
         "photozone_rental": false,
         "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/08996bd7-d319-4eac-9074-958a873b266a.jpg",
-        "unit_type": "chrome"
+        "unit_type": "latex"
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/597492bd-72e5-4d42-afe2-1d940a6c0472.jpg"
@@ -1839,7 +2670,7 @@
       "short_description": "Хром Розовый",
       "full_description": "",
       "composition": [],
-      "category": "Шары хром",
+      "category": "Шары поштучно",
       "character": null,
       "age_group": "Для любого возраста",
       "budget": null,
@@ -1852,7 +2683,7 @@
       "scene": "unit_balloon",
       "tags": [
         "Шары поштучно",
-        "Шары хром"
+        "Латексные шары"
       ],
       "client_options": {
         "available_on_request": false,
@@ -1861,7 +2692,7 @@
         "personal_inscription": false,
         "photozone_rental": false,
         "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/d6982917-0be7-47b8-8aef-26abb53422d3.jpg",
-        "unit_type": "chrome"
+        "unit_type": "latex"
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/d6982917-0be7-47b8-8aef-26abb53422d3.jpg"
@@ -1881,7 +2712,7 @@
       "short_description": "Хром Золото",
       "full_description": "",
       "composition": [],
-      "category": "Шары хром",
+      "category": "Шары поштучно",
       "character": null,
       "age_group": "Для любого возраста",
       "budget": null,
@@ -1894,7 +2725,7 @@
       "scene": "unit_balloon",
       "tags": [
         "Шары поштучно",
-        "Шары хром"
+        "Латексные шары"
       ],
       "client_options": {
         "available_on_request": false,
@@ -1903,7 +2734,7 @@
         "personal_inscription": false,
         "photozone_rental": false,
         "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/81df8c14-2e2a-47f6-b315-d88d243b77ac.jpg",
-        "unit_type": "chrome"
+        "unit_type": "latex"
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/bdbf6a9a-b4b3-4be0-a771-8d99a885185b.jpg"
@@ -1923,7 +2754,7 @@
       "short_description": "Хром Лайм",
       "full_description": "",
       "composition": [],
-      "category": "Шары хром",
+      "category": "Шары поштучно",
       "character": null,
       "age_group": "Для любого возраста",
       "budget": null,
@@ -1936,7 +2767,7 @@
       "scene": "unit_balloon",
       "tags": [
         "Шары поштучно",
-        "Шары хром"
+        "Латексные шары"
       ],
       "client_options": {
         "available_on_request": false,
@@ -1945,7 +2776,7 @@
         "personal_inscription": false,
         "photozone_rental": false,
         "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/d243d0b6-ff84-42dd-9da0-9fe0a608c7de.jpg",
-        "unit_type": "chrome"
+        "unit_type": "latex"
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/8e91de49-fd81-4eaa-ad3e-4d8510ef9f13.jpg"
@@ -1965,7 +2796,7 @@
       "short_description": "Хром Зеленый",
       "full_description": "",
       "composition": [],
-      "category": "Шары хром",
+      "category": "Шары поштучно",
       "character": null,
       "age_group": "Для любого возраста",
       "budget": null,
@@ -1978,7 +2809,7 @@
       "scene": "unit_balloon",
       "tags": [
         "Шары поштучно",
-        "Шары хром"
+        "Латексные шары"
       ],
       "client_options": {
         "available_on_request": false,
@@ -1987,7 +2818,7 @@
         "personal_inscription": false,
         "photozone_rental": false,
         "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/6b2fc6cf-3752-4b37-8645-d2fa4ec34edf.jpg",
-        "unit_type": "chrome"
+        "unit_type": "latex"
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/fece245c-58fc-4c43-b076-8c59f1359225.jpg"
@@ -2007,7 +2838,7 @@
       "short_description": "Хром Синий",
       "full_description": "",
       "composition": [],
-      "category": "Шары хром",
+      "category": "Шары поштучно",
       "character": null,
       "age_group": "Для любого возраста",
       "budget": null,
@@ -2020,7 +2851,7 @@
       "scene": "unit_balloon",
       "tags": [
         "Шары поштучно",
-        "Шары хром"
+        "Латексные шары"
       ],
       "client_options": {
         "available_on_request": false,
@@ -2029,7 +2860,7 @@
         "personal_inscription": false,
         "photozone_rental": false,
         "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/093299e0-18a1-4e76-b00f-05e30602b97e.jpg",
-        "unit_type": "chrome"
+        "unit_type": "latex"
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/ed3a5ea1-b085-4f7e-88cc-00907b20abd0.jpg"
@@ -2049,7 +2880,7 @@
       "short_description": "Хром Серебро",
       "full_description": "",
       "composition": [],
-      "category": "Шары хром",
+      "category": "Шары поштучно",
       "character": null,
       "age_group": "Для любого возраста",
       "budget": null,
@@ -2062,7 +2893,7 @@
       "scene": "unit_balloon",
       "tags": [
         "Шары поштучно",
-        "Шары хром"
+        "Латексные шары"
       ],
       "client_options": {
         "available_on_request": false,
@@ -2071,7 +2902,7 @@
         "personal_inscription": false,
         "photozone_rental": false,
         "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/0874abae-dc94-46ff-afba-03a741fbac68.jpg",
-        "unit_type": "chrome"
+        "unit_type": "latex"
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/14ceb3cd-99ef-4cc4-bad3-4951dba90b15.jpg"
@@ -2091,7 +2922,7 @@
       "short_description": "Хром Красный",
       "full_description": "",
       "composition": [],
-      "category": "Шары хром",
+      "category": "Шары поштучно",
       "character": null,
       "age_group": "Для любого возраста",
       "budget": null,
@@ -2104,7 +2935,7 @@
       "scene": "unit_balloon",
       "tags": [
         "Шары поштучно",
-        "Шары хром"
+        "Латексные шары"
       ],
       "client_options": {
         "available_on_request": false,
@@ -2113,7 +2944,7 @@
         "personal_inscription": false,
         "photozone_rental": false,
         "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/c7bd718f-d573-449a-9f1f-8f8e89c609d5.jpg",
-        "unit_type": "chrome"
+        "unit_type": "latex"
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/b45c5a61-e2f9-41e8-97f8-e2794a187b9f.jpg"
@@ -2133,7 +2964,7 @@
       "short_description": "Хром Фиолетовый",
       "full_description": "",
       "composition": [],
-      "category": "Шары хром",
+      "category": "Шары поштучно",
       "character": null,
       "age_group": "Для любого возраста",
       "budget": null,
@@ -2146,7 +2977,7 @@
       "scene": "unit_balloon",
       "tags": [
         "Шары поштучно",
-        "Шары хром"
+        "Латексные шары"
       ],
       "client_options": {
         "available_on_request": false,
@@ -2155,7 +2986,7 @@
         "personal_inscription": false,
         "photozone_rental": false,
         "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/945d5a1c-9e30-4eb2-a197-3f3158802c22.jpg",
-        "unit_type": "chrome"
+        "unit_type": "latex"
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/b07230af-8ba1-439a-8cff-60f23914f6f0.jpg"
@@ -20684,7 +21515,7 @@
       ],
       "category": "На выписку",
       "character": null,
-      "age_group": "Для любого возраста",
+      "age_group": "Для малышей",
       "budget": "3 500–5 000 ₽",
       "series_name": null,
       "occasion": null,
@@ -20701,7 +21532,8 @@
         "advance_order_1_2_days": false,
         "number_choice": false,
         "personal_inscription": true,
-        "photozone_rental": false
+        "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1789680163/vigsharm-products/lqlmnxhi1ol1yfesa87j.png"
       },
       "photos": [
         "https://res.cloudinary.com/saiuc42a/image/upload/v1789680163/vigsharm-products/lqlmnxhi1ol1yfesa87j.png"
@@ -20710,7 +21542,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-17T21:25:27.244Z",
-      "updated_at": "2026-09-25T14:50:46.413Z",
+      "updated_at": "2026-09-26T21:00:02.994Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/2fe541ff-bc5d-460a-b877-889331c14fe7.webp"
     },
     {

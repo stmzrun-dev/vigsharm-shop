@@ -2,6 +2,134 @@
   "ok": true,
   "products": [
     {
+      "id": "31687071-b456-44c6-b188-6ed1ef401dbd",
+      "title": "Черновик 26.09, 02:42",
+      "article": "DG-010",
+      "price": 0,
+      "short_description": "",
+      "full_description": "",
+      "composition": [],
+      "category": "Букет из шаров",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "chernovik-26-09-02-42",
+      "scene": "handheld_bouquet",
+      "tags": [
+        "Букет из шаров"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/6c64180d-86d5-4f13-999b-2fb921941e89.jpg"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/c907dd8c-6bf6-421f-896a-3e46ea254996.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/c907dd8c-6bf6-421f-896a-3e46ea254996.jpg",
+      "status": "draft",
+      "show_on_site": false,
+      "created_at": "2026-09-25T23:42:29.164Z",
+      "updated_at": "2026-09-25T23:42:29.164Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "ccc6ce10-191c-4f2a-9c50-f6ebc4dc6cde",
+      "title": "Листья Осень",
+      "article": "UNT-099",
+      "price": 150,
+      "short_description": "Листья Осень",
+      "full_description": "",
+      "composition": [],
+      "category": "1 сентября",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "super-hero-chelovek-pauk-43",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Шары с рисунком",
+        "1 сентября"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/86c67589-2adf-4f73-9cd4-4575f6d682a3.jpg",
+        "unit_type": "print",
+        "unit_holiday": "1 сентября"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/5ba8f73a-4c1b-4753-9588-fffc0dc808f9.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/5ba8f73a-4c1b-4753-9588-fffc0dc808f9.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-25T23:14:14.010Z",
+      "updated_at": "2026-09-25T23:14:14.010Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "ee9f3fe0-a879-4467-a80f-7229f3cb61c1",
+      "title": "Кленовый лист",
+      "article": "UNT-098",
+      "price": 150,
+      "short_description": "Кленовый лист",
+      "full_description": "",
+      "composition": [],
+      "category": "1 сентября",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "super-hero-chelovek-pauk-42",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Шары с рисунком",
+        "1 сентября"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/d222d8e5-16f7-4701-b711-16d0547900d1.jpg",
+        "unit_type": "print",
+        "unit_holiday": "1 сентября"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/69569794-eb02-4298-be30-979ff0ec4044.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/69569794-eb02-4298-be30-979ff0ec4044.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-25T23:13:04.949Z",
+      "updated_at": "2026-09-25T23:13:04.949Z",
+      "thumb_photo": null
+    },
+    {
       "id": "add9bd03-1497-48f4-88fe-b8d364df343a",
       "title": "1 Сентября",
       "article": "UNT-097",

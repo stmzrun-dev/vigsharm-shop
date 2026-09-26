@@ -37,7 +37,13 @@ Object.assign(app, {
     return false;
   },
 
+  /** Ходячие в «поштучно» стоят на полу — кадр как у сцены «Пол». */
+  isWalkerOnFloor(scene) {
+    return scene === 'unit_balloon' && this.getUnitBalloonType?.() === 'walker';
+  },
+
   isWallOnlyScene(scene) {
+    if (this.isWalkerOnFloor(scene)) return false;
     return ['wall_only', 'unit_balloon', 'handheld_bouquet'].includes(scene);
   },
 
@@ -197,7 +203,7 @@ Object.assign(app, {
 
     const posKey = scene === 'photozone'
       ? ((this.getPhotozoneType?.() || 'frame') === 'easel' ? 'photozone_easel' : 'photozone_frame')
-      : scene;
+      : (this.isWalkerOnFloor?.(scene) ? 'floor' : scene);
     const config = positioning[posKey] || positioning[scene] || positioning.floor;
     const aspectRatio = productWidth / productHeight;
     let drawWidth = canvasSize * config.targetWidth;
@@ -914,6 +920,7 @@ Object.assign(app, {
               image_url: imageUrl,
               reference_url: referenceUrl,
               scene,
+              unit_type: scene === 'unit_balloon' ? (this.getUnitBalloonType?.() || '') : '',
               photozone_type: scene === 'photozone' ? (this.getPhotozoneType?.() || 'frame') : undefined,
               resolution: '2K',
               prefer
@@ -939,7 +946,9 @@ Object.assign(app, {
     if (statusEl) {
       statusEl.textContent = scene === 'handheld_bouquet'
         ? '✋ Manus: AI переснимает букет — стена + рука...'
-        : (scene === 'wall_only' || scene === 'unit_balloon')
+        : this.isWalkerOnFloor?.(scene)
+          ? '🪵 Ходячая фигура: стена + пол, как напольная...'
+          : (scene === 'wall_only' || scene === 'unit_balloon')
           ? '🧱 Manus: sunburst → banana → Flux...'
           : '📸 AI переснимает в студии (sunburst → banana → Flux)...';
     }

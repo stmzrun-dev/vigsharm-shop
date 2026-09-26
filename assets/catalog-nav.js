@@ -169,11 +169,11 @@
   var subNav = document.querySelector('.catalog-subcategories');
   var resultsSection = document.querySelector('.catalog-results');
   document.addEventListener('click', function (e) {
-    var btn = e.target && e.target.closest ? e.target.closest('[data-unit-add]') : null;
+    var btn = e.target && e.target.closest ? e.target.closest('[data-unit-add], [data-unit-digit]') : null;
     if (!btn || !window.vigUnitList) return;
     e.preventDefault();
     e.stopPropagation();
-    window.vigUnitList.add({
+    var payload = {
       id: btn.getAttribute('data-id'),
       slug: btn.getAttribute('data-slug'),
       title: btn.getAttribute('data-title'),
@@ -182,7 +182,12 @@
       qty: 1,
       perMeter: btn.getAttribute('data-meter') === '1',
       thumb: btn.getAttribute('data-thumb') || ''
-    });
+    };
+    if (btn.getAttribute('data-unit-digit') === '1' && window.vigUnitList.pickDigits) {
+      window.vigUnitList.pickDigits(payload);
+      return;
+    }
+    window.vigUnitList.add(payload);
   });
 
   var filterPanel = controlsEl ? controlsEl.querySelector('.catalog-filter-panel') : null;
@@ -443,6 +448,7 @@
     var badge = requestBadge || advanceBadge;
     var isPiece = priceNote === 'Цена за штуку';
     var perMeter = (p.tags || []).indexOf('Цена за метр') >= 0;
+    var digitPick = unitShelf === 'Фольгированные цифры' || ((p.client_options || {}).unit_type === 'digit');
     var thumb = key && window.vigImage ? window.vigImage(key, 160) : '';
     var card = '<a class="catalog-card color-' + (i % 5) + '" href="product.html?slug=' + encodeURIComponent(p.slug || p.id) + '" aria-label="Подробнее: ' + esc(p.title) + '">' +
       '<span class="catalog-card-image">' + img + '</span>' +
@@ -457,7 +463,7 @@
       '</span></a>';
     if (!isPiece) return card;
     return '<div class="catalog-card-wrap">' + card +
-      '<div class="catalog-unit-step" data-unit-step data-id="' + esc(p.id) + '" data-slug="' + esc(p.slug || p.id) + '" data-title="' + esc(p.title) + '" data-sku="' + esc(p.sku || p.article || '') + '" data-price="' + (Number(p.price) || 0) + '" data-meter="' + (perMeter ? '1' : '0') + '" data-thumb="' + esc(thumb) + '"></div></div>';
+      '<div class="catalog-unit-step" data-unit-step data-id="' + esc(p.id) + '" data-slug="' + esc(p.slug || p.id) + '" data-title="' + esc(p.title) + '" data-sku="' + esc(p.sku || p.article || '') + '" data-price="' + (Number(p.price) || 0) + '" data-meter="' + (perMeter ? '1' : '0') + '" data-digit="' + (digitPick ? '1' : '0') + '" data-thumb="' + esc(thumb) + '"></div></div>';
   }
 
   function requestSummary() {

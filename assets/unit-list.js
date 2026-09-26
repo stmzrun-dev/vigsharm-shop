@@ -27,8 +27,12 @@
   function pieces(items) {
     return items.reduce(function (s, it) { return s + (Number(it.qty) || 0); }, 0);
   }
+  function lineTotal(it) {
+    var base = (Number(it.price) || 0) * (Number(it.qty) || 0);
+    return base + (it.digit2 ? 900 : 0);
+  }
   function goodsSum(items) {
-    return items.reduce(function (s, it) { return s + (Number(it.price) || 0) * (Number(it.qty) || 0); }, 0);
+    return items.reduce(function (s, it) { return s + lineTotal(it); }, 0);
   }
   function deliveryRub() { return draft.fulfillment === 'armavir' ? cityDelivery : 0; }
   function grand(items) { return goodsSum(items) + deliveryRub(); }
@@ -69,6 +73,30 @@
     for (var i = 0; i < items.length; i++) {
       if (String(items[i].id) === String(item.id)) { found = items[i]; break; }
     }
+    if (item.digit) {
+      var line = {
+        id: item.id,
+        slug: item.slug || '',
+        title: item.title || 'Цифра',
+        sku: item.sku || '',
+        price: Number(item.price) || 0,
+        qty: 1,
+        perMeter: false,
+        thumb: item.thumb || '',
+        digit: String(item.digit),
+        digit2: item.digit2 ? String(item.digit2) : ''
+      };
+      if (found) {
+        found.qty = 1;
+        found.digit = line.digit;
+        found.digit2 = line.digit2;
+        found.price = line.price;
+        if (line.thumb) found.thumb = line.thumb;
+      } else items.push(line);
+      save(items);
+      if (window.vigToast) window.vigToast(line.digit2 ? ('Цифры ' + line.digit + ' и ' + line.digit2) : ('Цифра ' + line.digit));
+      return;
+    }
     if (found) {
       found.qty = Math.min(100, (Number(found.qty) || 0) + qty);
       if (item.thumb) found.thumb = item.thumb;
@@ -90,7 +118,8 @@
     var lines = items.map(function (it) {
       var unit = it.perMeter ? 'м' : 'шт.';
       var sku = it.sku ? ' (' + it.sku + ')' : '';
-      return it.qty + ' ' + unit + ' × ' + it.title + sku + ' — ' + money((Number(it.price) || 0) * it.qty);
+      var which = it.digit ? (' — ' + (it.digit2 ? ('цифры ' + it.digit + ' и ' + it.digit2) : ('цифра ' + it.digit))) : '';
+      return it.qty + ' ' + unit + ' × ' + it.title + sku + which + ' — ' + money(lineTotal(it));
     });
     var fmap = {
       pickup: 'самовывоз из студии',
@@ -162,9 +191,21 @@
       var id = el.getAttribute('data-id') || '';
       var q = qtyOf(id);
       var pack = ' data-id="' + esc(id) + '" data-slug="' + esc(el.getAttribute('data-slug') || '') + '" data-title="' + esc(el.getAttribute('data-title') || '') + '" data-sku="' + esc(el.getAttribute('data-sku') || '') + '" data-price="' + esc(el.getAttribute('data-price') || '0') + '" data-meter="' + esc(el.getAttribute('data-meter') || '0') + '" data-thumb="' + esc(el.getAttribute('data-thumb') || '') + '"';
-      el.innerHTML = q
+      var digitCard = el.getAttribute('data-digit') === '1';
+      var picked = null;
+      if (digitCard) {
+        var all = load();
+        for (var j = 0; j < all.length; j++) {
+          if (String(all[j].id) === String(id)) { picked = all[j]; break; }
+        }
+      }
+      el.innerHTML = digitCard
+        ? (picked
+          ? '<b class="unit-digit-picked">' + esc(picked.digit2 ? (picked.digit + picked.digit2) : picked.digit) + '</b><button type="button" data-unit-dec="1" data-id="' + esc(id) + '" aria-label="Убрать">×</button>'
+          : '<button type="button" class="is-plus" data-unit-digit="1"' + pack + ' aria-label="Выбрать цифру">+</button>')
+        : (q
         ? '<button type="button" data-unit-dec="1" data-id="' + esc(id) + '" aria-label="Меньше">−</button><b>' + q + '</b><button type="button" data-unit-add="1"' + pack + ' aria-label="Больше">+</button>'
-        : '<button type="button" class="is-plus" data-unit-add="1"' + pack + ' aria-label="В набор">+</button>';
+        : '<button type="button" class="is-plus" data-unit-add="1"' + pack + ' aria-label="В набор">+</button>');
     });
   }
 
@@ -225,12 +266,15 @@
     return items.map(function (it, i) {
       var unit = it.perMeter ? 'м' : 'шт.';
       var thumb = it.thumb ? '<img class="unit-list-thumb" src="' + esc(it.thumb) + '" alt=""/>' : '<span class="unit-list-thumb"></span>';
-      return '<div class="unit-list-row">' + thumb + '<div><strong>' + esc(it.title) + '</strong><small>' +
-        money(it.price) + ' × ' + it.qty + ' ' + unit + ' = ' + money((Number(it.price) || 0) * it.qty) + '</small></div>' +
-        '<div class="unit-list-qty"><button type="button" data-u="dec" data-i="' + i + '" aria-label="Меньше">−</button>' +
+      var which = it.digit ? ('<small>' + esc(it.digit2 ? ('цифры ' + it.digit + ' и ' + it.digit2 + ' · +900 ₽') : ('цифра ' + it.digit)) + '</small>') : '';
+      return '<div class="unit-list-row">' + thumb + '<div><strong>' + esc(it.title) + '</strong>' + which + '<small>' +
+        money(it.price) + ' × ' + it.qty + ' ' + unit + ' = ' + money(lineTotal(it)) + '</small></div>' +
+        (it.digit
+          ? '<div class="unit-list-qty"><button type="button" data-u="del" data-i="' + i + '" aria-label="Убрать">×</button></div></div>'
+          : '<div class="unit-list-qty"><button type="button" data-u="dec" data-i="' + i + '" aria-label="Меньше">−</button>' +
         '<span>' + it.qty + '</span>' +
         '<button type="button" data-u="inc" data-i="' + i + '" aria-label="Больше">+</button>' +
-        '<button type="button" data-u="del" data-i="' + i + '" aria-label="Убрать">×</button></div></div>';
+        '<button type="button" data-u="del" data-i="' + i + '" aria-label="Убрать">×</button></div></div>');
     }).join('');
   }
 
@@ -306,7 +350,9 @@
             var i = Number(el.getAttribute('data-i'));
             var list = load();
             if (!list[i]) return;
-            if (act === 'del') list.splice(i, 1);
+            if (list[i].digit) {
+              if (act !== 'inc') list.splice(i, 1);
+            } else if (act === 'del') list.splice(i, 1);
             else if (act === 'dec') list[i].qty = Math.max(1, list[i].qty - 1);
             else list[i].qty = Math.min(100, list[i].qty + 1);
             save(list);
@@ -470,6 +516,64 @@
       .catch(function () {});
   }
 
+  function pickDigits(item) {
+    var old = document.querySelector('.unit-digit-pop');
+    if (old) old.remove();
+    var first = '';
+    var pop = document.createElement('div');
+    pop.className = 'unit-digit-pop';
+    function pad(selected) {
+      var html = '';
+      for (var n = 0; n <= 9; n++) {
+        html += '<button type="button" data-n="' + n + '"' + (String(selected) === String(n) ? ' class="is-on"' : '') + '>' + n + '</button>';
+      }
+      return html;
+    }
+    function drawFirst() {
+      pop.innerHTML = '<div class="unit-digit-sheet" role="dialog" aria-label="Какая цифра">' +
+        '<p>Какая цифра нужна?</p><div class="unit-digit-pad">' + pad(first) + '</div>' +
+        '<button type="button" class="unit-digit-cancel" data-x="1">Отмена</button></div>';
+    }
+    function drawSecond() {
+      pop.innerHTML = '<div class="unit-digit-sheet" role="dialog" aria-label="Вторая цифра">' +
+        '<p>Цифра ' + esc(first) + '. Добавить вторую?</p>' +
+        '<div class="unit-digit-actions">' +
+        '<button type="button" data-one="1">Оставить одну</button>' +
+        '<button type="button" data-two="1">Вторую <small>+900 ₽</small></button></div>' +
+        '<button type="button" class="unit-digit-cancel" data-x="1">Отмена</button></div>';
+    }
+    function drawSecondPad() {
+      pop.innerHTML = '<div class="unit-digit-sheet" role="dialog" aria-label="Вторая цифра">' +
+        '<p>Вторая цифра <small>+900 ₽</small></p><div class="unit-digit-pad">' + pad('') + '</div>' +
+        '<button type="button" class="unit-digit-cancel" data-back="1">Назад</button></div>';
+    }
+    pop.addEventListener('click', function (e) {
+      var t = e.target && e.target.closest ? e.target.closest('button') : null;
+      if (e.target === pop) { pop.remove(); return; }
+      if (!t) return;
+      if (t.getAttribute('data-x') === '1') { pop.remove(); return; }
+      if (t.getAttribute('data-one') === '1') {
+        pop.remove();
+        add(Object.assign({}, item, { digit: first, digit2: '' }));
+        return;
+      }
+      if (t.getAttribute('data-two') === '1') { drawSecondPad(); return; }
+      if (t.getAttribute('data-back') === '1') { drawSecond(); return; }
+      if (t.getAttribute('data-n') != null && !first) {
+        first = t.getAttribute('data-n');
+        drawSecond();
+        return;
+      }
+      if (t.getAttribute('data-n') != null && first) {
+        var second = t.getAttribute('data-n');
+        pop.remove();
+        add(Object.assign({}, item, { digit: first, digit2: second }));
+      }
+    });
+    drawFirst();
+    document.body.appendChild(pop);
+  }
+
   document.addEventListener('click', function (e) {
     var dec = e.target && e.target.closest ? e.target.closest('[data-unit-dec]') : null;
     if (!dec) return;
@@ -477,7 +581,7 @@
     e.stopPropagation();
     change(dec.getAttribute('data-id'), -1);
   });
-  window.vigUnitList = { add: add, change: change, mount: function () { paintBar(); paintSteps(); } };
+  window.vigUnitList = { add: add, change: change, pickDigits: pickDigits, mount: function () { paintBar(); paintSteps(); } };
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function () { paintBar(); paintSteps(); loadDelivery(); });
   else { paintBar(); paintSteps(); loadDelivery(); }
 })();

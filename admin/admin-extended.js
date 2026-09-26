@@ -1148,6 +1148,7 @@ Object.assign(app, {
     if (hay.includes('Шары с рисунком')) return 'print';
     if (hay.includes('Ходячие фигуры')) return 'walker';
     if (hay.includes('Круги, звёзды и сердца')) return 'shapes';
+    if (hay.includes('Фольгированные цифры')) return 'digit';
     if (hay.includes('Фольгированные фигуры')) return 'foil';
     if (hay.includes('Шары с конфетти')) return 'confetti';
     if (hay.includes('Шары хром')) return 'chrome';
@@ -1680,6 +1681,7 @@ Object.assign(app, {
           const unitHoliday = this.getUnitHoliday?.() || '';
           if (unitHoliday) clientOptions.unit_holiday = unitHoliday;
         }
+        if (unitMeta.hasDigit) clientOptions.number_choice = true;
       }
     }
     if (rentalChecked) {
@@ -1696,7 +1698,8 @@ Object.assign(app, {
       delete clientOptions.digit_choice;
     } else if (clientOptions.number_choice) {
       const fromComp = this.compositionDigitCount?.(compText) || 0;
-      const count = Math.min(2, Math.max(1, fromComp || 1));
+      const unitDigit = unit && this.getUnitBalloonType?.() === 'digit';
+      const count = unitDigit ? 1 : Math.min(2, Math.max(1, fromComp || 1));
       clientOptions.digit_choice = {
         enabled: true,
         count_on_photo: count

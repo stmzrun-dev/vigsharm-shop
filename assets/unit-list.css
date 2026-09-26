@@ -79,6 +79,16 @@
   box-shadow:0 2px 8px rgba(40,30,20,.16);font:inherit;font-weight:800;cursor:pointer;
 }
 .catalog-unit-step b{min-width:1.2em;text-align:center}
+.catalog-unit-step .unit-digit-picked{font-size:13px;background:#fff;border-radius:999px;padding:8px 10px;box-shadow:0 2px 8px rgba(40,30,20,.16)}
+.unit-digit-pop{position:fixed;inset:0;z-index:80;background:rgba(40,30,20,.35);display:flex;align-items:flex-end;justify-content:center;padding:16px}
+.unit-digit-sheet{width:min(420px,100%);background:#fff;border-radius:20px;padding:16px 16px 14px;box-shadow:0 12px 40px rgba(40,30,20,.2)}
+.unit-digit-sheet p{margin:0 0 12px;font-weight:700}
+.unit-digit-pad{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.unit-digit-pad button,.unit-digit-actions button{border:1px solid #E7E0D6;background:#fff;border-radius:14px;min-height:48px;font:inherit;font-weight:800;cursor:pointer}
+.unit-digit-pad button.is-on{border-color:#e07a5f;background:#fff4f0}
+.unit-digit-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.unit-digit-actions small{display:block;font-weight:650;color:#8a7e72}
+.unit-digit-cancel{margin-top:10px;width:100%;border:0;background:transparent;font:inherit;color:#8a7e72;cursor:pointer;padding:8px}
 .product-page .product-unit-add{
   display:block;width:100%;margin-top:10px;border-radius:999px;border:1px solid #E7E0D6;background:#fff;
   padding:12px 16px;font:inherit;font-weight:700;cursor:pointer;color:inherit;

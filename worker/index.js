@@ -1631,6 +1631,11 @@ function isWallOnlyScene(scene) {
   return ['wall_only', 'unit_balloon'].includes(scene);
 }
 
+/** Ходячая фольга в «поштучно»: каталог тот же, кадр как у напольной — фигура стоит на полу. */
+function isWalkerOnFloor(scene, opts) {
+  return scene === 'unit_balloon' && opts?.unit_type === 'walker';
+}
+
 function buildRephotographPrompt(scene, opts = {}) {
   const photozoneType = opts.photozone_type === 'easel' ? 'easel' : 'frame';
   const lock = `LOCKED — preserve without any change:
@@ -1747,7 +1752,7 @@ FORBIDDEN: full person / model / face / body in frame, floor, baseboard, laminat
 OUTPUT: one square 1:1 catalog photo — studio wall, bouquet held from the side by one female hand, forearm leaving the left or right edge, ribbon tails fully visible with wall under the tips, NO hand from the bottom, NO easel/vase/room props, NO person/face/body, no hang-tags, bright and sharp.`;
   }
 
-  if (isWallOnlyScene(scene)) {
+  if (isWallOnlyScene(scene) && !isWalkerOnFloor(scene, opts)) {
     const unit = scene === 'unit_balloon';
     return `Rephotograph this VigSharm balloon product for a square catalog card — Manus style: one REAL photograph shot by a professional product photographer in a commercial catalog studio (NOT a cutout/sticker composite, NOT a phone snap in a dark room).
 
@@ -1902,7 +1907,15 @@ ${forbidden}
 OUTPUT: one square 1:1 professional catalog photo — balloon figure LARGE, perfectly VERTICAL, near the wall on LIGHT pale-oak laminate (no table, no invented feet balloons), natural catalog light, human scale ≥1 m.`;
   }
 
-  return `Edit the provided floor-standing balloon composition photo for a square VigSharm catalog card. Change ONLY the room background and lighting — NEVER rebuild the balloon product.
+  const walkerNote = isWalkerOnFloor(scene, opts) ? `WALKING FOIL FIGURE (подтип «Ходячие», сцена поштучно):
+- ONE walking foil figure. It STANDS ON THE FLOOR on its own feet or cardboard base — same room as a floor composition: warm beige-grey wall, white baseboard, LIGHT laminate.
+- Feet / base touch the laminate. Soft contact shadow only under the feet. Do NOT float the figure on a wall-only background and do NOT crop the floor away.
+- Strip marketplace packaging badges, size labels, and watermarks. Keep the character print exactly.
+- Do NOT add extra balloons, a bouquet, a weight cluster, or a second figure.
+
+` : '';
+
+  return `${walkerNote}Edit the provided floor-standing balloon composition photo for a square VigSharm catalog card. Change ONLY the room background and lighting — NEVER rebuild the balloon product.
 
 ${lock}
 
@@ -1942,13 +1955,17 @@ OUTPUT: one square 1:1 professional catalog photo — SAME balloon product as so
 }
 
 /** Flux edit limit is 5000 characters. Keep this well under that. */
-function buildFluxPrompt(scene) {
-  const room = ['wall_only', 'unit_balloon', 'handheld_bouquet'].includes(scene)
+function buildFluxPrompt(scene, opts = {}) {
+  const walkerFloor = isWalkerOnFloor(scene, opts);
+  const wallRoom = ['wall_only', 'unit_balloon', 'handheld_bouquet'].includes(scene) && !walkerFloor;
+  const room = wallRoom
     ? 'Replace the room with the SECOND reference: warm light beige-grey studio WALL only. No floor, no baseboard, no laminate.'
     : 'Replace the room with the SECOND reference: warm light beige-grey wall, white baseboard, LIGHT pale-oak laminate. Put the product close to the baseboard.';
   const extra = scene === 'handheld_bouquet'
     ? 'Bouquet held by one adult female hand from the left or right. No face, no body. Ribbon tips stay inside the frame.'
-    : scene === 'unit_balloon'
+    : walkerFloor
+      ? 'ONE walking foil figure standing on its own feet on the laminate (floor scene). Strip marketplace badges. Keep the character print. Do not add balloons.'
+      : scene === 'unit_balloon'
       ? 'Single balloon or small set. Strip marketplace badges, size labels, and watermarks. Keep the balloon print.'
       : '';
   return `Edit this VigSharm catalog photo. Change only the room and lighting. Do not rebuild the product.
@@ -1964,9 +1981,9 @@ Do not add balloons. Do not copy mirror reflections.
 ${extra}`.trim();
 }
 
-function buildRephotographAttempts(imageUrl, referenceUrl, prompt, resolution = '2K', prefer = 'quality', scene = 'floor') {
+function buildRephotographAttempts(imageUrl, referenceUrl, prompt, resolution = '2K', prefer = 'quality', scene = 'floor', opts = {}) {
   const res = ['1K', '2K', '4K'].includes(resolution) ? resolution : '2K';
-  const wallOnly = ['wall_only', 'unit_balloon', 'handheld_bouquet'].includes(scene);
+  const wallOnly = ['wall_only', 'unit_balloon', 'handheld_bouquet'].includes(scene) && !isWalkerOnFloor(scene, opts);
   const wallHint = '\n\nTarget room: VigSharm studio wall from the SECOND reference — warm light beige-grey plaster, natural catalog softbox daylight (not overexposed wash). Copy reference wall tone; do NOT darken into taupe/muddy grey and do NOT blow out to pure white. NO invented mottled/smudged wall.';
   const floorHint = '\n\nTarget FLOOR from the SECOND reference — LIGHT pale oak / light grey-beige laminate matching reference brightness. Place ONLY the product CLOSE to the white baseboard (short floor strip only — not mid-room): balloons, ribbons, their weights, and a gift/surprise box if it is part of the composition. DELETE room props in place — do NOT move them with the product: vase, glass, dried flowers, pampas grass, houseplant, random floor object. Hang-tags: erase in place or keep pixel-locked on the same balloon — NEVER relocate a tag. Soft contact shadows only under the original balloon base. REMOVE any table, stolik, glass table, stool, chair, wire stand or other furniture from the source — the existing balloon base sits directly on the laminate. A printed gift box that presents the balloons is PRODUCT, not furniture — keep it. Do NOT invent new balloons under the base. FORBIDDEN: dark brown/charcoal laminate; large empty floor toward the wall; keeping a table under the product; carrying a vase/pampas/stray object into the studio; a hang-tag moved to a new spot or another balloon; any real people/models in the frame. If source has a person posing with balloons: erase them completely, keep only the balloon product. If source has a mirror/vanity: remove it; count ONLY real balloons on the floor in front of the glass — NEVER copy balloons that exist only as mirror reflections (e.g. one real heart + reflection → output one heart).';
   const roomHint = wallOnly ? wallHint : (wallHint + floorHint);
@@ -1994,7 +2011,7 @@ function buildRephotographAttempts(imageUrl, referenceUrl, prompt, resolution = 
 
   // Mid-run fallback: Flux only. This model rejects prompts over 5000 characters.
   if (prefer === 'flux') {
-    const fluxPrompt = buildFluxPrompt(scene);
+    const fluxPrompt = buildFluxPrompt(scene, opts);
     console.log('[Studio Rephotograph] flux prompt chars=', fluxPrompt.length);
     attempts.push({
       model: 'image/flux2-pro-edit',
@@ -2047,6 +2064,7 @@ async function handleStudioRephotograph(request, env) {
     ? 'banana'
     : (body.prefer === 'flux' ? 'flux' : 'quality');
   const photozone_type = body.photozone_type === 'easel' ? 'easel' : 'frame';
+  const unit_type = body.unit_type === 'walker' ? 'walker' : '';
 
   if (!image_url || !reference_url) {
     return json({ ok: false, error: 'Missing image_url or reference_url' }, 400);
@@ -2059,8 +2077,8 @@ async function handleStudioRephotograph(request, env) {
     }
   }
 
-  const prompt = buildRephotographPrompt(scene, { photozone_type });
-  const attempts = buildRephotographAttempts(image_url, reference_url, prompt, resolution, prefer, scene);
+  const prompt = buildRephotographPrompt(scene, { photozone_type, unit_type });
+  const attempts = buildRephotographAttempts(image_url, reference_url, prompt, resolution, prefer, scene, { unit_type });
 
   let generateResp = null;
   let usedModel = null;

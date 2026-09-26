@@ -106,6 +106,11 @@
   }
 
   function isUnit() { return p && (p.category === 'Шары поштучно' || (p.tags || []).indexOf('Шары поштучно') >= 0); }
+  function isDigitUnit() {
+    if (!isUnit() || !p) return false;
+    var opts = p.client_options || {};
+    return opts.unit_type === 'digit' || p.category === 'Фольгированные цифры' || (p.tags || []).indexOf('Фольгированные цифры') >= 0;
+  }
   function isPerMeter() { return !!(p && (p.tags || []).indexOf('Цена за метр') >= 0); }
   function priceFrom() { return !!(p && (p.tags || []).indexOf('Цена от') >= 0); }
   function hasParams() { return !!(p && (p.has_digit_choice || p.has_inscription || p.has_rental || isUnit())); }
@@ -187,7 +192,7 @@
       if (canAdd() || canRemove()) steps.push('delta');
       if (effDigits() >= 2) steps.push('digit2');
     }
-    if (isUnit()) steps.push('qty');
+    if (isUnit() && !isDigitUnit()) steps.push('qty');
     if (p && p.has_inscription) steps.push('inscription');
     steps.push('fulfill');
     if (fulfillment && fulfillment !== 'pickup') steps.push('address');
@@ -503,7 +508,7 @@
 
   /** Progressive mobile form: only current + completed steps are visible. */
   function clientStepVisible(id) {
-    if (id === 'client-qty') return isUnit();
+    if (id === 'client-qty') return isUnit() && !isDigitUnit();
     if (id === 'client-digits') return !!(p && p.has_digit_choice);
     if (id === 'client-ins') return !!(p && p.has_inscription) && digitsOk();
     if (id === 'client-rental') return !!(p && p.has_rental) && digitsOk();
@@ -538,6 +543,9 @@
           : (U === 2 ? 'Выберите обе цифры' : 'Выберите цифру')) + '</p>';
 
       html += storyDigitsPad();
+      if (isDigitUnit() && digitsOk()) {
+        html += '<button type="button" class="button product-unit-add" data-act="unit-add">В набор</button>';
+      }
       var showDigitDelta = digitsOk() ? (canAdd() && H === 0) : (!(U === 2 && digit) && (canAdd() || canRemove()) && !!digit);
       if (showDigitDelta) {
         html += '<div class="client-delta order-story-delta client-delta-compact">' +
@@ -826,7 +834,7 @@
     var paramsDetails = '';
     if (isUnit() || p.has_digit_choice) {
       var inner = '';
-      if (isUnit()) {
+      if (isUnit() && !isDigitUnit()) {
         inner += '<div class="config-input"><span>' + (isPerMeter() ? 'Длина арки' : 'Количество') + '</span>' +
           qtyStepperHtml() + '</div>';
       }
@@ -1408,9 +1416,17 @@
         el.addEventListener('click', function () {
           if (!p || !window.vigUnitList) return;
           var photoKey = (p.image_keys && p.image_keys[0]) || '';
+          if (isDigitUnit() && !digitsOk()) {
+            if (window.vigToast) window.vigToast('Выберите цифру');
+            return;
+          }
           window.vigUnitList.add({
             id: p.id, slug: p.slug || slug, title: p.title, sku: p.sku,
-            price: p.price, qty: qty, perMeter: isPerMeter(),
+            price: p.price,
+            qty: isDigitUnit() ? 1 : qty,
+            perMeter: isPerMeter(),
+            digit: isDigitUnit() ? digit : '',
+            digit2: isDigitUnit() && effDigits() >= 2 ? digit2 : '',
             thumb: photoKey && window.vigImage ? window.vigImage(photoKey, 160) : ''
           });
         });

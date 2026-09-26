@@ -75,6 +75,7 @@ const UNIT_BALLOON_TYPES = {
   bubble: { value: 'bubble', title: 'Bubble', tag: 'Шары Bubble', plainShelf: true },
   print: { value: 'print', title: 'С рисунком', tag: 'Шары с рисунком', hasWho: true, hasHoliday: true },
   foil: { value: 'foil', title: 'Фольга', tag: 'Фольгированные фигуры', hasSize: true, hasWho: true, hasHoliday: true },
+  digit: { value: 'digit', title: 'Цифры', tag: 'Фольгированные цифры', hasDigit: true },
   walker: { value: 'walker', title: 'Ходячие', tag: 'Ходячие фигуры', hasWho: true, hasHoliday: true },
   shapes: { value: 'shapes', title: 'Круги и звёзды', tag: 'Круги, звёзды и сердца', hasHoliday: true }
 };
@@ -890,7 +891,7 @@ const app = {
       return String(product.character || product.character_name || '').trim() || 'Без имени';
     }
     if (groupId === 'unit') {
-      const UNIT_SHELF_ORDER = ['Шары с рисунком', 'Ходячие фигуры', 'Круги, звёзды и сердца', 'Фольгированные фигуры', 'Латексные шары', 'Шары с конфетти', 'Шары хром', 'Шары Super Agate', 'Шары Brush', 'Шары Bubble'];
+      const UNIT_SHELF_ORDER = ['Шары с рисунком', 'Ходячие фигуры', 'Круги, звёзды и сердца', 'Фольгированные фигуры', 'Фольгированные цифры', 'Латексные шары', 'Шары с конфетти', 'Шары хром', 'Шары Super Agate', 'Шары Brush', 'Шары Bubble'];
       const allTags = [product.category].concat(product.tags || []).filter(Boolean);
       const found = UNIT_SHELF_ORDER.find((s) => allTags.includes(s));
       if (found) return found;
@@ -906,7 +907,7 @@ const app = {
     // Для праздников и поштучных — всегда раскладываем по полкам
     const alwaysShelve = !searching && (groupId === 'holidays' || groupId === 'unit');
     if (alwaysShelve) {
-      const UNIT_SHELF_ORDER = ['Шары с рисунком', 'Ходячие фигуры', 'Круги, звёзды и сердца', 'Фольгированные фигуры', 'Латексные шары', 'Шары с конфетти', 'Шары хром', 'Шары Super Agate', 'Шары Brush', 'Шары Bubble'];
+      const UNIT_SHELF_ORDER = ['Шары с рисунком', 'Ходячие фигуры', 'Круги, звёзды и сердца', 'Фольгированные фигуры', 'Фольгированные цифры', 'Латексные шары', 'Шары с конфетти', 'Шары хром', 'Шары Super Agate', 'Шары Brush', 'Шары Bubble'];
       const shelfOrder = groupId === 'holidays' ? LIST_HOLIDAYS : [...UNIT_SHELF_ORDER, ...LIST_HOLIDAYS, 'Разное'];
       const buckets = new Map();
       items.forEach((p) => {

@@ -227,6 +227,7 @@
   }
   function orderCta(kind) {
     if (!digitsOk()) return kind === 'short' ? 'Выберите цифру' : ('Выберите ' + (effDigits() === 2 ? 'обе цифры' : 'цифру'));
+    if (isDigitUnit()) return 'В набор';
     if (!inscriptionOk()) return kind === 'short' ? 'Нужна надпись' : 'Напишите надпись на шаре';
     if (!fulfillment) return kind === 'short' ? 'Выберите получение' : 'Выберите способ получения';
     if (!fulfillmentOk()) return kind === 'short' ? 'Укажите адрес' : 'Укажите адрес доставки';
@@ -486,6 +487,7 @@
   }
 
   function clientNextId() {
+    if (isDigitUnit()) return digitsOk() ? '' : 'client-digits';
     if (!digitsOk()) return 'client-digits';
     if (!inscriptionOk()) return 'client-ins';
     if (!fulfillment) return 'client-ful';
@@ -512,6 +514,7 @@
     if (id === 'client-digits') return !!(p && p.has_digit_choice);
     if (id === 'client-ins') return !!(p && p.has_inscription) && digitsOk();
     if (id === 'client-rental') return !!(p && p.has_rental) && digitsOk();
+    if (isDigitUnit() && (id === 'client-ful' || id === 'client-addr' || id === 'client-when' || id === 'client-contact')) return false;
     if (id === 'client-ful') return digitsOk();
     if (id === 'client-addr') return digitsOk() && !!fulfillment && fulfillment !== 'pickup';
     if (id === 'client-when') return digitsOk();
@@ -611,8 +614,10 @@
         '</section>';
     }
 
-    /* Spacer so sticky header + bottom CTA leave room to park any step. */
-    html += '<div class="client-order-scroll-pad" aria-hidden="true" style="height:min(560px,72vh);pointer-events:none"></div>';
+    /* Spacer so sticky header + bottom CTA leave room to park any step. Digit units stop at «В набор». */
+    if (!isDigitUnit()) {
+      html += '<div class="client-order-scroll-pad" aria-hidden="true" style="height:min(560px,72vh);pointer-events:none"></div>';
+    }
 
     html += '</div>';
     return html;
@@ -950,16 +955,18 @@
       summaryFlowHtml() +
       '<div class="order-classic-flow">' +
       paramsDetails +
+      (isDigitUnit() ? '' : (
       '<section class="order-details product-step is-open" id="product-step-date" data-details="date">' +
       '<header class="config-title"><div><strong>' + (stepNum ? stepNum + '. ' : '') + 'Дата и получение</strong><small>' + esc(fulfillmentTitle()) + '</small></div></header>' +
-      '<div class="product-step-content">' + dateInner + '</div></section>' +
+      '<div class="product-step-content">' + dateInner + '</div></section>')) +
       '<div class="product-order-total' + (hasPriceExtras ? ' is-detailed' : '') + '"><span>' + totalLabel +
       (ip > 0 ? '<small>Включая надпись: +' + ip.toLocaleString('ru-RU') + ' ₽</small>' : '') +
       (dp !== 0 ? '<small>' + (dp > 0 ? 'Дополнительная цифра: +' : 'Без второй цифры: −') + Math.abs(dp).toLocaleString('ru-RU') + ' ₽</small>' : '') +
       (yp > 0 ? '<small>Доставка по Армавиру: +' + yp.toLocaleString('ru-RU') + ' ₽</small>' : '') +
       (fulfilled === 'nearby' ? '<small>Доставку за город уточним при подтверждении</small>' : '') +
       '</span><strong>' + (priceFrom() ? 'от ' : '') + T.toLocaleString('ru-RU') + ' ₽</strong></div>' +
-      '<button type="button" class="button button-primary product-order-button" data-act="order"' + (orderSending ? ' disabled' : '') + '>' + esc(orderSending ? 'Отправляем…' : orderBtn) + '</button>' +
+      (isDigitUnit() ? '' : (
+      '<button type="button" class="button button-primary product-order-button" data-act="order"' + (orderSending ? ' disabled' : '') + '>' + esc(orderSending ? 'Отправляем…' : orderBtn) + '</button>')) +
       (isUnit()
         ? '<button type="button" class="button product-unit-add" data-act="unit-add">В набор</button>'
         : '') +
@@ -969,7 +976,7 @@
         : '') +
       '</div>' +
       '</div></section>' +
-      ((mobileFlowOn && !ready)
+      ((mobileFlowOn && !ready && !isDigitUnit())
         ? ''
         : ('<section class="related-products"><div class="related-products-heading"><div>' +
       '<h2>' + (rel.length ? 'Похожие композиции' : 'Нужен другой вариант?') + '</h2>' +
@@ -1650,6 +1657,12 @@
 
   function order() {
     if (orderSending) return;
+    if (isDigitUnit()) {
+      var addBtn = root.querySelector('[data-act="unit-add"]');
+      if (addBtn) addBtn.click();
+      else if (window.vigToast) window.vigToast('Выберите цифру');
+      return;
+    }
     if (useMobileFlow()) {
       if (!isOrderReady() || !phoneOk()) {
         clearTimeout(stepUnlockTimer);

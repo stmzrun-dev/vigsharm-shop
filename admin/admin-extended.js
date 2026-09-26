@@ -961,7 +961,11 @@ Object.assign(app, {
       if (sizeEl && !value) sizeEl.value = '';
     }
     const whoWrap = document.getElementById('unit-balloon-who-wrap');
-    if (whoWrap) whoWrap.classList.toggle('hidden', !value);
+    const hideWho = !value || !!meta?.plainShelf;
+    if (whoWrap) whoWrap.classList.toggle('hidden', hideWho);
+    if (hideWho) {
+      document.querySelectorAll('input[name="unit-balloon-who-early"]').forEach((el) => { el.checked = false; });
+    }
     this.syncUnitCharacterWrap?.();
     this.syncUnitHolidayControl?.();
     this.scheduleUnitCharacterDetect?.();
@@ -1083,8 +1087,8 @@ Object.assign(app, {
       return;
     }
     const type = this.getUnitBalloonType?.() || '';
-    // Пока тип не выбран или print/foil — показываем; latex — скрываем
-    wrap.classList.toggle('hidden', type === 'latex');
+    const meta = (typeof UNIT_BALLOON_TYPES !== 'undefined' && UNIT_BALLOON_TYPES[type]) || null;
+    wrap.classList.toggle('hidden', type === 'latex' || !!meta?.plainShelf);
   },
 
   getUnitBalloonWhoList() {
@@ -1100,6 +1104,9 @@ Object.assign(app, {
   },
 
   setUnitBalloonWho(tag) {
+    const type = this.getUnitBalloonType?.() || '';
+    const meta = (typeof UNIT_BALLOON_TYPES !== 'undefined' && UNIT_BALLOON_TYPES[type]) || null;
+    if (meta?.plainShelf) tag = [];
     const raw = Array.isArray(tag) ? tag : (tag ? [tag] : []);
     this.renderUnitWhoChips?.();
     const list = (typeof UNIT_WHO_PICKS !== 'undefined' && UNIT_WHO_PICKS) || [];
@@ -1142,6 +1149,11 @@ Object.assign(app, {
     if (hay.includes('Ходячие фигуры')) return 'walker';
     if (hay.includes('Круги, звёзды и сердца')) return 'shapes';
     if (hay.includes('Фольгированные фигуры')) return 'foil';
+    if (hay.includes('Шары с конфетти')) return 'confetti';
+    if (hay.includes('Шары хром')) return 'chrome';
+    if (hay.includes('Шары Brush')) return 'brush';
+    if (hay.includes('Шары Super Agate')) return 'agate';
+    if (hay.includes('Шары Bubble')) return 'bubble';
     if (hay.includes('Латексные шары')) return 'latex';
     return '';
   },
@@ -1733,8 +1745,12 @@ Object.assign(app, {
     if (unit) {
       const unitType = this.getUnitBalloonType?.() || '';
       const unitMeta = (typeof UNIT_BALLOON_TYPES !== 'undefined' && UNIT_BALLOON_TYPES[unitType]) || null;
+      const shelfTags = (typeof UNIT_BALLOON_TYPES !== 'undefined')
+        ? Object.values(UNIT_BALLOON_TYPES).map((t) => t.tag).filter(Boolean)
+        : [];
+      finalTags = finalTags.filter((t) => !shelfTags.includes(t));
       if (!finalTags.includes('Шары поштучно')) finalTags.push('Шары поштучно');
-      if (unitMeta?.tag && !finalTags.includes(unitMeta.tag)) finalTags.push(unitMeta.tag);
+      if (unitMeta?.tag) finalTags.push(unitMeta.tag);
       (this.getUnitBalloonWhoList?.() || []).forEach((who) => {
         if (who && !finalTags.includes(who)) finalTags.push(who);
       });

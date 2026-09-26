@@ -68,6 +68,11 @@ const BOUQUET_TYPES = {
 /** Подтип «Шары поштучно»: полка каталога + размер у фольги. */
 const UNIT_BALLOON_TYPES = {
   latex: { value: 'latex', title: 'Латекс', tag: 'Латексные шары' },
+  confetti: { value: 'confetti', title: 'Конфетти', tag: 'Шары с конфетти', plainShelf: true },
+  chrome: { value: 'chrome', title: 'Хром', tag: 'Шары хром', plainShelf: true },
+  brush: { value: 'brush', title: 'Браш', tag: 'Шары Brush', plainShelf: true },
+  agate: { value: 'agate', title: 'Super Agate', tag: 'Шары Super Agate', plainShelf: true },
+  bubble: { value: 'bubble', title: 'Bubble', tag: 'Шары Bubble', plainShelf: true },
   print: { value: 'print', title: 'С рисунком', tag: 'Шары с рисунком', hasWho: true, hasHoliday: true },
   foil: { value: 'foil', title: 'Фольга', tag: 'Фольгированные фигуры', hasSize: true, hasWho: true, hasHoliday: true },
   walker: { value: 'walker', title: 'Ходячие', tag: 'Ходячие фигуры', hasWho: true, hasHoliday: true },

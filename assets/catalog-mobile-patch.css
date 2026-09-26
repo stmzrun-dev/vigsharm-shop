@@ -340,7 +340,8 @@
 .catalog-results-heading h2{font-size:22px!important;line-height:1.15}
 
 .catalog-grid{gap:10px!important;align-items:stretch;grid-template-columns:repeat(2,minmax(0,1fr))!important}
-.catalog-grid>.catalog-card:last-child:nth-child(odd){
+.catalog-grid>.catalog-card:last-child:nth-child(odd),
+.catalog-grid>.catalog-card-wrap:last-child:nth-child(odd){
   grid-column:auto!important;
   width:auto!important;
   justify-self:stretch!important;
@@ -392,7 +393,8 @@
     grid-template-columns:1fr!important;
     gap:12px!important;
   }
-  .catalog-grid>.catalog-card:last-child:nth-child(odd){
+  .catalog-grid>.catalog-card:last-child:nth-child(odd),
+.catalog-grid>.catalog-card-wrap:last-child:nth-child(odd){
     grid-column:auto!important;
     width:auto!important;
     justify-self:stretch!important;

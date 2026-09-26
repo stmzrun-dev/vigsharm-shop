@@ -526,7 +526,8 @@
     if (clientStepVisible('client-qty')) {
       html += '<section class="client-block" id="client-qty">' +
         '<h3 class="client-block-title">' + (isPerMeter() ? 'Длина' : 'Количество') + '</h3>' +
-        qtyStepperHtml() + '</section>';
+        qtyStepperHtml() +
+        '<button type="button" class="button product-unit-add" data-act="unit-add">В набор</button></section>';
     }
 
     if (clientStepVisible('client-digits')) {
@@ -951,6 +952,9 @@
       (fulfilled === 'nearby' ? '<small>Доставку за город уточним при подтверждении</small>' : '') +
       '</span><strong>' + (priceFrom() ? 'от ' : '') + T.toLocaleString('ru-RU') + ' ₽</strong></div>' +
       '<button type="button" class="button button-primary product-order-button" data-act="order"' + (orderSending ? ' disabled' : '') + '>' + esc(orderSending ? 'Отправляем…' : orderBtn) + '</button>' +
+      (isUnit()
+        ? '<button type="button" class="button product-unit-add" data-act="unit-add">В набор</button>'
+        : '') +
       '<p class="product-order-explainer">Оплата позже — сначала подтвердим наличие и время.</p>' +
       (draftRestored
         ? '<p class="product-draft-note" role="status" aria-live="polite">Черновик восстановлен на этом устройстве.</p>'
@@ -1400,6 +1404,16 @@
         el.addEventListener('click', share);
       } else if (act === 'order') {
         el.addEventListener('click', order);
+      } else if (act === 'unit-add') {
+        el.addEventListener('click', function () {
+          if (!p || !window.vigUnitList) return;
+          var photoKey = (p.image_keys && p.image_keys[0]) || '';
+          window.vigUnitList.add({
+            id: p.id, slug: p.slug || slug, title: p.title, sku: p.sku,
+            price: p.price, qty: qty, perMeter: isPerMeter(),
+            thumb: photoKey && window.vigImage ? window.vigImage(photoKey, 160) : ''
+          });
+        });
       }
     });
     var gal = root.querySelector('[data-gallery]');

@@ -2,6 +2,344 @@
   "ok": true,
   "products": [
     {
+      "id": "d16a1b6d-8a6d-4020-b415-c0eb3d755971",
+      "title": "Минни Маус и единорог",
+      "article": "UNT-139",
+      "price": 350,
+      "short_description": "Минни Маус и единорог",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": "Минни Маус",
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": "Disney",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "zolotaya-i-rozovaya-struzhka-3-7-6",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Круги, звёзды и сердца",
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/0ce6778b-f624-447d-9892-3ee59d450115.jpg",
+        "unit_type": "shapes",
+        "unit_who": [
+          "Для девочки"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/a1909748-c017-4bf8-83db-cde073ab4a9b.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/a1909748-c017-4bf8-83db-cde073ab4a9b.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-26T14:24:36.480Z",
+      "updated_at": "2026-09-26T14:24:36.480Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "3c06e776-1011-44e5-b068-aed967f01790",
+      "title": "Королевская битва",
+      "article": "UNT-138",
+      "price": 350,
+      "short_description": "Королевская битва",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": "Battle Royale",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "zolotaya-i-rozovaya-struzhka-3-7-5",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Круги, звёзды и сердца",
+        "Для мальчика",
+        "Геймерам"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/1e21e763-2f0e-4f6e-bcef-c2cda9ff2516.jpg",
+        "unit_type": "shapes",
+        "unit_who": [
+          "Для мальчика",
+          "Геймерам"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/9af78c88-891f-489c-95b6-edb515b16937.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/9af78c88-891f-489c-95b6-edb515b16937.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-26T14:22:31.167Z",
+      "updated_at": "2026-09-26T14:22:31.167Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "a571928b-c496-4d37-a265-a9874d71dec6",
+      "title": "Пиксельные",
+      "article": "UNT-137",
+      "price": 350,
+      "short_description": "Пиксельные",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": "Стив",
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": "Minecraft",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "zolotaya-i-rozovaya-struzhka-3-7-4",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Круги, звёзды и сердца",
+        "Для мальчика",
+        "Геймерам"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/1ba75d73-8886-4279-9698-3c70a9c38413.jpg",
+        "unit_type": "shapes",
+        "unit_who": [
+          "Для мальчика",
+          "Геймерам"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/97e42b6a-d688-4b26-9eff-65a0b920c135.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/97e42b6a-d688-4b26-9eff-65a0b920c135.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-26T14:21:14.656Z",
+      "updated_at": "2026-09-26T14:21:14.656Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "cc3fc8d2-0eaa-4c7c-af2e-b97187e06fb1",
+      "title": "Пиксельные Человечки",
+      "article": "UNT-136",
+      "price": 350,
+      "short_description": "Пиксельные Человечки",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": "Стив",
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": "Minecraft",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "zolotaya-i-rozovaya-struzhka-3-7-3",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Круги, звёзды и сердца",
+        "Для мальчика",
+        "Геймерам"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/c0a1e77e-7e83-4ff4-8000-e61ea2a8510f.jpg",
+        "unit_type": "shapes",
+        "unit_who": [
+          "Для мальчика",
+          "Геймерам"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/6ff9591a-e328-4843-925f-2f93c453f80c.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/6ff9591a-e328-4843-925f-2f93c453f80c.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-26T14:20:22.236Z",
+      "updated_at": "2026-09-26T14:20:22.236Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "d2daa581-cb61-4742-951f-8225b28d9b52",
+      "title": "Пиксели TNT, С ДР!",
+      "article": "UNT-135",
+      "price": 350,
+      "short_description": "Пиксели TNT, С ДР!",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": "Minecraft",
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": "Minecraft",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "zolotaya-i-rozovaya-struzhka-3-7-2",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Круги, звёзды и сердца",
+        "Для мальчика",
+        "Геймерам"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/0926c629-4f16-4199-b1cd-64f8b2a7d338.jpg",
+        "unit_type": "shapes",
+        "unit_who": [
+          "Для мальчика",
+          "Геймерам"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/ec4426aa-0c84-4372-8e4b-1b8a5219ccfe.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/ec4426aa-0c84-4372-8e4b-1b8a5219ccfe.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-26T14:19:08.050Z",
+      "updated_at": "2026-09-26T14:19:08.050Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "d0e1bd5a-174a-4f16-be5c-e0340cca9148",
+      "title": "ЧилLOVый Парень! Чилгай",
+      "article": "UNT-134",
+      "price": 350,
+      "short_description": "ЧилLOVый Парень! Чилгай",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": "Чилгай",
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": "Чилгай",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "zolotaya-i-rozovaya-struzhka-3-7",
+      "scene": "unit_balloon",
+      "tags": [
+        "Для мальчика",
+        "Для него",
+        "Шары поштучно",
+        "Круги, звёзды и сердца"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/ca875bd8-f710-44e3-9093-5e1f6b91adc0.jpg",
+        "unit_type": "shapes",
+        "unit_who": [
+          "Для него",
+          "Для мальчика"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/5d2a536f-77a9-420a-9cdc-e8ded463a73c.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/5d2a536f-77a9-420a-9cdc-e8ded463a73c.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-26T14:13:33.512Z",
+      "updated_at": "2026-09-26T14:15:03.251Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/d28a6a87-010f-4aff-b0bd-28d223626275.webp"
+    },
+    {
+      "id": "bf5056d0-19a0-4871-b90f-372595eea971",
+      "title": "С ДР! Гусь Обнимусь",
+      "article": "UNT-133",
+      "price": 350,
+      "short_description": "С ДР! Гусь Обнимусь",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": "Гусь Обнимусь",
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "zolotaya-i-rozovaya-struzhka-3-6",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Круги, звёзды и сердца",
+        "Для неё",
+        "Для него",
+        "Для девочки",
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/50209325-9f60-4e17-aff8-f474645d4f1d.jpg",
+        "unit_type": "shapes",
+        "unit_who": [
+          "Для неё",
+          "Для него",
+          "Для девочки",
+          "Для мальчика"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/844a6045-0be9-4726-bc06-2640ab13148d.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/844a6045-0be9-4726-bc06-2640ab13148d.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-26T14:12:52.768Z",
+      "updated_at": "2026-09-26T14:12:52.768Z",
+      "thumb_photo": null
+    },
+    {
       "id": "11f7c0e0-e922-4d82-82b3-05fdc0ad7532",
       "title": "Отбивайся С ДР!",
       "article": "UNT-132",

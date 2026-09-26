@@ -483,8 +483,8 @@
   var READY_PHOTOS = {
     'Фигуры из шаров': 'images/ready/what-figures.webp?v=20260924',
     'Букет из шаров': 'images/ready/what-bouquet.webp?v=20260924hearts',
-    'Коробка-сюрприз': 'images/ready/what-box.webp?v=20260924',
-    'Фотозона': 'images/ready/what-photozone.webp?v=20260924clay2',
+    'Коробка-сюрприз': 'images/ready/what-box.webp?v=20260926box',
+    'Фотозона': 'images/ready/what-photozone.webp?v=20260926pz',
     'Цветы из шаров': 'images/ready/what-flowers.webp?v=20260924',
     'Гендер-пати': 'images/idea-gender.webp?v=20260924',
     'Арки': 'images/ready/what-arch.webp?v=20260924clay2',
@@ -506,7 +506,7 @@
   ];
   var UNIT_TYPES = [
     ['Латекс', 'images/balloons/balloon-latex.webp?v=20260924c', 'latex', 'Латексные шары'],
-    ['С рисунком', 'images/balloons/balloon-print.webp?v=20260924c', 'who', 'Шары с рисунком'],
+    ['С рисунком', 'images/balloons/balloon-print.webp?v=20260926p5', 'who', 'Шары с рисунком'],
     ['Фольга', 'images/balloons/balloon-foil.webp?v=20260924c', 'who', 'Фольгированные фигуры'],
     ['Ходячие', 'images/balloons/balloon-walker.webp?v=20260924d', 'who', 'Ходячие фигуры'],
     ['Круги и звёзды', 'images/balloons/balloon-shapes.webp?v=20260924c', 'who', 'Круги, звёзды и сердца'],
@@ -516,7 +516,7 @@
     ['Super Agate', 'images/balloons/balloon-agate.webp?v=20260924e', '', 'Шары Super Agate'],
     ['Bubble', 'images/balloons/balloon-bubble.webp?v=20260924e', '', 'Шары Bubble'],
     ['Цифры', 'images/balloons/balloon-digit.webp?v=20260924c', '', 'Фольгированные цифры'],
-    ['С надписью', 'images/balloons/balloon-name.webp?v=20260926', '', 'Именные шары']
+    ['С надписью', 'images/balloons/balloon-name.webp?v=20260926n5', '', 'Именные шары']
   ];
   var LATEX_TYPES = [
     ['Кристалл Ассорти', '', 'Кристалл Ассорти'],

@@ -45,7 +45,7 @@
   }
   function compIcon(label, i) {
     var key = compIconKey(label) || 'latex';
-    return '<img class="comp-ico" src="icons/comp-' + key + '.webp?v=14" alt="" width="32" height="32" onerror="this.onerror=null;this.src=\'icons/comp-' + key + '.svg\'"/>';
+    return '<img class="comp-ico" src="icons/comp-' + key + '.webp?v=18" alt="" width="32" height="32" onerror="this.onerror=null;this.src=\'icons/comp-' + key + '.svg\'"/>';
   }
 
   var root = document.getElementById('product-root');

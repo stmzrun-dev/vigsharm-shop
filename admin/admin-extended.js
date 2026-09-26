@@ -2082,6 +2082,7 @@ app.editProduct = async function(id) {
     const titleEl = document.getElementById('editor-title');
     if (titleEl) titleEl.textContent = data.product.title || 'Товар';
     this.toast('Товар загружен для редактирования', 'success');
+    this.focusAuditField?.();
   } catch (e) { this.toast('Ошибка: ' + e.message, 'error'); }
 };
 

@@ -207,6 +207,7 @@ legend{font-size:15px;font-weight:600;padding:0 12px;color:#212121}
 .card-audit-sev.fix{color:#B71C1C}
 .card-audit-sev.review{color:#E65100}
 .card-audit-sev.extra{color:#5D4037}
+.audit-focus{outline:2px solid #E65100;outline-offset:4px;border-radius:10px}
 .storefront-sync-text{display:flex;flex-direction:column;gap:2px;font-size:13px;line-height:1.35;min-width:0}
 .storefront-sync-text strong{font-size:14px;color:#BF360C}
 .storefront-sync-actions{display:flex;flex-wrap:wrap;gap:8px;flex:none}

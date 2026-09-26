@@ -1626,9 +1626,14 @@ const app = {
     const ages = ['Для малышей', 'Для детей', 'Для подростков', 'Для взрослых', 'Для любого возраста'];
     const budgets = ['до 1 000 ₽', '1 000–2 000 ₽', '2 000–3 500 ₽', '3 500–5 000 ₽', '5 000–8 000 ₽', 'от 8 000 ₽'];
     const issues = [];
-    const add = (p, sev, text) => issues.push({
-      id: p.id, article: p.article || '—', title: p.title || 'Без названия', sev, text
+    const add = (p, sev, text, field) => issues.push({
+      id: p.id, article: p.article || '—', title: p.title || 'Без названия', sev, text, field: field || ''
     });
+    const compositionOptional = (p) => {
+      const tags = Array.isArray(p.tags) ? p.tags : [];
+      return p.category === 'Шары поштучно' || p.category === 'Фотозона' || p.category === 'Арка из шаров'
+        || tags.includes('Шары поштучно');
+    };
     const normTitle = (t) => String(t || '').toLowerCase().replace(/ё/g, 'е').replace(/\s*\(копия(?:\s*\d+)?\)\s*$/i, '').replace(/\s+/g, ' ').trim();
     const byTitle = new Map();
     const byArticle = new Map();
@@ -1652,26 +1657,26 @@ const app = {
       const photos = Array.isArray(p.photos) ? p.photos : [];
       const hasPhoto = !!(p.main_photo || photos.length);
       const short = String(p.short_description || '').trim();
-      if (!String(p.title || '').trim()) add(p, 'fix', 'Нет названия');
-      if (!String(p.article || '').trim()) add(p, 'fix', 'Нет артикула');
-      if (!p.category) add(p, 'fix', 'Нет категории');
-      else if (!CATEGORIES.includes(p.category)) add(p, 'fix', 'Категория «' + p.category + '» нет в списке');
+      if (!String(p.title || '').trim()) add(p, 'fix', 'Нет названия', 'title');
+      if (!String(p.article || '').trim()) add(p, 'fix', 'Нет артикула', 'article');
+      if (!p.category) add(p, 'fix', 'Нет категории', 'category');
+      else if (!CATEGORIES.includes(p.category)) add(p, 'fix', 'Категория «' + p.category + '» нет в списке', 'category');
       if (HOLIDAY_CATEGORIES.includes(p.category) && p.category !== 'Шары поштучно') {
-        add(p, 'review', 'Праздник стоит основной категорией («' + p.category + '»). Обычно праздник — метка, тип товара — категория');
+        add(p, 'review', 'Праздник стоит основной категорией («' + p.category + '»). Обычно праздник — метка, тип товара — категория', 'category');
       }
-      if (!lines.length) add(p, published ? 'fix' : 'review', 'Пустой состав');
-      if (!price) add(p, published ? 'fix' : 'review', 'Цена 0');
-      if (!short) add(p, published ? 'fix' : 'review', 'Нет короткого описания');
-      else if (short.length > 140) add(p, 'review', 'Короткое описание длиннее 140 символов');
-      if (!hasPhoto) add(p, published ? 'fix' : 'review', published ? 'На сайте без фото' : 'Нет фото');
-      if (p.age_group && ages.indexOf(p.age_group) === -1) add(p, 'review', 'Возраст не из списка: «' + p.age_group + '»');
-      if (p.budget && budgets.indexOf(p.budget) === -1) add(p, 'review', 'Бюджет не из списка: «' + p.budget + '»');
+      if (!compositionOptional(p) && !lines.length) add(p, published ? 'fix' : 'review', 'Пустой состав', 'composition');
+      if (!price) add(p, published ? 'fix' : 'review', 'Цена 0', 'price');
+      if (!short) add(p, published ? 'fix' : 'review', 'Нет короткого описания', 'short');
+      else if (short.length > 140) add(p, 'review', 'Короткое описание длиннее 140 символов', 'short');
+      if (!hasPhoto) add(p, published ? 'fix' : 'review', published ? 'На сайте без фото' : 'Нет фото', 'photos');
+      if (p.age_group && ages.indexOf(p.age_group) === -1) add(p, 'review', 'Возраст не из списка: «' + p.age_group + '»', 'age');
+      if (p.budget && budgets.indexOf(p.budget) === -1) add(p, 'review', 'Бюджет не из списка: «' + p.budget + '»', 'budget');
       if (p.budget && price) {
         const expected = this.budgetLabelFromPrice(price);
-        if (expected && p.budget !== expected) add(p, 'review', 'Бюджет «' + p.budget + '» не совпадает с ценой (ожидается «' + expected + '»)');
+        if (expected && p.budget !== expected) add(p, 'review', 'Бюджет «' + p.budget + '» не совпадает с ценой (ожидается «' + expected + '»)', 'budget');
       }
-      if (published && p.status !== 'published') add(p, 'fix', 'Отмечен «на сайте», но статус не «опубликован»');
-      if (p.status === 'published' && (p.show_on_site === 0 || p.show_on_site === false)) add(p, 'review', 'Опубликован, но show_on_site выключен');
+      if (published && p.status !== 'published') add(p, 'fix', 'Отмечен «на сайте», но статус не «опубликован»', 'site');
+      if (p.status === 'published' && (p.show_on_site === 0 || p.show_on_site === false)) add(p, 'review', 'Опубликован, но show_on_site выключен', 'site');
 
       const unknown = [];
       let sum = 0;
@@ -1684,18 +1689,18 @@ const app = {
           sum += prices[hit.id] * (hit.qty || 1);
         } else if (!hit.skip) matched += 1;
       });
-      if (unknown.length) add(p, 'review', 'Состав не сопоставился с прайсом: ' + unknown.slice(0, 3).join('; '));
-      if (price && sum && Math.abs(price - sum) / Math.max(price, sum) > 0.35) {
-        add(p, 'review', 'Цена ' + price + ' ₽, по совпавшим позициям прайса около ' + sum + ' ₽');
+      if (unknown.length && !compositionOptional(p)) add(p, 'review', 'Состав не сопоставился с прайсом: ' + unknown.slice(0, 3).join('; '), 'composition');
+      if (!compositionOptional(p) && price && sum && Math.abs(price - sum) / Math.max(price, sum) > 0.35) {
+        add(p, 'review', 'Цена ' + price + ' ₽, по совпавшим позициям прайса около ' + sum + ' ₽', 'price');
       }
       const dupT = byTitle.get(normTitle(p.title)) || [];
       if (dupT.length > 1 && String(dupT[0].id) === String(p.id)) {
-        add(p, 'extra', 'Похожее название у ' + dupT.length + ' карточек: ' + dupT.map((x) => x.article || x.id).join(', '));
+        add(p, 'extra', 'Похожее название у ' + dupT.length + ' карточек: ' + dupT.map((x) => x.article || x.id).join(', '), 'title');
       }
       const art = String(p.article || '').trim().toUpperCase();
       const dupA = art ? (byArticle.get(art) || []) : [];
       if (dupA.length > 1 && String(dupA[0].id) === String(p.id)) {
-        add(p, 'extra', 'Один артикул у ' + dupA.length + ' карточек');
+        add(p, 'extra', 'Один артикул у ' + dupA.length + ' карточек', 'article');
       }
     });
 
@@ -1727,10 +1732,10 @@ const app = {
       return '<button type="button" class="badge neutral' + (filter === id ? ' is-on' : '') + '" onclick="app.setCardAuditFilter(\'' + id + '\')">' + name + ': ' + counts[id] + '</button>';
     }).join('');
     const rows = list.slice(0, 200).map((i) => {
-      const idJs = String(i.id ?? '').replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+      const idx = all.indexOf(i);
       return '<div class="card-audit-item"><div><strong>' + this.escapeHtml(i.article) + ' · ' + this.escapeHtml(i.title) + '</strong>' +
         '<p><span class="card-audit-sev ' + i.sev + '">' + labels[i.sev] + '.</span> ' + this.escapeHtml(i.text) + '</p></div>' +
-        '<button type="button" class="btn sm primary" onclick="app.editProduct(\'' + idJs + '\')">Открыть</button></div>';
+        '<button type="button" class="btn sm primary" onclick="app.openAuditedProduct(' + idx + ')">Открыть</button></div>';
     }).join('');
     box.classList.remove('hidden');
     box.hidden = false;
@@ -1744,6 +1749,45 @@ const app = {
   setCardAuditFilter(id) {
     this._cardAuditFilter = id;
     this.renderCardAudit();
+  },
+
+  async openAuditedProduct(idx) {
+    const issue = (this._cardAudit || [])[idx];
+    if (!issue) return;
+    this._auditFocusField = issue.field || '';
+    await this.editProduct(issue.id);
+  },
+
+  focusAuditField() {
+    const field = this._auditFocusField;
+    this._auditFocusField = '';
+    if (!field) return;
+    const map = {
+      title: 'product-title',
+      article: 'product-article',
+      category: 'product-category',
+      composition: 'product-composition',
+      price: 'product-price',
+      short: 'product-short-desc',
+      photos: 'block-photos',
+      age: 'product-age',
+      budget: 'product-budget',
+      site: 'show-on-site'
+    };
+    const id = map[field];
+    if (!id) return;
+    setTimeout(() => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const target = el.closest('.form-group, .option-card, section') || el;
+      document.querySelectorAll('.audit-focus').forEach((node) => node.classList.remove('audit-focus'));
+      target.classList.add('audit-focus');
+      target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      if (typeof el.focus === 'function') {
+        try { el.focus({ preventScroll: true }); } catch (_) { /* поле может быть readonly */ }
+      }
+      setTimeout(() => target.classList.remove('audit-focus'), 2400);
+    }, 120);
   },
 
   renderStats() {

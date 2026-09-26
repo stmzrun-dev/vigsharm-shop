@@ -1,5 +1,5 @@
 ﻿// VigSharm Admin Panel - V3
-const CATEGORIES = ['Для девочки', 'Для мальчика', 'Универсальные', 'Для неё', 'Для мамы', 'Для него', 'Геймерам', 'Юбилей', '1 годик', 'Крещение', 'Гендер-пати', 'На выписку', 'Свадьба и девичник', 'Выпускной', 'Новый год', '14 февраля', '23 февраля', '8 марта', '1 сентября', 'Фигуры из шаров', 'Напольные композиции', 'Букет из шаров', 'Цветы из шаров', 'Крафтовый букет', 'Шар-сюрприз', 'Коробка-сюрприз', 'Фотозона', 'Арка из шаров', 'Шары поштучно'];
+const CATEGORIES = ['Для девочки', 'Для мальчика', 'Универсальные', 'Для неё', 'Для мамы', 'Для него', 'Геймерам', 'Юбилей', '1 годик', 'Крещение', 'Гендер-пати', 'На выписку', 'Свадьба и девичник', 'Выпускной', 'Новый год', '14 февраля', '23 февраля', '8 марта', '1 сентября', 'Фигуры из шаров', 'Напольные композиции', 'Букет из шаров', 'Цветы из шаров', 'Крафтовый букет', 'Шар-сюрприз', 'Коробка-сюрприз', 'Фотозона', 'Арка из шаров', 'Шары поштучно', 'Шары с конфетти', 'Шары хром', 'Шары Super Agate'];
 
 const TAGS = {
   forWho: ['Для девочки', 'Для мальчика', 'Универсальные', 'Для неё', 'Для мамы', 'Для него', 'Геймерам'],
@@ -812,7 +812,12 @@ const app = {
   },
 
   isUnitBalloonMode() {
-    return (document.getElementById('product-category')?.value || '') === 'Шары поштучно';
+    const cat = document.getElementById('product-category')?.value || '';
+    if (cat === 'Шары поштучно') return true;
+    const shelves = (typeof UNIT_BALLOON_TYPES !== 'undefined')
+      ? Object.values(UNIT_BALLOON_TYPES).map((t) => t.tag)
+      : [];
+    return shelves.includes(cat);
   },
 
   syncUnitBalloonForm(fromUser = false) {
@@ -885,7 +890,7 @@ const app = {
       return String(product.character || product.character_name || '').trim() || 'Без имени';
     }
     if (groupId === 'unit') {
-      const UNIT_SHELF_ORDER = ['Шары с рисунком', 'Ходячие фигуры', 'Круги, звёзды и сердца', 'Фольгированные фигуры', 'Латексные шары'];
+      const UNIT_SHELF_ORDER = ['Шары с рисунком', 'Ходячие фигуры', 'Круги, звёзды и сердца', 'Фольгированные фигуры', 'Латексные шары', 'Шары с конфетти', 'Шары хром', 'Шары Super Agate', 'Шары Brush', 'Шары Bubble'];
       const allTags = [product.category].concat(product.tags || []).filter(Boolean);
       const found = UNIT_SHELF_ORDER.find((s) => allTags.includes(s));
       if (found) return found;
@@ -901,7 +906,7 @@ const app = {
     // Для праздников и поштучных — всегда раскладываем по полкам
     const alwaysShelve = !searching && (groupId === 'holidays' || groupId === 'unit');
     if (alwaysShelve) {
-      const UNIT_SHELF_ORDER = ['Шары с рисунком', 'Ходячие фигуры', 'Круги, звёзды и сердца', 'Фольгированные фигуры', 'Латексные шары'];
+      const UNIT_SHELF_ORDER = ['Шары с рисунком', 'Ходячие фигуры', 'Круги, звёзды и сердца', 'Фольгированные фигуры', 'Латексные шары', 'Шары с конфетти', 'Шары хром', 'Шары Super Agate', 'Шары Brush', 'Шары Bubble'];
       const shelfOrder = groupId === 'holidays' ? LIST_HOLIDAYS : [...UNIT_SHELF_ORDER, ...LIST_HOLIDAYS, 'Разное'];
       const buckets = new Map();
       items.forEach((p) => {
@@ -1453,7 +1458,9 @@ const app = {
     const idJs = String(p.id ?? '').replace(/\\/g, '\\\\').replace(/'/g, "\\'");
     const title = this.escapeHtml(p.title || 'Без названия');
     const article = this.escapeHtml(p.article || '—');
-    const category = this.escapeHtml(p.category || '—');
+    const category = this.escapeHtml(
+      this.productListGroupId(p) === 'unit' ? this.productShelfLabel('unit', p) : (p.category || '—')
+    );
     const priceNum = Number(p.price || 0);
     const fullPhoto = p.main_photo
       || (Array.isArray(p.photos) && (typeof p.photos[0] === 'string' ? p.photos[0] : p.photos[0]?.url))

@@ -1095,21 +1095,24 @@
 .client-contact .client-digit-label{
   margin-bottom:6px;
 }
-.order-choice-btn.is-primary{
+.order-choice-btn:has(.order-choice-ico){
   grid-template-columns:44px 1fr;
   align-items:center;
   column-gap:12px;
 }
-.order-choice-btn.is-primary .order-choice-ico{
+.order-choice-btn .order-choice-ico{
   width:44px;
   height:44px;
   padding:4px;
-  background:#fff;
+  background:#f4f1ee;
   border-radius:50%;
   object-fit:contain;
   box-sizing:border-box;
 }
-.order-choice-btn.is-primary span{
+.order-choice-btn.is-primary .order-choice-ico{
+  background:#fff;
+}
+.order-choice-btn:has(.order-choice-ico) span{
   display:grid;
   gap:4px;
 }

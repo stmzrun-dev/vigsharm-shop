@@ -66,8 +66,8 @@
     if (group === 'unit') return isUnit;
     // Праздники: в т.ч. фольга/ходячие/круги поштучно с тегом праздника
     if (group === 'holidays') return isHoliday;
-    // Персонажи: любой товар с героем (включая поштучную фольгу), даже если есть праздник
-    if (group === 'characters') return hasChar;
+    // Персонажи: товар с героем. Поштучные шары — только когда выбран конкретный персонаж.
+    if (group === 'characters') return hasChar && (!isUnit || !!character);
     if (group === 'all') return true;
     if (group === 'ideas' || group === 'ready') return (!isUnit && !isHoliday && !hasChar) || isIdea;
     return !isUnit && !isHoliday && !hasChar && !isIdea;
@@ -414,8 +414,11 @@
       ? '<img src="' + window.vigImage(key, 480) + '" data-key="' + esc(key) + '" alt="' + esc(p.title) + '" loading="' + (i < 4 ? 'eager' : 'lazy') + '" decoding="async"' + (i === 0 ? ' fetchpriority="high"' : '') + ' width="480" height="480" onload="this.classList.add(\'is-ready\')"/>'
       : '';
     var from = (p.tags || []).indexOf('Цена от') >= 0 ? 'от ' : '';
-    var priceNote = p.category === 'Шары поштучно' ? 'Цена за штуку' : 'Цена за композицию';
-    var cat = String(p.category || '').trim();
+    var catLabel = String(p.category || '').trim();
+    var unitShelf = ['Шары с конфетти', 'Шары хром', 'Шары Super Agate', 'Шары Brush', 'Шары Bubble', 'Латексные шары', 'Шары с рисунком', 'Фольгированные фигуры', 'Ходячие фигуры', 'Круги, звёзды и сердца', 'Фольгированные цифры', 'Именные шары']
+      .filter(function (name) { return catLabel === name || (p.tags || []).indexOf(name) >= 0; })[0];
+    var priceNote = (catLabel === 'Шары поштучно' || unitShelf || (p.tags || []).indexOf('Шары поштучно') >= 0) ? 'Цена за штуку' : 'Цена за композицию';
+    var cat = unitShelf || catLabel;
     var requestBadge = p.available_on_request ? '<em class="product-request-badge">Под заказ</em>' : '';
     /* Advance badge only when category is missing — avoid noisy repeat on every card */
     var advanceBadge = (!requestBadge && p.needs_advance_order && !cat)

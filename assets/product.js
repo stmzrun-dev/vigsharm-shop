@@ -1762,7 +1762,7 @@
       '<div class="order-modal-summary"><span>' + esc(p.title) + '</span><strong>' + (priceFrom() ? 'от ' : '') + T.toLocaleString('ru-RU') + ' ₽</strong></div>' +
       '<div class="order-choice-stack">' +
       '<button type="button" class="order-choice-btn is-primary" data-choice="site"><img class="order-choice-ico" src="icons/phone-smartphone.webp?v=1" alt="" width="44" height="44"/><span><strong>Оставить заявку на сайте</strong><small>Перезвоним по телефону · вы никуда не уходите</small></span></button>' +
-      '<button type="button" class="order-choice-btn" data-choice="msg"><strong>Написать в мессенджер</strong><small>WhatsApp, Telegram или MAX</small></button>' +
+      '<button type="button" class="order-choice-btn" data-choice="msg"><img class="order-choice-ico" src="icons/footer-chat.webp?v=1" alt="" width="44" height="44"/><span><strong>Написать в мессенджер</strong><small>WhatsApp, Telegram или MAX</small></span></button>' +
       '</div>' +
       '<div class="order-choice-msg" hidden>' + messengerListHtml() + '</div>' +
       '<p class="modal-note">Оплата не списывается: сначала подтвердим наличие и время.</p></section>';

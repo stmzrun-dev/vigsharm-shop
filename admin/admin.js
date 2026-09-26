@@ -1676,7 +1676,32 @@ const app = {
       if (!short) add(p, published ? 'fix' : 'review', 'Нет короткого описания', 'short');
       else if (short.length > 140) add(p, 'review', 'Короткое описание длиннее 140 символов', 'short');
       if (!hasPhoto) add(p, published ? 'fix' : 'review', published ? 'На сайте без фото' : 'Нет фото', 'photos');
-      if (p.age_group && ages.indexOf(p.age_group) === -1) add(p, 'review', 'Возраст не из списка: «' + p.age_group + '»', 'age');
+      const age = String(p.age_group || '').trim();
+      const ageByCategory = {
+        'На выписку': 'Для малышей',
+        '1 годик': 'Для малышей',
+        'Крещение': 'Для малышей',
+        'Выпускной': 'Для подростков',
+        'Для неё': 'Для взрослых',
+        'Для него': 'Для взрослых',
+        'Для мамы': 'Для взрослых',
+        'Свадьба и девичник': 'Для взрослых',
+        '8 марта': 'Для взрослых',
+        '14 февраля': 'Для взрослых',
+        '23 февраля': 'Для взрослых'
+      };
+      const expectedAge = ageByCategory[p.category] || '';
+      if (expectedAge && age !== expectedAge) {
+        add(p, 'review', age
+          ? ('Возраст «' + age + '» не сходится с категорией «' + p.category + '» (обычно «' + expectedAge + '»)')
+          : ('Для категории «' + p.category + '» обычно возраст «' + expectedAge + '»'), 'age');
+      } else if (!compositionOptional(p)) {
+        if (!age) add(p, 'review', 'Нет возраста', 'age');
+        else if (age === 'Для любого возраста') add(p, 'review', 'Возраст «Для любого возраста» — укажите точнее', 'age');
+        else if (ages.indexOf(age) === -1) add(p, 'review', 'Возраст не из списка: «' + age + '»', 'age');
+      } else if (age && ages.indexOf(age) === -1) {
+        add(p, 'review', 'Возраст не из списка: «' + age + '»', 'age');
+      }
       if (p.budget && budgets.indexOf(p.budget) === -1) add(p, 'review', 'Бюджет не из списка: «' + p.budget + '»', 'budget');
       if (p.budget && price) {
         const expected = this.budgetLabelFromPrice(price);
@@ -1714,7 +1739,7 @@ const app = {
     const order = { fix: 0, review: 1, extra: 2 };
     issues.sort((a, b) => order[a.sev] - order[b.sev] || String(a.article).localeCompare(String(b.article), 'ru'));
     this._cardAudit = issues;
-    this._cardAuditFilter = 'all';
+    if (!this._cardAuditFilter) this._cardAuditFilter = 'all';
     this.renderCardAudit();
     const more = document.getElementById('products-more');
     if (more) more.open = false;
@@ -1738,19 +1763,122 @@ const app = {
       const name = id === 'all' ? 'Все' : labels[id];
       return '<button type="button" class="badge neutral' + (filter === id ? ' is-on' : '') + '" onclick="app.setCardAuditFilter(\'' + id + '\')">' + name + ': ' + counts[id] + '</button>';
     }).join('');
-    const rows = list.slice(0, 200).map((i) => {
-      const idx = all.indexOf(i);
-      return '<div class="card-audit-item"><div><strong>' + this.escapeHtml(i.article) + ' · ' + this.escapeHtml(i.title) + '</strong>' +
-        '<p><span class="card-audit-sev ' + i.sev + '">' + labels[i.sev] + '.</span> ' + this.escapeHtml(i.text) + '</p></div>' +
-        '<button type="button" class="btn sm primary" onclick="app.openAuditedProduct(' + idx + ')">Открыть</button></div>';
+    const groups = [];
+    const seen = new Map();
+    list.forEach((i) => {
+      const key = String(i.id);
+      let group = seen.get(key);
+      if (!group) {
+        group = { article: i.article, title: i.title, firstIdx: all.indexOf(i), items: [] };
+        seen.set(key, group);
+        groups.push(group);
+      }
+      group.items.push(i);
+    });
+    const shown = groups.slice(0, 200);
+    const rows = shown.map((g) => {
+      const notes = g.items.map((i) =>
+        '<p><span class="card-audit-sev ' + i.sev + '">' + labels[i.sev] + '.</span> ' + this.escapeHtml(i.text) + '</p>'
+      ).join('');
+      return '<div class="card-audit-item"><div><strong>' + this.escapeHtml(g.article) + ' · ' + this.escapeHtml(g.title) + '</strong>' +
+        notes + '</div>' +
+        '<button type="button" class="btn sm primary" onclick="app.openAuditedProduct(' + g.firstIdx + ')">Открыть</button></div>';
     }).join('');
+    const budgetN = this.auditBudgetFixes().length;
+    const siteN = this.auditSiteFixes().length;
+    const actions = (budgetN || siteN)
+      ? '<div class="card-audit-actions">' +
+        (budgetN ? '<button type="button" class="btn sm outline" onclick="app.applyAuditBudgets()">Выставить бюджет по цене (' + budgetN + ')</button>' : '') +
+        (siteN ? '<button type="button" class="btn sm outline" onclick="app.applyAuditSite()">Включить «на сайте» у опубликованных (' + siteN + ')</button>' : '') +
+        '</div>'
+      : '';
     box.classList.remove('hidden');
     box.hidden = false;
     box.innerHTML = '<div class="card-audit-head"><strong>Проверка карточек</strong>' +
       '<button type="button" class="btn sm outline" onclick="app.hideCardAudit()">Закрыть</button></div>' +
       '<div class="card-audit-filters">' + chips + '</div>' +
+      actions +
       (rows || '<p class="text-muted">В этом фильтре пусто.</p>') +
-      (list.length > 200 ? '<p class="text-muted">Показаны первые 200.</p>' : '');
+      (groups.length > 200 ? '<p class="text-muted">Показаны первые 200 карточек.</p>' : '');
+  },
+
+  auditBudgetFixes() {
+    const jobs = [];
+    (this.products || []).forEach((p) => {
+      const price = Number(p.price) || 0;
+      const expected = this.budgetLabelFromPrice(price);
+      if (!expected || p.budget === expected) return;
+      jobs.push({ id: p.id, budget: expected, published: p.status === 'published' });
+    });
+    return jobs;
+  },
+
+  auditSiteFixes() {
+    return (this.products || []).filter((p) =>
+      p.status === 'published' && (p.show_on_site === 0 || p.show_on_site === false)
+    );
+  },
+
+  async putProductFields(id, body) {
+    const res = await fetch(`${this.workerUrl}/api/products/${id}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json', ...this.authHeaders() },
+      body: JSON.stringify(body)
+    });
+    let data;
+    try { data = await res.json(); } catch { data = {}; }
+    if (!res.ok || !data.ok) throw new Error(data.error || `HTTP ${res.status}`);
+    return data;
+  },
+
+  async applyAuditBudgets() {
+    const jobs = this.auditBudgetFixes();
+    if (!jobs.length) {
+      this.toast('Бюджет уже совпадает с ценой', 'success');
+      return;
+    }
+    if (!confirm('Выставить бюджет по цене у ' + jobs.length + ' карточек?')) return;
+    let ok = 0;
+    let failed = 0;
+    let touchedLive = false;
+    for (const job of jobs) {
+      try {
+        await this.putProductFields(job.id, { budget: job.budget });
+        const local = (this.products || []).find((p) => String(p.id) === String(job.id));
+        if (local) local.budget = job.budget;
+        if (job.published) touchedLive = true;
+        ok += 1;
+      } catch (_) {
+        failed += 1;
+      }
+    }
+    if (touchedLive) this.markStorefrontDirty('budget');
+    this.toast(failed ? ('Бюджет обновлён: ' + ok + ', ошибок: ' + failed) : ('Бюджет обновлён: ' + ok), failed ? 'info' : 'success');
+    await this.auditCards();
+  },
+
+  async applyAuditSite() {
+    const jobs = this.auditSiteFixes();
+    if (!jobs.length) {
+      this.toast('У опубликованных показ уже включён', 'success');
+      return;
+    }
+    if (!confirm('Включить «на сайте» у ' + jobs.length + ' опубликованных карточек? Черновики не публикуются.')) return;
+    let ok = 0;
+    let failed = 0;
+    for (const job of jobs) {
+      try {
+        await this.putProductFields(job.id, { show_on_site: true });
+        const local = (this.products || []).find((p) => String(p.id) === String(job.id));
+        if (local) local.show_on_site = true;
+        ok += 1;
+      } catch (_) {
+        failed += 1;
+      }
+    }
+    if (ok) this.markStorefrontDirty('published');
+    this.toast(failed ? ('Показ включён: ' + ok + ', ошибок: ' + failed) : ('Показ включён: ' + ok), failed ? 'info' : 'success');
+    await this.auditCards();
   },
 
   setCardAuditFilter(id) {

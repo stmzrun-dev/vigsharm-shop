@@ -200,6 +200,7 @@ legend{font-size:15px;font-weight:600;padding:0 12px;color:#212121}
 .card-audit.hidden{display:none!important}
 .card-audit-head{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:8px}
 .card-audit-filters{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0}
+.card-audit-actions{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 8px}
 .card-audit-filters button.is-on{outline:2px solid #C4A574}
 .card-audit-item{display:flex;gap:10px;align-items:flex-start;justify-content:space-between;padding:8px 0;border-top:1px solid #F0EBE3}
 .card-audit-item p{margin:2px 0 0;color:#6b6258;font-size:13px}

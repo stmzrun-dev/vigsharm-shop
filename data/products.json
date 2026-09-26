@@ -2,6 +2,258 @@
   "ok": true,
   "products": [
     {
+      "id": "6ada59b1-6bdd-47f4-91c8-c933a4aeec96",
+      "title": "Красная стружка",
+      "article": "UNT-128",
+      "price": 180,
+      "short_description": "Красная стружка",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "krasnaya-struzhka",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Латексные шары"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/92c43e80-b225-4914-9974-4966e6b51607.jpg",
+        "unit_type": "latex"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/68edb39e-7994-494e-a6c8-4345ba089685.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/68edb39e-7994-494e-a6c8-4345ba089685.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-26T12:46:51.116Z",
+      "updated_at": "2026-09-26T12:46:51.116Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "06d5d83c-485e-4231-b966-013eee4efbd7",
+      "title": "Серебряная стружка",
+      "article": "UNT-127",
+      "price": 180,
+      "short_description": "Серебряная стружка",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "zolotaya-i-rozovaya-struzhka-5",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Латексные шары"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/dc749869-01cc-45cc-bceb-34d52c306675.jpg",
+        "unit_type": "latex"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/ce962dde-f436-45b6-af20-f5e392ea2031.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/ce962dde-f436-45b6-af20-f5e392ea2031.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-26T12:45:40.620Z",
+      "updated_at": "2026-09-26T12:45:40.620Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "9023d51e-f6f1-487d-a226-8e06d4e0b0b7",
+      "title": "Голубая и розовая стружка",
+      "article": "UNT-126",
+      "price": 180,
+      "short_description": "Голубая и розовая стружка",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "zolotaya-i-rozovaya-struzhka-4",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Латексные шары"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/83233ad6-a501-4d52-b6ea-98ca1210f2c4.jpg",
+        "unit_type": "latex"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/ea542256-164c-4fed-b37b-31c06e0d6f88.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/ea542256-164c-4fed-b37b-31c06e0d6f88.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-26T12:43:12.907Z",
+      "updated_at": "2026-09-26T12:43:12.907Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "c3cc3b18-0e65-432f-901a-410be00b1522",
+      "title": "Голубая стружка",
+      "article": "UNT-125",
+      "price": 180,
+      "short_description": "Голубая стружка",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "zolotaya-i-rozovaya-struzhka-3",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Латексные шары"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/2170f56e-c8b9-4ded-834c-f92ae2fa4fde.jpg",
+        "unit_type": "latex"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/0f948b7e-114d-4119-81da-8a46c1bb9e2b.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/0f948b7e-114d-4119-81da-8a46c1bb9e2b.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-26T12:41:57.463Z",
+      "updated_at": "2026-09-26T12:41:57.463Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "b972cfd1-d462-4496-ba4b-2cb4dc09bc3c",
+      "title": "Черные круги",
+      "article": "UNT-124",
+      "price": 180,
+      "short_description": "Черные круги",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "zolotaya-i-rozovaya-struzhka-2",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Латексные шары"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/6d276e3c-99b4-4161-b2c8-fc6c689cfe4a.jpg",
+        "unit_type": "latex"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/59eaff0a-4276-48c4-8ad7-e05b41aa325d.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/59eaff0a-4276-48c4-8ad7-e05b41aa325d.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-26T12:40:24.819Z",
+      "updated_at": "2026-09-26T12:40:24.819Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "e37b2d3d-5fcd-44ef-8768-45a6f1b19ad1",
+      "title": "Круги ассорти",
+      "article": "UNT-123",
+      "price": 180,
+      "short_description": "Круги ассорти",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "zolotaya-i-rozovaya-struzhka",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Латексные шары"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/1908c205-8fde-4646-8047-576812bb414b.jpg",
+        "unit_type": "latex"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/a9b93a49-b0f2-426e-9387-b613ac5acabe.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/a9b93a49-b0f2-426e-9387-b613ac5acabe.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-26T12:39:40.177Z",
+      "updated_at": "2026-09-26T12:39:40.177Z",
+      "thumb_photo": null
+    },
+    {
       "id": "a79a0d64-9606-45d4-9301-14d6a0dd23dc",
       "title": "Небесный старт",
       "article": "Y1-011",
@@ -162,7 +414,7 @@
       "scene": "unit_balloon",
       "tags": [
         "Шары поштучно",
-        "Шары с конфетти"
+        "Латексные шары"
       ],
       "client_options": {
         "available_on_request": false,
@@ -171,7 +423,7 @@
         "personal_inscription": false,
         "photozone_rental": false,
         "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/d67b8b89-2a34-404f-9a8a-7dccfe6e83fb.jpg",
-        "unit_type": "confetti"
+        "unit_type": "latex"
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/41937287-0fa1-4722-99cb-c880ab5ba0df.jpg"
@@ -204,7 +456,7 @@
       "scene": "unit_balloon",
       "tags": [
         "Шары поштучно",
-        "Шары с конфетти"
+        "Латексные шары"
       ],
       "client_options": {
         "available_on_request": false,
@@ -213,7 +465,7 @@
         "personal_inscription": false,
         "photozone_rental": false,
         "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/8f7cd3a3-c986-4668-8c40-c72a68379c00.jpg",
-        "unit_type": "confetti"
+        "unit_type": "latex"
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/6868b385-b97c-4b81-bc2a-61f14691a8da.jpg"
@@ -246,7 +498,7 @@
       "scene": "unit_balloon",
       "tags": [
         "Шары поштучно",
-        "Шары с конфетти"
+        "Латексные шары"
       ],
       "client_options": {
         "available_on_request": false,
@@ -255,7 +507,7 @@
         "personal_inscription": false,
         "photozone_rental": false,
         "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/96c6c45d-a9a5-4f19-92ce-8920c411d84c.jpg",
-        "unit_type": "confetti"
+        "unit_type": "latex"
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/35ad7a5c-80b0-440b-8f4e-94ce626991d9.jpg"
@@ -288,7 +540,7 @@
       "scene": "unit_balloon",
       "tags": [
         "Шары поштучно",
-        "Шары с конфетти"
+        "Латексные шары"
       ],
       "client_options": {
         "available_on_request": false,
@@ -297,7 +549,7 @@
         "personal_inscription": false,
         "photozone_rental": false,
         "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/aa3664bc-4af0-473e-8cc0-7a47368a79cb.jpg",
-        "unit_type": "confetti"
+        "unit_type": "latex"
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/08431497-d2ab-4034-b5fa-10b10b9d42cd.jpg"
@@ -330,7 +582,7 @@
       "scene": "unit_balloon",
       "tags": [
         "Шары поштучно",
-        "Шары с конфетти"
+        "Латексные шары"
       ],
       "client_options": {
         "available_on_request": false,
@@ -339,7 +591,7 @@
         "personal_inscription": false,
         "photozone_rental": false,
         "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/f5b4bef6-a96b-4f68-968d-c4b5541dfa1f.jpg",
-        "unit_type": "confetti"
+        "unit_type": "latex"
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/dabe8f8c-f006-4a6f-8132-c1b28d71f72d.jpg"
@@ -372,7 +624,7 @@
       "scene": "unit_balloon",
       "tags": [
         "Шары поштучно",
-        "Шары с конфетти"
+        "Латексные шары"
       ],
       "client_options": {
         "available_on_request": false,
@@ -381,7 +633,7 @@
         "personal_inscription": false,
         "photozone_rental": false,
         "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/673647d7-fbd0-4d9a-840f-9bd648590841.jpg",
-        "unit_type": "confetti"
+        "unit_type": "latex"
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/b3e62a5c-50f7-4cdf-8cff-fb18d9f973ac.jpg"
@@ -414,7 +666,7 @@
       "scene": "unit_balloon",
       "tags": [
         "Шары поштучно",
-        "Шары с конфетти"
+        "Латексные шары"
       ],
       "client_options": {
         "available_on_request": false,
@@ -423,7 +675,7 @@
         "personal_inscription": false,
         "photozone_rental": false,
         "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/25f21362-14b3-4109-b756-7a3805ef6fe4.jpg",
-        "unit_type": "confetti"
+        "unit_type": "latex"
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/b380ba42-9305-4919-9bac-705b41c3ecc8.jpg"
@@ -456,7 +708,7 @@
       "scene": "unit_balloon",
       "tags": [
         "Шары поштучно",
-        "Шары с конфетти"
+        "Латексные шары"
       ],
       "client_options": {
         "available_on_request": false,
@@ -465,7 +717,7 @@
         "personal_inscription": false,
         "photozone_rental": false,
         "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/0dd8671d-59e3-430f-8c85-4fcd271c1508.jpg",
-        "unit_type": "confetti"
+        "unit_type": "latex"
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/b9d90647-68f7-46f9-a647-9d6e2d759922.jpg"
@@ -498,7 +750,7 @@
       "scene": "unit_balloon",
       "tags": [
         "Шары поштучно",
-        "Шары с конфетти"
+        "Латексные шары"
       ],
       "client_options": {
         "available_on_request": false,
@@ -507,7 +759,7 @@
         "personal_inscription": false,
         "photozone_rental": false,
         "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/9f61cb13-d11b-49ce-be2c-57d4da11c6d3.jpg",
-        "unit_type": "confetti"
+        "unit_type": "latex"
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/cd43190a-b0e3-4867-8d17-acd4ef20fcfc.jpg"
@@ -540,7 +792,7 @@
       "scene": "unit_balloon",
       "tags": [
         "Шары поштучно",
-        "Шары с конфетти"
+        "Латексные шары"
       ],
       "client_options": {
         "available_on_request": false,
@@ -549,7 +801,7 @@
         "personal_inscription": false,
         "photozone_rental": false,
         "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/9a159779-c6f5-4d5c-b461-d746f96b10a5.jpg",
-        "unit_type": "confetti"
+        "unit_type": "latex"
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/0d8c30f3-d657-46a9-a983-082a1fed5293.jpg"
@@ -582,7 +834,7 @@
       "scene": "unit_balloon",
       "tags": [
         "Шары поштучно",
-        "Шары с конфетти"
+        "Латексные шары"
       ],
       "client_options": {
         "available_on_request": false,
@@ -591,7 +843,7 @@
         "personal_inscription": false,
         "photozone_rental": false,
         "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/7af7770b-1ad6-4673-a08b-119333535fc3.jpg",
-        "unit_type": "confetti"
+        "unit_type": "latex"
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/9dc51bcd-4544-4af3-8ea6-af8dc7a3c800.jpg"
@@ -624,7 +876,7 @@
       "scene": "unit_balloon",
       "tags": [
         "Шары поштучно",
-        "Шары Super Agate"
+        "Латексные шары"
       ],
       "client_options": {
         "available_on_request": false,
@@ -633,7 +885,7 @@
         "personal_inscription": false,
         "photozone_rental": false,
         "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/31a5dadc-6213-490e-8fcd-3a239dd1ed13.jpg",
-        "unit_type": "agate"
+        "unit_type": "latex"
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/85880478-1abc-4991-907c-9d36ec46504e.jpg"
@@ -666,7 +918,7 @@
       "scene": "unit_balloon",
       "tags": [
         "Шары поштучно",
-        "Шары Super Agate"
+        "Латексные шары"
       ],
       "client_options": {
         "available_on_request": false,
@@ -675,7 +927,7 @@
         "personal_inscription": false,
         "photozone_rental": false,
         "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/a0be48dd-21df-4674-b6da-034f922d6f75.jpg",
-        "unit_type": "agate"
+        "unit_type": "latex"
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/77df0fc1-9653-4261-8dac-5fb55882584a.jpg"
@@ -708,7 +960,7 @@
       "scene": "unit_balloon",
       "tags": [
         "Шары поштучно",
-        "Шары хром"
+        "Латексные шары"
       ],
       "client_options": {
         "available_on_request": false,
@@ -717,7 +969,7 @@
         "personal_inscription": false,
         "photozone_rental": false,
         "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/08996bd7-d319-4eac-9074-958a873b266a.jpg",
-        "unit_type": "chrome"
+        "unit_type": "latex"
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/597492bd-72e5-4d42-afe2-1d940a6c0472.jpg"
@@ -750,7 +1002,7 @@
       "scene": "unit_balloon",
       "tags": [
         "Шары поштучно",
-        "Шары хром"
+        "Латексные шары"
       ],
       "client_options": {
         "available_on_request": false,
@@ -759,7 +1011,7 @@
         "personal_inscription": false,
         "photozone_rental": false,
         "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/d6982917-0be7-47b8-8aef-26abb53422d3.jpg",
-        "unit_type": "chrome"
+        "unit_type": "latex"
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/d6982917-0be7-47b8-8aef-26abb53422d3.jpg"
@@ -792,7 +1044,7 @@
       "scene": "unit_balloon",
       "tags": [
         "Шары поштучно",
-        "Шары хром"
+        "Латексные шары"
       ],
       "client_options": {
         "available_on_request": false,
@@ -801,7 +1053,7 @@
         "personal_inscription": false,
         "photozone_rental": false,
         "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/81df8c14-2e2a-47f6-b315-d88d243b77ac.jpg",
-        "unit_type": "chrome"
+        "unit_type": "latex"
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/bdbf6a9a-b4b3-4be0-a771-8d99a885185b.jpg"
@@ -834,7 +1086,7 @@
       "scene": "unit_balloon",
       "tags": [
         "Шары поштучно",
-        "Шары хром"
+        "Латексные шары"
       ],
       "client_options": {
         "available_on_request": false,
@@ -843,7 +1095,7 @@
         "personal_inscription": false,
         "photozone_rental": false,
         "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/d243d0b6-ff84-42dd-9da0-9fe0a608c7de.jpg",
-        "unit_type": "chrome"
+        "unit_type": "latex"
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/8e91de49-fd81-4eaa-ad3e-4d8510ef9f13.jpg"
@@ -876,7 +1128,7 @@
       "scene": "unit_balloon",
       "tags": [
         "Шары поштучно",
-        "Шары хром"
+        "Латексные шары"
       ],
       "client_options": {
         "available_on_request": false,
@@ -885,7 +1137,7 @@
         "personal_inscription": false,
         "photozone_rental": false,
         "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/6b2fc6cf-3752-4b37-8645-d2fa4ec34edf.jpg",
-        "unit_type": "chrome"
+        "unit_type": "latex"
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/fece245c-58fc-4c43-b076-8c59f1359225.jpg"
@@ -918,7 +1170,7 @@
       "scene": "unit_balloon",
       "tags": [
         "Шары поштучно",
-        "Шары хром"
+        "Латексные шары"
       ],
       "client_options": {
         "available_on_request": false,
@@ -927,7 +1179,7 @@
         "personal_inscription": false,
         "photozone_rental": false,
         "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/093299e0-18a1-4e76-b00f-05e30602b97e.jpg",
-        "unit_type": "chrome"
+        "unit_type": "latex"
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/ed3a5ea1-b085-4f7e-88cc-00907b20abd0.jpg"
@@ -960,7 +1212,7 @@
       "scene": "unit_balloon",
       "tags": [
         "Шары поштучно",
-        "Шары хром"
+        "Латексные шары"
       ],
       "client_options": {
         "available_on_request": false,
@@ -969,7 +1221,7 @@
         "personal_inscription": false,
         "photozone_rental": false,
         "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/0874abae-dc94-46ff-afba-03a741fbac68.jpg",
-        "unit_type": "chrome"
+        "unit_type": "latex"
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/14ceb3cd-99ef-4cc4-bad3-4951dba90b15.jpg"
@@ -1002,7 +1254,7 @@
       "scene": "unit_balloon",
       "tags": [
         "Шары поштучно",
-        "Шары хром"
+        "Латексные шары"
       ],
       "client_options": {
         "available_on_request": false,
@@ -1011,7 +1263,7 @@
         "personal_inscription": false,
         "photozone_rental": false,
         "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/c7bd718f-d573-449a-9f1f-8f8e89c609d5.jpg",
-        "unit_type": "chrome"
+        "unit_type": "latex"
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/b45c5a61-e2f9-41e8-97f8-e2794a187b9f.jpg"
@@ -1044,7 +1296,7 @@
       "scene": "unit_balloon",
       "tags": [
         "Шары поштучно",
-        "Шары хром"
+        "Латексные шары"
       ],
       "client_options": {
         "available_on_request": false,
@@ -1053,7 +1305,7 @@
         "personal_inscription": false,
         "photozone_rental": false,
         "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/945d5a1c-9e30-4eb2-a197-3f3158802c22.jpg",
-        "unit_type": "chrome"
+        "unit_type": "latex"
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/b07230af-8ba1-439a-8cff-60f23914f6f0.jpg"

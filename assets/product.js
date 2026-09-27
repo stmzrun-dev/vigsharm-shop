@@ -249,7 +249,7 @@
     var adj = Math.abs(d) * FLOWER_UNIT_RUB;
     return '<strong>' + rub(flowerGoodsPrice()) + '</strong><small>' + (d > 0 ? '+' : '−') + rub(adj) + '</small>';
   }
-  function pricedByCount() { return isUnit(); }
+  function pricedByCount() { return isUnit() || isPerMeter(); }
   function priceFrom() { return !!(p && (p.tags || []).indexOf('Цена от') >= 0); }
   function hasParams() { return !!(p && (p.has_digit_choice || p.has_inscription || p.has_rental || isUnit())); }
   function digitBase() { return p && p.has_digit_choice ? (p.digit_count_on_photo || 0) : 0; }
@@ -660,7 +660,7 @@
 
   /** Progressive mobile form: only current + completed steps are visible. */
   function clientStepVisible(id) {
-    if (id === 'client-qty') return (isUnit() && !isBubbleUnit() && !isNamedUnit() && !isPrintedDigit() && (!isDigitUnit() || !p.has_digit_choice)) || isFlowerBouquet();
+    if (id === 'client-qty') return (isUnit() && !isBubbleUnit() && !isNamedUnit() && !isPrintedDigit() && (!isDigitUnit() || !p.has_digit_choice)) || isFlowerBouquet() || (isPerMeter() && !isUnit());
     if (id === 'client-digits') return !!(p && p.has_digit_choice);
     if (id === 'client-ins') return wantsInscription() && digitsOk();
     if (id === 'client-rental') return !!(p && p.has_rental) && digitsOk();
@@ -691,7 +691,9 @@
         qtyStepperHtml() +
         (isFlowerBouquet()
           ? (flowerSumHtml() ? '<p class="flower-qty-sum">' + flowerSumHtml() + '</p>' : '')
-          : '<button type="button" class="button product-unit-add" data-act="unit-add">В набор</button>') +
+          : (isPerMeter() && !isUnit()
+            ? '<p class="flower-qty-sum"><strong>' + goodsPrice().toLocaleString('ru-RU') + ' ₽</strong><small>' + qty + ' м</small></p>'
+            : '<button type="button" class="button product-unit-add" data-act="unit-add">В набор</button>')) +
         '</section>';
     }
 
@@ -1159,6 +1161,12 @@
       qtyStepperHtml() +
       '</header>' +
       (flowerSumHtml() ? '<p class="flower-qty-sum">' + flowerSumHtml() + '</p>' : '') +
+      '</section>') : '') +
+      (isPerMeter() && !isUnit() && !isFlowerBouquet() ? (
+      '<section class="product-configurator product-step is-open product-flower-qty"><header class="config-title"><div><strong>Длина</strong><small>' + qty + ' м</small></div>' +
+      qtyStepperHtml() +
+      '</header>' +
+      '<p class="flower-qty-sum"><strong>' + goodsPrice().toLocaleString('ru-RU') + ' ₽</strong><small>' + qty + ' м</small></p>' +
       '</section>') : '') +
       (isUnit() ? '' : (
       '<section class="order-details product-step is-open" id="product-step-date" data-details="date">' +

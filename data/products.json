@@ -2,6 +2,50 @@
   "ok": true,
   "products": [
     {
+      "id": "5c354988-68b6-407a-adec-97ed3d4ec125",
+      "title": "Звезда Металлик Зеленый",
+      "article": "UNT-214",
+      "price": 1500,
+      "short_description": "Звезда Металлик Зеленый",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "zvezda-91sm-metallik-zelenyy",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Именные шары"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/108fdd10-5604-4440-862b-148081c7ae37.jpg",
+        "unit_type": "named",
+        "balloon_size": "91 см",
+        "letter_ink": "light"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/8b7207a9-4521-44bc-a35f-15adaea4e2ea.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/8b7207a9-4521-44bc-a35f-15adaea4e2ea.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-27T12:40:50.692Z",
+      "updated_at": "2026-09-27T12:40:50.692Z",
+      "thumb_photo": null
+    },
+    {
       "id": "e8486af1-1d50-426d-bc9e-84328a9fb150",
       "title": "Шар баблс 60см с перьями и надписью",
       "article": "UNT-213",

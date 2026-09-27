@@ -170,7 +170,14 @@
     var unitDigit = opts.unit_type === 'digit'
       || p.category === 'Фольгированные цифры'
       || (Array.isArray(p.tags) && p.tags.indexOf('Фольгированные цифры') >= 0);
-    if (unitDigit) digitOn = true;
+    // Праздничная или «Цифра …»: на фото уже готовое число, клиент его не выбирает.
+    // «Цифры золото» и другие серии — выбор цифры остаётся.
+    var printedDigit = unitDigit && (
+      !!String(opts.unit_holiday || '').trim()
+      || /^цифра\s/i.test(String(p.title || '').trim())
+    );
+    if (printedDigit) digitOn = false;
+    else if (unitDigit) digitOn = true;
 
     if (digitOn) {
       p.has_digit_choice = true;

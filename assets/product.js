@@ -65,6 +65,7 @@
   var p = null, allProducts = [];
   var imgIdx = 0;
   var digit = '', digit2 = '', digitDelta = 0;
+  var inscription = '', orderDate = '', orderTime = '';
   var bubbleInk = '';
   var bubbleFill = '';
   var fulfillment = '', address = '', qty = 1;
@@ -122,6 +123,7 @@
     var opts = p.client_options || {};
     return opts.unit_type === 'digit' || p.category === 'Фольгированные цифры' || (p.tags || []).indexOf('Фольгированные цифры') >= 0;
   }
+  function isPerMeter() { return !!(p && (p.tags || []).indexOf('Цена за метр') >= 0); }
   function isBubbleUnit() {
     if (!p) return false;
     var opts = p.client_options || {};

@@ -629,7 +629,8 @@
   }
 
   function loadDelivery() {
-    fetch('data/delivery.json', { cache: 'no-store' })
+    var deliveryUrl = window.vigSameOrigin ? window.vigSameOrigin('data/delivery.json') : 'data/delivery.json';
+    fetch(deliveryUrl, { cache: 'no-store' })
       .then(function (r) { if (!r.ok) throw new Error('x'); return r.json(); })
       .then(function (data) {
         var n = Math.round(Number(data && data.city));

@@ -132,6 +132,7 @@
     var t = String((p && p.composition) || '').toLowerCase().replace(/ё/g, 'е');
     if (/пенопласт|крупин/.test(t)) return 'foam';
     if (/конфетти/.test(t)) return 'confetti';
+    if (/перь/.test(t)) return 'feathers';
     if (/шарик/.test(t)) return 'balls';
     return '';
   }
@@ -162,7 +163,7 @@
   function bubbleOptionsHtml() {
     if (!isBubbleUnit()) return '';
     var kind = bubbleFillKind();
-    var fillTitle = kind === 'foam' ? 'Цвет пенопласта' : kind === 'confetti' ? 'Цвет конфетти' : kind === 'balls' ? 'Цвет шариков' : '';
+    var fillTitle = kind === 'foam' ? 'Цвет пенопласта' : kind === 'confetti' ? 'Цвет конфетти' : kind === 'feathers' ? 'Цвет перьев' : kind === 'balls' ? 'Цвет шариков' : '';
     var fillNames = kind === 'foam' ? BUBBLE_FOAM : (kind ? BUBBLE_BITS : []);
     return '<div class="bubble-options">' +
       (fillTitle ? bubbleColorRow(fillTitle, fillNames, bubbleFill, 'bubble-fill') : '') +
@@ -176,6 +177,13 @@
     if (bubbleFillKind() && !bubbleFill) return false;
     return true;
   }
+  function flowerBaseQty() {
+    var m = String((p && p.composition) || '').match(/(\d+)/);
+    var n = m ? Number(m[1]) : 0;
+    if (n >= 1 && n <= 100) return n;
+    return 1;
+  }
+  function pricedByCount() { return isUnit() || isFlowerBouquet(); }
   function priceFrom() { return !!(p && (p.tags || []).indexOf('Цена от') >= 0); }
   function hasParams() { return !!(p && (p.has_digit_choice || p.has_inscription || p.has_rental || isUnit())); }
   function digitBase() { return p && p.has_digit_choice ? (p.digit_count_on_photo || 0) : 0; }
@@ -333,7 +341,7 @@
   }
 
   function deliveryPrice() { return fulfillment === 'armavir' ? cityDelivery : 0; }
-  function total() { return (p ? p.price : 0) * (isUnit() ? qty : 1) + digitDeltaPrice() + inscriptionPrice() + deliveryPrice(); }
+  function total() { return (p ? p.price : 0) * (pricedByCount() ? qty : 1) + digitDeltaPrice() + inscriptionPrice() + deliveryPrice(); }
 
   function mainImageKey() {
     var keys = (p && p.image_keys) || [];
@@ -577,7 +585,7 @@
 
   /** Progressive mobile form: only current + completed steps are visible. */
   function clientStepVisible(id) {
-    if (id === 'client-qty') return isUnit() && (!isDigitUnit() || !p.has_digit_choice);
+    if (id === 'client-qty') return (isUnit() && (!isDigitUnit() || !p.has_digit_choice)) || isFlowerBouquet();
     if (id === 'client-digits') return !!(p && p.has_digit_choice);
     if (id === 'client-ins') return (!!(p && p.has_inscription) || isBubbleUnit()) && digitsOk();
     if (id === 'client-rental') return !!(p && p.has_rental) && digitsOk();
@@ -602,7 +610,10 @@
       html += '<section class="client-block" id="client-qty">' +
         '<h3 class="client-block-title">' + (isPerMeter() ? 'Длина' : 'Количество') + '</h3>' +
         qtyStepperHtml() +
-        '<button type="button" class="button product-unit-add" data-act="unit-add">В набор</button></section>';
+        (isFlowerBouquet()
+          ? '<p class="flower-qty-sum">' + qty + ' × ' + Number(p.price).toLocaleString('ru-RU') + ' ₽ = <strong>' + (qty * Number(p.price)).toLocaleString('ru-RU') + ' ₽</strong></p>'
+          : '<button type="button" class="button product-unit-add" data-act="unit-add">В набор</button>') +
+        '</section>';
     }
 
     if (clientStepVisible('client-digits')) {
@@ -703,7 +714,8 @@
       if (canAdd()) lines.push('Вторая цифра: ' + (effDelta() === 1 ? 'добавить (+900 ₽)' : 'не добавлять'));
       if (canRemove()) lines.push('Вторая цифра: ' + (effDelta() === -1 ? 'убрать (-900 ₽)' : 'оставить как на фото'));
     }
-    if (isUnit()) lines.push((isPerMeter() ? 'Длина' : 'Количество') + ': ' + qty + ' ' + (isPerMeter() ? 'м' : 'шт.'));
+    if (isPerMeter()) lines.push('Длина: ' + qty + ' м');
+    else if (isUnit() || isFlowerBouquet()) lines.push('Количество: ' + qty + ' шт.' + (isFlowerBouquet() ? ' × ' + Number(p.price).toLocaleString('ru-RU') + ' ₽' : ''));
     if (p.has_inscription) {
       var t = (p.inscription_price || 0) > 0 ? ' (+' + p.inscription_price + ' ₽)' : ' (входит в стоимость)';
       lines.push('Надпись: ' + (inscription.trim() ? inscription.trim() + t : 'не указана'));
@@ -1017,7 +1029,7 @@
         var size = String(opts.balloon_size || '').trim();
         return size ? '<p class="product-balloon-size">Размер: ' + esc(size) + '</p>' : '';
       })() +
-      '<div class="product-base-price"><small>' + (isUnit() ? (isPerMeter() ? 'Цена за метр' : 'Цена за штуку') : 'Цена за композицию') + '</small><strong>' + (priceFrom() ? 'от ' : '') + Number(p.price).toLocaleString('ru-RU') + ' ₽</strong></div>' +
+      '<div class="product-base-price"><small>' + (isFlowerBouquet() || (isUnit() && !isPerMeter()) ? 'Цена за штуку' : isPerMeter() ? 'Цена за метр' : 'Цена за композицию') + '</small><strong>' + (priceFrom() ? 'от ' : '') + Number(p.price).toLocaleString('ru-RU') + ' ₽</strong></div>' +
       (leadText
         ? '<div class="product-lead"><p>' + esc(leadText) + '</p></div>'
         : '') +
@@ -1025,6 +1037,10 @@
       summaryFlowHtml() +
       '<div class="order-classic-flow">' +
       paramsDetails +
+      (isFlowerBouquet() ? (
+      '<section class="product-configurator product-step is-open"><header class="config-title"><div><strong>Количество</strong><small>' + qty + ' × ' + Number(p.price).toLocaleString('ru-RU') + ' ₽</small></div></header><div class="product-step-content">' +
+      qtyStepperHtml() +
+      '<p class="flower-qty-sum">Итого за цветы: <strong>' + (qty * Number(p.price)).toLocaleString('ru-RU') + ' ₽</strong></p></div></section>') : '') +
       (isUnit() ? '' : (
       '<section class="order-details product-step is-open" id="product-step-date" data-details="date">' +
       '<header class="config-title"><div><strong>' + (stepNum ? stepNum + '. ' : '') + 'Дата и получение</strong><small>' + esc(fulfillmentTitle()) + '</small></div></header>' +
@@ -1513,7 +1529,7 @@
             return;
           }
           var fillKind = bubbleFillKind();
-          var fillLabel = fillKind === 'foam' ? 'пенопласт' : fillKind === 'confetti' ? 'конфетти' : fillKind === 'balls' ? 'шарики' : '';
+          var fillLabel = fillKind === 'foam' ? 'пенопласт' : fillKind === 'confetti' ? 'конфетти' : fillKind === 'feathers' ? 'перья' : fillKind === 'balls' ? 'шарики' : '';
           window.vigUnitList.add({
             id: p.id, slug: p.slug || slug, title: p.title, sku: p.sku,
             price: p.price,
@@ -1959,8 +1975,12 @@
         : normalized);
       p = found;
       loadDraft();
+      if (isFlowerBouquet() && !draftRestored) qty = flowerBaseQty();
       pushRecent();
       render();
     })
-    .catch(function () { renderNotFound('Не удалось открыть композицию'); });
+    .catch(function (err) {
+      console.error(err);
+      renderNotFound('Не удалось открыть композицию');
+    });
 })();

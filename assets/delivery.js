@@ -25,7 +25,8 @@
   }
 
   var api = (window.VIG_API || 'https://vigsharm-api.vigsharm.workers.dev') + '/api/delivery';
-  load('data/delivery.json').catch(function () {
+  var deliveryUrl = window.vigSameOrigin ? window.vigSameOrigin('data/delivery.json') : 'data/delivery.json';
+  load(deliveryUrl).catch(function () {
     return load(api);
   }).then(apply).catch(function () { /* keep HTML prices */ });
 })();

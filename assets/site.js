@@ -10,7 +10,13 @@
   // Worker API. *.workers.dev в РФ часто недоступен без VPN — используем свой домен.
   // Если и он не ответит, витрина берёт снимок data/products.json с того же хоста.
   window.VIG_API = 'https://api.vigsharm.ru';
-  window.VIG_PRODUCTS_FALLBACK = 'data/products.json';
+  // Карточка на vigsharm.ru получает <base> на GitHub Pages. Относительный
+  // data/products.json тогда уезжает не в тот снимок, что каталог. Берём origin страницы.
+  window.vigSameOrigin = function (path) {
+    try { return new URL(path, window.location.origin + '/').href; }
+    catch (e) { return path; }
+  };
+  window.VIG_PRODUCTS_FALLBACK = window.vigSameOrigin('data/products.json');
 
   // В РФ Worker часто недоступен/висит. Витрина сначала берёт снимок с хоста сайта
   // (быстро), Worker — только если снимка нет. Обновление снимка: admin / export-скрипт.

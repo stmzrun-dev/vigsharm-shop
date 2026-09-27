@@ -919,6 +919,12 @@ Object.assign(app, {
     document.querySelectorAll('input[name="bouquet-type-early"]').forEach((el) => {
       el.checked = on && el.value === 'flowers';
     });
+    const priceLabel = document.getElementById('essentials-price-label');
+    if (priceLabel) {
+      priceLabel.innerHTML = on
+        ? 'Цена за штуку, ₽ <span class="req">*</span>'
+        : 'Цена, ₽ <span class="req">*</span>';
+    }
   },
 
   wireBouquetTypeControls() {

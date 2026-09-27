@@ -2,6 +2,183 @@
   "ok": true,
   "products": [
     {
+      "id": "1a573bde-a28a-4c1c-8fc6-4d534858a551",
+      "title": "Monex-box",
+      "article": "SUR-003",
+      "price": 2000,
+      "short_description": "Прозрачный золотой шар с купюрами, конфетти и мелкими шарами внутри.",
+      "full_description": "Большой прозрачный шар золотого цвета с надписью, чёрным бантом и сюрпризом внутри. Внутри — купюры на гирлянде, конфетти и небольшие шары.",
+      "composition": [
+        "шар с надписью",
+        "шляпная коробка",
+        "10 купюр"
+      ],
+      "category": "Шар-сюрприз",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": "2 000–3 500 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шар-сюрприз с деньгами и конфетти Армавир — Золотой запас",
+      "seo_description": "Прозрачный золотой шар-сюрприз с купюрами, конфетти и шариками внутри. Эффектный подарок на день рождения. Доставка в Армавире.",
+      "slug": "zolotoy-zapas",
+      "scene": "surprise",
+      "tags": [
+        "Шар-сюрприз"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/615f6e74-3f3a-4926-9500-00f25cd5d793.jpg",
+        "surprise_pose": "stand",
+        "surprise_money": true
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/9ef58dc1-9496-48ec-a233-3503435d4cd7.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/9ef58dc1-9496-48ec-a233-3503435d4cd7.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-27T20:43:35.733Z",
+      "updated_at": "2026-09-27T20:43:35.733Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "3621cbb5-40ad-4b99-9e3d-968a4d42f252",
+      "title": "Взрывной сюрприз",
+      "article": "SUR-002",
+      "price": 1700,
+      "short_description": "Крупный шар-сюрприз в розово-фиолетовой гамме с надписью и декором из шаров.",
+      "full_description": "Шар-сюрприз на подставке с яркой надписью и композицией из розовых и фиолетовых шаров сверху.",
+      "composition": [
+        "большой шар с надписью",
+        "шарики и конфетти"
+      ],
+      "category": "Шар-сюрприз",
+      "character": null,
+      "age_group": "Для детей",
+      "budget": "1 000–2 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шар-сюрприз с розовым оформлением в Армавире | VigSharm",
+      "seo_description": "Шар-сюрприз в розово-фиолетовой гамме. Яркое украшение для детского праздника в Армавире.",
+      "slug": "vzryvnoy-syurpriz",
+      "scene": "surprise",
+      "tags": [
+        "Шар-сюрприз"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/cb8c6c79-7948-4524-973e-b1ba854a580a.jpg",
+        "surprise_pose": "stand"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/868a5701-3463-4acc-80f1-07daee984b9f.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/868a5701-3463-4acc-80f1-07daee984b9f.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-27T20:38:03.303Z",
+      "updated_at": "2026-09-27T20:43:59.854Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "146d1b6a-eb8f-4537-a87b-93ce029143e4",
+      "title": "Классический",
+      "article": "SUR-001",
+      "price": 1500,
+      "short_description": "Прозрачный шар, наполненный яркими разноцветными шариками.",
+      "full_description": "Большой прозрачный шар с россыпью маленьких латексных шаров всех цветов радуги. Завершён оранжевым бантом.",
+      "composition": [
+        "большой шар",
+        "шарики и конфетти"
+      ],
+      "category": "Шар-сюрприз",
+      "character": null,
+      "age_group": "Для детей",
+      "budget": "1 000–2 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шар-сюрприз с разноцветными шарами | Армавир",
+      "seo_description": "Прозрачный шар, наполненный яркими латексными шариками всех цветов. Универсальный сюрприз для любого праздника в Армавире.",
+      "slug": "kaleydoskop",
+      "scene": "surprise",
+      "tags": [
+        "Шар-сюрприз"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/c774eedd-8402-485c-a0c5-00d7c9c0e9d4.jpg",
+        "surprise_pose": "hang"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/fe1eb482-6e4c-4856-ba73-34af178e458e.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/fe1eb482-6e4c-4856-ba73-34af178e458e.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-27T20:30:33.302Z",
+      "updated_at": "2026-09-27T20:44:09.450Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "eeefc5ba-10a1-4230-9b88-502fc5f74312",
+      "title": "Разнокалиберная арка",
+      "article": "ARK-002",
+      "price": 1200,
+      "short_description": "Асимметричная арка из розовых, белых и металлических шаров обрамляет вход.",
+      "full_description": "Арка из шаров разных размеров в розовой, белой и розово-золотой гамме. Подходит для оформления входа или фотозоны.",
+      "composition": [
+        "Разнокалиберная арка"
+      ],
+      "category": "Арка из шаров",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": "1 000–2 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Розовая арка из шаров — оформление праздника в Армавире",
+      "seo_description": "Асимметричная арка из розовых, белых и металлических шаров. Подходит для дня рождения девочки и других торжеств. Доставка по Армавиру.",
+      "slug": "rozovaya-mechta-3",
+      "scene": "arch",
+      "tags": [
+        "Арка из шаров",
+        "Цена за метр"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/40fd8057-9ce1-4bb2-84c8-f35a60e6f956.jpg"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/8ac1615b-64b3-43b9-bf56-61bc32513e78.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/8ac1615b-64b3-43b9-bf56-61bc32513e78.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-27T20:16:54.762Z",
+      "updated_at": "2026-09-27T20:16:54.762Z",
+      "thumb_photo": null
+    },
+    {
       "id": "e0b978a1-89ed-44f6-a0fb-02887bbf5346",
       "title": "Классическая арка",
       "article": "ARK-001",

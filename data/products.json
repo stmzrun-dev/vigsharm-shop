@@ -2,6 +2,221 @@
   "ok": true,
   "products": [
     {
+      "id": "c9cdc019-9ea4-42f8-9bda-86e786bf73ef",
+      "title": "AIR Бэтмен",
+      "article": "UNT-209",
+      "price": 600,
+      "short_description": "AIR Бэтмен",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": "Бэтмен",
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": "DC Comics",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "air-zheleznyy-chelovek-2",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Ходячие фигуры"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/99f07990-a584-4cef-bb39-be95535f723b.jpg",
+        "unit_type": "walker",
+        "balloon_size": "64 см"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/05e585bc-9444-4364-92f4-27479e8cd6bc.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/05e585bc-9444-4364-92f4-27479e8cd6bc.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-27T06:48:15.264Z",
+      "updated_at": "2026-09-27T06:48:15.264Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "c6016be1-d00c-4450-8641-afeeaa20f91e",
+      "title": "AIR Железный человек",
+      "article": "UNT-208",
+      "price": 600,
+      "short_description": "AIR Железный человек",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": "Железный человек",
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": "Marvel",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "air-zheleznyy-chelovek",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Ходячие фигуры"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/44dd1bda-0ed1-4b21-a703-0f817df34b4e.jpg",
+        "unit_type": "walker",
+        "balloon_size": "69 см"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/84a5cfff-a1b8-4ae3-bca0-b8cd43c103f2.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/84a5cfff-a1b8-4ae3-bca0-b8cd43c103f2.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-27T06:45:31.746Z",
+      "updated_at": "2026-09-27T06:45:31.746Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "ddf8e1ec-fc8f-4803-8230-9135ee56ad3e",
+      "title": "Ромашковое поле",
+      "article": "FLW-003",
+      "price": 1440,
+      "short_description": "Букет из 15 ромашек, выполненных из белых и жёлтых шаров, с зелёными стеблями и голубой лентой.",
+      "full_description": "Букет из 15 ромашек из воздушных шаров с белыми лепестками, жёлтыми серединками и яркими зелёными стеблями. Перевязан голубой лентой.",
+      "composition": [
+        "15 ромашек из шаров"
+      ],
+      "category": "Цветы из шаров",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": "1 000–2 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Букет из шаров Ромашки — Армавир | VigSharm",
+      "seo_description": "Букет из 15 ромашек из воздушных шаров с белыми лепестками и жёлтыми серединками. Яркий подарок для любого возраста в Армавире.",
+      "slug": "romashkovoe-pole",
+      "scene": "handheld_bouquet",
+      "tags": [
+        "Цветы из шаров"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/5d3eb8d7-db8c-4eda-a737-94cea2d80602.jpg",
+        "bouquet_type": "flowers"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/bee23b05-980b-4c69-92e5-99b650ef53b9.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/bee23b05-980b-4c69-92e5-99b650ef53b9.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-27T06:32:33.519Z",
+      "updated_at": "2026-09-27T06:32:33.519Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "5d249967-0e0d-4038-8c48-06430497f5b9",
+      "title": "Полевой привет",
+      "article": "FLW-002",
+      "price": 1170,
+      "short_description": "Букет из 12 ромашек, скрученных из воздушных шаров в пастельных тонах.",
+      "full_description": "Букет из 12 ромашек, выполненных из шаров в нежных пастельных оттенках — розовый, голубой, сиреневый, жёлтый и белый. Собран на зелёных стеблях и перевязан сиреневым бантом.",
+      "composition": [
+        "12 ромашек из шаров"
+      ],
+      "category": "Цветы из шаров",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": "1 000–2 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Букет из 12 ромашек из шаров — Армавир",
+      "seo_description": "Букет из 12 воздушных ромашек в пастельных тонах. Нежный подарок на любой повод. Доставка по Армавиру.",
+      "slug": "polevoy-privet",
+      "scene": "handheld_bouquet",
+      "tags": [
+        "Цветы из шаров"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/b774b9e9-11b7-4ebd-90be-f9b6f4872694.jpg",
+        "bouquet_type": "flowers"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/e63d1d85-596a-4c5b-ada9-9fdbe1406ad4.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/e63d1d85-596a-4c5b-ada9-9fdbe1406ad4.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-27T06:29:05.067Z",
+      "updated_at": "2026-09-27T06:29:05.067Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "4e1d6fc7-14cf-4fd1-ad98-bf92ac908d90",
+      "title": "Сиреневый сад",
+      "article": "FLW-001",
+      "price": 2000,
+      "short_description": "Букет из 17 лилий в бело-сиреневой гамме с жёлтыми акцентами на зелёных стеблях.",
+      "full_description": "Букет из воздушных шаров в виде лилий: белые и сиреневые цветы с жёлтыми серединками собраны на ярких зелёных стеблях.",
+      "composition": [
+        "17 лилий"
+      ],
+      "category": "Цветы из шаров",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": "2 000–3 500 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Букет из шаров Сиреневый сад — цветы из шаров в Армавире",
+      "seo_description": "Букет из 17 воздушных лилий в бело-сиреневой палитре с жёлтыми серединками. Нежный подарок для любого повода. Доставка по Армавиру.",
+      "slug": "sirenevyy-sad",
+      "scene": "handheld_bouquet",
+      "tags": [
+        "Цветы из шаров"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/8e5de90e-c053-4ebc-bf6e-6e6088c5ed68.jpg",
+        "bouquet_type": "flowers"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/cf49c48a-7ad8-4132-9df1-ee0b7a6c4b02.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/cf49c48a-7ad8-4132-9df1-ee0b7a6c4b02.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-27T06:25:15.748Z",
+      "updated_at": "2026-09-27T06:25:15.748Z",
+      "thumb_photo": null
+    },
+    {
       "id": "95e6e223-41e4-421d-90f0-edcacbec446b",
       "title": "AIR Человек-Паук",
       "article": "UNT-207",

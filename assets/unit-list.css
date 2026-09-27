@@ -109,8 +109,9 @@
 .unit-named-photo img{display:block;width:100%;height:auto;aspect-ratio:1;object-fit:cover}
 .catalog-card-image,.product-page .product-page-main-image{container-type:inline-size}
 .named-letter{
-  position:absolute;left:50%;top:40%;width:50%;transform:translate(-50%,-50%);
-  margin:0;text-align:center;font-weight:800;line-height:1.2;
+  position:absolute;left:50%;top:50%;width:max-content;max-width:40%;
+  transform:translate(-50%,-50%);
+  margin:0;text-align:center;font-weight:800;line-height:1.15;
   pointer-events:none;text-wrap:balance;overflow-wrap:break-word;
 }
 .named-letter.is-light{color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.55),0 0 2px rgba(0,0,0,.85)}

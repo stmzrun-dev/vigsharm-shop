@@ -49,7 +49,7 @@ Object.assign(app, {
 
   /** All catalog scenes: AI rephotograph (Manus-style) against studio reference */
   usesRephotographMode(scene) {
-    return ['floor', 'balloon_figures', 'photozone', 'auto', 'handheld_bouquet', 'wall_only', 'unit_balloon', 'arch'].includes(scene || 'floor');
+    return ['floor', 'surprise', 'balloon_figures', 'photozone', 'auto', 'handheld_bouquet', 'wall_only', 'unit_balloon', 'arch'].includes(scene || 'floor');
   },
 
   syncStudioModeHint() {
@@ -61,6 +61,8 @@ Object.assign(app, {
     if (earlyFloor) earlyFloor.classList.toggle('hidden', scene !== 'floor');
     const earlyBouquet = document.getElementById('bouquet-type-early');
     if (earlyBouquet) earlyBouquet.classList.toggle('hidden', scene !== 'handheld_bouquet');
+    const earlySurprise = document.getElementById('surprise-pose-early');
+    if (earlySurprise) earlySurprise.classList.toggle('hidden', scene !== 'surprise');
     const earlyUnit = document.getElementById('unit-type-early');
     if (earlyUnit) earlyUnit.classList.toggle('hidden', scene !== 'unit_balloon');
     if (el) {
@@ -134,6 +136,15 @@ Object.assign(app, {
         useFloorAlignment: true,
         maxHeight: 0.90,
         description: 'Напольная композиция — у стены у плинтуса'
+      },
+      surprise: {
+        targetWidth: 0.72,
+        centerX: 0.5,
+        floorY: 0.78,
+        centerY: 0.46,
+        useFloorAlignment: this.getSurprisePose?.() !== 'hang',
+        maxHeight: 0.88,
+        description: 'Шар-сюрприз — та же комната, висит или стоит'
       },
       balloon_figures: {
         targetWidth: 0.78,
@@ -703,6 +714,8 @@ Object.assign(app, {
       photozone_type: this.getPhotozoneType?.() || 'frame',
       floor_type: this.getFloorType?.() || '',
       bouquet_type: this.getBouquetType?.() || '',
+      surprise_pose: this.getSurprisePose?.() || '',
+      surprise_money: this.surpriseMoneyOn?.() ? 1 : 0,
       unit_type: this.getUnitBalloonType?.() || '',
       unit_who: this.getUnitBalloonWho?.() || '',
       unit_holiday: this.getUnitHoliday?.() || '',
@@ -823,6 +836,8 @@ Object.assign(app, {
       if (draft.photozone_type) this.setPhotozoneType?.(draft.photozone_type);
       if (draft.floor_type) this.setFloorType?.(draft.floor_type);
       this.setBouquetType?.(draft.bouquet_type || '');
+      this.setSurprisePose?.(draft.surprise_pose || '');
+      this.setSurpriseMoney?.(!!draft.surprise_money);
       this.setUnitBalloonType?.(draft.unit_type || '');
       this.setUnitBalloonWho?.(draft.unit_who || '');
       this.setUnitHoliday?.(draft.unit_holiday || draft.holiday_only || '');
@@ -925,6 +940,7 @@ Object.assign(app, {
               scene,
               unit_type: scene === 'unit_balloon' ? (this.getUnitBalloonType?.() || '') : '',
               bouquet_type: scene === 'handheld_bouquet' ? (this.getBouquetType?.() || '') : '',
+              surprise_pose: scene === 'surprise' ? (this.getSurprisePose?.() || 'stand') : '',
               photozone_type: scene === 'photozone' ? (this.getPhotozoneType?.() || 'frame') : undefined,
               resolution: '2K',
               prefer

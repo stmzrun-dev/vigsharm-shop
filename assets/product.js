@@ -70,6 +70,8 @@
   var inscription = '', orderDate = '', orderTime = '';
   var bubbleInk = '';
   var bubbleFill = '';
+  var surpriseColor = '';
+  var surpriseBill = 0;
   var fulfillment = '', address = '', qty = 1;
   var customerPhone = '', customerName = '', orderNote = '', honeypot = '';
   var orderSending = false;
@@ -214,6 +216,55 @@
       bubbleColorRow('Цвет надписи', BUBBLE_INK, bubbleInk, 'bubble-ink') +
       '</div>';
   }
+  var SURPRISE_COLORS = ['розовый', 'золотой', 'красный', 'синий', 'белый', 'чёрный', 'фиолетовый', 'голубой'];
+  var SURPRISE_BILLS = [50, 100, 500, 1000];
+  function isSurpriseProduct() {
+    if (!p) return false;
+    if (p.is_surprise) return true;
+    var tags = p.tags || [];
+    return p.scene === 'surprise' || p.category === 'Шар-сюрприз' || tags.indexOf('Шар-сюрприз') >= 0;
+  }
+  function surpriseNeedsOptions() {
+    if (!isSurpriseProduct()) return false;
+    var pose = p.surprise_pose || (p.client_options && p.client_options.surprise_pose);
+    return pose !== 'hang';
+  }
+  function surpriseMoney() {
+    if (!surpriseNeedsOptions()) return false;
+    if (p.surprise_money) return true;
+    var opts = p.client_options || {};
+    return !!(opts.surprise_money || opts.surprise_bills);
+  }
+  function surpriseBillSum() {
+    if (!surpriseMoney() || !surpriseBill) return 0;
+    return surpriseBill * 10;
+  }
+  function surpriseReady() {
+    if (!surpriseNeedsOptions()) return true;
+    if (!surpriseColor) return false;
+    if (!String(inscription || '').trim()) return false;
+    if (surpriseMoney() && !surpriseBill) return false;
+    return true;
+  }
+  function surpriseOptionsHtml() {
+    if (!surpriseNeedsOptions()) return '';
+    var bills = '';
+    if (surpriseMoney()) {
+      bills = '<fieldset class="surprise-bills"><legend>Купюры · ' + (surpriseBill ? ('10 × ' + surpriseBill + ' ₽') : 'выберите') + '</legend><div class="surprise-bill-row">' +
+        SURPRISE_BILLS.map(function (denom) {
+          var on = surpriseBill === denom;
+          var sum = denom * 10;
+          return '<button type="button" class="' + (on ? 'selected' : '') + '" data-act="surprise-bill" data-v="' + denom + '" aria-pressed="' + on + '">' +
+            '<strong>10 × ' + denom.toLocaleString('ru-RU') + ' ₽</strong><small>' + sum.toLocaleString('ru-RU') + ' ₽</small></button>';
+        }).join('') + '</div></fieldset>';
+    }
+    return '<div class="surprise-options">' +
+      bubbleColorRow('Цвет шара', SURPRISE_COLORS, surpriseColor, 'surprise-color') +
+      '<label class="client-ins' + (String(inscription || '').trim() ? ' is-filled' : '') + '">' +
+      '<span class="client-digit-label">Надпись</span>' +
+      '<input value="' + esc(inscription) + '" maxlength="60" data-act="inscription" placeholder="С Днём Рождения!" inputmode="text" autocomplete="off"/>' +
+      '</label>' + bills + '</div>';
+  }
   function bubbleReady() {
     if (!isBubbleUnit()) return true;
     if (!String(inscription || '').trim()) return false;
@@ -314,7 +365,7 @@
     var d = phoneDigits();
     return d.length === 11 && d.charAt(0) === '7';
   }
-  function isOrderReady() { return digitsOk() && inscriptionOk() && fulfillmentOk() && whenOk(); }
+  function isOrderReady() { return digitsOk() && inscriptionOk() && surpriseReady() && fulfillmentOk() && whenOk(); }
   function isSubmitReady() { return isOrderReady() && phoneOk(); }
   function apiBase() {
     return (window.VIG_API || 'https://vigsharm-api.vigsharm.workers.dev').replace(/\/$/, '');
@@ -372,6 +423,9 @@
   function orderCta(kind) {
     if (!digitsOk()) return kind === 'short' ? 'Выберите цифру' : ('Выберите ' + (effDigits() === 2 ? 'обе цифры' : 'цифру'));
     if (isUnit()) return 'В набор';
+    if (surpriseNeedsOptions() && !surpriseColor) return kind === 'short' ? 'Выберите цвет' : 'Выберите цвет шара';
+    if (surpriseNeedsOptions() && !String(inscription || '').trim()) return kind === 'short' ? 'Нужна надпись' : 'Напишите надпись на шаре';
+    if (surpriseMoney() && !surpriseBill) return kind === 'short' ? 'Выберите купюры' : 'Выберите купюры';
     if (!inscriptionOk()) return kind === 'short' ? 'Нужна надпись' : 'Напишите надпись на шаре';
     if (!fulfillment) return kind === 'short' ? 'Выберите получение' : 'Выберите способ получения';
     if (!fulfillmentOk()) return kind === 'short' ? 'Укажите адрес' : 'Укажите адрес доставки';
@@ -414,7 +468,7 @@
   function goodsPrice() {
     if (!p) return 0;
     if (isFlowerBouquet()) return flowerGoodsPrice();
-    return Number(p.price) * (pricedByCount() ? qty : 1);
+    return Number(p.price) * (pricedByCount() ? qty : 1) + surpriseBillSum();
   }
   function total() { return goodsPrice() + digitDeltaPrice() + inscriptionPrice() + deliveryPrice(); }
 
@@ -638,6 +692,7 @@
   function clientNextId() {
     if (isDigitUnit()) return (p.has_digit_choice && !digitsOk()) ? 'client-digits' : '';
     if (!digitsOk()) return 'client-digits';
+    if (surpriseNeedsOptions() && !surpriseReady()) return 'client-surprise';
     if (!inscriptionOk()) return 'client-ins';
     if (isUnit()) return '';
     if (!fulfillment) return 'client-ful';
@@ -663,6 +718,7 @@
     if (id === 'client-qty') return (isUnit() && !isBubbleUnit() && !isNamedUnit() && !isPrintedDigit() && (!isDigitUnit() || !p.has_digit_choice)) || isFlowerBouquet() || (isPerMeter() && !isUnit());
     if (id === 'client-digits') return !!(p && p.has_digit_choice);
     if (id === 'client-ins') return wantsInscription() && digitsOk();
+    if (surpriseNeedsOptions() && !surpriseReady() && (id === 'client-ful' || id === 'client-addr' || id === 'client-when' || id === 'client-contact')) return false;
     if (id === 'client-rental') return !!(p && p.has_rental) && digitsOk();
     if (isUnit() && (id === 'client-ful' || id === 'client-addr' || id === 'client-when' || id === 'client-contact')) return false;
     if (id === 'client-ful') return digitsOk();
@@ -718,6 +774,13 @@
           '</div>';
       }
       html += '</section>';
+    }
+
+    if (surpriseNeedsOptions()) {
+      html += '<section class="client-block' + (next === 'client-surprise' ? ' is-next' : surpriseReady() ? ' is-done' : '') + '" id="client-surprise">' +
+        '<h3 class="client-block-title">Шар</h3>' +
+        surpriseOptionsHtml() +
+        '</section>';
     }
 
     if (clientStepVisible('client-ins')) {
@@ -822,7 +885,15 @@
         : ((fd > 0 ? '+' : '−') + (Math.abs(fd) * FLOWER_UNIT_RUB).toLocaleString('ru-RU') + ' ₽');
       lines.push('Цветов: ' + qty + ' (' + flowerNote + ')');
     }
-    if (wantsInscription()) {
+    if (surpriseNeedsOptions()) {
+      lines.push('Цвет шара: ' + (surpriseColor || 'не выбран'));
+      lines.push('Надпись: ' + (String(inscription || '').trim() || 'не указана'));
+      if (surpriseMoney()) {
+        lines.push(surpriseBill
+          ? ('Купюры: 10 × ' + surpriseBill + ' ₽ = ' + surpriseBillSum().toLocaleString('ru-RU') + ' ₽')
+          : 'Купюры: не выбраны');
+      }
+    } else if (wantsInscription()) {
       var t = (p.inscription_price || 0) > 0 ? ' (+' + p.inscription_price + ' ₽)' : ' (входит в стоимость)';
       lines.push('Надпись: ' + (inscription.trim() ? inscription.trim() + t : 'не указана'));
     }
@@ -883,7 +954,8 @@
         inscription: inscription, orderDate: orderDate, orderTime: orderTime,
         fulfillment: fulfillment, address: address, quantity: qty,
         customerPhone: customerPhone, customerName: customerName, orderNote: orderNote,
-        bubbleInk: bubbleInk, bubbleFill: bubbleFill
+        bubbleInk: bubbleInk, bubbleFill: bubbleFill,
+        surpriseColor: surpriseColor, surpriseBill: surpriseBill
       }));
     } catch (e) {}
   }
@@ -909,6 +981,8 @@
       if (typeof d.orderNote === 'string') orderNote = d.orderNote.slice(0, 200);
       if (typeof d.bubbleInk === 'string') bubbleInk = d.bubbleInk;
       if (typeof d.bubbleFill === 'string') bubbleFill = d.bubbleFill;
+      if (typeof d.surpriseColor === 'string') surpriseColor = d.surpriseColor;
+      if (SURPRISE_BILLS.indexOf(Number(d.surpriseBill)) >= 0) surpriseBill = Number(d.surpriseBill);
       draftRestored = true;
     } catch (e) {}
     draftReady = true;
@@ -1063,7 +1137,9 @@
 
     var fulfilled = fulfillment;
     var extraOrderFields = '';
-    if (wantsInscription()) {
+    if (surpriseNeedsOptions()) {
+      extraOrderFields += surpriseOptionsHtml();
+    } else if (wantsInscription()) {
       extraOrderFields += '<label class="config-input inscription-field"><span>Надпись на шаре</span>' +
         '<input value="' + esc(inscription) + '" maxlength="60" required aria-required="true" data-act="inscription" placeholder="Например: С Днём рождения!"/></label>';
     }
@@ -1095,9 +1171,9 @@
       '<input class="order-hp" tabindex="-1" autocomplete="off" data-act="hp" value="' + esc(honeypot) + '" aria-hidden="true"/>' +
       '</div>';
 
-    var dp = digitDeltaPrice(), ip = inscriptionPrice(), yp = deliveryPrice(), T = total();
+    var dp = digitDeltaPrice(), ip = inscriptionPrice(), yp = deliveryPrice(), billSum = surpriseBillSum(), T = total();
     var totalLabel = fulfilled === 'nearby' ? 'Предварительная стоимость' : (fulfilled ? 'Итого' : 'Цена композиции');
-    var hasPriceExtras = ip > 0 || dp !== 0 || yp > 0 || fulfilled === 'nearby';
+    var hasPriceExtras = ip > 0 || dp !== 0 || yp > 0 || billSum > 0 || fulfilled === 'nearby';
     var ready = isOrderReady();
     var orderBtn = orderCta('full');
     var mobileFlowOn = useMobileFlow();
@@ -1174,6 +1250,7 @@
       '<div class="product-step-content">' + dateInner + '</div></section>')) +
       '<div class="product-order-total' + (hasPriceExtras ? ' is-detailed' : '') + '"><span>' + totalLabel +
       (ip > 0 ? '<small>Включая надпись: +' + ip.toLocaleString('ru-RU') + ' ₽</small>' : '') +
+      (billSum > 0 ? '<small>Купюры: +' + billSum.toLocaleString('ru-RU') + ' ₽</small>' : '') +
       (dp !== 0 ? '<small>' + (dp > 0 ? 'Дополнительная цифра: +' : 'Без второй цифры: −') + Math.abs(dp).toLocaleString('ru-RU') + ' ₽</small>' : '') +
       (yp > 0 ? '<small>Доставка по Армавиру: +' + yp.toLocaleString('ru-RU') + ' ₽</small>' : '') +
       (fulfilled === 'nearby' ? '<small>Доставку за город уточним при подтверждении</small>' : '') +
@@ -1397,6 +1474,17 @@
           clearFlowEditIf('delta');
           render();
           afterDigitsMaybeScroll();
+        });
+      } else if (act === 'surprise-color' || act === 'surprise-bill') {
+        el.addEventListener('click', function () {
+          var v = el.getAttribute('data-v') || '';
+          if (act === 'surprise-color') surpriseColor = surpriseColor === v ? '' : v;
+          else {
+            var n = Number(v);
+            surpriseBill = surpriseBill === n ? 0 : n;
+          }
+          saveDraft();
+          render();
         });
       } else if (act === 'bubble-ink' || act === 'bubble-fill') {
         el.addEventListener('click', function () {
@@ -1825,7 +1913,8 @@
     var ip = inscriptionPrice(), dp = digitDeltaPrice(), yp = deliveryPrice(), T = total();
     var fulfilled = fulfillment, U = effDigits();
     var totalLabel = fulfilled === 'nearby' ? 'Предварительная стоимость' : (fulfilled ? 'Итого' : 'Цена композиции');
-    var hasPriceExtras = ip > 0 || dp !== 0 || yp > 0 || fulfilled === 'nearby';
+    var billSum = surpriseBillSum();
+    var hasPriceExtras = ip > 0 || dp !== 0 || yp > 0 || billSum > 0 || fulfilled === 'nearby';
     var orderBtn = orderCta('full');
 
     var totalEl = root.querySelector('.product-order-total');
@@ -1833,6 +1922,7 @@
       totalEl.classList.toggle('is-detailed', hasPriceExtras);
       totalEl.innerHTML = '<span>' + totalLabel +
         (ip > 0 ? '<small>Включая надпись: +' + ip.toLocaleString('ru-RU') + ' ₽</small>' : '') +
+        (billSum > 0 ? '<small>Купюры: +' + billSum.toLocaleString('ru-RU') + ' ₽</small>' : '') +
         (dp !== 0 ? '<small>' + (dp > 0 ? 'Дополнительная цифра: +' : 'Без второй цифры: −') + Math.abs(dp).toLocaleString('ru-RU') + ' ₽</small>' : '') +
         (yp > 0 ? '<small>Доставка по Армавиру: +' + yp.toLocaleString('ru-RU') + ' ₽</small>' : '') +
         (fulfilled === 'nearby' ? '<small>Стоимость доставки уточним при подтверждении заказа</small>' : '') +
@@ -1935,6 +2025,18 @@
       return;
     }
     if (!digitsOk()) { openDetails('params'); return; }
+    if (surpriseNeedsOptions() && !surpriseReady()) {
+      openDetails('date');
+      var miss = !surpriseColor
+        ? '[data-act="surprise-color"]'
+        : (!String(inscription || '').trim() ? '[data-act="inscription"]' : '[data-act="surprise-bill"]');
+      var missEl = root.querySelector(miss);
+      if (missEl && missEl.focus) {
+        try { missEl.focus({ preventScroll: true }); } catch (e) { try { missEl.focus(); } catch (_) {} }
+      }
+      if (window.vigToast) window.vigToast(orderCta('full'));
+      return;
+    }
     if (!inscriptionOk()) {
       openDetails('date');
       var ins = root.querySelector('[data-act="inscription"]');

@@ -15,8 +15,8 @@ const OCCASION_SHELVES = [...TAGS.occasion, ...TAGS.dates];
 const HOLIDAY_CATEGORIES = ['Выпускной', 'Новый год', '14 февраля', '23 февраля', '8 марта', '1 сентября'];
 /** Тематики для метки в скобках: аудитория / повод / праздник (не тип изделия). */
 const THEME_CATEGORIES = [...TAGS.forWho, ...TAGS.occasion, ...TAGS.dates];
-/** Пока не ставим на карточки — отдельный раздел позже */
-const DEFERRED_TYPE_TAGS = ['Шар-сюрприз'];
+/** Пусто: «Шар-сюрприз» снова в каталоге. */
+const DEFERRED_TYPE_TAGS = [];
 
 const SCENES = [
   { value: 'auto', icon: '✨', title: 'Автоматически', short: 'Авто', desc: 'ИИ определит по содержимому' },
@@ -24,6 +24,7 @@ const SCENES = [
   { value: 'handheld_bouquet', icon: '💐', title: 'Букет в руке', short: 'Букет', desc: 'Букет в руке, без бирок' },
   { value: 'wall_only', icon: '🖼️', title: 'Только стена', short: 'Стена', desc: 'Композиция на стене, без пола' },
   { value: 'floor', icon: '🪵', title: 'Напольная композиция', short: 'Пол', desc: 'Стоит на полу: стена + плинтус + ламинат' },
+  { value: 'surprise', icon: '🎁', title: 'Шар-сюрприз', short: 'Сюрприз', desc: 'Та же комната: висит на ленте или стоит на своей подставке' },
   { value: 'balloon_figures', icon: '🧸', title: 'Фигуры из шаров', short: 'Фигуры', desc: 'Крупная фигура из шаров на полу' },
   { value: 'photozone', icon: '🎪', title: 'Фотозона', short: 'Фотозона', desc: 'Каркас или мольберт' },
   { value: 'arch', icon: '🌈', title: 'Арка', short: 'Арка', desc: 'Улучшить фото, фон как на снимке' }
@@ -54,6 +55,12 @@ const FLOOR_TYPES = {
     hint: 'Напольная «под заказ» — клиент видит бейдж заранее',
     advance_order: true
   }
+};
+
+/** Положение шара-сюрприза в студии. */
+const SURPRISE_POSES = {
+  hang: { value: 'hang', title: 'Висит', hint: 'На ленте сверху, на пол не ставить' },
+  stand: { value: 'stand', title: 'Стоит', hint: 'На ламинате. Подставка и купюры — часть товара' }
 };
 
 /** Подтип сцены «Букет»: опциональный чип «Цветы» (не выбирается сам). */

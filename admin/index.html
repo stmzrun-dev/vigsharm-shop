@@ -184,6 +184,7 @@
             <span class="publish-scene-label">Сцена</span>
             <div class="scene-subchips-row publish-scenes" role="radiogroup" aria-label="Сцена">
               <label class="scene-subchip"><input type="radio" name="publish-scene" value="floor" checked/><span>Напольная</span></label>
+              <label class="scene-subchip"><input type="radio" name="publish-scene" value="surprise"/><span>Шар-сюрприз</span></label>
               <label class="scene-subchip"><input type="radio" name="publish-scene" value="wall_only"/><span>Стена</span></label>
               <label class="scene-subchip"><input type="radio" name="publish-scene" value="handheld_bouquet"/><span>Букет в руке</span></label>
               <label class="scene-subchip"><input type="radio" name="publish-scene" value="unit_balloon"/><span>Поштучно</span></label>
@@ -303,6 +304,23 @@
                   <label class="scene-subchip">
                     <input type="checkbox" name="floor-type-early" id="floor-type-air-early" value="air"/>
                     <span>Заказ за 1–2 дня</span>
+                  </label>
+                </div>
+              </div>
+              <div id="surprise-pose-early" class="photozone-type-early scene-subchips hidden">
+                <p class="scene-subchips-label">Положение <span class="req">*</span></p>
+                <div class="scene-subchips-row" role="radiogroup" aria-label="Положение шара-сюрприза">
+                  <label class="scene-subchip">
+                    <input type="radio" name="surprise-pose-early" id="surprise-pose-hang-early" value="hang"/>
+                    <span>Висит</span>
+                  </label>
+                  <label class="scene-subchip">
+                    <input type="radio" name="surprise-pose-early" id="surprise-pose-stand-early" value="stand" checked/>
+                    <span>Стоит</span>
+                  </label>
+                  <label class="scene-subchip">
+                    <input type="checkbox" name="surprise-money-early" id="surprise-money-early" value="1"/>
+                    <span>С купюрами</span>
                   </label>
                 </div>
               </div>

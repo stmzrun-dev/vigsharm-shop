@@ -236,8 +236,8 @@ const TYPE_TAGS = [
   'Шары поштучно'
 ];
 
-/** Пока не ставим на карточки — отдельный раздел позже */
-const DEFERRED_TYPE_TAGS = ['Шар-сюрприз'];
+/** Пусто: раздел «Шар-сюрприз» открыт. */
+const DEFERRED_TYPE_TAGS = [];
 
 const HOLIDAY_CATEGORIES = [
   'Выпускной', 'Новый год', '14 февраля', '23 февраля', '8 марта', '1 сентября'
@@ -756,6 +756,7 @@ function sceneTypeHint(scene) {
     // wall_only: фольга/бабл на стене — НЕ «Фигуры» и НЕ авто-«Букет» (букет = сцена handheld)
     case 'wall_only': return '';
     case 'floor': return 'Напольные композиции';
+    case 'surprise': return 'Шар-сюрприз';
     case 'balloon_figures': return 'Фигуры из шаров';
     default: return '';
   }
@@ -837,6 +838,7 @@ async function handleGenerateCard(request, env) {
   );
   const photozoneOnly = !holidayOnly && !boxOnly && !bouquetOnly && !figuresOnly
     && (scene || '') === 'photozone';
+  const surpriseOnly = (scene || '') === 'surprise';
 
   const boxRule = boxOnly
     ? `
@@ -948,7 +950,7 @@ ${BUDGET_OPTIONS.join(' | ')}
 - тип изделия — только в tags
 - «Букет из шаров» в tags — ТОЛЬКО если сцена handheld_bouquet или в составе явно «букет». Сцена wall_only сама по себе НЕ букет
 - Сцена wall_only / unit_balloon: ЗАПРЕЩЕНО ставить тег «Напольные композиции» (это не полка «пол», а съёмка на стене)
-- ЗАПРЕЩЕНО: тег и категория «Шар-сюрприз» — раздел пока не используется, не ставь никуда
+- «Шар-сюрприз» — ТОЛЬКО если сцена surprise. На остальных сценах этот тег и категорию не ставь
 - «Фигуры из шаров» — ТОЛЬКО скрутка/лепка из множества шаров, стоящая на полу. НЕ ставь этот тег для фольгированных персонажей (Пикачу, Гонщик, зайчик, жираф), баблов, фонтанов и композиций на стене
 - Мольберт / пенопластовый круг / каркас-обруч (фотозона) → в tags «Фотозона». Если foil_digits = "1", category всё равно «1 годик», тег «Фотозона» рядом
 - ПЕРСОНАЖ И СЕРИЯ — критично, определяй по фото:
@@ -1047,6 +1049,7 @@ ${boxOnly ? 'В составе коробка — category и tags только 
 ${bouquetOnly ? 'Это букет из шаров без тематики в скобках — category и tags только «Букет из шаров».' : ''}
 ${figuresOnly ? 'Это фигура из шаров без тематики в скобках — category и tags только «Фигуры из шаров».' : ''}
 ${photozoneOnly ? 'Это фотозона. В tags всегда «Фотозона». Если foil_digits=1 — category «1 годик» + тег Фотозона, иначе category «Фотозона».' : ''}
+${surpriseOnly ? 'Это шар-сюрприз. category и tags только «Шар-сюрприз». Надпись на шаре не делает карточку праздничной полкой.' : ''}
 ${takenBlock}
 ${image_url
     ? (holidayOnly || boxOnly || bouquetOnly || figuresOnly
@@ -1093,7 +1096,9 @@ ${image_url
   }
 
   data = sanitizeCardMetadata(data, scene || 'floor', priceNum, rawComposition, takenTitles);
-  if (holidayOnly) {
+  if (surpriseOnly) {
+    applyTypeOnlyCard(data, 'Шар-сюрприз');
+  } else if (holidayOnly) {
     applyHolidayOnlyCard(data, holidayOnly);
   } else if (boxOnly) {
     applyTypeOnlyCard(data, 'Коробка-сюрприз');
@@ -1882,6 +1887,42 @@ ${forbidden}
 OUTPUT: one square 1:1 professional catalog photo — round Ø3 m photozone frame nearly filling the frame, near the wall, natural catalog light.`;
   }
 
+  if (scene === 'surprise') {
+    const hanging = opts.surprise_pose === 'hang';
+    const pose = hanging
+      ? `POSE — HANGING (critical):
+- The balloon HANGS from its ribbon or string at the TOP of the frame. It does NOT stand on the floor and does NOT rest on a pedestal.
+- Keep the suspension ribbon, bow, curly ribbons, and everything inside the balloon (mini balloons, confetti, money).
+- Do NOT add a stand, cup, weight cluster, or floor base.
+- The studio floor is visible below, but the balloon floats above it. Soft shadow on the laminate only — the balloon does not touch the floor.`
+      : `POSE — STANDING (critical):
+- The balloon STANDS on its own base on the laminate, close to the white baseboard.
+- KEEP every support that belongs to THIS gift: latex ring base, balloon pedestal, black cylinder, white platform, clear tube, and the column of banknotes. These are the PRODUCT, not furniture.
+- Do NOT delete money, bills, or the stand that holds them.
+- Remove only an unrelated photo table. If the product already has its own base, that base sits directly on the laminate. Do NOT invent extra balloons under it.`;
+    return `Edit the provided SURPRISE BALLOON photo for a square VigSharm catalog card. Change ONLY the room background and lighting — NEVER rebuild the balloon.
+
+${lock}
+
+${logoClean}
+
+${peopleClean}
+
+${pose}
+
+ROOM — same VigSharm studio as a floor composition. Use the SECOND reference: warm beige-grey wall, white baseboard, LIGHT pale-oak / light grey-beige laminate with horizontal planks.
+
+SCALE: the surprise balloon fills approximately 70–85% of frame height.
+
+${brightLight}
+
+${brightFloor}
+
+${forbidden}
+
+OUTPUT: one square 1:1 catalog photo — same surprise balloon, ${hanging ? 'hanging from the top on its ribbon, not standing on the floor' : 'standing on its own product base (money column and pedestal kept)'}, studio room only, natural catalog light.`;
+  }
+
   if (scene === 'balloon_figures') {
     return `Edit the provided balloon FIGURE / sculpture photo (скрутка «фигуры из шаров») for a square VigSharm catalog card. Change the room background/lighting AND fix posture/support as specified below.
 
@@ -1979,6 +2020,18 @@ function buildFluxPrompt(scene, opts = {}) {
   if (scene === 'arch') {
     return `Improve this balloon arch photo: brighter, cleaner, sharper, same place and same garland. Do not change any text on the sign, posters, or balloons — copy letters exactly. Do not add balloons. Square 1:1. Real photo, not CGI.`.trim();
   }
+  if (scene === 'surprise') {
+    const hanging = opts.surprise_pose === 'hang';
+    return `Edit this VigSharm surprise-balloon photo. Change only the room and lighting. Do not rebuild the product.
+
+Replace the room with the SECOND reference: warm light beige-grey wall, white baseboard, LIGHT pale-oak laminate.
+${hanging
+    ? 'The balloon HANGS from its ribbon at the top. Do not stand it on the floor. Do not add a pedestal. Keep the bow and whatever is inside.'
+    : 'The balloon STANDS on its own base near the baseboard. Keep the pedestal, money tube, and banknotes — they are the product, not furniture.'}
+Square 1:1, bright natural catalog light, soft shadow only. Real photo, not CGI.
+KEEP exactly: balloon count, colors, prints, ribbons, inscription, and the fill inside the balloon.
+Do not add balloons.`.trim();
+  }
   const walkerFloor = isWalkerOnFloor(scene, opts);
   const wallRoom = ['wall_only', 'unit_balloon', 'handheld_bouquet'].includes(scene) && !walkerFloor;
   const room = wallRoom
@@ -2012,14 +2065,21 @@ function buildRephotographAttempts(imageUrl, referenceUrl, prompt, resolution = 
   const wallOnly = ['wall_only', 'unit_balloon', 'handheld_bouquet'].includes(scene) && !isWalkerOnFloor(scene, opts);
   const wallHint = '\n\nTarget room: VigSharm studio wall from the SECOND reference — warm light beige-grey plaster, natural catalog softbox daylight (not overexposed wash). Copy reference wall tone; do NOT darken into taupe/muddy grey and do NOT blow out to pure white. NO invented mottled/smudged wall.';
   const floorHint = '\n\nTarget FLOOR from the SECOND reference — LIGHT pale oak / light grey-beige laminate matching reference brightness. Place ONLY the product CLOSE to the white baseboard (short floor strip only — not mid-room): balloons, ribbons, their weights, and a gift/surprise box if it is part of the composition. DELETE room props in place — do NOT move them with the product: vase, glass, dried flowers, pampas grass, houseplant, random floor object. Hang-tags: erase in place or keep pixel-locked on the same balloon — NEVER relocate a tag. Soft contact shadows only under the original balloon base. REMOVE any table, stolik, glass table, stool, chair, wire stand or other furniture from the source — the existing balloon base sits directly on the laminate. A printed gift box that presents the balloons is PRODUCT, not furniture — keep it. Do NOT invent new balloons under the base. FORBIDDEN: dark brown/charcoal laminate; large empty floor toward the wall; keeping a table under the product; carrying a vase/pampas/stray object into the studio; a hang-tag moved to a new spot or another balloon; any real people/models in the frame. If source has a person posing with balloons: erase them completely, keep only the balloon product. If source has a mirror/vanity: remove it; count ONLY real balloons on the floor in front of the glass — NEVER copy balloons that exist only as mirror reflections (e.g. one real heart + reflection → output one heart).';
+  const surpriseHang = scene === 'surprise' && opts?.surprise_pose === 'hang';
+  const surpriseHint = scene !== 'surprise' ? ''
+    : (surpriseHang
+      ? '\n\nSURPRISE BALLOON HANGING: same studio wall, baseboard and LIGHT laminate, but the balloon stays suspended from its ribbon at the top. Do NOT set it on the floor. Do NOT add a stand. Soft shadow on the floor only.'
+      : '\n\nSURPRISE BALLOON STANDING: same studio wall, baseboard and LIGHT laminate. Keep the product base, pedestal, money tube and banknotes. Do NOT delete them as furniture. Do NOT invent new balloons under the base.');
   const roomHint = keepBg
     ? '\n\nKeep the original background exactly. Do not use a studio wall or floor.'
-    : (wallOnly ? wallHint : (wallHint + floorHint));
+    : (scene === 'surprise'
+      ? (wallHint + surpriseHint)
+      : (wallOnly ? wallHint : (wallHint + floorHint)));
   const withRef = (input) => (keepBg ? input : { ...input, reference_image: referenceUrl });
   const attempts = [];
 
   const pushBanana = () => {
-    const bananaExtra = keepBg ? '' : (wallOnly ? '' : floorHint);
+    const bananaExtra = keepBg ? '' : (scene === 'surprise' ? surpriseHint : (wallOnly ? '' : floorHint));
     attempts.push({
       model: 'image/nano-banana-2',
       input: withRef({
@@ -2091,6 +2151,7 @@ async function handleStudioRephotograph(request, env) {
   const photozone_type = body.photozone_type === 'easel' ? 'easel' : 'frame';
   const unit_type = body.unit_type === 'walker' ? 'walker' : '';
   const bouquet_type = body.bouquet_type === 'flowers' ? 'flowers' : '';
+  const surprise_pose = body.surprise_pose === 'hang' ? 'hang' : (scene === 'surprise' ? 'stand' : '');
 
   const keepBg = scene === 'arch';
   if (!image_url || (!keepBg && !reference_url)) {
@@ -2104,8 +2165,8 @@ async function handleStudioRephotograph(request, env) {
     }
   }
 
-  const prompt = buildRephotographPrompt(scene, { photozone_type, unit_type, bouquet_type });
-  const attempts = buildRephotographAttempts(image_url, reference_url, prompt, resolution, prefer, scene, { unit_type, bouquet_type });
+  const prompt = buildRephotographPrompt(scene, { photozone_type, unit_type, bouquet_type, surprise_pose });
+  const attempts = buildRephotographAttempts(image_url, reference_url, prompt, resolution, prefer, scene, { unit_type, bouquet_type, surprise_pose });
 
   let generateResp = null;
   let usedModel = null;

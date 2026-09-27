@@ -293,6 +293,7 @@ Object.assign(app, {
     this.wirePhotozoneTypeControls?.();
     this.wireFloorTypeControls?.();
     this.wireBouquetTypeControls?.();
+    this.wireSurprisePoseControls?.();
     this.wireUnitBalloonTypeControls?.();
     this.wireOccasionShelfControls?.();
     this.syncAdvanceOrderFromScene?.();
@@ -907,6 +908,40 @@ Object.assign(app, {
     document.querySelectorAll('input[name="floor-type"], input[name="floor-type-early"]').forEach((el) => {
       el.addEventListener('change', sync);
     });
+  },
+
+  getSurprisePose() {
+    const checked = document.querySelector('input[name="surprise-pose-early"]:checked');
+    return checked?.value === 'hang' ? 'hang' : 'stand';
+  },
+
+  setSurprisePose(pose) {
+    const value = pose === 'hang' ? 'hang' : 'stand';
+    document.querySelectorAll('input[name="surprise-pose-early"]').forEach((el) => {
+      el.checked = el.value === value;
+    });
+  },
+
+  surpriseMoneyOn() {
+    return !!document.getElementById('surprise-money-early')?.checked;
+  },
+
+  setSurpriseMoney(on) {
+    const el = document.getElementById('surprise-money-early');
+    if (el) el.checked = !!on;
+  },
+
+  wireSurprisePoseControls() {
+    if (this._surprisePoseWired) return;
+    this._surprisePoseWired = true;
+    const sync = () => {
+      this.syncStudioModeHint?.();
+      this.scheduleSaveActiveStudioDraft?.();
+    };
+    document.querySelectorAll('input[name="surprise-pose-early"]').forEach((el) => {
+      el.addEventListener('change', sync);
+    });
+    document.getElementById('surprise-money-early')?.addEventListener('change', sync);
   },
 
   getBouquetType() {
@@ -1640,7 +1675,8 @@ Object.assign(app, {
     if (!unit) this.syncAdvanceOrderFromScene?.();
 
     const compText = Array.isArray(composition) ? composition.join('\n') : String(composition || '');
-    const isBox = !unit && !holidayOnly && (
+    const isSurprise = !unit && scene === 'surprise';
+    const isBox = !unit && !holidayOnly && !isSurprise && (
       category === 'Коробка-сюрприз'
       || this.compositionLooksLikeSurpriseBox?.(compText)
     );
@@ -1711,6 +1747,10 @@ Object.assign(app, {
     if (isBalloonFlowers || (scene === 'handheld_bouquet' && this.getBouquetType?.() === 'flowers')) {
       clientOptions.bouquet_type = 'flowers';
     }
+    if (scene === 'surprise') {
+      clientOptions.surprise_pose = this.getSurprisePose?.() === 'hang' ? 'hang' : 'stand';
+      if (clientOptions.surprise_pose !== 'hang' && this.surpriseMoneyOn?.()) clientOptions.surprise_money = true;
+    }
     if (unit) {
       const unitType = this.getUnitBalloonType?.() || '';
       const unitMeta = (typeof UNIT_BALLOON_TYPES !== 'undefined' && UNIT_BALLOON_TYPES[unitType]) || null;
@@ -1760,7 +1800,10 @@ Object.assign(app, {
     let finalTags = [...tags];
     const occasionShelf = !unit && !holidayOnly && !isBox && !isBouquet && !isBalloonFlowers && !isFigures
       && (typeof OCCASION_SHELVES !== 'undefined' ? OCCASION_SHELVES.includes(category) : false);
-    if (holidayOnly && !unit) {
+    if (isSurprise) {
+      category = 'Шар-сюрприз';
+      finalTags = ['Шар-сюрприз'];
+    } else if (holidayOnly && !unit) {
       category = holidayOnly;
       finalTags = [holidayOnly];
       if (isPhotozone && !finalTags.includes('Фотозона')) finalTags.push('Фотозона');
@@ -1933,6 +1976,7 @@ Object.assign(app, {
     this.wirePhotozoneTypeControls?.();
     this.wireFloorTypeControls?.();
     this.wireBouquetTypeControls?.();
+    this.wireSurprisePoseControls?.();
     this.wireUnitBalloonTypeControls?.();
     this.syncAdvanceOrderFromScene?.();
     this.syncRequiredFieldHighlights?.();
@@ -2247,6 +2291,9 @@ app.loadProductToForm = function(product) {
     || product.category === 'Цветы из шаров'
     || (product.tags || []).includes('Цветы из шаров')) ? 'flowers' : '';
   this.setBouquetType?.(bouquetTypeSaved);
+  const surprisePoseSaved = opts.surprise_pose === 'hang' ? 'hang' : 'stand';
+  this.setSurprisePose?.(surprisePoseSaved);
+  this.setSurpriseMoney?.(!!opts.surprise_money);
   this.setUnitBalloonType?.(this.inferUnitBalloonType?.(product) || '');
   this.setUnitBalloonWho?.(this.inferUnitBalloonWho?.(product) || '');
   const holidayList = (typeof UNIT_HOLIDAYS !== 'undefined' && UNIT_HOLIDAYS) || [];

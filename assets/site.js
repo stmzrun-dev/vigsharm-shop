@@ -174,6 +174,17 @@
     }
     if (isFlowerBouquet) inscriptionOn = false;
 
+    var isSurprise = p.scene === 'surprise'
+      || p.category === 'Шар-сюрприз'
+      || (Array.isArray(p.tags) && p.tags.indexOf('Шар-сюрприз') >= 0);
+    if (isSurprise) {
+      p.is_surprise = true;
+      p.surprise_pose = opts.surprise_pose === 'hang' ? 'hang' : 'stand';
+      p.surprise_money = !!(opts.surprise_money || opts.surprise_bills);
+      p.surprise_options = p.surprise_pose !== 'hang';
+      inscriptionOn = false;
+    }
+
     // «1 цифра» / «2 цифры» в составе (любая сцена) → выбор цифры
     var compDigits = vigCompositionDigitCount(p.composition);
     if (!digitOn && compDigits > 0) {

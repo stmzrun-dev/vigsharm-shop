@@ -691,6 +691,53 @@
 .product-page.is-bubble-card .order-classic-flow .bubble-options{
   display:none!important;
 }
+@media (min-width:1021px){
+  .product-page .product-flower-qty .config-title{
+    display:flex!important;
+    align-items:center!important;
+    justify-content:space-between!important;
+    gap:16px!important;
+    padding:4px 0!important;
+  }
+  .product-page .product-flower-qty .config-title > div:first-child{
+    display:flex;
+    flex-direction:column;
+    gap:2px;
+    min-width:0;
+  }
+  .product-page .product-flower-qty .qty-stepper{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    flex:none;
+  }
+  .product-page .product-flower-qty .qty-stepper button{
+    flex:0 0 44px;
+    width:44px;
+    height:44px;
+    border:1.5px solid #ebe6e3;
+    border-radius:14px;
+    background:#fff;
+    color:#2b2b30;
+    font:inherit;
+    font-size:22px;
+    line-height:1;
+    cursor:pointer;
+  }
+  .product-page .product-flower-qty .qty-stepper input{
+    width:64px;
+    height:44px;
+    border:1.5px solid #ebe6e3;
+    border-radius:14px;
+    padding:0;
+    font:inherit;
+    font-size:16px;
+    font-weight:700;
+    text-align:center;
+    background:#fff;
+    box-sizing:border-box;
+  }
+}
 .flower-qty-sum{
   display:flex;
   align-items:baseline;

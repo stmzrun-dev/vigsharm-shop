@@ -186,10 +186,19 @@
     return '';
   }
 
+  function unitSectionOn() {
+    var on = document.querySelector('.catalog-group-nav [data-group].is-on');
+    if (!on) return false;
+    var id = on.getAttribute('data-group');
+    if (id === 'unit' || id === 'holidays') return true;
+    if (id === 'characters') return !!new URLSearchParams(window.location.search).get('character');
+    return false;
+  }
+
   function paintBar() {
     var items = load();
     var bar = document.getElementById('unit-list-bar');
-    if (!items.length) {
+    if (!items.length || !unitSectionOn()) {
       if (bar) bar.remove();
       return;
     }
@@ -225,7 +234,7 @@
     document.querySelectorAll('[data-unit-step]').forEach(function (el) {
       var id = el.getAttribute('data-id') || '';
       var q = qtyOf(id);
-      var pack = ' data-id="' + esc(id) + '" data-slug="' + esc(el.getAttribute('data-slug') || '') + '" data-title="' + esc(el.getAttribute('data-title') || '') + '" data-sku="' + esc(el.getAttribute('data-sku') || '') + '" data-price="' + esc(el.getAttribute('data-price') || '0') + '" data-meter="' + esc(el.getAttribute('data-meter') || '0') + '" data-thumb="' + esc(el.getAttribute('data-thumb') || '') + '"';
+      var pack = ' data-id="' + esc(id) + '" data-slug="' + esc(el.getAttribute('data-slug') || '') + '" data-title="' + esc(el.getAttribute('data-title') || '') + '" data-sku="' + esc(el.getAttribute('data-sku') || '') + '" data-price="' + esc(el.getAttribute('data-price') || '0') + '" data-meter="' + esc(el.getAttribute('data-meter') || '0') + '" data-fill="' + esc(el.getAttribute('data-fill') || '') + '" data-thumb="' + esc(el.getAttribute('data-thumb') || '') + '"';
       var digitCard = el.getAttribute('data-digit') === '1';
       var bubbleCard = el.getAttribute('data-bubble') === '1';
       var picked = null;
@@ -305,6 +314,12 @@
       var unit = it.perMeter ? 'м' : 'шт.';
       var thumb = it.thumb ? '<img class="unit-list-thumb" src="' + esc(it.thumb) + '" alt=""/>' : '<span class="unit-list-thumb"></span>';
       var which = it.digit ? ('<small>' + esc(it.digit2 ? ('цифры ' + it.digit + ' и ' + it.digit2 + ' · +900 ₽') : ('цифра ' + it.digit)) + '</small>') : '';
+      if (it.inscription) {
+        var bits = ['«' + it.inscription + '»'];
+        if (it.ink) bits.push(it.ink);
+        if (it.fill) bits.push(it.fill);
+        which += '<small>' + esc(bits.join(' · ')) + '</small>';
+      }
       return '<div class="unit-list-row">' + thumb + '<div><strong>' + esc(it.title) + '</strong>' + which + '<small>' +
         money(it.price) + ' × ' + it.qty + ' ' + unit + ' = ' + money(lineTotal(it)) + '</small></div>' +
         (it.digit
@@ -639,6 +654,98 @@
       .catch(function () {});
   }
 
+  var BUBBLE_FOAM = ['мятный', 'розовый', 'белый', 'золотой', 'голубой', 'оранжевый', 'ассорти', 'красный', 'жёлтый'];
+  var BUBBLE_INK = ['жёлтый', 'серебро', 'красный', 'зелёный', 'розовый', 'голубой', 'малиновый', 'фиолетовый', 'синий', 'оранжевый', 'белый', 'чёрный', 'золото'];
+  var BUBBLE_BITS = ['золото', 'серебро', 'синий', 'красный', 'розовый', 'голубой', 'зелёный', 'фиолетовый', 'малиновый', 'чёрный', 'ассорти'];
+  function bubbleSwatch(name) {
+    var map = {
+      'мятный': '#7dcea0', 'розовый': '#f4a4c0', 'белый': '#f4f4f4', 'золотой': '#d4af37', 'золото': '#d4af37',
+      'голубой': '#7ec8e3', 'оранжевый': '#f5a142', 'красный': '#e24b4b', 'жёлтый': '#f2d04b', 'желтый': '#f2d04b',
+      'серебро': '#c5ccd4', 'зелёный': '#3dae6a', 'зеленый': '#3dae6a', 'малиновый': '#c2185b',
+      'фиолетовый': '#8e5bd6', 'синий': '#2f6fed', 'чёрный': '#222', 'черный': '#222'
+    };
+    return map[String(name || '').toLowerCase()] || '#ddd';
+  }
+  function bubbleFillTitle(kind) {
+    if (kind === 'foam') return 'Цвет пенопласта';
+    if (kind === 'confetti') return 'Цвет конфетти';
+    if (kind === 'feathers') return 'Цвет перьев';
+    if (kind === 'balls') return 'Цвет шариков';
+    return '';
+  }
+  function bubbleFillWord(kind) {
+    if (kind === 'foam') return 'пенопласт';
+    if (kind === 'confetti') return 'конфетти';
+    if (kind === 'feathers') return 'перья';
+    if (kind === 'balls') return 'шарики';
+    return '';
+  }
+  function pickBubble(item) {
+    var old = document.querySelector('.unit-digit-pop');
+    if (old) old.remove();
+    var kind = item.fillKind || '';
+    var names = kind === 'foam' ? BUBBLE_FOAM : (kind ? BUBBLE_BITS : []);
+    var ink = '';
+    var fill = '';
+    var text = '';
+    var pop = document.createElement('div');
+    pop.className = 'unit-digit-pop';
+    function dots(list, selected, attr) {
+      return list.map(function (name) {
+        var on = selected === name;
+        var sw = name === 'ассорти'
+          ? '<i class="bubble-swatch is-mix" aria-hidden="true"></i>'
+          : '<i class="bubble-swatch" style="background:' + bubbleSwatch(name) + '" aria-hidden="true"></i>';
+        return '<button type="button" data-' + attr + '="' + esc(name) + '"' + (on ? ' class="selected"' : '') + ' aria-label="' + esc(name) + '">' + sw + '</button>';
+      }).join('');
+    }
+    function draw(focusIns) {
+      var fillTitle = bubbleFillTitle(kind);
+      var missing = !text.trim() ? 'Напишите надпись' : (!ink ? 'Выберите цвет надписи' : (kind && !fill ? fillTitle : ''));
+      pop.innerHTML = '<div class="unit-digit-sheet unit-bubble-sheet" role="dialog" aria-label="Надпись на шаре">' +
+        '<p>' + esc(item.title || 'Шар') + '</p>' +
+        (fillTitle ? '<fieldset class="bubble-colors"><legend>' + esc(fillTitle) + '</legend><div class="bubble-color-row">' + dots(names, fill, 'fill') + '</div></fieldset>' : '') +
+        '<fieldset class="bubble-colors"><legend>Цвет надписи</legend><div class="bubble-color-row">' + dots(BUBBLE_INK, ink, 'ink') + '</div></fieldset>' +
+        '<label>Надпись<input maxlength="60" data-ins="1" placeholder="С Днём рождения!" value="' + esc(text) + '"/></label>' +
+        '<button type="button" class="button button-primary unit-bubble-go"' + (missing ? ' disabled' : '') + ' data-ok="1">В набор</button>' +
+        '<button type="button" class="unit-digit-cancel" data-x="1">Отмена</button></div>';
+      var input = pop.querySelector('[data-ins]');
+      if (input) input.addEventListener('input', function () {
+        text = input.value;
+        var go = pop.querySelector('[data-ok]');
+        if (go) go.disabled = !text.trim() || !ink || !!(kind && !fill);
+      });
+      if (focusIns && input) {
+        input.focus();
+        var pos = input.value.length;
+        try { input.setSelectionRange(pos, pos); } catch (e2) {}
+      }
+    }
+    pop.addEventListener('click', function (e) {
+      var t = e.target && e.target.closest ? e.target.closest('button') : null;
+      if (e.target === pop) { pop.remove(); return; }
+      if (!t) return;
+      if (t.getAttribute('data-x') === '1') { pop.remove(); return; }
+      var live = pop.querySelector('[data-ins]');
+      if (live) text = live.value;
+      if (t.getAttribute('data-ink')) { ink = t.getAttribute('data-ink'); draw(false); return; }
+      if (t.getAttribute('data-fill')) { fill = t.getAttribute('data-fill'); draw(false); return; }
+      if (t.getAttribute('data-ok') === '1') {
+        if (!text.trim() || !ink || (kind && !fill)) return;
+        pop.remove();
+        add(Object.assign({}, item, {
+          qty: 1,
+          inscription: text.trim(),
+          ink: ink,
+          fill: fill,
+          fillLabel: bubbleFillWord(kind)
+        }));
+      }
+    });
+    draw(true);
+    document.body.appendChild(pop);
+  }
+
   function pickDigits(item) {
     var old = document.querySelector('.unit-digit-pop');
     if (old) old.remove();
@@ -704,7 +811,7 @@
     e.stopPropagation();
     change(dec.getAttribute('data-id'), -1);
   });
-  window.vigUnitList = { add: add, change: change, pickDigits: pickDigits, mount: function () { paintBar(); paintSteps(); } };
+  window.vigUnitList = { add: add, change: change, pickDigits: pickDigits, pickBubble: pickBubble, mount: function () { paintBar(); paintSteps(); } };
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function () { paintBar(); paintSteps(); loadDelivery(); });
   else { paintBar(); paintSteps(); loadDelivery(); }
 })();

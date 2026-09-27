@@ -1099,10 +1099,11 @@
       '<div class="order-classic-flow">' +
       paramsDetails +
       (isFlowerBouquet() ? (
-      '<section class="product-configurator product-step is-open"><header class="config-title"><div><strong>Количество</strong><small>' + qty + ' ' + flowerCountWord(qty) + '</small></div></header><div class="product-step-content">' +
+      '<section class="product-configurator product-step is-open product-flower-qty"><header class="config-title"><div><strong>Количество</strong><small>' + qty + ' ' + flowerCountWord(qty) + '</small></div>' +
       qtyStepperHtml() +
+      '</header>' +
       (flowerSumHtml() ? '<p class="flower-qty-sum">' + flowerSumHtml() + '</p>' : '') +
-      '</div></section>') : '') +
+      '</section>') : '') +
       (isUnit() ? '' : (
       '<section class="order-details product-step is-open" id="product-step-date" data-details="date">' +
       '<header class="config-title"><div><strong>' + (stepNum ? stepNum + '. ' : '') + 'Дата и получение</strong><small>' + esc(fulfillmentTitle()) + '</small></div></header>' +

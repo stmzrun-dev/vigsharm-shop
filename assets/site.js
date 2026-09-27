@@ -131,6 +131,9 @@
       || p.category === 'Букет из шаров'
       || p.category === 'Крафтовый букет'
       || p.category === 'Цветы из шаров';
+    var isFlowerBouquet = opts.bouquet_type === 'flowers'
+      || p.category === 'Цветы из шаров'
+      || (Array.isArray(p.tags) && p.tags.indexOf('Цветы из шаров') >= 0);
     var isPhotozone = p.scene === 'photozone' || p.category === 'Фотозона';
     var isFloor = p.scene === 'floor' || p.category === 'Напольные композиции';
     var isFigures = p.scene === 'balloon_figures' || p.category === 'Фигуры из шаров';
@@ -161,14 +164,15 @@
       }
       if (pzType === 'easel' && !inscriptionOn) inscriptionOn = true;
     }
-    // Букеты без явного флага — персональная надпись
-    if (!inscriptionOn && isBouquet) {
+    // Обычные букеты без явного флага — персональная надпись. Цветы из шаров — нет.
+    if (!inscriptionOn && isBouquet && !isFlowerBouquet) {
       inscriptionOn = true;
     }
     // В составе «коробка» / «… с надписью» / «с индивидуальной надписью»
-    if (!inscriptionOn && /надпис|индивидуальн|коробк/i.test(compJoined)) {
+    if (!inscriptionOn && !isFlowerBouquet && /надпис|индивидуальн|коробк/i.test(compJoined)) {
       inscriptionOn = true;
     }
+    if (isFlowerBouquet) inscriptionOn = false;
 
     // «1 цифра» / «2 цифры» в составе (любая сцена) → выбор цифры
     var compDigits = vigCompositionDigitCount(p.composition);

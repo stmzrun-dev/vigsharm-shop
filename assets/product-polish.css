@@ -683,6 +683,29 @@
 /* ===== Client order form (phone + tablet ≤1020) — no stories overlay ===== */
 .order-story{display:none!important}
 .client-order{display:none}
+.product-page.is-bubble-card .client-order{
+  display:block;
+  margin-top:14px;
+}
+.product-page.is-bubble-card .order-classic-flow .inscription-field,
+.product-page.is-bubble-card .order-classic-flow .bubble-options{
+  display:none!important;
+}
+.flower-qty-sum{
+  display:flex;
+  align-items:baseline;
+  gap:8px;
+  margin:8px 0 0;
+}
+.flower-qty-sum strong{
+  font-size:18px;
+  font-weight:800;
+}
+.flower-qty-sum small{
+  font-size:14px;
+  font-weight:700;
+  color:#c2650f;
+}
 
 @media (max-width:1020px){
   .product-page.is-mobile-flow .order-classic-flow{
@@ -1176,8 +1199,19 @@
 
 .bubble-colors{
   border:0;
-  margin:14px 0 0;
+  margin:0 0 14px;
   padding:0;
+}
+.bubble-ins{
+  display:block;
+  margin-top:4px;
+}
+.bubble-ins .client-digit-label{
+  display:block;
+  margin:0 0 8px;
+  font-size:16px;
+  font-weight:700;
+  color:#2a2a32;
 }
 .bubble-colors legend{
   font-weight:700;
@@ -1189,27 +1223,25 @@
   gap:8px;
 }
 .bubble-color-row button{
-  display:flex;
-  align-items:center;
-  gap:6px;
-  border:1px solid rgba(20,16,12,.12);
-  background:#fff;
-  border-radius:999px;
-  padding:6px 10px 6px 6px;
-  font:inherit;
+  display:grid;
+  place-items:center;
+  width:40px;
+  height:40px;
+  padding:0;
+  border:2px solid transparent;
+  background:transparent;
+  border-radius:50%;
   cursor:pointer;
 }
 .bubble-color-row button.selected{
   border-color:#e24b4b;
-  box-shadow:0 0 0 1px #e24b4b;
 }
 .bubble-swatch{
-  width:18px;
-  height:18px;
+  width:28px;
+  height:28px;
   border-radius:50%;
   border:1px solid rgba(20,16,12,.18);
   display:block;
-  flex:none;
 }
 .bubble-swatch.is-mix{
   background:conic-gradient(#e24b4b,#f2d04b,#3dae6a,#2f6fed,#8e5bd6,#e24b4b);

@@ -123,6 +123,12 @@
     var opts = p.client_options || {};
     return opts.unit_type === 'digit' || p.category === 'Фольгированные цифры' || (p.tags || []).indexOf('Фольгированные цифры') >= 0;
   }
+  /** Праздничная / «Цифра …»: число уже на фото, в набор идёт одна штука. */
+  function isPrintedDigit() {
+    if (!isDigitUnit()) return false;
+    var opts = p.client_options || {};
+    return !!String(opts.unit_holiday || '').trim() || /^цифра\s/i.test(String(p.title || '').trim());
+  }
   function isPerMeter() { return !!(p && (p.tags || []).indexOf('Цена за метр') >= 0); }
   function isBubbleUnit() {
     if (!p) return false;
@@ -131,7 +137,8 @@
     return opts.unit_type === 'bubble' || p.category === 'Шары Bubble' || tags.indexOf('Шары Bubble') >= 0;
   }
   function bubbleFillKind() {
-    var t = String((p && p.composition) || '').toLowerCase().replace(/ё/g, 'е');
+    var t = [p && p.title, p && p.short_description, p && p.composition].join(' ')
+      .toLowerCase().replace(/ё/g, 'е');
     if (/пенопласт|крупин/.test(t)) return 'foam';
     if (/конфетти/.test(t)) return 'confetti';
     if (/перь/.test(t)) return 'feathers';
@@ -151,15 +158,16 @@
     return map[String(name || '').toLowerCase()] || '#ddd';
   }
   function bubbleColorRow(title, names, selected, act) {
-    return '<fieldset class="bubble-colors"><legend>' + esc(title) + '</legend><div class="bubble-color-row">' +
+    var legend = title + ' · ' + (selected || 'выберите');
+    return '<fieldset class="bubble-colors"><legend>' + esc(legend) + '</legend><div class="bubble-color-row">' +
       names.map(function (name) {
         var on = selected === name;
         var mix = name === 'ассорти';
         var sw = mix
           ? '<i class="bubble-swatch is-mix" aria-hidden="true"></i>'
           : '<i class="bubble-swatch" style="background:' + bubbleSwatchColor(name) + '" aria-hidden="true"></i>';
-        return '<button type="button" class="' + (on ? 'selected' : '') + '" data-act="' + act + '" data-v="' + esc(name) + '" aria-pressed="' + on + '">' +
-          sw + '<span>' + esc(name) + '</span></button>';
+        return '<button type="button" class="' + (on ? 'selected' : '') + '" data-act="' + act + '" data-v="' + esc(name) + '" aria-label="' + esc(name) + '" aria-pressed="' + on + '">' +
+          sw + '</button>';
       }).join('') + '</div></fieldset>';
   }
   function bubbleOptionsHtml() {
@@ -185,7 +193,29 @@
     if (n >= 1 && n <= 100) return n;
     return 1;
   }
-  function pricedByCount() { return isUnit() || isFlowerBouquet(); }
+  /** Прайс на один цветок сверх состава на фото (или меньше него). */
+  var FLOWER_UNIT_RUB = 90;
+  function flowerDelta() { return qty - flowerBaseQty(); }
+  function flowerGoodsPrice() {
+    var base = Number(p && p.price) || 0;
+    return Math.max(0, base + flowerDelta() * FLOWER_UNIT_RUB);
+  }
+  function flowerCountWord(n) {
+    var abs = Math.abs(Number(n) || 0);
+    var n10 = abs % 10;
+    var n100 = abs % 100;
+    if (n10 === 1 && n100 !== 11) return 'цветок';
+    if (n10 >= 2 && n10 <= 4 && (n100 < 12 || n100 > 14)) return 'цветка';
+    return 'цветков';
+  }
+  function flowerSumHtml() {
+    var d = flowerDelta();
+    if (!d) return '';
+    var rub = function (n) { return Number(n).toLocaleString('ru-RU') + ' ₽'; };
+    var adj = Math.abs(d) * FLOWER_UNIT_RUB;
+    return '<strong>' + rub(flowerGoodsPrice()) + '</strong><small>' + (d > 0 ? '+' : '−') + rub(adj) + '</small>';
+  }
+  function pricedByCount() { return isUnit(); }
   function priceFrom() { return !!(p && (p.tags || []).indexOf('Цена от') >= 0); }
   function hasParams() { return !!(p && (p.has_digit_choice || p.has_inscription || p.has_rental || isUnit())); }
   function digitBase() { return p && p.has_digit_choice ? (p.digit_count_on_photo || 0) : 0; }
@@ -212,7 +242,11 @@
     var a = String(address || '').trim();
     return a.length >= 5;
   }
-  function inscriptionOk() { return !(p && p.has_inscription) || !!String(inscription || '').trim(); }
+  function wantsInscription() {
+    if (!p || isFlowerBouquet()) return false;
+    return !!(p.has_inscription || isBubbleUnit());
+  }
+  function inscriptionOk() { return !wantsInscription() || !!String(inscription || '').trim(); }
   function whenOk() { return !!(orderDate && orderTime); }
   /** Formats phone as +7 XXX XXX-XX-XX, auto-inserts +7, caps at 10 digits after 7. */
   function sanitizePhoneInput(raw) {
@@ -267,7 +301,7 @@
       if (effDigits() >= 2) steps.push('digit2');
     }
     if (isUnit() && !isDigitUnit()) steps.push('qty');
-    if (p && p.has_inscription) steps.push('inscription');
+    if (wantsInscription()) steps.push('inscription');
     if (!isUnit()) {
       steps.push('fulfill');
       if (fulfillment && fulfillment !== 'pickup') steps.push('address');
@@ -313,7 +347,7 @@
     return kind === 'short' ? 'Оформить заказ' : 'Оформить заказ';
   }
   function digitDeltaPrice() { return effDelta() * 900; }
-  function inscriptionPrice() { return (p && p.has_inscription && inscription.trim()) ? (p.inscription_price || 0) : 0; }
+  function inscriptionPrice() { return (wantsInscription() && inscription.trim()) ? (p.inscription_price || 0) : 0; }
   var cityDelivery = 200;
 
   function cityRub() {
@@ -343,7 +377,12 @@
   }
 
   function deliveryPrice() { return fulfillment === 'armavir' ? cityDelivery : 0; }
-  function total() { return (p ? p.price : 0) * (pricedByCount() ? qty : 1) + digitDeltaPrice() + inscriptionPrice() + deliveryPrice(); }
+  function goodsPrice() {
+    if (!p) return 0;
+    if (isFlowerBouquet()) return flowerGoodsPrice();
+    return Number(p.price) * (pricedByCount() ? qty : 1);
+  }
+  function total() { return goodsPrice() + digitDeltaPrice() + inscriptionPrice() + deliveryPrice(); }
 
   function mainImageKey() {
     var keys = (p && p.image_keys) || [];
@@ -377,7 +416,7 @@
     var parts = [];
     if (isUnit()) parts.push(isPerMeter() ? 'длина' : 'количество');
     if (p.has_digit_choice) parts.push('цифры');
-    if (p.has_inscription) parts.push('надпись');
+    if (wantsInscription()) parts.push('надпись');
     if (p.has_rental) parts.push('условия аренды');
     if (!parts.length) return 'Доступные варианты';
     var s = parts.join(', ');
@@ -587,9 +626,9 @@
 
   /** Progressive mobile form: only current + completed steps are visible. */
   function clientStepVisible(id) {
-    if (id === 'client-qty') return (isUnit() && (!isDigitUnit() || !p.has_digit_choice)) || isFlowerBouquet();
+    if (id === 'client-qty') return (isUnit() && !isBubbleUnit() && !isPrintedDigit() && (!isDigitUnit() || !p.has_digit_choice)) || isFlowerBouquet();
     if (id === 'client-digits') return !!(p && p.has_digit_choice);
-    if (id === 'client-ins') return (!!(p && p.has_inscription) || isBubbleUnit()) && digitsOk();
+    if (id === 'client-ins') return wantsInscription() && digitsOk();
     if (id === 'client-rental') return !!(p && p.has_rental) && digitsOk();
     if (isUnit() && (id === 'client-ful' || id === 'client-addr' || id === 'client-when' || id === 'client-contact')) return false;
     if (id === 'client-ful') return digitsOk();
@@ -600,7 +639,7 @@
   }
 
   function clientOrderHtml() {
-    if (!useMobileFlow()) return '';
+    if (!useMobileFlow() && !isBubbleUnit()) return '';
     var H = effDelta();
     var B = canAdd();
     var U = effDigits();
@@ -608,12 +647,16 @@
     var next = clientNextId();
     var html = '<div class="client-order">';
 
-    if (clientStepVisible('client-qty')) {
+    if (isPrintedDigit()) {
+      html += '<section class="client-block" id="client-qty">' +
+        '<button type="button" class="button product-unit-add" data-act="unit-add">В набор</button>' +
+        '</section>';
+    } else if (clientStepVisible('client-qty')) {
       html += '<section class="client-block" id="client-qty">' +
         '<h3 class="client-block-title">' + (isPerMeter() ? 'Длина' : 'Количество') + '</h3>' +
         qtyStepperHtml() +
         (isFlowerBouquet()
-          ? '<p class="flower-qty-sum">' + qty + ' × ' + Number(p.price).toLocaleString('ru-RU') + ' ₽ = <strong>' + (qty * Number(p.price)).toLocaleString('ru-RU') + ' ₽</strong></p>'
+          ? (flowerSumHtml() ? '<p class="flower-qty-sum">' + flowerSumHtml() + '</p>' : '')
           : '<button type="button" class="button product-unit-add" data-act="unit-add">В набор</button>') +
         '</section>';
     }
@@ -642,14 +685,23 @@
     }
 
     if (clientStepVisible('client-ins')) {
-      html += '<section class="client-block' + (next === 'client-ins' ? ' is-next' : inscriptionOk() ? ' is-done' : '') + '" id="client-ins">' +
-        '<h3 class="client-block-title">Надпись на шаре</h3>' +
-        '<div class="ins-balloon' + (inscriptionOk() ? ' is-filled' : '') + '">' +
-        '<img src="icons/ins-balloon.webp?v=1" alt="" width="160" height="160"/>' +
-        '<span class="ins-balloon-text">' + esc(String(inscription || '').trim() || 'С Днём рождения!') + '</span></div>' +
-        '<label class="client-ins' + (inscriptionOk() ? ' is-filled' : '') + '">' +
-        '<input value="' + esc(inscription) + '" maxlength="60" data-act="inscription" placeholder="С Днём рождения!" inputmode="text" autocomplete="off"/>' +
-        '</label>' + bubbleOptionsHtml() + '</section>';
+      if (isBubbleUnit()) {
+        html += '<section class="client-block" id="client-ins">' +
+          bubbleOptionsHtml() +
+          '<label class="client-ins bubble-ins' + (inscriptionOk() ? ' is-filled' : '') + '">' +
+          '<span class="client-digit-label">Надпись</span>' +
+          '<input value="' + esc(inscription) + '" maxlength="60" data-act="inscription" placeholder="С Днём рождения!" inputmode="text" autocomplete="off"/>' +
+          '</label></section>';
+      } else {
+        html += '<section class="client-block' + (next === 'client-ins' ? ' is-next' : inscriptionOk() ? ' is-done' : '') + '" id="client-ins">' +
+          '<h3 class="client-block-title">Надпись на шаре</h3>' +
+          '<div class="ins-balloon' + (inscriptionOk() ? ' is-filled' : '') + '">' +
+          '<img src="icons/ins-balloon.webp?v=1" alt="" width="160" height="160"/>' +
+          '<span class="ins-balloon-text">' + esc(String(inscription || '').trim() || 'С Днём рождения!') + '</span></div>' +
+          '<label class="client-ins' + (inscriptionOk() ? ' is-filled' : '') + '">' +
+          '<input value="' + esc(inscription) + '" maxlength="60" data-act="inscription" placeholder="С Днём рождения!" inputmode="text" autocomplete="off"/>' +
+          '</label></section>';
+      }
     }
 
     if (clientStepVisible('client-rental')) {
@@ -717,8 +769,15 @@
       if (canRemove()) lines.push('Вторая цифра: ' + (effDelta() === -1 ? 'убрать (-900 ₽)' : 'оставить как на фото'));
     }
     if (isPerMeter()) lines.push('Длина: ' + qty + ' м');
-    else if (isUnit() || isFlowerBouquet()) lines.push('Количество: ' + qty + ' шт.' + (isFlowerBouquet() ? ' × ' + Number(p.price).toLocaleString('ru-RU') + ' ₽' : ''));
-    if (p.has_inscription) {
+    else if (isUnit()) lines.push('Количество: ' + qty + ' шт.');
+    else if (isFlowerBouquet()) {
+      var fd = flowerDelta();
+      var flowerNote = !fd
+        ? 'как на фото'
+        : ((fd > 0 ? '+' : '−') + (Math.abs(fd) * FLOWER_UNIT_RUB).toLocaleString('ru-RU') + ' ₽');
+      lines.push('Цветов: ' + qty + ' (' + flowerNote + ')');
+    }
+    if (wantsInscription()) {
       var t = (p.inscription_price || 0) > 0 ? ' (+' + p.inscription_price + ' ₽)' : ' (входит в стоимость)';
       lines.push('Надпись: ' + (inscription.trim() ? inscription.trim() + t : 'не указана'));
     }
@@ -923,7 +982,7 @@
     var paramsDetails = '';
     if (isUnit() || p.has_digit_choice) {
       var inner = '';
-      if (isUnit() && !isDigitUnit()) {
+      if (isUnit() && !isDigitUnit() && !isBubbleUnit()) {
         inner += '<div class="config-input"><span>' + (isPerMeter() ? 'Длина арки' : 'Количество') + '</span>' +
           qtyStepperHtml() + '</div>';
       }
@@ -951,7 +1010,7 @@
 
     var fulfilled = fulfillment;
     var extraOrderFields = '';
-    if (p.has_inscription) {
+    if (wantsInscription()) {
       extraOrderFields += '<label class="config-input inscription-field"><span>Надпись на шаре</span>' +
         '<input value="' + esc(inscription) + '" maxlength="60" required aria-required="true" data-act="inscription" placeholder="Например: С Днём рождения!"/></label>';
     }
@@ -985,7 +1044,7 @@
     var ready = isOrderReady();
     var orderBtn = orderCta('full');
     var mobileFlowOn = useMobileFlow();
-    var pageClass = 'product-page' + (mobileFlowOn ? ' is-mobile-flow is-client-order' : '') + (mobileFlowOn && ready ? ' is-order-ready' : '');
+    var pageClass = 'product-page' + (mobileFlowOn ? ' is-mobile-flow is-client-order' : '') + (isBubbleUnit() ? ' is-bubble-card' : '') + (mobileFlowOn && ready ? ' is-order-ready' : '');
 
     var desc = String(p.description || '').trim();
     var compItems = String(p.composition || '').split(/\n+/).map(function (s) { return s.trim(); }).filter(Boolean);
@@ -1031,7 +1090,7 @@
         var size = String(opts.balloon_size || '').trim();
         return size ? '<p class="product-balloon-size">Размер: ' + esc(size) + '</p>' : '';
       })() +
-      '<div class="product-base-price"><small>' + (isFlowerBouquet() || (isUnit() && !isPerMeter()) ? 'Цена за штуку' : isPerMeter() ? 'Цена за метр' : 'Цена за композицию') + '</small><strong>' + (priceFrom() ? 'от ' : '') + Number(p.price).toLocaleString('ru-RU') + ' ₽</strong></div>' +
+      '<div class="product-base-price"><small>' + (isFlowerBouquet() ? 'Цена букета' : (isUnit() && !isPerMeter()) ? 'Цена за штуку' : isPerMeter() ? 'Цена за метр' : 'Цена за композицию') + '</small><strong>' + (priceFrom() ? 'от ' : '') + Number(p.price).toLocaleString('ru-RU') + ' ₽</strong></div>' +
       (leadText
         ? '<div class="product-lead"><p>' + esc(leadText) + '</p></div>'
         : '') +
@@ -1040,9 +1099,10 @@
       '<div class="order-classic-flow">' +
       paramsDetails +
       (isFlowerBouquet() ? (
-      '<section class="product-configurator product-step is-open"><header class="config-title"><div><strong>Количество</strong><small>' + qty + ' × ' + Number(p.price).toLocaleString('ru-RU') + ' ₽</small></div></header><div class="product-step-content">' +
+      '<section class="product-configurator product-step is-open"><header class="config-title"><div><strong>Количество</strong><small>' + qty + ' ' + flowerCountWord(qty) + '</small></div></header><div class="product-step-content">' +
       qtyStepperHtml() +
-      '<p class="flower-qty-sum">Итого за цветы: <strong>' + (qty * Number(p.price)).toLocaleString('ru-RU') + ' ₽</strong></p></div></section>') : '') +
+      (flowerSumHtml() ? '<p class="flower-qty-sum">' + flowerSumHtml() + '</p>' : '') +
+      '</div></section>') : '') +
       (isUnit() ? '' : (
       '<section class="order-details product-step is-open" id="product-step-date" data-details="date">' +
       '<header class="config-title"><div><strong>' + (stepNum ? stepNum + '. ' : '') + 'Дата и получение</strong><small>' + esc(fulfillmentTitle()) + '</small></div></header>' +
@@ -1535,7 +1595,7 @@
           window.vigUnitList.add({
             id: p.id, slug: p.slug || slug, title: p.title, sku: p.sku,
             price: p.price,
-            qty: (isDigitUnit() && p.has_digit_choice) ? 1 : qty,
+            qty: (isBubbleUnit() || (isDigitUnit() && (p.has_digit_choice || isPrintedDigit()))) ? 1 : qty,
             perMeter: isPerMeter(),
             digit: isDigitUnit() ? digit : '',
             digit2: isDigitUnit() && effDigits() >= 2 ? digit2 : '',
@@ -1981,6 +2041,7 @@
         if (allProducts.indexOf(pack.found) < 0) allProducts.push(pack.found);
         p = pack.found;
         loadDraft();
+        if (isPrintedDigit() || isBubbleUnit()) qty = 1;
         if (isFlowerBouquet() && !draftRestored) qty = flowerBaseQty();
         pushRecent();
         render();

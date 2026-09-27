@@ -408,8 +408,6 @@
       var searched = terms.length > 0;
       var audienceOnly = group === 'ready' && category === 'Все товары' && !searched;
       var hideIdea = audienceOnly && !!p.category && AUDIENCE.indexOf(p.category) < 0;
-      var onUnitShelf = UNIT_COLLECTIONS.indexOf(p.category) >= 0 || tagsOf(p).some(function (t) { return UNIT_COLLECTIONS.indexOf(t) >= 0; });
-      var excludedUnitRoot = group === 'unit' && category === 'Все товары' && terms.length === 0 && priceIdx === 0 && !age && onUnitShelf;
       var inG = searched || (group === 'all' ? !inGroup(p, 'unit') : inGroup(p, group));
       var hay = norm([p.title, p.sku, p.short_description, p.description, p.composition, p.category, p.character_name, p.age_group].concat(p.tags || []).filter(Boolean).join(' '));
       var matchQ = terms.every(function (t) { return hay.indexOf(t) >= 0; });
@@ -418,7 +416,7 @@
       var matchF = !filter || p.category === filter || (p.tags || []).indexOf(filter) >= 0;
       var matchCh = !character || characterMatches(p, character);
       var matchA = !age || p.age_group === age;
-      return !excludedUnitRoot && !hideIdea && inG && matchQ && matchC && matchP && matchF && matchCh && matchA;
+      return !hideIdea && inG && matchQ && matchC && matchP && matchF && matchCh && matchA;
     });
     if (sortMode === 'price-asc' || sortMode === 'price-desc') {
       var dir = sortMode === 'price-asc' ? 1 : -1;

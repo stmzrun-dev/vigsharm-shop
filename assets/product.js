@@ -326,7 +326,7 @@
 
   function loadDeliverySettings() {
     var api = (window.VIG_API || 'https://vigsharm-api.vigsharm.workers.dev') + '/api/delivery';
-    return fetch('data/delivery.json', { cache: 'no-store' })
+    return fetch((window.vigSameOrigin ? window.vigSameOrigin('data/delivery.json') : 'data/delivery.json'), { cache: 'no-store' })
       .then(function (r) { if (!r.ok) throw new Error('x'); return r.json(); })
       .catch(function () {
         return fetch(api, { cache: 'no-store' }).then(function (r) {

@@ -12,8 +12,10 @@
   window.VIG_API = 'https://api.vigsharm.ru';
   // Карточка на vigsharm.ru получает <base> на GitHub Pages. Относительный
   // data/products.json тогда уезжает не в тот снимок, что каталог. Берём origin страницы.
+  // Карточка на vigsharm.ru получает <base> на github.io. Снимок надо брать
+  // с адреса страницы (vigsharm.ru): github.io из РФ часто не открывается.
   window.vigSameOrigin = function (path) {
-    try { return new URL(path, document.baseURI || window.location.href).href; }
+    try { return new URL(path, window.location.origin + '/').href; }
     catch (e) { return path; }
   };
   window.VIG_PRODUCTS_FALLBACK = window.vigSameOrigin('data/products.json');

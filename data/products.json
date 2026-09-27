@@ -14511,12 +14511,16 @@
       "client_options": {
         "available_on_request": false,
         "advance_order_1_2_days": true,
-        "number_choice": false,
+        "number_choice": true,
         "personal_inscription": false,
         "photozone_rental": false,
         "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790179813/vigsharm-products/dsdma3niy4mcwbzwsrv8.jpg",
         "floor_type": "air",
-        "bouquet_type": "flowers"
+        "bouquet_type": "flowers",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
       },
       "photos": [
         "https://res.cloudinary.com/saiuc42a/image/upload/v1790179874/vigsharm-products/fbu02ypjdgsbqvlzua5m.png"
@@ -14525,7 +14529,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T16:12:49.804Z",
-      "updated_at": "2026-09-25T14:38:45.098Z",
+      "updated_at": "2026-09-27T19:02:52.372Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/efa38b17-be98-48c4-978c-319df9b48002.webp"
     },
     {
@@ -22403,7 +22407,7 @@
         "2 фольгированные цифры",
         "2 шара баблс на подставках с декором"
       ],
-      "category": "Юбилей",
+      "category": "Для него",
       "character": null,
       "age_group": "Для взрослых",
       "budget": "от 8 000 ₽",
@@ -22415,7 +22419,7 @@
       "slug": "chernoe-serebro",
       "scene": "floor",
       "tags": [
-        "Юбилей"
+        "Для него"
       ],
       "client_options": {
         "available_on_request": false,
@@ -22423,6 +22427,8 @@
         "number_choice": true,
         "personal_inscription": false,
         "photozone_rental": false,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1789816923/vigsharm-products/qnzyejyxbgtwetngekht.png",
+        "floor_type": "air",
         "digit_choice": {
           "enabled": true,
           "count_on_photo": 2
@@ -22435,7 +22441,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-19T11:22:04.563Z",
-      "updated_at": "2026-09-25T14:49:03.788Z",
+      "updated_at": "2026-09-27T19:00:13.683Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/5e0242c2-8c28-46f7-977f-9f1064890df1.webp"
     },
     {

@@ -448,7 +448,13 @@
     var badge = requestBadge || advanceBadge;
     var isPiece = priceNote === 'Цена за штуку';
     var perMeter = (p.tags || []).indexOf('Цена за метр') >= 0;
-    var digitPick = unitShelf === 'Фольгированные цифры' || ((p.client_options || {}).unit_type === 'digit');
+    var opts = p.client_options || {};
+    var isDigitCard = unitShelf === 'Фольгированные цифры' || opts.unit_type === 'digit';
+    var printedDigit = isDigitCard && (
+      !!String(opts.unit_holiday || '').trim()
+      || /^цифра\s/i.test(String(p.title || '').trim())
+    );
+    var digitPick = isDigitCard && !printedDigit && p.has_digit_choice !== false;
     var thumb = key && window.vigImage ? window.vigImage(key, 160) : '';
     var card = '<a class="catalog-card color-' + (i % 5) + '" href="product.html?slug=' + encodeURIComponent(p.slug || p.id) + '" aria-label="Подробнее: ' + esc(p.title) + '">' +
       '<span class="catalog-card-image">' + img + '</span>' +

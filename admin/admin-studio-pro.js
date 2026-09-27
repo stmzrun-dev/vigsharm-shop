@@ -707,6 +707,7 @@ Object.assign(app, {
       unit_who: this.getUnitBalloonWho?.() || '',
       unit_holiday: this.getUnitHoliday?.() || '',
       balloon_size: document.getElementById('unit-balloon-size')?.value || '',
+      letter_ink: this.getLetterInk?.() || '',
       ts: Date.now(),
       ...extra
     };
@@ -827,6 +828,7 @@ Object.assign(app, {
       this.setUnitHoliday?.(draft.unit_holiday || draft.holiday_only || '');
       const sizeEl = document.getElementById('unit-balloon-size');
       if (sizeEl && draft.balloon_size != null) sizeEl.value = draft.balloon_size;
+      this.setLetterInk?.(draft.letter_ink === 'dark' || draft.letter_ink === 'light' ? draft.letter_ink : '');
 
       const priceEl = document.getElementById('product-price');
       if (priceEl && draft.price != null && draft.price !== '') {

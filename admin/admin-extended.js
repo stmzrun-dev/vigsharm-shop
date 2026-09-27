@@ -953,6 +953,18 @@ Object.assign(app, {
     return (typeof UNIT_BALLOON_TYPES !== 'undefined' && UNIT_BALLOON_TYPES[val]) ? val : '';
   },
 
+  getLetterInk() {
+    const checked = document.querySelector('input[name="unit-letter-ink"]:checked');
+    return checked?.value === 'dark' ? 'dark' : (checked?.value === 'light' ? 'light' : '');
+  },
+
+  setLetterInk(value) {
+    const ink = value === 'dark' || value === 'light' ? value : '';
+    document.querySelectorAll('input[name="unit-letter-ink"]').forEach((el) => {
+      el.checked = !!ink && el.value === ink;
+    });
+  },
+
   setUnitBalloonType(type) {
     this.renderUnitWhoChips?.();
     const value = (typeof UNIT_BALLOON_TYPES !== 'undefined' && UNIT_BALLOON_TYPES[type]) ? type : '';
@@ -966,6 +978,9 @@ Object.assign(app, {
       const sizeEl = document.getElementById('unit-balloon-size');
       if (sizeEl && !value) sizeEl.value = '';
     }
+    const inkWrap = document.getElementById('unit-letter-ink-wrap');
+    if (inkWrap) inkWrap.classList.toggle('hidden', !meta?.hasInk);
+    if (!meta?.hasInk) this.setLetterInk?.('');
     const whoWrap = document.getElementById('unit-balloon-who-wrap');
     const hideWho = !value || !!meta?.plainShelf;
     if (whoWrap) whoWrap.classList.toggle('hidden', hideWho);
@@ -1161,6 +1176,7 @@ Object.assign(app, {
     if (hay.includes('Шары Brush')) return 'brush';
     if (hay.includes('Шары Super Agate')) return 'agate';
     if (hay.includes('Шары Bubble')) return 'bubble';
+    if (hay.includes('Именные шары')) return 'named';
     if (hay.includes('Латексные шары')) return 'latex';
     return '';
   },
@@ -1181,6 +1197,9 @@ Object.assign(app, {
     if (sizeEl) {
       sizeEl.addEventListener('input', () => this.scheduleSaveActiveStudioDraft?.());
     }
+    document.querySelectorAll('input[name="unit-letter-ink"]').forEach((el) => {
+      el.addEventListener('change', () => this.scheduleSaveActiveStudioDraft?.());
+    });
     document.querySelectorAll('input[name="unit-balloon-who-early"]').forEach((el) => {
       el.addEventListener('change', () => this.scheduleSaveActiveStudioDraft?.());
     });
@@ -1681,6 +1700,10 @@ Object.assign(app, {
           const cm = raw ? String(Math.round(parseFloat(raw))) : '';
           if (cm && cm !== 'NaN') clientOptions.balloon_size = `${cm} см`;
         }
+        if (unitMeta.hasInk) {
+          const ink = this.getLetterInk?.() || '';
+          if (ink === 'light' || ink === 'dark') clientOptions.letter_ink = ink;
+        }
         const whoList = this.getUnitBalloonWhoList?.() || [];
         if (whoList.length) clientOptions.unit_who = whoList;
         if (unitMeta.hasHoliday) {
@@ -1876,6 +1899,7 @@ Object.assign(app, {
     this.setUnitBalloonWho?.('');
     const unitSizeEl = document.getElementById('unit-balloon-size');
     if (unitSizeEl) unitSizeEl.value = '';
+    this.setLetterInk?.('');
     const rentalItemEl = document.getElementById('rental-item');
     if (rentalItemEl) {
       rentalItemEl.value = '';
@@ -2205,6 +2229,7 @@ app.loadProductToForm = function(product) {
   this.setUnitHoliday?.(holidayList.includes(savedHoliday) ? savedHoliday : '');
   const unitSizeEl = document.getElementById('unit-balloon-size');
   if (unitSizeEl) unitSizeEl.value = opts.balloon_size || '';
+  this.setLetterInk?.(opts.letter_ink === 'dark' || opts.letter_ink === 'light' ? opts.letter_ink : '');
   this.wirePhotozoneTypeControls?.();
   this.wireFloorTypeControls?.();
   this.wireBouquetTypeControls?.();

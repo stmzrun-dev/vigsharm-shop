@@ -234,9 +234,10 @@
     document.querySelectorAll('[data-unit-step]').forEach(function (el) {
       var id = el.getAttribute('data-id') || '';
       var q = qtyOf(id);
-      var pack = ' data-id="' + esc(id) + '" data-slug="' + esc(el.getAttribute('data-slug') || '') + '" data-title="' + esc(el.getAttribute('data-title') || '') + '" data-sku="' + esc(el.getAttribute('data-sku') || '') + '" data-price="' + esc(el.getAttribute('data-price') || '0') + '" data-meter="' + esc(el.getAttribute('data-meter') || '0') + '" data-fill="' + esc(el.getAttribute('data-fill') || '') + '" data-thumb="' + esc(el.getAttribute('data-thumb') || '') + '"';
+      var pack = ' data-id="' + esc(id) + '" data-slug="' + esc(el.getAttribute('data-slug') || '') + '" data-title="' + esc(el.getAttribute('data-title') || '') + '" data-sku="' + esc(el.getAttribute('data-sku') || '') + '" data-price="' + esc(el.getAttribute('data-price') || '0') + '" data-meter="' + esc(el.getAttribute('data-meter') || '0') + '" data-fill="' + esc(el.getAttribute('data-fill') || '') + '" data-thumb="' + esc(el.getAttribute('data-thumb') || '') + '" data-named="' + esc(el.getAttribute('data-named') || '0') + '" data-ink="' + esc(el.getAttribute('data-ink') || '') + '" data-photo="' + esc(el.getAttribute('data-photo') || '') + '"';
       var digitCard = el.getAttribute('data-digit') === '1';
       var bubbleCard = el.getAttribute('data-bubble') === '1';
+      var namedCard = el.getAttribute('data-named') === '1';
       var picked = null;
       if (digitCard) {
         var all = load();
@@ -248,11 +249,48 @@
         ? (picked
           ? '<b class="unit-digit-picked">' + esc(picked.digit2 ? (picked.digit + picked.digit2) : picked.digit) + '</b><button type="button" data-unit-dec="1" data-id="' + esc(id) + '" aria-label="Убрать">×</button>'
           : '<button type="button" class="is-plus" data-unit-digit="1"' + pack + ' aria-label="Выбрать цифру">+</button>')
-        : bubbleCard
-        ? '<button type="button" class="is-plus" data-unit-add="1" data-bubble="1"' + pack + ' aria-label="Выбрать надпись и цвет">+</button>'
+        : (bubbleCard || namedCard)
+        ? '<button type="button" class="is-plus" data-unit-add="1"' + (bubbleCard ? ' data-bubble="1"' : '') + pack + ' aria-label="' + (namedCard ? 'Написать на шаре' : 'Выбрать надпись и цвет') + '">+</button>'
         : (q
         ? '<button type="button" data-unit-dec="1" data-id="' + esc(id) + '" aria-label="Меньше">−</button><b>' + q + '</b><button type="button" data-unit-add="1"' + pack + ' aria-label="Больше">+</button>'
         : '<button type="button" class="is-plus" data-unit-add="1"' + pack + ' aria-label="В набор">+</button>');
+    });
+    paintNamedCards();
+  }
+
+  function namedSizeClass(text) {
+    var n = String(text || '').trim().length;
+    if (n > 36) return ' is-long';
+    if (n > 18) return ' is-mid';
+    return '';
+  }
+  function paintNamedCards() {
+    document.querySelectorAll('[data-unit-step][data-named="1"]').forEach(function (el) {
+      var id = el.getAttribute('data-id') || '';
+      var tone = el.getAttribute('data-ink') === 'dark' ? 'is-dark' : 'is-light';
+      var wrap = el.closest('.catalog-card-wrap');
+      var imgBox = wrap && wrap.querySelector('.catalog-card-image');
+      if (!imgBox) return;
+      var text = '';
+      var items = load();
+      var i;
+      for (i = items.length - 1; i >= 0; i--) {
+        if (String(items[i].id) === String(id) && String(items[i].inscription || '').trim()) {
+          text = String(items[i].inscription).trim();
+          break;
+        }
+      }
+      var letter = imgBox.querySelector('.named-letter');
+      if (!text) {
+        if (letter) letter.remove();
+        return;
+      }
+      if (!letter) {
+        letter = document.createElement('span');
+        imgBox.appendChild(letter);
+      }
+      letter.className = 'named-letter ' + tone + namedSizeClass(text);
+      letter.textContent = text;
     });
   }
 
@@ -680,6 +718,60 @@
     if (kind === 'balls') return 'шарики';
     return '';
   }
+  function inkWord(tone) {
+    return tone === 'dark' ? 'тёмные' : 'белые';
+  }
+  function pickNamed(item) {
+    var old = document.querySelector('.unit-digit-pop');
+    if (old) old.remove();
+    var tone = item.inkTone === 'dark' ? 'dark' : 'light';
+    var text = '';
+    var photo = item.photo || item.thumb || '';
+    var pop = document.createElement('div');
+    pop.className = 'unit-digit-pop';
+    pop.innerHTML = '<div class="unit-digit-sheet unit-named-sheet" role="dialog" aria-label="Надпись на шаре">' +
+      '<p>' + esc(item.title || 'Шар') + '</p>' +
+      (photo
+        ? '<div class="unit-named-photo"><img src="' + esc(photo) + '" alt=""/><span class="named-letter ' + (tone === 'dark' ? 'is-dark' : 'is-light') + '" hidden></span></div>'
+        : '') +
+      '<label>Ваша надпись<input maxlength="60" data-ins="1" placeholder="Ваш текст" value=""/></label>' +
+      '<button type="button" class="button button-primary unit-bubble-go" disabled data-ok="1">В набор</button>' +
+      '<button type="button" class="unit-digit-cancel" data-x="1">Отмена</button></div>';
+    var input = pop.querySelector('[data-ins]');
+    var letter = pop.querySelector('.named-letter');
+    var go = pop.querySelector('[data-ok]');
+    function paintLetter() {
+      var t = text.trim();
+      if (go) go.disabled = !t;
+      if (!letter) return;
+      letter.textContent = t;
+      letter.hidden = !t;
+      letter.className = 'named-letter ' + (tone === 'dark' ? 'is-dark' : 'is-light') + namedSizeClass(t);
+    }
+    if (input) input.addEventListener('input', function () {
+      text = input.value;
+      paintLetter();
+    });
+    pop.addEventListener('click', function (e) {
+      var t = e.target && e.target.closest ? e.target.closest('button') : null;
+      if (e.target === pop) { pop.remove(); return; }
+      if (!t) return;
+      if (t.getAttribute('data-x') === '1') { pop.remove(); return; }
+      if (input) text = input.value;
+      if (t.getAttribute('data-ok') === '1') {
+        if (!text.trim()) return;
+        pop.remove();
+        add(Object.assign({}, item, {
+          qty: 1,
+          inscription: text.trim(),
+          ink: inkWord(tone)
+        }));
+      }
+    });
+    document.body.appendChild(pop);
+    if (input) input.focus();
+  }
+
   function pickBubble(item) {
     var old = document.querySelector('.unit-digit-pop');
     if (old) old.remove();
@@ -811,7 +903,7 @@
     e.stopPropagation();
     change(dec.getAttribute('data-id'), -1);
   });
-  window.vigUnitList = { add: add, change: change, pickDigits: pickDigits, pickBubble: pickBubble, mount: function () { paintBar(); paintSteps(); } };
+  window.vigUnitList = { add: add, change: change, pickDigits: pickDigits, pickBubble: pickBubble, pickNamed: pickNamed, mount: function () { paintBar(); paintSteps(); } };
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function () { paintBar(); paintSteps(); loadDelivery(); });
   else { paintBar(); paintSteps(); loadDelivery(); }
 })();

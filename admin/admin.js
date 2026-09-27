@@ -77,7 +77,8 @@ const UNIT_BALLOON_TYPES = {
   foil: { value: 'foil', title: 'Фольга', tag: 'Фольгированные фигуры', hasSize: true, hasWho: true, hasHoliday: true },
   digit: { value: 'digit', title: 'Цифры', tag: 'Фольгированные цифры', hasDigit: true, hasHoliday: true },
   walker: { value: 'walker', title: 'Ходячие', tag: 'Ходячие фигуры', hasSize: true, hasWho: true, hasHoliday: true },
-  shapes: { value: 'shapes', title: 'Круги и звёзды', tag: 'Круги, звёзды и сердца', hasHoliday: true }
+  shapes: { value: 'shapes', title: 'Круги и звёзды', tag: 'Круги, звёзды и сердца', hasHoliday: true },
+  named: { value: 'named', title: 'С надписью', tag: 'Именные шары', hasSize: true, hasInk: true, plainShelf: true }
 };
 
 /** Праздник у поштучных с рисунком / фольги / ходячих / кругов — та же полка, что у готовых работ. */
@@ -2186,9 +2187,14 @@ const app = {
         this.goStep1Phase?.('a');
         return;
       }
-      if ((unitType === 'foil' || unitType === 'walker') && !data.client_options?.balloon_size) {
-        this.toast(unitType === 'walker' ? 'Укажите размер ходячей фигуры в см' : 'Укажите размер фольги в см', 'error');
+      if ((unitType === 'foil' || unitType === 'walker' || unitType === 'named') && !data.client_options?.balloon_size) {
+        this.toast(unitType === 'walker' ? 'Укажите размер ходячей фигуры в см' : (unitType === 'named' ? 'Укажите размер шара в см' : 'Укажите размер фольги в см'), 'error');
         document.getElementById('unit-balloon-size')?.focus();
+        return;
+      }
+      if (unitType === 'named' && data.client_options?.letter_ink !== 'light' && data.client_options?.letter_ink !== 'dark') {
+        this.toast('Выберите цвет букв: белые или тёмные', 'error');
+        document.querySelector('input[name="unit-letter-ink"]')?.focus();
         return;
       }
     }

@@ -136,6 +136,30 @@
     var tags = p.tags || [];
     return opts.unit_type === 'bubble' || p.category === 'Шары Bubble' || tags.indexOf('Шары Bubble') >= 0;
   }
+  function isNamedUnit() {
+    if (!p) return false;
+    var opts = p.client_options || {};
+    var tags = p.tags || [];
+    return opts.unit_type === 'named' || p.category === 'Именные шары' || tags.indexOf('Именные шары') >= 0;
+  }
+  function namedInkTone() {
+    return (p && p.client_options && p.client_options.letter_ink) === 'dark' ? 'dark' : 'light';
+  }
+  function namedInkWord() {
+    return namedInkTone() === 'dark' ? 'тёмные' : 'белые';
+  }
+  function namedSizeClass(text) {
+    var n = String(text || '').trim().length;
+    if (n > 36) return ' is-long';
+    if (n > 18) return ' is-mid';
+    return '';
+  }
+  function namedOverlayHtml() {
+    if (!isNamedUnit()) return '';
+    var t = String(inscription || '').trim();
+    var tone = namedInkTone() === 'dark' ? 'is-dark' : 'is-light';
+    return '<span class="named-letter ' + tone + namedSizeClass(t) + '"' + (t ? '' : ' hidden') + '>' + esc(t) + '</span>';
+  }
   function bubbleFillKind() {
     var t = [p && p.title, p && p.short_description, p && p.composition].join(' ')
       .toLowerCase().replace(/ё/g, 'е');
@@ -244,7 +268,7 @@
   }
   function wantsInscription() {
     if (!p || isFlowerBouquet()) return false;
-    return !!(p.has_inscription || isBubbleUnit());
+    return !!(p.has_inscription || isBubbleUnit() || isNamedUnit());
   }
   function inscriptionOk() { return !wantsInscription() || !!String(inscription || '').trim(); }
   function whenOk() { return !!(orderDate && orderTime); }
@@ -300,7 +324,7 @@
       if (canAdd() || canRemove()) steps.push('delta');
       if (effDigits() >= 2) steps.push('digit2');
     }
-    if (isUnit() && !isDigitUnit()) steps.push('qty');
+    if (isUnit() && !isDigitUnit() && !isNamedUnit()) steps.push('qty');
     if (wantsInscription()) steps.push('inscription');
     if (!isUnit()) {
       steps.push('fulfill');
@@ -626,7 +650,7 @@
 
   /** Progressive mobile form: only current + completed steps are visible. */
   function clientStepVisible(id) {
-    if (id === 'client-qty') return (isUnit() && !isBubbleUnit() && !isPrintedDigit() && (!isDigitUnit() || !p.has_digit_choice)) || isFlowerBouquet();
+    if (id === 'client-qty') return (isUnit() && !isBubbleUnit() && !isNamedUnit() && !isPrintedDigit() && (!isDigitUnit() || !p.has_digit_choice)) || isFlowerBouquet();
     if (id === 'client-digits') return !!(p && p.has_digit_choice);
     if (id === 'client-ins') return wantsInscription() && digitsOk();
     if (id === 'client-rental') return !!(p && p.has_rental) && digitsOk();
@@ -639,7 +663,7 @@
   }
 
   function clientOrderHtml() {
-    if (!useMobileFlow() && !isBubbleUnit()) return '';
+    if (!useMobileFlow() && !isBubbleUnit() && !isNamedUnit()) return '';
     var H = effDelta();
     var B = canAdd();
     var U = effDigits();
@@ -685,7 +709,14 @@
     }
 
     if (clientStepVisible('client-ins')) {
-      if (isBubbleUnit()) {
+      if (isNamedUnit()) {
+        html += '<section class="client-block" id="client-ins">' +
+          '<label class="client-ins' + (inscriptionOk() ? ' is-filled' : '') + '">' +
+          '<span class="client-digit-label">Ваша надпись</span>' +
+          '<input value="' + esc(inscription) + '" maxlength="60" data-act="inscription" placeholder="Ваш текст" inputmode="text" autocomplete="off"/>' +
+          '</label>' +
+          '<button type="button" class="button product-unit-add" data-act="unit-add">В набор</button></section>';
+      } else if (isBubbleUnit()) {
         html += '<section class="client-block" id="client-ins">' +
           bubbleOptionsHtml() +
           '<label class="client-ins bubble-ins' + (inscriptionOk() ? ' is-filled' : '') + '">' +
@@ -982,7 +1013,7 @@
     var paramsDetails = '';
     if (isUnit() || p.has_digit_choice) {
       var inner = '';
-      if (isUnit() && !isDigitUnit() && !isBubbleUnit()) {
+      if (isUnit() && !isDigitUnit() && !isBubbleUnit() && !isNamedUnit()) {
         inner += '<div class="config-input"><span>' + (isPerMeter() ? 'Длина арки' : 'Количество') + '</span>' +
           qtyStepperHtml() + '</div>';
       }
@@ -1044,7 +1075,7 @@
     var ready = isOrderReady();
     var orderBtn = orderCta('full');
     var mobileFlowOn = useMobileFlow();
-    var pageClass = 'product-page' + (mobileFlowOn ? ' is-mobile-flow is-client-order' : '') + (isBubbleUnit() ? ' is-bubble-card' : '') + (mobileFlowOn && ready ? ' is-order-ready' : '');
+    var pageClass = 'product-page' + (mobileFlowOn ? ' is-mobile-flow is-client-order' : '') + (isBubbleUnit() ? ' is-bubble-card' : '') + (isNamedUnit() ? ' is-named-card' : '') + (mobileFlowOn && ready ? ' is-order-ready' : '');
 
     var desc = String(p.description || '').trim();
     var compItems = String(p.composition || '').split(/\n+/).map(function (s) { return s.trim(); }).filter(Boolean);
@@ -1069,6 +1100,7 @@
       '<section class="product-page-card"><div class="product-page-gallery">' +
       '<div class="product-page-main-image' + (photoGrown ? ' is-grown' : '') + '" role="button" aria-label="Фото композиции. Нажмите, чтобы увеличить" tabindex="0" data-gallery>' +
       galleryImgHtml(galleryKey || mainKey, p.title, 'fetchpriority="high" width="1200" height="1200"') +
+      namedOverlayHtml() +
       '</div>' +
       (keys.length > 1
         ? '<div class="product-gallery-controls"><button type="button" data-act="prev" aria-label="Предыдущая фотография">←</button><span role="status" aria-live="polite">Фото ' + (imgIdx + 1) + ' из ' + keys.length + '</span><button type="button" data-act="next" aria-label="Следующая фотография">→</button></div>' +
@@ -1119,7 +1151,9 @@
       (isUnit()
         ? (isBubbleUnit()
           ? '<label class="config-input inscription-field"><span>Надпись на шаре</span><input value="' + esc(inscription) + '" maxlength="60" data-act="inscription" placeholder="Например: Мамочка"/></label>' + bubbleOptionsHtml()
-          : '') +
+          : (isNamedUnit()
+            ? '<label class="config-input inscription-field"><span>Ваша надпись</span><input value="' + esc(inscription) + '" maxlength="60" data-act="inscription" placeholder="Ваш текст"/></label>'
+            : '')) +
           '<button type="button" class="button product-unit-add" data-act="unit-add">В набор</button>'
         : '') +
       '<p class="product-order-explainer">Оплата позже — сначала подтвердим наличие и время.</p>' +
@@ -1354,6 +1388,13 @@
           var balloon = insBlock && insBlock.querySelector('.ins-balloon');
           if (preview) preview.textContent = hasText ? inscription.trim() : 'С Днём рождения!';
           if (balloon) balloon.classList.toggle('is-filled', hasText);
+          var letter = root.querySelector('.product-page-main-image .named-letter');
+          if (letter) {
+            var tone = letter.classList.contains('is-dark') ? 'is-dark' : 'is-light';
+            letter.className = 'named-letter ' + tone + namedSizeClass(inscription);
+            letter.textContent = hasText ? inscription.trim() : '';
+            letter.hidden = !hasText;
+          }
           markClientNext();
         });
         el.addEventListener('change', function () {
@@ -1591,17 +1632,21 @@
             if (window.vigToast) window.vigToast(!String(inscription || '').trim() ? 'Напишите надпись' : 'Выберите цвет');
             return;
           }
+          if (isNamedUnit() && !String(inscription || '').trim()) {
+            if (window.vigToast) window.vigToast('Напишите надпись');
+            return;
+          }
           var fillKind = bubbleFillKind();
           var fillLabel = fillKind === 'foam' ? 'пенопласт' : fillKind === 'confetti' ? 'конфетти' : fillKind === 'feathers' ? 'перья' : fillKind === 'balls' ? 'шарики' : '';
           window.vigUnitList.add({
             id: p.id, slug: p.slug || slug, title: p.title, sku: p.sku,
             price: p.price,
-            qty: (isBubbleUnit() || (isDigitUnit() && (p.has_digit_choice || isPrintedDigit()))) ? 1 : qty,
+            qty: (isBubbleUnit() || isNamedUnit() || (isDigitUnit() && (p.has_digit_choice || isPrintedDigit()))) ? 1 : qty,
             perMeter: isPerMeter(),
             digit: isDigitUnit() ? digit : '',
             digit2: isDigitUnit() && effDigits() >= 2 ? digit2 : '',
-            inscription: isBubbleUnit() ? String(inscription || '').trim() : '',
-            ink: isBubbleUnit() ? bubbleInk : '',
+            inscription: (isBubbleUnit() || isNamedUnit()) ? String(inscription || '').trim() : '',
+            ink: isBubbleUnit() ? bubbleInk : (isNamedUnit() ? namedInkWord() : ''),
             fill: isBubbleUnit() ? bubbleFill : '',
             fillLabel: isBubbleUnit() ? fillLabel : '',
             thumb: photoKey && window.vigImage ? window.vigImage(photoKey, 160) : ''
@@ -2042,7 +2087,7 @@
         if (allProducts.indexOf(pack.found) < 0) allProducts.push(pack.found);
         p = pack.found;
         loadDraft();
-        if (isPrintedDigit() || isBubbleUnit()) qty = 1;
+        if (isPrintedDigit() || isBubbleUnit() || isNamedUnit()) qty = 1;
         if (isFlowerBouquet() && !draftRestored) qty = flowerBaseQty();
         pushRecent();
         render();

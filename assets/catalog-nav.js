@@ -188,6 +188,12 @@
       thumb: btn.getAttribute('data-thumb') || '',
       fillKind: btn.getAttribute('data-fill') || ''
     };
+    if (btn.getAttribute('data-named') === '1' && window.vigUnitList.pickNamed) {
+      payload.inkTone = btn.getAttribute('data-ink') === 'dark' ? 'dark' : 'light';
+      payload.photo = btn.getAttribute('data-photo') || '';
+      window.vigUnitList.pickNamed(payload);
+      return;
+    }
     if (btn.getAttribute('data-bubble') === '1' && window.vigUnitList.pickBubble) {
       window.vigUnitList.pickBubble(payload);
       return;
@@ -472,7 +478,10 @@
     );
     var digitPick = isDigitCard && !printedDigit && p.has_digit_choice !== false;
     var bubbleCard = opts.unit_type === 'bubble' || catLabel === 'Шары Bubble' || (p.tags || []).indexOf('Шары Bubble') >= 0;
+    var namedCard = opts.unit_type === 'named' || catLabel === 'Именные шары' || (p.tags || []).indexOf('Именные шары') >= 0;
+    var letterInk = opts.letter_ink === 'dark' ? 'dark' : 'light';
     var thumb = key && window.vigImage ? window.vigImage(key, 160) : '';
+    var photo = namedCard && key && window.vigImage ? window.vigImage(key, 640) : '';
     var cardInner = '<span class="catalog-card-image">' + img + '</span>' +
       '<span class="catalog-card-copy"><span class="catalog-card-meta"><small>' + esc(displayCategory(cat)) + '</small>' + badge + '</span>' +
       '<strong>' + esc(p.title) + '</strong>' +
@@ -488,7 +497,7 @@
       : '<a class="catalog-card color-' + (i % 5) + '" href="product.html?slug=' + encodeURIComponent(p.slug || p.id) + '" aria-label="Подробнее: ' + esc(p.title) + '">' + cardInner + '</a>';
     if (!isPiece) return card;
     return '<div class="catalog-card-wrap">' + card +
-      '<div class="catalog-unit-step" data-unit-step data-id="' + esc(p.id) + '" data-slug="' + esc(p.slug || p.id) + '" data-title="' + esc(p.title) + '" data-sku="' + esc(p.sku || p.article || '') + '" data-price="' + (Number(p.price) || 0) + '" data-meter="' + (perMeter ? '1' : '0') + '" data-digit="' + (digitPick ? '1' : '0') + '" data-bubble="' + (bubbleCard ? '1' : '0') + '" data-fill="' + esc(bubbleCard ? unitFillKind(p) : '') + '" data-thumb="' + esc(thumb) + '"></div></div>';
+      '<div class="catalog-unit-step" data-unit-step data-id="' + esc(p.id) + '" data-slug="' + esc(p.slug || p.id) + '" data-title="' + esc(p.title) + '" data-sku="' + esc(p.sku || p.article || '') + '" data-price="' + (Number(p.price) || 0) + '" data-meter="' + (perMeter ? '1' : '0') + '" data-digit="' + (digitPick ? '1' : '0') + '" data-bubble="' + (bubbleCard ? '1' : '0') + '" data-named="' + (namedCard ? '1' : '0') + '" data-ink="' + esc(namedCard ? letterInk : '') + '" data-photo="' + esc(photo) + '" data-fill="' + esc(bubbleCard ? unitFillKind(p) : '') + '" data-thumb="' + esc(thumb) + '"></div></div>';
   }
 
   function requestSummary() {

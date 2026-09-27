@@ -835,6 +835,8 @@ body.admin-editor-open{overflow:hidden}
   width:100%;box-sizing:border-box;min-height:36px;padding:6px 10px;
   border:1px solid #E0E0E0;border-radius:8px;font:inherit;font-size:13px;background:#fff
 }
+.unit-letter-ink-wrap{margin:8px 0 0}
+.unit-letter-ink-wrap.hidden{display:none!important}
 .unit-price-fields{display:none;margin:0 0 12px}
 .unit-balloon-who-wrap{margin:8px 0 0}
 .unit-balloon-who-wrap.hidden{display:none!important}
@@ -1164,6 +1166,7 @@ body.ai-review-open #tab-create .product-editor{visibility:hidden}
 #product-form.is-unit-balloon.is-step1-c #unit-balloon-who-wrap{order:4}
 #product-form.is-unit-balloon.is-step1-c #unit-character-wrap{order:5}
 #product-form.is-unit-balloon.is-step1-c #unit-balloon-size-wrap{order:6}
+#product-form.is-unit-balloon.is-step1-c #unit-letter-ink-wrap{order:7}
 @media (min-width:901px){
   #tab-create:has(#product-form.is-unit-balloon.is-step1-c){
     overflow:hidden;

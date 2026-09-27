@@ -683,12 +683,15 @@
 /* ===== Client order form (phone + tablet ≤1020) — no stories overlay ===== */
 .order-story{display:none!important}
 .client-order{display:none}
-.product-page.is-bubble-card .client-order{
+.product-page.is-bubble-card .client-order,
+.product-page.is-named-card .client-order{
   display:block;
   margin-top:14px;
 }
 .product-page.is-bubble-card .order-classic-flow .inscription-field,
-.product-page.is-bubble-card .order-classic-flow .bubble-options{
+.product-page.is-bubble-card .order-classic-flow .bubble-options,
+.product-page.is-named-card .order-classic-flow .inscription-field,
+.product-page.is-named-card .order-classic-flow .product-unit-add{
   display:none!important;
 }
 @media (min-width:1021px){

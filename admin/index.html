@@ -7,7 +7,7 @@
 <meta name="robots" content="noindex, nofollow"/>
 <link rel="icon" href="../favicon.svg"/>
 <link rel="stylesheet" href="../assets/fonts.css"/>
-<link rel="stylesheet" href="styles.css?v=20260926-card-audit"/>
+<link rel="stylesheet" href="styles.css?v=20260927-named"/>
 </head>
 <body>
 
@@ -361,6 +361,10 @@
                     <input type="radio" name="unit-balloon-type-early" id="unit-type-shapes-early" value="shapes"/>
                     <span>Круги и звёзды</span>
                   </label>
+                  <label class="scene-subchip">
+                    <input type="radio" name="unit-balloon-type-early" id="unit-type-named-early" value="named"/>
+                    <span>С надписью</span>
+                  </label>
                 </div>
               </div>
               <p class="studio-mode-hint" id="studio-mode-hint" hidden></p>
@@ -436,6 +440,19 @@
                 <div id="unit-balloon-size-wrap" class="unit-balloon-size-wrap hidden">
                   <label for="unit-balloon-size">Размер, см</label>
                   <input id="unit-balloon-size" type="text" inputmode="numeric" placeholder="56" autocomplete="off"/>
+                </div>
+                <div id="unit-letter-ink-wrap" class="unit-letter-ink-wrap hidden">
+                  <p class="scene-subchips-label">Буквы на шаре</p>
+                  <div class="scene-subchips-row" role="radiogroup" aria-label="Цвет надписи">
+                    <label class="scene-subchip">
+                      <input type="radio" name="unit-letter-ink" value="light"/>
+                      <span>Белые</span>
+                    </label>
+                    <label class="scene-subchip">
+                      <input type="radio" name="unit-letter-ink" value="dark"/>
+                      <span>Тёмные</span>
+                    </label>
+                  </div>
                 </div>
               </div>
               <div class="form-group unit-hide" id="essentials-composition-wrap">
@@ -935,12 +952,12 @@
   </div>
 </div>
 
-<script src="admin.js?v=20260927-digit-holiday"></script>
-<script src="admin-extended.js?v=20260927-digits"></script>
+<script src="admin.js?v=20260927-named"></script>
+<script src="admin-extended.js?v=20260927-named"></script>
 <script src="cloudinary-upload.js?v=cloud-fix-2"></script>
 <script src="imgbb-upload.js?v=1"></script>
 <script src="cloudinary-patch.js?v=yandex-1"></script>
-<script src="admin-studio-pro.js?v=20260927-walker-floor"></script>
+<script src="admin-studio-pro.js?v=20260927-named"></script>
 <script src="admin-ai.js?v=20260927-unit-title"></script>
 <script src="admin-reference-background.js"></script>
 <script src="admin-orders.js?v=1"></script>

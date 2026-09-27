@@ -2,6 +2,132 @@
   "ok": true,
   "products": [
     {
+      "id": "79f22dde-ec40-4a92-a73d-0d74900ce5d2",
+      "title": "Баблс 60см с шариками и надписью",
+      "article": "UNT-212",
+      "price": 2000,
+      "short_description": "Баблс 60см с шариками и надписью",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "babls-60sm-s-krupinkami-penoplasta-i-nadpisyu-3",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Шары Bubble"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/92d74d55-6d03-4d87-a079-4e0250c8e304.jpg",
+        "unit_type": "bubble"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/53c90f72-5c60-48b2-9bd1-73081be14694.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/53c90f72-5c60-48b2-9bd1-73081be14694.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-27T07:21:34.929Z",
+      "updated_at": "2026-09-27T07:21:34.929Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "67bb325d-b0e7-4d7b-917b-2240fa86f4ea",
+      "title": "Баблс 60см с конфетти и надписью",
+      "article": "UNT-211",
+      "price": 2000,
+      "short_description": "Баблс 60см с конфетти и надписью",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "babls-60sm-s-krupinkami-penoplasta-i-nadpisyu-2",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Шары Bubble"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/858170ce-cdd4-4c3a-8392-f4b343953705.jpg",
+        "unit_type": "bubble"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/68186c86-8154-4691-a2cc-3272e14e69ba.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/68186c86-8154-4691-a2cc-3272e14e69ba.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-27T07:19:08.354Z",
+      "updated_at": "2026-09-27T07:19:08.354Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "3bfeee75-7278-4b79-8a45-e5e4f9cad6f4",
+      "title": "Баблс  60см с крупинками пенопласта и надписью",
+      "article": "UNT-210",
+      "price": 2000,
+      "short_description": "Баблс  60см с крупинками пенопласта и надписью",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "babls-60sm-s-krupinkami-penoplasta-i-nadpisyu",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Шары Bubble"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/f45bf932-79e7-4158-8f6a-48aba0d72386.jpg",
+        "unit_type": "bubble"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/21f8b35e-08f7-4fdf-970c-e11cb432f53e.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/21f8b35e-08f7-4fdf-970c-e11cb432f53e.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-27T07:16:52.407Z",
+      "updated_at": "2026-09-27T07:16:52.407Z",
+      "thumb_photo": null
+    },
+    {
       "id": "c9cdc019-9ea4-42f8-9bda-86e786bf73ef",
       "title": "AIR Бэтмен",
       "article": "UNT-209",

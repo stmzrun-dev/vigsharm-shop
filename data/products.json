@@ -11207,49 +11207,6 @@
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/48d49ca0-e6a4-424f-b485-b8dac0cca340.webp"
     },
     {
-      "id": "fefadb8c-c4f2-4246-ac39-20a098fac043",
-      "title": "Любовь к маме",
-      "article": "MOM-004",
-      "price": 5000,
-      "short_description": "Композиция из красных сердец и большого белого сердца с тёплой надписью для мамы.",
-      "full_description": "Настенная композиция из 10 красных фольгированных сердец и большого белого сердца с персональной надписью. Трогательный подарок для самого дорогого человека.",
-      "composition": [
-        "10 красных фольгированных сердец",
-        "большое белое фольгированное сердце с индивидуальной надписью"
-      ],
-      "category": "Для мамы",
-      "character": null,
-      "age_group": "Для взрослых",
-      "budget": "5 000–8 000 ₽",
-      "series_name": null,
-      "occasion": null,
-      "target_audience": null,
-      "seo_title": "Шары для мамы с надписью — заказать в Армавире | VigSharm",
-      "seo_description": "Композиция из красных и белого сердец с тёплой надписью для мамы. Трогательный подарок от VigSharm в Армавире. Доставка воздушных шаров.",
-      "slug": "mamina-gordost",
-      "scene": "wall_only",
-      "tags": [
-        "Для мамы"
-      ],
-      "client_options": {
-        "available_on_request": false,
-        "advance_order_1_2_days": false,
-        "number_choice": false,
-        "personal_inscription": true,
-        "photozone_rental": false,
-        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/ae6fd327-62ef-4a48-ab9b-e6c18712855b.jpg"
-      },
-      "photos": [
-        "https://storage.yandexcloud.net/vigsharm-photos/products/98703c40-15be-4892-96e1-33f1f7a2f029.jpg"
-      ],
-      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/98703c40-15be-4892-96e1-33f1f7a2f029.jpg",
-      "status": "published",
-      "show_on_site": true,
-      "created_at": "2026-09-24T20:19:55.791Z",
-      "updated_at": "2026-09-25T15:28:23.710Z",
-      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/785ee232-ce3e-4b0d-8214-a8300d6ad3bb.webp"
-    },
-    {
       "id": "e37cedc2-3520-4d3e-ba0b-505557a110e8",
       "title": "Сердечный вихрь",
       "article": "BOX-030",

@@ -1962,22 +1962,40 @@
   Promise.all([loadProductList(), loadDeliverySettings()])
     .then(function (pair) {
       var raw = pair[0];
-      var normalized = window.vigNormalizeProducts(raw || []);
-      var found = null;
-      for (var i = 0; i < normalized.length; i++) {
-        var o = normalized[i];
-        if (String(o.slug) === slug || String(o.id) === slug) { found = o; break; }
+      function findIn(list) {
+        var normalized = window.vigNormalizeProducts(list || []);
+        var found = null;
+        for (var i = 0; i < normalized.length; i++) {
+          var o = normalized[i];
+          if (String(o.slug) === slug || String(o.id) === slug) { found = o; break; }
+        }
+        return { normalized: normalized, found: found };
       }
-      if (!found) { renderNotFound('Композиция не найдена'); return; }
-      // Related: only storefront-visible items (current product kept even if draft)
-      allProducts = (window.vigIsStorefrontVisible
-        ? normalized.filter(window.vigIsStorefrontVisible)
-        : normalized);
-      p = found;
-      loadDraft();
-      if (isFlowerBouquet() && !draftRestored) qty = flowerBaseQty();
-      pushRecent();
-      render();
+      function openFound(pack) {
+        if (!pack.found) { renderNotFound('Композиция не найдена'); return; }
+        allProducts = (window.vigIsStorefrontVisible
+          ? pack.normalized.filter(window.vigIsStorefrontVisible)
+          : pack.normalized);
+        if (allProducts.indexOf(pack.found) < 0) allProducts.push(pack.found);
+        p = pack.found;
+        loadDraft();
+        if (isFlowerBouquet() && !draftRestored) qty = flowerBaseQty();
+        pushRecent();
+        render();
+      }
+      var pack = findIn(raw);
+      if (pack.found || !slug || !window.VIG_API) {
+        openFound(pack);
+        return;
+      }
+      return fetch(window.VIG_API + '/api/products', { cache: 'no-store' })
+        .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+        .then(function (data) {
+          var list = Array.isArray(data) ? data : (data && data.products);
+          var again = findIn(list && list.length ? list : raw);
+          openFound(again.found ? again : pack);
+        })
+        .catch(function () { openFound(pack); });
     })
     .catch(function (err) {
       console.error(err);

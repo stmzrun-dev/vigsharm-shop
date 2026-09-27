@@ -13,7 +13,7 @@
   // Карточка на vigsharm.ru получает <base> на GitHub Pages. Относительный
   // data/products.json тогда уезжает не в тот снимок, что каталог. Берём origin страницы.
   window.vigSameOrigin = function (path) {
-    try { return new URL(path, window.location.origin + '/').href; }
+    try { return new URL(path, document.baseURI || window.location.href).href; }
     catch (e) { return path; }
   };
   window.VIG_PRODUCTS_FALLBACK = window.vigSameOrigin('data/products.json');

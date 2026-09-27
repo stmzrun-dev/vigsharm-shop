@@ -56,7 +56,7 @@
     // «Цветы»: лилии и прочие «шары» в составе — цветок. Сердце, цифра, коробка остаются своими.
     if (isFlowerBouquet() && (!key || key === 'latex')) key = 'tulip';
     if (!key) key = 'latex';
-    var v = key === 'arch' ? '1' : '18';
+    var v = key === 'arch' ? '1' : (key === 'walker' ? '19' : '18');
     return '<img class="comp-ico" src="icons/comp-' + key + '.webp?v=' + v + '" alt="" width="32" height="32" onerror="this.onerror=null;this.src=\'icons/comp-' + key + '.svg\'"/>';
   }
 

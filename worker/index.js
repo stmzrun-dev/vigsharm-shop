@@ -1007,8 +1007,8 @@ ${BUDGET_OPTIONS.join(' | ')}
   • фигуры: без имени персонажа и без «фольгированная». «фигура Пикачу» → «фигура», «2 фигуры бабочек» → «2 фигуры». «фигура из шаров» не превращай в голую «фигуру»
   • «ходячая фигура» без имени персонажа
   • сердце, звезда, круг, цифра: без слова «фольгированн…». «сердце с индивидуальной надписью» → «сердце с надписью»
-  • «индивидуальная надпись» всегда сокращай до «с надписью»
-  • бабл, стеклянный бабл, шар баблс → «баблс»
+  • «индивидуальная надпись» всегда сокращай до «с надписью» — слово «индивидуальн…» не оставляй
+  • бабл, шар баблс → «баблс». «стеклянный бабл» / «стеклянный баблс» НЕ схлопывай: это отдельный шар, оставь «стеклянный баблс»
   • КОРОБКА: размер и «декор» в состав не пиши. «коробка с надписью». Если надписи нет — просто «коробка»
   • НЕ считай и НЕ дополняй с фото
   • НЕ включай в composition текст из скобок/подсказок оператора (пол, повод, «цифра», тематика) — это не пункты состава
@@ -1213,6 +1213,16 @@ function sanitizeCompositionColors(lines, rawComposition) {
     );
     return s.replace(/\s{2,}/g, ' ').trim();
   }).filter(Boolean);
+}
+
+/** «индивидуальная надпись» → «надпись». «стеклянный баблс» не трогаем. */
+function sanitizeCompositionWording(lines) {
+  return (lines || []).map((line) => String(line || '')
+    .replace(/индивидуальн[а-яё]*/gi, '')
+    .replace(/\s{2,}/g, ' ')
+    .replace(/\s+([,.;])/g, '$1')
+    .trim()
+  ).filter(Boolean);
 }
 
 /** «коробка …» → «коробка» или «коробка с надписью», без размера и без «декор». */
@@ -1471,6 +1481,7 @@ function sanitizeCardMetadata(data, scene = 'floor', price = 0, rawComposition =
     data.composition = sanitizeCompositionColors(data.composition, rawComposition);
   }
   if (Array.isArray(data.composition)) {
+    data.composition = sanitizeCompositionWording(data.composition);
     data.composition = sanitizeCompositionBoxes(data.composition);
     data.composition = sanitizeCompositionDigitLines(data.composition, rawComposition);
   }

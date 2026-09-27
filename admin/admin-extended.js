@@ -1390,12 +1390,14 @@ Object.assign(app, {
       this.syncOccasionShelfFields?.();
       this.ensurePhotozoneTagFromCard?.(card);
     } else {
-      const scene = this.currentProduct?.scene || '';
+      const scene = this.currentProduct?.scene || document.getElementById('scene-select')?.value || '';
       const tags = Array.isArray(card.tags) ? card.tags : [];
       const compText = Array.isArray(card.composition)
         ? card.composition.join('\n')
         : String(card.composition || document.getElementById('product-composition')?.value || '');
-      if (
+      if (scene === 'surprise') {
+        this.applyTypeOnlyMode?.('Шар-сюрприз');
+      } else if (
         card.category === 'Коробка-сюрприз'
         || tags.includes('Коробка-сюрприз')
         || this.compositionLooksLikeSurpriseBox?.(compText)

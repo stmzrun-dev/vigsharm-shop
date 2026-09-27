@@ -29,6 +29,10 @@ jobs:
         with:
           node-version: "20"
 
+      # Если скрипт карточки падает, новая версия сайта не публикуется.
+      - name: Check that a product card opens
+        run: node scripts/check-product-card.mjs
+
       # План Б: статические OG-страницы p/<slug>.html (без оранжевого Cloudflare)
       - name: Generate OG share pages
         run: node scripts/generate-og-pages.mjs

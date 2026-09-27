@@ -2,6 +2,48 @@
   "ok": true,
   "products": [
     {
+      "id": "e8486af1-1d50-426d-bc9e-84328a9fb150",
+      "title": "Шар баблс 60см с перьями и надписью",
+      "article": "UNT-213",
+      "price": 2000,
+      "short_description": "Шар баблс 60см с перьями и надписью",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "shar-babls-60sm-s-peryami-i-nadpisyu",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Шары Bubble"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/a548336a-6fde-4a9c-8bf4-7019cb0f4b4c.jpg",
+        "unit_type": "bubble"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/519f9871-82b1-4ff2-b2ca-cfbc0e4e397a.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/519f9871-82b1-4ff2-b2ca-cfbc0e4e397a.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-27T11:54:01.058Z",
+      "updated_at": "2026-09-27T11:54:01.058Z",
+      "thumb_photo": null
+    },
+    {
       "id": "79f22dde-ec40-4a92-a73d-0d74900ce5d2",
       "title": "Баблс 60см с шариками и надписью",
       "article": "UNT-212",

@@ -43,8 +43,18 @@
     if (/латекс|гелиев|шар/.test(t)) return 'latex';
     return '';
   }
+  function isFlowerBouquet() {
+    if (!p) return false;
+    var opts = p.client_options || {};
+    return opts.bouquet_type === 'flowers'
+      || p.category === 'Цветы из шаров'
+      || (p.tags || []).indexOf('Цветы из шаров') >= 0;
+  }
   function compIcon(label, i) {
-    var key = compIconKey(label) || 'latex';
+    var key = compIconKey(label);
+    // «Цветы»: лилии и прочие «шары» в составе — цветок. Сердце, цифра, коробка остаются своими.
+    if (isFlowerBouquet() && (!key || key === 'latex')) key = 'tulip';
+    if (!key) key = 'latex';
     return '<img class="comp-ico" src="icons/comp-' + key + '.webp?v=18" alt="" width="32" height="32" onerror="this.onerror=null;this.src=\'icons/comp-' + key + '.svg\'"/>';
   }
 
@@ -55,7 +65,8 @@
   var p = null, allProducts = [];
   var imgIdx = 0;
   var digit = '', digit2 = '', digitDelta = 0;
-  var inscription = '', orderDate = '', orderTime = '';
+  var bubbleInk = '';
+  var bubbleFill = '';
   var fulfillment = '', address = '', qty = 1;
   var customerPhone = '', customerName = '', honeypot = '';
   var orderSending = false;
@@ -111,7 +122,60 @@
     var opts = p.client_options || {};
     return opts.unit_type === 'digit' || p.category === 'Фольгированные цифры' || (p.tags || []).indexOf('Фольгированные цифры') >= 0;
   }
-  function isPerMeter() { return !!(p && (p.tags || []).indexOf('Цена за метр') >= 0); }
+  function isBubbleUnit() {
+    if (!p) return false;
+    var opts = p.client_options || {};
+    var tags = p.tags || [];
+    return opts.unit_type === 'bubble' || p.category === 'Шары Bubble' || tags.indexOf('Шары Bubble') >= 0;
+  }
+  function bubbleFillKind() {
+    var t = String((p && p.composition) || '').toLowerCase().replace(/ё/g, 'е');
+    if (/пенопласт|крупин/.test(t)) return 'foam';
+    if (/конфетти/.test(t)) return 'confetti';
+    if (/шарик/.test(t)) return 'balls';
+    return '';
+  }
+  var BUBBLE_FOAM = ['мятный', 'розовый', 'белый', 'золотой', 'голубой', 'оранжевый', 'ассорти', 'красный', 'жёлтый'];
+  var BUBBLE_INK = ['жёлтый', 'серебро', 'красный', 'зелёный', 'розовый', 'голубой', 'малиновый', 'фиолетовый', 'синий', 'оранжевый', 'белый', 'чёрный', 'золото'];
+  var BUBBLE_BITS = ['золото', 'серебро', 'синий', 'красный', 'розовый', 'голубой', 'зелёный', 'фиолетовый', 'малиновый', 'чёрный', 'ассорти'];
+  function bubbleSwatchColor(name) {
+    var map = {
+      'мятный': '#7dcea0', 'розовый': '#f4a4c0', 'белый': '#f4f4f4', 'золотой': '#d4af37', 'золото': '#d4af37',
+      'голубой': '#7ec8e3', 'оранжевый': '#f5a142', 'красный': '#e24b4b', 'жёлтый': '#f2d04b', 'желтый': '#f2d04b',
+      'серебро': '#c5ccd4', 'зелёный': '#3dae6a', 'зеленый': '#3dae6a', 'малиновый': '#c2185b',
+      'фиолетовый': '#8e5bd6', 'синий': '#2f6fed', 'чёрный': '#222', 'черный': '#222'
+    };
+    return map[String(name || '').toLowerCase()] || '#ddd';
+  }
+  function bubbleColorRow(title, names, selected, act) {
+    return '<fieldset class="bubble-colors"><legend>' + esc(title) + '</legend><div class="bubble-color-row">' +
+      names.map(function (name) {
+        var on = selected === name;
+        var mix = name === 'ассорти';
+        var sw = mix
+          ? '<i class="bubble-swatch is-mix" aria-hidden="true"></i>'
+          : '<i class="bubble-swatch" style="background:' + bubbleSwatchColor(name) + '" aria-hidden="true"></i>';
+        return '<button type="button" class="' + (on ? 'selected' : '') + '" data-act="' + act + '" data-v="' + esc(name) + '" aria-pressed="' + on + '">' +
+          sw + '<span>' + esc(name) + '</span></button>';
+      }).join('') + '</div></fieldset>';
+  }
+  function bubbleOptionsHtml() {
+    if (!isBubbleUnit()) return '';
+    var kind = bubbleFillKind();
+    var fillTitle = kind === 'foam' ? 'Цвет пенопласта' : kind === 'confetti' ? 'Цвет конфетти' : kind === 'balls' ? 'Цвет шариков' : '';
+    var fillNames = kind === 'foam' ? BUBBLE_FOAM : (kind ? BUBBLE_BITS : []);
+    return '<div class="bubble-options">' +
+      (fillTitle ? bubbleColorRow(fillTitle, fillNames, bubbleFill, 'bubble-fill') : '') +
+      bubbleColorRow('Цвет надписи', BUBBLE_INK, bubbleInk, 'bubble-ink') +
+      '</div>';
+  }
+  function bubbleReady() {
+    if (!isBubbleUnit()) return true;
+    if (!String(inscription || '').trim()) return false;
+    if (!bubbleInk) return false;
+    if (bubbleFillKind() && !bubbleFill) return false;
+    return true;
+  }
   function priceFrom() { return !!(p && (p.tags || []).indexOf('Цена от') >= 0); }
   function hasParams() { return !!(p && (p.has_digit_choice || p.has_inscription || p.has_rental || isUnit())); }
   function digitBase() { return p && p.has_digit_choice ? (p.digit_count_on_photo || 0) : 0; }
@@ -515,7 +579,7 @@
   function clientStepVisible(id) {
     if (id === 'client-qty') return isUnit() && (!isDigitUnit() || !p.has_digit_choice);
     if (id === 'client-digits') return !!(p && p.has_digit_choice);
-    if (id === 'client-ins') return !!(p && p.has_inscription) && digitsOk();
+    if (id === 'client-ins') return (!!(p && p.has_inscription) || isBubbleUnit()) && digitsOk();
     if (id === 'client-rental') return !!(p && p.has_rental) && digitsOk();
     if (isUnit() && (id === 'client-ful' || id === 'client-addr' || id === 'client-when' || id === 'client-contact')) return false;
     if (id === 'client-ful') return digitsOk();
@@ -572,7 +636,7 @@
         '<span class="ins-balloon-text">' + esc(String(inscription || '').trim() || 'С Днём рождения!') + '</span></div>' +
         '<label class="client-ins' + (inscriptionOk() ? ' is-filled' : '') + '">' +
         '<input value="' + esc(inscription) + '" maxlength="60" data-act="inscription" placeholder="С Днём рождения!" inputmode="text" autocomplete="off"/>' +
-        '</label></section>';
+        '</label>' + bubbleOptionsHtml() + '</section>';
     }
 
     if (clientStepVisible('client-rental')) {
@@ -694,7 +758,8 @@
         digit: digit, additionalDigit: digit2, digitCountChange: digitDelta,
         inscription: inscription, orderDate: orderDate, orderTime: orderTime,
         fulfillment: fulfillment, address: address, quantity: qty,
-        customerPhone: customerPhone, customerName: customerName
+        customerPhone: customerPhone, customerName: customerName,
+        bubbleInk: bubbleInk, bubbleFill: bubbleFill
       }));
     } catch (e) {}
   }
@@ -717,6 +782,8 @@
       if (typeof d.quantity === 'number') qty = Math.max(1, Math.min(100, d.quantity));
       if (typeof d.customerPhone === 'string') customerPhone = d.customerPhone;
       if (typeof d.customerName === 'string') customerName = d.customerName;
+      if (typeof d.bubbleInk === 'string') bubbleInk = d.bubbleInk;
+      if (typeof d.bubbleFill === 'string') bubbleFill = d.bubbleFill;
       draftRestored = true;
     } catch (e) {}
     draftReady = true;
@@ -971,7 +1038,10 @@
       (isUnit() ? '' : (
       '<button type="button" class="button button-primary product-order-button" data-act="order"' + (orderSending ? ' disabled' : '') + '>' + esc(orderSending ? 'Отправляем…' : orderBtn) + '</button>')) +
       (isUnit()
-        ? '<button type="button" class="button product-unit-add" data-act="unit-add">В набор</button>'
+        ? (isBubbleUnit()
+          ? '<label class="config-input inscription-field"><span>Надпись на шаре</span><input value="' + esc(inscription) + '" maxlength="60" data-act="inscription" placeholder="Например: Мамочка"/></label>' + bubbleOptionsHtml()
+          : '') +
+          '<button type="button" class="button product-unit-add" data-act="unit-add">В набор</button>'
         : '') +
       '<p class="product-order-explainer">Оплата позже — сначала подтвердим наличие и время.</p>' +
       (draftRestored
@@ -1182,6 +1252,14 @@
           clearFlowEditIf('delta');
           render();
           afterDigitsMaybeScroll();
+        });
+      } else if (act === 'bubble-ink' || act === 'bubble-fill') {
+        el.addEventListener('click', function () {
+          var v = el.getAttribute('data-v') || '';
+          if (act === 'bubble-ink') bubbleInk = bubbleInk === v ? '' : v;
+          else bubbleFill = bubbleFill === v ? '' : v;
+          saveDraft();
+          render();
         });
       } else if (act === 'inscription') {
         el.addEventListener('input', function () {
@@ -1430,6 +1508,12 @@
             if (window.vigToast) window.vigToast('Выберите цифру');
             return;
           }
+          if (isBubbleUnit() && !bubbleReady()) {
+            if (window.vigToast) window.vigToast(!String(inscription || '').trim() ? 'Напишите надпись' : 'Выберите цвет');
+            return;
+          }
+          var fillKind = bubbleFillKind();
+          var fillLabel = fillKind === 'foam' ? 'пенопласт' : fillKind === 'confetti' ? 'конфетти' : fillKind === 'balls' ? 'шарики' : '';
           window.vigUnitList.add({
             id: p.id, slug: p.slug || slug, title: p.title, sku: p.sku,
             price: p.price,
@@ -1437,6 +1521,10 @@
             perMeter: isPerMeter(),
             digit: isDigitUnit() ? digit : '',
             digit2: isDigitUnit() && effDigits() >= 2 ? digit2 : '',
+            inscription: isBubbleUnit() ? String(inscription || '').trim() : '',
+            ink: isBubbleUnit() ? bubbleInk : '',
+            fill: isBubbleUnit() ? bubbleFill : '',
+            fillLabel: isBubbleUnit() ? fillLabel : '',
             thumb: photoKey && window.vigImage ? window.vigImage(photoKey, 160) : ''
           });
         });

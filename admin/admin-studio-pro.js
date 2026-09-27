@@ -921,6 +921,7 @@ Object.assign(app, {
               reference_url: referenceUrl,
               scene,
               unit_type: scene === 'unit_balloon' ? (this.getUnitBalloonType?.() || '') : '',
+              bouquet_type: scene === 'handheld_bouquet' ? (this.getBouquetType?.() || '') : '',
               photozone_type: scene === 'photozone' ? (this.getPhotozoneType?.() || 'frame') : undefined,
               resolution: '2K',
               prefer

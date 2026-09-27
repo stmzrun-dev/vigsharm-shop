@@ -1712,17 +1712,25 @@ FORBIDDEN leftover: ghost face, floating hair, half a dress, a person cropped at
 - FORBIDDEN: inventing extra foil hearts/figures from the reflection; keeping two copies of an item that was one real + one reflection; changing Superman/chrome layout while clearing the mirror`;
 
   if (scene === 'handheld_bouquet') {
+    const flowers = opts.bouquet_type === 'flowers';
+    const flowerHand = flowers ? `
+FLOWER BOUQUET — hold the STEMS from behind, never the blooms:
+- The hand is BEHIND the green stems, just under the bow or wrap. Flower heads stay fully in front of the hand.
+- Forearm enters from the RIGHT edge, roughly horizontal. Fingers wrap the stem bundle from behind; only a little of the fingers and the thumb show on the near side.
+- Do NOT pinch, cover, or grab balloon petals, flower heads, or the bow loops.
+- Do NOT put a fist under the center of the bouquet. Do NOT rise from the bottom.
+` : '';
     return `Rephotograph this VigSharm balloon BOUQUET for a square catalog card — Manus style: bouquet held by a FEMALE HAND ONLY against the studio wall (no model, no face, no body).
 
 TASK:
 1. Replace the background with the SECOND reference image — VigSharm studio WALL ONLY (warm beige-grey plaster). NO floor, NO baseboard, NO laminate, NO furniture.
 2. The PRODUCT is only the balloon bouquet: balloons, wrap, bow, and ribbons. DELETE every support and room prop from the source — easel, wooden tripod legs, crossbar, vase, glass, table, houseplant, mirror, vanity light bulbs, furniture, floor. Do NOT carry the stand or vase into the studio. The hand holds the bouquet itself.
-3. The bouquet must be HELD by ONE realistic adult FEMALE hand (woman's hand only — never male, never child's) the way a person standing BESIDE the bouquet would hold a gift: hand enters from the LEFT or RIGHT at the wrap, fingers around the gathered stems under the bow. NOT a hand rising from the bottom. NOT a vertical stick grip. NOT a floating wrist with empty wall under it.
+3. The bouquet must be HELD by ONE realistic adult FEMALE hand (woman's hand only — never male, never child's) the way a person standing BESIDE the bouquet would hold a gift: hand enters from the ${flowers ? 'RIGHT' : 'LEFT or RIGHT'} at the wrap, fingers around the gathered stems under the bow. NOT a hand rising from the bottom. NOT a vertical stick grip. NOT a floating wrist with empty wall under it.
 4. If the original shows a person (woman, girl, man, child) standing with the balloons: DELETE the entire person — face, hair, torso, legs, clothes. Keep ONLY a correct female HAND + short wrist at the bouquet base. Inpaint studio wall where the body was.
 5. If a hand is already in the original: keep the grip idea but REPLACE with a correct female hand/wrist if the original looks male, CGI, crooked, or stretched. Fix lighting to match the studio.
 6. If there is NO hand in the original, ADD one photoreal female hand holding the bouquet base — physically gripping the ribbons, same light as the product — NOT a sticker, NOT a separate cutout plate, NOT floating.
 7. REMOVE any circular hang-tag / logo disc on the ribbons or wrap (shop brand tags). Replace with clean ribbons only.
-
+${flowerHand}
 FRAMING — ribbons fully inside, arm exits the side:
 - Ribbon tails hang freely BELOW the hand and end in visible pointed tips. Leave about 8% empty wall under the lowest ribbon tip. Do not cut ribbons on the bottom edge.
 - The hand and wrist are fully visible. The short forearm leaves through the LEFT or RIGHT edge, toward where the person would stand. It does NOT leave through the bottom and does NOT stop in mid-air above a wall band.
@@ -1962,7 +1970,9 @@ function buildFluxPrompt(scene, opts = {}) {
     ? 'Replace the room with the SECOND reference: warm light beige-grey studio WALL only. No floor, no baseboard, no laminate.'
     : 'Replace the room with the SECOND reference: warm light beige-grey wall, white baseboard, LIGHT pale-oak laminate. Put the product close to the baseboard.';
   const extra = scene === 'handheld_bouquet'
-    ? 'Bouquet held by one adult female hand from the left or right. No face, no body. Ribbon tips stay inside the frame.'
+    ? (opts.bouquet_type === 'flowers'
+      ? 'Flower bouquet: one adult female hand BEHIND the green stems, forearm from the RIGHT. Do not grab the blooms. No face, no body. Ribbon tips stay inside the frame.'
+      : 'Bouquet held by one adult female hand from the left or right. No face, no body. Ribbon tips stay inside the frame.')
     : walkerFloor
       ? 'ONE walking foil figure standing on its own feet on the laminate (floor scene). Strip marketplace badges. Keep the character print. Do not add balloons.'
       : scene === 'unit_balloon'
@@ -2065,6 +2075,7 @@ async function handleStudioRephotograph(request, env) {
     : (body.prefer === 'flux' ? 'flux' : 'quality');
   const photozone_type = body.photozone_type === 'easel' ? 'easel' : 'frame';
   const unit_type = body.unit_type === 'walker' ? 'walker' : '';
+  const bouquet_type = body.bouquet_type === 'flowers' ? 'flowers' : '';
 
   if (!image_url || !reference_url) {
     return json({ ok: false, error: 'Missing image_url or reference_url' }, 400);
@@ -2077,8 +2088,8 @@ async function handleStudioRephotograph(request, env) {
     }
   }
 
-  const prompt = buildRephotographPrompt(scene, { photozone_type, unit_type });
-  const attempts = buildRephotographAttempts(image_url, reference_url, prompt, resolution, prefer, scene, { unit_type });
+  const prompt = buildRephotographPrompt(scene, { photozone_type, unit_type, bouquet_type });
+  const attempts = buildRephotographAttempts(image_url, reference_url, prompt, resolution, prefer, scene, { unit_type, bouquet_type });
 
   let generateResp = null;
   let usedModel = null;

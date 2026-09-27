@@ -171,6 +171,13 @@
   document.addEventListener('click', function (e) {
     var btn = e.target && e.target.closest ? e.target.closest('[data-unit-add], [data-unit-digit]') : null;
     if (!btn || !window.vigUnitList) return;
+    if (btn.getAttribute('data-bubble') === '1') {
+      e.preventDefault();
+      e.stopPropagation();
+      var slug = btn.getAttribute('data-slug') || btn.getAttribute('data-id');
+      window.location.href = 'product.html?slug=' + encodeURIComponent(slug || '');
+      return;
+    }
     e.preventDefault();
     e.stopPropagation();
     var payload = {
@@ -455,6 +462,7 @@
       || /^цифра\s/i.test(String(p.title || '').trim())
     );
     var digitPick = isDigitCard && !printedDigit && p.has_digit_choice !== false;
+    var bubbleCard = opts.unit_type === 'bubble' || catLabel === 'Шары Bubble' || (p.tags || []).indexOf('Шары Bubble') >= 0;
     var thumb = key && window.vigImage ? window.vigImage(key, 160) : '';
     var card = '<a class="catalog-card color-' + (i % 5) + '" href="product.html?slug=' + encodeURIComponent(p.slug || p.id) + '" aria-label="Подробнее: ' + esc(p.title) + '">' +
       '<span class="catalog-card-image">' + img + '</span>' +
@@ -469,7 +477,7 @@
       '</span></a>';
     if (!isPiece) return card;
     return '<div class="catalog-card-wrap">' + card +
-      '<div class="catalog-unit-step" data-unit-step data-id="' + esc(p.id) + '" data-slug="' + esc(p.slug || p.id) + '" data-title="' + esc(p.title) + '" data-sku="' + esc(p.sku || p.article || '') + '" data-price="' + (Number(p.price) || 0) + '" data-meter="' + (perMeter ? '1' : '0') + '" data-digit="' + (digitPick ? '1' : '0') + '" data-thumb="' + esc(thumb) + '"></div></div>';
+      '<div class="catalog-unit-step" data-unit-step data-id="' + esc(p.id) + '" data-slug="' + esc(p.slug || p.id) + '" data-title="' + esc(p.title) + '" data-sku="' + esc(p.sku || p.article || '') + '" data-price="' + (Number(p.price) || 0) + '" data-meter="' + (perMeter ? '1' : '0') + '" data-digit="' + (digitPick ? '1' : '0') + '" data-bubble="' + (bubbleCard ? '1' : '0') + '" data-thumb="' + esc(thumb) + '"></div></div>';
   }
 
   function requestSummary() {

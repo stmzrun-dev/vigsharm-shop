@@ -97,6 +97,38 @@
       if (window.vigToast) window.vigToast(line.digit2 ? ('Цифры ' + line.digit + ' и ' + line.digit2) : ('Цифра ' + line.digit));
       return;
     }
+    if (item.inscription || item.ink || item.fill) {
+      var bubbleLine = {
+        id: item.id,
+        slug: item.slug || '',
+        title: item.title || 'Шар',
+        sku: item.sku || '',
+        price: Number(item.price) || 0,
+        qty: qty,
+        perMeter: !!item.perMeter,
+        thumb: item.thumb || '',
+        inscription: String(item.inscription || ''),
+        ink: String(item.ink || ''),
+        fill: String(item.fill || ''),
+        fillLabel: String(item.fillLabel || '')
+      };
+      var same = null;
+      for (var b = 0; b < items.length; b++) {
+        var row = items[b];
+        if (String(row.id) === String(bubbleLine.id)
+          && String(row.inscription || '') === bubbleLine.inscription
+          && String(row.ink || '') === bubbleLine.ink
+          && String(row.fill || '') === bubbleLine.fill) {
+          same = row;
+          break;
+        }
+      }
+      if (same) same.qty = Math.min(100, (Number(same.qty) || 0) + qty);
+      else items.push(bubbleLine);
+      save(items);
+      if (window.vigToast) window.vigToast('В наборе: ' + qty + ' шт.');
+      return;
+    }
     if (found) {
       found.qty = Math.min(100, (Number(found.qty) || 0) + qty);
       if (item.thumb) found.thumb = item.thumb;
@@ -119,6 +151,9 @@
       var unit = it.perMeter ? 'м' : 'шт.';
       var sku = it.sku ? ' (' + it.sku + ')' : '';
       var which = it.digit ? (' — ' + (it.digit2 ? ('цифры ' + it.digit + ' и ' + it.digit2) : ('цифра ' + it.digit))) : '';
+      if (it.inscription) which += ' — «' + it.inscription + '»';
+      if (it.ink) which += ', буквы: ' + it.ink;
+      if (it.fill) which += ', ' + (it.fillLabel || 'наполнитель') + ': ' + it.fill;
       return it.qty + ' ' + unit + ' × ' + it.title + sku + which + ' — ' + money(lineTotal(it));
     });
     var fmap = {
@@ -192,6 +227,7 @@
       var q = qtyOf(id);
       var pack = ' data-id="' + esc(id) + '" data-slug="' + esc(el.getAttribute('data-slug') || '') + '" data-title="' + esc(el.getAttribute('data-title') || '') + '" data-sku="' + esc(el.getAttribute('data-sku') || '') + '" data-price="' + esc(el.getAttribute('data-price') || '0') + '" data-meter="' + esc(el.getAttribute('data-meter') || '0') + '" data-thumb="' + esc(el.getAttribute('data-thumb') || '') + '"';
       var digitCard = el.getAttribute('data-digit') === '1';
+      var bubbleCard = el.getAttribute('data-bubble') === '1';
       var picked = null;
       if (digitCard) {
         var all = load();
@@ -203,6 +239,8 @@
         ? (picked
           ? '<b class="unit-digit-picked">' + esc(picked.digit2 ? (picked.digit + picked.digit2) : picked.digit) + '</b><button type="button" data-unit-dec="1" data-id="' + esc(id) + '" aria-label="Убрать">×</button>'
           : '<button type="button" class="is-plus" data-unit-digit="1"' + pack + ' aria-label="Выбрать цифру">+</button>')
+        : bubbleCard
+        ? '<button type="button" class="is-plus" data-unit-add="1" data-bubble="1"' + pack + ' aria-label="Выбрать надпись и цвет">+</button>'
         : (q
         ? '<button type="button" data-unit-dec="1" data-id="' + esc(id) + '" aria-label="Меньше">−</button><b>' + q + '</b><button type="button" data-unit-add="1"' + pack + ' aria-label="Больше">+</button>'
         : '<button type="button" class="is-plus" data-unit-add="1"' + pack + ' aria-label="В набор">+</button>');

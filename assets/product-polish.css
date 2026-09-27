@@ -1173,3 +1173,44 @@
     white-space:nowrap!important;
   }
 }
+
+.bubble-colors{
+  border:0;
+  margin:14px 0 0;
+  padding:0;
+}
+.bubble-colors legend{
+  font-weight:700;
+  margin-bottom:8px;
+}
+.bubble-color-row{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+}
+.bubble-color-row button{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  border:1px solid rgba(20,16,12,.12);
+  background:#fff;
+  border-radius:999px;
+  padding:6px 10px 6px 6px;
+  font:inherit;
+  cursor:pointer;
+}
+.bubble-color-row button.selected{
+  border-color:#e24b4b;
+  box-shadow:0 0 0 1px #e24b4b;
+}
+.bubble-swatch{
+  width:18px;
+  height:18px;
+  border-radius:50%;
+  border:1px solid rgba(20,16,12,.18);
+  display:block;
+  flex:none;
+}
+.bubble-swatch.is-mix{
+  background:conic-gradient(#e24b4b,#f2d04b,#3dae6a,#2f6fed,#8e5bd6,#e24b4b);
+}

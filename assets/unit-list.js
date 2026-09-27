@@ -5,7 +5,7 @@
   var TG_URL = 'https://t.me/Olgamzz';
   var MAX_URL = 'https://max.ru/u/f9LHodD0cOJwY09H6Zj63nYK_X8tPZGb3CODIvTT7FWkRzrgbh5F582AiB8';
   var cityDelivery = 200;
-  var draft = { fulfillment: '', address: '', date: '', time: '', phone: '', name: '', hp: '' };
+  var draft = { fulfillment: '', address: '', date: '', time: '', phone: '', name: '', note: '', hp: '' };
 
   function load() {
     try {
@@ -165,6 +165,7 @@
     lines.push('Желаемое время: ' + (draft.time || 'уточнить'));
     lines.push('Получение: ' + (fmap[draft.fulfillment] || 'уточнить'));
     if (draft.fulfillment !== 'pickup' && draft.address.trim()) lines.push('Адрес: ' + draft.address.trim());
+    if (String(draft.note || '').trim()) lines.push('Комментарий: ' + String(draft.note).trim());
     var cost = draft.fulfillment === 'nearby'
       ? 'Предварительная стоимость шаров: ' + money(goodsSum(items)) + ' + доставка.'
       : 'Стоимость: ' + money(grand(items)) + '.';
@@ -472,6 +473,7 @@
           '<div class="unit-list-when">' + calendarHtml() + timeHtml() + '</div>' +
           '<input data-u="phone" type="tel" inputmode="tel" maxlength="17" placeholder="+7 928 000-00-00" value="' + esc(draft.phone) + '" aria-label="Телефон"/>' +
           '<input data-u="name" type="text" maxlength="80" placeholder="Имя, если удобно" value="' + esc(draft.name) + '" aria-label="Имя"/>' +
+          '<textarea data-u="note" maxlength="200" rows="2" placeholder="Комментарий: домофон, этаж, сюрприз" aria-label="Комментарий к заказу">' + esc(draft.note) + '</textarea>' +
           '<input class="order-hp" data-u="hp" tabindex="-1" autocomplete="off" value="' + esc(draft.hp) + '" aria-hidden="true"/>' +
           '</div>' +
           '<p class="unit-list-sum"><span>' + (draft.fulfillment === 'nearby' ? 'Шары' : 'Итого') + '</span><strong>' +
@@ -596,7 +598,7 @@
           wireAddress(el);
         } else {
           el.addEventListener('input', function () {
-            draft[act] = el.value;
+            draft[act] = act === 'note' ? el.value.slice(0, 200) : el.value;
             if (act === 'name') syncGo(root);
           });
         }

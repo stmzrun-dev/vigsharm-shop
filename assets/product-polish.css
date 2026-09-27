@@ -575,6 +575,13 @@
   max-width:100%;
   box-sizing:border-box;
 }
+.product-page .config-input textarea{
+  width:100%;
+  min-height:72px;
+  resize:vertical;
+  box-sizing:border-box;
+  font:inherit;
+}
 .product-page .order-date-row .config-input input{
   min-width:0;
   width:100%;
@@ -953,19 +960,23 @@
   }
   .ins-balloon-text{
     position:absolute;
-    left:18%;
-    right:18%;
-    top:34%;
+    left:50%;
+    top:42%;
+    width:max-content;
+    max-width:46%;
+    transform:translate(-50%,-50%);
+    margin:0;
     text-align:center;
-    font-size:13px;
-    font-weight:750;
-    line-height:1.25;
+    font-size:15px;
+    font-weight:800;
+    line-height:1.15;
     color:#b9a8a2;
-    overflow:hidden;
-    display:-webkit-box;
-    -webkit-line-clamp:3;
-    -webkit-box-orient:vertical;
+    overflow-wrap:anywhere;
+    text-wrap:balance;
+    pointer-events:none;
   }
+  .ins-balloon-text.is-mid{font-size:13px}
+  .ins-balloon-text.is-long{font-size:11px}
   .ins-balloon.is-filled .ins-balloon-text{
     color:#2a2a32;
   }
@@ -982,7 +993,8 @@
     border-radius:50%;
     pointer-events:none;
   }
-  .client-ins input{
+  .client-ins input,
+  .client-ins textarea{
     width:100%;
     min-height:48px;
     border:1.5px solid #ebe6e3;
@@ -993,11 +1005,14 @@
     background:#fff;
     box-sizing:border-box;
   }
-  .client-block.is-next .client-ins input{
+  .client-ins textarea{min-height:72px;resize:vertical}
+  .client-block.is-next .client-ins input,
+  .client-block.is-next .client-ins textarea{
     border-color:#ffd0c6;
     background:#fff;
   }
-  .client-ins.is-filled input{
+  .client-ins.is-filled input,
+  .client-ins.is-filled textarea{
     border-color:#cfe8da;
   }
   .client-ful{

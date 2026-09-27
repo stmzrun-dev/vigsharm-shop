@@ -69,7 +69,7 @@
   var bubbleInk = '';
   var bubbleFill = '';
   var fulfillment = '', address = '', qty = 1;
-  var customerPhone = '', customerName = '', honeypot = '';
+  var customerPhone = '', customerName = '', orderNote = '', honeypot = '';
   var orderSending = false;
   var draftRestored = false, draftReady = false;
   var shareState = '', copyState = '';
@@ -728,7 +728,7 @@
           '<h3 class="client-block-title">Надпись на шаре</h3>' +
           '<div class="ins-balloon' + (inscriptionOk() ? ' is-filled' : '') + '">' +
           '<img src="icons/ins-balloon.webp?v=1" alt="" width="160" height="160"/>' +
-          '<span class="ins-balloon-text">' + esc(String(inscription || '').trim() || 'С Днём рождения!') + '</span></div>' +
+          '<span class="ins-balloon-text' + namedSizeClass(String(inscription || '').trim() || 'С Днём рождения!') + '">' + esc(String(inscription || '').trim() || 'С Днём рождения!') + '</span></div>' +
           '<label class="client-ins' + (inscriptionOk() ? ' is-filled' : '') + '">' +
           '<input value="' + esc(inscription) + '" maxlength="60" data-act="inscription" placeholder="С Днём рождения!" inputmode="text" autocomplete="off"/>' +
           '</label></section>';
@@ -818,6 +818,8 @@
     var fmap = { pickup: 'самовывоз из студии', armavir: 'доставка по Армавиру (+' + cityRub() + ')', nearby: 'доставка за пределы Армавира (стоимость уточним при подтверждении заказа)' };
     lines.push('Получение: ' + (fulfillment ? fmap[fulfillment] : 'уточнить'));
     if (fulfillment && fulfillment !== 'pickup' && address.trim()) lines.push('Адрес: ' + address.trim());
+    var note = String(orderNote || '').trim();
+    if (note) lines.push('Комментарий: ' + note);
     var opts = lines.length ? '\n' + lines.join('\n') : '';
     var cost = fulfillment === 'nearby'
       ? 'Предварительная стоимость: ' + (priceFrom() ? 'от ' : '') + total().toLocaleString('ru-RU') + ' ₽ + доставка.'
@@ -842,6 +844,10 @@
       '<span class="client-digit-label">Имя <small style="font-weight:600;color:#9a9aa3">(необязательно)</small></span>' +
       '<input value="' + esc(customerName) + '" data-act="name" type="text" autocomplete="name" maxlength="80" placeholder="Как к вам обратиться"/>' +
       '</label>' +
+      '<label class="client-ins' + (String(orderNote || '').trim() ? ' is-filled' : '') + '" style="margin-top:10px">' +
+      '<span class="client-digit-label">Комментарий <small style="font-weight:600;color:#9a9aa3">(необязательно)</small></span>' +
+      '<textarea data-act="note" maxlength="200" rows="2" placeholder="Домофон, этаж, сюрприз, не звонить получателю">' + esc(orderNote) + '</textarea>' +
+      '</label>' +
       '<input class="order-hp" tabindex="-1" autocomplete="off" data-act="hp" value="' + esc(honeypot) + '" aria-hidden="true"/>';
   }
 
@@ -862,7 +868,7 @@
         digit: digit, additionalDigit: digit2, digitCountChange: digitDelta,
         inscription: inscription, orderDate: orderDate, orderTime: orderTime,
         fulfillment: fulfillment, address: address, quantity: qty,
-        customerPhone: customerPhone, customerName: customerName,
+        customerPhone: customerPhone, customerName: customerName, orderNote: orderNote,
         bubbleInk: bubbleInk, bubbleFill: bubbleFill
       }));
     } catch (e) {}
@@ -886,6 +892,7 @@
       if (typeof d.quantity === 'number') qty = Math.max(1, Math.min(100, d.quantity));
       if (typeof d.customerPhone === 'string') customerPhone = d.customerPhone;
       if (typeof d.customerName === 'string') customerName = d.customerName;
+      if (typeof d.orderNote === 'string') orderNote = d.orderNote.slice(0, 200);
       if (typeof d.bubbleInk === 'string') bubbleInk = d.bubbleInk;
       if (typeof d.bubbleFill === 'string') bubbleFill = d.bubbleFill;
       draftRestored = true;
@@ -1066,6 +1073,8 @@
       '<input value="' + esc(customerPhone) + '" data-act="phone" type="tel" inputmode="tel" autocomplete="tel" maxlength="17" pattern="[0-9+()\\-\\s]*" placeholder="+7 928 000-00-00"/></label>' +
       '<label class="config-input"><span>Имя (необязательно)</span>' +
       '<input value="' + esc(customerName) + '" data-act="name" type="text" autocomplete="name" maxlength="80" placeholder="Как к вам обратиться"/></label>' +
+      '<label class="config-input"><span>Комментарий (необязательно)</span>' +
+      '<textarea data-act="note" maxlength="200" rows="2" placeholder="Домофон, этаж, сюрприз, не звонить получателю">' + esc(orderNote) + '</textarea></label>' +
       '<input class="order-hp" tabindex="-1" autocomplete="off" data-act="hp" value="' + esc(honeypot) + '" aria-hidden="true"/>' +
       '</div>';
 
@@ -1386,7 +1395,11 @@
           if (insBlock) insBlock.classList.toggle('is-done', hasText);
           var preview = insBlock && insBlock.querySelector('.ins-balloon-text');
           var balloon = insBlock && insBlock.querySelector('.ins-balloon');
-          if (preview) preview.textContent = hasText ? inscription.trim() : 'С Днём рождения!';
+          if (preview) {
+            var shown = hasText ? inscription.trim() : 'С Днём рождения!';
+            preview.textContent = shown;
+            preview.className = 'ins-balloon-text' + namedSizeClass(shown);
+          }
           if (balloon) balloon.classList.toggle('is-filled', hasText);
           var letter = root.querySelector('.product-page-main-image .named-letter');
           if (letter) {
@@ -1496,6 +1509,11 @@
         el.addEventListener('focus', function () {
           stopNamePoll();
           namePoll = setInterval(function () { applyContactFields(); }, 280);
+        });
+      } else if (act === 'note') {
+        el.addEventListener('input', function () {
+          orderNote = el.value.slice(0, 200);
+          saveDraft();
         });
       } else if (act === 'hp') {
         el.addEventListener('input', function () { honeypot = el.value; });
@@ -1716,6 +1734,7 @@
   function syncContactsFromDom() {
     var phoneEl = root.querySelector('[data-act="phone"]');
     var nameEl = root.querySelector('[data-act="name"]');
+    var noteEl = root.querySelector('[data-act="note"]');
     var changed = false;
     if (phoneEl && phoneEl.value !== customerPhone) {
       var sanitized = sanitizePhoneInput(phoneEl.value);
@@ -1725,6 +1744,10 @@
     }
     if (nameEl && nameEl.value !== customerName) {
       customerName = nameEl.value;
+      changed = true;
+    }
+    if (noteEl && noteEl.value !== orderNote) {
+      orderNote = noteEl.value.slice(0, 200);
       changed = true;
     }
     return changed;

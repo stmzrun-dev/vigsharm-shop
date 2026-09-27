@@ -19,9 +19,10 @@
   width:32px;height:32px;border-radius:999px;border:1px solid #E7E0D6;background:#fff;font:inherit;cursor:pointer;
 }
 .unit-list-form{display:flex;flex-direction:column;gap:8px}
-.unit-list-form input,.unit-list-form select{
-  width:100%;border:1px solid #E7E0D6;border-radius:12px;padding:10px 12px;font:inherit;background:#fff;
+.unit-list-form input,.unit-list-form select,.unit-list-form textarea{
+  width:100%;border:1px solid #E7E0D6;border-radius:12px;padding:10px 12px;font:inherit;background:#fff;box-sizing:border-box;
 }
+.unit-list-form textarea{min-height:72px;resize:vertical}
 .unit-list-ful{display:flex;gap:8px}
 .unit-list-ful button{
   flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;

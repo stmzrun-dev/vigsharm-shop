@@ -8,6 +8,7 @@ on:
 
 permissions:
   contents: write
+  actions: write
 
 concurrency:
   group: sync-products
@@ -35,13 +36,24 @@ jobs:
         run: node scripts/export-products-snapshot.mjs
 
       - name: Commit and push if changed
+        id: commit
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add data/products.json data/delivery.json data/price-list.json
           if git diff --staged --quiet; then
             echo "No snapshot changes — skip commit"
+            echo "changed=false" >> "$GITHUB_OUTPUT"
           else
             git commit -m "chore: sync storefront snapshots (catalog, delivery, price)"
             git push origin main
+            echo "changed=true" >> "$GITHUB_OUTPUT"
           fi
+
+      # Пуш от GITHUB_TOKEN не запускает Deploy to GitHub Pages.
+      # workflow_dispatch от того же токена — запускает.
+      - name: Deploy Pages if snapshot changed
+        if: steps.commit.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh workflow run pages.yml --ref main

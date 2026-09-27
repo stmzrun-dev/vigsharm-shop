@@ -235,6 +235,14 @@
   color:#2ec4d6!important;
   font-weight:800!important;
 }
+.catalog-page .catalog-card-size{
+  display:block!important;
+  flex:0 0 auto!important;
+  font-size:13px!important;
+  line-height:1.2!important;
+  font-weight:650!important;
+  color:var(--cat-muted,#71717A)!important;
+}
 .catalog-page .catalog-card-copy > strong{
   color:var(--cat-text)!important;
   font-weight:800!important;

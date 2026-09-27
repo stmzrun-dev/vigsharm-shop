@@ -919,11 +919,32 @@ Object.assign(app, {
     document.querySelectorAll('input[name="bouquet-type-early"]').forEach((el) => {
       el.checked = on && el.value === 'flowers';
     });
-    const priceLabel = document.getElementById('essentials-price-label');
-    if (priceLabel) {
-      priceLabel.innerHTML = on
+    this.syncArchPriceLabel?.();
+  },
+
+  isArchForm() {
+    const cat = document.getElementById('product-category')?.value || '';
+    const archTag = document.querySelector('#tags-type input[value="Арка из шаров"]')?.checked;
+    const reviewCat = document.getElementById('ai-review-category')?.value || '';
+    return cat === 'Арка из шаров' || reviewCat === 'Арка из шаров' || !!archTag;
+  },
+
+  syncArchPriceLabel() {
+    const flowers = document.querySelector('input[name="bouquet-type-early"]:checked')?.value === 'flowers';
+    const arch = !flowers && this.isArchForm?.();
+    const label = document.getElementById('essentials-price-label');
+    if (label) {
+      label.innerHTML = flowers
         ? 'Цена за штуку, ₽ <span class="req">*</span>'
-        : 'Цена, ₽ <span class="req">*</span>';
+        : (arch ? 'Цена за метр, ₽ <span class="req">*</span>' : 'Цена, ₽ <span class="req">*</span>');
+    }
+    const review = document.querySelector('label[for="ai-review-price"]');
+    if (review) review.textContent = arch ? 'Цена за метр, ₽' : 'Цена, ₽';
+    if (!this._archPriceWired) {
+      this._archPriceWired = true;
+      document.getElementById('product-category')?.addEventListener('change', () => this.syncArchPriceLabel());
+      document.getElementById('ai-review-category')?.addEventListener('change', () => this.syncArchPriceLabel());
+      document.getElementById('tags-type')?.addEventListener('change', () => this.syncArchPriceLabel());
     }
   },
 
@@ -1771,6 +1792,10 @@ Object.assign(app, {
 
     const deferred = (typeof DEFERRED_TYPE_TAGS !== 'undefined' && DEFERRED_TYPE_TAGS) || ['Шар-сюрприз'];
     finalTags = finalTags.filter((t) => !deferred.includes(t));
+    if (category === 'Арка из шаров' || finalTags.includes('Арка из шаров')) {
+      if (!finalTags.includes('Арка из шаров')) finalTags.push('Арка из шаров');
+      if (!finalTags.includes('Цена за метр')) finalTags.push('Цена за метр');
+    }
     if (scene === 'wall_only' || scene === 'unit_balloon') {
       finalTags = finalTags.filter((t) => t !== 'Напольные композиции');
     }
@@ -2239,6 +2264,7 @@ app.loadProductToForm = function(product) {
   this.syncUnitBalloonForm?.(false);
   this.syncAdvanceOrderFromScene?.();
   this.syncOccasionShelfFields?.();
+  this.syncArchPriceLabel?.();
   this._publishGapsAck = false;
   this._aiCardFilled = true;
   this.syncEditorSteps?.();

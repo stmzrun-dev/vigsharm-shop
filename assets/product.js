@@ -30,6 +30,7 @@
     // Кубики с шариками — до «шарик»→mini
     if (/кубик/.test(t)) return 'cubes';
     if (/тассел|tassel/.test(t) && !/бабл|bubble|стеклян/.test(t)) return 'tassel';
+    if (/арк/.test(t)) return 'arch';
     if (/фотозон|мольберт|каркас/.test(t)) return 'photozone';
     if (/фигур|персонаж|мишк|зайц|единорог/.test(t)) return 'figure';
     if (/напольн|стойк/.test(t)) return 'floor';
@@ -55,7 +56,8 @@
     // «Цветы»: лилии и прочие «шары» в составе — цветок. Сердце, цифра, коробка остаются своими.
     if (isFlowerBouquet() && (!key || key === 'latex')) key = 'tulip';
     if (!key) key = 'latex';
-    return '<img class="comp-ico" src="icons/comp-' + key + '.webp?v=18" alt="" width="32" height="32" onerror="this.onerror=null;this.src=\'icons/comp-' + key + '.svg\'"/>';
+    var v = key === 'arch' ? '1' : '18';
+    return '<img class="comp-ico" src="icons/comp-' + key + '.webp?v=' + v + '" alt="" width="32" height="32" onerror="this.onerror=null;this.src=\'icons/comp-' + key + '.svg\'"/>';
   }
 
   var root = document.getElementById('product-root');
@@ -129,7 +131,15 @@
     var opts = p.client_options || {};
     return !!String(opts.unit_holiday || '').trim() || /^цифра\s/i.test(String(p.title || '').trim());
   }
-  function isPerMeter() { return !!(p && (p.tags || []).indexOf('Цена за метр') >= 0); }
+  function isArchProduct() {
+    if (!p) return false;
+    var tags = p.tags || [];
+    return p.category === 'Арка из шаров' || tags.indexOf('Арка из шаров') >= 0;
+  }
+  function isPerMeter() {
+    return !!(p && (isArchProduct() || (p.tags || []).indexOf('Цена за метр') >= 0));
+  }
+  function allowsPickup() { return !isArchProduct(); }
   function isBubbleUnit() {
     if (!p) return false;
     var opts = p.client_options || {};
@@ -744,8 +754,10 @@
       html += '<section class="client-block' + (next === 'client-ful' ? ' is-next' : fulfillment ? ' is-done' : '') + '" id="client-ful">' +
         '<h3 class="client-block-title">Как получить</h3>' +
         '<p class="client-digit-picked">' + esc(fulStatusText()) + '</p>' +
-        '<div class="client-ful fulfillment-options' + (!fulfillment ? ' is-pick' : '') + '">' +
-        '<button type="button" class="' + (fulfillment === 'pickup' ? 'selected' : '') + '" data-act="ful" data-v="pickup" aria-label="Самовывоз" aria-pressed="' + (fulfillment === 'pickup') + '"><span class="ful-icon"><img src="icons/ful-pickup.webp?v=4" alt="" width="48" height="48"/></span><strong>Самовывоз</strong><small>Бесплатно</small></button>' +
+        '<div class="client-ful fulfillment-options' + (!fulfillment ? ' is-pick' : '') + (allowsPickup() ? '' : ' is-delivery-only') + '">' +
+        (allowsPickup()
+          ? '<button type="button" class="' + (fulfillment === 'pickup' ? 'selected' : '') + '" data-act="ful" data-v="pickup" aria-label="Самовывоз" aria-pressed="' + (fulfillment === 'pickup') + '"><span class="ful-icon"><img src="icons/ful-pickup.webp?v=4" alt="" width="48" height="48"/></span><strong>Самовывоз</strong><small>Бесплатно</small></button>'
+          : '') +
         '<button type="button" class="' + (fulfillment === 'armavir' ? 'selected' : '') + '" data-act="ful" data-v="armavir" aria-label="По городу" aria-pressed="' + (fulfillment === 'armavir') + '"><span class="ful-icon"><img src="icons/ful-city.webp?v=4" alt="" width="48" height="48"/></span><strong>По городу</strong><small>+' + cityRub() + '</small></button>' +
         '<button type="button" class="' + (fulfillment === 'nearby' ? 'selected' : '') + '" data-act="ful" data-v="nearby" aria-label="За город" aria-pressed="' + (fulfillment === 'nearby') + '"><span class="ful-icon"><img src="icons/ful-far.webp?v=4" alt="" width="48" height="48"/></span><strong>За город</strong><small>Рассчитаем</small></button>' +
         '</div></section>';
@@ -1008,6 +1020,7 @@
 
   function render() {
     if (!p) return;
+    if (!allowsPickup() && fulfillment === 'pickup') fulfillment = '';
     saveDraft();
     var keys = p.image_keys || [];
     if (imgIdx < 0 || imgIdx >= keys.length) imgIdx = 0;
@@ -1060,8 +1073,10 @@
       '<div class="order-date-row" role="group" aria-label="Дата и время">' +
       '<div class="order-date-field">' + calendarHtml() + '</div>' +
       '<div class="order-time-field">' + timeHtml() + '</div></div>' +
-      '<fieldset class="fulfillment-field' + (!fulfilled ? ' needs-pick' : '') + '"><legend>Как получить</legend><div class="fulfillment-options">' +
-      '<button type="button" class="' + (fulfilled === 'pickup' ? 'selected' : '') + '" data-act="ful" data-v="pickup" aria-label="Выбрать самовывоз, бесплатно" aria-pressed="' + (fulfilled === 'pickup') + '"><span class="ful-icon ful-pickup" aria-hidden="true"><img src="icons/ful-pickup.webp?v=4" alt="" width="40" height="40"/></span><strong>Самовывоз</strong><small>Бесплатно</small></button>' +
+      '<fieldset class="fulfillment-field' + (!fulfilled ? ' needs-pick' : '') + '"><legend>Как получить</legend><div class="fulfillment-options' + (allowsPickup() ? '' : ' is-delivery-only') + '">' +
+      (allowsPickup()
+        ? '<button type="button" class="' + (fulfilled === 'pickup' ? 'selected' : '') + '" data-act="ful" data-v="pickup" aria-label="Выбрать самовывоз, бесплатно" aria-pressed="' + (fulfilled === 'pickup') + '"><span class="ful-icon ful-pickup" aria-hidden="true"><img src="icons/ful-pickup.webp?v=4" alt="" width="40" height="40"/></span><strong>Самовывоз</strong><small>Бесплатно</small></button>'
+        : '') +
       '<button type="button" class="' + (fulfilled === 'armavir' ? 'selected' : '') + '" data-act="ful" data-v="armavir" aria-label="Выбрать доставку по Армавиру, ' + cityRub() + '" aria-pressed="' + (fulfilled === 'armavir') + '"><span class="ful-icon ful-city" aria-hidden="true"><img src="icons/ful-city.webp?v=4" alt="" width="40" height="40"/></span><strong>По городу</strong><small>+' + cityRub() + '</small></button>' +
       '<button type="button" class="' + (fulfilled === 'nearby' ? 'selected' : '') + '" data-act="ful" data-v="nearby" aria-label="Выбрать доставку за город, стоимость рассчитывается отдельно" aria-pressed="' + (fulfilled === 'nearby') + '"><span class="ful-icon ful-far" aria-hidden="true"><img src="icons/ful-far.webp?v=4" alt="" width="40" height="40"/></span><strong>За город</strong><small>Рассчитаем</small></button>' +
       '</div></fieldset>' +

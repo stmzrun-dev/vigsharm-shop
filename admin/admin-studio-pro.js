@@ -49,7 +49,7 @@ Object.assign(app, {
 
   /** All catalog scenes: AI rephotograph (Manus-style) against studio reference */
   usesRephotographMode(scene) {
-    return ['floor', 'balloon_figures', 'photozone', 'auto', 'handheld_bouquet', 'wall_only', 'unit_balloon'].includes(scene || 'floor');
+    return ['floor', 'balloon_figures', 'photozone', 'auto', 'handheld_bouquet', 'wall_only', 'unit_balloon', 'arch'].includes(scene || 'floor');
   },
 
   syncStudioModeHint() {
@@ -910,7 +910,8 @@ Object.assign(app, {
 
   async callRephotographMaster(imageUrl, scene, statusEl) {
     // Без restore: лишний шаг (часто content-policy на персонажах) и +1–3 мин.
-    const referenceUrl = await this.ensureReferenceHttpsUrl();
+    const keepBg = scene === 'arch';
+    const referenceUrl = keepBg ? '' : await this.ensureReferenceHttpsUrl();
     const startJob = async (prefer) => {
       let lastErr = null;
       for (let attempt = 1; attempt <= 2; attempt++) {
@@ -920,7 +921,7 @@ Object.assign(app, {
             headers: { 'Content-Type': 'application/json', ...this.authHeaders() },
             body: JSON.stringify({
               image_url: imageUrl,
-              reference_url: referenceUrl,
+              ...(keepBg ? {} : { reference_url: referenceUrl }),
               scene,
               unit_type: scene === 'unit_balloon' ? (this.getUnitBalloonType?.() || '') : '',
               bouquet_type: scene === 'handheld_bouquet' ? (this.getBouquetType?.() || '') : '',
@@ -947,7 +948,9 @@ Object.assign(app, {
     };
 
     if (statusEl) {
-      statusEl.textContent = scene === 'handheld_bouquet'
+      statusEl.textContent = scene === 'arch'
+        ? '🌈 Арка: переснимаем гирлянду, фон как на фото...'
+        : scene === 'handheld_bouquet'
         ? '✋ Manus: AI переснимает букет — стена + рука...'
         : this.isWalkerOnFloor?.(scene)
           ? '🪵 Ходячая фигура: стена + пол, как напольная...'

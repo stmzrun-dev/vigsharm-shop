@@ -365,6 +365,13 @@
 }
 .catalog-card-meta>small{font-size:10px;letter-spacing:.01em;display:inline!important}
 .product-advance-badge,.product-request-badge{display:inline-flex!important;padding:2px 7px;font-size:9.5px}
+.catalog-card-size{
+  display:block!important;
+  flex:0 0 auto!important;
+  font-size:12px!important;
+  line-height:1.2!important;
+  color:#71717A;
+}
 .catalog-card-copy>strong{
   font-size:14.5px!important;line-height:1.22!important;
   -webkit-line-clamp:2;-webkit-box-orient:vertical;display:-webkit-box!important;

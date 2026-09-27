@@ -58,12 +58,17 @@
     if (s === 'Ходячие фигуры') return 'Ходячие';
     return s;
   }
+  function isUnitProduct(p) {
+    var r = tagsOf(p);
+    var cat = String(p.category || '');
+    return cat === 'Шары поштучно' || UNIT_SUBCATS.indexOf(cat) >= 0 || (
+      !r.some(function (x) { return SINGLE_GIFTS.indexOf(x) >= 0; }) && r.indexOf('Шары поштучно') >= 0
+    );
+  }
   function inGroup(p, group) {
     var r = tagsOf(p);
     var cat = String(p.category || '');
-    var isUnit = cat === 'Шары поштучно' || UNIT_SUBCATS.indexOf(cat) >= 0 || (
-      !r.some(function (x) { return SINGLE_GIFTS.indexOf(x) >= 0; }) && r.indexOf('Шары поштучно') >= 0
-    );
+    var isUnit = isUnitProduct(p);
     var isHoliday = r.some(function (x) { return HOLIDAYS.indexOf(x) >= 0; });
     var hasChar = !!(p.character_name || '').trim();
     var isIdea = !isUnit && !isHoliday && !!cat && AUDIENCE.indexOf(cat) < 0;
@@ -433,6 +438,10 @@
         if (d) return d * dir;
         return String(a.id || a.slug || '').localeCompare(String(b.id || b.slug || ''), 'ru');
       });
+    } else if (group === 'characters' || group === 'holidays') {
+      list = list.slice().sort(function (a, b) {
+        return (isUnitProduct(a) ? 1 : 0) - (isUnitProduct(b) ? 1 : 0);
+      });
     }
     return list;
   }
@@ -451,7 +460,10 @@
     var catLabel = String(p.category || '').trim();
     var unitShelf = ['Шары с конфетти', 'Шары хром', 'Шары Super Agate', 'Шары Brush', 'Шары Bubble', 'Латексные шары', 'Шары с рисунком', 'Фольгированные фигуры', 'Ходячие фигуры', 'Круги, звёзды и сердца', 'Фольгированные цифры', 'Именные шары']
       .filter(function (name) { return catLabel === name || (p.tags || []).indexOf(name) >= 0; })[0];
-    var priceNote = (catLabel === 'Шары поштучно' || unitShelf || (p.tags || []).indexOf('Шары поштучно') >= 0) ? 'Цена за штуку' : 'Цена за композицию';
+    var isArchCard = catLabel === 'Арка из шаров' || (p.tags || []).indexOf('Арка из шаров') >= 0 || (p.tags || []).indexOf('Цена за метр') >= 0;
+    var priceNote = isArchCard
+      ? 'Цена за метр'
+      : ((catLabel === 'Шары поштучно' || unitShelf || (p.tags || []).indexOf('Шары поштучно') >= 0) ? 'Цена за штуку' : 'Цена за композицию');
     var cat = unitShelf || catLabel;
     var requestBadge = p.available_on_request ? '<em class="product-request-badge">Под заказ</em>' : '';
     /* Advance badge only when category is missing — avoid noisy repeat on every card */

@@ -25,7 +25,8 @@ const SCENES = [
   { value: 'wall_only', icon: '🖼️', title: 'Только стена', short: 'Стена', desc: 'Композиция на стене, без пола' },
   { value: 'floor', icon: '🪵', title: 'Напольная композиция', short: 'Пол', desc: 'Стоит на полу: стена + плинтус + ламинат' },
   { value: 'balloon_figures', icon: '🧸', title: 'Фигуры из шаров', short: 'Фигуры', desc: 'Крупная фигура из шаров на полу' },
-  { value: 'photozone', icon: '🎪', title: 'Фотозона', short: 'Фотозона', desc: 'Каркас или мольберт' }
+  { value: 'photozone', icon: '🎪', title: 'Фотозона', short: 'Фотозона', desc: 'Каркас или мольберт' },
+  { value: 'arch', icon: '🌈', title: 'Арка', short: 'Арка', desc: 'Улучшить фото, фон как на снимке' }
 ];
 
 /** Типы фотозоны → что в аренде */

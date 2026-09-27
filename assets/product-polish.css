@@ -293,6 +293,9 @@
 .product-page .fulfillment-options{
   grid-template-columns:repeat(3,minmax(0,1fr))!important;
 }
+.product-page .fulfillment-options.is-delivery-only{
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+}
 .product-page .fulfillment-options > button{
   display:flex!important;
   flex-direction:column;
@@ -1019,6 +1022,10 @@
     display:grid!important;
     grid-template-columns:repeat(3,minmax(0,1fr))!important;
     gap:8px!important;
+  }
+  .client-ful.is-delivery-only,
+  .fulfillment-options.is-delivery-only{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
   }
   .client-ful > button{
     min-height:108px!important;

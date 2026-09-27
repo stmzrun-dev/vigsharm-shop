@@ -1638,6 +1638,18 @@ function isWalkerOnFloor(scene, opts) {
 
 function buildRephotographPrompt(scene, opts = {}) {
   const photozoneType = opts.photozone_type === 'easel' ? 'easel' : 'frame';
+  if (scene === 'arch') {
+    return `Improve this photo. Make it a brighter, cleaner, sharper catalog photo of the same balloon arch on the same storefront. Keep the place, the garland shape, and the balloon colors.
+
+TEXT LOCK — do not distort any writing:
+- Every letter on the shop sign, posters, banners, and balloon prints stays EXACTLY as in the source
+- Do NOT rewrite, translate, invent, blur, or restyle words
+- If a word is unclear, copy the original glyphs; do not guess a new word
+
+Do not add or remove balloons. Square 1:1. Real photograph, not plastic CGI.
+
+OUTPUT: one improved photo of the same arch. All text identical to the source.`;
+  }
   const lock = `LOCKED — preserve without any change:
 - entire original product; exact balloon count, shapes, sizes, colors, positions, overlaps, clustering density
 - ALL decorative text that is PART OF THE PRODUCT PRINT on balloons (character art, foil prints, custom names/numbers meant to stay on the item) — copy exactly, never retype or autocorrect
@@ -1964,6 +1976,9 @@ OUTPUT: one square 1:1 professional catalog photo — SAME balloon product as so
 
 /** Flux edit limit is 5000 characters. Keep this well under that. */
 function buildFluxPrompt(scene, opts = {}) {
+  if (scene === 'arch') {
+    return `Improve this balloon arch photo: brighter, cleaner, sharper, same place and same garland. Do not change any text on the sign, posters, or balloons — copy letters exactly. Do not add balloons. Square 1:1. Real photo, not CGI.`.trim();
+  }
   const walkerFloor = isWalkerOnFloor(scene, opts);
   const wallRoom = ['wall_only', 'unit_balloon', 'handheld_bouquet'].includes(scene) && !walkerFloor;
   const room = wallRoom
@@ -1993,29 +2008,32 @@ ${extra}`.trim();
 
 function buildRephotographAttempts(imageUrl, referenceUrl, prompt, resolution = '2K', prefer = 'quality', scene = 'floor', opts = {}) {
   const res = ['1K', '2K', '4K'].includes(resolution) ? resolution : '2K';
+  const keepBg = scene === 'arch';
   const wallOnly = ['wall_only', 'unit_balloon', 'handheld_bouquet'].includes(scene) && !isWalkerOnFloor(scene, opts);
   const wallHint = '\n\nTarget room: VigSharm studio wall from the SECOND reference — warm light beige-grey plaster, natural catalog softbox daylight (not overexposed wash). Copy reference wall tone; do NOT darken into taupe/muddy grey and do NOT blow out to pure white. NO invented mottled/smudged wall.';
   const floorHint = '\n\nTarget FLOOR from the SECOND reference — LIGHT pale oak / light grey-beige laminate matching reference brightness. Place ONLY the product CLOSE to the white baseboard (short floor strip only — not mid-room): balloons, ribbons, their weights, and a gift/surprise box if it is part of the composition. DELETE room props in place — do NOT move them with the product: vase, glass, dried flowers, pampas grass, houseplant, random floor object. Hang-tags: erase in place or keep pixel-locked on the same balloon — NEVER relocate a tag. Soft contact shadows only under the original balloon base. REMOVE any table, stolik, glass table, stool, chair, wire stand or other furniture from the source — the existing balloon base sits directly on the laminate. A printed gift box that presents the balloons is PRODUCT, not furniture — keep it. Do NOT invent new balloons under the base. FORBIDDEN: dark brown/charcoal laminate; large empty floor toward the wall; keeping a table under the product; carrying a vase/pampas/stray object into the studio; a hang-tag moved to a new spot or another balloon; any real people/models in the frame. If source has a person posing with balloons: erase them completely, keep only the balloon product. If source has a mirror/vanity: remove it; count ONLY real balloons on the floor in front of the glass — NEVER copy balloons that exist only as mirror reflections (e.g. one real heart + reflection → output one heart).';
-  const roomHint = wallOnly ? wallHint : (wallHint + floorHint);
+  const roomHint = keepBg
+    ? '\n\nKeep the original background exactly. Do not use a studio wall or floor.'
+    : (wallOnly ? wallHint : (wallHint + floorHint));
+  const withRef = (input) => (keepBg ? input : { ...input, reference_image: referenceUrl });
   const attempts = [];
 
   const pushBanana = () => {
+    const bananaExtra = keepBg ? '' : (wallOnly ? '' : floorHint);
     attempts.push({
       model: 'image/nano-banana-2',
-      input: {
-        prompt: prompt + (wallOnly ? '' : floorHint),
+      input: withRef({
+        prompt: prompt + bananaExtra,
         image: imageUrl,
-        aspect_ratio: '1:1',
-        reference_image: referenceUrl
-      }
+        aspect_ratio: '1:1'
+      })
     });
     attempts.push({
       model: 'image/nano-banana-edit',
-      input: {
-        prompt: prompt + (wallOnly ? '' : floorHint),
-        image: imageUrl,
-        reference_image: referenceUrl
-      }
+      input: withRef({
+        prompt: prompt + bananaExtra,
+        image: imageUrl
+      })
     });
   };
 
@@ -2025,13 +2043,12 @@ function buildRephotographAttempts(imageUrl, referenceUrl, prompt, resolution = 
     console.log('[Studio Rephotograph] flux prompt chars=', fluxPrompt.length);
     attempts.push({
       model: 'image/flux2-pro-edit',
-      input: {
+      input: withRef({
         prompt: fluxPrompt,
         image: imageUrl,
-        reference_image: referenceUrl,
         aspect_ratio: '1:1',
         resolution: res === '4K' ? '2K' : res
-      }
+      })
     });
     return attempts;
   }
@@ -2046,23 +2063,21 @@ function buildRephotographAttempts(imageUrl, referenceUrl, prompt, resolution = 
   // A long chain in one Worker call gets cut by Cloudflare (browser then shows a CORS error).
   attempts.push({
     model: 'image/gpt-image-2.5-sunburst-edit',
-    input: {
+    input: withRef({
       prompt: prompt + roomHint,
       image: imageUrl,
-      reference_image: referenceUrl,
       aspect_ratio: '1:1',
       resolution: res
-    }
+    })
   });
   attempts.push({
     model: 'image/gpt-image-2-edit',
-    input: {
+    input: withRef({
       prompt: prompt + roomHint,
       image: imageUrl,
-      reference_image: referenceUrl,
       aspect_ratio: '1:1',
       resolution: res
-    }
+    })
   });
   return attempts;
 }
@@ -2077,11 +2092,12 @@ async function handleStudioRephotograph(request, env) {
   const unit_type = body.unit_type === 'walker' ? 'walker' : '';
   const bouquet_type = body.bouquet_type === 'flowers' ? 'flowers' : '';
 
-  if (!image_url || !reference_url) {
+  const keepBg = scene === 'arch';
+  if (!image_url || (!keepBg && !reference_url)) {
     return json({ ok: false, error: 'Missing image_url or reference_url' }, 400);
   }
 
-  for (const url of [image_url, reference_url]) {
+  for (const url of keepBg ? [image_url] : [image_url, reference_url]) {
     const ok = String(url).startsWith('data:image/') || String(url).startsWith('https://');
     if (!ok) {
       return json({ ok: false, error: 'Images must be data:image/... or https:// URLs' }, 400);

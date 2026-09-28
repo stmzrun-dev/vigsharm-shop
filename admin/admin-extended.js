@@ -183,11 +183,15 @@ Object.assign(app, {
   schedulePhotoDuplicateCheck() {
     const file = this.currentProduct?.photos?.[0]?.file;
     if (!file) {
+      this._pendingPhotoDhash = '';
       this.clearPhotoDuplicateNote();
       return;
     }
     const sig = [file.name, file.size, file.lastModified].join(':');
-    if (this._photoDupSig === sig) return;
+    if (this._photoDupSig === sig && this._pendingPhotoDhash) {
+      this.showPhotoDuplicateMatches(this._pendingPhotoDhash);
+      return;
+    }
     this._photoDupSig = sig;
     const gen = (this._photoDupGen || 0) + 1;
     this._photoDupGen = gen;
@@ -287,54 +291,27 @@ Object.assign(app, {
     return hash;
   },
 
-  async runPhotoDuplicateCheck(file, gen) {
-    const note = document.getElementById('photo-duplicate-note');
-    if (!note) return;
-    const show = (text, busy) => {
-      if (this._photoDupGen !== gen) return;
-      note.hidden = false;
-      note.classList.toggle('is-busy', !!busy);
-      note.textContent = text;
-    };
-    show('Смотрю, нет ли такого фото на сайте…', true);
-    let mine = '';
-    try {
-      mine = await this.photoDhashFromBlob(file);
-    } catch {
-      if (this._photoDupGen === gen) this.clearPhotoDuplicateNote();
+  validPhotoDhash(value) {
+    return /^[0-9a-f]{16}$/.test(String(value || '').toLowerCase()) ? String(value).toLowerCase() : '';
+  },
+
+  /** Совпадение только по кодам, которые уже есть у карточек. Без скачивания каталога. */
+  showPhotoDuplicateMatches(mine) {
+    const hash = this.validPhotoDhash(mine);
+    if (!hash) {
+      this.clearPhotoDuplicateNote();
       return;
     }
-    if (this._photoDupGen !== gen) return;
-
+    const note = document.getElementById('photo-duplicate-note');
+    if (!note) return;
     const currentId = this.currentProduct?.id;
-    const cards = (this.products || []).filter((p) => {
+    const matches = (this.products || []).filter((p) => {
       if (currentId && String(p.id) === String(currentId)) return false;
       if (p.status && p.status !== 'published') return false;
       if (p.show_on_site === false) return false;
-      const src = this.photoClientOptions(p).studio_original_url;
-      return typeof src === 'string' && /^https?:\/\//i.test(src);
+      const stored = this.validPhotoDhash(this.photoClientOptions(p).photo_dhash);
+      return stored && this.photoDhashDistance(hash, stored) <= 8;
     });
-    const matches = [];
-    let cursor = 0;
-    const worker = async () => {
-      while (cursor < cards.length) {
-        if (this._photoDupGen !== gen) return;
-        const product = cards[cursor];
-        cursor += 1;
-        const src = this.photoClientOptions(product).studio_original_url;
-        try {
-          const hash = await this.catalogPhotoDhash(src);
-          if (this.photoDhashDistance(mine, hash) <= 8) matches.push(product);
-        } catch { /* это фото пропустим, остальные смотрим */ }
-        if (cursor % 8 === 0) {
-          this.savePhotoDhashCache();
-          show(`Смотрю, нет ли такого фото на сайте… ${Math.min(cursor, cards.length)}/${cards.length}`, true);
-        }
-      }
-    };
-    await Promise.all(Array.from({ length: Math.min(3, cards.length) }, () => worker()));
-    this.savePhotoDhashCache();
-    if (this._photoDupGen !== gen) return;
     if (!matches.length) {
       this.clearPhotoDuplicateNote();
       return;
@@ -346,7 +323,110 @@ Object.assign(app, {
     };
     const shown = matches.slice(0, 2).map(label).join(' · ');
     const extra = matches.length > 2 ? ` и ещё ${matches.length - 2}` : '';
-    show(`Это фото уже есть: ${shown}${extra}`, false);
+    note.hidden = false;
+    note.classList.remove('is-busy');
+    note.textContent = `Это фото уже есть: ${shown}${extra}`;
+  },
+
+  async runPhotoDuplicateCheck(file, gen) {
+    let mine = '';
+    try {
+      mine = await this.photoDhashFromBlob(file);
+    } catch {
+      if (this._photoDupGen === gen) this.clearPhotoDuplicateNote();
+      return;
+    }
+    if (this._photoDupGen !== gen) return;
+    this._pendingPhotoDhash = mine;
+    const opts = this.photoClientOptions(this.currentProduct);
+    if (this.currentProduct) {
+      this.currentProduct.client_options = { ...opts, photo_dhash: mine };
+    }
+    this.showPhotoDuplicateMatches(mine);
+  },
+
+  hydratePhotoDhashesFromCache() {
+    const cache = this.loadPhotoDhashCache();
+    let dirty = false;
+    for (const product of this.products || []) {
+      const opts = this.photoClientOptions(product);
+      const url = opts.studio_original_url;
+      if (typeof url !== 'string' || !/^https?:\/\//i.test(url)) continue;
+      const stored = this.validPhotoDhash(opts.photo_dhash);
+      if (stored) {
+        if (cache[url] !== stored) {
+          cache[url] = stored;
+          dirty = true;
+        }
+        continue;
+      }
+      const cached = this.validPhotoDhash(cache[url]);
+      if (!cached) continue;
+      product.client_options = { ...opts, photo_dhash: cached };
+    }
+    if (dirty) this.savePhotoDhashCache();
+  },
+
+  startPhotoDhashBackfill() {
+    const gen = (this._dhashBackfillGen || 0) + 1;
+    this._dhashBackfillGen = gen;
+    this.runPhotoDhashBackfill(gen);
+  },
+
+  /** Старые карточки без кода: один тихий проход, не в момент загрузки нового фото. */
+  async runPhotoDhashBackfill(gen) {
+    if (!this.workerUrl || !this.adminApiKey) return;
+    const pending = (this.products || []).filter((p) => {
+      if (p.status && p.status !== 'published') return false;
+      if (p.show_on_site === false) return false;
+      const opts = this.photoClientOptions(p);
+      if (this.validPhotoDhash(opts.photo_dhash)) return false;
+      return typeof opts.studio_original_url === 'string' && /^https?:\/\//i.test(opts.studio_original_url);
+    });
+    let cursor = 0;
+    const worker = async () => {
+      while (cursor < pending.length) {
+        if (this._dhashBackfillGen !== gen) return;
+        const product = pending[cursor];
+        cursor += 1;
+        const url = this.photoClientOptions(product).studio_original_url;
+        try {
+          const hash = this.validPhotoDhash(await this.catalogPhotoDhash(url));
+          if (this._dhashBackfillGen !== gen) return;
+          if (!hash) continue;
+          const opts = this.photoClientOptions(product);
+          product.client_options = { ...opts, photo_dhash: hash };
+          await this.persistPhotoDhash(product.id, hash);
+          if (this._pendingPhotoDhash) this.showPhotoDuplicateMatches(this._pendingPhotoDhash);
+        } catch { /* это фото пропустим */ }
+        if (cursor % 8 === 0) this.savePhotoDhashCache();
+      }
+    };
+    await Promise.all(Array.from({ length: Math.min(2, pending.length) }, () => worker()));
+    if (this._dhashBackfillGen === gen) this.savePhotoDhashCache();
+  },
+
+  async persistPhotoDhash(id, hash) {
+    if (!id || !this.workerUrl || !this.adminApiKey) return;
+    try {
+      await fetch(`${this.workerUrl}/api/products/${encodeURIComponent(id)}/photo-dhash`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json', ...this.authHeaders() },
+        body: JSON.stringify({ photo_dhash: hash })
+      });
+    } catch { /* код уже в браузере, повтор при следующем открытии */ }
+  },
+
+  async ensureCurrentPhotoDhash() {
+    const file = this.currentProduct?.photos?.find((p) => p?.file)?.file;
+    if (!file) return;
+    try {
+      const hash = this.validPhotoDhash(await this.photoDhashFromBlob(file));
+      if (!hash) return;
+      this._pendingPhotoDhash = hash;
+      const opts = this.photoClientOptions(this.currentProduct);
+      this.currentProduct.client_options = { ...opts, photo_dhash: hash };
+    } catch { /* без кода карточка всё равно сохранится */ }
   },
 
   movePhoto(index, dir) {
@@ -486,9 +566,10 @@ Object.assign(app, {
     this.currentProduct.scene = scene;
     const select = document.getElementById('scene-select');
     if (select && select.value !== scene) select.value = scene;
-    this.syncSceneRailUi?.(scene);
-    this.syncStudioModeHint?.();
     this.syncUnitBalloonForm?.(true);
+    const sceneNow = this.currentProduct?.scene || scene;
+    this.syncSceneRailUi?.(sceneNow);
+    this.syncStudioModeHint?.();
     this.syncAdvanceOrderFromScene?.();
     this.scheduleSaveActiveStudioDraft?.();
     this.syncStep1WizardUi?.();
@@ -1032,9 +1113,26 @@ Object.assign(app, {
     return checked?.value || 'frame';
   },
 
+  /** Снять выбор radio-группы. checked=false на текущем пункте браузер часто не отпускает. */
+  clearRadioGroup(name) {
+    const nodes = [...document.querySelectorAll(`input[type="radio"][name="${name}"]`)];
+    nodes.forEach((el) => {
+      el.defaultChecked = false;
+      el.checked = false;
+    });
+    const stuck = document.querySelector(`input[type="radio"][name="${name}"]:checked`);
+    if (!stuck) return;
+    const prev = stuck.name;
+    stuck.name = '';
+    stuck.checked = false;
+    stuck.defaultChecked = false;
+    stuck.name = prev;
+  },
+
   setPhotozoneType(type) {
     const value = (typeof PHOTOZONE_TYPES !== 'undefined' && PHOTOZONE_TYPES[type]) ? type : (type === 'easel' ? 'easel' : 'frame');
     document.querySelectorAll('input[name="photozone-type"], input[name="photozone-type-early"]').forEach((el) => {
+      el.defaultChecked = el.value === 'frame';
       el.checked = el.value === value;
     });
   },
@@ -1048,6 +1146,7 @@ Object.assign(app, {
   setFloorType(type) {
     const on = type === 'air';
     document.querySelectorAll('input[name="floor-type"], input[name="floor-type-early"]').forEach((el) => {
+      el.defaultChecked = false;
       el.checked = on && el.value === 'air';
     });
   },
@@ -1098,6 +1197,7 @@ Object.assign(app, {
   setSurprisePose(pose) {
     const value = pose === 'hang' ? 'hang' : 'stand';
     document.querySelectorAll('input[name="surprise-pose-early"]').forEach((el) => {
+      el.defaultChecked = el.value === 'stand';
       el.checked = el.value === value;
     });
   },
@@ -1108,7 +1208,9 @@ Object.assign(app, {
 
   setSurpriseMoney(on) {
     const el = document.getElementById('surprise-money-early');
-    if (el) el.checked = !!on;
+    if (!el) return;
+    el.defaultChecked = false;
+    el.checked = !!on;
   },
 
   wireSurprisePoseControls() {
@@ -1132,6 +1234,7 @@ Object.assign(app, {
   setBouquetType(type) {
     const on = type === 'flowers';
     document.querySelectorAll('input[name="bouquet-type-early"]').forEach((el) => {
+      el.defaultChecked = false;
       el.checked = on && el.value === 'flowers';
     });
     this.syncArchPriceLabel?.();
@@ -1197,16 +1300,20 @@ Object.assign(app, {
   setLetterInk(value) {
     const ink = value === 'dark' || value === 'light' ? value : '';
     document.querySelectorAll('input[name="unit-letter-ink"]').forEach((el) => {
+      el.defaultChecked = false;
       el.checked = !!ink && el.value === ink;
     });
+    if (!ink) this.clearRadioGroup?.('unit-letter-ink');
   },
 
   setUnitBalloonType(type) {
     this.renderUnitWhoChips?.();
     const value = (typeof UNIT_BALLOON_TYPES !== 'undefined' && UNIT_BALLOON_TYPES[type]) ? type : '';
     document.querySelectorAll('input[name="unit-balloon-type-early"]').forEach((el) => {
+      el.defaultChecked = false;
       el.checked = !!value && el.value === value;
     });
+    if (!value) this.clearRadioGroup?.('unit-balloon-type-early');
     const meta = UNIT_BALLOON_TYPES[value];
     const wrap = document.getElementById('unit-balloon-size-wrap');
     if (wrap) wrap.classList.toggle('hidden', !meta?.hasSize);
@@ -1221,7 +1328,10 @@ Object.assign(app, {
     const hideWho = !value || !!meta?.plainShelf;
     if (whoWrap) whoWrap.classList.toggle('hidden', hideWho);
     if (hideWho) {
-      document.querySelectorAll('input[name="unit-balloon-who-early"]').forEach((el) => { el.checked = false; });
+      document.querySelectorAll('input[name="unit-balloon-who-early"]').forEach((el) => {
+        el.defaultChecked = false;
+        el.checked = false;
+      });
     }
     this.syncUnitCharacterWrap?.();
     this.syncUnitHolidayControl?.();
@@ -1369,6 +1479,7 @@ Object.assign(app, {
     const list = (typeof UNIT_WHO_PICKS !== 'undefined' && UNIT_WHO_PICKS) || [];
     const allowed = new Set(raw.filter((t) => list.some((x) => x.tag === t)));
     document.querySelectorAll('input[name="unit-balloon-who-early"]').forEach((el) => {
+      el.defaultChecked = false;
       el.checked = allowed.has(el.value);
     });
   },
@@ -1927,6 +2038,12 @@ Object.assign(app, {
     if (/^https?:\/\//i.test(studioOrig)) {
       clientOptions.studio_original_url = studioOrig;
     }
+    const photoHash = this.validPhotoDhash?.(
+      this._pendingPhotoDhash || this.photoClientOptions(this.currentProduct).photo_dhash
+    );
+    if (photoHash && (clientOptions.studio_original_url || this.currentProduct?.photos?.some((p) => p?.file))) {
+      clientOptions.photo_dhash = photoHash;
+    }
 
     if (isPhotozone && pzType) {
       clientOptions.photozone_type = pzType;
@@ -2090,8 +2207,43 @@ Object.assign(app, {
     };
   },
 
+  /** Новая карточка: категория, сцена и подтипы как при первой загрузке страницы. */
+  clearNewCardSceneState() {
+    const cat = document.getElementById('product-category');
+    if (cat) cat.value = '';
+    if (this.currentProduct) {
+      this.currentProduct.scene = 'auto';
+      this.currentProduct.holiday_only = '';
+      this.currentProduct.client_options = {};
+    }
+    const sceneSelect = document.getElementById('scene-select');
+    if (sceneSelect) sceneSelect.value = 'auto';
+    this.setPhotozoneType?.('frame');
+    this.setFloorType?.('');
+    this.setBouquetType?.('');
+    this.setSurprisePose?.('stand');
+    this.setSurpriseMoney?.(false);
+    this.setUnitBalloonType?.('');
+    this.setUnitBalloonWho?.('');
+    this.setLetterInk?.('');
+    this.setUnitHoliday?.('');
+    const unitSizeEl = document.getElementById('unit-balloon-size');
+    if (unitSizeEl) unitSizeEl.value = '';
+    const rentalItemEl = document.getElementById('rental-item');
+    if (rentalItemEl) {
+      rentalItemEl.value = '';
+      rentalItemEl.dataset.autoFill = '1';
+    }
+    const form = document.getElementById('product-form');
+    if (form) form.classList.remove('is-unit-balloon');
+    this.syncSceneRailUi?.('auto');
+    this.syncStudioModeHint?.();
+  },
+
   resetForm(opts = {}) {
     const preserveStudioDraft = !!opts.preserveStudioDraft;
+    this._resettingForm = true;
+    try {
     this.currentProduct = { photos: [], scene: 'auto', tags: [], client_options: {} };
     this._publishGapsAck = false;
     this.resetStudioDraftKey?.();
@@ -2116,6 +2268,8 @@ Object.assign(app, {
     }
     this._step1Phase = 'a';
     this._step1PhotoCount = 0;
+    this._pendingPhotoDhash = '';
+    this._photoDupSig = '';
     this._aiCardFilled = false;
     this._lastAiCardData = null;
     this.resetAiAutoFillState?.();
@@ -2144,33 +2298,21 @@ Object.assign(app, {
     if (titleEl) titleEl.textContent = 'Новый товар';
 
     this.renderPhotos();
-    this.syncStudioModeHint?.();
     this.refreshStudioCheckpointUi?.();
     this.syncAIFillGate?.();
-    this.syncUnitBalloonForm?.(false);
     this.syncEditorSteps?.();
     this.syncStep1WizardUi?.();
-    this.setPhotozoneType?.('frame');
-    this.setFloorType?.('');
-    this.setBouquetType?.('');
-    this.setUnitBalloonType?.('');
-    this.setUnitBalloonWho?.('');
-    const unitSizeEl = document.getElementById('unit-balloon-size');
-    if (unitSizeEl) unitSizeEl.value = '';
-    this.setLetterInk?.('');
-    const rentalItemEl = document.getElementById('rental-item');
-    if (rentalItemEl) {
-      rentalItemEl.value = '';
-      rentalItemEl.dataset.autoFill = '1';
-    }
     this.wirePhotozoneTypeControls?.();
     this.wireFloorTypeControls?.();
     this.wireBouquetTypeControls?.();
     this.wireSurprisePoseControls?.();
     this.wireUnitBalloonTypeControls?.();
-    this.syncAdvanceOrderFromScene?.();
+    this.clearNewCardSceneState?.();
     this.syncRequiredFieldHighlights?.();
     this.updateEditorAutosaveHint?.('');
+    } finally {
+      this._resettingForm = false;
+    }
   }
 });
 

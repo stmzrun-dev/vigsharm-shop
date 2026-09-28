@@ -96,6 +96,8 @@ export default {
         return handleDeleteProduct(path, env);
       if (path.match(/^\/api\/products\/[^/]+\/status$/) && method === 'PATCH')
         return handleToggleStatus(path, request, env);
+      if (path.match(/^\/api\/products\/[^/]+\/photo-dhash$/) && method === 'PATCH')
+        return handlePatchPhotoDhash(path, request, env);
       if (path === '/api/price-list' && method === 'GET')
         return handleGetPriceList(env);
       if (path === '/api/price-list' && method === 'PUT')
@@ -3141,6 +3143,27 @@ async function handleUpdateProduct(path, request, env) {
     console.error('[UpdateProduct]', e);
     return json({ ok: false, error: 'Ошибка БД: ' + (e.message || String(e)) }, 500);
   }
+}
+
+/** Код исходного фото для быстрой проверки дубля. Не трогает остальные поля карточки. */
+async function handlePatchPhotoDhash(path, request, env) {
+  const parts = path.split('/');
+  const id = decodeURIComponent(parts[3] || '');
+  const body = await request.json().catch(() => ({}));
+  const hash = String(body?.photo_dhash || '').toLowerCase();
+  if (!id || !/^[0-9a-f]{16}$/.test(hash)) {
+    return json({ ok: false, error: 'Bad photo_dhash' }, 400);
+  }
+  const existing = await env.DB.prepare('SELECT client_options FROM products WHERE id = ?').bind(id).first();
+  if (!existing) return json({ ok: false, error: 'Not found' }, 404);
+  let opts = {};
+  try { opts = JSON.parse(existing.client_options || '{}') || {}; } catch { opts = {}; }
+  if (opts.photo_dhash === hash) return json({ ok: true, unchanged: true });
+  opts.photo_dhash = hash;
+  await env.DB.prepare('UPDATE products SET client_options = ? WHERE id = ?')
+    .bind(JSON.stringify(opts), id)
+    .run();
+  return json({ ok: true });
 }
 
 async function handleDeleteProduct(path, env) {

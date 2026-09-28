@@ -831,6 +831,7 @@ const app = {
   },
 
   syncUnitBalloonForm(fromUser = false) {
+    if (this._resettingForm) return;
     const form = document.getElementById('product-form');
     const titleEl = document.getElementById('product-title');
     const catEl = document.getElementById('product-category');
@@ -848,6 +849,7 @@ const app = {
     if (unit) {
       if (this.currentProduct) this.currentProduct.scene = 'unit_balloon';
       if (sceneEl && sceneEl.value !== 'unit_balloon') sceneEl.value = 'unit_balloon';
+      this.syncSceneRailUi?.('unit_balloon');
       if (titleEl) titleEl.placeholder = 'Точное название как у поставщика';
       if (!this.currentProduct?.id) this.assignFreshArticle?.();
       this.syncStudioModeHint?.();
@@ -858,8 +860,10 @@ const app = {
       if (fromUser && sceneEl?.value === 'unit_balloon') {
         if (this.currentProduct) this.currentProduct.scene = 'auto';
         sceneEl.value = 'auto';
+        this.syncSceneRailUi?.('auto');
       }
       if (titleEl) titleEl.placeholder = 'Например: Тёмный рыцарь';
+      this.syncStudioModeHint?.();
       this.syncUnitCharacterWrap?.();
       this.syncUnitHolidayControl?.();
     }
@@ -1328,6 +1332,8 @@ const app = {
       const list = await this.loadProductsSnapshot();
       this.products = list;
       this.catalogFromSnapshot = true;
+      this.hydratePhotoDhashesFromCache?.();
+      this.startPhotoDhashBackfill?.();
       this.renderProducts();
       this.toast('Каталог из снимка сайта (API недоступен). Сохранение заработает, когда API ответит.', 'info');
     };
@@ -1349,6 +1355,8 @@ const app = {
       if (!data.ok) throw new Error(data.error || 'Ответ API без ok');
       this.catalogFromSnapshot = false;
       this.products = data.products || [];
+      this.hydratePhotoDhashesFromCache?.();
+      this.startPhotoDhashBackfill?.();
       this.renderProducts();
     } catch (e) {
       console.error('Failed to load products', e);
@@ -2174,6 +2182,7 @@ const app = {
   // === Сохранение / публикация ===
   async saveProduct(status, opts = {}) {
     const andNew = !!opts.andNew;
+    await this.ensureCurrentPhotoDhash?.();
     const data = this.collectFormData();
     const isDraft = status === 'draft';
 

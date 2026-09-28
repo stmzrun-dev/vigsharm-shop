@@ -10030,7 +10030,7 @@
       "composition": [
         "фотозона"
       ],
-      "category": "Фотозона",
+      "category": "Гендер-пати",
       "character": null,
       "age_group": "Для малышей",
       "budget": "от 8 000 ₽",
@@ -10042,7 +10042,7 @@
       "slug": "tajna-pola",
       "scene": "photozone",
       "tags": [
-        "Фотозона"
+        "Гендер-пати"
       ],
       "client_options": {
         "available_on_request": false,
@@ -10066,7 +10066,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-25T07:55:44.786Z",
-      "updated_at": "2026-09-25T15:26:19.301Z",
+      "updated_at": "2026-09-28T07:14:08.899Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/30443bab-7efb-47f0-b73d-26ea84a0acb0.webp"
     },
     {
@@ -14629,7 +14629,7 @@
       "composition": [
         "напольная композиция"
       ],
-      "category": "Цветы из шаров",
+      "category": "Для девочки",
       "character": null,
       "age_group": "Для детей",
       "budget": "2 000–3 500 ₽",
@@ -14641,17 +14641,22 @@
       "slug": "vesenniy-vostorg",
       "scene": "floor",
       "tags": [
-        "Цветы из шаров"
+        "Для девочки",
+        "8 марта",
+        "Напольные композиции"
       ],
       "client_options": {
         "available_on_request": false,
         "advance_order_1_2_days": true,
-        "number_choice": false,
+        "number_choice": true,
         "personal_inscription": false,
         "photozone_rental": false,
         "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790179813/vigsharm-products/dsdma3niy4mcwbzwsrv8.jpg",
         "floor_type": "air",
-        "bouquet_type": "flowers"
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
       },
       "photos": [
         "https://res.cloudinary.com/saiuc42a/image/upload/v1790179874/vigsharm-products/fbu02ypjdgsbqvlzua5m.png"
@@ -14660,7 +14665,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T16:12:49.804Z",
-      "updated_at": "2026-09-28T06:16:48.376Z",
+      "updated_at": "2026-09-28T07:11:26.014Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/efa38b17-be98-48c4-978c-319df9b48002.webp"
     },
     {
@@ -17940,11 +17945,11 @@
         "https://res.cloudinary.com/saiuc42a/image/upload/v1790081277/vigsharm-products/lba7gu0dfyd2kcby8l81.jpg"
       ],
       "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790081277/vigsharm-products/lba7gu0dfyd2kcby8l81.jpg",
-      "status": "published",
+      "status": "draft",
       "show_on_site": true,
       "created_at": "2026-09-22T12:49:33.953Z",
-      "updated_at": "2026-09-25T14:43:02.396Z",
-      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/7be2e4a5-9973-4c9b-a281-2949afa949c4.webp"
+      "updated_at": "2026-09-28T07:14:24.392Z",
+      "thumb_photo": null
     },
     {
       "id": "3de4c396-9be2-419c-aac6-b85714c3eaa7",
@@ -18517,60 +18522,6 @@
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/8c4ef3b7-5c80-4057-b822-657531537d1b.webp"
     },
     {
-      "id": "e8284956-48fe-4928-b285-bc6bbb530657",
-      "title": "Золотое облако",
-      "article": "PHT-017",
-      "price": 5000,
-      "short_description": "Фотозона с мольбертом в нежных розово-золотых тонах и крупной цифрой.",
-      "full_description": "Фотозона на деревянном мольберте, украшенная гирляндой из розовых, белых и золотых шаров. В комплекте большая фольгированная цифра и цветы из воздушных шаров.",
-      "composition": [
-        "фотозона",
-        "цифра"
-      ],
-      "category": "Фотозона",
-      "character": null,
-      "age_group": "Для детей",
-      "budget": "5 000–8 000 ₽",
-      "series_name": null,
-      "occasion": null,
-      "target_audience": null,
-      "seo_title": "Фотозона с цифрой в розово-золотых тонах — Армавир",
-      "seo_description": "Фотозона на мольберте с гирляндой из розовых, белых и золотых шаров, крупной цифрой и цветами из шаров. Доставка по Армавиру.",
-      "slug": "rozovaya-mechta-fotozona",
-      "scene": "photozone",
-      "tags": [
-        "Фотозона"
-      ],
-      "client_options": {
-        "available_on_request": false,
-        "advance_order_1_2_days": true,
-        "number_choice": true,
-        "personal_inscription": true,
-        "photozone_rental": true,
-        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790024829/vigsharm-products/bb5vvdwvwrd48fvrhsd0.jpg",
-        "photozone_type": "easel",
-        "rental": {
-          "enabled": true,
-          "item": "Мольберт с кругом из полистирола",
-          "days": 3,
-          "keep_price_delta": 500
-        },
-        "digit_choice": {
-          "enabled": true,
-          "count_on_photo": 1
-        }
-      },
-      "photos": [
-        "https://res.cloudinary.com/saiuc42a/image/upload/v1790024953/vigsharm-products/otfku3ybqx85le63jkkp.png"
-      ],
-      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1790024953/vigsharm-products/otfku3ybqx85le63jkkp.png",
-      "status": "published",
-      "show_on_site": true,
-      "created_at": "2026-09-21T21:09:46.248Z",
-      "updated_at": "2026-09-25T14:43:54.057Z",
-      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/8644af5b-6e4a-426b-8d53-7c2078097b81.webp"
-    },
-    {
       "id": "75c0caeb-b394-4409-9ac9-642657c06b47",
       "title": "Пастельный триумф",
       "article": "PHT-016",
@@ -18671,7 +18622,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-21T20:57:03.624Z",
-      "updated_at": "2026-09-25T14:44:00.997Z",
+      "updated_at": "2026-09-28T07:13:45.513Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/849b94c7-00a7-48be-a56c-215a8c228107.webp"
     },
     {
@@ -18822,7 +18773,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-21T20:35:14.298Z",
-      "updated_at": "2026-09-25T14:44:13.440Z",
+      "updated_at": "2026-09-28T06:22:28.012Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/7da2751a-7516-4096-ac6c-99b0cf9e12f2.webp"
     },
     {
@@ -18835,7 +18786,7 @@
       "composition": [
         "фотозона"
       ],
-      "category": "Фотозона",
+      "category": "Свадьба и девичник",
       "character": null,
       "age_group": "Для взрослых",
       "budget": "от 8 000 ₽",
@@ -18847,6 +18798,7 @@
       "slug": "myatnyi-shepot",
       "scene": "photozone",
       "tags": [
+        "Свадьба и девичник",
         "Фотозона"
       ],
       "client_options": {
@@ -18871,7 +18823,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-21T20:30:17.539Z",
-      "updated_at": "2026-09-25T14:44:16.361Z",
+      "updated_at": "2026-09-28T06:52:21.819Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/9cd124da-b3ca-4cfe-ba3b-58152f055062.webp"
     },
     {
@@ -18976,7 +18928,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-21T19:47:20.102Z",
-      "updated_at": "2026-09-25T14:44:22.825Z",
+      "updated_at": "2026-09-28T06:52:40.865Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/43bdcf09-0f5f-4e0f-9c92-a6a6fd7075d9.webp"
     },
     {
@@ -19126,7 +19078,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-21T19:10:16.975Z",
-      "updated_at": "2026-09-25T14:44:35.724Z",
+      "updated_at": "2026-09-28T06:21:37.031Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/caf16c46-eba2-4b2a-8817-3c5d83768e00.webp"
     },
     {
@@ -21472,63 +21424,6 @@
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/846d284b-7509-420c-81fe-5449267a4674.webp"
     },
     {
-      "id": "cf610690-83b3-4993-aa57-3e175c9f60cf",
-      "title": "Оливковая нежность",
-      "article": "PHT-007",
-      "price": 7040,
-      "short_description": "Фотозона в оливковых и белых тонах с цифрой, сердцами и баблс с индивидуальной надписью.",
-      "full_description": "Фотозона выполнена в нежной оливково-белой гамме с прозрачными шарами с конфетти. Включает мольберт с персонализированной табличкой, фольгированную цифру, сердца и баблс с надписью.",
-      "composition": [
-        "фотозона",
-        "баблс с надписью",
-        "4 шара с конфетти",
-        "3 шара",
-        "3 сердца"
-      ],
-      "category": "Фотозона",
-      "character": null,
-      "age_group": "Для детей",
-      "budget": "5 000–8 000 ₽",
-      "series_name": null,
-      "occasion": null,
-      "target_audience": null,
-      "seo_title": "Фотозона Оливковая нежность — Армавир | VigSharm",
-      "seo_description": "Фотозона в оливковых и белых тонах с цифрой, сердцами и баблс. Персонализация под ваш праздник. Доставка по Армавиру.",
-      "slug": "olivkovaya-nezhnost",
-      "scene": "photozone",
-      "tags": [
-        "Фотозона"
-      ],
-      "client_options": {
-        "available_on_request": false,
-        "advance_order_1_2_days": true,
-        "number_choice": true,
-        "personal_inscription": true,
-        "photozone_rental": true,
-        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1789891174/vigsharm-products/qwjkmsnhngrtklnvw5ry.png",
-        "photozone_type": "easel",
-        "rental": {
-          "enabled": true,
-          "item": "Мольберт с кругом из полистирола",
-          "days": 3,
-          "keep_price_delta": 500
-        },
-        "digit_choice": {
-          "enabled": true,
-          "count_on_photo": 1
-        }
-      },
-      "photos": [
-        "https://res.cloudinary.com/saiuc42a/image/upload/v1789891393/vigsharm-products/ppjmq7iyte1va3nudu00.png"
-      ],
-      "main_photo": "https://res.cloudinary.com/saiuc42a/image/upload/v1789891393/vigsharm-products/ppjmq7iyte1va3nudu00.png",
-      "status": "published",
-      "show_on_site": true,
-      "created_at": "2026-09-20T08:04:05.465Z",
-      "updated_at": "2026-09-25T14:47:39.106Z",
-      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/274dfbd4-1cf0-4982-bb02-fb502ffa6e99.webp"
-    },
-    {
       "id": "34c03f9f-cd79-42d4-b48d-3dae46c8fd8d",
       "title": "Юнга на борту",
       "article": "FIG-006",
@@ -22633,6 +22528,7 @@
         "number_choice": false,
         "personal_inscription": true,
         "photozone_rental": true,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1789816468/vigsharm-products/nktlmg164juw7yvprj2w.png",
         "photozone_type": "easel",
         "rental": {
           "enabled": true,
@@ -22648,7 +22544,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-19T11:15:55.827Z",
-      "updated_at": "2026-09-25T14:49:07.910Z",
+      "updated_at": "2026-09-28T06:20:12.186Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/67e05b33-c175-4fb3-9752-0e3869457ae4.webp"
     },
     {
@@ -22719,15 +22615,20 @@
       "client_options": {
         "available_on_request": false,
         "advance_order_1_2_days": true,
-        "number_choice": false,
+        "number_choice": true,
         "personal_inscription": true,
         "photozone_rental": true,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1789815790/vigsharm-products/bmqtjgsrfvqtsyvfhfev.png",
         "photozone_type": "easel",
         "rental": {
           "enabled": true,
           "item": "Мольберт с кругом из полистирола",
           "days": 3,
           "keep_price_delta": 500
+        },
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
         }
       },
       "photos": [
@@ -22737,7 +22638,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-19T11:03:44.761Z",
-      "updated_at": "2026-09-25T14:49:13.387Z",
+      "updated_at": "2026-09-28T06:54:34.863Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/af7e3fe0-d70f-4796-a8d0-e97fa6f25581.webp"
     },
     {
@@ -22996,6 +22897,7 @@
         "number_choice": false,
         "personal_inscription": true,
         "photozone_rental": true,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1789811432/vigsharm-products/u7gvzz0v9x10iulgqyfr.png",
         "photozone_type": "easel",
         "rental": {
           "enabled": true,
@@ -23011,7 +22913,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-19T09:51:09.150Z",
-      "updated_at": "2026-09-25T14:49:34.890Z",
+      "updated_at": "2026-09-28T06:19:44.821Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/e734cfd6-31ed-4ee2-a1f2-002b5a12f74e.webp"
     },
     {
@@ -24465,6 +24367,7 @@
         "number_choice": false,
         "personal_inscription": false,
         "photozone_rental": true,
+        "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1789596004/vigsharm-products/yjt9pp2nevlxslhqup8v.png",
         "photozone_type": "frame",
         "rental": {
           "enabled": true,
@@ -24480,7 +24383,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-16T22:00:46.984Z",
-      "updated_at": "2026-09-25T14:52:39.610Z",
+      "updated_at": "2026-09-28T06:19:30.206Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/397722f6-6996-4bcc-8b07-d3fd038ccfae.webp"
     },
     {

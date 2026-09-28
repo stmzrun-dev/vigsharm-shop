@@ -15640,7 +15640,7 @@
       "composition": [
         "напольная композиция"
       ],
-      "category": "Цветы из шаров",
+      "category": "Для девочки",
       "character": "LOL",
       "age_group": "Для детей",
       "budget": "2 000–3 500 ₽",
@@ -15652,21 +15652,17 @@
       "slug": "stilnaya-diva",
       "scene": "floor",
       "tags": [
-        "Цветы из шаров"
+        "Для девочки",
+        "Напольные композиции"
       ],
       "client_options": {
         "available_on_request": false,
         "advance_order_1_2_days": true,
-        "number_choice": true,
+        "number_choice": false,
         "personal_inscription": false,
         "photozone_rental": false,
         "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/dcec3117-e794-46fe-be3c-0e76782d71bb.jpg",
-        "floor_type": "air",
-        "bouquet_type": "flowers",
-        "digit_choice": {
-          "enabled": true,
-          "count_on_photo": 1
-        }
+        "floor_type": "air"
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/16a40086-b2f1-49ce-909b-9458b23ea61e.png"
@@ -15675,7 +15671,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T13:04:28.461Z",
-      "updated_at": "2026-09-28T07:49:03.415Z",
+      "updated_at": "2026-09-28T10:13:43.214Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/914ad794-56e6-4a29-bed5-12212f0e2edb.webp"
     },
     {

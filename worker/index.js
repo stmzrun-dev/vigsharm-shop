@@ -1670,6 +1670,12 @@ function isWalkerOnFloor(scene, opts) {
   return scene === 'unit_balloon' && opts?.unit_type === 'walker';
 }
 
+/** Сердце у рамы зеркала — один товар. Считать по грузикам на полу, не по стеклу. */
+const mirrorHeartLock = `HEART AGAINST A MIRROR FRAME — still ONE heart:
+- A foil heart standing against or overlapping a vanity/mirror frame is ONE product, even when the glass or the white bulb frame makes a second heart seem to sit behind it
+- Count hearts by weights and ribbon bundles on the REAL floor in front of the mirror, not by shapes in the glass or along the frame
+- One red weight on the real floor → output EXACTLY ONE heart and ONE ribbon bundle. Do NOT split it into a pair while erasing the mirror`;
+
 function buildRephotographPrompt(scene, opts = {}) {
   const photozoneType = opts.photozone_type === 'easel' ? 'easel' : 'frame';
   if (scene === 'arch') {
@@ -1755,7 +1761,8 @@ FORBIDDEN leftover: ghost face, floating hair, half a dress, a person cropped at
 - Same for any foil figure / latex cluster: if a duplicate exists only as a reflection, discard the duplicate when removing the mirror
 - Keep real product balloons pixel-faithful (shapes, colors, prints, ribbons, weights) — but count REAL items only, not mirror ghosts
 - Do NOT “rebuild” or beautify the bouquet while removing the mirror — erase glass/frame/furniture, drop reflection-only balloons, inpaint studio wall behind the real product
-- FORBIDDEN: inventing extra foil hearts/figures from the reflection; keeping two copies of an item that was one real + one reflection; changing Superman/chrome layout while clearing the mirror`;
+${mirrorHeartLock}
+- FORBIDDEN: inventing extra foil hearts/figures from the reflection; keeping two copies of an item that was one real + one reflection; splitting one heart that touches the frame into a pair; changing Superman/chrome layout while clearing the mirror`;
 
   if (scene === 'handheld_bouquet') {
     const flowers = opts.bouquet_type === 'flowers';
@@ -2085,6 +2092,7 @@ Keep the same gender/audience palette as the source (no pink↔blue or boy↔gir
 DELETE in place, do not move: vase, glass, pampas, dried flowers, plants, stray floor objects, tables, chairs, mirrors, real people.
 Hang-tags: erase where they hang or leave them on the same balloon. Never move a tag.
 Do not add balloons. Do not copy mirror reflections.
+${mirrorHeartLock}
 ${extra}`.trim();
 }
 
@@ -2093,7 +2101,7 @@ function buildRephotographAttempts(imageUrl, referenceUrl, prompt, resolution = 
   const keepBg = scene === 'arch';
   const wallOnly = ['wall_only', 'unit_balloon', 'handheld_bouquet'].includes(scene) && !isWalkerOnFloor(scene, opts);
   const wallHint = '\n\nTarget room: VigSharm studio wall from the SECOND reference — warm light beige-grey plaster, natural catalog softbox daylight (not overexposed wash). Copy reference wall tone; do NOT darken into taupe/muddy grey and do NOT blow out to pure white. NO invented mottled/smudged wall.';
-  const floorHint = '\n\nTarget FLOOR from the SECOND reference — LIGHT pale oak / light grey-beige laminate matching reference brightness. Place ONLY the product CLOSE to the white baseboard (short floor strip only — not mid-room): balloons, ribbons, their weights, and a gift/surprise box if it is part of the composition. DELETE room props in place — do NOT move them with the product: vase, glass, dried flowers, pampas grass, houseplant, random floor object. Hang-tags: erase in place or keep pixel-locked on the same balloon — NEVER relocate a tag. Soft contact shadows only under the original balloon base. REMOVE any table, stolik, glass table, stool, chair, wire stand or other furniture from the source — the existing balloon base sits directly on the laminate. A printed gift box that presents the balloons is PRODUCT, not furniture — keep it. Do NOT invent new balloons under the base. FORBIDDEN: dark brown/charcoal laminate; large empty floor toward the wall; keeping a table under the product; carrying a vase/pampas/stray object into the studio; a hang-tag moved to a new spot or another balloon; any real people/models in the frame. If source has a person posing with balloons: erase them completely, keep only the balloon product. If source has a mirror/vanity: remove it; count ONLY real balloons on the floor in front of the glass — NEVER copy balloons that exist only as mirror reflections (e.g. one real heart + reflection → output one heart).';
+  const floorHint = '\n\nTarget FLOOR from the SECOND reference — LIGHT pale oak / light grey-beige laminate matching reference brightness. Place ONLY the product CLOSE to the white baseboard (short floor strip only — not mid-room): balloons, ribbons, their weights, and a gift/surprise box if it is part of the composition. DELETE room props in place — do NOT move them with the product: vase, glass, dried flowers, pampas grass, houseplant, random floor object. Hang-tags: erase in place or keep pixel-locked on the same balloon — NEVER relocate a tag. Soft contact shadows only under the original balloon base. REMOVE any table, stolik, glass table, stool, chair, wire stand or other furniture from the source — the existing balloon base sits directly on the laminate. A printed gift box that presents the balloons is PRODUCT, not furniture — keep it. Do NOT invent new balloons under the base. FORBIDDEN: dark brown/charcoal laminate; large empty floor toward the wall; keeping a table under the product; carrying a vase/pampas/stray object into the studio; a hang-tag moved to a new spot or another balloon; any real people/models in the frame. If source has a person posing with balloons: erase them completely, keep only the balloon product. If source has a mirror/vanity: remove it; count ONLY real balloons on the floor in front of the glass — NEVER copy balloons that exist only as mirror reflections (e.g. one real heart + reflection → output one heart). A foil heart touching the vanity frame is still ONE heart: one red weight on the real floor means ONE heart and ONE ribbon bundle. Do NOT split it into a pair while erasing the mirror.';
   const surpriseHang = scene === 'surprise' && opts?.surprise_pose === 'hang';
   const surpriseHint = scene !== 'surprise' ? ''
     : (surpriseHang

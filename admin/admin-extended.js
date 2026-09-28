@@ -777,7 +777,7 @@ Object.assign(app, {
     const seriesGroup = document.getElementById('product-series')?.closest('.form-group');
     if (charGroup) charGroup.classList.remove('hidden');
     if (seriesGroup) seriesGroup.classList.remove('hidden');
-    if (occasion && cat !== 'Юбилей') {
+    if (occasion && cat !== 'Юбилей' && !this.cardFieldsAreManual()) {
       this.applyAgeFromCategory?.(cat || this.currentProduct?.holiday_only);
     }
     this.syncRequiredFieldHighlights?.();
@@ -788,6 +788,7 @@ Object.assign(app, {
     this._occasionShelfWired = true;
     document.getElementById('product-category')?.addEventListener('change', () => {
       this.syncOccasionShelfFields?.();
+      if (this.cardFieldsAreManual?.()) return;
       if (!this.isOccasionShelf?.()) return;
       // Полка-повод: отметить повод/дату; аудиторию «для кого» не сбрасывать
       const cat = document.getElementById('product-category')?.value || '';
@@ -889,9 +890,15 @@ Object.assign(app, {
     return /коробк/.test(t);
   },
 
+  /** После ИИ или у уже сохранённой карточки поля не перетирать правилами сцены. */
+  cardFieldsAreManual() {
+    return !!this.currentProduct?.id || !!this._aiCardFilled;
+  },
+
   syncHolidayFromComposition() {
     const el = document.getElementById('product-composition');
     if (!el) return null;
+    if (this.cardFieldsAreManual()) return this.currentProduct?.holiday_only || null;
     const before = el.value;
     const { holiday, digitCount, hints, cleanText } = this.parseCompositionHolidayMeta(before);
     this.currentProduct = this.currentProduct || {};
@@ -926,24 +933,33 @@ Object.assign(app, {
     return holiday || this.currentProduct.holiday_only || null;
   },
 
-  /** Сколько фольгированных цифр в составе: 1 / 2 / 0 если не указано. */
+  /** Сколько цифр написано в составе, без ручного выбора в карточке. */
+  compositionDigitCountFromText(text) {
+    const t = String(text || '').toLowerCase().replace(/ё/g, 'е');
+    if (!t) return 0;
+    // «2 цифры», «2 фольгированные цифры», «две цифры».
+    // «2 фигуры … цифра» — две фигуры, не две цифры.
+    if (/(?:^|[^\d])2\s+(?:(?!фигур)[а-яa-z-]+\s+){0,3}цифр/.test(t)
+      || /(?:^|[^а-яa-z0-9])две\s+(?:(?!фигур)[а-яa-z-]+\s+){0,2}цифр/.test(t)) {
+      return 2;
+    }
+    if (/(?:^|[^\d])1\s+(?:[а-яa-z-]+\s+){0,3}цифр/.test(t)
+      || /(?:^|[^а-яa-z0-9])одн[аоуы]\s+(?:[а-яa-z-]+\s+){0,2}цифр/.test(t)
+      || /(?:^|[^а-яa-z0-9])цифр/.test(t)
+      || /фольг\w*\s+цифр/.test(t)) {
+      return 1;
+    }
+    return 0;
+  },
+
+  /**
+   * 1 / 2 / 0. Ручной чип «1 цифра» / «2 цифры» важнее текста состава:
+   * иначе «2 фигуры … цифра» при сохранении снова ставит две цифры.
+   */
   compositionDigitCount(text) {
     const fromMarker = Number(this.currentProduct?.digit_from_marker) || 0;
-    const t = String(text || '').toLowerCase().replace(/ё/g, 'е');
-    let fromText = 0;
-    if (t) {
-      // «2 цифры», «2 фольгированные цифры», «две цифры»
-      if (/(?:^|[^\d])2\s+(?:[а-яa-z-]+\s+){0,3}цифр/.test(t)
-        || /(?:^|[^а-яa-z0-9])две\s+(?:[а-яa-z-]+\s+){0,2}цифр/.test(t)) {
-        fromText = 2;
-      } else if (/(?:^|[^\d])1\s+(?:[а-яa-z-]+\s+){0,3}цифр/.test(t)
-        || /(?:^|[^а-яa-z0-9])одн[аоуы]\s+(?:[а-яa-z-]+\s+){0,2}цифр/.test(t)
-        || /(?:^|[^а-яa-z0-9])цифр/.test(t)
-        || /фольг\w*\s+цифр/.test(t)) {
-        fromText = 1;
-      }
-    }
-    return Math.max(fromMarker, fromText);
+    if (fromMarker === 1 || fromMarker === 2) return fromMarker;
+    return this.compositionDigitCountFromText(text);
   },
 
   /** ИИ не повышает 1→2, если в сыром составе не было «2/две цифры». */
@@ -1031,6 +1047,8 @@ Object.assign(app, {
       const inscriptionEl = document.getElementById('opt-inscription');
       const numberEl = document.getElementById('opt-number');
       const numberHint = document.getElementById('opt-number-hint');
+      const numberBadge = document.getElementById('opt-number-badge');
+      const numberCard = document.getElementById('opt-number-card');
       const rentalEl = document.getElementById('opt-rental');
       const rentalItemEl = document.getElementById('rental-item');
       const pzBlock = document.getElementById('photozone-type-block');
@@ -1038,6 +1056,38 @@ Object.assign(app, {
 
       if (pzBlock) pzBlock.classList.toggle('hidden', !isPhotozone);
       if (floorBlock) floorBlock.classList.add('hidden');
+
+      if (this.cardFieldsAreManual()) {
+        const chosen = Number(this.currentProduct?.digit_from_marker) || 0;
+        if (numberEl) numberEl.disabled = false;
+        if (numberHint) {
+          if (chosen === 2) numberHint.textContent = 'Сохранено: 2 цифры.';
+          else if (chosen === 1) numberHint.textContent = 'Сохранено: 1 цифра.';
+          else if (numberEl?.checked) numberHint.textContent = 'Выбор цифры включён.';
+          else numberHint.textContent = 'Выбор цифры выключен.';
+        }
+        if (numberBadge) {
+          if (chosen === 2) {
+            numberBadge.textContent = '2 цифры';
+            numberBadge.classList.remove('hidden');
+            numberBadge.classList.add('is-two');
+          } else if (chosen === 1) {
+            numberBadge.textContent = '1 цифра';
+            numberBadge.classList.remove('hidden');
+            numberBadge.classList.remove('is-two');
+          } else {
+            numberBadge.textContent = '';
+            numberBadge.classList.add('hidden');
+            numberBadge.classList.remove('is-two');
+          }
+        }
+        if (numberCard) {
+          numberCard.classList.remove('hidden');
+          numberCard.classList.toggle('is-digit-active', !!(numberEl && numberEl.checked));
+        }
+        this.syncRequiredFieldHighlights?.();
+        return;
+      }
 
       // Фигуры и букеты — заранее за 1–2 дня
       if ((isFigures || isBouquet) && advanceEl) advanceEl.checked = true;
@@ -1057,8 +1107,6 @@ Object.assign(app, {
       // Полка «1 годик» — исключение: цифра фиксированная, выбор клиенту не предлагаем.
       const isFirstBirthday = (cat === '1 годик'
         || this.currentProduct?.holiday_only === '1 годик') && !isPhotozone;
-      const numberBadge = document.getElementById('opt-number-badge');
-      const numberCard = document.getElementById('opt-number-card');
       if (isFirstBirthday) {
         if (numberEl) {
           numberEl.checked = false;
@@ -1983,7 +2031,7 @@ Object.assign(app, {
             const prev = this.currentProduct.composition_hints || [];
             this.currentProduct.composition_hints = [...new Set([...prev, ...meta.hints])];
           }
-          if (meta.digitCount > 0) {
+          if (meta.digitCount > 0 && !this.cardFieldsAreManual()) {
             this.currentProduct.digit_from_marker = meta.digitCount;
           }
           if (!holidayOnly) {
@@ -2125,7 +2173,7 @@ Object.assign(app, {
       };
     }
 
-    if ((category === '1 годик' || holidayOnly === '1 годик') && !isPhotozone) {
+    if (!this.cardFieldsAreManual() && (category === '1 годик' || holidayOnly === '1 годик') && !isPhotozone) {
       clientOptions.number_choice = false;
       delete clientOptions.digit_choice;
     } else if (clientOptions.number_choice) {
@@ -2177,15 +2225,17 @@ Object.assign(app, {
 
     const deferred = (typeof DEFERRED_TYPE_TAGS !== 'undefined' && DEFERRED_TYPE_TAGS) || ['Шар-сюрприз'];
     finalTags = finalTags.filter((t) => !deferred.includes(t));
-    if (category === 'Арка из шаров' || finalTags.includes('Арка из шаров')) {
-      if (!finalTags.includes('Арка из шаров')) finalTags.push('Арка из шаров');
-      if (!finalTags.includes('Цена за метр')) finalTags.push('Цена за метр');
-    }
-    if (scene === 'wall_only' || scene === 'unit_balloon' || (scene === 'floor' && this.getFloorType?.() !== 'air')) {
-      finalTags = finalTags.filter((t) => t !== 'Напольные композиции');
-    }
-    if (scene === 'floor' && this.getFloorType?.() === 'air' && !finalTags.includes('Напольные композиции')) {
-      finalTags.push('Напольные композиции');
+    if (!this.cardFieldsAreManual()) {
+      if (category === 'Арка из шаров' || finalTags.includes('Арка из шаров')) {
+        if (!finalTags.includes('Арка из шаров')) finalTags.push('Арка из шаров');
+        if (!finalTags.includes('Цена за метр')) finalTags.push('Цена за метр');
+      }
+      if (scene === 'wall_only' || scene === 'unit_balloon' || (scene === 'floor' && this.getFloorType?.() !== 'air')) {
+        finalTags = finalTags.filter((t) => t !== 'Напольные композиции');
+      }
+      if (scene === 'floor' && this.getFloorType?.() === 'air' && !finalTags.includes('Напольные композиции')) {
+        finalTags.push('Напольные композиции');
+      }
     }
     if (unit) {
       const unitType = this.getUnitBalloonType?.() || '';
@@ -2642,6 +2692,10 @@ app.loadProductToForm = function(product) {
   opt('opt-inscription', opts.personal_inscription || nestedOn(opts.inscription));
   opt('opt-rental', opts.photozone_rental || nestedOn(opts.rental));
   opt('show-on-site', product.show_on_site);
+  const savedDigitCount = Number(opts.digit_choice && opts.digit_choice.count_on_photo) || 0;
+  if ((savedDigitCount === 1 || savedDigitCount === 2) && (opts.number_choice || nestedOn(opts.digit_choice))) {
+    this.currentProduct.digit_from_marker = savedDigitCount;
+  }
 
   const rental = opts.rental && typeof opts.rental === 'object' ? opts.rental : {};
   const rentalItemEl = document.getElementById('rental-item');

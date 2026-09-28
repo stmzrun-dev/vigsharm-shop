@@ -51,6 +51,9 @@ assert(worker.includes('foil STAR') || worker.includes('foil star'), 'sign-text 
 assert(worker.includes('extra balloons'), 'rephotograph forbids extra balloons');
 assert(worker.includes('MIRROR / VANITY BEHIND THE PRODUCT'), 'floor mirror hazard lock');
 assert(worker.includes('REFLECTIONS — NOT product') || worker.includes('ONLY inside the mirror glass are REFLECTIONS'), 'mirror reflections not counted as product');
+assert(worker.includes('HEART AGAINST A MIRROR FRAME'), 'heart against mirror frame is still one');
+assert(worker.includes('one red weight on the real floor means ONE heart'), 'count hearts by floor weights in floor hint');
+assert((worker.split('mirrorHeartLock').length - 1) >= 3, 'mirror heart lock reaches long prompt, flux, and is defined');
 assert(studio.includes('studioMasterBackupUrl'), 'keep Master on failed retry');
 assert(worker.includes("status === 'failed'"), 'status returns failure detail');
 

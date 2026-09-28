@@ -1176,6 +1176,7 @@ Object.assign(app, {
       this.currentProduct.slug = data.slug || this.currentProduct.slug;
       this.currentProduct.tags = data.tags || this.currentProduct.tags;
 
+      this._aiCardFilled = false;
       this.fillFormWithAIData({
         ...data,
         article: undefined,
@@ -1297,6 +1298,10 @@ Object.assign(app, {
         if (fromId === 'ai-review-title') this.syncEditorTitle?.(el.value);
         if (fromId === 'ai-review-composition') {
           this.autosizeAiReviewComposition?.();
+          if (!this.cardFieldsAreManual?.()) {
+            this.currentProduct = this.currentProduct || {};
+            this.currentProduct.digit_from_marker = this.compositionDigitCountFromText?.(el.value) || 0;
+          }
           this.syncHolidayFromComposition?.();
           this.syncAdvanceOrderFromScene?.();
           this.syncAiReviewDigitOpts?.();
@@ -1368,13 +1373,17 @@ Object.assign(app, {
     const cat = document.getElementById('ai-review-category')?.value
       || document.getElementById('product-category')?.value
       || '';
-    const isFirstBirthday = (cat === '1 годик'
+    const manual = !!this.cardFieldsAreManual?.();
+    const isFirstBirthday = !manual && (cat === '1 годик'
       || this.currentProduct?.holiday_only === '1 годик')
       && !this.isPhotozoneContext?.();
     const comp = document.getElementById('ai-review-composition')?.value
       || document.getElementById('product-composition')?.value
       || '';
-    const n = isFirstBirthday ? 0 : (this.compositionDigitCount?.(comp) || 0);
+    const marker = Number(this.currentProduct?.digit_from_marker) || 0;
+    const numberWasOff = manual && marker !== 1 && marker !== 2
+      && !document.getElementById('opt-number')?.checked;
+    const n = (isFirstBirthday || numberWasOff) ? 0 : (this.compositionDigitCount?.(comp) || 0);
     if (d1) {
       d1.checked = n === 1;
       d1.disabled = isFirstBirthday;

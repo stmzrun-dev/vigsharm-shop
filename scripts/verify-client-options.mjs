@@ -265,4 +265,23 @@ assert(list[0].id === 1, 'only visible published kept');
 assert(list[0].has_digit_choice === true, 'storefront list still maps options');
 assert(list.every(function (p) { return !!sandbox.window.vigProductPhoto(p); }), 'photos resolved');
 
+const adminExt = readFileSync(new URL('../admin/admin-extended.js', import.meta.url), 'utf8');
+assert(adminExt.includes('if (fromMarker === 1 || fromMarker === 2) return fromMarker'), 'manual digit chip wins over composition text');
+assert(adminExt.includes('digit_from_marker = savedDigitCount'), 'saved digit count restored on edit');
+assert(adminExt.includes('!!this._aiCardFilled'), 'manual fields start right after AI fill');
+assert(adminExt.includes('cardFieldsAreManual'), 'saved card keeps manual fields');
+assert(adminExt.includes('if (this.cardFieldsAreManual())'), 'scene rules skip a saved card');
+assert(adminExt.includes('(?!фигур)'), '«2 фигуры … цифра» is not two digits');
+
+function digitCountFromText(text) {
+  const t = String(text || '').toLowerCase().replace(/ё/g, 'е');
+  if (/(?:^|[^\d])2\s+(?:(?!фигур)[а-яa-z-]+\s+){0,3}цифр/.test(t)
+    || /(?:^|[^а-яa-z0-9])две\s+(?:(?!фигур)[а-яa-z-]+\s+){0,2}цифр/.test(t)) return 2;
+  if (/цифр/.test(t)) return 1;
+  return 0;
+}
+assert(digitCountFromText('2 фольгированные фигуры бабочек цифра') === 1, 'butterfly figures + цифра → 1');
+assert(digitCountFromText('2 фольгированные цифры') === 2, '2 фольгированные цифры → 2');
+assert(digitCountFromText('две цифры') === 2, 'две цифры → 2');
+
 console.log('✓ client options normalize + visibility OK');

@@ -29,8 +29,33 @@ Object.assign(app, {
     dropzone.addEventListener('drop', (e) => {
       e.preventDefault();
       zone.classList.remove('drag');
-      this.handlePhotoFiles(Array.from(e.dataTransfer.files).filter(f => f.type.startsWith('image/')));
+      const dt = e.dataTransfer;
+      const dropped = dt?.files?.length
+        ? Array.from(dt.files)
+        : Array.from(dt?.items || []).map((item) => item.kind === 'file' ? item.getAsFile() : null).filter(Boolean);
+      this.handlePhotoFiles(dropped);
     });
+  },
+
+  /** JPG/PNG/WebP даже без расширения и без типа от Windows (image_10). */
+  async fileLooksLikeImage(file) {
+    if (!file) return false;
+    const type = String(file.type || '').toLowerCase();
+    if (type.startsWith('image/')) return true;
+    const name = String(file.name || '').toLowerCase();
+    if (/\.(jpe?g|png|webp|gif|bmp|heic|heif|avif)$/.test(name)) return true;
+    try {
+      const head = new Uint8Array(await file.slice(0, 16).arrayBuffer());
+      if (head.length < 3) return false;
+      if (head[0] === 0xFF && head[1] === 0xD8 && head[2] === 0xFF) return true;
+      if (head[0] === 0x89 && head[1] === 0x50 && head[2] === 0x4E && head[3] === 0x47) return true;
+      if (head[0] === 0x47 && head[1] === 0x49 && head[2] === 0x46) return true;
+      if (head[0] === 0x42 && head[1] === 0x4D) return true;
+      const ascii = (from, to) => String.fromCharCode(...head.slice(from, to));
+      if (head.length >= 12 && ascii(0, 4) === 'RIFF' && ascii(8, 12) === 'WEBP') return true;
+      if (head.length >= 8 && ascii(4, 8) === 'ftyp') return true;
+    } catch { /* не картинка */ }
+    return false;
   },
 
   photoFileSig(file) {
@@ -76,6 +101,10 @@ Object.assign(app, {
       this._replaceMainPhotoOnce = false;
       const file = list[0];
       if (!file) return;
+      if (!(await this.fileLooksLikeImage(file))) {
+        this.toast('Это не фото. Нужен JPG, PNG или WebP', 'error');
+        return;
+      }
       if (file.size > 10 * 1024 * 1024) {
         this.toast('Файл слишком большой (макс. 10 МБ)', 'error');
         return;
@@ -110,6 +139,10 @@ Object.assign(app, {
       (this.currentProduct.photos || []).map((p) => this.photoFileSig(p.file)).filter(Boolean)
     );
     for (const file of list.slice(0, remainingSlots)) {
+      if (!(await this.fileLooksLikeImage(file))) {
+        this.toast('Это не фото. Нужен JPG, PNG или WebP', 'error');
+        continue;
+      }
       if (file.size > 10 * 1024 * 1024) { this.toast('Файл слишком большой (макс. 10 МБ)', 'error'); continue; }
       const sig = this.photoFileSig(file);
       if (sig && seen.has(sig)) continue;

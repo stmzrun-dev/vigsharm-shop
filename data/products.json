@@ -15719,7 +15719,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T12:53:25.544Z",
-      "updated_at": "2026-09-28T07:48:59.715Z",
+      "updated_at": "2026-09-28T11:04:48.442Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/43a8042b-b98e-4487-b171-d7769060ca74.webp"
     },
     {
@@ -17948,8 +17948,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-22T12:49:33.953Z",
-      "updated_at": "2026-09-28T07:46:53.174Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-28T11:05:14.132Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/91064bef-ae27-4ffb-a4d7-bbfc6b22aa4d.webp"
     },
     {
       "id": "3de4c396-9be2-419c-aac6-b85714c3eaa7",
@@ -24170,7 +24170,7 @@
       "composition": [
         "фотозона на мольберте"
       ],
-      "category": "Для девочки",
+      "category": "Фотозона",
       "character": "Жираф",
       "age_group": "Для малышей",
       "budget": "5 000–8 000 ₽",
@@ -24182,7 +24182,6 @@
       "slug": "zolotoy-zhiraf",
       "scene": "photozone",
       "tags": [
-        "Для девочки",
         "Фотозона"
       ],
       "client_options": {
@@ -24191,6 +24190,7 @@
         "number_choice": false,
         "personal_inscription": true,
         "photozone_rental": true,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/97b97341-fdeb-4e12-be75-5324712e263e.png",
         "photozone_type": "easel",
         "rental": {
           "enabled": true,
@@ -24206,7 +24206,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-17T11:08:37.440Z",
-      "updated_at": "2026-09-28T07:43:05.474Z",
+      "updated_at": "2026-09-28T11:04:35.117Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/5af74e3e-cca2-4d19-94cb-3217d434301a.webp"
     },
     {
@@ -24441,7 +24441,7 @@
         "2 фольгированные фигуры пони",
         "7 латексных шаров"
       ],
-      "category": "Для девочки",
+      "category": "Коробка-сюрприз",
       "character": "Радуга Дэш и Пинки Пай",
       "age_group": "Для детей",
       "budget": "5 000–8 000 ₽",
@@ -24453,7 +24453,6 @@
       "slug": "raduzhniy-prazdnik",
       "scene": "floor",
       "tags": [
-        "Для девочки",
         "Коробка-сюрприз"
       ],
       "client_options": {
@@ -24462,6 +24461,7 @@
         "number_choice": true,
         "personal_inscription": true,
         "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/65923897-5f1d-4481-ae82-496965c16ddc.png",
         "digit_choice": {
           "enabled": true,
           "count_on_photo": 1
@@ -24474,7 +24474,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-16T21:44:35.023Z",
-      "updated_at": "2026-09-28T07:43:01.627Z",
+      "updated_at": "2026-09-28T11:04:01.178Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/4ec86a20-7ebe-4df2-a989-cf6515adba9c.webp"
     },
     {

@@ -6,23 +6,29 @@
       "title": "Черновик",
       "article": "DG-011",
       "price": 6040,
-      "short_description": "",
-      "full_description": "",
+      "short_description": "Элегантная композиция в чёрно-золотых тонах с мраморными акцентами и баблсом с персональной надписью.",
+      "full_description": "Стильная напольная композиция в серебристо-чёрно-золотой гамме. Крупные цифры, супер-агат шары и прозрачный баблс с надписью создают современный образ.",
       "composition": [
-        "2 цифры, 3 шара супер-агат, 6 шаров, баблс с надписью и шариками"
+        "2 цифры",
+        "3 шара супер-агат",
+        "6 шаров",
+        "баблс с надписью и шариками"
       ],
-      "category": "",
+      "category": "Для него",
       "character": null,
-      "age_group": "Для любого возраста",
+      "age_group": "Для взрослых",
       "budget": "5 000–8 000 ₽",
       "series_name": null,
       "occasion": null,
       "target_audience": null,
-      "seo_title": "",
-      "seo_description": "",
-      "slug": "papin-zver-2",
+      "seo_title": "Шары на день рождения в чёрно-золотом стиле — Армавир",
+      "seo_description": "Стильная композиция с цифрами, мраморными шарами и баблсом с надписью. Современное оформление праздника в Армавире. Доставка.",
+      "slug": "chernovik",
       "scene": "floor",
-      "tags": [],
+      "tags": [
+        "Универсальные",
+        "Напольные композиции"
+      ],
       "client_options": {
         "available_on_request": false,
         "advance_order_1_2_days": false,
@@ -40,10 +46,10 @@
         "https://storage.yandexcloud.net/vigsharm-photos/products/791e113e-d8fe-420f-8517-bec5d2cb008f.jpg"
       ],
       "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/791e113e-d8fe-420f-8517-bec5d2cb008f.jpg",
-      "status": "draft",
-      "show_on_site": false,
+      "status": "published",
+      "show_on_site": true,
       "created_at": "2026-09-28T12:57:59.229Z",
-      "updated_at": "2026-09-28T12:57:59.229Z",
+      "updated_at": "2026-09-28T13:01:44.613Z",
       "thumb_photo": null
     },
     {
@@ -175,7 +181,8 @@
         "digit_choice": {
           "enabled": true,
           "count_on_photo": 2
-        }
+        },
+        "photo_dhash": "333398d8e498da12"
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/e127aa7a-e525-48fd-8fce-72b0103355df.jpg"
@@ -223,7 +230,8 @@
         "digit_choice": {
           "enabled": true,
           "count_on_photo": 2
-        }
+        },
+        "photo_dhash": "0040d0c0e470ace9"
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/e79c140f-c370-481d-9fb5-750dc920ecf7.jpg"
@@ -275,7 +283,8 @@
         "digit_choice": {
           "enabled": true,
           "count_on_photo": 2
-        }
+        },
+        "photo_dhash": "c1ccc490bab8a460"
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/58d2b714-13ee-4f71-a968-86e02379fdf8.jpg"
@@ -323,7 +332,8 @@
         "digit_choice": {
           "enabled": true,
           "count_on_photo": 2
-        }
+        },
+        "photo_dhash": "e8d468f6b6f2f4d8"
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/48883ce7-3afd-4d5e-aaf8-57433a2a959b.jpg"
@@ -367,7 +377,8 @@
         "number_choice": false,
         "personal_inscription": true,
         "photozone_rental": false,
-        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/4d3a5e90-56d0-4df6-b53f-220c8f675d0a.jpg"
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/4d3a5e90-56d0-4df6-b53f-220c8f675d0a.jpg",
+        "photo_dhash": "cc3c9c189cdcdedc"
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/4fa75284-0852-4d82-99ab-82b978ffcc75.jpg"
@@ -12623,7 +12634,8 @@
         "number_choice": false,
         "personal_inscription": true,
         "photozone_rental": false,
-        "studio_original_url": "https://i.ibb.co/p6HcQvTG/file-1.jpg"
+        "studio_original_url": "https://i.ibb.co/p6HcQvTG/file-1.jpg",
+        "photo_dhash": "393b3b2b2b1d1d5d"
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/9d0c02da-e944-4399-8d0b-30d523507e3a.jpg"

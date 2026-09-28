@@ -65,6 +65,15 @@ Object.assign(app, {
 
   /** Чтение файла. Крестик увеличивает поколение — дочитанный файл в карточку уже не попадает. */
   startPhotoRead(file, onLoad) {
+    // Копия отдельно от поля выбора: очистка input в Chrome обрывает чтение исходного File.
+    const snapshot = file.slice(0, file.size, file.type || 'application/octet-stream');
+    const stable = new File([snapshot], file.name || 'photo.jpg', {
+      type: file.type || snapshot.type || '',
+      lastModified: file.lastModified || Date.now()
+    });
+    const input = document.getElementById('photo-input');
+    if (input) input.value = '';
+
     const gen = this._photoReadGen || 0;
     const reader = new FileReader();
     this._photoReaders = this._photoReaders || [];
@@ -72,14 +81,14 @@ Object.assign(app, {
     reader.onload = (e) => {
       this._photoReaders = (this._photoReaders || []).filter((r) => r !== reader);
       if (gen !== this._photoReadGen) return;
-      onLoad(e.target?.result);
+      onLoad(e.target?.result, stable);
     };
     reader.onerror = () => {
       this._photoReaders = (this._photoReaders || []).filter((r) => r !== reader);
+      if (gen !== this._photoReadGen) return;
+      this.toast('Не удалось прочитать фото', 'error');
     };
-    reader.readAsDataURL(file);
-    const input = document.getElementById('photo-input');
-    if (input) input.value = '';
+    reader.readAsDataURL(stable);
   },
 
   cancelPhotoReads() {
@@ -109,12 +118,12 @@ Object.assign(app, {
         this.toast('Файл слишком большой (макс. 10 МБ)', 'error');
         return;
       }
-      this.startPhotoRead(file, (url) => {
+      this.startPhotoRead(file, (url, stableFile) => {
         if (!url) return;
         const next = {
           id: Date.now() + Math.random(),
           url,
-          file,
+          file: stableFile || file,
           uploaded: false
         };
         if (!this.currentProduct.photos.length) this.currentProduct.photos = [next];
@@ -147,14 +156,16 @@ Object.assign(app, {
       const sig = this.photoFileSig(file);
       if (sig && seen.has(sig)) continue;
       if (sig) seen.add(sig);
-      this.startPhotoRead(file, (url) => {
+      this.startPhotoRead(file, (url, stableFile) => {
         if (!url) return;
-        if ((this.currentProduct.photos || []).some((p) => this.photoFileSig(p.file) === sig && sig)) return;
+        const kept = stableFile || file;
+        const keptSig = this.photoFileSig(kept);
+        if ((this.currentProduct.photos || []).some((p) => this.photoFileSig(p.file) === keptSig && keptSig)) return;
         if ((this.currentProduct.photos || []).length >= maxPhotos) return;
         this.currentProduct.photos.push({
           id: Date.now() + Math.random(),
           url,
-          file,
+          file: kept,
           uploaded: false
         });
         this.renderPhotos();

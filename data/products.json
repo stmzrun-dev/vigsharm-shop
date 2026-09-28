@@ -10851,11 +10851,11 @@
         "personal_inscription": true,
         "photozone_rental": false,
         "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/dab6a17f-46a5-42be-89f9-e98079920686.webp",
+        "photo_dhash": "9c9ce2708c4dcece",
         "digit_choice": {
           "enabled": true,
           "count_on_photo": 1
-        },
-        "photo_dhash": "9c9ce2708c4dcece"
+        }
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/3e16614c-ea29-471f-ae39-65646a0e474f.jpg"
@@ -10864,7 +10864,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-25T07:29:36.463Z",
-      "updated_at": "2026-09-25T15:26:31.414Z",
+      "updated_at": "2026-09-28T16:09:47.299Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/15d4ee6e-ee66-48b6-ae4a-be9a3000f185.webp"
     },
     {

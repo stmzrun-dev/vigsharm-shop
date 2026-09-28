@@ -1562,9 +1562,12 @@ Object.assign(app, {
       const el = document.getElementById('product-series');
       if (el) el.value = card.series_name || '';
     }
-    if (holidayOnly) {
+    if (holidayOnly && !(card.id && card.category)) {
       this.applyHolidayOnlyMode(holidayOnly);
       this.ensurePhotozoneTagFromCard?.(card);
+    } else if (card.id && card.category) {
+      if (card.category === 'Цветы из шаров') this.setBouquetType?.('flowers');
+      else this.setBouquetType?.('');
     } else if (this.isOccasionShelf?.(card.category)) {
       if (card.category !== 'Юбилей') this.applyAgeFromCategory?.(card.category);
       this.syncOccasionShelfFields?.();
@@ -1840,7 +1843,9 @@ Object.assign(app, {
           if (!holidayOnly) {
             holidayOnly = this.holidayFromHints?.(this.currentProduct.composition_hints) || null;
           }
-          if (holidayOnly) this.applyHolidayOnlyMode?.(holidayOnly);
+          if (holidayOnly && !document.getElementById('product-category')?.value) {
+            this.applyHolidayOnlyMode?.(holidayOnly);
+          }
           return String(meta.cleanText || '')
             .split('\n').filter((l) => l.trim()).map((l) => l.trim());
         })();
@@ -1865,8 +1870,8 @@ Object.assign(app, {
     const typeNames = (typeof TAGS !== 'undefined' && TAGS.type) || [];
     const otherTypeTag = tags.some((t) => typeNames.includes(t) && t !== 'Цветы из шаров');
     const flowersExplicit = category === 'Цветы из шаров' || tags.includes('Цветы из шаров');
-    // Старый признак «цветы» не перебивает категорию, которую выбрали в окне проверки.
-    const isBalloonFlowers = !unit && !holidayOnly && !isBox && !otherTypeTag && (
+    const keepOperatorChoice = !unit && !!String(category || '').trim();
+    const isBalloonFlowers = !keepOperatorChoice && !unit && !holidayOnly && !isBox && !otherTypeTag && (
       flowersExplicit || (this.getBouquetType?.() === 'flowers' && !category)
     );
     const isBouquet = !unit && !holidayOnly && !isBox && !isBalloonFlowers && (
@@ -1929,7 +1934,7 @@ Object.assign(app, {
     if (isFloorSave && floorType) {
       clientOptions.floor_type = floorType;
     }
-    if (isBalloonFlowers) {
+    if ((category === 'Цветы из шаров' || tags.includes('Цветы из шаров')) && !otherTypeTag) {
       clientOptions.bouquet_type = 'flowers';
     }
     if (scene === 'surprise') {
@@ -1985,35 +1990,35 @@ Object.assign(app, {
     let finalTags = [...tags];
     const occasionShelf = !unit && !holidayOnly && !isBox && !isBouquet && !isBalloonFlowers && !isFigures
       && (typeof OCCASION_SHELVES !== 'undefined' ? OCCASION_SHELVES.includes(category) : false);
-    if (isSurprise) {
-      category = 'Шар-сюрприз';
-      finalTags = ['Шар-сюрприз'];
-    } else if (holidayOnly && !unit) {
-      category = holidayOnly;
-      finalTags = [holidayOnly];
-      if (isPhotozone && !finalTags.includes('Фотозона')) finalTags.push('Фотозона');
-    } else if (isBox) {
-      category = 'Коробка-сюрприз';
-      finalTags = ['Коробка-сюрприз'];
-    } else if (isBalloonFlowers) {
-      category = 'Цветы из шаров';
-      finalTags = ['Цветы из шаров'];
-    } else if (isBouquet) {
-      category = 'Букет из шаров';
-      finalTags = ['Букет из шаров'];
-    } else if (isFigures) {
-      category = 'Фигуры из шаров';
-      finalTags = ['Фигуры из шаров'];
-    } else if (occasionShelf) {
-      const forWho = (typeof TAGS !== 'undefined' && TAGS.forWho) || [];
-      const audience = tags.filter((t) => forWho.includes(t) && t !== category);
-      finalTags = [category, ...audience];
-      if (isPhotozone && !finalTags.includes('Фотозона')) finalTags.push('Фотозона');
-    } else if (isPhotozone) {
-      category = 'Фотозона';
-      finalTags = ['Фотозона'];
-    } else {
-      if (!unit && scene === 'balloon_figures' && !finalTags.includes('Фигуры из шаров')) {
+    if (!keepOperatorChoice) {
+      if (isSurprise) {
+        category = 'Шар-сюрприз';
+        finalTags = ['Шар-сюрприз'];
+      } else if (holidayOnly && !unit) {
+        category = holidayOnly;
+        finalTags = [holidayOnly];
+        if (isPhotozone && !finalTags.includes('Фотозона')) finalTags.push('Фотозона');
+      } else if (isBox) {
+        category = 'Коробка-сюрприз';
+        finalTags = ['Коробка-сюрприз'];
+      } else if (isBalloonFlowers) {
+        category = 'Цветы из шаров';
+        finalTags = ['Цветы из шаров'];
+      } else if (isBouquet) {
+        category = 'Букет из шаров';
+        finalTags = ['Букет из шаров'];
+      } else if (isFigures) {
+        category = 'Фигуры из шаров';
+        finalTags = ['Фигуры из шаров'];
+      } else if (occasionShelf) {
+        const forWho = (typeof TAGS !== 'undefined' && TAGS.forWho) || [];
+        const audience = tags.filter((t) => forWho.includes(t) && t !== category);
+        finalTags = [category, ...audience];
+        if (isPhotozone && !finalTags.includes('Фотозона')) finalTags.push('Фотозона');
+      } else if (isPhotozone) {
+        category = 'Фотозона';
+        finalTags = ['Фотозона'];
+      } else if (!unit && scene === 'balloon_figures' && !finalTags.includes('Фигуры из шаров')) {
         finalTags.push('Фигуры из шаров');
       }
     }
@@ -2048,7 +2053,7 @@ Object.assign(app, {
     }
     if (deferred.includes(category)) category = finalTags[0] || '';
 
-    if (!unit && category !== 'Юбилей' && (holidayOnly || occasionShelf || this.isOccasionShelf?.(category))) {
+    if (!unit && !document.getElementById('product-age')?.value && category !== 'Юбилей' && (holidayOnly || occasionShelf || this.isOccasionShelf?.(category))) {
       this.applyAgeFromCategory?.(category || holidayOnly);
     }
     const ageVal = unit
@@ -2472,9 +2477,7 @@ app.loadProductToForm = function(product) {
   else if (opts.floor_type === 'helium') floorTypeSaved = '';
   else if (advanceWasOn && sceneNow === 'floor') floorTypeSaved = 'air';
   this.setFloorType?.(floorTypeSaved);
-  const bouquetTypeSaved = (opts.bouquet_type === 'flowers'
-    || product.category === 'Цветы из шаров'
-    || (product.tags || []).includes('Цветы из шаров')) ? 'flowers' : '';
+  const bouquetTypeSaved = product.category === 'Цветы из шаров' ? 'flowers' : '';
   this.setBouquetType?.(bouquetTypeSaved);
   const surprisePoseSaved = opts.surprise_pose === 'hang' ? 'hang' : 'stand';
   this.setSurprisePose?.(surprisePoseSaved);

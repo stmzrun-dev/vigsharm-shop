@@ -25389,24 +25389,24 @@
         "personal_inscription": true,
         "photozone_rental": true,
         "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/fa5a45cf-e7c4-4b5f-943c-3869e33406d4.jpg",
+        "photo_dhash": "fafcfe2566e6c743",
         "photozone_type": "easel",
         "rental": {
           "enabled": true,
           "item": "Мольберт с кругом из полистирола",
           "days": 3,
           "keep_price_delta": 500
-        },
-        "photo_dhash": "fafcfe2566e6c743"
+        }
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/557b0d13-8cee-4a77-8f7b-60e8fa3b97eb.png"
       ],
       "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/557b0d13-8cee-4a77-8f7b-60e8fa3b97eb.png",
-      "status": "published",
+      "status": "draft",
       "show_on_site": true,
       "created_at": "2026-09-16T21:34:05.805Z",
-      "updated_at": "2026-09-28T07:42:59.323Z",
-      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/3ce477e2-7fbf-4169-a716-ae4ebff6a803.webp"
+      "updated_at": "2026-09-28T13:18:57.858Z",
+      "thumb_photo": null
     },
     {
       "id": "4b23dbd8-6175-47b5-a46a-2d9b254aa6c9",

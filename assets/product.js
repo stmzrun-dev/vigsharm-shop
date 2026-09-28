@@ -1279,7 +1279,7 @@
       '<div class="related-products-actions"><a href="catalog.html?max=' + p.price + '">Не дороже ' + Number(p.price).toLocaleString('ru-RU') + ' ₽</a><a href="catalog.html">Весь каталог</a></div></div>' +
       (rel.length
         ? '<div class="related-products-grid">' + rel.map(function (o, i) {
-          var k = (window.vigProductPhoto ? window.vigProductPhoto(o) : '') || (o.image_keys && o.image_keys[0]) || '';
+          var k = (window.vigProductThumb ? window.vigProductThumb(o) : '') || o.thumb_photo || (o.image_keys && o.image_keys[0]) || '';
           var img = k ? '<img src="' + window.vigImage(k, 480) + '" data-key="' + esc(k) + '" alt="' + esc(o.title) + '" loading="lazy" decoding="async" width="480" height="480"/>' : '';
           return '<a class="catalog-card color-' + ((i + 1) % 5) + '" href="product.html?slug=' + encodeURIComponent(o.slug || o.id) + '" aria-label="Подробнее: ' + esc(o.title) + '">' +
             '<span class="catalog-card-image">' + img + '</span>' +

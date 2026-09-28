@@ -1516,7 +1516,10 @@ Object.assign(app, {
     const pair = (fromId, toId) => {
       const from = document.getElementById(fromId);
       const to = document.getElementById(toId);
-      if (from && to) to.value = from.value;
+      if (!from || !to) return;
+      const next = String(from.value || '').trim();
+      if (!next && String(to.value || '').trim()) return;
+      to.value = from.value;
     };
     pair('ai-review-title', 'product-title');
     pair('ai-review-price', 'product-price');

@@ -28,7 +28,8 @@
           return;
         }
         list.innerHTML = products.slice(0, 4).map(function (p) {
-          var key = (window.vigProductPhoto ? window.vigProductPhoto(p) : '') ||
+          var key = (window.vigProductThumb ? window.vigProductThumb(p) : '') ||
+            p.thumb_photo ||
             (p.image_keys && p.image_keys[0]) ||
             (p.photos && p.photos[0]) ||
             p.main_photo ||

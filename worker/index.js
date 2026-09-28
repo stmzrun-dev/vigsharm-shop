@@ -114,6 +114,8 @@ export default {
         return handleDeletePhoto(path, env);
       if (path === '/api/admin/proxy-image' && method === 'POST')
         return handleProxyImage(request, env);
+      if (path === '/api/admin/migrate-cloudinary' && method === 'POST')
+        return json(await migrateCloudinaryBatch(env));
 
       return json({ ok: false, error: 'Not found' }, 404);
     } catch (e) {
@@ -2941,8 +2943,6 @@ function httpUrl(value) {
 
 /** Превью для списка: https-адрес, без data:-фотографий. */
 function listPreviewUrl(product) {
-  const thumb = httpUrl(product.thumb_photo);
-  if (thumb) return thumb;
   const main = httpUrl(product.main_photo);
   if (main) return main;
   const photos = Array.isArray(product.photos) ? product.photos : [];
@@ -2950,7 +2950,7 @@ function listPreviewUrl(product) {
     const url = httpUrl(typeof photo === 'string' ? photo : photo && photo.url);
     if (url) return url;
   }
-  return '';
+  return httpUrl(product.thumb_photo);
 }
 
 function slimProductForList(product) {
@@ -3236,6 +3236,105 @@ async function yandexPutObject(env, key, bytes, contentType) {
     throw new Error(`Yandex S3 PUT ${res.status}: ${text.slice(0, 400)}`);
   }
   return yandexPublicUrl(env, key);
+}
+
+function cloudinaryUrlsInProduct(product) {
+  const urls = [];
+  const seen = new Set();
+  const add = (value) => {
+    if (typeof value !== 'string' || !value.includes('res.cloudinary.com') || seen.has(value)) return;
+    seen.add(value);
+    urls.push(value);
+  };
+  add(product.main_photo);
+  add(product.thumb_photo);
+  (Array.isArray(product.photos) ? product.photos : []).forEach(add);
+  add(product.client_options && product.client_options.studio_original_url);
+  return urls;
+}
+
+/** Переносит пачку фото с Cloudinary в Yandex. Повторяется, пока ссылки не кончатся. */
+async function migrateCloudinaryBatch(env) {
+  if (!env.DB || !yandexConfigured(env)) return { ok: false, error: 'storage' };
+  await env.DB.prepare(`CREATE TABLE IF NOT EXISTS photo_moves (
+    src TEXT PRIMARY KEY,
+    dest TEXT,
+    ok INTEGER NOT NULL DEFAULT 0,
+    tries INTEGER NOT NULL DEFAULT 0
+  )`).run();
+
+  const { results } = await env.DB.prepare(
+    `SELECT * FROM products
+     WHERE photos LIKE '%cloudinary%'
+        OR main_photo LIKE '%cloudinary%'
+        OR thumb_photo LIKE '%cloudinary%'
+        OR client_options LIKE '%cloudinary%'
+     LIMIT 20`
+  ).all();
+
+  let moved = 0;
+  let failed = 0;
+  for (const row of results || []) {
+    const product = parseProduct(row);
+    const urls = cloudinaryUrlsInProduct(product);
+    const map = {};
+    for (const src of urls) {
+      if (moved >= 20) break;
+      const known = await env.DB.prepare(
+        'SELECT dest, ok, tries FROM photo_moves WHERE src = ?'
+      ).bind(src).first();
+      if (known && known.ok && known.dest) {
+        map[src] = known.dest;
+        continue;
+      }
+      if (known && Number(known.tries) >= 3) continue;
+      try {
+        const res = await fetch(src);
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        const buf = await res.arrayBuffer();
+        if (buf.byteLength < 32 || buf.byteLength > 12 * 1024 * 1024) throw new Error('size');
+        const type = String(res.headers.get('content-type') || 'image/jpeg').split(';')[0].trim();
+        const dest = await yandexPutObject(env, mediaObjectKey(crypto.randomUUID(), type, src), new Uint8Array(buf), type);
+        await env.DB.prepare(
+          `INSERT INTO photo_moves (src, dest, ok, tries) VALUES (?, ?, 1, 1)
+           ON CONFLICT(src) DO UPDATE SET dest = excluded.dest, ok = 1, tries = photo_moves.tries + 1`
+        ).bind(src, dest).run();
+        map[src] = dest;
+        moved += 1;
+      } catch (error) {
+        failed += 1;
+        console.error('[migrate-cloudinary]', src, error && error.message);
+        await env.DB.prepare(
+          `INSERT INTO photo_moves (src, dest, ok, tries) VALUES (?, ?, 0, 1)
+           ON CONFLICT(src) DO UPDATE SET tries = photo_moves.tries + 1, dest = excluded.dest`
+        ).bind(src, String((error && error.message) || error || 'fail').slice(0, 220)).run();
+      }
+    }
+    const swap = (value) => (typeof value === 'string' && map[value]) ? map[value] : value;
+    const photos = (product.photos || []).map(swap);
+    const opts = { ...(product.client_options || {}) };
+    if (opts.studio_original_url) opts.studio_original_url = swap(opts.studio_original_url);
+    const main = swap(product.main_photo) || null;
+    const thumb = swap(product.thumb_photo) || null;
+    const samePhotos = photos.every((url, i) => url === (product.photos || [])[i]);
+    if (
+      samePhotos
+      && main === (product.main_photo || null)
+      && thumb === (product.thumb_photo || null)
+      && opts.studio_original_url === (product.client_options || {}).studio_original_url
+    ) continue;
+    await env.DB.prepare(
+      `UPDATE products SET photos = ?, main_photo = ?, thumb_photo = ?, client_options = ?, updated_at = ? WHERE id = ?`
+    ).bind(
+      JSON.stringify(photos),
+      main,
+      thumb,
+      JSON.stringify(opts),
+      new Date().toISOString(),
+      product.id
+    ).run();
+  }
+  return { ok: true, scanned: (results || []).length, moved, failed };
 }
 
 async function handleUploadPhoto(request, env) {

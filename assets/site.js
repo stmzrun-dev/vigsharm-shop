@@ -90,14 +90,20 @@
     if (p.show_on_site == null || p.show_on_site === '') return true;
     return vigTruthy(p.show_on_site);
   };
-  /** First usable product photo from D1 (photos/main_photo) or legacy image_keys. */
+  /** Full frame for the product page. */
   window.vigProductPhoto = function (p) {
     if (!p) return '';
-    if (p.thumb_photo) return p.thumb_photo;
     var keys = p.image_keys;
     if ((!keys || !keys.length) && Array.isArray(p.photos) && p.photos.length) keys = p.photos;
     if (keys && keys.length && keys[0]) return keys[0];
-    return p.main_photo || '';
+    if (p.main_photo) return p.main_photo;
+    return p.thumb_photo || '';
+  };
+  /** Light WebP preview for catalog grids. Falls back to the full frame. */
+  window.vigProductThumb = function (p) {
+    if (!p) return '';
+    if (p.thumb_photo) return p.thumb_photo;
+    return window.vigProductPhoto(p);
   };
   window.vigNormalizeProduct = function (p) {
     if (!p) return p;

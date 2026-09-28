@@ -1870,7 +1870,7 @@ Object.assign(app, {
     const typeNames = (typeof TAGS !== 'undefined' && TAGS.type) || [];
     const otherTypeTag = tags.some((t) => typeNames.includes(t) && t !== 'Цветы из шаров');
     const flowersExplicit = category === 'Цветы из шаров' || tags.includes('Цветы из шаров');
-    const keepOperatorChoice = !unit && !!String(category || '').trim();
+    const keepOperatorChoice = !unit && (!!this.currentProduct?.id || !!String(category || '').trim());
     const isBalloonFlowers = !keepOperatorChoice && !unit && !holidayOnly && !isBox && !otherTypeTag && (
       flowersExplicit || (this.getBouquetType?.() === 'flowers' && !category)
     );

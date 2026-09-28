@@ -6,23 +6,20 @@ Object.assign(app, {
   setupPhotoUpload() {
     const dropzone = document.getElementById('photo-dropzone');
     const input = document.getElementById('photo-input');
-    if (!dropzone || !input || input.dataset.wired === '1') return;
-    input.dataset.wired = '1';
+    if (!dropzone || !input) return;
     const zone = dropzone.querySelector('.upload-zone') || dropzone;
 
     zone.addEventListener('click', (e) => {
-      if (e.target.closest('button') || e.target.closest('.photo-item') || e.target === input) return;
+      if (e.target.closest('button') || e.target.closest('.photo-item')) return;
       input.click();
     });
     zone.addEventListener('keydown', (e) => {
-      if (e.key !== 'Enter' && e.key !== ' ') return;
-      e.preventDefault();
-      input.click();
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        input.click();
+      }
     });
-    input.addEventListener('change', () => {
-      const files = Array.from(input.files || []);
-      if (files.length) this.handlePhotoFiles(files);
-    });
+    input.addEventListener('change', (e) => this.handlePhotoFiles(Array.from(e.target.files)));
 
     ['dragenter','dragover'].forEach(ev => {
       dropzone.addEventListener(ev, (e) => { e.preventDefault(); zone.classList.add('drag'); });
@@ -31,116 +28,33 @@ Object.assign(app, {
     dropzone.addEventListener('drop', (e) => {
       e.preventDefault();
       zone.classList.remove('drag');
-      const dt = e.dataTransfer;
-      const dropped = dt?.files?.length
-        ? Array.from(dt.files)
-        : Array.from(dt?.items || []).map((item) => item.kind === 'file' ? item.getAsFile() : null).filter(Boolean);
-      if (dropped.length) this.handlePhotoFiles(dropped);
+      this.handlePhotoFiles(Array.from(e.dataTransfer.files).filter(f => f.type.startsWith('image/')));
     });
   },
 
-  /** JPG/PNG/WebP даже без расширения и без типа от Windows (image_10). */
-  async fileLooksLikeImage(file) {
-    if (!file) return false;
-    const type = String(file.type || '').toLowerCase();
-    if (type.startsWith('image/')) return true;
-    const name = String(file.name || '').toLowerCase();
-    if (/\.(jpe?g|png|webp|gif|bmp|heic|heif|avif)$/.test(name)) return true;
-    try {
-      const head = new Uint8Array(await file.slice(0, 16).arrayBuffer());
-      if (head.length < 3) return false;
-      if (head[0] === 0xFF && head[1] === 0xD8 && head[2] === 0xFF) return true;
-      if (head[0] === 0x89 && head[1] === 0x50 && head[2] === 0x4E && head[3] === 0x47) return true;
-      if (head[0] === 0x47 && head[1] === 0x49 && head[2] === 0x46) return true;
-      if (head[0] === 0x42 && head[1] === 0x4D) return true;
-      const ascii = (from, to) => String.fromCharCode(...head.slice(from, to));
-      if (head.length >= 12 && ascii(0, 4) === 'RIFF' && ascii(8, 12) === 'WEBP') return true;
-      if (head.length >= 8 && ascii(4, 8) === 'ftyp') return true;
-    } catch { /* не картинка */ }
-    return false;
-  },
-
-  photoFileSig(file) {
-    if (!file) return '';
-    return [file.name, file.size, file.lastModified].join(':');
-  },
-
-  /** Поле не очищаем, пока картинка не прочитана: иначе Chrome отдаёт пустой файл без ошибки. */
-  startPhotoRead(file, onLoad) {
-    const gen = this._photoReadGen || 0;
-    const reader = new FileReader();
-    this._photoReaders = this._photoReaders || [];
-    this._photoReaders.push(reader);
-    reader.onload = () => {
-      this._photoReaders = (this._photoReaders || []).filter((r) => r !== reader);
-      if (gen !== this._photoReadGen) return;
-      const url = String(reader.result || '');
-      if (!url.startsWith('data:')) {
-        this.toast('Не удалось прочитать фото', 'error');
-        return;
-      }
-      onLoad(url, file);
-    };
-    reader.onerror = () => {
-      this._photoReaders = (this._photoReaders || []).filter((r) => r !== reader);
-      if (gen !== this._photoReadGen) return;
-      this.toast('Не удалось прочитать фото', 'error');
-    };
-    reader.readAsDataURL(file);
-  },
-
-  cancelPhotoReads() {
-    this._photoReadGen = (this._photoReadGen || 0) + 1;
-    (this._photoReaders || []).forEach((reader) => {
-      try { reader.abort(); } catch (_) { /* уже дочитан */ }
-    });
-    this._photoReaders = [];
-    const input = document.getElementById('photo-input');
-    if (input) input.value = '';
-  },
-
-  ensurePhotoList() {
-    if (!this.currentProduct) {
-      this.currentProduct = { photos: [], scene: 'auto', tags: [], client_options: {} };
-    }
-    if (!Array.isArray(this.currentProduct.photos)) this.currentProduct.photos = [];
-  },
-
-  handlePhotoFiles(files) {
-    if (!files || files.length === 0) return;
-    this.ensurePhotoList();
+  async handlePhotoFiles(files) {
+    if (files.length === 0) return;
     const maxPhotos = 6;
-    const list = Array.from(files);
-
-    const acceptPhoto = (file) => {
-      if (!file) return null;
-      if (file.size > 10 * 1024 * 1024) {
-        this.toast('Файл слишком большой (макс. 10 МБ)', 'error');
-        return null;
-      }
-      const type = String(file.type || '').toLowerCase();
-      const name = String(file.name || '').toLowerCase();
-      const namedImage = /\.(jpe?g|png|webp|gif|bmp|heic|heif|avif)$/.test(name);
-      if (type && !type.startsWith('image/') && !namedImage) {
-        this.toast('Это не фото. Нужен JPG, PNG или WebP', 'error');
-        return null;
-      }
-      return file;
-    };
 
     if (this._replaceMainPhotoOnce) {
       this._replaceMainPhotoOnce = false;
-      const file = acceptPhoto(list[0]);
+      const file = files[0];
       if (!file) return;
-      this.startPhotoRead(file, (url, stableFile) => {
+      if (file.size > 10 * 1024 * 1024) {
+        this.toast('Файл слишком большой (макс. 10 МБ)', 'error');
+        return;
+      }
+      const reader = new FileReader();
+      reader.onload = (e) => {
         const next = {
           id: Date.now() + Math.random(),
-          url,
-          file: stableFile,
+          url: e.target.result,
+          file,
           uploaded: false
         };
         if (!this.currentProduct.photos.length) this.currentProduct.photos = [next];
         else this.currentProduct.photos[0] = next;
+        // Сброс Master — нужно пересоздать
         this.studioMasterDataUrl = null;
         this.studioMasterBackupUrl = null;
         this.studioMasterBaseUrl = null;
@@ -150,33 +64,27 @@ Object.assign(app, {
         this.renderPhotos();
         this.goStep1Phase?.('a', { skipGate: true });
         this.toast('Главное фото заменено — выберите сцену и нажмите «Далее»', 'success');
-      });
+      };
+      reader.readAsDataURL(file);
       return;
     }
 
     const remainingSlots = maxPhotos - this.currentProduct.photos.length;
     if (remainingSlots === 0) { this.toast('Максимум 6 фото', 'error'); return; }
-
-    const seen = new Set(
-      (this.currentProduct.photos || []).map((p) => this.photoFileSig(p.file)).filter(Boolean)
-    );
-    for (const raw of list.slice(0, remainingSlots)) {
-      const file = acceptPhoto(raw);
-      if (!file) continue;
-      const sig = this.photoFileSig(file);
-      if (sig && seen.has(sig)) continue;
-      if (sig) seen.add(sig);
-      this.startPhotoRead(file, (url, stableFile) => {
-        if ((this.currentProduct.photos || []).some((p) => this.photoFileSig(p.file) === sig && sig)) return;
-        if ((this.currentProduct.photos || []).length >= maxPhotos) return;
+    
+    for (const file of files.slice(0, remainingSlots)) {
+      if (file.size > 10 * 1024 * 1024) { this.toast('Файл слишком большой (макс. 10 МБ)', 'error'); continue; }
+      const reader = new FileReader();
+      reader.onload = (e) => {
         this.currentProduct.photos.push({
           id: Date.now() + Math.random(),
-          url,
-          file: stableFile,
+          url: e.target.result,
+          file: file,
           uploaded: false
         });
         this.renderPhotos();
-      });
+      };
+      reader.readAsDataURL(file);
     }
   },
 
@@ -581,20 +489,7 @@ Object.assign(app, {
   },
 
   removePhoto(index) {
-    const photos = this.currentProduct?.photos;
-    if (!Array.isArray(photos) || index < 0 || index >= photos.length) return;
-    this.cancelPhotoReads?.();
-    photos.splice(index, 1);
-    if (!photos.length) {
-      this.studioMasterDataUrl = null;
-      this.studioMasterBackupUrl = null;
-      this.studioMasterBaseUrl = null;
-      this.studioSourceUrl = null;
-      this.studioCompare = { original: null, master: null };
-      this._pendingPhotoDhash = '';
-      this._photoDupSig = '';
-      this.renderStudioCompare?.();
-    }
+    this.currentProduct.photos.splice(index, 1);
     this.renderPhotos();
     this.toast('Фото удалено', 'success');
   },
@@ -665,31 +560,9 @@ Object.assign(app, {
     this.syncOccasionShelfFields?.();
   },
 
-  /** Подтип остаётся только у выбранной сцены. Чужие чипы снимаются. */
-  clearOtherSceneSubtypes(scene) {
-    if (scene !== 'unit_balloon') {
-      this.setUnitBalloonType?.('');
-      this.setUnitBalloonWho?.('');
-      this.setLetterInk?.('');
-      this.setUnitHoliday?.('');
-      const sizeEl = document.getElementById('unit-balloon-size');
-      if (sizeEl) sizeEl.value = '';
-    }
-    if (scene !== 'floor') this.setFloorType?.('');
-    if (scene !== 'handheld_bouquet') this.setBouquetType?.('');
-    if (scene !== 'surprise') {
-      this.setSurprisePose?.('stand');
-      this.setSurpriseMoney?.(false);
-    }
-    if (scene !== 'photozone') this.setPhotozoneType?.('frame');
-  },
-
   setScene(value) {
     const scene = value || 'auto';
     if (!this.currentProduct) this.currentProduct = { photos: [], scene: 'auto', tags: [], client_options: {} };
-    const prev = this.currentProduct.scene || 'auto';
-    if (scene !== 'unit_balloon') this.releaseUnitSceneLock?.();
-    if (prev !== scene) this.clearOtherSceneSubtypes?.(scene);
     this.currentProduct.scene = scene;
     const select = document.getElementById('scene-select');
     if (select && select.value !== scene) select.value = scene;

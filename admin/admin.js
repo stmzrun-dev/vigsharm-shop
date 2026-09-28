@@ -830,13 +830,6 @@ const app = {
     return shelves.includes(cat);
   },
 
-  /** Клик по другой сцене отпускает «Шары поштучно», иначе рельс сразу возвращается. */
-  releaseUnitSceneLock() {
-    if (!this.isUnitBalloonMode()) return;
-    const cat = document.getElementById('product-category');
-    if (cat) cat.value = '';
-  },
-
   syncUnitBalloonForm(fromUser = false) {
     if (this._resettingForm) return;
     const form = document.getElementById('product-form');

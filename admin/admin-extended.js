@@ -560,9 +560,31 @@ Object.assign(app, {
     this.syncOccasionShelfFields?.();
   },
 
+  /** Подтип остаётся только у выбранной сцены. Чужие чипы снимаются. */
+  clearOtherSceneSubtypes(scene) {
+    if (scene !== 'unit_balloon') {
+      this.setUnitBalloonType?.('');
+      this.setUnitBalloonWho?.('');
+      this.setLetterInk?.('');
+      this.setUnitHoliday?.('');
+      const sizeEl = document.getElementById('unit-balloon-size');
+      if (sizeEl) sizeEl.value = '';
+    }
+    if (scene !== 'floor') this.setFloorType?.('');
+    if (scene !== 'handheld_bouquet') this.setBouquetType?.('');
+    if (scene !== 'surprise') {
+      this.setSurprisePose?.('stand');
+      this.setSurpriseMoney?.(false);
+    }
+    if (scene !== 'photozone') this.setPhotozoneType?.('frame');
+  },
+
   setScene(value) {
     const scene = value || 'auto';
     if (!this.currentProduct) this.currentProduct = { photos: [], scene: 'auto', tags: [], client_options: {} };
+    const prev = this.currentProduct.scene || 'auto';
+    if (scene !== 'unit_balloon') this.releaseUnitSceneLock?.();
+    if (prev !== scene) this.clearOtherSceneSubtypes?.(scene);
     this.currentProduct.scene = scene;
     const select = document.getElementById('scene-select');
     if (select && select.value !== scene) select.value = scene;

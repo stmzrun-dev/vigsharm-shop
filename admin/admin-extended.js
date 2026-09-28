@@ -10,12 +10,19 @@ Object.assign(app, {
     input.dataset.wired = '1';
     const zone = dropzone.querySelector('.upload-zone') || dropzone;
 
-    const takeFiles = (list) => {
-      const files = Array.from(list || []);
-      if (!files.length) return;
-      this.handlePhotoFiles(files);
-    };
-    input.addEventListener('change', () => takeFiles(input.files));
+    zone.addEventListener('click', (e) => {
+      if (e.target.closest('button') || e.target.closest('.photo-item') || e.target === input) return;
+      input.click();
+    });
+    zone.addEventListener('keydown', (e) => {
+      if (e.key !== 'Enter' && e.key !== ' ') return;
+      e.preventDefault();
+      input.click();
+    });
+    input.addEventListener('change', () => {
+      const files = Array.from(input.files || []);
+      if (files.length) this.handlePhotoFiles(files);
+    });
 
     ['dragenter','dragover'].forEach(ev => {
       dropzone.addEventListener(ev, (e) => { e.preventDefault(); zone.classList.add('drag'); });
@@ -24,12 +31,11 @@ Object.assign(app, {
     dropzone.addEventListener('drop', (e) => {
       e.preventDefault();
       zone.classList.remove('drag');
-      if (e.target === input) return;
       const dt = e.dataTransfer;
       const dropped = dt?.files?.length
         ? Array.from(dt.files)
         : Array.from(dt?.items || []).map((item) => item.kind === 'file' ? item.getAsFile() : null).filter(Boolean);
-      takeFiles(dropped);
+      if (dropped.length) this.handlePhotoFiles(dropped);
     });
   },
 
@@ -100,20 +106,23 @@ Object.assign(app, {
     if (!Array.isArray(this.currentProduct.photos)) this.currentProduct.photos = [];
   },
 
-  async handlePhotoFiles(files) {
+  handlePhotoFiles(files) {
     if (!files || files.length === 0) return;
     this.ensurePhotoList();
     const maxPhotos = 6;
     const list = Array.from(files);
 
-    const acceptPhoto = async (file) => {
+    const acceptPhoto = (file) => {
       if (!file) return null;
-      if (!(await this.fileLooksLikeImage(file))) {
-        this.toast('Это не фото. Нужен JPG, PNG или WebP', 'error');
-        return null;
-      }
       if (file.size > 10 * 1024 * 1024) {
         this.toast('Файл слишком большой (макс. 10 МБ)', 'error');
+        return null;
+      }
+      const type = String(file.type || '').toLowerCase();
+      const name = String(file.name || '').toLowerCase();
+      const namedImage = /\.(jpe?g|png|webp|gif|bmp|heic|heif|avif)$/.test(name);
+      if (type && !type.startsWith('image/') && !namedImage) {
+        this.toast('Это не фото. Нужен JPG, PNG или WebP', 'error');
         return null;
       }
       return file;
@@ -121,7 +130,7 @@ Object.assign(app, {
 
     if (this._replaceMainPhotoOnce) {
       this._replaceMainPhotoOnce = false;
-      const file = await acceptPhoto(list[0]);
+      const file = acceptPhoto(list[0]);
       if (!file) return;
       this.startPhotoRead(file, (url, stableFile) => {
         const next = {
@@ -152,7 +161,7 @@ Object.assign(app, {
       (this.currentProduct.photos || []).map((p) => this.photoFileSig(p.file)).filter(Boolean)
     );
     for (const raw of list.slice(0, remainingSlots)) {
-      const file = await acceptPhoto(raw);
+      const file = acceptPhoto(raw);
       if (!file) continue;
       const sig = this.photoFileSig(file);
       if (sig && seen.has(sig)) continue;

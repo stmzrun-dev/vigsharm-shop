@@ -425,7 +425,12 @@
       var searched = terms.length > 0;
       var audienceOnly = group === 'ready' && category === 'Все товары' && !searched;
       var hideIdea = audienceOnly && !!p.category && AUDIENCE.indexOf(p.category) < 0;
-      var inG = searched || (group === 'all' ? !inGroup(p, 'unit') : inGroup(p, group));
+      /* Герой не прячет карточку из выбранного кружка. В общей ленте «Готовые» она остаётся только у персонажа. */
+      var inChosenCircle = group === 'ready' && category !== 'Все товары'
+        && !isUnitProduct(p)
+        && !tagsOf(p).some(function (x) { return HOLIDAYS.indexOf(x) >= 0; })
+        && productHasLabel(p, category);
+      var inG = searched || inChosenCircle || (group === 'all' ? !inGroup(p, 'unit') : inGroup(p, group));
       var hay = norm([p.title, p.sku, p.short_description, p.description, p.composition, p.category, p.character_name, p.age_group].concat(p.tags || []).filter(Boolean).join(' '));
       var matchQ = terms.every(function (t) { return hay.indexOf(t) >= 0; });
       var matchC = category === 'Все товары' || productHasLabel(p, category);

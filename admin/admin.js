@@ -1017,6 +1017,14 @@ const app = {
     return 'ready';
   },
 
+  /** Герой остаётся в «Персонажах» и ещё раз попадает на полку своей категории. */
+  categoryShelfForCharacter(p) {
+    if (this.productListGroupId(p) !== 'characters') return '';
+    const cat = String(p.category || '').trim();
+    if (!cat || cat === 'Шары поштучно') return '';
+    return cat;
+  },
+
   escapeHtml(str) {
     return String(str ?? '')
       .replace(/&/g, '&amp;')
@@ -1534,6 +1542,7 @@ const app = {
       const gid = this.productListGroupId(p);
       if (!byGroup[gid]) byGroup[gid] = [];
       byGroup[gid].push(p);
+      if (this.categoryShelfForCharacter(p)) byGroup.ready.push(p);
     });
 
     // При поиске — сразу раскрываем группы, где есть совпадения

@@ -97,6 +97,8 @@ Object.assign(app, {
       container.innerHTML = '';
       if (emptyZone) emptyZone.classList.remove('hidden');
       this._step1PhotoCount = 0;
+      this._photoDupSig = '';
+      this.clearPhotoDuplicateNote?.();
       this.syncAIFillGate?.();
       this.refreshSourceWorkPreview?.();
       this.syncStep1WizardUi?.();
@@ -154,6 +156,7 @@ Object.assign(app, {
     this.syncAIFillGate?.();
     this.refreshSourceWorkPreview?.();
     this.syncStep1WizardUi?.();
+    this.schedulePhotoDuplicateCheck?.();
     const count = this.currentProduct.photos.length;
     this._step1PhotoCount = count;
     // Сцены появляются на том же экране — проскроллим к ним
@@ -167,6 +170,183 @@ Object.assign(app, {
         document.getElementById('step1-after-photo')?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
       }, 80);
     }
+  },
+
+  clearPhotoDuplicateNote() {
+    const note = document.getElementById('photo-duplicate-note');
+    if (!note) return;
+    note.hidden = true;
+    note.textContent = '';
+    note.classList.remove('is-busy');
+  },
+
+  schedulePhotoDuplicateCheck() {
+    const file = this.currentProduct?.photos?.[0]?.file;
+    if (!file) {
+      this.clearPhotoDuplicateNote();
+      return;
+    }
+    const sig = [file.name, file.size, file.lastModified].join(':');
+    if (this._photoDupSig === sig) return;
+    this._photoDupSig = sig;
+    const gen = (this._photoDupGen || 0) + 1;
+    this._photoDupGen = gen;
+    this.runPhotoDuplicateCheck(file, gen);
+  },
+
+  photoClientOptions(product) {
+    let opts = product?.client_options;
+    if (typeof opts === 'string') {
+      try { opts = JSON.parse(opts); } catch { opts = {}; }
+    }
+    return opts || {};
+  },
+
+  async photoDhashFromBlob(blob) {
+    const url = URL.createObjectURL(blob);
+    try {
+      const img = await new Promise((resolve, reject) => {
+        const el = new Image();
+        el.onload = () => resolve(el);
+        el.onerror = () => reject(new Error('image'));
+        el.src = url;
+      });
+      const canvas = document.createElement('canvas');
+      canvas.width = 9;
+      canvas.height = 8;
+      const ctx = canvas.getContext('2d', { willReadFrequently: true });
+      ctx.drawImage(img, 0, 0, 9, 8);
+      const data = ctx.getImageData(0, 0, 9, 8).data;
+      let hex = '';
+      let nibble = 0;
+      let bits = 0;
+      const pushBit = (bit) => {
+        nibble = (nibble << 1) | (bit ? 1 : 0);
+        bits += 1;
+        if (bits === 4) {
+          hex += nibble.toString(16);
+          nibble = 0;
+          bits = 0;
+        }
+      };
+      for (let y = 0; y < 8; y++) {
+        for (let x = 0; x < 8; x++) {
+          const i = (y * 9 + x) * 4;
+          const j = i + 4;
+          const left = data[i] * 0.299 + data[i + 1] * 0.587 + data[i + 2] * 0.114;
+          const right = data[j] * 0.299 + data[j + 1] * 0.587 + data[j + 2] * 0.114;
+          pushBit(left > right);
+        }
+      }
+      return hex;
+    } finally {
+      URL.revokeObjectURL(url);
+    }
+  },
+
+  photoDhashDistance(a, b) {
+    if (!a || !b || a.length !== b.length) return 64;
+    let n = 0;
+    for (let i = 0; i < a.length; i++) {
+      let x = parseInt(a[i], 16) ^ parseInt(b[i], 16);
+      while (x) {
+        n += x & 1;
+        x >>= 1;
+      }
+    }
+    return n;
+  },
+
+  loadPhotoDhashCache() {
+    if (this._photoDhashCache) return this._photoDhashCache;
+    try {
+      this._photoDhashCache = JSON.parse(localStorage.getItem('vig-photo-dhash-v1') || '{}') || {};
+    } catch {
+      this._photoDhashCache = {};
+    }
+    return this._photoDhashCache;
+  },
+
+  savePhotoDhashCache() {
+    try {
+      localStorage.setItem('vig-photo-dhash-v1', JSON.stringify(this._photoDhashCache || {}));
+    } catch { /* кэш необязателен */ }
+  },
+
+  async catalogPhotoDhash(url) {
+    const cache = this.loadPhotoDhashCache();
+    if (cache[url]) return cache[url];
+    const proxyRes = await fetch(`${this.workerUrl}/api/admin/proxy-image`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', ...this.authHeaders() },
+      body: JSON.stringify({ url })
+    });
+    if (!proxyRes.ok) throw new Error('proxy ' + proxyRes.status);
+    const hash = await this.photoDhashFromBlob(await proxyRes.blob());
+    cache[url] = hash;
+    return hash;
+  },
+
+  async runPhotoDuplicateCheck(file, gen) {
+    const note = document.getElementById('photo-duplicate-note');
+    if (!note) return;
+    const show = (text, busy) => {
+      if (this._photoDupGen !== gen) return;
+      note.hidden = false;
+      note.classList.toggle('is-busy', !!busy);
+      note.textContent = text;
+    };
+    show('Смотрю, нет ли такого фото на сайте…', true);
+    let mine = '';
+    try {
+      mine = await this.photoDhashFromBlob(file);
+    } catch {
+      if (this._photoDupGen === gen) this.clearPhotoDuplicateNote();
+      return;
+    }
+    if (this._photoDupGen !== gen) return;
+
+    const currentId = this.currentProduct?.id;
+    const cards = (this.products || []).filter((p) => {
+      if (currentId && String(p.id) === String(currentId)) return false;
+      if (p.status && p.status !== 'published') return false;
+      if (p.show_on_site === false) return false;
+      const src = this.photoClientOptions(p).studio_original_url;
+      return typeof src === 'string' && /^https?:\/\//i.test(src);
+    });
+    const matches = [];
+    let cursor = 0;
+    const worker = async () => {
+      while (cursor < cards.length) {
+        if (this._photoDupGen !== gen) return;
+        const product = cards[cursor];
+        cursor += 1;
+        const src = this.photoClientOptions(product).studio_original_url;
+        try {
+          const hash = await this.catalogPhotoDhash(src);
+          if (this.photoDhashDistance(mine, hash) <= 8) matches.push(product);
+        } catch { /* это фото пропустим, остальные смотрим */ }
+        if (cursor % 8 === 0) {
+          this.savePhotoDhashCache();
+          show(`Смотрю, нет ли такого фото на сайте… ${Math.min(cursor, cards.length)}/${cards.length}`, true);
+        }
+      }
+    };
+    await Promise.all(Array.from({ length: Math.min(3, cards.length) }, () => worker()));
+    this.savePhotoDhashCache();
+    if (this._photoDupGen !== gen) return;
+    if (!matches.length) {
+      this.clearPhotoDuplicateNote();
+      return;
+    }
+    const label = (p) => {
+      const title = String(p.title || 'Карточка').trim();
+      const article = String(p.article || '').trim();
+      return article ? `${title}, ${article}` : title;
+    };
+    const shown = matches.slice(0, 2).map(label).join(' · ');
+    const extra = matches.length > 2 ? ` и ещё ${matches.length - 2}` : '';
+    show(`Это фото уже есть: ${shown}${extra}`, false);
   },
 
   movePhoto(index, dir) {

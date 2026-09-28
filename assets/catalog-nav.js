@@ -8,7 +8,7 @@
   var UNIT_COLLECTIONS = ['Шары с рисунком', 'Латексные шары', 'Фольгированные фигуры', 'Ходячие фигуры', 'Круги, звёзды и сердца', 'Шары с конфетти', 'Шары хром', 'Шары Brush', 'Шары Super Agate', 'Шары Bubble', 'Фольгированные цифры'];
   var DETAIL_FILTERS = ['Для мальчика', 'Для девочки', 'Детские', 'Для него', 'Для неё', 'На выписку', 'Праздники', 'Персонажи'];
   var HOLIDAYS = ['Новый год', '14 февраля', '23 февраля', '8 марта', '9 мая', 'Выпускной', '1 сентября', 'День учителя', 'Хэллоуин'];
-  var SINGLE_GIFTS = ['Фигуры из шаров', 'Цветы из шаров', 'Арки', 'Шар-сюрприз', 'Крафтовый букет', 'Коробка-сюрприз', 'Гендер-пати'];
+  var SINGLE_GIFTS = ['Фигуры из шаров', 'Цветы из шаров', 'Арки', 'Арка из шаров', 'Шар-сюрприз', 'Крафтовый букет', 'Коробка-сюрприз', 'Гендер-пати'];
   var AUDIENCE = ['Для девочки', 'Для мальчика', 'Универсальные', 'Для неё', 'Для него', 'Для мамы', 'На выписку', '1 годик', 'Юбилей', 'Свадьба и девичник', 'Крещение'];
   var GROUPS = [
     { id: 'ready', title: 'Готовые решения', mobile: 'Готовые', icon: 'ready', chipImg: 'icons/group-ready.webp?v=7', note: 'Композиции для любого повода' },
@@ -82,7 +82,11 @@
     return !isUnit && !isHoliday && !hasChar && !isIdea;
   }
   function productHasLabel(p, label) {
-    return p.category === label || (p.tags || []).indexOf(label) >= 0;
+    var tags = p.tags || [];
+    if (p.category === label || tags.indexOf(label) >= 0) return true;
+    /* Кружок «Арки» на витрине, в карточке категория «Арка из шаров». */
+    if (label === 'Арки') return p.category === 'Арка из шаров' || tags.indexOf('Арка из шаров') >= 0;
+    return false;
   }
   /** Home / sheet labels often differ from D1 character field — expand aliases. */
   var CHAR_ALIASES = {

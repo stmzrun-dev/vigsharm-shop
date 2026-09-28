@@ -518,6 +518,9 @@ body.admin-editor-open{overflow:hidden}
 .photo-upload-progress-bar{height:8px;border-radius:999px;background:#BBDEFB;overflow:hidden}
 .photo-upload-progress-bar span{display:block;height:100%;width:0%;background:linear-gradient(90deg,#42A5F5,#1976D2);transition:width .15s ease}
 #photo-upload-progress-text{margin:6px 0 0;font-size:12px;color:#1565C0}
+.photo-duplicate-note{margin:8px 0 0;padding:10px 12px;border-radius:8px;background:#FFF8E1;border:1px solid #FFE082;color:#6D4C41;font-size:13px;line-height:1.4}
+.photo-duplicate-note.is-busy{background:#E3F2FD;border-color:#90CAF9;color:#1565C0}
+.photo-duplicate-note[hidden]{display:none!important}
 
 /* === Product editor (старая админка: плотность) === */
 .product-editor{padding:14px 18px 16px;max-width:min(1040px,94vw);margin:0 auto;width:100%;box-sizing:border-box}

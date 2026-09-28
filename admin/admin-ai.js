@@ -1127,7 +1127,8 @@ Object.assign(app, {
           scene: sceneHint,
           existing_titles: existingTitles,
           holiday_only: holidayFlag || '',
-          foil_digits: foilDigits
+          foil_digits: foilDigits,
+          floor_type: this.getFloorType?.() || ''
         })
       });
 
@@ -1156,6 +1157,13 @@ Object.assign(app, {
         data.composition = this.sanitizeAiDigitLines?.(data.composition, userComposition) || data.composition;
       }
       this.currentProduct.composition = data.composition || this.currentProduct.composition;
+      if (sceneHint === 'floor' && this.getFloorType?.() !== 'air') {
+        data.tags = (Array.isArray(data.tags) ? data.tags : []).filter((t) => t !== 'Напольные композиции');
+        if (data.category === 'Напольные композиции') data.category = '';
+      } else if (sceneHint === 'floor' && this.getFloorType?.() === 'air') {
+        data.tags = Array.isArray(data.tags) ? data.tags : [];
+        if (!data.tags.includes('Напольные композиции')) data.tags.push('Напольные композиции');
+      }
       this.currentProduct.category = data.category || this.currentProduct.category;
       this.currentProduct.character = data.character || this.currentProduct.character;
       this.currentProduct.age_group = data.age_group || this.currentProduct.age_group;

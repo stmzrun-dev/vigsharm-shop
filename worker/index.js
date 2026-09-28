@@ -759,11 +759,22 @@ function sceneTypeHint(scene) {
     case 'handheld_bouquet': return 'Букет из шаров';
     // wall_only: фольга/бабл на стене — НЕ «Фигуры» и НЕ авто-«Букет» (букет = сцена handheld)
     case 'wall_only': return '';
-    case 'floor': return 'Напольные композиции';
+    case 'floor': return '';
     case 'surprise': return 'Шар-сюрприз';
     case 'balloon_figures': return 'Фигуры из шаров';
     default: return '';
   }
+}
+
+/** «Напольные композиции» только если на сцене «Пол» включён чип «Заказ за 1–2 дня». */
+function applyFloorShelfTag(data, scene, floorAdvance) {
+  if (!data || scene !== 'floor') return;
+  const tags = (Array.isArray(data.tags) ? data.tags : []).filter((t) => t !== 'Напольные композиции');
+  if (floorAdvance) tags.push('Напольные композиции');
+  else if (data.category === 'Напольные композиции') {
+    data.category = tags.find((t) => AUDIENCE_CATEGORIES.includes(t)) || '';
+  }
+  data.tags = [...new Set(tags)];
 }
 
 function budgetFromPrice(price) {
@@ -798,7 +809,8 @@ async function handleGenerateCard(request, env) {
     composition_hints,
     existing_titles,
     holiday_only,
-    foil_digits
+    foil_digits,
+    floor_type
   } = body;
   const trustedDigits = String(foil_digits || '').replace(/\D/g, '').slice(0, 4);
   const rawIn = String(composition_raw || description || '').trim();
@@ -813,7 +825,8 @@ async function handleGenerateCard(request, env) {
     || holidayFromHints(compositionHints)
     || null;
   const holidayOnly = themeHit && OCCASION_SHELVES.includes(themeHit) ? themeHit : null;
-  const typeHint = sceneTypeHint(scene || 'floor');
+  const floorAdvance = (scene || '') === 'floor' && String(floor_type || '') === 'air';
+  const typeHint = floorAdvance ? 'Напольные композиции' : sceneTypeHint(scene || 'floor');
   const priceNum = Number(price) || 0;
   const takenTitles = normalizeExistingTitlesList(existing_titles);
 
@@ -1047,7 +1060,7 @@ foil_digits = "${trustedDigits}" (число ${trustedNum}).
 Сырой состав от пользователя (оформи красиво, исправь орфографию, числа сохрани; скобки-подсказки уже убраны): ${rawComposition || 'не указан'}
 ${hintsBlock}
 Сцена Studio Pro: ${scene || 'floor'}
-Подсказка типа изделия для tags: ${['wall_only', 'unit_balloon'].includes(scene) ? 'НЕ ставь «Напольные композиции»' : (typeHint || 'по фото')}
+Подсказка типа изделия для tags: ${['wall_only', 'unit_balloon'].includes(scene) || ((scene || '') === 'floor' && !floorAdvance) ? 'НЕ ставь «Напольные композиции»' : (typeHint || 'по фото')}
 ${holidayOnly ? `Праздничная/тематическая категория (обязательно): ${holidayOnly}` : ''}
 ${boxOnly ? 'В составе коробка — category и tags только «Коробка-сюрприз». age_group обязателен.' : ''}
 ${bouquetOnly ? 'Это букет из шаров без тематики в скобках — category и tags только «Букет из шаров».' : ''}
@@ -1139,6 +1152,7 @@ ${image_url
   const foilLock = !!(holidayOnly || boxOnly || bouquetOnly || figuresOnly || photozoneOnly);
   applyTrustedFoilReading(data, trustedDigits || foilDigits, { lockCategory: foilLock });
   applyKidsHeroChildDigit(data, trustedDigits || foilDigits, { lockCategory: foilLock });
+  applyFloorShelfTag(data, scene || 'floor', floorAdvance);
   // Убрать случайно оставшиеся скобки-подсказки из состава
   if (Array.isArray(data.composition)) {
     data.composition = data.composition

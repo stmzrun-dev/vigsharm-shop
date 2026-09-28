@@ -1173,6 +1173,17 @@ Object.assign(app, {
     });
   },
 
+  /** Полка «Напольные композиции» только вместе с чипом «Заказ за 1–2 дня». */
+  syncFloorShelfTag() {
+    const scene = this.currentProduct?.scene || document.getElementById('scene-select')?.value || '';
+    if (scene !== 'floor') return;
+    const on = this.getFloorType?.() === 'air';
+    const cb = document.querySelector('#tags-type input[value="Напольные композиции"]');
+    if (cb) cb.checked = on;
+    const cat = document.getElementById('product-category');
+    if (cat && !on && cat.value === 'Напольные композиции') cat.value = '';
+  },
+
   wirePhotozoneTypeControls() {
     if (this._photozoneTypeWired) return;
     this._photozoneTypeWired = true;
@@ -1198,10 +1209,11 @@ Object.assign(app, {
   wireFloorTypeControls() {
     if (this._floorTypeWired) return;
     this._floorTypeWired = true;
-    const sync = (e) => {
+      const sync = (e) => {
       const el = e?.target;
       const on = !!(el && el.checked && el.value === 'air');
       this.setFloorType(on ? 'air' : '');
+      this.syncFloorShelfTag?.();
       this.syncAdvanceOrderFromScene?.();
       this.syncStudioModeHint?.();
       this.scheduleSaveActiveStudioDraft?.();
@@ -1664,7 +1676,8 @@ Object.assign(app, {
       const typeSet = new Set((typeof TAGS !== 'undefined' && TAGS.type) || []);
       const deferred = (typeof DEFERRED_TYPE_TAGS !== 'undefined' && DEFERRED_TYPE_TAGS) || ['Шар-сюрприз'];
       const sceneNow = this.currentProduct?.scene || '';
-      const skipFloorTag = sceneNow === 'wall_only' || sceneNow === 'unit_balloon';
+      const floorAdvance = sceneNow === 'floor' && this.getFloorType?.() === 'air';
+      const skipFloorTag = sceneNow === 'wall_only' || sceneNow === 'unit_balloon' || (sceneNow === 'floor' && !floorAdvance);
       card.tags.forEach((tag) => {
         if (deferred.includes(tag)) return;
         // Праздник/тематика: в доп. разделах только она, без типов/аудитории
@@ -2168,8 +2181,11 @@ Object.assign(app, {
       if (!finalTags.includes('Арка из шаров')) finalTags.push('Арка из шаров');
       if (!finalTags.includes('Цена за метр')) finalTags.push('Цена за метр');
     }
-    if (scene === 'wall_only' || scene === 'unit_balloon') {
+    if (scene === 'wall_only' || scene === 'unit_balloon' || (scene === 'floor' && this.getFloorType?.() !== 'air')) {
       finalTags = finalTags.filter((t) => t !== 'Напольные композиции');
+    }
+    if (scene === 'floor' && this.getFloorType?.() === 'air' && !finalTags.includes('Напольные композиции')) {
+      finalTags.push('Напольные композиции');
     }
     if (unit) {
       const unitType = this.getUnitBalloonType?.() || '';

@@ -1862,9 +1862,12 @@ Object.assign(app, {
       category === 'Коробка-сюрприз'
       || this.compositionLooksLikeSurpriseBox?.(compText)
     );
-    const isBalloonFlowers = !unit && !holidayOnly && !isBox && (
-      this.getBouquetType?.() === 'flowers'
-      || category === 'Цветы из шаров'
+    const typeNames = (typeof TAGS !== 'undefined' && TAGS.type) || [];
+    const otherTypeTag = tags.some((t) => typeNames.includes(t) && t !== 'Цветы из шаров');
+    const flowersExplicit = category === 'Цветы из шаров' || tags.includes('Цветы из шаров');
+    // Старый признак «цветы» не перебивает категорию, которую выбрали в окне проверки.
+    const isBalloonFlowers = !unit && !holidayOnly && !isBox && !otherTypeTag && (
+      flowersExplicit || (this.getBouquetType?.() === 'flowers' && !category)
     );
     const isBouquet = !unit && !holidayOnly && !isBox && !isBalloonFlowers && (
       scene === 'handheld_bouquet'
@@ -1926,7 +1929,7 @@ Object.assign(app, {
     if (isFloorSave && floorType) {
       clientOptions.floor_type = floorType;
     }
-    if (isBalloonFlowers || (scene === 'handheld_bouquet' && this.getBouquetType?.() === 'flowers')) {
+    if (isBalloonFlowers) {
       clientOptions.bouquet_type = 'flowers';
     }
     if (scene === 'surprise') {

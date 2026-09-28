@@ -1293,7 +1293,10 @@ Object.assign(app, {
           this.syncAdvanceOrderFromScene?.();
           this.syncAiReviewDigitOpts?.();
         }
-        if (fromId === 'ai-review-category') this.syncAiReviewDigitOpts?.();
+        if (fromId === 'ai-review-category') {
+          this.syncAiReviewDigitOpts?.();
+          if (el.value && el.value !== 'Цветы из шаров') this.setBouquetType?.('');
+        }
         if (fromId === 'ai-review-price') this.syncBudgetFromPrice?.();
         this.syncRequiredFieldHighlights?.();
         this.scheduleSaveActiveStudioDraft?.();
@@ -1402,6 +1405,7 @@ Object.assign(app, {
         const formCb = document.querySelector(`${sourceSelector} input[value="${CSS.escape(cb.value)}"]`);
         if (formCb) formCb.checked = cb.checked;
         cb.closest('.chip')?.classList.toggle('is-on', cb.checked);
+        if (cb.value === 'Цветы из шаров' && !cb.checked) this.setBouquetType?.('');
         this.scheduleSaveActiveStudioDraft?.();
       });
     });

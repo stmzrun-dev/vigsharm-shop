@@ -2,6 +2,471 @@
   "ok": true,
   "products": [
     {
+      "id": "56119762-b7a1-481f-a9ea-cdccd0736334",
+      "title": "Наш мир",
+      "article": "HIM-030",
+      "price": 4300,
+      "short_description": "Нежная композиция в бежево-золотых тонах с тёплыми словами на шарах.",
+      "full_description": "Композиция с баблсом, фольгированным сердцем и звездой с надписями, дополненная хромовыми и конфетти-шарами. Мягкая бежево-золотая палитра создаёт атмосферу тепла и уюта.",
+      "composition": [
+        "стеклянный баблс с надписью",
+        "сердце с надписью",
+        "звезда с надписью",
+        "2 шара с конфетти",
+        "4 шара хром",
+        "2 шара"
+      ],
+      "category": "Для него",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Воздушные шары Наш мир — Армавир | VigSharm",
+      "seo_description": "Композиция из воздушных шаров в бежево-золотой гамме с баблсом, сердцем и звездой с надписями. Доставка в Армавире.",
+      "slug": "nash-mir",
+      "scene": "wall_only",
+      "tags": [
+        "Для него"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/c837f507-a55b-423f-8bf3-765e8803c513.jpg",
+        "photo_dhash": "3f93918141812121"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/6a22f98d-9597-4232-a1f7-63342655516e.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/6a22f98d-9597-4232-a1f7-63342655516e.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-28T18:13:58.206Z",
+      "updated_at": "2026-09-28T18:13:58.206Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "74d2f918-eb56-4121-bb63-09ff31cbb2ed",
+      "title": "Космический кот",
+      "article": "HIM-029",
+      "price": 5260,
+      "short_description": "Чёрно-жёлтая композиция с фольгированным котом в очках, звёздами с надписями и латексными шарами.",
+      "full_description": "Напольная композиция в чёрно-жёлтой гамме с крупной фигурой кота в солнечных очках, тремя звёздами с персональными надписями и фонтаном из латексных шаров с лентами тассел.",
+      "composition": [
+        "большая звезда с надписью",
+        "2 звезды с надписью",
+        "фигура",
+        "9 шаров",
+        "2 ленты тассел"
+      ],
+      "category": "Для него",
+      "character": "Кот",
+      "age_group": "Для взрослых",
+      "budget": "5 000–8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Композиция Космический кот с шарами и звёздами в Армавире",
+      "seo_description": "Напольная композиция с фигурой кота в очках, чёрными звёздами с надписями и латексными шарами. Доставка воздушных шаров по Армавиру.",
+      "slug": "kosmicheskiy-kot",
+      "scene": "floor",
+      "tags": [
+        "Для него"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/1c01824d-eeb9-411b-bda4-070991bc75cb.webp",
+        "photo_dhash": "6764e4e460646525"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/c652e292-f01f-46e5-b9b0-df371f85554a.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/c652e292-f01f-46e5-b9b0-df371f85554a.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-28T18:11:00.146Z",
+      "updated_at": "2026-09-28T18:11:00.146Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "5b03a6de-ee51-4818-be49-ab34fa7af4f6",
+      "title": "Престижный момент",
+      "article": "PHT-007",
+      "price": 6900,
+      "short_description": "Фотозона с золотыми цифрами и элегантной гирляндой из чёрных, белых и золотых шаров.",
+      "full_description": "Фотозона включает крупные золотые цифры и арку из шаров в чёрно-бело-золотой гамме на мольберте с персональной надписью.",
+      "composition": [
+        "фотозона",
+        "2 цифры"
+      ],
+      "category": "Фотозона",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "5 000–8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Фотозона с золотыми цифрами в Армавире — VigSharm",
+      "seo_description": "Элегантная фотозона с крупными золотыми цифрами и стильной гирляндой из чёрных, белых и золотых шаров. Заказать в Армавире.",
+      "slug": "zolotaya-vekha",
+      "scene": "photozone",
+      "tags": [
+        "Юбилей",
+        "Фотозона"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": true,
+        "photozone_rental": true,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/5f620295-d200-4653-b813-582dd56ef67c.jpg",
+        "photo_dhash": "114cc49a9789c202",
+        "photozone_type": "easel",
+        "rental": {
+          "enabled": true,
+          "item": "Мольберт с кругом из полистирола",
+          "days": 3,
+          "keep_price_delta": 500
+        },
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 2
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/68ee8741-fe20-434d-835f-e36fb171efb9.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/68ee8741-fe20-434d-835f-e36fb171efb9.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-28T18:07:18.899Z",
+      "updated_at": "2026-09-28T18:07:18.899Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "e3ed7059-5d38-49f8-94e8-0e7b34f7a77c",
+      "title": "Главный босс",
+      "article": "HIM-028",
+      "price": 5420,
+      "short_description": "Баблс с надписью в окружении золотых, кремовых и зелёных шаров.",
+      "full_description": "Композиция из крупного баблса с надписью, окружённого фонтанами из золотых хромированных, кремовых и оливковых шаров.",
+      "composition": [
+        "8 шаров хром",
+        "12 шаров",
+        "баблс с надписью"
+      ],
+      "category": "Для него",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "5 000–8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Воздушные шары Главный босс — Армавир | VigSharm",
+      "seo_description": "Композиция с баблсом и надписью в золотых и зелёных тонах. Стильное оформление дня рождения для мужчины в Армавире от VigSharm.",
+      "slug": "glavnyj-boss",
+      "scene": "wall_only",
+      "tags": [
+        "Для него"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/5bc43307-020e-443d-9f28-4dcf2c94bf79.webp",
+        "photo_dhash": "07ddc5c5b9a9571f"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/6be7a0fb-6ca8-4bc1-9b96-f5c14b28d0b1.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/6be7a0fb-6ca8-4bc1-9b96-f5c14b28d0b1.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-28T18:05:17.448Z",
+      "updated_at": "2026-09-28T18:05:17.448Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "1103d55d-83f9-4856-a493-3b679bcf14ce",
+      "title": "Лучший из лучших",
+      "article": "HIM-027",
+      "price": 5020,
+      "short_description": "Золотое сердце с надписью и зелёные хромированные шары с конфетти.",
+      "full_description": "Композиция с большим золотым сердцем, хромированными зелёными шарами и прозрачными шарами с конфетти.",
+      "composition": [
+        "большое сердце с надписью",
+        "11 шаров хром",
+        "3 шара с конфетти"
+      ],
+      "category": "Для него",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "5 000–8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Золотое сердце — композиция из шаров для мужчины в Армавире",
+      "seo_description": "Золотое сердце с надписью, зелёные хромированные шары и конфетти. Стильная композиция для него. Доставка по Армавиру.",
+      "slug": "zolotoe-serdce-3",
+      "scene": "wall_only",
+      "tags": [
+        "Для него"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/974a9fd1-5a42-498d-abc2-8dfc9e3aaf78.jpg",
+        "photo_dhash": "969e9cccccc6d6d2"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/add4d539-d535-4e46-8d33-4e5bc6cc89a6.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/add4d539-d535-4e46-8d33-4e5bc6cc89a6.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-28T18:02:40.606Z",
+      "updated_at": "2026-09-28T18:02:40.606Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "18b26dbe-3d0e-4c9d-b956-fb4f69dc1c30",
+      "title": "До луны и обратно",
+      "article": "HIM-026",
+      "price": 4100,
+      "short_description": "Чёрный баблс с золотой надписью и букет хромированных золотых шаров.",
+      "full_description": "Чёрный баблс с золотой каллиграфической надписью в комплекте с букетом золотых хромированных шаров. Элегантная композиция для романтического признания.",
+      "composition": [
+        "баблс с надписью",
+        "10 шаров хром"
+      ],
+      "category": "Для него",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "До луны и обратно — шары с надписью в Армавире",
+      "seo_description": "Чёрный баблс с золотой надписью и хромированные шары. Элегантная композиция для признания в любви. Доставка в Армавире.",
+      "slug": "do-luny-i-obratno",
+      "scene": "wall_only",
+      "tags": [
+        "Для неё",
+        "Для него"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/c7276d76-6da0-4b19-9e21-4f6a77761831.jpg",
+        "photo_dhash": "3c78c5c48acdfcdd"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/84817be2-e698-469f-a093-ea7e047772c6.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/84817be2-e698-469f-a093-ea7e047772c6.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-28T18:00:07.383Z",
+      "updated_at": "2026-09-28T18:00:07.383Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "f6f258ed-4b32-44a3-acd2-203f576ced82",
+      "title": "Ворчливое настроение",
+      "article": "HIM-025",
+      "price": 3120,
+      "short_description": "Большой баблс с ироничной надписью и фонтан из золотых и чёрных шаров.",
+      "full_description": "Прозрачный баблс с золотым конфетти и забавной надписью дополняет фонтан из хромированных и латексных шаров.",
+      "composition": [
+        "баблс с конфетти и надписью",
+        "2 шара хром",
+        "шар с конфетти",
+        "2 шара"
+      ],
+      "category": "Для него",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "2 000–3 500 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары с надписью Ворчливое настроение — Армавир",
+      "seo_description": "Баблс с ироничной надписью и фонтан из золотых и чёрных шаров. Доставка воздушных шаров в Армавире.",
+      "slug": "vorchlivoe-nastroenie",
+      "scene": "wall_only",
+      "tags": [
+        "Для него"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/d5f021b0-a632-43ad-8ba5-10af868218da.webp",
+        "photo_dhash": "3cecececfcfcdddd"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/902face7-b5ca-43da-8820-45c110de87b0.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/902face7-b5ca-43da-8820-45c110de87b0.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-28T17:58:29.535Z",
+      "updated_at": "2026-09-28T17:58:29.535Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "60cdcfe2-b46c-4d18-98eb-990ac80bd800",
+      "title": "Выдержанный возраст",
+      "article": "HIM-024",
+      "price": 3780,
+      "short_description": "Чёрно-золотая композиция с бутылкой виски, усами и апельсиновой долькой.",
+      "full_description": "Стильная напольная композиция в чёрно-золотой гамме с фигурами бутылки виски, усов и апельсиновой дольки. Дополнена фонтаном из латексных шаров.",
+      "composition": [
+        "3 фигуры",
+        "12 шаров"
+      ],
+      "category": "Для него",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Воздушные шары для мужчины с бутылкой виски, Армавир",
+      "seo_description": "Стильная чёрно-золотая композиция с фигурами бутылки виски, усов и апельсиновой дольки. Оригинальный подарок для мужчины в Армавире.",
+      "slug": "vyderzhannyi-vozrast",
+      "scene": "floor",
+      "tags": [
+        "Для него"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/fbbe14e5-747f-48ce-aad5-fb65f511901b.jpg",
+        "photo_dhash": "3b6b4860583c232f"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/cde5c863-e99b-444e-a2cf-be1c3c70a678.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/cde5c863-e99b-444e-a2cf-be1c3c70a678.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-28T17:54:51.315Z",
+      "updated_at": "2026-09-28T17:54:51.315Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "19c12c99-a93e-463b-bf7d-e2f2235a9425",
+      "title": "Золотой статус",
+      "article": "HIM-023",
+      "price": 4200,
+      "short_description": "Чёрный баблс с золотой надписью и фольгированная звезда с гирляндами тассел.",
+      "full_description": "Композиция из большого чёрного баблса с золотой каллиграфией и чёрной звезды с надписью. Гирлянды тассел в чёрно-золотых тонах.",
+      "composition": [
+        "баблс"
+      ],
+      "category": "Для него",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Чёрные шары с золотой надписью — Армавир | VigSharm",
+      "seo_description": "Стильная композиция из чёрного баблса и звезды с золотыми надписями. Элегантное оформление для мужчины в Армавире.",
+      "slug": "zolotoy-status",
+      "scene": "floor",
+      "tags": [
+        "Для него"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/3961c748-8abf-4f07-8233-492960440f31.webp",
+        "photo_dhash": "63c1e8e96bebea4b"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/1ddf990d-a94f-4364-b518-996f1f7a68b0.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/1ddf990d-a94f-4364-b518-996f1f7a68b0.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-28T17:52:50.268Z",
+      "updated_at": "2026-09-28T17:52:50.268Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "f9b22747-52e8-4e6f-92b9-a876ec03bf54",
+      "title": "Синий блеск",
+      "article": "HIM-022",
+      "price": 4020,
+      "short_description": "Композиция из хромированных, агатовых шаров с конфетти и прозрачного баблса с перьями.",
+      "full_description": "В композицию входят баблс с чёрными перьями, хромированные шары, супер-агаты и шары с синим конфетти. Сине-серебристая палитра создаёт современный стиль.",
+      "composition": [
+        "баблс с перьями",
+        "3 шара супер-агат",
+        "6 шаров хром",
+        "3 шара с конфетти"
+      ],
+      "category": "Для него",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Синий блеск — композиция из шаров с баблсом, Армавир",
+      "seo_description": "Композиция из хромированных, агатовых шаров с конфетти и баблса с перьями. Сине-серебристая палитра для мальчика. Доставка в Армавире.",
+      "slug": "sinij-blesk",
+      "scene": "wall_only",
+      "tags": [
+        "Для него"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/64d8a8f1-b0fd-4092-86dc-a0f0f12c8474.webp",
+        "photo_dhash": "7133e8f0f1c0b0b8"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/b0212d27-6eb1-4d34-94c8-56bfd0c4ccf6.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/b0212d27-6eb1-4d34-94c8-56bfd0c4ccf6.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-28T17:51:04.687Z",
+      "updated_at": "2026-09-28T17:51:04.687Z",
+      "thumb_photo": null
+    },
+    {
       "id": "a87005ed-9870-4957-a0de-52d5bc8c77ab",
       "title": "Черновик",
       "article": "DG-011",

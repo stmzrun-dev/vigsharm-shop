@@ -7,7 +7,7 @@
 <meta name="robots" content="noindex, nofollow"/>
 <link rel="icon" href="../favicon.svg"/>
 <link rel="stylesheet" href="../assets/fonts.css"/>
-<link rel="stylesheet" href="styles.css?v=20260928-photodup"/>
+<link rel="stylesheet" href="styles.css?v=20260928-photoopen"/>
 </head>
 <body>
 
@@ -262,12 +262,12 @@
           <div class="step1-photo-scene-grid" id="step1-photo-scene-grid">
             <div class="step1-photo-col">
               <div class="photo-section" id="photo-dropzone">
-                <div class="upload-zone upload-zone-hero" id="upload-zone-empty" role="button" tabindex="0" title="Загрузить фото">
+                <div class="upload-zone upload-zone-hero" id="upload-zone-empty" title="Загрузить фото">
                   <div class="icon upload-zone-icon" aria-hidden="true"></div>
                   <p>Перетащите фото сюда или нажмите</p>
                   <small>JPG, PNG, WebP · до 10 МБ · до 6 шт.</small>
                 </div>
-                <input type="file" id="photo-input" multiple class="hidden-file"/>
+                <input type="file" id="photo-input" multiple class="photo-input-overlay" aria-label="Выбрать фото"/>
                 <div class="photo-grid" id="photos-grid"></div>
                 <p id="photo-duplicate-note" class="photo-duplicate-note" hidden></p>
                 <div id="photo-upload-progress" class="photo-upload-progress hidden" hidden aria-live="polite">
@@ -973,7 +973,7 @@
 </div>
 
 <script src="admin.js?v=20260928-sceneunlock"></script>
-<script src="admin-extended.js?v=20260928-photobytes"></script>
+<script src="admin-extended.js?v=20260928-photoopen"></script>
 <script src="cloudinary-upload.js?v=cloud-fix-2"></script>
 <script src="imgbb-upload.js?v=1"></script>
 <script src="cloudinary-patch.js?v=yandex-1"></script>

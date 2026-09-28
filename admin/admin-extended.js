@@ -10,17 +10,12 @@ Object.assign(app, {
     input.dataset.wired = '1';
     const zone = dropzone.querySelector('.upload-zone') || dropzone;
 
-    zone.addEventListener('click', (e) => {
-      if (e.target.closest('button') || e.target.closest('.photo-item')) return;
-      input.click();
-    });
-    zone.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        input.click();
-      }
-    });
-    input.addEventListener('change', (e) => this.handlePhotoFiles(Array.from(e.target.files)));
+    const takeFiles = (list) => {
+      const files = Array.from(list || []);
+      if (!files.length) return;
+      this.handlePhotoFiles(files);
+    };
+    input.addEventListener('change', () => takeFiles(input.files));
 
     ['dragenter','dragover'].forEach(ev => {
       dropzone.addEventListener(ev, (e) => { e.preventDefault(); zone.classList.add('drag'); });
@@ -29,11 +24,12 @@ Object.assign(app, {
     dropzone.addEventListener('drop', (e) => {
       e.preventDefault();
       zone.classList.remove('drag');
+      if (e.target === input) return;
       const dt = e.dataTransfer;
       const dropped = dt?.files?.length
         ? Array.from(dt.files)
         : Array.from(dt?.items || []).map((item) => item.kind === 'file' ? item.getAsFile() : null).filter(Boolean);
-      this.handlePhotoFiles(dropped);
+      takeFiles(dropped);
     });
   },
 
@@ -63,40 +59,36 @@ Object.assign(app, {
     return [file.name, file.size, file.lastModified].join(':');
   },
 
-  /**
-   * Полная копия байтов, пока поле выбора ещё держит файл.
-   * file.slice() байты не копирует: после input.value = '' Chrome отдаёт пустое чтение без ошибки.
-   */
-  async copyPhotoFile(file) {
-    if (!file) return null;
-    const bytes = await file.arrayBuffer();
-    if (!bytes || !bytes.byteLength) return null;
-    return new File([bytes], file.name || 'photo.jpg', {
-      type: file.type || '',
-      lastModified: file.lastModified || Date.now()
-    });
-  },
-
-  /** null — чтение отменили (крестик). Иначе массив копий, дырки = файл не прочитался. */
-  async takePhotoFiles(files) {
+  /** Поле не очищаем, пока картинка не прочитана: иначе Chrome отдаёт пустой файл без ошибки. */
+  startPhotoRead(file, onLoad) {
     const gen = this._photoReadGen || 0;
-    const stable = [];
-    for (const file of Array.from(files || [])) {
-      if (gen !== this._photoReadGen) return null;
-      try {
-        stable.push(await this.copyPhotoFile(file));
-      } catch {
-        stable.push(null);
+    const reader = new FileReader();
+    this._photoReaders = this._photoReaders || [];
+    this._photoReaders.push(reader);
+    reader.onload = () => {
+      this._photoReaders = (this._photoReaders || []).filter((r) => r !== reader);
+      if (gen !== this._photoReadGen) return;
+      const url = String(reader.result || '');
+      if (!url.startsWith('data:')) {
+        this.toast('Не удалось прочитать фото', 'error');
+        return;
       }
-      if (gen !== this._photoReadGen) return null;
-    }
-    const input = document.getElementById('photo-input');
-    if (input) input.value = '';
-    return stable;
+      onLoad(url, file);
+    };
+    reader.onerror = () => {
+      this._photoReaders = (this._photoReaders || []).filter((r) => r !== reader);
+      if (gen !== this._photoReadGen) return;
+      this.toast('Не удалось прочитать фото', 'error');
+    };
+    reader.readAsDataURL(file);
   },
 
   cancelPhotoReads() {
     this._photoReadGen = (this._photoReadGen || 0) + 1;
+    (this._photoReaders || []).forEach((reader) => {
+      try { reader.abort(); } catch (_) { /* уже дочитан */ }
+    });
+    this._photoReaders = [];
     const input = document.getElementById('photo-input');
     if (input) input.value = '';
   },
@@ -112,14 +104,10 @@ Object.assign(app, {
     if (!files || files.length === 0) return;
     this.ensurePhotoList();
     const maxPhotos = 6;
-    const stableList = await this.takePhotoFiles(files);
-    if (!stableList) return;
+    const list = Array.from(files);
 
     const acceptPhoto = async (file) => {
-      if (!file) {
-        this.toast('Не удалось прочитать фото', 'error');
-        return null;
-      }
+      if (!file) return null;
       if (!(await this.fileLooksLikeImage(file))) {
         this.toast('Это не фото. Нужен JPG, PNG или WebP', 'error');
         return null;
@@ -133,26 +121,27 @@ Object.assign(app, {
 
     if (this._replaceMainPhotoOnce) {
       this._replaceMainPhotoOnce = false;
-      const file = await acceptPhoto(stableList[0]);
+      const file = await acceptPhoto(list[0]);
       if (!file) return;
-      const url = URL.createObjectURL(file);
-      const next = {
-        id: Date.now() + Math.random(),
-        url,
-        file,
-        uploaded: false
-      };
-      if (!this.currentProduct.photos.length) this.currentProduct.photos = [next];
-      else this.currentProduct.photos[0] = next;
-      this.studioMasterDataUrl = null;
-      this.studioMasterBackupUrl = null;
-      this.studioMasterBaseUrl = null;
-      this.studioCompare = { original: null, master: null };
-      this.studioSourceUrl = null;
-      this.renderStudioCompare?.();
-      this.renderPhotos();
-      this.goStep1Phase?.('a', { skipGate: true });
-      this.toast('Главное фото заменено — выберите сцену и нажмите «Далее»', 'success');
+      this.startPhotoRead(file, (url, stableFile) => {
+        const next = {
+          id: Date.now() + Math.random(),
+          url,
+          file: stableFile,
+          uploaded: false
+        };
+        if (!this.currentProduct.photos.length) this.currentProduct.photos = [next];
+        else this.currentProduct.photos[0] = next;
+        this.studioMasterDataUrl = null;
+        this.studioMasterBackupUrl = null;
+        this.studioMasterBaseUrl = null;
+        this.studioCompare = { original: null, master: null };
+        this.studioSourceUrl = null;
+        this.renderStudioCompare?.();
+        this.renderPhotos();
+        this.goStep1Phase?.('a', { skipGate: true });
+        this.toast('Главное фото заменено — выберите сцену и нажмите «Далее»', 'success');
+      });
       return;
     }
 
@@ -162,20 +151,23 @@ Object.assign(app, {
     const seen = new Set(
       (this.currentProduct.photos || []).map((p) => this.photoFileSig(p.file)).filter(Boolean)
     );
-    for (const raw of stableList.slice(0, remainingSlots)) {
+    for (const raw of list.slice(0, remainingSlots)) {
       const file = await acceptPhoto(raw);
       if (!file) continue;
       const sig = this.photoFileSig(file);
       if (sig && seen.has(sig)) continue;
       if (sig) seen.add(sig);
-      if ((this.currentProduct.photos || []).length >= maxPhotos) break;
-      this.currentProduct.photos.push({
-        id: Date.now() + Math.random(),
-        url: URL.createObjectURL(file),
-        file,
-        uploaded: false
+      this.startPhotoRead(file, (url, stableFile) => {
+        if ((this.currentProduct.photos || []).some((p) => this.photoFileSig(p.file) === sig && sig)) return;
+        if ((this.currentProduct.photos || []).length >= maxPhotos) return;
+        this.currentProduct.photos.push({
+          id: Date.now() + Math.random(),
+          url,
+          file: stableFile,
+          uploaded: false
+        });
+        this.renderPhotos();
       });
-      this.renderPhotos();
     }
   },
 

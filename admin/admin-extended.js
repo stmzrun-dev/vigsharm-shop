@@ -6,7 +6,8 @@ Object.assign(app, {
   setupPhotoUpload() {
     const dropzone = document.getElementById('photo-dropzone');
     const input = document.getElementById('photo-input');
-    if (!dropzone || !input) return;
+    if (!dropzone || !input || input.dataset.wired === '1') return;
+    input.dataset.wired = '1';
     const zone = dropzone.querySelector('.upload-zone') || dropzone;
 
     zone.addEventListener('click', (e) => {
@@ -32,29 +33,63 @@ Object.assign(app, {
     });
   },
 
+  photoFileSig(file) {
+    if (!file) return '';
+    return [file.name, file.size, file.lastModified].join(':');
+  },
+
+  /** Чтение файла. Крестик увеличивает поколение — дочитанный файл в карточку уже не попадает. */
+  startPhotoRead(file, onLoad) {
+    const gen = this._photoReadGen || 0;
+    const reader = new FileReader();
+    this._photoReaders = this._photoReaders || [];
+    this._photoReaders.push(reader);
+    reader.onload = (e) => {
+      this._photoReaders = (this._photoReaders || []).filter((r) => r !== reader);
+      if (gen !== this._photoReadGen) return;
+      onLoad(e.target?.result);
+    };
+    reader.onerror = () => {
+      this._photoReaders = (this._photoReaders || []).filter((r) => r !== reader);
+    };
+    reader.readAsDataURL(file);
+    const input = document.getElementById('photo-input');
+    if (input) input.value = '';
+  },
+
+  cancelPhotoReads() {
+    this._photoReadGen = (this._photoReadGen || 0) + 1;
+    (this._photoReaders || []).forEach((reader) => {
+      try { reader.abort(); } catch (_) { /* уже дочитан */ }
+    });
+    this._photoReaders = [];
+    const input = document.getElementById('photo-input');
+    if (input) input.value = '';
+  },
+
   async handlePhotoFiles(files) {
     if (files.length === 0) return;
     const maxPhotos = 6;
+    const list = Array.from(files);
 
     if (this._replaceMainPhotoOnce) {
       this._replaceMainPhotoOnce = false;
-      const file = files[0];
+      const file = list[0];
       if (!file) return;
       if (file.size > 10 * 1024 * 1024) {
         this.toast('Файл слишком большой (макс. 10 МБ)', 'error');
         return;
       }
-      const reader = new FileReader();
-      reader.onload = (e) => {
+      this.startPhotoRead(file, (url) => {
+        if (!url) return;
         const next = {
           id: Date.now() + Math.random(),
-          url: e.target.result,
+          url,
           file,
           uploaded: false
         };
         if (!this.currentProduct.photos.length) this.currentProduct.photos = [next];
         else this.currentProduct.photos[0] = next;
-        // Сброс Master — нужно пересоздать
         this.studioMasterDataUrl = null;
         this.studioMasterBackupUrl = null;
         this.studioMasterBaseUrl = null;
@@ -64,27 +99,33 @@ Object.assign(app, {
         this.renderPhotos();
         this.goStep1Phase?.('a', { skipGate: true });
         this.toast('Главное фото заменено — выберите сцену и нажмите «Далее»', 'success');
-      };
-      reader.readAsDataURL(file);
+      });
       return;
     }
 
     const remainingSlots = maxPhotos - this.currentProduct.photos.length;
     if (remainingSlots === 0) { this.toast('Максимум 6 фото', 'error'); return; }
-    
-    for (const file of files.slice(0, remainingSlots)) {
+
+    const seen = new Set(
+      (this.currentProduct.photos || []).map((p) => this.photoFileSig(p.file)).filter(Boolean)
+    );
+    for (const file of list.slice(0, remainingSlots)) {
       if (file.size > 10 * 1024 * 1024) { this.toast('Файл слишком большой (макс. 10 МБ)', 'error'); continue; }
-      const reader = new FileReader();
-      reader.onload = (e) => {
+      const sig = this.photoFileSig(file);
+      if (sig && seen.has(sig)) continue;
+      if (sig) seen.add(sig);
+      this.startPhotoRead(file, (url) => {
+        if (!url) return;
+        if ((this.currentProduct.photos || []).some((p) => this.photoFileSig(p.file) === sig && sig)) return;
+        if ((this.currentProduct.photos || []).length >= maxPhotos) return;
         this.currentProduct.photos.push({
           id: Date.now() + Math.random(),
-          url: e.target.result,
-          file: file,
+          url,
+          file,
           uploaded: false
         });
         this.renderPhotos();
-      };
-      reader.readAsDataURL(file);
+      });
     }
   },
 
@@ -489,7 +530,20 @@ Object.assign(app, {
   },
 
   removePhoto(index) {
-    this.currentProduct.photos.splice(index, 1);
+    const photos = this.currentProduct?.photos;
+    if (!Array.isArray(photos) || index < 0 || index >= photos.length) return;
+    this.cancelPhotoReads?.();
+    photos.splice(index, 1);
+    if (!photos.length) {
+      this.studioMasterDataUrl = null;
+      this.studioMasterBackupUrl = null;
+      this.studioMasterBaseUrl = null;
+      this.studioSourceUrl = null;
+      this.studioCompare = { original: null, master: null };
+      this._pendingPhotoDhash = '';
+      this._photoDupSig = '';
+      this.renderStudioCompare?.();
+    }
     this.renderPhotos();
     this.toast('Фото удалено', 'success');
   },
@@ -560,9 +614,31 @@ Object.assign(app, {
     this.syncOccasionShelfFields?.();
   },
 
+  /** Подтип остаётся только у выбранной сцены. Чужие чипы снимаются. */
+  clearOtherSceneSubtypes(scene) {
+    if (scene !== 'unit_balloon') {
+      this.setUnitBalloonType?.('');
+      this.setUnitBalloonWho?.('');
+      this.setLetterInk?.('');
+      this.setUnitHoliday?.('');
+      const sizeEl = document.getElementById('unit-balloon-size');
+      if (sizeEl) sizeEl.value = '';
+    }
+    if (scene !== 'floor') this.setFloorType?.('');
+    if (scene !== 'handheld_bouquet') this.setBouquetType?.('');
+    if (scene !== 'surprise') {
+      this.setSurprisePose?.('stand');
+      this.setSurpriseMoney?.(false);
+    }
+    if (scene !== 'photozone') this.setPhotozoneType?.('frame');
+  },
+
   setScene(value) {
     const scene = value || 'auto';
     if (!this.currentProduct) this.currentProduct = { photos: [], scene: 'auto', tags: [], client_options: {} };
+    const prev = this.currentProduct.scene || 'auto';
+    if (scene !== 'unit_balloon') this.releaseUnitSceneLock?.();
+    if (prev !== scene) this.clearOtherSceneSubtypes?.(scene);
     this.currentProduct.scene = scene;
     const select = document.getElementById('scene-select');
     if (select && select.value !== scene) select.value = scene;

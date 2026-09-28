@@ -644,7 +644,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-27T06:25:15.748Z",
-      "updated_at": "2026-09-27T21:11:26.040Z",
+      "updated_at": "2026-09-28T06:16:30.898Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/bd776921-7607-4f6a-8884-ee9e0f695aaa.webp"
     },
     {
@@ -14646,16 +14646,12 @@
       "client_options": {
         "available_on_request": false,
         "advance_order_1_2_days": true,
-        "number_choice": true,
+        "number_choice": false,
         "personal_inscription": false,
         "photozone_rental": false,
         "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790179813/vigsharm-products/dsdma3niy4mcwbzwsrv8.jpg",
         "floor_type": "air",
-        "bouquet_type": "flowers",
-        "digit_choice": {
-          "enabled": true,
-          "count_on_photo": 1
-        }
+        "bouquet_type": "flowers"
       },
       "photos": [
         "https://res.cloudinary.com/saiuc42a/image/upload/v1790179874/vigsharm-products/fbu02ypjdgsbqvlzua5m.png"
@@ -14664,7 +14660,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T16:12:49.804Z",
-      "updated_at": "2026-09-27T19:02:52.372Z",
+      "updated_at": "2026-09-28T06:16:48.376Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/efa38b17-be98-48c4-978c-319df9b48002.webp"
     },
     {
@@ -16914,7 +16910,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T05:33:48.457Z",
-      "updated_at": "2026-09-25T14:41:50.467Z",
+      "updated_at": "2026-09-28T06:15:27.963Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/8018ff0a-7ea9-484a-8978-f7c339dd9959.webp"
     },
     {
@@ -16962,7 +16958,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T05:28:46.697Z",
-      "updated_at": "2026-09-25T14:41:54.370Z",
+      "updated_at": "2026-09-28T06:14:54.435Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/87fa5762-725a-4819-bd33-ecd14b520c2f.webp"
     },
     {
@@ -16979,7 +16975,7 @@
       ],
       "category": "Юбилей",
       "character": null,
-      "age_group": "Для детей",
+      "age_group": "Для взрослых",
       "budget": "5 000–8 000 ₽",
       "series_name": null,
       "occasion": null,
@@ -16995,11 +16991,15 @@
       "client_options": {
         "available_on_request": false,
         "advance_order_1_2_days": true,
-        "number_choice": false,
+        "number_choice": true,
         "personal_inscription": true,
         "photozone_rental": false,
         "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790115755/vigsharm-products/ehrxnkryypoi5lraedoo.png",
-        "floor_type": "air"
+        "floor_type": "air",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 2
+        }
       },
       "photos": [
         "https://res.cloudinary.com/saiuc42a/image/upload/v1790115804/vigsharm-products/sa7pl7gqson0k0dodqya.png"
@@ -17008,7 +17008,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-22T22:24:07.636Z",
-      "updated_at": "2026-09-25T14:41:56.696Z",
+      "updated_at": "2026-09-28T06:14:24.092Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/439d4b3d-1704-4d72-b387-aeb12bbc5ea1.webp"
     },
     {
@@ -17088,15 +17088,11 @@
       "client_options": {
         "available_on_request": false,
         "advance_order_1_2_days": true,
-        "number_choice": true,
+        "number_choice": false,
         "personal_inscription": true,
         "photozone_rental": false,
         "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1790114513/vigsharm-products/grmirjp7hnfwvh9zyxpf.jpg",
-        "floor_type": "air",
-        "digit_choice": {
-          "enabled": true,
-          "count_on_photo": 2
-        }
+        "floor_type": "air"
       },
       "photos": [
         "https://res.cloudinary.com/saiuc42a/image/upload/v1790114867/vigsharm-products/ikzpjhrw3imyqisqwhfr.png"
@@ -17105,7 +17101,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-22T22:10:16.641Z",
-      "updated_at": "2026-09-25T14:42:03.401Z",
+      "updated_at": "2026-09-28T06:14:34.946Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/dd83052f-08a4-4d47-8a68-ccae167fc664.webp"
     },
     {
@@ -18045,7 +18041,7 @@
         "напольная композиция",
         "10 шаров"
       ],
-      "category": "Юбилей",
+      "category": "Для мальчика",
       "character": null,
       "age_group": "Для детей",
       "budget": "5 000–8 000 ₽",
@@ -18057,8 +18053,9 @@
       "slug": "futbolnyj-rubezh",
       "scene": "floor",
       "tags": [
+        "Для мальчика",
         "Юбилей",
-        "Для мальчика"
+        "Напольные композиции"
       ],
       "client_options": {
         "available_on_request": false,
@@ -18080,7 +18077,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-22T08:44:27.380Z",
-      "updated_at": "2026-09-25T14:43:13.130Z",
+      "updated_at": "2026-09-28T06:13:54.582Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/6edcfd34-56bd-404c-998d-7696ab7d7133.webp"
     },
     {
@@ -18237,9 +18234,9 @@
         "6 латексных шаров с конфетти",
         "8 латексных шаров"
       ],
-      "category": "Юбилей",
+      "category": "Универсальные",
       "character": null,
-      "age_group": "Для взрослых",
+      "age_group": "Для детей",
       "budget": "5 000–8 000 ₽",
       "series_name": "Гарри Поттер",
       "occasion": null,
@@ -18249,6 +18246,7 @@
       "slug": "magicheskij-dekret",
       "scene": "floor",
       "tags": [
+        "Универсальные",
         "Юбилей"
       ],
       "client_options": {
@@ -18270,7 +18268,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-22T08:22:34.341Z",
-      "updated_at": "2026-09-25T14:43:30.278Z",
+      "updated_at": "2026-09-28T06:13:28.041Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/53526c82-011a-42c6-bbb8-671d49f54ade.webp"
     },
     {
@@ -20358,7 +20356,7 @@
       "composition": [
         "напольная композиция"
       ],
-      "category": "Юбилей",
+      "category": "Для него",
       "character": null,
       "age_group": "Для взрослых",
       "budget": "3 500–5 000 ₽",
@@ -20370,7 +20368,9 @@
       "slug": "chempionskiy-trofey",
       "scene": "floor",
       "tags": [
-        "Юбилей"
+        "Для него",
+        "Юбилей",
+        "Напольные композиции"
       ],
       "client_options": {
         "available_on_request": false,
@@ -20379,6 +20379,7 @@
         "personal_inscription": false,
         "photozone_rental": false,
         "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1789977689/vigsharm-products/i9upzbuqmwehidqidaap.jpg",
+        "floor_type": "air",
         "digit_choice": {
           "enabled": true,
           "count_on_photo": 2
@@ -20391,7 +20392,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-21T08:06:53.437Z",
-      "updated_at": "2026-09-25T14:46:16.465Z",
+      "updated_at": "2026-09-28T06:12:53.305Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/16ef9667-ed2c-4e17-93d2-0eac95e5dbcc.webp"
     },
     {
@@ -20907,7 +20908,7 @@
         "2 хромированных шара",
         "латексный шар"
       ],
-      "category": "Юбилей",
+      "category": "Для неё",
       "character": null,
       "age_group": "Для взрослых",
       "budget": "5 000–8 000 ₽",
@@ -20919,7 +20920,9 @@
       "slug": "biryuzovyy-tost",
       "scene": "floor",
       "tags": [
-        "Юбилей"
+        "Для неё",
+        "Юбилей",
+        "Напольные композиции"
       ],
       "client_options": {
         "available_on_request": false,
@@ -20928,6 +20931,7 @@
         "personal_inscription": false,
         "photozone_rental": true,
         "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1789931498/vigsharm-products/yvs52bith8h4ccxavmeg.jpg",
+        "floor_type": "air",
         "rental": {
           "enabled": true,
           "item": "Каркас фотозоны",
@@ -20946,7 +20950,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-20T19:16:23.874Z",
-      "updated_at": "2026-09-25T14:46:59.255Z",
+      "updated_at": "2026-09-28T06:12:29.594Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/7de34106-4437-4d31-9bc1-90f2354375a2.webp"
     },
     {
@@ -20959,7 +20963,7 @@
       "composition": [
         "напольная композиция"
       ],
-      "category": "Юбилей",
+      "category": "Для неё",
       "character": null,
       "age_group": "Для взрослых",
       "budget": "3 500–5 000 ₽",
@@ -20971,7 +20975,9 @@
       "slug": "izumrudnyj-yubilej",
       "scene": "floor",
       "tags": [
-        "Юбилей"
+        "Для неё",
+        "Юбилей",
+        "Напольные композиции"
       ],
       "client_options": {
         "available_on_request": false,
@@ -20980,6 +20986,7 @@
         "personal_inscription": true,
         "photozone_rental": false,
         "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1789930891/vigsharm-products/ayho1tppkt2tv39jzjin.jpg",
+        "floor_type": "air",
         "digit_choice": {
           "enabled": true,
           "count_on_photo": 2
@@ -20992,7 +20999,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-20T19:06:35.280Z",
-      "updated_at": "2026-09-25T14:47:03.235Z",
+      "updated_at": "2026-09-28T06:11:58.591Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/18a17589-0cbb-48a1-a7a2-37b2a0bd7929.webp"
     },
     {
@@ -21100,7 +21107,7 @@
         "3 хромированных шара",
         "3 латексных шара"
       ],
-      "category": "Юбилей",
+      "category": "Для него",
       "character": null,
       "age_group": "Для взрослых",
       "budget": "5 000–8 000 ₽",
@@ -21112,7 +21119,9 @@
       "slug": "zolotaya-vyderzhka",
       "scene": "floor",
       "tags": [
-        "Юбилей"
+        "Для него",
+        "Юбилей",
+        "Напольные композиции"
       ],
       "client_options": {
         "available_on_request": false,
@@ -21121,6 +21130,7 @@
         "personal_inscription": true,
         "photozone_rental": false,
         "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1789927774/vigsharm-products/tnlcj8mpic4rtcaea7jx.jpg",
+        "floor_type": "air",
         "digit_choice": {
           "enabled": true,
           "count_on_photo": 2
@@ -21133,7 +21143,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-20T18:13:35.467Z",
-      "updated_at": "2026-09-25T14:47:13.222Z",
+      "updated_at": "2026-09-28T06:11:04.585Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/4e7ce76f-5a96-4897-b3a4-3f2ac317c109.webp"
     },
     {
@@ -21401,6 +21411,7 @@
         "personal_inscription": false,
         "photozone_rental": false,
         "studio_original_url": "https://res.cloudinary.com/saiuc42a/image/upload/v1789897027/vigsharm-products/eigfinlodg5mgsxlpw5n.jpg",
+        "floor_type": "air",
         "digit_choice": {
           "enabled": true,
           "count_on_photo": 2
@@ -21413,7 +21424,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-20T09:47:06.741Z",
-      "updated_at": "2026-09-25T14:47:32.420Z",
+      "updated_at": "2026-09-28T06:10:32.722Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/92d65da5-710d-47a8-b0a6-0c280a6de93b.webp"
     },
     {
@@ -21611,10 +21622,10 @@
       "composition": [
         "напольная композиция"
       ],
-      "category": "Юбилей",
+      "category": "Для неё",
       "character": null,
       "age_group": "Для взрослых",
-      "budget": "3 500–5 000 ₽",
+      "budget": "5 000–8 000 ₽",
       "series_name": null,
       "occasion": null,
       "target_audience": null,
@@ -21623,7 +21634,9 @@
       "slug": "igristyj-yubilej",
       "scene": "floor",
       "tags": [
-        "Юбилей"
+        "Для неё",
+        "Юбилей",
+        "Напольные композиции"
       ],
       "client_options": {
         "available_on_request": false,
@@ -21635,7 +21648,7 @@
         "floor_type": "air",
         "digit_choice": {
           "enabled": true,
-          "count_on_photo": 1
+          "count_on_photo": 2
         }
       },
       "photos": [
@@ -21645,7 +21658,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-19T22:33:33.504Z",
-      "updated_at": "2026-09-25T14:47:51.063Z",
+      "updated_at": "2026-09-28T06:09:53.488Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/b6ba7c2c-cc7f-4ef1-9030-db86cf93e5dc.webp"
     },
     {

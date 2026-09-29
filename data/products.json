@@ -2,6 +2,241 @@
   "ok": true,
   "products": [
     {
+      "id": "7f28f5ab-c79f-4ad9-a960-84862564831e",
+      "title": "Молочная ферма",
+      "article": "HER-031",
+      "price": 5000,
+      "short_description": "Две напольные композиции с цифрами и фигурами коров в пастельно-розовой гамме.",
+      "full_description": "Композиция включает две напольные конструкции с крупными цифрами, украшенными фольгированными фигурами коров, латексными шарами с принтом пятен и пампасной травой.",
+      "composition": [
+        "2 напольные композиции"
+      ],
+      "category": "Для неё",
+      "character": "Корова",
+      "age_group": "Для взрослых",
+      "budget": "5 000–8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Напольные композиции с коровами на день рождения — Армавир",
+      "seo_description": "Две напольные композиции с цифрами, фольгированными фигурами коров и латексными шарами в пастельно-розовых тонах. Доставка в Армавире.",
+      "slug": "molochnaya-ferma",
+      "scene": "floor",
+      "tags": [
+        "Для неё"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/71b04b20-795b-4968-9f2e-820105d00d78.jpg",
+        "photo_dhash": "68e8c8c0d0d0d090",
+        "floor_type": "air",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 2
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/eae08039-4b46-43e5-873b-e8039b181dcf.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/eae08039-4b46-43e5-873b-e8039b181dcf.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-29T20:48:09.742Z",
+      "updated_at": "2026-09-29T20:49:46.783Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/9023c720-74e5-4ba0-a880-ef32197f04d8.webp"
+    },
+    {
+      "id": "88ccc7a1-b7ec-442d-97da-dfb2a1f9ad14",
+      "title": "Пастельная карусель",
+      "article": "HER-030",
+      "price": 4500,
+      "short_description": "Напольная композиция с розовыми цифрами и пастельными цветами из шаров.",
+      "full_description": "Напольная композиция с крупными розовыми фольгированными цифрами, украшенными пастельными гирляндами и цветами из шаров.",
+      "composition": [
+        "напольная композиция"
+      ],
+      "category": "Для неё",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Напольная композиция с цифрами в пастельных тонах — Армавир",
+      "seo_description": "Напольная композиция с розовыми цифрами, украшенными пастельными гирляндами и цветами из шаров. Доставка в Армавире.",
+      "slug": "pastelnaya-karusel",
+      "scene": "floor",
+      "tags": [
+        "Для неё"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/65934a54-dfee-43e5-9aa2-4f8101e4ddbd.jpg",
+        "photo_dhash": "f8eceaece4e0c084",
+        "floor_type": "air",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 2
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/6cc2e1e0-6ecc-44b9-87d2-36e5690d4e9c.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/6cc2e1e0-6ecc-44b9-87d2-36e5690d4e9c.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-29T20:45:39.816Z",
+      "updated_at": "2026-09-29T20:49:48.116Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/976ba7fc-cb5f-429d-adaa-bbcf2aee768d.webp"
+    },
+    {
+      "id": "3de779bc-0bdc-4dc0-b26c-b5f42c5e9fd2",
+      "title": "Королевский комплимент",
+      "article": "HER-029",
+      "price": 4400,
+      "short_description": "Белые шары и стеклянный баблс с надписью создают нежную композицию для особого дня.",
+      "full_description": "Композиция из белых латексных шаров и прозрачного баблса с крупинками пенопласта и персональной надписью. Идеальна для элегантного праздника.",
+      "composition": [
+        "10 шаров",
+        "стеклянный баблс с крупинками пенопласта и надписью"
+      ],
+      "category": "Для неё",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Королевский комплимент — композиция из шаров в Армавире",
+      "seo_description": "Элегантная композиция из белых шаров и баблса с надписью. Нежное оформление праздника с индивидуальным поздравлением от VigSharm.",
+      "slug": "korolevskiy-kompliment",
+      "scene": "wall_only",
+      "tags": [
+        "Для неё"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/e4eaf714-49de-4923-97d7-9ee68832b736.jpg",
+        "photo_dhash": "cf33b313583931e8"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/6ef3141f-e3e1-414c-aff3-122b67211c16.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/6ef3141f-e3e1-414c-aff3-122b67211c16.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-29T20:44:02.825Z",
+      "updated_at": "2026-09-29T20:49:49.388Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/776f7d51-3f3a-408f-b0a0-adbd6d867e3f.webp"
+    },
+    {
+      "id": "d6ab6819-d8ab-4861-b7dc-23f25f85c49b",
+      "title": "Золотая корона",
+      "article": "GRL-071",
+      "price": 5480,
+      "short_description": "Золотая фольгированная корона в окружении хромированных и прозрачных шаров с конфетти.",
+      "full_description": "Композиция с крупной золотой короной в центре, дополненная золотыми хромированными шарами и прозрачными шарами с золотым конфетти. Торжественное оформление для особенных событий.",
+      "composition": [
+        "фигура",
+        "14 шаров с конфетти",
+        "12 шаров хром"
+      ],
+      "category": "Для девочки",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "5 000–8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Золотая корона — шары с короной в Армавире | VigSharm",
+      "seo_description": "Композиция с фольгированной золотой короной, хромированными и прозрачными шарами с конфетти. Торжественное оформление для праздника в Армавире.",
+      "slug": "zolotaya-korona",
+      "scene": "floor",
+      "tags": [
+        "Для девочки",
+        "Для неё"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/8a413b1a-7d5c-4518-88b1-264ac9b46616.jpg",
+        "photo_dhash": "c84d545161c8c9e0"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/22b1a3d1-f257-4870-b06d-c74037ac8ef2.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/22b1a3d1-f257-4870-b06d-c74037ac8ef2.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-29T20:42:34.950Z",
+      "updated_at": "2026-09-29T20:49:50.642Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/04452569-7cc0-4cfd-9257-511c7e83912b.webp"
+    },
+    {
+      "id": "4b15c9b8-d676-4d32-9f44-105d71ccbb48",
+      "title": "Радужный переход",
+      "article": "HER-028",
+      "price": 4720,
+      "short_description": "Радужные цифры и звезда с хромированными шарами создают яркую композицию совершеннолетия.",
+      "full_description": "Композиция с градиентными цифрами, переливающейся звездой и хромированными шарами в радужных оттенках. Яркое оформление для важного события.",
+      "composition": [
+        "9 шаров хром",
+        "большая звезда",
+        "2 цифры"
+      ],
+      "category": "Для неё",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Радужная композиция с цифрами и звездой — VigSharm Армавир",
+      "seo_description": "Яркая композиция с градиентными цифрами, звездой и хромированными шарами. Эффектное оформление праздника в радужных оттенках.",
+      "slug": "raduzhnyj-perehod",
+      "scene": "wall_only",
+      "tags": [
+        "Для неё"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/0bab004f-5482-4ec1-b9b7-62c54eafe44e.jpg",
+        "photo_dhash": "362726662ea4b4b6",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 2
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/350b452b-da00-4e92-b08a-c9539fee09f8.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/350b452b-da00-4e92-b08a-c9539fee09f8.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-29T20:37:00.029Z",
+      "updated_at": "2026-09-29T20:49:51.911Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/3cdf1336-8cb0-41d1-bc4b-ee75d843eb9d.webp"
+    },
+    {
       "id": "84a58fec-ae2e-4285-8f87-e31df82eca2a",
       "title": "Розовый комплимент",
       "article": "HER-027",
@@ -48,8 +283,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-29T20:09:39.239Z",
-      "updated_at": "2026-09-29T20:12:57.966Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-29T20:49:53.156Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/81669d66-4717-4436-8cb0-98e8712212f9.webp"
     },
     {
       "id": "69cf6c96-2483-4b25-8618-1bca8f54cb8d",
@@ -96,8 +331,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-29T20:07:18.117Z",
-      "updated_at": "2026-09-29T20:07:18.117Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-29T20:49:54.395Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/2de421d3-37fe-4544-a27b-74570e7e370a.webp"
     },
     {
       "id": "0b9fbbfc-b54c-4019-bb6e-672afc88e29e",
@@ -182,8 +417,8 @@
       "status": "draft",
       "show_on_site": false,
       "created_at": "2026-09-29T19:58:18.969Z",
-      "updated_at": "2026-09-29T19:58:18.969Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-29T20:49:55.987Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/cd812f4a-08f0-4461-b74d-40ca235030b2.webp"
     },
     {
       "id": "8bb18264-673f-466d-b25f-a9bce9dc2d28",
@@ -229,8 +464,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-29T19:56:35.223Z",
-      "updated_at": "2026-09-29T19:56:35.223Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-29T20:49:57.274Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/937e24a1-4b9e-4d5f-8551-48a536055206.webp"
     },
     {
       "id": "53457f8a-cd99-4c31-b6c7-41cdf0fbff48",
@@ -321,8 +556,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-29T19:48:48.178Z",
-      "updated_at": "2026-09-29T19:48:48.178Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-29T20:49:58.564Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/18d2f89e-c026-4c73-866a-4a7c90980213.webp"
     },
     {
       "id": "e83313ae-7839-46e5-864a-b60903d8af1b",
@@ -367,8 +602,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-29T19:45:54.180Z",
-      "updated_at": "2026-09-29T19:45:54.180Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-29T20:50:00.053Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/032b57f0-0bb7-4e56-8adb-0fce5622a75d.webp"
     },
     {
       "id": "cc689c6a-a62e-4926-8fb6-3a9330234fbe",
@@ -412,8 +647,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-29T19:43:51.042Z",
-      "updated_at": "2026-09-29T19:43:51.042Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-29T20:50:01.344Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/f051f392-3348-45ac-bdd3-1de61dfaa2b2.webp"
     },
     {
       "id": "b8d85786-e937-482e-ad2d-d5623818e66e",
@@ -458,8 +693,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-29T12:47:05.591Z",
-      "updated_at": "2026-09-29T12:47:05.591Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-29T20:50:02.631Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/43ef1867-7a60-4e00-9bbb-b98fb3efa3c4.webp"
     },
     {
       "id": "7ed0f92e-3bdc-4473-825e-d311d10a5c3f",
@@ -504,8 +739,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-29T12:32:04.858Z",
-      "updated_at": "2026-09-29T12:33:24.869Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-29T20:50:03.887Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/4b8ad4e4-db94-4851-8969-afefb056d78e.webp"
     },
     {
       "id": "c57dc175-ec91-4229-bea5-da832d2d0edb",
@@ -555,8 +790,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-29T11:00:17.217Z",
-      "updated_at": "2026-09-29T12:26:59.739Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-29T20:50:05.218Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/259aa8e0-1ef5-4d0b-a3e0-38c916a9b0ff.webp"
     },
     {
       "id": "9478c217-a8a9-499d-beb6-efb1b7e43271",
@@ -593,14 +828,14 @@
         "photo_dhash": "84d9c0f8dc80c0c0"
       },
       "photos": [
-        "https://storage.yandexcloud.net/vigsharm-photos/products/6469bc36-fc8b-4960-9c3d-ccd1017edac1.jpg"
+        "https://storage.yandexcloud.net/vigsharm-photos/products/801e3cef-fefb-4f05-8002-12972dc03287.jpg"
       ],
-      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/6469bc36-fc8b-4960-9c3d-ccd1017edac1.jpg",
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/801e3cef-fefb-4f05-8002-12972dc03287.jpg",
       "status": "draft",
       "show_on_site": false,
       "created_at": "2026-09-29T08:01:39.212Z",
-      "updated_at": "2026-09-29T08:01:39.212Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-29T20:50:06.508Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/5c591781-a288-4b09-8149-74ae230017be.webp"
     },
     {
       "id": "374a8760-5cd4-418d-8868-beab7027b577",
@@ -650,8 +885,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-29T07:22:37.905Z",
-      "updated_at": "2026-09-29T07:22:37.905Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-29T20:50:08.176Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/38a89e2f-939b-409f-a8c5-0d221a2f11e3.webp"
     },
     {
       "id": "427979dc-eb53-4ef6-8b96-a21315fe021a",
@@ -694,8 +929,8 @@
       "status": "draft",
       "show_on_site": false,
       "created_at": "2026-09-29T07:14:24.355Z",
-      "updated_at": "2026-09-29T07:14:24.355Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-29T20:50:09.709Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/ce65f61e-d943-4ef9-86b4-4fa6e84d4f91.webp"
     },
     {
       "id": "88706e59-64fa-441b-b71f-cf46316d4bc5",
@@ -745,8 +980,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-29T06:59:49.564Z",
-      "updated_at": "2026-09-29T06:59:49.564Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-29T20:50:10.963Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/64fbf210-36c1-44de-99a0-3aa55560d9ef.webp"
     },
     {
       "id": "31358f35-1d44-4cf4-8b47-e4388a84ef91",
@@ -793,8 +1028,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-29T06:50:22.971Z",
-      "updated_at": "2026-09-29T06:50:22.971Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-29T20:50:12.347Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/e86fc009-6a52-4681-97c8-52733db3dff0.webp"
     },
     {
       "id": "ab40df1f-16c3-45ee-bc89-35c0cde95363",
@@ -842,8 +1077,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-29T06:26:04.172Z",
-      "updated_at": "2026-09-29T06:29:23.531Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-29T20:50:13.626Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/86f55e06-09fd-4878-a1ab-b694177664dc.webp"
     },
     {
       "id": "dfb42273-cb3a-4a66-81ad-181f5d83fba8",
@@ -886,8 +1121,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-29T06:04:42.279Z",
-      "updated_at": "2026-09-29T06:04:42.279Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-29T20:50:14.994Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/bed69c29-5826-4368-b241-85bb6d0083ce.webp"
     },
     {
       "id": "83a7bb92-e035-460b-ae60-6d8878e9f41b",
@@ -20349,8 +20584,8 @@
       "status": "draft",
       "show_on_site": true,
       "created_at": "2026-09-22T13:16:12.203Z",
-      "updated_at": "2026-09-29T11:31:42.455Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-29T20:50:16.431Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/07044276-4805-44b7-8181-952b05d4c018.webp"
     },
     {
       "id": "60b8a39b-625c-46cd-92c1-2e6fe064ad77",

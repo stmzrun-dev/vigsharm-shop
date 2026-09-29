@@ -1361,6 +1361,7 @@ const app = {
       this.catalogFromSnapshot = true;
       this.hydratePhotoDhashesFromCache?.();
       this.startPhotoDhashBackfill?.();
+      if (this._pendingPhotoDhash) this.showPhotoDuplicateMatches?.(this._pendingPhotoDhash);
       this.renderProducts();
       this.toast('Каталог из снимка сайта (API недоступен). Сохранение заработает, когда API ответит.', 'info');
     };
@@ -1384,6 +1385,7 @@ const app = {
       this.products = data.products || [];
       this.hydratePhotoDhashesFromCache?.();
       this.startPhotoDhashBackfill?.();
+      if (this._pendingPhotoDhash) this.showPhotoDuplicateMatches?.(this._pendingPhotoDhash);
       this.renderProducts();
     } catch (e) {
       console.error('Failed to load products', e);

@@ -316,29 +316,40 @@ Object.assign(app, {
     return urls;
   },
 
-  /** Совпадение с кодом карточки или с уже посчитанным кадром витрины. */
-  showPhotoDuplicateMatches(mine) {
+  /** Ближайшие опубликованные карточки по отпечатку фото. */
+  photoDuplicateCandidates(mine) {
     const hash = this.validPhotoDhash(mine);
-    if (!hash) {
-      this.clearPhotoDuplicateNote();
-      return;
-    }
-    const note = document.getElementById('photo-duplicate-note');
-    if (!note) return;
+    if (!hash) return [];
     const currentId = this.currentProduct?.id;
     const cache = this.loadPhotoDhashCache();
-    const near = (other) => {
-      const known = this.validPhotoDhash(other);
-      return !!known && this.photoDhashDistance(hash, known) <= 8;
-    };
-    const matches = (this.products || []).filter((p) => {
-      if (currentId && String(p.id) === String(currentId)) return false;
-      if (p.status && p.status !== 'published') return false;
-      if (p.show_on_site === false) return false;
-      if (near(this.photoClientOptions(p).photo_dhash)) return true;
-      return this.duplicatePhotoUrls(p).some((url) => near(cache[url]));
-    });
-    if (!matches.length) {
+    const ranked = [];
+    for (const product of this.products || []) {
+      if (currentId && String(product.id) === String(currentId)) continue;
+      if (product.status && product.status !== 'published') continue;
+      if (product.show_on_site === false) continue;
+      let best = 64;
+      const stored = this.validPhotoDhash(this.photoClientOptions(product).photo_dhash);
+      if (stored) best = Math.min(best, this.photoDhashDistance(hash, stored));
+      for (const url of this.duplicatePhotoUrls(product)) {
+        const known = this.validPhotoDhash(cache[url]);
+        if (known) best = Math.min(best, this.photoDhashDistance(hash, known));
+      }
+      if (best <= 16) ranked.push({ product, distance: best });
+    }
+    ranked.sort((a, b) => a.distance - b.distance || String(a.product.id).localeCompare(String(b.product.id)));
+    return ranked;
+  },
+
+  renderPhotoDuplicateNote(matches, busyText) {
+    const note = document.getElementById('photo-duplicate-note');
+    if (!note) return;
+    if (busyText) {
+      note.hidden = false;
+      note.classList.add('is-busy');
+      note.textContent = busyText;
+      return;
+    }
+    if (!matches?.length) {
       this.clearPhotoDuplicateNote();
       return;
     }
@@ -352,6 +363,98 @@ Object.assign(app, {
     note.hidden = false;
     note.classList.remove('is-busy');
     note.textContent = `Это фото уже есть: ${shown}${extra}`;
+  },
+
+  /** Совпадение с карточкой на сайте: явный дубль сразу, спорные — через ИИ. */
+  showPhotoDuplicateMatches(mine) {
+    const hash = this.validPhotoDhash(mine);
+    if (!hash) {
+      this.clearPhotoDuplicateNote();
+      return;
+    }
+    if (!document.getElementById('photo-duplicate-note')) return;
+    const ranked = this.photoDuplicateCandidates(hash);
+    if (!ranked.length) {
+      this._photoDupDecision = 'none';
+      this.clearPhotoDuplicateNote();
+      return;
+    }
+    const best = ranked[0].distance;
+    const band = ranked.filter((item) => item.distance <= best + 1);
+    const later = ranked.find((item) => item.distance > best + 1);
+    const second = later ? later.distance : 64;
+    if (band.length === 1 && best <= 12 && second - best >= 6) {
+      this._photoDupDecision = 'hit';
+      this.renderPhotoDuplicateNote(band.map((item) => item.product));
+      return;
+    }
+    const pool = ranked.slice(0, 3);
+    const key = `${this._photoDupSig}|${pool.map((item) => item.product.id + ':' + item.distance).join(',')}`;
+    if (this._photoDupAiKey === key) {
+      if (this._photoDupAiMatches) this.renderPhotoDuplicateNote(this._photoDupAiMatches);
+      return;
+    }
+    this._photoDupAiKey = key;
+    this._photoDupAiMatches = null;
+    this.renderPhotoDuplicateNote(null, 'Проверяю, нет ли такой композиции…');
+    this.confirmPhotoDuplicatesWithAi(pool, this._photoDupGen, key);
+  },
+
+  async photoPreviewDataUrl(file) {
+    const blobUrl = URL.createObjectURL(file);
+    try {
+      const img = await new Promise((resolve, reject) => {
+        const el = new Image();
+        el.onload = () => resolve(el);
+        el.onerror = () => reject(new Error('image'));
+        el.src = blobUrl;
+      });
+      const max = 720;
+      const scale = Math.min(1, max / Math.max(img.naturalWidth || 1, img.naturalHeight || 1));
+      const canvas = document.createElement('canvas');
+      canvas.width = Math.max(1, Math.round((img.naturalWidth || 1) * scale));
+      canvas.height = Math.max(1, Math.round((img.naturalHeight || 1) * scale));
+      canvas.getContext('2d').drawImage(img, 0, 0, canvas.width, canvas.height);
+      return canvas.toDataURL('image/jpeg', 0.72);
+    } finally {
+      URL.revokeObjectURL(blobUrl);
+    }
+  },
+
+  async confirmPhotoDuplicatesWithAi(pool, gen, key) {
+    const file = this.currentProduct?.photos?.[0]?.file;
+    if (!file || !this.workerUrl || !this.adminApiKey) {
+      if (this._photoDupGen === gen && this._photoDupAiKey === key) this.clearPhotoDuplicateNote();
+      return;
+    }
+    try {
+      const imageUrl = await this.photoPreviewDataUrl(file);
+      const candidates = pool.map((item) => {
+        const urls = this.duplicatePhotoUrls(item.product);
+        const original = urls.find((url) => url !== this.publishedPhotoUrl(item.product)) || urls[0] || '';
+        return {
+          id: String(item.product.id),
+          title: String(item.product.title || ''),
+          image_url: original
+        };
+      }).filter((item) => /^https:\/\//i.test(item.image_url));
+      if (!candidates.length) throw new Error('no urls');
+      const res = await fetch(`${this.workerUrl}/api/ai/same-composition`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', ...this.authHeaders() },
+        body: JSON.stringify({ image_url: imageUrl, candidates })
+      });
+      const data = await res.json().catch(() => ({}));
+      if (this._photoDupGen !== gen || this._photoDupAiKey !== key) return;
+      if (!res.ok || !data.ok) throw new Error(data.error || 'ai');
+      const ids = new Set((data.matches || []).map((id) => String(id)));
+      const matches = pool.map((item) => item.product).filter((product) => ids.has(String(product.id)));
+      this._photoDupAiMatches = matches;
+      this._photoDupDecision = matches.length ? 'hit' : 'none';
+      this.renderPhotoDuplicateNote(matches);
+    } catch {
+      if (this._photoDupGen === gen && this._photoDupAiKey === key) this.clearPhotoDuplicateNote();
+    }
   },
 
   async runPhotoDuplicateCheck(file, gen) {

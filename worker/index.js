@@ -54,6 +54,8 @@ export default {
         return handleReadFoilDigits(request, env);
       if (path === '/api/ai/detect-character' && method === 'POST')
         return handleDetectCharacter(request, env);
+      if (path === '/api/ai/same-composition' && method === 'POST')
+        return handleSameComposition(request, env);
       if (path === '/api/ai/generate-card' && method === 'POST')
         return handleGenerateCard(request, env);
       if (path === '/api/ai/suggest-category' && method === 'POST')
@@ -519,6 +521,76 @@ async function handleReadFoilDigits(request, env) {
     digits = String(text).replace(/\D/g, '').slice(0, 4);
   }
   return json({ ok: true, foil_digits: digits });
+}
+
+/** Та же композиция шаров, даже если фон уже студийный. */
+async function handleSameComposition(request, env) {
+  const body = await request.json().catch(() => ({}));
+  const imageUrl = String(body.image_url || '');
+  const candidates = (Array.isArray(body.candidates) ? body.candidates : [])
+    .map((item) => ({
+      id: String(item?.id || '').trim(),
+      title: String(item?.title || '').replace(/\s+/g, ' ').trim().slice(0, 80),
+      image_url: String(item?.image_url || '').trim()
+    }))
+    .filter((item) => item.id && /^https:\/\//i.test(item.image_url))
+    .slice(0, 3);
+  const imageOk = imageUrl.startsWith('data:image/') || imageUrl.startsWith('https://');
+  if (!imageOk || !candidates.length) {
+    return json({ ok: false, error: 'Нужны фото и кандидаты' }, 400);
+  }
+
+  const content = [
+    {
+      type: 'text',
+      text: 'Новое фото — первое. Дальше фото карточек, которые уже есть на сайте. Верни id только тех карточек, где собраны те же шары.'
+    },
+    { type: 'image_url', image_url: { url: imageUrl } }
+  ];
+  for (const item of candidates) {
+    content.push({
+      type: 'text',
+      text: `Карточка id=${item.id}, название «${item.title || 'без названия'}».`
+    });
+    content.push({ type: 'image_url', image_url: { url: item.image_url } });
+  }
+
+  const aiResp = await nordRequest('/v1/chat/completions', 'POST', {
+    model: 'claude-sonnet-5',
+    temperature: 0,
+    response_format: { type: 'json_object' },
+    messages: [
+      {
+        role: 'system',
+        content: `Ты сравниваешь композиции из воздушных шаров для каталога.
+Верни ТОЛЬКО JSON: {"matches":["id"]}
+В matches — id карточек с ТОЙ ЖЕ композицией, что на новом фото.
+Та же композиция: те же фольгированные фигуры и цифры, те же цвета и принты латекса, та же группировка. Другая стена, пол или студийный фон — всё ещё та же композиция.
+Не та: другая цифра, другой персонаж, другой цвет, другой букет, другой набор шаров.
+Если не уверен — не включай id. Пустой список, если совпадений нет.`
+      },
+      { role: 'user', content }
+    ]
+  }, env, 45000);
+
+  if (aiResp.error) {
+    return json({
+      ok: false,
+      error: 'NordRouter API ошибка: ' + (aiResp.error.message || JSON.stringify(aiResp.error))
+    });
+  }
+  const text = aiResp.choices?.[0]?.message?.content || '';
+  let matches = [];
+  try {
+    const data = JSON.parse(text);
+    const allowed = new Set(candidates.map((item) => item.id));
+    matches = (Array.isArray(data.matches) ? data.matches : [])
+      .map((id) => String(id || '').trim())
+      .filter((id) => allowed.has(id));
+  } catch {
+    return json({ ok: false, error: 'Не удалось разобрать ответ ИИ' }, 502);
+  }
+  return json({ ok: true, matches: [...new Set(matches)] });
 }
 
 /** Лёгкое определение персонажа/серии по фото (поштучные шары с рисунком/фольгой). */

@@ -2,15 +2,107 @@
   "ok": true,
   "products": [
     {
+      "id": "b8d85786-e937-482e-ad2d-d5623818e66e",
+      "title": "Звёздный иней",
+      "article": "GRL-069",
+      "price": 3180,
+      "short_description": "Композиция из серебристых и фиолетовых шаров с двумя звёздами и конфетти.",
+      "full_description": "Композиция из хромированных и фиолетовых шаров с фольгированными звёздами. Дополнена прозрачными шарами с фиолетовым конфетти.",
+      "composition": [
+        "3 шара с конфетти",
+        "2 звезды",
+        "8 шаров хром"
+      ],
+      "category": "Для девочки",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": "2 000–3 500 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Композиция из шаров Звёздный иней — купить в Армавире",
+      "seo_description": "Композиция из серебристых хромированных и фиолетовых шаров с двумя фольгированными звёздами и конфетти. Доставка воздушных шаров в Армавире.",
+      "slug": "zvezdnyj-inej",
+      "scene": "wall_only",
+      "tags": [
+        "Для девочки",
+        "Для неё"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/584b096f-3979-46e1-b8d7-35502daca43f.webp",
+        "photo_dhash": "f3fad9fbfdfed9f3"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/c6c98a28-c1e7-46c9-a1b8-43e45069a735.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/c6c98a28-c1e7-46c9-a1b8-43e45069a735.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-29T12:47:05.591Z",
+      "updated_at": "2026-09-29T12:47:05.591Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "7ed0f92e-3bdc-4473-825e-d311d10a5c3f",
+      "title": "Пастельная магия",
+      "article": "DG-012",
+      "price": 4650,
+      "short_description": "Композиция с баблс-единорогом, розовой звездой и пастельными шарами.",
+      "full_description": "Настенная композиция с баблс в виде единорога, розовой звездой с надписью и 10 пастельными шарами. Украшена лентой тассел в нежных тонах.",
+      "composition": [
+        "звезда с надписью",
+        "10 шаров",
+        "баблс с декором",
+        "лента тассел"
+      ],
+      "category": "Для неё",
+      "character": "Единорог",
+      "age_group": "Для взрослых",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары с единорогом для девочки в Армавире — VigSharm",
+      "seo_description": "Композиция с баблс-единорогом, розовой звездой с надписью и пастельными шарами. Доставка в Армавире. Заказать в VigSharm.",
+      "slug": "raduzhnyi-edinorog-2",
+      "scene": "wall_only",
+      "tags": [
+        "Для неё"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/209ae37e-c3f6-4bd8-93ed-9c770da02972.webp",
+        "photo_dhash": "88e0e0a0f0e8bc9c"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/c60cca41-3374-43eb-b6d6-041b14f8a2a7.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/c60cca41-3374-43eb-b6d6-041b14f8a2a7.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-29T12:32:04.858Z",
+      "updated_at": "2026-09-29T12:33:24.869Z",
+      "thumb_photo": null
+    },
+    {
       "id": "c57dc175-ec91-4229-bea5-da832d2d0edb",
       "title": "Шампань и персик",
       "article": "JUB-016",
       "price": 3840,
-      "short_description": "Нежная композиция в персиковых и золотых тонах с шарами хром и конфетти.",
-      "full_description": "Элегантная композиция в пастельных персиковых и золотых оттенках. Латексные шары дополнены хромированными и прозрачными с золотым конфетти.",
+      "short_description": "Нежная композиция в персиково-золотой гамме с фонтаном из шаров.",
+      "full_description": "Композиция в персиково-золотых тонах с фольгированными цифрами и фонтаном из хромированных, матовых шаров и шаров с конфетти.",
       "composition": [
         "2 цифры",
-        "3 шара хром",
+        "3 хромированных шара",
         "3 шара с конфетти",
         "4 шара"
       ],
@@ -21,11 +113,12 @@
       "series_name": null,
       "occasion": null,
       "target_audience": null,
-      "seo_title": "Шары на 20 лет в персиковых тонах — Армавир | VigSharm",
-      "seo_description": "Элегантная композиция с цифрами 20 в нежных персиковых и золотых оттенках. Хромированные шары и конфетти для стильного юбилея. Доставка в Армавире.",
-      "slug": "champagne-and-peach-20",
+      "seo_title": "Шары на юбилей 20 лет в Армавире — Шампань и персик",
+      "seo_description": "Нежная композиция в персиково-золотой гамме с цифрами и фонтаном из шаров. Доставка воздушных шаров на юбилей в Армавире.",
+      "slug": "shampan-i-persik",
       "scene": "floor",
       "tags": [
+        "Для неё",
         "Юбилей"
       ],
       "client_options": {
@@ -45,10 +138,10 @@
         "https://storage.yandexcloud.net/vigsharm-photos/products/fe0e07fe-81de-4c5a-b68e-cf08d4a62611.jpg"
       ],
       "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/fe0e07fe-81de-4c5a-b68e-cf08d4a62611.jpg",
-      "status": "draft",
-      "show_on_site": false,
+      "status": "published",
+      "show_on_site": true,
       "created_at": "2026-09-29T11:00:17.217Z",
-      "updated_at": "2026-09-29T11:09:30.117Z",
+      "updated_at": "2026-09-29T12:26:59.739Z",
       "thumb_photo": null
     },
     {

@@ -2,6 +2,420 @@
   "ok": true,
   "products": [
     {
+      "id": "84a58fec-ae2e-4285-8f87-e31df82eca2a",
+      "title": "Розовый комплимент",
+      "article": "HER-027",
+      "price": 5120,
+      "short_description": "Композиция с цифрами в розово-белой гамме и сердцами розового золота.",
+      "full_description": "Две напольные композиции с цифрами, украшенные фольгированными сердцами в оттенках розового золота и белого. Нежная палитра дополнена хромированными и латексными шарами.",
+      "composition": [
+        "2 напольные композиции",
+        "4 сердца",
+        "2 шара хром",
+        "4 шара"
+      ],
+      "category": "Для неё",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "5 000–8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Композиция с цифрами в розовых тонах — Армавир",
+      "seo_description": "Элегантная композиция с фольгированными цифрами, сердцами розового золота и нежными шарами. Доставка воздушных шаров в Армавире.",
+      "slug": "rozovyy-kompliment",
+      "scene": "floor",
+      "tags": [
+        "Для неё"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/e8e5a1ea-2c67-4285-b15e-fc43b2f0f0d3.jpg",
+        "photo_dhash": "cfc78f6ee8f1d5ef",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 2
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/d20fe238-41e4-4e36-a030-a25d1b0ebb1c.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/d20fe238-41e4-4e36-a030-a25d1b0ebb1c.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-29T20:09:39.239Z",
+      "updated_at": "2026-09-29T20:12:57.966Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "69cf6c96-2483-4b25-8618-1bca8f54cb8d",
+      "title": "Бабочка на сердце",
+      "article": "HER-026",
+      "price": 3700,
+      "short_description": "Композиция с большим белым сердцем с надписью, звездой и шарами в розовых оттенках.",
+      "full_description": "Композиция включает большое белое сердце с надписью и бабочкой, розовую звезду, маленькое розовое сердце, два шара с конфетти и шесть латексных шаров в розовой гамме.",
+      "composition": [
+        "большое сердце с надписью",
+        "звезда",
+        "сердце",
+        "2 шара с конфетти",
+        "6 шаров"
+      ],
+      "category": "Для неё",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Композиция с сердцем и шарами для девочки Армавир",
+      "seo_description": "Композиция с большим белым сердцем с надписью, розовой звездой и шарами с конфетти. Нежный набор в розовых тонах для девочки.",
+      "slug": "babochka-na-serdce",
+      "scene": "wall_only",
+      "tags": [
+        "Для неё",
+        "Для мамы"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/958e1218-9e43-4dfa-a121-4d90a13c5321.jpg",
+        "photo_dhash": "58c8aeace4884949"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/6277a261-49dd-429a-b7ba-2b7bed738ed1.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/6277a261-49dd-429a-b7ba-2b7bed738ed1.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-29T20:07:18.117Z",
+      "updated_at": "2026-09-29T20:07:18.117Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "0b9fbbfc-b54c-4019-bb6e-672afc88e29e",
+      "title": "Бантики принцессы",
+      "article": "GRL-070",
+      "price": 4600,
+      "short_description": "Розовые шары с чёрными бантиками и большой баблс с надписью создают нежную композицию.",
+      "full_description": "Композиция из розовых шаров с чёрными атласными бантиками и стеклянного баблса с надписью. Элегантное сочетание розового и чёрного для особенного праздника.",
+      "composition": [
+        "10 шаров с бантиками",
+        "стеклянный баблс с бантиками и надписью"
+      ],
+      "category": "Для девочки",
+      "character": null,
+      "age_group": "Для детей",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Розовые шары с бантиками на день рождения девочке Армавир",
+      "seo_description": "Композиция из розовых шаров с чёрными бантиками и стеклянного баблса с надписью. Нежное оформление праздника для девочки в Армавире.",
+      "slug": "bantiki-princessy",
+      "scene": "wall_only",
+      "tags": [
+        "Для девочки",
+        "Для неё"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/eabd873c-aac7-49ac-8941-9d55b776278b.webp",
+        "photo_dhash": "27a555563b5555cd"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/fe2c3441-7884-44f9-b246-c4af5fb77f29.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/fe2c3441-7884-44f9-b246-c4af5fb77f29.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-29T20:01:44.641Z",
+      "updated_at": "2026-09-29T20:04:35.986Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/93731b5a-50f0-4093-a705-831a957fd58f.webp"
+    },
+    {
+      "id": "ec1f9502-908c-4d5b-b109-d7d53096d0b6",
+      "title": "фигура, 10 шаров хром, баблс с надписью",
+      "article": "DG-013",
+      "price": 4800,
+      "short_description": "",
+      "full_description": "",
+      "composition": [
+        "фигура, 10 шаров хром, баблс с надписью"
+      ],
+      "category": "",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "lavandovyy-kompliment-3",
+      "scene": "wall_only",
+      "tags": [],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/97c01716-f1a0-4191-88fd-8a3072852463.webp",
+        "photo_dhash": "e84cd1888c113151"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/b360974c-eace-45cd-a2c8-2989b0a3e2cc.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/b360974c-eace-45cd-a2c8-2989b0a3e2cc.jpg",
+      "status": "draft",
+      "show_on_site": false,
+      "created_at": "2026-09-29T19:58:18.969Z",
+      "updated_at": "2026-09-29T19:58:18.969Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "8bb18264-673f-466d-b25f-a9bce9dc2d28",
+      "title": "Фиалковый сон",
+      "article": "HER-025",
+      "price": 4180,
+      "short_description": "Композиция в лавандовых тонах с баблсом и букетом сердец.",
+      "full_description": "Изящная композиция из прозрачного баблса с перьями, фольгированных сердец, хромированных и конфетти-шаров в сиреневой гамме.",
+      "composition": [
+        "баблс с перьями и надписью",
+        "2 сердца",
+        "2 шара хром",
+        "2 шара с конфетти",
+        "4 шара"
+      ],
+      "category": "Для неё",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Лавандовый комплимент — шары для неё в Армавире",
+      "seo_description": "Композиция в лавандовых тонах с баблсом, сердцами и хромированными шарами. Элегантный подарок для неё в Армавире.",
+      "slug": "lavandovyy-kompliment-2",
+      "scene": "wall_only",
+      "tags": [
+        "Для неё"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/14a1a61c-f716-4167-8c30-d42ab71ab98b.jpg",
+        "photo_dhash": "8008d44c85e398c8"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/ca8eb64a-924c-4cb0-9dca-53faf28f53d0.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/ca8eb64a-924c-4cb0-9dca-53faf28f53d0.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-29T19:56:35.223Z",
+      "updated_at": "2026-09-29T19:56:35.223Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "53457f8a-cd99-4c31-b6c7-41cdf0fbff48",
+      "title": "Горячая штучка",
+      "article": "HER-024",
+      "price": 4100,
+      "short_description": "Баблс с надписью, фонтан из жёлтых, розовых и хромовых шаров с конфетти.",
+      "full_description": "Композиция с большим баблсом и ярким фонтаном из шаров. Сочная палитра жёлтого, розового и зелёного хрома создаёт жизнерадостное настроение.",
+      "composition": [
+        "баблс с шариками и надписью",
+        "2 шара с конфетти",
+        "3 шара хром",
+        "5 шаров",
+        "лента тассел"
+      ],
+      "category": "Для неё",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Горячая штучка — яркий баблс с шарами, Армавир",
+      "seo_description": "Композиция «Горячая штучка»: баблс с надписью и фонтан из жёлтых, розовых и хромовых шаров с конфетти. Заказать в VigSharm, Армавир.",
+      "slug": "goryachaya-shtuchka",
+      "scene": "wall_only",
+      "tags": [
+        "Для неё"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/504a04d3-42ce-4e7e-ab3a-9daa423d4e78.webp",
+        "photo_dhash": "ffc76fe4e4576e4c"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/e0120fb0-3d79-45b1-b3e5-9be87cd84e93.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/e0120fb0-3d79-45b1-b3e5-9be87cd84e93.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-29T19:51:01.425Z",
+      "updated_at": "2026-09-29T19:53:01.055Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/1e54c595-9622-4fbf-9e3c-6385f6ea9f4b.webp"
+    },
+    {
+      "id": "50417eae-c04f-4445-a2e5-fd40224083c9",
+      "title": "Воздушное счастье",
+      "article": "HER-023",
+      "price": 4380,
+      "short_description": "Прозрачный баблс с розовыми перьями, фонтан из шаров с конфетти и нежная розово-белая гамма.",
+      "full_description": "Композиция включает большой прозрачный баблс с розовыми перьями и надписью, фонтан из девяти латексных шаров в розово-белых тонах и четыре шара с конфетти.",
+      "composition": [
+        "баблс с перьями и надписью",
+        "4 шара с конфетти",
+        "9 шаров"
+      ],
+      "category": "Для неё",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Воздушное счастье — шары для девочки в Армавире",
+      "seo_description": "Баблс с розовыми перьями и надписью, фонтан из шаров с конфетти. Нежная розово-белая композиция для девочки. Доставка в Армавире.",
+      "slug": "vozdushnoe-schaste",
+      "scene": "wall_only",
+      "tags": [
+        "Для неё"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/66cbd428-9581-462c-8d5c-02f379f5a29d.webp",
+        "photo_dhash": "cdecfce8f464e0cc"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/4709491b-bc75-4ab1-ae3c-801b3093db5f.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/4709491b-bc75-4ab1-ae3c-801b3093db5f.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-29T19:48:48.178Z",
+      "updated_at": "2026-09-29T19:48:48.178Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "e83313ae-7839-46e5-864a-b60903d8af1b",
+      "title": "Губки бантиком",
+      "article": "HER-022",
+      "price": 4240,
+      "short_description": "Розово-чёрная композиция с фигурой губ и баблсом с надписью.",
+      "full_description": "Стильная композиция в розово-чёрных тонах с яркой фигурой губ, баблсом с надписью и лентами тассел.",
+      "composition": [
+        "фигура",
+        "6 шаров",
+        "баблс с надписью",
+        "лента тассел"
+      ],
+      "category": "Для неё",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Поцелуй дня — шары для девочки в Армавире",
+      "seo_description": "Розово-чёрная композиция с фигурой губ, баблсом с надписью и лентами тассел. Яркий подарок для девочки. VigSharm, Армавир.",
+      "slug": "potseluy-dnya",
+      "scene": "floor",
+      "tags": [
+        "Для неё"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/2c1b8dae-7cf7-45bd-bb6a-a02b475be0b2.webp",
+        "photo_dhash": "c50c3a180c203a6c"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/a075bd71-0e27-4ac0-910d-d30d94b84d4d.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/a075bd71-0e27-4ac0-910d-d30d94b84d4d.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-29T19:45:54.180Z",
+      "updated_at": "2026-09-29T19:45:54.180Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "cc689c6a-a62e-4926-8fb6-3a9330234fbe",
+      "title": "Ночная кошка",
+      "article": "HER-021",
+      "price": 4620,
+      "short_description": "Чёрные шары с фигурами кошек и красными сердцами создают загадочное настроение.",
+      "full_description": "Композиция из чёрных латексных шаров, двух фольгированных фигур кошек с золотыми деталями и красных сердец. Контрастное сочетание чёрного и красного добавляет драматичности.",
+      "composition": [
+        "2 фигуры",
+        "2 сердца",
+        "18 шаров"
+      ],
+      "category": "Для неё",
+      "character": "Кошка",
+      "age_group": "Для взрослых",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары с чёрными кошками и красными сердцами — Армавир",
+      "seo_description": "Композиция из чёрных шаров с фигурами кошек и красными сердцами. Загадочное оформление для праздника. Доставка по Армавиру.",
+      "slug": "nochnaya-koshka",
+      "scene": "wall_only",
+      "tags": [
+        "Для неё"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/313504f5-d31e-4d11-b097-ad879a3c3ef2.webp",
+        "photo_dhash": "cccccea8cad6e161"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/038e1e75-9d84-49a0-b059-2364e2ef6789.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/038e1e75-9d84-49a0-b059-2364e2ef6789.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-29T19:43:51.042Z",
+      "updated_at": "2026-09-29T19:43:51.042Z",
+      "thumb_photo": null
+    },
+    {
       "id": "b8d85786-e937-482e-ad2d-d5623818e66e",
       "title": "Звёздный иней",
       "article": "GRL-069",

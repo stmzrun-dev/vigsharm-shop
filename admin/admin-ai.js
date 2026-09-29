@@ -1157,12 +1157,12 @@ Object.assign(app, {
         data.composition = this.sanitizeAiDigitLines?.(data.composition, userComposition) || data.composition;
       }
       this.currentProduct.composition = data.composition || this.currentProduct.composition;
-      if (sceneHint === 'floor' && this.getFloorType?.() !== 'air') {
+      if (sceneHint === 'ceiling') {
+        data.tags = (Array.isArray(data.tags) ? data.tags : []).filter((t) => !['Напольные композиции', 'Фотозона', 'Фигуры из шаров'].includes(t));
+        if (['Напольные композиции', 'Фотозона', 'Фигуры из шаров'].includes(data.category)) data.category = '';
+      } else if (sceneHint === 'floor') {
         data.tags = (Array.isArray(data.tags) ? data.tags : []).filter((t) => t !== 'Напольные композиции');
-        if (data.category === 'Напольные композиции') data.category = '';
-      } else if (sceneHint === 'floor' && this.getFloorType?.() === 'air') {
-        data.tags = Array.isArray(data.tags) ? data.tags : [];
-        if (!data.tags.includes('Напольные композиции')) data.tags.push('Напольные композиции');
+        if (data.category === 'Напольные композиции' && this.getFloorType?.() !== 'air') data.category = '';
       }
       this.currentProduct.category = data.category || this.currentProduct.category;
       this.currentProduct.character = data.character || this.currentProduct.character;
@@ -1510,7 +1510,7 @@ Object.assign(app, {
     document.getElementById('ai-review-series-wrap')?.classList.toggle('hidden', !showSeries);
 
     const deferred = (typeof DEFERRED_TYPE_TAGS !== 'undefined' && DEFERRED_TYPE_TAGS) || ['Шар-сюрприз'];
-    const typeTags = ((typeof TAGS !== 'undefined' && TAGS.type) || []).filter((t) => !deferred.includes(t));
+    const typeTags = ((typeof TAGS !== 'undefined' && TAGS.type) || []).filter((t) => !deferred.includes(t) && t !== 'Напольные композиции');
     this.renderAiReviewTagGroup?.('ai-review-tags-for-who', TAGS?.forWho || [], '#tags-for-who');
     this.renderAiReviewTagGroup?.('ai-review-tags-occasion', TAGS?.occasion || [], '#tags-occasion');
     this.renderAiReviewTagGroup?.('ai-review-tags-dates', TAGS?.dates || [], '#tags-dates');

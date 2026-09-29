@@ -79,6 +79,15 @@ const figuresAdvance = vigNormalizeProduct({
 });
 assert(figuresAdvance.needs_advance_order === true, 'balloon_figures implies advance order');
 
+const ceilingPlain = vigNormalizeProduct({
+  title: 'Ceiling',
+  scene: 'ceiling',
+  status: 'published',
+  client_options: {}
+});
+assert(ceilingPlain.needs_advance_order !== true, 'ceiling does not auto-advance');
+assert(ceilingPlain.has_rental !== true, 'ceiling is not a photozone rental');
+
 const wallInscription = vigNormalizeProduct({
   title: 'Wall bubble',
   scene: 'wall_only',

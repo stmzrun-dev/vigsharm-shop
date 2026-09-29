@@ -23,6 +23,7 @@ const SCENES = [
   { value: 'unit_balloon', icon: '🎈', title: 'Шар поштучно', short: 'Поштучно', desc: 'Один шар у стены, без пола' },
   { value: 'handheld_bouquet', icon: '💐', title: 'Букет в руке', short: 'Букет', desc: 'Букет в руке, без бирок' },
   { value: 'wall_only', icon: '🖼️', title: 'Только стена', short: 'Стена', desc: 'Композиция на стене, без пола' },
+  { value: 'ceiling', icon: '☁️', title: 'Под потолком', short: 'Потолок', desc: 'Связка висит сверху: стена и линия потолка, без пола' },
   { value: 'floor', icon: '🪵', title: 'Напольная композиция', short: 'Пол', desc: 'Стоит на полу: стена + плинтус + ламинат' },
   { value: 'surprise', icon: '🎁', title: 'Шар-сюрприз', short: 'Сюрприз', desc: 'Та же комната: висит на ленте или стоит на своей подставке' },
   { value: 'balloon_figures', icon: '🧸', title: 'Фигуры из шаров', short: 'Фигуры', desc: 'Крупная фигура из шаров на полу' },
@@ -921,67 +922,81 @@ const app = {
     return product.category || 'Без категории';
   },
 
+  /** Все полки карточки: категория и каждая отмеченная галочка. */
+  productPlacements(p) {
+    const labels = [p.category].concat(Array.isArray(p.tags) ? p.tags : [])
+      .map((t) => String(t || '').trim())
+      .filter(Boolean);
+    const unique = [...new Set(labels)];
+    const isUnit = p.category === 'Шары поштучно' || unique.includes('Шары поштучно');
+    const who = ((typeof TAGS !== 'undefined' && TAGS.forWho) || []).filter((t) => t !== 'Универсальные');
+    const occasions = (typeof TAGS !== 'undefined' && TAGS.occasion) || [];
+    const types = ((typeof TAGS !== 'undefined' && TAGS.type) || [])
+      .filter((t) => t !== 'Напольные композиции' && t !== 'Шары поштучно');
+    const readyLabels = [...who, ...occasions, ...types];
+    const places = [];
+    const seen = new Set();
+    const add = (group, shelf) => {
+      const key = group + '\0' + shelf;
+      if (!shelf || seen.has(key)) return;
+      seen.add(key);
+      places.push({ product: p, group, shelf });
+    };
+    if (isUnit) add('unit', this.productShelfLabel('unit', p));
+    LIST_HOLIDAYS.forEach((h) => { if (unique.includes(h)) add('holidays', h); });
+    if (!isUnit) readyLabels.forEach((label) => { if (unique.includes(label)) add('ready', label); });
+    const character = String(p.character || p.character_name || '').trim();
+    if (character && !isUnit) add('characters', character);
+    if (!places.length) add('ready', p.category || 'Без категории');
+    return places;
+  },
+
   renderGroupBody(groupId, items, searching) {
     if (!items.length) return '';
-
-    // Для праздников и поштучных — всегда раскладываем по полкам
-    const alwaysShelve = !searching && (groupId === 'holidays' || groupId === 'unit');
-    if (alwaysShelve) {
-      const UNIT_SHELF_ORDER = ['Шары с рисунком', 'Ходячие фигуры', 'Круги, звёзды и сердца', 'Фольгированные фигуры', 'Фольгированные цифры', 'Латексные шары', 'Шары с конфетти', 'Шары хром', 'Шары Super Agate', 'Шары Brush', 'Шары Bubble'];
-      const shelfOrder = groupId === 'holidays' ? LIST_HOLIDAYS : [...UNIT_SHELF_ORDER, ...LIST_HOLIDAYS, 'Разное'];
-      const buckets = new Map();
-      items.forEach((p) => {
-        const label = this.productShelfLabel(groupId, p);
-        if (!buckets.has(label)) buckets.set(label, []);
-        buckets.get(label).push(p);
-      });
-      const sorted = [...buckets.entries()].sort((a, b) => {
-        const ai = shelfOrder.indexOf(a[0]);
-        const bi = shelfOrder.indexOf(b[0]);
-        if (ai >= 0 && bi >= 0) return ai - bi;
-        if (ai >= 0) return -1;
-        if (bi >= 0) return 1;
-        return a[0].localeCompare(b[0], 'ru');
-      });
-      if (sorted.length <= 1) return items.map((p) => this.renderProductRow(p)).join('');
-      return sorted.map(([label, shelfItems]) => {
-        const key = `${groupId}::${label}`;
-        const subOpen = !!(this.listExpandedSubgroups && this.listExpandedSubgroups[key]);
-        const labelJs = String(label).replace(/\\/g, '\\\\').replace(/'/g, "\\'");
-        const rows = subOpen ? shelfItems.map((p) => this.renderProductRow(p)).join('') : '';
-        return `
-          <section class="product-subgroup${subOpen ? ' is-open' : ''}">
-            <button type="button" class="product-subgroup-header" onclick="app.toggleListSubgroup('${groupId}', '${labelJs}')" aria-expanded="${subOpen}">
-              <strong>${this.escapeHtml(label)}</strong>
-              <span class="product-subgroup-count">${shelfItems.length}</span>
-              <span class="product-subgroup-toggle" aria-hidden="true">${subOpen ? '−' : '+'}</span>
-            </button>
-            <div class="product-subgroup-body${subOpen ? '' : ' hidden'}">${rows}</div>
-          </section>`;
-      }).join('');
+    const rows = items.map((item) => (
+      item && item.product ? item : { product: item, shelf: this.productShelfLabel(groupId, item) }
+    ));
+    if (searching) {
+      const seen = new Set();
+      return rows.filter(({ product }) => {
+        const id = String(product?.id ?? '');
+        if (seen.has(id)) return false;
+        seen.add(id);
+        return true;
+      }).map(({ product }) => this.renderProductRow(product)).join('');
     }
 
-    // Остальные группы: первые 20 плоско, дальше по полкам
-    const freshCount = 5;
-    const split = !searching && items.length > freshCount;
-    const fresh = split ? items.slice(0, freshCount) : items;
-    const rest = split ? items.slice(freshCount) : [];
-    const freshHtml = (split ? '<p class="product-fresh-label">Новые</p>' : '')
-      + fresh.map((p) => this.renderProductRow(p)).join('');
-    if (!rest.length) return freshHtml;
-
+    const UNIT_SHELF_ORDER = ['Шары с рисунком', 'Ходячие фигуры', 'Круги, звёзды и сердца', 'Фольгированные фигуры', 'Фольгированные цифры', 'Латексные шары', 'Шары с конфетти', 'Шары хром', 'Шары Super Agate', 'Шары Brush', 'Шары Bubble'];
+    const who = ((typeof TAGS !== 'undefined' && TAGS.forWho) || []).filter((t) => t !== 'Универсальные');
+    const occasions = (typeof TAGS !== 'undefined' && TAGS.occasion) || [];
+    const types = ((typeof TAGS !== 'undefined' && TAGS.type) || [])
+      .filter((t) => t !== 'Напольные композиции' && t !== 'Шары поштучно');
+    const shelfOrder = groupId === 'holidays'
+      ? LIST_HOLIDAYS
+      : (groupId === 'unit'
+        ? [...UNIT_SHELF_ORDER, ...LIST_HOLIDAYS, 'Разное']
+        : [...who, ...occasions, ...types]);
     const buckets = new Map();
-    rest.forEach((p) => {
-      const label = this.productShelfLabel(groupId, p);
+    rows.forEach(({ product, shelf }) => {
+      const label = shelf || 'Без категории';
       if (!buckets.has(label)) buckets.set(label, []);
-      buckets.get(label).push(p);
+      const list = buckets.get(label);
+      if (!list.some((row) => row.id === product.id)) list.push(product);
     });
-    const shelves = [...buckets.entries()].sort((a, b) => a[0].localeCompare(b[0], 'ru'));
-    const shelvesHtml = shelves.map(([label, shelfItems]) => {
+    const sorted = [...buckets.entries()].sort((a, b) => {
+      const ai = shelfOrder.indexOf(a[0]);
+      const bi = shelfOrder.indexOf(b[0]);
+      if (ai >= 0 && bi >= 0) return ai - bi;
+      if (ai >= 0) return -1;
+      if (bi >= 0) return 1;
+      return a[0].localeCompare(b[0], 'ru');
+    });
+    if (sorted.length <= 1) return sorted[0][1].map((p) => this.renderProductRow(p)).join('');
+    return sorted.map(([label, shelfItems]) => {
       const key = `${groupId}::${label}`;
       const subOpen = !!(this.listExpandedSubgroups && this.listExpandedSubgroups[key]);
       const labelJs = String(label).replace(/\\/g, '\\\\').replace(/'/g, "\\'");
-      const rows = subOpen ? shelfItems.map((p) => this.renderProductRow(p)).join('') : '';
+      const body = subOpen ? shelfItems.map((p) => this.renderProductRow(p)).join('') : '';
       return `
         <section class="product-subgroup${subOpen ? ' is-open' : ''}">
           <button type="button" class="product-subgroup-header" onclick="app.toggleListSubgroup('${groupId}', '${labelJs}')" aria-expanded="${subOpen}">
@@ -989,10 +1004,9 @@ const app = {
             <span class="product-subgroup-count">${shelfItems.length}</span>
             <span class="product-subgroup-toggle" aria-hidden="true">${subOpen ? '−' : '+'}</span>
           </button>
-          <div class="product-subgroup-body${subOpen ? '' : ' hidden'}">${rows}</div>
+          <div class="product-subgroup-body${subOpen ? '' : ' hidden'}">${body}</div>
         </section>`;
     }).join('');
-    return freshHtml + shelvesHtml;
   },
 
   toggleListSubgroup(groupId, label) {
@@ -1554,10 +1568,10 @@ const app = {
     const byGroup = {};
     LIST_GROUPS.forEach((g) => { byGroup[g.id] = []; });
     list.forEach((p) => {
-      const gid = this.productListGroupId(p);
-      if (!byGroup[gid]) byGroup[gid] = [];
-      byGroup[gid].push(p);
-      if (this.categoryShelfForCharacter(p)) byGroup.ready.push(p);
+      this.productPlacements(p).forEach((place) => {
+        if (!byGroup[place.group]) byGroup[place.group] = [];
+        byGroup[place.group].push(place);
+      });
     });
 
     // При поиске — сразу раскрываем группы, где есть совпадения
@@ -1583,7 +1597,7 @@ const app = {
               <strong>${this.escapeHtml(g.title)}</strong>
               <small>${this.escapeHtml(g.note)}</small>
             </span>
-            <span class="product-group-count">${items.length}</span>
+            <span class="product-group-count">${new Set(items.map((item) => String((item.product || item).id ?? ''))).size}</span>
             <span class="product-group-toggle" aria-hidden="true">${open ? '−' : '+'}</span>
           </button>
           <div class="product-group-body${open ? '' : ' hidden'}">

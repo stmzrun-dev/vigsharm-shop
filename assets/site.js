@@ -144,9 +144,14 @@
     var isFloor = p.scene === 'floor' || p.category === 'Напольные композиции';
     var isFigures = p.scene === 'balloon_figures' || p.category === 'Фигуры из шаров';
     var isWallOnly = p.scene === 'wall_only';
+    var isCeiling = p.scene === 'ceiling';
     var pzType = opts.photozone_type || '';
     var floorType = opts.floor_type === 'air' ? 'air' : '';
     var compJoined = Array.isArray(p.composition) ? p.composition.join(' ') : String(p.composition || '');
+    var floorShelf = p.category === 'Напольные композиции'
+      || (Array.isArray(p.tags) && p.tags.indexOf('Напольные композиции') >= 0);
+    // Старые карточки с полкой «Напольные» — тот же бейдж, что кнопка «Заказ заранее».
+    if (floorShelf) advanceOn = true;
     // Напольные: чип «заказ за 1–2 дня» (floor_type air). Без чипа — не ставим сами.
     if (isFloor && floorType === 'air') {
       advanceOn = true;
@@ -214,9 +219,9 @@
         ? 1
         : ((opts.digit_choice && opts.digit_choice.count_on_photo) || p.digit_count_on_photo || compDigits || 1);
       p.digit_count_on_photo = Math.min(2, Math.max(1, Number(digitCount) || 1));
-      // Напольные, фигуры и «только стена»: количество цифр фиксировано.
+      // Напольные, фигуры, стена и потолок: количество цифр фиксировано.
       // Поштучные цифры: одна в цене, вторую можно добавить за 900 ₽.
-      p.digit_count_locked = unitDigit ? false : !!(isFloor || isWallOnly || isFigures);
+      p.digit_count_locked = unitDigit ? false : !!(isFloor || isWallOnly || isFigures || isCeiling);
       p.is_floor_composition = unitDigit ? false : !!(isFloor || isFigures);
     } else if (p.has_digit_choice == null) {
       p.has_digit_choice = false;

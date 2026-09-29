@@ -1018,7 +1018,7 @@ Object.assign(app, {
       const isPhotozone = this.isPhotozoneContext?.()
         || scene === 'photozone'
         || cat === 'Фотозона';
-      const isWallOnly = scene === 'wall_only';
+      const isWallOnly = scene === 'wall_only' || scene === 'ceiling';
       const isWallOrFloor = isFloor || isWallOnly || isFigures;
       const hasInscriptionInComp = this.compositionHasPersonalInscription(composition);
       const digitCount = this.compositionDigitCount(composition);
@@ -1171,6 +1171,7 @@ Object.assign(app, {
           rentalItemEl.dataset.autoFill = '1';
         }
       }
+      if (scene === 'ceiling' && rentalEl) rentalEl.checked = false;
       this.syncRequiredFieldHighlights?.();
     } finally {
       this._syncingClientOpts = false;
@@ -1646,7 +1647,7 @@ Object.assign(app, {
     this.renderTagGroup('tags-occasion', TAGS.occasion);
     this.renderTagGroup('tags-dates', TAGS.dates);
     const deferred = (typeof DEFERRED_TYPE_TAGS !== 'undefined' && DEFERRED_TYPE_TAGS) || ['Шар-сюрприз'];
-    this.renderTagGroup('tags-type', TAGS.type.filter((t) => !deferred.includes(t)));
+    this.renderTagGroup('tags-type', TAGS.type.filter((t) => !deferred.includes(t) && t !== 'Напольные композиции'));
   },
 
   renderTagGroup(containerId, tags) {
@@ -1724,14 +1725,17 @@ Object.assign(app, {
       const typeSet = new Set((typeof TAGS !== 'undefined' && TAGS.type) || []);
       const deferred = (typeof DEFERRED_TYPE_TAGS !== 'undefined' && DEFERRED_TYPE_TAGS) || ['Шар-сюрприз'];
       const sceneNow = this.currentProduct?.scene || '';
-      const floorAdvance = sceneNow === 'floor' && this.getFloorType?.() === 'air';
-      const skipFloorTag = sceneNow === 'wall_only' || sceneNow === 'unit_balloon' || (sceneNow === 'floor' && !floorAdvance);
       card.tags.forEach((tag) => {
         if (deferred.includes(tag)) return;
         // Праздник/тематика: в доп. разделах только она, без типов/аудитории
         if (holidayOnly && tag !== holidayOnly && tag !== 'Фотозона') return;
         if (holidayOnly && typeSet.has(tag) && tag !== 'Фотозона') return;
-        if (skipFloorTag && tag === 'Напольные композиции') return;
+        if (tag === 'Напольные композиции') {
+          const advanceEl = document.getElementById('opt-advance');
+          if (advanceEl) advanceEl.checked = true;
+          return;
+        }
+        if (sceneNow === 'ceiling' && (tag === 'Фотозона' || tag === 'Фигуры из шаров')) return;
         const cb = document.querySelector(
           `#tags-for-who input[value="${CSS.escape(tag)}"], #tags-occasion input[value="${CSS.escape(tag)}"], #tags-dates input[value="${CSS.escape(tag)}"], #tags-type input[value="${CSS.escape(tag)}"]`
         ) || document.querySelector(`input[type="checkbox"][value="${CSS.escape(tag)}"]`);
@@ -2073,19 +2077,20 @@ Object.assign(app, {
       || category === 'Букет из шаров'
       || this.compositionLooksLikeBouquet?.(compText)
     );
-    const isFigures = !unit && !holidayOnly && !isBox && (
+    const isCeiling = !unit && scene === 'ceiling';
+    const isFigures = !unit && !holidayOnly && !isBox && !isCeiling && (
       scene === 'balloon_figures'
       || category === 'Фигуры из шаров'
       || this.compositionLooksLikeBalloonFigure?.(compText)
     );
-    const isPhotozone = !unit && !isBox && (
+    const isPhotozone = !unit && !isBox && !isCeiling && (
       scene === 'photozone'
       || category === 'Фотозона'
       || tags.includes('Фотозона')
       || this.compositionLooksLikePhotozone?.(compText)
       || !!this.compositionPhotozoneType?.(compText)
     );
-    const isFloorSave = !unit && !isBox && (
+    const isFloorSave = !unit && !isBox && !isCeiling && (
       scene === 'floor'
       || category === 'Напольные композиции'
     );
@@ -2230,11 +2235,12 @@ Object.assign(app, {
         if (!finalTags.includes('Арка из шаров')) finalTags.push('Арка из шаров');
         if (!finalTags.includes('Цена за метр')) finalTags.push('Цена за метр');
       }
-      if (scene === 'wall_only' || scene === 'unit_balloon' || (scene === 'floor' && this.getFloorType?.() !== 'air')) {
+      if (scene === 'wall_only' || scene === 'unit_balloon' || scene === 'ceiling' || scene === 'floor') {
         finalTags = finalTags.filter((t) => t !== 'Напольные композиции');
       }
-      if (scene === 'floor' && this.getFloorType?.() === 'air' && !finalTags.includes('Напольные композиции')) {
-        finalTags.push('Напольные композиции');
+      if (scene === 'ceiling') {
+        finalTags = finalTags.filter((t) => t !== 'Фотозона' && t !== 'Фигуры из шаров');
+        if (category === 'Фотозона' || category === 'Напольные композиции' || category === 'Фигуры из шаров') category = '';
       }
     }
     if (unit) {
@@ -2687,7 +2693,9 @@ app.loadProductToForm = function(product) {
   const opts = product.client_options || {};
   const opt = (id, val) => { const el = document.getElementById(id); if (el) el.checked = !!val; };
   const nestedOn = (v) => !!(v === true || v === 1 || (v && typeof v === 'object' && v.enabled));
-  opt('opt-advance', opts.advance_order_1_2_days || nestedOn(opts.advance_order));
+  opt('opt-advance', opts.advance_order_1_2_days || nestedOn(opts.advance_order)
+    || tags.includes('Напольные композиции')
+    || product.category === 'Напольные композиции');
   opt('opt-number', opts.number_choice || nestedOn(opts.digit_choice));
   opt('opt-inscription', opts.personal_inscription || nestedOn(opts.inscription));
   opt('opt-rental', opts.photozone_rental || nestedOn(opts.rental));

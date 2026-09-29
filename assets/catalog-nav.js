@@ -65,6 +65,15 @@
       !r.some(function (x) { return SINGLE_GIFTS.indexOf(x) >= 0; }) && r.indexOf('Шары поштучно') >= 0
     );
   }
+  function readyCircle(name) {
+    if (!readyCircle.set) {
+      readyCircle.set = {};
+      READY_SUBCATS.concat(READY_MORE, READY_WHAT, ['Геймерам']).forEach(function (n) {
+        if (n && n !== 'Универсальные' && n !== 'Напольные композиции') readyCircle.set[n] = 1;
+      });
+    }
+    return !!readyCircle.set[name];
+  }
   function inGroup(p, group) {
     var r = tagsOf(p);
     var cat = String(p.category || '');
@@ -72,13 +81,20 @@
     var isHoliday = r.some(function (x) { return HOLIDAYS.indexOf(x) >= 0; });
     var hasChar = !!(p.character_name || '').trim();
     var isIdea = !isUnit && !isHoliday && !!cat && AUDIENCE.indexOf(cat) < 0;
+    var inReadyCircle = r.some(function (x) { return readyCircle(x); });
     if (group === 'unit') return isUnit;
     // Праздники: в т.ч. фольга/ходячие/круги поштучно с тегом праздника
     if (group === 'holidays') return isHoliday;
     // Персонажи: товар с героем. Поштучные шары — только когда выбран конкретный персонаж.
     if (group === 'characters') return hasChar && (!isUnit || !!character);
     if (group === 'all') return true;
-    if (group === 'ideas' || group === 'ready') return (!isUnit && !isHoliday && !hasChar) || isIdea;
+    if (group === 'ideas') return isIdea;
+    // Готовые: отмеченный кружок («для кого», повод, тип) не прячется из‑за даты или персонажа.
+    if (group === 'ready') {
+      if (isUnit) return false;
+      if (inReadyCircle) return true;
+      return !isHoliday && !hasChar;
+    }
     return !isUnit && !isHoliday && !hasChar && !isIdea;
   }
   function productHasLabel(p, label) {
@@ -428,7 +444,6 @@
       /* Герой не прячет карточку из выбранного кружка. В общей ленте «Готовые» она остаётся только у персонажа. */
       var inChosenCircle = group === 'ready' && category !== 'Все товары'
         && !isUnitProduct(p)
-        && !tagsOf(p).some(function (x) { return HOLIDAYS.indexOf(x) >= 0; })
         && productHasLabel(p, category);
       var inG = searched || inChosenCircle || (group === 'all' ? !inGroup(p, 'unit') : inGroup(p, group));
       var hay = norm([p.title, p.sku, p.short_description, p.description, p.composition, p.category, p.character_name, p.age_group].concat(p.tags || []).filter(Boolean).join(' '));

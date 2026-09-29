@@ -49,7 +49,7 @@ Object.assign(app, {
 
   /** All catalog scenes: AI rephotograph (Manus-style) against studio reference */
   usesRephotographMode(scene) {
-    return ['floor', 'surprise', 'balloon_figures', 'photozone', 'auto', 'handheld_bouquet', 'wall_only', 'unit_balloon', 'arch'].includes(scene || 'floor');
+    return ['floor', 'surprise', 'balloon_figures', 'photozone', 'auto', 'handheld_bouquet', 'wall_only', 'ceiling', 'unit_balloon', 'arch'].includes(scene || 'floor');
   },
 
   syncStudioModeHint() {
@@ -177,6 +177,14 @@ Object.assign(app, {
         useFloorAlignment: false,
         maxHeight: 0.76,
         description: 'Только стена'
+      },
+      ceiling: {
+        targetWidth: 0.88,
+        centerX: 0.5,
+        centerY: 0.34,
+        useFloorAlignment: false,
+        maxHeight: 0.70,
+        description: 'Связка под потолком — верх кадра, без пола'
       },
       photozone: {
         targetWidth: 0.94,
@@ -970,6 +978,8 @@ Object.assign(app, {
         ? '✋ Manus: AI переснимает букет — стена + рука...'
         : this.isWalkerOnFloor?.(scene)
           ? '🪵 Ходячая фигура: стена + пол, как напольная...'
+          : scene === 'ceiling'
+          ? '☁️ Потолок: связка сверху, линия потолка, без пола...'
           : (scene === 'wall_only' || scene === 'unit_balloon')
           ? '🧱 Manus: sunburst → banana → Flux...'
           : '📸 AI переснимает в студии (sunburst → banana → Flux)...';

@@ -759,6 +759,7 @@ function sceneTypeHint(scene) {
     case 'handheld_bouquet': return 'Букет из шаров';
     // wall_only: фольга/бабл на стене — НЕ «Фигуры» и НЕ авто-«Букет» (букет = сцена handheld)
     case 'wall_only': return '';
+    case 'ceiling': return '';
     case 'floor': return '';
     case 'surprise': return 'Шар-сюрприз';
     case 'balloon_figures': return 'Фигуры из шаров';
@@ -966,7 +967,8 @@ ${BUDGET_OPTIONS.join(' | ')}
   6) «Универсальные» — нейтральная композиция / цифры некруглые (напр. 28, 5+7) / нет явного пола, нет однозначного имени и нет доминирующего розового или голубого у детской карточки. НЕ оставляй category пустым
 - тип изделия — только в tags
 - «Букет из шаров» в tags — ТОЛЬКО если сцена handheld_bouquet или в составе явно «букет». Сцена wall_only сама по себе НЕ букет
-- Сцена wall_only / unit_balloon: ЗАПРЕЩЕНО ставить тег «Напольные композиции» (это не полка «пол», а съёмка на стене)
+- Сцена wall_only / ceiling / unit_balloon: ЗАПРЕЩЕНО ставить тег «Напольные композиции» (это не полка «пол»)
+- Сцена ceiling («под потолком»): готовая висящая связка. ЗАПРЕЩЕНО теги «Фотозона», «Напольные композиции», «Фигуры из шаров». Это не аренда каркаса и не скрутка на полу
 - «Шар-сюрприз» — ТОЛЬКО если сцена surprise. На остальных сценах этот тег и категорию не ставь
 - «Фигуры из шаров» — ТОЛЬКО скрутка/лепка из множества шаров, стоящая на полу. НЕ ставь этот тег для фольгированных персонажей (Пикачу, Гонщик, зайчик, жираф), баблов, фонтанов и композиций на стене
 - Мольберт / пенопластовый круг / каркас-обруч (фотозона) → в tags «Фотозона». Если foil_digits = "1", category всё равно «1 годик», тег «Фотозона» рядом
@@ -1060,7 +1062,8 @@ foil_digits = "${trustedDigits}" (число ${trustedNum}).
 Сырой состав от пользователя (оформи красиво, исправь орфографию, числа сохрани; скобки-подсказки уже убраны): ${rawComposition || 'не указан'}
 ${hintsBlock}
 Сцена Studio Pro: ${scene || 'floor'}
-Подсказка типа изделия для tags: ${['wall_only', 'unit_balloon'].includes(scene) || ((scene || '') === 'floor' && !floorAdvance) ? 'НЕ ставь «Напольные композиции»' : (typeHint || 'по фото')}
+Подсказка типа изделия для tags: ${['wall_only', 'unit_balloon', 'ceiling'].includes(scene) || ((scene || '') === 'floor' && !floorAdvance) ? 'НЕ ставь «Напольные композиции»' : (typeHint || 'по фото')}
+${scene === 'ceiling' ? 'Сцена «под потолком»: готовая связка у потолка. ЗАПРЕЩЕНО теги «Фотозона», «Напольные композиции», «Фигуры из шаров». Аудиторию и персонажа определяй по фото как обычно.' : ''}
 ${holidayOnly ? `Праздничная/тематическая категория (обязательно): ${holidayOnly}` : ''}
 ${boxOnly ? 'В составе коробка — category и tags только «Коробка-сюрприз». age_group обязателен.' : ''}
 ${bouquetOnly ? 'Это букет из шаров без тематики в скобках — category и tags только «Букет из шаров».' : ''}
@@ -1478,12 +1481,18 @@ function sanitizeCardMetadata(data, scene = 'floor', price = 0, rawComposition =
     }
   }
   // Фольга на стене / букет / поштучно — тег скруток запрещён
-  if (['wall_only', 'unit_balloon', 'handheld_bouquet'].includes(scene)) {
+  if (['wall_only', 'unit_balloon', 'handheld_bouquet', 'ceiling'].includes(scene)) {
     tags = tags.filter((t) => t !== 'Фигуры из шаров');
   }
-  // Стена / поштучно — не полка «Напольные композиции»
-  if (['wall_only', 'unit_balloon'].includes(scene)) {
+  // Стена / поштучно / потолок — не полка «Напольные композиции»
+  if (['wall_only', 'unit_balloon', 'ceiling'].includes(scene)) {
     tags = tags.filter((t) => t !== 'Напольные композиции');
+  }
+  if (scene === 'ceiling') {
+    tags = tags.filter((t) => t !== 'Фотозона');
+    if (data.category === 'Фотозона' || data.category === 'Напольные композиции' || data.category === 'Фигуры из шаров') {
+      data.category = '';
+    }
   }
   // Отложенные разделы (пока без карточек)
   tags = tags.filter((t) => !DEFERRED_TYPE_TAGS.includes(t));
@@ -1813,6 +1822,28 @@ FORBIDDEN: full person / model / face / body in frame, floor, baseboard, laminat
 OUTPUT: one square 1:1 catalog photo — studio wall, bouquet held from the side by one female hand, forearm leaving the left or right edge, ribbon tails fully visible with wall under the tips, NO hand from the bottom, NO easel/vase/room props, NO person/face/body, no hang-tags, bright and sharp.`;
   }
 
+  if (scene === 'ceiling') {
+    return `Rephotograph this VigSharm HANGING balloon set for a square catalog card. The set hangs from above. Change ONLY the room and lighting — NEVER rebuild the balloons.
+
+TASK:
+1. Replace the original room (white wall, brick, drop-ceiling tiles, lamps, windows) with the VigSharm studio.
+2. Use the SECOND reference ONLY for wall color: warm light beige-grey plaster. Do NOT copy a floor from that reference.
+3. Show a narrow plain ceiling band along the TOP edge — same light family, slightly lighter than the wall, one clean horizontal corner where ceiling meets wall.
+4. NO floor, NO baseboard, NO laminate, NO furniture. The lower part of the frame is empty studio wall.
+5. Keep the cluster hung at the TOP: the highest balloons touch or nearly touch the ceiling line. Ribbons may leave the top edge. Do NOT drop the set into the middle of the wall and do NOT stand it on a floor.
+6. Do NOT copy the source ceiling grid, acoustic tiles, brick, or painted white wall.
+
+${lock}
+
+${logoClean}
+
+${peopleClean}
+
+FORBIDDEN: floor, baseboard, laminate, drop-ceiling tiles, ceiling grid, lamps, brick wall, standing the product on the floor, centering the cluster mid-wall, people, sticker/cutout look, extra balloons, changed prints or colors, plastic CGI.
+
+OUTPUT: one square 1:1 catalog photo — the same hanging set under a plain studio ceiling line, beige-grey wall below, no floor.`;
+  }
+
   if (isWallOnlyScene(scene) && !isWalkerOnFloor(scene, opts)) {
     const unit = scene === 'unit_balloon';
     return `Rephotograph this VigSharm balloon product for a square catalog card — Manus style: one REAL photograph shot by a professional product photographer in a commercial catalog studio (NOT a cutout/sticker composite, NOT a phone snap in a dark room).
@@ -2056,6 +2087,16 @@ function buildFluxPrompt(scene, opts = {}) {
   if (scene === 'arch') {
     return `Improve this balloon arch photo: brighter, cleaner, sharper, same place and same garland. Do not change any text on the sign, posters, or balloons — copy letters exactly. Do not add balloons. Square 1:1. Real photo, not CGI.`.trim();
   }
+  if (scene === 'ceiling') {
+    return `Edit this VigSharm hanging balloon set. Change only the room and lighting. Do not rebuild the product.
+
+The set HANGS from the top. Highest balloons touch a plain ceiling line. Ribbons may leave the top edge.
+Wall: warm light beige-grey from the SECOND reference. A narrow plain ceiling band at the top, slightly lighter than the wall.
+NO floor, NO baseboard, NO laminate, NO ceiling tiles, NO brick, NO lamps.
+Square 1:1, bright catalog light. Real photo, not CGI.
+KEEP exactly: balloon count, colors, prints, foil characters, ribbons.
+Do not add balloons. Do not stand the set on a floor.`.trim();
+  }
   if (scene === 'surprise') {
     const hanging = opts.surprise_pose === 'hang';
     return `Edit this VigSharm surprise-balloon photo. Change only the room and lighting. Do not rebuild the product.
@@ -2099,10 +2140,14 @@ ${extra}`.trim();
 function buildRephotographAttempts(imageUrl, referenceUrl, prompt, resolution = '2K', prefer = 'quality', scene = 'floor', opts = {}) {
   const res = ['1K', '2K', '4K'].includes(resolution) ? resolution : '2K';
   const keepBg = scene === 'arch';
-  const wallOnly = ['wall_only', 'unit_balloon', 'handheld_bouquet'].includes(scene) && !isWalkerOnFloor(scene, opts);
+  const ceiling = scene === 'ceiling';
+  const wallOnly = ceiling || (['wall_only', 'unit_balloon', 'handheld_bouquet'].includes(scene) && !isWalkerOnFloor(scene, opts));
   const wallHint = '\n\nTarget room: VigSharm studio wall from the SECOND reference — warm light beige-grey plaster, natural catalog softbox daylight (not overexposed wash). Copy reference wall tone; do NOT darken into taupe/muddy grey and do NOT blow out to pure white. NO invented mottled/smudged wall.';
   const floorHint = '\n\nTarget FLOOR from the SECOND reference — LIGHT pale oak / light grey-beige laminate matching reference brightness. Place ONLY the product CLOSE to the white baseboard (short floor strip only — not mid-room): balloons, ribbons, their weights, and a gift/surprise box if it is part of the composition. DELETE room props in place — do NOT move them with the product: vase, glass, dried flowers, pampas grass, houseplant, random floor object. Hang-tags: erase in place or keep pixel-locked on the same balloon — NEVER relocate a tag. Soft contact shadows only under the original balloon base. REMOVE any table, stolik, glass table, stool, chair, wire stand or other furniture from the source — the existing balloon base sits directly on the laminate. A printed gift box that presents the balloons is PRODUCT, not furniture — keep it. Do NOT invent new balloons under the base. FORBIDDEN: dark brown/charcoal laminate; large empty floor toward the wall; keeping a table under the product; carrying a vase/pampas/stray object into the studio; a hang-tag moved to a new spot or another balloon; any real people/models in the frame. If source has a person posing with balloons: erase them completely, keep only the balloon product. If source has a mirror/vanity: remove it; count ONLY real balloons on the floor in front of the glass — NEVER copy balloons that exist only as mirror reflections (e.g. one real heart + reflection → output one heart). A foil heart touching the vanity frame is still ONE heart: one red weight on the real floor means ONE heart and ONE ribbon bundle. Do NOT split it into a pair while erasing the mirror.';
   const surpriseHang = scene === 'surprise' && opts?.surprise_pose === 'hang';
+  const ceilingHint = ceiling
+    ? '\n\nCEILING HANG: the set stays at the TOP under a narrow plain ceiling band (no tiles, no lamps, no grid). Highest balloons meet the ceiling line. Ribbons may leave the top edge. NO floor, NO baseboard, NO laminate. Do NOT copy brick or a drop ceiling from the source. Do NOT stand the product on a floor and do NOT center it mid-wall.'
+    : '';
   const surpriseHint = scene !== 'surprise' ? ''
     : (surpriseHang
       ? '\n\nSURPRISE BALLOON HANGING: same studio wall, baseboard and LIGHT laminate, but the balloon stays suspended from its ribbon at the top. Do NOT set it on the floor. Do NOT add a stand. Soft shadow on the floor only.'
@@ -2111,12 +2156,12 @@ function buildRephotographAttempts(imageUrl, referenceUrl, prompt, resolution = 
     ? '\n\nKeep the original background exactly. Do not use a studio wall or floor.'
     : (scene === 'surprise'
       ? (wallHint + surpriseHint)
-      : (wallOnly ? wallHint : (wallHint + floorHint)));
+      : (ceiling ? (wallHint + ceilingHint) : (wallOnly ? wallHint : (wallHint + floorHint))));
   const withRef = (input) => (keepBg ? input : { ...input, reference_image: referenceUrl });
   const attempts = [];
 
   const pushBanana = () => {
-    const bananaExtra = keepBg ? '' : (scene === 'surprise' ? surpriseHint : (wallOnly ? '' : floorHint));
+    const bananaExtra = keepBg ? '' : (scene === 'surprise' ? surpriseHint : (ceiling ? ceilingHint : (wallOnly ? '' : floorHint)));
     attempts.push({
       model: 'image/nano-banana-2',
       input: withRef({
@@ -2320,6 +2365,12 @@ REPHOTOGRAPH / INTEGRATE:
 - Natural edge blending so the product feels physically in the room
 
 Do NOT reposition to fix floating. Do NOT redesign the product. No plastic 3D render. No full background replacement.`;
+
+  if (scene === 'ceiling') {
+    return `${base}
+
+SCENE: hanging balloon set under a plain ceiling line at the TOP of the frame. Warm beige-grey wall fills the rest. NO floor, NO baseboard, NO laminate, NO ceiling tiles. Do not drop the cluster into the middle of the wall.`;
+  }
 
   if (scene === 'photozone') {
     return `${base}

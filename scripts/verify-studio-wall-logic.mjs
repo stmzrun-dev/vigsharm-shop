@@ -39,6 +39,12 @@ assert(worker.includes('not overexposed') || worker.includes('NATURAL CATALOG DA
 assert(worker.includes('RIGID photo') || worker.includes('do not rebuild') || worker.includes('clustering density'), 'rigid product no densify');
 assert(worker.includes('PHOTOZONE PRODUCT LOCK') || worker.includes('mini filler balloons'), 'photozone no rebuild lock');
 assert(adminJs.includes("value: 'balloon_figures'"), 'balloon_figures in SCENES');
+assert(adminJs.includes("value: 'ceiling'"), 'ceiling scene in SCENES');
+assert(studio.includes("'ceiling'"), 'ceiling in studio modes');
+assert(html.includes('value="ceiling"'), 'publish scene chip for ceiling');
+assert(worker.includes("scene === 'ceiling'"), 'ceiling rephotograph branch');
+assert(worker.includes('plain ceiling band') || worker.includes('plain studio ceiling'), 'ceiling prompt keeps a ceiling line');
+assert(worker.includes('NO floor, NO baseboard, NO laminate, NO furniture'), 'ceiling prompt has no floor');
 assert(studio.includes("'balloon_figures'"), 'balloon_figures in studio modes');
 assert(!studio.includes('prepareSourceForRephotograph'), 'no restore before rephotograph');
 assert(!studio.includes('applySignPatchFromOriginal'), 'old sign patch removed');

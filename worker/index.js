@@ -1115,7 +1115,9 @@ ${image_url
     return json({ ok: false, error: 'AI вернул некорректный JSON: ' + text.slice(0, 200) }, 502);
   }
 
-  data = sanitizeCardMetadata(data, scene || 'floor', priceNum, rawComposition, takenTitles);
+  const digitHint = digitCountFromText([rawIn, ...compositionHints].join('\n'));
+  const digitFromPhoto = trustedDigits.length >= 2 ? 2 : (trustedDigits.length === 1 ? 1 : 0);
+  data = sanitizeCardMetadata(data, scene || 'floor', priceNum, rawComposition, takenTitles, digitHint || digitFromPhoto);
   if (surpriseOnly) {
     applyTypeOnlyCard(data, 'Шар-сюрприз');
   } else if (holidayOnly) {
@@ -1257,15 +1259,32 @@ function sanitizeCompositionBoxes(lines) {
   }).filter(Boolean);
 }
 
-function sanitizeCompositionDigitLines(lines, rawComposition) {
+function digitCountFromText(text) {
+  const t = String(text || '').toLowerCase().replace(/ё/g, 'е');
+  if (!t) return 0;
+  if (/(?:^|[^\d])2\s*(?:(?!фигур)[а-яa-z-]*\s*){0,3}цифр/.test(t)
+    || /(?:^|[^а-яa-z0-9])две\s*(?:(?!фигур)[а-яa-z-]*\s*){0,2}цифр/.test(t)) {
+    return 2;
+  }
+  if (/(?:^|[^\d])1\s*(?:[а-яa-z-]*\s*){0,3}цифр/.test(t)
+    || /(?:^|[^а-яa-z0-9])одн[аоуы]\s*(?:[а-яa-z-]*\s*){0,2}цифр/.test(t)
+    || /(?:^|[^а-яa-z0-9])цифр/.test(t)
+    || /фольг\w*\s*цифр/.test(t)) {
+    return 1;
+  }
+  return 0;
+}
+
+function sanitizeCompositionDigitLines(lines, rawComposition, forcedCount) {
   const raw = String(rawComposition || '').toLowerCase().replace(/ё/g, 'е');
+  const fromText = digitCountFromText(raw);
+  const n = fromText || (forcedCount === 1 || forcedCount === 2 ? forcedCount : 0);
   const userMentionedDigit = /цифр/.test(raw);
-  const userAskedTwo = /(?:^|[^\d])2\s+(?:[а-яa-z-]+\s+){0,3}цифр/.test(raw)
-    || /(?:^|[^а-яa-z0-9])две\s+(?:[а-яa-z-]+\s+){0,2}цифр/.test(raw);
+  const userAskedTwo = n === 2;
   return (lines || []).map((line) => String(line || '').trim()).filter(Boolean).flatMap((line) => {
     const t = line.toLowerCase().replace(/ё/g, 'е');
     if (!/цифр/.test(t)) return [line];
-    if (!userMentionedDigit) return [];
+    if (!userMentionedDigit && !n) return [];
     if (userAskedTwo) return ['2 цифры'];
     return ['цифра'];
   });
@@ -1394,7 +1413,7 @@ function sanitizeTitleAgainstExisting(data, takenTitles = []) {
   if (!data.title) data.ask_title = true;
 }
 
-function sanitizeCardMetadata(data, scene = 'floor', price = 0, rawComposition = '', takenTitles = []) {
+function sanitizeCardMetadata(data, scene = 'floor', price = 0, rawComposition = '', takenTitles = [], digitCount = 0) {
   const stripEmoji = (s) => String(s || '')
     .replace(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\u{FE0F}\u{200D}]/gu, '')
     .replace(/\s{2,}/g, ' ')
@@ -1510,7 +1529,7 @@ function sanitizeCardMetadata(data, scene = 'floor', price = 0, rawComposition =
   if (Array.isArray(data.composition)) {
     data.composition = sanitizeCompositionWording(data.composition);
     data.composition = sanitizeCompositionBoxes(data.composition);
-    data.composition = sanitizeCompositionDigitLines(data.composition, rawComposition);
+    data.composition = sanitizeCompositionDigitLines(data.composition, rawComposition, digitCount);
   }
 
   const occ = String(data.occasion || '').toLowerCase();

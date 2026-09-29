@@ -284,13 +284,16 @@ assert(adminExt.includes('(?!фигур)'), '«2 фигуры … цифра» i
 
 function digitCountFromText(text) {
   const t = String(text || '').toLowerCase().replace(/ё/g, 'е');
-  if (/(?:^|[^\d])2\s+(?:(?!фигур)[а-яa-z-]+\s+){0,3}цифр/.test(t)
-    || /(?:^|[^а-яa-z0-9])две\s+(?:(?!фигур)[а-яa-z-]+\s+){0,2}цифр/.test(t)) return 2;
+  if (/(?:^|[^\d])2\s*(?:(?!фигур)[а-яa-z-]*\s*){0,3}цифр/.test(t)
+    || /(?:^|[^а-яa-z0-9])две\s*(?:(?!фигур)[а-яa-z-]*\s*){0,2}цифр/.test(t)) return 2;
   if (/цифр/.test(t)) return 1;
   return 0;
 }
 assert(digitCountFromText('2 фольгированные фигуры бабочек цифра') === 1, 'butterfly figures + цифра → 1');
 assert(digitCountFromText('2 фольгированные цифры') === 2, '2 фольгированные цифры → 2');
 assert(digitCountFromText('две цифры') === 2, 'две цифры → 2');
+assert(digitCountFromText('2цифры') === 2, '2цифры → 2');
+assert(digitCountFromText('2цифр') === 2, '2цифр → 2');
+assert(digitCountFromText('(2цифры)') === 2, 'скобки 2цифры → 2');
 
 console.log('✓ client options normalize + visibility OK');

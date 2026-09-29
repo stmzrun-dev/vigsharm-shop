@@ -698,11 +698,10 @@ Object.assign(app, {
       if (!raw) return ' ';
       const key = raw.toLowerCase().replace(/ё/g, 'е');
       hints.push(raw);
-      // (цифра) | (1 цифра) | (2 цифры). Голое «цифры» = 1, не 2.
-      if (/^(?:\d\s*)?цифр/.test(key) || /^две\s+цифр/.test(key) || /^одн[аоуы]\s+цифр/.test(key)) {
-        if (/^2\b/.test(key) || /^две\b/.test(key)) digitCount = 2;
-        else digitCount = digitCount === 2 ? 2 : 1;
-      }
+      // (2цифры), (2 цифр), (две цифры) → 2. (цифра), (1цифра) → 1.
+      const noted = this.compositionDigitCountFromText?.(key) || 0;
+      if (noted === 2) digitCount = 2;
+      else if (noted === 1 && digitCount !== 2) digitCount = 1;
       const hit = this.matchHolidayCategory(raw);
       if (hit) holiday = hit;
       return ' ';
@@ -937,16 +936,16 @@ Object.assign(app, {
   compositionDigitCountFromText(text) {
     const t = String(text || '').toLowerCase().replace(/ё/g, 'е');
     if (!t) return 0;
-    // «2 цифры», «2 фольгированные цифры», «две цифры».
+    // «2 цифры», «2цифр», «2 фольгированные цифры», «двецифры».
     // «2 фигуры … цифра» — две фигуры, не две цифры.
-    if (/(?:^|[^\d])2\s+(?:(?!фигур)[а-яa-z-]+\s+){0,3}цифр/.test(t)
-      || /(?:^|[^а-яa-z0-9])две\s+(?:(?!фигур)[а-яa-z-]+\s+){0,2}цифр/.test(t)) {
+    if (/(?:^|[^\d])2\s*(?:(?!фигур)[а-яa-z-]*\s*){0,3}цифр/.test(t)
+      || /(?:^|[^а-яa-z0-9])две\s*(?:(?!фигур)[а-яa-z-]*\s*){0,2}цифр/.test(t)) {
       return 2;
     }
-    if (/(?:^|[^\d])1\s+(?:[а-яa-z-]+\s+){0,3}цифр/.test(t)
-      || /(?:^|[^а-яa-z0-9])одн[аоуы]\s+(?:[а-яa-z-]+\s+){0,2}цифр/.test(t)
+    if (/(?:^|[^\d])1\s*(?:[а-яa-z-]*\s*){0,3}цифр/.test(t)
+      || /(?:^|[^а-яa-z0-9])одн[аоуы]\s*(?:[а-яa-z-]*\s*){0,2}цифр/.test(t)
       || /(?:^|[^а-яa-z0-9])цифр/.test(t)
-      || /фольг\w*\s+цифр/.test(t)) {
+      || /фольг\w*\s*цифр/.test(t)) {
       return 1;
     }
     return 0;
@@ -963,16 +962,17 @@ Object.assign(app, {
   },
 
   /** ИИ не повышает 1→2, если в сыром составе не было «2/две цифры». */
-  sanitizeAiDigitLines(lines, rawComposition) {
+  sanitizeAiDigitLines(lines, rawComposition, forcedCount) {
     const raw = String(rawComposition || '').toLowerCase().replace(/ё/g, 'е');
+    const fromText = this.compositionDigitCountFromText?.(raw) || 0;
+    const n = fromText || (forcedCount === 1 || forcedCount === 2 ? forcedCount : 0);
     const userMentionedDigit = /цифр/.test(raw);
-    const userAskedTwo = /(?:^|[^\d])2\s+(?:[а-яa-z-]+\s+){0,3}цифр/.test(raw)
-      || /(?:^|[^а-яa-z0-9])две\s+(?:[а-яa-z-]+\s+){0,2}цифр/.test(raw);
+    const userAskedTwo = n === 2;
     const arr = Array.isArray(lines) ? lines : String(lines || '').split(/\n/);
     return arr.map((line) => String(line || '').trim()).filter(Boolean).flatMap((line) => {
       const t = line.toLowerCase().replace(/ё/g, 'е');
       if (!/цифр/.test(t)) return [line];
-      if (!userMentionedDigit) return [];
+      if (!userMentionedDigit && !n) return [];
       if (userAskedTwo) return ['2 цифры'];
       return ['цифра'];
     });

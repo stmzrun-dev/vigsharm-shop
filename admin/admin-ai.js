@@ -1109,6 +1109,10 @@ Object.assign(app, {
           console.warn('[AI] foil digits', digitErr);
         }
       }
+      if (!(Number(this.currentProduct.digit_from_marker) > 0) && foilDigits) {
+        this.currentProduct.digit_from_marker = foilDigits.length >= 2 ? 2 : 1;
+      }
+      const digitMarker = Number(this.currentProduct.digit_from_marker) || 0;
 
       statusEl.textContent = foilDigits
         ? `✨ ИИ заполняет карточку... цифры ${foilDigits}`
@@ -1154,7 +1158,7 @@ Object.assign(app, {
       this.currentProduct.full_description = data.full_description || this.currentProduct.full_description;
       // Состав: ИИ только оформляет ваш текст
       if (data.composition) {
-        data.composition = this.sanitizeAiDigitLines?.(data.composition, userComposition) || data.composition;
+        data.composition = this.sanitizeAiDigitLines?.(data.composition, rawComposition, digitMarker) || data.composition;
       }
       this.currentProduct.composition = data.composition || this.currentProduct.composition;
       if (sceneHint === 'ceiling') {

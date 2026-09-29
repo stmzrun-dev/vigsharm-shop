@@ -2156,6 +2156,21 @@ Object.assign(app, {
   },
 
   // === Form Data Collection ===
+  categoryFromSectionTags(tags) {
+    const list = Array.isArray(tags) ? tags : [];
+    const groups = [
+      (typeof TAGS !== 'undefined' && TAGS.forWho) || [],
+      (typeof TAGS !== 'undefined' && TAGS.occasion) || [],
+      (typeof TAGS !== 'undefined' && TAGS.dates) || [],
+      (typeof TAGS !== 'undefined' && TAGS.type) || []
+    ];
+    for (const group of groups) {
+      const hit = list.find((t) => group.includes(t));
+      if (hit) return hit;
+    }
+    return '';
+  },
+
   collectFormData() {
     const tags = [];
     document.querySelectorAll('#tags-for-who input:checked, #tags-occasion input:checked, #tags-dates input:checked, #tags-type input:checked')
@@ -2195,6 +2210,15 @@ Object.assign(app, {
     if (unit && !shortDesc && titleValue) shortDesc = titleValue.slice(0, 110);
 
     let category = document.getElementById('product-category').value || (unit ? 'Шары поштучно' : '');
+    if (!category) {
+      category = this.categoryFromSectionTags?.(tags) || '';
+      if (category) {
+        const catEl = document.getElementById('product-category');
+        if (catEl) catEl.value = category;
+        const reviewCat = document.getElementById('ai-review-category');
+        if (reviewCat) reviewCat.value = category;
+      }
+    }
     const scene = unit ? 'unit_balloon' : (this.currentProduct.scene || 'floor');
     if (unit && !tags.includes('Шары поштучно')) tags.push('Шары поштучно');
 

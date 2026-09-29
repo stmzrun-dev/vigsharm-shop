@@ -2302,7 +2302,7 @@ const app = {
         return;
       }
       if (!data.category) {
-        this.toast('Выберите категорию', 'error');
+        this.toast('Выберите раздел каталога', 'error');
         document.getElementById('product-category')?.focus();
         document.getElementById('block-main')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
         return;

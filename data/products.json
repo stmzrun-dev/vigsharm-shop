@@ -2,6 +2,56 @@
   "ok": true,
   "products": [
     {
+      "id": "c57dc175-ec91-4229-bea5-da832d2d0edb",
+      "title": "Шампань и персик",
+      "article": "JUB-016",
+      "price": 3840,
+      "short_description": "Нежная композиция в персиковых и золотых тонах с шарами хром и конфетти.",
+      "full_description": "Элегантная композиция в пастельных персиковых и золотых оттенках. Латексные шары дополнены хромированными и прозрачными с золотым конфетти.",
+      "composition": [
+        "2 цифры",
+        "3 шара хром",
+        "3 шара с конфетти",
+        "4 шара"
+      ],
+      "category": "Юбилей",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары на 20 лет в персиковых тонах — Армавир | VigSharm",
+      "seo_description": "Элегантная композиция с цифрами 20 в нежных персиковых и золотых оттенках. Хромированные шары и конфетти для стильного юбилея. Доставка в Армавире.",
+      "slug": "champagne-and-peach-20",
+      "scene": "floor",
+      "tags": [
+        "Юбилей"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/64f5fc1e-ed25-40e6-aef3-db73d92333ce.jpg",
+        "photo_dhash": "0f2f93caf37e7d7f",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 2
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/fe0e07fe-81de-4c5a-b68e-cf08d4a62611.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/fe0e07fe-81de-4c5a-b68e-cf08d4a62611.jpg",
+      "status": "draft",
+      "show_on_site": false,
+      "created_at": "2026-09-29T11:00:17.217Z",
+      "updated_at": "2026-09-29T11:09:30.117Z",
+      "thumb_photo": null
+    },
+    {
       "id": "9478c217-a8a9-499d-beb6-efb1b7e43271",
       "title": "Ночной дракоша",
       "article": "UNI-011",

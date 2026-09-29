@@ -2,6 +2,50 @@
   "ok": true,
   "products": [
     {
+      "id": "dfb42273-cb3a-4a66-81ad-181f5d83fba8",
+      "title": "Вечно молодая",
+      "article": "HER-020",
+      "price": 4600,
+      "short_description": "Стеклянный баблс с ведьмой и зелёно-золотая композиция.",
+      "full_description": "Прозрачный баблс с принтом ведьмы на метле и надписью в окружении зелёных и золотых хромированных шаров.",
+      "composition": [
+        "стеклянный баблс с надписью",
+        "10 шаров хром"
+      ],
+      "category": "Для неё",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Воздушные шары с баблс и ведьмой — Армавир",
+      "seo_description": "Композиция со стеклянным баблс с принтом ведьмы и надписью, зелёные и золотые хромированные шары. Доставка по Армавиру.",
+      "slug": "vechno-molodaya",
+      "scene": "wall_only",
+      "tags": [
+        "Для неё"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/c27ff719-bc1e-459c-9b64-a958d9e94ba3.jpg",
+        "photo_dhash": "4fc78145c1cb4b0b"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/64314f4a-9ab2-43c7-829a-605ffc3da939.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/64314f4a-9ab2-43c7-829a-605ffc3da939.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-29T06:04:42.279Z",
+      "updated_at": "2026-09-29T06:04:42.279Z",
+      "thumb_photo": null
+    },
+    {
       "id": "83a7bb92-e035-460b-ae60-6d8878e9f41b",
       "title": "Солнечный день",
       "article": "HER-019",
@@ -275,7 +319,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-28T18:49:19.803Z",
-      "updated_at": "2026-09-28T19:04:40.658Z",
+      "updated_at": "2026-09-29T06:02:15.192Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/eff5e150-6aa9-44d1-812e-f3c44ba67bec.webp"
     },
     {
@@ -13934,11 +13978,11 @@
         "personal_inscription": false,
         "photozone_rental": false,
         "studio_original_url": "https://i.ibb.co/bj8CFxHn/shary-18-let-29-1007x1024.jpg",
+        "photo_dhash": "bea6b4b6b6a4fc7e",
         "digit_choice": {
           "enabled": true,
           "count_on_photo": 2
-        },
-        "photo_dhash": "bea6b4b6b6a4fc7e"
+        }
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/6f0508ca-d56c-489e-bab6-72954b757b88.jpg"
@@ -13947,7 +13991,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-24T08:15:44.761Z",
-      "updated_at": "2026-09-25T15:28:58.726Z",
+      "updated_at": "2026-09-29T06:02:07.088Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/94818afb-d18d-420b-8de7-574a470d2366.webp"
     },
     {
@@ -14314,7 +14358,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T22:04:13.278Z",
-      "updated_at": "2026-09-28T07:55:13.716Z",
+      "updated_at": "2026-09-29T06:01:58.384Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/c4395a49-96b6-4965-8743-100878615670.webp"
     },
     {
@@ -18108,7 +18152,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T11:15:14.455Z",
-      "updated_at": "2026-09-28T07:48:08.180Z",
+      "updated_at": "2026-09-29T06:01:44.561Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/baa5402f-9bbf-4f52-a5bc-c17a214fd6f3.webp"
     },
     {
@@ -18681,12 +18725,12 @@
         "personal_inscription": true,
         "photozone_rental": false,
         "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/f3347f66-9bc0-4bfd-b0c8-af5335eebc80.jpg",
+        "photo_dhash": "bcf8f8e2f2e8f8f8",
         "floor_type": "air",
         "digit_choice": {
           "enabled": true,
           "count_on_photo": 2
-        },
-        "photo_dhash": "bcf8f8e2f2e8f8f8"
+        }
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/728d0246-d521-4691-8115-ee79d06e4d04.png"
@@ -18695,7 +18739,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-22T22:21:13.479Z",
-      "updated_at": "2026-09-28T07:47:41.951Z",
+      "updated_at": "2026-09-29T06:01:35.208Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/6e382e4b-6128-4df7-a43e-8e3e11cd34a3.webp"
     },
     {
@@ -21763,11 +21807,12 @@
         "personal_inscription": true,
         "photozone_rental": false,
         "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/01da157e-810e-4163-865a-2d54ffd64ec2.jpg",
+        "photo_dhash": "ecbafaf8e0c0c4c4",
+        "floor_type": "air",
         "digit_choice": {
           "enabled": true,
-          "count_on_photo": 1
-        },
-        "photo_dhash": "ecbafaf8e0c0c4c4"
+          "count_on_photo": 2
+        }
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/4f173a29-eade-4fe7-9542-19d8dd5a95bb.png"
@@ -21776,7 +21821,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-21T09:43:44.060Z",
-      "updated_at": "2026-09-28T07:45:36.914Z",
+      "updated_at": "2026-09-29T05:17:29.275Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/c2d055a3-f4dd-422c-8657-ef7f85d9d650.webp"
     },
     {
@@ -22071,7 +22116,7 @@
         "3 шара с конфетти",
         "5 латексных шаров"
       ],
-      "category": "Для неё",
+      "category": "Для него",
       "character": null,
       "age_group": "Для взрослых",
       "budget": "3 500–5 000 ₽",
@@ -22083,7 +22128,7 @@
       "slug": "nochnoj-blesk",
       "scene": "wall_only",
       "tags": [
-        "Для неё"
+        "Для него"
       ],
       "client_options": {
         "available_on_request": false,
@@ -22101,7 +22146,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-21T07:58:22.890Z",
-      "updated_at": "2026-09-28T07:45:24.907Z",
+      "updated_at": "2026-09-29T06:01:16.957Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/07dedd35-91f5-4715-8299-bc03205e7693.webp"
     },
     {
@@ -22650,7 +22695,6 @@
       "scene": "floor",
       "tags": [
         "Для неё",
-        "Юбилей",
         "Напольные композиции"
       ],
       "client_options": {
@@ -22660,12 +22704,12 @@
         "personal_inscription": true,
         "photozone_rental": false,
         "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/9d97a238-21a0-435f-9d7d-20026b01c9d2.jpg",
+        "photo_dhash": "4765ecb070f4f0f4",
         "floor_type": "air",
         "digit_choice": {
           "enabled": true,
           "count_on_photo": 2
-        },
-        "photo_dhash": "4765ecb070f4f0f4"
+        }
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/a4068b9c-9bdf-408f-a808-bad8a7b87f78.png"
@@ -22674,7 +22718,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-20T19:06:35.280Z",
-      "updated_at": "2026-09-28T07:45:02.191Z",
+      "updated_at": "2026-09-29T05:36:43.341Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/18a17589-0cbb-48a1-a7a2-37b2a0bd7929.webp"
     },
     {
@@ -23003,11 +23047,11 @@
         "personal_inscription": false,
         "photozone_rental": false,
         "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/19f1aee7-41df-4d5c-b96d-a8430a3157f4.jpg",
+        "photo_dhash": "1d59b0daaad55353",
         "digit_choice": {
           "enabled": true,
           "count_on_photo": 2
-        },
-        "photo_dhash": "1d59b0daaad55353"
+        }
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/fffa6b23-76cc-4a6c-8308-197b06f90654.png"
@@ -23016,7 +23060,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-20T17:26:39.150Z",
-      "updated_at": "2026-09-28T07:44:49.604Z",
+      "updated_at": "2026-09-29T05:36:29.498Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/123dd35c-9099-4e58-b05c-8a6fe1be78f5.webp"
     },
     {
@@ -23143,7 +23187,6 @@
         "personal_inscription": true,
         "photozone_rental": false,
         "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/ea8cae24-08f1-480c-b4d1-3c8d377a7f2e.jpg",
-        "floor_type": "helium",
         "photo_dhash": "176b716b71110317"
       },
       "photos": [
@@ -23153,7 +23196,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-20T09:23:27.392Z",
-      "updated_at": "2026-09-28T07:44:45.302Z",
+      "updated_at": "2026-09-29T05:36:21.034Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/846d284b-7509-420c-81fe-5449267a4674.webp"
     },
     {
@@ -23275,12 +23318,12 @@
         "personal_inscription": false,
         "photozone_rental": false,
         "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/45fc72c9-a618-48d4-b14f-efd533e796cb.jpg",
+        "photo_dhash": "7070f2f074b4f4f0",
         "floor_type": "air",
         "digit_choice": {
           "enabled": true,
           "count_on_photo": 2
-        },
-        "photo_dhash": "7070f2f074b4f4f0"
+        }
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/6629877a-be3a-4eff-b8f3-591ff9886e6f.png"
@@ -23289,7 +23332,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-19T22:33:33.504Z",
-      "updated_at": "2026-09-28T07:44:40.131Z",
+      "updated_at": "2026-09-29T05:36:00.305Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/b6ba7c2c-cc7f-4ef1-9030-db86cf93e5dc.webp"
     },
     {
@@ -23884,9 +23927,9 @@
         "шар баблс с бантиками",
         "5 латексных шаров"
       ],
-      "category": "Для неё",
+      "category": "Для девочки",
       "character": null,
-      "age_group": "Для взрослых",
+      "age_group": "Для детей",
       "budget": "3 500–5 000 ₽",
       "series_name": null,
       "occasion": null,
@@ -23896,6 +23939,7 @@
       "slug": "chernyy-bant",
       "scene": "wall_only",
       "tags": [
+        "Для девочки",
         "Для неё"
       ],
       "client_options": {
@@ -23914,7 +23958,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-19T13:43:19.215Z",
-      "updated_at": "2026-09-28T07:44:16.838Z",
+      "updated_at": "2026-09-29T05:20:35.359Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/d374ae80-c8ec-4637-8d39-ab2096be566f.webp"
     },
     {
@@ -25313,6 +25357,7 @@
       "slug": "alye-bantiki",
       "scene": "wall_only",
       "tags": [
+        "Для девочки",
         "Для неё"
       ],
       "client_options": {
@@ -25320,7 +25365,9 @@
         "advance_order_1_2_days": false,
         "number_choice": false,
         "personal_inscription": true,
-        "photozone_rental": false
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/3dda503e-36d3-4265-920f-3b344c5e3c56.png",
+        "photo_dhash": "bdececbcdcececec"
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/3dda503e-36d3-4265-920f-3b344c5e3c56.png"
@@ -25329,7 +25376,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-18T13:12:47.971Z",
-      "updated_at": "2026-09-28T07:43:46.116Z",
+      "updated_at": "2026-09-29T05:19:24.621Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/0b2e09e4-862a-4ff3-9228-78d2a70fa11a.webp"
     },
     {

@@ -2,6 +2,101 @@
   "ok": true,
   "products": [
     {
+      "id": "9478c217-a8a9-499d-beb6-efb1b7e43271",
+      "title": "Ночной дракоша",
+      "article": "UNI-011",
+      "price": 5580,
+      "short_description": "Связка сиреневых хромированных шаров с чёрным драконом под потолком.",
+      "full_description": "Композиция из переливающихся сиреневых шаров хром и фольгированной фигуры дракона с зелёными глазами. Готовая связка для украшения потолка.",
+      "composition": [
+        "26 шаров хром",
+        "фигура"
+      ],
+      "category": "Универсальные",
+      "character": "Дракон",
+      "age_group": "Для детей",
+      "budget": "5 000–8 000 ₽",
+      "series_name": "Как приручить дракона",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары с драконом под потолок — Армавир | VigSharm",
+      "seo_description": "Связка сиреневых хромированных шаров с фигурой дракона. Готовое украшение под потолок для детского праздника в Армавире.",
+      "slug": "nochnoj-drakosha",
+      "scene": "ceiling",
+      "tags": [
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/f12f60ee-5fd1-4c58-82a8-1036c5110b43.jpg",
+        "photo_dhash": "84d9c0f8dc80c0c0"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/6469bc36-fc8b-4960-9c3d-ccd1017edac1.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/6469bc36-fc8b-4960-9c3d-ccd1017edac1.jpg",
+      "status": "draft",
+      "show_on_site": false,
+      "created_at": "2026-09-29T08:01:39.212Z",
+      "updated_at": "2026-09-29T08:01:39.212Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "374a8760-5cd4-418d-8868-beab7027b577",
+      "title": "Лавандовый шарм",
+      "article": "UNI-010",
+      "price": 3830,
+      "short_description": "Композиция в лавандово-фиолетовых тонах с цифрами, сердцем и шарами с конфетти.",
+      "full_description": "Нежная композиция в сиреневых и фиолетовых оттенках с фольгированными цифрами, сердцем с надписью и хромированными шарами. Дополнена латексными шарами и шарами с конфетти.",
+      "composition": [
+        "2 цифры",
+        "сердце с надписью",
+        "2 шара с конфетти",
+        "5 шаров хром",
+        "2 шара"
+      ],
+      "category": "Универсальные",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Лавандовый шарм — воздушные шары на день рождения в Армавире",
+      "seo_description": "Композиция из шаров в лавандово-фиолетовых тонах с цифрами, сердцем с надписью и конфетти. Доставка воздушных шаров в Армавире от VigSharm.",
+      "slug": "lavandovyy-sharm",
+      "scene": "wall_only",
+      "tags": [
+        "Для неё"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": true,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/e148304a-2764-42f6-9ffc-537b835a3358.jpg",
+        "photo_dhash": "8f9606d7d2928286",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 2
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/2e7723f0-181f-478b-8c39-bf901c769744.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/2e7723f0-181f-478b-8c39-bf901c769744.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-29T07:22:37.905Z",
+      "updated_at": "2026-09-29T07:22:37.905Z",
+      "thumb_photo": null
+    },
+    {
       "id": "427979dc-eb53-4ef6-8b96-a21315fe021a",
       "title": "Ночной дракон",
       "article": "UNI-009",
@@ -24238,7 +24333,8 @@
         "advance_order_1_2_days": false,
         "number_choice": false,
         "personal_inscription": false,
-        "photozone_rental": false
+        "photozone_rental": false,
+        "photo_dhash": "fdfdf5b55bf5f575"
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/5553cf01-ee5b-414c-b117-613b28416af9.png"
@@ -24336,7 +24432,8 @@
         "digit_choice": {
           "enabled": true,
           "count_on_photo": 1
-        }
+        },
+        "photo_dhash": "286c6cec3c393879"
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/0085e6bc-344a-4b64-b485-c45a8ceee202.jpg"
@@ -24383,7 +24480,8 @@
         "digit_choice": {
           "enabled": true,
           "count_on_photo": 2
-        }
+        },
+        "photo_dhash": "fafeaea4e5e7a6fb"
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/5c162d35-85ce-43a0-9169-697514a35252.png"
@@ -24432,7 +24530,8 @@
         "digit_choice": {
           "enabled": true,
           "count_on_photo": 2
-        }
+        },
+        "photo_dhash": "9bbfbb33b539abaf"
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/acff6f23-0291-4860-89fd-e79c738e0078.png"
@@ -24572,7 +24671,8 @@
         "advance_order_1_2_days": true,
         "number_choice": false,
         "personal_inscription": true,
-        "photozone_rental": false
+        "photozone_rental": false,
+        "photo_dhash": "73347870722c2c2c"
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/124a6542-744d-41f2-a555-432cb87d5875.png"
@@ -24674,7 +24774,8 @@
           "item": "Мольберт с кругом из полистирола",
           "days": 3,
           "keep_price_delta": 500
-        }
+        },
+        "photo_dhash": "116246ccc6e6c4c4"
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/820c24e4-2443-425e-8354-b99149bee9e2.png"
@@ -24718,7 +24819,8 @@
         "advance_order_1_2_days": false,
         "number_choice": false,
         "personal_inscription": false,
-        "photozone_rental": false
+        "photozone_rental": false,
+        "photo_dhash": "f7e67670fac1dcdf"
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/b7f3680e-cd71-4d1b-91ec-740307e5e2a3.png"
@@ -24766,7 +24868,8 @@
           "item": "Мольберт с кругом из полистирола",
           "days": 3,
           "keep_price_delta": 500
-        }
+        },
+        "photo_dhash": "e5ccece4f2f2d2e4"
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/b53024bd-f3be-4d89-bb6a-eb9ce37230b9.png"
@@ -24809,7 +24912,8 @@
         "advance_order_1_2_days": false,
         "number_choice": false,
         "personal_inscription": true,
-        "photozone_rental": false
+        "photozone_rental": false,
+        "photo_dhash": "e7e8c89cdce4dcf0"
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/2ac3aae2-2c34-49e8-a6e6-3b8723a3a0fa.png"
@@ -24852,7 +24956,8 @@
         "advance_order_1_2_days": false,
         "number_choice": false,
         "personal_inscription": true,
-        "photozone_rental": false
+        "photozone_rental": false,
+        "photo_dhash": "021c86d644c40200"
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/b135c069-d85d-49c6-b020-d0e9e988ec73.png"
@@ -24949,7 +25054,8 @@
         "advance_order_1_2_days": true,
         "number_choice": false,
         "personal_inscription": true,
-        "photozone_rental": false
+        "photozone_rental": false,
+        "photo_dhash": "4fcbdbe8e0d2a393"
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/4978f8e7-0ece-4a6d-bbe5-3a953b02b710.png"
@@ -24998,7 +25104,8 @@
         "digit_choice": {
           "enabled": true,
           "count_on_photo": 1
-        }
+        },
+        "photo_dhash": "e37399dadaaeec7b"
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/7e2c973d-b53a-42a2-abdf-c62473945e52.png"
@@ -25045,7 +25152,8 @@
         "digit_choice": {
           "enabled": true,
           "count_on_photo": 1
-        }
+        },
+        "photo_dhash": "cfcfd6deccdcdcee"
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/b38eb0c6-c75d-42fa-ba23-a5543bc2701d.png"
@@ -25089,7 +25197,8 @@
         "advance_order_1_2_days": false,
         "number_choice": false,
         "personal_inscription": true,
-        "photozone_rental": false
+        "photozone_rental": false,
+        "photo_dhash": "1d98d8e898f8eca0"
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/d11a5b6c-93d6-4628-af24-5faf4f227006.png"
@@ -25187,7 +25296,8 @@
         "digit_choice": {
           "enabled": true,
           "count_on_photo": 1
-        }
+        },
+        "photo_dhash": "3b70c0d0f4787870"
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/dd210592-4466-4b51-9618-16a2d3d6b13d.jpg"
@@ -25230,7 +25340,8 @@
         "advance_order_1_2_days": false,
         "number_choice": false,
         "personal_inscription": false,
-        "photozone_rental": false
+        "photozone_rental": false,
+        "photo_dhash": "53c3b2b8c2c8c84c"
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/3e3623be-9d94-469a-be7b-a0867aaf58a2.png"
@@ -25381,7 +25492,8 @@
         "digit_choice": {
           "enabled": true,
           "count_on_photo": 1
-        }
+        },
+        "photo_dhash": "7f7b7c70d4c8e4a7"
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/de2dbb2b-3f4e-4295-bd3c-fe1ecd5a1e7e.jpg"
@@ -25422,7 +25534,8 @@
         "advance_order_1_2_days": true,
         "number_choice": false,
         "personal_inscription": true,
-        "photozone_rental": false
+        "photozone_rental": false,
+        "photo_dhash": "337ccc54f4707878"
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/c0a9e62b-899e-4411-b592-338c1867f25a.png"
@@ -25467,7 +25580,8 @@
         "advance_order_1_2_days": false,
         "number_choice": false,
         "personal_inscription": true,
-        "photozone_rental": false
+        "photozone_rental": false,
+        "photo_dhash": "5f57cad8f67472e3"
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/c50c7fd4-18cb-4f0c-a661-a8f825ac05d7.png"
@@ -25614,7 +25728,8 @@
         "digit_choice": {
           "enabled": true,
           "count_on_photo": 1
-        }
+        },
+        "photo_dhash": "2968c8a0a8e8e07d"
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/cc44ab49-4ecb-4e14-8a3a-471fca27c4ea.jpg"
@@ -25751,7 +25866,8 @@
         "advance_order_1_2_days": true,
         "number_choice": false,
         "personal_inscription": true,
-        "photozone_rental": false
+        "photozone_rental": false,
+        "photo_dhash": "31786874743c342c"
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/c2556302-f414-402f-8fc6-45fecd393a8d.png"
@@ -25793,7 +25909,8 @@
         "advance_order_1_2_days": true,
         "number_choice": false,
         "personal_inscription": true,
-        "photozone_rental": false
+        "photozone_rental": false,
+        "photo_dhash": "737170c8d8f0f0f0"
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/44665c4f-cc5d-40e8-a6dd-1817cf4ca4ad.webp"
@@ -25838,7 +25955,8 @@
         "digit_choice": {
           "enabled": true,
           "count_on_photo": 1
-        }
+        },
+        "photo_dhash": "bbc0b8dabce8b2ec"
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/b26a313d-c801-4c97-9315-7b76c9c9970c.png"
@@ -25886,7 +26004,8 @@
         "digit_choice": {
           "enabled": true,
           "count_on_photo": 1
-        }
+        },
+        "photo_dhash": "6f6835b8d0bcd4c8"
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/3d86099a-5585-468f-8a62-af7289a19b6c.png"
@@ -25927,7 +26046,8 @@
         "advance_order_1_2_days": true,
         "number_choice": false,
         "personal_inscription": false,
-        "photozone_rental": false
+        "photozone_rental": false,
+        "photo_dhash": "3030e0f8e4f0f870"
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/71bfe9e2-928e-4d5d-9421-4e7eb4a12f91.png"
@@ -26012,7 +26132,8 @@
         "advance_order_1_2_days": true,
         "number_choice": false,
         "personal_inscription": false,
-        "photozone_rental": false
+        "photozone_rental": false,
+        "photo_dhash": "2b71717171713131"
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/b832b84d-b41e-4fee-91ec-61f155a15b39.png"
@@ -26053,7 +26174,8 @@
         "advance_order_1_2_days": true,
         "number_choice": false,
         "personal_inscription": false,
-        "photozone_rental": false
+        "photozone_rental": false,
+        "photo_dhash": "3169717171717170"
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/5bbed9cc-ac7f-4e20-9831-fc38a0b7f32a.png"
@@ -26102,7 +26224,8 @@
           "item": "Мольберт с кругом из полистирола",
           "days": 3,
           "keep_price_delta": 500
-        }
+        },
+        "photo_dhash": "f978d4cedcbc9adc"
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/a20f30d1-621f-4cc7-8fd3-c3f586c95085.png"
@@ -26255,7 +26378,8 @@
         "digit_choice": {
           "enabled": true,
           "count_on_photo": 1
-        }
+        },
+        "photo_dhash": "ccc9e1f1f17bf8f0"
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/4af36feb-3531-4aef-b5ba-1835640a7539.jpg"
@@ -26296,7 +26420,8 @@
         "advance_order_1_2_days": true,
         "number_choice": false,
         "personal_inscription": true,
-        "photozone_rental": false
+        "photozone_rental": false,
+        "photo_dhash": "3174ececf0703030"
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/595828bb-014d-4c0a-bf6f-4d83959839f1.png"
@@ -26337,7 +26462,8 @@
         "advance_order_1_2_days": true,
         "number_choice": false,
         "personal_inscription": true,
-        "photozone_rental": false
+        "photozone_rental": false,
+        "photo_dhash": "125171f1e0f0e0d0"
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/58197523-b720-46f0-a2a7-6f9138baefc0.png"
@@ -26429,7 +26555,8 @@
         "advance_order_1_2_days": true,
         "number_choice": false,
         "personal_inscription": false,
-        "photozone_rental": false
+        "photozone_rental": false,
+        "photo_dhash": "d4e8f8f0ccecd2f0"
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/1f7291f0-916e-4397-b0db-18778d4a2020.png"
@@ -26573,7 +26700,8 @@
         "advance_order_1_2_days": true,
         "number_choice": false,
         "personal_inscription": true,
-        "photozone_rental": false
+        "photozone_rental": false,
+        "photo_dhash": "715b92d4766d7ffd"
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/b99fa63e-f891-431d-a9e3-59a1be5ed5d4.jpg"
@@ -26659,7 +26787,8 @@
         "advance_order_1_2_days": true,
         "number_choice": false,
         "personal_inscription": true,
-        "photozone_rental": false
+        "photozone_rental": false,
+        "photo_dhash": "7170687470783839"
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/e2c77235-2004-47e6-9ae8-5f8219fe95c8.png"
@@ -26800,7 +26929,8 @@
         "advance_order_1_2_days": false,
         "number_choice": false,
         "personal_inscription": true,
-        "photozone_rental": false
+        "photozone_rental": false,
+        "photo_dhash": "3fbf571d4d753737"
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/0c51f209-c36d-4fca-a1ad-c806eabb31ce.png"
@@ -26842,7 +26972,8 @@
         "advance_order_1_2_days": false,
         "number_choice": false,
         "personal_inscription": false,
-        "photozone_rental": false
+        "photozone_rental": false,
+        "photo_dhash": "fdd8ccc4c2c8d8d8"
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/6b619827-e67f-42bc-b6c0-fcdbd9d3d9fb.png"
@@ -26888,7 +27019,8 @@
         "digit_choice": {
           "enabled": true,
           "count_on_photo": 1
-        }
+        },
+        "photo_dhash": "e9fce4ccfcf8e8f8"
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/5edc8216-eb0a-48c6-b453-aa582606d7f2.jpg"

@@ -291,6 +291,107 @@ Object.assign(app, {
     return hash;
   },
 
+  loadColorDhashCache() {
+    if (this._colorDhashCache) return this._colorDhashCache;
+    try {
+      this._colorDhashCache = JSON.parse(localStorage.getItem('vig-photo-cdhash-v1') || '{}') || {};
+    } catch {
+      this._colorDhashCache = {};
+    }
+    return this._colorDhashCache;
+  },
+
+  saveColorDhashCache() {
+    try {
+      localStorage.setItem('vig-photo-cdhash-v1', JSON.stringify(this._colorDhashCache || {}));
+    } catch { /* кэш необязателен */ }
+  },
+
+  /** Отпечаток шаров: серый фон не учитывается, остаётся цвет композиции. */
+  async photoColorDhashFromBlob(blob) {
+    const url = URL.createObjectURL(blob);
+    try {
+      const img = await new Promise((resolve, reject) => {
+        const el = new Image();
+        el.onload = () => resolve(el);
+        el.onerror = () => reject(new Error('image'));
+        el.src = url;
+      });
+      const canvas = document.createElement('canvas');
+      canvas.width = 32;
+      canvas.height = 32;
+      const ctx = canvas.getContext('2d', { willReadFrequently: true });
+      ctx.drawImage(img, 0, 0, 32, 32);
+      const frame = ctx.getImageData(0, 0, 32, 32);
+      const px = frame.data;
+      for (let i = 0; i < px.length; i += 4) {
+        const r = px[i];
+        const g = px[i + 1];
+        const b = px[i + 2];
+        const mx = Math.max(r, g, b);
+        const mn = Math.min(r, g, b);
+        const sat = mx === 0 ? 0 : (mx - mn) / mx;
+        if (sat < 0.18) {
+          px[i] = 128;
+          px[i + 1] = 128;
+          px[i + 2] = 128;
+        }
+      }
+      ctx.putImageData(frame, 0, 0);
+      const small = document.createElement('canvas');
+      small.width = 9;
+      small.height = 8;
+      const sctx = small.getContext('2d', { willReadFrequently: true });
+      sctx.drawImage(canvas, 0, 0, 9, 8);
+      const data = sctx.getImageData(0, 0, 9, 8).data;
+      let hex = '';
+      let nibble = 0;
+      let bits = 0;
+      const pushBit = (bit) => {
+        nibble = (nibble << 1) | (bit ? 1 : 0);
+        bits += 1;
+        if (bits === 4) {
+          hex += nibble.toString(16);
+          nibble = 0;
+          bits = 0;
+        }
+      };
+      for (let y = 0; y < 8; y++) {
+        for (let x = 0; x < 8; x++) {
+          const i = (y * 9 + x) * 4;
+          const j = i + 4;
+          const left = data[i] * 0.299 + data[i + 1] * 0.587 + data[i + 2] * 0.114;
+          const right = data[j] * 0.299 + data[j + 1] * 0.587 + data[j + 2] * 0.114;
+          pushBit(left > right);
+        }
+      }
+      return hex;
+    } finally {
+      URL.revokeObjectURL(url);
+    }
+  },
+
+  async catalogColorDhash(url) {
+    const cache = this.loadColorDhashCache();
+    if (cache[url]) return cache[url];
+    const proxyRes = await fetch(`${this.workerUrl}/api/admin/proxy-image`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', ...this.authHeaders() },
+      body: JSON.stringify({ url })
+    });
+    if (!proxyRes.ok) throw new Error('proxy ' + proxyRes.status);
+    const hash = this.validPhotoDhash(await this.photoColorDhashFromBlob(await proxyRes.blob()));
+    if (!hash) throw new Error('color hash');
+    cache[url] = hash;
+    return hash;
+  },
+
+  catalogThumbUrl(product) {
+    const thumb = String(product?.thumb_photo || '').trim();
+    if (/^https?:\/\//i.test(thumb)) return thumb;
+    return this.publishedPhotoUrl(product);
+  },
+
   validPhotoDhash(value) {
     return /^[0-9a-f]{16}$/.test(String(value || '').toLowerCase()) ? String(value).toLowerCase() : '';
   },
@@ -316,8 +417,8 @@ Object.assign(app, {
     return urls;
   },
 
-  /** Ближайшие опубликованные карточки по отпечатку фото. */
-  photoDuplicateCandidates(mine) {
+  /** Ближайшие опубликованные карточки по отпечатку всего кадра. */
+  photoDuplicateNearest(mine, limit) {
     const hash = this.validPhotoDhash(mine);
     if (!hash) return [];
     const currentId = this.currentProduct?.id;
@@ -334,10 +435,10 @@ Object.assign(app, {
         const known = this.validPhotoDhash(cache[url]);
         if (known) best = Math.min(best, this.photoDhashDistance(hash, known));
       }
-      if (best <= 16) ranked.push({ product, distance: best });
+      if (best < 64 && this.catalogThumbUrl(product)) ranked.push({ product, distance: best });
     }
     ranked.sort((a, b) => a.distance - b.distance || String(a.product.id).localeCompare(String(b.product.id)));
-    return ranked;
+    return ranked.slice(0, limit);
   },
 
   renderPhotoDuplicateNote(matches, busyText) {
@@ -365,7 +466,7 @@ Object.assign(app, {
     note.textContent = `Это фото уже есть: ${shown}${extra}`;
   },
 
-  /** Совпадение с карточкой на сайте: явный дубль сразу, спорные — через ИИ. */
+  /** Совпадение с карточкой на сайте: тот же файл сразу, та же композиция — по шарам и ИИ. */
   showPhotoDuplicateMatches(mine) {
     const hash = this.validPhotoDhash(mine);
     if (!hash) {
@@ -373,31 +474,92 @@ Object.assign(app, {
       return;
     }
     if (!document.getElementById('photo-duplicate-note')) return;
-    const ranked = this.photoDuplicateCandidates(hash);
-    if (!ranked.length) {
+    const nearest = this.photoDuplicateNearest(hash, 36);
+    const within = nearest.filter((item) => item.distance <= 16);
+    if (within.length) {
+      const best = within[0].distance;
+      const band = within.filter((item) => item.distance <= best + 1);
+      const later = within.find((item) => item.distance > best + 1);
+      const second = later ? later.distance : 64;
+      if (band.length === 1 && best <= 12 && second - best >= 6) {
+        this._colorRankKey = '';
+        this._photoDupDecision = 'hit';
+        this.renderPhotoDuplicateNote(band.map((item) => item.product));
+        return;
+      }
+    }
+    if (!nearest.length) {
       this._photoDupDecision = 'none';
       this.clearPhotoDuplicateNote();
       return;
     }
-    const best = ranked[0].distance;
-    const band = ranked.filter((item) => item.distance <= best + 1);
-    const later = ranked.find((item) => item.distance > best + 1);
-    const second = later ? later.distance : 64;
-    if (band.length === 1 && best <= 12 && second - best >= 6) {
-      this._photoDupDecision = 'hit';
-      this.renderPhotoDuplicateNote(band.map((item) => item.product));
-      return;
-    }
-    const pool = ranked.slice(0, 3);
-    const key = `${this._photoDupSig}|${pool.map((item) => item.product.id + ':' + item.distance).join(',')}`;
-    if (this._photoDupAiKey === key) {
+    const key = `${this._photoDupSig}|${nearest.map((item) => item.product.id).join(',')}`;
+    if (this._colorRankKey === key) {
       if (this._photoDupAiMatches) this.renderPhotoDuplicateNote(this._photoDupAiMatches);
       return;
     }
-    this._photoDupAiKey = key;
+    this._colorRankKey = key;
+    this._photoDupAiKey = '';
     this._photoDupAiMatches = null;
     this.renderPhotoDuplicateNote(null, 'Проверяю, нет ли такой композиции…');
-    this.confirmPhotoDuplicatesWithAi(pool, this._photoDupGen, key);
+    this.rankPhotoDuplicatesBySubject(nearest, this._photoDupGen, key);
+  },
+
+  async rankPhotoDuplicatesBySubject(nearest, gen, key) {
+    const file = this.currentProduct?.photos?.[0]?.file;
+    if (!file || !this.workerUrl || !this.adminApiKey) {
+      if (this._photoDupGen === gen && this._colorRankKey === key) this.clearPhotoDuplicateNote();
+      return;
+    }
+    let mineColor = '';
+    try {
+      mineColor = this.validPhotoDhash(await this.photoColorDhashFromBlob(file));
+    } catch {
+      if (this._photoDupGen === gen && this._colorRankKey === key) this.clearPhotoDuplicateNote();
+      return;
+    }
+    if (!mineColor || this._photoDupGen !== gen || this._colorRankKey !== key) return;
+    const scored = [];
+    let cursor = 0;
+    const worker = async () => {
+      while (cursor < nearest.length) {
+        if (this._photoDupGen !== gen || this._colorRankKey !== key) return;
+        const item = nearest[cursor];
+        cursor += 1;
+        const url = this.catalogThumbUrl(item.product);
+        if (!url) continue;
+        try {
+          const hash = await this.catalogColorDhash(url);
+          if (this._photoDupGen !== gen || this._colorRankKey !== key) return;
+          scored.push({
+            product: item.product,
+            distance: this.photoDhashDistance(mineColor, hash)
+          });
+        } catch { /* это превью пропустим */ }
+      }
+    };
+    await Promise.all(Array.from({ length: Math.min(4, nearest.length) }, () => worker()));
+    if (this._photoDupGen !== gen || this._colorRankKey !== key) return;
+    this.saveColorDhashCache();
+    scored.sort((a, b) => a.distance - b.distance || String(a.product.id).localeCompare(String(b.product.id)));
+    const best = scored[0] ? scored[0].distance : 64;
+    if (best > 24) {
+      this._photoDupDecision = 'none';
+      this.clearPhotoDuplicateNote();
+      return;
+    }
+    const pool = scored.filter((item) => item.distance <= Math.min(24, best + 8)).slice(0, 3);
+    if (!pool.length) {
+      this.clearPhotoDuplicateNote();
+      return;
+    }
+    const aiKey = `${key}|ai|${pool.map((item) => item.product.id + ':' + item.distance).join(',')}`;
+    if (this._photoDupAiKey === aiKey) {
+      if (this._photoDupAiMatches) this.renderPhotoDuplicateNote(this._photoDupAiMatches);
+      return;
+    }
+    this._photoDupAiKey = aiKey;
+    this.confirmPhotoDuplicatesWithAi(pool, gen, aiKey);
   },
 
   async photoPreviewDataUrl(file) {
@@ -429,15 +591,11 @@ Object.assign(app, {
     }
     try {
       const imageUrl = await this.photoPreviewDataUrl(file);
-      const candidates = pool.map((item) => {
-        const urls = this.duplicatePhotoUrls(item.product);
-        const original = urls.find((url) => url !== this.publishedPhotoUrl(item.product)) || urls[0] || '';
-        return {
-          id: String(item.product.id),
-          title: String(item.product.title || ''),
-          image_url: original
-        };
-      }).filter((item) => /^https:\/\//i.test(item.image_url));
+      const candidates = pool.map((item) => ({
+        id: String(item.product.id),
+        title: String(item.product.title || ''),
+        image_url: this.catalogThumbUrl(item.product)
+      })).filter((item) => /^https:\/\//i.test(item.image_url));
       if (!candidates.length) throw new Error('no urls');
       const res = await fetch(`${this.workerUrl}/api/ai/same-composition`, {
         method: 'POST',

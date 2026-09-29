@@ -1867,7 +1867,7 @@ body.ai-review-open{overflow:hidden}
 }
 
 #ai-review-overlay .ai-review-fields{
-  display:grid;grid-template-columns:1fr 1fr;gap:6px 10px;
+  display:flex;flex-direction:column;gap:8px;
   align-content:start;min-height:0;max-height:100%;
   overflow-x:hidden;overflow-y:auto;padding:0 2px 4px
 }
@@ -1875,19 +1875,12 @@ body.ai-review-open{overflow:hidden}
 #ai-review-overlay .ai-review-fields > .ai-review-row,
 #ai-review-overlay .ai-review-fields > .ai-review-opts,
 #ai-review-overlay .ai-review-fields > .ai-review-tags{
-  margin:0
+  margin:0;min-width:0
 }
-#ai-review-overlay .ai-review-title-wrap{
-  grid-column:1/-1;max-width:none
+#ai-review-overlay .ai-review-title-wrap{max-width:none}
+#ai-review-overlay .ai-review-row-3{
+  grid-template-columns:minmax(0,1.4fr) minmax(120px,180px)
 }
-#ai-review-overlay .ai-review-row-3,
-#ai-review-overlay .ai-review-opts,
-#ai-review-overlay .ai-review-tags{
-  grid-column:1/-1
-}
-#ai-review-overlay .ai-review-character-wrap{grid-column:1}
-#ai-review-overlay .ai-review-fields > .form-group:has(#ai-review-composition){grid-column:2}
-#ai-review-overlay .ai-review-series-wrap{grid-column:1/-1}
 
 #ai-review-overlay .ai-review-fields label{
   font-size:11px;font-weight:700;margin-bottom:3px;color:var(--admin-text)
@@ -1905,7 +1898,12 @@ body.ai-review-open{overflow:hidden}
 #ai-review-overlay .ai-review-fields input:focus,
 #ai-review-overlay .ai-review-fields select:focus,
 #ai-review-overlay .ai-review-fields textarea:focus{
-  border-color:var(--admin-accent);box-shadow:0 0 0 3px rgba(255,107,90,.12);background:#fff
+  border-color:var(--admin-info);box-shadow:0 0 0 3px rgba(61,107,138,.16);background:#fff
+}
+#ai-review-overlay .form-group.is-empty-required input,
+#ai-review-overlay .form-group.is-empty-required select,
+#ai-review-overlay .form-group.is-empty-required textarea{
+  border-color:#E53935!important;box-shadow:0 0 0 2px rgba(229,57,53,.15)
 }
 #ai-review-overlay #ai-review-composition{
   min-height:2.4em;max-height:4.2em;resize:vertical;line-height:1.35;font-size:12px
@@ -1928,11 +1926,35 @@ body.ai-review-open{overflow:hidden}
   border-color:var(--admin-accent);background:var(--admin-accent-soft);color:#b53d2e
 }
 
-/* Tags: clear blocks, compact chips */
+/* Tags: выбранное списком, полная сетка по «Изменить» */
 #ai-review-overlay .ai-review-tags{
-  display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:0
+  display:flex;flex-direction:column;gap:6px;margin-top:0
 }
-#ai-review-overlay .ai-review-tags .ai-review-section-label{grid-column:1/-1}
+#ai-review-overlay .ai-review-tags-head{
+  display:flex;align-items:center;justify-content:space-between;gap:8px
+}
+#ai-review-overlay .ai-review-tags-head .ai-review-section-label{margin:0}
+#ai-review-overlay .ai-review-tags-toggle{
+  border:1px solid var(--admin-border-strong);background:#fff;color:var(--admin-info);
+  border-radius:999px;padding:3px 10px;font-size:12px;font-weight:700;cursor:pointer;line-height:1.3
+}
+#ai-review-overlay .ai-review-tags-toggle:hover{border-color:var(--admin-info);background:var(--admin-info-soft)}
+#ai-review-overlay .ai-review-tags-summary{display:flex;flex-direction:column;gap:3px}
+#ai-review-overlay .ai-review-tags.is-open .ai-review-tags-summary{display:none}
+#ai-review-overlay .ai-review-tags-sum-row{
+  display:grid;grid-template-columns:72px minmax(0,1fr);gap:8px;align-items:baseline
+}
+#ai-review-overlay .ai-review-tags-sum-h{
+  font-size:10px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:var(--admin-muted)
+}
+#ai-review-overlay .ai-review-tags-sum-vals{
+  font-size:13px;font-weight:600;color:var(--admin-text);line-height:1.3
+}
+#ai-review-overlay .ai-review-tags-sum-vals .is-empty{font-weight:500;color:var(--admin-muted)}
+#ai-review-overlay .ai-review-tags-edit{display:none}
+#ai-review-overlay .ai-review-tags.is-open .ai-review-tags-edit{
+  display:grid;grid-template-columns:1fr 1fr;gap:6px
+}
 #ai-review-overlay .ai-review-tag-block{
   padding:6px 8px;border-radius:10px;border:1px solid var(--admin-border);background:#fff
 }
@@ -1949,10 +1971,10 @@ body.ai-review-open{overflow:hidden}
 #ai-review-overlay .ai-review-tag-type{border-color:#ffc9c0;background:var(--admin-accent-soft)}
 #ai-review-overlay .ai-review-tag-type .ai-review-tag-h{color:#b53d2e}
 #ai-review-overlay .ai-review-tags .chips-grid{
-  grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:6px
+  grid-template-columns:repeat(auto-fill,minmax(108px,1fr));gap:6px
 }
 #ai-review-overlay .ai-review-tags .chip label{
-  display:block;width:100%;text-align:left;
+  display:block;width:100%;text-align:left;white-space:normal;
   padding:4px 10px;min-height:0;border-radius:8px;font-size:13px;font-weight:600;
   line-height:1.25;background:#fff;border:1px solid var(--admin-border);color:var(--admin-text)
 }
@@ -1973,12 +1995,6 @@ body.ai-review-open{overflow:hidden}
 #ai-review-overlay .ai-review-actions .btn{min-height:40px}
 #ai-review-overlay .ai-review-actions .btn.primary{
   min-width:148px;order:10;font-weight:800
-}
-
-@media (min-width:900px){
-  #ai-review-overlay .ai-review-tags .chips-grid{
-    grid-template-columns:repeat(3,minmax(0,1fr))
-  }
 }
 
 /* Ноутбук+: ещё компактнее — всё видно без скролла до «Опубликовать» */
@@ -2034,7 +2050,7 @@ body.ai-review-open{overflow:hidden}
   #ai-review-overlay .ai-review-photo{position:static}
   #ai-review-overlay .ai-review-photo img,
   #ai-review-overlay .ai-review-photo-zoom img{max-height:min(28vh,200px)}
-  #ai-review-overlay .ai-review-tags{grid-template-columns:1fr}
+  #ai-review-overlay .ai-review-tags.is-open .ai-review-tags-edit{grid-template-columns:1fr}
   #ai-review-overlay .ai-review-tags .chips-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
   #ai-review-overlay .ai-review-row-3{grid-template-columns:1fr 1fr}
   #ai-review-overlay .ai-review-row-3 .form-group:last-child{grid-column:1/-1}

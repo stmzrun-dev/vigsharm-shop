@@ -8,6 +8,9 @@ Object.assign(app, {
   MASTER_SIZE: 2048,
   WEBP_QUALITY: 1.0,
   DEFAULT_REFERENCE_BG: '../assets/reference/reference-background.png',
+  /** Стена + линия потолка, без пола. Только сцена ceiling. */
+  DEFAULT_REFERENCE_CEILING: '../assets/reference/reference-ceiling.webp',
+  REFERENCE_CEILING_VERSION: 'v1',
   /** Chroma-green plate: fist gripping bouquet base (composited under ribbons) */
   DEFAULT_REFERENCE_HAND: '../assets/reference/reference-hand-bouquet.png',
   /** Bump when replacing hand PNG — forces Cloudinary re-upload */
@@ -913,7 +916,38 @@ Object.assign(app, {
     this.studioRetryButtons?.().forEach((btn) => btn.classList.toggle('hidden', !src));
   },
 
-  async ensureReferenceHttpsUrl() {
+  async ensureCeilingReferenceHttpsUrl() {
+    const ver = this.REFERENCE_CEILING_VERSION || 'v1';
+    const cached = this.studioReferenceCeilingUrl || '';
+    if (this.studioReferenceCeilingVersion === ver && /^https?:\/\//i.test(cached)) return cached;
+
+    const blobRes = await fetch(this.DEFAULT_REFERENCE_CEILING);
+    if (!blobRes.ok) throw new Error('Не удалось загрузить эталон потолка');
+    const blob = await blobRes.blob();
+    const file = new File([blob], 'vigsharm-reference-ceiling.webp', { type: blob.type || 'image/webp' });
+    const uploadResult = await this.uploadPhoto(file);
+    if (!uploadResult.ok) {
+      throw new Error(uploadResult.error || 'Не удалось загрузить эталон потолка');
+    }
+    this.studioReferenceCeilingUrl = uploadResult.url;
+    this.studioReferenceCeilingVersion = ver;
+    this.saveReferenceCeilingUrl?.();
+    return uploadResult.url;
+  },
+
+  saveReferenceCeilingUrl() {
+    try {
+      this.writeAdminSettings?.({
+        studioReferenceCeilingUrl: this.studioReferenceCeilingUrl || '',
+        studioReferenceCeilingVersion: this.studioReferenceCeilingVersion || ''
+      });
+    } catch (e) {
+      console.error('Ошибка сохранения эталона потолка:', e);
+    }
+  },
+
+  async ensureReferenceHttpsUrl(scene) {
+    if (scene === 'ceiling') return this.ensureCeilingReferenceHttpsUrl();
     let url = this.getReferenceBackgroundUrl();
     if (!url) throw new Error('Эталонный фон не найден');
     if (url.startsWith('https://') || url.startsWith('http://')) return url;
@@ -934,7 +968,7 @@ Object.assign(app, {
   async callRephotographMaster(imageUrl, scene, statusEl) {
     // Без restore: лишний шаг (часто content-policy на персонажах) и +1–3 мин.
     const keepBg = scene === 'arch';
-    const referenceUrl = keepBg ? '' : await this.ensureReferenceHttpsUrl();
+    const referenceUrl = keepBg ? '' : await this.ensureReferenceHttpsUrl(scene);
     const startJob = async (prefer) => {
       let lastErr = null;
       for (let attempt = 1; attempt <= 2; attempt++) {

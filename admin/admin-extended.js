@@ -295,7 +295,28 @@ Object.assign(app, {
     return /^[0-9a-f]{16}$/.test(String(value || '').toLowerCase()) ? String(value).toLowerCase() : '';
   },
 
-  /** Совпадение только по кодам, которые уже есть у карточек. Без скачивания каталога. */
+  /** Фото, которое видит покупатель на сайте. */
+  publishedPhotoUrl(product) {
+    const raw = product?.main_photo
+      || (Array.isArray(product?.photos)
+        ? (typeof product.photos[0] === 'string' ? product.photos[0] : product.photos[0]?.url)
+        : '');
+    const url = String(raw || '').trim();
+    return /^https?:\/\//i.test(url) ? url : '';
+  },
+
+  /** Исходник Studio, если есть, и кадр с витрины. */
+  duplicatePhotoUrls(product) {
+    const opts = this.photoClientOptions(product);
+    const urls = [];
+    const original = String(opts.studio_original_url || '').trim();
+    if (/^https?:\/\//i.test(original)) urls.push(original);
+    const published = this.publishedPhotoUrl(product);
+    if (published && !urls.includes(published)) urls.push(published);
+    return urls;
+  },
+
+  /** Совпадение с кодом карточки или с уже посчитанным кадром витрины. */
   showPhotoDuplicateMatches(mine) {
     const hash = this.validPhotoDhash(mine);
     if (!hash) {
@@ -305,12 +326,17 @@ Object.assign(app, {
     const note = document.getElementById('photo-duplicate-note');
     if (!note) return;
     const currentId = this.currentProduct?.id;
+    const cache = this.loadPhotoDhashCache();
+    const near = (other) => {
+      const known = this.validPhotoDhash(other);
+      return !!known && this.photoDhashDistance(hash, known) <= 8;
+    };
     const matches = (this.products || []).filter((p) => {
       if (currentId && String(p.id) === String(currentId)) return false;
       if (p.status && p.status !== 'published') return false;
       if (p.show_on_site === false) return false;
-      const stored = this.validPhotoDhash(this.photoClientOptions(p).photo_dhash);
-      return stored && this.photoDhashDistance(hash, stored) <= 8;
+      if (near(this.photoClientOptions(p).photo_dhash)) return true;
+      return this.duplicatePhotoUrls(p).some((url) => near(cache[url]));
     });
     if (!matches.length) {
       this.clearPhotoDuplicateNote();
@@ -350,19 +376,19 @@ Object.assign(app, {
     let dirty = false;
     for (const product of this.products || []) {
       const opts = this.photoClientOptions(product);
-      const url = opts.studio_original_url;
-      if (typeof url !== 'string' || !/^https?:\/\//i.test(url)) continue;
       const stored = this.validPhotoDhash(opts.photo_dhash);
-      if (stored) {
-        if (cache[url] !== stored) {
-          cache[url] = stored;
-          dirty = true;
-        }
-        continue;
+      const original = String(opts.studio_original_url || '').trim();
+      if (stored && /^https?:\/\//i.test(original) && cache[original] !== stored) {
+        cache[original] = stored;
+        dirty = true;
       }
-      const cached = this.validPhotoDhash(cache[url]);
-      if (!cached) continue;
-      product.client_options = { ...opts, photo_dhash: cached };
+      if (stored) continue;
+      for (const url of this.duplicatePhotoUrls(product)) {
+        const cached = this.validPhotoDhash(cache[url]);
+        if (!cached) continue;
+        product.client_options = { ...opts, photo_dhash: cached };
+        break;
+      }
     }
     if (dirty) this.savePhotoDhashCache();
   },
@@ -373,15 +399,17 @@ Object.assign(app, {
     this.runPhotoDhashBackfill(gen);
   },
 
-  /** Старые карточки без кода: один тихий проход, не в момент загрузки нового фото. */
+  /** Старые карточки: тихий проход по исходнику и по фото с витрины. */
   async runPhotoDhashBackfill(gen) {
     if (!this.workerUrl || !this.adminApiKey) return;
+    const cache = this.loadPhotoDhashCache();
     const pending = (this.products || []).filter((p) => {
       if (p.status && p.status !== 'published') return false;
       if (p.show_on_site === false) return false;
-      const opts = this.photoClientOptions(p);
-      if (this.validPhotoDhash(opts.photo_dhash)) return false;
-      return typeof opts.studio_original_url === 'string' && /^https?:\/\//i.test(opts.studio_original_url);
+      const urls = this.duplicatePhotoUrls(p);
+      if (!urls.length) return false;
+      const stored = this.validPhotoDhash(this.photoClientOptions(p).photo_dhash);
+      return !stored || urls.some((url) => !this.validPhotoDhash(cache[url]));
     });
     let cursor = 0;
     const worker = async () => {
@@ -389,16 +417,24 @@ Object.assign(app, {
         if (this._dhashBackfillGen !== gen) return;
         const product = pending[cursor];
         cursor += 1;
-        const url = this.photoClientOptions(product).studio_original_url;
-        try {
-          const hash = this.validPhotoDhash(await this.catalogPhotoDhash(url));
+        const urls = this.duplicatePhotoUrls(product);
+        let stored = this.validPhotoDhash(this.photoClientOptions(product).photo_dhash);
+        for (const url of urls) {
           if (this._dhashBackfillGen !== gen) return;
-          if (!hash) continue;
-          const opts = this.photoClientOptions(product);
-          product.client_options = { ...opts, photo_dhash: hash };
-          await this.persistPhotoDhash(product.id, hash);
-          if (this._pendingPhotoDhash) this.showPhotoDuplicateMatches(this._pendingPhotoDhash);
-        } catch { /* это фото пропустим */ }
+          if (this.validPhotoDhash(this.loadPhotoDhashCache()[url])) continue;
+          try {
+            const hash = this.validPhotoDhash(await this.catalogPhotoDhash(url));
+            if (this._dhashBackfillGen !== gen) return;
+            if (!hash) continue;
+            if (!stored) {
+              stored = hash;
+              const opts = this.photoClientOptions(product);
+              product.client_options = { ...opts, photo_dhash: hash };
+              await this.persistPhotoDhash(product.id, hash);
+            }
+            if (this._pendingPhotoDhash) this.showPhotoDuplicateMatches(this._pendingPhotoDhash);
+          } catch { /* это фото пропустим */ }
+        }
         if (cursor % 8 === 0) this.savePhotoDhashCache();
       }
     };
@@ -1700,9 +1736,10 @@ Object.assign(app, {
       const list = (typeof OCCASION_SHELVES !== 'undefined' && OCCASION_SHELVES) || [];
       return raw && list.includes(raw) ? raw : null;
     })();
+    const forWhoTags = (typeof TAGS !== 'undefined' && TAGS.forWho) || [];
     if (!holidayOnly && card.category) {
       const el = document.getElementById('product-category');
-      if (el) el.value = card.category;
+      if (el) el.value = forWhoTags.includes(card.category) ? '' : card.category;
     }
     if (card.seo_title) {
       const el = document.getElementById('product-seo-title');
@@ -1722,6 +1759,7 @@ Object.assign(app, {
         document.querySelectorAll('#tags-for-who input, #tags-occasion input, #tags-dates input, #tags-type input')
           .forEach((cb) => { cb.checked = false; });
       }
+      document.querySelectorAll('#tags-for-who input').forEach((cb) => { cb.checked = false; });
       const typeSet = new Set((typeof TAGS !== 'undefined' && TAGS.type) || []);
       const deferred = (typeof DEFERRED_TYPE_TAGS !== 'undefined' && DEFERRED_TYPE_TAGS) || ['Шар-сюрприз'];
       const sceneNow = this.currentProduct?.scene || '';
@@ -1736,6 +1774,7 @@ Object.assign(app, {
           return;
         }
         if (sceneNow === 'ceiling' && (tag === 'Фотозона' || tag === 'Фигуры из шаров')) return;
+        if (forWhoTags.includes(tag)) return;
         const cb = document.querySelector(
           `#tags-for-who input[value="${CSS.escape(tag)}"], #tags-occasion input[value="${CSS.escape(tag)}"], #tags-dates input[value="${CSS.escape(tag)}"], #tags-type input[value="${CSS.escape(tag)}"]`
         ) || document.querySelector(`input[type="checkbox"][value="${CSS.escape(tag)}"]`);

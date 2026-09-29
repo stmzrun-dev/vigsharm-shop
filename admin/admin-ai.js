@@ -906,6 +906,16 @@ Object.assign(app, {
       if (group) group.classList.toggle('is-empty-required', empty);
       else el.classList.toggle('is-empty-required', empty);
     });
+    const reviewMap = {
+      title: 'ai-review-title',
+      price: 'ai-review-price',
+      composition: 'ai-review-composition',
+      age: 'ai-review-age'
+    };
+    Object.entries(reviewMap).forEach(([key, id]) => {
+      const group = document.getElementById(id)?.closest('.form-group');
+      if (group) group.classList.toggle('is-empty-required', !!states[key]);
+    });
   },
 
   setupRequiredFieldHighlights() {
@@ -1253,6 +1263,7 @@ Object.assign(app, {
     if (eyebrow) eyebrow.textContent = opts.fresh ? 'После ИИ' : 'Правка';
     this.wireAiReviewOverlay?.();
     this.syncAiReviewFromForm?.(opts.data || this._lastAiCardData);
+    this.setAiReviewTagsOpen?.(false);
     overlay.hidden = false;
     overlay.classList.remove('hidden');
     document.body.style.overflow = 'hidden';
@@ -1361,6 +1372,40 @@ Object.assign(app, {
     };
     digit1?.addEventListener('change', () => onDigit(1));
     digit2?.addEventListener('change', () => onDigit(2));
+
+    document.getElementById('ai-review-tags-toggle')?.addEventListener('click', () => {
+      const open = !document.getElementById('ai-review-tags')?.classList.contains('is-open');
+      this.setAiReviewTagsOpen?.(open);
+    });
+  },
+
+  setAiReviewTagsOpen(open) {
+    const root = document.getElementById('ai-review-tags');
+    const btn = document.getElementById('ai-review-tags-toggle');
+    if (!root) return;
+    root.classList.toggle('is-open', !!open);
+    if (btn) {
+      btn.textContent = open ? 'Свернуть' : 'Изменить';
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    }
+  },
+
+  renderAiReviewTagsSummary() {
+    const box = document.getElementById('ai-review-tags-summary');
+    if (!box) return;
+    const groups = [
+      ['ai-review-tags-for-who', 'Для кого'],
+      ['ai-review-tags-occasion', 'Повод'],
+      ['ai-review-tags-dates', 'Даты'],
+      ['ai-review-tags-type', 'Тип']
+    ];
+    box.innerHTML = groups.map(([id, label]) => {
+      const vals = [...document.querySelectorAll(`#${id} input:checked`)].map((el) => el.value);
+      const text = vals.length
+        ? vals.map((v) => this.escapeHtml(v)).join(' · ')
+        : '<span class="is-empty">не выбрано</span>';
+      return `<div class="ai-review-tags-sum-row"><span class="ai-review-tags-sum-h">${label}</span><span class="ai-review-tags-sum-vals">${text}</span></div>`;
+    }).join('');
   },
 
   autosizeAiReviewComposition() {
@@ -1427,6 +1472,7 @@ Object.assign(app, {
         if (formCb) formCb.checked = cb.checked;
         cb.closest('.chip')?.classList.toggle('is-on', cb.checked);
         if (cb.value === 'Цветы из шаров' && !cb.checked) this.setBouquetType?.('');
+        this.renderAiReviewTagsSummary?.();
         this.scheduleSaveActiveStudioDraft?.();
       });
     });
@@ -1515,10 +1561,13 @@ Object.assign(app, {
 
     const deferred = (typeof DEFERRED_TYPE_TAGS !== 'undefined' && DEFERRED_TYPE_TAGS) || ['Шар-сюрприз'];
     const typeTags = ((typeof TAGS !== 'undefined' && TAGS.type) || []).filter((t) => !deferred.includes(t) && t !== 'Напольные композиции');
-    this.renderAiReviewTagGroup?.('ai-review-tags-for-who', TAGS?.forWho || [], '#tags-for-who');
+    const whoTags = (TAGS?.forWho || []).filter((t) => t !== 'Универсальные');
+    this.renderAiReviewTagGroup?.('ai-review-tags-for-who', whoTags, '#tags-for-who');
     this.renderAiReviewTagGroup?.('ai-review-tags-occasion', TAGS?.occasion || [], '#tags-occasion');
     this.renderAiReviewTagGroup?.('ai-review-tags-dates', TAGS?.dates || [], '#tags-dates');
     this.renderAiReviewTagGroup?.('ai-review-tags-type', typeTags, '#tags-type');
+    this.renderAiReviewTagsSummary?.();
+    this.syncRequiredFieldHighlights?.();
 
     const syncOpt = (fromId, toId) => {
       const from = document.getElementById(fromId);
@@ -1582,6 +1631,9 @@ Object.assign(app, {
         const formCb = document.querySelector(`${sel} input[value="${CSS.escape(cb.value)}"]`);
         if (formCb) formCb.checked = cb.checked;
       });
+    });
+    document.querySelectorAll('#tags-for-who input[value="Универсальные"]').forEach((cb) => {
+      cb.checked = false;
     });
 
     const showEl = document.getElementById('show-on-site');

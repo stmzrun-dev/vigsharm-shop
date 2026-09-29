@@ -1190,6 +1190,8 @@ const app = {
 
       // Загружаем эталонный фон и руку
       this.studioReferenceBackgroundUrl = settings.studioReferenceBackgroundUrl || '';
+      this.studioReferenceCeilingUrl = settings.studioReferenceCeilingUrl || '';
+      this.studioReferenceCeilingVersion = settings.studioReferenceCeilingVersion || '';
       this.studioReferenceHandUrl = settings.studioReferenceHandUrl || '';
       this.studioReferenceHandVersion = settings.studioReferenceHandVersion || '';
 
@@ -1220,6 +1222,8 @@ const app = {
         cloudinaryUploadPreset: this.cloudinaryUploadPreset,
         imgbbApiKey: this.imgbbApiKey,
         studioReferenceBackgroundUrl: this.studioReferenceBackgroundUrl || '',
+        studioReferenceCeilingUrl: this.studioReferenceCeilingUrl || '',
+        studioReferenceCeilingVersion: this.studioReferenceCeilingVersion || '',
         studioReferenceHandUrl: this.studioReferenceHandUrl || '',
         studioReferenceHandVersion: this.studioReferenceHandVersion || ''
       });
@@ -1294,6 +1298,8 @@ const app = {
     this.cloudinaryUploadPreset = '';
     this.imgbbApiKey = '';
     this.studioReferenceBackgroundUrl = '';
+    this.studioReferenceCeilingUrl = '';
+    this.studioReferenceCeilingVersion = '';
     this.studioReferenceHandUrl = '';
     this.studioReferenceHandVersion = '';
     this.loadSettings();

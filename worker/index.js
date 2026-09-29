@@ -1846,8 +1846,8 @@ OUTPUT: one square 1:1 catalog photo — studio wall, bouquet held from the side
 
 TASK:
 1. Replace the original room (white wall, brick, drop-ceiling tiles, lamps, windows) with the VigSharm studio.
-2. Use the SECOND reference ONLY for wall color: warm light beige-grey plaster. Do NOT copy a floor from that reference.
-3. Show a narrow plain ceiling band along the TOP edge — same light family, slightly lighter than the wall, one clean horizontal corner where ceiling meets wall.
+2. The SECOND reference is the ceiling studio: a narrow plain ceiling band at the top and warm light beige-grey plaster below. Copy that corner and that wall. The reference has no floor — do not add one.
+3. Keep the ceiling band narrow, plain, and slightly lighter than the wall, with one clean horizontal corner.
 4. NO floor, NO baseboard, NO laminate, NO furniture. The lower part of the frame is empty studio wall.
 5. Keep the cluster hung at the TOP: the highest balloons touch or nearly touch the ceiling line. Ribbons may leave the top edge. Do NOT drop the set into the middle of the wall and do NOT stand it on a floor.
 6. Do NOT copy the source ceiling grid, acoustic tiles, brick, or painted white wall.
@@ -2109,8 +2109,8 @@ function buildFluxPrompt(scene, opts = {}) {
   if (scene === 'ceiling') {
     return `Edit this VigSharm hanging balloon set. Change only the room and lighting. Do not rebuild the product.
 
-The set HANGS from the top. Highest balloons touch a plain ceiling line. Ribbons may leave the top edge.
-Wall: warm light beige-grey from the SECOND reference. A narrow plain ceiling band at the top, slightly lighter than the wall.
+The set HANGS from the top. Match the SECOND reference: narrow plain ceiling band, warm beige-grey wall, no floor.
+Highest balloons touch that ceiling line. Ribbons may leave the top edge.
 NO floor, NO baseboard, NO laminate, NO ceiling tiles, NO brick, NO lamps.
 Square 1:1, bright catalog light. Real photo, not CGI.
 KEEP exactly: balloon count, colors, prints, foil characters, ribbons.
@@ -2165,7 +2165,7 @@ function buildRephotographAttempts(imageUrl, referenceUrl, prompt, resolution = 
   const floorHint = '\n\nTarget FLOOR from the SECOND reference — LIGHT pale oak / light grey-beige laminate matching reference brightness. Place ONLY the product CLOSE to the white baseboard (short floor strip only — not mid-room): balloons, ribbons, their weights, and a gift/surprise box if it is part of the composition. DELETE room props in place — do NOT move them with the product: vase, glass, dried flowers, pampas grass, houseplant, random floor object. Hang-tags: erase in place or keep pixel-locked on the same balloon — NEVER relocate a tag. Soft contact shadows only under the original balloon base. REMOVE any table, stolik, glass table, stool, chair, wire stand or other furniture from the source — the existing balloon base sits directly on the laminate. A printed gift box that presents the balloons is PRODUCT, not furniture — keep it. Do NOT invent new balloons under the base. FORBIDDEN: dark brown/charcoal laminate; large empty floor toward the wall; keeping a table under the product; carrying a vase/pampas/stray object into the studio; a hang-tag moved to a new spot or another balloon; any real people/models in the frame. If source has a person posing with balloons: erase them completely, keep only the balloon product. If source has a mirror/vanity: remove it; count ONLY real balloons on the floor in front of the glass — NEVER copy balloons that exist only as mirror reflections (e.g. one real heart + reflection → output one heart). A foil heart touching the vanity frame is still ONE heart: one red weight on the real floor means ONE heart and ONE ribbon bundle. Do NOT split it into a pair while erasing the mirror.';
   const surpriseHang = scene === 'surprise' && opts?.surprise_pose === 'hang';
   const ceilingHint = ceiling
-    ? '\n\nCEILING HANG: the set stays at the TOP under a narrow plain ceiling band (no tiles, no lamps, no grid). Highest balloons meet the ceiling line. Ribbons may leave the top edge. NO floor, NO baseboard, NO laminate. Do NOT copy brick or a drop ceiling from the source. Do NOT stand the product on a floor and do NOT center it mid-wall.'
+    ? '\n\nCEILING HANG: copy the SECOND reference room — narrow plain ceiling band at the top, beige-grey wall below, no floor. Highest balloons meet that ceiling line. Ribbons may leave the top edge. NO floor, NO baseboard, NO laminate, NO tiles, NO lamps. Do NOT copy brick or a drop ceiling from the source. Do NOT stand the product on a floor and do NOT center it mid-wall.'
     : '';
   const surpriseHint = scene !== 'surprise' ? ''
     : (surpriseHang
@@ -2388,7 +2388,7 @@ Do NOT reposition to fix floating. Do NOT redesign the product. No plastic 3D re
   if (scene === 'ceiling') {
     return `${base}
 
-SCENE: hanging balloon set under a plain ceiling line at the TOP of the frame. Warm beige-grey wall fills the rest. NO floor, NO baseboard, NO laminate, NO ceiling tiles. Do not drop the cluster into the middle of the wall.`;
+SCENE: hanging balloon set under the ceiling line from the SECOND reference. Copy that narrow ceiling band and beige-grey wall. NO floor, NO baseboard, NO laminate, NO ceiling tiles. Do not drop the cluster into the middle of the wall.`;
   }
 
   if (scene === 'photozone') {

@@ -7,7 +7,7 @@
 <meta name="robots" content="noindex, nofollow"/>
 <link rel="icon" href="../favicon.svg"/>
 <link rel="stylesheet" href="../assets/fonts.css"/>
-<link rel="stylesheet" href="styles.css?v=20260929-review"/>
+<link rel="stylesheet" href="styles.css?v=20260929-tags"/>
 </head>
 <body>
 
@@ -902,20 +902,21 @@
           </div>
         </div>
 
-        <div class="form-group ai-review-character-wrap" id="ai-review-character-wrap">
-          <label for="ai-review-character">Персонаж <span class="ai-review-doubt-badge hidden" id="ai-review-character-doubt">уточните</span></label>
-          <input id="ai-review-character" autocomplete="off" placeholder="Кто на фото"/>
-          <div id="ai-review-character-alts" class="title-alts hidden"></div>
+        <div class="ai-review-row ai-review-char-comp">
+          <div class="form-group ai-review-character-wrap" id="ai-review-character-wrap">
+            <label for="ai-review-character">Персонаж <span class="ai-review-doubt-badge hidden" id="ai-review-character-doubt">уточните</span></label>
+            <input id="ai-review-character" autocomplete="off" placeholder="Кто на фото"/>
+            <div id="ai-review-character-alts" class="title-alts hidden"></div>
+          </div>
+          <div class="form-group">
+            <label for="ai-review-composition">Состав</label>
+            <textarea id="ai-review-composition" rows="2"></textarea>
+          </div>
         </div>
 
         <div class="form-group ai-review-series-wrap hidden" id="ai-review-series-wrap">
           <label for="ai-review-series">Тематическая серия</label>
           <input id="ai-review-series" autocomplete="off"/>
-        </div>
-
-        <div class="form-group">
-          <label for="ai-review-composition">Состав</label>
-          <textarea id="ai-review-composition" rows="2"></textarea>
         </div>
 
         <div class="ai-review-opts" id="ai-review-opts">
@@ -929,12 +930,11 @@
           </div>
         </div>
 
-        <div class="ai-review-tags" id="ai-review-tags">
+        <div class="ai-review-tags is-open" id="ai-review-tags">
           <div class="ai-review-tags-head">
             <p class="ai-review-section-label">Разделы каталога</p>
-            <button type="button" class="ai-review-tags-toggle" id="ai-review-tags-toggle" aria-expanded="false" aria-controls="ai-review-tags-edit">Изменить</button>
           </div>
-          <div class="ai-review-tags-summary" id="ai-review-tags-summary"></div>
+          <div class="ai-review-tags-summary" id="ai-review-tags-summary" hidden></div>
           <div class="ai-review-tags-edit" id="ai-review-tags-edit">
             <div class="ai-review-tag-block ai-review-tag-who">
               <span class="ai-review-tag-h">Для кого</span>
@@ -985,7 +985,7 @@
 <script src="imgbb-upload.js?v=1"></script>
 <script src="cloudinary-patch.js?v=yandex-1"></script>
 <script src="admin-studio-pro.js?v=20260929-ceiling-ref"></script>
-<script src="admin-ai.js?v=20260929-forwho"></script>
+<script src="admin-ai.js?v=20260929-tags-always"></script>
 <script src="admin-reference-background.js"></script>
 <script src="admin-orders.js?v=1"></script>
 <script src="admin-price.js?v=3"></script>

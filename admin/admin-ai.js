@@ -1263,7 +1263,7 @@ Object.assign(app, {
     if (eyebrow) eyebrow.textContent = opts.fresh ? 'После ИИ' : 'Правка';
     this.wireAiReviewOverlay?.();
     this.syncAiReviewFromForm?.(opts.data || this._lastAiCardData);
-    this.setAiReviewTagsOpen?.(false);
+    this.setAiReviewTagsOpen?.(true);
     overlay.hidden = false;
     overlay.classList.remove('hidden');
     document.body.style.overflow = 'hidden';
@@ -1373,10 +1373,6 @@ Object.assign(app, {
     digit1?.addEventListener('change', () => onDigit(1));
     digit2?.addEventListener('change', () => onDigit(2));
 
-    document.getElementById('ai-review-tags-toggle')?.addEventListener('click', () => {
-      const open = !document.getElementById('ai-review-tags')?.classList.contains('is-open');
-      this.setAiReviewTagsOpen?.(open);
-    });
   },
 
   setAiReviewTagsOpen(open) {

@@ -2,6 +2,200 @@
   "ok": true,
   "products": [
     {
+      "id": "e917cc4a-b864-4cc0-90a7-040ab48000f0",
+      "title": "Космический старт",
+      "article": "BOY-047",
+      "price": 3700,
+      "short_description": "Космонавт в скафандре, радужные хромированные шары и серебряная цифра.",
+      "full_description": "Фольгированная фигура космонавта в белом скафандре с синим шлемом, серебряная цифра и 10 хромированных шаров в радужных оттенках.",
+      "composition": [
+        "фигура",
+        "цифра",
+        "10 шаров хром"
+      ],
+      "category": "Для мальчика",
+      "character": "Космонавт",
+      "age_group": "Для детей",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Воздушные шары с космонавтом и цифрой в Армавире",
+      "seo_description": "Космическая композиция с фигурой космонавта, серебряной цифрой и радужными хромированными шарами. Доставка воздушных шаров по Армавиру.",
+      "slug": "kosmicheskiy-start",
+      "scene": "wall_only",
+      "tags": [
+        "1 годик"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/3659f011-be62-4416-a7c4-daf66d945cce.jpg",
+        "photo_dhash": "797978fad8d8d0f0",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/2bbb1902-79c3-4a24-8ed5-a35a41ee895e.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/2bbb1902-79c3-4a24-8ed5-a35a41ee895e.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-30T20:13:21.727Z",
+      "updated_at": "2026-09-30T20:13:39.271Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "30682a78-31df-45e2-8281-ed2390ae08ca",
+      "title": "Гонка начинается",
+      "article": "BOY-046",
+      "price": 3160,
+      "short_description": "Красная гоночная машина с номером 95, синяя цифра и яркие шары.",
+      "full_description": "Композиция с фольгированной фигурой гоночной машины, цифрой и связкой красно-бело-синих шаров.",
+      "composition": [
+        "фигура",
+        "цифра",
+        "9 шаров"
+      ],
+      "category": "Для мальчика",
+      "character": "Молния Маккуин",
+      "age_group": "Для детей",
+      "budget": "2 000–3 500 ₽",
+      "series_name": "Тачки",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары Молния Маккуин с цифрой — Армавир | VigSharm",
+      "seo_description": "Композиция с гоночной машиной Молния Маккуин, цифрой и яркими шарами. Доставка воздушных шаров в Армавире.",
+      "slug": "gonka-nachinaetsya",
+      "scene": "wall_only",
+      "tags": [
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/c2aac199-6b16-4041-9ea8-e458227f6ee4.jpg",
+        "photo_dhash": "7aded28aeceaca9a",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/b7566b34-efbf-4349-b6f7-d68861b7f9a1.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/b7566b34-efbf-4349-b6f7-d68861b7f9a1.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-30T19:44:56.680Z",
+      "updated_at": "2026-09-30T19:44:56.680Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "86791467-8fe5-4bd8-bbca-51e25fa5c3da",
+      "title": "Синий металлик",
+      "article": "BOY-045",
+      "price": 2830,
+      "short_description": "Композиция с крупными цифрами, звездой с надписью и хромированными шарами в сине-золотой гамме.",
+      "full_description": "Стильная композиция на стене сочетает глянцевые синие и золотые оттенки. Включает фольгированные цифры, звезду с поздравлением и яркие хромированные шары.",
+      "composition": [
+        "цифра",
+        "звезда с надписью",
+        "шар с конфетти",
+        "4 шара хром",
+        "2 шара"
+      ],
+      "category": "Для мальчика",
+      "character": null,
+      "age_group": "Для детей",
+      "budget": "2 000–3 500 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары с цифрами и звездой в синем и золотом — Армавир",
+      "seo_description": "Композиция с фольгированными цифрами, звездой с надписью и хромированными шарами. Синяя и золотая гамма. Доставка по Армавиру.",
+      "slug": "siniy-metallik-98",
+      "scene": "wall_only",
+      "tags": [
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": true,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/2e0335e4-8205-425f-9349-478f6492a699.jpg",
+        "photo_dhash": "3f66e6d0e0e66646",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/8f6e3cc6-5b05-4a2c-8689-03558c015784.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/8f6e3cc6-5b05-4a2c-8689-03558c015784.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-30T19:42:13.388Z",
+      "updated_at": "2026-09-30T19:42:13.388Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "57a4c8f4-9f12-4245-93db-c775f1b98f90",
+      "title": "Год открытий",
+      "article": "Y1-012",
+      "price": 3590,
+      "short_description": "Баблс с надписью, золотая звезда и нежные голубые шары для первого дня рождения.",
+      "full_description": "Композиция для первого года жизни: прозрачный баблс с жёлтыми и голубыми шариками внутри, золотая звезда с поздравлением и связка из шести голубых и салатовых шаров.",
+      "composition": [
+        "баблс с шариками и надписью",
+        "звезда с надписью",
+        "6 шаров"
+      ],
+      "category": "1 годик",
+      "character": null,
+      "age_group": "Для малышей",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары на 1 годик мальчику в Армавире — Первые шаги",
+      "seo_description": "Композиция Первые шаги: баблс с надписью, золотая звезда и голубые шары для первого дня рождения. Доставка в Армавире.",
+      "slug": "pervye-shagi-3",
+      "scene": "wall_only",
+      "tags": [
+        "1 годик"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/47573434-b722-4fe6-b268-76cc7b50cb5c.jpg",
+        "photo_dhash": "3ffcddf5cd5bff5f"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/406f5701-f282-41fc-b956-763dbdeb87e0.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/406f5701-f282-41fc-b956-763dbdeb87e0.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-30T19:39:01.094Z",
+      "updated_at": "2026-09-30T19:39:01.094Z",
+      "thumb_photo": null
+    },
+    {
       "id": "e44192b7-14bb-4290-b84d-8d714d61ebf6",
       "title": "Высота небес",
       "article": "BOY-044",

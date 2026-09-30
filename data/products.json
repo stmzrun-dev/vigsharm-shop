@@ -2,6 +2,57 @@
   "ok": true,
   "products": [
     {
+      "id": "e44192b7-14bb-4290-b84d-8d714d61ebf6",
+      "title": "Юный пилот",
+      "article": "BOY-044",
+      "price": 3260,
+      "short_description": "Синяя цифра с самолётом и шарами в голубых оттенках.",
+      "full_description": "Композиция с фольгированной цифрой, фигурой самолёта и набором шаров в синих и серебристых тонах.",
+      "composition": [
+        "цифра",
+        "фигура",
+        "4 шара хром",
+        "2 шара с конфетти",
+        "2 шара"
+      ],
+      "category": "Для мальчика",
+      "character": null,
+      "age_group": "Для детей",
+      "budget": "2 000–3 500 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Воздушные шары с самолётом и цифрой Армавир — VigSharm",
+      "seo_description": "Композиция с фольгированной цифрой и самолётом в синих тонах. Идеально для мальчика. Доставка воздушных шаров в Армавире.",
+      "slug": "yunyy-pilot",
+      "scene": "wall_only",
+      "tags": [
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/72581f62-c3c6-4157-92d2-81cd41e9427e.jpg",
+        "photo_dhash": "3178da8cc85c194b",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/0e3497de-55c9-4cbd-b154-29b6a31d5e64.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/0e3497de-55c9-4cbd-b154-29b6a31d5e64.jpg",
+      "status": "draft",
+      "show_on_site": true,
+      "created_at": "2026-09-30T13:40:55.690Z",
+      "updated_at": "2026-09-30T13:47:07.085Z",
+      "thumb_photo": null
+    },
+    {
       "id": "52f7c097-58c5-48c7-bb4e-8a2ddc5b6a45",
       "title": "Драконье сердце",
       "article": "HER-045",

@@ -14102,52 +14102,6 @@
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/fb812adc-1453-4b2f-a7e5-59c8edf6b806.webp"
     },
     {
-      "id": "cb4a2873-b36d-4ebd-8ac4-cb11c2de1453",
-      "title": "Золотая ночь",
-      "article": "BOX-053",
-      "price": 4500,
-      "short_description": "Чёрная коробка с золотыми звёздами, хромированными и конфетти шарами.",
-      "full_description": "Элегантная композиция в чёрно-золотой гамме. Коробка-сюрприз украшена золотыми звёздами и дополнена фольгированными звёздами, хромированными и конфетти шарами.",
-      "composition": [
-        "коробка 70x70x70 с индивидуальной надписью и декором",
-        "3 фольгированные звезды",
-        "3 хромированных шара",
-        "4 латексных шара"
-      ],
-      "category": "Коробка-сюрприз",
-      "character": null,
-      "age_group": "Для детей",
-      "budget": "3 500–5 000 ₽",
-      "series_name": null,
-      "occasion": null,
-      "target_audience": null,
-      "seo_title": "Коробка-сюрприз с шарами в чёрно-золотом стиле — Армавир",
-      "seo_description": "Элегантная коробка-сюрприз с золотыми звёздами, хромированными и конфетти шарами. Универсальное решение для праздника в Армавире.",
-      "slug": "chernoe-zoloto-2",
-      "scene": "floor",
-      "tags": [
-        "Коробка-сюрприз"
-      ],
-      "client_options": {
-        "available_on_request": false,
-        "advance_order_1_2_days": true,
-        "number_choice": false,
-        "personal_inscription": true,
-        "photozone_rental": false,
-        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/b8b46e8a-6cd0-413c-aea2-8fae1d491816.jpg",
-        "photo_dhash": "3f78383c707868f9"
-      },
-      "photos": [
-        "https://storage.yandexcloud.net/vigsharm-photos/products/61b81e87-265e-4e33-a7dc-9d3e33a335d9.jpg"
-      ],
-      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/61b81e87-265e-4e33-a7dc-9d3e33a335d9.jpg",
-      "status": "published",
-      "show_on_site": true,
-      "created_at": "2026-09-24T22:47:39.971Z",
-      "updated_at": "2026-09-25T15:27:00.181Z",
-      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/fa03dcb8-7968-4f28-b4e9-2c1e24005f8e.webp"
-    },
-    {
       "id": "959bb976-a88e-49eb-8b74-fed2e5d7f25c",
       "title": "Год за годом",
       "article": "BOX-052",
@@ -14778,28 +14732,28 @@
     },
     {
       "id": "09ade2d6-cc0d-47fa-9274-9a482ca1948a",
-      "title": "Миньоны атакуют",
+      "title": "Банановый десант",
       "article": "BOX-039",
       "price": 4790,
-      "short_description": "Яркая коробка-сюрприз с фольгированными миньонами и жёлто-золотыми шарами.",
-      "full_description": "Жёлтая коробка с надписью Happy Birthday и изображением миньонов. Композицию дополняют крупная фольгированная фигура миньона, круг с рисунком и жёлто-золотые шары.",
+      "short_description": "Яркая жёлтая коробка с фигурой миньона, кругом с героями и шарами в золотисто-жёлтой гамме.",
+      "full_description": "Коробка-сюрприз в фирменных цветах миньонов с фольгированной фигурой, кругом и букетом из хромированных и латексных шаров.",
       "composition": [
-        "коробка 70x70x70 с индивидуальной надписью и декором",
-        "фольгированная фигура миньона",
+        "коробка с надписью",
+        "фигура",
         "3 хромированных шара",
         "5 латексных шаров",
-        "круг с рисунком миньонов"
+        "круг с рисунком"
       ],
       "category": "Коробка-сюрприз",
       "character": "Миньон",
       "age_group": "Для детей",
       "budget": "3 500–5 000 ₽",
-      "series_name": "Миньоны",
+      "series_name": "Гадкий я",
       "occasion": null,
       "target_audience": null,
-      "seo_title": "Коробка-сюрприз с миньонами — Армавир | VigSharm",
-      "seo_description": "Яркая коробка-сюрприз с фольгированными фигурами миньонов и жёлто-золотыми шарами. Доставка воздушных шаров в Армавире.",
-      "slug": "minyony-atakuyut",
+      "seo_title": "Коробка-сюрприз с миньонами в Армавире — VigSharm",
+      "seo_description": "Яркая коробка с фигурой миньона, кругом с героями и шарами в жёлто-золотистой гамме. Доставка воздушных шаров по Армавиру.",
+      "slug": "bananovyy-desant",
       "scene": "floor",
       "tags": [
         "Коробка-сюрприз"
@@ -14814,13 +14768,13 @@
         "photo_dhash": "2c2e0603170f07a1"
       },
       "photos": [
-        "https://storage.yandexcloud.net/vigsharm-photos/products/636b51a0-bcec-4426-91ed-df6d61e3f476.jpg"
+        "https://storage.yandexcloud.net/vigsharm-photos/products/08714e50-3a48-483b-9ebe-dede314e59d6.jpg"
       ],
-      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/636b51a0-bcec-4426-91ed-df6d61e3f476.jpg",
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/08714e50-3a48-483b-9ebe-dede314e59d6.jpg",
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-24T21:00:51.920Z",
-      "updated_at": "2026-09-25T15:27:53.392Z",
+      "updated_at": "2026-09-30T08:39:09.971Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/9599a485-fa48-459e-8523-4c2a3bc6bf1d.webp"
     },
     {
@@ -16893,21 +16847,20 @@
       "scene": "floor",
       "tags": [
         "Для мальчика",
-        "Геймерам",
-        "Напольные композиции"
+        "Геймерам"
       ],
       "client_options": {
         "available_on_request": false,
-        "advance_order_1_2_days": false,
+        "advance_order_1_2_days": true,
         "number_choice": true,
         "personal_inscription": false,
         "photozone_rental": false,
         "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/4c9971f5-9b93-4380-9e43-5c20a130eb7c.jpg",
+        "photo_dhash": "3878787070707070",
         "digit_choice": {
           "enabled": true,
           "count_on_photo": 1
-        },
-        "photo_dhash": "3878787070707070"
+        }
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/1feec1ec-da82-4325-a7f8-484963b9e4c9.png"
@@ -16916,7 +16869,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T20:06:36.138Z",
-      "updated_at": "2026-09-28T07:54:03.302Z",
+      "updated_at": "2026-09-30T08:32:32.055Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/fdc303b2-9a42-4318-ae85-bafe1248ed3d.webp"
     },
     {
@@ -17001,11 +16954,11 @@
         "personal_inscription": false,
         "photozone_rental": false,
         "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/e622f386-cd74-4d4c-857e-970f9933549a.jpg",
+        "photo_dhash": "fcfcda86d1e67c38",
         "digit_choice": {
           "enabled": true,
           "count_on_photo": 1
-        },
-        "photo_dhash": "fcfcda86d1e67c38"
+        }
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/01d1fe5f-6eb5-421c-8a6a-49d702ddd160.png"
@@ -17014,7 +16967,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T19:54:50.809Z",
-      "updated_at": "2026-09-28T07:53:29.594Z",
+      "updated_at": "2026-09-30T08:32:27.027Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/606218ec-67f1-4bc3-96db-58f61bbc10d9.webp"
     },
     {
@@ -17051,11 +17004,11 @@
         "personal_inscription": true,
         "photozone_rental": false,
         "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/395eafff-35b6-4f83-b102-d1bfb81c4073.jpg",
+        "photo_dhash": "0f8f87952465c647",
         "digit_choice": {
           "enabled": true,
           "count_on_photo": 2
-        },
-        "photo_dhash": "0f8f87952465c647"
+        }
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/06d2ab1f-fdd3-4e61-9ca0-416899c85bae.png"
@@ -17064,7 +17017,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T19:45:14.949Z",
-      "updated_at": "2026-09-28T07:53:26.021Z",
+      "updated_at": "2026-09-30T08:32:17.043Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/9d0fd824-3658-4c4a-a768-92ae793cec15.webp"
     },
     {
@@ -17188,11 +17141,11 @@
         "personal_inscription": false,
         "photozone_rental": false,
         "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/1a8a2964-7e71-45f2-86ad-6fdcefa3f4f7.jpg",
+        "photo_dhash": "1d3ca4ae9cdcc484",
         "digit_choice": {
           "enabled": true,
           "count_on_photo": 2
-        },
-        "photo_dhash": "1d3ca4ae9cdcc484"
+        }
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/4d81654f-7662-4238-a8f5-15e572154759.png"
@@ -17201,7 +17154,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T19:35:41.360Z",
-      "updated_at": "2026-09-28T07:53:15.576Z",
+      "updated_at": "2026-09-30T08:32:09.047Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/655b3af5-9ed8-4f94-b583-b0a877d1aff6.webp"
     },
     {
@@ -17361,22 +17314,21 @@
       "slug": "gonka-monstrov",
       "scene": "floor",
       "tags": [
-        "Для мальчика",
-        "Напольные композиции"
+        "Для мальчика"
       ],
       "client_options": {
         "available_on_request": false,
         "advance_order_1_2_days": true,
         "number_choice": true,
-        "personal_inscription": false,
+        "personal_inscription": true,
         "photozone_rental": false,
         "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/e723dc87-48a2-48f0-87a0-d768e27dfe82.jpg",
+        "photo_dhash": "38725ac6c4e8d8cc",
         "floor_type": "air",
         "digit_choice": {
           "enabled": true,
           "count_on_photo": 1
-        },
-        "photo_dhash": "38725ac6c4e8d8cc"
+        }
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/8d913bf7-a831-4cc7-9190-66bdb61b3248.png"
@@ -17385,7 +17337,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T19:22:08.916Z",
-      "updated_at": "2026-09-28T07:53:02.961Z",
+      "updated_at": "2026-09-30T08:31:54.651Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/06e42fc9-b533-44d6-8045-68a7093b312b.webp"
     },
     {
@@ -17414,21 +17366,20 @@
       "slug": "siniy-triumf",
       "scene": "floor",
       "tags": [
-        "Для мальчика",
-        "Напольные композиции"
+        "Для мальчика"
       ],
       "client_options": {
         "available_on_request": false,
-        "advance_order_1_2_days": false,
+        "advance_order_1_2_days": true,
         "number_choice": true,
         "personal_inscription": true,
         "photozone_rental": false,
         "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/8e033152-99b1-44ca-9082-9246c78cb397.jpg",
+        "photo_dhash": "fcfcde8ce4e6c0e0",
         "digit_choice": {
           "enabled": true,
           "count_on_photo": 1
-        },
-        "photo_dhash": "fcfcde8ce4e6c0e0"
+        }
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/c47094b4-82a7-4c5d-aa4c-6d44fcbec381.png"
@@ -17437,7 +17388,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T19:19:20.938Z",
-      "updated_at": "2026-09-28T07:52:59.616Z",
+      "updated_at": "2026-09-30T08:31:37.614Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/cce23400-0cab-46b5-8990-f227dabf6fde.webp"
     },
     {
@@ -17462,8 +17413,7 @@
       "slug": "pautinnyj-strazh",
       "scene": "floor",
       "tags": [
-        "Для мальчика",
-        "Напольные композиции"
+        "Для мальчика"
       ],
       "client_options": {
         "available_on_request": false,
@@ -17472,12 +17422,12 @@
         "personal_inscription": false,
         "photozone_rental": false,
         "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/f3cc37f3-7974-46d5-af2a-edb85356a754.jpg",
+        "photo_dhash": "fce8f8d0d0f0f870",
         "floor_type": "air",
         "digit_choice": {
           "enabled": true,
           "count_on_photo": 1
-        },
-        "photo_dhash": "fce8f8d0d0f0f870"
+        }
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/19fa60ec-d043-47d1-a251-f5c0281eabfb.jpg"
@@ -17486,7 +17436,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T19:13:47.953Z",
-      "updated_at": "2026-09-28T07:52:29.388Z",
+      "updated_at": "2026-09-30T08:31:30.856Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/17490696-4b1c-4f0a-869f-05c8ca0dc0bb.webp"
     },
     {
@@ -17511,8 +17461,7 @@
       "slug": "policeyskiy-patrul",
       "scene": "floor",
       "tags": [
-        "Для мальчика",
-        "Напольные композиции"
+        "Для мальчика"
       ],
       "client_options": {
         "available_on_request": false,
@@ -17521,12 +17470,12 @@
         "personal_inscription": true,
         "photozone_rental": false,
         "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/cf2cc940-ce3b-4dff-b9c7-391ec877e8f4.jpg",
+        "photo_dhash": "a2d2f0f2d8c9c6e6",
         "floor_type": "air",
         "digit_choice": {
           "enabled": true,
           "count_on_photo": 1
-        },
-        "photo_dhash": "a2d2f0f2d8c9c6e6"
+        }
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/cc94b895-0c3f-4b02-837a-31c9df2eac58.png"
@@ -17535,7 +17484,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T19:09:46.472Z",
-      "updated_at": "2026-09-28T07:52:25.820Z",
+      "updated_at": "2026-09-30T08:31:20.904Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/dbb505b8-2c99-471d-90a4-486fc2d44034.webp"
     },
     {
@@ -17717,12 +17666,12 @@
         "personal_inscription": false,
         "photozone_rental": false,
         "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/292803e2-6ba3-4454-be01-2c9e98248168.jpg",
+        "photo_dhash": "0fc7aadafa7870f0",
         "floor_type": "air",
         "digit_choice": {
           "enabled": true,
           "count_on_photo": 1
-        },
-        "photo_dhash": "0fc7aadafa7870f0"
+        }
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/6e61a600-5317-42c7-8070-06e1b61e2fc9.png"
@@ -17731,7 +17680,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T18:56:34.186Z",
-      "updated_at": "2026-09-28T07:52:11.860Z",
+      "updated_at": "2026-09-30T08:31:11.169Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/c5c9ab3c-75b1-46ad-b5f1-7cc3bcfa8b65.webp"
     },
     {
@@ -17765,11 +17714,11 @@
         "personal_inscription": true,
         "photozone_rental": false,
         "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/6f5908e3-aa0e-4877-98db-d1e06b62a411.jpg",
+        "photo_dhash": "0f0f7b323e697233",
         "digit_choice": {
           "enabled": true,
           "count_on_photo": 1
-        },
-        "photo_dhash": "0f0f7b323e697233"
+        }
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/e1b3a6df-69a0-4253-985b-baf021098b38.png"
@@ -17778,7 +17727,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T18:52:22.363Z",
-      "updated_at": "2026-09-28T07:52:08.796Z",
+      "updated_at": "2026-09-30T08:29:31.726Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/8aee74a4-45b8-4517-8ea8-d99d56ec7c8d.webp"
     },
     {
@@ -17815,11 +17764,11 @@
         "personal_inscription": false,
         "photozone_rental": false,
         "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/d49137af-2349-4849-aeb2-3f9929ddd17f.jpg",
+        "photo_dhash": "c3a9a1a933232727",
         "digit_choice": {
           "enabled": true,
           "count_on_photo": 1
-        },
-        "photo_dhash": "c3a9a1a933232727"
+        }
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/a61708b5-c623-4621-a8a6-167722683566.png"
@@ -17828,7 +17777,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T18:45:46.850Z",
-      "updated_at": "2026-09-28T07:52:05.487Z",
+      "updated_at": "2026-09-30T08:29:24.334Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/10aeced3-5a11-466b-a652-c7beece1c830.webp"
     },
     {
@@ -17856,6 +17805,7 @@
       "slug": "lesnye-priyateli",
       "scene": "floor",
       "tags": [
+        "Для девочки",
         "Для мальчика"
       ],
       "client_options": {
@@ -17865,11 +17815,11 @@
         "personal_inscription": false,
         "photozone_rental": false,
         "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/741bcff9-ef22-4876-9c03-9bc4681d575f.jpg",
+        "photo_dhash": "79fb5bd9dbdbbfb7",
         "digit_choice": {
           "enabled": true,
           "count_on_photo": 1
-        },
-        "photo_dhash": "79fb5bd9dbdbbfb7"
+        }
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/afc60904-24c1-4f06-91d5-336a7026fa89.png"
@@ -17878,7 +17828,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T18:43:27.930Z",
-      "updated_at": "2026-09-28T07:52:02.919Z",
+      "updated_at": "2026-09-30T08:28:59.979Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/93af6b94-f20b-4e20-a075-a012278c2894.webp"
     },
     {
@@ -20468,8 +20418,7 @@
       "slug": "siniy-gorizont",
       "scene": "wall_only",
       "tags": [
-        "Для мальчика",
-        "Универсальные"
+        "Для мальчика"
       ],
       "client_options": {
         "available_on_request": false,
@@ -20478,11 +20427,11 @@
         "personal_inscription": true,
         "photozone_rental": false,
         "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/32ff5b2b-2f3f-4377-bc30-ad91c2e2e2f3.jpg",
+        "photo_dhash": "1f8facb0f192dede",
         "digit_choice": {
           "enabled": true,
           "count_on_photo": 2
-        },
-        "photo_dhash": "1f8facb0f192dede"
+        }
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/b9aa0b7a-c707-45a3-add7-77d6b8cecd31.png"
@@ -20491,7 +20440,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T10:48:47.035Z",
-      "updated_at": "2026-09-28T07:47:49.599Z",
+      "updated_at": "2026-09-30T08:28:40.219Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/50d7ac99-ca0f-4d2e-a8b9-9cc5a2d7abc0.webp"
     },
     {
@@ -21712,8 +21661,7 @@
       "scene": "floor",
       "tags": [
         "Для мальчика",
-        "Юбилей",
-        "Напольные композиции"
+        "Юбилей"
       ],
       "client_options": {
         "available_on_request": false,
@@ -21722,12 +21670,12 @@
         "personal_inscription": false,
         "photozone_rental": false,
         "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/fa1d1c7e-056a-4ec1-8380-0674543a5fd0.jpg",
+        "photo_dhash": "81a8a3bcb2f2f8d8",
         "floor_type": "air",
         "digit_choice": {
           "enabled": true,
           "count_on_photo": 2
-        },
-        "photo_dhash": "81a8a3bcb2f2f8d8"
+        }
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/460197ce-6461-4b61-803e-c051acd21e8f.png"
@@ -21736,7 +21684,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-22T08:44:27.380Z",
-      "updated_at": "2026-09-28T07:46:48.792Z",
+      "updated_at": "2026-09-30T08:28:28.014Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/6edcfd34-56bd-404c-998d-7696ab7d7133.webp"
     },
     {
@@ -21812,18 +21760,21 @@
       "slug": "magicheskiy-vosmoy",
       "scene": "floor",
       "tags": [
-        "Для мальчика",
-        "Напольные композиции"
+        "Для мальчика"
       ],
       "client_options": {
         "available_on_request": false,
         "advance_order_1_2_days": true,
-        "number_choice": false,
+        "number_choice": true,
         "personal_inscription": true,
         "photozone_rental": false,
         "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/a4b7403f-95a4-4a37-a388-92e336ff2d55.jpg",
+        "photo_dhash": "2765ace4f0f0f4fc",
         "floor_type": "air",
-        "photo_dhash": "2765ace4f0f0f4fc"
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/9f401820-1023-4329-ad4e-e75972acd932.png"
@@ -21832,7 +21783,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-22T08:32:48.600Z",
-      "updated_at": "2026-09-28T07:46:43.117Z",
+      "updated_at": "2026-09-30T08:28:15.777Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/077498c3-c27a-4b21-aa67-035fff77115b.webp"
     },
     {
@@ -22136,53 +22087,6 @@
       "created_at": "2026-09-22T07:31:55.716Z",
       "updated_at": "2026-09-28T07:46:34.079Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/05785b74-4b28-449b-a0a2-6289346f05c4.webp"
-    },
-    {
-      "id": "89f5b7d7-85ed-4400-9151-e5608e026fb1",
-      "title": "Банановая команда",
-      "article": "BOX-006",
-      "price": 4690,
-      "short_description": "Яркая жёлтая коробка с миньонами и связкой шаров в фирменных цветах.",
-      "full_description": "Коробка-сюрприз с изображением миньонов, фольгированной фигурой и круглым шаром с принтом. Дополнена жёлтыми и золотыми хромированными шарами.",
-      "composition": [
-        "коробка 70x70x70 с индивидуальной надписью и декором",
-        "фольгированная фигура",
-        "круг с рисунком",
-        "3 хромированных шара",
-        "5 латексных шаров"
-      ],
-      "category": "Коробка-сюрприз",
-      "character": "Миньон",
-      "age_group": "Для детей",
-      "budget": "3 500–5 000 ₽",
-      "series_name": "Гадкий я",
-      "occasion": null,
-      "target_audience": null,
-      "seo_title": "Коробка-сюрприз с миньонами в Армавире — VigSharm",
-      "seo_description": "Яркая коробка-сюрприз с миньонами, фольгированной фигурой и шарами. Жёлто-золотая композиция для детского праздника. Заказать в Армавире.",
-      "slug": "bananovaya-komanda",
-      "scene": "floor",
-      "tags": [
-        "Коробка-сюрприз"
-      ],
-      "client_options": {
-        "available_on_request": false,
-        "advance_order_1_2_days": true,
-        "number_choice": false,
-        "personal_inscription": true,
-        "photozone_rental": false,
-        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/2632dbdf-ca79-4cfa-a6bb-232ec07b2214.jpg",
-        "photo_dhash": "2c2e0603170f07a3"
-      },
-      "photos": [
-        "https://storage.yandexcloud.net/vigsharm-photos/products/ced3d6fb-b5fc-4378-a20e-7904348a6b8a.jpg"
-      ],
-      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/ced3d6fb-b5fc-4378-a20e-7904348a6b8a.jpg",
-      "status": "published",
-      "show_on_site": true,
-      "created_at": "2026-09-22T07:27:11.214Z",
-      "updated_at": "2026-09-28T07:46:32.368Z",
-      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/8c4ef3b7-5c80-4057-b822-657531537d1b.webp"
     },
     {
       "id": "75c0caeb-b394-4409-9ac9-642657c06b47",
@@ -26873,21 +26777,20 @@
       "title": "Звёздный герой",
       "article": "BOY-011",
       "price": 4000,
-      "short_description": "Напольная композиция с Человеком-пауком, цифрой и золотой звездой.",
-      "full_description": "Яркая напольная композиция в красно-сине-чёрной гамме с фигурой Человека-паука, фольгированной цифрой с надписью и золотой звездой.",
+      "short_description": "Напольная композиция с Человеком-пауком и золотой звездой.",
+      "full_description": "Яркая композиция с фигурой Человека-паука, большой золотой звездой и красной цифрой на основании из синих, красных и чёрных шаров.",
       "composition": [
-        "напольная композиция",
-        "цифра с надписью"
+        "цифра"
       ],
       "category": "Для мальчика",
-      "character": null,
+      "character": "Человек-паук",
       "age_group": "Для детей",
       "budget": "3 500–5 000 ₽",
-      "series_name": null,
+      "series_name": "Человек-паук",
       "occasion": null,
       "target_audience": null,
-      "seo_title": "Композиция со Человеком-пауком и цифрой — VigSharm Армавир",
-      "seo_description": "Напольная композиция с Человеком-пауком, цифрой и золотой звездой в красно-синих тонах. Доставка шаров в Армавире.",
+      "seo_title": "Композиция с Человеком-пауком и звездой в Армавире",
+      "seo_description": "Напольная композиция с фигурой Человека-паука, золотой звездой и цифрой. Яркие шары для мальчика. Доставка в Армавире.",
       "slug": "zvezdnyy-geroy",
       "scene": "floor",
       "tags": [
@@ -26899,11 +26802,13 @@
         "number_choice": true,
         "personal_inscription": true,
         "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/dd210592-4466-4b51-9618-16a2d3d6b13d.jpg",
+        "photo_dhash": "3b70c0d0f4787870",
+        "floor_type": "air",
         "digit_choice": {
           "enabled": true,
           "count_on_photo": 1
-        },
-        "photo_dhash": "3b70c0d0f4787870"
+        }
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/dd210592-4466-4b51-9618-16a2d3d6b13d.jpg"
@@ -26912,7 +26817,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-18T21:09:21.236Z",
-      "updated_at": "2026-09-28T07:43:54.538Z",
+      "updated_at": "2026-09-30T08:25:32.587Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/2f6d7a91-a125-405a-bd84-1576e6af26b0.webp"
     },
     {
@@ -27331,11 +27236,12 @@
         "number_choice": true,
         "personal_inscription": false,
         "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/cc44ab49-4ecb-4e14-8a3a-471fca27c4ea.jpg",
+        "photo_dhash": "2968c8a0a8e8e07d",
         "digit_choice": {
           "enabled": true,
           "count_on_photo": 1
-        },
-        "photo_dhash": "2968c8a0a8e8e07d"
+        }
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/cc44ab49-4ecb-4e14-8a3a-471fca27c4ea.jpg"
@@ -27344,7 +27250,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-18T12:57:04.255Z",
-      "updated_at": "2026-09-28T07:43:45.324Z",
+      "updated_at": "2026-09-30T08:24:13.616Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/cfaa9222-d41e-4c0d-a3e4-43bd64749d64.webp"
     },
     {
@@ -27491,20 +27397,20 @@
       "title": "Школа волшебства",
       "article": "BOY-008",
       "price": 4000,
-      "short_description": "Две напольные композиции с золотой цифрой и фольгированной фигурой юного волшебника в очках.",
-      "full_description": "Композиция включает золотую цифру и фольгированную фигуру персонажа в чёрной мантии с красными акцентами. Основание выполнено из бордовых и золотых латексных шаров.",
+      "short_description": "Две композиции с цифрой 88 и фигурой Гарри Поттера в золотисто-бордовой гамме.",
+      "full_description": "Напольные композиции с фольгированными цифрами 88 и фигурой Гарри Поттера. Шары в благородных золотых и бордовых оттенках создают волшебную атмосферу.",
       "composition": [
-        "2 напольные композиции (цифра)"
+        "2 напольные композиции"
       ],
       "category": "Для мальчика",
-      "character": null,
+      "character": "Гарри Поттер",
       "age_group": "Для детей",
       "budget": "3 500–5 000 ₽",
-      "series_name": null,
+      "series_name": "Гарри Поттер",
       "occasion": null,
       "target_audience": null,
-      "seo_title": "Напольные композиции с Гарри Поттером — Армавир | VigSharm",
-      "seo_description": "Две напольные композиции с золотой цифрой и фигурой Гарри Поттера в Армавире. Основание из бордовых и золотых шаров. Доставка по городу.",
+      "seo_title": "Шары с Гарри Поттером на 88 лет — Армавир",
+      "seo_description": "Напольные композиции с цифрой 88 и фигурой Гарри Поттера в золотых и бордовых тонах. Оформление праздника воздушными шарами в Армавире.",
       "slug": "shkola-volshebstva",
       "scene": "floor",
       "tags": [
@@ -27516,11 +27422,13 @@
         "number_choice": true,
         "personal_inscription": false,
         "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/b26a313d-c801-4c97-9315-7b76c9c9970c.png",
+        "photo_dhash": "bbc0b8dabce8b2ec",
+        "floor_type": "air",
         "digit_choice": {
           "enabled": true,
           "count_on_photo": 1
-        },
-        "photo_dhash": "bbc0b8dabce8b2ec"
+        }
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/b26a313d-c801-4c97-9315-7b76c9c9970c.png"
@@ -27529,7 +27437,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-18T11:46:07.856Z",
-      "updated_at": "2026-09-28T07:43:19.656Z",
+      "updated_at": "2026-09-30T08:23:52.654Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/ded5131d-b9e5-4eea-9956-8add49417dd3.webp"
     },
     {
@@ -28094,21 +28002,21 @@
       "title": "Плюшевый друг",
       "article": "BOY-004",
       "price": 2000,
-      "short_description": "Голубой мишка из шаров с золотой бабочкой и добрыми глазами.",
-      "full_description": "Фигура медвежонка из воздушных шаров в нежно-голубом цвете с белым животиком и золотой бабочкой на шее. Мишка скручен из множества латексных шаров и устойчиво стоит на полу.",
+      "short_description": "Голубой медвежонок из шаров с золотым бантиком на шее.",
+      "full_description": "Фигура медведя из голубых шаров с белым животиком и золотым бантиком. Устойчивая композиция для декора праздника.",
       "composition": [
         "Фигура из шаров"
       ],
-      "category": "Для мальчика",
-      "character": "Медведь",
+      "category": "Фигуры из шаров",
+      "character": "Мишка",
       "age_group": "Для малышей",
       "budget": "2 000–3 500 ₽",
       "series_name": null,
       "occasion": null,
       "target_audience": "Для мальчика",
-      "seo_title": "Мишка из шаров в Армавире — фигура медведя из воздушных шаров",
-      "seo_description": "Голубой медвежонок из шаров с золотой бабочкой. Напольная фигура из воздушных шаров для малышей. Доставка по Армавиру.",
-      "slug": "plyushevyy-drug-mishka-iz-sharov",
+      "seo_title": "Фигура медведя из шаров — Плюшевый друг, Армавир",
+      "seo_description": "Голубой медвежонок из шаров с золотым бантиком. Фигура из шаров для оформления праздника в Армавире. Заказать в VigSharm.",
+      "slug": "plyushevyy-drug",
       "scene": "balloon_figures",
       "tags": [
         "Фигуры из шаров"
@@ -28129,7 +28037,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-16T21:48:55.654Z",
-      "updated_at": "2026-09-30T08:14:45.788Z",
+      "updated_at": "2026-09-30T08:20:33.131Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/0cacc1f5-3837-49dd-88d1-b50b5a1aa567.webp"
     },
     {

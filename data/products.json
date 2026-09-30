@@ -2,6 +2,1026 @@
   "ok": true,
   "products": [
     {
+      "id": "e40895a9-93d4-48fc-91f2-f1ea079fc61a",
+      "title": "Мишка Сатин",
+      "article": "UNT-233",
+      "price": 600,
+      "short_description": "Мишка Сатин",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "klubnika-s-cvetkom-10-12",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Для девочки",
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/37eefb9f-1c1b-4472-8690-667f7b3df00e.jpg",
+        "photo_dhash": "d4d8d4f09292c6d4",
+        "unit_type": "foil",
+        "balloon_size": "89 см",
+        "unit_who": [
+          "Для девочки",
+          "Для мальчика"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/e27120e9-bb9d-4566-aebb-324c7041d807.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/e27120e9-bb9d-4566-aebb-324c7041d807.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-30T21:10:16.743Z",
+      "updated_at": "2026-09-30T21:10:32.181Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/2a84facb-73a4-4b0b-b965-e3f7388293d9.webp"
+    },
+    {
+      "id": "d709f44d-acb1-47e0-b84e-5a420c47afde",
+      "title": "Леденец Розовый",
+      "article": "UNT-232",
+      "price": 550,
+      "short_description": "Леденец Розовый",
+      "full_description": "",
+      "composition": [],
+      "category": "Новый год",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "klubnika-s-cvetkom-10-11",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Новый год"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/9c50b7bb-51b3-47b5-8db0-4692409fbf89.jpg",
+        "photo_dhash": "f0f8c8d838383838",
+        "unit_type": "foil",
+        "balloon_size": "50 см",
+        "unit_holiday": "Новый год"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/c0700fe7-ca7b-4ec9-9399-56ff6d3204a1.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/c0700fe7-ca7b-4ec9-9399-56ff6d3204a1.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-30T21:08:07.825Z",
+      "updated_at": "2026-09-30T21:10:33.456Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/d1fd54c1-96f6-453b-a3fa-eea4d45e0736.webp"
+    },
+    {
+      "id": "60e13c15-b671-44ab-bae0-f271f270318b",
+      "title": "Гусь Обнимусь",
+      "article": "UNT-231",
+      "price": 700,
+      "short_description": "Гусь Обнимусь",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": "Гусь Обнимусь",
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": "Гусь Обнимусь",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "klubnika-s-cvetkom-10-10",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Для девочки",
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/6411bcfb-71a4-4dc0-a4d2-f12c05a1242d.jpg",
+        "photo_dhash": "f0cce8f0f09ecccc",
+        "unit_type": "foil",
+        "balloon_size": "104 см",
+        "unit_who": [
+          "Для девочки",
+          "Для мальчика"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/8adbdc96-17ba-46f0-9418-2eead10bccb2.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/8adbdc96-17ba-46f0-9418-2eead10bccb2.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-30T21:07:02.327Z",
+      "updated_at": "2026-09-30T21:10:35.241Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/0f90e1f2-151a-4929-80ab-8a1a2a103c3f.webp"
+    },
+    {
+      "id": "cc8905c9-1a29-4c6b-a2a3-1cc5633ad587",
+      "title": "Котенок китти",
+      "article": "UNT-230",
+      "price": 550,
+      "short_description": "Котенок китти",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": "Хелло Китти",
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": "Hello Kitty",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "klubnika-s-cvetkom-10-9",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/24a8e5ac-157f-4cff-b1bd-99a566cd07f1.jpg",
+        "photo_dhash": "e8f8e8e8f0707020",
+        "unit_type": "foil",
+        "balloon_size": "69 см",
+        "unit_who": [
+          "Для девочки"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/92a0d767-544e-4fc0-818b-b410394bc769.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/92a0d767-544e-4fc0-818b-b410394bc769.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-30T20:57:46.129Z",
+      "updated_at": "2026-09-30T21:10:37.129Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/c21c89c9-328c-4703-83ce-d21f113b324f.webp"
+    },
+    {
+      "id": "24de2a26-d55b-44b0-bdca-6fa3c031407e",
+      "title": "Буба Белый",
+      "article": "UNT-229",
+      "price": 750,
+      "short_description": "Буба Белый",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": "Буба",
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": "Буба",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "klubnika-s-cvetkom-10-8",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/25d908cd-091c-4bd0-a9b1-039eeb7b968c.jpg",
+        "photo_dhash": "f0f0e0f0f0e28edc",
+        "unit_type": "foil",
+        "balloon_size": "119 см",
+        "unit_who": [
+          "Для мальчика"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/a378bcf6-f62d-4d55-badb-65e3d55515ec.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/a378bcf6-f62d-4d55-badb-65e3d55515ec.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-30T20:56:07.129Z",
+      "updated_at": "2026-09-30T21:10:39.203Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/cd1373bb-f5f4-4878-958b-696732d05212.webp"
+    },
+    {
+      "id": "802197bc-0ba4-46bc-88c4-2db549a4fab5",
+      "title": "Полицейская Машина",
+      "article": "UNT-228",
+      "price": 550,
+      "short_description": "Полицейская Машина",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "klubnika-s-cvetkom-10-7",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/4d89a94f-3b22-47e6-99fd-05209bca1f68.jpg",
+        "photo_dhash": "e0e0ec643630bbb3",
+        "unit_type": "foil",
+        "balloon_size": "66 см",
+        "unit_who": [
+          "Для мальчика"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/afa54752-e2fa-4d9f-b8ca-c5f2595c8d40.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/afa54752-e2fa-4d9f-b8ca-c5f2595c8d40.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-30T20:55:07.288Z",
+      "updated_at": "2026-09-30T21:10:41.231Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/9e7fe53f-a407-4d9d-ae21-ba969a0d8ed9.webp"
+    },
+    {
+      "id": "5abaf7e6-8a1b-4f14-aefa-b7531f61eef2",
+      "title": "Экскаватор",
+      "article": "UNT-227",
+      "price": 550,
+      "short_description": "Экскаватор",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "klubnika-s-cvetkom-10-6",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/02127c6e-16e2-4117-ba1b-970142da901e.jpg",
+        "photo_dhash": "8098aa28aab6381c",
+        "unit_type": "foil",
+        "balloon_size": "66 см",
+        "unit_who": [
+          "Для мальчика"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/5d4d816a-c953-4cfc-8f17-a680a5105b45.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/5d4d816a-c953-4cfc-8f17-a680a5105b45.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-30T20:54:01.075Z",
+      "updated_at": "2026-09-30T21:10:43.183Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/8f2010c1-483f-4911-b663-689f3cea8a65.webp"
+    },
+    {
+      "id": "42862521-ee3f-4239-87f9-01970d7b25f8",
+      "title": "Грузовичок Лёва",
+      "article": "UNT-226",
+      "price": 650,
+      "short_description": "Грузовичок Лёва",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": "Грузовичок Лёва",
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": "Грузовичок Лёва",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "klubnika-s-cvetkom-10-5",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "1 годик"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/32b70ece-e3fc-461d-b4a1-a0a37f7c5597.jpg",
+        "photo_dhash": "fcf2b85ecccc9e98",
+        "unit_type": "foil",
+        "balloon_size": "66 см",
+        "unit_who": [
+          "1 годик"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/5fa24634-aaec-4945-b8a7-a48fc3357f47.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/5fa24634-aaec-4945-b8a7-a48fc3357f47.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-30T20:50:59.727Z",
+      "updated_at": "2026-09-30T21:10:45.096Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/6d5a2770-e77e-4a68-8665-bb365cdd5a6c.webp"
+    },
+    {
+      "id": "b98849dd-ce7c-4909-92f7-84594795a1d4",
+      "title": "Капибара в Колпачке",
+      "article": "UNT-225",
+      "price": 550,
+      "short_description": "Капибара в Колпачке",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "klubnika-s-cvetkom-10-4",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/5e55e9dd-9889-4f10-8a30-95f606507b5d.jpg",
+        "photo_dhash": "70f4fcfcf8e0e0e0",
+        "unit_type": "foil",
+        "balloon_size": "79 см"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/170cf771-88a8-4de1-b965-7701cfc4155e.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/170cf771-88a8-4de1-b965-7701cfc4155e.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-30T20:49:51.913Z",
+      "updated_at": "2026-09-30T21:10:47.024Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/99ce2037-e26c-4f1b-8562-10c8eccfcd64.webp"
+    },
+    {
+      "id": "c1b6a4c7-746e-4193-b2b2-59cc128668da",
+      "title": "Пиксельный Герой со Стрелой",
+      "article": "UNT-224",
+      "price": 650,
+      "short_description": "Пиксельный Герой со Стрелой",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": "Стив",
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": "Minecraft",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "klubnika-s-cvetkom-10-3",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Для мальчика",
+        "Геймерам"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/842e12bf-1bde-4c33-9c44-049744771fe9.jpg",
+        "photo_dhash": "78307092e868ece0",
+        "unit_type": "foil",
+        "balloon_size": "84 см",
+        "unit_who": [
+          "Для мальчика",
+          "Геймерам"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/466c72ae-4e77-4042-af6d-d3e5e0d937de.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/466c72ae-4e77-4042-af6d-d3e5e0d937de.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-30T20:48:49.873Z",
+      "updated_at": "2026-09-30T21:10:49.152Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/6fc70bb0-7fce-408b-b2f6-d3087d13835c.webp"
+    },
+    {
+      "id": "a621a52e-919c-4c57-a58f-0150e9e0e787",
+      "title": "Семья Героев, Папа",
+      "article": "UNT-223",
+      "price": 650,
+      "short_description": "Семья Героев, Папа",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "klubnika-s-cvetkom-10-2",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Для него",
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/a2988a0a-caf3-4abe-b52f-b25df2b53bfc.jpg",
+        "photo_dhash": "66ca8e1f9ff0f2f6",
+        "unit_type": "foil",
+        "balloon_size": "81 см",
+        "unit_who": [
+          "Для него",
+          "Для мальчика"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/f516992b-1dbd-4eeb-8da1-78d5e12e4ea7.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/f516992b-1dbd-4eeb-8da1-78d5e12e4ea7.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-30T20:47:45.993Z",
+      "updated_at": "2026-09-30T21:10:51.113Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/9225c90e-6c77-4f56-8c8d-0bacfaec3c9b.webp"
+    },
+    {
+      "id": "87e717a7-afc5-469a-959a-c2b8a358400a",
+      "title": "Бутылка, На Удачу",
+      "article": "UNT-222",
+      "price": 700,
+      "short_description": "Бутылка, На Удачу",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "klubnika-s-cvetkom-10",
+      "scene": "unit_balloon",
+      "tags": [
+        "Для него",
+        "Шары поштучно",
+        "Фольгированные фигуры"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/6301db8a-a172-446e-ae94-367c4a6b6bf8.jpg",
+        "photo_dhash": "7270f0e8e8e8f0f1",
+        "unit_type": "foil",
+        "balloon_size": "73 см",
+        "unit_who": [
+          "Для него"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/3db09d65-227a-4f10-9344-43b8783a8f14.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/3db09d65-227a-4f10-9344-43b8783a8f14.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-30T20:43:48.044Z",
+      "updated_at": "2026-09-30T20:44:27.759Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/7b47a2d9-077c-4533-a7ce-67b69550e0ce.webp"
+    },
+    {
+      "id": "22191693-e1f6-4ce0-93f3-b4e094adc5d3",
+      "title": "Чипсы",
+      "article": "UNT-221",
+      "price": 550,
+      "short_description": "Чипсы",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "klubnika-s-cvetkom-9",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Для него",
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/912e1d16-0746-4bd2-969e-ffdcbc126b8a.jpg",
+        "photo_dhash": "ccd4cccce8c8d8d4",
+        "unit_type": "foil",
+        "balloon_size": "61 см",
+        "unit_who": [
+          "Для него",
+          "Для мальчика"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/753d1cdc-a66c-4d11-bda6-112bad54a42f.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/753d1cdc-a66c-4d11-bda6-112bad54a42f.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-30T20:43:22.099Z",
+      "updated_at": "2026-09-30T21:10:53.115Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/6da7dece-c2b0-4901-859b-8c50b7eaf4c8.webp"
+    },
+    {
+      "id": "e38616f9-40b2-44fc-8a89-cf813d2b4e70",
+      "title": "Бант Золотой Сатин",
+      "article": "UNT-220",
+      "price": 650,
+      "short_description": "Бант Золотой Сатин",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "klubnika-s-cvetkom-8",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/ab056cb8-f953-460d-9409-81d878d41fbb.jpg",
+        "photo_dhash": "8e8ececc8a8c8ecc",
+        "unit_type": "foil",
+        "balloon_size": "99 см",
+        "unit_who": [
+          "Для девочки"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/c453ef59-0d93-4c17-8cc0-5e9cad511842.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/c453ef59-0d93-4c17-8cc0-5e9cad511842.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-30T20:40:26.222Z",
+      "updated_at": "2026-09-30T21:10:55.157Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/823d3fc5-9b9d-4cfd-9a4c-9172de07aee8.webp"
+    },
+    {
+      "id": "ad1bf4b5-b089-4003-b761-d3747a8a2141",
+      "title": "Бант Красный Сатин",
+      "article": "UNT-219",
+      "price": 650,
+      "short_description": "Бант Красный Сатин",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "klubnika-s-cvetkom-7",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Для неё",
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/b69a1d9b-c412-4e52-9616-b85919072842.webp",
+        "photo_dhash": "070c383ccc8c8c4c",
+        "unit_type": "foil",
+        "balloon_size": "99 см",
+        "unit_who": [
+          "Для неё",
+          "Для девочки"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/ab11f1f1-444f-4da1-84cc-dc0909b22d09.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/ab11f1f1-444f-4da1-84cc-dc0909b22d09.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-30T20:38:05.282Z",
+      "updated_at": "2026-09-30T21:10:56.422Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/c0096590-52b7-4562-ba6a-d4a45dbc1445.webp"
+    },
+    {
+      "id": "f5311a18-af30-4350-9b02-5a98e85293a7",
+      "title": "Кот сердитый",
+      "article": "UNT-218",
+      "price": 600,
+      "short_description": "Кот сердитый",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": "Грампи Кэт",
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": "Grumpy Cat",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "klubnika-s-cvetkom-6",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Для неё",
+        "Для него"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/36cfa12d-72c6-43b7-a866-bc8a35fcb92c.jpg",
+        "photo_dhash": "079696cc8e8e86f0",
+        "unit_type": "foil",
+        "balloon_size": "66 см",
+        "unit_who": [
+          "Для неё",
+          "Для него"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/fb91ee3f-cfb0-4e8d-ac5b-cac333ffce26.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/fb91ee3f-cfb0-4e8d-ac5b-cac333ffce26.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-30T20:36:18.412Z",
+      "updated_at": "2026-09-30T21:10:57.689Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/bc39df9e-cb8c-401b-a96c-eb4f8838ac5a.webp"
+    },
+    {
+      "id": "3d77d7f6-7a0d-4b3f-8e79-7abc4373bc39",
+      "title": "Утёнок",
+      "article": "UNT-217",
+      "price": 650,
+      "short_description": "Утёнок",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "klubnika-s-cvetkom-5",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Для девочки",
+        "1 годик"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/454aa276-a4dc-4097-823b-4aa56d329515.jpg",
+        "photo_dhash": "f0e8e8f0f0ecc8e8",
+        "unit_type": "foil",
+        "balloon_size": "81 см",
+        "unit_who": [
+          "Для девочки",
+          "1 годик"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/fa4343ac-d75f-43a2-a3d7-5f4af7c8cceb.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/fa4343ac-d75f-43a2-a3d7-5f4af7c8cceb.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-30T20:34:25.050Z",
+      "updated_at": "2026-09-30T21:10:59.148Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/ad56c504-31f2-4815-8696-6d250c37cd7d.webp"
+    },
+    {
+      "id": "f9269f10-375f-481a-9e88-f9271370483f",
+      "title": "Мишка с Бантом, Бежевый",
+      "article": "UNT-216",
+      "price": 650,
+      "short_description": "Мишка с Бантом, Бежевый",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "klubnika-s-cvetkom-4",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Для девочки",
+        "1 годик"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/165fd9f4-e470-48c6-a296-35c034a018e2.jpg",
+        "photo_dhash": "c8f0f0f0d4dcc8dc",
+        "unit_type": "foil",
+        "balloon_size": "89 см",
+        "unit_who": [
+          "Для девочки",
+          "1 годик"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/a2ec1e47-9110-4153-944d-1b93eb8890e4.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/a2ec1e47-9110-4153-944d-1b93eb8890e4.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-30T20:23:28.284Z",
+      "updated_at": "2026-09-30T21:11:01.396Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/2395e1fa-5b9c-4f9e-9421-e2e858f11230.webp"
+    },
+    {
+      "id": "f38882e2-3b53-40d9-b9e7-8173b51c9891",
+      "title": "Мишка с Бантом, Коричневый",
+      "article": "UNT-215",
+      "price": 650,
+      "short_description": "Мишка с Бантом, Коричневый",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "klubnika-s-cvetkom-3",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Для девочки",
+        "Для мальчика",
+        "1 годик"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/f382d2ed-66ca-4a1f-bda9-15d9ed400d97.jpg",
+        "photo_dhash": "e8f8f0f0ccdce8e0",
+        "unit_type": "foil",
+        "balloon_size": "89 см",
+        "unit_who": [
+          "Для девочки",
+          "Для мальчика",
+          "1 годик"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/260e6d46-fb22-42f8-8969-caa022ae982f.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/260e6d46-fb22-42f8-8969-caa022ae982f.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-30T20:21:24.007Z",
+      "updated_at": "2026-09-30T21:11:03.394Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/b91afa6f-94d6-4afd-9885-a06a0438dd51.webp"
+    },
+    {
+      "id": "295cc691-d4e9-4974-8e2f-b56678bd215c",
+      "title": "Бутылка Пива",
+      "article": "UNT-122",
+      "price": 650,
+      "short_description": "Бутылка Пива",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "klubnika-s-cvetkom-2",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Для него"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/a01d9bc6-6ea9-4fd4-b959-7b621c920e36.jpg",
+        "photo_dhash": "7070707070707070",
+        "unit_type": "foil",
+        "balloon_size": "91 см",
+        "unit_who": [
+          "Для него"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/fcb89f31-6252-496e-baec-688d68dd0613.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/fcb89f31-6252-496e-baec-688d68dd0613.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-30T20:18:02.551Z",
+      "updated_at": "2026-09-30T21:11:05.377Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/4c07c1ce-8a9e-422b-a63d-49d445a12d96.webp"
+    },
+    {
+      "id": "95bc899c-0795-455f-a66f-5335f2cf69f6",
+      "title": "Клубника с цветком",
+      "article": "UNT-006",
+      "price": 500,
+      "short_description": "Клубника с цветком",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "klubnika-s-cvetkom",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/c7620f58-b75a-4729-88d0-03dda0217d46.jpg",
+        "photo_dhash": "d8e4ab4ba5d2e070",
+        "unit_type": "foil",
+        "balloon_size": "66 см"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/7b5b3b4b-11cd-4d9e-ab83-b07ad306d47f.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/7b5b3b4b-11cd-4d9e-ab83-b07ad306d47f.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-30T20:16:40.248Z",
+      "updated_at": "2026-09-30T21:11:07.338Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/0587d2f0-6515-450d-a384-4fc13862780f.webp"
+    },
+    {
       "id": "e917cc4a-b864-4cc0-90a7-040ab48000f0",
       "title": "Космический старт",
       "article": "BOY-047",
@@ -47,8 +1067,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-30T20:13:21.727Z",
-      "updated_at": "2026-09-30T20:13:39.271Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-30T21:11:09.316Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/7fc871de-53bd-46a4-bf30-9be1eeedef15.webp"
     },
     {
       "id": "30682a78-31df-45e2-8281-ed2390ae08ca",
@@ -96,8 +1116,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-30T19:44:56.680Z",
-      "updated_at": "2026-09-30T19:44:56.680Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-30T21:11:11.316Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/5661e3f3-55a5-4065-9106-7f964be3e4c6.webp"
     },
     {
       "id": "86791467-8fe5-4bd8-bbca-51e25fa5c3da",
@@ -147,8 +1167,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-30T19:42:13.388Z",
-      "updated_at": "2026-09-30T19:42:13.388Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-30T21:11:13.339Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/0b2f2db6-b9d0-404a-af26-ff36a932888a.webp"
     },
     {
       "id": "57a4c8f4-9f12-4245-93db-c775f1b98f90",
@@ -192,8 +1212,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-30T19:39:01.094Z",
-      "updated_at": "2026-09-30T19:39:01.094Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-30T21:11:15.439Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/50b3af48-8e08-4d1e-91ed-758989f8d966.webp"
     },
     {
       "id": "e44192b7-14bb-4290-b84d-8d714d61ebf6",
@@ -243,8 +1263,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-30T13:40:55.690Z",
-      "updated_at": "2026-09-30T17:16:03.905Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-30T21:11:17.338Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/3fa725fb-4ce0-4778-86c4-e5fadeed213b.webp"
     },
     {
       "id": "52f7c097-58c5-48c7-bb4e-8a2ddc5b6a45",
@@ -288,8 +1308,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-30T08:13:49.535Z",
-      "updated_at": "2026-09-30T08:13:49.535Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-30T21:11:19.412Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/cd84fd7d-16ab-4777-96b8-69ff4dc0b637.webp"
     },
     {
       "id": "699c60de-3f73-48d1-be1e-73a403116ca2",
@@ -336,8 +1356,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-30T08:03:01.719Z",
-      "updated_at": "2026-09-30T08:03:01.719Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-30T21:11:21.619Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/882e4f12-3f47-4079-881f-dd192c6e1aee.webp"
     },
     {
       "id": "5ee43050-df4a-40fe-b3a3-0d49baa5520c",
@@ -380,8 +1400,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-30T08:01:03.929Z",
-      "updated_at": "2026-09-30T08:01:03.929Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-30T21:11:23.471Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/de4bb2da-3695-4a6b-a59d-0b107f19c15b.webp"
     },
     {
       "id": "0a2444ee-f97d-4ec3-b094-03504755a1d6",
@@ -431,8 +1451,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-30T07:57:58.663Z",
-      "updated_at": "2026-09-30T07:57:58.663Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-30T21:11:25.335Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/d8fcf18b-d0aa-4ae5-9515-cefa994dceb3.webp"
     },
     {
       "id": "e3117826-1d8d-4163-8b66-8df8aafcec8e",
@@ -480,8 +1500,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-30T07:51:17.498Z",
-      "updated_at": "2026-09-30T07:51:17.498Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-30T21:11:27.367Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/24abaa8d-d95f-4ca9-88f0-f54990b673c9.webp"
     },
     {
       "id": "c7149cd3-e94f-467d-9d9e-9f18d7e0c35d",
@@ -531,8 +1551,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-30T07:47:53.155Z",
-      "updated_at": "2026-09-30T07:52:41.261Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-30T21:11:29.363Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/539c208b-2398-47e5-8635-d03e06b2a376.webp"
     },
     {
       "id": "195677b3-869a-4ac2-82fe-e73afecae425",
@@ -577,8 +1597,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-30T07:40:29.387Z",
-      "updated_at": "2026-09-30T07:40:29.387Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-30T21:11:31.586Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/a10e1dc5-84c6-4e0d-896b-6f8e222e2734.webp"
     },
     {
       "id": "3a50cefb-efca-4a74-ae1e-bca13836de75",
@@ -625,8 +1645,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-30T07:36:57.245Z",
-      "updated_at": "2026-09-30T07:36:57.245Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-30T21:11:33.383Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/18a202a0-5e9c-4a49-a443-8a7b818516ac.webp"
     },
     {
       "id": "c74cbd6f-40d9-49a7-8aa6-4863123d6d05",
@@ -671,8 +1691,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-30T07:34:30.440Z",
-      "updated_at": "2026-09-30T07:34:30.440Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-30T21:11:35.319Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/e1e4f606-f69a-4eae-8a06-722d1e761a90.webp"
     },
     {
       "id": "997db677-2829-4986-9aaa-c460a93e0142",
@@ -722,8 +1742,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-30T07:29:46.339Z",
-      "updated_at": "2026-09-30T07:52:33.886Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-30T21:11:37.321Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/618a2f29-b1d3-42a2-8af1-0a7869dc47f8.webp"
     },
     {
       "id": "27f63487-0441-4ab3-a42a-be8820d1d97a",
@@ -770,8 +1790,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-30T07:26:31.803Z",
-      "updated_at": "2026-09-30T07:26:31.803Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-30T21:11:39.303Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/4df43f02-b867-4c59-8fda-584eeceb209f.webp"
     },
     {
       "id": "85d24cf0-0c8f-48ce-bad1-f34c2f5e1cfb",
@@ -818,8 +1838,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-30T07:23:19.491Z",
-      "updated_at": "2026-09-30T07:23:19.491Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-30T21:11:41.317Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/40ac1ac4-7d3e-47a4-886a-4059f19289f4.webp"
     },
     {
       "id": "316f44fe-8950-4508-8401-974c299e1639",
@@ -868,8 +1888,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-30T06:46:16.197Z",
-      "updated_at": "2026-09-30T06:46:16.197Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-30T21:11:43.168Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/16c28d98-1b74-4d4d-ba07-4f9d7cceda44.webp"
     },
     {
       "id": "0866ff41-d350-4d63-b017-78b8b3113281",
@@ -917,8 +1937,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-30T06:44:22.842Z",
-      "updated_at": "2026-09-30T06:44:22.842Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-30T21:11:44.518Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/bb418e9d-5486-45e1-8272-03a98836c208.webp"
     },
     {
       "id": "4a69728b-09f4-4d01-90ea-b8d4ba7cde76",
@@ -966,8 +1986,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-30T06:42:38.681Z",
-      "updated_at": "2026-09-30T06:42:38.681Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-30T21:11:45.749Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/5dcbdf5d-e19e-4079-b957-4c1f1447f862.webp"
     },
     {
       "id": "f11f9616-107f-44bd-b408-e17764fdbc0b",
@@ -1015,8 +2035,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-30T06:40:16.036Z",
-      "updated_at": "2026-09-30T07:52:23.499Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-30T21:11:46.918Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/7ee32de5-7997-42bf-943e-a4c7e7b1482f.webp"
     },
     {
       "id": "a2461bdc-62af-4cac-aa8f-ff9a82e29f8b",
@@ -1059,8 +2079,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-30T06:38:11.753Z",
-      "updated_at": "2026-09-30T06:38:11.753Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-30T21:11:48.120Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/f313918d-e29e-45f8-a16b-16dada655f69.webp"
     },
     {
       "id": "70c6ca1e-6078-4b69-97ca-f0f4ccdb7668",
@@ -1109,8 +2129,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-30T06:35:05.928Z",
-      "updated_at": "2026-09-30T06:35:05.928Z",
-      "thumb_photo": null
+      "updated_at": "2026-09-30T21:11:49.360Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/6f85b5ba-4649-49e8-be20-15e641712e02.webp"
     },
     {
       "id": "7f28f5ab-c79f-4ad9-a960-84862564831e",

@@ -2,6 +2,296 @@
   "ok": true,
   "products": [
     {
+      "id": "316f44fe-8950-4508-8401-974c299e1639",
+      "title": "Серебряный блеск",
+      "article": "HER-036",
+      "price": 3930,
+      "short_description": "Серебряные цифры с розовым сердцем и шарами с конфетти.",
+      "full_description": "Композиция из серебряных фольгированных цифр, розового сердца с надписью, нежных розовых и белых шаров с серебряным конфетти.",
+      "composition": [
+        "2 цифры",
+        "сердце с надписью",
+        "3 шара с конфетти",
+        "6 шаров"
+      ],
+      "category": "Для неё",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Воздушные шары на совершеннолетие — Армавир",
+      "seo_description": "Композиция с серебряными цифрами, розовым сердцем с надписью и шарами с конфетти. Доставка в Армавире.",
+      "slug": "serebryanyy-blesk",
+      "scene": "wall_only",
+      "tags": [
+        "Для неё"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": true,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/3c5a3eed-726c-4927-b3c8-2b865323edfd.jpg",
+        "photo_dhash": "81442444521a8ae0",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 2
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/814c90dc-3729-49b5-a9c6-60eae7a2166e.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/814c90dc-3729-49b5-a9c6-60eae7a2166e.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-30T06:46:16.197Z",
+      "updated_at": "2026-09-30T06:46:16.197Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "0866ff41-d350-4d63-b017-78b8b3113281",
+      "title": "Поцелуй удачи",
+      "article": "HER-035",
+      "price": 5500,
+      "short_description": "Напольная композиция с белыми цифрами, декорированными розовыми поцелуями, помадой и тортом.",
+      "full_description": "Напольная композиция с крупными белыми цифрами, украшенными розовыми поцелуями, помадой из шаров и розовым тортом со свечой. Основание из розовых, золотых и нежно-розовых шаров с декоративными кольцами.",
+      "composition": [
+        "напольная композиция"
+      ],
+      "category": "Для неё",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "5 000–8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Поцелуй удачи — композиция из шаров в Армавире | VigSharm",
+      "seo_description": "Напольная композиция с белыми цифрами, розовыми поцелуями, помадой и тортом. Стильное оформление дня рождения для неё в Армавире.",
+      "slug": "potseluy-udachi",
+      "scene": "floor",
+      "tags": [
+        "Для неё",
+        "Для мамы"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/6d69cf43-e93d-4a3b-a9f3-2e7c8cd93c37.jpg",
+        "photo_dhash": "dbdb9b9b012d1b7b",
+        "floor_type": "air",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 2
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/54d0302f-0cd8-4737-a72d-8c130272740d.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/54d0302f-0cd8-4737-a72d-8c130272740d.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-30T06:44:22.842Z",
+      "updated_at": "2026-09-30T06:44:22.842Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "4a69728b-09f4-4d01-90ea-b8d4ba7cde76",
+      "title": "Золотая веха",
+      "article": "JUB-017",
+      "price": 5360,
+      "short_description": "Элегантная композиция в золотых тонах с цифрами и баблсом с надписью.",
+      "full_description": "Настенная композиция в золотой гамме включает крупные фольгированные цифры, баблс с персональной надписью и хромированные шары.",
+      "composition": [
+        "2 цифры",
+        "баблс с надписью",
+        "7 шаров хром"
+      ],
+      "category": "Юбилей",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "5 000–8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары на юбилей 20 лет золотые — Армавир | VigSharm",
+      "seo_description": "Элегантная композиция на 20-летие в золотых тонах. Цифры, баблс с надписью и хромированные шары. Доставка по Армавиру.",
+      "slug": "zolotaya-vekha-2",
+      "scene": "wall_only",
+      "tags": [
+        "Для неё"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": true,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/e5a3f365-817c-4fba-b29c-6bed57eaaf06.jpg",
+        "photo_dhash": "000112b2303000eb",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 2
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/29ad9182-82d5-4b64-a4b1-fba05b365071.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/29ad9182-82d5-4b64-a4b1-fba05b365071.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-30T06:42:38.681Z",
+      "updated_at": "2026-09-30T06:42:38.681Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "f11f9616-107f-44bd-b408-e17764fdbc0b",
+      "title": "Игристый праздник",
+      "article": "HER-034",
+      "price": 5000,
+      "short_description": "Напольная композиция в розово-серебристой гамме с бутылкой шампанского и цифрами.",
+      "full_description": "Напольная композиция с крупными фольгированными цифрами в розовом цвете, декоративной бутылкой шампанского и россыпью шаров. Основание выполнено из переплетённых шаров и хромированных элементов.",
+      "composition": [
+        "напольная композиция"
+      ],
+      "category": "Для неё",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "5 000–8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Напольная композиция с шампанским и цифрами — Армавир",
+      "seo_description": "Яркая розовая напольная композиция из шаров с бутылкой шампанского и цифрами. Эффектное оформление праздника в Армавире.",
+      "slug": "igristyj-prazdnik",
+      "scene": "floor",
+      "tags": [
+        "Для неё"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/eb07ba36-9fae-40b3-ad9d-59c8e992cfa9.jpg",
+        "photo_dhash": "ccdcf8f870624ac0",
+        "floor_type": "air",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 2
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/8415654e-a342-4a2d-aa10-666f33de2d87.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/8415654e-a342-4a2d-aa10-666f33de2d87.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-30T06:40:16.036Z",
+      "updated_at": "2026-09-30T06:40:16.036Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "a2461bdc-62af-4cac-aa8f-ff9a82e29f8b",
+      "title": "Сияние чувств",
+      "article": "HER-033",
+      "price": 7700,
+      "short_description": "Композиция из фиолетовых сердец и баблса с надписью на стене.",
+      "full_description": "Две гирлянды из фиолетовых фольгированных сердец обрамляют крупный баблс с крупинками пенопласта и индивидуальной надписью.",
+      "composition": [
+        "18 сердец",
+        "баблс с крупинками пенопласта и надписью"
+      ],
+      "category": "Для неё",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "5 000–8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Сияние чувств — композиция из шаров в Армавире",
+      "seo_description": "Композиция из фиолетовых фольгированных сердец и баблса с надписью. Эффектное оформление для праздника в Армавире.",
+      "slug": "siyanie-chuvstv",
+      "scene": "wall_only",
+      "tags": [
+        "Для неё"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/4f5cb768-5295-4f2d-b35d-e5da15d4e777.jpg",
+        "photo_dhash": "8e8e8e8c8e913333"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/f330d4b2-b403-46b8-8dbc-079480db4f98.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/f330d4b2-b403-46b8-8dbc-079480db4f98.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-30T06:38:11.753Z",
+      "updated_at": "2026-09-30T06:38:11.753Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "70c6ca1e-6078-4b69-97ca-f0f4ccdb7668",
+      "title": "Сиреневый акцент",
+      "article": "HER-032",
+      "price": 3300,
+      "short_description": "Напольная композиция в сиренево-золотой гамме с шарами и конфетти.",
+      "full_description": "Яркая композиция на подставке из шаров в сиренево-золотых тонах. Сочетание хромированных, матовых шаров и прозрачных с конфетти создает праздничное настроение.",
+      "composition": [
+        "напольная композиция",
+        "2 шара с конфетти",
+        "2 шара хром",
+        "2 шара"
+      ],
+      "category": "Для неё",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "2 000–3 500 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Сиренево-золотая композиция из шаров | Армавир",
+      "seo_description": "Напольная композиция в сиренево-золотой гамме с хромированными шарами и конфетти. Универсальное оформление праздника в Армавире.",
+      "slug": "sirenevyy-aktsent",
+      "scene": "floor",
+      "tags": [
+        "Для неё"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/41c6496b-9ebc-449f-9570-1fb9147c25ec.jpg",
+        "photo_dhash": "78cdd5d599cd9fd6",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 2
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/9870c697-77af-45ac-bcbc-43d91b1c9597.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/9870c697-77af-45ac-bcbc-43d91b1c9597.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-30T06:35:05.928Z",
+      "updated_at": "2026-09-30T06:35:05.928Z",
+      "thumb_photo": null
+    },
+    {
       "id": "7f28f5ab-c79f-4ad9-a960-84862564831e",
       "title": "Молочная ферма",
       "article": "HER-031",
@@ -25383,56 +25673,6 @@
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/5e0242c2-8c28-46f7-977f-9f1064890df1.webp"
     },
     {
-      "id": "91a44361-166e-419e-b722-220246e4f3bb",
-      "title": "Пастельный шёпот",
-      "article": "PHT-006",
-      "price": 4000,
-      "short_description": "Фотозона с круглым планшетом и гирляндами из мятных, персиковых и золотых шаров.",
-      "full_description": "Фотозона с круглым планшетом на мольберте и композициями из шаров в пастельной гамме. Нежное сочетание мятных, персиковых и золотых оттенков.",
-      "composition": [
-        "фотозона"
-      ],
-      "category": "Фотозона",
-      "character": null,
-      "age_group": "Для детей",
-      "budget": "3 500–5 000 ₽",
-      "series_name": null,
-      "occasion": null,
-      "target_audience": null,
-      "seo_title": "Фотозона с шарами в пастельных тонах | Армавир",
-      "seo_description": "Фотозона с круглым планшетом и шарами в мятных, персиковых и золотых оттенках. Нежное оформление для фотосессий в Армавире.",
-      "slug": "pastelnyy-shepot",
-      "scene": "photozone",
-      "tags": [
-        "Фотозона"
-      ],
-      "client_options": {
-        "available_on_request": false,
-        "advance_order_1_2_days": true,
-        "number_choice": false,
-        "personal_inscription": true,
-        "photozone_rental": true,
-        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/386a7054-de90-435a-b6e7-e52ea214cff7.png",
-        "photozone_type": "easel",
-        "rental": {
-          "enabled": true,
-          "item": "Мольберт с кругом из полистирола",
-          "days": 3,
-          "keep_price_delta": 500
-        },
-        "photo_dhash": "0f07396d6563e2c0"
-      },
-      "photos": [
-        "https://storage.yandexcloud.net/vigsharm-photos/products/386a7054-de90-435a-b6e7-e52ea214cff7.png"
-      ],
-      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/386a7054-de90-435a-b6e7-e52ea214cff7.png",
-      "status": "published",
-      "show_on_site": true,
-      "created_at": "2026-09-19T11:15:55.827Z",
-      "updated_at": "2026-09-28T07:44:08.678Z",
-      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/67e05b33-c175-4fb3-9752-0e3869457ae4.webp"
-    },
-    {
       "id": "f1b1a003-649d-471f-b8bf-37acee3d6de5",
       "title": "Переливы чувств",
       "article": "BQT-003",
@@ -26626,48 +26866,6 @@
       "created_at": "2026-09-18T12:14:54.029Z",
       "updated_at": "2026-09-28T18:28:32.952Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/ee9d19f3-a436-4e35-899a-3c244ce51251.webp"
-    },
-    {
-      "id": "f0f2cb63-9af4-4ef6-b05a-d290062eb9b2",
-      "title": "Сиреневый комплимент",
-      "article": "BQT-001",
-      "price": 2000,
-      "short_description": "Букет из семи фольгированных сердец с добрыми надписями в сиреневых оттенках.",
-      "full_description": "Букет из семи фольгированных сердец насыщенного сиренево-фиолетового цвета с тёплыми пожеланиями. Оформлен в нежную упаковку с атласными лентами.",
-      "composition": [
-        "букет из шаров с надписями"
-      ],
-      "category": "Букет из шаров",
-      "character": null,
-      "age_group": "Для любого возраста",
-      "budget": "1 000–2 000 ₽",
-      "series_name": null,
-      "occasion": null,
-      "target_audience": null,
-      "seo_title": "Букет из сиреневых шаров с надписями — Армавир",
-      "seo_description": "Букет из семи фольгированных сердец с добрыми пожеланиями в сиренево-фиолетовых тонах. Нежное оформление с атласными лентами. Доставка по Армавиру.",
-      "slug": "sirenevyj-kompliment",
-      "scene": "handheld_bouquet",
-      "tags": [
-        "Букет из шаров"
-      ],
-      "client_options": {
-        "available_on_request": false,
-        "advance_order_1_2_days": true,
-        "number_choice": false,
-        "personal_inscription": true,
-        "photozone_rental": false,
-        "photo_dhash": "31786874743c342c"
-      },
-      "photos": [
-        "https://storage.yandexcloud.net/vigsharm-photos/products/c2556302-f414-402f-8fc6-45fecd393a8d.png"
-      ],
-      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/c2556302-f414-402f-8fc6-45fecd393a8d.png",
-      "status": "published",
-      "show_on_site": true,
-      "created_at": "2026-09-18T12:05:17.297Z",
-      "updated_at": "2026-09-28T07:43:23.821Z",
-      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/740af0f8-4f42-4a21-b7d4-38cbe0bac149.webp"
     },
     {
       "id": "a744f79d-3d46-4cc7-aa17-8a6d24847580",

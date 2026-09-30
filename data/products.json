@@ -2,6 +2,581 @@
   "ok": true,
   "products": [
     {
+      "id": "52f7c097-58c5-48c7-bb4e-8a2ddc5b6a45",
+      "title": "Драконье сердце",
+      "article": "HER-045",
+      "price": 2480,
+      "short_description": "Фольгированный дракон с букетом розовых шаров и конфетти",
+      "full_description": "Чёрный дракон с зелёными глазами в компании ярких розовых и чёрных шаров с конфетти-сердечками.",
+      "composition": [
+        "фигура",
+        "2 шара с конфетти",
+        "8 шаров"
+      ],
+      "category": "Для неё",
+      "character": "Беззубик",
+      "age_group": "Для взрослых",
+      "budget": "2 000–3 500 ₽",
+      "series_name": "Как приручить дракона",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары с драконом Беззубиком Армавир",
+      "seo_description": "Фольгированная фигура дракона с розовыми и чёрными шарами. Доставка в Армавире.",
+      "slug": "drakonye-serdtse",
+      "scene": "wall_only",
+      "tags": [
+        "Для неё"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/1424aad3-4cf6-4c16-b605-07cff2edc857.jpg",
+        "photo_dhash": "3fbcd490c8ec9895"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/a9c1d66b-8d0b-4935-b2c0-47e992f2247d.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/a9c1d66b-8d0b-4935-b2c0-47e992f2247d.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-30T08:13:49.535Z",
+      "updated_at": "2026-09-30T08:13:49.535Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "699c60de-3f73-48d1-be1e-73a403116ca2",
+      "title": "Платиновый путь",
+      "article": "JUB-019",
+      "price": 4500,
+      "short_description": "Напольная композиция с крупными цифрами в серебристо-чёрной гамме.",
+      "full_description": "Элегантная композиция с фольгированными цифрами, хромированными шарами и декоративными фигурами из шаров.",
+      "composition": [
+        "напольная композиция"
+      ],
+      "category": "Юбилей",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Композиция на юбилей 100 лет в Армавире",
+      "seo_description": "Элегантная напольная композиция с серебристыми цифрами для юбилея. Доставка воздушных шаров в Армавире.",
+      "slug": "platinovy-put",
+      "scene": "floor",
+      "tags": [
+        "Для неё"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/4149e9fa-b4d5-4d2b-9431-fead70729b3b.jpg",
+        "photo_dhash": "066fab276bd6d6ff",
+        "floor_type": "air",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 2
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/4cd40418-a05d-413f-9b98-95935c184cc2.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/4cd40418-a05d-413f-9b98-95935c184cc2.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-30T08:03:01.719Z",
+      "updated_at": "2026-09-30T08:03:01.719Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "5ee43050-df4a-40fe-b3a3-0d49baa5520c",
+      "title": "Бархатный комплимент",
+      "article": "HER-044",
+      "price": 3950,
+      "short_description": "Чёрная кошка с красными и золотыми сердцами",
+      "full_description": "Фольгированная фигура чёрной кошки в окружении красных и золотых сердец. Яркая композиция для тех, кто ценит загадочность и шарм.",
+      "composition": [
+        "10 сердец",
+        "фигура"
+      ],
+      "category": "Для неё",
+      "character": "Кошка",
+      "age_group": "Для взрослых",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Композиция с чёрной кошкой и сердцами — Армавир",
+      "seo_description": "Фольгированная фигура чёрной кошки с красными и золотыми сердцами. Яркая композиция из воздушных шаров в Армавире. Доставка по городу.",
+      "slug": "barhatnyj-kompliment",
+      "scene": "wall_only",
+      "tags": [
+        "Для неё"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/5c312ae8-34c5-4596-8d50-7e4713f90e64.jpg",
+        "photo_dhash": "0498d0e0a8a83808"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/4f07a18d-2499-4fce-b424-f793261740c8.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/4f07a18d-2499-4fce-b424-f793261740c8.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-30T08:01:03.929Z",
+      "updated_at": "2026-09-30T08:01:03.929Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "0a2444ee-f97d-4ec3-b094-03504755a1d6",
+      "title": "Благородный тон",
+      "article": "HER-043",
+      "price": 6640,
+      "short_description": "Элегантная композиция с цифрой в бордовых и золотых тонах.",
+      "full_description": "Стильное сочетание бордового, золотого и айвори с прозрачными баблс-шарами и золотым конфетти.",
+      "composition": [
+        "стеклянный баблс с конфетти и надписью",
+        "баблс с конфетти и надписью",
+        "7 шаров хром",
+        "2 шара",
+        "лента тассел"
+      ],
+      "category": "Для неё",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "5 000–8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Воздушные шары с цифрой в бордовых тонах — Армавир",
+      "seo_description": "Элегантная композиция из шаров с баблс, конфетти и цифрой в бордово-золотой гамме. Стильное оформление праздника в Армавире.",
+      "slug": "vinnaya-karta",
+      "scene": "wall_only",
+      "tags": [
+        "Для неё"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": true,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/406f4a48-90a2-45ce-ac8d-a4c4e11b9545.jpg",
+        "photo_dhash": "4148bc948484928a",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 2
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/c737d68d-dd90-47a6-a9c0-ab1c405d0a15.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/c737d68d-dd90-47a6-a9c0-ab1c405d0a15.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-30T07:57:58.663Z",
+      "updated_at": "2026-09-30T07:57:58.663Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "e3117826-1d8d-4163-8b66-8df8aafcec8e",
+      "title": "Золотой час",
+      "article": "HER-042",
+      "price": 3500,
+      "short_description": "Элегантная композиция с золотыми цифрами и звездой.",
+      "full_description": "Напольная композиция с крупными золотыми цифрами, звездой с надписью и изящными шарами в бело-золотой гамме.",
+      "composition": [
+        "напольная композиция"
+      ],
+      "category": "Для неё",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Золотой час — напольная композиция из шаров в Армавире",
+      "seo_description": "Элегантная напольная композиция с золотыми цифрами и звездой. Нейтральный стиль, подходит для торжественных событий. Заказ в Армавире.",
+      "slug": "zolotoy-chas",
+      "scene": "floor",
+      "tags": [
+        "Для неё",
+        "Юбилей"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/3557795f-e9c7-437b-96c3-093c958dd403.jpg",
+        "photo_dhash": "258d1d93ae2b5b72",
+        "floor_type": "air",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 2
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/2ed8d30c-79b3-4f45-800f-110cb39c7636.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/2ed8d30c-79b3-4f45-800f-110cb39c7636.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-30T07:51:17.498Z",
+      "updated_at": "2026-09-30T07:51:17.498Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "c7149cd3-e94f-467d-9d9e-9f18d7e0c35d",
+      "title": "Сердечный дуэт",
+      "article": "HER-041",
+      "price": 4950,
+      "short_description": "Композиция из двух цифр, сердец с надписями и шаров на стене.",
+      "full_description": "Настенная композиция с двумя крупными цифрами, большим сердцем с надписью, вторым сердцем с надписью и пятью шарами. Подходит для дня рождения и признания.",
+      "composition": [
+        "2 цифры",
+        "большое сердце с надписью",
+        "сердце с надписью",
+        "5 шаров"
+      ],
+      "category": "Для неё",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Сердца и цифры — воздушные шары в Армавире",
+      "seo_description": "Настенная композиция из двух цифр, сердец с надписями и шаров. Доставка и оформление воздушными шарами в Армавире, цена 4 950 ₽.",
+      "slug": "serdechnyy-duet",
+      "scene": "wall_only",
+      "tags": [
+        "Для неё",
+        "Юбилей"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": true,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/276471d3-edb1-4781-a61a-3cfac2bf5039.jpg",
+        "photo_dhash": "3f2eaae5ca4522a2",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 2
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/1680e3ae-0341-4504-9f11-31243fea1075.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/1680e3ae-0341-4504-9f11-31243fea1075.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-30T07:47:53.155Z",
+      "updated_at": "2026-09-30T07:52:41.261Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "195677b3-869a-4ac2-82fe-e73afecae425",
+      "title": "Готик-шарм",
+      "article": "HIM-033",
+      "price": 4600,
+      "short_description": "Чёрная маска с красным сердцем и хромированными шарами под потолком.",
+      "full_description": "Готовая связка с чёрной фольгированной маской, красным сердцем с надписью и большим красным сердцем в окружении хромированных шаров.",
+      "composition": [
+        "10 шаров хром",
+        "фигура",
+        "сердце с надписью",
+        "большое сердце"
+      ],
+      "category": "Для него",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Готик-шарм — готовая связка шаров под потолок в Армавире",
+      "seo_description": "Чёрная маска, красные сердца и хромированные шары. Готовая связка под потолок. Доставка по Армавиру.",
+      "slug": "gotik-sharm",
+      "scene": "ceiling",
+      "tags": [
+        "Для него"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/cf34775a-b197-49e2-9404-6e02e776798c.jpg",
+        "photo_dhash": "95d2e6f6ace2c7cf"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/3c8ac285-02be-436e-8376-8f34e4d31666.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/3c8ac285-02be-436e-8376-8f34e4d31666.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-30T07:40:29.387Z",
+      "updated_at": "2026-09-30T07:40:29.387Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "3a50cefb-efca-4a74-ae1e-bca13836de75",
+      "title": "Шампанское настроение",
+      "article": "JUB-018",
+      "price": 8000,
+      "short_description": "Напольная композиция с золотыми цифрами, бутылками шампанского и яркими шарами.",
+      "full_description": "Праздничная композиция с крупными золотыми цифрами, фигурами шампанского, коралловыми и голубыми шарами, золотыми звёздами и спиралями.",
+      "composition": [
+        "напольная композиция"
+      ],
+      "category": "Юбилей",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "от 8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Напольная композиция на юбилей 50 лет — Армавир",
+      "seo_description": "Яркая композиция с золотыми цифрами, шампанским, коралловыми и голубыми шарами для празднования юбилея. Доставка в Армавире.",
+      "slug": "shampanskoe-nastroenie",
+      "scene": "floor",
+      "tags": [
+        "Юбилей"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/807595c6-85c2-425f-b7f3-e688e4962b8a.jpg",
+        "photo_dhash": "2306507814b4b853",
+        "floor_type": "air",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 2
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/f31bc258-6b86-4bac-862b-115c7adb1ef8.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/f31bc258-6b86-4bac-862b-115c7adb1ef8.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-30T07:36:57.245Z",
+      "updated_at": "2026-09-30T07:36:57.245Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "c74cbd6f-40d9-49a7-8aa6-4863123d6d05",
+      "title": "Расцветай",
+      "article": "HER-040",
+      "price": 4130,
+      "short_description": "Пастельная композиция с надписями и сердцами.",
+      "full_description": "Прозрачный баблс с надписью и зеленью, три фольгированных сердца и латексные шары в мятно-жёлтых тонах.",
+      "composition": [
+        "баблс с надписью и декором",
+        "сердце с надписью",
+        "2 сердца",
+        "7 шаров"
+      ],
+      "category": "Для неё",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Набор шаров Расцветай — Армавир",
+      "seo_description": "Композиция с баблсом, сердцами и пастельными шарами. Заказать воздушные шары в Армавире.",
+      "slug": "rascvetay",
+      "scene": "wall_only",
+      "tags": [
+        "Для неё"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/719e5003-7ad1-4bc2-b28b-c6be8a6c470e.jpg",
+        "photo_dhash": "ffa773776dd94f5f"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/daf67adc-3554-4f8b-9b32-5e901cc77af5.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/daf67adc-3554-4f8b-9b32-5e901cc77af5.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-30T07:34:30.440Z",
+      "updated_at": "2026-09-30T07:34:30.440Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "997db677-2829-4986-9aaa-c460a93e0142",
+      "title": "Леопардовый шик",
+      "article": "HER-039",
+      "price": 5200,
+      "short_description": "Напольная композиция с розовыми цифрами, золотыми цепями и леопардовым акцентом.",
+      "full_description": "Стильная композиция с крупными розовыми цифрами, декорированными золотыми цепями из шаров. В основании — гирлянда из розовых, золотых и хромированных шаров с леопардовым акцентом.",
+      "composition": [
+        "шар",
+        "шар хром",
+        "напольная композиция"
+      ],
+      "category": "Для неё",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "5 000–8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Леопардовый шик — композиция с цифрами и цепями, Армавир",
+      "seo_description": "Напольная композиция с розовыми цифрами, золотыми цепями и леопардовым принтом. Стильное оформление дня рождения для девочки в Армавире.",
+      "slug": "leopardovyy-shik",
+      "scene": "floor",
+      "tags": [
+        "Для неё",
+        "Юбилей"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/27021b4c-1dc7-4fb9-beac-28678b8bc0e2.jpg",
+        "photo_dhash": "7033ab3317339f8f",
+        "floor_type": "air",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 2
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/ac74b0cb-1ffe-47c1-9147-d877bb2f3f96.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/ac74b0cb-1ffe-47c1-9147-d877bb2f3f96.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-30T07:29:46.339Z",
+      "updated_at": "2026-09-30T07:52:33.886Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "27f63487-0441-4ab3-a42a-be8820d1d97a",
+      "title": "Бьюти-набор",
+      "article": "HER-038",
+      "price": 5000,
+      "short_description": "Розовые цифры с поцелуями, компактом-пудреницей, тушью и лаком для ногтей из шаров.",
+      "full_description": "Напольная композиция с розовыми цифрами, украшенными поцелуями, и бьюти-аксессуарами из шаров. Компакт-пудреница, тушь и лак для ногтей дополняют гламурный образ.",
+      "composition": [
+        "напольная композиция"
+      ],
+      "category": "Для неё",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "5 000–8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Бьюти-набор из шаров с цифрами, Армавир",
+      "seo_description": "Напольная композиция с розовыми цифрами, косметикой из шаров и поцелуями. Гламурный подарок для неё в Армавире.",
+      "slug": "beauty-nabor",
+      "scene": "floor",
+      "tags": [
+        "Для неё"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/0b73cdd6-b032-424d-9d37-5fa6a1d6611f.jpg",
+        "photo_dhash": "3838d3dbd34b3197",
+        "floor_type": "air",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 2
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/ef14d55c-c1ba-41d4-abf9-9544f0a346e7.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/ef14d55c-c1ba-41d4-abf9-9544f0a346e7.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-30T07:26:31.803Z",
+      "updated_at": "2026-09-30T07:26:31.803Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "85d24cf0-0c8f-48ce-bad1-f34c2f5e1cfb",
+      "title": "Радужный полёт",
+      "article": "HER-037",
+      "price": 5000,
+      "short_description": "Композиция с цифрами 18, бабочкой и цветами из шаров в розово-голубой гамме.",
+      "full_description": "Напольная композиция включает цифры 18, фольгированную бабочку и декоративные цветы из латексных шаров. Яркие розовые, голубые и жёлтые оттенки создают праздничное настроение.",
+      "composition": [
+        "напольная композиция"
+      ],
+      "category": "Для неё",
+      "character": "Бабочка",
+      "age_group": "Для взрослых",
+      "budget": "5 000–8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Композиция с бабочкой и цветами из шаров в Армавире",
+      "seo_description": "Напольная композиция с цифрами, фольгированной бабочкой и цветами из шаров. Яркое оформление праздника в розово-голубых тонах.",
+      "slug": "raduzhnyj-polyet",
+      "scene": "floor",
+      "tags": [
+        "Для неё"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/d870f077-9db2-4c69-9d57-3d4248f8ada6.jpg",
+        "photo_dhash": "e6ca5a2cc6c1f1d4",
+        "floor_type": "air",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 2
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/41cf2998-3537-4b1d-b55f-63a7afa82d31.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/41cf2998-3537-4b1d-b55f-63a7afa82d31.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-09-30T07:23:19.491Z",
+      "updated_at": "2026-09-30T07:23:19.491Z",
+      "thumb_photo": null
+    },
+    {
       "id": "316f44fe-8950-4508-8401-974c299e1639",
       "title": "Серебряный блеск",
       "article": "HER-036",
@@ -171,7 +746,8 @@
       "slug": "igristyj-prazdnik",
       "scene": "floor",
       "tags": [
-        "Для неё"
+        "Для неё",
+        "Юбилей"
       ],
       "client_options": {
         "available_on_request": false,
@@ -194,7 +770,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-30T06:40:16.036Z",
-      "updated_at": "2026-09-30T06:40:16.036Z",
+      "updated_at": "2026-09-30T07:52:23.499Z",
       "thumb_photo": null
     },
     {
@@ -20091,7 +20667,7 @@
       "scene": "floor",
       "tags": [
         "Для неё",
-        "Напольные композиции"
+        "Юбилей"
       ],
       "client_options": {
         "available_on_request": false,
@@ -20114,7 +20690,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-22T22:21:13.479Z",
-      "updated_at": "2026-09-29T06:01:35.208Z",
+      "updated_at": "2026-09-30T07:51:55.378Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/6e382e4b-6128-4df7-a43e-8e3e11cd34a3.webp"
     },
     {
@@ -24068,7 +24644,7 @@
       "scene": "floor",
       "tags": [
         "Для неё",
-        "Напольные композиции"
+        "Юбилей"
       ],
       "client_options": {
         "available_on_request": false,
@@ -24091,7 +24667,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-20T19:06:35.280Z",
-      "updated_at": "2026-09-29T05:36:43.341Z",
+      "updated_at": "2026-09-30T07:51:45.001Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/18a17589-0cbb-48a1-a7a2-37b2a0bd7929.webp"
     },
     {
@@ -27535,7 +28111,6 @@
       "slug": "plyushevyy-drug-mishka-iz-sharov",
       "scene": "balloon_figures",
       "tags": [
-        "Для мальчика",
         "Фигуры из шаров"
       ],
       "client_options": {
@@ -27544,6 +28119,7 @@
         "number_choice": false,
         "personal_inscription": false,
         "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/1f7291f0-916e-4397-b0db-18778d4a2020.png",
         "photo_dhash": "d4e8f8f0ccecd2f0"
       },
       "photos": [
@@ -27553,7 +28129,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-16T21:48:55.654Z",
-      "updated_at": "2026-09-28T07:43:01.826Z",
+      "updated_at": "2026-09-30T08:14:45.788Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/0cacc1f5-3837-49dd-88d1-b50b5a1aa567.webp"
     },
     {

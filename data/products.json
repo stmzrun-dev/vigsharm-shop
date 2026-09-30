@@ -3,11 +3,11 @@
   "products": [
     {
       "id": "e44192b7-14bb-4290-b84d-8d714d61ebf6",
-      "title": "Юный пилот",
+      "title": "Высота небес",
       "article": "BOY-044",
       "price": 3260,
-      "short_description": "Синяя цифра с самолётом и шарами в голубых оттенках.",
-      "full_description": "Композиция с фольгированной цифрой, фигурой самолёта и набором шаров в синих и серебристых тонах.",
+      "short_description": "Композиция с самолётом и синими шарами для маленького авиатора.",
+      "full_description": "Яркая композиция с фольгированным самолётом и цифрой в синих тонах. Дополнена хромированными и прозрачными шарами с конфетти.",
       "composition": [
         "цифра",
         "фигура",
@@ -22,9 +22,9 @@
       "series_name": null,
       "occasion": null,
       "target_audience": null,
-      "seo_title": "Воздушные шары с самолётом и цифрой Армавир — VigSharm",
-      "seo_description": "Композиция с фольгированной цифрой и самолётом в синих тонах. Идеально для мальчика. Доставка воздушных шаров в Армавире.",
-      "slug": "yunyy-pilot",
+      "seo_title": "Композиция с самолётом и цифрой для мальчика, Армавир",
+      "seo_description": "Яркая композиция с фольгированным самолётом, цифрой и синими шарами. Идеальное оформление дня рождения для юного авиатора в Армавире.",
+      "slug": "vysota-nebes",
       "scene": "wall_only",
       "tags": [
         "Для мальчика"
@@ -46,10 +46,10 @@
         "https://storage.yandexcloud.net/vigsharm-photos/products/a672631f-b391-4d94-83e4-5153a78a70ef.jpg"
       ],
       "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/a672631f-b391-4d94-83e4-5153a78a70ef.jpg",
-      "status": "draft",
+      "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-30T13:40:55.690Z",
-      "updated_at": "2026-09-30T15:28:13.940Z",
+      "updated_at": "2026-09-30T17:16:03.905Z",
       "thumb_photo": null
     },
     {

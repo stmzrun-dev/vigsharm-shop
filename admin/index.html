@@ -7,7 +7,7 @@
 <meta name="robots" content="noindex, nofollow"/>
 <link rel="icon" href="../favicon.svg"/>
 <link rel="stylesheet" href="../assets/fonts.css"/>
-<link rel="stylesheet" href="styles.css?v=20260929-tags"/>
+<link rel="stylesheet" href="styles.css?v=20260930-price"/>
 </head>
 <body>
 
@@ -113,32 +113,89 @@
       <h1>Прайс</h1>
       <p>Цены за штуку/метр и доставка. После сохранения — JSON в <code>data/</code>.</p>
     </div>
-    <div class="card">
-      <div class="products-header">
-        <div class="products-header-actions">
-          <button type="button" class="btn primary" id="price-list-save" onclick="app.savePriceList()">Сохранить</button>
-          <button type="button" class="btn outline" onclick="app.exportPriceListSnapshot()">Скачать для сайта</button>
-          <button type="button" class="btn outline" onclick="app.loadPriceList()">Обновить</button>
+    <div class="card holiday-card">
+      <h3>Украшение к празднику</h3>
+      <p class="text-muted holiday-card-lead">Выберите один вариант и нажмите «Опубликовать». На сайте появятся знак у логотипа и короткая полоска. На компьютере ещё лёгкое движение по верху страницы. У 9 мая движения нет.</p>
+      <div class="holiday-pick" role="radiogroup" aria-label="Как выглядит витрина">
+        <label class="holiday-pick-row">
+          <input type="radio" name="holiday-season" value="none" checked/>
+          <span><strong>Обычный вид</strong><small>Без украшений</small></span>
+        </label>
+        <label class="holiday-pick-row">
+          <input type="radio" name="holiday-season" value="valentine"/>
+          <span><strong>14 февраля</strong><small>с 7 по 15 февраля</small></span>
+        </label>
+        <label class="holiday-pick-row">
+          <input type="radio" name="holiday-season" value="defender"/>
+          <span><strong>23 февраля</strong><small>с 18 по 24 февраля</small></span>
+        </label>
+        <label class="holiday-pick-row">
+          <input type="radio" name="holiday-season" value="womens"/>
+          <span><strong>8 марта</strong><small>с 1 по 9 марта</small></span>
+        </label>
+        <label class="holiday-pick-row">
+          <input type="radio" name="holiday-season" value="victory"/>
+          <span><strong>9 мая</strong><small>с 7 по 10 мая</small></span>
+        </label>
+        <label class="holiday-pick-row">
+          <input type="radio" name="holiday-season" value="grad"/>
+          <span><strong>Выпускной</strong><small>с 20 мая по 30 июня</small></span>
+        </label>
+        <label class="holiday-pick-row">
+          <input type="radio" name="holiday-season" value="school"/>
+          <span><strong>1 сентября</strong><small>с 25 августа по 2 сентября</small></span>
+        </label>
+        <label class="holiday-pick-row">
+          <input type="radio" name="holiday-season" value="teacher"/>
+          <span><strong>День учителя</strong><small>с 1 по 6 октября</small></span>
+        </label>
+        <label class="holiday-pick-row">
+          <input type="radio" name="holiday-season" value="halloween"/>
+          <span><strong>Хэллоуин</strong><small>с 20 октября по 1 ноября</small></span>
+        </label>
+        <label class="holiday-pick-row">
+          <input type="radio" name="holiday-season" value="newyear"/>
+          <span><strong>Новый год</strong><small>с 15 декабря по 8 января</small></span>
+        </label>
+      </div>
+      <button type="button" class="btn primary" id="holiday-save" onclick="app.saveHolidaySettings()">Опубликовать</button>
+      <p class="text-muted" id="holiday-season-status" style="margin:8px 0 0;"></p>
+    </div>
+    <div class="card price-admin-card">
+      <div class="price-admin-grid">
+        <div id="delivery-admin" class="price-admin-group">
+          <h3>Доставка</h3>
+          <div class="price-admin-row">
+            <span class="price-admin-name">По Армавиру</span>
+            <span class="price-admin-field">
+              <span class="price-from-spacer" aria-hidden="true"></span>
+              <input class="product-row-price-input" id="delivery-city" type="number" min="0" step="1" inputmode="numeric" value="200" aria-label="Доставка по Армавиру"/>
+            </span>
+          </div>
+          <div class="price-admin-row">
+            <span class="price-admin-name">За город</span>
+            <span class="price-admin-field">
+              <label class="price-from-chip" title="Показывать «от»">
+                <input type="checkbox" id="delivery-nearby-from" checked aria-label="Цена за город — от"/>
+                <span>от</span>
+              </label>
+              <input class="product-row-price-input" id="delivery-nearby" type="number" min="0" step="1" inputmode="numeric" value="200" aria-label="Доставка за город"/>
+            </span>
+          </div>
+          <p class="price-admin-note">Самовывоз бесплатный. За город на сайте — «рассчитаем», цена здесь только ориентир «от».</p>
+        </div>
+        <div id="price-list-admin">
+          <div class="loading"><div class="loading-spinner"></div><p>Загрузка...</p></div>
         </div>
       </div>
-      <div id="delivery-admin" class="price-admin-group">
-        <h3>Доставка</h3>
-        <label class="price-admin-row">
-          <span>По Армавиру</span>
-          <span></span>
-          <input class="product-row-price-input" id="delivery-city" type="number" min="0" step="1" inputmode="numeric" value="200"/>
-        </label>
-        <label class="price-admin-row">
-          <span>За город</span>
-          <span class="price-admin-from"><input type="checkbox" id="delivery-nearby-from" checked/> от</span>
-          <input class="product-row-price-input" id="delivery-nearby" type="number" min="0" step="1" inputmode="numeric" value="200"/>
-        </label>
-        <p class="text-muted" style="margin:8px 0 0;">Самовывоз всегда бесплатный. За город на сайте останется «рассчитаем», цена — ориентир «от».</p>
-      </div>
-      <div id="price-list-admin">
-        <div class="loading"><div class="loading-spinner"></div><p>Загрузка...</p></div>
-      </div>
       <div id="price-reprice-panel" class="price-reprice-panel hidden" hidden></div>
+      <div class="price-admin-dock">
+        <button type="button" class="btn primary" id="price-list-save" onclick="app.savePriceList()">Сохранить</button>
+        <div class="price-admin-dock-side">
+          <button type="button" class="btn quiet sm" onclick="app.exportPriceListSnapshot()">Скачать для сайта</button>
+          <button type="button" class="btn quiet sm" onclick="app.loadPriceList()">Обновить</button>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -988,7 +1045,7 @@
 <script src="admin-ai.js?v=20260929-tags-always"></script>
 <script src="admin-reference-background.js"></script>
 <script src="admin-orders.js?v=1"></script>
-<script src="admin-price.js?v=3"></script>
+<script src="admin-price.js?v=7"></script>
 <script src="admin-publish-key.js?v=4"></script>
 </body>
 </html>

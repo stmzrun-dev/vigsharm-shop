@@ -592,4 +592,169 @@
   } else {
     wireCtas();
   }
+
+  /* ---------- Holiday garnish ---------- */
+  var SEASON_COPY = {
+    valentine: 'Соберём композицию к 14 февраля',
+    defender: 'Соберём композицию к 23 февраля',
+    womens: 'Соберём композицию к 8 марта',
+    victory: 'Соберём композицию к 9 мая',
+    grad: 'Соберём композицию к выпускному',
+    school: 'Соберём композицию к 1 сентября',
+    teacher: 'Соберём композицию ко Дню учителя',
+    halloween: 'Соберём композицию к Хэллоуину',
+    newyear: 'Соберём композицию к Новому году'
+  };
+  var SEASON_MARK = {
+    valentine:
+      '<svg viewBox="0 0 36 40" aria-hidden="true"><path d="M18 31C10 25 6 20 6 15.2a5.6 5.6 0 0 1 10.2-3.2A5.6 5.6 0 0 1 30 15.2C30 20 26 25 18 31z" fill="#FF6B5A"/></svg>',
+    defender:
+      '<svg viewBox="0 0 36 40" aria-hidden="true"><path d="M18 7l2.8 7.4H28l-6 4.6 2.2 7.2L18 22.4 11.8 26.2 14 19 8 14.4h7.2z" fill="#e2b340"/></svg>',
+    womens:
+      '<svg viewBox="0 0 36 40" aria-hidden="true"><path d="M18 34V18" stroke="#3d7a45" stroke-width="2" stroke-linecap="round"/><path d="M18 28c-4 1-7 0-8-2" fill="none" stroke="#3d7a45" stroke-width="1.4" stroke-linecap="round"/><ellipse cx="18" cy="14" rx="4.2" ry="7" fill="#e07a8a"/><ellipse cx="13.2" cy="16" rx="3.4" ry="6" fill="#f0a0aa"/><ellipse cx="22.8" cy="16" rx="3.4" ry="6" fill="#f0a0aa"/></svg>',
+    victory:
+      '<svg viewBox="0 0 36 40" aria-hidden="true"><path d="M6 16h24v7H6z" fill="#f08a3c"/><path d="M6 18.2h24M6 20.8h24" stroke="#2a2a32" stroke-width="1.5"/><path d="M13 23l-5 11M23 23l5 11" stroke="#f08a3c" stroke-width="3.2" stroke-linecap="round"/><path d="M13 23l-5 11M23 23l5 11" stroke="#2a2a32" stroke-width="1.1" stroke-linecap="round"/></svg>',
+    grad:
+      '<svg viewBox="0 0 36 40" aria-hidden="true"><path d="M18 8l14 6-14 6L4 14z" fill="#2a2a32"/><path d="M11 16.5v7.5c0 3.2 14 3.2 14 0v-7.5" fill="none" stroke="#2a2a32" stroke-width="1.6"/><path d="M30 14.5v8" stroke="#e2b340" stroke-width="1.4"/><circle cx="30" cy="24" r="1.5" fill="#e2b340"/></svg>',
+    school:
+      '<svg viewBox="0 0 36 40" aria-hidden="true"><rect x="17" y="2" width="2" height="5" rx=".6" fill="#4A4A52"/><path d="M18 6.5c-7 1.2-11 8-11 14.2V24h22v-3.3C29 14.5 25 7.7 18 6.5z" fill="#e2b340"/><rect x="8" y="23.2" width="20" height="3.2" rx="1.2" fill="#c4962a"/><circle cx="18" cy="31" r="3" fill="#c4962a"/></svg>',
+    teacher:
+      '<svg viewBox="0 0 36 40" aria-hidden="true"><path d="M18 11c2.2-4 6-4.2 7-1.6" fill="none" stroke="#3d7a45" stroke-width="1.6" stroke-linecap="round"/><ellipse cx="15.5" cy="12" rx="3.2" ry="1.5" fill="#3d7a45"/><circle cx="18" cy="24" r="9.5" fill="#e2554a"/><ellipse cx="14.2" cy="21" rx="2" ry="3" fill="#f4b2aa"/></svg>',
+    halloween:
+      '<svg viewBox="0 0 36 40" aria-hidden="true"><rect x="16" y="7" width="4" height="6" rx="1.2" fill="#3d7a45"/><path d="M18 6c3-4 7-4 8-1" fill="none" stroke="#3d7a45" stroke-width="1.6" stroke-linecap="round"/><ellipse cx="18" cy="24" rx="9" ry="11" fill="#f08a3c"/><ellipse cx="12.5" cy="24" rx="5.5" ry="10" fill="#e07a2c"/><ellipse cx="23.5" cy="24" rx="5.5" ry="10" fill="#e07a2c"/></svg>',
+    newyear:
+      '<svg viewBox="0 0 36 40" aria-hidden="true"><rect x="12" y="3" width="12" height="3" rx="1" fill="#4A4A52"/><rect x="14.5" y="6" width="7" height="6" fill="#4A4A52"/><circle cx="18" cy="17.5" r="6" fill="#fff" stroke="#d5dde6"/><circle cx="18" cy="30" r="8" fill="#fff" stroke="#d5dde6"/><path d="M12 22h12l1.5 2.4H11z" fill="#FF6B5A"/><path d="M22 23.5l3.2 7" stroke="#FF6B5A" stroke-width="2" stroke-linecap="round"/><circle cx="16" cy="17" r=".8" fill="#1e293b"/><circle cx="20.2" cy="17" r=".8" fill="#1e293b"/></svg>'
+  };
+
+  function clearSeason() {
+    document.documentElement.removeAttribute('data-season');
+    var nodes = document.querySelectorAll('.season-mark, .season-strip, .season-motion');
+    for (var i = 0; i < nodes.length; i++) nodes[i].remove();
+  }
+
+  function seasonPiece(className, left, delay, duration, extra) {
+    var el = document.createElement('span');
+    el.className = className;
+    el.style.cssText = 'left:' + left + ';animation-delay:' + delay + ';animation-duration:' + duration + ';' + (extra || '');
+    return el;
+  }
+
+  function buildMotion(season) {
+    var box = document.createElement('div');
+    box.className = 'season-motion';
+    box.setAttribute('aria-hidden', 'true');
+    if (season === 'newyear') {
+      var flake = '<svg viewBox="0 0 24 24"><path d="M12 2v20M5 6.5l14 11M5 17.5l14-11" fill="none" stroke="#7f9cb8" stroke-width="1.7" stroke-linecap="round"/></svg>';
+      var spots = ['8%', '22%', '38%', '54%', '70%', '86%'];
+      for (var i = 0; i < spots.length; i++) {
+        var bit = seasonPiece('season-flake', spots[i], (-i * 3.2) + 's', (18 + (i % 3) * 2) + 's', '');
+        bit.innerHTML = flake;
+        box.appendChild(bit);
+      }
+    } else if (season === 'halloween') {
+      var colors = ['#f08a3c', '#2a2a32', '#e07a6a'];
+      var lefts = ['6%', '28%', '52%'];
+      for (var b = 0; b < 3; b++) {
+        var balloon = seasonPiece('season-balloon', lefts[b], (b * 0.7) + 's', (10 + b) + 's', 'background:' + colors[b] + ';color:' + colors[b]);
+        box.appendChild(balloon);
+      }
+    } else if (season === 'school' || season === 'teacher') {
+      var leafFill = season === 'teacher' ? '#6a9a4a' : '#e09a3e';
+      var leafVein = season === 'teacher' ? '#3d7a45' : '#c4782a';
+      var leafSvg = '<svg viewBox="0 0 16 16"><path d="M8 1c2 3 6 4 6 8a6 6 0 0 1-12 0C2 5 6 4 8 1z" fill="' + leafFill + '"/><path d="M8 3v10" stroke="' + leafVein + '" stroke-width="1"/></svg>';
+      var leafLeft = ['18%', '46%', '72%'];
+      for (var n = 0; n < 3; n++) {
+        var leaf = seasonPiece('season-leaf', leafLeft[n], (n * 0.45) + 's', (7 + n * 0.6) + 's', '');
+        leaf.innerHTML = leafSvg;
+        box.appendChild(leaf);
+      }
+    } else if (season === 'valentine' || season === 'defender') {
+      var glyph = season === 'valentine'
+        ? '<svg viewBox="0 0 16 16"><path d="M8 13C4 10 2 8 2 5.6a2.6 2.6 0 0 1 4.8-1.4A2.6 2.6 0 0 1 14 5.6C14 8 12 10 8 13z" fill="#FF6B5A"/></svg>'
+        : '<svg viewBox="0 0 16 16"><path d="M8 1.5l1.6 4.2H14l-3.4 2.6 1.3 4.2L8 10.2 4.1 12.5 5.4 8.3 2 5.7h4.4z" fill="#e2b340"/></svg>';
+      var glyphClass = season === 'valentine' ? 'season-heart' : 'season-star';
+      var glyphLeft = ['12%', '40%', '68%'];
+      for (var g = 0; g < 3; g++) {
+        var glyphEl = seasonPiece(glyphClass, glyphLeft[g], (g * 0.55) + 's', (9 + g) + 's', '');
+        glyphEl.innerHTML = glyph;
+        box.appendChild(glyphEl);
+      }
+    } else if (season === 'womens') {
+      var petal = '<svg viewBox="0 0 16 16"><ellipse cx="8" cy="8" rx="3" ry="6" fill="#e07a8a"/></svg>';
+      var petalLeft = ['16%', '44%', '70%'];
+      for (var p = 0; p < 3; p++) {
+        var petalEl = seasonPiece('season-leaf', petalLeft[p], (p * 0.4) + 's', (7.5 + p) + 's', '');
+        petalEl.innerHTML = petal;
+        box.appendChild(petalEl);
+      }
+    } else if (season === 'grad') {
+      var confettiColors = ['#e2b340', '#FF6B5A', '#7eb6d6', '#e2b340'];
+      var confettiLeft = ['14%', '36%', '58%', '78%'];
+      for (var c = 0; c < 4; c++) {
+        var bitConf = seasonPiece('season-confetti', confettiLeft[c], (c * 0.35) + 's', (6.5 + c * 0.4) + 's', 'background:' + confettiColors[c]);
+        box.appendChild(bitConf);
+      }
+    }
+    if (!box.childNodes.length) return null;
+    return box;
+  }
+
+  function applySeason(season) {
+    clearSeason();
+    if (!season || season === 'none' || !SEASON_COPY[season]) return;
+    var header = document.querySelector('header.site-header');
+    var logo = header && header.querySelector('.brand-logo');
+    if (!header || !logo) return;
+    document.documentElement.setAttribute('data-season', season);
+    var mark = document.createElement('span');
+    mark.className = 'season-mark';
+    mark.setAttribute('aria-hidden', 'true');
+    mark.innerHTML = SEASON_MARK[season];
+    logo.appendChild(mark);
+    var strip = document.createElement('p');
+    strip.className = 'season-strip';
+    strip.textContent = SEASON_COPY[season];
+    header.insertAdjacentElement('afterend', strip);
+    var motion = buildMotion(season);
+    if (motion) document.body.appendChild(motion);
+  }
+
+  function loadSeason() {
+    function read(url) {
+      return fetch(url, { cache: 'no-store' }).then(function (r) {
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+        return r.json();
+      }).then(function (data) {
+        if (!data || data.ok === false || !data.season) throw new Error('empty');
+        return data.season;
+      });
+    }
+    var fileUrl = window.vigSameOrigin ? window.vigSameOrigin('data/season.json') : 'data/season.json';
+    var api = (window.VIG_API || 'https://api.vigsharm.ru') + '/api/season';
+    function readApi() {
+      var ms = 1200;
+      var ctrl = typeof AbortController !== 'undefined' ? new AbortController() : null;
+      var timer = null;
+      if (ctrl) {
+        timer = setTimeout(function () {
+          try { ctrl.abort(); } catch (e) { /* ignore */ }
+        }, ms);
+      }
+      return fetch(api, { cache: 'no-store', signal: ctrl ? ctrl.signal : undefined }).then(function (r) {
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+        return r.json();
+      }).then(function (data) {
+        if (!data || data.ok === false || !data.season) throw new Error('empty');
+        return data.season;
+      }).finally(function () {
+        if (timer) clearTimeout(timer);
+      });
+    }
+    readApi().catch(function () { return read(fileUrl); }).then(applySeason).catch(function () {});
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', loadSeason);
+  } else {
+    loadSeason();
+  }
 })();

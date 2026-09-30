@@ -34,6 +34,7 @@ export default {
         path === '/api/products' || /^\/api\/products\/[^/]+$/.test(path)
         || path === '/api/price-list'
         || path === '/api/delivery'
+        || path === '/api/season'
         || isPublicMedia
       );
       const isPublicOrder = path === '/api/orders' && method === 'POST';
@@ -110,6 +111,10 @@ export default {
         return handleGetDelivery(env);
       if (path === '/api/delivery' && method === 'PUT')
         return handlePutDelivery(request, env);
+      if (path === '/api/season' && method === 'GET')
+        return handleGetSeason(env);
+      if (path === '/api/season' && method === 'PUT')
+        return handlePutSeason(request, env);
       if (path === '/api/upload/photo' && method === 'POST')
         return handleUploadPhoto(request, env);
       if (path === '/api/upload/thumb' && method === 'POST')
@@ -4467,6 +4472,44 @@ async function handlePutDelivery(request, env) {
     ).bind(key, value, now).run();
   }
   return json({ ok: true, city, nearby, nearby_from: nearbyFrom });
+}
+
+const HOLIDAY_SEASONS = ['none', 'valentine', 'defender', 'womens', 'victory', 'grad', 'school', 'teacher', 'halloween', 'newyear'];
+
+function normalizeHoliday(value) {
+  const season = String(value || '').trim();
+  return HOLIDAY_SEASONS.includes(season) ? season : 'none';
+}
+
+async function readHoliday(env) {
+  await ensureDeliverySettings(env);
+  const row = await env.DB.prepare(
+    "SELECT value FROM site_settings WHERE key = 'holiday_season'"
+  ).first();
+  return normalizeHoliday(row && row.value);
+}
+
+async function handleGetSeason(env) {
+  const season = await readHoliday(env);
+  return json({ ok: true, season });
+}
+
+async function handlePutSeason(request, env) {
+  await ensureDeliverySettings(env);
+  let data;
+  try { data = await request.json(); } catch (e) {
+    return json({ ok: false, error: 'Некорректные данные' }, 400);
+  }
+  const season = normalizeHoliday(data.season);
+  if (data.season != null && !HOLIDAY_SEASONS.includes(String(data.season).trim())) {
+    return json({ ok: false, error: 'Неизвестный праздник' }, 400);
+  }
+  const now = new Date().toISOString();
+  await env.DB.prepare(
+    `INSERT INTO site_settings (key, value, updated_at) VALUES ('holiday_season', ?, ?)
+     ON CONFLICT(key) DO UPDATE SET value = excluded.value, updated_at = excluded.updated_at`
+  ).bind(season, now).run();
+  return json({ ok: true, season });
 }
 
 function compositionLines(raw) {

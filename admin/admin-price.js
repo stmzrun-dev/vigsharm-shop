@@ -71,6 +71,7 @@
       return;
     }
     this.loadDeliverySettings();
+    this.loadHolidaySettings?.();
     try {
       const res = await fetch(this.workerUrl + '/api/price-list', { cache: 'no-store' });
       const data = await res.json();
@@ -100,11 +101,15 @@
         rows.map((i) => {
           const from = Number(i.price_from) ? ' checked' : '';
           const unit = i.unit ? (' <small>' + esc(i.unit) + '</small>') : '';
-          return '<label class="price-admin-row">' +
-            '<span>' + esc(i.title) + unit + '</span>' +
-            '<span class="price-admin-from"><input type="checkbox" data-price-from="' + esc(i.id) + '"' + from + '/> от</span>' +
-            '<input class="product-row-price-input" type="number" min="0" step="1" inputmode="numeric" data-price-val="' + esc(i.id) + '" value="' + (Number(i.price) || 0) + '"/>' +
-            '</label>';
+          const id = esc(i.id);
+          return '<div class="price-admin-row">' +
+            '<span class="price-admin-name">' + esc(i.title) + unit + '</span>' +
+            '<span class="price-admin-field">' +
+            '<label class="price-from-chip" title="Показывать «от»">' +
+            '<input type="checkbox" data-price-from="' + id + '"' + from + ' aria-label="Цена «от»: ' + esc(i.title) + '"/>' +
+            '<span>от</span></label>' +
+            '<input class="product-row-price-input" type="number" min="0" step="1" inputmode="numeric" data-price-val="' + id + '" value="' + (Number(i.price) || 0) + '" aria-label="' + esc(i.title) + '"/>' +
+            '</span></div>';
         }).join('') +
         '</article>';
     }).join('');
@@ -218,6 +223,7 @@
       const data = await res.json();
       if (!data.ok) throw new Error(data.error || ('HTTP ' + res.status));
       await this.saveDeliverySettings();
+      try { await this.saveHolidaySettings({ quiet: true }); } catch (_) { /* праздник сохраняется своей кнопкой */ }
       this.priceList = data.items || [];
       this.renderPriceList();
       this.toast?.('Прайс и доставка сохранены. Для сайта в РФ скачайте JSON в data/', 'success');
@@ -274,6 +280,68 @@
       this.toast?.('Скачаны price-list.json и delivery.json → положите в data/', 'success');
     } catch (e) {
       alert('Не удалось скачать: ' + (e.message || e));
+    }
+  };
+  const HOLIDAYS = ['none', 'valentine', 'defender', 'womens', 'victory', 'grad', 'school', 'teacher', 'halloween', 'newyear'];
+
+  function selectedHoliday() {
+    const picked = document.querySelector('input[name="holiday-season"]:checked');
+    return picked && HOLIDAYS.includes(picked.value) ? picked.value : 'none';
+  }
+
+  function setHoliday(season) {
+    const value = HOLIDAYS.includes(season) ? season : 'none';
+    const input = document.querySelector('input[name="holiday-season"][value="' + value + '"]');
+    if (input) input.checked = true;
+  }
+
+  app.loadHolidaySettings = async function () {
+    const status = document.getElementById('holiday-season-status');
+    if (!this.workerUrl) return;
+    try {
+      const res = await fetch(this.workerUrl + '/api/season', { cache: 'no-store' });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || !data.ok) throw new Error(data.error || ('HTTP ' + res.status));
+      setHoliday(data.season);
+      if (status) status.textContent = '';
+    } catch (_) {
+      if (status) {
+        status.textContent = 'Не удалось прочитать праздник с Worker. Задеплойте Worker один раз.';
+      }
+    }
+  };
+
+  app.saveHolidaySettings = async function (opts) {
+    const quiet = !!(opts && opts.quiet);
+    if (!this.workerUrl) {
+      if (!quiet) alert('Укажите Worker API URL во вкладке «Настройки».');
+      throw new Error('no worker');
+    }
+    if (!this.adminApiKey) {
+      if (!quiet) alert('Нужен Admin API Key во вкладке «Настройки».');
+      throw new Error('no key');
+    }
+    const season = selectedHoliday();
+    const btn = document.getElementById('holiday-save');
+    if (btn && !quiet) btn.disabled = true;
+    try {
+      const res = await fetch(this.workerUrl + '/api/season', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json', ...this.authHeaders() },
+        body: JSON.stringify({ season })
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || !data.ok) throw new Error(data.error || ('HTTP ' + res.status));
+      setHoliday(data.season || season);
+      const status = document.getElementById('holiday-season-status');
+      if (status) status.textContent = '';
+      if (!quiet) this.toast?.('Праздник опубликован', 'success');
+      return data;
+    } catch (e) {
+      if (!quiet) alert('Не удалось опубликовать праздник: ' + (e.message || e));
+      throw e;
+    } finally {
+      if (btn && !quiet) btn.disabled = false;
     }
   };
 })();

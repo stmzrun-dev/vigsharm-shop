@@ -186,6 +186,8 @@ html body main#main-content.catalog-page .catalog-group-nav.catalog-sections > b
   overflow:visible;
 }
 .pick-band .pick-more button{background:#fff;max-width:100%}
+.catalog-idea-board .pick-more button.pick-kind{overflow:hidden;padding-left:4px}
+.catalog-idea-board .pick-more button.pick-kind img{width:28px;height:28px;object-fit:contain;background:transparent}
 .catalog-idea-board .pick-heroes{
   display:grid;
   grid-template-columns:repeat(4, minmax(0, 1fr));

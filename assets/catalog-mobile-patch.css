@@ -619,6 +619,8 @@
 .pick-hero b{display:block;font-size:11px;font-weight:750;line-height:1.2}
 .pick-more{display:flex;flex-wrap:wrap;gap:6px}
 .pick-more button{min-height:36px;padding:0 12px;border:1.5px solid #ebe6e3;border-radius:999px;background:#fff;font:inherit;font-size:13px;font-weight:750;color:#5c534f;cursor:pointer}
+.pick-more button.pick-kind{display:inline-flex;align-items:center;gap:6px;padding-left:4px;overflow:hidden}
+.pick-more button.pick-kind img{width:28px;height:28px;object-fit:contain;flex:0 0 auto;background:transparent}
 .pick-more button.is-on,.pick-choices button.is-on{border-color:#ff6b5a;color:#1e293b;box-shadow:0 0 0 1px #ff6b5a33}
 .pick-choices{display:grid;gap:8px}
 .pick-choices button{min-height:52px;padding:14px 16px;border:1.5px solid #ebe6e3;border-radius:16px;background:#fff;text-align:left;font:inherit;font-size:16px;font-weight:800;color:#1e293b;cursor:pointer}

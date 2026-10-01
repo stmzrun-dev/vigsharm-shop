@@ -316,7 +316,7 @@
       "composition": [
         "56565"
       ],
-      "category": "Букет из шаров",
+      "category": "Букет с мишками",
       "character": null,
       "age_group": "Для любого возраста",
       "budget": "до 1 000 ₽",
@@ -328,7 +328,7 @@
       "slug": "medvezhya-nezhnost-2",
       "scene": "handheld_bouquet",
       "tags": [
-        "Букет из шаров"
+        "Букет с мишками"
       ],
       "client_options": {
         "available_on_request": false,
@@ -336,6 +336,7 @@
         "number_choice": false,
         "personal_inscription": true,
         "photozone_rental": false,
+        "bouquet_type": "teddy",
         "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/1e3e35d9-9a4b-4dba-9715-4679ca008512.jpg",
         "photo_dhash": "8393a2d4e7e9e9c1"
       },
@@ -362,7 +363,7 @@
         "голубая упаковка",
         "атласные ленты"
       ],
-      "category": "Букет из шаров",
+      "category": "Букет с мишками",
       "character": null,
       "age_group": "Для любого возраста",
       "budget": "до 1 000 ₽",
@@ -374,7 +375,7 @@
       "slug": "mishki-i-rozy",
       "scene": "handheld_bouquet",
       "tags": [
-        "Букет из шаров"
+        "Букет с мишками"
       ],
       "client_options": {
         "available_on_request": false,
@@ -382,6 +383,7 @@
         "number_choice": false,
         "personal_inscription": true,
         "photozone_rental": false,
+        "bouquet_type": "teddy",
         "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/4c422a5d-2376-441b-886f-5bc0f460129c.jpg",
         "photo_dhash": "8387b1f3cbd1f1e3"
       },
@@ -30968,7 +30970,7 @@
       "composition": [
         "19 тюльпанов из шаров"
       ],
-      "category": "Букет из шаров",
+      "category": "Цветы из шаров",
       "character": null,
       "age_group": "Для любого возраста",
       "budget": "2 000–3 500 ₽",
@@ -30980,7 +30982,7 @@
       "slug": "nezhnost-v-rukah",
       "scene": "handheld_bouquet",
       "tags": [
-        "Букет из шаров"
+        "Цветы из шаров"
       ],
       "client_options": {
         "available_on_request": false,
@@ -30988,6 +30990,7 @@
         "number_choice": false,
         "personal_inscription": true,
         "photozone_rental": false,
+        "bouquet_type": "flowers",
         "photo_dhash": "125171f1e0f0e0d0"
       },
       "photos": [

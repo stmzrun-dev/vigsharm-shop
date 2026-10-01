@@ -233,6 +233,15 @@ main#main-content select:focus{
   border-radius:999px!important;
   padding:2px 8px!important;
   font-weight:800!important;
+  display:inline-flex!important;
+  align-items:center!important;
+  gap:4px!important;
+}
+.catalog-card-meta .cat-ico{
+  width:18px!important;
+  height:18px!important;
+  object-fit:contain!important;
+  flex:0 0 auto!important;
 }
 
 /* ===== 3) Tables / lists — spacious rows, quiet hover ===== */
@@ -768,6 +777,9 @@ html body main#main-content.catalog-page .catalog-card-meta > small{
   border-radius:999px!important;
   padding:2px 8px!important;
   font-weight:800!important;
+  display:inline-flex!important;
+  align-items:center!important;
+  gap:4px!important;
 }
 html body main#main-content.catalog-page .catalog-card .catalog-card-price small{
   color:#c4a39a!important;

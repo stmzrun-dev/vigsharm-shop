@@ -16,6 +16,9 @@
   function compIconKey(label) {
     var t = String(label || '').toLowerCase();
     if (/мишк/.test(t) && /роз/.test(t)) return 'rosebear';
+    if (/бабоч/.test(t)) return 'butterfly';
+    if ((/плюшев/.test(t) || /мягк/.test(t)) && /мишк|игруш/.test(t)) return 'teddy';
+    if (/мишк/.test(t) && !/фольг/.test(t) && !/фигур/.test(t)) return 'teddy';
     if (/шляпн|упаковк/.test(t)) return 'hatbox';
     if (/лент|бант|атлас/.test(t)) return 'ribbon';
     if (/роз/.test(t)) return 'rose';
@@ -38,8 +41,8 @@
     if (/фотозон|мольберт|каркас/.test(t)) return 'photozone';
     if (/фигур|персонаж|мишк|зайц|единорог/.test(t)) return 'figure';
     if (/напольн|стойк/.test(t)) return 'floor';
+    if (/ромаш|лили|тюльпан|цветк|цветы|цветов/.test(t)) return 'tulip';
     if (/букет/.test(t)) return 'bouquet';
-    if (/тюльпан|цветк/.test(t)) return 'tulip';
     if (/именн/.test(t)) return 'name';
     if (/печат|принтов|рисун/.test(t)) return 'print';
     if (/надпис/.test(t)) return 'name';
@@ -47,6 +50,11 @@
     if (/маленьк|мини[\s-]?шар|шарик/.test(t)) return 'mini';
     if (/латекс|гелиев|шар/.test(t)) return 'latex';
     return '';
+  }
+  function isTeddyBouquet() {
+    if (!p) return false;
+    return p.category === 'Букет с мишками'
+      || (p.tags || []).indexOf('Букет с мишками') >= 0;
   }
   function isFlowerBouquet() {
     if (!p) return false;
@@ -59,8 +67,9 @@
     var key = compIconKey(label);
     // «Цветы»: лилии и прочие «шары» в составе — цветок. Сердце, цифра, коробка остаются своими.
     if (isFlowerBouquet() && (!key || key === 'latex')) key = 'tulip';
+    if (isTeddyBouquet() && (key === 'figure' || !key) && !/фольг/.test(String(label || ''))) key = 'teddy';
     if (!key) key = 'latex';
-    var v = (key === 'rosebear' || key === 'rose' || key === 'hatbox' || key === 'ribbon') ? '1' : (key === 'arch' ? '1' : (key === 'walker' ? '19' : '18'));
+    var v = (key === 'butterfly' || key === 'teddy') ? '2' : ((key === 'rose' || key === 'bouquet' || key === 'tulip') ? '19' : ((key === 'rosebear' || key === 'hatbox' || key === 'ribbon') ? '1' : (key === 'arch' ? '1' : (key === 'walker' ? '19' : '18'))));
     return '<img class="comp-ico" src="icons/comp-' + key + '.webp?v=' + v + '" alt="" width="32" height="32" onerror="this.onerror=null;this.src=\'icons/comp-' + key + '.svg\'"/>';
   }
 

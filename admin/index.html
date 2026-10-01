@@ -416,11 +416,27 @@
                 </div>
               </div>
               <div id="bouquet-type-early" class="photozone-type-early scene-subchips hidden">
-                <p class="scene-subchips-label">Тип</p>
-                <div class="scene-subchips-row" role="group" aria-label="Тип букета">
+                <p class="scene-subchips-label">Тип <span class="req">*</span></p>
+                <div class="scene-subchips-row" role="radiogroup" aria-label="Тип букета">
                   <label class="scene-subchip">
-                    <input type="checkbox" name="bouquet-type-early" id="bouquet-type-flowers-early" value="flowers"/>
-                    <span>Цветы</span>
+                    <input type="radio" name="bouquet-type-early" id="bouquet-type-foil-early" value="foil" checked/>
+                    <span>Из шаров</span>
+                  </label>
+                  <label class="scene-subchip">
+                    <input type="radio" name="bouquet-type-early" id="bouquet-type-flowers-early" value="flowers"/>
+                    <span>Цветы из шаров</span>
+                  </label>
+                  <label class="scene-subchip">
+                    <input type="radio" name="bouquet-type-early" id="bouquet-type-teddy-early" value="teddy"/>
+                    <span>С мишками</span>
+                  </label>
+                  <label class="scene-subchip">
+                    <input type="radio" name="bouquet-type-early" id="bouquet-type-butterfly-early" value="butterfly"/>
+                    <span>С бабочками</span>
+                  </label>
+                  <label class="scene-subchip">
+                    <input type="radio" name="bouquet-type-early" id="bouquet-type-soap-early" value="soap"/>
+                    <span>Из мыльных роз</span>
                   </label>
                 </div>
               </div>

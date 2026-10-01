@@ -174,6 +174,11 @@ function bytesToBase64(bytes) {
 
 // ─── NordRouter ──────────────────────────────────────────
 
+// HTTP-вызов воркера Cloudflare обрывает примерно на 30 с. Страница ошибки
+// без Access-Control-Allow-Origin — в админке это «Failed to fetch» / CORS.
+// Ответ NordRouter должен прийти раньше, чтобы воркер успел вернуть JSON.
+const AI_HTTP_BUDGET_MS = 24000;
+
 async function nordRequest(endpoint, method, body, env, timeoutMs = 20000) {
   const opts = {
     method,
@@ -230,7 +235,8 @@ const CARD_CATEGORIES = [
   'Юбилей', '1 годик', 'Крещение', 'Гендер-пати', 'На выписку', 'Свадьба и девичник',
   'Выпускной', 'Новый год', '14 февраля', '23 февраля', '8 марта', '1 сентября',
   'Фигуры из шаров', 'Напольные композиции', 'Букет из шаров', 'Цветы из шаров',
-  'Крафтовый букет', 'Шар-сюрприз', 'Коробка-сюрприз', 'Фотозона', 'Арка из шаров',
+  'Букет с мишками', 'Букет с бабочками', 'Букет из мыльных роз',
+  'Шар-сюрприз', 'Коробка-сюрприз', 'Фотозона', 'Арка из шаров',
   'Шары поштучно'
 ];
 
@@ -243,6 +249,7 @@ const AUDIENCE_CATEGORIES = [
 
 const TYPE_TAGS = [
   'Фигуры из шаров', 'Напольные композиции', 'Букет из шаров', 'Цветы из шаров',
+  'Букет с мишками', 'Букет с бабочками', 'Букет из мыльных роз',
   'Крафтовый букет', 'Шар-сюрприз', 'Коробка-сюрприз', 'Фотозона', 'Арка из шаров',
   'Шары поштучно'
 ];
@@ -513,7 +520,7 @@ async function handleReadFoilDigits(request, env) {
         ]
       }
     ]
-  }, env, 45000);
+  }, env, AI_HTTP_BUDGET_MS);
 
   if (aiResp.error) {
     return json({ ok: false, error: 'NordRouter API ошибка: ' + (aiResp.error.message || JSON.stringify(aiResp.error)) });
@@ -576,7 +583,7 @@ async function handleSameComposition(request, env) {
       },
       { role: 'user', content }
     ]
-  }, env, 45000);
+  }, env, AI_HTTP_BUDGET_MS);
 
   if (aiResp.error) {
     return json({
@@ -643,7 +650,7 @@ async function handleDetectCharacter(request, env) {
         ]
       }
     ]
-  }, env, 45000);
+  }, env, AI_HTTP_BUDGET_MS);
 
   if (aiResp.error) {
     return json({
@@ -829,6 +836,18 @@ const GENERIC_OCCASIONS = new Set([
   'день рождения', 'др', 'birthday', 'праздник', 'любой повод', 'без повода'
 ]);
 
+const BOUQUET_TYPE_CATEGORY = {
+  foil: 'Букет из шаров',
+  flowers: 'Цветы из шаров',
+  teddy: 'Букет с мишками',
+  butterfly: 'Букет с бабочками',
+  soap: 'Букет из мыльных роз'
+};
+
+function bouquetCategoryFromType(type) {
+  return BOUQUET_TYPE_CATEGORY[type] || '';
+}
+
 function sceneTypeHint(scene) {
   switch (scene) {
     case 'unit_balloon': return 'Шары поштучно';
@@ -978,7 +997,8 @@ async function handleGenerateCard(request, env) {
     holiday_only,
     foil_digits,
     floor_type,
-    rose_type
+    rose_type,
+    bouquet_type
   } = body;
   const trustedDigits = String(foil_digits || '').replace(/\D/g, '').slice(0, 4);
   const rawIn = String(composition_raw || description || '').trim();
@@ -1012,6 +1032,10 @@ async function handleGenerateCard(request, env) {
 - composition: БЕЗ скобок и БЕЗ текста тематики — только физический состав шаров`
     : '';
 
+  const bouquetType = BOUQUET_TYPE_CATEGORY[bouquet_type]
+    ? bouquet_type
+    : ((scene || '') === 'handheld_bouquet' ? 'foil' : '');
+  const bouquetCategory = bouquetCategoryFromType(bouquetType);
   const roseType = rose_type === 'soap' ? 'soap' : (rose_type === 'bear' ? 'bear' : '');
   const roseOnly = (scene || '') === 'table' && !!roseType;
   const roseCategory = roseType === 'soap' ? 'Мыльные розы' : (roseType === 'bear' ? 'Мишки из роз' : '');
@@ -1049,10 +1073,11 @@ async function handleGenerateCard(request, env) {
   Сомнение → character_confidence medium/low + character_alts (2–3 варианта). НЕ оставляй character пустым, если герой на принте виден.
 - target_audience и occasion оставь пустыми (пол/повод — не в этих полях)`
     : '';
+  const bouquetShelf = bouquetCategory || 'Букет из шаров';
   const bouquetRule = bouquetOnly
     ? `
-БУКЕТ ИЗ ШАРОВ (без тематики в скобках): category = РОВНО «Букет из шаров».
-- tags: ТОЛЬКО «Букет из шаров» — БЕЗ «Для неё/него/девочки/мальчика» и прочих аудиторий/поводов
+БУКЕТ (без тематики в скобках): category = РОВНО «${bouquetShelf}».
+- tags: ТОЛЬКО «${bouquetShelf}» — БЕЗ «Для неё/него/девочки/мальчика» и прочих аудиторий/поводов
 - target_audience и occasion оставь пустыми`
     : '';
   const figuresRule = figuresOnly
@@ -1249,7 +1274,7 @@ ${scene === 'table' ? 'Сцена «на столике»: подарок сид
 ${roseOnly ? `Сцена «на столике», подтип выбран: category и tags РОВНО «${roseCategory}». Не ставь аудиторию вместо этой полки.` : ''}
 ${holidayOnly ? `Праздничная/тематическая категория (обязательно): ${holidayOnly}` : ''}
 ${boxOnly ? 'В составе коробка — category и tags только «Коробка-сюрприз». age_group обязателен.' : ''}
-${bouquetOnly ? 'Это букет из шаров без тематики в скобках — category и tags только «Букет из шаров».' : ''}
+${bouquetOnly ? `Это букет без тематики в скобках — category и tags только «${bouquetShelf}».` : ''}
 ${figuresOnly ? 'Это фигура из шаров без тематики в скобках — category и tags только «Фигуры из шаров».' : ''}
 ${photozoneOnly ? 'Это фотозона. В tags всегда «Фотозона». Если foil_digits=1 — category «1 годик» + тег Фотозона, иначе category «Фотозона».' : ''}
 ${surpriseOnly ? 'Это шар-сюрприз. category и tags только «Шар-сюрприз». Надпись на шаре не делает карточку праздничной полкой.' : ''}
@@ -1279,7 +1304,7 @@ ${image_url
     messages,
     temperature: 0.4,
     response_format: { type: 'json_object' }
-  }, env, image_url ? 55000 : 25000);
+  }, env, AI_HTTP_BUDGET_MS);
 
   if (aiResp.error) {
     console.error('NordRouter API error:', aiResp.error);
@@ -1311,7 +1336,7 @@ ${image_url
       data.age_group = 'Для детей';
     }
   } else if (bouquetOnly) {
-    applyTypeOnlyCard(data, 'Букет из шаров');
+    applyTypeOnlyCard(data, bouquetShelf);
   } else if (figuresOnly) {
     applyTypeOnlyCard(data, 'Фигуры из шаров');
   } else if (photozoneOnly) {
@@ -1788,7 +1813,7 @@ async function handleSuggestCategory(request, env) {
         role: 'system',
         content: `Определи категорию и теги для карточки товара магазина шаров.
 Верни ТОЛЬКО JSON: { "category": "...", "tags": ["..."] }
-Категории: Для девочки, Для мальчика, Универсальные, Для неё, Для мамы, Для него, Геймерам, Юбилей, 1 годик, Крещение, Гендер-пати, На выписку, Свадьба и девичник, Выпускной, Новый год, 14 февраля, 23 февраля, 8 марта, 1 сентября, Фигуры из шаров, Напольные композиции, Букет из шаров, Цветы из шаров, Крафтовый букет, Коробка-сюрприз, Фотозона, Арка из шаров, Шары поштучно.
+Категории: Для девочки, Для мальчика, Универсальные, Для неё, Для мамы, Для него, Геймерам, Юбилей, 1 годик, Крещение, Гендер-пати, На выписку, Свадьба и девичник, Выпускной, Новый год, 14 февраля, 23 февраля, 8 марта, 1 сентября, Фигуры из шаров, Напольные композиции, Букет из шаров, Цветы из шаров, Букет с мишками, Букет с бабочками, Букет из мыльных роз, Коробка-сюрприз, Фотозона, Арка из шаров, Шары поштучно.
 Приоритет: выписка/метрики рождения/«добро пожаловать домой» → category «На выписку» (пол — в tags). Нейтральное детское без явного пола → «Универсальные». Не используй «Шар-сюрприз».`
       },
       { role: 'user', content: `Название: ${title}\nОписание: ${description}` }

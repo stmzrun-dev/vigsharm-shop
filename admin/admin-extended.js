@@ -727,6 +727,10 @@ Object.assign(app, {
     if (scene !== 'unit_balloon') this.releaseUnitSceneLock?.();
     if (prev !== scene) this.clearOtherSceneSubtypes?.(scene);
     this.currentProduct.scene = scene;
+    if (scene === 'handheld_bouquet' && !this.getBouquetType?.()) {
+      this.setBouquetType?.('foil');
+      if (!this.cardFieldsAreManual?.()) this.applyTypeOnlyMode?.('Букет из шаров');
+    }
     const select = document.getElementById('scene-select');
     if (select && select.value !== scene) select.value = scene;
     this.syncUnitBalloonForm?.(true);
@@ -1151,11 +1155,13 @@ Object.assign(app, {
       const fullDesc = document.getElementById('product-full-desc')?.value || '';
       const isFloor = scene === 'floor' || cat === 'Напольные композиции';
       const isFigures = scene === 'balloon_figures' || cat === 'Фигуры из шаров';
+      const bouquetCats = (typeof BOUQUET_TYPES !== 'undefined')
+        ? Object.values(BOUQUET_TYPES).map((row) => row.category)
+        : [];
       const isBalloonFlowers = this.getBouquetType?.() === 'flowers' || cat === 'Цветы из шаров';
       const isBouquet = scene === 'handheld_bouquet'
-        || cat === 'Букет из шаров'
-        || cat === 'Крафтовый букет'
-        || isBalloonFlowers;
+        || bouquetCats.includes(cat)
+        || cat === 'Крафтовый букет';
       const isPhotozone = this.isPhotozoneContext?.()
         || scene === 'photozone'
         || cat === 'Фотозона';
@@ -1477,14 +1483,15 @@ Object.assign(app, {
 
   getBouquetType() {
     const checked = document.querySelector('input[name="bouquet-type-early"]:checked');
-    return checked?.value === 'flowers' ? 'flowers' : '';
+    const val = checked?.value || '';
+    return (typeof BOUQUET_TYPES !== 'undefined' && BOUQUET_TYPES[val]) ? val : '';
   },
 
   setBouquetType(type) {
-    const on = type === 'flowers';
+    const next = (typeof BOUQUET_TYPES !== 'undefined' && BOUQUET_TYPES[type]) ? type : '';
     document.querySelectorAll('input[name="bouquet-type-early"]').forEach((el) => {
       el.defaultChecked = false;
-      el.checked = on && el.value === 'flowers';
+      el.checked = !!next && el.value === next;
     });
     this.syncArchPriceLabel?.();
   },
@@ -1519,13 +1526,12 @@ Object.assign(app, {
     if (this._bouquetTypeWired) return;
     this._bouquetTypeWired = true;
     const sync = (e) => {
-      const el = e?.target;
-      const on = !!(el && el.checked && el.value === 'flowers');
-      this.setBouquetType(on ? 'flowers' : '');
-      if (on) this.applyBalloonFlowersOnlyMode?.();
-      else if ((this.currentProduct?.scene || document.getElementById('scene-select')?.value) === 'handheld_bouquet') {
-        this.applyBouquetOnlyMode?.();
-      }
+      const val = e?.target?.value || '';
+      if (e?.target && !e.target.checked) return;
+      if (!(typeof BOUQUET_TYPES !== 'undefined' && BOUQUET_TYPES[val])) return;
+      this.setBouquetType(val);
+      const meta = BOUQUET_TYPES[val];
+      if (meta?.category) this.applyTypeOnlyMode?.(meta.category);
       this.syncAdvanceOrderFromScene?.();
       this.syncStudioModeHint?.();
       this.scheduleSaveActiveStudioDraft?.();
@@ -1932,9 +1938,9 @@ Object.assign(app, {
     if (holidayOnly && !(card.id && card.category)) {
       this.applyHolidayOnlyMode(holidayOnly);
       this.ensurePhotozoneTagFromCard?.(card);
-    } else if (card.id && card.category) {
-      if (card.category === 'Цветы из шаров') this.setBouquetType?.('flowers');
-      else this.setBouquetType?.('');
+    } else     if (card.id && card.category) {
+      const mapped = (typeof bouquetTypeFromCategory === 'function') ? bouquetTypeFromCategory(card.category) : '';
+      this.setBouquetType?.(mapped || '');
     } else if (this.isOccasionShelf?.(card.category)) {
       if (card.category !== 'Юбилей') this.applyAgeFromCategory?.(card.category);
       this.syncOccasionShelfFields?.();
@@ -2332,9 +2338,6 @@ Object.assign(app, {
     if (isFloorSave && floorType) {
       clientOptions.floor_type = floorType;
     }
-    if ((category === 'Цветы из шаров' || tags.includes('Цветы из шаров')) && !otherTypeTag) {
-      clientOptions.bouquet_type = 'flowers';
-    }
     if (scene === 'surprise') {
       clientOptions.surprise_pose = this.getSurprisePose?.() === 'hang' ? 'hang' : 'stand';
       if (clientOptions.surprise_pose !== 'hang' && this.surpriseMoneyOn?.()) clientOptions.surprise_money = true;
@@ -2429,6 +2432,18 @@ Object.assign(app, {
         finalTags = [roseMeta.category];
       }
       if (rose) clientOptions.rose_type = rose;
+    }
+
+    if (scene === 'handheld_bouquet' && !holidayOnly) {
+      const btype = this.getBouquetType?.()
+        || (typeof bouquetTypeFromCategory === 'function' ? bouquetTypeFromCategory(category) : '')
+        || 'foil';
+      const meta = (typeof BOUQUET_TYPES !== 'undefined' && BOUQUET_TYPES[btype]) || null;
+      if (meta) {
+        category = meta.category;
+        finalTags = [meta.category];
+        clientOptions.bouquet_type = btype;
+      }
     }
 
     const deferred = (typeof DEFERRED_TYPE_TAGS !== 'undefined' && DEFERRED_TYPE_TAGS) || ['Шар-сюрприз'];
@@ -2923,7 +2938,9 @@ app.loadProductToForm = function(product) {
   else if (opts.floor_type === 'helium') floorTypeSaved = '';
   else if (advanceWasOn && sceneNow === 'floor') floorTypeSaved = 'air';
   this.setFloorType?.(floorTypeSaved);
-  const bouquetTypeSaved = product.category === 'Цветы из шаров' ? 'flowers' : '';
+  const bouquetFromCat = (typeof bouquetTypeFromCategory === 'function') ? bouquetTypeFromCategory(product.category) : '';
+  const bouquetFromOpt = (typeof BOUQUET_TYPES !== 'undefined' && BOUQUET_TYPES[opts.bouquet_type]) ? opts.bouquet_type : '';
+  const bouquetTypeSaved = bouquetFromCat || bouquetFromOpt || (sceneNow === 'handheld_bouquet' ? 'foil' : '');
   this.setBouquetType?.(bouquetTypeSaved);
   const roseSaved = opts.rose_type === 'soap' || product.category === 'Мыльные розы'
     ? 'soap'

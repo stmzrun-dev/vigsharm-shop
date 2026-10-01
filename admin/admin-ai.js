@@ -1149,7 +1149,8 @@ Object.assign(app, {
           holiday_only: holidayFlag || '',
           foil_digits: foilDigits,
           floor_type: this.getFloorType?.() || '',
-          rose_type: sceneHint === 'table' ? (this.getRoseType?.() || '') : ''
+          rose_type: sceneHint === 'table' ? (this.getRoseType?.() || '') : '',
+          bouquet_type: sceneHint === 'handheld_bouquet' ? (this.getBouquetType?.() || 'foil') : ''
         })
       });
 
@@ -1178,7 +1179,14 @@ Object.assign(app, {
         data.composition = this.sanitizeAiDigitLines?.(data.composition, rawComposition, digitMarker) || data.composition;
       }
       this.currentProduct.composition = data.composition || this.currentProduct.composition;
-      if (sceneHint === 'table') {
+      if (sceneHint === 'handheld_bouquet') {
+        const btype = this.getBouquetType?.() || 'foil';
+        const meta = (typeof BOUQUET_TYPES !== 'undefined' && BOUQUET_TYPES[btype]) || null;
+        if (meta?.category) {
+          data.category = meta.category;
+          data.tags = [meta.category];
+        }
+      } else if (sceneHint === 'table') {
         const rose = this.getRoseType?.() || '';
         const roseCat = rose === 'soap' ? 'Мыльные розы' : (rose === 'bear' ? 'Мишки из роз' : '');
         data.tags = roseCat ? [roseCat] : (Array.isArray(data.tags) ? data.tags : []).filter((t) => !['Напольные композиции', 'Фотозона', 'Фигуры из шаров', 'Букет из шаров', 'Коробка-сюрприз'].includes(t));
@@ -1331,7 +1339,9 @@ Object.assign(app, {
         }
         if (fromId === 'ai-review-category') {
           this.syncAiReviewDigitOpts?.();
-          if (el.value && el.value !== 'Цветы из шаров') this.setBouquetType?.('');
+          const mappedBouquet = (typeof bouquetTypeFromCategory === 'function') ? bouquetTypeFromCategory(el.value) : '';
+          if (mappedBouquet) this.setBouquetType?.(mappedBouquet);
+          else if ((this.currentProduct?.scene || document.getElementById('scene-select')?.value) === 'handheld_bouquet') this.setBouquetType?.('foil');
         }
         if (fromId === 'ai-review-price') this.syncBudgetFromPrice?.();
         this.syncRequiredFieldHighlights?.();
@@ -1475,7 +1485,10 @@ Object.assign(app, {
         const formCb = document.querySelector(`${sourceSelector} input[value="${CSS.escape(cb.value)}"]`);
         if (formCb) formCb.checked = cb.checked;
         cb.closest('.chip')?.classList.toggle('is-on', cb.checked);
-        if (cb.value === 'Цветы из шаров' && !cb.checked) this.setBouquetType?.('');
+        if ((typeof bouquetTypeFromCategory === 'function') && bouquetTypeFromCategory(cb.value) && !cb.checked) {
+          const sceneNow = this.currentProduct?.scene || document.getElementById('scene-select')?.value || '';
+          if (sceneNow === 'handheld_bouquet') this.setBouquetType?.('foil');
+        }
         this.renderAiReviewTagsSummary?.();
         this.scheduleSaveActiveStudioDraft?.();
       });

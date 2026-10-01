@@ -2,6 +2,246 @@
   "ok": true,
   "products": [
     {
+      "id": "1fa66c31-e478-4076-938b-04b0a4bd3d51",
+      "title": "Бутылочка для Малыша, Ванильное Золото",
+      "article": "UNT-238",
+      "price": 500,
+      "short_description": "Бутылочка для Малыша, Ванильное Золото",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "kosmicheskiy-start-6",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "На выписку"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/795d24e6-6559-45b2-8acb-f2ed0960b9d9.jpg",
+        "photo_dhash": "78e88aaacad29ece",
+        "unit_type": "foil",
+        "balloon_size": "81 см",
+        "unit_who": [
+          "На выписку"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/0173f3c8-58a8-46b7-9100-e520523e071a.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/0173f3c8-58a8-46b7-9100-e520523e071a.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-01T06:12:41.485Z",
+      "updated_at": "2026-10-01T06:12:41.485Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "6579034b-02bf-4201-8725-2a11a1627e1a",
+      "title": "Боди для Малыша, Ванильное Золото",
+      "article": "UNT-237",
+      "price": 500,
+      "short_description": "Боди для Малыша, Ванильное Золото",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "kosmicheskiy-start-5",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "На выписку"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/c1089503-98d0-4f18-84e1-6d4f4aeb5172.jpg",
+        "photo_dhash": "ccfcccecfcfcf8f0",
+        "unit_type": "foil",
+        "balloon_size": "58 см",
+        "unit_who": [
+          "На выписку"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/32c2f1ad-5dd8-4890-a732-820a4df83196.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/32c2f1ad-5dd8-4890-a732-820a4df83196.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-01T06:10:51.081Z",
+      "updated_at": "2026-10-01T06:10:51.081Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "ce7a29d7-fb42-4bd6-b8ef-ee5430d3ebd6",
+      "title": "Коляска для Малыша, Ванильное Золото",
+      "article": "UNT-236",
+      "price": 700,
+      "short_description": "Коляска для Малыша, Ванильное Золото",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "kosmicheskiy-start-4",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "На выписку"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/8970a492-90f2-43fc-b5bd-205bbaf630e6.jpg",
+        "photo_dhash": "f0d1b2a21b8e8ccc",
+        "unit_type": "foil",
+        "balloon_size": "88 см",
+        "unit_who": [
+          "На выписку"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/f5d11f11-0db6-41b1-a760-43d34b5d9573.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/f5d11f11-0db6-41b1-a760-43d34b5d9573.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-01T06:08:39.001Z",
+      "updated_at": "2026-10-01T06:08:39.001Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "22651f77-b4b8-4685-85d8-1e842ed53c93",
+      "title": "Коляска для Мальчика",
+      "article": "UNT-235",
+      "price": 700,
+      "short_description": "Коляска для Мальчика",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "kosmicheskiy-start-3",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "На выписку"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/3cafc3a6-42b6-4b7e-8662-7519e7a8dcc9.jpg",
+        "photo_dhash": "e0a3a3a2b2e4c8cc",
+        "unit_type": "foil",
+        "balloon_size": "101 см",
+        "unit_who": [
+          "На выписку"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/ec866530-129c-4ae5-ae4c-ae70a0f2d533.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/ec866530-129c-4ae5-ae4c-ae70a0f2d533.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-01T06:04:24.747Z",
+      "updated_at": "2026-10-01T06:04:24.747Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "2c9022c2-06b8-4220-b2b5-6b76821f4117",
+      "title": "Коляска для Девочки",
+      "article": "UNT-234",
+      "price": 700,
+      "short_description": "Коляска для Девочки",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "kosmicheskiy-start-2",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "На выписку"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/f5d4e4da-58e4-49aa-9e50-e03bfb468e40.jpg",
+        "photo_dhash": "e0a3e3a29ecce8cc",
+        "unit_type": "foil",
+        "balloon_size": "101 см",
+        "unit_who": [
+          "На выписку"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/87e38551-7ffd-4a74-80ac-f90396ce1a2e.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/87e38551-7ffd-4a74-80ac-f90396ce1a2e.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-01T06:03:14.383Z",
+      "updated_at": "2026-10-01T06:03:14.383Z",
+      "thumb_photo": null
+    },
+    {
       "id": "e40895a9-93d4-48fc-91f2-f1ea079fc61a",
       "title": "Мишка Сатин",
       "article": "UNT-233",
@@ -1033,7 +1273,7 @@
         "цифра",
         "10 шаров хром"
       ],
-      "category": "Для мальчика",
+      "category": "1 годик",
       "character": "Космонавт",
       "age_group": "Для детей",
       "budget": "3 500–5 000 ₽",
@@ -1067,7 +1307,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-30T20:13:21.727Z",
-      "updated_at": "2026-09-30T21:11:09.316Z",
+      "updated_at": "2026-10-01T06:07:46.097Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/7fc871de-53bd-46a4-bf30-9be1eeedef15.webp"
     },
     {
@@ -1116,7 +1356,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-30T19:44:56.680Z",
-      "updated_at": "2026-09-30T21:11:11.316Z",
+      "updated_at": "2026-10-01T06:13:38.068Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/5661e3f3-55a5-4065-9106-7f964be3e4c6.webp"
     },
     {

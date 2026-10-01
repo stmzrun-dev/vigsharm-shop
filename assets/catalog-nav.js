@@ -608,7 +608,7 @@
     'Арки': 'images/ready/what-arch.webp?v=20260924clay2',
     'Шар-сюрприз': 'images/ready/what-surprise.webp?v=20260924',
     'Крафтовый букет': 'images/ready/what-kraft.webp?v=20260924clay2',
-    'Из роз': 'images/ready/what-roses.webp?v=20261001'
+    'Из роз': 'images/ready/what-roses.webp?v=20261001',
     'На выписку': 'images/idea-discharge.webp?v=20260926c',
     'Юбилей': 'images/idea-jubilee.webp?v=20260926',
     '1 годик': 'images/idea-1year.webp?v=20260926b'

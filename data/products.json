@@ -2,6 +2,170 @@
   "ok": true,
   "products": [
     {
+      "id": "161e082b-d342-4f92-96c2-82d88c10c7c8",
+      "title": "Черновик · 20",
+      "article": null,
+      "price": 0,
+      "short_description": "",
+      "full_description": "",
+      "composition": [],
+      "category": "Букет из шаров",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "plyushevyy-drug-4",
+      "scene": "handheld_bouquet",
+      "tags": [
+        "Букет из шаров"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/1a0e69da-8775-40bb-b280-2882019ff790.jpg",
+        "photo_dhash": "07f18896f0f3b1b3"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/919fe27a-3a66-45ba-b5d1-5ea63ecfc78d.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/919fe27a-3a66-45ba-b5d1-5ea63ecfc78d.jpg",
+      "status": "draft",
+      "show_on_site": false,
+      "created_at": "2026-10-01T09:10:05.729Z",
+      "updated_at": "2026-10-01T09:10:05.729Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "46db3f16-3cc0-4d94-baf3-b378d71506f3",
+      "title": "Черновик 01.10, 12:07",
+      "article": null,
+      "price": 0,
+      "short_description": "",
+      "full_description": "",
+      "composition": [],
+      "category": "Букет из шаров",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "plyushevyy-drug-3",
+      "scene": "handheld_bouquet",
+      "tags": [
+        "Букет из шаров"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/85b4a70e-fbad-4dd3-b9a0-71402ff67d70.jpg",
+        "photo_dhash": "87a1e0a2d2d6d5f1"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/7adf474c-defd-4f5d-8411-fd25bf11b0ef.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/7adf474c-defd-4f5d-8411-fd25bf11b0ef.jpg",
+      "status": "draft",
+      "show_on_site": false,
+      "created_at": "2026-10-01T09:07:20.721Z",
+      "updated_at": "2026-10-01T09:07:20.721Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "2edf72a6-8ba2-4c6d-b01a-e345f8236f94",
+      "title": "4464",
+      "article": null,
+      "price": 644,
+      "short_description": "",
+      "full_description": "",
+      "composition": [
+        "4464"
+      ],
+      "category": "Букет из шаров",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": "до 1 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "plyushevyy-drug-2",
+      "scene": "handheld_bouquet",
+      "tags": [
+        "Букет из шаров"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/0e7427b0-5efb-4be0-8dc1-02d22504c41c.jpg",
+        "photo_dhash": "8781d0f1f1f3f1f1"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/0753e749-5316-4463-a78c-085dc5ff1507.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/0753e749-5316-4463-a78c-085dc5ff1507.jpg",
+      "status": "draft",
+      "show_on_site": false,
+      "created_at": "2026-10-01T09:06:04.004Z",
+      "updated_at": "2026-10-01T09:06:04.004Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "f829fa06-fe37-43a4-8ac2-5119492fe838",
+      "title": "Черновик 01.10, 11:46",
+      "article": null,
+      "price": 0,
+      "short_description": "",
+      "full_description": "",
+      "composition": [],
+      "category": "",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "chernovik-01-10-11-46",
+      "scene": "table",
+      "tags": [],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/bac4227b-3963-4bdb-b964-3474c099e59d.jpg",
+        "photo_dhash": "f8e8f8f8e8ccece0"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/cd694d64-d5d3-488b-bed6-7e1fe708118a.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/cd694d64-d5d3-488b-bed6-7e1fe708118a.jpg",
+      "status": "draft",
+      "show_on_site": false,
+      "created_at": "2026-10-01T08:46:46.302Z",
+      "updated_at": "2026-10-01T08:46:46.302Z",
+      "thumb_photo": null
+    },
+    {
       "id": "35e76a12-a6a9-4052-b601-3d7269b2a044",
       "title": "Бокал шампанского",
       "article": "UNT-267",

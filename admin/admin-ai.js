@@ -1485,10 +1485,7 @@ Object.assign(app, {
         const formCb = document.querySelector(`${sourceSelector} input[value="${CSS.escape(cb.value)}"]`);
         if (formCb) formCb.checked = cb.checked;
         cb.closest('.chip')?.classList.toggle('is-on', cb.checked);
-        if ((typeof bouquetTypeFromCategory === 'function') && bouquetTypeFromCategory(cb.value) && !cb.checked) {
-          const sceneNow = this.currentProduct?.scene || document.getElementById('scene-select')?.value || '';
-          if (sceneNow === 'handheld_bouquet') this.setBouquetType?.('foil');
-        }
+        this.syncBouquetTypeFromReviewChip?.(cb, containerId, sourceSelector);
         this.renderAiReviewTagsSummary?.();
         this.scheduleSaveActiveStudioDraft?.();
       });

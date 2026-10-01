@@ -1487,6 +1487,61 @@ Object.assign(app, {
     return (typeof BOUQUET_TYPES !== 'undefined' && BOUQUET_TYPES[val]) ? val : '';
   },
 
+  /**
+   * Вид букета для сохранения. Отмеченная галочка «Тип» важнее радиокнопки первого шага:
+   * иначе «С мишками» в окне проверки остаётся «Букет из шаров».
+   */
+  resolveHandheldBouquetType(tags, category) {
+    const fromName = (name) => (
+      typeof bouquetTypeFromCategory === 'function' ? bouquetTypeFromCategory(name) : ''
+    );
+    const fromTags = [...new Set((tags || []).map(fromName).filter(Boolean))];
+    const fromCat = fromName(category);
+    if (fromTags.length === 1) return fromTags[0];
+    if (fromCat && fromTags.includes(fromCat)) return fromCat;
+    const specific = fromTags.filter((t) => t !== 'foil');
+    if (specific.length === 1) return specific[0];
+    return fromCat || this.getBouquetType?.() || 'foil';
+  },
+
+  /** Галочка типа букета в окне проверки сама переключает радиокнопку и категорию. */
+  syncBouquetTypeFromReviewChip(cb, containerId, sourceSelector) {
+    const mapped = (typeof bouquetTypeFromCategory === 'function') ? bouquetTypeFromCategory(cb?.value) : '';
+    if (!mapped || !cb) return;
+    const sceneNow = this.currentProduct?.scene || document.getElementById('scene-select')?.value || '';
+    if (sceneNow !== 'handheld_bouquet') return;
+    const bouquetNames = (typeof BOUQUET_TYPES !== 'undefined')
+      ? Object.values(BOUQUET_TYPES).map((row) => row.category)
+      : [];
+    const setCategory = (catName) => {
+      const catEl = document.getElementById('product-category');
+      const reviewCat = document.getElementById('ai-review-category');
+      if (catEl) catEl.value = catName;
+      if (reviewCat) reviewCat.value = catName;
+    };
+    const paint = (el, on) => {
+      if (!el) return;
+      el.checked = on;
+      el.closest('.chip')?.classList.toggle('is-on', on);
+    };
+    if (cb.checked) {
+      document.querySelectorAll(`#${containerId} input[type="checkbox"], ${sourceSelector} input[type="checkbox"]`).forEach((other) => {
+        if (!bouquetNames.includes(other.value) || other.value === cb.value) return;
+        paint(other, false);
+      });
+      this.setBouquetType?.(mapped);
+      setCategory(BOUQUET_TYPES[mapped].category);
+      return;
+    }
+    const still = [...document.querySelectorAll(`#${containerId} input:checked`)]
+      .some((el) => bouquetNames.includes(el.value));
+    if (still) return;
+    this.setBouquetType?.('foil');
+    setCategory('Букет из шаров');
+    paint(document.querySelector(`#${containerId} input[value="Букет из шаров"]`), true);
+    paint(document.querySelector(`${sourceSelector} input[value="Букет из шаров"]`), true);
+  },
+
   setBouquetType(type) {
     const next = (typeof BOUQUET_TYPES !== 'undefined' && BOUQUET_TYPES[type]) ? type : '';
     document.querySelectorAll('input[name="bouquet-type-early"]').forEach((el) => {
@@ -2435,14 +2490,15 @@ Object.assign(app, {
     }
 
     if (scene === 'handheld_bouquet' && !holidayOnly) {
-      const btype = this.getBouquetType?.()
-        || (typeof bouquetTypeFromCategory === 'function' ? bouquetTypeFromCategory(category) : '')
-        || 'foil';
+      const btype = this.resolveHandheldBouquetType?.(tags, category) || 'foil';
       const meta = (typeof BOUQUET_TYPES !== 'undefined' && BOUQUET_TYPES[btype]) || null;
       if (meta) {
         category = meta.category;
-        finalTags = [meta.category];
+        const bouquetNames = new Set(Object.values(BOUQUET_TYPES).map((row) => row.category));
+        finalTags = tags.filter((t) => !bouquetNames.has(t));
+        finalTags.unshift(meta.category);
         clientOptions.bouquet_type = btype;
+        this.setBouquetType?.(btype);
       }
     }
 

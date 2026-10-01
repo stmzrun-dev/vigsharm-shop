@@ -2,6 +2,916 @@
   "ok": true,
   "products": [
     {
+      "id": "e5cdbe49-6134-43f8-9fa4-2c324d648402",
+      "title": "Чайная церемония",
+      "article": "DG-009",
+      "price": 4242,
+      "short_description": "Крафтовый букет с чайниками в бело-голубой гамме и воздушной упаковкой.",
+      "full_description": "Букет из фольгированных чайников в нежной бело-голубой палитре, украшенный фатином и атласными лентами. Завершает композицию крафтовая упаковка с декоративной розеткой.",
+      "composition": [
+        "крафтовый букет"
+      ],
+      "category": "Букет из шаров",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Крафтовый букет из шаров с чайниками, Армавир",
+      "seo_description": "Нежный крафтовый букет с фольгированными чайниками в бело-голубой гамме. Воздушная упаковка, атласные ленты и декоративная розетка.",
+      "slug": "chaynaya-tseremoniya",
+      "scene": "handheld_bouquet",
+      "tags": [
+        "Букет из шаров"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/ed4e2306-1410-4890-83c9-f2cbc1af246f.jpg",
+        "photo_dhash": "c1d8ecfcf9f1f1f1"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/89800b52-8b29-4a73-97d1-0c2da9b7763a.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/89800b52-8b29-4a73-97d1-0c2da9b7763a.jpg",
+      "status": "draft",
+      "show_on_site": false,
+      "created_at": "2026-10-01T08:08:05.448Z",
+      "updated_at": "2026-10-01T08:08:05.448Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "6efb513a-94c4-48c4-9243-edae09ebc1cb",
+      "title": "Плюшевый круг",
+      "article": "DG-004",
+      "price": 556,
+      "short_description": "Букет из мягких игрушечных медведей в голубой и белой гофрированной бумаге с атласной лентой.",
+      "full_description": "Букет из пяти плюшевых белых медведей с голубыми бантиками, оформленных в нежную голубую и белую гофрированную бумагу. Украшен атласной лентой и серебристой сеткой.",
+      "composition": [
+        "56565"
+      ],
+      "category": "Букет из шаров",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": "до 1 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Букет из плюшевых мишек в Армавире — VigSharm",
+      "seo_description": "Букет из мягких белых медведей с голубыми бантиками. Нежное оформление в голубой и белой гофрированной бумаге. Заказать в Армавире.",
+      "slug": "medvezhya-nezhnost-2",
+      "scene": "handheld_bouquet",
+      "tags": [
+        "Букет из шаров"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/1e3e35d9-9a4b-4dba-9715-4679ca008512.jpg",
+        "photo_dhash": "8393a2d4e7e9e9c1"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/3bcead67-7c65-4eeb-a801-95a4d325469c.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/3bcead67-7c65-4eeb-a801-95a4d325469c.jpg",
+      "status": "draft",
+      "show_on_site": false,
+      "created_at": "2026-10-01T08:05:48.853Z",
+      "updated_at": "2026-10-01T08:05:48.853Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "dcd56736-008f-4ebf-aada-0566061f03b8",
+      "title": "Мишки и розы",
+      "article": "DG-002",
+      "price": 565,
+      "short_description": "Букет из плюшевых мишек с белыми розами в голубой упаковке.",
+      "full_description": "Букет из пяти плюшевых мишек с голубыми бантиками и белых роз, оформленный в нежную голубую упаковку с атласными лентами.",
+      "composition": [
+        "5 плюшевых мишек",
+        "белые розы",
+        "голубая упаковка",
+        "атласные ленты"
+      ],
+      "category": "Букет из шаров",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": "до 1 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Букет из мишек и роз — VigSharm Армавир",
+      "seo_description": "Букет из плюшевых мишек с белыми розами в нежной голубой упаковке. Оригинальный подарок в Армавире.",
+      "slug": "mishki-i-rozy",
+      "scene": "handheld_bouquet",
+      "tags": [
+        "Букет из шаров"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/4c422a5d-2376-441b-886f-5bc0f460129c.jpg",
+        "photo_dhash": "8387b1f3cbd1f1e3"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/4c018f07-8cbc-43ae-b1db-cfde75fc3c17.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/4c018f07-8cbc-43ae-b1db-cfde75fc3c17.jpg",
+      "status": "draft",
+      "show_on_site": false,
+      "created_at": "2026-10-01T08:04:05.067Z",
+      "updated_at": "2026-10-01T08:04:05.067Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "4f45ae6e-8971-4ee9-8c01-47a7fbad1738",
+      "title": "Бутылка шампанского золотая",
+      "article": "UNT-265",
+      "price": 600,
+      "short_description": "Бутылка шампанского золотая",
+      "full_description": "",
+      "composition": [],
+      "category": "Новый год",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "znak-voprosa-rozovyy-16",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Для неё",
+        "Новый год"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/b3fa3ffb-fb9f-4391-ae90-5c363ec8e235.jpg",
+        "photo_dhash": "7878f8ccb2ba76f0",
+        "unit_type": "foil",
+        "balloon_size": "99 см",
+        "unit_who": [
+          "Для неё"
+        ],
+        "unit_holiday": "Новый год"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/40497047-5669-4a7c-a398-37fe70a20966.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/40497047-5669-4a7c-a398-37fe70a20966.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-01T07:58:14.359Z",
+      "updated_at": "2026-10-01T07:58:14.359Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "279062f0-42d1-42ff-b1bf-648510fe4d4f",
+      "title": "Бутылка шампанского",
+      "article": "UNT-264",
+      "price": 600,
+      "short_description": "Бутылка шампанского",
+      "full_description": "",
+      "composition": [],
+      "category": "Новый год",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "znak-voprosa-rozovyy-15",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Для неё",
+        "Новый год"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/9ae53ce0-2054-4dfc-9dc5-8fcedc9e9087.jpg",
+        "photo_dhash": "707070f0d0f4d0f0",
+        "unit_type": "foil",
+        "balloon_size": "99 см",
+        "unit_who": [
+          "Для неё"
+        ],
+        "unit_holiday": "Новый год"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/fbca5509-7d48-47f4-8e86-dc4a5dbae5d1.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/fbca5509-7d48-47f4-8e86-dc4a5dbae5d1.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-01T07:52:38.129Z",
+      "updated_at": "2026-10-01T07:52:38.129Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "6b3abbd2-25bd-41b8-8723-8551f8fcd962",
+      "title": "Бутылка шампанского розовая",
+      "article": "UNT-263",
+      "price": 600,
+      "short_description": "Бутылка шампанского розовая",
+      "full_description": "",
+      "composition": [],
+      "category": "Новый год",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "znak-voprosa-rozovyy-14",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Для неё",
+        "Новый год"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/7cadc62a-4615-41c6-8de8-1891e4d6aa73.jpg",
+        "photo_dhash": "7870f0dcb2babef0",
+        "unit_type": "foil",
+        "balloon_size": "99 см",
+        "unit_who": [
+          "Для неё"
+        ],
+        "unit_holiday": "Новый год"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/e21c312f-c011-445c-9286-4985bea56aa7.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/e21c312f-c011-445c-9286-4985bea56aa7.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-01T07:49:20.907Z",
+      "updated_at": "2026-10-01T07:49:20.907Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "643bfdd7-3ef6-4457-a434-e9cc0cd5b3e0",
+      "title": "Усы",
+      "article": "UNT-262",
+      "price": 500,
+      "short_description": "Усы",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "znak-voprosa-rozovyy-13",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Для него"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/eda71ba3-14aa-4d18-a715-d8456437c274.jpg",
+        "photo_dhash": "00006860cc8e0000",
+        "unit_type": "foil",
+        "balloon_size": "105 см",
+        "unit_who": [
+          "Для него"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/abbc74a5-1b94-4cbe-8846-9d8f3a12bdce.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/abbc74a5-1b94-4cbe-8846-9d8f3a12bdce.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-01T07:47:39.950Z",
+      "updated_at": "2026-10-01T07:47:39.950Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "70b5c9e5-3515-40a3-b233-45d61c88c664",
+      "title": "Космонавт",
+      "article": "UNT-261",
+      "price": 600,
+      "short_description": "Космонавт",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "znak-voprosa-rozovyy-12",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/5a1c9687-141e-420f-8a8c-84705f130f78.jpg",
+        "photo_dhash": "f0f0e4f0f0e8e8ec",
+        "unit_type": "foil",
+        "balloon_size": "75 см",
+        "unit_who": [
+          "Для мальчика"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/324931fe-3557-4feb-a860-c03db833f51a.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/324931fe-3557-4feb-a860-c03db833f51a.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-01T07:45:41.999Z",
+      "updated_at": "2026-10-01T07:45:41.999Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "52d06a4e-3d6e-4ec3-8c87-5f7e1c11ef14",
+      "title": "Бравл Старс Леон",
+      "article": "UNT-260",
+      "price": 600,
+      "short_description": "Бравл Старс Леон",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": "Леон",
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": "Brawl Stars",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "znak-voprosa-rozovyy-11",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Геймерам"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/8fa0c360-1b9b-4364-8cc5-284c57459bb6.jpg",
+        "photo_dhash": "f08e8e9ee8ccf0f0",
+        "unit_type": "foil",
+        "balloon_size": "55 см",
+        "unit_who": [
+          "Геймерам"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/5c84b43a-ffb6-4204-9409-3dfac3c31efd.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/5c84b43a-ffb6-4204-9409-3dfac3c31efd.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-01T07:44:15.863Z",
+      "updated_at": "2026-10-01T07:44:15.863Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "be4e238f-8fd3-4095-8257-0cbed9ca81fd",
+      "title": "Игровой Джостик",
+      "article": "UNT-259",
+      "price": 550,
+      "short_description": "Игровой Джостик",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "znak-voprosa-rozovyy-10",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Геймерам"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/f6ea5b34-1dc8-4c52-b55d-b2f80d81f2df.jpg",
+        "photo_dhash": "8e8ed4e096b29617",
+        "unit_type": "foil",
+        "balloon_size": "50 см",
+        "unit_who": [
+          "Геймерам"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/d29a0c46-28b4-47e8-88c8-8341ce21972d.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/d29a0c46-28b4-47e8-88c8-8341ce21972d.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-01T07:42:48.364Z",
+      "updated_at": "2026-10-01T07:42:48.364Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "f7ae0da2-3d92-4ea1-ba4b-f0ffdbc7cc85",
+      "title": "Кубок",
+      "article": "UNT-258",
+      "price": 600,
+      "short_description": "Кубок",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "znak-voprosa-rozovyy-9",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Для девочки",
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/298a1ed7-ec06-42d8-b68c-5dba9e91b7d2.jpg",
+        "photo_dhash": "c4d0d4d468323232",
+        "unit_type": "foil",
+        "balloon_size": "80 см",
+        "unit_who": [
+          "Для девочки",
+          "Для мальчика"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/36f5eb0e-379c-406e-82ca-61ac7f8ebd11.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/36f5eb0e-379c-406e-82ca-61ac7f8ebd11.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-01T07:40:42.525Z",
+      "updated_at": "2026-10-01T07:40:42.525Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "f08bdb88-3552-4f28-8507-5edb2e16dfa6",
+      "title": "Трактор зелёный",
+      "article": "UNT-257",
+      "price": 550,
+      "short_description": "Трактор зелёный",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "znak-voprosa-rozovyy-8",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/8ded5cdf-0f8e-4cbf-907c-5cc4a940b2af.jpg",
+        "photo_dhash": "00b8f0d8d8e8e000",
+        "unit_type": "foil",
+        "balloon_size": "65 см",
+        "unit_who": [
+          "Для мальчика"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/022f4aca-320f-46b1-a1d8-661e60072f81.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/022f4aca-320f-46b1-a1d8-661e60072f81.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-01T07:39:38.981Z",
+      "updated_at": "2026-10-01T07:39:38.981Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "23c31890-d9f1-48ec-aaa5-31264c184da2",
+      "title": "Корона Маленькая Принцесса",
+      "article": "UNT-256",
+      "price": 600,
+      "short_description": "Корона Маленькая Принцесса",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "znak-voprosa-rozovyy-7",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "На выписку"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/f4815047-f6ae-459b-b15a-78c88fb67adf.jpg",
+        "photo_dhash": "5455716cd4f46070",
+        "unit_type": "foil",
+        "balloon_size": "75 см",
+        "unit_who": [
+          "На выписку"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/0dfc5de8-7a8f-44ab-a4d5-91e7ed0a0f90.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/0dfc5de8-7a8f-44ab-a4d5-91e7ed0a0f90.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-01T07:37:08.479Z",
+      "updated_at": "2026-10-01T07:37:08.479Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "527b111d-9002-4d0b-97c3-a6065d94a537",
+      "title": "Корона Маленький Принц",
+      "article": "UNT-255",
+      "price": 600,
+      "short_description": "Корона Маленький Принц",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "znak-voprosa-rozovyy-6",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "На выписку"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/9a8f532a-2f9e-48e6-b84d-08ad9f0f2ccd.jpg",
+        "photo_dhash": "d0d479ccccc4e0f0",
+        "unit_type": "foil",
+        "balloon_size": "75 см",
+        "unit_who": [
+          "На выписку"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/cd44a9d2-b11d-4f00-8d83-7d3e71c4e723.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/cd44a9d2-b11d-4f00-8d83-7d3e71c4e723.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-01T07:28:50.311Z",
+      "updated_at": "2026-10-01T07:28:50.311Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "9421d2cf-8335-4bf3-86e0-a76b4da2d888",
+      "title": "Слоник Серый",
+      "article": "UNT-254",
+      "price": 600,
+      "short_description": "Слоник Серый",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "znak-voprosa-rozovyy-5",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "На выписку",
+        "1 годик"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/aeabd5f6-6b63-4633-9009-d3f480da9cc8.jpg",
+        "photo_dhash": "80e0c1f1f1d09090",
+        "unit_type": "foil",
+        "balloon_size": "84 см",
+        "unit_who": [
+          "На выписку",
+          "1 годик"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/aeb39e01-a5d2-4f65-88a1-2997c7f921a3.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/aeb39e01-a5d2-4f65-88a1-2997c7f921a3.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-01T07:27:34.075Z",
+      "updated_at": "2026-10-01T07:27:34.075Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "e9e8868d-029d-4993-a074-8e1ef5eb6555",
+      "title": "#Слоник Розовый",
+      "article": "UNT-253",
+      "price": 600,
+      "short_description": "#Слоник Розовый",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "znak-voprosa-rozovyy-4",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "На выписку"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/0bfc7d59-e6b5-45ef-a08b-ded1dff7a548.jpg",
+        "photo_dhash": "7cfc6e686cecb62a",
+        "unit_type": "foil",
+        "balloon_size": "84 см",
+        "unit_who": [
+          "На выписку"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/7223eaa2-7eb5-40b1-a91e-439cdb4e3814.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/7223eaa2-7eb5-40b1-a91e-439cdb4e3814.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-01T07:25:56.028Z",
+      "updated_at": "2026-10-01T07:25:56.028Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "3adc7129-2810-47b8-b274-f0bd6d051594",
+      "title": "Слоник Голубой",
+      "article": "UNT-252",
+      "price": 600,
+      "short_description": "Слоник Голубой",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "znak-voprosa-rozovyy-3",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "На выписку"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/7941dbe1-cafc-45db-b7b2-211fd5cbdc10.jpg",
+        "photo_dhash": "6c7c6e6274ecb2a2",
+        "unit_type": "foil",
+        "balloon_size": "84 см",
+        "unit_who": [
+          "На выписку"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/88036d22-aabd-4c60-95db-13de653b8e40.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/88036d22-aabd-4c60-95db-13de653b8e40.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-01T07:24:41.057Z",
+      "updated_at": "2026-10-01T07:24:41.057Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "be194898-bd08-4b61-8f31-ac8d7453b868",
+      "title": "Знак вопроса, Голубой",
+      "article": "UNT-251",
+      "price": 500,
+      "short_description": "Знак вопроса, Голубой",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "znak-voprosa-rozovyy-2",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Гендер-пати"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/1d92df00-ea1e-4089-9f8f-9a42e6d46965.jpg",
+        "photo_dhash": "f08e8edcf8f070f0",
+        "unit_type": "foil",
+        "balloon_size": "55 см",
+        "unit_who": [
+          "Гендер-пати"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/a9731925-bbf4-449a-af0f-a191e32da343.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/a9731925-bbf4-449a-af0f-a191e32da343.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-01T07:23:08.885Z",
+      "updated_at": "2026-10-01T07:23:08.885Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "77e42fb3-42d1-44c5-8bbb-641700de9b39",
+      "title": "Знак вопроса, Розовый",
+      "article": "UNT-250",
+      "price": 500,
+      "short_description": "Знак вопроса, Розовый",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "znak-voprosa-rozovyy",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Гендер-пати"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/68eebb8e-0514-4032-a12a-cc539159a653.jpg",
+        "photo_dhash": "70c8ecf870707070",
+        "unit_type": "foil",
+        "balloon_size": "55 см",
+        "unit_who": [
+          "Гендер-пати"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/6d067d5e-9313-4c49-9bc3-84abdf956f42.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/6d067d5e-9313-4c49-9bc3-84abdf956f42.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-01T07:21:09.422Z",
+      "updated_at": "2026-10-01T07:21:09.422Z",
+      "thumb_photo": null
+    },
+    {
       "id": "db68bf0c-bc0d-4257-87df-27a2f35d5f3b",
       "title": "Зубик, Розовый",
       "article": "UNT-249",
@@ -10956,7 +11866,7 @@
     {
       "id": "31687071-b456-44c6-b188-6ed1ef401dbd",
       "title": "Черновик 26.09, 02:42",
-      "article": "DG-010",
+      "article": "DG-001",
       "price": 0,
       "short_description": "",
       "full_description": "",
@@ -10990,8 +11900,8 @@
       "status": "draft",
       "show_on_site": false,
       "created_at": "2026-09-25T23:42:29.164Z",
-      "updated_at": "2026-09-26T12:12:24.705Z",
-      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/1ae0e670-87b4-4f15-9fe3-cb65032d1f0a.webp"
+      "updated_at": "2026-10-01T08:00:23.902Z",
+      "thumb_photo": null
     },
     {
       "id": "ccc6ce10-191c-4f2a-9c50-f6ebc4dc6cde",

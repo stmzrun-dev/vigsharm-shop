@@ -1108,7 +1108,8 @@ Object.assign(app, {
       const existingTitles = (this.getExistingCatalogTitles?.() || []).slice(0, 80);
 
       let foilDigits = '';
-      if (imageUrl) {
+      // На столике нет фольгированных цифр — не ждём отдельный запрос к ИИ.
+      if (imageUrl && sceneHint !== 'table') {
         statusEl.textContent = '🔢 ИИ читает цифры на фото...';
         try {
           const digitRes = await fetch(`${this.workerUrl}/api/ai/read-foil-digits`, {

@@ -876,6 +876,94 @@ const BUDGET_OPTIONS = [
   'от 8 000 ₽'
 ];
 
+/** Столик: мишка из роз / мыльные розы. Короткий запрос, полка уже выбрана. */
+async function fillRoseTableCard(env, {
+  image_url,
+  title_hint,
+  priceNum,
+  rawComposition,
+  takenTitles,
+  roseCategory,
+  scene
+}) {
+  const takenBlock = takenTitles.length
+    ? `Занятые названия (не повторяй и не копируй близко):\n${takenTitles.slice(0, 40).map((t) => `• ${t}`).join('\n')}`
+    : '';
+  const systemPrompt = `Ты копирайтер каталога VigSharm. На фото подарок на столе, не воздушные шары.
+Полка уже выбрана: «${roseCategory}». category и tags — только она.
+Пиши коротко, грамотно, без эмодзи. Верни ТОЛЬКО JSON:
+{
+  "title": "крючок 1–4 слова, настроение, не перечень фото",
+  "title_alts": ["запасной крючок"],
+  "short_description": "одно предложение, макс 110 символов",
+  "full_description": "1–2 предложения: что на фото",
+  "composition": ["пункт состава"],
+  "category": "${roseCategory}",
+  "character": "",
+  "character_alts": [],
+  "character_confidence": "",
+  "age_group": "Для любого возраста",
+  "occasion": "",
+  "target_audience": "",
+  "series_name": "",
+  "series_alts": [],
+  "series_confidence": "",
+  "budget": "",
+  "seo_title": "макс 70 символов",
+  "seo_description": "макс 155 символов",
+  "slug": "latin-slug",
+  "tags": ["${roseCategory}"]
+}
+Название — не «мишка из роз», не цвет списком и не состав.
+Состав: только текст пользователя. Исправь орфографию, числа не меняй, с фото ничего не добавляй.`;
+  const userPrompt = `Полка: ${roseCategory}
+Подсказка названия: ${title_hint || 'нет'}
+Цена (₽): ${priceNum > 0 ? priceNum : 'не указана'}
+Сырой состав: ${rawComposition || 'не указан'}
+${takenBlock}`;
+  const messages = [
+    { role: 'system', content: systemPrompt },
+    {
+      role: 'user',
+      content: image_url
+        ? [
+          { type: 'text', text: userPrompt },
+          { type: 'image_url', image_url: { url: image_url } }
+        ]
+        : userPrompt
+    }
+  ];
+  const aiResp = await nordRequest('/v1/chat/completions', 'POST', {
+    model: 'claude-sonnet-5',
+    messages,
+    temperature: 0.4,
+    response_format: { type: 'json_object' }
+  }, env, 18000);
+  if (aiResp.error) {
+    console.error('NordRouter API error:', aiResp.error);
+    return json({ ok: false, error: 'NordRouter API ошибка: ' + (aiResp.error.message || JSON.stringify(aiResp.error)) }, 502);
+  }
+  const text = aiResp.choices?.[0]?.message?.content || '';
+  if (!text) return json({ ok: false, error: 'AI не вернул ответ' }, 502);
+  let data;
+  try {
+    data = JSON.parse(text);
+  } catch {
+    return json({ ok: false, error: 'AI вернул некорректный JSON: ' + text.slice(0, 200) }, 502);
+  }
+  data = sanitizeCardMetadata(data, scene || 'table', priceNum, rawComposition, takenTitles, 0);
+  applyTypeOnlyCard(data, roseCategory);
+  data.occasion = '';
+  data.target_audience = '';
+  if (!data.age_group) data.age_group = 'Для любого возраста';
+  if (Array.isArray(data.composition)) {
+    data.composition = data.composition
+      .map((line) => parseCompositionHolidayMeta(line).cleanText)
+      .filter(Boolean);
+  }
+  return json({ ok: true, data });
+}
+
 async function handleGenerateCard(request, env) {
   const body = await request.json();
   const {
@@ -927,6 +1015,17 @@ async function handleGenerateCard(request, env) {
   const roseType = rose_type === 'soap' ? 'soap' : (rose_type === 'bear' ? 'bear' : '');
   const roseOnly = (scene || '') === 'table' && !!roseType;
   const roseCategory = roseType === 'soap' ? 'Мыльные розы' : (roseType === 'bear' ? 'Мишки из роз' : '');
+  if (roseOnly && roseCategory) {
+    return fillRoseTableCard(env, {
+      image_url,
+      title_hint,
+      priceNum,
+      rawComposition,
+      takenTitles,
+      roseCategory,
+      scene: scene || 'table'
+    });
+  }
   const boxOnly = !holidayOnly && !roseOnly && compositionLooksLikeSurpriseBox(rawComposition);
   const bouquetOnly = !holidayOnly && !boxOnly && !roseOnly && (
     (scene || '') === 'handheld_bouquet'

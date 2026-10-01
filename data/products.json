@@ -2,6 +2,49 @@
   "ok": true,
   "products": [
     {
+      "id": "0748fb6f-0851-49ed-bb00-2c74ccab4567",
+      "title": "Жёлтый праздник",
+      "article": "FIG-031",
+      "price": 4000,
+      "short_description": "Трёхъярусный торт из шаров в жёлто-золотой гамме с красными свечами на верхушке.",
+      "full_description": "Фигура из шаров в виде трёхъярусного торта. Жёлтые, белые и золотые шары образуют праздничную композицию с пятью красными свечами.",
+      "composition": [
+        "Фигура из шаров"
+      ],
+      "category": "Фигуры из шаров",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Торт из шаров Солнечный ярус — Армавир",
+      "seo_description": "Трёхъярусный торт из жёлтых, белых и золотых шаров с красными свечами. Яркая фигура из шаров для любого праздника в Армавире.",
+      "slug": "solnechnyj-yarus-2",
+      "scene": "balloon_figures",
+      "tags": [
+        "Фигуры из шаров"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/793ec952-00de-416a-ad78-ce4d2a72e1d3.jpg",
+        "photo_dhash": "1f3f2f6ddf0f0ffe"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/a7a432ba-648c-47ea-8a05-bfaa43cb46e0.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/a7a432ba-648c-47ea-8a05-bfaa43cb46e0.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-01T15:54:05.198Z",
+      "updated_at": "2026-10-01T15:54:05.198Z",
+      "thumb_photo": null
+    },
+    {
       "id": "86e72944-0eb0-40b4-a947-51af4e1d1299",
       "title": "Сиреневая любовь",
       "article": "MRS-006",
@@ -395,45 +438,6 @@
       "thumb_photo": null
     },
     {
-      "id": "f829fa06-fe37-43a4-8ac2-5119492fe838",
-      "title": "Черновик 01.10, 11:46",
-      "article": null,
-      "price": 0,
-      "short_description": "",
-      "full_description": "",
-      "composition": [],
-      "category": "",
-      "character": null,
-      "age_group": "Для любого возраста",
-      "budget": null,
-      "series_name": null,
-      "occasion": null,
-      "target_audience": null,
-      "seo_title": "",
-      "seo_description": "",
-      "slug": "chernovik-01-10-11-46",
-      "scene": "table",
-      "tags": [],
-      "client_options": {
-        "available_on_request": false,
-        "advance_order_1_2_days": false,
-        "number_choice": false,
-        "personal_inscription": false,
-        "photozone_rental": false,
-        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/bac4227b-3963-4bdb-b964-3474c099e59d.jpg",
-        "photo_dhash": "f8e8f8f8e8ccece0"
-      },
-      "photos": [
-        "https://storage.yandexcloud.net/vigsharm-photos/products/cd694d64-d5d3-488b-bed6-7e1fe708118a.jpg"
-      ],
-      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/cd694d64-d5d3-488b-bed6-7e1fe708118a.jpg",
-      "status": "draft",
-      "show_on_site": false,
-      "created_at": "2026-10-01T08:46:46.302Z",
-      "updated_at": "2026-10-01T08:46:46.302Z",
-      "thumb_photo": null
-    },
-    {
       "id": "35e76a12-a6a9-4052-b601-3d7269b2a044",
       "title": "Бокал шампанского",
       "article": "UNT-267",
@@ -604,9 +608,9 @@
         "number_choice": false,
         "personal_inscription": true,
         "photozone_rental": false,
-        "bouquet_type": "teddy",
         "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/1e3e35d9-9a4b-4dba-9715-4679ca008512.jpg",
-        "photo_dhash": "8393a2d4e7e9e9c1"
+        "photo_dhash": "8393a2d4e7e9e9c1",
+        "bouquet_type": "teddy"
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/3bcead67-7c65-4eeb-a801-95a4d325469c.jpg"
@@ -651,9 +655,9 @@
         "number_choice": false,
         "personal_inscription": true,
         "photozone_rental": false,
-        "bouquet_type": "teddy",
         "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/4c422a5d-2376-441b-886f-5bc0f460129c.jpg",
-        "photo_dhash": "8387b1f3cbd1f1e3"
+        "photo_dhash": "8387b1f3cbd1f1e3",
+        "bouquet_type": "teddy"
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/4c018f07-8cbc-43ae-b1db-cfde75fc3c17.jpg"
@@ -4725,47 +4729,6 @@
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/93731b5a-50f0-4093-a705-831a957fd58f.webp"
     },
     {
-      "id": "ec1f9502-908c-4d5b-b109-d7d53096d0b6",
-      "title": "фигура, 10 шаров хром, баблс с надписью",
-      "article": "DG-013",
-      "price": 4800,
-      "short_description": "",
-      "full_description": "",
-      "composition": [
-        "фигура, 10 шаров хром, баблс с надписью"
-      ],
-      "category": "",
-      "character": null,
-      "age_group": "Для любого возраста",
-      "budget": "3 500–5 000 ₽",
-      "series_name": null,
-      "occasion": null,
-      "target_audience": null,
-      "seo_title": "",
-      "seo_description": "",
-      "slug": "lavandovyy-kompliment-3",
-      "scene": "wall_only",
-      "tags": [],
-      "client_options": {
-        "available_on_request": false,
-        "advance_order_1_2_days": false,
-        "number_choice": false,
-        "personal_inscription": true,
-        "photozone_rental": false,
-        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/97c01716-f1a0-4191-88fd-8a3072852463.webp",
-        "photo_dhash": "e84cd1888c113151"
-      },
-      "photos": [
-        "https://storage.yandexcloud.net/vigsharm-photos/products/b360974c-eace-45cd-a2c8-2989b0a3e2cc.jpg"
-      ],
-      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/b360974c-eace-45cd-a2c8-2989b0a3e2cc.jpg",
-      "status": "draft",
-      "show_on_site": false,
-      "created_at": "2026-09-29T19:58:18.969Z",
-      "updated_at": "2026-09-29T20:49:55.987Z",
-      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/cd812f4a-08f0-4461-b74d-40ca235030b2.webp"
-    },
-    {
       "id": "8bb18264-673f-466d-b25f-a9bce9dc2d28",
       "title": "Фиалковый сон",
       "article": "HER-025",
@@ -5139,50 +5102,6 @@
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/259aa8e0-1ef5-4d0b-a3e0-38c916a9b0ff.webp"
     },
     {
-      "id": "9478c217-a8a9-499d-beb6-efb1b7e43271",
-      "title": "Ночной дракоша",
-      "article": "UNI-011",
-      "price": 5580,
-      "short_description": "Связка сиреневых хромированных шаров с чёрным драконом под потолком.",
-      "full_description": "Композиция из переливающихся сиреневых шаров хром и фольгированной фигуры дракона с зелёными глазами. Готовая связка для украшения потолка.",
-      "composition": [
-        "26 шаров хром",
-        "фигура"
-      ],
-      "category": "Универсальные",
-      "character": "Дракон",
-      "age_group": "Для детей",
-      "budget": "5 000–8 000 ₽",
-      "series_name": "Как приручить дракона",
-      "occasion": null,
-      "target_audience": null,
-      "seo_title": "Шары с драконом под потолок — Армавир | VigSharm",
-      "seo_description": "Связка сиреневых хромированных шаров с фигурой дракона. Готовое украшение под потолок для детского праздника в Армавире.",
-      "slug": "nochnoj-drakosha",
-      "scene": "ceiling",
-      "tags": [
-        "Для девочки"
-      ],
-      "client_options": {
-        "available_on_request": false,
-        "advance_order_1_2_days": false,
-        "number_choice": false,
-        "personal_inscription": false,
-        "photozone_rental": false,
-        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/f12f60ee-5fd1-4c58-82a8-1036c5110b43.jpg",
-        "photo_dhash": "84d9c0f8dc80c0c0"
-      },
-      "photos": [
-        "https://storage.yandexcloud.net/vigsharm-photos/products/801e3cef-fefb-4f05-8002-12972dc03287.jpg"
-      ],
-      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/801e3cef-fefb-4f05-8002-12972dc03287.jpg",
-      "status": "draft",
-      "show_on_site": false,
-      "created_at": "2026-09-29T08:01:39.212Z",
-      "updated_at": "2026-09-29T20:50:06.508Z",
-      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/5c591781-a288-4b09-8149-74ae230017be.webp"
-    },
-    {
       "id": "374a8760-5cd4-418d-8868-beab7027b577",
       "title": "Лавандовый шарм",
       "article": "UNI-010",
@@ -5232,50 +5151,6 @@
       "created_at": "2026-09-29T07:22:37.905Z",
       "updated_at": "2026-09-29T20:50:08.176Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/38a89e2f-939b-409f-a8c5-0d221a2f11e3.webp"
-    },
-    {
-      "id": "427979dc-eb53-4ef6-8b96-a21315fe021a",
-      "title": "Ночной дракон",
-      "article": "UNI-009",
-      "price": 5580,
-      "short_description": "Чёрный дракон с зелёными глазами и россыпь фиолетовых хромированных шаров под потолком.",
-      "full_description": "Связка из 26 хромированных шаров фиолетового оттенка и фольгированная фигура дракона с яркими зелёными глазами.",
-      "composition": [
-        "26 хромированных шаров",
-        "фигура"
-      ],
-      "category": "Универсальные",
-      "character": "Беззубик",
-      "age_group": "Для детей",
-      "budget": "5 000–8 000 ₽",
-      "series_name": "Как приручить дракона",
-      "occasion": null,
-      "target_audience": null,
-      "seo_title": "Шары с драконом Беззубиком под потолок, Армавир",
-      "seo_description": "Готовая связка из 26 фиолетовых хромированных шаров и фигуры дракона Беззубика. Доставка в Армавире.",
-      "slug": "nochnoj-drakon",
-      "scene": "ceiling",
-      "tags": [
-        "Универсальные"
-      ],
-      "client_options": {
-        "available_on_request": false,
-        "advance_order_1_2_days": false,
-        "number_choice": false,
-        "personal_inscription": false,
-        "photozone_rental": false,
-        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/499bf5db-238c-4dca-8e72-9ca26af7d626.jpg",
-        "photo_dhash": "84d9c0f8dc80c0c0"
-      },
-      "photos": [
-        "https://storage.yandexcloud.net/vigsharm-photos/products/7ced2b7b-77fe-4296-89df-da80a6615e4f.jpg"
-      ],
-      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/7ced2b7b-77fe-4296-89df-da80a6615e4f.jpg",
-      "status": "draft",
-      "show_on_site": false,
-      "created_at": "2026-09-29T07:14:24.355Z",
-      "updated_at": "2026-09-29T20:50:09.709Z",
-      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/ce65f61e-d943-4ef9-86b4-4fa6e84d4f91.webp"
     },
     {
       "id": "88706e59-64fa-441b-b71f-cf46316d4bc5",
@@ -22212,44 +22087,6 @@
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/bbb462af-2abf-4cc9-8155-1d9b37664e82.webp"
     },
     {
-      "id": "73ea343f-f56d-4c30-a0e0-1df80a0f8f40",
-      "title": "Черновик 23.09, 17:16",
-      "article": "DG-008",
-      "price": 0,
-      "short_description": "",
-      "full_description": "",
-      "composition": [],
-      "category": "",
-      "character": null,
-      "age_group": "Для любого возраста",
-      "budget": null,
-      "series_name": null,
-      "occasion": null,
-      "target_audience": null,
-      "seo_title": "",
-      "seo_description": "",
-      "slug": "barbi-style-2",
-      "scene": "wall_only",
-      "tags": [],
-      "client_options": {
-        "available_on_request": false,
-        "advance_order_1_2_days": false,
-        "number_choice": false,
-        "personal_inscription": false,
-        "photozone_rental": false,
-        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/cdaf9972-12c1-4a1d-a969-a0eac9555d32.jpg"
-      },
-      "photos": [
-        "https://storage.yandexcloud.net/vigsharm-photos/products/9d48e30e-cb2c-4185-acd4-bc0260059258.png"
-      ],
-      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/9d48e30e-cb2c-4185-acd4-bc0260059258.png",
-      "status": "draft",
-      "show_on_site": false,
-      "created_at": "2026-09-23T14:16:20.849Z",
-      "updated_at": "2026-09-28T07:49:59.632Z",
-      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/4955627a-436b-4a89-a318-402582a6cd2f.webp"
-    },
-    {
       "id": "f18b748d-0023-4c4d-961a-56d1e1c1ed54",
       "title": "Барби-стайл",
       "article": "GRL-046",
@@ -24783,55 +24620,6 @@
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/e4ad3ad6-04d6-467e-804a-6878d1381ef5.webp"
     },
     {
-      "id": "77998411-69b6-4a71-b38f-4ebc95bd6c6b",
-      "title": "Крылья мечты",
-      "article": "DG-003",
-      "price": 6320,
-      "short_description": "Две композиции с бабочками и цифра в розовой гамме.",
-      "full_description": "Два фонтана с фольгированными бабочками, кругами с рисунком, латексными шарами и конфетти. Цифра в центре.",
-      "composition": [
-        "2 фигуры бабочек",
-        "цифра",
-        "6 кругов с рисунком",
-        "6 латексных шаров",
-        "6 латексных шаров с конфетти"
-      ],
-      "category": "",
-      "character": null,
-      "age_group": "Для детей",
-      "budget": "5 000–8 000 ₽",
-      "series_name": null,
-      "occasion": null,
-      "target_audience": null,
-      "seo_title": "Шары с бабочками на день рождения девочки в Армавире",
-      "seo_description": "Воздушные шары с фольгированными бабочками и цифрой для девочки. Доставка по Армавиру. Розовая композиция с латексными шарами и конфетти.",
-      "slug": "krylya-mechty",
-      "scene": "floor",
-      "tags": [],
-      "client_options": {
-        "available_on_request": false,
-        "advance_order_1_2_days": false,
-        "number_choice": true,
-        "personal_inscription": false,
-        "photozone_rental": false,
-        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/30203659-b043-42c8-946e-69ec701cef1e.jpg",
-        "photo_dhash": "0b264c4e66b43008",
-        "digit_choice": {
-          "enabled": true,
-          "count_on_photo": 1
-        }
-      },
-      "photos": [
-        "https://storage.yandexcloud.net/vigsharm-photos/products/ab22741d-1215-487b-8a27-7c9794a8103f.png"
-      ],
-      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/ab22741d-1215-487b-8a27-7c9794a8103f.png",
-      "status": "draft",
-      "show_on_site": true,
-      "created_at": "2026-09-22T13:16:12.203Z",
-      "updated_at": "2026-09-29T20:50:16.431Z",
-      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/07044276-4805-44b7-8181-952b05d4c018.webp"
-    },
-    {
       "id": "60b8a39b-625c-46cd-92c1-2e6fe064ad77",
       "title": "Тайная страсть",
       "article": "HIM-006",
@@ -26906,50 +26694,6 @@
       "created_at": "2026-09-21T10:07:09.659Z",
       "updated_at": "2026-09-28T07:45:41.100Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/80f7b87d-bd4a-4251-8942-a0acd0df60d9.webp"
-    },
-    {
-      "id": "02e83ed3-bedb-418e-9c73-c6ca2ad3ffa3",
-      "title": "Тайна цвета",
-      "article": "GND-002",
-      "price": 4300,
-      "short_description": "Два фонтана с фигурами малышей — розовый и голубой для гендер-пати.",
-      "full_description": "Две композиции с фольгированными фигурами младенцев в розовых и голубых тонах. Для торжественного раскрытия пола будущего малыша.",
-      "composition": [
-        "18 латексных шаров",
-        "2 фольгированные фигуры младенцев"
-      ],
-      "category": "Гендер-пати",
-      "character": null,
-      "age_group": "Для детей",
-      "budget": "3 500–5 000 ₽",
-      "series_name": null,
-      "occasion": null,
-      "target_audience": null,
-      "seo_title": "Шары для гендер-пати в Армавире — розовый и голубой",
-      "seo_description": "Композиция из воздушных шаров для раскрытия пола ребёнка. Два фонтана с фигурами малышей — розовый и голубой. Доставка по Армавиру.",
-      "slug": "tayna-tsveta",
-      "scene": "wall_only",
-      "tags": [
-        "Гендер-пати"
-      ],
-      "client_options": {
-        "available_on_request": false,
-        "advance_order_1_2_days": false,
-        "number_choice": false,
-        "personal_inscription": false,
-        "photozone_rental": false,
-        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/633bc6ff-7259-4234-87d0-833431d4ac0c.jpg",
-        "photo_dhash": "313139355153353b"
-      },
-      "photos": [
-        "https://storage.yandexcloud.net/vigsharm-photos/products/cbd80875-6e7e-4cab-a3b9-33ddeaaf79b7.png"
-      ],
-      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/cbd80875-6e7e-4cab-a3b9-33ddeaaf79b7.png",
-      "status": "published",
-      "show_on_site": true,
-      "created_at": "2026-09-21T09:58:10.603Z",
-      "updated_at": "2026-09-28T07:45:38.808Z",
-      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/0543248c-60ed-4ac1-adaa-628a2ecf1e52.webp"
     },
     {
       "id": "20eb1186-f93d-4f75-b1c2-135794b6ffe0",
@@ -31258,8 +31002,8 @@
         "number_choice": false,
         "personal_inscription": true,
         "photozone_rental": false,
-        "bouquet_type": "flowers",
-        "photo_dhash": "125171f1e0f0e0d0"
+        "photo_dhash": "125171f1e0f0e0d0",
+        "bouquet_type": "flowers"
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/58197523-b720-46f0-a2a7-6f9138baefc0.png"
@@ -31413,56 +31157,6 @@
       "created_at": "2026-09-16T21:44:35.023Z",
       "updated_at": "2026-10-01 06:53:46",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/4ec86a20-7ebe-4df2-a989-cf6515adba9c.webp"
-    },
-    {
-      "id": "59cbcb25-e44f-4953-b8e8-64c75b27f199",
-      "title": "Паутина событий",
-      "article": "BOY-003",
-      "price": 5500,
-      "short_description": "Фотозона на мольберте в красно-синей гамме с паутиной и серебряными акцентами.",
-      "full_description": "Фотозона на белом мольберте с круглой табличкой, украшенной паутиной. Красные и синие шары с серебряными акцентами создают яркую композицию.",
-      "composition": [
-        "фотозона на мольберте"
-      ],
-      "category": "Фотозона",
-      "character": "Человек-паук",
-      "age_group": "Для детей",
-      "budget": "5 000–8 000 ₽",
-      "series_name": "Человек-паук",
-      "occasion": null,
-      "target_audience": "Для мальчика",
-      "seo_title": "Фотозона Человек-паук на мольберте — Армавир | VigSharm",
-      "seo_description": "Фотозона с паутиной на мольберте в красно-синих тонах. Оформление дня рождения в стиле Человек-паук. Доставка по Армавиру.",
-      "slug": "pautina-sobytiy",
-      "scene": "photozone",
-      "tags": [
-        "Фотозона"
-      ],
-      "client_options": {
-        "available_on_request": false,
-        "advance_order_1_2_days": true,
-        "number_choice": false,
-        "personal_inscription": true,
-        "photozone_rental": true,
-        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/fa5a45cf-e7c4-4b5f-943c-3869e33406d4.jpg",
-        "photo_dhash": "fafcfe2566e6c743",
-        "photozone_type": "easel",
-        "rental": {
-          "enabled": true,
-          "item": "Мольберт с кругом из полистирола",
-          "days": 3,
-          "keep_price_delta": 500
-        }
-      },
-      "photos": [
-        "https://storage.yandexcloud.net/vigsharm-photos/products/557b0d13-8cee-4a77-8f7b-60e8fa3b97eb.png"
-      ],
-      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/557b0d13-8cee-4a77-8f7b-60e8fa3b97eb.png",
-      "status": "draft",
-      "show_on_site": true,
-      "created_at": "2026-09-16T21:34:05.805Z",
-      "updated_at": "2026-09-28T19:05:21.524Z",
-      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/d4b6bf71-184b-4ec3-b546-307fb4a6e5be.webp"
     },
     {
       "id": "4b23dbd8-6175-47b5-a46a-2d9b254aa6c9",

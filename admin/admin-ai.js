@@ -1011,6 +1011,11 @@ Object.assign(app, {
       this.syncAIFillGate();
       return;
     }
+    const sceneNow = this.currentProduct?.scene || document.getElementById('scene-select')?.value || '';
+    if (sceneNow === 'table' && !this.getRoseType?.()) {
+      if (!auto) this.toast('На столике выберите: мишки из роз или мыльные розы', 'error');
+      return;
+    }
 
     this.ensureNotifyPermission?.();
 
@@ -1142,7 +1147,8 @@ Object.assign(app, {
           existing_titles: existingTitles,
           holiday_only: holidayFlag || '',
           foil_digits: foilDigits,
-          floor_type: this.getFloorType?.() || ''
+          floor_type: this.getFloorType?.() || '',
+          rose_type: sceneHint === 'table' ? (this.getRoseType?.() || '') : ''
         })
       });
 
@@ -1172,8 +1178,11 @@ Object.assign(app, {
       }
       this.currentProduct.composition = data.composition || this.currentProduct.composition;
       if (sceneHint === 'table') {
-        data.tags = (Array.isArray(data.tags) ? data.tags : []).filter((t) => !['Напольные композиции', 'Фотозона', 'Фигуры из шаров', 'Букет из шаров'].includes(t));
-        if (['Напольные композиции', 'Фотозона', 'Фигуры из шаров', 'Букет из шаров'].includes(data.category)) data.category = '';
+        const rose = this.getRoseType?.() || '';
+        const roseCat = rose === 'soap' ? 'Мыльные розы' : (rose === 'bear' ? 'Мишки из роз' : '');
+        data.tags = roseCat ? [roseCat] : (Array.isArray(data.tags) ? data.tags : []).filter((t) => !['Напольные композиции', 'Фотозона', 'Фигуры из шаров', 'Букет из шаров', 'Коробка-сюрприз'].includes(t));
+        if (roseCat) data.category = roseCat;
+        else if (['Напольные композиции', 'Фотозона', 'Фигуры из шаров', 'Букет из шаров', 'Коробка-сюрприз'].includes(data.category)) data.category = '';
       } else if (sceneHint === 'ceiling') {
         data.tags = (Array.isArray(data.tags) ? data.tags : []).filter((t) => !['Напольные композиции', 'Фотозона', 'Фигуры из шаров'].includes(t));
         if (['Напольные композиции', 'Фотозона', 'Фигуры из шаров'].includes(data.category)) data.category = '';

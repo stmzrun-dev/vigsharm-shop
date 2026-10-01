@@ -3,12 +3,12 @@
   'use strict';
 
   /* «Универсальные» — внутренняя полка (данные/ИИ), на витрине не показываем */
-  var READY_SUBCATS = ['Для девочки', 'Для мальчика', 'Для неё', 'Для мамы', 'Для него', 'На выписку', 'Фигуры из шаров', 'Цветы из шаров', 'Арки', 'Шар-сюрприз', 'Крафтовый букет', 'Коробка-сюрприз', 'Гендер-пати'];
+  var READY_SUBCATS = ['Для девочки', 'Для мальчика', 'Для неё', 'Для мамы', 'Для него', 'На выписку', 'Фигуры из шаров', 'Цветы из шаров', 'Арки', 'Шар-сюрприз', 'Крафтовый букет', 'Коробка-сюрприз', 'Гендер-пати', 'Из роз', 'Мишки из роз', 'Мыльные розы'];
   var UNIT_SUBCATS = ['Латексные шары', 'Кристалл Ассорти', 'Металлик Ассорти', 'Пастель MACARON Ассорти', 'Пастель Ассорти', 'Сердце Ассорти', 'Шары с рисунком', 'Фольгированные фигуры', 'Ходячие фигуры', 'Круги, звёзды и сердца', 'Шары с конфетти', 'Шары хром', 'Шары Brush', 'Шары Super Agate', 'Шары Bubble', 'Фольгированные цифры', 'Именные шары'];
   var UNIT_COLLECTIONS = ['Шары с рисунком', 'Латексные шары', 'Фольгированные фигуры', 'Ходячие фигуры', 'Круги, звёзды и сердца', 'Шары с конфетти', 'Шары хром', 'Шары Brush', 'Шары Super Agate', 'Шары Bubble', 'Фольгированные цифры'];
   var DETAIL_FILTERS = ['Для мальчика', 'Для девочки', 'Детские', 'Для него', 'Для неё', 'На выписку', 'Праздники', 'Персонажи'];
   var HOLIDAYS = ['Новый год', '14 февраля', '23 февраля', '8 марта', '9 мая', 'Выпускной', '1 сентября', 'День учителя', 'Хэллоуин'];
-  var SINGLE_GIFTS = ['Фигуры из шаров', 'Цветы из шаров', 'Арки', 'Арка из шаров', 'Шар-сюрприз', 'Крафтовый букет', 'Коробка-сюрприз', 'Гендер-пати'];
+  var SINGLE_GIFTS = ['Фигуры из шаров', 'Цветы из шаров', 'Арки', 'Арка из шаров', 'Шар-сюрприз', 'Крафтовый букет', 'Коробка-сюрприз', 'Гендер-пати', 'Из роз', 'Мишки из роз', 'Мыльные розы'];
   var AUDIENCE = ['Для девочки', 'Для мальчика', 'Универсальные', 'Для неё', 'Для него', 'Для мамы', 'На выписку', '1 годик', 'Юбилей', 'Свадьба и девичник', 'Крещение'];
   var GROUPS = [
     { id: 'ready', title: 'Готовые решения', mobile: 'Готовые', icon: 'ready', chipImg: 'icons/group-ready.webp?v=7', note: 'Композиции для любого повода' },
@@ -106,6 +106,11 @@
     if (p.category === label || tags.indexOf(label) >= 0) return true;
     /* Кружок «Арки» на витрине, в карточке категория «Арка из шаров». */
     if (label === 'Арки') return p.category === 'Арка из шаров' || tags.indexOf('Арка из шаров') >= 0;
+    if (label === 'Из роз') {
+      return ['Из роз', 'Мишки из роз', 'Мыльные розы'].some(function (name) {
+        return p.category === name || tags.indexOf(name) >= 0;
+      });
+    }
     return false;
   }
   /** Home / sheet labels often differ from D1 character field — expand aliases. */
@@ -591,7 +596,8 @@
   var READY_WHO = AUDIENCE;
   var READY_MAIN = ['Для девочки', 'Для мальчика', 'Для неё', 'Для него'];
   var READY_MORE = ['На выписку', '1 годик', 'Юбилей', 'Для мамы', 'Свадьба и девичник', 'Крещение'];
-  var READY_WHAT = ['Фигуры из шаров', 'Букет из шаров', 'Коробка-сюрприз', 'Фотозона', 'Цветы из шаров', 'Гендер-пати', 'Арки', 'Шар-сюрприз', 'Крафтовый букет'];
+  var READY_WHAT = ['Фигуры из шаров', 'Букет из шаров', 'Коробка-сюрприз', 'Фотозона', 'Цветы из шаров', 'Гендер-пати', 'Арки', 'Шар-сюрприз', 'Крафтовый букет', 'Из роз'];
+  var ROSE_KINDS = ['Мишки из роз', 'Мыльные розы'];
   var READY_PHOTOS = {
     'Фигуры из шаров': 'images/ready/what-figures.webp?v=20260924',
     'Букет из шаров': 'images/ready/what-bouquet.webp?v=20260924hearts',
@@ -602,6 +608,7 @@
     'Арки': 'images/ready/what-arch.webp?v=20260924clay2',
     'Шар-сюрприз': 'images/ready/what-surprise.webp?v=20260924',
     'Крафтовый букет': 'images/ready/what-kraft.webp?v=20260924clay2',
+    'Из роз': 'images/ready/what-roses.webp?v=20261001'
     'На выписку': 'images/idea-discharge.webp?v=20260926c',
     'Юбилей': 'images/idea-jubilee.webp?v=20260926',
     '1 годик': 'images/idea-1year.webp?v=20260926b'
@@ -949,6 +956,7 @@
   function ideaLabel(name) {
     if (name === 'Шар-сюрприз') return 'Сюрприз';
     if (name === 'Крафтовый букет') return 'Крафт';
+    if (name === 'Из роз') return 'Из роз';
     return String(name || '').replace(' из шаров', '').replace('-сюрприз', '');
   }
 
@@ -1011,10 +1019,17 @@
     var occasions = READY_MORE.concat(['Гендер-пати']);
     var what = READY_WHAT.filter(function (name) { return name !== 'Гендер-пати'; });
     function hero(name, src, label) {
-      var on = category === name ? ' is-on' : '';
+      var on = (name === 'Из роз' ? (category === 'Из роз' || ROSE_KINDS.indexOf(category) >= 0) : category === name) ? ' is-on' : '';
       return '<button type="button" class="pick-hero' + on + '" data-idea="' + esc(name) + '">' +
         '<span class="pick-hero-ring">' + (src ? '<img src="' + src + '" alt=""/>' : '') + '</span><b>' + esc(label) + '</b></button>';
     }
+    var roseOpen = category === 'Из роз' || ROSE_KINDS.indexOf(category) >= 0;
+    var roseChips = roseOpen
+      ? '<div class="pick-band pick-band-why"><p class="pick-kicker">Какие</p><div class="pick-more">' +
+        ROSE_KINDS.map(function (name) {
+          return '<button type="button" class="' + (category === name ? 'is-on' : '') + '" data-idea="' + esc(name) + '">' + esc(name) + '</button>';
+        }).join('') + '</div></div>'
+      : '';
     return '<div class="pick-band pick-band-who"><p class="pick-kicker">Кому</p><div class="pick-heroes">' +
       who.map(function (row) { return hero(row[0], row[1], row[0]); }).join('') + '</div></div>' +
       '<div class="pick-band pick-band-why"><p class="pick-kicker">Повод</p><div class="pick-more">' +
@@ -1022,7 +1037,8 @@
         return '<button type="button" class="' + (category === name ? 'is-on' : '') + '" data-idea="' + esc(name) + '">' + esc(name) + '</button>';
       }).join('') + '</div></div>' +
       '<div class="pick-band pick-band-what"><p class="pick-kicker">Что заказать</p><div class="pick-heroes">' +
-      what.map(function (name) { return hero(name, READY_PHOTOS[name] || '', ideaLabel(name)); }).join('') + '</div></div>';
+      what.map(function (name) { return hero(name, READY_PHOTOS[name] || '', ideaLabel(name)); }).join('') + '</div></div>' +
+      roseChips;
   }
 
   function closeReadySheet() {

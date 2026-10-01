@@ -15,6 +15,10 @@
   }
   function compIconKey(label) {
     var t = String(label || '').toLowerCase();
+    if (/мишк/.test(t) && /роз/.test(t)) return 'rosebear';
+    if (/шляпн|упаковк/.test(t)) return 'hatbox';
+    if (/лент|бант|атлас/.test(t)) return 'ribbon';
+    if (/роз/.test(t)) return 'rose';
     if (/хром|chrome|зеркал/.test(t)) return 'chrome';
     // Баблс = стеклянный шар: внутренний шар + прозрачная оболочка
     if (/бабл|bubble|стеклянн|прозрачн|glass/.test(t)) return 'bubble';
@@ -56,7 +60,7 @@
     // «Цветы»: лилии и прочие «шары» в составе — цветок. Сердце, цифра, коробка остаются своими.
     if (isFlowerBouquet() && (!key || key === 'latex')) key = 'tulip';
     if (!key) key = 'latex';
-    var v = key === 'arch' ? '1' : (key === 'walker' ? '19' : '18');
+    var v = (key === 'rosebear' || key === 'rose' || key === 'hatbox' || key === 'ribbon') ? '1' : (key === 'arch' ? '1' : (key === 'walker' ? '19' : '18'));
     return '<img class="comp-ico" src="icons/comp-' + key + '.webp?v=' + v + '" alt="" width="32" height="32" onerror="this.onerror=null;this.src=\'icons/comp-' + key + '.svg\'"/>';
   }
 

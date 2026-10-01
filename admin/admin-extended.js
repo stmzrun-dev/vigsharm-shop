@@ -692,6 +692,7 @@ Object.assign(app, {
     this.wirePhotozoneTypeControls?.();
     this.wireFloorTypeControls?.();
     this.wireBouquetTypeControls?.();
+    this.wireRoseTypeControls?.();
     this.wireSurprisePoseControls?.();
     this.wireUnitBalloonTypeControls?.();
     this.wireOccasionShelfControls?.();
@@ -711,6 +712,7 @@ Object.assign(app, {
     }
     if (scene !== 'floor') this.setFloorType?.('');
     if (scene !== 'handheld_bouquet') this.setBouquetType?.('');
+    if (scene !== 'table') this.setRoseType?.('');
     if (scene !== 'surprise') {
       this.setSurprisePose?.('stand');
       this.setSurpriseMoney?.(false);
@@ -1446,6 +1448,31 @@ Object.assign(app, {
       el.addEventListener('change', sync);
     });
     document.getElementById('surprise-money-early')?.addEventListener('change', sync);
+  },
+
+  getRoseType() {
+    const checked = document.querySelector('input[name="rose-type-early"]:checked');
+    return checked?.value === 'soap' ? 'soap' : (checked?.value === 'bear' ? 'bear' : '');
+  },
+
+  setRoseType(type) {
+    const value = type === 'soap' ? 'soap' : (type === 'bear' ? 'bear' : '');
+    document.querySelectorAll('input[name="rose-type-early"]').forEach((el) => {
+      el.checked = !!value && el.value === value;
+    });
+  },
+
+  wireRoseTypeControls() {
+    document.querySelectorAll('input[name="rose-type-early"]').forEach((el) => {
+      if (el.dataset.wired) return;
+      el.dataset.wired = '1';
+      el.addEventListener('change', () => {
+        const rose = this.getRoseType?.() || '';
+        const meta = (typeof ROSE_TYPES !== 'undefined' && ROSE_TYPES[rose]) || null;
+        const catEl = document.getElementById('product-category');
+        if (meta && catEl) catEl.value = meta.category;
+      });
+    });
   },
 
   getBouquetType() {
@@ -2227,7 +2254,7 @@ Object.assign(app, {
 
     const compText = Array.isArray(composition) ? composition.join('\n') : String(composition || '');
     const isSurprise = !unit && scene === 'surprise';
-    const isBox = !unit && !holidayOnly && !isSurprise && (
+    const isBox = !unit && !holidayOnly && !isSurprise && scene !== 'table' && (
       category === 'Коробка-сюрприз'
       || this.compositionLooksLikeSurpriseBox?.(compText)
     );
@@ -2392,6 +2419,16 @@ Object.assign(app, {
       } else if (!unit && scene === 'balloon_figures' && !finalTags.includes('Фигуры из шаров')) {
         finalTags.push('Фигуры из шаров');
       }
+    }
+
+    if (scene === 'table') {
+      const rose = this.getRoseType?.() || '';
+      const roseMeta = (typeof ROSE_TYPES !== 'undefined' && ROSE_TYPES[rose]) || null;
+      if (roseMeta) {
+        category = roseMeta.category;
+        finalTags = [roseMeta.category];
+      }
+      if (rose) clientOptions.rose_type = rose;
     }
 
     const deferred = (typeof DEFERRED_TYPE_TAGS !== 'undefined' && DEFERRED_TYPE_TAGS) || ['Шар-сюрприз'];
@@ -2562,6 +2599,7 @@ Object.assign(app, {
     this.wirePhotozoneTypeControls?.();
     this.wireFloorTypeControls?.();
     this.wireBouquetTypeControls?.();
+    this.wireRoseTypeControls?.();
     this.wireSurprisePoseControls?.();
     this.wireUnitBalloonTypeControls?.();
     this.clearNewCardSceneState?.();
@@ -2887,6 +2925,10 @@ app.loadProductToForm = function(product) {
   this.setFloorType?.(floorTypeSaved);
   const bouquetTypeSaved = product.category === 'Цветы из шаров' ? 'flowers' : '';
   this.setBouquetType?.(bouquetTypeSaved);
+  const roseSaved = opts.rose_type === 'soap' || product.category === 'Мыльные розы'
+    ? 'soap'
+    : (opts.rose_type === 'bear' || product.category === 'Мишки из роз' ? 'bear' : '');
+  this.setRoseType?.(roseSaved);
   const surprisePoseSaved = opts.surprise_pose === 'hang' ? 'hang' : 'stand';
   this.setSurprisePose?.(surprisePoseSaved);
   this.setSurpriseMoney?.(!!opts.surprise_money);
@@ -2901,6 +2943,7 @@ app.loadProductToForm = function(product) {
   this.wirePhotozoneTypeControls?.();
   this.wireFloorTypeControls?.();
   this.wireBouquetTypeControls?.();
+  this.wireRoseTypeControls?.();
   this.wireUnitBalloonTypeControls?.();
   this.wireOccasionShelfControls?.();
   this.syncAIFillGate?.();

@@ -889,7 +889,8 @@ async function handleGenerateCard(request, env) {
     existing_titles,
     holiday_only,
     foil_digits,
-    floor_type
+    floor_type,
+    rose_type
   } = body;
   const trustedDigits = String(foil_digits || '').replace(/\D/g, '').slice(0, 4);
   const rawIn = String(composition_raw || description || '').trim();
@@ -923,8 +924,11 @@ async function handleGenerateCard(request, env) {
 - composition: БЕЗ скобок и БЕЗ текста тематики — только физический состав шаров`
     : '';
 
-  const boxOnly = !holidayOnly && compositionLooksLikeSurpriseBox(rawComposition);
-  const bouquetOnly = !holidayOnly && !boxOnly && (
+  const roseType = rose_type === 'soap' ? 'soap' : (rose_type === 'bear' ? 'bear' : '');
+  const roseOnly = (scene || '') === 'table' && !!roseType;
+  const roseCategory = roseType === 'soap' ? 'Мыльные розы' : (roseType === 'bear' ? 'Мишки из роз' : '');
+  const boxOnly = !holidayOnly && !roseOnly && compositionLooksLikeSurpriseBox(rawComposition);
+  const bouquetOnly = !holidayOnly && !boxOnly && !roseOnly && (
     (scene || '') === 'handheld_bouquet'
     || compositionLooksLikeBouquet(rawComposition)
   );
@@ -1142,7 +1146,8 @@ ${hintsBlock}
 Сцена Studio Pro: ${scene || 'floor'}
 Подсказка типа изделия для tags: ${['wall_only', 'unit_balloon', 'ceiling', 'table'].includes(scene) || ((scene || '') === 'floor' && !floorAdvance) ? 'НЕ ставь «Напольные композиции»' : (typeHint || 'по фото')}
 ${scene === 'ceiling' ? 'Сцена «под потолком»: готовая связка у потолка. ЗАПРЕЩЕНО теги «Фотозона», «Напольные композиции», «Фигуры из шаров». Аудиторию и персонажа определяй по фото как обычно.' : ''}
-${scene === 'table' ? 'Сцена «на столике»: подарок сидит на столе. ЗАПРЕЩЕНО теги «Напольные композиции», «Фотозона», «Фигуры из шаров», «Букет из шаров».' : ''}
+${scene === 'table' ? 'Сцена «на столике»: подарок сидит на столе. ЗАПРЕЩЕНО теги «Напольные композиции», «Фотозона», «Фигуры из шаров», «Букет из шаров», «Коробка-сюрприз». Слово «упаковка» — не коробка-сюрприз.' : ''}
+${roseOnly ? `Сцена «на столике», подтип выбран: category и tags РОВНО «${roseCategory}». Не ставь аудиторию вместо этой полки.` : ''}
 ${holidayOnly ? `Праздничная/тематическая категория (обязательно): ${holidayOnly}` : ''}
 ${boxOnly ? 'В составе коробка — category и tags только «Коробка-сюрприз». age_group обязателен.' : ''}
 ${bouquetOnly ? 'Это букет из шаров без тематики в скобках — category и tags только «Букет из шаров».' : ''}
@@ -1212,6 +1217,8 @@ ${image_url
     applyTypeOnlyCard(data, 'Фигуры из шаров');
   } else if (photozoneOnly) {
     applyTypeOnlyCard(data, 'Фотозона');
+  } else if (roseOnly && roseCategory) {
+    applyTypeOnlyCard(data, roseCategory);
   } else {
     applyDischargeCategoryPriority(data, rawComposition);
   }
@@ -1587,8 +1594,8 @@ function sanitizeCardMetadata(data, scene = 'floor', price = 0, rawComposition =
     tags = tags.filter((t) => t !== 'Напольные композиции');
   }
   if (scene === 'table') {
-    tags = tags.filter((t) => t !== 'Букет из шаров' && t !== 'Фотозона');
-    if (['Напольные композиции', 'Фотозона', 'Фигуры из шаров', 'Букет из шаров'].includes(data.category)) {
+    tags = tags.filter((t) => t !== 'Букет из шаров' && t !== 'Фотозона' && t !== 'Коробка-сюрприз');
+    if (['Напольные композиции', 'Фотозона', 'Фигуры из шаров', 'Букет из шаров', 'Коробка-сюрприз'].includes(data.category)) {
       data.category = '';
     }
   }

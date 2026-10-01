@@ -67,6 +67,8 @@ Object.assign(app, {
     if (earlyFloor) earlyFloor.classList.toggle('hidden', scene !== 'floor');
     const earlyBouquet = document.getElementById('bouquet-type-early');
     if (earlyBouquet) earlyBouquet.classList.toggle('hidden', scene !== 'handheld_bouquet');
+    const earlyRose = document.getElementById('rose-type-early');
+    if (earlyRose) earlyRose.classList.toggle('hidden', scene !== 'table');
     const earlySurprise = document.getElementById('surprise-pose-early');
     if (earlySurprise) earlySurprise.classList.toggle('hidden', scene !== 'surprise');
     const earlyUnit = document.getElementById('unit-type-early');

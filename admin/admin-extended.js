@@ -2442,7 +2442,7 @@ Object.assign(app, {
     return {
       id: this.currentProduct.id || undefined,
       title: titleValue,
-      article: document.getElementById('product-article').value.trim() || this.nextArticle(category),
+      article: document.getElementById('product-article').value.trim(),
       price: parseInt(document.getElementById('product-price').value) || 0,
       short_description: shortDesc,
       full_description: unit ? '' : document.getElementById('product-full-desc').value.trim(),
@@ -2547,10 +2547,7 @@ Object.assign(app, {
     this.syncSceneRailUi?.('auto');
 
     const articleEl = document.getElementById('product-article');
-    if (articleEl) {
-      if (typeof this.assignFreshArticle === 'function') this.assignFreshArticle();
-      else articleEl.value = this.nextArticle();
-    }
+    if (articleEl) articleEl.value = '';
 
     const modeLabel = document.getElementById('editor-mode-label');
     if (modeLabel) modeLabel.textContent = 'СОЗДАНИЕ';
@@ -2792,6 +2789,7 @@ app.loadProductToForm = function(product) {
   if (typeof this.renderStudioCompare === 'function') this.renderStudioCompare();
 
   this.currentProduct.id = product.id || null;
+  this.currentProduct.status = product.status || 'draft';
   this.currentProduct.client_options = product.client_options && typeof product.client_options === 'object'
     ? { ...product.client_options }
     : {};
@@ -2834,7 +2832,9 @@ app.loadProductToForm = function(product) {
     if (el && value !== undefined && value !== null) el.value = value;
   };
   set('product-title', product.title);
-  set('product-article', product.article);
+  // Черновик: номер не показываем и не храним в форме — его даст «Опубликовать».
+  const articleEl = document.getElementById('product-article');
+  if (articleEl) articleEl.value = product.status === 'published' ? (product.article || '') : '';
   set('product-price', product.price);
   set('product-short-desc', product.short_description);
   set('product-full-desc', product.full_description);

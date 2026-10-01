@@ -1198,11 +1198,6 @@ Object.assign(app, {
         _replaceTags: true
       });
 
-      // Артикул после категории (BOY/GRL/…), не DG до заполнения
-      if (!this.currentProduct.id) {
-        this.assignFreshArticle?.();
-      }
-
       this.renderTitleAlts(data.title, data.title_alts || []);
       this.renderCharacterAlts(data.character, data.character_alts || [], data.character_confidence || '');
       this.renderSeriesAlts(data.series_name, data.series_alts || [], data.series_confidence || '');
@@ -1507,7 +1502,11 @@ Object.assign(app, {
 
     const article = document.getElementById('product-article')?.value || '';
     const meta = document.getElementById('ai-review-meta');
-    if (meta) meta.textContent = article ? `Арт. ${article}` : '';
+    if (meta) {
+      meta.textContent = article
+        ? `Арт. ${article}`
+        : 'Артикул при публикации';
+    }
 
     const title = data?.title || document.getElementById('product-title')?.value || '';
     const titleAlts = (data?.title_alts || []).slice(0, 2);

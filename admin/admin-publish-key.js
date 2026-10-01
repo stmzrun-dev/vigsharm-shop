@@ -54,17 +54,42 @@ Object.assign(app, {
     if (zipBtn) zipBtn.disabled = true;
     if (packBtn) packBtn.disabled = true;
     if (signBtn) signBtn.disabled = true;
-    this.showPublishPreview(url, 'Исходник');
+    this.showPublishPreview(url, 'Исходник')?.catch?.(() => {});
     const status = document.getElementById('publish-status');
     if (status) status.textContent = file.name;
   },
 
+  samePublishPhoto(a, b) {
+    const norm = (u) => String(u || '').trim().split('?')[0];
+    const left = norm(a);
+    return !!(left && left === norm(b));
+  },
+
   showPublishPreview(src, alt) {
     const preview = document.getElementById('publish-source-preview');
-    if (!preview || !src) return;
-    preview.innerHTML = '<img alt="' + (alt || 'Фото') + '" src="' + src + '"/>';
-    preview.classList.remove('hidden');
-    preview.hidden = false;
+    if (!preview || !src) return Promise.resolve();
+    const isMaster = alt === 'Master';
+    const labelText = isMaster ? 'Master' : 'Исходник';
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      img.alt = labelText;
+      img.onload = () => resolve(img);
+      img.onerror = () => reject(new Error('Новое фото не открылось'));
+      img.src = src;
+    }).then((img) => {
+      preview.replaceChildren(img);
+      preview.classList.remove('hidden');
+      preview.hidden = false;
+      const label = document.getElementById('publish-shot-label');
+      if (label) {
+        label.textContent = labelText;
+        label.classList.toggle('is-master', isMaster);
+        label.classList.remove('hidden');
+        label.hidden = false;
+      }
+      this.setPublishSourceUi?.(true);
+      preview.scrollIntoView({ block: 'center', behavior: 'smooth' });
+    });
   },
 
   getPublishScene() {
@@ -112,9 +137,13 @@ Object.assign(app, {
       }
       const scene = this.getPublishScene();
       if (status) status.textContent = '📸 ИИ переснимает в студии, как в карточке…';
-      const masterUrl = await this.createMasterForScene(imageUrl, scene, status);
+      const masterUrl = String(await this.createMasterForScene(imageUrl, scene, status) || '').trim();
+      if (!masterUrl) throw new Error('Модель не вернула фото');
+      if (this.samePublishPhoto(masterUrl, imageUrl)) {
+        throw new Error('Модель вернула то же фото — кадр не изменился');
+      }
+      await this.showPublishPreview(masterUrl, 'Master');
       this.publishMasterUrl = masterUrl;
-      this.showPublishPreview(masterUrl, 'Master');
       const sign = (document.getElementById('publish-sign-text')?.value || '').trim();
       if (sign) {
         if (status) status.textContent = '✏️ Правлю надпись…';
@@ -124,9 +153,9 @@ Object.assign(app, {
           statusEl: status,
           skipCommit: true
         });
-        if (fixed) {
+        if (fixed && !this.samePublishPhoto(fixed, masterUrl)) {
+          await this.showPublishPreview(fixed, 'Master');
           this.publishMasterUrl = fixed;
-          this.showPublishPreview(fixed, 'Master');
         }
       }
       if (status) status.textContent = 'Master готов. Можно исправить надпись или собрать пачку.';
@@ -164,7 +193,7 @@ Object.assign(app, {
       if (fixed) {
         this.publishMasterUrl = fixed;
         this.publishPack = null;
-        this.showPublishPreview(fixed, 'Master');
+        await this.showPublishPreview(fixed, 'Master');
       }
     } catch (e) {
       /* toast already in fixBalloonInscription */
@@ -237,11 +266,38 @@ Object.assign(app, {
     ctx.drawImage(img, dx, dy, dw, dh);
   },
 
-  placeOnFrame(ctx, img, tw, th, spec) {
-    const top = th * (spec.top ?? 0.06);
-    const height = th * (spec.boxH ?? 0.88);
-    const padX = tw * (spec.padX ?? 0.06);
-    this.drawContain(ctx, img, padX, top, tw - padX * 2, height);
+  /** Фрагмент фото целиком внутри кадра. alignTop — прижать вверх, низ остаётся пустым. */
+  drawRegionContain(ctx, img, tw, th, region, alignTop, topFrac, maxHFrac, padXFrac) {
+    const x0 = region?.x0 ?? 0;
+    const y0 = region?.y0 ?? 0;
+    const x1 = region?.x1 ?? 1;
+    const y1 = region?.y1 ?? 1;
+    const sx = img.width * x0;
+    const sy = img.height * y0;
+    const sw = Math.max(1, img.width * (x1 - x0));
+    const sh = Math.max(1, img.height * (y1 - y0));
+    const pad = tw * (padXFrac ?? 0.04);
+    const maxW = tw - pad * 2;
+    const maxH = th * (maxHFrac ?? 0.92);
+    const ir = sw / sh;
+    let dw = maxW;
+    let dh = dw / ir;
+    if (dh > maxH) {
+      dh = maxH;
+      dw = dh * ir;
+    }
+    const dx = (tw - dw) / 2;
+    const dy = alignTop ? th * (topFrac ?? 0.04) : (th - dh) / 2;
+    ctx.drawImage(img, sx, sy, sw, sh, dx, dy, dw, dh);
+  },
+
+  blurPublishBehind(ctx, srcImg, tw, th) {
+    ctx.save();
+    ctx.filter = 'blur(28px)';
+    this.drawCoverCrop(ctx, srcImg, tw, th, 1.2, 0, 0);
+    ctx.restore();
+    ctx.fillStyle = 'rgba(232, 228, 220, 0.3)';
+    ctx.fillRect(0, 0, tw, th);
   },
 
   renderPublishFrame(srcImg, bgImg, tw, th, spec) {
@@ -249,20 +305,29 @@ Object.assign(app, {
     canvas.width = tw;
     canvas.height = th;
     const ctx = canvas.getContext('2d');
-    ctx.fillStyle = '#e8e4dc';
+    ctx.fillStyle = '#ebe4da';
     ctx.fillRect(0, 0, tw, th);
 
-    if (spec.onBg && bgImg) {
+    if (spec.cover) {
+      const region = spec.region || { x0: 0, y0: 0, x1: 1, y1: 1 };
+      const sx = srcImg.width * (region.x0 ?? 0);
+      const sy = srcImg.height * (region.y0 ?? 0);
+      const sw = Math.max(1, srcImg.width * ((region.x1 ?? 1) - (region.x0 ?? 0)));
+      const sh = Math.max(1, srcImg.height * ((region.y1 ?? 1) - (region.y0 ?? 0)));
+      const dh = th * (spec.maxH ?? 0.7);
+      const dw = dh * (sw / sh);
+      const dx = (tw - dw) / 2;
+      const dy = th * (spec.top ?? 0);
+      ctx.drawImage(srcImg, sx, sy, sw, sh, dx, dy, dw, dh);
+    } else if (spec.contain || spec.story) {
+      if (!spec.flat) this.blurPublishBehind(ctx, srcImg, tw, th);
+      this.drawRegionContain(
+        ctx, srcImg, tw, th, spec.region,
+        !!(spec.story || spec.alignTop), spec.top, spec.maxH, spec.padX
+      );
+    } else if (spec.onBg && bgImg) {
       this.drawCoverCrop(ctx, bgImg, tw, th, 1, 0, 0);
-      this.placeOnFrame(ctx, srcImg, tw, th, spec);
-    } else if (spec.story) {
-      ctx.save();
-      ctx.filter = 'blur(32px)';
-      this.drawCoverCrop(ctx, srcImg, tw, th, 1.15, 0, -0.06);
-      ctx.restore();
-      ctx.fillStyle = 'rgba(232, 228, 220, 0.38)';
-      ctx.fillRect(0, 0, tw, th);
-      this.placeOnFrame(ctx, srcImg, tw, th, spec);
+      this.drawRegionContain(ctx, srcImg, tw, th, spec.region, false, spec.top, spec.maxH, spec.padX);
     } else {
       this.drawCoverCrop(ctx, srcImg, tw, th, spec.zoom, spec.ox, spec.oy);
     }
@@ -330,17 +395,17 @@ Object.assign(app, {
     try {
       const srcImg = await this.loadPublishImage(this.publishMasterUrl);
       const posts = [
-        { file: 'post-01-full.jpg', label: 'Пост · весь кадр', zoom: 1.04, ox: 0, oy: -0.02, story: false },
-        { file: 'post-02-close.jpg', label: 'Пост · ближе', zoom: 1.38, ox: 0, oy: -0.06, story: false },
-        { file: 'post-03-shift.jpg', label: 'Пост · крупно', zoom: 1.62, ox: 0.02, oy: -0.1, story: false }
+        { file: 'post-01-full.jpg', label: 'Пост · весь кадр', contain: true, flat: true, maxH: 1, padX: 0 },
+        { file: 'post-02-top.jpg', label: 'Пост · верх', contain: true, flat: true, alignTop: true, top: 0, region: { x0: 0, y0: 0, x1: 1, y1: 0.62 }, maxH: 0.74, padX: 0 },
+        { file: 'post-03-bottom.jpg', label: 'Пост · низ', contain: true, flat: true, region: { x0: 0, y0: 0.4, x1: 1, y1: 1 }, maxH: 0.8, padX: 0 }
       ].map((spec) => ({
         ...spec,
         dataUrl: this.renderPublishFrame(srcImg, null, 1080, 1350, spec)
       }));
       const stories = [
-        { file: 'story-01-full.jpg', label: 'Сторис · сцена', top: 0.07, boxH: 0.54, padX: 0.08, story: true },
-        { file: 'story-02-upper.jpg', label: 'Сторис · выше', top: 0.05, boxH: 0.42, padX: 0.12, story: true },
-        { file: 'story-03-close.jpg', label: 'Сторис · крупно', top: 0.08, boxH: 0.5, padX: 0.04, story: true }
+        { file: 'story-01-full.jpg', label: 'Сторис · сцена', story: true, flat: true, top: 0, maxH: 0.58, padX: 0 },
+        { file: 'story-02-top.jpg', label: 'Сторис · верх', story: true, flat: true, region: { x0: 0, y0: 0, x1: 1, y1: 0.62 }, top: 0, maxH: 0.4, padX: 0 },
+        { file: 'story-03-close.jpg', label: 'Сторис · крупно', story: true, flat: true, cover: true, top: 0, maxH: 0.7, padX: 0 }
       ].map((spec) => ({
         ...spec,
         dataUrl: this.renderPublishFrame(srcImg, null, 1080, 1920, spec)
@@ -391,8 +456,8 @@ Object.assign(app, {
       }
       folder.file('captions.txt', this.publishPack.captions);
       folder.file('kak-vylozhit.txt',
-        'Пост: файлы post-01…03 (4:5).\n' +
-        'Сторис: story-01…03 (9:16). Композиция в верхней части — низ для текста и музыки в приложении.\n' +
+        'Пост: post-01 вся связка без обрезки, post-02 верх, post-03 низ (4:5).\n' +
+        'Сторис: story-01 вся связка сверху, story-02 крупнее, story-03 верх (9:16). Низ пустой — для текста.\n' +
         'Instagram / Telegram / VK: вставьте текст из captions.txt.\n' +
         'Музыку к сторис добавьте в приложении сети — через сайт её подставить нельзя.\n' +
         'Чужой логотип на исходном фото пачка не убирает — нужен кадр без чужого бренда.\n'
@@ -410,6 +475,8 @@ Object.assign(app, {
 });
 
 window.app = app;
+app._publishSamePhotoCheck = true;
+app._publishFrameSet = 3;
 if (document.getElementById('publish-dropzone')) {
   app.setupPublishKey();
 }

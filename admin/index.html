@@ -7,7 +7,10 @@
 <meta name="robots" content="noindex, nofollow"/>
 <link rel="icon" href="../favicon.svg"/>
 <link rel="stylesheet" href="../assets/fonts.css"/>
-<link rel="stylesheet" href="styles.css?v=20260930-price"/>
+<link rel="stylesheet" href="styles.css?v=20260930-publish"/>
+<link rel="stylesheet" href="publish-screen.css?v=1"/>
+<link rel="stylesheet" href="publish-fit.css?v=1"/>
+<link rel="stylesheet" href="publish-master.css?v=1"/>
 </head>
 <body>
 
@@ -225,18 +228,20 @@
     <div class="hero-section hero-compact">
       <h2>Соцсети</h2>
       <h1>Ключ публикации</h1>
-      <p>Master → кадры поста/сторис → ZIP для Instagram, Telegram, VK.</p>
+      <p>Сначала квадрат. Потом пост 4:5 и отдельно сторис — новой съёмкой из этого квадрата.</p>
     </div>
-    <div class="card">
+    <div class="card publish-card">
       <div class="publish-layout">
         <div class="publish-col">
-          <div class="upload-zone" id="publish-dropzone" role="button" tabindex="0">
-            <div class="icon">📷</div>
-            <p>Перетащите фото или нажмите сюда</p>
+          <div class="upload-zone upload-zone-hero" id="publish-dropzone" role="button" tabindex="0">
+            <div class="icon upload-zone-icon" aria-hidden="true"></div>
+            <p>Перетащите фото сюда или нажмите</p>
             <small>JPG, PNG, WebP · одно фото</small>
           </div>
           <input type="file" id="publish-file" accept="image/*" class="hidden-file"/>
           <div id="publish-source-preview" class="publish-source-preview hidden" hidden></div>
+          <p id="publish-shot-label" class="publish-shot-label hidden" hidden></p>
+          <button type="button" class="btn outline sm publish-replace" id="publish-replace-btn" hidden onclick="document.getElementById('publish-file').click()">Другое фото</button>
           <div class="form-group">
             <span class="publish-scene-label">Сцена</span>
             <div class="scene-subchips-row publish-scenes" role="radiogroup" aria-label="Сцена">
@@ -269,21 +274,35 @@
             </div>
           </div>
           <p class="text-muted" id="publish-status"></p>
-          <div class="products-header-actions">
-            <button type="button" class="btn primary" id="publish-master-btn" onclick="app.createPublishMaster()">Создать Master</button>
-            <button type="button" class="btn outline" id="publish-sign-btn" disabled onclick="app.fixPublishInscription()">Исправить надпись</button>
-            <button type="button" class="btn outline" id="publish-build-btn" disabled onclick="app.buildPublishPack()">Собрать пачку</button>
-            <button type="button" class="btn outline" id="publish-zip-btn" disabled onclick="app.downloadPublishZip()">Скачать ZIP</button>
+        </div>
+        <div class="publish-col publish-result">
+          <div id="publish-empty" class="publish-empty">
+            <p>Здесь будут кадры</p>
+            <small>Когда квадрат появится слева, снимите пост 4:5. Сторис — отдельной кнопкой, из того же квадрата.</small>
+          </div>
+          <div id="publish-pack" class="publish-pack hidden" hidden>
+            <h3 class="publish-preview-title">Пост 4:5</h3>
+            <div id="publish-posts" class="publish-thumbs"></div>
+            <h3 class="publish-preview-title">Сторис 9:16</h3>
+            <div id="publish-stories" class="publish-thumbs publish-thumbs-story"></div>
+            <div class="publish-captions-head">
+              <label for="publish-captions">Подписи</label>
+              <div class="publish-copy-row">
+                <button type="button" class="btn outline sm" id="publish-copy-ig" disabled onclick="app.copyPublishCaption('ig')">Instagram</button>
+                <button type="button" class="btn outline sm" id="publish-copy-tg" disabled onclick="app.copyPublishCaption('tg')">Telegram</button>
+                <button type="button" class="btn outline sm" id="publish-copy-vk" disabled onclick="app.copyPublishCaption('vk')">VK</button>
+              </div>
+            </div>
+            <textarea id="publish-captions" rows="12" placeholder="Появятся после сборки"></textarea>
           </div>
         </div>
-        <div class="publish-col">
-          <h3 class="publish-preview-title">Пост 4:5</h3>
-          <div id="publish-posts" class="publish-thumbs"></div>
-          <h3 class="publish-preview-title">Сторис 9:16</h3>
-          <div id="publish-stories" class="publish-thumbs publish-thumbs-story"></div>
-          <label for="publish-captions">Подписи Instagram · Telegram · VK</label>
-          <textarea id="publish-captions" rows="12" placeholder="Появятся после сборки"></textarea>
-        </div>
+      </div>
+      <div class="publish-dock">
+        <button type="button" class="btn primary" id="publish-master-btn" onclick="app.createPublishMaster()">Создать Master</button>
+        <button type="button" class="btn outline" id="publish-sign-btn" disabled onclick="app.fixPublishInscription()">Исправить надпись</button>
+        <button type="button" class="btn outline" id="publish-build-btn" disabled onclick="app.shootPublishFormat('post')">Пост</button>
+        <button type="button" class="btn outline" id="publish-story-btn" disabled onclick="app.buildPublishStories()">Сторис</button>
+        <button type="button" class="btn outline" id="publish-zip-btn" disabled onclick="app.downloadPublishZip()">Скачать ZIP</button>
       </div>
     </div>
   </section>
@@ -605,7 +624,7 @@
           <div class="form-row form-row-2">
             <div class="form-group">
               <label>Артикул</label>
-              <input id="product-article" readonly placeholder="DG-XXX"/>
+              <input id="product-article" readonly placeholder="при публикации"/>
             </div>
             <div class="form-group">
               <label>Категория <span class="req">*</span></label>
@@ -1036,16 +1055,26 @@
   </div>
 </div>
 
-<script src="admin.js?v=20260929-cat-from-tags"></script>
-<script src="admin-extended.js?v=20260929-cat-from-tags"></script>
+<script src="admin.js?v=20261001-article-on-publish"></script>
+<script src="admin-extended.js?v=20261001-article-on-publish"></script>
 <script src="cloudinary-upload.js?v=cloud-fix-2"></script>
 <script src="imgbb-upload.js?v=1"></script>
 <script src="cloudinary-patch.js?v=yandex-1"></script>
 <script src="admin-studio-pro.js?v=20260929-ceiling-ref"></script>
-<script src="admin-ai.js?v=20260929-tags-always"></script>
+<script src="admin-ai.js?v=20261001-article-on-publish"></script>
 <script src="admin-reference-background.js"></script>
 <script src="admin-orders.js?v=1"></script>
 <script src="admin-price.js?v=7"></script>
-<script src="admin-publish-key.js?v=4"></script>
+<script src="admin-publish-key.js?v=5"></script>
+<script src="publish-screen.js?v=1"></script>
+<script src="publish-master.js?v=1"></script>
+<script src="publish-frames.js?v=1"></script>
+<script src="publish-pack.js?v=1"></script>
+<script src="publish-flat.js?v=1"></script>
+<script src="publish-bleed.js?v=1"></script>
+<script src="publish-pair.js?v=1"></script>
+<script src="publish-square.js?v=1"></script>
+<script src="publish-reshoot.js?v=2"></script>
+<script src="publish-ratio.js?v=2"></script>
 </body>
 </html>

@@ -1,0 +1,6 @@
+.publish-shot-label{
+  margin:-4px 0 14px;font-size:12px;font-weight:700;letter-spacing:.04em;
+  text-transform:uppercase;color:var(--admin-muted)
+}
+.publish-shot-label.is-master{color:var(--admin-accent)}
+.publish-empty{flex:0 0 auto;align-self:start}

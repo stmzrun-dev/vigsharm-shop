@@ -696,6 +696,10 @@ const app = {
       const el = document.getElementById(id);
       if (el && value != null) el.value = value;
     });
+    if ((draft.status || 'draft') !== 'published') {
+      const articleEl = document.getElementById('product-article');
+      if (articleEl) articleEl.value = '';
+    }
     Object.entries(draft.checks || {}).forEach(([id, checked]) => {
       const el = document.getElementById(id);
       if (el && el.type === 'checkbox') el.checked = !!checked;
@@ -773,14 +777,10 @@ const app = {
         if (!slugEl.value.trim()) slugEl.value = this.slugify(titleEl.value);
       });
     }
-    const articleEl = document.getElementById('product-article');
-    if (articleEl && !articleEl.value) this.assignFreshArticle();
-
     const catEl = document.getElementById('product-category');
     if (catEl && !catEl.dataset.articleWired) {
       catEl.dataset.articleWired = '1';
       catEl.addEventListener('change', () => {
-        if (!this.currentProduct?.id) this.assignFreshArticle();
         this.syncUnitBalloonForm?.(true);
         this.syncAdvanceOrderFromScene?.();
       });
@@ -848,7 +848,6 @@ const app = {
     // Сцена «Шар поштучно» → категория
     if (fromUser && sceneEl?.value === 'unit_balloon' && catEl && catEl.value !== 'Шары поштучно') {
       catEl.value = 'Шары поштучно';
-      if (!this.currentProduct?.id) this.assignFreshArticle?.();
     }
 
     const unit = this.isUnitBalloonMode();
@@ -859,7 +858,6 @@ const app = {
       if (sceneEl && sceneEl.value !== 'unit_balloon') sceneEl.value = 'unit_balloon';
       this.syncSceneRailUi?.('unit_balloon');
       if (titleEl) titleEl.placeholder = 'Точное название как у поставщика';
-      if (!this.currentProduct?.id) this.assignFreshArticle?.();
       this.syncStudioModeHint?.();
       this.syncUnitCharacterWrap?.();
       this.syncUnitHolidayControl?.();
@@ -1107,13 +1105,30 @@ const app = {
     return map[category] || 'DG';
   },
 
-  assignFreshArticle() {
+  /** Артикул заперт только у уже опубликованной карточки. Черновик можно переложить в другую полку. */
+  articleIsLocked() {
+    const id = this.currentProduct?.id;
+    if (!id) return false;
+    const status = this.currentProduct.status
+      || this.products?.find((p) => String(p.id) === String(id))?.status
+      || '';
+    return status === 'published';
+  },
+
+  /**
+   * Свободный артикул по итоговой категории.
+   * Поштучные шары всегда UNT: полка у них часто праздник, а не «Шары поштучно».
+   */
+  assignFreshArticle(category) {
     const articleEl = document.getElementById('product-article');
-    if (!articleEl) return;
-    // При редактировании существующего — не меняем артикул
-    if (this.currentProduct?.id && articleEl.value.trim()) return;
-    const cat = document.getElementById('product-category')?.value || '';
+    if (!articleEl) return '';
+    if (this.articleIsLocked()) return articleEl.value.trim();
+    const scene = this.currentProduct?.scene || document.getElementById('scene-select')?.value || '';
+    const cat = scene === 'unit_balloon'
+      ? 'Шары поштучно'
+      : (category || document.getElementById('product-category')?.value || '');
     articleEl.value = this.nextArticle(cat);
+    return articleEl.value;
   },
 
   slugify(str) {
@@ -2321,10 +2336,12 @@ const app = {
       }
     }
 
-    // Новый товар: всегда свежий свободный артикул (избегаем UNIQUE)
-    if (!this.currentProduct.id) {
-      this.assignFreshArticle();
-      data.article = document.getElementById('product-article')?.value.trim() || this.nextArticle(data.category);
+    // Артикул — только в момент публикации, по категории, которую оставили.
+    // Черновик номер не занимает. Уже опубликованный номер не переписываем.
+    if (status === 'published' && !this.articleIsLocked()) {
+      this.assignFreshArticle(data.category);
+      const articleCat = data.scene === 'unit_balloon' ? 'Шары поштучно' : data.category;
+      data.article = document.getElementById('product-article')?.value.trim() || this.nextArticle(articleCat);
     }
 
     const isEdit = !!this.currentProduct.id;

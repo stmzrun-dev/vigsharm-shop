@@ -965,7 +965,7 @@ Object.assign(app, {
     return uploadResult.url;
   },
 
-  async callRephotographMaster(imageUrl, scene, statusEl) {
+  async callRephotographMaster(imageUrl, scene, statusEl, format) {
     // Без restore: лишний шаг (часто content-policy на персонажах) и +1–3 мин.
     const keepBg = scene === 'arch';
     const referenceUrl = keepBg ? '' : await this.ensureReferenceHttpsUrl(scene);
@@ -985,7 +985,8 @@ Object.assign(app, {
               surprise_pose: scene === 'surprise' ? (this.getSurprisePose?.() || 'stand') : '',
               photozone_type: scene === 'photozone' ? (this.getPhotozoneType?.() || 'frame') : undefined,
               resolution: '2K',
-              prefer
+              prefer,
+              ...(format?.aspect_ratio ? { aspect_ratio: format.aspect_ratio, frame: format.frame } : {})
             })
           });
           const data = await res.json().catch(() => ({}));

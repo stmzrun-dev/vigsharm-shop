@@ -2235,6 +2235,7 @@ ${extra}`.trim();
 
 function buildRephotographAttempts(imageUrl, referenceUrl, prompt, resolution = '2K', prefer = 'quality', scene = 'floor', opts = {}) {
   const res = ['1K', '2K', '4K'].includes(resolution) ? resolution : '2K';
+  const aspect = ['1:1', '4:5', '9:16'].includes(opts.aspect_ratio) ? opts.aspect_ratio : '1:1';
   const keepBg = scene === 'arch';
   const ceiling = scene === 'ceiling';
   const wallOnly = ceiling || (['wall_only', 'unit_balloon', 'handheld_bouquet'].includes(scene) && !isWalkerOnFloor(scene, opts));
@@ -2263,16 +2264,18 @@ function buildRephotographAttempts(imageUrl, referenceUrl, prompt, resolution = 
       input: withRef({
         prompt: prompt + bananaExtra,
         image: imageUrl,
-        aspect_ratio: '1:1'
+        aspect_ratio: aspect
       })
     });
-    attempts.push({
-      model: 'image/nano-banana-edit',
-      input: withRef({
-        prompt: prompt + bananaExtra,
-        image: imageUrl
-      })
-    });
+    if (!opts.frame) {
+      attempts.push({
+        model: 'image/nano-banana-edit',
+        input: withRef({
+          prompt: prompt + bananaExtra,
+          image: imageUrl
+        })
+      });
+    }
   };
 
   // Mid-run fallback: Flux only. This model rejects prompts over 5000 characters.
@@ -2284,7 +2287,7 @@ function buildRephotographAttempts(imageUrl, referenceUrl, prompt, resolution = 
       input: withRef({
         prompt: fluxPrompt,
         image: imageUrl,
-        aspect_ratio: '1:1',
+        aspect_ratio: aspect,
         resolution: res === '4K' ? '2K' : res
       })
     });
@@ -2304,7 +2307,7 @@ function buildRephotographAttempts(imageUrl, referenceUrl, prompt, resolution = 
     input: withRef({
       prompt: prompt + roomHint,
       image: imageUrl,
-      aspect_ratio: '1:1',
+      aspect_ratio: aspect,
       resolution: res
     })
   });
@@ -2313,7 +2316,7 @@ function buildRephotographAttempts(imageUrl, referenceUrl, prompt, resolution = 
     input: withRef({
       prompt: prompt + roomHint,
       image: imageUrl,
-      aspect_ratio: '1:1',
+      aspect_ratio: aspect,
       resolution: res
     })
   });
@@ -2323,6 +2326,8 @@ function buildRephotographAttempts(imageUrl, referenceUrl, prompt, resolution = 
 async function handleStudioRephotograph(request, env) {
   const body = await request.json();
   const { image_url, reference_url, scene = 'floor', resolution = '2K' } = body;
+  const frame = body.frame === 'post' || body.frame === 'story' ? body.frame : '';
+  const aspect_ratio = ['1:1', '4:5', '9:16'].includes(body.aspect_ratio) ? body.aspect_ratio : '1:1';
   const prefer = body.prefer === 'banana' || body.prefer === 'fast'
     ? 'banana'
     : (body.prefer === 'flux' ? 'flux' : 'quality');
@@ -2343,8 +2348,15 @@ async function handleStudioRephotograph(request, env) {
     }
   }
 
-  const prompt = buildRephotographPrompt(scene, { photozone_type, unit_type, bouquet_type, surprise_pose });
-  const attempts = buildRephotographAttempts(image_url, reference_url, prompt, resolution, prefer, scene, { unit_type, bouquet_type, surprise_pose });
+  let prompt = buildRephotographPrompt(scene, { photozone_type, unit_type, bouquet_type, surprise_pose });
+  if (frame === 'post') {
+    prompt += '\n\nOUTPUT 4:5 portrait. Keep the ENTIRE balloon arrangement fully inside the frame: every balloon, digit, character and ribbon tip complete, with studio wall visible around the set. Do not crop, do not zoom in, do not cut off any balloon.';
+  } else if (frame === 'story') {
+    prompt += '\n\nOUTPUT 9:16 vertical. Place the ENTIRE arrangement in the UPPER half, every balloon complete and uncropped. The LOWER THIRD is empty studio wall only, for a caption. Do not crop any balloon. Do not fill the bottom with the product.';
+  }
+  const attempts = buildRephotographAttempts(image_url, reference_url, prompt, resolution, prefer, scene, {
+    unit_type, bouquet_type, surprise_pose, aspect_ratio, frame
+  });
 
   let generateResp = null;
   let usedModel = null;
@@ -3194,7 +3206,10 @@ async function handleCreateProduct(request, env) {
     const price = Number(data.price);
     const priceSafe = Number.isFinite(price) ? price : 0;
     const slug = await ensureUniqueSlug(env, data.slug || data.title || data.article || id);
-    const article = await ensureUniqueArticle(env, data.article || 'DG-001');
+    const rawArticle = String(data.article || '').trim();
+    const article = rawArticle
+      ? await ensureUniqueArticle(env, rawArticle)
+      : ((data.status || 'draft') === 'draft' ? null : await ensureUniqueArticle(env, 'DG-001'));
 
     await env.DB.prepare(`INSERT INTO products (
       id, title, article, price, short_description, full_description, composition,
@@ -3265,11 +3280,13 @@ async function handleUpdateProduct(path, request, env) {
       data.slug ?? existing.slug ?? data.title ?? existing.title ?? id,
       id
     );
-    const nextArticle = await ensureUniqueArticle(
-      env,
-      data.article ?? existing.article ?? 'DG-001',
-      id
-    );
+    const rawArticle = data.article == null ? null : String(data.article).trim();
+    const publishing = (data.status ?? existing.status) === 'published';
+    const nextArticle = rawArticle
+      ? await ensureUniqueArticle(env, rawArticle, id)
+      : (publishing
+        ? await ensureUniqueArticle(env, existing.article || 'DG-001', id)
+        : null);
 
     await env.DB.prepare(`UPDATE products SET
       title = ?, article = ?, price = ?, short_description = ?, full_description = ?,

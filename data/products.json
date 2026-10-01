@@ -2,6 +2,186 @@
   "ok": true,
   "products": [
     {
+      "id": "86e72944-0eb0-40b4-a947-51af4e1d1299",
+      "title": "Сиреневая любовь",
+      "article": "MRS-006",
+      "price": 1800,
+      "short_description": "Мишка из сиреневых роз с розовым сердцем — идеальный подарок для выражения чувств",
+      "full_description": "Нежный мишка из сиреневых роз держит сердце из розовых роз. Трогательная композиция для дорогого человека.",
+      "composition": [
+        "мишка из сиреневых роз",
+        "сердце из розовых роз"
+      ],
+      "category": "Мишки из роз",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": "1 000–2 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Мишка из сиреневых роз с сердцем — купить в VigSharm",
+      "seo_description": "Мишка из сиреневых роз с розовым сердцем. Оригинальный подарок для выражения чувств. Доставка по городу.",
+      "slug": "sirenevaya-lyubov",
+      "scene": "table",
+      "tags": [
+        "Мишки из роз"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/f6cdd000-e5e6-463f-b293-746f5a63cf0a.jpg",
+        "photo_dhash": "e0e8f8f8e8cce8e0",
+        "rose_type": "bear"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/ac0d92fe-aa69-42e9-8939-b24656c0c2e3.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/ac0d92fe-aa69-42e9-8939-b24656c0c2e3.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-01T14:28:32.611Z",
+      "updated_at": "2026-10-01T14:28:32.611Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "4989a37d-719d-46c5-9720-988b159be1a5",
+      "title": "Нежное признание",
+      "article": "MRS-005",
+      "price": 1800,
+      "short_description": "Мишка из роз с красным сердцем — трогательный подарок для особенного человека.",
+      "full_description": "Розовый мишка из роз держит красное сердце. Нежная композиция для выражения чувств.",
+      "composition": [
+        "мишка из розовых роз",
+        "сердце из красных роз"
+      ],
+      "category": "Мишки из роз",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": "1 000–2 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Мишка из роз с сердцем — купить в VigSharm",
+      "seo_description": "Розовый мишка из роз с красным сердцем. Оригинальный подарок для выражения чувств. Доставка по городу.",
+      "slug": "rozovoe-serdce",
+      "scene": "table",
+      "tags": [
+        "Мишки из роз"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/d74ec16f-0087-4a15-b6a1-6cfb40193b27.jpg",
+        "photo_dhash": "f8e8f8f8e8f0f0f4",
+        "rose_type": "bear"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/337ed0c6-992d-4d07-94a7-94aba7006bee.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/337ed0c6-992d-4d07-94a7-94aba7006bee.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-01T14:22:38.784Z",
+      "updated_at": "2026-10-01T14:22:38.784Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "2b370847-4365-40f6-b609-ec54d15ebf72",
+      "title": "Красное признание",
+      "article": "MRS-004",
+      "price": 1800,
+      "short_description": "Мишка из красных роз с белым сердцем — символ искренних чувств.",
+      "full_description": "Красный мишка из роз держит белое сердце на груди. Нежная лента с надписью завершает образ романтичного подарка.",
+      "composition": [
+        "мишка из красных роз",
+        "сердце из белых роз"
+      ],
+      "category": "Мишки из роз",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": "1 000–2 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Мишка из красных роз с белым сердцем | VigSharm",
+      "seo_description": "Красный мишка из роз с белым сердцем — романтичный подарок для выражения чувств. Доставка по городу.",
+      "slug": "serdce-v-podarok",
+      "scene": "table",
+      "tags": [
+        "Мишки из роз"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/42198678-4a5b-4193-b581-05a491928af4.jpg",
+        "photo_dhash": "f0e0f0f8f8cccce8",
+        "rose_type": "bear"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/58495252-c618-4966-9a5e-0b6aec3f5e8e.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/58495252-c618-4966-9a5e-0b6aec3f5e8e.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-01T14:19:44.447Z",
+      "updated_at": "2026-10-01T14:19:44.447Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "478fe1f8-2b4e-42d8-9858-6da3b5f7bbbc",
+      "title": "Бирюзовая искренность",
+      "article": "MRS-002",
+      "price": 1800,
+      "short_description": "Мишка из бирюзовых роз с белым сердцем — подарок, который запомнится надолго.",
+      "full_description": "Мишка полностью выполнен из бирюзовых роз и держит белое сердце из роз. Яркий и трогательный подарок для выражения чувств.",
+      "composition": [
+        "мишка из бирюзовых роз",
+        "сердце из белых роз"
+      ],
+      "category": "Мишки из роз",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": "1 000–2 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Бирюзовая искренность — мишка из роз с белым сердцем",
+      "seo_description": "Мишка из бирюзовых роз с белым сердцем. Яркий подарок для выражения чувств. Закажите в VigSharm с доставкой.",
+      "slug": "biryuzovaya-iskrennost",
+      "scene": "table",
+      "tags": [
+        "Мишки из роз"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/ddd5d92b-e480-430e-a4e1-072b762e09e3.jpg",
+        "photo_dhash": "f8e8f8f8e8ccece0",
+        "rose_type": "bear"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/b36712bd-e514-4df7-98e1-379cd04f5e1a.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/b36712bd-e514-4df7-98e1-379cd04f5e1a.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-01T14:17:01.390Z",
+      "updated_at": "2026-10-01T14:17:01.390Z",
+      "thumb_photo": null
+    },
+    {
       "id": "11ef6343-9416-48a9-898b-0e01010d8316",
       "title": "Алая романтика",
       "article": "MRS-003",

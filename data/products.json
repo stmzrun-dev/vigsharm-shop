@@ -2,6 +2,94 @@
   "ok": true,
   "products": [
     {
+      "id": "11ef6343-9416-48a9-898b-0e01010d8316",
+      "title": "Алая романтика",
+      "article": "MRS-003",
+      "price": 1600,
+      "short_description": "Мишка из красных роз с атласным бантом — романтичный подарок для любимых.",
+      "full_description": "Декоративный мишка, полностью покрытый красными розами из вспененного материала, украшен черным атласным бантом с надписью.",
+      "composition": [
+        "мишка из красных роз"
+      ],
+      "category": "Мишки из роз",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": "1 000–2 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Мишка из красных роз с бантом | VigSharm",
+      "seo_description": "Декоративный мишка из красных роз с атласным бантом. Романтичный подарок для признания в чувствах и особых моментов.",
+      "slug": "alaya-romantika",
+      "scene": "table",
+      "tags": [
+        "Мишки из роз"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/1993a834-f488-46e7-9289-f613c8eb40a0.jpg",
+        "photo_dhash": "f8e8f8f8e8f0f0e8",
+        "rose_type": "bear"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/22e0d26a-8787-4f47-b1cd-ea8b82e0e199.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/22e0d26a-8787-4f47-b1cd-ea8b82e0e199.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-01T14:10:01.029Z",
+      "updated_at": "2026-10-01T14:10:01.029Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "d80ab69e-f827-40a2-b65c-a7fbb1b5ab03",
+      "title": "Серебряная нежность",
+      "article": "MRS-001",
+      "price": 1600,
+      "short_description": "Изящный мишка из роз благородного серого оттенка с алым бантом",
+      "full_description": "Декоративный мишка, полностью выполненный из искусственных серых роз, украшен красной атласной лентой с надписью.",
+      "composition": [
+        "мишка из серых роз"
+      ],
+      "category": "Мишки из роз",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": "1 000–2 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Серебряная нежность — мишка из роз серого цвета | VigSharm",
+      "seo_description": "Изящный мишка из серых роз с алым бантом. Оригинальный подарок для особенного человека. Закажите в каталоге VigSharm.",
+      "slug": "serebryanaya-nezhnost",
+      "scene": "table",
+      "tags": [
+        "Мишки из роз"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/c9044297-857d-48a4-a0da-6bdc1f3c3fdf.jpg",
+        "photo_dhash": "f8e8f0f8e8e0f0f0",
+        "rose_type": "bear"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/1395c9fa-6cc9-49bf-9707-713e430980fd.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/1395c9fa-6cc9-49bf-9707-713e430980fd.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-01T14:02:53.188Z",
+      "updated_at": "2026-10-01T14:13:40.970Z",
+      "thumb_photo": null
+    },
+    {
       "id": "161e082b-d342-4f92-96c2-82d88c10c7c8",
       "title": "Черновик · 20",
       "article": null,

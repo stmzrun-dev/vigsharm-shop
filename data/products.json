@@ -2,6 +2,538 @@
   "ok": true,
   "products": [
     {
+      "id": "db68bf0c-bc0d-4257-87df-27a2f35d5f3b",
+      "title": "Зубик, Розовый",
+      "article": "UNT-249",
+      "price": 450,
+      "short_description": "Зубик, Розовый",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "vspysh-9",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "1 годик"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/4ba42bec-3c41-4c23-826a-e6c0a3140019.jpg",
+        "photo_dhash": "9c9a5eb6a4e4e8c8",
+        "unit_type": "foil",
+        "balloon_size": "55 см",
+        "unit_who": [
+          "1 годик"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/9ffdaadb-b45f-4030-af96-4b3eb9a170cb.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/9ffdaadb-b45f-4030-af96-4b3eb9a170cb.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-01T07:07:38.794Z",
+      "updated_at": "2026-10-01T07:07:38.794Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "a7fa44cb-3108-4461-acb0-4978d0829d44",
+      "title": "Зубик, Синий",
+      "article": "UNT-248",
+      "price": 450,
+      "short_description": "Зубик, Синий",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "vspysh-8",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "1 годик"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/631dad7e-43ca-40cb-9dd3-e04e18ba2a2b.jpg",
+        "photo_dhash": "9c9a9eb6e4f4ecc8",
+        "unit_type": "foil",
+        "balloon_size": "55 см",
+        "unit_who": [
+          "1 годик"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/a9cfe2d5-6a6a-4172-bbe3-0e484610dc6f.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/a9cfe2d5-6a6a-4172-bbe3-0e484610dc6f.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-01T07:06:08.135Z",
+      "updated_at": "2026-10-01T07:06:08.135Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "133e9e03-39af-4982-a8bf-8a93b04a14eb",
+      "title": "Малыш мальчик с соской",
+      "article": "UNT-247",
+      "price": 550,
+      "short_description": "Малыш мальчик с соской",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "vspysh-7",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "На выписку"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/155f0131-5bd0-4e79-a22a-ddf561f25caa.jpg",
+        "photo_dhash": "f0e4e4f4c6c4d0f0",
+        "unit_type": "foil",
+        "balloon_size": "60 см",
+        "unit_who": [
+          "На выписку"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/9c15e75b-b7ca-4ded-ac3e-9983d6c9b9e4.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/9c15e75b-b7ca-4ded-ac3e-9983d6c9b9e4.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-01T07:04:41.707Z",
+      "updated_at": "2026-10-01T07:04:41.707Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "6e999c4a-05eb-4dea-863e-67c0dc4c874f",
+      "title": "Малышка девочка с соской",
+      "article": "UNT-246",
+      "price": 550,
+      "short_description": "Малышка девочка с соской",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "vspysh-6",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "На выписку"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/97b8171e-2b83-4c93-94f8-e2967db227c6.jpg",
+        "photo_dhash": "f0ccd4f4c6c4d4f0",
+        "unit_type": "foil",
+        "balloon_size": "60 см",
+        "unit_who": [
+          "На выписку"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/687f0e53-058c-4a8f-918f-10c35b8a5275.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/687f0e53-058c-4a8f-918f-10c35b8a5275.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-01T07:03:43.675Z",
+      "updated_at": "2026-10-01T07:03:43.675Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "a400fc27-1dcb-49d7-b8a0-ba61e2bc880d",
+      "title": "Малыша Девочка",
+      "article": "UNT-245",
+      "price": 600,
+      "short_description": "Малыша Девочка",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "vspysh-5",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "На выписку"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/0ed06dd3-b536-4742-a5dc-3ebab0a41872.jpg",
+        "photo_dhash": "f0f0e8f0f0c08ee8",
+        "unit_type": "foil",
+        "balloon_size": "65 см",
+        "unit_who": [
+          "На выписку"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/e63798f0-5425-4983-860d-7e831f689c49.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/e63798f0-5425-4983-860d-7e831f689c49.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-01T07:02:37.508Z",
+      "updated_at": "2026-10-01T07:02:37.508Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "3efd6060-935a-40c2-b88d-a3375f3f578d",
+      "title": "Малыш Мальчик",
+      "article": "UNT-244",
+      "price": 600,
+      "short_description": "Малыш Мальчик",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "vspysh-4",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "На выписку"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/21c11365-bc03-482b-998b-90911962f8df.jpg",
+        "photo_dhash": "f0e0f8f0f0f0dccc",
+        "unit_type": "foil",
+        "balloon_size": "70 см",
+        "unit_who": [
+          "На выписку"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/1a068696-92a8-4bc5-9682-edad3c4a1563.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/1a068696-92a8-4bc5-9682-edad3c4a1563.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-01T07:00:40.698Z",
+      "updated_at": "2026-10-01T07:00:40.698Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "c45d8ba1-764e-4d99-ba93-302c2c8def1e",
+      "title": "Малыш на облаке",
+      "article": "UNT-243",
+      "price": 650,
+      "short_description": "Малыш на облаке",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "vspysh-3",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "На выписку"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/5f47a835-ec6d-4250-959c-e1f93eeb1d68.jpg",
+        "photo_dhash": "a8b8f0f0daf4fcf8",
+        "unit_type": "foil",
+        "balloon_size": "65 см",
+        "unit_who": [
+          "На выписку"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/11b98196-228c-47dc-9135-7fc539c67d54.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/11b98196-228c-47dc-9135-7fc539c67d54.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-01T06:57:53.588Z",
+      "updated_at": "2026-10-01T06:57:53.588Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "c8979027-8c14-4cef-8d24-50e3ddc14f28",
+      "title": "Малышка на облаке",
+      "article": "UNT-242",
+      "price": 650,
+      "short_description": "Малышка на облаке",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "vspysh-2",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "На выписку"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/d9f737c5-1531-4c47-96e1-bda7ddb2ace0.jpg",
+        "photo_dhash": "a8b8f8f0d8f4f8f8",
+        "unit_type": "foil",
+        "balloon_size": "65 см",
+        "unit_who": [
+          "На выписку"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/b217562a-5ddf-48fd-ae7a-44346c0a5b4f.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/b217562a-5ddf-48fd-ae7a-44346c0a5b4f.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-01T06:56:07.242Z",
+      "updated_at": "2026-10-01T06:56:07.242Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "cb2e7615-2748-4229-bba2-e8bd1f64c9c9",
+      "title": "Вспыш",
+      "article": "UNT-241",
+      "price": 950,
+      "short_description": "Вспыш",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": "Вспыш",
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": "Вспыш и чудо-машинки",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "vspysh",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/16774718-2376-4aee-a490-770f36007836.jpg",
+        "photo_dhash": "78fad6b48c92a2b0",
+        "unit_type": "foil",
+        "balloon_size": "86 см",
+        "unit_who": [
+          "Для мальчика"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/05241378-cde1-4214-817b-2992f6eb6c92.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/05241378-cde1-4214-817b-2992f6eb6c92.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-01T06:52:02.227Z",
+      "updated_at": "2026-10-01T06:52:02.227Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "aca418ec-48c6-4c40-9bcc-ec866888eeae",
+      "title": "Зубакисси Розовый",
+      "article": "UNT-240",
+      "price": 550,
+      "short_description": "Зубакисси Розовый",
+      "full_description": "",
+      "composition": [],
+      "category": "Хэллоуин",
+      "character": "Зубакисси",
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": "Poppy Playtime",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "gonka-nachinaetsya-3",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Для девочки",
+        "Хэллоуин"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/3554b310-a67f-4649-be3a-db5db6e0f205.jpg",
+        "photo_dhash": "9c7dbaf8b2f0f0d8",
+        "unit_type": "foil",
+        "balloon_size": "61 см",
+        "unit_who": [
+          "Для девочки"
+        ],
+        "unit_holiday": "Хэллоуин"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/45fa6f31-f342-40d3-beb9-57602f517b84.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/45fa6f31-f342-40d3-beb9-57602f517b84.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-01T06:21:22.028Z",
+      "updated_at": "2026-10-01T06:21:22.028Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "c22377f3-8c22-4d87-9cab-df2afa4f9d42",
+      "title": "Зубабасси Синий",
+      "article": "UNT-239",
+      "price": 550,
+      "short_description": "Зубабасси Синий",
+      "full_description": "",
+      "composition": [],
+      "category": "Хэллоуин",
+      "character": "Хаги Ваги",
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": "Poppy Playtime",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "gonka-nachinaetsya-2",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Для мальчика",
+        "Хэллоуин"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/2fea1583-d0e4-4d01-8f35-de0d975a388a.jpg",
+        "photo_dhash": "9c3c34f0b9f8e8c8",
+        "unit_type": "foil",
+        "balloon_size": "61 см",
+        "unit_who": [
+          "Для мальчика"
+        ],
+        "unit_holiday": "Хэллоуин"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/4b59592d-def5-4d7d-8ae6-fec7f5135a43.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/4b59592d-def5-4d7d-8ae6-fec7f5135a43.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-01T06:18:46.062Z",
+      "updated_at": "2026-10-01T06:18:46.062Z",
+      "thumb_photo": null
+    },
+    {
       "id": "1fa66c31-e478-4076-938b-04b0a4bd3d51",
       "title": "Бутылочка для Малыша, Ванильное Золото",
       "article": "UNT-238",
@@ -396,7 +928,7 @@
       "full_description": "",
       "composition": [],
       "category": "Шары поштучно",
-      "character": "Хелло Китти",
+      "character": "Hello Kitty",
       "age_group": "Для любого возраста",
       "budget": null,
       "series_name": "Hello Kitty",
@@ -407,9 +939,9 @@
       "slug": "klubnika-s-cvetkom-10-9",
       "scene": "unit_balloon",
       "tags": [
+        "Для девочки",
         "Шары поштучно",
-        "Фольгированные фигуры",
-        "Для девочки"
+        "Фольгированные фигуры"
       ],
       "client_options": {
         "available_on_request": false,
@@ -432,7 +964,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-30T20:57:46.129Z",
-      "updated_at": "2026-09-30T21:10:37.129Z",
+      "updated_at": "2026-10-01T07:06:02.051Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/c21c89c9-328c-4703-83ce-d21f113b324f.webp"
     },
     {
@@ -1264,7 +1796,7 @@
     {
       "id": "e917cc4a-b864-4cc0-90a7-040ab48000f0",
       "title": "Космический старт",
-      "article": "BOY-047",
+      "article": "Y1-013",
       "price": 3700,
       "short_description": "Космонавт в скафандре, радужные хромированные шары и серебряная цифра.",
       "full_description": "Фольгированная фигура космонавта в белом скафандре с синим шлемом, серебряная цифра и 10 хромированных шаров в радужных оттенках.",
@@ -1307,7 +1839,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-30T20:13:21.727Z",
-      "updated_at": "2026-10-01T06:07:46.097Z",
+      "updated_at": "2026-10-01 06:53:46",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/7fc871de-53bd-46a4-bf30-9be1eeedef15.webp"
     },
     {
@@ -3070,7 +3602,7 @@
     {
       "id": "7ed0f92e-3bdc-4473-825e-d311d10a5c3f",
       "title": "Пастельная магия",
-      "article": "DG-012",
+      "article": "HER-049",
       "price": 4650,
       "short_description": "Композиция с баблс-единорогом, розовой звездой и пастельными шарами.",
       "full_description": "Настенная композиция с баблс в виде единорога, розовой звездой с надписью и 10 пастельными шарами. Украшена лентой тассел в нежных тонах.",
@@ -3110,7 +3642,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-29T12:32:04.858Z",
-      "updated_at": "2026-09-29T20:50:03.887Z",
+      "updated_at": "2026-10-01 06:53:46",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/4b8ad4e4-db94-4851-8969-afefb056d78e.webp"
     },
     {
@@ -4381,7 +4913,7 @@
     {
       "id": "a87005ed-9870-4957-a0de-52d5bc8c77ab",
       "title": "Черновик",
-      "article": "DG-011",
+      "article": "HIM-037",
       "price": 6040,
       "short_description": "Элегантная композиция в чёрно-золотых тонах с мраморными акцентами и баблсом с персональной надписью.",
       "full_description": "Стильная напольная композиция в серебристо-чёрно-золотой гамме. Крупные цифры, супер-агат шары и прозрачный баблс с надписью создают современный образ.",
@@ -4426,7 +4958,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-28T12:57:59.229Z",
-      "updated_at": "2026-09-28T19:05:05.182Z",
+      "updated_at": "2026-10-01 06:53:46",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/3e6d46fe-1481-4d8f-97ae-6b9ba1cff96f.webp"
     },
     {
@@ -14918,7 +15450,7 @@
     {
       "id": "faa6c1d2-23bc-49ce-876b-b1b261582cb5",
       "title": "Кольцо с бриллиантом",
-      "article": "HER-013",
+      "article": "WED-004",
       "price": 1950,
       "short_description": "Композиция с фольгированным кольцом и именным сердцем в розово-золотых тонах.",
       "full_description": "Композиция из фольгированного кольца с бриллиантом, белого сердца с надписью и розово-золотых шаров. Нежное сочетание для романтичного момента.",
@@ -14958,7 +15490,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-25T08:12:56.400Z",
-      "updated_at": "2026-09-27T06:15:50.781Z",
+      "updated_at": "2026-10-01 06:53:46",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/2cbf3074-24f9-4fed-89b2-4fa49e2c6571.webp"
     },
     {
@@ -15008,7 +15540,7 @@
     {
       "id": "dcf52f0c-ee72-4859-af40-4bb1ccb89666",
       "title": "Интрига раскрытия",
-      "article": "PHT-019",
+      "article": "GND-003",
       "price": 10000,
       "short_description": "Фотозона с круглым баннером в розово-голубой гамме и золотыми акцентами.",
       "full_description": "Фотозона с белым круглым баннером на каркасе, украшенная гирляндами из розовых и голубых шаров разного размера с золотыми акцентами. Идеальна для гендер-пати.",
@@ -15052,7 +15584,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-25T07:55:44.786Z",
-      "updated_at": "2026-09-28T07:14:08.899Z",
+      "updated_at": "2026-10-01 06:53:46",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/30443bab-7efb-47f0-b73d-26ea84a0acb0.webp"
     },
     {
@@ -15791,56 +16323,6 @@
       "created_at": "2026-09-24T22:14:30.490Z",
       "updated_at": "2026-09-25T15:27:15.232Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/cb5a7c57-423d-408a-80b1-cad7e950ff44.webp"
-    },
-    {
-      "id": "0b039025-fcf4-46c8-9f0e-f43eaf7b2d10",
-      "title": "Золотая дата",
-      "article": "BOX-048",
-      "price": 5740,
-      "short_description": "Коробка-сюрприз с золотыми цифрами и фонтаном из хромированных шаров в чёрно-золотой гамме.",
-      "full_description": "Элегантная композиция с крупными фольгированными цифрами золотого цвета и коробкой с индивидуальной надписью. Дополнена фонтаном из хромированных шаров золотого и чёрного оттенков.",
-      "composition": [
-        "коробка 70x70x70 с индивидуальной надписью и декором",
-        "2 цифры",
-        "6 хромированных шаров",
-        "4 латексных шара"
-      ],
-      "category": "Коробка-сюрприз",
-      "character": null,
-      "age_group": "Для детей",
-      "budget": "5 000–8 000 ₽",
-      "series_name": null,
-      "occasion": null,
-      "target_audience": null,
-      "seo_title": "Коробка-сюрприз с золотыми цифрами и шарами в Армавире",
-      "seo_description": "Коробка-сюрприз с фольгированными цифрами и фонтаном из хромированных шаров. Чёрно-золотая композиция с индивидуальной надписью.",
-      "slug": "zolotaya-data",
-      "scene": "floor",
-      "tags": [
-        "Коробка-сюрприз"
-      ],
-      "client_options": {
-        "available_on_request": false,
-        "advance_order_1_2_days": true,
-        "number_choice": true,
-        "personal_inscription": true,
-        "photozone_rental": false,
-        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/61c0a0b9-5a34-4e36-a619-f27ebdd62dd5.jpg",
-        "digit_choice": {
-          "enabled": true,
-          "count_on_photo": 2
-        },
-        "photo_dhash": "c6dedecee2d0f0f1"
-      },
-      "photos": [
-        "https://storage.yandexcloud.net/vigsharm-photos/products/933c94cb-2ef0-489f-92bd-767889f4d311.jpg"
-      ],
-      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/933c94cb-2ef0-489f-92bd-767889f4d311.jpg",
-      "status": "published",
-      "show_on_site": true,
-      "created_at": "2026-09-24T22:02:47.888Z",
-      "updated_at": "2026-09-25T15:27:19.047Z",
-      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/d1b96c30-145a-4bed-a455-9369321b498c.webp"
     },
     {
       "id": "48b3b4ec-d3b1-4625-b414-78684c17c084",
@@ -17445,7 +17927,7 @@
     {
       "id": "bb523f88-2081-4a4f-85c5-29f0eca39b1c",
       "title": "Ледяная королева",
-      "article": "DG-009",
+      "article": "BOX-068",
       "price": 5560,
       "short_description": "Ходячая фигура Эльзы с коробкой-сюрпризом и букетом шаров в холодных оттенках.",
       "full_description": "Композиция с ходячей фигурой Эльзы, большой коробкой с надписью и яркими шарами. Бирюзовая коробка украшена розовым бантом, рядом букет из латексных и фольгированных шаров с конфетти.",
@@ -17487,7 +17969,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-24T06:49:51.674Z",
-      "updated_at": "2026-09-29T06:45:00.585Z",
+      "updated_at": "2026-10-01 06:53:46",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/2274547f-7bb1-4d8a-a357-2da72b46aacb.webp"
     },
     {
@@ -20590,7 +21072,7 @@
     {
       "id": "1bfdd137-b667-43f0-ae4c-047bf2d1a25e",
       "title": "Божья коровка в цветах",
-      "article": "GRL-044",
+      "article": "FIG-029",
       "price": 4560,
       "short_description": "Фигура божьей коровки из шаров с цветами и фонтан из разноцветных шаров с конфетти.",
       "full_description": "Композиция из фигуры божьей коровки с яркими цветами и радужного фонтана шаров. В фонтане латексные шары разных цветов, хромированные и прозрачные с конфетти.",
@@ -20635,7 +21117,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T13:29:59.910Z",
-      "updated_at": "2026-09-28T07:49:10.774Z",
+      "updated_at": "2026-10-01 06:53:46",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/b5e22d37-8a55-400c-955f-b4e5c1c330d7.webp"
     },
     {
@@ -21074,7 +21556,7 @@
     {
       "id": "d77dbe05-9a72-4dc0-a24f-dab897adf989",
       "title": "Спасательная команда",
-      "article": "BOY-026",
+      "article": "GRL-073",
       "price": 3930,
       "short_description": "Напольная композиция с далматинцем Маршалом и яркими латексными шарами.",
       "full_description": "Напольная композиция с фольгированной фигурой Маршала из Щенячьего патруля, цифрой 4 и разноцветными латексными шарами с персонажами мультсериала.",
@@ -21120,7 +21602,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T12:28:50.275Z",
-      "updated_at": "2026-09-28T07:48:21.415Z",
+      "updated_at": "2026-10-01 06:53:46",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/498edbb3-6e11-4830-b28b-ad7d983428cd.webp"
     },
     {
@@ -21707,7 +22189,7 @@
     {
       "id": "f34cba4f-03c1-4cb1-963e-354bdad3393b",
       "title": "Гламурная тройка",
-      "article": "GRL-027",
+      "article": "FIG-028",
       "price": 5920,
       "short_description": "Три фольгированные куклы LOL в окружении ярких фонтанов из шаров с золотым конфетти и фигурой на полу.",
       "full_description": "Композиция с тремя фольгированными фигурами кукол LOL, фонтанами из разноцветных латексных шаров с золотым конфетти, шарами супер-агат и фигурой из шаров на полу. Яркое оформление в розово-фиолетово-жёлтой гамме с золотыми акцентами.",
@@ -21749,7 +22231,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T11:03:20.134Z",
-      "updated_at": "2026-09-28T07:48:01.368Z",
+      "updated_at": "2026-10-01 06:53:46",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/7c55433f-cedb-4610-8b03-3fcef389a67a.webp"
     },
     {
@@ -22629,7 +23111,7 @@
     {
       "id": "3f03d96c-789b-4f39-8413-e68d86ab7c3d",
       "title": "Долгожданный",
-      "article": "BAB-004",
+      "article": "CHR-001",
       "price": 3740,
       "short_description": "Композиция с фигурой младенца и баблсом с именем для праздника выписки.",
       "full_description": "Нежная композиция с фольгированной фигурой младенца, баблсом с индивидуальной надписью и фонтаном из шаров. Подходит для встречи из роддома.",
@@ -22668,7 +23150,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-22T18:39:28.941Z",
-      "updated_at": "2026-09-28T07:47:21.767Z",
+      "updated_at": "2026-10-01 06:53:46",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/1b0814d1-5de3-42e0-b6d4-040d10e2c162.webp"
     },
     {
@@ -22955,7 +23437,7 @@
     {
       "id": "98743bd6-90d3-4fe0-86c6-7d8091472dc0",
       "title": "Розовая принцесса",
-      "article": "GRL-021",
+      "article": "FIG-027",
       "price": 5400,
       "short_description": "Розовая композиция с пуделем из шаров, баблс с поздравлением и фонтаном из шаров.",
       "full_description": "Композиция в нежно-розовых тонах с фигурой пуделя из шаров, прозрачным баблс с надписью «С Днём Рождения, Принцесса!» и фонтаном из розовых и белых шаров.",
@@ -22995,7 +23477,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-22T12:59:20.936Z",
-      "updated_at": "2026-09-28T07:46:54.662Z",
+      "updated_at": "2026-10-01 06:53:46",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/3255d3e4-5f3c-4b66-a1fa-bbf7ab60d929.webp"
     },
     {
@@ -23145,7 +23627,7 @@
     {
       "id": "901665f3-fe3f-4855-8fdf-feff72c95353",
       "title": "Футбольный рубеж",
-      "article": "JUB-009",
+      "article": "BOY-050",
       "price": 6700,
       "short_description": "Композиция с зелёной цифрой 10, футбольными мячами, кедом и чёрно-белыми шарами.",
       "full_description": "Напольная композиция с крупной зелёной цифрой 10, фольгированными футбольными мячами, серебряной звездой и кедом. В оформлении чёрные, белые, зелёные и серебряные шары.",
@@ -23189,7 +23671,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-22T08:44:27.380Z",
-      "updated_at": "2026-09-30T08:28:28.014Z",
+      "updated_at": "2026-10-01 06:53:46",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/6edcfd34-56bd-404c-998d-7696ab7d7133.webp"
     },
     {
@@ -23340,7 +23822,7 @@
     {
       "id": "648a14f0-3bd8-470b-ab7c-fb26bf6bbad9",
       "title": "Факультетский праздник",
-      "article": "JUB-008",
+      "article": "UNI-014",
       "price": 7000,
       "short_description": "Напольная композиция с золотыми цифрами 10 и квадратами в стиле волшебной школы.",
       "full_description": "Яркая композиция с крупными золотыми цифрами 10, фольгированными квадратами с гербом волшебной школы и фонтанами из латексных шаров со звёздами и конфетти.",
@@ -23387,7 +23869,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-22T08:22:34.341Z",
-      "updated_at": "2026-09-28T07:46:39.579Z",
+      "updated_at": "2026-10-01 06:53:46",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/53526c82-011a-42c6-bbb8-671d49f54ade.webp"
     },
     {
@@ -23644,62 +24126,6 @@
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/152df9e9-1de7-45d3-a9f9-22a2ce820a7c.webp"
     },
     {
-      "id": "c2d304ac-9f30-4003-8445-e608f8016253",
-      "title": "Золотой рубеж",
-      "article": "PHT-015",
-      "price": 6500,
-      "short_description": "Фотозона с мольбертом, золотыми цифрами и гирляндой из чёрных, белых и золотых шаров.",
-      "full_description": "Элегантная фотозона на деревянном мольберте с круглой табличкой для индивидуальной надписи. Крупные золотые фольгированные цифры и стильная гирлянда из чёрных, белых и золотых шаров создают торжественную атмосферу.",
-      "composition": [
-        "фотозона с мольбертом и круглой табличкой для индивидуальной надписи",
-        "2 цифры",
-        "гирлянда из латексных шаров"
-      ],
-      "category": "Фотозона",
-      "character": null,
-      "age_group": "Для взрослых",
-      "budget": "5 000–8 000 ₽",
-      "series_name": null,
-      "occasion": null,
-      "target_audience": null,
-      "seo_title": "Фотозона с золотыми цифрами и гирляндой — Армавир",
-      "seo_description": "Элегантная фотозона с мольбертом, золотыми фольгированными цифрами и стильной гирляндой из чёрных, белых и золотых шаров в Армавире.",
-      "slug": "zolotoy-rubezh",
-      "scene": "photozone",
-      "tags": [
-        "Фотозона"
-      ],
-      "client_options": {
-        "available_on_request": false,
-        "advance_order_1_2_days": true,
-        "number_choice": true,
-        "personal_inscription": true,
-        "photozone_rental": true,
-        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/2abe6c56-1fd9-4d55-87b5-9a5bf169f0ca.jpg",
-        "photozone_type": "easel",
-        "rental": {
-          "enabled": true,
-          "item": "Мольберт с кругом из полистирола",
-          "days": 3,
-          "keep_price_delta": 500
-        },
-        "digit_choice": {
-          "enabled": true,
-          "count_on_photo": 2
-        },
-        "photo_dhash": "206cc8981f498002"
-      },
-      "photos": [
-        "https://storage.yandexcloud.net/vigsharm-photos/products/64bc7276-e332-4425-9c22-05626b2cbce3.jpg"
-      ],
-      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/64bc7276-e332-4425-9c22-05626b2cbce3.jpg",
-      "status": "published",
-      "show_on_site": true,
-      "created_at": "2026-09-21T20:57:03.624Z",
-      "updated_at": "2026-09-28T07:46:29.911Z",
-      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/849b94c7-00a7-48be-a56c-215a8c228107.webp"
-    },
-    {
       "id": "ceefe451-1b5b-4cf9-b708-c6f6882fbf15",
       "title": "Рогатый друг",
       "article": "PHT-014",
@@ -23856,7 +24282,7 @@
     {
       "id": "828bf927-4d39-4cae-837a-f9bde44fd692",
       "title": "Нежная арка",
-      "article": "PHT-011",
+      "article": "WED-003",
       "price": 12000,
       "short_description": "Арка из белых, мятных и золотых шаров с круглым топпером для памятных снимков.",
       "full_description": "Фотозона в виде арки из воздушных шаров в мятно-золотой гамме с белыми акцентами. Украшена прозрачными шарами с конфетти и живой зеленью, дополнена круглым топпером с каллиграфией.",
@@ -23901,7 +24327,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-21T20:30:17.539Z",
-      "updated_at": "2026-09-28T07:46:23.992Z",
+      "updated_at": "2026-10-01 06:53:46",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/9cd124da-b3ca-4cfe-ba3b-58152f055062.webp"
     },
     {
@@ -24012,60 +24438,9 @@
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/43bdcf09-0f5f-4e0f-9c92-a6a6fd7075d9.webp"
     },
     {
-      "id": "97c01871-0077-42ef-b198-75391aca4241",
-      "title": "Гламурная четвёрка",
-      "article": "GRL-019",
-      "price": 6860,
-      "short_description": "Три куклы LOL, красная цифра 4, звёзды и шары с конфетти в коробке-сюрприз.",
-      "full_description": "Композиция с тремя фольгированными куклами LOL, яркой цифрой 4, красными звёздами и шарами с золотым конфетти. Всё упаковано в белую коробку-сюрприз с надписью.",
-      "composition": [
-        "3 фольгированные фигуры",
-        "цифра",
-        "3 звезды",
-        "6 латексных шаров",
-        "4 шара с конфетти"
-      ],
-      "category": "Коробка-сюрприз",
-      "character": "Куклы LOL",
-      "age_group": "Для детей",
-      "budget": "5 000–8 000 ₽",
-      "series_name": "LOL Surprise",
-      "occasion": null,
-      "target_audience": null,
-      "seo_title": "Шары с куклами LOL на 4 года в Армавире",
-      "seo_description": "Композиция с тремя куклами LOL, цифрой 4, звёздами и шарами с конфетти в коробке-сюрприз. Доставка воздушных шаров по Армавиру.",
-      "slug": "glamurnaya-chetverka",
-      "scene": "floor",
-      "tags": [
-        "Коробка-сюрприз"
-      ],
-      "client_options": {
-        "available_on_request": false,
-        "advance_order_1_2_days": true,
-        "number_choice": true,
-        "personal_inscription": false,
-        "photozone_rental": false,
-        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/213d710a-913e-4f00-be51-dd9e0a61685e.webp",
-        "photo_dhash": "9c9ce2708c4dcece",
-        "digit_choice": {
-          "enabled": true,
-          "count_on_photo": 1
-        }
-      },
-      "photos": [
-        "https://storage.yandexcloud.net/vigsharm-photos/products/d68bb52f-816f-4157-b13b-3caf9c8bfcfc.png"
-      ],
-      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/d68bb52f-816f-4157-b13b-3caf9c8bfcfc.png",
-      "status": "published",
-      "show_on_site": true,
-      "created_at": "2026-09-21T19:27:39.892Z",
-      "updated_at": "2026-09-28T18:32:27.242Z",
-      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/d601f743-f4f3-402c-80d6-91aba939d20b.webp"
-    },
-    {
       "id": "415168d4-ed23-463c-bb37-625a382d1412",
       "title": "Модная семёрка",
-      "article": "GRL-018",
+      "article": "BOX-066",
       "price": 5880,
       "short_description": "Коробка-сюрприз с куклами LOL, золотой цифрой 7 и нежными шарами.",
       "full_description": "Белая коробка с персональной надписью, две фольгированные куклы LOL, крупная золотая цифра 7 и композиция из латексных, хромированных шаров и шаров с конфетти.",
@@ -24111,7 +24486,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-21T19:22:50.767Z",
-      "updated_at": "2026-09-28T07:46:17.383Z",
+      "updated_at": "2026-10-01 06:53:46",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/ad7f019a-3b25-49d1-bc62-a7bbd85a957c.webp"
     },
     {
@@ -25413,7 +25788,7 @@
     {
       "id": "00763b82-9474-489f-b811-7ec6ca52d9b6",
       "title": "Чемпионский трофей",
-      "article": "JUB-007",
+      "article": "HIM-036",
       "price": 4500,
       "short_description": "Напольная композиция с золотым кубком, цифрами 40 и футбольным мячом в красно-бело-серебряной гамме.",
       "full_description": "Напольная композиция с фольгированным золотым кубком, красными цифрами 40 с логотипом Liverpool FC, футбольным мячом и гирляндой из красных, белых и серебряных шаров. Яркое оформление для футбольного болельщика.",
@@ -25457,7 +25832,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-21T08:06:53.437Z",
-      "updated_at": "2026-09-28T07:45:26.370Z",
+      "updated_at": "2026-10-01 06:53:46",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/16ef9667-ed2c-4e17-93d2-0eac95e5dbcc.webp"
     },
     {
@@ -25510,7 +25885,7 @@
     {
       "id": "d73a1501-6cc2-4834-863f-3693b6e3895c",
       "title": "Графитовый импульс",
-      "article": "HIM-012",
+      "article": "UNI-013",
       "price": 3780,
       "short_description": "Элегантная композиция в серебристо-чёрной гамме с цифрами и хромированными акцентами.",
       "full_description": "Стильная композиция из фольгированных цифр, серебряной звезды, хромированных и латексных шаров в монохромной палитре. Подходит для современного взрослого праздника.",
@@ -25554,7 +25929,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-21T07:49:32.964Z",
-      "updated_at": "2026-09-28T07:45:21.415Z",
+      "updated_at": "2026-10-01 06:53:46",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/6223fcfd-72c8-4690-bcc6-3b49487645ce.webp"
     },
     {
@@ -25928,7 +26303,7 @@
     {
       "id": "3b33b842-7e6f-4487-bdb6-15bf5e7ac5c6",
       "title": "Сюрприз для настоящего",
-      "article": "DG-002",
+      "article": "BOX-065",
       "price": 4700,
       "short_description": "Чёрно-золотая коробка с бутылкой виски, звездой и хромированными шарами.",
       "full_description": "Стильная коробка-сюрприз в чёрно-золотой гамме с фольгированной бутылкой виски, чёрной звездой и композицией из хромированных и латексных шаров.",
@@ -25969,13 +26344,13 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-20T19:21:44.475Z",
-      "updated_at": "2026-09-28T07:45:05.219Z",
+      "updated_at": "2026-10-01 06:53:46",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/f2fd2e8e-0fee-4818-a057-9f3a5c175671.webp"
     },
     {
       "id": "f32da3e1-f483-41a5-862c-4fbf3a51cfea",
       "title": "Бирюзовый тост",
-      "article": "JUB-006",
+      "article": "HER-048",
       "price": 5590,
       "short_description": "Напольная композиция на 60 лет в бирюзовых тонах с шампанским.",
       "full_description": "Элегантная композиция с крупными цифрами 60, фольгированными фигурами бутылки и бокала шампанского. Бирюзовые и серебряные шары создают торжественное настроение.",
@@ -26027,13 +26402,13 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-20T19:16:23.874Z",
-      "updated_at": "2026-09-28T07:45:04.236Z",
+      "updated_at": "2026-10-01 06:53:46",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/7de34106-4437-4d31-9bc1-90f2354375a2.webp"
     },
     {
       "id": "488a857b-6952-4b16-b543-4cf45c387518",
       "title": "Изумрудный юбилей",
-      "article": "JUB-005",
+      "article": "HER-047",
       "price": 4490,
       "short_description": "Напольная композиция с крупными цифрами в бирюзово-чёрной гамме и серебряными акцентами.",
       "full_description": "Стильная композиция на подставке из шаров с большими фольгированными цифрами бирюзового цвета, дополненная чёрной звездой с поздравительной надписью и серебряными звёздами.",
@@ -26076,7 +26451,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-20T19:06:35.280Z",
-      "updated_at": "2026-09-30T07:51:45.001Z",
+      "updated_at": "2026-10-01 06:53:46",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/18a17589-0cbb-48a1-a7a2-37b2a0bd7929.webp"
     },
     {
@@ -26174,7 +26549,7 @@
     {
       "id": "873cdae8-4f56-47c3-9c9b-560c457affa9",
       "title": "Золотая выдержка",
-      "article": "JUB-004",
+      "article": "HIM-035",
       "price": 5460,
       "short_description": "Элегантная композиция в золоте и чёрном с бутылкой и баблс.",
       "full_description": "Напольная композиция в строгой мужской гамме золота и чёрного. Крупные цифры, фигура бутылки и прозрачный баблс с конфетти создают атмосферу торжественного события.",
@@ -26223,7 +26598,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-20T18:13:35.467Z",
-      "updated_at": "2026-09-28T07:44:55.864Z",
+      "updated_at": "2026-10-01 06:53:46",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/4e7ce76f-5a96-4897-b3a4-3f2ac317c109.webp"
     },
     {
@@ -26646,7 +27021,7 @@
     {
       "id": "b111188e-71e3-4d0d-9c8a-7ffe1e53907b",
       "title": "Игристый юбилей",
-      "article": "JUB-002",
+      "article": "HER-046",
       "price": 5000,
       "short_description": "Напольная композиция с цифрами 40 и бутылкой шампанского в розово-золотой гамме.",
       "full_description": "Элегантная напольная композиция с фольгированными цифрами 40, бутылкой шампанского и цветочным декором. Выполнена в розово-золотых тонах с серебряными акцентами.",
@@ -26690,7 +27065,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-19T22:33:33.504Z",
-      "updated_at": "2026-09-29T05:36:00.305Z",
+      "updated_at": "2026-10-01 06:53:46",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/b6ba7c2c-cc7f-4ef1-9030-db86cf93e5dc.webp"
     },
     {
@@ -27276,7 +27651,7 @@
     {
       "id": "fe37e1a3-7c14-41db-aafd-cac995bfebef",
       "title": "Чёрный бант",
-      "article": "HER-006",
+      "article": "GRL-072",
       "price": 4700,
       "short_description": "Два баблса с чёрными бантиками и розовыми латексными шарами для изысканного праздника.",
       "full_description": "Композиция из двух прозрачных шаров баблс — один с персональной надписью, второй с россыпью розовых шаров внутри. Чёрные органзовые банты создают элегантный контраст с нежной розовой гаммой.",
@@ -27316,7 +27691,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-19T13:43:19.215Z",
-      "updated_at": "2026-09-29T05:20:35.359Z",
+      "updated_at": "2026-10-01 06:53:46",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/d374ae80-c8ec-4637-8d39-ab2096be566f.webp"
     },
     {
@@ -27379,7 +27754,7 @@
         "20 латексных шаров",
         "2 фольгированные фигуры малышей"
       ],
-      "category": "На выписку",
+      "category": "Гендер-пати",
       "character": "Малыш",
       "age_group": "Для малышей",
       "budget": "3 500–5 000 ₽",
@@ -27391,7 +27766,7 @@
       "slug": "dvoynaya-radost",
       "scene": "wall_only",
       "tags": [
-        "На выписку"
+        "Гендер-пати"
       ],
       "client_options": {
         "available_on_request": false,
@@ -27399,6 +27774,7 @@
         "number_choice": false,
         "personal_inscription": false,
         "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/5553cf01-ee5b-414c-b117-613b28416af9.png",
         "photo_dhash": "fdfdf5b55bf5f575"
       },
       "photos": [
@@ -27408,8 +27784,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-19T11:50:39.334Z",
-      "updated_at": "2026-09-28T07:44:13.935Z",
-      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/b9d0feea-0def-4ec9-a8b3-5e74f22cd945.webp"
+      "updated_at": "2026-10-01T07:14:39.795Z",
+      "thumb_photo": null
     },
     {
       "id": "ae643c5f-8b76-49a6-ae43-586843a00d40",
@@ -27611,7 +27987,7 @@
     {
       "id": "b1aed28b-a0ec-48a9-ac45-89220965c24d",
       "title": "Чёрное серебро",
-      "article": "JUB-001",
+      "article": "HIM-034",
       "price": 8100,
       "short_description": "Элегантная композиция в чёрно-серебряной гамме с крупными цифрами и баблс на подставках.",
       "full_description": "Стильное оформление с контрастным сочетанием чёрных и серебряных шаров. Крупные фольгированные цифры, баблс на декоративных подставках и акценты-звёзды создают графичный современный образ.",
@@ -27654,7 +28030,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-19T11:22:04.563Z",
-      "updated_at": "2026-09-28T07:44:10.834Z",
+      "updated_at": "2026-10-01 06:53:46",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/5e0242c2-8c28-46f7-977f-9f1064890df1.webp"
     },
     {
@@ -28085,7 +28461,7 @@
     {
       "id": "4d1990fa-cac9-4db5-b371-aa2898eb3589",
       "title": "Жирафик-улыбашка",
-      "article": "Y1-002",
+      "article": "UNI-012",
       "price": 3360,
       "short_description": "Композиция с фольгированным жирафом, золотой цифрой и шарами в нежных тонах.",
       "full_description": "Настенная композиция с улыбающимся жирафом, золотой цифрой-единицей и букетом латексных шаров. Нежная палитра золота, белого и оливкового создаёт спокойную праздничную атмосферу.",
@@ -28129,7 +28505,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-19T09:33:04.433Z",
-      "updated_at": "2026-09-28T07:43:58.746Z",
+      "updated_at": "2026-10-01 06:53:46",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/1a32b014-a9c9-46f6-ba96-a3ae2fe68bd9.webp"
     },
     {
@@ -28420,7 +28796,7 @@
     {
       "id": "73fad62f-21ba-48ca-bde8-e9fa5625f5a8",
       "title": "Сияющие дивы",
-      "article": "GRL-011",
+      "article": "BOX-053",
       "price": 5000,
       "short_description": "Коробка-сюрприз с фольгированными куклами LOL, золотой цифрой и воздушными шарами.",
       "full_description": "Композиция с двумя фольгированными фигурами кукол LOL в золотисто-розовой гамме, фольгированной цифрой и шарами с конфетти. Коробка украшена индивидуальной надписью и декором.",
@@ -28465,7 +28841,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-18T20:37:43.425Z",
-      "updated_at": "2026-09-28T07:43:51.113Z",
+      "updated_at": "2026-10-01 06:53:46",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/c80a8d9a-5656-4c4a-9eb4-e802f0bd6f8f.webp"
     },
     {
@@ -29125,7 +29501,7 @@
     {
       "id": "f0a39fcd-3e66-45c9-be80-c98ec0bf46b3",
       "title": "Железный характер",
-      "article": "BOY-006",
+      "article": "FIG-026",
       "price": 2500,
       "short_description": "Фигура из шаров в виде атлета с гантелей — яркий акцент для любого праздника.",
       "full_description": "Напольная фигура из воздушных шаров изображает улыбающегося спортсмена с гантелей в руке. Выполнена в красно-чёрной гамме с бежевыми акцентами.",
@@ -29161,7 +29537,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-17T19:25:52.345Z",
-      "updated_at": "2026-09-28T07:43:08.359Z",
+      "updated_at": "2026-10-01 06:53:46",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/de7e6750-0891-4da1-b332-7d5e72f00157.webp"
     },
     {
@@ -29217,7 +29593,7 @@
     {
       "id": "4e9fdb5e-8498-4407-abf4-046fde5a3d0a",
       "title": "Мышка с букетом",
-      "article": "GRL-007",
+      "article": "PHT-020",
       "price": 8000,
       "short_description": "Фотозона с Минни Маус, аркой из шаров в горошек и цифрой.",
       "full_description": "Фотозона на каркасе с фольгированной фигурой Минни Маус, держащей букет из шаров. Арка из красных, чёрных и белых шаров в горошек, цифра и персонализированная табличка.",
@@ -29268,13 +29644,13 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-17T11:20:18.803Z",
-      "updated_at": "2026-09-28T18:25:58.517Z",
+      "updated_at": "2026-10-01 06:53:46",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/b23ce4d6-a2e0-44e1-a1f0-748b812b49a1.webp"
     },
     {
       "id": "0be64ab3-0e4e-4f80-b944-5cb3eb982b26",
       "title": "Золотой жираф",
-      "article": "GRL-006",
+      "article": "PHT-017",
       "price": 6000,
       "short_description": "Фотозона на мольберте с гирляндой из розовых, белых и золотых шаров и фольгированным жирафом.",
       "full_description": "Фотозона на деревянном мольберте с асимметричной гирляндой из розовых, белых и золотых шаров. В композицию входит фольгированный жираф и напольные группы шаров.",
@@ -29318,13 +29694,13 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-17T11:08:37.440Z",
-      "updated_at": "2026-09-28T11:04:35.117Z",
+      "updated_at": "2026-10-01 06:53:46",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/5af74e3e-cca2-4d19-94cb-3217d434301a.webp"
     },
     {
       "id": "19d37ecc-28d5-44b4-8200-702904d0c6f5",
       "title": "Солнечная улыбка",
-      "article": "GRL-005",
+      "article": "FIG-025",
       "price": 2000,
       "short_description": "Божья коровка из шаров с букетом жёлтых цветов и радужной цифрой.",
       "full_description": "Напольная фигура из шаров в виде божьей коровки с усиками-антеннами и букетом жёлтых цветов. В композицию входит радужная фольгированная цифра.",
@@ -29365,13 +29741,13 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-17T10:40:56.149Z",
-      "updated_at": "2026-09-28T07:43:05.278Z",
+      "updated_at": "2026-10-01 06:53:46",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/7090c97a-b59f-439e-bdf5-659f3b5338dc.webp"
     },
     {
       "id": "c27b77e6-1178-4d5f-b0c4-fb555935741a",
       "title": "Изумрудный комплимент",
-      "article": "HER-002",
+      "article": "BQT-020",
       "price": 2000,
       "short_description": "Букет из изумрудных и золотых фольгированных сердец с тёплыми надписями в нежной упаковке.",
       "full_description": "Букет из девяти фольгированных сердец насыщенного изумрудного цвета с одним золотым акцентом в центре. Каждое сердце украшено надписями с добрыми пожеланиями и комплиментами.",
@@ -29407,13 +29783,13 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-16T22:37:09.234Z",
-      "updated_at": "2026-09-28T07:43:05.087Z",
+      "updated_at": "2026-10-01 06:53:46",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/c961fabc-5f67-4b89-844b-566ede8bf197.webp"
     },
     {
       "id": "79d80918-2038-4ca6-92b3-3398a50e841e",
       "title": "Нежность в руках",
-      "article": "HER-001",
+      "article": "BQT-001",
       "price": 2100,
       "short_description": "Букет из воздушных шаров в форме нежных тюльпанов с бантом.",
       "full_description": "Букет из 10 тюльпанов, скрученных из воздушных шаров пастельных оттенков. Композиция перевязана изящным бантом.",
@@ -29449,13 +29825,13 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-16T22:12:00.079Z",
-      "updated_at": "2026-09-28T07:43:02.206Z",
+      "updated_at": "2026-10-01 06:53:46",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/e3074a03-46d5-4acd-be6a-b53914cda03f.webp"
     },
     {
       "id": "b763e7c7-aef5-4452-8d8c-736ad35737f0",
       "title": "День сырка",
-      "article": "BOY-005",
+      "article": "PHT-006",
       "price": 10000,
       "short_description": "Фотозона с круглым каркасом, украшенным бело-голубой гирляндой и фигурами из шаров.",
       "full_description": "Фотозона на белом круглом каркасе с надписью «День сырка». Украшена бело-голубой гирляндой из шаров, фигурами солдата и танка слева, виноградом и овощами справа.",
@@ -29499,13 +29875,13 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-16T22:00:46.984Z",
-      "updated_at": "2026-09-28T07:43:02.015Z",
+      "updated_at": "2026-10-01 06:53:46",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/397722f6-6996-4bcc-8b07-d3fd038ccfae.webp"
     },
     {
       "id": "ae0f8c1f-49f0-4f98-ba52-d35257f8a4ab",
       "title": "Плюшевый друг",
-      "article": "BOY-004",
+      "article": "FIG-024",
       "price": 2000,
       "short_description": "Голубой медвежонок из шаров с золотым бантиком на шее.",
       "full_description": "Фигура медведя из голубых шаров с белым животиком и золотым бантиком. Устойчивая композиция для декора праздника.",
@@ -29542,13 +29918,13 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-16T21:48:55.654Z",
-      "updated_at": "2026-09-30T08:20:33.131Z",
+      "updated_at": "2026-10-01 06:53:46",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/0cacc1f5-3837-49dd-88d1-b50b5a1aa567.webp"
     },
     {
       "id": "0528656c-ff22-43c4-99d7-dea88d030176",
       "title": "Радужный праздник",
-      "article": "GRL-004",
+      "article": "BOX-006",
       "price": 5380,
       "short_description": "Коробка-сюрприз с пони Радугой Дэш и Пинки Пай, цифрой и яркими шарами.",
       "full_description": "Коробка с двумя любимыми героинями My Little Pony, фольгированной цифрой и радужными латексными шарами. Надпись на коробке персонализируется под получателя.",
@@ -29592,7 +29968,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-16T21:44:35.023Z",
-      "updated_at": "2026-09-28T11:04:01.178Z",
+      "updated_at": "2026-10-01 06:53:46",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/4ec86a20-7ebe-4df2-a989-cf6515adba9c.webp"
     },
     {
@@ -29922,7 +30298,7 @@
     {
       "id": "a0716d6a-4984-4045-8ec4-b09b0feae008",
       "title": "На патруле",
-      "article": "DG-001",
+      "article": "BOY-049",
       "price": 2800,
       "short_description": "Букет из хромированных шаров и фольгированная фигура щенка-полицейского.",
       "full_description": "Яркий букет из 10 хромированных шаров дополняет фольгированная фигура Чейза из Щенячьего патруля в полицейской форме.",
@@ -29959,13 +30335,13 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-16T15:41:44.216Z",
-      "updated_at": "2026-09-28T07:42:47.095Z",
+      "updated_at": "2026-10-01 06:53:46",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/1c2b3e5b-5032-4553-9138-d51a4f2e4be4.webp"
     },
     {
       "id": "ae93cdea-894c-49c0-9363-8097f2ec0509",
       "title": "Защитник Готэма",
-      "article": "DG-004",
+      "article": "BOY-048",
       "price": 4000,
       "short_description": "Напольная композиция с фигурой Бэтмена и чёрной цифрой с индивидуальной надписью.",
       "full_description": "Эффектная композиция в стиле Бэтмена с крупной фольгированной фигурой супергероя, чёрной цифрой и круглым шаром с изображением персонажа.",
@@ -30006,7 +30382,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-15T20:20:21.324Z",
-      "updated_at": "2026-09-28T07:42:46.025Z",
+      "updated_at": "2026-10-01 06:53:46",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/5db5ff9c-93f2-41b1-b35d-313c6aa0cf78.webp"
     }
   ]

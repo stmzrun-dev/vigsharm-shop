@@ -86,7 +86,11 @@
     // Праздники: в т.ч. фольга/ходячие/круги поштучно с тегом праздника
     if (group === 'holidays') return isHoliday;
     // Персонажи: товар с героем. Поштучные шары — только когда выбран конкретный персонаж.
-    if (group === 'characters') return hasChar && (!isUnit || !!character);
+    // Кружок узнаёт и серию («Hello Kitty», «Щенячий патруль»), даже если поле персонажа на другом языке или пустое.
+    if (group === 'characters') {
+      if (character && characterMatches(p, character)) return true;
+      return hasChar && (!isUnit || !!character);
+    }
     if (group === 'all') return true;
     if (group === 'ideas') return isIdea;
     // Готовые: отмеченный кружок («для кого», повод, тип) не прячется из‑за даты или персонажа.
@@ -118,20 +122,27 @@
     'герои в масках': ['герои в масках', 'герои в пижамах'],
     'спанч боб': ['спанч боб', 'спанч', 'sponge'],
     'my little pony': ['my little pony', 'пинки пай', 'радуга дэш'],
-    'мстители': ['мстители', 'капитан америка', 'тор', 'халк']
+    'мстители': ['мстители', 'капитан америка', 'тор', 'халк'],
+    'hello kitty': ['hello kitty', 'хелло китти', 'китти'],
+    'лабубу': ['лабубу', 'labubu', 'ла бу']
   };
+  function foldChar(s) {
+    return String(s || '').toLowerCase().replace(/ё/g, 'е');
+  }
   function characterMatches(p, character) {
     if (!character) return true;
-    var ch = String(character).toLowerCase().replace(/ё/g, 'е');
-    var name = String(p.character_name || '').toLowerCase().replace(/ё/g, 'е');
-    var title = String(p.title || '').toLowerCase().replace(/ё/g, 'е');
+    var ch = foldChar(character);
+    var blobs = [foldChar(p.character_name), foldChar(p.title), foldChar(p.series_name)];
     var terms = CHAR_ALIASES[ch] || [ch];
+    if (terms.indexOf(ch) < 0) terms = [ch].concat(terms);
     for (var i = 0; i < terms.length; i++) {
       var t = terms[i];
       if (!t) continue;
-      if (name.indexOf(t) >= 0 || title.indexOf(t) >= 0) return true;
+      for (var j = 0; j < blobs.length; j++) {
+        if (blobs[j] && blobs[j].indexOf(t) >= 0) return true;
+      }
     }
-    return name.indexOf(ch) >= 0 || title.indexOf(ch) >= 0;
+    return false;
   }
 
   // ---------- state ----------
@@ -443,8 +454,8 @@
       var hideIdea = audienceOnly && !!p.category && AUDIENCE.indexOf(p.category) < 0;
       /* Герой не прячет карточку из выбранного кружка. В общей ленте «Готовые» она остаётся только у персонажа. */
       var inChosenCircle = group === 'ready' && category !== 'Все товары'
-        && !isUnitProduct(p)
-        && productHasLabel(p, category);
+        && productHasLabel(p, category)
+        && (!isUnitProduct(p) || category === 'Гендер-пати');
       var inG = searched || inChosenCircle || (group === 'all' ? !inGroup(p, 'unit') : inGroup(p, group));
       var hay = norm([p.title, p.sku, p.short_description, p.description, p.composition, p.category, p.character_name, p.age_group].concat(p.tags || []).filter(Boolean).join(' '));
       var matchQ = terms.every(function (t) { return hay.indexOf(t) >= 0; });

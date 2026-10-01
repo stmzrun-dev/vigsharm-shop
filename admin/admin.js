@@ -102,7 +102,8 @@ const UNIT_WHO_PICKS = [
   { label: 'Геймерам', tag: 'Геймерам' },
   { label: 'Выписка', tag: 'На выписку' },
   { label: 'Свадьба&Девичник', tag: 'Свадьба и девичник' },
-  { label: '1 годик', tag: '1 годик' }
+  { label: '1 годик', tag: '1 годик' },
+  { label: 'Гендер-пати', tag: 'Гендер-пати' }
 ];
 const PHOTOZONE_RENTAL_DAYS = 3;
 const PHOTOZONE_RENTAL_EXTRA_PER_DAY = 500;

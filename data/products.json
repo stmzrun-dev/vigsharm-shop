@@ -2,6 +2,198 @@
   "ok": true,
   "products": [
     {
+      "id": "11cf93c8-3751-48da-b150-cbac2bce283b",
+      "title": "Бабочка, Цветная",
+      "article": "UNT-271",
+      "price": 550,
+      "short_description": "Бабочка, Цветная",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "golubaya-nezhnost-2-3",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Для неё",
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/f799fa6a-901a-49f7-b5e4-d8854c6afda8.jpg",
+        "photo_dhash": "00c4ccd59ad4e8e8",
+        "unit_type": "foil",
+        "balloon_size": "98 см",
+        "unit_who": [
+          "Для неё",
+          "Для девочки"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/4d3cf133-69d4-4631-a39f-15023216689c.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/4d3cf133-69d4-4631-a39f-15023216689c.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-01T19:11:09.748Z",
+      "updated_at": "2026-10-01T19:11:09.748Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "7aad8f34-3b34-4bf3-89cb-edafe8c1112f",
+      "title": "Бабочка, Серебро",
+      "article": "UNT-270",
+      "price": 550,
+      "short_description": "Бабочка, Серебро",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "golubaya-nezhnost-2-2",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Для неё",
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/2b3c7a75-6269-414d-b291-c53fcb87c010.jpg",
+        "photo_dhash": "008cccb2d0e8e800",
+        "unit_type": "foil",
+        "balloon_size": "104 см",
+        "unit_who": [
+          "Для неё",
+          "Для девочки"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/71eae9d7-c674-4c0d-9326-b47df9843fd5.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/71eae9d7-c674-4c0d-9326-b47df9843fd5.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-01T19:09:49.858Z",
+      "updated_at": "2026-10-01T19:09:49.858Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "704361fa-00d5-4272-87ed-fe7a87c71637",
+      "title": "Лобстер",
+      "article": "UNT-269",
+      "price": 600,
+      "short_description": "Лобстер",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "golubaya-nezhnost-2",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Для него"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/dc249c36-608d-47fb-acfe-5b15f4739a3e.jpg",
+        "photo_dhash": "8e4c6cc4cccce860",
+        "unit_type": "foil",
+        "balloon_size": "98 см",
+        "unit_who": [
+          "Для него"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/360ed3e0-6a96-4354-9c26-cd1c7353b3e0.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/360ed3e0-6a96-4354-9c26-cd1c7353b3e0.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-01T19:06:26.426Z",
+      "updated_at": "2026-10-01T19:06:26.426Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "8af3d4f9-0f4c-4db5-abc4-d54ba49f7e1c",
+      "title": "Голубая нежность",
+      "article": "BQT-021",
+      "price": 1700,
+      "short_description": "Букет с пятью белыми мишками в голубой гофрированной упаковке с бантом.",
+      "full_description": "Пять плюшевых белых мишек с голубыми бантиками в нежной бело-голубой упаковке. Букет украшен атласными лентами и розочкой на ножке.",
+      "composition": [
+        "букет с мишками"
+      ],
+      "category": "Букет из шаров",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": "1 000–2 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Букет с белыми мишками в голубой упаковке — Армавир",
+      "seo_description": "Букет с пятью белыми плюшевыми мишками в нежной бело-голубой гофрированной упаковке. Доставка по Армавиру.",
+      "slug": "golubaya-nezhnost",
+      "scene": "handheld_bouquet",
+      "tags": [
+        "Букет из шаров"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/a51a2537-76e5-4e92-80ba-560abb35e5f4.jpg",
+        "photo_dhash": "d7172717ebeddffd",
+        "bouquet_type": "foil"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/983e7474-12b3-40ba-891f-0e479058ec1e.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/983e7474-12b3-40ba-891f-0e479058ec1e.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-01T18:56:44.743Z",
+      "updated_at": "2026-10-01T18:58:14.129Z",
+      "thumb_photo": null
+    },
+    {
       "id": "543f40e0-79ab-49b5-84a0-1ae9ac743dc1",
       "title": "Пиво в кружке",
       "article": "UNT-268",

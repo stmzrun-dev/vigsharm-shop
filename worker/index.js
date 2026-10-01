@@ -837,6 +837,7 @@ function sceneTypeHint(scene) {
     // wall_only: фольга/бабл на стене — НЕ «Фигуры» и НЕ авто-«Букет» (букет = сцена handheld)
     case 'wall_only': return '';
     case 'ceiling': return '';
+    case 'table': return '';
     case 'floor': return '';
     case 'surprise': return 'Шар-сюрприз';
     case 'balloon_figures': return 'Фигуры из шаров';
@@ -1139,8 +1140,9 @@ foil_digits = "${trustedDigits}" (число ${trustedNum}).
 Сырой состав от пользователя (оформи красиво, исправь орфографию, числа сохрани; скобки-подсказки уже убраны): ${rawComposition || 'не указан'}
 ${hintsBlock}
 Сцена Studio Pro: ${scene || 'floor'}
-Подсказка типа изделия для tags: ${['wall_only', 'unit_balloon', 'ceiling'].includes(scene) || ((scene || '') === 'floor' && !floorAdvance) ? 'НЕ ставь «Напольные композиции»' : (typeHint || 'по фото')}
+Подсказка типа изделия для tags: ${['wall_only', 'unit_balloon', 'ceiling', 'table'].includes(scene) || ((scene || '') === 'floor' && !floorAdvance) ? 'НЕ ставь «Напольные композиции»' : (typeHint || 'по фото')}
 ${scene === 'ceiling' ? 'Сцена «под потолком»: готовая связка у потолка. ЗАПРЕЩЕНО теги «Фотозона», «Напольные композиции», «Фигуры из шаров». Аудиторию и персонажа определяй по фото как обычно.' : ''}
+${scene === 'table' ? 'Сцена «на столике»: подарок сидит на столе. ЗАПРЕЩЕНО теги «Напольные композиции», «Фотозона», «Фигуры из шаров», «Букет из шаров».' : ''}
 ${holidayOnly ? `Праздничная/тематическая категория (обязательно): ${holidayOnly}` : ''}
 ${boxOnly ? 'В составе коробка — category и tags только «Коробка-сюрприз». age_group обязателен.' : ''}
 ${bouquetOnly ? 'Это букет из шаров без тематики в скобках — category и tags только «Букет из шаров».' : ''}
@@ -1577,12 +1579,18 @@ function sanitizeCardMetadata(data, scene = 'floor', price = 0, rawComposition =
     }
   }
   // Фольга на стене / букет / поштучно — тег скруток запрещён
-  if (['wall_only', 'unit_balloon', 'handheld_bouquet', 'ceiling'].includes(scene)) {
+  if (['wall_only', 'unit_balloon', 'handheld_bouquet', 'ceiling', 'table'].includes(scene)) {
     tags = tags.filter((t) => t !== 'Фигуры из шаров');
   }
-  // Стена / поштучно / потолок — не полка «Напольные композиции»
-  if (['wall_only', 'unit_balloon', 'ceiling'].includes(scene)) {
+  // Стена / поштучно / потолок / столик — не полка «Напольные композиции»
+  if (['wall_only', 'unit_balloon', 'ceiling', 'table'].includes(scene)) {
     tags = tags.filter((t) => t !== 'Напольные композиции');
+  }
+  if (scene === 'table') {
+    tags = tags.filter((t) => t !== 'Букет из шаров' && t !== 'Фотозона');
+    if (['Напольные композиции', 'Фотозона', 'Фигуры из шаров', 'Букет из шаров'].includes(data.category)) {
+      data.category = '';
+    }
   }
   if (scene === 'ceiling') {
     tags = tags.filter((t) => t !== 'Фотозона');
@@ -2086,6 +2094,30 @@ ${forbidden}
 OUTPUT: one square 1:1 catalog photo — same surprise balloon, ${hanging ? 'hanging from the top on its ribbon, not standing on the floor' : 'standing on its own product base (money column and pedestal kept)'}, studio room only, natural catalog light.`;
   }
 
+  if (scene === 'table') {
+    return `Edit this gift photo for a square VigSharm catalog card. Change ONLY the room. The product stays exactly as photographed.
+
+PRODUCT LOCK:
+- Keep the exact object: shape, size, colors, texture, ribbon, bow, and any text printed on the ribbon
+- Do not add or remove roses, flowers, or parts
+- Do not redraw, beautify, or turn it into a balloon
+- No people, no hands, no extra objects
+
+ROOM — copy the SECOND reference image:
+- Same beige wall, white baseboard, light wood floor
+- The round pale-oak side table in that reference is part of the scene. Keep THAT table: same top, four legs, size, and place in the frame
+- Do NOT remove the table. Do NOT swap it for another table. Do NOT stand the product on the floor
+
+PLACEMENT:
+- Sit the product in the center of the tabletop, upright, facing the camera
+- Its base rests on the table. Soft contact shadow only under the product
+- Ribbon may hang over the front edge but must stay inside the frame
+- The product should read large: fully visible, not a tiny object in an empty room
+- Do not crop the product. Do not crop the table legs
+
+OUTPUT: one square 1:1 real catalog photo. Same product sitting on the reference table. Not a 3D render.`;
+  }
+
   if (scene === 'balloon_figures') {
     return `Edit the provided balloon FIGURE / sculpture photo (скрутка «фигуры из шаров») for a square VigSharm catalog card. Change the room background/lighting AND fix posture/support as specified below.
 
@@ -2193,6 +2225,15 @@ Square 1:1, bright catalog light. Real photo, not CGI.
 KEEP exactly: balloon count, colors, prints, foil characters, ribbons.
 Do not add balloons. Do not stand the set on a floor.`.trim();
   }
+  if (scene === 'table') {
+    return `Edit this gift photo. Change only the room. Do not redraw the product.
+
+Use the SECOND reference as the room, including its round pale-oak side table. Keep that exact table: top, four legs, place in the frame.
+Sit the product centered on the tabletop, upright. Soft shadow under it. Do not put it on the floor. Do not remove or replace the table.
+Square 1:1, bright catalog light, real photo.
+KEEP exactly: shape, colors, texture, ribbon, bow, and text on the ribbon.
+Do not add flowers or people.`.trim();
+  }
   if (scene === 'surprise') {
     const hanging = opts.surprise_pose === 'hang';
     return `Edit this VigSharm surprise-balloon photo. Change only the room and lighting. Do not rebuild the product.
@@ -2238,6 +2279,8 @@ function buildRephotographAttempts(imageUrl, referenceUrl, prompt, resolution = 
   const aspect = ['1:1', '4:5', '9:16'].includes(opts.aspect_ratio) ? opts.aspect_ratio : '1:1';
   const keepBg = scene === 'arch';
   const ceiling = scene === 'ceiling';
+  const table = scene === 'table';
+  const tableHint = '\n\nTABLE SCENE: the SECOND reference includes a round pale-oak side table. KEEP that exact table (top, four legs, position in the frame). Sit the product centered on the tabletop. Do NOT remove the table. Do NOT put the product on the floor. Do NOT invent another table.';
   const wallOnly = ceiling || (['wall_only', 'unit_balloon', 'handheld_bouquet'].includes(scene) && !isWalkerOnFloor(scene, opts));
   const wallHint = '\n\nTarget room: VigSharm studio wall from the SECOND reference — warm light beige-grey plaster, natural catalog softbox daylight (not overexposed wash). Copy reference wall tone; do NOT darken into taupe/muddy grey and do NOT blow out to pure white. NO invented mottled/smudged wall.';
   const floorHint = '\n\nTarget FLOOR from the SECOND reference — LIGHT pale oak / light grey-beige laminate matching reference brightness. Place ONLY the product CLOSE to the white baseboard (short floor strip only — not mid-room): balloons, ribbons, their weights, and a gift/surprise box if it is part of the composition. DELETE room props in place — do NOT move them with the product: vase, glass, dried flowers, pampas grass, houseplant, random floor object. Hang-tags: erase in place or keep pixel-locked on the same balloon — NEVER relocate a tag. Soft contact shadows only under the original balloon base. REMOVE any table, stolik, glass table, stool, chair, wire stand or other furniture from the source — the existing balloon base sits directly on the laminate. A printed gift box that presents the balloons is PRODUCT, not furniture — keep it. Do NOT invent new balloons under the base. FORBIDDEN: dark brown/charcoal laminate; large empty floor toward the wall; keeping a table under the product; carrying a vase/pampas/stray object into the studio; a hang-tag moved to a new spot or another balloon; any real people/models in the frame. If source has a person posing with balloons: erase them completely, keep only the balloon product. If source has a mirror/vanity: remove it; count ONLY real balloons on the floor in front of the glass — NEVER copy balloons that exist only as mirror reflections (e.g. one real heart + reflection → output one heart). A foil heart touching the vanity frame is still ONE heart: one red weight on the real floor means ONE heart and ONE ribbon bundle. Do NOT split it into a pair while erasing the mirror.';
@@ -2253,12 +2296,12 @@ function buildRephotographAttempts(imageUrl, referenceUrl, prompt, resolution = 
     ? '\n\nKeep the original background exactly. Do not use a studio wall or floor.'
     : (scene === 'surprise'
       ? (wallHint + surpriseHint)
-      : (ceiling ? (wallHint + ceilingHint) : (wallOnly ? wallHint : (wallHint + floorHint))));
+      : (ceiling ? (wallHint + ceilingHint) : (table ? (wallHint + tableHint) : (wallOnly ? wallHint : (wallHint + floorHint)))));
   const withRef = (input) => (keepBg ? input : { ...input, reference_image: referenceUrl });
   const attempts = [];
 
   const pushBanana = () => {
-    const bananaExtra = keepBg ? '' : (scene === 'surprise' ? surpriseHint : (ceiling ? ceilingHint : (wallOnly ? '' : floorHint)));
+    const bananaExtra = keepBg ? '' : (scene === 'surprise' ? surpriseHint : (ceiling ? ceilingHint : (table ? tableHint : (wallOnly ? '' : floorHint))));
     attempts.push({
       model: 'image/nano-banana-2',
       input: withRef({

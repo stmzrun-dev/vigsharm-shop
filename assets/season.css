@@ -7,7 +7,8 @@ html[data-season] header.site-header > .brand-logo{
   align-items:center!important;
   gap:6px!important;
 }
-html[data-season] header.site-header > .brand-logo img{
+html[data-season] header.site-header > .brand-logo > picture img,
+html[data-season] header.site-header > .brand-logo > img{
   width:min(148px, 40vw)!important;
   height:auto!important;
   flex:0 1 auto;
@@ -20,10 +21,21 @@ html[data-season] header.site-header > .brand-logo img{
   display:block;
   pointer-events:none;
 }
-.season-mark svg{
+.season-mark svg,
+.season-mark img{
   display:block;
   width:34px;
   height:40px;
+}
+.season-mark img{
+  width:30px;
+  height:48px;
+  object-fit:contain;
+}
+.season-mark:has(img){
+  flex-basis:30px;
+  width:30px;
+  height:48px;
 }
 
 .season-strip{
@@ -42,7 +54,36 @@ html[data-season="womens"] .season-strip{background:#fff5f7;}
 html[data-season="victory"] .season-strip{background:#f7f5f2;}
 html[data-season="grad"] .season-strip{background:#f7f6f2;}
 html[data-season="school"] .season-strip{background:#fbf6ea;}
-html[data-season="teacher"] .season-strip{background:#f8f6ef;}
+html[data-season="teacher"] .season-strip,
+html[data-season="teacher"] .season-banner{background:#f8f6ef;}
+
+a.season-banner{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  min-height:52px;
+  margin:0;
+  padding:6px 16px;
+  text-decoration:none;
+  color:#1e293b;
+  font-size:15px;
+  line-height:1.3;
+  font-weight:650;
+  letter-spacing:-0.01em;
+}
+a.season-banner img{
+  width:36px;
+  height:36px;
+  border-radius:50%;
+  object-fit:cover;
+  background:#fff;
+  flex:0 0 36px;
+}
+a.season-banner b{
+  font-weight:650;
+  color:#e2554a;
+}
 html[data-season="halloween"] .season-strip{background:#fff1e8;}
 html[data-season="newyear"] .season-strip{background:#f3f7fb;}
 
@@ -116,7 +157,8 @@ html[data-season="newyear"] .season-strip{background:#f3f7fb;}
   animation:season-leaf 7s ease-in 1 forwards;
 }
 
-html[data-season="school"] .season-mark svg{
+html[data-season="school"] .season-mark svg,
+html[data-season="teacher"] .season-mark svg{
   transform-origin:50% 12%;
   animation:season-bell 1.15s ease-in-out 1;
 }
@@ -150,5 +192,6 @@ html[data-season="school"] .season-mark svg{
 }
 @media (prefers-reduced-motion:reduce){
   .season-motion{display:none!important;}
-  html[data-season="school"] .season-mark svg{animation:none!important;}
+  html[data-season="school"] .season-mark svg,
+  html[data-season="teacher"] .season-mark svg{animation:none!important;}
 }

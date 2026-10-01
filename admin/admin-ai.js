@@ -1171,7 +1171,10 @@ Object.assign(app, {
         data.composition = this.sanitizeAiDigitLines?.(data.composition, rawComposition, digitMarker) || data.composition;
       }
       this.currentProduct.composition = data.composition || this.currentProduct.composition;
-      if (sceneHint === 'ceiling') {
+      if (sceneHint === 'table') {
+        data.tags = (Array.isArray(data.tags) ? data.tags : []).filter((t) => !['Напольные композиции', 'Фотозона', 'Фигуры из шаров', 'Букет из шаров'].includes(t));
+        if (['Напольные композиции', 'Фотозона', 'Фигуры из шаров', 'Букет из шаров'].includes(data.category)) data.category = '';
+      } else if (sceneHint === 'ceiling') {
         data.tags = (Array.isArray(data.tags) ? data.tags : []).filter((t) => !['Напольные композиции', 'Фотозона', 'Фигуры из шаров'].includes(t));
         if (['Напольные композиции', 'Фотозона', 'Фигуры из шаров'].includes(data.category)) data.category = '';
       } else if (sceneHint === 'floor') {

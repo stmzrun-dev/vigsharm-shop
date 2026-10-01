@@ -601,7 +601,7 @@
     victory: 'Соберём композицию к 9 мая',
     grad: 'Соберём композицию к выпускному',
     school: 'Соберём композицию к 1 сентября',
-    teacher: 'Соберём композицию ко Дню учителя',
+    teacher: 'Ко Дню учителя',
     halloween: 'Соберём композицию к Хэллоуину',
     newyear: 'Соберём композицию к Новому году'
   };
@@ -619,7 +619,7 @@
     school:
       '<svg viewBox="0 0 36 40" aria-hidden="true"><rect x="17" y="2" width="2" height="5" rx=".6" fill="#4A4A52"/><path d="M18 6.5c-7 1.2-11 8-11 14.2V24h22v-3.3C29 14.5 25 7.7 18 6.5z" fill="#e2b340"/><rect x="8" y="23.2" width="20" height="3.2" rx="1.2" fill="#c4962a"/><circle cx="18" cy="31" r="3" fill="#c4962a"/></svg>',
     teacher:
-      '<svg viewBox="0 0 36 40" aria-hidden="true"><path d="M18 11c2.2-4 6-4.2 7-1.6" fill="none" stroke="#3d7a45" stroke-width="1.6" stroke-linecap="round"/><ellipse cx="15.5" cy="12" rx="3.2" ry="1.5" fill="#3d7a45"/><circle cx="18" cy="24" r="9.5" fill="#e2554a"/><ellipse cx="14.2" cy="21" rx="2" ry="3" fill="#f4b2aa"/></svg>',
+      '<svg viewBox="0 0 36 40" aria-hidden="true"><rect x="16.2" y="3" width="3.6" height="5" rx="1.2" fill="#e2554a"/><path d="M18 8c-8.2 1.6-12 8.4-12 15.2V27h24v-3.8C30 16.4 26.2 9.6 18 8z" fill="#FF6B5A"/><rect x="6.5" y="25.6" width="23" height="3.4" rx="1.4" fill="#e2554a"/><circle cx="18" cy="33.2" r="2.6" fill="#FF6B5A"/></svg>',
     halloween:
       '<svg viewBox="0 0 36 40" aria-hidden="true"><rect x="16" y="7" width="4" height="6" rx="1.2" fill="#3d7a45"/><path d="M18 6c3-4 7-4 8-1" fill="none" stroke="#3d7a45" stroke-width="1.6" stroke-linecap="round"/><ellipse cx="18" cy="24" rx="9" ry="11" fill="#f08a3c"/><ellipse cx="12.5" cy="24" rx="5.5" ry="10" fill="#e07a2c"/><ellipse cx="23.5" cy="24" rx="5.5" ry="10" fill="#e07a2c"/></svg>',
     newyear:
@@ -628,7 +628,7 @@
 
   function clearSeason() {
     document.documentElement.removeAttribute('data-season');
-    var nodes = document.querySelectorAll('.season-mark, .season-strip, .season-motion');
+    var nodes = document.querySelectorAll('.season-mark, .season-strip, .season-banner, .season-motion');
     for (var i = 0; i < nodes.length; i++) nodes[i].remove();
   }
 
@@ -706,14 +706,25 @@
     var logo = header && header.querySelector('.brand-logo');
     if (!header || !logo) return;
     document.documentElement.setAttribute('data-season', season);
-    var mark = document.createElement('span');
-    mark.className = 'season-mark';
-    mark.setAttribute('aria-hidden', 'true');
-    mark.innerHTML = SEASON_MARK[season];
-    logo.appendChild(mark);
-    var strip = document.createElement('p');
-    strip.className = 'season-strip';
-    strip.textContent = SEASON_COPY[season];
+    if (SEASON_MARK[season]) {
+      var mark = document.createElement('span');
+      mark.className = 'season-mark';
+      mark.setAttribute('aria-hidden', 'true');
+      mark.innerHTML = SEASON_MARK[season];
+      logo.appendChild(mark);
+    }
+    var strip;
+    if (season === 'teacher') {
+      strip = document.createElement('a');
+      strip.className = 'season-banner';
+      strip.href = 'catalog.html?group=holidays&category=' + encodeURIComponent('День учителя');
+      strip.innerHTML = '<img src="images/holidays/holiday-teacher.webp?v=20260926" alt="" width="36" height="36"/>' +
+        '<span>' + SEASON_COPY[season] + '</span><b aria-hidden="true">→</b>';
+    } else {
+      strip = document.createElement('p');
+      strip.className = 'season-strip';
+      strip.textContent = SEASON_COPY[season];
+    }
     header.insertAdjacentElement('afterend', strip);
     var motion = buildMotion(season);
     if (motion) document.body.appendChild(motion);

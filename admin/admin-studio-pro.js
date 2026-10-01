@@ -11,6 +11,9 @@ Object.assign(app, {
   /** Стена + линия потолка, без пола. Только сцена ceiling. */
   DEFAULT_REFERENCE_CEILING: '../assets/reference/reference-ceiling.webp',
   REFERENCE_CEILING_VERSION: 'v1',
+  /** Круглый столик в той же студии. Только сцена table. */
+  DEFAULT_REFERENCE_TABLE: '../assets/reference/reference-table.jpg',
+  REFERENCE_TABLE_VERSION: 'v1',
   /** Chroma-green plate: fist gripping bouquet base (composited under ribbons) */
   DEFAULT_REFERENCE_HAND: '../assets/reference/reference-hand-bouquet.png',
   /** Bump when replacing hand PNG — forces Cloudinary re-upload */
@@ -52,7 +55,7 @@ Object.assign(app, {
 
   /** All catalog scenes: AI rephotograph (Manus-style) against studio reference */
   usesRephotographMode(scene) {
-    return ['floor', 'surprise', 'balloon_figures', 'photozone', 'auto', 'handheld_bouquet', 'wall_only', 'ceiling', 'unit_balloon', 'arch'].includes(scene || 'floor');
+    return ['floor', 'surprise', 'balloon_figures', 'photozone', 'auto', 'handheld_bouquet', 'wall_only', 'ceiling', 'unit_balloon', 'arch', 'table'].includes(scene || 'floor');
   },
 
   syncStudioModeHint() {
@@ -946,8 +949,39 @@ Object.assign(app, {
     }
   },
 
+  async ensureTableReferenceHttpsUrl() {
+    const ver = this.REFERENCE_TABLE_VERSION || 'v1';
+    const cached = this.studioReferenceTableUrl || '';
+    if (this.studioReferenceTableVersion === ver && /^https?:\/\//i.test(cached)) return cached;
+
+    const blobRes = await fetch(this.DEFAULT_REFERENCE_TABLE);
+    if (!blobRes.ok) throw new Error('Не удалось загрузить эталон столика');
+    const blob = await blobRes.blob();
+    const file = new File([blob], 'vigsharm-reference-table.jpg', { type: blob.type || 'image/jpeg' });
+    const uploadResult = await this.uploadPhoto(file);
+    if (!uploadResult.ok) {
+      throw new Error(uploadResult.error || 'Не удалось загрузить эталон столика');
+    }
+    this.studioReferenceTableUrl = uploadResult.url;
+    this.studioReferenceTableVersion = ver;
+    this.saveReferenceTableUrl?.();
+    return uploadResult.url;
+  },
+
+  saveReferenceTableUrl() {
+    try {
+      this.writeAdminSettings?.({
+        studioReferenceTableUrl: this.studioReferenceTableUrl || '',
+        studioReferenceTableVersion: this.studioReferenceTableVersion || ''
+      });
+    } catch (e) {
+      console.error('Ошибка сохранения эталона столика:', e);
+    }
+  },
+
   async ensureReferenceHttpsUrl(scene) {
     if (scene === 'ceiling') return this.ensureCeilingReferenceHttpsUrl();
+    if (scene === 'table') return this.ensureTableReferenceHttpsUrl();
     let url = this.getReferenceBackgroundUrl();
     if (!url) throw new Error('Эталонный фон не найден');
     if (url.startsWith('https://') || url.startsWith('http://')) return url;
@@ -1015,6 +1049,8 @@ Object.assign(app, {
           ? '🪵 Ходячая фигура: стена + пол, как напольная...'
           : scene === 'ceiling'
           ? '☁️ Потолок: связка сверху, линия потолка, без пола...'
+          : scene === 'table'
+          ? '🪑 Столик: подарок на крышке, стол не убираем...'
           : (scene === 'wall_only' || scene === 'unit_balloon')
           ? '🧱 Manus: sunburst → banana → Flux...'
           : '📸 AI переснимает в студии (sunburst → banana → Flux)...';

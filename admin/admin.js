@@ -25,6 +25,7 @@ const SCENES = [
   { value: 'wall_only', icon: '🖼️', title: 'Только стена', short: 'Стена', desc: 'Композиция на стене, без пола' },
   { value: 'ceiling', icon: '☁️', title: 'Под потолком', short: 'Потолок', desc: 'Связка висит сверху: стена и линия потолка, без пола' },
   { value: 'floor', icon: '🪵', title: 'Напольная композиция', short: 'Пол', desc: 'Стоит на полу: стена + плинтус + ламинат' },
+  { value: 'table', icon: '🪑', title: 'На столике', short: 'Столик', desc: 'Подарок сидит на круглом столике в той же студии' },
   { value: 'surprise', icon: '🎁', title: 'Шар-сюрприз', short: 'Сюрприз', desc: 'Та же комната: висит на ленте или стоит на своей подставке' },
   { value: 'balloon_figures', icon: '🧸', title: 'Фигуры из шаров', short: 'Фигуры', desc: 'Крупная фигура из шаров на полу' },
   { value: 'photozone', icon: '🎪', title: 'Фотозона', short: 'Фотозона', desc: 'Каркас или мольберт' },
@@ -1208,6 +1209,8 @@ const app = {
       this.studioReferenceBackgroundUrl = settings.studioReferenceBackgroundUrl || '';
       this.studioReferenceCeilingUrl = settings.studioReferenceCeilingUrl || '';
       this.studioReferenceCeilingVersion = settings.studioReferenceCeilingVersion || '';
+      this.studioReferenceTableUrl = settings.studioReferenceTableUrl || '';
+      this.studioReferenceTableVersion = settings.studioReferenceTableVersion || '';
       this.studioReferenceHandUrl = settings.studioReferenceHandUrl || '';
       this.studioReferenceHandVersion = settings.studioReferenceHandVersion || '';
 
@@ -1240,6 +1243,8 @@ const app = {
         studioReferenceBackgroundUrl: this.studioReferenceBackgroundUrl || '',
         studioReferenceCeilingUrl: this.studioReferenceCeilingUrl || '',
         studioReferenceCeilingVersion: this.studioReferenceCeilingVersion || '',
+        studioReferenceTableUrl: this.studioReferenceTableUrl || '',
+        studioReferenceTableVersion: this.studioReferenceTableVersion || '',
         studioReferenceHandUrl: this.studioReferenceHandUrl || '',
         studioReferenceHandVersion: this.studioReferenceHandVersion || ''
       });
@@ -1316,6 +1321,8 @@ const app = {
     this.studioReferenceBackgroundUrl = '';
     this.studioReferenceCeilingUrl = '';
     this.studioReferenceCeilingVersion = '';
+    this.studioReferenceTableUrl = '';
+    this.studioReferenceTableVersion = '';
     this.studioReferenceHandUrl = '';
     this.studioReferenceHandVersion = '';
     this.loadSettings();

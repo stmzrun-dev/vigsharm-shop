@@ -2,6 +2,708 @@
   "ok": true,
   "products": [
     {
+      "id": "a3bbb52b-16fb-4b81-8938-beebe697d09c",
+      "title": "Голова сказочного единорога",
+      "article": "UNT-286",
+      "price": 600,
+      "short_description": "Голова сказочного единорога",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "golubaya-nezhnost-2-18",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/60e8c74b-378e-4719-bdf3-7bea0b6b2328.jpg",
+        "photo_dhash": "70f0d4f0cce8ecf0",
+        "unit_type": "foil",
+        "balloon_size": "81 см",
+        "unit_who": [
+          "Для девочки"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/933ba6f3-dca5-46e0-b7e4-fd7471864487.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/933ba6f3-dca5-46e0-b7e4-fd7471864487.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-01T20:02:08.915Z",
+      "updated_at": "2026-10-01T20:02:08.915Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "a35bdc4f-a985-407d-b510-fe44121be674",
+      "title": "Маша",
+      "article": "UNT-285",
+      "price": 700,
+      "short_description": "Маша",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": "Маша",
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": "Маша и Медведь",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "golubaya-nezhnost-2-17",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/24dcc28b-e968-4cf3-9698-f39407ed1b72.jpg",
+        "photo_dhash": "787c6c7cf0f07070",
+        "unit_type": "foil",
+        "balloon_size": "107 см",
+        "unit_who": [
+          "Для девочки"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/9c2cc9b8-ff98-4a75-b0b0-e1dfe7116f12.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/9c2cc9b8-ff98-4a75-b0b0-e1dfe7116f12.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-01T19:57:52.758Z",
+      "updated_at": "2026-10-01T19:57:52.758Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "6ef3718d-9797-415c-b2bc-e1d2e71ae37e",
+      "title": "Принцесса Эльза",
+      "article": "UNT-284",
+      "price": 550,
+      "short_description": "Принцесса Эльза",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": "Эльза",
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": "Холодное сердце",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "golubaya-nezhnost-2-16",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/85a1b763-7d8d-4e21-b3f9-c23cd0148ef2.jpg",
+        "photo_dhash": "e0e0e4c4e8f0f0f0",
+        "unit_type": "foil",
+        "balloon_size": "64 см",
+        "unit_who": [
+          "Для девочки"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/6790de27-07e2-4ac8-8be0-f7ee05a77bbd.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/6790de27-07e2-4ac8-8be0-f7ee05a77bbd.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-01T19:56:44.972Z",
+      "updated_at": "2026-10-01T19:56:44.972Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "0d0fb9bb-64f8-4ff4-8b2d-0c643a638b9c",
+      "title": "София Прекрасная",
+      "article": "UNT-283",
+      "price": 650,
+      "short_description": "София Прекрасная",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": "София Прекрасная",
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": "София Прекрасная",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "golubaya-nezhnost-2-15",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/3e6b06bb-5ba4-4fa2-b02b-1fcb4ae4e8e9.jpg",
+        "photo_dhash": "7070707078ece8f0",
+        "unit_type": "foil",
+        "balloon_size": "78 см",
+        "unit_who": [
+          "Для девочки"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/3bd6aec8-b8e8-4389-8acd-d03f8abab301.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/3bd6aec8-b8e8-4389-8acd-d03f8abab301.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-01T19:51:53.556Z",
+      "updated_at": "2026-10-01T19:51:53.556Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "97480a97-12e3-4da1-8c67-4663b943ac4a",
+      "title": "Снежинка Серебро",
+      "article": "UNT-282",
+      "price": 350,
+      "short_description": "Снежинка Серебро",
+      "full_description": "",
+      "composition": [],
+      "category": "Новый год",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "golubaya-nezhnost-2-14",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Новый год"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/29c72a95-99b2-4f7e-9a4c-59c75d994e4e.jpg",
+        "photo_dhash": "cce4a6a6a696eccc",
+        "unit_type": "foil",
+        "balloon_size": "51 см",
+        "unit_holiday": "Новый год"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/6dd1d918-4d79-41a4-9331-a0cfec433082.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/6dd1d918-4d79-41a4-9331-a0cfec433082.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-01T19:49:50.801Z",
+      "updated_at": "2026-10-01T19:49:50.801Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "149e2e48-7126-402f-96c5-73f9c569a053",
+      "title": "Снеговик Олаф",
+      "article": "UNT-281",
+      "price": 700,
+      "short_description": "Снеговик Олаф",
+      "full_description": "",
+      "composition": [],
+      "category": "Новый год",
+      "character": "Олаф",
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": "Холодное сердце",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "golubaya-nezhnost-2-13",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Новый год"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/85f1e367-dad6-401d-b4fc-dd60cdb0cce2.jpg",
+        "photo_dhash": "7878f0b0f2f0f0e0",
+        "unit_type": "foil",
+        "balloon_size": "81 см",
+        "unit_holiday": "Новый год"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/e16e1f64-9247-4dff-aead-02320127d2ec.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/e16e1f64-9247-4dff-aead-02320127d2ec.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-01T19:41:53.637Z",
+      "updated_at": "2026-10-01T19:41:53.637Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "7fb68d06-f22a-4a21-80bd-928ad40eb3da",
+      "title": "Конфета Красная",
+      "article": "UNT-280",
+      "price": 400,
+      "short_description": "Конфета Красная",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "golubaya-nezhnost-2-12",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/36fdcb53-9e38-4ef4-b294-1999daaaa0c4.jpg",
+        "photo_dhash": "70f2f0e4e8e4f0f0",
+        "unit_type": "foil",
+        "balloon_size": "61 см"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/1e49791a-4848-4cd6-bc78-54070a2f4129.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/1e49791a-4848-4cd6-bc78-54070a2f4129.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-01T19:30:19.422Z",
+      "updated_at": "2026-10-01T19:30:19.422Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "7a6e844e-8546-4019-8426-35d79c3c5ee8",
+      "title": "Конфета Салатовая",
+      "article": "UNT-279",
+      "price": 400,
+      "short_description": "Конфета Салатовая",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "golubaya-nezhnost-2-11",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/2d03662c-dc6b-4a8b-b41c-e621c5aee837.jpg",
+        "photo_dhash": "70f2f0e4b8ecf0f0",
+        "unit_type": "foil",
+        "balloon_size": "61 см"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/8620e740-36b3-4269-b327-c23b40c0ecaf.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/8620e740-36b3-4269-b327-c23b40c0ecaf.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-01T19:24:55.331Z",
+      "updated_at": "2026-10-01T19:24:55.331Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "ba37722e-859c-4231-8ddd-310cee417be2",
+      "title": "Конфета Желтая",
+      "article": "UNT-278",
+      "price": 400,
+      "short_description": "Конфета Желтая",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "golubaya-nezhnost-2-10",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/a57da9be-35bf-4ebf-9d44-2e50416c24db.jpg",
+        "photo_dhash": "5072f6868aecf0b0",
+        "unit_type": "foil",
+        "balloon_size": "61 см"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/8d92a94a-41c8-4c03-8c66-9b099d437422.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/8d92a94a-41c8-4c03-8c66-9b099d437422.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-01T19:24:00.144Z",
+      "updated_at": "2026-10-01T19:24:00.144Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "c52316e4-9514-4360-9fc2-738dfa97e3df",
+      "title": "Губы",
+      "article": "UNT-277",
+      "price": 550,
+      "short_description": "Губы",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "golubaya-nezhnost-2-9",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Для неё"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/ad4436db-8f06-46a4-a8aa-9afda0779b45.jpg",
+        "photo_dhash": "0068e2f092e07002",
+        "unit_type": "foil",
+        "balloon_size": "76 см",
+        "unit_who": [
+          "Для неё"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/09f7af5c-1a16-4209-b38f-065c8e04a65d.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/09f7af5c-1a16-4209-b38f-065c8e04a65d.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-01T19:22:47.627Z",
+      "updated_at": "2026-10-01T19:22:47.627Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "863b03aa-5f8a-449a-8c04-4a38a790ef31",
+      "title": "Ананас",
+      "article": "UNT-276",
+      "price": 500,
+      "short_description": "Ананас",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "golubaya-nezhnost-2-8",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/de60160e-3b7a-4d75-9c7c-9cedefcef1ce.jpg",
+        "photo_dhash": "c8f0f8e8d8b8f8f0",
+        "unit_type": "foil",
+        "balloon_size": "76 см"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/8349806a-444c-410a-858b-7c7fcfb59d8f.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/8349806a-444c-410a-858b-7c7fcfb59d8f.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-01T19:21:27.937Z",
+      "updated_at": "2026-10-01T19:21:27.937Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "5c81d3a0-eef7-4bc6-b2b3-3455b3a6ffc3",
+      "title": "Клубничка",
+      "article": "UNT-275",
+      "price": 500,
+      "short_description": "Клубничка",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "golubaya-nezhnost-2-7",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Для неё",
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/20f971f1-a3b5-44fd-a164-6343d0282e83.jpg",
+        "photo_dhash": "70f082ceb2d4e070",
+        "unit_type": "foil",
+        "balloon_size": "71 см",
+        "unit_who": [
+          "Для неё",
+          "Для девочки"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/2980416a-c9bb-4067-9cc6-3b1fe6160177.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/2980416a-c9bb-4067-9cc6-3b1fe6160177.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-01T19:19:59.827Z",
+      "updated_at": "2026-10-01T19:19:59.827Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "c5fc311f-44b1-43c1-9858-2c81bbe820c6",
+      "title": "Фламинго",
+      "article": "UNT-274",
+      "price": 500,
+      "short_description": "Фламинго",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "golubaya-nezhnost-2-6",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/d2a9efea-20cf-46b3-9dd9-96045c84d0cf.jpg",
+        "photo_dhash": "e0a09032f8ed101c",
+        "unit_type": "foil",
+        "balloon_size": "86 см",
+        "unit_who": [
+          "Для девочки"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/cf6bcbae-c57e-495e-83e4-8b9da7667848.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/cf6bcbae-c57e-495e-83e4-8b9da7667848.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-01T19:18:31.101Z",
+      "updated_at": "2026-10-01T19:18:31.101Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "ea759d97-e621-4c48-a663-199034f7aca9",
+      "title": "Губная помада",
+      "article": "UNT-273",
+      "price": 600,
+      "short_description": "Губная помада",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "golubaya-nezhnost-2-5",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Для неё"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/7556a40f-947d-40ea-8353-9585544abc95.jpg",
+        "photo_dhash": "7171312929393931",
+        "unit_type": "foil",
+        "balloon_size": "126 см",
+        "unit_who": [
+          "Для неё"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/af6cf872-dff3-4e45-875d-2049108d59e9.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/af6cf872-dff3-4e45-875d-2049108d59e9.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-01T19:17:23.359Z",
+      "updated_at": "2026-10-01T19:17:23.359Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "b3f2d583-7298-4d3c-8a9c-330a86781f22",
+      "title": "Коктейль со льдом",
+      "article": "UNT-272",
+      "price": 450,
+      "short_description": "Коктейль со льдом",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "golubaya-nezhnost-2-4",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Для неё"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/5457f786-a4ca-4774-a3aa-ee3b930e6fa8.jpg",
+        "photo_dhash": "848cccc4ac0ec0e0",
+        "unit_type": "foil",
+        "balloon_size": "84 см",
+        "unit_who": [
+          "Для неё"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/dfc0a011-8d6e-406e-8fba-024d3ec5e80e.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/dfc0a011-8d6e-406e-8fba-024d3ec5e80e.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-01T19:13:59.123Z",
+      "updated_at": "2026-10-01T19:13:59.123Z",
+      "thumb_photo": null
+    },
+    {
       "id": "11cf93c8-3751-48da-b150-cbac2bce283b",
       "title": "Бабочка, Цветная",
       "article": "UNT-271",

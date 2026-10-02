@@ -2,6 +2,294 @@
   "ok": true,
   "products": [
     {
+      "id": "b79b9de5-db7e-4ec2-bdf2-104748298750",
+      "title": "Кольцо с бриллиантом Золото",
+      "article": "UNT-295",
+      "price": 400,
+      "short_description": "Кольцо с бриллиантом Золото",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "kukly-lol-diva-6",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Свадьба и девичник"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/c70e64a7-bb29-4329-8b16-514b26accebc.jpg",
+        "photo_dhash": "ccbebcf0f4cccce0",
+        "unit_type": "foil",
+        "balloon_size": "69 см",
+        "unit_who": [
+          "Свадьба и девичник"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/1788ea37-99a5-481a-8a67-f053817c490d.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/1788ea37-99a5-481a-8a67-f053817c490d.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-02T12:33:09.744Z",
+      "updated_at": "2026-10-02T12:33:09.744Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "2975a7be-abcc-49d5-82a9-a876abc6d2cd",
+      "title": "Кольцо с бриллиантом Розовое Золото",
+      "article": "UNT-294",
+      "price": 400,
+      "short_description": "Кольцо с бриллиантом Розовое Золото",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "kukly-lol-diva-5",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Свадьба и девичник"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/d3d3bf72-0285-4f3a-bf82-8822d3d0ce17.jpg",
+        "photo_dhash": "d4fa96f0f4c4cc70",
+        "unit_type": "foil",
+        "balloon_size": "69 см",
+        "unit_who": [
+          "Свадьба и девичник"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/b5f7ad8e-13a9-4f28-91f7-bc4725e3cb3b.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/b5f7ad8e-13a9-4f28-91f7-bc4725e3cb3b.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-02T12:29:21.375Z",
+      "updated_at": "2026-10-02T12:29:21.375Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "c2e6057e-18d3-4020-8c70-279d20a866bd",
+      "title": "Облако",
+      "article": "UNT-293",
+      "price": 350,
+      "short_description": "Облако",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "kukly-lol-diva-4",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "На выписку"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/c758465c-901b-4229-9dcf-441d6260e1e4.jpg",
+        "photo_dhash": "60c88280b4301010",
+        "unit_type": "foil",
+        "balloon_size": "57 см",
+        "unit_who": [
+          "На выписку"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/cdca87a2-7548-414c-a63c-e7a3376d8043.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/cdca87a2-7548-414c-a63c-e7a3376d8043.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-02T12:27:16.209Z",
+      "updated_at": "2026-10-02T12:27:16.209Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "ef185241-94d9-4f94-b2c3-6c443678134d",
+      "title": "Счастливое облако",
+      "article": "UNT-292",
+      "price": 400,
+      "short_description": "Счастливое облако",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "kukly-lol-diva-3",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "На выписку"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/938e188f-6ab8-402e-af20-a3d937482bd3.jpg",
+        "photo_dhash": "70e886616992b0c4",
+        "unit_type": "foil",
+        "balloon_size": "48 см",
+        "unit_who": [
+          "На выписку"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/4c500357-4856-42d3-9a42-8199e7e4c745.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/4c500357-4856-42d3-9a42-8199e7e4c745.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-02T12:26:05.995Z",
+      "updated_at": "2026-10-02T12:26:05.995Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "a6261bc6-fc62-43b6-8bcb-2654f087a0e7",
+      "title": "Полумесяц Серебро",
+      "article": "UNT-291",
+      "price": 500,
+      "short_description": "Полумесяц Серебро",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "kukly-lol-diva-2",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "На выписку"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/a8cad986-2ae0-4dcb-b589-1da0d29a2c09.jpg",
+        "photo_dhash": "180e0e0e1c34b8f0",
+        "unit_type": "foil",
+        "balloon_size": "71 см",
+        "unit_who": [
+          "На выписку"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/74898bf1-3cfa-42aa-a26c-a5eb5c945066.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/74898bf1-3cfa-42aa-a26c-a5eb5c945066.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-02T12:24:29.745Z",
+      "updated_at": "2026-10-02T12:24:29.745Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "8b388c6f-e902-4787-ac28-d9c316ed5e5d",
+      "title": "Куклы Лол Diva",
+      "article": "UNT-290",
+      "price": 600,
+      "short_description": "Куклы Лол Diva",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": "Дива",
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": "LOL Surprise",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "kukly-lol-diva",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/581d8658-22d5-46ca-857d-8aad18e3f2d0.jpg",
+        "photo_dhash": "ecece8e8f0f0f070",
+        "unit_type": "foil",
+        "balloon_size": "87 см",
+        "unit_who": [
+          "Для девочки"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/6f10b18f-4eef-4b86-98d2-30198fa8ee39.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/6f10b18f-4eef-4b86-98d2-30198fa8ee39.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-02T12:20:10.688Z",
+      "updated_at": "2026-10-02T12:20:10.688Z",
+      "thumb_photo": null
+    },
+    {
       "id": "5009609b-5646-471f-b92f-c44c59905ce2",
       "title": "Голова радужного единорога",
       "article": "UNT-289",

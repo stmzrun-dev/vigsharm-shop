@@ -2,6 +2,102 @@
   "ok": true,
   "products": [
     {
+      "id": "5009609b-5646-471f-b92f-c44c59905ce2",
+      "title": "Голова радужного единорога",
+      "article": "UNT-289",
+      "price": 700,
+      "short_description": "Голова радужного единорога",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "volshebnyy-edinorog-v-cvetah-2",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/02ef01ca-a5ce-4994-a89d-ca48e727286c.jpg",
+        "photo_dhash": "b4e08cfcf8f8f8f8",
+        "unit_type": "foil",
+        "balloon_size": "101 см",
+        "unit_who": [
+          "Для девочки"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/e6ac88b4-d577-4ed7-9f87-e46acf844196.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/e6ac88b4-d577-4ed7-9f87-e46acf844196.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-02T11:01:36.802Z",
+      "updated_at": "2026-10-02T11:01:36.802Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "6b3d9fc4-27e7-46bf-b228-20f97f9eebb9",
+      "title": "Волшебный единорог в цветах",
+      "article": "UNT-288",
+      "price": 700,
+      "short_description": "Волшебный единорог в цветах",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "volshebnyy-edinorog-v-cvetah",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/8817c3cc-bb24-41ec-b0d4-7795fc72ba13.jpg",
+        "photo_dhash": "f0d8a8eabaf13034",
+        "unit_type": "foil",
+        "balloon_size": "91 см",
+        "unit_who": [
+          "Для девочки"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/387e7201-0c0f-4224-bd8f-b6b4e59ad19c.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/387e7201-0c0f-4224-bd8f-b6b4e59ad19c.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-02T10:55:30.598Z",
+      "updated_at": "2026-10-02T10:55:30.598Z",
+      "thumb_photo": null
+    },
+    {
       "id": "fe1b5e9b-7e73-443f-bb3e-23b217e2e1ca",
       "title": "Мамочка, Я Тебя Люблю, Бант",
       "article": "UNT-287",

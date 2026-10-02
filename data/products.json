@@ -2,6 +2,396 @@
   "ok": true,
   "products": [
     {
+      "id": "dd4e0ff5-31e6-4c23-8af2-1b04c4524903",
+      "title": "Игровая арена",
+      "article": "BOY-047",
+      "price": 4500,
+      "short_description": "Две напольные композиции с игровыми джойстиками в чёрно-синей гамме.",
+      "full_description": "Две напольные композиции с крупными цифрами, микрофонами и игровыми джойстиками. Стильное сочетание чёрного, синего и серебристого.",
+      "composition": [
+        "2 напольные композиции"
+      ],
+      "category": "Для мальчика",
+      "character": null,
+      "age_group": "Для детей",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Игровая арена — шары для геймера, Армавир",
+      "seo_description": "Напольные композиции с игровыми джойстиками в чёрно-синей гамме. Для юного геймера. Доставка в Армавире.",
+      "slug": "igrovaya-arena",
+      "scene": "floor",
+      "tags": [
+        "Для мальчика",
+        "Геймерам"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/27dd98a2-ac04-4503-a79c-752315927f51.jpg",
+        "photo_dhash": "dcdaccdacc92ba6c",
+        "floor_type": "air",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 2
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/90e239c2-1ed3-4967-9104-5b16d4fae230.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/90e239c2-1ed3-4967-9104-5b16d4fae230.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-02T19:10:28.307Z",
+      "updated_at": "2026-10-02T19:10:28.307Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "ca95fb70-fec8-412c-bb49-3e3b59c2112b",
+      "title": "Скоростной забег",
+      "article": "BOY-026",
+      "price": 3600,
+      "short_description": "Напольная композиция с Соником, игровым джойстиком и яркими звёздами.",
+      "full_description": "Напольная композиция с синим ёжиком Соником, фольгированным джойстиком и красной цифрой. Красные и синие звёзды, золотые кольца и шары создают динамичную игровую атмосферу.",
+      "composition": [
+        "Напольная композиция"
+      ],
+      "category": "Для мальчика",
+      "character": "Соник",
+      "age_group": "Для детей",
+      "budget": "3 500–5 000 ₽",
+      "series_name": "Sonic the Hedgehog",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары с Соником и джойстиком на день рождения Армавир",
+      "seo_description": "Напольная композиция с Соником, игровым джойстиком, красной цифрой и звёздами. Яркий игровой дизайн для мальчика в Армавире.",
+      "slug": "skorostnoy-zabeg",
+      "scene": "floor",
+      "tags": [
+        "Для мальчика",
+        "Геймерам"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/97f70453-53b8-43ad-ab53-e0bfd816900d.jpg",
+        "photo_dhash": "e0d89cd898fa54f0",
+        "floor_type": "air",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/8c36f6d5-fa74-435f-8782-012cee5efe51.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/8c36f6d5-fa74-435f-8782-012cee5efe51.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-02T19:06:44.170Z",
+      "updated_at": "2026-10-02T19:06:44.170Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "91d25c45-77b6-44e1-9b97-8998a8332e42",
+      "title": "Рыжий друг",
+      "article": "GRL-004",
+      "price": 2300,
+      "short_description": "Напольная композиция с фигурой котёнка и цифрой в пастельных тонах.",
+      "full_description": "Напольная композиция с фольгированной фигурой котёнка и цифрой. Оформлена латексными шарами, хромом и шарами в пастельной гамме.",
+      "composition": [
+        "Напольная композиция",
+        "2 шара",
+        "шар хром"
+      ],
+      "category": "Для девочки",
+      "character": "Котёнок",
+      "age_group": "Для детей",
+      "budget": "2 000–3 500 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Композиция с котёнком и цифрой Армавир — VigSharm",
+      "seo_description": "Напольная композиция с фигурой котёнка и цифрой в пастельных тонах. Латексные шары, хром. Доставка воздушных шаров в Армавире.",
+      "slug": "ryzhij-drug",
+      "scene": "floor",
+      "tags": [
+        "Для девочки",
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/f4d0d02a-2626-402c-a039-bd11a6928cef.jpg",
+        "photo_dhash": "8e9c8c8ccccc9eec",
+        "floor_type": "air",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/3a2a330f-7163-4e9b-8fbf-64d214ff9eb5.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/3a2a330f-7163-4e9b-8fbf-64d214ff9eb5.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-02T19:04:58.918Z",
+      "updated_at": "2026-10-02T19:04:58.918Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "9badf485-d02c-483b-90e7-170e950370cf",
+      "title": "Дракоша",
+      "article": "BOY-006",
+      "price": 4500,
+      "short_description": "Напольная композиция с чёрным драконом и радужной цифрой на баблсе с надписью.",
+      "full_description": "Напольная композиция с фигурой чёрного дракона, радужной цифрой и баблсом с индивидуальной надписью на подставке из шаров.",
+      "composition": [
+        "напольная композиция"
+      ],
+      "category": "Для мальчика",
+      "character": "Дракон Беззубик",
+      "age_group": "Для детей",
+      "budget": "3 500–5 000 ₽",
+      "series_name": "Как приручить дракона",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Композиция с драконом и радужной цифрой — Армавир",
+      "seo_description": "Напольная композиция с чёрным драконом, радужной цифрой и баблсом с надписью. Доставка по Армавиру.",
+      "slug": "drakoscha",
+      "scene": "floor",
+      "tags": [
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/19afc9ed-b3a3-405b-a251-7fe3b26810ac.jpg",
+        "photo_dhash": "8c048c8dcc5c686b",
+        "floor_type": "air",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/b562b0ef-9c1c-4630-8303-1494ecee5ce3.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/b562b0ef-9c1c-4630-8303-1494ecee5ce3.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-02T19:02:50.748Z",
+      "updated_at": "2026-10-02T19:02:50.748Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "fd4fef35-2444-452d-ba93-ca1e9bbb7522",
+      "title": "Боевой робот",
+      "article": "BOY-005",
+      "price": 4000,
+      "short_description": "Напольная композиция с золотой цифрой, фигурой робота-трансформера и звездой с поздравлением.",
+      "full_description": "Яркая композиция для поклонников роботов и трансформеров. Золотая цифра, фигура робота, звезда с надписью и шары в сине-золотой гамме создают атмосферу приключений.",
+      "composition": [
+        "Напольная композиция",
+        "Звезда с надписью"
+      ],
+      "category": "Для мальчика",
+      "character": "Трансформер",
+      "age_group": "Для детей",
+      "budget": "3 500–5 000 ₽",
+      "series_name": "Трансформеры",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Напольная композиция с роботом-трансформером Армавир",
+      "seo_description": "Напольная композиция с цифрой, фигурой робота-трансформера и звездой с надписью. Золотые и синие шары для фаната роботов. Доставка в Армавире.",
+      "slug": "boevoy-robot",
+      "scene": "floor",
+      "tags": [
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/0a90e525-f2c7-4f68-a9c4-a84760e2955e.jpg",
+        "photo_dhash": "fff337c1e8c8c8e3",
+        "floor_type": "air",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/4f452dce-fa7c-4bf1-864d-eab5b4c19b45.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/4f452dce-fa7c-4bf1-864d-eab5b4c19b45.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-02T19:00:59.391Z",
+      "updated_at": "2026-10-02T19:00:59.391Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "de0afaad-4296-4bba-9d6d-a169d00c6925",
+      "title": "Игровой уровень",
+      "article": "JUB-001",
+      "price": 5000,
+      "short_description": "Напольная композиция с геймпадом и яркими игровыми элементами.",
+      "full_description": "Напольная композиция с цифрами, фольгированным геймпадом и звёздами. Яркие шары с игровыми кнопками создают динамичную атмосферу.",
+      "composition": [
+        "Напольная композиция"
+      ],
+      "category": "Юбилей",
+      "character": null,
+      "age_group": "Для детей",
+      "budget": "5 000–8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Напольная композиция с геймпадом на юбилей в Армавире",
+      "seo_description": "Напольная композиция с цифрами, фольгированным геймпадом и яркими шарами. Геймерская тематика для юбилея.",
+      "slug": "igrovoy-uroven-10",
+      "scene": "floor",
+      "tags": [
+        "Геймерам",
+        "Юбилей"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/7aaf2958-a183-407e-b993-d28f3bb70fd0.jpg",
+        "photo_dhash": "ba23c9b3b7931ed8",
+        "floor_type": "air",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 2
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/74f3e51b-d7de-4555-a233-c9f220b6808b.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/74f3e51b-d7de-4555-a233-c9f220b6808b.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-02T18:58:23.485Z",
+      "updated_at": "2026-10-02T18:58:23.485Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "64d9396f-c127-4fc8-8e86-43cfffa44a3b",
+      "title": "Огненный монстр",
+      "article": "BOY-004",
+      "price": 1980,
+      "short_description": "Красный грузовик-монстр с огненным декором и яркие шары создадут атмосферу скорости и приключений.",
+      "full_description": "Фольгированная фигура грузовика-монстра с огромными колёсами и пламенем на боку в сопровождении красных и жёлтых латексных шаров. Композиция для любителей техники и экстремальных гонок.",
+      "composition": [
+        "7 шаров",
+        "фигура"
+      ],
+      "category": "Для мальчика",
+      "character": "Вспыш",
+      "age_group": "Для детей",
+      "budget": "1 000–2 000 ₽",
+      "series_name": "Вспыш и чудо-машинки",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары с Вспышем в Армавире | VigSharm",
+      "seo_description": "Композиция с фигурой грузовика-монстра Вспыша и яркими шарами. Доставка воздушных шаров для мальчика в Армавире от VigSharm.",
+      "slug": "ognennyy-monstr",
+      "scene": "wall_only",
+      "tags": [
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/3212cc14-c82a-4275-b007-4489bbc44792.jpg",
+        "photo_dhash": "056ce4c486ce2e0f"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/10fdd907-08cd-4eba-a50b-b36df846f49c.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/10fdd907-08cd-4eba-a50b-b36df846f49c.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-02T18:54:59.646Z",
+      "updated_at": "2026-10-02T18:54:59.646Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "9336938c-b8f3-4722-8d59-23883640ceb9",
+      "title": "Герой Готэма",
+      "article": "BOY-003",
+      "price": 5610,
+      "short_description": "Напольная композиция в чёрно-жёлтых тонах с эмблемой Бэтмена и цифрой.",
+      "full_description": "Напольная композиция в стиле Бэтмена с чёрной цифрой, звездой с надписью, фонтаном из шаров и фигурой супергероя.",
+      "composition": [
+        "напольная композиция",
+        "звезда с надписью",
+        "2 шара хром",
+        "5 шаров"
+      ],
+      "category": "Для мальчика",
+      "character": "Бэтмен",
+      "age_group": "Для детей",
+      "budget": "5 000–8 000 ₽",
+      "series_name": "Бэтмен",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары Бэтмен на день рождения мальчика в Армавире",
+      "seo_description": "Напольная композиция с эмблемой Бэтмена, чёрной цифрой и звездой с надписью. Оформление в стиле супергероя для мальчика.",
+      "slug": "geroj-gotema",
+      "scene": "floor",
+      "tags": [
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/7d074e2e-e6ab-45ad-b885-07ed0ce55844.jpg",
+        "photo_dhash": "3f0f1b63e7ece66e",
+        "floor_type": "air",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/21b54ef9-93aa-46be-b2b2-e27f9c2bcd96.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/21b54ef9-93aa-46be-b2b2-e27f9c2bcd96.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-02T18:52:31.215Z",
+      "updated_at": "2026-10-02T18:52:31.215Z",
+      "thumb_photo": null
+    },
+    {
       "id": "b79b9de5-db7e-4ec2-bdf2-104748298750",
       "title": "Кольцо с бриллиантом Золото",
       "article": "UNT-295",

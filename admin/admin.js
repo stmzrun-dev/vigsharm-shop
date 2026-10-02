@@ -1082,6 +1082,8 @@ const app = {
   },
 
   articlePrefixFor(category) {
+    // Новая полка каталога добавляется сюда в том же изменении, что и в CATEGORIES.
+    // Иначе «Опубликовать» выдаст префикс DG.
     const map = {
       'Для мальчика': 'BOY',
       'Для девочки': 'GRL',
@@ -1121,30 +1123,30 @@ const app = {
     return map[category] || 'DG';
   },
 
-  /** Артикул заперт только у уже опубликованной карточки. Черновик можно переложить в другую полку. */
-  articleIsLocked() {
-    const id = this.currentProduct?.id;
-    if (!id) return false;
-    const status = this.currentProduct.status
-      || this.products?.find((p) => String(p.id) === String(id))?.status
-      || '';
-    return status === 'published';
-  },
-
   /**
-   * Свободный артикул по итоговой категории.
+   * Артикул на «Опубликовать» — по разделу, который оставил оператор.
+   * Тот же раздел и уже выданный номер не меняем. Другой раздел — новый префикс.
    * Поштучные шары всегда UNT: полка у них часто праздник, а не «Шары поштучно».
    */
-  assignFreshArticle(category) {
+  articleCategoryForPublish(category) {
+    const scene = this.currentProduct?.scene || document.getElementById('scene-select')?.value || '';
+    if (scene === 'unit_balloon') return 'Шары поштучно';
+    return category || document.getElementById('product-category')?.value || '';
+  },
+
+  syncArticlePreview(category) {
     const articleEl = document.getElementById('product-article');
     if (!articleEl) return '';
-    if (this.articleIsLocked()) return articleEl.value.trim();
-    const scene = this.currentProduct?.scene || document.getElementById('scene-select')?.value || '';
-    const cat = scene === 'unit_balloon'
-      ? 'Шары поштучно'
-      : (category || document.getElementById('product-category')?.value || '');
-    articleEl.value = this.nextArticle(cat);
+    const cat = this.articleCategoryForPublish(category);
+    const sameShelf = !!this._articleBasisValue && cat === this._articleBasisCategory;
+    articleEl.value = sameShelf ? this._articleBasisValue : (cat ? this.nextArticle(cat) : '');
+    const meta = document.getElementById('ai-review-meta');
+    if (meta) meta.textContent = articleEl.value ? `Арт. ${articleEl.value}` : 'Артикул при публикации';
     return articleEl.value;
+  },
+
+  assignArticleForPublish(category) {
+    return this.syncArticlePreview(category);
   },
 
   slugify(str) {
@@ -2364,11 +2366,11 @@ const app = {
       }
     }
 
-    // Артикул — только в момент публикации, по категории, которую оставили.
-    // Черновик номер не занимает. Уже опубликованный номер не переписываем.
-    if (status === 'published' && !this.articleIsLocked()) {
-      this.assignFreshArticle(data.category);
-      const articleCat = data.scene === 'unit_balloon' ? 'Шары поштучно' : data.category;
+    // Артикул — в момент публикации, по разделу, который оставил оператор.
+    // Тот же раздел сохраняет номер. Другой раздел получает свой префикс.
+    if (status === 'published') {
+      this.assignArticleForPublish(data.category);
+      const articleCat = this.articleCategoryForPublish(data.category);
       data.article = document.getElementById('product-article')?.value.trim() || this.nextArticle(articleCat);
     }
 

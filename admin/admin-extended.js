@@ -1531,6 +1531,7 @@ Object.assign(app, {
       });
       this.setBouquetType?.(mapped);
       setCategory(BOUQUET_TYPES[mapped].category);
+      this.syncArticlePreview?.(BOUQUET_TYPES[mapped].category);
       return;
     }
     const still = [...document.querySelectorAll(`#${containerId} input:checked`)]
@@ -1538,6 +1539,7 @@ Object.assign(app, {
     if (still) return;
     this.setBouquetType?.('foil');
     setCategory('Букет из шаров');
+    this.syncArticlePreview?.('Букет из шаров');
     paint(document.querySelector(`#${containerId} input[value="Букет из шаров"]`), true);
     paint(document.querySelector(`${sourceSelector} input[value="Букет из шаров"]`), true);
   },
@@ -2310,8 +2312,9 @@ Object.assign(app, {
     const scene = unit ? 'unit_balloon' : (this.currentProduct.scene || 'floor');
     if (unit && !tags.includes('Шары поштучно')) tags.push('Шары поштучно');
 
-    // Перед сохранением ещё раз синкнем опции (стена/напольные/фотозона)
-    if (!unit) this.syncAdvanceOrderFromScene?.();
+    // Перед сохранением ещё раз синкнем опции только у новой карточки без ручной правки.
+    // После ИИ и у сохранённой карточки галочки остаются как их выставил оператор.
+    if (!unit && !this.cardFieldsAreManual?.()) this.syncAdvanceOrderFromScene?.();
 
     const compText = Array.isArray(composition) ? composition.join('\n') : String(composition || '');
     const isSurprise = !unit && scene === 'surprise';
@@ -2435,7 +2438,11 @@ Object.assign(app, {
     } else if (clientOptions.number_choice) {
       const fromComp = this.compositionDigitCount?.(compText) || 0;
       const unitDigit = unit && this.getUnitBalloonType?.() === 'digit';
-      const count = unitDigit ? 1 : Math.min(2, Math.max(1, fromComp || 1));
+      const marker = Number(this.currentProduct?.digit_from_marker) || 0;
+      const chosen = (marker === 1 || marker === 2) ? marker : 0;
+      const count = unitDigit
+        ? 1
+        : Math.min(2, Math.max(1, (this.cardFieldsAreManual?.() && chosen ? chosen : 0) || fromComp || 1));
       clientOptions.digit_choice = {
         enabled: true,
         count_on_photo: count
@@ -2446,7 +2453,7 @@ Object.assign(app, {
     let finalTags = [...tags];
     const occasionShelf = !unit && !holidayOnly && !isBox && !isBouquet && !isBalloonFlowers && !isFigures
       && (typeof OCCASION_SHELVES !== 'undefined' ? OCCASION_SHELVES.includes(category) : false);
-    if (!keepOperatorChoice) {
+    if (!keepOperatorChoice && !this.cardFieldsAreManual?.()) {
       if (isSurprise) {
         category = 'Шар-сюрприз';
         finalTags = ['Шар-сюрприз'];
@@ -2482,14 +2489,15 @@ Object.assign(app, {
     if (scene === 'table') {
       const rose = this.getRoseType?.() || '';
       const roseMeta = (typeof ROSE_TYPES !== 'undefined' && ROSE_TYPES[rose]) || null;
-      if (roseMeta) {
+      if (!this.cardFieldsAreManual?.() && roseMeta) {
         category = roseMeta.category;
         finalTags = [roseMeta.category];
       }
       if (rose) clientOptions.rose_type = rose;
     }
 
-    if (scene === 'handheld_bouquet' && !holidayOnly) {
+    const manualCard = !!this.cardFieldsAreManual?.();
+    if (!manualCard && scene === 'handheld_bouquet' && !holidayOnly) {
       const btype = this.resolveHandheldBouquetType?.(tags, category) || 'foil';
       const meta = (typeof BOUQUET_TYPES !== 'undefined' && BOUQUET_TYPES[btype]) || null;
       if (meta) {
@@ -2500,6 +2508,10 @@ Object.assign(app, {
         clientOptions.bouquet_type = btype;
         this.setBouquetType?.(btype);
       }
+    } else if (manualCard) {
+      const named = (typeof bouquetTypeFromCategory === 'function') ? bouquetTypeFromCategory(category) : '';
+      const btype = named || (scene === 'handheld_bouquet' ? (this.getBouquetType?.() || '') : '');
+      if (btype) clientOptions.bouquet_type = btype;
     }
 
     const deferred = (typeof DEFERRED_TYPE_TAGS !== 'undefined' && DEFERRED_TYPE_TAGS) || ['Шар-сюрприз'];
@@ -2640,6 +2652,8 @@ Object.assign(app, {
     this._photoDupSig = '';
     this._aiCardFilled = false;
     this._lastAiCardData = null;
+    this._articleBasisCategory = '';
+    this._articleBasisValue = '';
     this.resetAiAutoFillState?.();
     this.resetUnitCharacterDetectState?.();
     this.closeAiReviewOverlay?.({ skipSync: true });
@@ -2949,6 +2963,8 @@ app.loadProductToForm = function(product) {
   set('product-full-desc', product.full_description);
   set('product-composition', (product.composition || []).join('\n'));
   set('product-category', product.category);
+  this._articleBasisCategory = product.status === 'published' ? (product.category || '') : '';
+  this._articleBasisValue = product.status === 'published' ? (product.article || '') : '';
   set('product-character', product.character);
   set('product-age', product.age_group);
   set('product-budget', product.budget);
@@ -2968,12 +2984,15 @@ app.loadProductToForm = function(product) {
   const opts = product.client_options || {};
   const opt = (id, val) => { const el = document.getElementById(id); if (el) el.checked = !!val; };
   const nestedOn = (v) => !!(v === true || v === 1 || (v && typeof v === 'object' && v.enabled));
-  opt('opt-advance', opts.advance_order_1_2_days || nestedOn(opts.advance_order)
+  const flagOn = (key, legacy) => (
+    Object.prototype.hasOwnProperty.call(opts, key) ? !!opts[key] : !!legacy
+  );
+  opt('opt-advance', flagOn('advance_order_1_2_days', nestedOn(opts.advance_order)
     || tags.includes('Напольные композиции')
-    || product.category === 'Напольные композиции');
-  opt('opt-number', opts.number_choice || nestedOn(opts.digit_choice));
-  opt('opt-inscription', opts.personal_inscription || nestedOn(opts.inscription));
-  opt('opt-rental', opts.photozone_rental || nestedOn(opts.rental));
+    || product.category === 'Напольные композиции'));
+  opt('opt-number', flagOn('number_choice', nestedOn(opts.digit_choice)));
+  opt('opt-inscription', flagOn('personal_inscription', nestedOn(opts.inscription)));
+  opt('opt-rental', flagOn('photozone_rental', nestedOn(opts.rental)));
   opt('show-on-site', product.show_on_site);
   const savedDigitCount = Number(opts.digit_choice && opts.digit_choice.count_on_photo) || 0;
   if ((savedDigitCount === 1 || savedDigitCount === 2) && (opts.number_choice || nestedOn(opts.digit_choice))) {

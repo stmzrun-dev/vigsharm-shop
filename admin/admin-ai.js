@@ -1342,6 +1342,7 @@ Object.assign(app, {
           const mappedBouquet = (typeof bouquetTypeFromCategory === 'function') ? bouquetTypeFromCategory(el.value) : '';
           if (mappedBouquet) this.setBouquetType?.(mappedBouquet);
           else if ((this.currentProduct?.scene || document.getElementById('scene-select')?.value) === 'handheld_bouquet') this.setBouquetType?.('foil');
+          this.syncArticlePreview?.(el.value);
         }
         if (fromId === 'ai-review-price') this.syncBudgetFromPrice?.();
         this.syncRequiredFieldHighlights?.();
@@ -1486,6 +1487,13 @@ Object.assign(app, {
         if (formCb) formCb.checked = cb.checked;
         cb.closest('.chip')?.classList.toggle('is-on', cb.checked);
         this.syncBouquetTypeFromReviewChip?.(cb, containerId, sourceSelector);
+        if (containerId === 'ai-review-tags-type' && cb.checked) {
+          const catEl = document.getElementById('product-category');
+          const reviewCat = document.getElementById('ai-review-category');
+          if (catEl) catEl.value = cb.value;
+          if (reviewCat && [...reviewCat.options].some((opt) => opt.value === cb.value)) reviewCat.value = cb.value;
+          this.syncArticlePreview?.(cb.value);
+        }
         this.renderAiReviewTagsSummary?.();
         this.scheduleSaveActiveStudioDraft?.();
       });

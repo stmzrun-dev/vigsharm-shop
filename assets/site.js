@@ -66,6 +66,10 @@
   function vigTruthy(v) {
     return v === true || v === 1 || v === '1';
   }
+  /** false тоже считается заданным: админка сохранила выбор, витрина его не перебивает. */
+  function vigFlagExplicit(v) {
+    return v === true || v === false || v === 1 || v === 0 || v === '1' || v === '0';
+  }
   function vigOptEnabled(opt) {
     if (opt === true || opt === 1 || opt === '1') return true;
     if (opt && typeof opt === 'object') return vigTruthy(opt.enabled);
@@ -128,11 +132,29 @@
 
     // New admin flags + legacy nested objects from migration
     var digitOn = vigTruthy(opts.number_choice) || vigOptEnabled(opts.digit_choice);
+    var digitExplicit = vigFlagExplicit(opts.number_choice)
+      || (opts.digit_choice && typeof opts.digit_choice === 'object' && vigFlagExplicit(opts.digit_choice.enabled));
     var inscriptionOn = vigTruthy(opts.personal_inscription) || vigOptEnabled(opts.inscription);
+    var inscriptionExplicit = vigFlagExplicit(opts.personal_inscription)
+      || (opts.inscription && typeof opts.inscription === 'object' && vigFlagExplicit(opts.inscription.enabled));
+    var tags = Array.isArray(p.tags) ? p.tags : [];
+    var isSoftBouquet = opts.bouquet_type === 'teddy'
+      || opts.bouquet_type === 'butterfly'
+      || opts.bouquet_type === 'soap'
+      || p.category === 'Букет с мишками'
+      || p.category === 'Букет с бабочками'
+      || p.category === 'Букет из мыльных роз'
+      || tags.indexOf('Букет с мишками') >= 0
+      || tags.indexOf('Букет с бабочками') >= 0
+      || tags.indexOf('Букет из мыльных роз') >= 0;
     var rentalOn = vigTruthy(opts.photozone_rental) || vigOptEnabled(opts.rental);
+    var rentalExplicit = vigFlagExplicit(opts.photozone_rental)
+      || (opts.rental && typeof opts.rental === 'object' && vigFlagExplicit(opts.rental.enabled));
     var availableOn = vigTruthy(opts.available_on_request) || vigOptEnabled(opts.available_on_request);
+    var requestExplicit = vigFlagExplicit(opts.available_on_request);
     var advanceOn = vigTruthy(opts.advance_order_1_2_days) || vigOptEnabled(opts.advance_order)
       || vigTruthy(opts.advance_order);
+    var advanceExplicit = vigFlagExplicit(opts.advance_order_1_2_days) || vigFlagExplicit(opts.advance_order);
     var isBouquet = p.scene === 'handheld_bouquet'
       || p.category === 'Букет из шаров'
       || p.category === 'Крафтовый букет'
@@ -150,21 +172,21 @@
     var compJoined = Array.isArray(p.composition) ? p.composition.join(' ') : String(p.composition || '');
     var floorShelf = p.category === 'Напольные композиции'
       || (Array.isArray(p.tags) && p.tags.indexOf('Напольные композиции') >= 0);
-    // Старые карточки с полкой «Напольные» — тот же бейдж, что кнопка «Заказ заранее».
-    if (floorShelf) advanceOn = true;
-    // Напольные: чип «заказ за 1–2 дня» (floor_type air). Без чипа — не ставим сами.
-    if (isFloor && floorType === 'air') {
-      advanceOn = true;
-    } else if (!advanceOn && (isFigures || isBouquet)) {
-      advanceOn = true;
+    // Подсказки для старых карточек без сохранённого флага. Явный true/false из админки не перебиваем.
+    if (!advanceExplicit) {
+      if (floorShelf) advanceOn = true;
+      if (isFloor && floorType === 'air') {
+        advanceOn = true;
+      } else if (!advanceOn && (isFigures || isBouquet)) {
+        advanceOn = true;
+      }
+      if (!advanceOn && /коробк/i.test(compJoined)) {
+        advanceOn = true;
+      }
     }
-    if (!advanceOn && /коробк/i.test(compJoined)) {
-      advanceOn = true;
-    }
-    // Фотозоны — всегда заранее и аренда
     if (isPhotozone) {
-      advanceOn = true;
-      rentalOn = true;
+      if (!advanceExplicit) advanceOn = true;
+      if (!rentalExplicit) rentalOn = true;
       if (!pzType) {
         var hintItem = (opts.rental && opts.rental.item) || '';
         var compHint = Array.isArray(p.composition) ? p.composition.join(' ') : String(p.composition || '');
@@ -173,17 +195,18 @@
         else if (/каркас|кругл|обруч/.test(compLow) || /каркас/i.test(hintItem)) pzType = 'frame';
         else pzType = /мольбер/i.test(hintItem) ? 'easel' : 'frame';
       }
-      if (pzType === 'easel' && !inscriptionOn) inscriptionOn = true;
+      if (pzType === 'easel' && !inscriptionOn && !inscriptionExplicit) inscriptionOn = true;
     }
-    // Обычные букеты без явного флага — персональная надпись. Цветы из шаров — нет.
-    if (!inscriptionOn && isBouquet && !isFlowerBouquet) {
+    // Фольгированный букет без сохранённого флага — персональная надпись.
+    // Мишки, бабочки, мыльные розы и явный false из админки не включаем сами.
+    if (!inscriptionExplicit && !inscriptionOn && isBouquet && !isFlowerBouquet && !isSoftBouquet) {
       inscriptionOn = true;
     }
-    // В составе «коробка» / «… с надписью» / «с индивидуальной надписью»
-    if (!inscriptionOn && !isFlowerBouquet && /надпис|индивидуальн|коробк/i.test(compJoined)) {
+    // В составе «коробка» / «… с надписью» / «с индивидуальной надписью» — только если флаг не сохранён.
+    if (!inscriptionExplicit && !inscriptionOn && !isFlowerBouquet && /надпис|индивидуальн|коробк/i.test(compJoined)) {
       inscriptionOn = true;
     }
-    if (isFlowerBouquet) inscriptionOn = false;
+    if (!inscriptionExplicit && isFlowerBouquet) inscriptionOn = false;
 
     var isSurprise = p.scene === 'surprise'
       || p.category === 'Шар-сюрприз'
@@ -193,12 +216,12 @@
       p.surprise_pose = opts.surprise_pose === 'hang' ? 'hang' : 'stand';
       p.surprise_money = !!(opts.surprise_money || opts.surprise_bills);
       p.surprise_options = p.surprise_pose !== 'hang';
-      inscriptionOn = false;
+      if (!inscriptionExplicit) inscriptionOn = false;
     }
 
-    // «1 цифра» / «2 цифры» в составе (любая сцена) → выбор цифры
+    // «1 цифра» / «2 цифры» в составе — только если оператор сам не сохранил флаг.
     var compDigits = vigCompositionDigitCount(p.composition);
-    if (!digitOn && compDigits > 0) {
+    if (!digitExplicit && !digitOn && compDigits > 0) {
       digitOn = true;
     }
     var unitDigit = opts.unit_type === 'digit'
@@ -210,8 +233,8 @@
       !!String(opts.unit_holiday || '').trim()
       || /^цифра\s/i.test(String(p.title || '').trim())
     );
-    if (printedDigit) digitOn = false;
-    else if (unitDigit) digitOn = true;
+    if (!digitExplicit && printedDigit) digitOn = false;
+    else if (!digitExplicit && unitDigit) digitOn = true;
 
     if (digitOn) {
       p.has_digit_choice = true;
@@ -223,7 +246,7 @@
       // Поштучные цифры: одна в цене, вторую можно добавить за 900 ₽.
       p.digit_count_locked = unitDigit ? false : !!(isFloor || isWallOnly || isFigures || isCeiling);
       p.is_floor_composition = unitDigit ? false : !!(isFloor || isFigures);
-    } else if (p.has_digit_choice == null) {
+    } else if (digitExplicit || p.has_digit_choice == null) {
       p.has_digit_choice = false;
     }
 
@@ -234,7 +257,7 @@
           ? Number(opts.inscription.price) || 0
           : 0;
       }
-    } else if (p.has_inscription == null) {
+    } else {
       p.has_inscription = false;
     }
 
@@ -256,12 +279,12 @@
         else p.keep_price_delta = 0;
       }
       p.photozone_type = pzType || p.photozone_type || '';
-    } else if (p.has_rental == null) {
+    } else if (rentalExplicit || p.has_rental == null) {
       p.has_rental = false;
     }
 
-    p.available_on_request = availableOn || !!p.available_on_request;
-    p.needs_advance_order = advanceOn || !!p.needs_advance_order;
+    p.available_on_request = requestExplicit ? availableOn : (availableOn || !!p.available_on_request);
+    p.needs_advance_order = advanceExplicit ? advanceOn : (advanceOn || !!p.needs_advance_order);
     return p;
   };
   window.vigNormalizeProducts = function (list) {

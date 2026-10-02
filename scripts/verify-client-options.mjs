@@ -20,7 +20,10 @@ const sandbox = {
   },
   location: { protocol: 'https:', href: 'https://example.test/' },
   navigator: { share: undefined, clipboard: undefined },
-  console
+  console,
+  fetch() {
+    return Promise.resolve({ ok: false, json() { return Promise.resolve({}); } });
+  }
 };
 vm.createContext(sandbox);
 vm.runInContext(src, sandbox);
@@ -172,6 +175,90 @@ const bouquetOneDigit = vigNormalizeProduct({
   composition: ['5 шаров', '1 цифра'],
   client_options: {}
 });
+const teddyOff = vigNormalizeProduct({
+  title: 'Розовая нежность',
+  scene: 'handheld_bouquet',
+  category: 'Букет с мишками',
+  status: 'published',
+  composition: ['букет с мишками'],
+  client_options: { bouquet_type: 'teddy', personal_inscription: false, advance_order_1_2_days: true }
+});
+assert(teddyOff.has_inscription === false, 'teddy with personal_inscription false stays off');
+
+const teddyBare = vigNormalizeProduct({
+  title: 'Мишки',
+  scene: 'handheld_bouquet',
+  category: 'Букет с мишками',
+  tags: ['Букет с мишками'],
+  status: 'published',
+  client_options: { bouquet_type: 'teddy' }
+});
+assert(teddyBare.has_inscription === false, 'teddy without inscription flag stays off');
+
+const teddyOn = vigNormalizeProduct({
+  title: 'Мишки с надписью',
+  scene: 'handheld_bouquet',
+  category: 'Букет с мишками',
+  status: 'published',
+  client_options: { bouquet_type: 'teddy', personal_inscription: true }
+});
+assert(teddyOn.has_inscription === true, 'teddy with personal_inscription true stays on');
+
+const foilOff = vigNormalizeProduct({
+  title: 'Фольга',
+  scene: 'handheld_bouquet',
+  category: 'Букет из шаров',
+  status: 'published',
+  client_options: { personal_inscription: false }
+});
+assert(foilOff.has_inscription === false, 'explicit false wins over bouquet default');
+
+const foilBare = vigNormalizeProduct({
+  title: 'Фольга без флага',
+  scene: 'handheld_bouquet',
+  category: 'Букет из шаров',
+  status: 'published',
+  client_options: {}
+});
+assert(foilBare.has_inscription === true, 'foil bouquet without flag still gets inscription');
+
+const advanceOff = vigNormalizeProduct({
+  title: 'Без заранее',
+  scene: 'handheld_bouquet',
+  category: 'Букет из шаров',
+  status: 'published',
+  client_options: { advance_order_1_2_days: false, personal_inscription: true }
+});
+assert(advanceOff.needs_advance_order === false, 'explicit advance false on bouquet stays off');
+assert(advanceOff.has_inscription === true, 'explicit inscription true stays on');
+
+const digitOff = vigNormalizeProduct({
+  title: 'Без цифры',
+  scene: 'floor',
+  category: 'Напольные композиции',
+  status: 'published',
+  composition: ['10 шаров', '1 цифра'],
+  client_options: { number_choice: false, advance_order_1_2_days: false }
+});
+assert(digitOff.has_digit_choice === false, 'explicit number_choice false wins over composition');
+assert(digitOff.needs_advance_order === false, 'explicit advance false on floor shelf stays off');
+
+const pzOff = vigNormalizeProduct({
+  title: 'Фотозона без аренды',
+  scene: 'photozone',
+  category: 'Фотозона',
+  status: 'published',
+  client_options: {
+    photozone_type: 'easel',
+    personal_inscription: false,
+    advance_order_1_2_days: false,
+    photozone_rental: false
+  }
+});
+assert(pzOff.has_inscription === false, 'explicit inscription false on easel stays off');
+assert(pzOff.needs_advance_order === false, 'explicit advance false on photozone stays off');
+assert(pzOff.has_rental === false, 'explicit rental false on photozone stays off');
+
 assert(bouquetOneDigit.has_digit_choice === true, 'bouquet + «1 цифра» → digit choice anywhere');
 assert(bouquetOneDigit.digit_count_on_photo === 1, 'bouquet one digit count');
 assert(bouquetOneDigit.digit_count_locked !== true, 'bouquet digit count not locked');

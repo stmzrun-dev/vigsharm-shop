@@ -91,7 +91,7 @@ assert(html.includes('sign-text-editor'), 'sign-text UI present');
 assert(html.includes('Исправить надпись'), 'sign fix button label');
 assert(html.includes('до 1 000 ₽ — Небольшой сюрприз'), 'budget select 6 options');
 assert(adminJs.includes('articlePrefixFor'), 'article prefixes by category');
-assert(adminJs.includes('assignFreshArticle'), 'fresh article on save');
+assert(adminJs.includes('assignArticleForPublish'), 'article follows operator category on publish');
 assert(worker.includes('Герой Готэма') || worker.includes('Тёмный рыцарь'), 'creative title examples');
 assert(worker.includes('BUDGET_OPTIONS'), 'budget options in worker');
 assert(html.includes('Manus'), 'Manus mentioned in UI');
@@ -137,7 +137,7 @@ assert(worker.includes('с индивидуальной надписью и де
 assert(worker.includes('фольгированных персонажей'), 'foil ≠ фигуры из шаров');
 assert(worker.includes("case 'wall_only': return ''"), 'wall scene no auto type tag');
 assert(!/case 'wall_only':[\s\S]{0,80}Фигуры из шаров/.test(worker), 'wall scene not фигуры tag');
-assert(ai.includes('assignFreshArticle'), 'article after AI fill');
+assert(ai.includes('syncArticlePreview'), 'article preview follows the section operator picks');
 
 console.log('\n---');
 if (failed) { console.error(`RESULT: ${failed} failed`); process.exit(1); }

@@ -86,7 +86,7 @@
             })
           });
           const data = await res.json().catch(() => ({}));
-          if (!res.ok || !data.ok || !data.job_id) throw new Error(data.error || `Съёмка не стартовала (${res.status})`);
+          if (!res.ok || !data.ok || (!data.job_id && !data.result_url)) throw new Error(data.error || `Съёмка не стартовала (${res.status})`);
           return data;
         } catch (err) {
           lastErr = err;
@@ -102,21 +102,39 @@
     try {
       if (status) status.textContent = `Снимаем ${label} из квадрата…`;
       let url = '';
+      const take = async (data) => (data?.result_url
+        ? data.result_url
+        : this.pollStudioStatusSimple(data.job_id, { maxAttempts: 120, statusEl: status, label }));
+      const jobRanRe = /обработка не удалась|таймаут обработки|модель отклонила/;
       try {
         const data = await startJob('quality');
         if (status) status.textContent = `⏳ ${label}…`;
-        url = await this.pollStudioStatusSimple(data.job_id, { maxAttempts: 120, statusEl: status, label });
+        url = await take(data);
       } catch (err) {
         if (!genFailRe.test(String(err?.message || err))) throw err;
-        if (status) status.textContent = 'Первая модель не выдала кадр — пробуем следующую…';
+        if (status) status.textContent = 'Первая модель не выдала кадр — пробуем banana pro…';
         try {
-          const data = await startJob('banana');
-          url = await this.pollStudioStatusSimple(data.job_id, { maxAttempts: 120, statusEl: status, label });
-        } catch (bananaErr) {
-          if (!genFailRe.test(String(bananaErr?.message || bananaErr))) throw bananaErr;
-          if (status) status.textContent = 'Пробуем последнюю модель…';
-          const data = await startJob('flux');
-          url = await this.pollStudioStatusSimple(data.job_id, { maxAttempts: 80, statusEl: status, label });
+          const data = await startJob('pro');
+          url = await take(data);
+        } catch (proErr) {
+          const proMsg = String(proErr?.message || proErr);
+          if (!genFailRe.test(proMsg)) throw proErr;
+          if (!jobRanRe.test(proMsg)) {
+            if (status) status.textContent = 'Pro не принял два фото — пробуем чат…';
+            try {
+              const data = await startJob('pro-chat');
+              url = await take(data);
+            } catch (chatErr) {
+              if (!genFailRe.test(String(chatErr?.message || chatErr))) throw chatErr;
+              if (status) status.textContent = 'Последний шанс — banana…';
+              const data = await startJob('banana');
+              url = await take(data);
+            }
+          } else {
+            if (status) status.textContent = 'Последний шанс — banana…';
+            const data = await startJob('banana');
+            url = await take(data);
+          }
         }
       }
       url = String(url || '').trim();

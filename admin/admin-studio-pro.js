@@ -1026,7 +1026,7 @@ Object.assign(app, {
             })
           });
           const data = await res.json().catch(() => ({}));
-          if (!res.ok || !data.ok || !data.job_id) {
+          if (!res.ok || !data.ok || (!data.job_id && !data.result_url)) {
             throw new Error(data.error || `Rephotograph HTTP ${res.status}`);
           }
           return data;
@@ -1054,50 +1054,64 @@ Object.assign(app, {
           : scene === 'table'
           ? '🪑 Столик: подарок на крышке, стол не убираем...'
           : (scene === 'wall_only' || scene === 'unit_balloon')
-          ? '🧱 Manus: sunburst → banana → Flux...'
-          : '📸 AI переснимает в студии (sunburst → banana → Flux)...';
+          ? '🧱 Manus: sunburst → banana pro → banana...'
+          : '📸 AI переснимает в студии (sunburst → banana pro → banana)...';
     }
 
-    // quality (sunburst/gpt) ждём дольше — часто медленная, но лучше Flux.
-    // При сбое: banana (каталог), затем Flux как последний запасной.
+    const takeResult = async (data, maxAttempts) => {
+      if (data?.result_url) return data.result_url;
+      return this.pollStudioStatusSimple(data.job_id, {
+        maxAttempts,
+        statusEl,
+        label: data.model || 'Master'
+      });
+    };
+
+    // quality (sunburst/gpt) ждём дольше.
+    // При сбое: Nano Banana Pro с товаром и эталоном.
+    // Чат — только если Pro не принял два фото. Banana 2 — последний шанс.
     const genFailRe = /не удалось сгенерировать|возвращены на баланс|обработка не удалась|модель отклонила|таймаут обработки|failed to fetch|networkerror|load failed|rephotograph http|ошибка rephotograph|не вернул job_id|abort|content.?policy|copyright|авторск|safety|nsfw|moderation|rejected|violat/i;
+    const jobRanRe = /обработка не удалась|таймаут обработки|модель отклонила/;
     let data;
     try {
       data = await startJob('quality');
       if (statusEl) statusEl.textContent = `⏳ Master (${data.model || 'quality'}, до ~4.5 мин)...`;
-      return await this.pollStudioStatusSimple(data.job_id, {
-        maxAttempts: 90,
-        statusEl,
-        label: data.model || 'quality'
-      });
+      return await takeResult(data, 90);
     } catch (err) {
       const msg = String(err?.message || err);
       // Do NOT match bare "failed" — that catches "Failed to fetch" (503/CORS) incorrectly
       if (!genFailRe.test(msg)) throw err;
-      console.warn('[Studio Pro] quality job failed, fallback banana:', msg);
-      if (statusEl) statusEl.textContent = '↻ sunburst/gpt не выдал кадр — пробуем nano-banana...';
-      this.toast('Дорогая модель не выдала кадр — пробуем banana', 'info');
+      console.warn('[Studio Pro] quality job failed, fallback pro:', msg);
+      if (statusEl) statusEl.textContent = '↻ sunburst/gpt не выдал кадр — пробуем nano-banana pro...';
+      this.toast('Дорогая модель не выдала кадр — пробуем banana pro', 'info');
       try {
+        data = await startJob('pro');
+        if (statusEl) statusEl.textContent = `⏳ Master (${data.model || 'banana pro'})...`;
+        return await takeResult(data, 100);
+      } catch (proErr) {
+        const proMsg = String(proErr?.message || proErr);
+        if (!genFailRe.test(proMsg)) throw proErr;
+        if (!jobRanRe.test(proMsg)) {
+          console.warn('[Studio Pro] banana pro rejected the pair, fallback chat:', proMsg);
+          if (statusEl) statusEl.textContent = '↻ Pro не принял два фото — пробуем чат...';
+          this.toast('Banana Pro не принял эталон — пробуем чат', 'info');
+          try {
+            data = await startJob('pro-chat');
+            if (statusEl) statusEl.textContent = `⏳ Master (${data.model || 'чат'})...`;
+            return await takeResult(data, 40);
+          } catch (chatErr) {
+            const chatMsg = String(chatErr?.message || chatErr);
+            if (!genFailRe.test(chatMsg)) throw chatErr;
+            console.warn('[Studio Pro] pro chat failed, fallback banana:', chatMsg);
+          }
+        } else {
+          console.warn('[Studio Pro] banana pro job failed, fallback banana:', proMsg);
+        }
+        if (statusEl) statusEl.textContent = '↻ Последний шанс — nano-banana...';
+        this.toast('Пробуем banana', 'info');
         data = await startJob('banana');
         if (statusEl) statusEl.textContent = `⏳ Master fallback (${data.model || 'banana'})...`;
-        return await this.pollStudioStatusSimple(data.job_id, {
-          maxAttempts: 100,
-          statusEl,
-          label: data.model || 'banana'
-        });
-      } catch (bananaErr) {
-        const bananaMsg = String(bananaErr?.message || bananaErr);
-        if (!genFailRe.test(bananaMsg)) throw bananaErr;
-        console.warn('[Studio Pro] banana job failed, fallback flux:', bananaMsg);
-        if (statusEl) statusEl.textContent = '↻ banana не выдал кадр — последний шанс Flux...';
-        this.toast('Banana не выдал кадр — пробуем Flux', 'info');
-        data = await startJob('flux');
-        if (statusEl) statusEl.textContent = `⏳ Master fallback (${data.model || 'flux'})...`;
-        return await this.pollStudioStatusSimple(data.job_id, {
-          maxAttempts: 60,
-          statusEl,
-          label: data.model || 'flux'
-        });
+        return await takeResult(data, 100);
       }
     }
   },

@@ -83,6 +83,10 @@ assert(worker.includes("format: 'base64'"), 'status returns dataURL base64');
 assert(!worker.includes("format: 'url'"), 'no raw Nord URL as Master (black img)');
 assert(worker.includes("body.prefer"), 'prefer from request body');
 assert(studio.includes("startJob('banana')") || studio.includes("prefer: 'banana'") || studio.includes("startJob('banana')"), 'admin banana fallback');
+assert(studio.includes("startJob('pro')"), 'admin banana pro fallback');
+assert(worker.includes("prefer === 'pro'"), 'worker pro attempt');
+assert(worker.includes('image/nano-banana-pro'), 'worker calls nano-banana-pro');
+assert(worker.includes('google/gemini-3-pro-image'), 'worker chat fallback with two photos');
 assert(studio.includes('fallback banana') || studio.includes('fallback nano-banana'), 'admin fallback toast/status');
 assert(!studio.includes('drawHandPlateFaded(finalCtx'), 'hand plate not used in compose');
 

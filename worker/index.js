@@ -2542,7 +2542,26 @@ function buildRephotographAttempts(imageUrl, referenceUrl, prompt, resolution = 
     return attempts;
   }
 
-  // Job-level fallback path: only proven banana (after gpt/flux failed mid-run)
+  // After Sunburst refuses: Pro gets the product and the studio as two images.
+  // reference_image is not in this model's schema, so the room goes in `image`.
+  if (prefer === 'pro') {
+    const bananaExtra = keepBg ? '' : (scene === 'surprise' ? surpriseHint : (ceiling ? ceilingHint : (table ? tableHint : (wallOnly ? '' : floorHint))));
+    const pair = !keepBg && referenceUrl;
+    attempts.push({
+      model: 'image/nano-banana-pro',
+      input: {
+        prompt: prompt + bananaExtra + (pair
+          ? '\n\nTWO IMAGES in order: image 1 is the product photo to keep. image 2 is the VigSharm studio reference. Copy the room from image 2 only (wall, baseboard, floor or ceiling as that photo shows). Do not invent a different room.'
+          : ''),
+        image: pair ? [imageUrl, referenceUrl] : imageUrl,
+        aspect_ratio: aspect,
+        resolution: res
+      }
+    });
+    return attempts;
+  }
+
+  // Job-level fallback path: only proven banana (after gpt/pro failed mid-run)
   if (prefer === 'banana' || prefer === 'fast') {
     pushBanana();
     return attempts;
@@ -2571,6 +2590,27 @@ function buildRephotographAttempts(imageUrl, referenceUrl, prompt, resolution = 
   return attempts;
 }
 
+function extractChatImageDataUrl(aiResp) {
+  const msg = aiResp?.choices?.[0]?.message || {};
+  const bags = [msg.images, msg.image].flat().filter(Boolean);
+  for (const img of bags) {
+    const url = img?.image_url?.url || img?.url || (typeof img === 'string' ? img : '');
+    if (typeof url === 'string' && (url.startsWith('data:image/') || url.startsWith('https://'))) return url;
+  }
+  const content = msg.content;
+  if (typeof content === 'string') {
+    const trimmed = content.trim();
+    if (trimmed.startsWith('data:image/') || trimmed.startsWith('https://')) return trimmed;
+  }
+  if (Array.isArray(content)) {
+    for (const part of content) {
+      const url = part?.image_url?.url || part?.url || '';
+      if (typeof url === 'string' && (url.startsWith('data:image/') || url.startsWith('https://'))) return url;
+    }
+  }
+  return '';
+}
+
 async function handleStudioRephotograph(request, env) {
   const body = await request.json();
   const { image_url, reference_url, scene = 'floor', resolution = '2K' } = body;
@@ -2578,7 +2618,9 @@ async function handleStudioRephotograph(request, env) {
   const aspect_ratio = ['1:1', '4:5', '9:16'].includes(body.aspect_ratio) ? body.aspect_ratio : '1:1';
   const prefer = body.prefer === 'banana' || body.prefer === 'fast'
     ? 'banana'
-    : (body.prefer === 'flux' ? 'flux' : 'quality');
+    : (body.prefer === 'flux' ? 'flux'
+      : (body.prefer === 'pro' ? 'pro'
+        : (body.prefer === 'pro-chat' ? 'pro-chat' : 'quality')));
   const photozone_type = body.photozone_type === 'easel' ? 'easel' : 'frame';
   const unit_type = body.unit_type === 'walker' ? 'walker' : '';
   const bouquet_type = body.bouquet_type === 'flowers' ? 'flowers' : '';
@@ -2601,6 +2643,42 @@ async function handleStudioRephotograph(request, env) {
     prompt += '\n\nOUTPUT 4:5 portrait. Keep the ENTIRE balloon arrangement fully inside the frame: every balloon, digit, character and ribbon tip complete, with studio wall visible around the set. Do not crop, do not zoom in, do not cut off any balloon.';
   } else if (frame === 'story') {
     prompt += '\n\nOUTPUT 9:16 vertical. Place the ENTIRE arrangement in the UPPER half, every balloon complete and uncropped. The LOWER THIRD is empty studio wall only, for a caption. Do not crop any balloon. Do not fill the bottom with the product.';
+  }
+  if (prefer === 'pro-chat') {
+    if (keepBg || !reference_url) {
+      return json({ ok: false, error: 'Ошибка rephotograph: для чата нужны фото товара и эталон' }, 400);
+    }
+    const chatPrompt = `${prompt}\n\nThe FIRST image is the product photo. Keep that product. The SECOND image is the VigSharm studio reference. Copy the room from the second image only.`;
+    let aiResp;
+    try {
+      aiResp = await nordRequest('/v1/chat/completions', 'POST', {
+        model: 'google/gemini-3-pro-image',
+        modalities: ['image', 'text'],
+        messages: [{
+          role: 'user',
+          content: [
+            { type: 'text', text: chatPrompt },
+            { type: 'image_url', image_url: { url: image_url } },
+            { type: 'image_url', image_url: { url: reference_url } }
+          ]
+        }]
+      }, env, 26000);
+    } catch (err) {
+      return json({ ok: false, error: 'Ошибка rephotograph: ' + (err.message || String(err)) }, 500);
+    }
+    const resultUrl = extractChatImageDataUrl(aiResp);
+    if (!resultUrl) {
+      return json({ ok: false, error: 'Ошибка rephotograph: чат не вернул фото' }, 500);
+    }
+    return json({
+      ok: true,
+      sync: true,
+      result_url: resultUrl,
+      model: 'google/gemini-3-pro-image',
+      prefer,
+      scene,
+      pipeline: 'rephotograph'
+    });
   }
   const attempts = buildRephotographAttempts(image_url, reference_url, prompt, resolution, prefer, scene, {
     unit_type, bouquet_type, surprise_pose, aspect_ratio, frame

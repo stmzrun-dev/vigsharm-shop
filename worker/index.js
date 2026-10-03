@@ -448,15 +448,35 @@ function takeFoilDigits(data) {
   return String(raw ?? '').replace(/\D/g, '');
 }
 
-/** Взрослое число с отдельного чтения цифр не оставляем детской полкой и названием «на пять лет». */
+/** Возраст по прочитанному числу: 1–3 малыши, 4–11 дети, 12–17 подростки, 18+ взрослые. */
+function ageGroupFromFoilNumber(digits) {
+  const d = String(digits || '').replace(/\D/g, '');
+  if (!d) return '';
+  const n = parseInt(d, 10);
+  if (!Number.isFinite(n) || n <= 0) return '';
+  if (n <= 3) return 'Для малышей';
+  if (n <= 11) return 'Для детей';
+  if (n <= 17) return 'Для подростков';
+  return 'Для взрослых';
+}
+
+function applyAgeFromFoilNumber(data, digits) {
+  const age = ageGroupFromFoilNumber(digits);
+  if (age) data.age_group = age;
+  return data;
+}
+
+/** «16», «60», «19», «90» часто хвост одной «6» или «9», а не два шара. */
+const FOIL_TAIL_AMBIGUOUS = new Set(['16', '61', '60', '06', '19', '91', '90', '09']);
+
+/** Взрослое число (18+) не оставляем детской полкой и названием «на пять лет». 12–17 — подростки, полку не переписываем. */
 function applyTrustedFoilReading(data, digits, opts = {}) {
   const d = String(digits || '').replace(/\D/g, '');
   if (!d) return data;
   const n = parseInt(d, 10);
   if (!Number.isFinite(n)) return data;
-  const singleChild = d.length === 1;
   const jubilee = JUBILEE_FOIL_NUMBERS.has(d);
-  const adultNumber = !singleChild && !jubilee && n >= 16;
+  const adultNumber = !jubilee && n >= 18;
   if (adultNumber && !opts.lockCategory) {
     if (data.category === 'Для девочки' || data.category === '1 годик') data.category = 'Для неё';
     else if (data.category === 'Для мальчика') data.category = 'Для него';
@@ -476,7 +496,6 @@ function applyTrustedFoilReading(data, digits, opts = {}) {
       data.tags = [...new Set(data.tags)].slice(0, 5);
     }
   }
-  if (adultNumber) data.age_group = 'Для взрослых';
   if (d) {
     const badAgeTitle = (t) => /летн|годик|на \d+\s*лет|\d+\s*лет|(?<![а-яё])(шестнадцать|восемнадцать|тринадцать|четырнадцать|пятнадцать|семнадцать|девятнадцать|одиннадцать|двенадцать|двадцать|тридцать|сорок|пятьдесят)(?![а-яё])/i.test(String(t || ''));
     const alts = (Array.isArray(data.title_alts) ? data.title_alts : []).filter((t) => !badAgeTitle(t));
@@ -509,7 +528,7 @@ async function handleReadFoilDigits(request, env) {
 - Смотри слева направо. Каждая отдельная цифра-шар — один символ.
 - Два шара «4» и «5» → "45". Никогда не отбрасывай левую цифру и не возвращай одну «5», если рядом есть «4».
 - Одна цифра → "5". Нет крупных цифр-шаров → "".
-- Хвост, завиток и лента цифры — часть ЭТОГО шара, не вторая цифра. Золотая «6» или «9» с длинным хвостом — это "6" или "9", НЕ "16" и НЕ "19". "16" только если рядом стоят ДВА отдельных шара.
+- Хвост, завиток, петля и лента — часть ЭТОГО шара, любого цвета. Одна «6» или «9» (зелёная, золотая, розовая, серебро) — это "6" или "9". НЕ "16", "61", "60", "19", "91", "90". "16" только если рядом стоят ДВА отдельных шара-цифры.
 - Игнорируй мелкий текст, Happy Birthday, даты на бабле, цены, надписи на бутылке и звёздах.`
       },
       {
@@ -520,7 +539,7 @@ async function handleReadFoilDigits(request, env) {
         ]
       }
     ]
-  }, env, AI_HTTP_BUDGET_MS);
+  }, env, 15000);
 
   if (aiResp.error) {
     return json({ ok: false, error: 'NordRouter API ошибка: ' + (aiResp.error.message || JSON.stringify(aiResp.error)) });
@@ -532,7 +551,59 @@ async function handleReadFoilDigits(request, env) {
   } catch {
     digits = String(text).replace(/\D/g, '').slice(0, 4);
   }
+  if (FOIL_TAIL_AMBIGUOUS.has(digits)) {
+    digits = await confirmFoilTail(image_url, digits, env);
+  }
   return json({ ok: true, foil_digits: digits });
+}
+
+/** Повторный взгляд: хвост одной «6»/«9» или правда два шара. Сбой проверки оставляет первое чтение. */
+async function confirmFoilTail(image_url, guessed, env) {
+  let aiResp;
+  try {
+    aiResp = await nordRequest('/v1/chat/completions', 'POST', {
+      model: 'claude-sonnet-5',
+      temperature: 0,
+      response_format: { type: 'json_object' },
+      messages: [
+        {
+          role: 'system',
+          content: `Первое чтение дало "${guessed}". Проверь, это один шар-цифра или два отдельных.
+Верни ТОЛЬКО JSON: {"separate_balloons":1,"foil_digits":"6"}
+- separate_balloons — сколько ОТДЕЛЬНЫХ фольгированных шаров-цифр.
+- Хвост, петля и лента одной «6» или «9» любого цвета — это один шар: separate_balloons = 1, foil_digits = "6" или "9".
+- Два шара стоят рядом (шар «1» и шар «6», шар «6» и шар «0») — separate_balloons = 2, foil_digits слева направо, например "16" или "60".`
+        },
+        {
+          role: 'user',
+          content: [
+            { type: 'text', text: 'Сколько отдельных шаров-цифр на фото? Хвост одной цифры не считай.' },
+            { type: 'image_url', image_url: { url: image_url } }
+          ]
+        }
+      ]
+    }, env, 8000);
+  } catch {
+    return guessed;
+  }
+  if (!aiResp || aiResp.error) return guessed;
+  const text = aiResp.choices?.[0]?.message?.content || '';
+  let separate = 0;
+  let next = '';
+  try {
+    const data = JSON.parse(text);
+    separate = Number(data.separate_balloons) || 0;
+    next = String(data.foil_digits || '').replace(/\D/g, '').slice(0, 4);
+  } catch {
+    return guessed;
+  }
+  if (separate === 1) {
+    if (next === '6' || next === '9') return next;
+    if (guessed.includes('6')) return '6';
+    if (guessed.includes('9')) return '9';
+  }
+  if (separate >= 2 && next.length >= 2) return next;
+  return guessed;
 }
 
 /** Та же композиция шаров, даже если фон уже студийный. */
@@ -750,7 +821,7 @@ function cardLooksLikeKidsHero(data) {
   return KIDS_HERO_RE.test(String(extra).toLowerCase().replace(/ё/g, 'е'));
 }
 
-/** Детский герой и цифра до 16: «Для неё/него» — детская полка. Маму, свадьбу и праздники не трогаем. */
+/** Детский герой и число до 18: «Для неё/него» — детская полка. Возраст ставит число. Маму, свадьбу и праздники не трогаем. */
 function applyKidsHeroChildDigit(data, digits, opts = {}) {
   if (opts.lockCategory) return data;
   const cat = String(data.category || '').trim();
@@ -760,13 +831,12 @@ function applyKidsHeroChildDigit(data, digits, opts = {}) {
   if (!d) return data;
   const n = parseInt(d, 10);
   if (!Number.isFinite(n)) return data;
-  if (!(d.length === 1 || n < 16)) return data;
+  if (!(d.length === 1 || (n >= 1 && n < 18))) return data;
   if (JUBILEE_FOIL_NUMBERS.has(d)) return data;
   if (!cardLooksLikeKidsHero(data)) return data;
 
   const next = cat === 'Для неё' ? 'Для девочки' : 'Для мальчика';
   data.category = next;
-  data.age_group = 'Для детей';
   const tags = Array.isArray(data.tags) ? data.tags.map((t) => (t === cat ? next : t)) : [];
   if (!tags.includes(next)) tags.unshift(next);
   data.tags = [...new Set(tags)].slice(0, 5);
@@ -1214,16 +1284,15 @@ ${BUDGET_OPTIONS.join(' | ')}
   • Мишка/зайчик/сердце на выписке — character = «Мишка»/«Зайчик» и т.п. (это персонаж карточки), не франшиза Marvel
   • На ЛЮБОЙ полке (включая «Универсальные», «1 годик», выписку, «Коробка-сюрприз», «Шары поштучно») — если на фото есть узнаваемый фольгированный зверёк/герой ИЛИ принт героя на коробке/шаре (в т.ч. один шар поштучно), character ОБЯЗАТЕЛЕН: карточка попадёт в раздел «Персонажи»
   • series_name — франшиза или та же тема; если франшизы нет — можно пусто или имя зверя
-- age_group: ОБЯЗАТЕЛЬНО одно значение из списка:
-  • выписка / 1 годик → «Для малышей»
-  • для девочки|мальчика|геймерам / мультики / детский стиль → «Для детей»
-  • детский герой (LOL, Барби, единорог, Пикачу, Человек-паук и т.п.) и цифра одна или меньше 16 → category «Для девочки» или «Для мальчика», age_group «Для детей». ЗАПРЕЩЕНО «Для неё», «Для него» и «Для взрослых». «Для мамы» и праздники не подменяй
-  • юбилей (круглые 10/20/30…): category «Юбилей», возраст ПО ФОТО — не всегда «Для взрослых».
-    10 + герои/мульт/Поттер/«Для девочки|мальчика» → «Для детей».
-    20+ без детского героя → «Для взрослых». Кубок/виски/«Для него|неё» → «Для взрослых».
-    НЕ ставь «Для взрослых» только из‑за полки «Юбилей»
-  • «Универсальные»: возраст ПО ФОТО — детский стиль/звери/герои → «Для детей»; нейтральные шары или цифры возраста взрослого (18, 28, 35…) → «Для взрослых». НЕ ставь «Для детей» по умолчанию только из‑за полки «Универсальные»
-  • «Для любого возраста» — только если совсем неоднозначно
+- age_group: если на фото есть число из фольгированных цифр — возраст ТОЛЬКО по числу. Кубок, мяч и цвет полку не меняют:
+  • 1, 2, 3 → «Для малышей». Полка «1 годик» только у цифры «1». «2» и «3» — не «1 годик»
+  • 4–11 → «Для детей». Круглая 10 тоже «Для детей», category «Юбилей»
+  • 12–17 → «Для подростков»
+  • 18 и старше → «Для взрослых». Круглые 20/30/40… — category «Юбилей» и возраст «Для взрослых»
+  • нет цифры: выписка / 1 годик / крещение → «Для малышей»; девочка|мальчик|геймерам / мультики → «Для детей»; выпускной → «Для подростков»; для неё|него|мамы и праздники пары → «Для взрослых»
+  • детский герой (LOL, Барби, единорог, Пикачу, Человек-паук) и число меньше 18 → category «Для девочки» или «Для мальчика». Возраст всё равно по числу выше. ЗАПРЕЩЕНО «Для неё», «Для него». «Для мамы» и праздники не подменяй
+  • «Универсальные» без цифры: детский стиль/звери/герои → «Для детей»; нейтральные шары → не ставь «Для детей» по умолчанию
+  • «Для любого возраста» — только если цифры нет и сцена совсем неоднозначна
 - occasion и target_audience: ВСЕГДА оставляй пустыми (повод/аудитория — только category и tags; свободные поля в админке убраны)
 - composition: оформи ТОЛЬКО сырой состав пользователя.
   • НЕ добавляй позиции, которых нет во входе
@@ -1254,12 +1323,16 @@ foil_digits = "${trustedDigits}" (число ${trustedNum}).
 Две фольгированные цифры — одно число слева направо: «4» и «5» = 45, это НЕ пять лет и НЕ одна цифра 5.
 - title и title_alts БЕЗ числа, возраста, «лет», «пятилетний», «на ${trustedNum} лет», «шестнадцать» и любых числительных
 - ${JUBILEE_FOIL_NUMBERS.has(trustedDigits)
-      ? 'Круглая дата: category «Юбилей».'
+      ? `Круглая дата: category «Юбилей». age_group = «${ageGroupFromFoilNumber(trustedDigits)}».`
       : trustedDigits === '1'
-        ? 'Одна цифра 1: category «1 годик».'
-        : trustedNum >= 16
+        ? 'Одна цифра 1: category «1 годик». age_group = «Для малышей».'
+        : trustedNum >= 18
           ? 'Взрослый возраст. ЗАПРЕЩЕНО «Для девочки», «Для мальчика», «1 годик» и «Юбилей». Розовый/сердечки → «Для неё», явный мужской стиль → «Для него», иначе «Универсальные». age_group = «Для взрослых».'
-          : 'Детская цифра. НЕ ставь «Юбилей». Детский герой (LOL, Барби, единорог, мульт) → «Для девочки» или «Для мальчика», age_group «Для детей». ЗАПРЕЩЕНО «Для неё», «Для него» и «Для взрослых».'}`
+          : trustedNum >= 12
+            ? 'Подросток. НЕ ставь «Юбилей» и «Для взрослых». Детский герой → «Для девочки» или «Для мальчика». age_group = «Для подростков».'
+            : trustedNum <= 3
+              ? 'Малыш. НЕ ставь «1 годик» (это только цифра 1) и не «Юбилей». age_group = «Для малышей».'
+              : 'Детская цифра. НЕ ставь «Юбилей». Детский герой (LOL, Барби, единорог, мульт) → «Для девочки» или «Для мальчика», age_group «Для детей». ЗАПРЕЩЕНО «Для неё», «Для него» и «Для взрослых».'}`
     : '';
 
   const userPrompt = `Сгенерируй карточку:${foilFact}
@@ -1367,6 +1440,7 @@ ${image_url
   const foilLock = !!(holidayOnly || boxOnly || bouquetOnly || figuresOnly || photozoneOnly);
   applyTrustedFoilReading(data, trustedDigits || foilDigits, { lockCategory: foilLock });
   applyKidsHeroChildDigit(data, trustedDigits || foilDigits, { lockCategory: foilLock });
+  applyAgeFromFoilNumber(data, trustedDigits || foilDigits);
   applyFloorShelfTag(data, scene || 'floor', floorAdvance);
   // Убрать случайно оставшиеся скобки-подсказки из состава
   if (Array.isArray(data.composition)) {

@@ -607,6 +607,11 @@
   var READY_MAIN = ['Для девочки', 'Для мальчика', 'Для неё', 'Для него'];
   var READY_MORE = ['На выписку', '1 годик', 'Юбилей', 'Для мамы', 'Свадьба и девичник', 'Крещение'];
   var READY_WHAT = ['Фигуры из шаров', 'Букеты', 'Коробка-сюрприз', 'Фотозона', 'Гендер-пати', 'Арки', 'Шар-сюрприз', 'Из роз'];
+  var AGE_PICKS = [
+    ['Малыши', 'Для малышей'],
+    ['Дети', 'Для детей'],
+    ['Подростки', 'Для подростков']
+  ];
   var ROSE_KINDS = ['Мишки из роз', 'Мыльные розы'];
   var BOUQUET_ICONS = {
     'Букет из шаров': 'icons/comp-bouquet.webp?v=19',
@@ -1058,6 +1063,13 @@
             categoryMark(name) + esc(ideaLabel(name)) + '</button>';
         }).join('') + '</div></div>'
       : '';
+    var ageOpen = category === 'Для девочки' || category === 'Для мальчика';
+    var ageChips = ageOpen
+      ? '<div class="pick-band pick-band-why"><p class="pick-kicker">Возраст</p><div class="pick-more">' +
+        AGE_PICKS.map(function (row) {
+          return '<button type="button" class="' + (age === row[1] ? 'is-on' : '') + '" data-age-pick="' + esc(row[1]) + '">' + esc(row[0]) + '</button>';
+        }).join('') + '</div></div>'
+      : '';
     var roseOpen = category === 'Из роз' || ROSE_KINDS.indexOf(category) >= 0;
     var roseChips = roseOpen
       ? '<div class="pick-band pick-band-why"><p class="pick-kicker">Какие</p><div class="pick-more">' +
@@ -1074,7 +1086,8 @@
       '<div class="pick-band pick-band-what"><p class="pick-kicker">Что заказать</p><div class="pick-heroes">' +
       what.map(function (name) { return hero(name, READY_PHOTOS[name] || '', ideaLabel(name)); }).join('') + '</div></div>' +
       bouquetChips +
-      roseChips;
+      roseChips +
+      ageChips;
   }
 
   function closeReadySheet() {
@@ -1090,10 +1103,22 @@
     body.querySelectorAll('[data-idea]').forEach(function (b) {
       b.addEventListener('click', function () {
         var name = b.getAttribute('data-idea');
-        category = category === name ? 'Все товары' : name;
+        var next = category === name ? 'Все товары' : name;
+        if (next !== 'Для девочки' && next !== 'Для мальчика') {
+          if (AGE_PICKS.some(function (row) { return row[1] === age; })) age = '';
+        }
+        category = next;
         character = '';
         filter = '';
         showAllReady = false;
+        render({ resultsOnly: true });
+        paintReadySheet();
+      });
+    });
+    body.querySelectorAll('[data-age-pick]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var value = b.getAttribute('data-age-pick');
+        age = age === value ? '' : value;
         render({ resultsOnly: true });
         paintReadySheet();
       });
@@ -1125,6 +1150,7 @@
     readySheet.querySelector('[data-ready-done]').addEventListener('click', closeReadySheet);
     readySheet.querySelector('[data-ready-reset]').addEventListener('click', function () {
       category = 'Все товары';
+      age = '';
       render({ resultsOnly: true });
       paintReadySheet();
     });
@@ -1213,6 +1239,17 @@
     window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
   }
 
+  function scrollToAgeBand() {
+    var board = document.getElementById('catalog-idea-board');
+    var pill = board && board.querySelector('[data-age-pick]');
+    var target = pill && pill.closest('.pick-band');
+    if (!target) return scrollToResults();
+    var header = document.querySelector('.site-header');
+    var gap = (header ? header.getBoundingClientRect().height : 76) + 12;
+    var top = target.getBoundingClientRect().top + window.pageYOffset - gap;
+    window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+  }
+
   function scrollToUnitExtra() {
     var board = document.getElementById('catalog-idea-board');
     if (!board) return scrollToResults();
@@ -1250,11 +1287,23 @@
     old.querySelectorAll('[data-idea]').forEach(function (b) {
       b.addEventListener('click', function () {
         var name = b.getAttribute('data-idea');
-        category = category === name ? 'Все товары' : name;
+        var next = category === name ? 'Все товары' : name;
+        if (next !== 'Для девочки' && next !== 'Для мальчика') {
+          if (AGE_PICKS.some(function (row) { return row[1] === age; })) age = '';
+        }
+        category = next;
         character = '';
         filter = '';
         showAllReady = false;
-        render({ scroll: category !== 'Все товары' });
+        var toAge = next === 'Для девочки' || next === 'Для мальчика';
+        render({ scroll: toAge ? 'age' : category !== 'Все товары' });
+      });
+    });
+    old.querySelectorAll('[data-age-pick]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var value = b.getAttribute('data-age-pick');
+        age = age === value ? '' : value;
+        render();
       });
     });
     old.querySelectorAll('[data-pick]').forEach(function (b) {
@@ -1331,7 +1380,7 @@
       loading ? 1 : 0,
       products.length,
       priceIdx !== 0 ? 1 : 0,
-      age ? 1 : 0,
+      age,
       ages.length,
       subcatList().join(',')
     ].join('|');
@@ -1351,7 +1400,8 @@
     }
     if (!opts.resultsOnly) renderRecent();
     renderResults();
-    if (opts.scroll) scrollToResults();
+    if (opts.scroll === 'age') scrollToAgeBand();
+    else if (opts.scroll) scrollToResults();
   }
 
   function groupTitle() {

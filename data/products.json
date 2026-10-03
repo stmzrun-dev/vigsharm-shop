@@ -2,6 +2,157 @@
   "ok": true,
   "products": [
     {
+      "id": "10fa3682-5dd9-4e44-ac93-816f9c93674f",
+      "title": "Юрский гость",
+      "article": "BOY-079",
+      "price": 2660,
+      "short_description": "Оранжевая цифра и динозавр с яркими шарами.",
+      "full_description": "Композиция с крупной оранжевой цифрой и фигурой тираннозавра. Дополнена зелёными, оранжевыми и прозрачными шарами со звёздами.",
+      "composition": [
+        "цифра",
+        "фигура",
+        "шар хром",
+        "2 шара с рисунком",
+        "2 шара"
+      ],
+      "category": "Для мальчика",
+      "character": "Тираннозавр",
+      "age_group": "Для детей",
+      "budget": "2 000–3 500 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары с динозавром и цифрой — Армавир",
+      "seo_description": "Композиция с оранжевой цифрой и фигурой тираннозавра. Яркие шары для детского праздника. Доставка по Армавиру.",
+      "slug": "yurskiy-gost",
+      "scene": "wall_only",
+      "tags": [
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/edb33364-fc57-4a70-968b-4e9f1ab217d9.jpg",
+        "photo_dhash": "0ececcdcf8e2e0a4",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/8a593c6d-c0b4-4f4e-aa61-47e19f1814e3.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/8a593c6d-c0b4-4f4e-aa61-47e19f1814e3.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-03T20:29:56.006Z",
+      "updated_at": "2026-10-03T20:29:56.006Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "00714db8-37fa-4770-8b47-f0365cb25c80",
+      "title": "Небесная высота",
+      "article": "BOY-078",
+      "price": 3100,
+      "short_description": "Напольная композиция с цифрой 45 в голубых и серебряных оттенках.",
+      "full_description": "Напольная композиция с крупными фольгированными цифрами 45, дополненная фонтаном из хромированных, матовых и прозрачных шаров с конфетти.",
+      "composition": [
+        "напольная композиция",
+        "3 шара хром",
+        "шар с конфетти",
+        "шар"
+      ],
+      "category": "Для мальчика",
+      "character": null,
+      "age_group": "Для подростков",
+      "budget": "2 000–3 500 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Напольная композиция с цифрой 45 в Армавире | VigSharm",
+      "seo_description": "Напольная композиция с фольгированными цифрами 45 в голубых и серебряных тонах. Хромированные шары, конфетти и стильный фонтан. Заказать в Армавире.",
+      "slug": "morskoy-briz-2",
+      "scene": "floor",
+      "tags": [
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/38ca99c3-03d4-484a-bdd1-d29f387496c7.jpg",
+        "photo_dhash": "7f7d6c66f4f52198",
+        "floor_type": "air",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 2
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/1ca151e6-5fc6-41ab-9829-2de7239413eb.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/1ca151e6-5fc6-41ab-9829-2de7239413eb.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-03T20:27:29.170Z",
+      "updated_at": "2026-10-03T20:27:37.038Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "4fc4c3e3-e38b-412f-aeb3-2273bdff200c",
+      "title": "Синий праздник",
+      "article": "BOY-010",
+      "price": 3130,
+      "short_description": "Крупные голубые цифры и связка шаров с поздравительными надписями.",
+      "full_description": "Композиция из фольгированных голубых цифр и шаров синих оттенков с надписями «С днём рождения». Яркое оформление в холодной цветовой гамме.",
+      "composition": [
+        "2 цифры",
+        "5 шаров с рисунком",
+        "2 шара"
+      ],
+      "category": "Для мальчика",
+      "character": null,
+      "age_group": "Для подростков",
+      "budget": "2 000–3 500 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Синий праздник — шары на день рождения в Армавире",
+      "seo_description": "Композиция из голубых цифр и шаров с поздравительными надписями. Яркое оформление дня рождения для подростка в холодной палитре.",
+      "slug": "siniy-prazdnik",
+      "scene": "wall_only",
+      "tags": [
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/2327867b-f2d3-4c73-ad15-d3ee53970d1a.jpg",
+        "photo_dhash": "1db4b4b49cdcd494",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 2
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/bdbbc989-dc9e-425f-bf51-b12e2a2d019a.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/bdbbc989-dc9e-425f-bf51-b12e2a2d019a.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-03T20:24:02.092Z",
+      "updated_at": "2026-10-03T20:24:02.092Z",
+      "thumb_photo": null
+    },
+    {
       "id": "48998d85-e169-431e-a87f-e9d249719726",
       "title": "Медвежьи объятия",
       "article": "BOY-077",
@@ -1443,13 +1594,13 @@
         }
       },
       "photos": [
-        "https://storage.yandexcloud.net/vigsharm-photos/products/d85daee0-75c7-4ab0-b7ad-4110ea467ed9.jpg"
+        "https://storage.yandexcloud.net/vigsharm-photos/products/530baea2-2060-4ef5-9291-ae50e5688ae7.jpg"
       ],
-      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/d85daee0-75c7-4ab0-b7ad-4110ea467ed9.jpg",
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/530baea2-2060-4ef5-9291-ae50e5688ae7.jpg",
       "status": "draft",
       "show_on_site": false,
       "created_at": "2026-10-03T06:38:43.247Z",
-      "updated_at": "2026-10-03T12:58:01.009Z",
+      "updated_at": "2026-10-03T20:12:53.274Z",
       "thumb_photo": null
     },
     {
@@ -8212,7 +8363,7 @@
       "show_on_site": true,
       "created_at": "2026-09-29T20:01:44.641Z",
       "updated_at": "2026-09-29T20:04:35.986Z",
-      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/fe2c3441-7884-44f9-b246-c4af5fb77f29.jpg"
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/93731b5a-50f0-4093-a705-831a957fd58f.webp"
     },
     {
       "id": "8bb18264-673f-466d-b25f-a9bce9dc2d28",
@@ -8306,7 +8457,7 @@
       "show_on_site": true,
       "created_at": "2026-09-29T19:51:01.425Z",
       "updated_at": "2026-09-29T19:53:01.055Z",
-      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/e0120fb0-3d79-45b1-b3e5-9be87cd84e93.jpg"
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/1e54c595-9622-4fbf-9e3c-6385f6ea9f4b.webp"
     },
     {
       "id": "50417eae-c04f-4445-a2e5-fd40224083c9",
@@ -11184,7 +11335,7 @@
       "show_on_site": true,
       "created_at": "2026-09-26T22:48:15.864Z",
       "updated_at": "2026-09-26T22:50:11.383Z",
-      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/9f32a141-0d71-470c-b5cd-bf19d1c8cf84.jpg"
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/60fc9298-40c2-48ee-bd42-962b8d457cf5.webp"
     },
     {
       "id": "e5aef7cc-d5ef-42f0-bad2-6faef2c210e9",
@@ -21525,7 +21676,7 @@
       "show_on_site": true,
       "created_at": "2026-09-24T21:00:51.920Z",
       "updated_at": "2026-09-30T08:39:09.971Z",
-      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/08714e50-3a48-483b-9ebe-dede314e59d6.jpg"
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/9599a485-fa48-459e-8523-4c2a3bc6bf1d.webp"
     },
     {
       "id": "26367c89-d8aa-4e1b-9cc6-50a09c7db042",
@@ -22733,7 +22884,7 @@
       "show_on_site": true,
       "created_at": "2026-09-24T06:49:51.674Z",
       "updated_at": "2026-10-01 06:53:46",
-      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/bda5bc1a-5734-42c6-8c5b-4b49cd6ed290.jpg"
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/2274547f-7bb1-4d8a-a357-2da72b46aacb.webp"
     },
     {
       "id": "8d80c6c0-4ae9-4e93-91f6-da3de5e5b5ad",
@@ -27854,51 +28005,6 @@
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/c80b17dc-e557-46bd-b05e-a7312d329c9d.webp"
     },
     {
-      "id": "32f41f5d-fd74-4b02-b3b5-949d14f903b7",
-      "title": "Бантики и грёзы",
-      "article": "GRL-022",
-      "price": 4500,
-      "short_description": "Два баблс с чёрными бантами и нежные розовые шары создают изящную композицию.",
-      "full_description": "Композиция из двух прозрачных баблс с чёрными бантиками и надписью, дополненная розовыми латексными шарами. Сочетание нежности и графичного акцента.",
-      "composition": [
-        "баблс с декором и надписью",
-        "баблс с декором",
-        "5 шаров"
-      ],
-      "category": "Для девочки",
-      "character": null,
-      "age_group": "Для детей",
-      "budget": "3 500–5 000 ₽",
-      "series_name": null,
-      "occasion": null,
-      "target_audience": null,
-      "seo_title": "Баблс с бантиками и шары для девочки — Армавир",
-      "seo_description": "Два баблс с чёрными бантами, надписью и розовые шары. Нежная композиция для дня рождения девочки. Доставка в Армавире.",
-      "slug": "bantiki-i-grezy",
-      "scene": "wall_only",
-      "tags": [
-        "Для девочки"
-      ],
-      "client_options": {
-        "available_on_request": false,
-        "advance_order_1_2_days": false,
-        "number_choice": false,
-        "personal_inscription": true,
-        "photozone_rental": false,
-        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/b3c1187e-3f74-4293-982a-20472b2779ce.jpg",
-        "photo_dhash": "a7a66ea5696b6b6d"
-      },
-      "photos": [
-        "https://storage.yandexcloud.net/vigsharm-photos/products/c0b886c1-ed07-400c-bda6-849eefc11421.png"
-      ],
-      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/c0b886c1-ed07-400c-bda6-849eefc11421.png",
-      "status": "published",
-      "show_on_site": true,
-      "created_at": "2026-09-22T13:28:01.015Z",
-      "updated_at": "2026-09-28T07:47:12.606Z",
-      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/3b8bb207-6b86-499f-9e1b-3d7eaff1a821.webp"
-    },
-    {
       "id": "abe22aa2-6a9f-4a8d-bd0b-6ea8469959ac",
       "title": "Нежность с бантиками",
       "article": "BAB-003",
@@ -32171,7 +32277,7 @@
       ],
       "category": "Для девочки",
       "character": null,
-      "age_group": "Для детей",
+      "age_group": "Для любого возраста",
       "budget": "3 500–5 000 ₽",
       "series_name": null,
       "occasion": null,
@@ -32200,7 +32306,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-19T13:43:19.215Z",
-      "updated_at": "2026-10-01 06:53:46",
+      "updated_at": "2026-10-03T20:18:18.732Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/d374ae80-c8ec-4637-8d39-ab2096be566f.webp"
     },
     {

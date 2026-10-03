@@ -588,6 +588,13 @@ html body main#main-content.catalog-page .catalog-results-heading:not(:has(h2)){
     padding:8px 12px;
     font-size:14px;
   }
+  main#main-content.catalog-page > .catalog-idea-board .pick-more button.pick-age{
+    min-height:50px;
+    padding:7px 16px;
+  }
+  main#main-content.catalog-page > .catalog-idea-board .pick-more button.pick-age small{
+    font-size:12px;
+  }
   .catalog-page:has(#catalog-idea-board) .catalog-grid{
     grid-template-columns:repeat(3,minmax(0,1fr))!important;
   }

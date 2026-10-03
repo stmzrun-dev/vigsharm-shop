@@ -2412,13 +2412,18 @@ const app = {
       data.photos = this.currentProduct.photos.map(p => p.url).filter(Boolean);
       data.main_photo = data.photos[0] || null;
 
-      // ─── Thumbnail: WebP 480px / 0.82 из локального File-объекта (без CORS) ───
-      // Генерируем только если главное фото — новый локальный файл.
-      // При редактировании без смены фото thumb_photo берётся из collectFormData (currentProduct).
-      const mainFile = this.currentProduct.photos[0]?.file;
-      if (mainFile && typeof this.generateAndUploadThumb === 'function') {
+      // Превью каталога — только когда сменилось главное фото.
+      // Иначе остаётся прежний thumb_photo, даже если кадр уже другой.
+      const prevMain = this.currentProduct.loaded_main_photo || '';
+      const mainChanged = !!data.main_photo && data.main_photo !== prevMain;
+      const mainPhoto = this.currentProduct.photos[0];
+      let thumbSource = mainPhoto?.file || null;
+      if (!thumbSource && mainChanged && typeof this.fileFromPhotoSource === 'function') {
+        thumbSource = await this.fileFromPhotoSource(mainPhoto?.url || data.main_photo);
+      }
+      if (thumbSource && mainChanged && typeof this.generateAndUploadThumb === 'function') {
         try {
-          const thumbUrl = await this.generateAndUploadThumb(mainFile);
+          const thumbUrl = await this.generateAndUploadThumb(thumbSource);
           if (thumbUrl) {
             data.thumb_photo = thumbUrl;
             this.currentProduct.thumb_photo = thumbUrl;

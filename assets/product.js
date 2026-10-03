@@ -20,7 +20,8 @@
     if ((/плюшев/.test(t) || /мягк/.test(t)) && /мишк|игруш/.test(t)) return 'teddy';
     if (/мишк/.test(t) && !/фольг/.test(t) && !/фигур/.test(t)) return 'teddy';
     if (/шляпн|упаковк/.test(t)) return 'hatbox';
-    if (/лент|бант|атлас/.test(t)) return 'ribbon';
+    // «шары с бантиками» — это шары, не отдельный бант
+    if (/лент|бант|атлас/.test(t) && !/шар|бабл|bubble|стеклянн|латекс|гелиев/.test(t)) return 'ribbon';
     if (/роз/.test(t)) return 'rose';
     if (/хром|chrome|зеркал/.test(t)) return 'chrome';
     // Баблс = стеклянный шар: внутренний шар + прозрачная оболочка

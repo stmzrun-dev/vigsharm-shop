@@ -2178,6 +2178,34 @@ Object.assign(app, {
    * @param {File} file
    * @returns {Promise<string|null>}
    */
+  async fileFromPhotoSource(source) {
+    if (!source) return null;
+    if (typeof File !== 'undefined' && source instanceof File) return source;
+    const url = String(source);
+    try {
+      let blob = null;
+      if (url.startsWith('data:') || url.startsWith('blob:')) {
+        const res = await fetch(url);
+        if (!res.ok) return null;
+        blob = await res.blob();
+      } else if (/^https?:\/\//i.test(url)) {
+        const proxyRes = await fetch(`${this.workerUrl}/api/admin/proxy-image`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', ...this.authHeaders() },
+          body: JSON.stringify({ url })
+        });
+        if (!proxyRes.ok) return null;
+        blob = await proxyRes.blob();
+      }
+      if (!blob || !blob.size) return null;
+      const type = blob.type && blob.type.startsWith('image/') ? blob.type : 'image/jpeg';
+      return new File([blob], 'thumb-source.jpg', { type });
+    } catch (e) {
+      console.warn('[thumb] source fetch failed', e);
+      return null;
+    }
+  },
+
   async generateAndUploadThumb(file) {
     const blob = await this.generateThumbBlob(file);
     if (!blob) return null;
@@ -2917,6 +2945,7 @@ app.loadProductToForm = function(product) {
     ? { ...product.client_options }
     : {};
   this.currentProduct.thumb_photo = product.thumb_photo || null;
+  this.currentProduct.loaded_main_photo = product.main_photo || (product.photos && product.photos[0]) || '';
 
   // Фото
   this.currentProduct.photos = (product.photos || []).map((url, i) => ({

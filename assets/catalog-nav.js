@@ -608,9 +608,9 @@
   var READY_MORE = ['На выписку', '1 годик', 'Юбилей', 'Для мамы', 'Свадьба и девичник', 'Крещение'];
   var READY_WHAT = ['Фигуры из шаров', 'Букеты', 'Коробка-сюрприз', 'Фотозона', 'Гендер-пати', 'Арки', 'Шар-сюрприз', 'Из роз'];
   var AGE_PICKS = [
-    ['Малыши', 'Для малышей'],
-    ['Дети', 'Для детей'],
-    ['Подростки', 'Для подростков']
+    ['Малыши', 'Для малышей', '1–3'],
+    ['Дети', 'Для детей', '4–11'],
+    ['Подростки', 'Для подростков', '12–17']
   ];
   var ROSE_KINDS = ['Мишки из роз', 'Мыльные розы'];
   var BOUQUET_ICONS = {
@@ -1067,7 +1067,7 @@
     var ageChips = ageOpen
       ? '<div class="pick-band pick-band-why"><p class="pick-kicker">Возраст</p><div class="pick-more">' +
         AGE_PICKS.map(function (row) {
-          return '<button type="button" class="' + (age === row[1] ? 'is-on' : '') + '" data-age-pick="' + esc(row[1]) + '">' + esc(row[0]) + '</button>';
+          return '<button type="button" class="pick-age' + (age === row[1] ? ' is-on' : '') + '" data-age-pick="' + esc(row[1]) + '"><span>' + esc(row[0]) + '</span><small>' + esc(row[2]) + '</small></button>';
         }).join('') + '</div></div>'
       : '';
     var roseOpen = category === 'Из роз' || ROSE_KINDS.indexOf(category) >= 0;

@@ -2,6 +2,54 @@
   "ok": true,
   "products": [
     {
+      "id": "48998d85-e169-431e-a87f-e9d249719726",
+      "title": "Медвежьи объятия",
+      "article": "BOY-077",
+      "price": 2890,
+      "short_description": "Композиция с фигурой мишки, серебряной звездой с надписью и нежными шарами.",
+      "full_description": "Композиция с фольгированной фигурой мишки, серебряной звездой с надписью, сердцем и шарами с конфетти в коричнево-белых тонах.",
+      "composition": [
+        "фигура",
+        "звезда с надписью",
+        "2 шара с конфетти",
+        "шар хром",
+        "сердце",
+        "5 шаров"
+      ],
+      "category": "Для мальчика",
+      "character": "Мишка",
+      "age_group": "Для малышей",
+      "budget": "2 000–3 500 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Композиция с мишкой и шарами Армавир — VigSharm",
+      "seo_description": "Композиция с фигурой мишки, серебряной звездой с надписью и нежными шарами в коричнево-белых тонах. Доставка по Армавиру.",
+      "slug": "plyushevyj-drug",
+      "scene": "wall_only",
+      "tags": [
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/da6e98a0-a51c-4476-bdcc-3a9b2a6f8fb8.jpg",
+        "photo_dhash": "10989db9b3b59907"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/336d63de-006e-4e0b-b757-1e779aac61a1.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/336d63de-006e-4e0b-b757-1e779aac61a1.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-03T15:12:53.561Z",
+      "updated_at": "2026-10-03T15:12:53.561Z",
+      "thumb_photo": null
+    },
+    {
       "id": "4a66344e-267a-41f6-acf6-e07672fdcb90",
       "title": "Бородатый приятель",
       "article": "BOY-076",
@@ -1271,7 +1319,7 @@
       ],
       "category": "Для мальчика",
       "character": null,
-      "age_group": "Для детей",
+      "age_group": "Для подростков",
       "budget": "3 500–5 000 ₽",
       "series_name": null,
       "occasion": null,
@@ -1304,7 +1352,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-10-03T06:52:33.841Z",
-      "updated_at": "2026-10-03T06:52:33.841Z",
+      "updated_at": "2026-10-03T15:15:45.181Z",
       "thumb_photo": null
     },
     {
@@ -1858,7 +1906,7 @@
       ],
       "category": "Для мальчика",
       "character": null,
-      "age_group": "Для детей",
+      "age_group": "Для подростков",
       "budget": "3 500–5 000 ₽",
       "series_name": null,
       "occasion": null,
@@ -1892,7 +1940,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-10-02T19:10:28.307Z",
-      "updated_at": "2026-10-02T19:10:28.307Z",
+      "updated_at": "2026-10-03T15:16:13.727Z",
       "thumb_photo": null
     },
     {
@@ -2200,7 +2248,7 @@
       ],
       "category": "Для мальчика",
       "character": "Бэтмен",
-      "age_group": "Для детей",
+      "age_group": "Для малышей",
       "budget": "5 000–8 000 ₽",
       "series_name": "Бэтмен",
       "occasion": null,
@@ -2233,7 +2281,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-10-02T18:52:31.215Z",
-      "updated_at": "2026-10-02T18:52:31.215Z",
+      "updated_at": "2026-10-03T15:16:40.393Z",
       "thumb_photo": null
     },
     {
@@ -8841,7 +8889,7 @@
       ],
       "category": "Для неё",
       "character": null,
-      "age_group": "Для детей",
+      "age_group": "Для подростков",
       "budget": "2 000–3 500 ₽",
       "series_name": null,
       "occasion": null,
@@ -8870,7 +8918,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-28T19:01:35.704Z",
-      "updated_at": "2026-09-28T19:04:33.615Z",
+      "updated_at": "2026-10-03T15:21:38.835Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/261aa69c-1b7f-4d87-aba9-03e12895dffb.webp"
     },
     {
@@ -22891,7 +22939,7 @@
       ],
       "category": "Для девочки",
       "character": null,
-      "age_group": "Для детей",
+      "age_group": "Для подростков",
       "budget": "2 000–3 500 ₽",
       "series_name": null,
       "occasion": null,
@@ -22919,7 +22967,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T22:07:07.707Z",
-      "updated_at": "2026-09-28T07:55:17.556Z",
+      "updated_at": "2026-10-03T15:21:52.010Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/e94834ed-f92c-41ab-b736-89237304ab40.webp"
     },
     {
@@ -23669,7 +23717,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T19:54:50.809Z",
-      "updated_at": "2026-10-03T13:18:00.737Z",
+      "updated_at": "2026-10-03T15:14:32.212Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/606218ec-67f1-4bc3-96db-58f61bbc10d9.webp"
     },
     {
@@ -23687,7 +23735,7 @@
       ],
       "category": "Для мальчика",
       "character": null,
-      "age_group": "Для малышей",
+      "age_group": "Для подростков",
       "budget": "3 500–5 000 ₽",
       "series_name": null,
       "occasion": null,
@@ -23719,7 +23767,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T19:45:14.949Z",
-      "updated_at": "2026-09-30T08:32:17.043Z",
+      "updated_at": "2026-10-03T15:14:20.171Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/9d0fd824-3658-4c4a-a768-92ae793cec15.webp"
     },
     {
@@ -24348,7 +24396,7 @@
       ],
       "category": "Для мальчика",
       "character": "Черепашки-ниндзя",
-      "age_group": "Для детей",
+      "age_group": "Для малышей",
       "budget": "5 000–8 000 ₽",
       "series_name": "Черепашки-ниндзя",
       "occasion": null,
@@ -24382,7 +24430,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T18:56:34.186Z",
-      "updated_at": "2026-09-30T08:31:11.169Z",
+      "updated_at": "2026-10-03T15:17:20.083Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/c5c9ab3c-75b1-46ad-b5f1-7cc3bcfa8b65.webp"
     },
     {
@@ -24497,7 +24545,7 @@
       ],
       "category": "Для мальчика",
       "character": "Лиса",
-      "age_group": "Для детей",
+      "age_group": "Для малышей",
       "budget": "5 000–8 000 ₽",
       "series_name": null,
       "occasion": null,
@@ -24530,7 +24578,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T18:43:27.930Z",
-      "updated_at": "2026-09-30T08:28:59.979Z",
+      "updated_at": "2026-10-03T15:17:37.289Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/93af6b94-f20b-4e20-a075-a012278c2894.webp"
     },
     {
@@ -24547,7 +24595,7 @@
       ],
       "category": "Для мальчика",
       "character": "Оленёнок",
-      "age_group": "Для детей",
+      "age_group": "Для малышей",
       "budget": "3 500–5 000 ₽",
       "series_name": null,
       "occasion": null,
@@ -24575,7 +24623,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T18:40:23.793Z",
-      "updated_at": "2026-09-28T07:51:59.774Z",
+      "updated_at": "2026-10-03T15:17:50.265Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/79ac776a-b54e-48ed-94c6-f822d04f6055.webp"
     },
     {
@@ -24819,7 +24867,7 @@
       ],
       "category": "Для девочки",
       "character": "Единорог",
-      "age_group": "Для детей",
+      "age_group": "Для малышей",
       "budget": "3 500–5 000 ₽",
       "series_name": null,
       "occasion": null,
@@ -24829,8 +24877,7 @@
       "slug": "magiya-edinoroga",
       "scene": "floor",
       "tags": [
-        "Для девочки",
-        "Напольные композиции"
+        "Для девочки"
       ],
       "client_options": {
         "available_on_request": false,
@@ -24839,12 +24886,12 @@
         "personal_inscription": true,
         "photozone_rental": false,
         "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/e1dfde69-aa03-4995-ad24-8c877d4bc22c.jpg",
+        "photo_dhash": "7f6fedcce8ca646c",
         "floor_type": "air",
         "digit_choice": {
           "enabled": true,
           "count_on_photo": 1
-        },
-        "photo_dhash": "7f6fedcce8ca646c"
+        }
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/6962061c-b0c5-4859-96b8-bef37287e767.png"
@@ -24853,7 +24900,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T16:18:35.315Z",
-      "updated_at": "2026-09-28T07:51:14.402Z",
+      "updated_at": "2026-10-03T15:22:27.590Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/0ec96ac2-cda9-465b-833b-b12537cf7102.webp"
     },
     {
@@ -25689,7 +25736,7 @@
       ],
       "category": "Для девочки",
       "character": "Пчела",
-      "age_group": "Для детей",
+      "age_group": "Для малышей",
       "budget": "2 000–3 500 ₽",
       "series_name": null,
       "occasion": null,
@@ -25700,8 +25747,7 @@
       "scene": "floor",
       "tags": [
         "Для девочки",
-        "Фигуры из шаров",
-        "Напольные композиции"
+        "Фигуры из шаров"
       ],
       "client_options": {
         "available_on_request": false,
@@ -25710,12 +25756,12 @@
         "personal_inscription": false,
         "photozone_rental": false,
         "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/ddba39b1-24fe-407e-95f4-a862bf206397.jpg",
+        "photo_dhash": "c0d6fcfcece2f0c1",
         "floor_type": "air",
         "digit_choice": {
           "enabled": true,
           "count_on_photo": 1
-        },
-        "photo_dhash": "c0d6fcfcece2f0c1"
+        }
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/73abb449-d482-4d89-825a-a864a4cc8814.png"
@@ -25724,7 +25770,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T13:24:08.193Z",
-      "updated_at": "2026-09-28T07:49:06.997Z",
+      "updated_at": "2026-10-03T15:23:09.377Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/950eedf7-4e42-49dd-90de-79542d504f50.webp"
     },
     {
@@ -25891,8 +25937,7 @@
       "slug": "polosatyi-imeninnik",
       "scene": "floor",
       "tags": [
-        "Для девочки",
-        "Напольные композиции"
+        "Для девочки"
       ],
       "client_options": {
         "available_on_request": false,
@@ -25901,12 +25946,12 @@
         "personal_inscription": true,
         "photozone_rental": false,
         "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/ef9ec483-8a42-4ad2-8e1d-a9af1c45a0a4.jpg",
+        "photo_dhash": "6361f78ac88c8ce4",
         "floor_type": "air",
         "digit_choice": {
           "enabled": true,
           "count_on_photo": 1
-        },
-        "photo_dhash": "6361f78ac88c8ce4"
+        }
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/675398b1-f717-463b-8697-51473d2ed2f8.png"
@@ -25915,7 +25960,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T12:45:15.526Z",
-      "updated_at": "2026-09-28T07:48:42.960Z",
+      "updated_at": "2026-10-03T15:24:19.395Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/86307eac-bd37-4240-80c0-4056ac64f54a.webp"
     },
     {
@@ -26708,7 +26753,7 @@
       ],
       "category": "Для девочки",
       "character": "LOL",
-      "age_group": "Для подростков",
+      "age_group": "Для детей",
       "budget": "3 500–5 000 ₽",
       "series_name": "LOL Surprise",
       "occasion": null,
@@ -26727,11 +26772,11 @@
         "personal_inscription": false,
         "photozone_rental": false,
         "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/5fcb6f25-3c77-4d4b-a1dc-4dcdeb96726d.jpg",
+        "photo_dhash": "cd3c73371e3327a3",
         "digit_choice": {
           "enabled": true,
           "count_on_photo": 1
-        },
-        "photo_dhash": "cd3c73371e3327a3"
+        }
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/7e88c9d0-646b-40c9-87de-3d11f6c14a9f.png"
@@ -26740,7 +26785,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-23T11:09:25.615Z",
-      "updated_at": "2026-09-28T07:48:03.402Z",
+      "updated_at": "2026-10-03T15:21:10.983Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/89abc825-b72a-412d-a15a-61ceae9b0f3e.webp"
     },
     {
@@ -27771,7 +27816,7 @@
       ],
       "category": "Юбилей",
       "character": "Малышка",
-      "age_group": "Для малышей",
+      "age_group": "Для детей",
       "budget": "от 8 000 ₽",
       "series_name": null,
       "occasion": null,
@@ -27781,8 +27826,8 @@
       "slug": "dekor-pervogo-goda",
       "scene": "floor",
       "tags": [
-        "Юбилей",
-        "Для девочки"
+        "Для девочки",
+        "Юбилей"
       ],
       "client_options": {
         "available_on_request": false,
@@ -27791,12 +27836,12 @@
         "personal_inscription": true,
         "photozone_rental": false,
         "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/a1374062-eb02-4065-a022-8082b87cbb5e.jpg",
+        "photo_dhash": "03932e26236b6b6a",
         "floor_type": "air",
         "digit_choice": {
           "enabled": true,
           "count_on_photo": 2
-        },
-        "photo_dhash": "03932e26236b6b6a"
+        }
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/fb95110c-1220-40bf-ae21-2d81cddefc5c.jpg"
@@ -27805,7 +27850,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-22T13:33:34.046Z",
-      "updated_at": "2026-09-28T07:47:16.085Z",
+      "updated_at": "2026-10-03T15:20:30.171Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/c80b17dc-e557-46bd-b05e-a7312d329c9d.webp"
     },
     {
@@ -30502,7 +30547,7 @@
       ],
       "category": "Для мальчика",
       "character": null,
-      "age_group": "Для детей",
+      "age_group": "Для подростков",
       "budget": "2 000–3 500 ₽",
       "series_name": null,
       "occasion": null,
@@ -30530,7 +30575,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-20T21:00:36.271Z",
-      "updated_at": "2026-09-28T07:45:15.384Z",
+      "updated_at": "2026-10-03T15:18:24.985Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/38a8a8a1-a2d6-4f28-8a97-c886dc67721a.webp"
     },
     {
@@ -31596,7 +31641,7 @@
       ],
       "category": "Для девочки",
       "character": "Карамелька",
-      "age_group": "Для детей",
+      "age_group": "Для малышей",
       "budget": "3 500–5 000 ₽",
       "series_name": "Три кота",
       "occasion": null,
@@ -31628,7 +31673,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-19T22:17:30.140Z",
-      "updated_at": "2026-09-28T18:31:46.918Z",
+      "updated_at": "2026-10-03T15:23:45.338Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/c935a485-3470-46f4-a8c5-9720f4be2339.webp"
     },
     {
@@ -33166,50 +33211,6 @@
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/2f6d7a91-a125-405a-bd84-1576e6af26b0.webp"
     },
     {
-      "id": "1790ebfa-f27c-4009-86b4-987add9e4392",
-      "title": "Лесная компания",
-      "article": "BOY-010",
-      "price": 3850,
-      "short_description": "Три лесных жителя с букетом шаров и праздничным кругом.",
-      "full_description": "Композиция с фольгированными фигурами оленёнка, лисички и енота, дополненная букетом в нежных тонах и круглым шаром с лесными персонажами.",
-      "composition": [
-        "3 фольгированные фигуры",
-        "круг с рисунком",
-        "10 латексных шаров"
-      ],
-      "category": "Для мальчика",
-      "character": null,
-      "age_group": "Для детей",
-      "budget": "3 500–5 000 ₽",
-      "series_name": null,
-      "occasion": null,
-      "target_audience": null,
-      "seo_title": "Букет из шаров с лесными зверями в Армавире — VigSharm",
-      "seo_description": "Букет с фольгированными фигурами оленёнка, лисички и енота. Лесная композиция для детского праздника. Доставка по Армавиру.",
-      "slug": "lesnaya-kompaniya",
-      "scene": "wall_only",
-      "tags": [
-        "Для мальчика"
-      ],
-      "client_options": {
-        "available_on_request": false,
-        "advance_order_1_2_days": false,
-        "number_choice": false,
-        "personal_inscription": false,
-        "photozone_rental": false,
-        "photo_dhash": "53c3b2b8c2c8c84c"
-      },
-      "photos": [
-        "https://storage.yandexcloud.net/vigsharm-photos/products/3e3623be-9d94-469a-be7b-a0867aaf58a2.png"
-      ],
-      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/3e3623be-9d94-469a-be7b-a0867aaf58a2.png",
-      "status": "published",
-      "show_on_site": true,
-      "created_at": "2026-09-18T20:56:51.540Z",
-      "updated_at": "2026-09-28T07:43:53.995Z",
-      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/dd9cfaa8-d3f4-4de9-a709-742f36dbc988.webp"
-    },
-    {
       "id": "3e25ebe1-0614-4f4b-8ba9-43f0d9d5e502",
       "title": "Дива в короне",
       "article": "GRL-012",
@@ -33613,7 +33614,7 @@
       ],
       "category": "Для девочки",
       "character": "Зайчик",
-      "age_group": "Для детей",
+      "age_group": "Для малышей",
       "budget": "2 000–3 500 ₽",
       "series_name": null,
       "occasion": null,
@@ -33645,7 +33646,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-18T12:24:34.967Z",
-      "updated_at": "2026-09-28T18:30:05.835Z",
+      "updated_at": "2026-10-03T15:24:31.896Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/aa4fe8a5-2f95-4448-b1a6-9c7e7925f55a.webp"
     },
     {
@@ -33663,7 +33664,7 @@
       ],
       "category": "Для девочки",
       "character": "Маша из Маша и Медведь",
-      "age_group": "Для детей",
+      "age_group": "Для малышей",
       "budget": "2 000–3 500 ₽",
       "series_name": "Маша и Медведь",
       "occasion": null,
@@ -33691,7 +33692,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-18T12:14:54.029Z",
-      "updated_at": "2026-09-28T18:28:32.952Z",
+      "updated_at": "2026-10-03T15:24:40.929Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/ee9d19f3-a436-4e35-899a-3c244ce51251.webp"
     },
     {
@@ -33800,7 +33801,7 @@
       ],
       "category": "Для мальчика",
       "character": null,
-      "age_group": "Для малышей",
+      "age_group": "Для детей",
       "budget": "5 000–8 000 ₽",
       "series_name": null,
       "occasion": null,
@@ -33818,11 +33819,13 @@
         "number_choice": true,
         "personal_inscription": false,
         "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/3d86099a-5585-468f-8a62-af7289a19b6c.png",
+        "photo_dhash": "6f6835b8d0bcd4c8",
+        "floor_type": "air",
         "digit_choice": {
           "enabled": true,
           "count_on_photo": 1
-        },
-        "photo_dhash": "6f6835b8d0bcd4c8"
+        }
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/3d86099a-5585-468f-8a62-af7289a19b6c.png"
@@ -33831,7 +33834,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-18T11:30:42.177Z",
-      "updated_at": "2026-09-28T07:43:16.954Z",
+      "updated_at": "2026-10-03T15:15:01.323Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/0f3be438-7efd-496a-b85c-f0c493974bb9.webp"
     },
     {
@@ -34629,7 +34632,7 @@
       ],
       "category": "Для девочки",
       "character": "Эльза",
-      "age_group": "Для малышей",
+      "age_group": "Для детей",
       "budget": "5 000–8 000 ₽",
       "series_name": "Холодное сердце",
       "occasion": null,
@@ -34648,12 +34651,12 @@
         "personal_inscription": true,
         "photozone_rental": false,
         "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/6d42e630-c22a-4c6b-acac-ad2237ea284d.png",
+        "photo_dhash": "75ed6c6cedeccce4",
         "floor_type": "air",
         "digit_choice": {
           "enabled": true,
           "count_on_photo": 1
-        },
-        "photo_dhash": "75ed6c6cedeccce4"
+        }
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/6d42e630-c22a-4c6b-acac-ad2237ea284d.png"
@@ -34662,7 +34665,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-16T16:49:55.644Z",
-      "updated_at": "2026-09-28T18:23:31.449Z",
+      "updated_at": "2026-10-03T15:20:11.687Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/79bb7554-fafa-43b3-9257-09db20fe4474.webp"
     },
     {

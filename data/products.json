@@ -2,6 +2,301 @@
   "ok": true,
   "products": [
     {
+      "id": "afe4c66b-f92b-4961-b0b0-5b471a6a19e0",
+      "title": "Стройка в небе",
+      "article": "BOY-055",
+      "price": 5000,
+      "short_description": "Напольная композиция с красным самолётом, грузовиком и цифрой в строительной тематике.",
+      "full_description": "Яркая композиция с фольгированным самолётом, грузовиком и цифрой, украшенная латексными шарами в красных, жёлтых и голубых тонах. Строительные элементы и транспорт создают динамичное настроение.",
+      "composition": [
+        "Напольная композиция"
+      ],
+      "category": "Для мальчика",
+      "character": null,
+      "age_group": "Для малышей",
+      "budget": "5 000–8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Напольная композиция со стройкой и транспортом Армавир",
+      "seo_description": "Напольная композиция с красным самолётом, грузовиком и цифрой в строительной тематике. Яркие шары для мальчика. Доставка по Армавиру.",
+      "slug": "stroyka-v-nebe",
+      "scene": "floor",
+      "tags": [
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/b3a7191c-0590-4b7e-92c8-5ef9d2322040.jpg",
+        "photo_dhash": "79939d9b336b6fce",
+        "floor_type": "air",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/9fc75e24-672e-4536-bdee-8d715f2e756f.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/9fc75e24-672e-4536-bdee-8d715f2e756f.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-03T06:19:26.706Z",
+      "updated_at": "2026-10-03T06:19:26.706Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "c50cc1cf-0251-4961-866f-a6ec01b60121",
+      "title": "Чемпионский гол",
+      "article": "BOY-054",
+      "price": 2400,
+      "short_description": "Композиция с золотым кубком чемпиона, звездой и футбольными шарами.",
+      "full_description": "Яркая композиция с золотым кубком, звездой с надписью и зелёными шарами с футбольными мячами. Для юного футболиста и любителя спорта.",
+      "composition": [
+        "фигура",
+        "звезда с надписью",
+        "5 шаров с рисунком"
+      ],
+      "category": "Для мальчика",
+      "character": null,
+      "age_group": "Для детей",
+      "budget": "2 000–3 500 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Воздушные шары для мальчика футболиста Армавир",
+      "seo_description": "Композиция с золотым кубком чемпиона, звездой и футбольными шарами. Для юного спортсмена. Доставка в Армавире.",
+      "slug": "chempionskiy-gol",
+      "scene": "wall_only",
+      "tags": [
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/0d53c53f-1af0-42b8-9a0e-0c05b1bbcd51.jpg",
+        "photo_dhash": "3d3c9cb9c1c46c6c"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/d040c122-be83-41d8-850a-15f41b72db90.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/d040c122-be83-41d8-850a-15f41b72db90.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-03T06:14:41.183Z",
+      "updated_at": "2026-10-03T06:14:41.183Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "1f4395e4-b14a-4fd6-b9d0-c2b661141f23",
+      "title": "Футбольная лихорадка",
+      "article": "BOY-053",
+      "price": 3000,
+      "short_description": "Напольная композиция с цифрой 11 в футбольной тематике.",
+      "full_description": "Яркая композиция с крупной салатовой цифрой 11, украшенной футбольными мячами и декором. Для юного болельщика.",
+      "composition": [
+        "Напольная композиция"
+      ],
+      "category": "Для мальчика",
+      "character": null,
+      "age_group": "Для детей",
+      "budget": "2 000–3 500 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Футбольная композиция с цифрой 11 в Армавире | VigSharm",
+      "seo_description": "Напольная композиция с цифрой 11 в футбольной тематике. Яркое оформление для юного болельщика. Доставка воздушных шаров в Армавире.",
+      "slug": "futbolnaya-lihoradka-11",
+      "scene": "floor",
+      "tags": [
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/567cd9fa-74a4-4468-8cfa-9ceddd1ed475.jpg",
+        "photo_dhash": "1333571717585268",
+        "floor_type": "air",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 2
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/80acfa19-059b-4fe3-866c-7ccfb7955936.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/80acfa19-059b-4fe3-866c-7ccfb7955936.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-03T06:12:50.453Z",
+      "updated_at": "2026-10-03T06:12:50.453Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "d6d20d61-ec74-4b76-b54d-2a7d15647870",
+      "title": "Помощник на поле",
+      "article": "Y1-002",
+      "price": 4300,
+      "short_description": "Яркая композиция с синим трактором и фонтаном из шаров в голубых тонах.",
+      "full_description": "Набор из трёх напольных композиций с крупной цифрой, фольгированными фигурами синего трактора и фонтаном из шаров. Голубая и синяя палитра со звёздами создаёт праздничное настроение.",
+      "composition": [
+        "3 напольные композиции",
+        "2 звезды",
+        "5 шаров"
+      ],
+      "category": "1 годик",
+      "character": "Синий трактор",
+      "age_group": "Для малышей",
+      "budget": "3 500–5 000 ₽",
+      "series_name": "Синий трактор",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Композиция с синим трактором на 1 годик в Армавире",
+      "seo_description": "Напольные композиции с синим трактором и шарами для малыша. Яркое оформление первого дня рождения. Доставка по Армавиру.",
+      "slug": "sinij-traktor",
+      "scene": "floor",
+      "tags": [
+        "1 годик"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/aab73ead-5c27-4df9-8cb5-9586e392c043.jpg",
+        "photo_dhash": "0331f9f1a1a6ab8e",
+        "floor_type": "air",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/f6bdb0c8-6369-4084-90c1-4bade8dedb34.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/f6bdb0c8-6369-4084-90c1-4bade8dedb34.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-03T06:10:25.869Z",
+      "updated_at": "2026-10-03T06:10:25.869Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "70fac975-d761-4bab-99c3-85a13706e834",
+      "title": "Весёлая ферма",
+      "article": "BOY-052",
+      "price": 3930,
+      "short_description": "Композиция с голубой цифрой, синим трактором и серебряными звёздами.",
+      "full_description": "Композиция включает крупную голубую цифру, фигуру синего трактора, именную звезду, серебряную звезду, хромированные и шары с конфетти. Подходит для украшения детского праздника.",
+      "composition": [
+        "фигура",
+        "цифра",
+        "звезда с надписью",
+        "2 шара хром",
+        "2 шара с конфетти",
+        "звезда",
+        "4 шара"
+      ],
+      "category": "Для мальчика",
+      "character": "Синий трактор",
+      "age_group": "Для малышей",
+      "budget": "3 500–5 000 ₽",
+      "series_name": "Синий трактор",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары с Синим трактором на день рождения мальчика в Армавире",
+      "seo_description": "Композиция из шаров с Синим трактором, голубой цифрой и серебряными звёздами. Доставка воздушных шаров для мальчика в Армавире.",
+      "slug": "siniy-traktor-3",
+      "scene": "wall_only",
+      "tags": [
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": true,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/cb0d97a3-92eb-49d4-8416-bf532ae3fdfb.jpg",
+        "photo_dhash": "accac4cc41b0b4e4",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/f9980e80-6da9-427b-8aaf-2bcecccaac52.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/f9980e80-6da9-427b-8aaf-2bcecccaac52.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-03T06:07:18.757Z",
+      "updated_at": "2026-10-03T06:07:18.757Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "66574a38-6013-4f92-bebc-c3e853e24d13",
+      "title": "Король джунглей",
+      "article": "BOY-051",
+      "price": 4160,
+      "short_description": "Напольная композиция с цифрой, фигурой львёнка и двумя фонтанами из шаров в природных оттенках.",
+      "full_description": "Композиция включает крупную цифру розового золота с принтом жирафа, фольгированную фигуру львёнка и два фонтана из латексных шаров с анималистичным рисунком.",
+      "composition": [
+        "цифра",
+        "фигура",
+        "4 шара хром",
+        "4 шара с рисунком",
+        "6 шаров"
+      ],
+      "category": "Для мальчика",
+      "character": "Львёнок",
+      "age_group": "Для малышей",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Композиция с львёнком и цифрой — воздушные шары в Армавире",
+      "seo_description": "Напольная композиция с фигурой львёнка, цифрой в стиле сафари и фонтанами из шаров. Природные оттенки розового золота, бежевого и зелёного.",
+      "slug": "korol-dzhungley",
+      "scene": "floor",
+      "tags": [
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/a4fa5db5-8bbd-4ec8-91f0-499699c61678.jpg",
+        "photo_dhash": "9fcecccee86475d9",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/f19cb571-f147-450a-a58f-b93373dcb935.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/f19cb571-f147-450a-a58f-b93373dcb935.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-03T06:03:11.540Z",
+      "updated_at": "2026-10-03T06:03:11.540Z",
+      "thumb_photo": null
+    },
+    {
       "id": "dd4e0ff5-31e6-4c23-8af2-1b04c4524903",
       "title": "Игровая арена",
       "article": "BOY-047",

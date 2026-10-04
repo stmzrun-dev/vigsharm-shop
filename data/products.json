@@ -2,6 +2,383 @@
   "ok": true,
   "products": [
     {
+      "id": "6c576eb7-a1c8-4750-8f38-bb93e8e56630",
+      "title": "Сладкая карусель",
+      "article": "GRL-019",
+      "price": 6000,
+      "short_description": "Яркая композиция с цифрой и фольгированными сладостями.",
+      "full_description": "Напольная композиция с крупной цифрой в виде пончика с разноцветной глазурью, леденцами и конфетами.",
+      "composition": [
+        "Напольная композиция"
+      ],
+      "category": "Для девочки",
+      "character": null,
+      "age_group": "Для малышей",
+      "budget": "5 000–8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Композиция со сладостями на детский праздник в Армавире",
+      "seo_description": "Напольная композиция с цифрой-пончиком, леденцами и конфетами. Яркое оформление детского праздника воздушными шарами.",
+      "slug": "sladkaya-karusel",
+      "scene": "floor",
+      "tags": [
+        "Для девочки",
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/6e2cf92b-3215-458c-9817-9bc276258f0f.jpg",
+        "photo_dhash": "7838781c34841cdc",
+        "floor_type": "air",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/76a891b1-402c-4e9e-9a2b-219efac019ed.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/76a891b1-402c-4e9e-9a2b-219efac019ed.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-03T21:20:21.553Z",
+      "updated_at": "2026-10-03T21:31:29.223Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/9b5273c7-e82b-43f3-a8a7-3a743f7fdc2e.webp"
+    },
+    {
+      "id": "25230204-2f6f-4162-a36e-b594303f7866",
+      "title": "Красный болид",
+      "article": "BOY-085",
+      "price": 5100,
+      "short_description": "Стеклянный баблс с надписью, красная гоночная машина и шары с золотым конфетти.",
+      "full_description": "Композиция с крупным баблсом, фигурой гоночной машины и связкой шаров в мятно-золотой гамме.",
+      "composition": [
+        "стеклянный баблс с конфетти и надписью",
+        "фигура",
+        "3 шара с конфетти",
+        "2 шара хром",
+        "5 шаров"
+      ],
+      "category": "Для мальчика",
+      "character": null,
+      "age_group": "Для детей",
+      "budget": "5 000–8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Красный болид — шары с гоночной машиной в Армавире",
+      "seo_description": "Композиция с баблсом, фигурой гоночной машины и шарами с золотым конфетти. Доставка воздушных шаров по Армавиру.",
+      "slug": "krasnyy-bolid",
+      "scene": "wall_only",
+      "tags": [
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/677801e4-94d0-4791-baf2-d18fc0f05cf6.jpg",
+        "photo_dhash": "4657034767651145"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/d9f53432-6257-403c-ba4e-50639c799bc7.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/d9f53432-6257-403c-ba4e-50639c799bc7.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-03T21:17:56.278Z",
+      "updated_at": "2026-10-03T21:31:30.510Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/60d796c2-f60e-480d-aeb6-d2fbe9092639.webp"
+    },
+    {
+      "id": "2a4b3900-e56c-46b2-82b1-faf1bd70dd5f",
+      "title": "Скоростной бум",
+      "article": "BOY-084",
+      "price": 2740,
+      "short_description": "Композиция с фигурой Соника, звездой и хромированными шарами в сине-серебристой палитре.",
+      "full_description": "Яркая композиция с фигурой Соника, голубой звездой, шарами с конфетти и хромированными шарами. Идеальна для фанатов легендарного ежа.",
+      "composition": [
+        "фигура",
+        "звезда",
+        "2 шара с конфетти",
+        "5 шаров хром",
+        "2 шара"
+      ],
+      "category": "Для мальчика",
+      "character": "Соник",
+      "age_group": "Для детей",
+      "budget": "2 000–3 500 ₽",
+      "series_name": "Sonic the Hedgehog",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары с Соником в Армавире — Скоростной бум",
+      "seo_description": "Композиция с фигурой Соника, звездой и хромированными шарами. Доставка воздушных шаров с героями игр по Армавиру.",
+      "slug": "skorostnoy-bum",
+      "scene": "wall_only",
+      "tags": [
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/94ad54c1-25ac-4f43-8414-1566bf835837.jpg",
+        "photo_dhash": "40c048c8ccc80801"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/c7a7be4a-df2e-4f5d-8801-dcabeb1dd11f.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/c7a7be4a-df2e-4f5d-8801-dcabeb1dd11f.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-03T21:13:38.001Z",
+      "updated_at": "2026-10-03T21:31:31.717Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/448d92f3-c50a-427e-accc-25a7bce578c2.webp"
+    },
+    {
+      "id": "d18333ad-5c98-4153-b792-6dddee284e00",
+      "title": "Морское дно",
+      "article": "BOY-086",
+      "price": 6000,
+      "short_description": "Две напольные композиции с цифрой, Губкой Бобом и ананасом из шаров.",
+      "full_description": "Две напольные композиции в морской тематике. Слева — ананас из жёлтых шаров с зелёными листьями, справа — голубая цифра с фигурой Губки Боба, водорослями и морским декором.",
+      "composition": [
+        "2 напольные композиции"
+      ],
+      "category": "Для мальчика",
+      "character": "Губка Боб",
+      "age_group": "Для малышей",
+      "budget": "5 000–8 000 ₽",
+      "series_name": "Губка Боб Квадратные Штаны",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Напольные композиции с Губкой Бобом и цифрой 3 — Армавир",
+      "seo_description": "Две напольные композиции для малыша: морская тематика с Губкой Бобом, ананасом из шаров и голубой цифрой. Доставка в Армавире.",
+      "slug": "morskoe-dno",
+      "scene": "floor",
+      "tags": [
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/7ee14669-fd33-4dd3-956e-b9f027f8fb22.jpg",
+        "photo_dhash": "9f9e9e9ed2ebdcda",
+        "floor_type": "air",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/3def5582-2617-4313-bb1e-3904a8761682.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/3def5582-2617-4313-bb1e-3904a8761682.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-03T21:07:05.255Z",
+      "updated_at": "2026-10-03T21:22:20.615Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/9374b952-03a6-4b9a-b0f3-02db26a59e2d.webp"
+    },
+    {
+      "id": "1b8e8cd5-5646-4a1b-84c1-478753433ee0",
+      "title": "Королевский малыш",
+      "article": "BOY-083",
+      "price": 4900,
+      "short_description": "Милый динозаврик в короне с фонтаном из звёзд и сердец в пастельных тонах.",
+      "full_description": "Композиция с фольгированной фигурой динозавра в золотой короне и фонтаном из звёзд и сердец. Нежная пастельная палитра создаёт атмосферу волшебства.",
+      "composition": [
+        "фигура",
+        "4 звезды",
+        "9 сердец"
+      ],
+      "category": "Для мальчика",
+      "character": "Динозавр",
+      "age_group": "Для малышей",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары с динозавром в короне — Армавир",
+      "seo_description": "Композиция с милым динозавром в золотой короне, звёздами и сердцами в пастельных тонах. Доставка воздушных шаров в Армавире.",
+      "slug": "korolevskiy-malysh",
+      "scene": "floor",
+      "tags": [
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/180c4cdc-820c-47ba-aaeb-845806c77cbc.jpg",
+        "photo_dhash": "f7f77bede7f6f7f6"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/7803b808-1fcb-4a2b-bb81-a5457e90bf8d.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/7803b808-1fcb-4a2b-bb81-a5457e90bf8d.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-03T20:57:59.339Z",
+      "updated_at": "2026-10-03T21:31:33.099Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/5a4bc14e-707c-4549-b9fc-66a7321f4a17.webp"
+    },
+    {
+      "id": "af66c22c-8660-4a3a-8be6-fea6dbbb49c4",
+      "title": "Ракетный взлёт",
+      "article": "JUB-004",
+      "price": 4200,
+      "short_description": "Зелёные цифры, ракета и нежные шары в пастельных тонах.",
+      "full_description": "Композиция с зелёными фольгированными цифрами, ракетой и латексными шарами в зелёных, жёлтых и белых оттенках. Подойдёт для празднования круглой даты.",
+      "composition": [
+        "10 шаров",
+        "2 цифры",
+        "фигура"
+      ],
+      "category": "Юбилей",
+      "character": "Ракета",
+      "age_group": "Для детей",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары на 10 лет с ракетой Армавир — Юбилей",
+      "seo_description": "Воздушные шары с цифрами 10 и ракетой в Армавире. Композиция для детского юбилея с доставкой от VigSharm.",
+      "slug": "kosmicheskiy-start-9",
+      "scene": "wall_only",
+      "tags": [
+        "Для мальчика",
+        "Юбилей"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/45a85864-d3de-4328-8942-fb0679146e37.jpg",
+        "photo_dhash": "01414061715198c3",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 2
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/4763dce6-077e-474d-b14b-a1e4fea23048.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/4763dce6-077e-474d-b14b-a1e4fea23048.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-03T20:48:37.859Z",
+      "updated_at": "2026-10-03T21:31:34.355Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/0e232825-3980-4eac-a45d-19b6f9405c3f.webp"
+    },
+    {
+      "id": "793e7a57-1880-42d2-b79e-f34cfa1271fb",
+      "title": "Синий ёж",
+      "article": "BOY-080",
+      "price": 2730,
+      "short_description": "Композиция с фигурой Соника и золотой звездой с надписью.",
+      "full_description": "Композиция с фольгированной фигурой Соника, золотой звездой с персональной надписью и яркими шарами в сине-золотой гамме.",
+      "composition": [
+        "фигура",
+        "звезда с надписью",
+        "2 шара с конфетти",
+        "шар хром",
+        "6 шаров"
+      ],
+      "category": "Для мальчика",
+      "character": "Соник",
+      "age_group": "Для детей",
+      "budget": "2 000–3 500 ₽",
+      "series_name": "Sonic the Hedgehog",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары с Соником на 5 лет Армавир",
+      "seo_description": "Композиция с фигурой Соника и золотой звездой. Яркие сине-золотые шары с конфетти и хром для мальчика. Доставка по Армавиру.",
+      "slug": "sinij-yozh",
+      "scene": "wall_only",
+      "tags": [
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/979db48d-3488-4d51-9921-72f8ebc6e5a4.jpg",
+        "photo_dhash": "03193ad8887e5cc5"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/2405bdd1-fe63-495d-a24a-f5e3ca4726b4.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/2405bdd1-fe63-495d-a24a-f5e3ca4726b4.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-03T20:45:40.434Z",
+      "updated_at": "2026-10-03T21:31:35.580Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/709b1f00-ebb1-4ceb-bec7-ede28af2a8a0.webp"
+    },
+    {
+      "id": "69ddaa2c-8475-4172-bfe0-a15d86c22292",
+      "title": "Котики-братики",
+      "article": "BOY-081",
+      "price": 3100,
+      "short_description": "Две ходячие фигуры котов и яркий фонтан из 10 шаров.",
+      "full_description": "Композиция с двумя ходячими фигурами котов и фонтаном из 10 латексных шаров голубого, жёлтого и оранжевого цветов.",
+      "composition": [
+        "10 шаров",
+        "2 фигуры"
+      ],
+      "category": "Для мальчика",
+      "character": "Три кота",
+      "age_group": "Для малышей",
+      "budget": "2 000–3 500 ₽",
+      "series_name": "Три кота",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Три кота — шары с героями мультфильма в Армавире",
+      "seo_description": "Композиция с двумя ходячими фигурами котов и фонтаном из 10 ярких шаров. Доставка по Армавиру от VigSharm.",
+      "slug": "tri-kota-5",
+      "scene": "wall_only",
+      "tags": [
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/38d83c66-2e50-47af-8046-0a4aac036b35.jpg",
+        "photo_dhash": "3e969edeceba1010"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/f3af7730-9073-42cb-bc77-bf96f0885a0a.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/f3af7730-9073-42cb-bc77-bf96f0885a0a.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-03T20:43:54.919Z",
+      "updated_at": "2026-10-03T21:31:36.678Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/b3892e0e-17c8-4183-a108-cfe8939a9883.webp"
+    },
+    {
       "id": "10fa3682-5dd9-4e44-ac93-816f9c93674f",
       "title": "Юрский гость",
       "article": "BOY-079",
@@ -49,8 +426,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-10-03T20:29:56.006Z",
-      "updated_at": "2026-10-03T20:29:56.006Z",
-      "thumb_photo": null
+      "updated_at": "2026-10-03T21:31:37.911Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/ad7222b1-5f9e-4037-be39-da58a6576e06.webp"
     },
     {
       "id": "00714db8-37fa-4770-8b47-f0365cb25c80",
@@ -100,8 +477,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-10-03T20:27:29.170Z",
-      "updated_at": "2026-10-03T20:27:37.038Z",
-      "thumb_photo": null
+      "updated_at": "2026-10-03T21:31:39.044Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/b65be401-bb1b-4564-8581-504d67068f94.webp"
     },
     {
       "id": "4fc4c3e3-e38b-412f-aeb3-2273bdff200c",
@@ -149,8 +526,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-10-03T20:24:02.092Z",
-      "updated_at": "2026-10-03T20:24:02.092Z",
-      "thumb_photo": null
+      "updated_at": "2026-10-03T21:31:40.307Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/023d3421-9d68-4de9-ba2b-d7923a24fb99.webp"
     },
     {
       "id": "48998d85-e169-431e-a87f-e9d249719726",
@@ -197,8 +574,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-10-03T15:12:53.561Z",
-      "updated_at": "2026-10-03T15:12:53.561Z",
-      "thumb_photo": null
+      "updated_at": "2026-10-03T21:31:41.644Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/f4694b90-20fb-4b59-9a4a-ae3b93dbbfd7.webp"
     },
     {
       "id": "4a66344e-267a-41f6-acf6-e07672fdcb90",
@@ -245,8 +622,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-10-03T13:16:58.711Z",
-      "updated_at": "2026-10-03T13:16:58.711Z",
-      "thumb_photo": null
+      "updated_at": "2026-10-03T21:31:42.926Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/c7a7010a-088c-43b4-b2d7-64ee3a5ca82b.webp"
     },
     {
       "id": "4dab4e47-fa17-4f3f-bd24-248db2d118a2",
@@ -289,8 +666,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-10-03T13:14:40.720Z",
-      "updated_at": "2026-10-03T13:14:40.720Z",
-      "thumb_photo": null
+      "updated_at": "2026-10-03T21:31:44.191Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/dca17047-8cf4-4d2b-9ded-030f961e1851.webp"
     },
     {
       "id": "ec7d0a54-2205-4f46-930d-0c4d28453fa0",
@@ -336,8 +713,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-10-03T13:09:53.537Z",
-      "updated_at": "2026-10-03T13:09:53.537Z",
-      "thumb_photo": null
+      "updated_at": "2026-10-03T21:31:46.078Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/42d30df4-9a77-4d5f-b6f6-f26c7f5c967d.webp"
     },
     {
       "id": "a04e90db-f0a7-40fb-882d-b089dd79c4ea",
@@ -389,8 +766,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-10-03T13:05:55.181Z",
-      "updated_at": "2026-10-03T13:05:55.181Z",
-      "thumb_photo": null
+      "updated_at": "2026-10-03T21:31:48.570Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/76a24645-a0a7-46ba-a4c8-095d50d5ecbf.webp"
     },
     {
       "id": "387d201c-43d2-4f7f-ad55-64cc4fcc9a92",
@@ -438,8 +815,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-10-03T13:02:16.936Z",
-      "updated_at": "2026-10-03T13:02:16.936Z",
-      "thumb_photo": null
+      "updated_at": "2026-10-03T21:31:49.903Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/4110693f-67b4-4416-9628-642ceda0b868.webp"
     },
     {
       "id": "db89d941-016f-406a-8b81-873ad8a5afda",
@@ -489,8 +866,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-10-03T12:49:56.788Z",
-      "updated_at": "2026-10-03T12:58:44.568Z",
-      "thumb_photo": null
+      "updated_at": "2026-10-03T21:31:52.030Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/847273b0-ee4d-40ae-9719-df9edd0f0931.webp"
     },
     {
       "id": "0c626019-6cd0-43a2-8cdf-941eaa03a488",
@@ -532,8 +909,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-10-03T12:46:40.412Z",
-      "updated_at": "2026-10-03T12:46:40.412Z",
-      "thumb_photo": null
+      "updated_at": "2026-10-03T21:31:53.930Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/5adc38bb-cec9-432e-b15e-1425e79fb8e4.webp"
     },
     {
       "id": "9a184296-054d-47da-b1e0-fdd93639e964",
@@ -578,8 +955,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-10-03T12:44:40.111Z",
-      "updated_at": "2026-10-03T12:44:40.111Z",
-      "thumb_photo": null
+      "updated_at": "2026-10-03T21:31:55.845Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/a741ea82-ac24-4d16-824c-053fe2df4b6c.webp"
     },
     {
       "id": "de641f1b-5efe-434a-b3db-4ad826199bdb",
@@ -626,8 +1003,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-10-03T12:38:01.793Z",
-      "updated_at": "2026-10-03T12:38:01.793Z",
-      "thumb_photo": null
+      "updated_at": "2026-10-03T21:31:57.929Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/04f268b1-0914-4ded-951e-9b17953cefa5.webp"
     },
     {
       "id": "8de2c75a-63ec-4ea1-8ffa-cf9f4e3d4f59",
@@ -678,8 +1055,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-10-03T12:34:29.997Z",
-      "updated_at": "2026-10-03T12:34:29.997Z",
-      "thumb_photo": null
+      "updated_at": "2026-10-03T21:31:59.917Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/810acdad-fc6c-4f59-b1ef-3f04a780444c.webp"
     },
     {
       "id": "8043a20e-574a-4e69-83a9-f7d75b0c8be9",
@@ -726,8 +1103,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-10-03T12:30:24.039Z",
-      "updated_at": "2026-10-03T12:30:24.039Z",
-      "thumb_photo": null
+      "updated_at": "2026-10-03T21:32:01.911Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/b1db91d6-e430-43ec-9e14-f7e9c5cbacc2.webp"
     },
     {
       "id": "ca4bc1c3-3745-472c-9492-77083b3449ab",
@@ -774,8 +1151,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-10-03T12:28:02.879Z",
-      "updated_at": "2026-10-03T12:28:02.879Z",
-      "thumb_photo": null
+      "updated_at": "2026-10-03T21:32:03.916Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/d633518e-7de4-43ca-bd26-13e2399a6bb5.webp"
     },
     {
       "id": "c651c4af-a3e1-4723-a54b-a94ab8a570fc",
@@ -822,8 +1199,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-10-03T12:25:54.080Z",
-      "updated_at": "2026-10-03T12:25:54.080Z",
-      "thumb_photo": null
+      "updated_at": "2026-10-03T21:32:05.935Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/3da22998-2868-48b5-a44d-9562926b3de4.webp"
     },
     {
       "id": "11a4520c-5a9e-402d-ba9c-935e8144f78d",
@@ -870,8 +1247,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-10-03T12:22:07.331Z",
-      "updated_at": "2026-10-03T12:22:07.331Z",
-      "thumb_photo": null
+      "updated_at": "2026-10-03T21:32:07.917Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/a852f4b2-b5bd-4dcd-bfae-29a1ba837636.webp"
     },
     {
       "id": "d59ded78-0fe6-4965-80e7-44ff3cdda786",
@@ -921,8 +1298,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-10-03T12:19:32.094Z",
-      "updated_at": "2026-10-03T12:19:32.094Z",
-      "thumb_photo": null
+      "updated_at": "2026-10-03T21:32:10.007Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/7cf23625-3955-4db4-b934-8a495a8ca6cd.webp"
     },
     {
       "id": "0022792b-675c-4077-9729-75b5a92d6938",
@@ -967,8 +1344,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-10-03T12:11:50.868Z",
-      "updated_at": "2026-10-03T12:11:50.868Z",
-      "thumb_photo": null
+      "updated_at": "2026-10-03T21:32:11.918Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/14e15e44-8b44-43fc-9e70-e9bfa05f2586.webp"
     },
     {
       "id": "6cb8ae66-f1f3-4d44-8283-e91ba5d4a5bb",
@@ -1015,8 +1392,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-10-03T12:07:54.760Z",
-      "updated_at": "2026-10-03T12:07:54.760Z",
-      "thumb_photo": null
+      "updated_at": "2026-10-03T21:32:13.916Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/f97cba76-f2c4-4ece-858c-e7c4bbbdfdec.webp"
     },
     {
       "id": "21ce4153-4388-4423-b237-80522991f31f",
@@ -1066,8 +1443,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-10-03T12:03:06.405Z",
-      "updated_at": "2026-10-03T12:03:06.405Z",
-      "thumb_photo": null
+      "updated_at": "2026-10-03T21:32:15.888Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/0d35d162-4d0e-4097-9e79-6b330b2bed06.webp"
     },
     {
       "id": "703da326-7c6b-490e-89b5-8cf5be2f6b28",
@@ -1117,8 +1494,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-10-03T11:59:42.376Z",
-      "updated_at": "2026-10-03T11:59:42.376Z",
-      "thumb_photo": null
+      "updated_at": "2026-10-03T21:32:17.963Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/83d93d00-7b44-41f0-abe8-000321c7e315.webp"
     },
     {
       "id": "57a9dcbd-415d-45d5-871f-1088842a7b91",
@@ -1170,8 +1547,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-10-03T07:20:27.247Z",
-      "updated_at": "2026-10-03T07:20:27.247Z",
-      "thumb_photo": null
+      "updated_at": "2026-10-03T21:32:20.105Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/776a7d15-b5cb-46ec-a7e0-8fe4af16b463.webp"
     },
     {
       "id": "0f86a48a-544d-4891-9909-aeb46433ad81",
@@ -1218,8 +1595,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-10-03T07:17:37.801Z",
-      "updated_at": "2026-10-03T07:17:37.801Z",
-      "thumb_photo": null
+      "updated_at": "2026-10-03T21:32:22.066Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/57123d91-a52b-475d-9ca2-8ab4424d9b62.webp"
     },
     {
       "id": "693c201d-86a0-4cc0-b117-64feb82d2ba0",
@@ -1267,8 +1644,8 @@
       "status": "draft",
       "show_on_site": false,
       "created_at": "2026-10-03T07:12:29.562Z",
-      "updated_at": "2026-10-03T07:12:29.562Z",
-      "thumb_photo": null
+      "updated_at": "2026-10-03T21:32:24.224Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/e0c3bb3f-caf8-4be1-8b6e-90f87bdfbea9.webp"
     },
     {
       "id": "206a46db-68b7-4e19-9e91-ee2761d6defd",
@@ -1313,8 +1690,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-10-03T07:03:29.009Z",
-      "updated_at": "2026-10-03T07:03:29.009Z",
-      "thumb_photo": null
+      "updated_at": "2026-10-03T21:32:26.120Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/dc45e202-8e9a-4053-9512-d5b13a34b451.webp"
     },
     {
       "id": "01682347-8c5d-4ef6-81b6-02e1be50442a",
@@ -1357,8 +1734,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-10-03T07:01:46.798Z",
-      "updated_at": "2026-10-03T07:01:46.798Z",
-      "thumb_photo": null
+      "updated_at": "2026-10-03T21:32:28.222Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/257f4ad5-22be-4b02-9f37-33be30a6bc62.webp"
     },
     {
       "id": "dc7139c5-68e3-4d02-8864-0bf0b1a57666",
@@ -1406,8 +1783,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-10-03T06:58:27.616Z",
-      "updated_at": "2026-10-03T06:58:27.616Z",
-      "thumb_photo": null
+      "updated_at": "2026-10-03T21:32:30.117Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/e3d131b5-d801-4c63-bb9c-dc05257d0074.webp"
     },
     {
       "id": "0466b74c-062a-4d63-8e12-43adc3511b90",
@@ -1455,8 +1832,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-10-03T06:56:07.898Z",
-      "updated_at": "2026-10-03T06:56:07.898Z",
-      "thumb_photo": null
+      "updated_at": "2026-10-03T21:32:32.116Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/82caad92-be3e-4eed-b1c4-f68c5a27107e.webp"
     },
     {
       "id": "56cf0fb9-cea7-440e-8604-2ba38b715c75",
@@ -1503,8 +1880,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-10-03T06:52:33.841Z",
-      "updated_at": "2026-10-03T15:15:45.181Z",
-      "thumb_photo": null
+      "updated_at": "2026-10-03T21:32:34.159Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/2615b6f9-ff9a-487b-918b-408804973df8.webp"
     },
     {
       "id": "5141e3be-2071-43ca-a445-4ff139f16874",
@@ -1551,16 +1928,16 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-10-03T06:43:02.043Z",
-      "updated_at": "2026-10-03T06:43:02.043Z",
-      "thumb_photo": null
+      "updated_at": "2026-10-03T21:32:36.199Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/dfb58401-affe-485f-9970-23d0e7904852.webp"
     },
     {
       "id": "f2002d6b-10bb-486d-8b39-a1695c34cbe7",
       "title": "Гонка началась",
-      "article": null,
+      "article": "BOY-082",
       "price": 4500,
-      "short_description": "Напольная композиция с цифрой и фигурами гоночной машины.",
-      "full_description": "Напольная композиция с красной цифрой и двумя фольгированными фигурами Молнии Маккуина. Красные, жёлтые и чёрные шары формируют основу с дорожной разметкой.",
+      "short_description": "Напольная композиция с цифрой и фигурами Молнии Маккуина.",
+      "full_description": "Напольная композиция с красной цифрой, фигурами гоночной машины и яркими шарами. Оформление в красно-жёлто-чёрных тонах.",
       "composition": [
         "напольная композиция",
         "2 фигуры"
@@ -1572,8 +1949,8 @@
       "series_name": "Тачки",
       "occasion": null,
       "target_audience": null,
-      "seo_title": "Композиция с Молнией Маккуином и цифрой — Армавир",
-      "seo_description": "Напольная композиция из шаров с гоночной машиной и цифрой. Доставка воздушных шаров в Армавире от VigSharm.",
+      "seo_title": "Композиция с Молнией Маккуином на день рождения Армавир",
+      "seo_description": "Напольная композиция с цифрой и фигурами из мультфильма Тачки. Яркое оформление для праздника мальчика в Армавире.",
       "slug": "gonka-nachalas",
       "scene": "floor",
       "tags": [
@@ -1594,14 +1971,14 @@
         }
       },
       "photos": [
-        "https://storage.yandexcloud.net/vigsharm-photos/products/530baea2-2060-4ef5-9291-ae50e5688ae7.jpg"
+        "https://storage.yandexcloud.net/vigsharm-photos/products/855b7172-b388-4526-8dbd-3170086be09b.jpg"
       ],
-      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/530baea2-2060-4ef5-9291-ae50e5688ae7.jpg",
-      "status": "draft",
-      "show_on_site": false,
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/855b7172-b388-4526-8dbd-3170086be09b.jpg",
+      "status": "published",
+      "show_on_site": true,
       "created_at": "2026-10-03T06:38:43.247Z",
-      "updated_at": "2026-10-03T20:12:53.274Z",
-      "thumb_photo": null
+      "updated_at": "2026-10-03T21:32:37.815Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/4d4e3184-a1ce-4b05-9c25-3f29eb664049.webp"
     },
     {
       "id": "9fde3f76-4825-4a1f-a113-9159630f3f86",
@@ -1650,8 +2027,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-10-03T06:29:39.049Z",
-      "updated_at": "2026-10-03T12:53:41.920Z",
-      "thumb_photo": null
+      "updated_at": "2026-10-03T21:32:40.096Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/4fc73f96-6e71-49c9-91f9-1535bcaf456c.webp"
     },
     {
       "id": "cdf3f7a8-f397-4aa5-9d11-6d15ba29a2c6",
@@ -1699,8 +2076,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-10-03T06:26:41.479Z",
-      "updated_at": "2026-10-03T06:26:41.479Z",
-      "thumb_photo": null
+      "updated_at": "2026-10-03T21:32:42.172Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/c908be2e-4e7b-422b-b383-0587aa910fab.webp"
     },
     {
       "id": "2e35d20b-c43e-48f5-b753-04f70f2e479c",
@@ -1747,8 +2124,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-10-03T06:22:27.694Z",
-      "updated_at": "2026-10-03T06:22:27.694Z",
-      "thumb_photo": null
+      "updated_at": "2026-10-03T21:32:44.201Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/263c4895-c498-44d9-a073-61c644123a98.webp"
     },
     {
       "id": "afe4c66b-f92b-4961-b0b0-5b471a6a19e0",
@@ -1795,8 +2172,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-10-03T06:19:26.706Z",
-      "updated_at": "2026-10-03T06:19:26.706Z",
-      "thumb_photo": null
+      "updated_at": "2026-10-03T21:32:46.203Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/582f98c5-2ff5-4b19-ac04-ef65d3d4a422.webp"
     },
     {
       "id": "c50cc1cf-0251-4961-866f-a6ec01b60121",
@@ -1840,8 +2217,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-10-03T06:14:41.183Z",
-      "updated_at": "2026-10-03T06:14:41.183Z",
-      "thumb_photo": null
+      "updated_at": "2026-10-03T21:32:48.116Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/568c6236-f722-44ae-a83b-38104b516c18.webp"
     },
     {
       "id": "1f4395e4-b14a-4fd6-b9d0-c2b661141f23",
@@ -1888,8 +2265,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-10-03T06:12:50.453Z",
-      "updated_at": "2026-10-03T06:12:50.453Z",
-      "thumb_photo": null
+      "updated_at": "2026-10-03T21:32:50.195Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/68265ecb-7538-412c-a773-8becff7f759e.webp"
     },
     {
       "id": "d6d20d61-ec74-4b76-b54d-2a7d15647870",
@@ -1938,8 +2315,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-10-03T06:10:25.869Z",
-      "updated_at": "2026-10-03T06:10:25.869Z",
-      "thumb_photo": null
+      "updated_at": "2026-10-03T21:32:52.514Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/41167725-4c5a-45e7-92a9-20d55b7f0a1b.webp"
     },
     {
       "id": "70fac975-d761-4bab-99c3-85a13706e834",
@@ -1991,8 +2368,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-10-03T06:07:18.757Z",
-      "updated_at": "2026-10-03T06:07:18.757Z",
-      "thumb_photo": null
+      "updated_at": "2026-10-03T21:32:54.041Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/a38bd844-a064-4e6d-8268-948906373328.webp"
     },
     {
       "id": "66574a38-6013-4f92-bebc-c3e853e24d13",
@@ -2042,8 +2419,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-10-03T06:03:11.540Z",
-      "updated_at": "2026-10-03T06:03:11.540Z",
-      "thumb_photo": null
+      "updated_at": "2026-10-03T21:32:56.119Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/673a0fa1-7ec9-46d9-a138-e754b6f5fa65.webp"
     },
     {
       "id": "dd4e0ff5-31e6-4c23-8af2-1b04c4524903",
@@ -2091,8 +2468,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-10-02T19:10:28.307Z",
-      "updated_at": "2026-10-03T15:16:13.727Z",
-      "thumb_photo": null
+      "updated_at": "2026-10-03T21:32:57.922Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/e3011387-12fb-4754-8648-c07e7d92bb19.webp"
     },
     {
       "id": "ca95fb70-fec8-412c-bb49-3e3b59c2112b",
@@ -2140,8 +2517,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-10-02T19:06:44.170Z",
-      "updated_at": "2026-10-02T19:06:44.170Z",
-      "thumb_photo": null
+      "updated_at": "2026-10-03T21:32:59.830Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/4b919ae9-9ee6-49b8-a7bd-6e4b8f19bdf0.webp"
     },
     {
       "id": "91d25c45-77b6-44e1-9b97-8998a8332e42",
@@ -2191,8 +2568,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-10-02T19:04:58.918Z",
-      "updated_at": "2026-10-02T19:04:58.918Z",
-      "thumb_photo": null
+      "updated_at": "2026-10-03T21:33:02.059Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/3acadc0b-f619-451e-8085-d67e1646e4f0.webp"
     },
     {
       "id": "9badf485-d02c-483b-90e7-170e950370cf",
@@ -2239,8 +2616,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-10-02T19:02:50.748Z",
-      "updated_at": "2026-10-02T19:02:50.748Z",
-      "thumb_photo": null
+      "updated_at": "2026-10-03T21:33:03.943Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/503fbf93-3582-4637-af5c-b5c7f0e6a2fe.webp"
     },
     {
       "id": "fd4fef35-2444-452d-ba93-ca1e9bbb7522",
@@ -2288,8 +2665,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-10-02T19:00:59.391Z",
-      "updated_at": "2026-10-02T19:00:59.391Z",
-      "thumb_photo": null
+      "updated_at": "2026-10-03T21:33:05.903Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/be67a771-1f54-4c2f-98d0-0a4ca2cc5438.webp"
     },
     {
       "id": "de0afaad-4296-4bba-9d6d-a169d00c6925",
@@ -2337,8 +2714,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-10-02T18:58:23.485Z",
-      "updated_at": "2026-10-02T18:58:23.485Z",
-      "thumb_photo": null
+      "updated_at": "2026-10-03T21:33:08.011Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/6d40ac2c-945a-440f-99ee-724746d66a5c.webp"
     },
     {
       "id": "64d9396f-c127-4fc8-8e86-43cfffa44a3b",
@@ -2381,8 +2758,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-10-02T18:54:59.646Z",
-      "updated_at": "2026-10-02T18:54:59.646Z",
-      "thumb_photo": null
+      "updated_at": "2026-10-03T21:33:09.969Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/60bbeb99-7d1f-42af-bd89-714f049a73fe.webp"
     },
     {
       "id": "9336938c-b8f3-4722-8d59-23883640ceb9",
@@ -2432,8 +2809,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-10-02T18:52:31.215Z",
-      "updated_at": "2026-10-03T15:16:40.393Z",
-      "thumb_photo": null
+      "updated_at": "2026-10-03T21:33:11.926Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/a32f42b3-bfed-4f72-a20f-e3a19e412df5.webp"
     },
     {
       "id": "b79b9de5-db7e-4ec2-bdf2-104748298750",
@@ -2480,8 +2857,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-10-02T12:33:09.744Z",
-      "updated_at": "2026-10-02T12:33:09.744Z",
-      "thumb_photo": null
+      "updated_at": "2026-10-03T21:33:13.916Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/09fb7c3e-c1f3-4461-9088-972b6d745165.webp"
     },
     {
       "id": "2975a7be-abcc-49d5-82a9-a876abc6d2cd",
@@ -2528,8 +2905,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-10-02T12:29:21.375Z",
-      "updated_at": "2026-10-02T12:29:21.375Z",
-      "thumb_photo": null
+      "updated_at": "2026-10-03T21:33:15.909Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/5ea7b5bf-65a8-4bfb-89a2-b8fbc29fdbad.webp"
     },
     {
       "id": "c2e6057e-18d3-4020-8c70-279d20a866bd",
@@ -2576,8 +2953,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-10-02T12:27:16.209Z",
-      "updated_at": "2026-10-02T12:27:16.209Z",
-      "thumb_photo": null
+      "updated_at": "2026-10-03T21:33:17.938Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/b125c708-22d1-4047-a221-fa347e1d8d79.webp"
     },
     {
       "id": "ef185241-94d9-4f94-b2c3-6c443678134d",
@@ -2624,8 +3001,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-10-02T12:26:05.995Z",
-      "updated_at": "2026-10-02T12:26:05.995Z",
-      "thumb_photo": null
+      "updated_at": "2026-10-03T21:33:20.085Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/1cd2f9e1-cf4a-492d-a58b-70ef85f43eaf.webp"
     },
     {
       "id": "a6261bc6-fc62-43b6-8bcb-2654f087a0e7",
@@ -2672,8 +3049,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-10-02T12:24:29.745Z",
-      "updated_at": "2026-10-02T12:24:29.745Z",
-      "thumb_photo": null
+      "updated_at": "2026-10-03T21:33:21.944Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/4fd94014-d4c5-4084-a5d8-2bd9f621080a.webp"
     },
     {
       "id": "8b388c6f-e902-4787-ac28-d9c316ed5e5d",
@@ -2720,8 +3097,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-10-02T12:20:10.688Z",
-      "updated_at": "2026-10-02T12:20:10.688Z",
-      "thumb_photo": null
+      "updated_at": "2026-10-03T21:33:24.258Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/597884c1-2133-4821-b278-bfd051ac8687.webp"
     },
     {
       "id": "5009609b-5646-471f-b92f-c44c59905ce2",
@@ -2768,8 +3145,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-10-02T11:01:36.802Z",
-      "updated_at": "2026-10-02T11:01:36.802Z",
-      "thumb_photo": null
+      "updated_at": "2026-10-03T21:33:26.218Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/0ddbf7ce-b41a-4c3a-bd50-ce66718f027d.webp"
     },
     {
       "id": "6b3d9fc4-27e7-46bf-b228-20f97f9eebb9",
@@ -2816,8 +3193,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-10-02T10:55:30.598Z",
-      "updated_at": "2026-10-02T10:55:30.598Z",
-      "thumb_photo": null
+      "updated_at": "2026-10-03T21:33:28.297Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/70d7ca4a-d24d-471d-a777-2fee3ac5a3b6.webp"
     },
     {
       "id": "fe1b5e9b-7e73-443f-bb3e-23b217e2e1ca",
@@ -2863,8 +3240,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-10-02T09:01:59.881Z",
-      "updated_at": "2026-10-02T09:01:59.881Z",
-      "thumb_photo": null
+      "updated_at": "2026-10-03T21:33:30.111Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/eb914b6f-5bb3-4fd7-beb4-b318506f26be.webp"
     },
     {
       "id": "5e538152-894b-4042-b600-4efa30cea078",

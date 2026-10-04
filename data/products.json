@@ -310,8 +310,7 @@
       "slug": "cherno-belyy-mishka",
       "scene": "wall_only",
       "tags": [
-        "Для девочки",
-        "Для мальчика"
+        "Для девочки"
       ],
       "client_options": {
         "available_on_request": false,
@@ -893,8 +892,7 @@
       "slug": "ushastyy-prokaznik",
       "scene": "wall_only",
       "tags": [
-        "Для девочки",
-        "Для мальчика"
+        "Для девочки"
       ],
       "client_options": {
         "available_on_request": false,
@@ -1088,8 +1086,7 @@
       "slug": "sladkaya-karusel",
       "scene": "floor",
       "tags": [
-        "Для девочки",
-        "Для мальчика"
+        "Для девочки"
       ],
       "client_options": {
         "available_on_request": false,
@@ -2001,8 +1998,7 @@
       "slug": "krutoj-kot",
       "scene": "wall_only",
       "tags": [
-        "Для девочки",
-        "Для мальчика"
+        "Для девочки"
       ],
       "client_options": {
         "available_on_request": false,
@@ -2736,8 +2732,7 @@
       "slug": "bambukovyy-gost",
       "scene": "wall_only",
       "tags": [
-        "Для девочки",
-        "Для мальчика"
+        "Для девочки"
       ],
       "client_options": {
         "available_on_request": false,
@@ -3068,8 +3063,7 @@
       "slug": "akulya-vecherinka",
       "scene": "floor",
       "tags": [
-        "Для девочки",
-        "Для мальчика"
+        "Для девочки"
       ],
       "client_options": {
         "available_on_request": false,
@@ -3117,8 +3111,7 @@
       "slug": "muzykalnaya-volna",
       "scene": "floor",
       "tags": [
-        "Для девочки",
-        "Для мальчика"
+        "Для девочки"
       ],
       "client_options": {
         "available_on_request": false,
@@ -3609,8 +3602,7 @@
       "slug": "ryzhij-drug",
       "scene": "floor",
       "tags": [
-        "Для девочки",
-        "Для мальчика"
+        "Для девочки"
       ],
       "client_options": {
         "available_on_request": false,
@@ -9805,7 +9797,7 @@
       "show_on_site": true,
       "created_at": "2026-09-29T20:01:44.641Z",
       "updated_at": "2026-09-29T20:04:35.986Z",
-      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/93731b5a-50f0-4093-a705-831a957fd58f.webp"
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/fe2c3441-7884-44f9-b246-c4af5fb77f29.jpg"
     },
     {
       "id": "8bb18264-673f-466d-b25f-a9bce9dc2d28",
@@ -26148,7 +26140,6 @@
       "slug": "lesnye-priyateli",
       "scene": "floor",
       "tags": [
-        "Для девочки",
         "Для мальчика"
       ],
       "client_options": {

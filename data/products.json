@@ -2,6 +2,51 @@
   "ok": true,
   "products": [
     {
+      "id": "1c768257-3fef-448d-aa8e-8e2836af09b7",
+      "title": "Нежный возраст",
+      "article": "GRL-079",
+      "price": 4350,
+      "short_description": "Нежная композиция с прозрачным баблсом и розовым сердцем.",
+      "full_description": "Композиция в пастельных тонах с прозрачным баблсом, украшенным надписью и бантиками, розовым сердцем и шарами с бантиками.",
+      "composition": [
+        "стеклянный баблс с надписью и бантиками",
+        "сердце",
+        "6 шаров с бантиками"
+      ],
+      "category": "Для девочки",
+      "character": null,
+      "age_group": "Для малышей",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Нежная композиция с баблсом и сердцем — Армавир",
+      "seo_description": "Нежная композиция с прозрачным баблсом с надписью, розовым сердцем и шарами с бантиками. Доставка по Армавиру.",
+      "slug": "nezhnyj-vozrast",
+      "scene": "wall_only",
+      "tags": [
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/a2db6d09-c681-4174-a559-fc148525ffa3.jpg",
+        "photo_dhash": "3b7b6b7b25372d09"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/62e5dae7-938c-4188-b666-b4f287e262be.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/62e5dae7-938c-4188-b666-b4f287e262be.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-04T10:55:31.044Z",
+      "updated_at": "2026-10-04T10:55:31.044Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/76f4fc6e-564f-4705-8c68-22f34aff0a65.webp"
+    },
+    {
       "id": "22aa1726-8fa1-495c-83ba-2774f298b3f8",
       "title": "Гламурная модница",
       "article": "GRL-078",
@@ -265,7 +310,8 @@
       "slug": "cherno-belyy-mishka",
       "scene": "wall_only",
       "tags": [
-        "Для девочки"
+        "Для девочки",
+        "Для мальчика"
       ],
       "client_options": {
         "available_on_request": false,
@@ -847,7 +893,8 @@
       "slug": "ushastyy-prokaznik",
       "scene": "wall_only",
       "tags": [
-        "Для девочки"
+        "Для девочки",
+        "Для мальчика"
       ],
       "client_options": {
         "available_on_request": false,
@@ -1041,7 +1088,8 @@
       "slug": "sladkaya-karusel",
       "scene": "floor",
       "tags": [
-        "Для девочки"
+        "Для девочки",
+        "Для мальчика"
       ],
       "client_options": {
         "available_on_request": false,
@@ -1953,7 +2001,8 @@
       "slug": "krutoj-kot",
       "scene": "wall_only",
       "tags": [
-        "Для девочки"
+        "Для девочки",
+        "Для мальчика"
       ],
       "client_options": {
         "available_on_request": false,
@@ -2687,7 +2736,8 @@
       "slug": "bambukovyy-gost",
       "scene": "wall_only",
       "tags": [
-        "Для девочки"
+        "Для девочки",
+        "Для мальчика"
       ],
       "client_options": {
         "available_on_request": false,
@@ -3018,7 +3068,8 @@
       "slug": "akulya-vecherinka",
       "scene": "floor",
       "tags": [
-        "Для девочки"
+        "Для девочки",
+        "Для мальчика"
       ],
       "client_options": {
         "available_on_request": false,
@@ -3066,7 +3117,8 @@
       "slug": "muzykalnaya-volna",
       "scene": "floor",
       "tags": [
-        "Для девочки"
+        "Для девочки",
+        "Для мальчика"
       ],
       "client_options": {
         "available_on_request": false,
@@ -3557,7 +3609,8 @@
       "slug": "ryzhij-drug",
       "scene": "floor",
       "tags": [
-        "Для девочки"
+        "Для девочки",
+        "Для мальчика"
       ],
       "client_options": {
         "available_on_request": false,
@@ -9540,7 +9593,8 @@
       "slug": "zolotaya-korona",
       "scene": "floor",
       "tags": [
-        "Для девочки"
+        "Для девочки",
+        "Для неё"
       ],
       "client_options": {
         "available_on_request": false,
@@ -9731,7 +9785,8 @@
       "slug": "bantiki-princessy",
       "scene": "wall_only",
       "tags": [
-        "Для девочки"
+        "Для девочки",
+        "Для неё"
       ],
       "client_options": {
         "available_on_request": false,
@@ -10006,7 +10061,8 @@
       "slug": "zvezdnyj-inej",
       "scene": "wall_only",
       "tags": [
-        "Для девочки"
+        "Для девочки",
+        "Для неё"
       ],
       "client_options": {
         "available_on_request": false,
@@ -10436,6 +10492,7 @@
       "slug": "fioletovyj-prazdnik",
       "scene": "floor",
       "tags": [
+        "Для девочки",
         "Для неё"
       ],
       "client_options": {
@@ -11048,6 +11105,7 @@
       "slug": "do-luny-i-obratno",
       "scene": "wall_only",
       "tags": [
+        "Для неё",
         "Для него"
       ],
       "client_options": {
@@ -26090,6 +26148,7 @@
       "slug": "lesnye-priyateli",
       "scene": "floor",
       "tags": [
+        "Для девочки",
         "Для мальчика"
       ],
       "client_options": {
@@ -33670,7 +33729,8 @@
       "slug": "chernyy-bant",
       "scene": "wall_only",
       "tags": [
-        "Для девочки"
+        "Для девочки",
+        "Для неё"
       ],
       "client_options": {
         "available_on_request": false,
@@ -35014,6 +35074,7 @@
       "slug": "alye-bantiki",
       "scene": "wall_only",
       "tags": [
+        "Для девочки",
         "Для неё"
       ],
       "client_options": {

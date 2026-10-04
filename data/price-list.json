@@ -171,19 +171,6 @@
       "updated_at": "2026-10-01T08:39:39.724Z"
     },
     {
-      "id": "float",
-      "group_id": "latex",
-      "sort_order": 7,
-      "title": "Парящий шар",
-      "price": 250,
-      "price_from": 0,
-      "unit": "",
-      "catalog_category": "Шары поштучно",
-      "catalog_query": "Парящие шары",
-      "subhead": "леска, грузик и мелкие шарики",
-      "updated_at": "2026-10-04T08:40:00.000Z"
-    },
-    {
       "id": "figure",
       "group_id": "special",
       "sort_order": 1,

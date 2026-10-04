@@ -4654,6 +4654,7 @@ const PRICE_LIST_SEED = [
   ['chrome', 'latex', 4, 'Шар хром', 180, 0, '', 'Шары поштучно', 'Шар хром', ''],
   ['agate', 'latex', 5, 'Шар супер-агат', 200, 0, '', 'Шары поштучно', 'Шар супер-агат', ''],
   ['brush', 'latex', 6, 'Шар браш', 150, 0, '', 'Шары поштучно', 'Шар браш', ''],
+  ['float', 'latex', 7, 'Парящий шар', 250, 0, '', 'Шары поштучно', 'Парящие шары', 'леска, грузик и мелкие шарики'],
   ['foil-round', 'foil', 1, 'Круг, звезда или сердце', 300, 0, '', 'Шары поштучно', 'Круг, звезда или сердце', ''],
   ['foil-text', 'foil', 2, 'С надписью', 400, 0, '', 'Шары поштучно', 'С надписью', ''],
   ['foil-figure', 'foil', 3, 'Фольгированная фигура', 500, 1, '', 'Шары поштучно', 'Фольгированная фигура', ''],
@@ -4686,15 +4687,21 @@ async function ensurePriceListTable(env) {
     updated_at TEXT
   )`).run();
   const row = await env.DB.prepare('SELECT COUNT(*) AS n FROM price_list').first();
-  if (Number(row?.n) > 0) return;
   const now = new Date().toISOString();
-  for (const item of PRICE_LIST_SEED) {
-    await env.DB.prepare(
-      `INSERT OR IGNORE INTO price_list
-        (id, group_id, sort_order, title, price, price_from, unit, catalog_category, catalog_query, subhead, updated_at)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
-    ).bind(...item, now).run();
+  if (!(Number(row?.n) > 0)) {
+    for (const item of PRICE_LIST_SEED) {
+      await env.DB.prepare(
+        `INSERT OR IGNORE INTO price_list
+          (id, group_id, sort_order, title, price, price_from, unit, catalog_category, catalog_query, subhead, updated_at)
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
+      ).bind(...item, now).run();
+    }
   }
+  await env.DB.prepare(
+    `INSERT OR IGNORE INTO price_list
+      (id, group_id, sort_order, title, price, price_from, unit, catalog_category, catalog_query, subhead, updated_at)
+     VALUES ('float', 'latex', 7, 'Парящий шар', 250, 0, '', 'Шары поштучно', 'Парящие шары', 'леска, грузик и мелкие шарики', ?)`
+  ).bind(now).run();
 }
 
 function parsePriceRow(row) {
@@ -4895,6 +4902,7 @@ function matchCompositionLine(line) {
     [/хром/, 'chrome'],
     [/агат/, 'agate'],
     [/браш|brush/, 'brush'],
+    [/парящ/, 'float'],
     [/рисунк/, 'print'],
     [/цифр/, 'digit'],
     [/фольг.*фигур|фигур.*фольг/, 'foil-figure'],

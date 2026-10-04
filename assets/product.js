@@ -44,6 +44,7 @@
     if (/напольн|стойк/.test(t)) return 'floor';
     if (/ромаш|лили|тюльпан|цветк|цветы|цветов/.test(t)) return 'tulip';
     if (/букет/.test(t)) return 'bouquet';
+    if (/парящ/.test(t)) return 'float';
     if (/именн/.test(t)) return 'name';
     if (/печат|принтов|рисун/.test(t)) return 'print';
     if (/надпис/.test(t)) return 'name';
@@ -70,7 +71,7 @@
     if (isFlowerBouquet() && (!key || key === 'latex')) key = 'tulip';
     if (isTeddyBouquet() && (key === 'figure' || !key) && !/фольг/.test(String(label || ''))) key = 'teddy';
     if (!key) key = 'latex';
-    var v = (key === 'butterfly' || key === 'teddy') ? '2' : ((key === 'rose' || key === 'bouquet' || key === 'tulip') ? '19' : ((key === 'rosebear' || key === 'hatbox' || key === 'ribbon') ? '1' : (key === 'arch' ? '1' : (key === 'walker' ? '19' : '18'))));
+    var v = key === 'float' ? '1' : ((key === 'butterfly' || key === 'teddy') ? '2' : ((key === 'rose' || key === 'bouquet' || key === 'tulip') ? '19' : ((key === 'rosebear' || key === 'hatbox' || key === 'ribbon') ? '1' : (key === 'arch' ? '1' : (key === 'walker' ? '19' : '18')))));
     return '<img class="comp-ico" src="icons/comp-' + key + '.webp?v=' + v + '" alt="" width="32" height="32" onerror="this.onerror=null;this.src=\'icons/comp-' + key + '.svg\'"/>';
   }
 

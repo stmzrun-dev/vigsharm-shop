@@ -16,7 +16,7 @@
 .catalog-search-hit.is-empty{color:#b4534a}
 .catalog-search-hit[hidden]{display:none!important}
 .catalog-group-nav[hidden]{display:none!important}
-.catalog-load-more{display:grid;justify-items:center;gap:8px;margin:28px 0 8px}
+.catalog-load-more{display:grid;justify-items:center;gap:8px;margin:28px 0 8px;overflow-anchor:none}
 .catalog-load-more button{min-height:52px;cursor:pointer;color:var(--ink);background:#fff;border:1.5px solid #e8e8ec;border-radius:999px;padding:0 28px;font:inherit;font-weight:800;box-shadow:none}
 .catalog-load-more button span{color:#ff6b5a}
 .catalog-load-more small{color:var(--muted);font-size:12px;font-weight:700}

@@ -1148,6 +1148,36 @@ const app = {
     return articleEl.value;
   },
 
+  /**
+   * Ручная галочка раздела в окне проверки или в форме.
+   * Включённый раздел становится категорией и получает свой префикс.
+   * Снятие текущего раздела отдаёт артикул другому отмеченному разделу.
+   */
+  applyManualShelfChoice(tag, checked) {
+    const name = String(tag || '').trim();
+    if (!name || this.articlePrefixFor(name) === 'DG') return;
+    const catEl = document.getElementById('product-category');
+    const reviewCat = document.getElementById('ai-review-category');
+    const setCat = (value) => {
+      const next = String(value || '').trim();
+      if (catEl) catEl.value = next;
+      if (reviewCat) {
+        const has = [...reviewCat.options].some((opt) => opt.value === next);
+        if (has || !next) reviewCat.value = next;
+      }
+      this.syncArticlePreview?.(next);
+    };
+    if (checked) {
+      setCat(name);
+      return;
+    }
+    if ((catEl?.value || '') !== name) return;
+    const tags = [...document.querySelectorAll(
+      '#tags-for-who input:checked, #tags-occasion input:checked, #tags-dates input:checked, #tags-type input:checked'
+    )].map((el) => el.value);
+    setCat(this.categoryFromSectionTags?.(tags) || '');
+  },
+
   assignArticleForPublish(category) {
     return this.syncArticlePreview(category);
   },

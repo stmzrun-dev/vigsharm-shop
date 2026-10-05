@@ -933,6 +933,7 @@ Object.assign(app, {
     if (this._occasionShelfWired) return;
     this._occasionShelfWired = true;
     document.getElementById('product-category')?.addEventListener('change', () => {
+      this.syncArticlePreview?.(document.getElementById('product-category')?.value);
       this.syncOccasionShelfFields?.();
       if (this.cardFieldsAreManual?.()) return;
       if (!this.isOccasionShelf?.()) return;
@@ -1891,6 +1892,11 @@ Object.assign(app, {
         <label for="${containerId}-${i}">${tag}</label>
       </div>
     `).join('');
+    container.querySelectorAll('input[type="checkbox"]').forEach((cb) => {
+      cb.addEventListener('change', () => {
+        this.applyManualShelfChoice?.(cb.value, cb.checked);
+      });
+    });
   },
 
   fillFormWithAIData(card) {

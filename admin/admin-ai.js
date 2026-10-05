@@ -1487,13 +1487,7 @@ Object.assign(app, {
         if (formCb) formCb.checked = cb.checked;
         cb.closest('.chip')?.classList.toggle('is-on', cb.checked);
         this.syncBouquetTypeFromReviewChip?.(cb, containerId, sourceSelector);
-        if (containerId === 'ai-review-tags-type' && cb.checked) {
-          const catEl = document.getElementById('product-category');
-          const reviewCat = document.getElementById('ai-review-category');
-          if (catEl) catEl.value = cb.value;
-          if (reviewCat && [...reviewCat.options].some((opt) => opt.value === cb.value)) reviewCat.value = cb.value;
-          this.syncArticlePreview?.(cb.value);
-        }
+        this.applyManualShelfChoice?.(cb.value, cb.checked);
         this.renderAiReviewTagsSummary?.();
         this.scheduleSaveActiveStudioDraft?.();
       });

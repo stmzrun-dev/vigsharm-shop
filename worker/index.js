@@ -2010,13 +2010,15 @@ Do not add or remove balloons. Square 1:1. Real photograph, not plastic CGI.
 
 OUTPUT: one improved photo of the same arch. All text identical to the source.`;
   }
-  const lock = `LOCKED — preserve without any change:
-- entire original product; exact balloon count, shapes, sizes, colors, positions, overlaps, clustering density
+  const lock = `LOCKED — count ONLY the real product. This overrides “do not remove balloons”:
+- MIRROR FIRST: a mirror, vanity, or glass edge is ROOM. Everything on the glass side is a reflection, NOT a balloon, even if it looks like a different foil digit (a side-view 6 looks like 1 — output the one real digit, NEVER 16) and even if the reflection shows its own floor, crown, and flower base. Count foil whose ribbon and weight sit on the real floor IN FRONT of the glass. Drop the reflection. Do not give it a crown or a second flower base
+- ROOM PROPS are not product: a potted plant, ivy on the mirror frame, and flowers standing NEXT TO the mirror. Erase them in place. Do NOT move the pot or greenery onto the studio wall. A flower twisted INTO the balloon base stays
+- Then preserve without any change: exact REAL balloon count, shapes, sizes, colors, positions, overlaps, clustering density
 - ALL decorative text that is PART OF THE PRODUCT PRINT on balloons (character art, foil prints, custom names/numbers meant to stay on the item) — copy exactly, never retype or autocorrect
 - characters, foil figures, chrome/metallic surfaces, ribbons, knots, product stickers that belong to the item
-- do NOT add, remove, redraw, densify, beautify, or “improve” any product element (except the ALLOWED EXCEPTION below)
+- do NOT add, remove, redraw, densify, beautify, or “improve” any REAL product element (except the ALLOWED EXCEPTION below). Removing a reflection, mirror, houseplant, or pot is required
 - do NOT invent extra small filler balloons between larger ones; keep the original sparsity/density of every column and cluster
-- when uncertain about a product print or balloon count, keep the original — do NOT guess or embellish
+- when uncertain whether a shape is a mirror reflection, DROP it. Do not keep both
 
 GENDER / AUDIENCE PALETTE LOCK (critical — common failure):
 - Keep the product's gender coding and color family EXACTLY as in the source
@@ -2169,7 +2171,8 @@ TASK:
 2. NO floor, NO baseboard, NO laminate, NO furniture, NO LED strips from the original room.
 3. Keep the product as one continuous photograph in the new room — remove cutout halo, white fringe, hard sticker edges.
 4. Do NOT add a hand. Do NOT add balloons, bows, or ribbons that were not in the original. REMOVE every real person from the source (model, child, photographer) — product and studio wall only.
-${unit ? `5. UNIT / «шары поштучно» SOURCE PHOTOS often come from marketplace catalogs (Sima-land etc.) with heavy packaging overlays — you MUST strip ALL of them (MARVEL/Disney badge boxes, «ДЛЯ ГЕЛИЯ И ВОЗДУХА», size «12" / 30 CM», sima-land.ru / © stamps) while keeping the balloon artwork itself.` : ''}
+5. DELETE room props in place. A mirror reflection is not a second balloon (a side-view 6 is not a 1). A potted plant, ivy, and flowers beside the mirror are not product — erase them, do not move them onto the studio wall.
+${unit ? `6. UNIT / «шары поштучно» SOURCE PHOTOS often come from marketplace catalogs (Sima-land etc.) with heavy packaging overlays — you MUST strip ALL of them (MARVEL/Disney badge boxes, «ДЛЯ ГЕЛИЯ И ВОЗДУХА», size «12" / 30 CM», sima-land.ru / © stamps) while keeping the balloon artwork itself.` : ''}
 
 STUDIO LOOK (critical — fix dark muddy walls):
 - Shoot like a pro e-commerce session: softboxes + large soft daylight, high-key bright catalog lighting
@@ -2192,7 +2195,7 @@ EXTRA LOCK for bubble / chrome / tulle sets:
 
 Minimal soft edge integration only — no graphic drop shadow on the wall.
 
-FORBIDDEN: people / models / faces, dark/muddy/taupe wall, underexposed background, floor, baseboard, laminate, sticker/cutout look, white/dark halo, invented text, changed balloon counts (including inside bubbles), melting tulle, plastic CGI, adding a hand, dark moody cinematic grade, store watermarks, supplier packaging badges, size/helium labels, marketplace URLs, leftover half-erased text.
+FORBIDDEN: people / models / faces, dark/muddy/taupe wall, underexposed background, floor, baseboard, laminate, sticker/cutout look, white/dark halo, invented text, changed balloon counts (including inside bubbles), melting tulle, plastic CGI, adding a hand, dark moody cinematic grade, store watermarks, supplier packaging badges, size/helium labels, marketplace URLs, leftover half-erased text, copying a mirror reflection as an extra balloon or digit, moving a houseplant, pot, or mirror ivy into the studio.
 
 OUTPUT: one square 1:1 bright professional catalog photo — ${unit ? 'single balloon / small set' : 'full product'} large in frame on a LIGHT studio wall only${unit ? ', with zero packaging badges or marketplace watermarks' : ''}.`;
   }

@@ -103,11 +103,12 @@
     if (p.main_photo) return p.main_photo;
     return p.thumb_photo || '';
   };
-  /** Light WebP preview for catalog grids. Falls back to the full frame. */
+  /** Catalog grid uses the same frame as the product page. A stored thumb can be an older shot. */
   window.vigProductThumb = function (p) {
     if (!p) return '';
-    if (p.thumb_photo) return p.thumb_photo;
-    return window.vigProductPhoto(p);
+    var photo = window.vigProductPhoto(p);
+    if (photo) return photo;
+    return p.thumb_photo || '';
   };
   window.vigNormalizeProduct = function (p) {
     if (!p) return p;

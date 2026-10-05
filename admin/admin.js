@@ -2417,8 +2417,7 @@ const app = {
       data.photos = this.currentProduct.photos.map(p => p.url).filter(Boolean);
       data.main_photo = data.photos[0] || null;
 
-      // Превью каталога — только когда сменилось главное фото.
-      // Иначе остаётся прежний thumb_photo, даже если кадр уже другой.
+      // Новое главное фото не должно оставлять старое превью каталога.
       const prevMain = this.currentProduct.loaded_main_photo || '';
       const mainChanged = !!data.main_photo && data.main_photo !== prevMain;
       const mainPhoto = this.currentProduct.photos[0];
@@ -2426,16 +2425,17 @@ const app = {
       if (!thumbSource && mainChanged && typeof this.fileFromPhotoSource === 'function') {
         thumbSource = await this.fileFromPhotoSource(mainPhoto?.url || data.main_photo);
       }
-      if (thumbSource && mainChanged && typeof this.generateAndUploadThumb === 'function') {
-        try {
-          const thumbUrl = await this.generateAndUploadThumb(thumbSource);
-          if (thumbUrl) {
-            data.thumb_photo = thumbUrl;
-            this.currentProduct.thumb_photo = thumbUrl;
+      if (mainChanged) {
+        let nextThumb = null;
+        if (thumbSource && typeof this.generateAndUploadThumb === 'function') {
+          try {
+            nextThumb = await this.generateAndUploadThumb(thumbSource);
+          } catch (e) {
+            console.warn('[saveProduct] thumb generation skipped:', e);
           }
-        } catch (e) {
-          console.warn('[saveProduct] thumb generation skipped:', e);
         }
+        data.thumb_photo = nextThumb || null;
+        this.currentProduct.thumb_photo = data.thumb_photo;
       }
 
       // data: URL — это нормальный запасной путь без Cloudinary (Worker хранит

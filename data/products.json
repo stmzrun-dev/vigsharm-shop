@@ -2,6 +2,99 @@
   "ok": true,
   "products": [
     {
+      "id": "2d1e154e-4c55-4d9c-a5a3-89ca2f00fa27",
+      "title": "Цветочный привет",
+      "article": "FIG-034",
+      "price": 3000,
+      "short_description": "Белый зайчик с длинными ушами держит яркий букет цветов из шаров.",
+      "full_description": "Фигура из шаров в виде белого зайчика с красными бантиками на ушах. В лапках держит букет из разноцветных цветов.",
+      "composition": [
+        "Фигура из шаров"
+      ],
+      "category": "Фигуры из шаров",
+      "character": "Заяц",
+      "age_group": "Для детей",
+      "budget": "2 000–3 500 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Весенний букет — фигура зайца из шаров в Армавире",
+      "seo_description": "Белый зайчик с букетом цветов из шаров. Яркая фигура для детского праздника. Доставка по Армавиру.",
+      "slug": "vesennij-buket",
+      "scene": "balloon_figures",
+      "tags": [
+        "Фигуры из шаров"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/a72eb04f-fdee-48a9-a95b-0cc068564026.jpg",
+        "photo_dhash": "7fbf1fbb77e77631"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/ca5abfc0-3b31-4c72-8bd6-6bab8bd5ad56.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/ca5abfc0-3b31-4c72-8bd6-6bab8bd5ad56.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-05T09:34:05.769Z",
+      "updated_at": "2026-10-05T09:34:05.769Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/b41be4f0-4f3e-4914-b3dc-33293cfe7fc7.webp"
+    },
+    {
+      "id": "dd2827ca-ce18-474b-8ba4-09d6b796276e",
+      "title": "Красная малышка",
+      "article": "GRL-149",
+      "price": 3520,
+      "short_description": "Фонтан из шаров с Минни Маус и красной цифрой.",
+      "full_description": "Фонтан из розовых, золотых и красных шаров с фигурой Минни Маус и крупной красной цифрой. Яркая композиция для маленькой именинницы.",
+      "composition": [
+        "цифра",
+        "фигура",
+        "3 шара с конфетти",
+        "6 шаров хром"
+      ],
+      "category": "Для девочки",
+      "character": "Минни Маус",
+      "age_group": "Для малышей",
+      "budget": "3 500–5 000 ₽",
+      "series_name": "Микки Маус и друзья",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары с Минни Маус на день рождения малышки — Армавир",
+      "seo_description": "Фонтан из шаров с фигурой Минни Маус и красной цифрой. Розовые, золотые и красные шары с конфетти для маленькой именинницы в Армавире.",
+      "slug": "myshka-s-bantikom-2",
+      "scene": "floor",
+      "tags": [
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/812bcec8-481b-43f2-89a1-e636a8d8cfeb.webp",
+        "photo_dhash": "155c4ce8c041e1e1",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/4d2f8c2c-c081-4a5e-9fec-517284706249.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/4d2f8c2c-c081-4a5e-9fec-517284706249.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-05T09:17:18.889Z",
+      "updated_at": "2026-10-05T09:17:18.889Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/ceac890c-c900-44d0-a08e-da58fe478972.webp"
+    },
+    {
       "id": "2331fa47-3bd0-4fd7-852b-89990b233f1d",
       "title": "Сокровище глубин",
       "article": "GRL-148",
@@ -97,7 +190,7 @@
     {
       "id": "99d3aa8b-8513-4775-86dd-a54d89f118bf",
       "title": "Балерина в пачке",
-      "article": "FIG-028",
+      "article": "GRL-150",
       "price": 7290,
       "short_description": "Фигура балерины из шаров в розовой пачке с цветочным декором и напольная композиция из шаров.",
       "full_description": "Фигура балерины из шаров в розово-белой пачке, украшенная цветами. Рядом напольная композиция из пастельных шаров и розовое сердце с надписью.",
@@ -107,7 +200,7 @@
         "сердце с надписью",
         "6 шаров"
       ],
-      "category": "Фигуры из шаров",
+      "category": "Для девочки",
       "character": null,
       "age_group": "Для малышей",
       "budget": "5 000–8 000 ₽",
@@ -138,7 +231,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-10-05T07:49:56.817Z",
-      "updated_at": "2026-10-05T07:49:56.817Z",
+      "updated_at": "2026-10-05T12:25:38.228Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/e8673c0f-befd-430c-a30c-4c063ea39975.webp"
     },
     {
@@ -4676,7 +4769,7 @@
     {
       "id": "d2dc31b6-cb5d-43b0-87c3-b78dad74c9bd",
       "title": "Мастер стихий",
-      "article": "FIG-033",
+      "article": "BOY-095",
       "price": 7000,
       "short_description": "Напольная композиция с цифрами и фигурой ниндзя из шаров в сине-бирюзовой гамме.",
       "full_description": "Напольная композиция с крупными серебряными цифрами, бирюзовой звездой с надписью, латексными шарами и большой фигурой синего ниндзя из шаров.",
@@ -4684,7 +4777,7 @@
         "Напольная композиция",
         "Фигура из шаров"
       ],
-      "category": "Фигуры из шаров",
+      "category": "Для мальчика",
       "character": "Ниндзя",
       "age_group": "Для детей",
       "budget": "5 000–8 000 ₽",
@@ -4719,7 +4812,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-10-04T07:50:57.023Z",
-      "updated_at": "2026-10-04T07:50:57.023Z",
+      "updated_at": "2026-10-05T12:26:20.071Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/75fc1d98-933d-49a1-b386-5a882dd062f1.webp"
     },
     {

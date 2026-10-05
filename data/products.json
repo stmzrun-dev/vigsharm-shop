@@ -2,6 +2,461 @@
   "ok": true,
   "products": [
     {
+      "id": "fb585dda-5c47-4e8f-9140-763fb87a60ad",
+      "title": "Аист с узелком",
+      "article": "BAB-012",
+      "price": 4000,
+      "short_description": "Белый аист из шаров держит в клюве младенца в голубом узелке.",
+      "full_description": "Фигура белого аиста с чёрными крыльями и красными лапами, который несёт в клюве малыша в голубом узелке. Стоит на основании из шаров.",
+      "composition": [
+        "Фигуры из шаров"
+      ],
+      "category": "На выписку",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Аист с узелком — фигура из шаров в Армавире",
+      "seo_description": "Белый аист из шаров несёт малыша в голубом узелке. Оригинальная скрутка для украшения праздника в Армавире.",
+      "slug": "aist-s-uzelkom",
+      "scene": "balloon_figures",
+      "tags": [
+        "На выписку"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/b7e4fe20-94b0-4640-9667-72adb87a33a1.jpg",
+        "photo_dhash": "dcd282c0e0e0e0e1"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/9996aeab-183d-4a5e-bd50-fe8c89dedafa.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/9996aeab-183d-4a5e-bd50-fe8c89dedafa.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-05T15:46:06.528Z",
+      "updated_at": "2026-10-05T15:46:06.528Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/d1bd06fe-4f1e-486b-a0ce-71c4dc858ef5.webp"
+    },
+    {
+      "id": "3e03b89d-13b3-41b2-8a1c-d40a97a4da12",
+      "title": "Метрика счастья",
+      "article": "BAB-011",
+      "price": 6190,
+      "short_description": "Баблс с метрикой новорождённого, мишка, облако и сердце с надписью в золотисто-бежевой гамме.",
+      "full_description": "Композиция с метрикой малыша на прозрачном баблсе, фигурами мишки и облака, сердцем с тёплыми словами. Нежное сочетание золотых и кремовых оттенков.",
+      "composition": [
+        "стеклянный баблс с надписью",
+        "2 фигуры",
+        "сердце с надписью",
+        "6 шаров хром",
+        "4 шара"
+      ],
+      "category": "На выписку",
+      "character": "Мишка",
+      "age_group": "Для малышей",
+      "budget": "5 000–8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары на выписку с метрикой и мишкой — Армавир",
+      "seo_description": "Композиция на выписку из роддома: баблс с метрикой новорождённого, фигуры мишки и облака, сердце с надписью. Золотисто-бежевая гамма. Доставка в Армавире.",
+      "slug": "metrika-schastya",
+      "scene": "floor",
+      "tags": [
+        "На выписку"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/ec81d2c9-6fa6-43b8-865f-79e0bd0889fd.jpg",
+        "photo_dhash": "0f8d8c45438f3b36"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/98437696-4323-4fc0-b534-9192bc925dd6.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/98437696-4323-4fc0-b534-9192bc925dd6.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-05T15:38:46.546Z",
+      "updated_at": "2026-10-05T15:38:46.546Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/a29966e3-659f-4a0a-847c-9e8822580d12.webp"
+    },
+    {
+      "id": "3febef29-d9ed-4472-a599-912334c9168d",
+      "title": "Пушистый барашек",
+      "article": "BAB-010",
+      "price": 4660,
+      "short_description": "Белый барашек с зелёными и бежевыми шарами для поздравления мальчика.",
+      "full_description": "Композиция с фольгированной фигурой белого барашка, баблсом с каллиграфической надписью и 14 латексными шарами в пастельной палитре.",
+      "composition": [
+        "фигура",
+        "баблс с надписью",
+        "14 шаров"
+      ],
+      "category": "На выписку",
+      "character": "Барашек",
+      "age_group": "Для детей",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Пушистый барашек — композиция из шаров для мальчика в Армавире",
+      "seo_description": "Композиция с белым барашком, баблсом с надписью и 14 шарами в зелёно-бежевой гамме. Доставка воздушных шаров в Армавире.",
+      "slug": "pushistyy-barashek",
+      "scene": "wall_only",
+      "tags": [
+        "На выписку"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/026408c5-7ca0-4586-8a78-8926b662a1f1.jpg",
+        "photo_dhash": "9f9da4e473303a1f"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/42903024-56db-4c52-9129-b0b17634523b.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/42903024-56db-4c52-9129-b0b17634523b.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-05T15:33:20.812Z",
+      "updated_at": "2026-10-05T15:33:20.812Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/3d2d48af-20b5-4a02-86c7-d90070606a47.webp"
+    },
+    {
+      "id": "55be6958-058c-4d00-89ca-4ac107fbddd0",
+      "title": "Серебряное облако",
+      "article": "BAB-009",
+      "price": 4460,
+      "short_description": "Белая композиция с облачком, баблсом с именем и серебряным конфетти.",
+      "full_description": "Нежная композиция в белых тонах с фигурой-облачком, прозрачным баблсом с надписью и шарами с серебряным конфетти.",
+      "composition": [
+        "фигура",
+        "баблс с шариками и надписью",
+        "4 шара с конфетти",
+        "6 шаров"
+      ],
+      "category": "На выписку",
+      "character": null,
+      "age_group": "Для малышей",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Серебряное облако — шары на выписку, Армавир",
+      "seo_description": "Белая композиция с облачком, баблсом с именем и серебряным конфетти. Нежное оформление выписки из роддома в Армавире.",
+      "slug": "serebryanoe-oblako",
+      "scene": "wall_only",
+      "tags": [
+        "На выписку"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/88b41420-608b-45fa-bf9a-afb68834daf9.jpg",
+        "photo_dhash": "033b354755332b1c"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/dd240545-c011-4e32-9b5b-18feecf5d4d9.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/dd240545-c011-4e32-9b5b-18feecf5d4d9.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-05T15:30:59.237Z",
+      "updated_at": "2026-10-05T15:30:59.237Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/9c63de52-d757-49d3-8416-d52f8fd4d500.webp"
+    },
+    {
+      "id": "8a541203-3df6-4ec7-9e27-0d17b9ed5344",
+      "title": "Слонёнок с золотым ушком",
+      "article": "BAB-008",
+      "price": 3580,
+      "short_description": "Голубой слонёнок с золотыми ушками в окружении пастельных шаров и розовых звёзд с метрикой.",
+      "full_description": "Композиция с фигурой слонёнка, двумя розовыми звёздами с индивидуальными надписями и 12 латексными шарами в нежной пастельной гамме.",
+      "composition": [
+        "фигура",
+        "2 звезды с надписью",
+        "12 шаров"
+      ],
+      "category": "На выписку",
+      "character": "Слонёнок",
+      "age_group": "Для малышей",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары на выписку со слонёнком и звёздами — Армавир",
+      "seo_description": "Композиция на выписку с фигурой слонёнка, розовыми звёздами с метрикой и пастельными шарами. Доставка воздушных шаров в Армавире.",
+      "slug": "slonenok-s-zolotym-ushkom",
+      "scene": "wall_only",
+      "tags": [
+        "На выписку"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/446b98de-0375-4f23-8154-3aa840c2f2d0.jpg",
+        "photo_dhash": "3f57cceee678f676"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/a8810dbd-7d93-47c6-bc58-cf692dbf3f06.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/a8810dbd-7d93-47c6-bc58-cf692dbf3f06.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-05T15:29:39.555Z",
+      "updated_at": "2026-10-05T15:29:39.555Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/c814553b-20cc-4c3d-9848-925af84a2ff3.webp"
+    },
+    {
+      "id": "af703adf-7346-4cd1-a817-f1f6708b439a",
+      "title": "Мишка на луне",
+      "article": "BAB-007",
+      "price": 2470,
+      "short_description": "Композиция с фигурой медвежонка на луне и нежным розовым сердцем с надписью.",
+      "full_description": "Композиция включает фигуру медвежонка на луне с золотым декором, розовое сердце с надписью и нежные латексные шары.",
+      "composition": [
+        "фигура",
+        "сердце с надписью",
+        "2 шара хром",
+        "4 шара"
+      ],
+      "category": "На выписку",
+      "character": "Медвежонок",
+      "age_group": "Для детей",
+      "budget": "2 000–3 500 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Мишка на луне — шары для девочки в Армавире",
+      "seo_description": "Композиция с медвежонком на луне, розовым сердцем с надписью и нежными шарами. Нежный подарок для девочки. Доставка по Армавиру.",
+      "slug": "mishka-na-lune",
+      "scene": "wall_only",
+      "tags": [
+        "На выписку"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/2efc3001-ba96-4fae-ab26-bdc36744778b.webp",
+        "photo_dhash": "ff0e8ecb87cdce2f"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/4213bdcb-2488-4bd5-b7cb-923eb38ceecf.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/4213bdcb-2488-4bd5-b7cb-923eb38ceecf.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-05T15:25:02.326Z",
+      "updated_at": "2026-10-05T15:25:02.326Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/4fd6063d-be10-45c3-8b52-fe63e985e19e.webp"
+    },
+    {
+      "id": "6462b0ae-9f48-446a-8270-ec9f3c6cd2e3",
+      "title": "Маленький джентльмен",
+      "article": "BAB-006",
+      "price": 2080,
+      "short_description": "Композиция с фигурой малыша в подгузнике и голубыми шарами с надписью «Спасибо за сына!»",
+      "full_description": "Композиция с фольгированной фигурой младенца в памперсе, голубыми шарами с детским принтом и прозрачными шарами с конфетти. Подходит для встречи мальчика из роддома.",
+      "composition": [
+        "фигура",
+        "6 шаров с рисунком",
+        "2 шара"
+      ],
+      "category": "На выписку",
+      "character": "Малыш",
+      "age_group": "Для малышей",
+      "budget": "2 000–3 500 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары на выписку мальчика с малышом — Армавир",
+      "seo_description": "Композиция с фигурой младенца и голубыми шарами «Спасибо за сына!» для встречи из роддома. Доставка в Армавире.",
+      "slug": "malenkiy-dzentlmen",
+      "scene": "wall_only",
+      "tags": [
+        "На выписку"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/e09c609e-fdb0-4b79-a06d-67132bd4b7a1.jpg",
+        "photo_dhash": "3373f1f9d4b2273b"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/fe23a76c-a3ad-425f-83c6-91b0f7edd783.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/fe23a76c-a3ad-425f-83c6-91b0f7edd783.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-05T15:22:23.447Z",
+      "updated_at": "2026-10-05T15:22:23.447Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/ba6b1aea-0cd5-4c91-8126-f6bfb96e504b.webp"
+    },
+    {
+      "id": "36f63d88-9f20-4bb6-858a-d8ab974dd6ce",
+      "title": "Облако с ресничками",
+      "article": null,
+      "price": 4500,
+      "short_description": "Нежная композиция с баблсом, облачком и розовыми шарами.",
+      "full_description": "Композиция включает прозрачный баблс с конфетти и надписью, фигуру облака с закрытыми глазками и фонтан из розовых и белых шаров.",
+      "composition": [
+        "баблс с крупинками пенопласта и надписью",
+        "фигура",
+        "10 шаров"
+      ],
+      "category": "На выписку",
+      "character": "Облако",
+      "age_group": "Для детей",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Облако с ресничками — шары для девочки в Армавире",
+      "seo_description": "Нежная композиция с баблсом, фигурой облака с закрытыми глазками и розовыми шарами. Доставка воздушных шаров в Армавире.",
+      "slug": "oblako-s-resnichkami",
+      "scene": "wall_only",
+      "tags": [
+        "На выписку"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/2d67f69a-1011-45f6-801a-1099ccc16469.jpg",
+        "photo_dhash": "2797f9b933bfd1c1"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/462e136c-623b-4ff8-94e7-8b18cdad4c44.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/462e136c-623b-4ff8-94e7-8b18cdad4c44.jpg",
+      "status": "draft",
+      "show_on_site": false,
+      "created_at": "2026-10-05T15:20:17.121Z",
+      "updated_at": "2026-10-05T15:20:17.121Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/c1e82f51-0495-460f-b4eb-ecf8fd4149bd.webp"
+    },
+    {
+      "id": "9d075918-f1e3-48a7-aa12-4e64c308ec27",
+      "title": "Серебряный хоботок",
+      "article": "BAB-005",
+      "price": 4500,
+      "short_description": "Серебряный слонёнок, золотое сердце и баблс с метрикой новорождённой.",
+      "full_description": "Композиция с фигурой слонёнка, золотым сердцем, прозрачным баблсом с белыми перьями и каллиграфической надписью. Золотые, белые и конфетти-шары дополняют нежную палитру выписки.",
+      "composition": [
+        "фигура",
+        "баблс с перьями и надписью",
+        "сердце",
+        "3 шара с конфетти",
+        "3 шара хром",
+        "3 шара"
+      ],
+      "category": "На выписку",
+      "character": "Слонёнок",
+      "age_group": "Для малышей",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары на выписку со слонёнком и метрикой в Армавире",
+      "seo_description": "Композиция на выписку с серебряным слонёнком, золотым сердцем и баблсом с метрикой новорождённой. Доставка в Армавире.",
+      "slug": "serebryanyj-hoboton",
+      "scene": "wall_only",
+      "tags": [
+        "На выписку"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/f719cf02-6111-4c1e-a476-7f1d88643649.jpg",
+        "photo_dhash": "fffef6d7cded7f3e"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/8bfa5a29-d112-4e9a-9afa-d96805b2e70d.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/8bfa5a29-d112-4e9a-9afa-d96805b2e70d.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-05T15:15:49.864Z",
+      "updated_at": "2026-10-05T15:15:49.864Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/f65332b0-f4f8-43c8-9660-512a00df794d.webp"
+    },
+    {
+      "id": "0f3ef886-a723-45ce-a23d-ee6724e5be8a",
+      "title": "Добро пожаловать домой",
+      "article": "BAB-004",
+      "price": 3340,
+      "short_description": "Композиция с малышом и метрикой на баблсе для встречи из роддома.",
+      "full_description": "Композиция с фигурой малыша в голубом подгузнике и баблсом с метрикой новорождённого. Голубые шары дополняют нежную встречу.",
+      "composition": [
+        "фигура",
+        "6 шаров",
+        "баблс с надписью"
+      ],
+      "category": "На выписку",
+      "character": "Малыш",
+      "age_group": "Для малышей",
+      "budget": "2 000–3 500 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары на выписку мальчика с метрикой — Армавир",
+      "seo_description": "Композиция с фигурой малыша и баблсом с метрикой для встречи из роддома. Нежные голубые шары для особенного момента в Армавире.",
+      "slug": "dobro-pozhalovat-domoy",
+      "scene": "wall_only",
+      "tags": [
+        "На выписку"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/adec7ac4-3105-45d8-b60c-72298838f653.jpg",
+        "photo_dhash": "c7c5c4ccc4b0c869"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/98224233-d4f0-458f-8074-8cf1595872a7.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/98224233-d4f0-458f-8074-8cf1595872a7.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-05T15:07:52.801Z",
+      "updated_at": "2026-10-05T15:07:52.801Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/6b2cd00e-eee4-497c-ac2e-d6221e75f0fd.webp"
+    },
+    {
       "id": "2d1e154e-4c55-4d9c-a5a3-89ca2f00fa27",
       "title": "Цветочный привет",
       "article": "FIG-034",

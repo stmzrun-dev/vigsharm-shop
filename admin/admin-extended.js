@@ -1540,11 +1540,9 @@ Object.assign(app, {
     const still = [...document.querySelectorAll(`#${containerId} input:checked`)]
       .some((el) => bouquetNames.includes(el.value));
     if (still) return;
+    // Оператор снял последний тип букета. Не включать «Букет из шаров» снова:
+    // раздел и артикул забирает другая отмеченная полка, например «На выписку».
     this.setBouquetType?.('foil');
-    setCategory('Букет из шаров');
-    this.syncArticlePreview?.('Букет из шаров');
-    paint(document.querySelector(`#${containerId} input[value="Букет из шаров"]`), true);
-    paint(document.querySelector(`${sourceSelector} input[value="Букет из шаров"]`), true);
   },
 
   setBouquetType(type) {

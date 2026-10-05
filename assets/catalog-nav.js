@@ -957,6 +957,7 @@
           category = 'Все товары';
           character = '';
           filter = '';
+          age = '';
           closeReadySheet();
           unitStep = '';
           sheetQuery = '';
@@ -1507,7 +1508,7 @@
     if (window.vigUnitList) window.vigUnitList.mount();
 
     var sa = resultsSection.querySelector('[data-showall]');
-    if (sa) sa.addEventListener('click', function () { group = 'all'; category = 'Все товары'; character = ''; filter = ''; render(); });
+    if (sa) sa.addEventListener('click', function () { group = 'all'; category = 'Все товары'; character = ''; filter = ''; age = ''; render(); });
     resultsSection.querySelectorAll('[data-sort]').forEach(function (b) {
       b.addEventListener('click', function () {
         var v = b.getAttribute('data-sort') || '';

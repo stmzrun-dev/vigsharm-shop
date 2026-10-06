@@ -1592,7 +1592,10 @@ const app = {
     const fullPhoto = p.main_photo
       || (Array.isArray(p.photos) && (typeof p.photos[0] === 'string' ? p.photos[0] : p.photos[0]?.url))
       || '';
-    const photo = this.thumbUrl(fullPhoto);
+    const storedThumb = typeof p.thumb_photo === 'string' && /^https?:\/\//i.test(p.thumb_photo)
+      ? p.thumb_photo
+      : '';
+    const photo = this.thumbUrl(storedThumb || fullPhoto);
     const thumb = photo
       ? `<img src="${this.escapeHtml(photo)}" data-full="${this.escapeHtml(fullPhoto)}" alt="" loading="lazy" decoding="async"/>`
       : '<span class="thumb-fallback" aria-hidden="true">🎈</span>';

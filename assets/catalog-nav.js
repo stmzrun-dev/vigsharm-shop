@@ -497,7 +497,7 @@
   }
 
   function cardHtml(p, i) {
-    var key = (window.vigProductThumb ? window.vigProductThumb(p) : '') ||
+    var key = (window.vigGridPhoto ? window.vigGridPhoto(p) : '') ||
       p.thumb_photo ||
       (p.image_keys && p.image_keys[0]) ||
       (p.photos && p.photos[0]) ||
@@ -605,7 +605,7 @@
   ];
   var READY_WHO = AUDIENCE;
   var READY_MAIN = ['Для девочки', 'Для мальчика', 'Для неё', 'Для него'];
-  var READY_MORE = ['На выписку', '1 годик', 'Юбилей', 'Для мамы', 'Свадьба и девичник', 'Крещение'];
+  var READY_MORE = ['На выписку', '1 годик', 'Юбилей', 'Для мамы', 'Геймерам', 'Свадьба и девичник', 'Крещение'];
   var READY_WHAT = ['Фигуры из шаров', 'Букеты', 'Коробка-сюрприз', 'Фотозона', 'Гендер-пати', 'Арки', 'Шар-сюрприз', 'Из роз'];
   var AGE_PICKS = [
     ['Малыши', 'Для малышей', '1–3'],
@@ -1020,7 +1020,7 @@
     return '<div class="catalog-idea-grid catalog-rail">' + items.map(function (item) {
       var src = READY_PHOTOS[item.name] || '';
       if (!src && item.product) {
-        var key = window.vigProductThumb ? window.vigProductThumb(item.product) : '';
+        var key = window.vigGridPhoto ? window.vigGridPhoto(item.product) : (window.vigProductThumb ? window.vigProductThumb(item.product) : '');
         src = key && window.vigImage ? window.vigImage(key, 200) : '';
       }
       var on = category === item.name;
@@ -1464,7 +1464,7 @@
         var items = products.filter(function (p) { return p.category === name; });
         if (!items.length) return '';
         var imgs = items.slice(0, 3).map(function (p) {
-          var k = (window.vigProductThumb ? window.vigProductThumb(p) : '') || p.thumb_photo || (p.image_keys && p.image_keys[0]) || '';
+          var k = (window.vigGridPhoto ? window.vigGridPhoto(p) : '') || p.thumb_photo || (p.image_keys && p.image_keys[0]) || '';
           return k ? '<img src="' + window.vigImage(k, 200) + '" data-key="' + esc(k) + '" alt="" loading="lazy" decoding="async"/>' : '';
         }).join('');
         return '<button type="button" class="catalog-collection-card" data-coll="' + esc(name) + '"><span class="catalog-collection-images" aria-hidden="true">' + imgs + '</span>' +
@@ -1562,7 +1562,7 @@
     sec.setAttribute('aria-labelledby', 'recent-products-title');
     sec.innerHTML = '<div class="recent-products-heading"><div><p class="eyebrow">Можно вернуться</p><h2 id="recent-products-title">Недавно смотрели</h2></div><button type="button">Очистить</button></div>' +
       '<div class="recent-products-list">' + items.map(function (p) {
-        var key = (window.vigProductThumb ? window.vigProductThumb(p) : '') || p.thumb_photo || (p.image_keys && p.image_keys[0]) || '';
+        var key = (window.vigGridPhoto ? window.vigGridPhoto(p) : '') || p.thumb_photo || (p.image_keys && p.image_keys[0]) || '';
         var img = key ? '<img src="' + window.vigImage(key, 480) + '" data-key="' + esc(key) + '" alt="' + esc(p.title) + '" loading="lazy" decoding="async" width="480" height="480"/>' : '';
         return '<a href="product.html?slug=' + encodeURIComponent(p.slug || p.id) + '"><span>' + img + '</span><span><strong>' + esc(p.title) + '</strong><small>' + Number(p.price).toLocaleString('ru-RU') + ' ₽</small></span></a>';
       }).join('') + '</div>';

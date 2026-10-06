@@ -504,15 +504,45 @@
     if (imgIdx < 0 || imgIdx >= keys.length) imgIdx = 0;
     return keys[imgIdx] || main;
   }
+  /** Превью главного кадра. Варианты цифр и остальные слайды идут своим файлом. */
+  function heroPreviewKey(key) {
+    var main = mainImageKey();
+    var thumb = p && String(p.thumb_photo || '');
+    if (!thumb || !main || String(key || '') !== String(main)) return '';
+    if (thumb === main) return '';
+    if (!/^https?:\/\//i.test(thumb)) return '';
+    return thumb;
+  }
   function galleryImgHtml(key, alt, attrs, width) {
     var main = mainImageKey();
     var show = key || main;
     if (!show) return '';
     var extra = attrs || '';
     var w = width || 1200;
+    var preview = w >= 800 ? heroPreviewKey(show) : '';
+    var srcKey = preview || show;
+    var fullSrc = window.vigImage(show, w);
+    var src = preview ? window.vigImage(preview, 480) : fullSrc;
+    var fullAttr = preview ? ' data-full-src="' + esc(fullSrc) + '"' : '';
     // Inline onerror: digit/variant failure → main composition photo (never empty block).
-    var onerr = 'var m=this.getAttribute(\'data-main-key\');var k=this.getAttribute(\'data-key\');if(m&&k!==m){this.onerror=null;this.setAttribute(\'data-key\',m);this.setAttribute(\'data-fb\',\'0\');this.src=(window.vigImage?window.vigImage(m,' + w + '):m);}';
-    return '<img src="' + window.vigImage(show, w) + '" data-key="' + esc(show) + '" data-main-key="' + esc(main) + '" alt="' + esc(alt || '') + '" decoding="async" onload="this.classList.add(\'is-ready\')" onerror="' + onerr + '" ' + extra + '/>';
+    var onerr = 'var m=this.getAttribute(\'data-main-key\');var k=this.getAttribute(\'data-key\');if(m&&k!==m){this.onerror=null;this.setAttribute(\'data-key\',m);this.removeAttribute(\'data-full-src\');this.setAttribute(\'data-fb\',\'0\');this.src=(window.vigImage?window.vigImage(m,' + w + '):m);}';
+    return '<img src="' + src + '" data-key="' + esc(srcKey) + '" data-main-key="' + esc(main) + '"' + fullAttr + ' alt="' + esc(alt || '') + '" decoding="async" onload="this.classList.add(\'is-ready\')" onerror="' + onerr + '" ' + extra + '/>';
+  }
+  /** Сначала превью, затем полный кадр — без пустого блока, пока качается оригинал. */
+  function promoteHeroPhoto() {
+    var img = root.querySelector('.product-page-main-image img[data-full-src]');
+    if (!img) return;
+    var full = img.getAttribute('data-full-src');
+    if (!full) return;
+    var pre = new Image();
+    pre.decoding = 'async';
+    pre.onload = function () {
+      if (!img.isConnected || img.getAttribute('data-full-src') !== full) return;
+      img.src = full;
+      img.setAttribute('data-key', mainImageKey());
+      img.removeAttribute('data-full-src');
+    };
+    pre.src = full;
   }
 
   function paramsSummary() {
@@ -1294,7 +1324,7 @@
       '<div class="related-products-actions"><a href="catalog.html?max=' + p.price + '">Не дороже ' + Number(p.price).toLocaleString('ru-RU') + ' ₽</a><a href="catalog.html">Весь каталог</a></div></div>' +
       (rel.length
         ? '<div class="related-products-grid">' + rel.map(function (o, i) {
-          var k = (window.vigProductThumb ? window.vigProductThumb(o) : '') || o.thumb_photo || (o.image_keys && o.image_keys[0]) || '';
+          var k = (window.vigGridPhoto ? window.vigGridPhoto(o) : '') || o.thumb_photo || (o.image_keys && o.image_keys[0]) || '';
           var img = k ? '<img src="' + window.vigImage(k, 480) + '" data-key="' + esc(k) + '" alt="' + esc(o.title) + '" loading="lazy" decoding="async" width="480" height="480"/>' : '';
           return '<a class="catalog-card color-' + ((i + 1) % 5) + '" href="product.html?slug=' + encodeURIComponent(o.slug || o.id) + '" aria-label="Подробнее: ' + esc(o.title) + '">' +
             '<span class="catalog-card-image">' + img + '</span>' +
@@ -1314,6 +1344,7 @@
     root.querySelectorAll('.product-page-main-image img, .product-thumbnails img').forEach(function (img) {
       if (img.complete && img.naturalWidth) img.classList.add('is-ready');
     });
+    promoteHeroPhoto();
     wire();
   }
 
@@ -1793,7 +1824,10 @@
             ink: isBubbleUnit() ? bubbleInk : (isNamedUnit() ? namedInkWord() : ''),
             fill: isBubbleUnit() ? bubbleFill : '',
             fillLabel: isBubbleUnit() ? fillLabel : '',
-            thumb: photoKey && window.vigImage ? window.vigImage(photoKey, 160) : ''
+            thumb: (function () {
+              var grid = window.vigGridPhoto ? window.vigGridPhoto(p) : photoKey;
+              return grid && window.vigImage ? window.vigImage(grid, 160) : '';
+            })()
           });
         });
       }

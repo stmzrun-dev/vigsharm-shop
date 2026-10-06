@@ -110,6 +110,17 @@
     if (photo) return photo;
     return p.thumb_photo || '';
   };
+  /** Сетка каталога: готовое WebP 480px, если оно есть. Полный кадр — только без превью. */
+  window.vigGridPhoto = function (p) {
+    if (!p) return '';
+    var thumb = p.thumb_photo;
+    if (thumb && /^https?:\/\//i.test(String(thumb))) return thumb;
+    if (window.vigProductPhoto) {
+      var photo = window.vigProductPhoto(p);
+      if (photo) return photo;
+    }
+    return thumb || '';
+  };
   window.vigNormalizeProduct = function (p) {
     if (!p) return p;
     p.sku = p.sku || p.article || '';

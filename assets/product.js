@@ -23,6 +23,7 @@
     // «шары с бантиками» — это шары, не отдельный бант
     if (/лент|бант|атлас/.test(t) && !/шар|бабл|bubble|стеклянн|латекс|гелиев/.test(t)) return 'ribbon';
     if (/роз/.test(t)) return 'rose';
+    if (/дабл|double[\s-]?stuff/.test(t)) return 'double';
     if (/хром|chrome|зеркал/.test(t)) return 'chrome';
     // Баблс = стеклянный шар: внутренний шар + прозрачная оболочка
     if (/бабл|bubble|стеклянн|прозрачн|glass/.test(t)) return 'bubble';

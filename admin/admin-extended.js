@@ -1834,6 +1834,7 @@ Object.assign(app, {
     if (hay.includes('Шары с конфетти')) return 'confetti';
     if (hay.includes('Шары хром')) return 'chrome';
     if (hay.includes('Шары Brush')) return 'brush';
+    if (hay.includes('Дабл стафф')) return 'double';
     if (hay.includes('Шары Super Agate')) return 'agate';
     if (hay.includes('Шары Bubble')) return 'bubble';
     if (hay.includes('Парящие шары')) return 'float';

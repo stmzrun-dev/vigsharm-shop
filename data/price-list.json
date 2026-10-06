@@ -184,6 +184,19 @@
       "updated_at": "2026-10-04T20:53:01.695Z"
     },
     {
+      "id": "double",
+      "group_id": "latex",
+      "sort_order": 8,
+      "title": "Дабл стафф",
+      "price": 220,
+      "price_from": 0,
+      "unit": "",
+      "catalog_category": "Шары поштучно",
+      "catalog_query": "Дабл стафф",
+      "subhead": "стекло или конфетти между слоями",
+      "updated_at": "2026-10-05T07:20:00.000Z"
+    },
+    {
       "id": "figure",
       "group_id": "special",
       "sort_order": 1,

@@ -4668,6 +4668,7 @@ const PRICE_LIST_SEED = [
   ['agate', 'latex', 5, 'Шар супер-агат', 200, 0, '', 'Шары поштучно', 'Шар супер-агат', ''],
   ['brush', 'latex', 6, 'Шар браш', 150, 0, '', 'Шары поштучно', 'Шар браш', ''],
   ['float', 'latex', 7, 'Парящий шар', 250, 0, '', 'Шары поштучно', 'Парящие шары', 'леска, грузик и мелкие шарики'],
+  ['double', 'latex', 8, 'Дабл стафф', 220, 0, '', 'Шары поштучно', 'Дабл стафф', 'стекло или конфетти между слоями'],
   ['foil-round', 'foil', 1, 'Круг, звезда или сердце', 300, 0, '', 'Шары поштучно', 'Круг, звезда или сердце', ''],
   ['foil-text', 'foil', 2, 'С надписью', 400, 0, '', 'Шары поштучно', 'С надписью', ''],
   ['foil-figure', 'foil', 3, 'Фольгированная фигура', 500, 1, '', 'Шары поштучно', 'Фольгированная фигура', ''],
@@ -4714,6 +4715,11 @@ async function ensurePriceListTable(env) {
     `INSERT OR IGNORE INTO price_list
       (id, group_id, sort_order, title, price, price_from, unit, catalog_category, catalog_query, subhead, updated_at)
      VALUES ('float', 'latex', 7, 'Парящий шар', 250, 0, '', 'Шары поштучно', 'Парящие шары', 'леска, грузик и мелкие шарики', ?)`
+  ).bind(now).run();
+  await env.DB.prepare(
+    `INSERT OR IGNORE INTO price_list
+      (id, group_id, sort_order, title, price, price_from, unit, catalog_category, catalog_query, subhead, updated_at)
+     VALUES ('double', 'latex', 8, 'Дабл стафф', 220, 0, '', 'Шары поштучно', 'Дабл стафф', 'стекло или конфетти между слоями', ?)`
   ).bind(now).run();
 }
 
@@ -4911,6 +4917,7 @@ function matchCompositionLine(line) {
     [/цвет(ок|ка|ы|ов|ков).*из шаров|из шаров.*цвет/, 'flower'],
     [/фигур.*из шаров|из шаров.*фигур/, 'figure'],
     [/ходяч/, 'walker'],
+    [/дабл|double[\s-]?stuff/, 'double'],
     [/конфетти/, 'confetti'],
     [/хром/, 'chrome'],
     [/агат/, 'agate'],

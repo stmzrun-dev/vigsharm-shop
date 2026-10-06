@@ -2,6 +2,596 @@
   "ok": true,
   "products": [
     {
+      "id": "8bc2a209-9164-4dba-a4f4-1c83df57bc82",
+      "title": "Молочная улыбка",
+      "article": "GRL-041",
+      "price": 3400,
+      "short_description": "Напольная композиция с гирляндой и розовым зубиком для первого важного события.",
+      "full_description": "Напольная композиция из розово-белых шаров с разнокалиберной гирляндой и фигурой зубика. Нежное оформление для малышки.",
+      "composition": [
+        "напольная композиция",
+        "разнокалиберная гирлянда"
+      ],
+      "category": "Для девочки",
+      "character": "Зубик",
+      "age_group": "Для малышей",
+      "budget": "2 000–3 500 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Напольная композиция с зубиком для девочки в Армавире",
+      "seo_description": "Нежная розово-белая напольная композиция с фигурой зубика и гирляндой. Оформление шарами для малышки. Доставка по Армавиру.",
+      "slug": "pervyy-zubik",
+      "scene": "floor",
+      "tags": [
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/5318fe92-dcb6-444f-ab46-316514e4dfdc.jpg",
+        "photo_dhash": "1f3971717c766662",
+        "floor_type": "air"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/b9727b44-a6b3-4520-8a10-7629a8fda5c1.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/b9727b44-a6b3-4520-8a10-7629a8fda5c1.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-06T16:03:32.116Z",
+      "updated_at": "2026-10-06T16:03:32.116Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/bb71be02-7cab-41f7-b5fe-a5d60a63473b.webp"
+    },
+    {
+      "id": "b3a2de2b-b2a4-4627-b1ad-137037172453",
+      "title": "Принцесса родилась",
+      "article": "Y1-054",
+      "price": 4980,
+      "short_description": "Композиция в розово-золотых тонах с цифрой, баблсом с надписью, сердцами и звездой.",
+      "full_description": "Нежная композиция в розово-золотой гамме с крупной цифрой, прозрачным баблсом с конфетти и персональной надписью, фольгированными сердцами и звездой, дополненная хромированными и конфетти-шарами.",
+      "composition": [
+        "цифра",
+        "баблс с конфетти и надписью",
+        "сердце",
+        "звезда",
+        "3 шара с конфетти",
+        "3 шара хром",
+        "2 шара"
+      ],
+      "category": "1 годик",
+      "character": null,
+      "age_group": "Для малышей",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Розово-золотая композиция на 1 годик девочке — Армавир",
+      "seo_description": "Нежная композиция с цифрой 1, баблсом с надписью, фольгированными сердцами и звездой в розово-золотой гамме для первого дня рождения.",
+      "slug": "pervaya-korona",
+      "scene": "wall_only",
+      "tags": [
+        "1 годик"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/7efb2e0a-0ce9-4fc0-97f7-95716410d1cc.jpg",
+        "photo_dhash": "bebe9eae8eafaf2d"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/074d3ecb-814a-4dca-9dcf-64d926b51e46.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/074d3ecb-814a-4dca-9dcf-64d926b51e46.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-06T15:55:31.590Z",
+      "updated_at": "2026-10-06T15:55:31.590Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/1ed84917-38dd-44ce-aadb-633505eb177b.webp"
+    },
+    {
+      "id": "13700ece-40c6-48e0-9af9-98fbef902a70",
+      "title": "Яркая дата",
+      "article": "Y1-053",
+      "price": 2820,
+      "short_description": "Золотая цифра с красным сердцем, звёздами и шарами с конфетти.",
+      "full_description": "Композиция с золотой цифрой, красным сердцем, сиреневой и бирюзовой звёздами, хромированными и прозрачными шарами с конфетти.",
+      "composition": [
+        "цифра",
+        "2 звезды",
+        "сердце",
+        "2 шара хром",
+        "2 шара с конфетти"
+      ],
+      "category": "1 годик",
+      "character": null,
+      "age_group": "Для малышей",
+      "budget": "2 000–3 500 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары на годик в Армавире — золотая цифра с сердцем",
+      "seo_description": "Композиция на первый день рождения: золотая цифра, красное сердце, звёзды и шары с конфетти. Доставка в Армавире.",
+      "slug": "zolotaya-vekha-3",
+      "scene": "wall_only",
+      "tags": [
+        "1 годик"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/45a17e8b-664c-422a-bc7a-4683cbf68791.jpg",
+        "photo_dhash": "35b1585adcc490b0"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/7b6e4a3d-0012-4669-8263-93d79ad06f33.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/7b6e4a3d-0012-4669-8263-93d79ad06f33.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-06T15:52:52.828Z",
+      "updated_at": "2026-10-06T15:52:59.919Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/778eca99-ee33-461f-83b2-7e75a251f2c7.webp"
+    },
+    {
+      "id": "70497e94-1049-40e4-b109-0d97df84fde7",
+      "title": "Принц океана",
+      "article": "Y1-052",
+      "price": 4700,
+      "short_description": "Нежная композиция с фигурой кита в золотой короне и цифрой на первый день рождения.",
+      "full_description": "Композиция из голубых и белых шаров с золотой цифрой и фигурой кита в короне. Идеально для празднования первого года жизни малыша.",
+      "composition": [
+        "20 шаров",
+        "цифра",
+        "фигура"
+      ],
+      "category": "1 годик",
+      "character": "Кит",
+      "age_group": "Для малышей",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары на 1 год с китом и короной | Армавир",
+      "seo_description": "Композиция для первого дня рождения с фигурой кита в короне, золотой цифрой и голубыми шарами. Доставка в Армавире.",
+      "slug": "princ-okeana",
+      "scene": "wall_only",
+      "tags": [
+        "1 годик"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/d075e934-0ed3-40b2-bb91-5c3564d6bf8a.jpg",
+        "photo_dhash": "8068682222787923"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/fac8aca7-f558-4c34-bef4-1aa326fdaefe.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/fac8aca7-f558-4c34-bef4-1aa326fdaefe.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-06T15:48:01.816Z",
+      "updated_at": "2026-10-06T15:53:04.004Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/d7ce9b2b-3f62-4d09-9bdb-81d7485b51a4.webp"
+    },
+    {
+      "id": "c0002f6c-9477-4aac-82e8-11a131b2180f",
+      "title": "Солнечный первенец",
+      "article": "Y1-051",
+      "price": 5740,
+      "short_description": "Цифра 1 с солнышком и пчёлкой, мишка и букет из гелиевых шаров.",
+      "full_description": "Композиция включает голубую цифру 1 с солнышком, пчёлкой и цветами, голубого мишку с зелёным бантиком и букет из хромированных и печатных шаров.",
+      "composition": [
+        "2 напольные композиции",
+        "3 шара хром",
+        "6 шаров с рисунком"
+      ],
+      "category": "1 годик",
+      "character": null,
+      "age_group": "Для малышей",
+      "budget": "5 000–8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Цифра 1 с солнышком и мишкой — доставка шаров в Армавире",
+      "seo_description": "Яркая композиция на первый день рождения: голубая цифра 1 с солнышком и пчёлкой, мишка из шаров и букет гелиевых шаров. Доставка по Армавиру.",
+      "slug": "pervyy-god",
+      "scene": "floor",
+      "tags": [
+        "1 годик"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/b06483e1-1916-47a7-be2a-d35419f638a3.jpg",
+        "photo_dhash": "613171f1d8da43ce",
+        "floor_type": "air"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/fa635b5b-86c3-451b-bb9b-f09cf9474e33.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/fa635b5b-86c3-451b-bb9b-f09cf9474e33.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-06T15:46:26.456Z",
+      "updated_at": "2026-10-06T15:46:26.456Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/d4021912-8ba0-426f-ab2b-32de2e8fc9dd.webp"
+    },
+    {
+      "id": "a180d712-d6d4-454d-b696-e0d2a65bc377",
+      "title": "Сонное облачко",
+      "article": "BAB-043",
+      "price": 3240,
+      "short_description": "Белое облако с закрытыми глазами, розовые и сиреневые сердца, шары с конфетти.",
+      "full_description": "Композиция с фигурой белого облака с ресничками в окружении розовых и сиреневых сердец. Шары с конфетти добавляют праздничное настроение.",
+      "composition": [
+        "фигура",
+        "6 сердец",
+        "3 шара с конфетти"
+      ],
+      "category": "На выписку",
+      "character": "Облако",
+      "age_group": "Для малышей",
+      "budget": "2 000–3 500 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Облако с ресничками — воздушные шары в Армавире",
+      "seo_description": "Композиция с белым облаком, розовыми и сиреневыми сердцами, шарами с конфетти. Доставка воздушных шаров в Армавире.",
+      "slug": "oblako-s-resnichkami-2",
+      "scene": "wall_only",
+      "tags": [
+        "1 годик",
+        "На выписку"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/5eb7db04-7c50-4740-98bd-c75be0a1f8bf.jpg",
+        "photo_dhash": "0f1b3aba3cbcf270"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/4b6d845d-fe40-48f4-9a38-7045f57493e3.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/4b6d845d-fe40-48f4-9a38-7045f57493e3.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-06T15:40:05.810Z",
+      "updated_at": "2026-10-06T15:40:05.810Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/2e75259d-9c90-4f08-82aa-784e503c0dc5.webp"
+    },
+    {
+      "id": "a28c4473-ef73-415e-88e0-7c82020743e1",
+      "title": "Радужный динозаврик",
+      "article": "Y1-050",
+      "price": 1600,
+      "short_description": "Бирюзовый динозавр с радужным хвостом и шарами с принтами.",
+      "full_description": "Фольгированная фигура динозавра с короной и разноцветными шарами на хвосте. Латексные шары с рисунками динозавриков добавляют композиции игривости.",
+      "composition": [
+        "фигура",
+        "4 шара с рисунком"
+      ],
+      "category": "1 годик",
+      "character": "Динозавр",
+      "age_group": "Для малышей",
+      "budget": "1 000–2 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Динозавр из шаров с короной — Армавир",
+      "seo_description": "Композиция с бирюзовым динозавром и разноцветными шарами. Яркое оформление праздника для детей в Армавире.",
+      "slug": "raduzhnyy-dinozavrik",
+      "scene": "wall_only",
+      "tags": [
+        "1 годик"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/944cfad3-119b-49e3-b382-fe69fd363756.jpg",
+        "photo_dhash": "40c4c49181e08c86"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/1edb6b07-0aa1-4ad9-ac85-e930182918b3.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/1edb6b07-0aa1-4ad9-ac85-e930182918b3.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-06T15:38:04.176Z",
+      "updated_at": "2026-10-06T15:38:04.176Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/1c865fd1-3b80-423d-88ac-5ca677ecdf90.webp"
+    },
+    {
+      "id": "f3bad2f7-e71f-4d6a-86cb-e976f4947cc3",
+      "title": "Фея цветов",
+      "article": "Y1-049",
+      "price": 4800,
+      "short_description": "Нежная композиция с феей, цветами из шаров и бабочками в розово-сиреневых тонах.",
+      "full_description": "Напольная композиция с крупной цифрой, фигурой феи с крыльями и цветочным декором. Розовые и сиреневые шары украшены объёмными цветами и бабочками.",
+      "composition": [
+        "Напольная композиция"
+      ],
+      "category": "1 годик",
+      "character": "Фея",
+      "age_group": "Для малышей",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Фея цветов — композиция с цифрой на 1 годик в Армавире",
+      "seo_description": "Нежная композиция с феей, цветами из шаров и бабочками в розово-сиреневых тонах. Для девочки на первый день рождения. Армавир.",
+      "slug": "feya-tsvetov",
+      "scene": "floor",
+      "tags": [
+        "1 годик"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/0e8979ed-53a8-4554-96be-1d92bc5ce7bb.jpg",
+        "photo_dhash": "8b998d8b9a9e9bbf",
+        "floor_type": "air"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/7cbc7dcc-74c5-436b-942b-b881038be669.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/7cbc7dcc-74c5-436b-942b-b881038be669.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-06T15:33:19.877Z",
+      "updated_at": "2026-10-06T15:33:19.877Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/e4d7da4a-ade7-4d46-8399-31c0ab96adcc.webp"
+    },
+    {
+      "id": "31c303f4-a32f-4689-bc39-368bf8e0a3b8",
+      "title": "Бабочки в саду",
+      "article": "Y1-048",
+      "price": 4200,
+      "short_description": "Розово-жёлтая композиция с крупной цифрой и фольгированной бабочкой.",
+      "full_description": "Напольная композиция с розово-жёлтыми шарами, фольгированной бабочкой и цифрой в обрамлении цветов из шаров.",
+      "composition": [
+        "напольная композиция"
+      ],
+      "category": "1 годик",
+      "character": null,
+      "age_group": "Для малышей",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Композиция с бабочкой на 1 годик в Армавире — VigSharm",
+      "seo_description": "Розово-жёлтая напольная композиция с крупной цифрой и фольгированной бабочкой. Доставка воздушных шаров на 1 годик в Армавире.",
+      "slug": "babochki-v-sadu",
+      "scene": "floor",
+      "tags": [
+        "1 годик"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/98d408b4-5586-4c15-a20f-7e962dbeaf9d.jpg",
+        "photo_dhash": "3f6f4753327465d5",
+        "floor_type": "air"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/2cc40e8e-0ee7-4c1c-af2c-3d51b036385e.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/2cc40e8e-0ee7-4c1c-af2c-3d51b036385e.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-06T15:28:43.541Z",
+      "updated_at": "2026-10-06T15:28:43.541Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/21961b48-04fe-42a9-9831-506d03b9b7dd.webp"
+    },
+    {
+      "id": "ac8a9091-9ea3-4c52-9e69-cabf4c1a612b",
+      "title": "Мишкин праздник",
+      "article": "Y1-047",
+      "price": 3900,
+      "short_description": "Композиция с цифрой, мишкой и звездой с метрикой в бело-бирюзовых тонах.",
+      "full_description": "Три напольные композиции с крупной цифрой, фольгированным мишкой и звездой с метрикой малыша. Дополнена латексными шарами бирюзового и белого цвета.",
+      "composition": [
+        "5 шаров",
+        "3 напольные композиции"
+      ],
+      "category": "1 годик",
+      "character": "Мишка",
+      "age_group": "Для малышей",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары на годик с мишкой и метрикой — Армавир",
+      "seo_description": "Напольная композиция с цифрой 1, фольгированным мишкой и звездой с метрикой. Бело-бирюзовые шары на первый день рождения в Армавире.",
+      "slug": "plyushevyy-drug-2",
+      "scene": "floor",
+      "tags": [
+        "1 годик"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/ebfaa703-2bf7-4e69-8e5a-9ff91b020b96.jpg",
+        "photo_dhash": "2761598c87858e8e",
+        "floor_type": "air"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/dba2fa47-4204-474a-bcd5-04927cfceda1.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/dba2fa47-4204-474a-bcd5-04927cfceda1.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-06T15:12:49.495Z",
+      "updated_at": "2026-10-06T15:12:49.495Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/e21e3ca0-1951-4654-ac10-b4b6ff73c538.webp"
+    },
+    {
+      "id": "1dfcec58-29fe-4063-b9e5-c540ad6227b1",
+      "title": "Лебедь спит",
+      "article": "Y1-046",
+      "price": 3000,
+      "short_description": "Напольная композиция с фольгированным лебедем, цифрой и пастельными шарами.",
+      "full_description": "Нежная напольная композиция с большим белым лебедем с золотыми крыльями, розовой цифрой и шарами в пастельных тонах. Украшена зеленью и белым цветком.",
+      "composition": [
+        "напольная композиция"
+      ],
+      "category": "1 годик",
+      "character": "Лебедь",
+      "age_group": "Для малышей",
+      "budget": "2 000–3 500 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Напольная композиция с лебедем на годик в Армавире",
+      "seo_description": "Нежная напольная композиция с белым лебедем, розовой цифрой и пастельными шарами. Подходит для первого дня рождения девочки.",
+      "slug": "lebed-spit",
+      "scene": "floor",
+      "tags": [
+        "1 годик"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/647a0c98-6762-4d29-a778-f2bb9757dea6.jpg",
+        "photo_dhash": "275b331535755555",
+        "floor_type": "air"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/b5886c80-9d6d-4d76-aa29-fb74439b9734.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/b5886c80-9d6d-4d76-aa29-fb74439b9734.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-06T15:07:36.224Z",
+      "updated_at": "2026-10-06T15:07:36.224Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/aabfa0ff-3a55-41e9-bd9e-57afa41a0bbe.webp"
+    },
+    {
+      "id": "e9f815a0-123c-4cc3-9c8f-7497603c960b",
+      "title": "Медовый мишка",
+      "article": "Y1-045",
+      "price": 5460,
+      "short_description": "Баблс с надписью, цифра, фигура мишки и букет из шаров в бежево-золотой палитре.",
+      "full_description": "Композиция в нежных бежево-золотых тонах с фигурой мишки, цифрой и баблсом. Дополнена хромированными и шарами с конфетти.",
+      "composition": [
+        "баблс с шариками и надписью",
+        "цифра",
+        "фигура",
+        "3 шара хром",
+        "шар с конфетти",
+        "6 шаров"
+      ],
+      "category": "1 годик",
+      "character": "Мишка",
+      "age_group": "Для малышей",
+      "budget": "5 000–8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары на годик с мишкой и цифрой — Армавир",
+      "seo_description": "Композиция из шаров с фигурой мишки, цифрой и баблсом с надписью в бежево-золотой гамме. Доставка по Армавиру.",
+      "slug": "medovyy-mishka",
+      "scene": "wall_only",
+      "tags": [
+        "1 годик"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/e1e2be54-573a-49a2-8402-bb77da2f06a0.jpg",
+        "photo_dhash": "0f34ac38a9d8d4c4"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/9462e2fc-857b-4340-9333-05a45b23729e.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/9462e2fc-857b-4340-9333-05a45b23729e.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-06T15:05:30.083Z",
+      "updated_at": "2026-10-06T15:05:30.083Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/1a109e73-9639-41f2-8ae2-fa4198cec622.webp"
+    },
+    {
+      "id": "1b9fce72-0934-4993-af4f-98698b9159a1",
+      "title": "Белая леди",
+      "article": "Y1-044",
+      "price": 2600,
+      "short_description": "Белая кошка из шаров с розовым бантиком и фольгированной цифрой в золотой короне.",
+      "full_description": "Фигура белой кошки из шаров с выразительной мордочкой, розовым бантом на ушке и хвостиком. Рядом розовая фольгированная цифра с золотой короной.",
+      "composition": [
+        "фигура из шаров"
+      ],
+      "category": "1 годик",
+      "character": "Кошка",
+      "age_group": "Для малышей",
+      "budget": "2 000–3 500 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Белая кошка из шаров с цифрой — фигура на первый день рождения",
+      "seo_description": "Фигура белой кошки из шаров с розовым бантиком и фольгированной цифрой в золотой короне. Доставка по Армавиру.",
+      "slug": "belaya-ledi",
+      "scene": "balloon_figures",
+      "tags": [
+        "1 годик"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/e069442b-9a56-4838-bb3f-6925a846e525.jpg",
+        "photo_dhash": "676e6dedec0ecf05"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/7194d0b2-482a-4f15-ad99-3c73caf954ce.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/7194d0b2-482a-4f15-ad99-3c73caf954ce.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-06T15:03:42.036Z",
+      "updated_at": "2026-10-06T15:03:56.176Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/dae35607-e342-40b2-8c6f-5c80bb12ad02.webp"
+    },
+    {
       "id": "d542b58d-01b8-4705-9040-a07c031fedf7",
       "title": "Коралловый риф",
       "article": "Y1-043",
@@ -40510,48 +41100,6 @@
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/5e0242c2-8c28-46f7-977f-9f1064890df1.webp"
     },
     {
-      "id": "f1b1a003-649d-471f-b8bf-37acee3d6de5",
-      "title": "Переливы чувств",
-      "article": "BQT-003",
-      "price": 2500,
-      "short_description": "Букет градиентных шаров-сердец с тёплыми надписями и веточками гипсофилы в розовой упаковке.",
-      "full_description": "Яркий букет из фольгированных шаров-сердец с переливами цвета и тёплыми пожеланиями. Дополнен веточками гипсофилы и упакован в нежную розовую бумагу с лентами.",
-      "composition": [
-        "букет из шаров с гипсофилой"
-      ],
-      "category": "Букет из шаров",
-      "character": null,
-      "age_group": "Для взрослых",
-      "budget": "2 000–3 500 ₽",
-      "series_name": null,
-      "occasion": null,
-      "target_audience": null,
-      "seo_title": "Букет из шаров с гипсофилой в Армавире | VigSharm",
-      "seo_description": "Яркий букет градиентных шаров-сердец с тёплыми надписями и веточками гипсофилы. Оригинальный подарок от VigSharm в Армавире.",
-      "slug": "perelivi-chuvstv",
-      "scene": "handheld_bouquet",
-      "tags": [
-        "Букет из шаров"
-      ],
-      "client_options": {
-        "available_on_request": false,
-        "advance_order_1_2_days": true,
-        "number_choice": false,
-        "personal_inscription": true,
-        "photozone_rental": false,
-        "photo_dhash": "73347870722c2c2c"
-      },
-      "photos": [
-        "https://storage.yandexcloud.net/vigsharm-photos/products/124a6542-744d-41f2-a555-432cb87d5875.png"
-      ],
-      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/124a6542-744d-41f2-a555-432cb87d5875.png",
-      "status": "published",
-      "show_on_site": true,
-      "created_at": "2026-09-19T11:11:58.156Z",
-      "updated_at": "2026-09-28T07:44:08.477Z",
-      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/ccf2f90b-6391-446a-aa54-8cd3f9005b4c.webp"
-    },
-    {
       "id": "258760d1-4977-4163-beff-1731ac88d219",
       "title": "Золотой момент",
       "article": "PHT-005",
@@ -41367,10 +41915,10 @@
         "https://storage.yandexcloud.net/vigsharm-photos/products/c0a9e62b-899e-4411-b592-338c1867f25a.png"
       ],
       "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/c0a9e62b-899e-4411-b592-338c1867f25a.png",
-      "status": "published",
+      "status": "draft",
       "show_on_site": true,
       "created_at": "2026-09-18T19:01:34.440Z",
-      "updated_at": "2026-09-28T07:43:49.870Z",
+      "updated_at": "2026-10-06T16:19:08.370Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/9abceee9-edc9-495a-a295-5ce24756d9d4.webp"
     },
     {
@@ -42207,17 +42755,19 @@
         "number_choice": false,
         "personal_inscription": true,
         "photozone_rental": false,
-        "photo_dhash": "3174ececf0703030"
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/595828bb-014d-4c0a-bf6f-4d83959839f1.png",
+        "photo_dhash": "3174ececf0703030",
+        "bouquet_type": "foil"
       },
       "photos": [
-        "https://storage.yandexcloud.net/vigsharm-photos/products/595828bb-014d-4c0a-bf6f-4d83959839f1.png"
+        "https://storage.yandexcloud.net/vigsharm-photos/products/b04daaf4-7f31-4803-bff1-b8b1727c68af.jpg"
       ],
-      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/595828bb-014d-4c0a-bf6f-4d83959839f1.png",
-      "status": "published",
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/b04daaf4-7f31-4803-bff1-b8b1727c68af.jpg",
+      "status": "draft",
       "show_on_site": true,
       "created_at": "2026-09-16T22:37:09.234Z",
-      "updated_at": "2026-10-01 06:53:46",
-      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/c961fabc-5f67-4b89-844b-566ede8bf197.webp"
+      "updated_at": "2026-10-06T16:18:52.479Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/ff902142-50f8-4e96-a2f0-c477d8a05879.webp"
     },
     {
       "id": "79d80918-2038-4ca6-92b3-3398a50e841e",

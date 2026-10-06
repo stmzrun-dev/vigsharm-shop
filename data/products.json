@@ -5048,10 +5048,10 @@
         "https://storage.yandexcloud.net/vigsharm-photos/products/0f24b0a1-9c12-4b8d-af50-17db536269a0.jpg"
       ],
       "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/0f24b0a1-9c12-4b8d-af50-17db536269a0.jpg",
-      "status": "published",
+      "status": "draft",
       "show_on_site": true,
       "created_at": "2026-10-04T16:58:22.980Z",
-      "updated_at": "2026-10-04T16:58:22.980Z",
+      "updated_at": "2026-10-06T08:42:56.289Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/9eaba857-42d3-4cc1-8115-b396e1e2cf03.webp"
     },
     {
@@ -33045,56 +33045,6 @@
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/370a461a-6522-4c5c-8592-b24a82b1108d.webp"
     },
     {
-      "id": "c659bef7-16db-4888-980e-4acde94dc66e",
-      "title": "Готическая принцесса",
-      "article": "GRL-060",
-      "price": 4630,
-      "short_description": "Композиция в фиолетово-чёрных тонах с цифрой и прозрачным баблом.",
-      "full_description": "Стильная композиция с фольгированной цифрой, баблом с индивидуальной надписью и чёрными перьями, шарами с рисунком и фиолетовыми шарами.",
-      "composition": [
-        "цифра",
-        "баблс с надписью и перьями",
-        "3 шара с рисунком",
-        "7 латексных шаров"
-      ],
-      "category": "Для девочки",
-      "character": "уэнсдей",
-      "age_group": "Для детей",
-      "budget": "3 500–5 000 ₽",
-      "series_name": "уэнсдей",
-      "occasion": null,
-      "target_audience": null,
-      "seo_title": "Готическая принцесса — воздушные шары в Армавире",
-      "seo_description": "Стильная композиция с цифрой в фиолетово-чёрной гамме: баблс с надписью и перьями, шары с рисунком. Доставка по Армавиру.",
-      "slug": "goticheskaya-princessa",
-      "scene": "floor",
-      "tags": [
-        "Для девочки"
-      ],
-      "client_options": {
-        "available_on_request": false,
-        "advance_order_1_2_days": false,
-        "number_choice": true,
-        "personal_inscription": true,
-        "photozone_rental": false,
-        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/cec1e3d4-4659-4fdb-940c-cceebb781652.jpg",
-        "digit_choice": {
-          "enabled": true,
-          "count_on_photo": 1
-        },
-        "photo_dhash": "3777d3c5f13517c5"
-      },
-      "photos": [
-        "https://storage.yandexcloud.net/vigsharm-photos/products/a7ce7537-2201-40da-9a87-bb5bc19412b0.png"
-      ],
-      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/a7ce7537-2201-40da-9a87-bb5bc19412b0.png",
-      "status": "published",
-      "show_on_site": true,
-      "created_at": "2026-09-23T16:24:18.284Z",
-      "updated_at": "2026-09-28T07:51:18.574Z",
-      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/3a7943d4-3d88-498a-8348-1c55adef308a.webp"
-    },
-    {
       "id": "914c6ad3-3cf2-41b8-a1d5-636397887c16",
       "title": "Магия единорога",
       "article": "GRL-059",
@@ -33819,55 +33769,6 @@
       "created_at": "2026-09-23T14:13:54.957Z",
       "updated_at": "2026-09-28T07:49:30.697Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/95dcd03a-2f16-44cc-9115-a4cff65afdc5.webp"
-    },
-    {
-      "id": "a22517f8-7fc9-4952-9dba-166e33575dc6",
-      "title": "Золотая мечта",
-      "article": "GRL-041",
-      "price": 3000,
-      "short_description": "Две напольные композиции с фольгированной кошечкой в короне и золотой цифрой.",
-      "full_description": "Композиция из двух фигур: розовая кошка с золотой короной и зонтиком на подставке из шаров, а также крупная золотая цифра с короной и розово-золотым декором.",
-      "composition": [
-        "2 напольные композиции"
-      ],
-      "category": "Для девочки",
-      "character": "Кошка",
-      "age_group": "Для детей",
-      "budget": "2 000–3 500 ₽",
-      "series_name": null,
-      "occasion": null,
-      "target_audience": null,
-      "seo_title": "Композиция с кошкой и цифрой — воздушные шары в Армавире",
-      "seo_description": "Напольные композиции с розовой кошкой в короне и золотой цифрой. Розово-золотое оформление дня рождения в Армавире. VigSharm.",
-      "slug": "korolevskaya-shestnadtsat",
-      "scene": "floor",
-      "tags": [
-        "Для девочки",
-        "Напольные композиции"
-      ],
-      "client_options": {
-        "available_on_request": false,
-        "advance_order_1_2_days": true,
-        "number_choice": true,
-        "personal_inscription": false,
-        "photozone_rental": false,
-        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/b25c1a2b-84c9-4c50-adde-ba5460cf7a03.jpg",
-        "floor_type": "air",
-        "digit_choice": {
-          "enabled": true,
-          "count_on_photo": 1
-        },
-        "photo_dhash": "6d6e7cf8fcdcf2cc"
-      },
-      "photos": [
-        "https://storage.yandexcloud.net/vigsharm-photos/products/04215145-23cc-4dff-9d92-323e63ea322c.png"
-      ],
-      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/04215145-23cc-4dff-9d92-323e63ea322c.png",
-      "status": "published",
-      "show_on_site": true,
-      "created_at": "2026-09-23T14:09:52.045Z",
-      "updated_at": "2026-09-28T07:49:27.116Z",
-      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/7f94259c-e47a-47cd-b986-f86ff220811c.webp"
     },
     {
       "id": "d817289b-487e-4b62-a0e4-6c1be9862758",
@@ -42777,49 +42678,6 @@
       "created_at": "2026-09-16T16:30:44.804Z",
       "updated_at": "2026-09-28T07:42:47.697Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/6e544357-1c94-472c-8526-77a6aa297cc7.webp"
-    },
-    {
-      "id": "a0716d6a-4984-4045-8ec4-b09b0feae008",
-      "title": "На патруле",
-      "article": "BOY-049",
-      "price": 2800,
-      "short_description": "Букет из хромированных шаров и фольгированная фигура щенка-полицейского.",
-      "full_description": "Яркий букет из 10 хромированных шаров дополняет фольгированная фигура Чейза из Щенячьего патруля в полицейской форме.",
-      "composition": [
-        "10 хромированных шаров",
-        "фольгированная фигура Чейза"
-      ],
-      "category": "Для мальчика",
-      "character": "Чейз",
-      "age_group": "Для детей",
-      "budget": "2 000–3 500 ₽",
-      "series_name": "Щенячий патруль",
-      "occasion": "День рождения",
-      "target_audience": "Для мальчика",
-      "seo_title": "Букет из шаров Щенячий патруль с Чейзом в Армавире",
-      "seo_description": "Букет из 10 хромированных шаров и фольгированная фигура Чейза из Щенячьего патруля. Доставка воздушных шаров в Армавире.",
-      "slug": "na-patrule",
-      "scene": "wall_only",
-      "tags": [
-        "Для мальчика"
-      ],
-      "client_options": {
-        "available_on_request": false,
-        "advance_order_1_2_days": false,
-        "number_choice": false,
-        "personal_inscription": false,
-        "photozone_rental": false,
-        "photo_dhash": "fdd8ccc4c2c8d8d8"
-      },
-      "photos": [
-        "https://storage.yandexcloud.net/vigsharm-photos/products/6b619827-e67f-42bc-b6c0-fcdbd9d3d9fb.png"
-      ],
-      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/6b619827-e67f-42bc-b6c0-fcdbd9d3d9fb.png",
-      "status": "published",
-      "show_on_site": true,
-      "created_at": "2026-09-16T15:41:44.216Z",
-      "updated_at": "2026-10-01 06:53:46",
-      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/1c2b3e5b-5032-4553-9138-d51a4f2e4be4.webp"
     },
     {
       "id": "ae93cdea-894c-49c0-9363-8097f2ec0509",

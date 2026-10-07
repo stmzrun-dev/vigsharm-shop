@@ -2,6 +2,51 @@
   "ok": true,
   "products": [
     {
+      "id": "090a1855-d334-48ad-92d3-1b58124e6257",
+      "title": "Лиловый разговор",
+      "article": "BQT-034",
+      "price": 2500,
+      "short_description": "Букет из розовых сердец с тёплыми надписями и веточками гипсофилы в нежной упаковке.",
+      "full_description": "Девять розовых сердец с персональными пожеланиями, дополненных воздушной гипсофилой. Упаковка из сиреневого и розового фатина с атласными лентами.",
+      "composition": [
+        "букет с надписями",
+        "гипсофила"
+      ],
+      "category": "Букет из шаров",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": "2 000–3 500 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Букет из шаров с надписями и гипсофилой — Армавир",
+      "seo_description": "Букет из розовых сердец с тёплыми пожеланиями и гипсофилой. Нежная упаковка с лентами. Доставка воздушных шаров в Армавире.",
+      "slug": "lilovyy-razgovor",
+      "scene": "handheld_bouquet",
+      "tags": [
+        "Букет из шаров"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/26d49063-0509-4cfa-a53b-fc3bfcb3824a.jpg",
+        "photo_dhash": "1515287460686e11",
+        "bouquet_type": "foil"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/7fada228-379d-4c0e-a5f6-e79a96fe1723.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/7fada228-379d-4c0e-a5f6-e79a96fe1723.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-07T20:28:23.947Z",
+      "updated_at": "2026-10-07T20:28:23.947Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/1fc779ec-c509-44b6-8671-70d5eb3e24bd.webp"
+    },
+    {
       "id": "f1eb741e-7435-4764-b16e-2cc3c12864ab",
       "title": "Сиреневый диалог",
       "article": "BQT-033",
@@ -128,10 +173,10 @@
         "https://storage.yandexcloud.net/vigsharm-photos/products/2045d7a2-ce99-4cbe-a461-1b8729255dd4.jpg"
       ],
       "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/2045d7a2-ce99-4cbe-a461-1b8729255dd4.jpg",
-      "status": "published",
+      "status": "draft",
       "show_on_site": true,
       "created_at": "2026-10-07T20:19:25.409Z",
-      "updated_at": "2026-10-07T20:19:35.927Z",
+      "updated_at": "2026-10-07T20:30:44.937Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/c8252ea2-c33c-4d46-916b-44bbec07904e.webp"
     },
     {
@@ -575,10 +620,10 @@
         "https://storage.yandexcloud.net/vigsharm-photos/products/37557ed1-10e7-4b88-adf5-40d762424afe.jpg"
       ],
       "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/37557ed1-10e7-4b88-adf5-40d762424afe.jpg",
-      "status": "published",
+      "status": "draft",
       "show_on_site": true,
       "created_at": "2026-10-07T19:35:50.719Z",
-      "updated_at": "2026-10-07T19:35:50.719Z",
+      "updated_at": "2026-10-07T20:32:00.550Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/93fce3ba-a64c-4d00-8c40-7d58b9f9f6da.webp"
     },
     {
@@ -706,10 +751,10 @@
         "https://storage.yandexcloud.net/vigsharm-photos/products/f3f51a82-e8b2-4038-964a-6c0596a32b1b.jpg"
       ],
       "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/f3f51a82-e8b2-4038-964a-6c0596a32b1b.jpg",
-      "status": "published",
+      "status": "draft",
       "show_on_site": true,
       "created_at": "2026-10-07T08:42:28.680Z",
-      "updated_at": "2026-10-07T08:42:28.680Z",
+      "updated_at": "2026-10-07T20:32:27.279Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/b31a6d11-5e91-4d90-b1a5-88cf30705b42.webp"
     },
     {

@@ -2,6 +2,245 @@
   "ok": true,
   "products": [
     {
+      "id": "652a28fb-e9bf-43bb-ba40-9fd1f3484c47",
+      "title": "Попкорн",
+      "article": "UNT-300",
+      "price": 550,
+      "short_description": "Попкорн",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "kotik-s-romashkami-2-3",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/d3b165e3-1598-4906-bee0-833bcdb3960f.jpg",
+        "photo_dhash": "f4f84c6dccc8e8e8",
+        "unit_type": "foil",
+        "balloon_size": "76 см"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/0b933f69-7462-4923-8892-394c10562908.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/0b933f69-7462-4923-8892-394c10562908.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-08T12:26:58.207Z",
+      "updated_at": "2026-10-08T12:26:58.207Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/c65f3c8d-6d6e-4941-a6b1-8317aa62fef2.webp"
+    },
+    {
+      "id": "262e6b99-f68d-43cb-b9a7-54bd3d99884c",
+      "title": "Тигр",
+      "article": "UNT-299",
+      "price": 600,
+      "short_description": "Тигр",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "kotik-s-romashkami-2-2",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Для него",
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/825b6eda-52e0-40b7-8f46-41a2e7b75a0e.jpg",
+        "photo_dhash": "d0d391d848408080",
+        "unit_type": "foil",
+        "balloon_size": "108 см",
+        "unit_who": [
+          "Для него",
+          "Для мальчика"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/f11fbf1d-4828-4c94-849a-824a1c22cf61.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/f11fbf1d-4828-4c94-849a-824a1c22cf61.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-08T12:25:45.735Z",
+      "updated_at": "2026-10-08T12:25:45.735Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/faf36a8e-ff4f-482b-ae25-36fb1a929f82.webp"
+    },
+    {
+      "id": "986f322b-d2fc-4524-a4a2-584d77dcf336",
+      "title": "Голова Паук Spider",
+      "article": "UNT-298",
+      "price": 450,
+      "short_description": "Голова Паук Spider",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": "Человек-паук",
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": "Marvel",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "kotik-s-romashkami-4",
+      "scene": "unit_balloon",
+      "tags": [
+        "Букет из шаров",
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/91a1b2ec-c54a-4c2d-89d6-6ea6ddc75789.jpg",
+        "photo_dhash": "f0e8e8fcf4f0f0f0",
+        "unit_type": "foil",
+        "balloon_size": "53 см",
+        "unit_who": [
+          "Для мальчика"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/91a1b2ec-c54a-4c2d-89d6-6ea6ddc75789.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/91a1b2ec-c54a-4c2d-89d6-6ea6ddc75789.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-08T07:32:14.644Z",
+      "updated_at": "2026-10-08T07:32:14.644Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/933d1104-04e5-4b05-9952-a23c93096133.webp"
+    },
+    {
+      "id": "b9f4a519-7ca0-4ab2-8895-62538da3a1a7",
+      "title": "Школьный рюкзак",
+      "article": "UNT-297",
+      "price": 550,
+      "short_description": "Школьный рюкзак",
+      "full_description": "",
+      "composition": [],
+      "category": "1 сентября",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "kotik-s-romashkami-3",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "1 сентября"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/66c64c9f-17b7-47ef-967c-650807ca2f2d.jpg",
+        "photo_dhash": "f0e0f0f0f0b20dd8",
+        "unit_type": "foil",
+        "balloon_size": "71 см",
+        "unit_holiday": "1 сентября"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/698a9673-d05d-4fe4-b311-eb46b6260484.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/698a9673-d05d-4fe4-b311-eb46b6260484.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-08T07:29:58.916Z",
+      "updated_at": "2026-10-08T07:29:58.916Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/1dfed3db-b979-479e-8626-4aeac3e9681b.webp"
+    },
+    {
+      "id": "fec5b8df-a1bd-4a73-b2df-cb387af03c20",
+      "title": "Серый слоник",
+      "article": "UNT-296",
+      "price": 600,
+      "short_description": "Серый слоник",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "kotik-s-romashkami-2",
+      "scene": "unit_balloon",
+      "tags": [
+        "Для девочки",
+        "Для мальчика",
+        "Шары поштучно",
+        "Фольгированные фигуры"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/9826718e-8c1a-4f97-b454-9e8ce53eabea.jpg",
+        "photo_dhash": "b0f064e6e2dbdad8",
+        "unit_type": "foil",
+        "balloon_size": "71 см",
+        "unit_who": [
+          "Для девочки",
+          "Для мальчика"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/02bbb54d-216f-4381-9710-02b4b652fca9.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/02bbb54d-216f-4381-9710-02b4b652fca9.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-08T07:28:26.219Z",
+      "updated_at": "2026-10-08T12:22:51.716Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/9bebf0bc-aec2-4463-a471-06722ae6c7a8.webp"
+    },
+    {
       "id": "b37db44c-835c-4afd-8b5d-dddaf3c9a4b8",
       "title": "Котик с ромашками",
       "article": null,

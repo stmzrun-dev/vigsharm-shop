@@ -2,6 +2,49 @@
   "ok": true,
   "products": [
     {
+      "id": "b37db44c-835c-4afd-8b5d-dddaf3c9a4b8",
+      "title": "Котик с ромашками",
+      "article": null,
+      "price": 1500,
+      "short_description": "Букет из белых ромашек с фигурой кота в розовой полосатой кофте.",
+      "full_description": "Букет из белых ромашек на розово-малиновой основе. Сверху фигура котика в полосатой кофте.",
+      "composition": [
+        "букет из ромашек",
+        "фигура"
+      ],
+      "category": "",
+      "character": "hello kitty",
+      "age_group": "Для любого возраста",
+      "budget": "1 000–2 000 ₽",
+      "series_name": "hello kitty",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Букет из шаров с ромашками и котиком — Армавир",
+      "seo_description": "Букет из белых ромашек с фигурой кота в полосатой кофте. Цветы из шаров для любого возраста в Армавире.",
+      "slug": "kotik-s-romashkami",
+      "scene": "handheld_bouquet",
+      "tags": [],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/a51bb0e5-0042-401e-bfad-d3338a7060ab.jpg",
+        "photo_dhash": "3030706068703070",
+        "bouquet_type": "foil"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/fe07ad36-0319-4e7f-8aee-b2ccfd2a2ebf.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/fe07ad36-0319-4e7f-8aee-b2ccfd2a2ebf.jpg",
+      "status": "draft",
+      "show_on_site": false,
+      "created_at": "2026-10-08T06:43:47.726Z",
+      "updated_at": "2026-10-08T06:43:47.726Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/3816d0c1-5d8a-4c76-9d13-33906d0c058c.webp"
+    },
+    {
       "id": "090a1855-d334-48ad-92d3-1b58124e6257",
       "title": "Лиловый разговор",
       "article": "BQT-034",

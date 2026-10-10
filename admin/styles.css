@@ -804,6 +804,13 @@ body.admin-editor-open{overflow:hidden}
   flex:0 0 auto;width:100%;max-width:none;min-width:0;min-height:42px;font-size:14px
 }
 .step1-compose-cta .btn.outline{flex:0 0 auto;width:100%}
+.step1-keep-photo{
+  align-self:center;margin:0;padding:0;border:0;background:transparent;
+  font:inherit;font-size:12px;line-height:1.3;color:#90A4AE;cursor:pointer;
+  text-decoration:underline;text-underline-offset:2px
+}
+.step1-keep-photo:hover{color:#607D8B}
+.step1-keep-photo:disabled{opacity:.45;cursor:default}
 #product-form.is-editor-step-2 #step1-compose-cta{display:none!important}
 
 /* Компактные подтипы сцены (фотозона / пол) */

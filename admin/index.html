@@ -7,7 +7,7 @@
 <meta name="robots" content="noindex, nofollow"/>
 <link rel="icon" href="../favicon.svg"/>
 <link rel="stylesheet" href="../assets/fonts.css"/>
-<link rel="stylesheet" href="styles.css?v=20260930-publish"/>
+<link rel="stylesheet" href="styles.css?v=20261010-keepphoto"/>
 <link rel="stylesheet" href="publish-screen.css?v=1"/>
 <link rel="stylesheet" href="publish-fit.css?v=1"/>
 <link rel="stylesheet" href="publish-master.css?v=1"/>
@@ -507,6 +507,7 @@
               <button type="button" class="btn secondary hidden" id="process-studio-btn" onclick="app.processStudioProNew()">✨ Создать Master</button>
               <div class="step1-compose-cta" id="step1-compose-cta" hidden>
                 <button type="button" class="btn primary" id="step1-a-next" onclick="app.startMasterFromWizard()">Далее: состав →</button>
+                <button type="button" class="step1-keep-photo" id="step1-keep-photo" onclick="app.useUploadedPhotoAsIs()">Оставить загруженное фото</button>
                 <button type="button" class="btn outline hidden" id="studio-retry-btn" data-studio-retry onclick="app.retryStudioMaster()">↻ Пересоздать</button>
               </div>
             </div>
@@ -1098,7 +1099,7 @@
 <script src="imgbb-upload.js?v=1"></script>
 <script src="cloudinary-patch.js?v=yandex-1"></script>
 <script src="admin-studio-pro.js?v=20261004-pro"></script>
-<script src="admin-ai.js?v=20261005-shelf"></script>
+<script src="admin-ai.js?v=20261010-keepphoto"></script>
 <script src="admin-reference-background.js"></script>
 <script src="admin-orders.js?v=1"></script>
 <script src="admin-price.js?v=7"></script>

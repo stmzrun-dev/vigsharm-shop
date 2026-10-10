@@ -447,6 +447,42 @@ Object.assign(app, {
     return this.processStudioProNew?.();
   },
 
+  /** Редкий путь: не генерировать Master, оставить загруженный снимок. Сцена и подтип не меняются. */
+  useUploadedPhotoAsIs() {
+    const photos = this.currentProduct?.photos || [];
+    if (!photos.length) {
+      this.toast('Сначала загрузите фото', 'info');
+      return false;
+    }
+    const main = photos[0];
+    const url = main.url || '';
+    if (!url) {
+      this.toast('Сначала загрузите фото', 'info');
+      return false;
+    }
+    this.studioSourceUrl = url;
+    this.studioCompare = { original: url, master: url };
+    this.studioMasterDataUrl = url;
+    this.studioMasterBackupUrl = url;
+    this.studioMasterBaseUrl = url;
+    this.hidePlacementEditor?.(true);
+    this.setStudioBusy?.(false);
+    this.showSourceWorkPreview?.(url);
+    this.invalidateAiAutoFill?.({ clearFilled: true });
+    this.syncEditorSteps?.();
+    const statusEl = document.getElementById('studio-status');
+    if (statusEl) statusEl.textContent = '';
+    this.syncAIFillGate?.();
+    this.syncUnitCharacterWrap?.();
+    this.scheduleUnitCharacterDetect?.();
+    this.saveActiveStudioDraft?.();
+    this.goStep1Phase?.('c', { skipGate: true });
+    if (this.canUnlockEditorStep2?.()) {
+      setTimeout(() => this.goEditorStep2?.(), 300);
+    }
+    return true;
+  },
+
   syncStep1WizardUi() {
     const form = document.getElementById('product-form');
     if (!form) return;
@@ -519,6 +555,11 @@ Object.assign(app, {
     if (nextA) {
       nextA.disabled = !hasPhotos;
       nextA.textContent = this.isUnitBalloonMode?.() ? 'Далее: цена →' : 'Далее: состав →';
+    }
+    const keepPhoto = document.getElementById('step1-keep-photo');
+    if (keepPhoto) {
+      const busy = form.classList.contains('is-studio-busy');
+      keepPhoto.disabled = !hasPhotos || busy;
     }
 
     const backC = document.getElementById('step1-c-back');

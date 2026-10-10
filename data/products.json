@@ -2,6 +2,1126 @@
   "ok": true,
   "products": [
     {
+      "id": "d60f9b00-8df7-43b0-b284-171927c86cce",
+      "title": "Футбольный мяч",
+      "article": "UNT-424",
+      "price": 350,
+      "short_description": "Футбольный мяч",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "bant-2-2",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Круги, звёзды и сердца",
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/c8b114d4-b3dc-4040-a3c0-762f2c8cc6db.jpg",
+        "photo_dhash": "d88ce1626222b2f0",
+        "unit_type": "shapes",
+        "unit_who": [
+          "Для мальчика"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/14f7b636-49ad-455d-9f49-88ba4a1ef20e.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/14f7b636-49ad-455d-9f49-88ba4a1ef20e.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-10T19:50:49.823Z",
+      "updated_at": "2026-10-10T19:50:49.823Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/5cff9d74-8cde-4f7d-8011-06f0d0e725b0.webp"
+    },
+    {
+      "id": "841fe965-d4d1-45d8-881b-94c561d63294",
+      "title": "Тачки Поздравляем чемпиона",
+      "article": "UNT-423",
+      "price": 350,
+      "short_description": "Тачки Поздравляем чемпиона",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": "Тачки",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "olenenok-22",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Круги, звёзды и сердца",
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/aef11299-e16c-498e-b6b0-4c50f8ca6cdb.jpg",
+        "photo_dhash": "f0d48ec6b4f8f0f0",
+        "unit_type": "shapes",
+        "unit_who": [
+          "Для мальчика"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/706f19a2-0345-49d3-a732-549db5b4cb0a.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/706f19a2-0345-49d3-a732-549db5b4cb0a.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-10T19:48:28.460Z",
+      "updated_at": "2026-10-10T19:48:28.460Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/6322ee84-c5ed-4a6e-9123-6e4219622dea.webp"
+    },
+    {
+      "id": "b6526f10-422d-4422-a3f0-ec93f5be5de2",
+      "title": "С Рождением Сыночка",
+      "article": "UNT-422",
+      "price": 350,
+      "short_description": "С Рождением Сыночка",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "olenenok-21",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Круги, звёзды и сердца",
+        "На выписку"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/d2ce584b-3dbf-4475-8829-cf5743b4efb0.jpg",
+        "photo_dhash": "b071f89ef8e8e8cc",
+        "unit_type": "shapes",
+        "unit_who": [
+          "На выписку"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/668838f9-e83d-42f2-ad26-0b37fba2eed5.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/668838f9-e83d-42f2-ad26-0b37fba2eed5.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-10T19:42:00.451Z",
+      "updated_at": "2026-10-10T19:42:00.451Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/bd22993f-1142-4d34-bc4a-18df493b85b6.webp"
+    },
+    {
+      "id": "71574076-55c5-4920-9226-0d7002859f6b",
+      "title": "С Рождением Дочки",
+      "article": "UNT-421",
+      "price": 350,
+      "short_description": "С Рождением Дочки",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "olenenok-20",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Круги, звёзды и сердца",
+        "На выписку"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/6c3d2e63-c0c6-4aa3-add7-39de26456986.jpg",
+        "photo_dhash": "70f070b2f8e8f8d4",
+        "unit_type": "shapes",
+        "unit_who": [
+          "На выписку"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/9772950d-bf07-4d05-84e4-f96a0e1cc980.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/9772950d-bf07-4d05-84e4-f96a0e1cc980.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-10T19:40:40.394Z",
+      "updated_at": "2026-10-10T19:40:40.394Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/60b3e72a-9907-4d2d-92d9-77da5700ae8f.webp"
+    },
+    {
+      "id": "bd75a452-65b0-4084-99c3-f44c145397f9",
+      "title": "Детская коляска для девочки",
+      "article": "UNT-420",
+      "price": 350,
+      "short_description": "Детская коляска для девочки",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "olenenok-19",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Круги, звёзды и сердца",
+        "На выписку"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/c4c111e7-e300-4fd2-973a-c405ca01a21d.jpg",
+        "photo_dhash": "f0ccaae4b2aaec70",
+        "unit_type": "shapes",
+        "unit_who": [
+          "На выписку"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/e151dd78-bce1-42e9-938e-d367f7368e16.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/e151dd78-bce1-42e9-938e-d367f7368e16.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-10T19:39:16.211Z",
+      "updated_at": "2026-10-10T19:39:16.211Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/b595fc89-14f3-4863-857b-7d6314751bce.webp"
+    },
+    {
+      "id": "89e8399d-ce5a-47a7-8356-dc27c68c3b7c",
+      "title": "Детская коляска для мальчика",
+      "article": "UNT-419",
+      "price": 350,
+      "short_description": "Детская коляска для мальчика",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "olenenok-18",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Круги, звёзды и сердца",
+        "На выписку"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/b848d945-1c07-43a9-83bd-7ac8a351f835.jpg",
+        "photo_dhash": "f0ccaae4b8aee470",
+        "unit_type": "shapes",
+        "unit_who": [
+          "На выписку"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/11558b45-9198-4363-98ad-4fcab863b7f0.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/11558b45-9198-4363-98ad-4fcab863b7f0.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-10T19:37:57.213Z",
+      "updated_at": "2026-10-10T19:37:57.213Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/2bb4c46a-dba5-48b8-b4c3-5cde4a457f02.webp"
+    },
+    {
+      "id": "7a1ef85b-f6b6-43f0-a91a-7f4bd15f7c40",
+      "title": "Мальчик с рождением",
+      "article": "UNT-418",
+      "price": 350,
+      "short_description": "Мальчик с рождением",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "olenenok-17",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Круги, звёзды и сердца",
+        "На выписку"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/bfbca25b-6202-4459-a778-2af1b232a158.jpg",
+        "photo_dhash": "f0e0e0e0f0f0f0f0",
+        "unit_type": "shapes",
+        "unit_who": [
+          "На выписку"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/a61aebfe-4b32-45a8-ac3d-fc4dad54b3b0.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/a61aebfe-4b32-45a8-ac3d-fc4dad54b3b0.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-10T19:36:42.587Z",
+      "updated_at": "2026-10-10T19:36:42.587Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/8991f52c-54ce-43ef-b0da-123eb3ae2c6c.webp"
+    },
+    {
+      "id": "2b56dbc6-938d-4f3a-946d-2e2e1fb56493",
+      "title": "Девочка с рождением",
+      "article": "UNT-417",
+      "price": 350,
+      "short_description": "Девочка с рождением",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "olenenok-16",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Круги, звёзды и сердца",
+        "На выписку"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/4311c02e-5569-4b15-83ed-d3879ed30efc.jpg",
+        "photo_dhash": "f0f0e0f0e0e0f0f0",
+        "unit_type": "shapes",
+        "unit_who": [
+          "На выписку"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/50c5d990-2f3a-48b5-9238-8786f9b22bd7.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/50c5d990-2f3a-48b5-9238-8786f9b22bd7.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-10T19:34:31.657Z",
+      "updated_at": "2026-10-10T19:34:31.657Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/c514bf6d-c4a5-4234-888d-1e15ea32d36b.webp"
+    },
+    {
+      "id": "8fd78fa6-7a54-4152-86a6-8d58e2b16331",
+      "title": "Счастливый зайка",
+      "article": "UNT-416",
+      "price": 700,
+      "short_description": "Счастливый зайка",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": "Счастливый зайка",
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "olenenok-15",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Для девочки",
+        "На выписку",
+        "1 годик"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/649065ed-a94f-48e1-a0ae-0caa08811d58.jpg",
+        "photo_dhash": "1830ccc06cf098d1",
+        "unit_type": "foil",
+        "balloon_size": "112 см",
+        "unit_who": [
+          "Для девочки",
+          "На выписку",
+          "1 годик"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/b6b4145c-a019-40f7-8f57-93f34b2ccdf0.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/b6b4145c-a019-40f7-8f57-93f34b2ccdf0.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-10T19:33:01.500Z",
+      "updated_at": "2026-10-10T19:33:01.500Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/408e6c3d-c7a1-4da2-94e5-2c864757d137.webp"
+    },
+    {
+      "id": "d0f43d7e-935d-4534-9ffe-504fca30eec1",
+      "title": "Весельчак Губка",
+      "article": "UNT-415",
+      "price": 550,
+      "short_description": "Весельчак Губка",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": "Губка Боб",
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": "Губка Боб Квадратные Штаны",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "olenenok-14",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/f6faade6-b039-4467-9f4b-739242c72eb3.jpg",
+        "photo_dhash": "f0d07171f0f0f0e8",
+        "unit_type": "foil",
+        "balloon_size": "69 см",
+        "unit_who": [
+          "Для мальчика"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/ddf9a0a4-530f-4170-a8a9-fb3b937327e2.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/ddf9a0a4-530f-4170-a8a9-fb3b937327e2.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-10T19:31:43.166Z",
+      "updated_at": "2026-10-10T19:31:43.166Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/ba95d902-0073-4218-8eef-29cd1ef8ab61.webp"
+    },
+    {
+      "id": "fb8058c0-0b48-4893-9cf0-587c88838215",
+      "title": "Кит с короной Голубой",
+      "article": "UNT-414",
+      "price": 650,
+      "short_description": "Кит с короной Голубой",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "olenenok-13",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "На выписку",
+        "1 годик"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/7d3acd67-5177-44a2-b34a-c52a0a2d75cd.jpg",
+        "photo_dhash": "84e7e6c6c0c0e96c",
+        "unit_type": "foil",
+        "balloon_size": "93 см",
+        "unit_who": [
+          "На выписку",
+          "1 годик"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/2cb44295-e954-4263-baa7-a81cc873eaea.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/2cb44295-e954-4263-baa7-a81cc873eaea.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-10T19:30:18.933Z",
+      "updated_at": "2026-10-10T19:30:18.933Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/3d1e130a-f187-487b-ae64-8895ffa1eb55.webp"
+    },
+    {
+      "id": "33c3630d-8ebd-43c6-a3c9-649bb1f41fd0",
+      "title": "Маленькое облачко",
+      "article": "UNT-413",
+      "price": 450,
+      "short_description": "Маленькое облачко",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "olenenok-12",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "На выписку",
+        "1 годик"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/e07d89b4-4837-470e-abd9-35719b12b532.jpg",
+        "photo_dhash": "c0e0e4f0dcdc9cf0",
+        "unit_type": "foil",
+        "balloon_size": "64 см",
+        "unit_who": [
+          "На выписку",
+          "1 годик"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/ae7173ee-b9d6-4b0a-b20a-015409c49a3f.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/ae7173ee-b9d6-4b0a-b20a-015409c49a3f.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-10T19:28:43.617Z",
+      "updated_at": "2026-10-10T19:28:43.617Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/020b7b41-c331-41ab-80c8-99e84244803b.webp"
+    },
+    {
+      "id": "13511da4-f252-4a5e-9c60-974c58cd4074",
+      "title": "Милая корова",
+      "article": "UNT-412",
+      "price": 500,
+      "short_description": "Милая корова",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "olenenok-11",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Для девочки",
+        "Для мальчика",
+        "1 годик"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/861a63ad-7bd2-4db3-a401-9bc88bea2548.jpg",
+        "photo_dhash": "cc0303e0ece0c0c0",
+        "unit_type": "foil",
+        "balloon_size": "71 см",
+        "unit_who": [
+          "Для девочки",
+          "Для мальчика",
+          "1 годик"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/df76ebc2-05c6-4e08-8b70-4c24f9c1fecc.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/df76ebc2-05c6-4e08-8b70-4c24f9c1fecc.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-10T19:27:21.836Z",
+      "updated_at": "2026-10-10T19:27:21.836Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/219d2734-21bc-436a-8f64-7e0f81837821.webp"
+    },
+    {
+      "id": "df24172f-70f8-46c1-84c5-bde572805674",
+      "title": "Профиль девушки",
+      "article": "UNT-411",
+      "price": 600,
+      "short_description": "Профиль девушки",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "olenenok-10",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/8fc1fd26-4c25-490e-ae00-a0f0f1e16c47.jpg",
+        "photo_dhash": "f6f2f2f0e0e0e0c0",
+        "unit_type": "foil",
+        "balloon_size": "71 см",
+        "unit_who": [
+          "Для девочки"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/fca5c875-718c-469e-b97d-0fed7c531841.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/fca5c875-718c-469e-b97d-0fed7c531841.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-10T19:21:22.962Z",
+      "updated_at": "2026-10-10T19:21:22.962Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/af7d3cdb-42c3-411a-a4ab-7e59b6d5bd63.webp"
+    },
+    {
+      "id": "5ad04e05-a839-43b4-8dd7-a16a3e53f642",
+      "title": "Динозаврик Принцесса",
+      "article": "UNT-410",
+      "price": 600,
+      "short_description": "Динозаврик Принцесса",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": "Динозаврик Принцесса",
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "olenenok-9",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Для девочки",
+        "На выписку"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/2f1a6df3-8ea2-4737-84c1-80ba1c6e648d.jpg",
+        "photo_dhash": "818140a12984e0c8",
+        "unit_type": "foil",
+        "balloon_size": "94 см",
+        "unit_who": [
+          "Для девочки",
+          "На выписку"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/ca798e38-9959-4cef-b2b0-18b98e221793.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/ca798e38-9959-4cef-b2b0-18b98e221793.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-10T19:19:58.647Z",
+      "updated_at": "2026-10-10T19:19:58.647Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/cf0daa36-7176-45b0-b873-440963fe2f87.webp"
+    },
+    {
+      "id": "50d4be46-6a91-4acf-a68d-a1ab1bd63c0a",
+      "title": "Маска Бэтмен",
+      "article": "UNT-409",
+      "price": 900,
+      "short_description": "Маска Бэтмен",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": "Бэтмен",
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": "DC Comics",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "olenenok-8",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Для него"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/c8627e70-ce72-4dfd-895e-053ffaebd883.jpg",
+        "photo_dhash": "82a6b2a23333b2cc",
+        "unit_type": "foil",
+        "balloon_size": "114 см",
+        "unit_who": [
+          "Для него"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/df428dda-93e4-47ee-9adf-51559e2db12c.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/df428dda-93e4-47ee-9adf-51559e2db12c.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-10T19:18:36.920Z",
+      "updated_at": "2026-10-10T19:18:36.920Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/ba2531d3-85b1-4ce3-8bdb-2de4f7e97650.webp"
+    },
+    {
+      "id": "55924c28-a2cd-4068-bd5d-6b241a64a41b",
+      "title": "Бант розовый",
+      "article": "UNT-408",
+      "price": 600,
+      "short_description": "Бант розовый",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "olenenok-7",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Для неё",
+        "Для девочки",
+        "На выписку",
+        "1 годик"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/13657d86-d8f8-4547-82ac-4b8b9b484f07.jpg",
+        "photo_dhash": "868e9890a8e84805",
+        "unit_type": "foil",
+        "balloon_size": "91 см",
+        "unit_who": [
+          "Для неё",
+          "Для девочки",
+          "На выписку",
+          "1 годик"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/eb43470f-92c9-4800-8d45-478f74f8b1c7.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/eb43470f-92c9-4800-8d45-478f74f8b1c7.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-10T19:16:20.449Z",
+      "updated_at": "2026-10-10T19:16:20.449Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/0413bca9-c572-47f9-8d08-4102b71152d8.webp"
+    },
+    {
+      "id": "fecd1a7d-0a2a-4045-bcec-ae1502172350",
+      "title": "Боец Ниндзя",
+      "article": "UNT-407",
+      "price": 600,
+      "short_description": "Боец Ниндзя",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": "Наруто",
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": "Наруто",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "olenenok-6",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/708fccde-5524-4bc6-86e3-8d6398cc5960.jpg",
+        "photo_dhash": "f0ccdce8e8f0f0e8",
+        "unit_type": "foil",
+        "balloon_size": "76 см",
+        "unit_who": [
+          "Для мальчика"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/874026af-8ea0-4ca4-a01c-365fc3678e69.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/874026af-8ea0-4ca4-a01c-365fc3678e69.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-10T19:11:01.176Z",
+      "updated_at": "2026-10-10T19:11:01.176Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/6100a9fa-a168-43df-9d9a-a4448e891883.webp"
+    },
+    {
+      "id": "77815ac0-eeca-4d28-863f-0fbc8adfee34",
+      "title": "Аниме, Мальчик боец",
+      "article": "UNT-406",
+      "price": 600,
+      "short_description": "Аниме, Мальчик боец",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": "Какаси Хатакэ",
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": "Наруто",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "olenenok-5",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/4aac9481-f04a-4899-ac74-7f5c03447c60.jpg",
+        "photo_dhash": "f0ccece8e0f0f0e0",
+        "unit_type": "foil",
+        "balloon_size": "76 см",
+        "unit_who": [
+          "Для мальчика"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/5f319355-97ad-4130-a87c-66f4fec24e0b.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/5f319355-97ad-4130-a87c-66f4fec24e0b.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-10T19:09:00.971Z",
+      "updated_at": "2026-10-10T19:09:00.971Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/4f5b7434-59d3-4e5f-87f9-1ff900c5bb45.webp"
+    },
+    {
+      "id": "81af4bed-9043-4952-8e2d-e7934b0e5fb2",
+      "title": "Аниме, Боец Ниндзя",
+      "article": "UNT-405",
+      "price": 600,
+      "short_description": "Аниме, Боец Ниндзя",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": "Итачи Учиха",
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": "Наруто",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "olenenok-4",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/0887e1c4-8f30-454a-a849-6df1309aafc4.jpg",
+        "photo_dhash": "f0cccccccce8e8f8",
+        "unit_type": "foil",
+        "balloon_size": "76 см",
+        "unit_who": [
+          "Для мальчика"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/f2891afe-b91d-4cec-97af-10b3307692d3.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/f2891afe-b91d-4cec-97af-10b3307692d3.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-10T19:07:23.261Z",
+      "updated_at": "2026-10-10T19:07:23.261Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/19f10c2c-32c7-47c7-b900-1582ef724653.webp"
+    },
+    {
+      "id": "bb95f10d-942c-444e-bc93-e89d81be277e",
+      "title": "Горячие желания",
+      "article": "UNT-404",
+      "price": 750,
+      "short_description": "Горячие желания",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "olenenok-3",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Для неё"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/1fbcec21-6894-406b-a78e-0b0b00a9c16e.jpg",
+        "photo_dhash": "d4f0e8d0aad8f0e8",
+        "unit_type": "foil",
+        "balloon_size": "76 см",
+        "unit_who": [
+          "Для неё"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/5885612f-ecf9-4a16-b2db-42be415c4160.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/5885612f-ecf9-4a16-b2db-42be415c4160.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-10T19:06:09.489Z",
+      "updated_at": "2026-10-10T19:06:09.489Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/75095194-bcb1-4eeb-9eb4-ee7a106d9a2a.webp"
+    },
+    {
+      "id": "75d0ccdb-b86d-416d-9f1d-39883efafd89",
+      "title": "Крутой Кот с Галстуком",
+      "article": "UNT-403",
+      "price": 650,
+      "short_description": "Крутой Кот с Галстуком",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "olenenok-2",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Для него",
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/abe7558a-6dbd-435c-b54b-77219f583d5b.jpg",
+        "photo_dhash": "e8e0e0f4b0f0e8e8",
+        "unit_type": "foil",
+        "balloon_size": "61 см",
+        "unit_who": [
+          "Для него",
+          "Для мальчика"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/54adf778-cce5-4a78-8e99-1c61a415264a.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/54adf778-cce5-4a78-8e99-1c61a415264a.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-10T19:03:59.750Z",
+      "updated_at": "2026-10-10T19:03:59.750Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/a7228c87-ad66-43b6-9dea-b4257079ba37.webp"
+    },
+    {
+      "id": "f309d6b5-7aa3-4169-9147-1c094fcf9d5b",
+      "title": "Оленёнок",
+      "article": "UNT-402",
+      "price": 650,
+      "short_description": "Оленёнок",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "olenenok",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Для девочки",
+        "1 годик"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/8bd49e70-7c7f-4b22-a676-6d57434df6d4.jpg",
+        "photo_dhash": "e0e0d0c0e0e0e86c",
+        "unit_type": "foil",
+        "balloon_size": "81 см",
+        "unit_who": [
+          "Для девочки",
+          "1 годик"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/8fcb509a-b3f2-4aa2-82b8-761dc7f872ca.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/8fcb509a-b3f2-4aa2-82b8-761dc7f872ca.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-10T19:00:54.393Z",
+      "updated_at": "2026-10-10T19:00:54.393Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/af62f994-5d82-4213-84dd-5f85476a245c.webp"
+    },
+    {
       "id": "8814ceaf-43bf-4d97-b412-d210f9f6fe1f",
       "title": "Конёк",
       "article": "UNT-401",
@@ -298,7 +1418,7 @@
     },
     {
       "id": "a0ffd16c-3248-4586-9822-50e241852c52",
-      "title": "лондинка в розовой машине",
+      "title": "Блондинка в розовой машине",
       "article": "UNT-395",
       "price": 700,
       "short_description": "лондинка в розовой машине",
@@ -316,9 +1436,9 @@
       "slug": "bant-2",
       "scene": "unit_balloon",
       "tags": [
+        "Для девочки",
         "Шары поштучно",
-        "Фольгированные фигуры",
-        "Для девочки"
+        "Фольгированные фигуры"
       ],
       "client_options": {
         "available_on_request": false,
@@ -341,7 +1461,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-10-10T16:50:13.766Z",
-      "updated_at": "2026-10-10T16:50:13.766Z",
+      "updated_at": "2026-10-10T19:48:46.751Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/e6259028-16cf-469d-b539-8f30aaf9c244.webp"
     },
     {

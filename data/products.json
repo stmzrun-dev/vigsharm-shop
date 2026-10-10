@@ -2,6 +2,1223 @@
   "ok": true,
   "products": [
     {
+      "id": "8814ceaf-43bf-4d97-b412-d210f9f6fe1f",
+      "title": "Конёк",
+      "article": "UNT-401",
+      "price": 600,
+      "short_description": "Конёк",
+      "full_description": "",
+      "composition": [],
+      "category": "Новый год",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "bant-8",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Для девочки",
+        "Новый год"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "photo_dhash": "e2d898e0f2f2f4f8",
+        "unit_type": "foil",
+        "balloon_size": "60 см",
+        "unit_who": [
+          "Для девочки"
+        ],
+        "unit_holiday": "Новый год"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/07d9102e-09b6-4205-9486-4d802bee2773.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/07d9102e-09b6-4205-9486-4d802bee2773.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-10T17:03:56.003Z",
+      "updated_at": "2026-10-10T17:03:56.003Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/d6079b08-8efa-4e2c-bd08-44c6afb922c0.webp"
+    },
+    {
+      "id": "cc8fc61e-ee9c-4b5b-914d-2eb8cdde51b4",
+      "title": "Маша и Медведь",
+      "article": "UNT-400",
+      "price": 750,
+      "short_description": "Маша и Медведь",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": "Медведь",
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": "Маша и Медведь",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "bant-7",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Для девочки",
+        "1 годик"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/fa0793eb-7237-41e0-a3c3-786d001b068b.jpg",
+        "photo_dhash": "90d0d06c7c747430",
+        "unit_type": "foil",
+        "balloon_size": "89 см",
+        "unit_who": [
+          "Для девочки",
+          "1 годик"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/b0815225-4adc-4c11-8113-386b0ace03ee.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/b0815225-4adc-4c11-8113-386b0ace03ee.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-10T16:59:54.888Z",
+      "updated_at": "2026-10-10T16:59:54.888Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/697def35-eae4-48fd-8224-8dac8e3a711e.webp"
+    },
+    {
+      "id": "81f377aa-f073-4f97-be7a-be2f82bbea2c",
+      "title": "Ниндзя Синий",
+      "article": "UNT-399",
+      "price": 650,
+      "short_description": "Ниндзя Синий",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": "Джей",
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": "Lego Ninjago",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "bant-6",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/a9180137-74e9-42e2-9003-ea88520072c2.jpg",
+        "photo_dhash": "f8f8fafaf8e0c606",
+        "unit_type": "foil",
+        "balloon_size": "81 см",
+        "unit_who": [
+          "Для мальчика"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/c05df3df-d2ab-4d08-a83b-b410c975ab4b.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/c05df3df-d2ab-4d08-a83b-b410c975ab4b.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-10T16:58:22.841Z",
+      "updated_at": "2026-10-10T16:58:22.841Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/72bb3e77-f433-44b2-be8a-a35e7efd6776.webp"
+    },
+    {
+      "id": "d4377078-3170-47c2-8b69-197556635033",
+      "title": "Маша на велосипеде",
+      "article": "UNT-398",
+      "price": 800,
+      "short_description": "Маша на велосипеде",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": "Маша",
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": "Маша и Медведь",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "bant-5",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Для девочки",
+        "1 годик"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/57c5dff5-2ec4-4045-b367-5c1a627731e7.jpg",
+        "photo_dhash": "707070707070f8f8",
+        "unit_type": "foil",
+        "balloon_size": "99 см",
+        "unit_who": [
+          "Для девочки",
+          "1 годик"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/918c8ce8-c211-4860-804a-5d9843097011.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/918c8ce8-c211-4860-804a-5d9843097011.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-10T16:55:54.958Z",
+      "updated_at": "2026-10-10T16:55:54.958Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/e8ba2dea-a985-40c3-a326-0a1158823508.webp"
+    },
+    {
+      "id": "b41a272d-420d-4992-bd01-2d8bd98f47c1",
+      "title": "Чебурашка 2ст",
+      "article": "UNT-397",
+      "price": 850,
+      "short_description": "Чебурашка 2ст",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": "Чебурашка",
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": "Чебурашка",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "bant-4",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Для девочки",
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/6e2e8d21-d0e2-4206-95ad-c129de228901.jpg",
+        "photo_dhash": "b292ceb2e8f0f070",
+        "unit_type": "foil",
+        "balloon_size": "117 см",
+        "unit_who": [
+          "Для девочки",
+          "Для мальчика"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/e546e09b-6d11-4bbd-bdbe-af4c41a8395b.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/e546e09b-6d11-4bbd-bdbe-af4c41a8395b.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-10T16:54:09.170Z",
+      "updated_at": "2026-10-10T16:54:09.170Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/99a5bc8a-2d9b-47cc-aa96-f1d1d6e0b849.webp"
+    },
+    {
+      "id": "05984a62-5a34-4958-b9e8-07f48e2f75a0",
+      "title": "Кеды",
+      "article": "UNT-396",
+      "price": 700,
+      "short_description": "Кеды",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "bant-3",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/e2a73ce5-a141-4009-b352-de5c86c77c53.jpg",
+        "photo_dhash": "183c7cf6eec6fa40",
+        "unit_type": "foil",
+        "balloon_size": "61 см",
+        "unit_who": [
+          "Для мальчика"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/26392bfb-f684-471d-bae0-fc9726bd1eb9.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/26392bfb-f684-471d-bae0-fc9726bd1eb9.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-10T16:51:50.149Z",
+      "updated_at": "2026-10-10T16:51:50.149Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/c3efa1a8-2f6b-4a40-8490-cc5a04f9c1f4.webp"
+    },
+    {
+      "id": "a0ffd16c-3248-4586-9822-50e241852c52",
+      "title": "лондинка в розовой машине",
+      "article": "UNT-395",
+      "price": 700,
+      "short_description": "лондинка в розовой машине",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": "Барби",
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": "Барби",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "bant-2",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/10992f5f-6bdc-4a7c-a4e6-c84076e7a5e6.jpg",
+        "photo_dhash": "0e4cfccedb91f1f0",
+        "unit_type": "foil",
+        "balloon_size": "91 см",
+        "unit_who": [
+          "Для девочки"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/50605add-bf73-4f9d-95b4-d248b1f84205.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/50605add-bf73-4f9d-95b4-d248b1f84205.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-10T16:50:13.766Z",
+      "updated_at": "2026-10-10T16:50:13.766Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/e6259028-16cf-469d-b539-8f30aaf9c244.webp"
+    },
+    {
+      "id": "7149cf42-fd24-4c06-b3e3-840b780c780c",
+      "title": "Бант",
+      "article": "UNT-394",
+      "price": 550,
+      "short_description": "Бант",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "bant",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Для девочки",
+        "На выписку"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/83a8ef6b-9bb9-4750-bc7a-41df09cdd7dc.jpg",
+        "photo_dhash": "8e8ececc888c8ecc",
+        "unit_type": "foil",
+        "balloon_size": "91 см",
+        "unit_who": [
+          "Для девочки",
+          "На выписку"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/4872e04b-a052-457b-a939-c9dd6897b012.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/4872e04b-a052-457b-a939-c9dd6897b012.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-10T16:48:16.808Z",
+      "updated_at": "2026-10-10T16:48:16.808Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/423a69ec-d3d5-4032-a0b3-27d4cc206559.webp"
+    },
+    {
+      "id": "f6445e76-58cf-400b-b2bc-c6f9c591e64f",
+      "title": "Полумесяц Серебряный",
+      "article": "UNT-393",
+      "price": 550,
+      "short_description": "Полумесяц Серебрынный",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "milaya-rusalochka-5-7-7",
+      "scene": "unit_balloon",
+      "tags": [
+        "1 годик",
+        "На выписку",
+        "Шары поштучно",
+        "Фольгированные фигуры"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/746e8ccc-d842-489f-88bd-698d633d6b3a.jpg",
+        "photo_dhash": "0d0d1434341e1c0f",
+        "unit_type": "foil",
+        "balloon_size": "81 см",
+        "unit_who": [
+          "На выписку",
+          "1 годик"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/d5822521-fb95-4e4c-9e73-e0eec3cb064a.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/d5822521-fb95-4e4c-9e73-e0eec3cb064a.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-10T15:14:04.008Z",
+      "updated_at": "2026-10-10T15:14:35.857Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/1c8f1882-b034-4f13-aa41-a32d2e418d44.webp"
+    },
+    {
+      "id": "0526e689-6a89-4b13-84a3-c941bd52db48",
+      "title": "Полумесяц Золотой",
+      "article": "UNT-392",
+      "price": 550,
+      "short_description": "Полумесяц Золотой",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "milaya-rusalochka-5-7-6",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "На выписку",
+        "1 годик"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/fa70ebe0-6a0b-492d-a2a0-c3425dc25086.jpg",
+        "photo_dhash": "05051434341a1c0f",
+        "unit_type": "foil",
+        "balloon_size": "81 см",
+        "unit_who": [
+          "На выписку",
+          "1 годик"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/4b033fc4-d65c-4dd9-8087-bcb3702bfde8.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/4b033fc4-d65c-4dd9-8087-bcb3702bfde8.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-10T15:12:10.013Z",
+      "updated_at": "2026-10-10T15:12:10.013Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/4e6832e6-f037-40bd-b86e-4dbc17d3cb6f.webp"
+    },
+    {
+      "id": "9a2251a5-9b59-4142-8601-f71c114ab1e9",
+      "title": "Полумесяц Розовый",
+      "article": "UNT-391",
+      "price": 650,
+      "short_description": "Полумесяц Розовый",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "milaya-rusalochka-5-7-5",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "На выписку",
+        "1 годик"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/0064d532-449d-4f36-8af1-2cdf7f8f27c4.jpg",
+        "photo_dhash": "f0e0e0a0a0d0cef0",
+        "unit_type": "foil",
+        "balloon_size": "91 см",
+        "unit_who": [
+          "На выписку",
+          "1 годик"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/487ca0ab-71c8-476d-84c2-276387524a9d.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/487ca0ab-71c8-476d-84c2-276387524a9d.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-10T15:10:32.948Z",
+      "updated_at": "2026-10-10T15:10:32.948Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/32922f6f-a071-4305-880e-2c98fdd2a013.webp"
+    },
+    {
+      "id": "17c9f5ae-0eab-4ef6-845d-106d46980de2",
+      "title": "Фигура Ежик Аниме, Синий",
+      "article": "UNT-390",
+      "price": 600,
+      "short_description": "Фигура Ежик Аниме, Синий",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": "Соник",
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": "Sonic the Hedgehog",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "milaya-rusalochka-5-7-4",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/a933dd13-be5a-41d6-88c7-1916e1e8adaa.jpg",
+        "photo_dhash": "f0ccdcdce4e4f0d8",
+        "unit_type": "foil",
+        "balloon_size": "71 см",
+        "unit_who": [
+          "Для мальчика"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/d700aa73-f9d4-4fcc-9123-792c789b559b.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/d700aa73-f9d4-4fcc-9123-792c789b559b.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-10T15:06:58.809Z",
+      "updated_at": "2026-10-10T15:06:58.809Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/f0eff5b2-7c3f-412d-bd34-4eb47b11c575.webp"
+    },
+    {
+      "id": "deda5112-e477-4351-b899-7dc5b49de0f9",
+      "title": "Черновик 10.10, 18:01",
+      "article": null,
+      "price": 0,
+      "short_description": "",
+      "full_description": "",
+      "composition": [],
+      "category": "Букет с мишками",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "milaya-rusalochka-5-7-3",
+      "scene": "handheld_bouquet",
+      "tags": [
+        "Букет с мишками"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/e0b357b5-0960-424c-9637-366362c362e4.jpg",
+        "photo_dhash": "0717f1b0e4f8b391",
+        "bouquet_type": "teddy"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/5646b69c-0a29-470e-926d-686a6ed2cfc1.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/5646b69c-0a29-470e-926d-686a6ed2cfc1.jpg",
+      "status": "draft",
+      "show_on_site": false,
+      "created_at": "2026-10-10T15:01:39.067Z",
+      "updated_at": "2026-10-10T15:01:39.067Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/8d8c51b7-87f3-48d2-b074-ba2ac0ae6f6d.webp"
+    },
+    {
+      "id": "09d24c40-8ae3-4815-9b85-40e0b0ecbe53",
+      "title": "Синий Трактор на Белом",
+      "article": "UNT-389",
+      "price": 700,
+      "short_description": "Синий Трактор на Белом",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": "Синий Трактор",
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": "Синий Трактор",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "milaya-rusalochka-5-7-2",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Для мальчика",
+        "1 годик"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/e5dbe3fc-c066-48a6-99a3-9e0d4583326e.jpg",
+        "photo_dhash": "78f8b49eaaececb4",
+        "unit_type": "foil",
+        "balloon_size": "66 см",
+        "unit_who": [
+          "Для мальчика",
+          "1 годик"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/c2b6034a-5628-4cd9-aca5-55fd156fbcc3.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/c2b6034a-5628-4cd9-aca5-55fd156fbcc3.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-10T14:55:42.286Z",
+      "updated_at": "2026-10-10T14:55:42.286Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/aba220a7-4585-451e-a9ac-cb1b14697474.webp"
+    },
+    {
+      "id": "798a6879-0f19-4fc9-9ed8-958e6cadfd5d",
+      "title": "FA Синий трактор",
+      "article": "UNT-388",
+      "price": 750,
+      "short_description": "Трактор синий",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": "Синий трактор",
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": "Синий трактор",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "milaya-rusalochka-5-7",
+      "scene": "unit_balloon",
+      "tags": [
+        "Для мальчика",
+        "1 годик",
+        "Шары поштучно",
+        "Фольгированные фигуры"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/e1979e54-73f4-4f72-b9f2-19b317d190e0.jpg",
+        "photo_dhash": "e0e0e0c4a42c2a8c",
+        "unit_type": "foil",
+        "balloon_size": "107 см",
+        "unit_who": [
+          "Для мальчика",
+          "1 годик"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/d815e88f-6401-47f9-ba33-105b852b8c89.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/d815e88f-6401-47f9-ba33-105b852b8c89.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-10T14:53:18.464Z",
+      "updated_at": "2026-10-10T14:53:50.121Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/a50a9cf2-c51f-4bf9-8d8e-4838f723fb10.webp"
+    },
+    {
+      "id": "24e72dcd-a24f-41d5-a327-5f98fcab5dcc",
+      "title": "Супер-кот",
+      "article": "UNT-387",
+      "price": 650,
+      "short_description": "Супер-кот",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": "Супер-Кот",
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": "Леди Баг и Супер-Кот",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "milaya-rusalochka-5-6",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/62d2b85f-1d9c-4f59-8234-15791bfd6637.jpg",
+        "photo_dhash": "8080e0f0f0d89c9e",
+        "unit_type": "foil",
+        "balloon_size": "89 см",
+        "unit_who": [
+          "Для девочки"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/97a8366e-5d1b-4fbb-b039-66eabed3be63.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/97a8366e-5d1b-4fbb-b039-66eabed3be63.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-10T14:51:00.081Z",
+      "updated_at": "2026-10-10T14:51:00.081Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/61c63223-bf85-41fd-8c99-9968d05323dd.webp"
+    },
+    {
+      "id": "60c7a1d6-5006-4751-ab5b-8b1118e910c9",
+      "title": "Лист Кленовый",
+      "article": "UNT-386",
+      "price": 550,
+      "short_description": "Лист Кленовый",
+      "full_description": "",
+      "composition": [],
+      "category": "1 сентября",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "milaya-rusalochka-5-5",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "1 сентября"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/68849ae6-fd1d-4af3-a6fa-ea8aecfb2685.jpg",
+        "photo_dhash": "70f0e4c4c4e0f070",
+        "unit_type": "foil",
+        "balloon_size": "64 см",
+        "unit_holiday": "1 сентября"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/ab63ef3e-063f-4742-b4ee-7223bbf877ef.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/ab63ef3e-063f-4742-b4ee-7223bbf877ef.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-10T14:46:46.096Z",
+      "updated_at": "2026-10-10T14:46:46.096Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/5d233bf8-d3fa-4cf2-bfb9-9592e7b68c85.webp"
+    },
+    {
+      "id": "16027958-e799-4c0e-a01d-9ee0ded9e6b5",
+      "title": "Магнитофон",
+      "article": "UNT-385",
+      "price": 600,
+      "short_description": "Магнитофон",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": "Магнитофон",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "milaya-rusalochka-5-4",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Для неё",
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/a18b08a9-f629-4976-a179-118dfbd21e2c.jpg",
+        "photo_dhash": "c68e968e7571550f",
+        "unit_type": "foil",
+        "balloon_size": "57 см",
+        "unit_who": [
+          "Для неё",
+          "Для девочки"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/63364546-f2f9-4b41-890e-0c6076fb8ae6.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/63364546-f2f9-4b41-890e-0c6076fb8ae6.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-10T14:45:30.830Z",
+      "updated_at": "2026-10-10T14:45:30.830Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/d002d124-3330-4d42-a5cb-829047f3828c.webp"
+    },
+    {
+      "id": "1a58be9e-53a4-42ae-8991-cc697da63e56",
+      "title": "Паровозик",
+      "article": "UNT-384",
+      "price": 650,
+      "short_description": "Паровозик",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "milaya-rusalochka-5-3",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Для мальчика",
+        "1 годик"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/85498491-7eea-4152-aa4f-03ca789113b1.jpg",
+        "photo_dhash": "80a2b2b2e4e4ffd4",
+        "unit_type": "foil",
+        "balloon_size": "76 см",
+        "unit_who": [
+          "Для мальчика",
+          "1 годик"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/570ecbd0-dfe7-41eb-ab4d-fa035cc362d6.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/570ecbd0-dfe7-41eb-ab4d-fa035cc362d6.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-10T14:43:52.042Z",
+      "updated_at": "2026-10-10T14:43:52.042Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/736a270c-5d7b-4d7b-b78c-b0e8ba55949e.webp"
+    },
+    {
+      "id": "970e93a4-7c99-49f1-ba32-624c6ac0c697",
+      "title": "Желудь",
+      "article": "UNT-383",
+      "price": 550,
+      "short_description": "Желудь",
+      "full_description": "",
+      "composition": [],
+      "category": "1 сентября",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": "Осень",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "milaya-rusalochka-5-2",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "1 сентября"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/fd3ffc44-4f10-4d30-9c19-174964cabbe7.jpg",
+        "photo_dhash": "70f0f0f0f0f0f030",
+        "unit_type": "foil",
+        "balloon_size": "62 см",
+        "unit_holiday": "1 сентября"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/b24f9bbc-9c60-48cf-91ad-6e64b213509d.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/b24f9bbc-9c60-48cf-91ad-6e64b213509d.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-10T14:41:38.655Z",
+      "updated_at": "2026-10-10T14:41:38.655Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/dc82e0f9-4c44-44e2-9e56-43dad1250450.webp"
+    },
+    {
+      "id": "f9475529-7ead-43e3-83cf-908141db666a",
+      "title": "Котенок Принцесса Розовый",
+      "article": "UNT-382",
+      "price": 550,
+      "short_description": "Котенок Принцесса Розовый",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": "Котенок Принцесса",
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": "Детские персонажи",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "milaya-rusalochka-5",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Для девочки",
+        "1 годик"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/5511f1eb-9bd3-40c3-8ba5-4532671841af.jpg",
+        "photo_dhash": "30b390fac6d6d4f0",
+        "unit_type": "foil",
+        "balloon_size": "76 см",
+        "unit_who": [
+          "Для девочки",
+          "1 годик"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/15107fbf-b8a5-4d86-8172-5816f116297f.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/15107fbf-b8a5-4d86-8172-5816f116297f.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-10T14:40:06.443Z",
+      "updated_at": "2026-10-10T14:40:06.443Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/74121001-1ae5-49e1-b315-0eae9dbd3060.webp"
+    },
+    {
+      "id": "2701985e-3a70-4311-912b-0c4cdbc9c511",
+      "title": "Гоночная тачка",
+      "article": "UNT-381",
+      "price": 600,
+      "short_description": "Гоночная тачка",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": "Гоночная тачка",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "milaya-rusalochka-4",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/93128352-46da-41be-b503-4a1f2a2b7937.jpg",
+        "photo_dhash": "00f0b8e6fef63400",
+        "unit_type": "foil",
+        "balloon_size": "81 см",
+        "unit_who": [
+          "Для мальчика"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/362a18bc-98bb-4ced-9d35-2eca73cc3b00.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/362a18bc-98bb-4ced-9d35-2eca73cc3b00.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-10T14:37:25.809Z",
+      "updated_at": "2026-10-10T14:37:25.809Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/389b0093-6a69-43ec-bbe2-b1f8dbf0b9d4.webp"
+    },
+    {
+      "id": "2ce873db-c54b-49db-997a-c8c87b20db2c",
+      "title": "Мадам Си-Си",
+      "article": "UNT-380",
+      "price": 600,
+      "short_description": "Мадам Си-Си",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": "Мадам Си-Си",
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": "Cupid's Curse",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "milaya-rusalochka-3",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Для неё",
+        "Для него"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/75a879bd-140e-490f-a652-ad2045c61084.jpg",
+        "photo_dhash": "68cec4f096d4e870",
+        "unit_type": "foil",
+        "balloon_size": "79 см",
+        "unit_who": [
+          "Для неё",
+          "Для него"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/8bbe4f6f-d669-4b65-b312-1566191a8944.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/8bbe4f6f-d669-4b65-b312-1566191a8944.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-10T14:36:00.366Z",
+      "updated_at": "2026-10-10T14:36:00.366Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/eb9760d1-ee90-4c4d-903a-7271a884f9df.webp"
+    },
+    {
+      "id": "6bcc6b31-58e5-4a4a-ae5a-26dcdd8ecf6d",
+      "title": "Геймпад",
+      "article": "UNT-379",
+      "price": 550,
+      "short_description": "Геймпад",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "milaya-rusalochka-2",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Геймерам"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/7200e4ae-edf6-49e4-8a7c-6b09ced9c5a6.jpg",
+        "photo_dhash": "cc8c98c45d4d8e8e",
+        "unit_type": "foil",
+        "balloon_size": "69 см",
+        "unit_who": [
+          "Геймерам"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/438e76cb-8b09-4700-80da-b6269b19fd0d.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/438e76cb-8b09-4700-80da-b6269b19fd0d.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-10T14:33:59.311Z",
+      "updated_at": "2026-10-10T14:33:59.311Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/2a9429ce-925f-4fef-b079-a64490bbc6ba.webp"
+    },
+    {
+      "id": "b48452e5-7acc-48a6-b174-4dfe785e2cca",
+      "title": "Милая Русалочка",
+      "article": "UNT-378",
+      "price": 600,
+      "short_description": "Милая Русалочка",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": "Ариэль",
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": "Русалочка",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "milaya-rusalochka",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/3aa48175-f0c5-49be-9634-2069f0126b24.jpg",
+        "photo_dhash": "707070f0f0d8f0f0",
+        "unit_type": "foil",
+        "balloon_size": "81 см",
+        "unit_who": [
+          "Для девочки"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/7c492cba-771b-478c-9c7c-0542ca41b51a.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/7c492cba-771b-478c-9c7c-0542ca41b51a.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-10T14:32:45.708Z",
+      "updated_at": "2026-10-10T14:32:45.708Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/42857539-6242-4edb-aeef-482f4a0f1011.webp"
+    },
+    {
       "id": "1eea3b93-c31e-4ede-8416-e279c3fc6bc2",
       "title": "Белоснежка",
       "article": "UNT-377",

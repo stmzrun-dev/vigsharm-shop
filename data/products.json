@@ -2,6 +2,1315 @@
   "ok": true,
   "products": [
     {
+      "id": "1eea3b93-c31e-4ede-8416-e279c3fc6bc2",
+      "title": "Белоснежка",
+      "article": "UNT-377",
+      "price": 600,
+      "short_description": "Белоснежка",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": "Белоснежка",
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": "Disney",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "snegovik-so-snezhinkoy-2-8",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/4953f1c6-7dce-43b2-a490-a1edbddd852b.jpg",
+        "photo_dhash": "f0e0f0f0ece4ccf0",
+        "unit_type": "foil",
+        "balloon_size": "81 см",
+        "unit_who": [
+          "Для девочки"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/9ab0a1e1-d585-499e-adbc-f8460ef7f26b.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/9ab0a1e1-d585-499e-adbc-f8460ef7f26b.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-10T08:03:50.932Z",
+      "updated_at": "2026-10-10T08:03:50.932Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/a17ed498-0e2f-4b24-a30f-8a91968cea1a.webp"
+    },
+    {
+      "id": "418bec22-5bd1-416c-968e-4c02205056fa",
+      "title": "Самосвал",
+      "article": "UNT-376",
+      "price": 550,
+      "short_description": "Самосвал",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "snegovik-so-snezhinkoy-2-7",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/8984957a-48dc-4d52-9823-c53ee8560d56.jpg",
+        "photo_dhash": "73c0e6a4ac628c0c",
+        "unit_type": "foil",
+        "balloon_size": "81 см",
+        "unit_who": [
+          "Для мальчика"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/101d2a02-ce1f-4527-b35c-ec505ab426bf.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/101d2a02-ce1f-4527-b35c-ec505ab426bf.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-10T07:53:38.975Z",
+      "updated_at": "2026-10-10T07:53:38.975Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/4fe51357-fd5c-4c76-926c-a87e0e511242.webp"
+    },
+    {
+      "id": "a48c8a2e-2f2a-4453-8d8f-5c81cfe74eab",
+      "title": "Гоночный спорткар",
+      "article": "UNT-375",
+      "price": 550,
+      "short_description": "Гоночный спорткар",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "snegovik-so-snezhinkoy-2-6",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Для мальчика",
+        "1 годик"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/9e3251db-714a-403f-86ac-b946e92135b0.jpg",
+        "photo_dhash": "e4a4a8ace9f0d89c",
+        "unit_type": "foil",
+        "balloon_size": "109 см",
+        "unit_who": [
+          "Для мальчика",
+          "1 годик"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/b409c947-7a67-403c-b82e-8d646f813cae.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/b409c947-7a67-403c-b82e-8d646f813cae.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-10T07:51:57.877Z",
+      "updated_at": "2026-10-10T07:51:57.877Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/64b837a1-d1b2-481f-952e-6c1f5a05205b.webp"
+    },
+    {
+      "id": "ece2ef27-c5c0-4925-9bc8-e36a8fcc56a7",
+      "title": "Трансформеры Оптимус Прайм",
+      "article": "UNT-374",
+      "price": 550,
+      "short_description": "Трансформеры Оптимус Прайм",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": "Оптимус Прайм",
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": "Трансформеры",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "snegovik-so-snezhinkoy-2-5",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/4979a23a-1ada-4cb8-8627-61782d5c1459.jpg",
+        "photo_dhash": "f8c886cccce0b0e2",
+        "unit_type": "foil",
+        "balloon_size": "76 см",
+        "unit_who": [
+          "Для мальчика"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/5559e1f9-0fe5-40df-8e75-9cfd81181472.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/5559e1f9-0fe5-40df-8e75-9cfd81181472.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-10T07:50:51.418Z",
+      "updated_at": "2026-10-10T07:50:51.418Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/04b4dcf3-581b-48a7-86a2-99ed0007d513.webp"
+    },
+    {
+      "id": "e08f6840-038b-4e03-94d1-2092e9860edf",
+      "title": "Мрачная стори Уэнсдей",
+      "article": "UNT-373",
+      "price": 500,
+      "short_description": "Мрачная стори Уэнсдей",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": "Уэнсдей Аддамс",
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": "Семейка Аддамс",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "snegovik-so-snezhinkoy-2-4",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/db5a0112-b16a-4d7c-ac10-4a75b3173659.jpg",
+        "photo_dhash": "7060e0e8e0e0e0e0",
+        "unit_type": "foil",
+        "balloon_size": "84 см",
+        "unit_who": [
+          "Для девочки"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/4c1ef807-6552-4d9f-bbdd-515c064464e0.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/4c1ef807-6552-4d9f-bbdd-515c064464e0.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-10T07:40:15.580Z",
+      "updated_at": "2026-10-10T07:40:15.580Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/f567ee07-f899-47e0-b5fd-998006b1e4fb.webp"
+    },
+    {
+      "id": "fea8f2de-9cd9-4cb7-a838-1b114460c601",
+      "title": "Герб Хогвартса",
+      "article": "UNT-372",
+      "price": 750,
+      "short_description": "Герб Хогвартса",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": "Гарри Поттер",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "snegovik-so-snezhinkoy-2-3",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/ea323a96-8ec5-416d-bd94-d835c4a80eee.jpg",
+        "photo_dhash": "e0d4d4d4d4d4f0f0",
+        "unit_type": "foil",
+        "balloon_size": "69 см"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/1e9a8c65-ea9f-4981-b0ae-6ae8138fb0dc.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/1e9a8c65-ea9f-4981-b0ae-6ae8138fb0dc.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-10T07:38:56.313Z",
+      "updated_at": "2026-10-10T07:38:56.313Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/de075f38-d024-4c80-b8b8-ec9a8a51beed.webp"
+    },
+    {
+      "id": "b87f03dd-66f6-4ed9-a165-f1b89a74b589",
+      "title": "Человек паук в прыжке",
+      "article": "UNT-371",
+      "price": 750,
+      "short_description": "Человек паук в прыжке",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": "Человек-паук",
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": "Marvel",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "chelovek-pauk-v-pryzhke",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "photo_dhash": "53dbfbfce4c47133",
+        "unit_type": "foil",
+        "balloon_size": "73 см",
+        "unit_who": [
+          "Для мальчика"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/22d8b5e1-da81-4259-8552-2f9a84d25567.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/22d8b5e1-da81-4259-8552-2f9a84d25567.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-10T07:38:26.426Z",
+      "updated_at": "2026-10-10T07:38:26.426Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/2cecdab9-7dc7-402f-a150-5e9153e5a1a3.webp"
+    },
+    {
+      "id": "7fae9227-eb10-44df-9ac1-163c14219e9d",
+      "title": "Милый зайка Голубой",
+      "article": "UNT-370",
+      "price": 550,
+      "short_description": "Милый зайка Голубой",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "snegovik-so-snezhinkoy-2-2",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Для девочки",
+        "1 годик"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/c0058264-de25-4947-adf9-79d833335476.jpg",
+        "photo_dhash": "c0c8bcf4c8e466b0",
+        "unit_type": "foil",
+        "balloon_size": "76 см",
+        "unit_who": [
+          "Для девочки",
+          "1 годик"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/5b5735be-4c4d-437d-b5b8-216cf3b91184.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/5b5735be-4c4d-437d-b5b8-216cf3b91184.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-10T07:36:59.543Z",
+      "updated_at": "2026-10-10T07:36:59.543Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/7650c401-de4a-4d86-8735-f5b79c1cfc87.webp"
+    },
+    {
+      "id": "b49b402b-1342-4499-9172-6383f797f080",
+      "title": "ЛОЛ QUEEN BEE",
+      "article": "UNT-369",
+      "price": 600,
+      "short_description": "ЛОЛ QUEEN BEE",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": "Queen Bee",
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": "LOL Surprise",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "snegovik-so-snezhinkoy-20-6-7",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/4e7b5173-f0c3-4b0b-94a6-98d7c441e466.jpg",
+        "photo_dhash": "e8f8f0f0f0f0f070",
+        "unit_type": "foil",
+        "balloon_size": "87 см"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/903ee1ea-6405-4350-916f-5c3ff8eb02a3.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/903ee1ea-6405-4350-916f-5c3ff8eb02a3.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-10T07:34:01.581Z",
+      "updated_at": "2026-10-10T07:34:01.581Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/45fbc1ad-0c28-4a26-9ae0-1a882e98d4a6.webp"
+    },
+    {
+      "id": "06306650-1a35-4e57-9210-555d42dc6194",
+      "title": "Принцесса Золушка в платье",
+      "article": "UNT-368",
+      "price": 550,
+      "short_description": "Принцесса Золушка в платье",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": "Золушка",
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": "Disney",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "snegovik-so-snezhinkoy-20-6-6",
+      "scene": "unit_balloon",
+      "tags": [
+        "Для девочки",
+        "Шары поштучно",
+        "Фольгированные фигуры"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/42505796-197b-4a75-94ba-4042c17a8f52.jpg",
+        "photo_dhash": "30faf070f4d612c8",
+        "unit_type": "foil",
+        "balloon_size": "91 см",
+        "unit_who": [
+          "Для девочки"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/c11ad56c-e946-49d8-89e3-95a4189a2cc0.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/c11ad56c-e946-49d8-89e3-95a4189a2cc0.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-10T07:32:30.630Z",
+      "updated_at": "2026-10-10T07:34:06.911Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/000e37b5-1c78-41fa-b344-2527ea31b306.webp"
+    },
+    {
+      "id": "25f5a613-6932-48d4-9978-bd64cb16b82f",
+      "title": "Милая пони Пинки Пай",
+      "article": "UNT-367",
+      "price": 550,
+      "short_description": "Милая пони Пинки Пай",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": "Пинки Пай",
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": "My Little Pony",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "snegovik-so-snezhinkoy-20-6-5",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/884b709f-3a7c-4f69-8800-02b66e5de415.jpg",
+        "photo_dhash": "7c7e71b0908088c8",
+        "unit_type": "foil",
+        "balloon_size": "81 см",
+        "unit_who": [
+          "Для девочки"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/071e7cb0-9dd8-4cdd-839a-32ce55339128.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/071e7cb0-9dd8-4cdd-839a-32ce55339128.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-10T07:30:29.106Z",
+      "updated_at": "2026-10-10T07:34:11.819Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/e08330f8-1db7-4af8-9324-0436f2ce7fe7.webp"
+    },
+    {
+      "id": "5cf3af46-2fae-45e1-90d0-342573768236",
+      "title": "Малыш Мальчик, Спящий на Облаке",
+      "article": "UNT-366",
+      "price": 600,
+      "short_description": "Малыш Мальчик, Спящий на Облаке",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "snegovik-so-snezhinkoy-20-6-4",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "На выписку"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/032fe27e-34f8-424e-8755-5808b1d5aa61.jpg",
+        "photo_dhash": "c0802434b06dece4",
+        "unit_type": "foil",
+        "balloon_size": "99 см",
+        "unit_who": [
+          "На выписку"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/7ed3e56e-aa92-4d4e-9381-e428ba02b1ee.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/7ed3e56e-aa92-4d4e-9381-e428ba02b1ee.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-10T07:29:27.047Z",
+      "updated_at": "2026-10-10T07:29:27.047Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/29e57082-6e03-4bdc-a686-95619c8829b0.webp"
+    },
+    {
+      "id": "99658071-64df-4b79-bfa5-3801ccb4d062",
+      "title": "Бабочка цветочная",
+      "article": "UNT-365",
+      "price": 550,
+      "short_description": "Бабочка цветочная",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "snegovik-so-snezhinkoy-20-6-3",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/986007bb-9a88-44ef-8af8-93f4f14b17b2.jpg",
+        "photo_dhash": "0e1e1c989898c8c8",
+        "unit_type": "foil",
+        "balloon_size": "91 см",
+        "unit_who": [
+          "Для девочки"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/547e061a-f9de-4f58-84d4-3c25a5e5475d.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/547e061a-f9de-4f58-84d4-3c25a5e5475d.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-10T07:27:37.272Z",
+      "updated_at": "2026-10-10T07:27:37.272Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/88dbc80d-57e2-4d4d-b18d-11487c0db964.webp"
+    },
+    {
+      "id": "bd4faf56-0387-4636-8b3d-651ea1c76170",
+      "title": "Алетт",
+      "article": "UNT-364",
+      "price": 650,
+      "short_description": "Алетт",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": "Алетт",
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": "Герои в масках",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "snegovik-so-snezhinkoy-20-6-2",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/2f7ec357-0a53-42c8-8539-607c650148ee.jpg",
+        "photo_dhash": "3030b894f0f0e474",
+        "unit_type": "foil",
+        "balloon_size": "104 см"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/b374fabf-4ac3-4915-bf46-aafe6327fa58.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/b374fabf-4ac3-4915-bf46-aafe6327fa58.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-10T07:24:54.670Z",
+      "updated_at": "2026-10-10T07:24:54.670Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/b7202721-2d62-4492-8f93-0b847109452a.webp"
+    },
+    {
+      "id": "d1cbbf9f-71fa-4ac7-a31c-908816245202",
+      "title": "Гекко",
+      "article": "UNT-363",
+      "price": 650,
+      "short_description": "Гекко",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": "Гекко",
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": "Герои в масках",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "snegovik-so-snezhinkoy-20-7",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/e1efb248-754d-4df4-8480-7def7701253b.jpg",
+        "photo_dhash": "d0f8d0f2603ccc70",
+        "unit_type": "foil",
+        "balloon_size": "86 см"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/af10150b-b60a-4595-99be-5c86a00f33ca.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/af10150b-b60a-4595-99be-5c86a00f33ca.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-10T07:22:37.901Z",
+      "updated_at": "2026-10-10T07:22:37.901Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/fd07b1f0-af55-415f-be8c-bde5bcb1f1cd.webp"
+    },
+    {
+      "id": "09d8460b-5463-4cd3-afa6-1c062eb68266",
+      "title": "Кэтбой",
+      "article": "UNT-362",
+      "price": 650,
+      "short_description": "Кэтбой",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": "Кэтбой",
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": "Герои в масках",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "snegovik-so-snezhinkoy-20-6",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/fbc03d49-5d6b-4a0d-a6bd-03cc7db2cc47.jpg",
+        "photo_dhash": "b080e0e02060d1c8",
+        "unit_type": "foil",
+        "balloon_size": "104 см"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/7dcc4fc9-a85f-4c54-b184-87ba9ee2f2e0.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/7dcc4fc9-a85f-4c54-b184-87ba9ee2f2e0.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-10T07:21:25.866Z",
+      "updated_at": "2026-10-10T07:23:45.987Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/2de27908-a2d4-4a10-85fc-782913c06825.webp"
+    },
+    {
+      "id": "d7b40bb7-a757-4bd9-8441-4fc8c81850e2",
+      "title": "Тираннозавр",
+      "article": "UNT-361",
+      "price": 600,
+      "short_description": "Тираннозавр",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": "Динозавр",
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "snegovik-so-snezhinkoy-20-5",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/d4805f32-22d0-4b99-96a8-e7a5fe07abf5.jpg",
+        "photo_dhash": "1cd89c7094f0c8c8",
+        "unit_type": "foil",
+        "balloon_size": "84 см",
+        "unit_who": [
+          "Для мальчика"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/f431559c-a2e8-4c1f-8bd3-559ace809657.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/f431559c-a2e8-4c1f-8bd3-559ace809657.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-10T07:18:23.819Z",
+      "updated_at": "2026-10-10T07:18:23.819Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/0b966e54-8d40-44be-a24b-c4e00906fedb.webp"
+    },
+    {
+      "id": "38b363a8-b154-449a-93a4-f876045e1866",
+      "title": "Маленький Маг в очках",
+      "article": "UNT-360",
+      "price": 500,
+      "short_description": "Маленький Маг в очках",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": "Гарри Поттер",
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": "Гарри Поттер",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "snegovik-so-snezhinkoy-20-4",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/5bee8703-ff2e-40f8-aeea-fb3a463ced22.jpg",
+        "photo_dhash": "f8e0f2aca0f8f8f8",
+        "unit_type": "foil",
+        "balloon_size": "61 см"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/23bf8161-d19f-4ef6-9996-1d91568b5ce3.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/23bf8161-d19f-4ef6-9996-1d91568b5ce3.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-10T07:13:33.009Z",
+      "updated_at": "2026-10-10T07:13:33.009Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/92d15b75-4400-4631-8a58-c58b2fbed544.webp"
+    },
+    {
+      "id": "f1232869-e5e1-4884-acce-5bb47d60b0c7",
+      "title": "Милая пони Радуга Дэш",
+      "article": "UNT-359",
+      "price": 550,
+      "short_description": "Милая пони Радуга Дэш",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": "Радуга Дэш",
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": "My Little Pony",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "snegovik-so-snezhinkoy-20-3",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/aed0c2f4-c4a0-4717-b648-7c0d07a28a49.jpg",
+        "photo_dhash": "00061ed2e6b22000",
+        "unit_type": "foil",
+        "balloon_size": "81 см",
+        "unit_who": [
+          "Для девочки"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/873a8d29-89cd-4f57-aaf6-45ea8040f84e.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/873a8d29-89cd-4f57-aaf6-45ea8040f84e.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-10T07:12:26.352Z",
+      "updated_at": "2026-10-10T07:34:24.816Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/81d896c8-c61b-4e90-9e45-f8219014dd85.webp"
+    },
+    {
+      "id": "9477fa54-2555-4e2a-8b08-8b03a649d916",
+      "title": "Пони фиолетовый",
+      "article": "UNT-358",
+      "price": 550,
+      "short_description": "Пони фиолетовый",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": "Искорка",
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": "My Little Pony",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "snegovik-so-snezhinkoy-20-2",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/2c9cebe2-d2ec-451a-85d1-50eba05cdec0.jpg",
+        "photo_dhash": "e0e8f0d0f4d2fc38",
+        "unit_type": "foil",
+        "balloon_size": "81 см",
+        "unit_who": [
+          "Для девочки"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/1243682d-625c-4918-8d78-112ba39745a4.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/1243682d-625c-4918-8d78-112ba39745a4.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-10T07:10:41.282Z",
+      "updated_at": "2026-10-10T07:34:32.408Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/68ff7458-9728-4463-b40f-194c104c6033.webp"
+    },
+    {
+      "id": "627d8540-9554-45d5-87a0-606fc4b6b9cb",
+      "title": "Свинка Пеппа Джордж",
+      "article": "UNT-357",
+      "price": 750,
+      "short_description": "Свинка Пеппа Джордж",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": "Джордж",
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": "Свинка Пеппа",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "snegovik-so-snezhinkoy-21",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "1 годик"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/5d4aa1b4-4799-40da-bf16-23bf9e89bbe1.jpg",
+        "photo_dhash": "b0b0b8dcccc4f0cc",
+        "unit_type": "foil",
+        "balloon_size": "102 см",
+        "unit_who": [
+          "1 годик"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/c8a7e785-3d1b-4aec-9808-67260e0b3f6e.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/c8a7e785-3d1b-4aec-9808-67260e0b3f6e.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-10T07:07:35.618Z",
+      "updated_at": "2026-10-10T07:07:35.618Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/a931f280-325a-42ae-8046-7fe7561574e2.webp"
+    },
+    {
+      "id": "89444a8a-e60f-4ae1-abdd-158c21c0a082",
+      "title": "Свинка Пеппа",
+      "article": "UNT-356",
+      "price": 750,
+      "short_description": "Свинка Пеппа",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": "Свинка Пеппа",
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": "Свинка Пеппа",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "snegovik-so-snezhinkoy-20",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "1 годик"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/f69d128b-6b7b-4c7e-8cb9-b1bb724c023f.jpg",
+        "photo_dhash": "d890cc64e8f4fcd8",
+        "unit_type": "foil",
+        "balloon_size": "127 см",
+        "unit_who": [
+          "1 годик"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/07e372f3-0d69-4b65-8f01-1bc4758c67e8.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/07e372f3-0d69-4b65-8f01-1bc4758c67e8.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-10T07:06:37.136Z",
+      "updated_at": "2026-10-10T07:07:49.990Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/267b2900-aeda-4398-97ef-77d586889328.webp"
+    },
+    {
+      "id": "256468b5-63ed-45bd-89cd-47447faf8ca2",
+      "title": "Джойстик",
+      "article": "UNT-355",
+      "price": 600,
+      "short_description": "Джойстик",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "snegovik-so-snezhinkoy-19",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Геймерам"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/50bf2f2a-02b2-444c-a73a-3a0c56818c2f.jpg",
+        "photo_dhash": "cc8c8e7151559696",
+        "unit_type": "foil",
+        "balloon_size": "79 см",
+        "unit_who": [
+          "Геймерам"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/5a47aea4-c5bd-4ba6-8a57-e6f47535e579.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/5a47aea4-c5bd-4ba6-8a57-e6f47535e579.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-10T07:03:42.335Z",
+      "updated_at": "2026-10-10T07:03:42.335Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/7606fe65-fc50-475d-9084-22fb7cb4939c.webp"
+    },
+    {
+      "id": "a51634b6-b8a8-4326-bf9a-3ec050d947b9",
+      "title": "Маленький Маг на метле",
+      "article": "UNT-354",
+      "price": 550,
+      "short_description": "Маленький Маг на метле",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": "Гарри Поттер",
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": "Гарри Поттер",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "snegovik-so-snezhinkoy-18",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/4c80f383-3934-4a5f-a451-96a9bf25ff4a.jpg",
+        "photo_dhash": "f0e4cce4f8f0f0d0",
+        "unit_type": "foil",
+        "balloon_size": "69 см"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/ad414d07-1b6e-430e-9876-b8b36f6666ab.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/ad414d07-1b6e-430e-9876-b8b36f6666ab.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-10T06:56:35.406Z",
+      "updated_at": "2026-10-10T06:56:35.406Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/4cb08b32-e0af-48ff-9e0b-9db14b2a6251.webp"
+    },
+    {
+      "id": "1088cf48-90d5-4557-a14f-a03cda61b645",
+      "title": "Фиксики. Симка",
+      "article": "UNT-353",
+      "price": 650,
+      "short_description": "Фиксики. Симка",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": "Симка",
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": "Фиксики",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "snegovik-so-snezhinkoy-17",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/6e6ed853-3ce7-432c-9982-f16802b14112.jpg",
+        "photo_dhash": "70f0f0f0f0f07070",
+        "unit_type": "foil",
+        "balloon_size": "77 см"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/52ee4241-e2c1-46b5-824d-b9c5caa9559a.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/52ee4241-e2c1-46b5-824d-b9c5caa9559a.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-10T06:50:01.232Z",
+      "updated_at": "2026-10-10T06:50:01.232Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/b30d8618-40a7-4bd6-84ed-3cae918c0680.webp"
+    },
+    {
+      "id": "dd36a745-c9b0-4525-a6af-604bfe54b35c",
+      "title": "Фиксики. Нолик",
+      "article": "UNT-352",
+      "price": 650,
+      "short_description": "Фиксики. Нолик",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": "Нолик",
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": "Фиксики",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "snegovik-so-snezhinkoy-16",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/bab6c747-8dfc-4edd-a533-e61cd46eab38.jpg",
+        "photo_dhash": "e0c0c0c0f0707070",
+        "unit_type": "foil",
+        "balloon_size": "66 см"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/21700998-ccdb-41b1-8213-a28329b8ed2e.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/21700998-ccdb-41b1-8213-a28329b8ed2e.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-10T06:48:53.818Z",
+      "updated_at": "2026-10-10T06:48:53.818Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/c4bf9562-bf59-4945-9632-a34be194c4d8.webp"
+    },
+    {
+      "id": "981401e1-c43b-4505-9662-fd071c98d6cf",
+      "title": "Букля",
+      "article": "UNT-351",
+      "price": 550,
+      "short_description": "Букля",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": "Букля",
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": "Гарри Поттер",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "snegovik-so-snezhinkoy-15",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/dffa29e2-603f-4e07-a17d-029338c2b637.jpg",
+        "photo_dhash": "e0c1c7c6c2d8d8d8",
+        "unit_type": "foil",
+        "balloon_size": "97 см"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/bcf3cbd6-b6a0-4054-a17a-424cdef1dd39.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/bcf3cbd6-b6a0-4054-a17a-424cdef1dd39.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-10T06:47:02.257Z",
+      "updated_at": "2026-10-10T06:47:02.257Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/bbf6a636-4576-489c-be68-381684ef6eac.webp"
+    },
+    {
+      "id": "9082d6b6-451d-41a4-870f-195f06fde6af",
+      "title": "Лунтик",
+      "article": "UNT-350",
+      "price": 800,
+      "short_description": "Лунтик",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": "Лунтик",
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": "Лунтик",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "snegovik-so-snezhinkoy-14",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Для девочки",
+        "1 годик"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/f11a08e8-e497-4593-9082-7e2bd33d907e.jpg",
+        "photo_dhash": "d4f0f4f0f0f0f0f8",
+        "unit_type": "foil",
+        "balloon_size": "114 см",
+        "unit_who": [
+          "Для девочки",
+          "1 годик"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/2e8cefc4-37bd-4e71-b6af-bd753589d00a.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/2e8cefc4-37bd-4e71-b6af-bd753589d00a.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-10T06:44:44.448Z",
+      "updated_at": "2026-10-10T06:44:44.448Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/0daff1f5-7954-4c1a-9048-165f106fc9a6.webp"
+    },
+    {
       "id": "5930aae5-a41f-4394-bc18-768abca83e69",
       "title": "Мрачная девочка",
       "article": "UNT-349",
@@ -215,9 +1524,9 @@
       "slug": "snegovik-so-snezhinkoy-9",
       "scene": "unit_balloon",
       "tags": [
+        "Для девочки",
         "Шары поштучно",
-        "Фольгированные фигуры",
-        "Для девочки"
+        "Фольгированные фигуры"
       ],
       "client_options": {
         "available_on_request": false,
@@ -240,7 +1549,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-10-10T06:32:07.025Z",
-      "updated_at": "2026-10-10T06:32:07.025Z",
+      "updated_at": "2026-10-10T07:34:44.860Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/f5c4a296-54b9-4eb9-b1b7-1ec8f255a1ca.webp"
     },
     {
@@ -561,9 +1870,9 @@
       "slug": "snegovik-so-snezhinkoy-2",
       "scene": "unit_balloon",
       "tags": [
+        "Для девочки",
         "Шары поштучно",
-        "Фольгированные фигуры",
-        "Для девочки"
+        "Фольгированные фигуры"
       ],
       "client_options": {
         "available_on_request": false,
@@ -586,7 +1895,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-10-10T06:18:40.998Z",
-      "updated_at": "2026-10-10T06:18:40.998Z",
+      "updated_at": "2026-10-10T07:34:56.323Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/5cda1c1b-f0be-4cfc-b8ae-a3b1a1e8ad87.webp"
     },
     {

@@ -1623,10 +1623,16 @@ Object.assign(app, {
     this.renderUnitWhoChips?.();
     const value = (typeof UNIT_BALLOON_TYPES !== 'undefined' && UNIT_BALLOON_TYPES[type]) ? type : '';
     document.querySelectorAll('input[name="unit-balloon-type-early"]').forEach((el) => {
-      el.defaultChecked = false;
-      el.checked = !!value && el.value === value;
+      const on = !!value && el.value === value;
+      el.defaultChecked = on;
+      el.checked = on;
     });
     if (!value) this.clearRadioGroup?.('unit-balloon-type-early');
+    if (this.currentProduct) {
+      this.currentProduct.client_options = this.currentProduct.client_options || {};
+      if (value) this.currentProduct.client_options.unit_type = value;
+      else delete this.currentProduct.client_options.unit_type;
+    }
     const meta = UNIT_BALLOON_TYPES[value];
     const wrap = document.getElementById('unit-balloon-size-wrap');
     if (wrap) wrap.classList.toggle('hidden', !meta?.hasSize);
@@ -1848,7 +1854,10 @@ Object.assign(app, {
     this._unitBalloonTypeWired = true;
     this.renderUnitWhoChips?.();
     const sync = (e) => {
-      const val = e?.target?.checked === false ? '' : (e?.target?.value || this.getUnitBalloonType());
+      // Снятие соседнего пункта приходит отдельным change и затирало уже выбранный подтип.
+      if (e?.target && e.target.checked === false) return;
+      const val = e?.target?.value || this.getUnitBalloonType();
+      if (!val) return;
       this.setUnitBalloonType(val);
       this.scheduleSaveActiveStudioDraft?.();
     };
@@ -2304,6 +2313,9 @@ Object.assign(app, {
 
     const titleValue = document.getElementById('product-title').value.trim();
     const unit = this.isUnitBalloonMode?.() || false;
+    const rememberedUnit = this.currentProduct?.client_options?.unit_type || '';
+    const unitTypeChosen = this.getUnitBalloonType?.()
+      || ((typeof UNIT_BALLOON_TYPES !== 'undefined' && UNIT_BALLOON_TYPES[rememberedUnit]) ? rememberedUnit : '');
     let holidayOnly = null;
     let composition = unit
       ? []
@@ -2437,7 +2449,7 @@ Object.assign(app, {
       if (clientOptions.surprise_pose !== 'hang' && this.surpriseMoneyOn?.()) clientOptions.surprise_money = true;
     }
     if (unit) {
-      const unitType = this.getUnitBalloonType?.() || '';
+      const unitType = unitTypeChosen;
       const unitMeta = (typeof UNIT_BALLOON_TYPES !== 'undefined' && UNIT_BALLOON_TYPES[unitType]) || null;
       if (unitMeta) {
         clientOptions.unit_type = unitType;
@@ -2473,7 +2485,7 @@ Object.assign(app, {
       delete clientOptions.digit_choice;
     } else if (clientOptions.number_choice) {
       const fromComp = this.compositionDigitCount?.(compText) || 0;
-      const unitDigit = unit && this.getUnitBalloonType?.() === 'digit';
+      const unitDigit = unit && unitTypeChosen === 'digit';
       const marker = Number(this.currentProduct?.digit_from_marker) || 0;
       const chosen = (marker === 1 || marker === 2) ? marker : 0;
       const count = unitDigit
@@ -2566,7 +2578,7 @@ Object.assign(app, {
       }
     }
     if (unit) {
-      const unitType = this.getUnitBalloonType?.() || '';
+      const unitType = unitTypeChosen;
       const unitMeta = (typeof UNIT_BALLOON_TYPES !== 'undefined' && UNIT_BALLOON_TYPES[unitType]) || null;
       const shelfTags = (typeof UNIT_BALLOON_TYPES !== 'undefined')
         ? Object.values(UNIT_BALLOON_TYPES).map((t) => t.tag).filter(Boolean)

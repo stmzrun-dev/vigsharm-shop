@@ -2324,7 +2324,7 @@ const app = {
       }
       const unitType = data.client_options?.unit_type || '';
       if (!unitType) {
-        this.toast('На сцене выберите подтип: с рисунком или фольга', 'error');
+        this.toast('На сцене выберите подтип шара', 'error');
         this.goStep1Phase?.('a');
         return;
       }

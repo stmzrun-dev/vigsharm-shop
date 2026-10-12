@@ -2,6 +2,1589 @@
   "ok": true,
   "products": [
     {
+      "id": "c6f48546-f6c9-446e-a953-b84fef99302e",
+      "title": "Тачки СДР",
+      "article": "UNT-618",
+      "price": 350,
+      "short_description": "Тачки Happy Bitthday",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": "Молния Маквайн",
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": "Тачки",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "street-minni-5-6",
+      "scene": "unit_balloon",
+      "tags": [
+        "Для мальчика",
+        "Шары поштучно",
+        "Круги, звёзды и сердца"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/68f6a564-3c85-40aa-b90d-9014664974c8.jpg",
+        "photo_dhash": "f0f6f2f83194f0f0",
+        "unit_type": "shapes",
+        "unit_who": [
+          "Для мальчика"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/24672e87-ec7a-48ba-894c-96de5b1205fa.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/24672e87-ec7a-48ba-894c-96de5b1205fa.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-12T09:48:37.030Z",
+      "updated_at": "2026-10-12T09:49:59.460Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/5497b945-ab13-47d6-a134-dfd898c040ba.webp"
+    },
+    {
+      "id": "c164a5ae-2125-48f4-b158-ac2de11194b8",
+      "title": "Тачки Поздравляем чемпиона",
+      "article": "UNT-617",
+      "price": 350,
+      "short_description": "Тачки СДР",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": "Молния Маккуин",
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": "Тачки",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "street-minni-5-5",
+      "scene": "unit_balloon",
+      "tags": [
+        "Для мальчика",
+        "Шары поштучно",
+        "Круги, звёзды и сердца"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/7c62c101-2553-40c1-995d-5ca01dda4135.jpg",
+        "photo_dhash": "f0e0bc9ec2e2e8f0",
+        "unit_type": "shapes",
+        "unit_who": [
+          "Для мальчика"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/7c62c101-2553-40c1-995d-5ca01dda4135.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/7c62c101-2553-40c1-995d-5ca01dda4135.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-12T09:38:14.849Z",
+      "updated_at": "2026-10-12T09:50:10.225Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/b93de8c8-805b-40e0-8168-c0fa90aee437.webp"
+    },
+    {
+      "id": "6892e3d5-2ac5-4584-8cda-027029b74095",
+      "title": "STREET Тачки",
+      "article": "UNT-616",
+      "price": 350,
+      "short_description": "STREET Тачки",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": "Молния Маквайн",
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": "Тачки",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "street-minni-5-4",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Круги, звёзды и сердца",
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "photo_dhash": "71e49aea84f2f073",
+        "unit_type": "shapes",
+        "unit_who": [
+          "Для мальчика"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/d173fca4-6491-4be2-96be-3b9e82012141.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/d173fca4-6491-4be2-96be-3b9e82012141.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-12T09:31:42.172Z",
+      "updated_at": "2026-10-12T09:31:42.172Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/a1d2081c-f96e-4a0a-a201-89b8293b7dfe.webp"
+    },
+    {
+      "id": "ff611ff8-0dfb-4088-97a1-58339d07c437",
+      "title": "Минни Маус в красном платье",
+      "article": "UNT-615",
+      "price": 600,
+      "short_description": "Минни Маус в красном платье",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": "Минни Маус",
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": "Дисней",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "street-minni-5-3",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "photo_dhash": "736b7b7359716179",
+        "unit_type": "foil",
+        "balloon_size": "76 см",
+        "unit_who": [
+          "Для девочки"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/26a6cc3e-0e71-4031-8e22-ff1e5e24941e.webp"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/26a6cc3e-0e71-4031-8e22-ff1e5e24941e.webp",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-12T09:24:08.395Z",
+      "updated_at": "2026-10-12T09:24:08.395Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/ea92c280-bceb-43df-aa6e-82c40457ef9d.webp"
+    },
+    {
+      "id": "8f870169-469a-4209-997f-409cb42ba9a3",
+      "title": "Холодное Сердце, Эльза, Зеркало",
+      "article": "UNT-614",
+      "price": 550,
+      "short_description": "Холодное Сердце, Эльза, Зеркало",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": "Эльза",
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": "Холодное сердце",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "street-minni-5-2",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/2ac2e7c7-e55a-4794-89a9-18c3c8612c11.jpg",
+        "photo_dhash": "f0f8dcba98dccce8",
+        "unit_type": "foil",
+        "balloon_size": "68 см",
+        "unit_who": [
+          "Для девочки"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/d07b08d2-7b59-42f4-a38b-5ee3846bd1a1.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/d07b08d2-7b59-42f4-a38b-5ee3846bd1a1.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-12T09:12:17.716Z",
+      "updated_at": "2026-10-12T09:12:17.716Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/2f7b0af2-5a91-4420-a94c-a2b77fc635b6.webp"
+    },
+    {
+      "id": "eb8f3f89-c3b5-48bc-b435-3996d6a2f569",
+      "title": "Русалочка Ариэль и Флаундер",
+      "article": "UNT-613",
+      "price": 550,
+      "short_description": "Русалочка Ариэль и Флаундер",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": "Ариэль",
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": "Русалочка",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "street-minni-6",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/6b487a46-b5b3-4865-be81-b087361213b0.jpg",
+        "photo_dhash": "3c3cf8f5f63070e0",
+        "unit_type": "foil",
+        "balloon_size": "81 см",
+        "unit_who": [
+          "Для девочки"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/e71a049d-f06c-469c-879c-a2385a37dd39.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/e71a049d-f06c-469c-879c-a2385a37dd39.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-12T09:04:17.004Z",
+      "updated_at": "2026-10-12T09:04:17.004Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/25d35ce7-b0b8-4ccf-8fc4-1877f357b2c5.webp"
+    },
+    {
+      "id": "9d5953a2-2963-4275-972f-3d8534c90a67",
+      "title": "Эльза",
+      "article": "UNT-612",
+      "price": 600,
+      "short_description": "Эльза",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": "Эльза",
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": "Холодное сердце",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "street-minni-5",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "photo_dhash": "777bf17b7978f873",
+        "unit_type": "foil",
+        "balloon_size": "81 см",
+        "unit_who": [
+          "Для девочки"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/ff22ec7d-2d6b-4230-902c-b4493079f9de.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/ff22ec7d-2d6b-4230-902c-b4493079f9de.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-12T08:58:45.062Z",
+      "updated_at": "2026-10-12T08:58:45.062Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/7a2fd8f6-0628-4bb6-941a-876ed491126d.webp"
+    },
+    {
+      "id": "b2d1a4f8-2ae4-41ee-8b54-2a90011a975a",
+      "title": "Гоночная машина",
+      "article": "UNT-611",
+      "price": 550,
+      "short_description": "Гоночная машина",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": "Молния Маквин",
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": "Тачки",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "street-minni-4",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/8a3e758b-997a-4a1e-8cd3-2714dc0f1962.jpg",
+        "photo_dhash": "71e6b691aa94b2b2",
+        "unit_type": "foil",
+        "balloon_size": "66 см",
+        "unit_who": [
+          "Для мальчика"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/f4a83c86-959b-418e-859f-93b4c4e1defc.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/f4a83c86-959b-418e-859f-93b4c4e1defc.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-12T08:47:42.712Z",
+      "updated_at": "2026-10-12T08:47:42.712Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/45f15f31-04b4-4f2d-aa52-ecb52e6a8633.webp"
+    },
+    {
+      "id": "e044a85a-0cd4-4815-a166-787642c86aef",
+      "title": "Микки Маус",
+      "article": "UNT-610",
+      "price": 650,
+      "short_description": "Микки Маус",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": "Микки Маус",
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": "Disney",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "street-minni-3",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "photo_dhash": "7765796074717337",
+        "unit_type": "foil",
+        "balloon_size": "81 см",
+        "unit_who": [
+          "Для мальчика"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/3cf24b96-7173-47b9-8d60-4ce6176423f5.webp"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/3cf24b96-7173-47b9-8d60-4ce6176423f5.webp",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-12T08:44:47.055Z",
+      "updated_at": "2026-10-12T08:44:47.055Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/c0cf3a35-7e5d-49b5-b92e-ab2e688396a3.webp"
+    },
+    {
+      "id": "525de242-e63a-4ed9-b7a3-ef9c2e47a158",
+      "title": "Голова Минни Маус",
+      "article": "UNT-609",
+      "price": 750,
+      "short_description": "Голова Минни Маус",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": "Минни Маус",
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": "Disney",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "street-minni-2",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/4fb41186-410b-466c-b2e2-cba859c64243.webp",
+        "photo_dhash": "7f4e9c8c7573733f",
+        "unit_type": "foil",
+        "balloon_size": "117 см",
+        "unit_who": [
+          "Для девочки"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/4fb41186-410b-466c-b2e2-cba859c64243.webp"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/4fb41186-410b-466c-b2e2-cba859c64243.webp",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-12T08:43:59.664Z",
+      "updated_at": "2026-10-12T08:43:59.664Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/404c2eb7-4ebb-4894-9b5e-19a31004683f.webp"
+    },
+    {
+      "id": "50541a47-d90a-4611-b977-1dfe08c729fe",
+      "title": "Street Минни",
+      "article": "UNT-313",
+      "price": 700,
+      "short_description": "Street Минни",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": "Микки Маус и Минни Маус",
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": "Микки Маус и Минни Маус",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "street-minni",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "photo_dhash": "7fccbe8ed571733f",
+        "unit_type": "foil",
+        "balloon_size": "84 см",
+        "unit_who": [
+          "Для девочки"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/1aec90f4-1d82-4b1c-aade-4383667fc78e.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/1aec90f4-1d82-4b1c-aade-4383667fc78e.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-12T08:39:09.237Z",
+      "updated_at": "2026-10-12T08:39:09.237Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/46ba4515-997a-42f0-a375-03d24b652f30.webp"
+    },
+    {
+      "id": "740c4849-9d36-40fe-98da-728b05eaba0a",
+      "title": "Бамблби",
+      "article": "UNT-608",
+      "price": 350,
+      "short_description": "Бамблби",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": "Трансформеры",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "dobro-pozhalovat-domoy-4-20",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Круги, звёзды и сердца",
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/314d9a82-b2ee-4990-ba35-03417b0eac39.jpg",
+        "photo_dhash": "e8ccba333692f0f0",
+        "unit_type": "shapes",
+        "unit_who": [
+          "Для мальчика"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/a447a27c-c355-4044-bbee-67bce5c310f9.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/a447a27c-c355-4044-bbee-67bce5c310f9.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-12T08:31:26.959Z",
+      "updated_at": "2026-10-12T08:31:26.959Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/9a50125b-39ae-4f0c-bfde-98a301c2484b.webp"
+    },
+    {
+      "id": "79675946-eaae-4ea0-a7e3-4e1b15034626",
+      "title": "Трансформеры",
+      "article": "UNT-607",
+      "price": 350,
+      "short_description": "Трансформеры",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": "Трансформеры",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "dobro-pozhalovat-domoy-4-19",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Круги, звёзды и сердца",
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/f095b27d-16e1-4192-92ee-0509bea3506b.jpg",
+        "photo_dhash": "f0e0c03261a0e0f0",
+        "unit_type": "shapes",
+        "unit_who": [
+          "Для мальчика"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/afd6aca9-1314-43c6-8a58-c20ffa574c4e.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/afd6aca9-1314-43c6-8a58-c20ffa574c4e.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-12T08:29:19.836Z",
+      "updated_at": "2026-10-12T08:29:19.836Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/b5c29025-f58c-412a-8acc-dfae6b3d9c1f.webp"
+    },
+    {
+      "id": "f40d1316-9f8b-4e9c-88fe-903baf6abf45",
+      "title": "Куклы ЛОЛ",
+      "article": "UNT-606",
+      "price": 350,
+      "short_description": "Куклы ЛОЛ",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": "L.O.L. Surprise",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "dobro-pozhalovat-domoy-4-18",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Круги, звёзды и сердца",
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/f2add30a-1b8d-4e64-aff4-7d7b6c0e57b7.jpg",
+        "photo_dhash": "f0eccccccccce8f0",
+        "unit_type": "shapes",
+        "unit_who": [
+          "Для девочки"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/305e5d0f-efaf-48a5-86b4-2c3770c0afe0.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/305e5d0f-efaf-48a5-86b4-2c3770c0afe0.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-12T08:26:56.840Z",
+      "updated_at": "2026-10-12T08:26:56.840Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/da4e4701-956f-424d-a7bc-3f66f632099a.webp"
+    },
+    {
+      "id": "777f2aa4-3624-4ecf-9cbd-f341bea32340",
+      "title": "My Little Pony Дружные Лошадки",
+      "article": "UNT-605",
+      "price": 350,
+      "short_description": "My Little Pony Дружные Лошадки",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": "My Little Pony",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "dobro-pozhalovat-domoy-4-17",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Круги, звёзды и сердца",
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/05bfddc5-d68f-4eaf-b6a3-8d61238b5523.jpg",
+        "photo_dhash": "f0cecca0f1b6caf0",
+        "unit_type": "shapes",
+        "unit_who": [
+          "Для девочки"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/89ddf87a-ecc9-47ed-ba26-6f2301f31deb.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/89ddf87a-ecc9-47ed-ba26-6f2301f31deb.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-12T08:25:01.177Z",
+      "updated_at": "2026-10-12T08:25:01.177Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/0d581bd0-b10c-48d6-86c6-ab7887055ed0.webp"
+    },
+    {
+      "id": "10803de4-0edd-43a3-9228-bece6aae5431",
+      "title": "My Little Pony Лошадки",
+      "article": "UNT-604",
+      "price": 350,
+      "short_description": "My Little Pony Лошадки",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": "Пони",
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": "My Little Pony",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "dobro-pozhalovat-domoy-4-16",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Круги, звёзды и сердца",
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/53cd4b52-d670-4ff8-9842-f35a6b478886.jpg",
+        "photo_dhash": "ca30e8d4ccd4f830",
+        "unit_type": "shapes",
+        "unit_who": [
+          "Для девочки"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/740ff727-30c8-4f2e-93e7-47276e1fd334.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/740ff727-30c8-4f2e-93e7-47276e1fd334.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-12T08:22:49.255Z",
+      "updated_at": "2026-10-12T08:22:49.255Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/7abdbfb3-89ea-46b3-a0fc-c5bc0eb84708.webp"
+    },
+    {
+      "id": "c6275cb4-47cd-4ceb-ae6a-cb953798aaba",
+      "title": "Круг Героическая тема",
+      "article": "UNT-603",
+      "price": 350,
+      "short_description": "Круг Героическая тема",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": "Капитан Америка",
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": "Marvel",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "dobro-pozhalovat-domoy-4-15",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Круги, звёзды и сердца",
+        "Для него",
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/16e1dfb8-e576-407a-b425-4e8ca9e78361.jpg",
+        "photo_dhash": "f0e88e8e8ed6f8f0",
+        "unit_type": "shapes",
+        "unit_who": [
+          "Для него",
+          "Для мальчика"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/0ded55a3-5c1f-486f-a9e5-1ff9d478a1cd.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/0ded55a3-5c1f-486f-a9e5-1ff9d478a1cd.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-12T08:20:39.604Z",
+      "updated_at": "2026-10-12T08:20:39.604Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/31d0aab0-d79f-4207-9566-db87bfbae801.webp"
+    },
+    {
+      "id": "f71e3cbd-c7d6-4480-a051-7e86e2abb32d",
+      "title": "Крутой перец",
+      "article": "UNT-602",
+      "price": 350,
+      "short_description": "Крутой перец",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "dobro-pozhalovat-domoy-4-14",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Круги, звёзды и сердца",
+        "Для него"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/a2d2e5b8-b817-4a7b-a29a-7dc3077b3b18.jpg",
+        "photo_dhash": "e0ce9e5bb3a2e4e0",
+        "unit_type": "shapes",
+        "unit_who": [
+          "Для него"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/bf90a9d4-631a-4df6-b10d-dfb770175b2d.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/bf90a9d4-631a-4df6-b10d-dfb770175b2d.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-12T08:18:45.691Z",
+      "updated_at": "2026-10-12T08:18:45.691Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/c104eaaa-c839-4b7d-b74d-5f9b8488dba7.webp"
+    },
+    {
+      "id": "7d6c20bb-1df4-4d4e-b2a7-274bedd07178",
+      "title": "Сердце Градиент Розовое",
+      "article": "UNT-601",
+      "price": 300,
+      "short_description": "Сердце Градиент Розовое",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "dobro-pozhalovat-domoy-4-13",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Круги, звёзды и сердца",
+        "Для неё",
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/7a15b406-4abe-4cc4-9918-ba5d7d89a928.jpg",
+        "photo_dhash": "cccce0e0c4e8f070",
+        "unit_type": "shapes",
+        "unit_who": [
+          "Для неё",
+          "Для девочки"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/8be1c97b-bda8-4587-a6f7-8c678e1a677e.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/8be1c97b-bda8-4587-a6f7-8c678e1a677e.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-12T08:17:38.853Z",
+      "updated_at": "2026-10-12T08:17:38.853Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/c8c75406-5c5c-45b1-a375-a64cbdf3d6cd.webp"
+    },
+    {
+      "id": "67b66a0d-5eeb-420c-aea8-4afb3eb232d5",
+      "title": "Сердце Градиент Голубое",
+      "article": "UNT-600",
+      "price": 300,
+      "short_description": "Сердце Градиент Голубое",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "dobro-pozhalovat-domoy-4-12",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Круги, звёзды и сердца",
+        "Для неё",
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/d81d8bfe-5f4f-44fa-a7fc-29cf01b40312.jpg",
+        "photo_dhash": "ccc4e0e0c4e8f070",
+        "unit_type": "shapes",
+        "unit_who": [
+          "Для неё",
+          "Для девочки"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/baac55b8-8ef9-4a29-8021-ad24b2a19468.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/baac55b8-8ef9-4a29-8021-ad24b2a19468.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-12T08:16:20.874Z",
+      "updated_at": "2026-10-12T08:16:20.874Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/bb319ece-5bb2-44e1-ad8d-764285d4a755.webp"
+    },
+    {
+      "id": "56e26d5e-b2b7-44b1-b568-46475fdd98a8",
+      "title": "Смелый и Сильный",
+      "article": "UNT-599",
+      "price": 350,
+      "short_description": "Смелый и Сильный",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "dobro-pozhalovat-domoy-4-11",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Круги, звёзды и сердца",
+        "Для него",
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/cc0e42e6-f614-4557-9e92-322538d0d346.jpg",
+        "photo_dhash": "f0f0e086dcc4c4cc",
+        "unit_type": "shapes",
+        "unit_who": [
+          "Для него",
+          "Для мальчика"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/5ee4cc94-ca05-49e0-b5c8-e123972e2e48.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/5ee4cc94-ca05-49e0-b5c8-e123972e2e48.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-12T08:14:59.693Z",
+      "updated_at": "2026-10-12T08:14:59.693Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/5504dc3d-1a76-461b-bd64-a1762be23726.webp"
+    },
+    {
+      "id": "35840d78-01e3-4fa5-88f3-2d5b3e981508",
+      "title": "Ты - Огонь",
+      "article": "UNT-598",
+      "price": 350,
+      "short_description": "Ты - Огонь",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "dobro-pozhalovat-domoy-4-10",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Круги, звёзды и сердца",
+        "Для неё"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/194815f3-97bb-45e2-8176-f3297b0b3530.jpg",
+        "photo_dhash": "70f0e88f86dcdccc",
+        "unit_type": "shapes",
+        "unit_who": [
+          "Для неё"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/55eb99b6-a1d0-40fe-a7ed-c75bb76b502d.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/55eb99b6-a1d0-40fe-a7ed-c75bb76b502d.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-12T08:12:23.888Z",
+      "updated_at": "2026-10-12T08:12:23.888Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/fa9f6c6d-1892-4d2b-919c-2e8cd549efc4.webp"
+    },
+    {
+      "id": "b785f9a1-016f-45a2-b48c-7673b9d40029",
+      "title": "ДР Лунтик",
+      "article": "UNT-597",
+      "price": 350,
+      "short_description": "ДР Лунтик",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": "Лунтик",
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": "Лунтик",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "dobro-pozhalovat-domoy-4-9",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Круги, звёзды и сердца",
+        "Для девочки",
+        "Для мальчика",
+        "1 годик"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/4887bed2-065c-4277-8451-ba244226ca60.jpg",
+        "photo_dhash": "f0f0f29696d0f8f0",
+        "unit_type": "shapes",
+        "unit_who": [
+          "Для девочки",
+          "Для мальчика",
+          "1 годик"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/16434be4-3d94-4bcb-9edc-893a7898cf12.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/16434be4-3d94-4bcb-9edc-893a7898cf12.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-12T08:10:24.927Z",
+      "updated_at": "2026-10-12T08:10:24.927Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/a1c9aca5-b753-413a-baa1-9b02bc415ca1.webp"
+    },
+    {
+      "id": "3ff74d1d-52fd-4e34-abf0-c9d43e94ff70",
+      "title": "Триколор",
+      "article": "UNT-596",
+      "price": 350,
+      "short_description": "Триколор",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "dobro-pozhalovat-domoy-4-8",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Круги, звёзды и сердца"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/9c3d02e8-0eb5-4382-93f6-9ef68eaab2b0.jpg",
+        "photo_dhash": "0c1c5e3823232b6b",
+        "unit_type": "shapes"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/ed6d4a1e-20d4-4d9a-87ef-b074c6580cdc.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/ed6d4a1e-20d4-4d9a-87ef-b074c6580cdc.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-12T08:08:52.014Z",
+      "updated_at": "2026-10-12T08:08:52.014Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/5da880fb-774f-4d26-bc4e-83409c922c9e.webp"
+    },
+    {
+      "id": "a67308bf-ab90-4a83-be2c-92e74ce0b931",
+      "title": "Ты просто огонь",
+      "article": "UNT-595",
+      "price": 350,
+      "short_description": "Ты просто огонь",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "dobro-pozhalovat-domoy-4-7",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Круги, звёзды и сердца",
+        "Для неё"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/04d0aa84-f266-4ae9-930c-e492f337deba.jpg",
+        "photo_dhash": "cca88c8e86c4e830",
+        "unit_type": "shapes",
+        "unit_who": [
+          "Для неё"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/125c1169-0c5d-4b69-a533-0e5354e37f8d.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/125c1169-0c5d-4b69-a533-0e5354e37f8d.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-12T08:07:06.088Z",
+      "updated_at": "2026-10-12T08:07:06.088Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/c61e5701-e1f6-4f59-9b09-9298f0d78e6e.webp"
+    },
+    {
+      "id": "491f7e7c-13b7-459d-8826-e10cbd21e907",
+      "title": "Круг Розовый с надписью",
+      "article": "UNT-594",
+      "price": 450,
+      "short_description": "Круг Розовый с надписью",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "dobro-pozhalovat-domoy-4-6",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Именные шары"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "photo_dhash": "78b8f8f0e8f2f0f0",
+        "unit_type": "named",
+        "balloon_size": "45 см",
+        "letter_ink": "light"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/069566d0-c092-4078-954c-ce1bf76e75ac.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/069566d0-c092-4078-954c-ce1bf76e75ac.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-12T08:01:42.772Z",
+      "updated_at": "2026-10-12T08:01:42.772Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/254e115c-7f64-4126-bd39-254fa01938f4.webp"
+    },
+    {
+      "id": "59d36cb3-b403-40d3-af3d-1cb7c1078a37",
+      "title": "Круг Розовый",
+      "article": "UNT-593",
+      "price": 300,
+      "short_description": "Круг Розовый",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "dobro-pozhalovat-domoy-4-5",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Круги, звёзды и сердца",
+        "Для неё",
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/e7adf23e-8761-4a3c-84af-03d4c59dc38e.jpg",
+        "photo_dhash": "f0dcf0e0e0e2f4f0",
+        "unit_type": "shapes",
+        "unit_who": [
+          "Для неё",
+          "Для девочки"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/6df7da0b-adeb-41aa-bafc-42c107b2b51c.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/6df7da0b-adeb-41aa-bafc-42c107b2b51c.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-12T08:01:20.310Z",
+      "updated_at": "2026-10-12T08:01:20.310Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/c1c9e38c-170e-4742-ae0d-14c093d492c4.webp"
+    },
+    {
+      "id": "1b29b784-b26a-4170-837b-379875d7bc0c",
+      "title": "Сердце Черный Агат",
+      "article": "UNT-592",
+      "price": 350,
+      "short_description": "Сердце Черный Агат",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "dobro-pozhalovat-domoy-4-4",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Круги, звёзды и сердца",
+        "Для неё",
+        "Для него",
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/3eba2201-cab3-4a0e-98e5-0959d0d730d8.jpg",
+        "photo_dhash": "8e83c4e4b4f4e070",
+        "unit_type": "shapes",
+        "unit_who": [
+          "Для неё",
+          "Для него",
+          "Для девочки"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/ca5c59ee-cd07-47eb-b9a4-f899a2b54bda.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/ca5c59ee-cd07-47eb-b9a4-f899a2b54bda.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-12T07:58:12.694Z",
+      "updated_at": "2026-10-12T07:58:12.694Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/a45aca44-b8de-4bc5-940b-5695d61216ac.webp"
+    },
+    {
+      "id": "715b6166-dd4c-427b-80c7-5f2a34fb5cad",
+      "title": "Сердце Голубой Агат",
+      "article": "UNT-591",
+      "price": 350,
+      "short_description": "Сердце Голубой Агат",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "dobro-pozhalovat-domoy-4-3",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Круги, звёзды и сердца",
+        "Для неё",
+        "Для девочки",
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/e4123b60-cc8c-425f-b630-ba711704b357.jpg",
+        "photo_dhash": "8e93c4e4b4f4f070",
+        "unit_type": "shapes",
+        "unit_who": [
+          "Для неё",
+          "Для девочки",
+          "Для мальчика"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/99027712-d105-45c0-a367-e62fa667595e.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/99027712-d105-45c0-a367-e62fa667595e.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-12T07:56:09.296Z",
+      "updated_at": "2026-10-12T07:56:09.296Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/1eeb79a9-bf38-4fc0-995e-be8dbeec8f68.webp"
+    },
+    {
+      "id": "0bbacd41-9af0-449e-bb65-be84bd8528c8",
+      "title": "Сердце Розовый Агат",
+      "article": "UNT-590",
+      "price": 350,
+      "short_description": "Сердце Розовый Агат",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "dobro-pozhalovat-domoy-4-2",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Круги, звёзды и сердца",
+        "Для неё",
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/77fd1a49-2c4d-4518-ab8e-6bbea007410a.jpg",
+        "photo_dhash": "8e92c4e0a0e0f070",
+        "unit_type": "shapes",
+        "unit_who": [
+          "Для неё",
+          "Для девочки"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/869b9591-4f52-4ce7-9ce9-a8222090ca67.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/869b9591-4f52-4ce7-9ce9-a8222090ca67.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-12T07:52:57.190Z",
+      "updated_at": "2026-10-12T07:52:57.190Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/39b9fb00-a46c-4044-966e-d24abb2d0fdf.webp"
+    },
+    {
+      "id": "d60d2c71-550c-483a-930f-afd4317c328c",
+      "title": "Звезда Мрамор Голубой Агат",
+      "article": "UNT-589",
+      "price": 350,
+      "short_description": "Звезда Мрамор Голубой Агат",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "dobro-pozhalovat-domoy-5",
+      "scene": "unit_balloon",
+      "tags": [
+        "Для девочки",
+        "Для мальчика",
+        "Для неё",
+        "Для него",
+        "Шары поштучно",
+        "Круги, звёзды и сердца"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/e93c2f6b-abf1-4373-99b0-7e4bb2c872a0.jpg",
+        "photo_dhash": "3071e8ecf0f0f0c4",
+        "unit_type": "shapes",
+        "unit_who": [
+          "Для неё",
+          "Для девочки",
+          "Для мальчика"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/17024200-2c40-4481-adcb-a3ee000eebae.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/17024200-2c40-4481-adcb-a3ee000eebae.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-12T07:51:49.015Z",
+      "updated_at": "2026-10-12T07:53:11.010Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/d86bc809-bcce-40d2-9ebb-54790aaf3438.webp"
+    },
+    {
+      "id": "49895556-80ea-47bb-b67b-e6872e7d6551",
+      "title": "Звезда Мрамор Черный Агат",
+      "article": "UNT-588",
+      "price": 350,
+      "short_description": "Мрамор Черный Агат",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "dobro-pozhalovat-domoy-4",
+      "scene": "unit_balloon",
+      "tags": [
+        "Для девочки",
+        "Для мальчика",
+        "Для неё",
+        "Для него",
+        "Шары поштучно",
+        "Круги, звёзды и сердца"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/dcd20196-d5ee-4f3d-8597-755e07d69724.jpg",
+        "photo_dhash": "3070e8ccb0f4f4cc",
+        "unit_type": "shapes",
+        "unit_who": [
+          "Для неё",
+          "Для него",
+          "Для девочки"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/f6f93441-ab68-4558-adf0-d4c1d98b0a0a.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/f6f93441-ab68-4558-adf0-d4c1d98b0a0a.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-12T07:50:10.447Z",
+      "updated_at": "2026-10-12T07:53:17.436Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/d6727e6d-5a95-4d19-9043-938c342a5774.webp"
+    },
+    {
+      "id": "89d57737-1d28-453a-8f47-24b488ed0301",
+      "title": "Сладость",
+      "article": "UNT-587",
+      "price": 350,
+      "short_description": "Сладость",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "dobro-pozhalovat-domoy-3",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Круги, звёзды и сердца",
+        "Для девочки",
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/b0db6777-3a25-475b-91a3-f5bd10b64e61.jpg",
+        "photo_dhash": "3070f0e8f0f8e8cc",
+        "unit_type": "shapes",
+        "unit_who": [
+          "Для девочки",
+          "Для мальчика"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/bc35dd45-c1d0-4f08-8d8f-5f87ef634194.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/bc35dd45-c1d0-4f08-8d8f-5f87ef634194.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-12T07:47:59.506Z",
+      "updated_at": "2026-10-12T07:47:59.506Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/2ec6d8a1-32dc-46c9-b714-5e35d06845d3.webp"
+    },
+    {
       "id": "2d9b87c5-9b5c-486e-a68f-6993d68195bd",
       "title": "Сладкий сон",
       "article": "BAB-045",
@@ -7487,7 +9070,7 @@
     },
     {
       "id": "841fe965-d4d1-45d8-881b-94c561d63294",
-      "title": "Тачки Поздравляем чемпиона",
+      "title": "Уличный гонщик",
       "article": "UNT-423",
       "price": 350,
       "short_description": "Тачки Поздравляем чемпиона",
@@ -7505,9 +9088,9 @@
       "slug": "olenenok-22",
       "scene": "unit_balloon",
       "tags": [
+        "Для мальчика",
         "Шары поштучно",
-        "Круги, звёзды и сердца",
-        "Для мальчика"
+        "Круги, звёзды и сердца"
       ],
       "client_options": {
         "available_on_request": false,
@@ -7529,7 +9112,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-10-10T19:48:28.460Z",
-      "updated_at": "2026-10-10T19:48:28.460Z",
+      "updated_at": "2026-10-12T09:49:40.074Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/6322ee84-c5ed-4a6e-9123-6e4219622dea.webp"
     },
     {
@@ -12989,54 +14572,6 @@
       "created_at": "2026-10-09T17:56:21.442Z",
       "updated_at": "2026-10-09T17:56:21.442Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/2c3b89ec-216e-40eb-a5b9-6698978d02a7.webp"
-    },
-    {
-      "id": "caeca3e8-550a-4df4-85c1-8fd4517e6f55",
-      "title": "Street Минни",
-      "article": "UNT-313",
-      "price": 700,
-      "short_description": "Street Минни",
-      "full_description": "",
-      "composition": [],
-      "category": "Шары поштучно",
-      "character": "Минни Маус",
-      "age_group": "Для любого возраста",
-      "budget": null,
-      "series_name": "Disney",
-      "occasion": null,
-      "target_audience": null,
-      "seo_title": "",
-      "seo_description": "",
-      "slug": "buket-iz-krasnyh-i-belyh-roz-9",
-      "scene": "unit_balloon",
-      "tags": [
-        "Шары поштучно",
-        "Фольгированные фигуры",
-        "Для девочки"
-      ],
-      "client_options": {
-        "available_on_request": false,
-        "advance_order_1_2_days": false,
-        "number_choice": false,
-        "personal_inscription": false,
-        "photozone_rental": false,
-        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/769b2cf9-c43f-4f6c-b1f1-564a1173c851.jpg",
-        "photo_dhash": "4ccc8a8ed4707030",
-        "unit_type": "foil",
-        "balloon_size": "84 см",
-        "unit_who": [
-          "Для девочки"
-        ]
-      },
-      "photos": [
-        "https://storage.yandexcloud.net/vigsharm-photos/products/769b2cf9-c43f-4f6c-b1f1-564a1173c851.jpg"
-      ],
-      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/769b2cf9-c43f-4f6c-b1f1-564a1173c851.jpg",
-      "status": "draft",
-      "show_on_site": true,
-      "created_at": "2026-10-09T17:51:28.694Z",
-      "updated_at": "2026-10-09T17:51:41.173Z",
-      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/fe9f9c30-cb49-4b7e-9414-85ac0c68bdbc.webp"
     },
     {
       "id": "d50d2f49-f90b-4baf-bce5-c95b144b2191",

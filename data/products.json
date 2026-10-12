@@ -2,6 +2,412 @@
   "ok": true,
   "products": [
     {
+      "id": "2d9b87c5-9b5c-486e-a68f-6993d68195bd",
+      "title": "Сладкий сон",
+      "article": "BAB-045",
+      "price": 4200,
+      "short_description": "Композиция на выписку из роддома с метрикой малыша, спящим младенцем и голубыми звёздами.",
+      "full_description": "Композиция включает баблс с метрикой новорождённого, фигуру спящего малыша, две голубые звезды и латексные шары. Голубые перья создают нежное оформление для встречи мальчика.",
+      "composition": [
+        "баблс с перьями и надписью",
+        "фигура",
+        "2 звезды",
+        "5 шаров"
+      ],
+      "category": "На выписку",
+      "character": null,
+      "age_group": "Для малышей",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары на выписку мальчика с метрикой Армавир",
+      "seo_description": "Композиция на выписку из роддома для мальчика: баблс с метрикой, фигура спящего малыша, голубые звёзды и шары. Доставка в Армавире.",
+      "slug": "dobro-pozhalovat-domoy-2",
+      "scene": "wall_only",
+      "tags": [
+        "На выписку"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/75231d66-f7e2-49b9-89f4-46ef1d49df4b.jpg",
+        "photo_dhash": "1958d8c6e46c6061"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/b1e633e0-2d1d-4519-bbfe-fd91ef8472a6.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/b1e633e0-2d1d-4519-bbfe-fd91ef8472a6.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-12T07:17:44.660Z",
+      "updated_at": "2026-10-12T07:17:44.660Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/1be92a2f-6079-4760-adcf-78c830a561b9.webp"
+    },
+    {
+      "id": "7a978802-3c10-4228-8490-93e46e62ed6d",
+      "title": "F 32 Сердце Розовое с надписью",
+      "article": "UNT-586",
+      "price": 1500,
+      "short_description": "F 32 Сердце Розовое",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "zvezda-91sm-metallik-zelenyy-2-6",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Именные шары"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/23e79df8-75b9-40bd-83c2-b08de42b4fd5.jpg",
+        "photo_dhash": "8c416563f2f0f0f0",
+        "unit_type": "named",
+        "balloon_size": "77 см",
+        "letter_ink": "light"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/df3b00a7-8dfb-4697-bfee-0b101e2ad904.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/df3b00a7-8dfb-4697-bfee-0b101e2ad904.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-12T07:03:31.656Z",
+      "updated_at": "2026-10-12T07:03:46.676Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/463c3793-9ad5-4480-a5b8-55e208ff3b8d.webp"
+    },
+    {
+      "id": "f32cf59e-3e57-4f73-9c9c-769908edc6e9",
+      "title": "Ag 30 Сердце Красное с надписью",
+      "article": "UNT-585",
+      "price": 1500,
+      "short_description": "Ag 30 Сердце Красное с надписью",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "zvezda-91sm-metallik-zelenyy-2-5",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Именные шары"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/6c07f954-2225-4f8c-868e-851aa38c87b2.jpg",
+        "photo_dhash": "ccaae2c0e0e0f070",
+        "unit_type": "named",
+        "balloon_size": "77 см",
+        "letter_ink": "light"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/7fd4ab9a-e909-4bc6-9a4d-a746e4ad3c7b.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/7fd4ab9a-e909-4bc6-9a4d-a746e4ad3c7b.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-12T06:51:24.150Z",
+      "updated_at": "2026-10-12T06:51:24.150Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/e831969e-d546-4336-9026-782b241c6202.webp"
+    },
+    {
+      "id": "aa2a24da-23e0-4292-aa89-10fd5f789a05",
+      "title": "Ag 30 Сердце Розовое, Фламинго с надписью",
+      "article": "UNT-584",
+      "price": 1500,
+      "short_description": "Ag 30 Сердце Розовое, Фламинго с надписью",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "zvezda-91sm-metallik-zelenyy-2-4",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Именные шары"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/f0d1cf31-788d-4aa8-9809-cd151848aaab.jpg",
+        "photo_dhash": "cccce0f0f0e0f070",
+        "unit_type": "named",
+        "balloon_size": "77 см",
+        "letter_ink": "light"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/589ff659-4919-4dbf-be10-f073b25c5ed4.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/589ff659-4919-4dbf-be10-f073b25c5ed4.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-12T06:43:32.006Z",
+      "updated_at": "2026-10-12T06:43:32.006Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/f6cee47f-8587-4a2e-9d70-660f201d4913.webp"
+    },
+    {
+      "id": "5fea49cb-381f-4eee-a133-f5cfccc4d3b0",
+      "title": "F 32 Сердце Белое с надписью",
+      "article": "UNT-583",
+      "price": 1500,
+      "short_description": "F 32 Сердце Белое с надписью",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "zvezda-91sm-metallik-zelenyy-2-3",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Именные шары"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/e29dd78c-d8cc-4c5f-b583-9623bfece564.jpg",
+        "photo_dhash": "8ec464e4f0f0f0f0",
+        "unit_type": "named",
+        "balloon_size": "81 см",
+        "letter_ink": "dark"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/38486206-18e5-43e6-8416-b394889d5768.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/38486206-18e5-43e6-8416-b394889d5768.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-12T06:42:34.595Z",
+      "updated_at": "2026-10-12T06:42:34.595Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/c930411c-810b-4e1d-9557-f037a7496273.webp"
+    },
+    {
+      "id": "a7232623-48fb-4e90-920e-58db721ca19a",
+      "title": "Ag 30 Звезда Голубая с надписью",
+      "article": "UNT-582",
+      "price": 1500,
+      "short_description": "Ag 30 Звезда Голубая",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "zvezda-91sm-metallik-zelenyy-2-2",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Именные шары"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/a12ba99d-e532-4f94-b541-0786016cf9e6.jpg",
+        "photo_dhash": "70e0c082c4ccdccc",
+        "unit_type": "named",
+        "balloon_size": "77 см",
+        "letter_ink": "light"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/9042f0c1-47df-4e8e-b176-c1f074895541.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/9042f0c1-47df-4e8e-b176-c1f074895541.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-12T06:37:59.036Z",
+      "updated_at": "2026-10-12T07:03:56.948Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/9dd4a402-1dc2-4eb3-8725-c4f1673cc629.webp"
+    },
+    {
+      "id": "44a02480-bad5-4c82-9720-67ba5a1a2187",
+      "title": "Ag 30 Звезда Черная с надписью",
+      "article": "UNT-581",
+      "price": 1500,
+      "short_description": "Ag 30 Звезда Черная с надписью",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "zvezda-91sm-metallik-zelenyy-4",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Именные шары"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/d916617f-9bd4-451e-b82a-8ad1824208ce.jpg",
+        "photo_dhash": "30f0f0c0c0e0c4cc",
+        "unit_type": "named",
+        "balloon_size": "77 см",
+        "letter_ink": "light"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/c4ed0766-6d2b-4297-9141-f571b38ac23f.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/c4ed0766-6d2b-4297-9141-f571b38ac23f.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-12T06:36:19.385Z",
+      "updated_at": "2026-10-12T06:36:19.385Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/1d8c4ca0-da25-4fed-a810-2cdf5839a6d4.webp"
+    },
+    {
+      "id": "74ef638f-ef4e-49af-af52-af35aff73ce5",
+      "title": "Ag 30 Звезда Синяя с надписью",
+      "article": "UNT-580",
+      "price": 1500,
+      "short_description": "Звезда Синяя с надписью 77",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "zvezda-91sm-metallik-zelenyy-3",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Именные шары"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/8cec6a82-328b-442d-a80a-d8602b092e42.jpg",
+        "photo_dhash": "70f0f0b8f0f8f4d4",
+        "unit_type": "named",
+        "balloon_size": "77 см",
+        "letter_ink": "light"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/6164c62d-8a17-45b5-aab2-612fed70c893.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/6164c62d-8a17-45b5-aab2-612fed70c893.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-12T06:33:37.493Z",
+      "updated_at": "2026-10-12T06:36:35.290Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/98f198bd-4488-4291-b19f-70516bbe9453.webp"
+    },
+    {
+      "id": "0a13a06c-6765-4f73-a03b-5a9c2f901834",
+      "title": "Ag 30 Звезда Золотая с надписью",
+      "article": "UNT-579",
+      "price": 1500,
+      "short_description": "Звезда Золотая с надписью",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "zvezda-91sm-metallik-zelenyy-2",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Именные шары"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/37856b5a-57e8-478d-a391-33fd7a1851e4.jpg",
+        "photo_dhash": "3070f8b8f8f8f4d4",
+        "unit_type": "named",
+        "balloon_size": "81 см",
+        "letter_ink": "light"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/a59a7a9c-517f-4043-8ec3-24ee15309edd.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/a59a7a9c-517f-4043-8ec3-24ee15309edd.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-12T06:26:55.644Z",
+      "updated_at": "2026-10-12T06:36:49.873Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/b4ea5ae7-a1d7-4c83-9682-0f146e4a9274.webp"
+    },
+    {
       "id": "314646ce-369f-49c0-b6da-bc70138fe897",
       "title": "Сердце Сатин Мистик с надписью",
       "article": "UNT-578",
@@ -9896,7 +10302,7 @@
       "id": "5cf3af46-2fae-45e1-90d0-342573768236",
       "title": "Малыш Мальчик, Спящий на Облаке",
       "article": "UNT-366",
-      "price": 600,
+      "price": 700,
       "short_description": "Малыш Мальчик, Спящий на Облаке",
       "full_description": "",
       "composition": [],
@@ -9912,9 +10318,9 @@
       "slug": "snegovik-so-snezhinkoy-20-6-4",
       "scene": "unit_balloon",
       "tags": [
+        "На выписку",
         "Шары поштучно",
-        "Фольгированные фигуры",
-        "На выписку"
+        "Фольгированные фигуры"
       ],
       "client_options": {
         "available_on_request": false,
@@ -9937,7 +10343,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-10-10T07:29:27.047Z",
-      "updated_at": "2026-10-10T07:29:27.047Z",
+      "updated_at": "2026-10-12T07:16:35.688Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/29e57082-6e03-4bdc-a686-95619c8829b0.webp"
     },
     {
@@ -34617,7 +35023,7 @@
     },
     {
       "id": "5c354988-68b6-407a-adec-97ed3d4ec125",
-      "title": "Звезда Металлик Зеленый",
+      "title": "Звезда Металлик Зеленая с надписью",
       "article": "UNT-214",
       "price": 1500,
       "short_description": "Звезда Металлик Зеленый",
@@ -34645,10 +35051,10 @@
         "personal_inscription": false,
         "photozone_rental": false,
         "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/108fdd10-5604-4440-862b-148081c7ae37.jpg",
+        "photo_dhash": "3030f090d0f8e8cc",
         "unit_type": "named",
         "balloon_size": "91 см",
-        "letter_ink": "light",
-        "photo_dhash": "3030f090d0f8e8cc"
+        "letter_ink": "light"
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/8b7207a9-4521-44bc-a35f-15adaea4e2ea.jpg"
@@ -34657,7 +35063,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-27T12:40:50.692Z",
-      "updated_at": "2026-09-27T21:11:08.038Z",
+      "updated_at": "2026-10-12T06:24:47.462Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/1e2ea7aa-18ae-4b8a-aa77-76ce16d6dc14.webp"
     },
     {

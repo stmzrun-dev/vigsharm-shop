@@ -236,6 +236,11 @@
       var id = el.getAttribute('data-id') || '';
       var q = qtyOf(id);
       var pack = ' data-id="' + esc(id) + '" data-slug="' + esc(el.getAttribute('data-slug') || '') + '" data-title="' + esc(el.getAttribute('data-title') || '') + '" data-sku="' + esc(el.getAttribute('data-sku') || '') + '" data-price="' + esc(el.getAttribute('data-price') || '0') + '" data-meter="' + esc(el.getAttribute('data-meter') || '0') + '" data-fill="' + esc(el.getAttribute('data-fill') || '') + '" data-thumb="' + esc(el.getAttribute('data-thumb') || '') + '" data-named="' + esc(el.getAttribute('data-named') || '0') + '" data-ink="' + esc(el.getAttribute('data-ink') || '') + '" data-photo="' + esc(el.getAttribute('data-photo') || '') + '"';
+      var assort = el.getAttribute('data-assort') || '';
+      if (assort) {
+        el.innerHTML = '<button type="button" class="is-plus" data-unit-add="1" data-assort="' + esc(assort) + '" aria-label="Выбрать цвет">+</button>';
+        return;
+      }
       var digitCard = el.getAttribute('data-digit') === '1';
       var bubbleCard = el.getAttribute('data-bubble') === '1';
       var namedCard = el.getAttribute('data-named') === '1';
@@ -774,6 +779,59 @@
     if (input) input.focus();
   }
 
+  function pickShape(kind, items) {
+    var old = document.querySelector('.unit-digit-pop');
+    if (old) old.remove();
+    var title = kind === 'heart' ? 'Сердца' : 'Звёзды';
+    var prefix = kind === 'heart' ? /^сердце\s+/i : /^звезда\s+/i;
+    var list = (items || []).slice();
+    var pop = document.createElement('div');
+    pop.className = 'unit-digit-pop';
+    function colorName(item) {
+      return String(item.title || '').trim().replace(prefix, '').trim() || String(item.title || 'Цвет');
+    }
+    function photoOf(item) {
+      var key = item.thumb || item.main_photo || (item.photos && item.photos[0]) || '';
+      if (key && typeof key !== 'string') key = key.url || '';
+      if (window.vigGridPhoto) {
+        var grid = window.vigGridPhoto(item);
+        if (grid) key = grid;
+      }
+      return key && window.vigImage ? window.vigImage(key, 320) : (typeof key === 'string' ? key : '');
+    }
+    var cells = list.map(function (item, index) {
+      var src = photoOf(item);
+      var name = colorName(item);
+      var qty = qtyOf(item.id);
+      return '<button type="button" data-shape-i="' + index + '">' +
+        (src ? '<img src="' + esc(src) + '" alt=""/>' : '<i></i>') +
+        '<span>' + esc(name) + (qty ? '<small>в наборе ' + qty + '</small>' : '') + '</span></button>';
+    }).join('');
+    pop.innerHTML = '<div class="unit-digit-sheet unit-shape-sheet" role="dialog" aria-label="Выбор цвета">' +
+      '<p>' + esc(title) + '</p>' +
+      '<div class="unit-shape-grid">' + cells + '</div>' +
+      '<button type="button" class="unit-digit-cancel" data-x="1">Закрыть</button></div>';
+    pop.addEventListener('click', function (e) {
+      var t = e.target && e.target.closest ? e.target.closest('button') : null;
+      if (e.target === pop || (t && t.getAttribute('data-x') === '1')) { pop.remove(); return; }
+      if (!t || t.getAttribute('data-shape-i') == null) return;
+      var item = list[Number(t.getAttribute('data-shape-i'))];
+      if (!item) return;
+      var src = photoOf(item);
+      pop.remove();
+      add({
+        id: item.id,
+        slug: item.slug || item.id,
+        title: item.title || title,
+        sku: item.sku || item.article || '',
+        price: Number(item.price) || 0,
+        qty: 1,
+        thumb: src
+      });
+    });
+    document.body.appendChild(pop);
+  }
+
   function pickBubble(item) {
     var old = document.querySelector('.unit-digit-pop');
     if (old) old.remove();
@@ -905,7 +963,7 @@
     e.stopPropagation();
     change(dec.getAttribute('data-id'), -1);
   });
-  window.vigUnitList = { add: add, change: change, pickDigits: pickDigits, pickBubble: pickBubble, pickNamed: pickNamed, mount: function () { paintBar(); paintSteps(); } };
+  window.vigUnitList = { add: add, change: change, pickDigits: pickDigits, pickBubble: pickBubble, pickNamed: pickNamed, pickShape: pickShape, mount: function () { paintBar(); paintSteps(); } };
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function () { paintBar(); paintSteps(); loadDelivery(); });
   else { paintBar(); paintSteps(); loadDelivery(); }
 })();

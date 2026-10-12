@@ -155,6 +155,8 @@ const app = {
   listExpandedSubgroups: {},
   /** Лимит строк внутри раскрытой группы */
   listGroupVisible: {},
+  /** Свёрнутые палитры сердец и звёзд внутри полки кругов */
+  listExpandedAssort: {},
   currentProduct: { photos: [], scene: 'auto', tags: [], client_options: {} },
 
   init() {
@@ -1002,12 +1004,12 @@ const app = {
       if (bi >= 0) return 1;
       return a[0].localeCompare(b[0], 'ru');
     });
-    if (sorted.length <= 1) return sorted[0][1].map((p) => this.renderProductRow(p)).join('');
+    if (sorted.length <= 1) return this.renderShelfRows(sorted[0][0], sorted[0][1]);
     return sorted.map(([label, shelfItems]) => {
       const key = `${groupId}::${label}`;
       const subOpen = !!(this.listExpandedSubgroups && this.listExpandedSubgroups[key]);
       const labelJs = String(label).replace(/\\/g, '\\\\').replace(/'/g, "\\'");
-      const body = subOpen ? shelfItems.map((p) => this.renderProductRow(p)).join('') : '';
+      const body = subOpen ? this.renderShelfRows(label, shelfItems) : '';
       return `
         <section class="product-subgroup${subOpen ? ' is-open' : ''}">
           <button type="button" class="product-subgroup-header" onclick="app.toggleListSubgroup('${groupId}', '${labelJs}')" aria-expanded="${subOpen}">
@@ -1024,6 +1026,57 @@ const app = {
     const key = `${groupId}::${label}`;
     this.listExpandedSubgroups = this.listExpandedSubgroups || {};
     this.listExpandedSubgroups[key] = !this.listExpandedSubgroups[key];
+    this.renderProducts();
+  },
+
+  /** Одноцветные сердца и звёзды по 300 ₽. Та же проверка на витрине. */
+  shapeAssortKind(p) {
+    if (Number(p && p.price) !== 300) return '';
+    const tags = [p.category].concat(p.tags || []);
+    const opts = p.client_options || {};
+    if (!tags.includes('Круги, звёзды и сердца') && opts.unit_type !== 'shapes') return '';
+    const title = String(p.title || '').toLowerCase().replace(/ё/g, 'е');
+    if (title.startsWith('сердце ')) return 'heart';
+    if (title.startsWith('звезда ')) return 'star';
+    return '';
+  },
+
+  renderShelfRows(label, shelfItems) {
+    const rows = shelfItems || [];
+    if (label !== 'Круги, звёзды и сердца') return rows.map((p) => this.renderProductRow(p)).join('');
+    const groups = { heart: [], star: [] };
+    const rest = [];
+    rows.forEach((p) => {
+      const kind = this.shapeAssortKind(p);
+      if (kind) groups[kind].push(p);
+      else rest.push(p);
+    });
+    const blocks = ['heart', 'star'].map((kind) => {
+      const items = groups[kind];
+      if (items.length < 2) {
+        rest.unshift(...items);
+        return '';
+      }
+      items.sort((a, b) => String(a.title || '').localeCompare(String(b.title || ''), 'ru'));
+      const open = !!(this.listExpandedAssort && this.listExpandedAssort[kind]);
+      const name = kind === 'heart' ? 'Сердца' : 'Звёзды';
+      const body = open ? items.map((p) => this.renderProductRow(p)).join('') : '';
+      return `
+        <section class="product-subgroup product-assort${open ? ' is-open' : ''}">
+          <button type="button" class="product-subgroup-header" onclick="app.toggleListAssort('${kind}')" aria-expanded="${open}">
+            <strong>${name}</strong>
+            <span class="product-subgroup-count">${items.length}</span>
+            <span class="product-subgroup-toggle" aria-hidden="true">${open ? '−' : '+'}</span>
+          </button>
+          <div class="product-subgroup-body${open ? '' : ' hidden'}">${body}</div>
+        </section>`;
+    }).join('');
+    return blocks + rest.map((p) => this.renderProductRow(p)).join('');
+  },
+
+  toggleListAssort(kind) {
+    this.listExpandedAssort = this.listExpandedAssort || {};
+    this.listExpandedAssort[kind] = !this.listExpandedAssort[kind];
     this.renderProducts();
   },
 

@@ -81,7 +81,20 @@
   box-shadow:0 2px 8px rgba(40,30,20,.16);font:inherit;font-weight:800;cursor:pointer;
 }
 .catalog-unit-step b{min-width:1.2em;text-align:center}
-.catalog-unit-step .unit-digit-picked{font-size:13px;background:#fff;border-radius:999px;padding:8px 10px;box-shadow:0 2px 8px rgba(40,30,20,.16)}
+.catalog-page .catalog-card-image.catalog-assort-mosaic{
+  display:grid!important;
+  grid-template-columns:1fr 1fr;
+  grid-template-rows:1fr 1fr;
+  gap:2px;
+  background:#f3efe8!important;
+}
+.catalog-page .catalog-card-image.catalog-assort-mosaic img{
+  width:100%!important;
+  height:100%!important;
+  min-height:0;
+  border-radius:0!important;
+  object-fit:cover!important;
+}
 .unit-digit-pop{position:fixed;inset:0;z-index:80;background:rgba(40,30,20,.35);display:flex;align-items:flex-end;justify-content:center;padding:16px}
 .unit-digit-sheet{width:min(420px,100%);background:#fff;border-radius:20px;padding:16px 16px 14px;box-shadow:0 12px 40px rgba(40,30,20,.2)}
 .unit-digit-sheet p{margin:0 0 12px;font-weight:700}
@@ -103,6 +116,15 @@
 .unit-bubble-sheet input{display:block;width:100%;box-sizing:border-box;margin-top:8px;border:1px solid #E7E0D6;border-radius:14px;padding:12px 14px;font:inherit}
 .unit-bubble-go{width:100%}
 .unit-bubble-go:disabled{opacity:.45}
+.unit-shape-sheet{width:min(560px,100%);max-height:min(86vh,760px);overflow:auto}
+.unit-shape-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:0 0 12px}
+.unit-shape-grid button{display:flex;flex-direction:column;gap:6px;padding:0 0 8px;border:1.5px solid #ebe6e3;border-radius:14px;background:#fff;cursor:pointer;text-align:center;font:inherit;color:#2b2622}
+.unit-shape-grid button img,.unit-shape-grid button i{width:100%;aspect-ratio:1;object-fit:cover;border-radius:12px 12px 0 0;background:#f4f1ee;display:block}
+.unit-shape-grid button span{display:block;padding:0 6px;font-size:13px;font-weight:700;line-height:1.2}
+.unit-shape-grid button small{display:block;margin-top:2px;font-size:11px;font-weight:650;color:#9a8b86}
+@media (max-width:420px){
+  .unit-shape-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
 .unit-named-sheet{max-height:min(92vh,760px);overflow:auto}
 .unit-named-sheet label{display:block;margin:0 0 8px;font-weight:700}
 .unit-named-sheet input{display:block;width:100%;box-sizing:border-box;margin-top:8px;border:1px solid #E7E0D6;border-radius:14px;padding:12px 14px;font:inherit}

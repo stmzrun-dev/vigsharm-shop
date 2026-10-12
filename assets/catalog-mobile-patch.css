@@ -623,6 +623,19 @@
 .pick-more button.pick-kind img{width:28px;height:28px;object-fit:contain;flex:0 0 auto;background:transparent}
 .pick-more button.pick-age{display:inline-flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;min-height:46px;padding:6px 14px;line-height:1.15}
 .pick-more button.pick-age small{font-size:11px;font-weight:700;line-height:1;letter-spacing:.01em;opacity:.62}
+.pick-more button.pick-shape span{white-space:nowrap}
+@media (max-width:700px){
+  .catalog-idea-board .pick-more:has(button.pick-shape){
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:8px;
+  }
+  .catalog-idea-board .pick-more button.pick-shape{
+    width:100%;
+    max-width:none;
+    box-sizing:border-box;
+  }
+}
 .pick-more button.is-on,.pick-choices button.is-on{border-color:#ff6b5a;color:#1e293b;box-shadow:0 0 0 1px #ff6b5a33}
 .pick-choices{display:grid;gap:8px}
 .pick-choices button{min-height:52px;padding:14px 16px;border:1.5px solid #ebe6e3;border-radius:16px;background:#fff;text-align:left;font:inherit;font-size:16px;font-weight:800;color:#1e293b;cursor:pointer}

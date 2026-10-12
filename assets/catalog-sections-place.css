@@ -592,6 +592,17 @@ html body main#main-content.catalog-page .catalog-results-heading:not(:has(h2)){
     min-height:50px;
     padding:7px 16px;
   }
+  main#main-content.catalog-page > .catalog-idea-board .pick-more:has(button.pick-shape){
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:8px;
+  }
+  main#main-content.catalog-page > .catalog-idea-board .pick-more button.pick-shape{
+    width:100%;
+    max-width:none;
+    box-sizing:border-box;
+    padding:7px 12px;
+  }
   main#main-content.catalog-page > .catalog-idea-board .pick-more button.pick-age small{
     font-size:12px;
   }

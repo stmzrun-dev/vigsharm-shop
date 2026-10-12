@@ -1450,6 +1450,10 @@ body.ai-review-open #tab-create .product-editor{visibility:hidden}
   padding:8px 4px;background:transparent;border-bottom:1px solid #f0eeeb
 }
 #tab-products .product-subgroup-body{gap:0;padding:0 0 4px}
+#tab-products .product-assort{margin:6px 8px 8px 18px}
+#tab-products .product-assort > .product-subgroup-header{
+  background:#faf7f2;border:1px solid #efe8df;border-radius:12px;padding:8px 12px
+}
 #tab-products .product-fresh-label{margin:10px 4px 6px;color:var(--admin-muted)}
 
 /* Row: desktop SaaS table */

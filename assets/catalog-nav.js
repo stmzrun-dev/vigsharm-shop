@@ -164,7 +164,7 @@
   var products = [];
   var loading = true;
   var loadError = false;
-  var q = '', category = 'Все товары', priceIdx = 0, age = '', character = '', filter = '', group = 'ready', sortMode = '';
+  var q = '', category = 'Все товары', priceIdx = 0, age = '', character = '', filter = '', shape = '', group = 'ready', sortMode = '';
   var unitStep = '';
   var sheetDraft = '';
   var filtersOpen = false;
@@ -193,6 +193,8 @@
     if (ch) { character = ch; group = 'characters'; }
     if (a) age = a;
     if (f) filter = f;
+    var sh = sp.get('shape');
+    if (sh && NAMED_SHAPES.some(function (row) { return row[0] === sh; })) shape = sh;
     var pi = PRICES.findIndex(function (x) { return x.min === mn && x.max === mx; });
     if (pi >= 0) priceIdx = pi;
   }
@@ -205,6 +207,7 @@
     if (character) sp.set('character', character);
     if (age) sp.set('age', age);
     if (filter) sp.set('filter', filter);
+    if (shape) sp.set('shape', shape);
     if (priceIdx !== 0) {
       sp.set('min', String(PRICES[priceIdx].min));
       if (isFinite(PRICES[priceIdx].max)) sp.set('max', String(PRICES[priceIdx].max));
@@ -239,6 +242,12 @@
       thumb: btn.getAttribute('data-thumb') || '',
       fillKind: btn.getAttribute('data-fill') || ''
     };
+    if (btn.getAttribute('data-assort') && window.vigUnitList.pickShape) {
+      var assortKind = btn.getAttribute('data-assort');
+      var assortItems = (window.vigShapeAssort && window.vigShapeAssort[assortKind]) || [];
+      if (assortItems.length) window.vigUnitList.pickShape(assortKind, assortItems);
+      return;
+    }
     if (btn.getAttribute('data-named') === '1' && window.vigUnitList.pickNamed) {
       payload.inkTone = btn.getAttribute('data-ink') === 'dark' ? 'dark' : 'light';
       payload.photo = btn.getAttribute('data-photo') || '';
@@ -402,7 +411,7 @@
   }
 
   function resetAll() {
-    q = ''; category = 'Все товары'; priceIdx = 0; character = ''; age = ''; filter = ''; group = 'ready'; sortMode = '';
+    q = ''; category = 'Все товары'; priceIdx = 0; character = ''; age = ''; filter = ''; shape = ''; group = 'ready'; sortMode = '';
     visibleCount = PAGE_SIZE;
     showAllReady = false;
     showAllHeroes = false;
@@ -479,7 +488,8 @@
       var matchF = !filter || p.category === filter || (p.tags || []).indexOf(filter) >= 0;
       var matchCh = !character || characterMatches(p, character);
       var matchA = !age || p.age_group === age;
-      return !hideIdea && inG && matchQ && matchC && matchP && matchF && matchCh && matchA;
+      var matchShape = !shape || namedShapeKey(p) === shape;
+      return !hideIdea && inG && matchQ && matchC && matchP && matchF && matchCh && matchA && matchShape;
     });
     if (sortMode === 'price-asc' || sortMode === 'price-desc') {
       var dir = sortMode === 'price-asc' ? 1 : -1;
@@ -494,6 +504,105 @@
       });
     }
     return list;
+  }
+
+  /* Одноцветные сердца и звёзды по 300 ₽ на полке кругов. Та же проверка в админке. */
+  function shapeAssortKind(p) {
+    if (Number(p && p.price) !== 300) return '';
+    var tags = [p.category].concat(p.tags || []);
+    var opts = p.client_options || {};
+    if (tags.indexOf('Круги, звёзды и сердца') < 0 && opts.unit_type !== 'shapes') return '';
+    var title = norm(p.title);
+    if (title.indexOf('сердце ') === 0) return 'heart';
+    if (title.indexOf('звезда ') === 0) return 'star';
+    return '';
+  }
+  function assortColorName(kind, p) {
+    var title = String((p && p.title) || '').trim();
+    return title.replace(kind === 'heart' ? /^сердце\s+/i : /^звезда\s+/i, '').trim() || title;
+  }
+  function productPhoto(p, size) {
+    var key = (window.vigGridPhoto ? window.vigGridPhoto(p) : '') ||
+      p.thumb_photo ||
+      (p.image_keys && p.image_keys[0]) ||
+      (p.photos && p.photos[0]) ||
+      p.main_photo ||
+      '';
+    if (key && typeof key !== 'string') key = key.url || '';
+    return key && window.vigImage ? window.vigImage(key, size) : '';
+  }
+  var shapeAssort = { heart: [], star: [] };
+  function foldShapeAssort(list) {
+    shapeAssort.heart = [];
+    shapeAssort.star = [];
+    window.vigShapeAssort = shapeAssort;
+    if (q.trim() || category !== 'Круги, звёзды и сердца') return list;
+    var groups = { heart: [], star: [] };
+    var rest = [];
+    list.forEach(function (p) {
+      var kind = shapeAssortKind(p);
+      if (kind) groups[kind].push(p);
+      else rest.push(p);
+    });
+    var head = [];
+    ['heart', 'star'].forEach(function (kind) {
+      var items = groups[kind];
+      if (items.length < 2) {
+        rest = items.concat(rest);
+        return;
+      }
+      items.sort(function (a, b) {
+        return assortColorName(kind, a).localeCompare(assortColorName(kind, b), 'ru');
+      });
+      shapeAssort[kind] = items;
+      head.push({ assort: kind, items: items, price: 300 });
+    });
+    if (sortMode === 'price-asc' || sortMode === 'price-desc') {
+      var dir = sortMode === 'price-asc' ? 1 : -1;
+      return head.concat(rest).sort(function (a, b) {
+        var pa = a.assort ? a.price : (Number(a.price) || 0);
+        var pb = b.assort ? b.price : (Number(b.price) || 0);
+        if (pa !== pb) return (pa - pb) * dir;
+        return 0;
+      });
+    }
+    return head.concat(rest);
+  }
+  function assortCardHtml(card, i) {
+    var kind = card.assort;
+    var items = card.items || [];
+    var title = kind === 'heart' ? 'Сердца' : 'Звёзды';
+    var picks = [];
+    if (items.length <= 4) picks = items.slice();
+    else {
+      [0, Math.floor(items.length / 3), Math.floor(items.length * 2 / 3), items.length - 1].forEach(function (idx) {
+        if (picks.indexOf(items[idx]) < 0) picks.push(items[idx]);
+      });
+    }
+    var mosaic = picks.map(function (p, n) {
+      var src = productPhoto(p, 240);
+      return src
+        ? '<img src="' + src + '" alt="" loading="' + (i < 2 ? 'eager' : 'lazy') + '" decoding="async" width="240" height="240" onload="this.classList.add(\'is-ready\')"/>'
+        : '';
+    }).join('');
+    var cat = 'Круги, звёзды и сердца';
+    var cardInner = '<span class="catalog-card-image catalog-assort-mosaic">' + mosaic + '</span>' +
+      '<span class="catalog-card-copy"><span class="catalog-card-meta"><small>' + esc(displayCategory(cat)) + '</small></span>' +
+      '<strong>' + esc(title) + '</strong>' +
+      '<small class="catalog-card-size">' + items.length + ' ' + (function (n) {
+        var t = n % 100, d = n % 10;
+        if (t >= 11 && t <= 14) return 'цветов';
+        if (d === 1) return 'цвет';
+        if (d >= 2 && d <= 4) return 'цвета';
+        return 'цветов';
+      })(items.length) + '</small>' +
+      '<span class="catalog-card-price"><small>Цена за штуку</small><b>' + Number(card.price).toLocaleString('ru-RU') + ' ₽</b></span>' +
+      '</span>';
+    return '<div class="catalog-card-wrap"><div class="catalog-card color-' + (i % 5) + '">' + cardInner + '</div>' +
+      '<div class="catalog-unit-step" data-unit-step data-assort="' + esc(kind) + '"></div></div>';
+  }
+  function renderCard(item, i) {
+    return item && item.assort ? assortCardHtml(item, i) : cardHtml(item, i);
   }
 
   function cardHtml(p, i) {
@@ -569,6 +678,10 @@
     if (filter) parts.push('повод — ' + filter);
     if (character) parts.push('персонаж — ' + character);
     if (age) parts.push('возраст — ' + age);
+    if (shape) {
+      var shapeRow = NAMED_SHAPES.filter(function (row) { return row[0] === shape; })[0];
+      if (shapeRow) parts.push('форма — ' + shapeRow[1] + ', ' + shapeRow[2]);
+    }
     if (q.trim()) parts.push('поиск — «' + q.trim() + '»');
     return parts;
   }
@@ -665,6 +778,23 @@
     ['Цифры', 'images/balloons/balloon-digit.webp?v=20260924c', '', 'Фольгированные цифры'],
     ['С надписью', 'images/balloons/balloon-name.webp?v=20260926n5', '', 'Именные шары']
   ];
+  var NAMED_SHAPES = [
+    ['heart-77', 'Большое сердце', '77 см'],
+    ['heart-45', 'Сердце', '45 см'],
+    ['star-77', 'Большая звезда', '77 см'],
+    ['star-45', 'Звезда', '45 см']
+  ];
+  function namedShapeKey(p) {
+    var title = norm([p.title, p.short_description].join(' '));
+    var heart = title.indexOf('сердц') >= 0;
+    var star = title.indexOf('звезд') >= 0;
+    if (heart === star) return '';
+    var raw = String((p.client_options || {}).balloon_size || '');
+    var found = raw.match(/(\d+)/);
+    var cm = found ? found[1] : '';
+    if (cm !== '45' && cm !== '77') return '';
+    return (heart ? 'heart-' : 'star-') + cm;
+  }
   var LATEX_TYPES = [
     ['Кристалл Ассорти', '', 'Кристалл Ассорти'],
     ['Металлик Ассорти', '', 'Металлик Ассорти'],
@@ -1228,6 +1358,11 @@
         html += '<div class="pick-band pick-band-why"><p class="pick-kicker">Кому шар</p><div class="pick-more">' + WHO_PICKS.map(function (row) {
           return '<button type="button" class="' + (filter === row[1] ? 'is-on' : '') + '" data-who="' + esc(row[1]) + '">' + esc(row[0]) + '</button>';
         }).join('') + '</div></div>';
+      } else if (type && type[3] === 'Именные шары') {
+        html += '<div class="pick-band pick-band-why"><p class="pick-kicker">Форма</p><div class="pick-more">' + NAMED_SHAPES.map(function (row) {
+          var on = shape === row[0];
+          return '<button type="button" class="pick-age pick-shape' + (on ? ' is-on' : '') + '" data-shape="' + esc(row[0]) + '" aria-pressed="' + (on ? 'true' : 'false') + '"><span>' + esc(row[1]) + '</span><small>' + esc(row[2]) + '</small></button>';
+        }).join('') + '</div></div>';
       }
       return html;
     }
@@ -1271,6 +1406,11 @@
     var bands = board.querySelectorAll('.pick-band');
     var target = bands.length > 1 ? bands[bands.length - 1] : null;
     if (!target) return scrollToResults();
+    if (board.scrollHeight > board.clientHeight + 8) {
+      var topIn = target.getBoundingClientRect().top - board.getBoundingClientRect().top + board.scrollTop;
+      board.scrollTo({ top: Math.max(0, topIn - 8), behavior: 'smooth' });
+      return;
+    }
     var header = document.querySelector('.site-header');
     var gap = (header ? header.getBoundingClientRect().height : 76) + 12;
     var top = target.getBoundingClientRect().top + window.pageYOffset - gap;
@@ -1349,12 +1489,13 @@
         }
         if (type) {
           var same = category === type[3] || (type[2] === 'latex' && LATEX_TYPES.some(function (row) { return row[2] === category; }));
+          var openingNamed = !same && type[3] === 'Именные шары';
           category = same ? 'Все товары' : type[3];
           filter = '';
           character = '';
           showAllReady = false;
-          render({ scroll: !same && !type[2] });
-          if (!same && type[2]) scrollToUnitExtra();
+          render({ scroll: !same && !type[2] && !openingNamed });
+          if (!same && (type[2] || openingNamed)) scrollToUnitExtra();
         }
       });
     });
@@ -1372,6 +1513,13 @@
         filter = '';
         showAllReady = false;
         render({ scroll: !!character });
+      });
+    });
+    old.querySelectorAll('[data-shape]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var value = b.getAttribute('data-shape');
+        shape = shape === value ? '' : value;
+        render();
       });
     });
     old.querySelectorAll('[data-who]').forEach(function (b) {
@@ -1396,6 +1544,7 @@
       products.length,
       priceIdx !== 0 ? 1 : 0,
       age,
+      shape,
       ages.length,
       subcatList().join(',')
     ].join('|');
@@ -1403,6 +1552,7 @@
 
   function render(opts) {
     opts = opts || {};
+    if (category !== 'Именные шары') shape = '';
     if (!opts.keepVisible) visibleCount = PAGE_SIZE;
     writeUrl();
     ensureResetBtn();
@@ -1429,7 +1579,7 @@
 
   function renderResults() {
     if (!resultsSection) return;
-    var list = filtered();
+    var list = foldShapeAssort(filtered());
     var searching = !!q.trim();
     var shown = list.slice(0, visibleCount);
     var hasMore = list.length > visibleCount;
@@ -1484,10 +1634,10 @@
       body = '<div class="catalog-empty" role="alert"><h3>Каталог не загрузился</h3><p>Проверьте соединение и попробуйте ещё раз. Выбранные фильтры сохранятся.</p><button type="button" data-retry>Попробовать ещё раз</button></div>';
     } else if (list.length && browseHub) {
       var popular = list.slice(0, 12);
-      body = '<div class="catalog-grid">' + popular.map(cardHtml).join('') + '</div>';
+      body = '<div class="catalog-grid">' + popular.map(renderCard).join('') + '</div>';
       body += '<div class="catalog-load-more"><button type="button" data-show-ready>Показать все <span>' + list.length + '</span></button></div>';
     } else if (list.length) {
-      body = '<div class="catalog-grid">' + shown.map(cardHtml).join('') + '</div>';
+      body = '<div class="catalog-grid">' + shown.map(renderCard).join('') + '</div>';
       if (hasMore) {
         body += '<div class="catalog-load-more"><button type="button" data-more>Показать ещё <span>' + Math.min(PAGE_SIZE, list.length - visibleCount) + '</span></button><small>Показано ' + shown.length + ' из ' + list.length + '</small></div>';
       }

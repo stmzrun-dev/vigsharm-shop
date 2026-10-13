@@ -2,8 +2,49 @@
   "ok": true,
   "products": [
     {
+      "id": "01efbe45-0675-442c-88f8-b644814e3eb6",
+      "title": "Стеклянный баблс с надписью",
+      "article": null,
+      "price": 2500,
+      "short_description": "Стеклянный баблс с надписью",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "steklyannyy-babls-60sm-s-nadpisyu-2",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Шары Bubble"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "unit_type": "bubble"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/1530e65a-efe3-479d-8fb0-04ad358b564c.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/1530e65a-efe3-479d-8fb0-04ad358b564c.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-13T19:45:43.340Z",
+      "updated_at": "2026-10-13T19:45:54.585Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/5fb7a4f6-53ae-41f5-a020-da93a492544e.webp"
+    },
+    {
       "id": "73ee87eb-d643-4c3c-853e-d4cbf881f622",
-      "title": "Стеклянный Баблс 60см с надписью",
+      "title": "Стеклянный баблс с конфетти и надписью",
       "article": "UNT-680",
       "price": 2500,
       "short_description": "Стеклянный Баблс 60см с надписью",
@@ -41,7 +82,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-10-13T19:01:03.985Z",
-      "updated_at": "2026-10-13T19:01:03.985Z",
+      "updated_at": "2026-10-13T19:25:40.218Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/404151f5-e944-41c8-8bf4-1cd2a600f624.webp"
     },
     {

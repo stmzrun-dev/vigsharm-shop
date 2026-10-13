@@ -110,7 +110,8 @@
         inscription: String(item.inscription || ''),
         ink: String(item.ink || ''),
         fill: String(item.fill || ''),
-        fillLabel: String(item.fillLabel || '')
+        fillLabel: String(item.fillLabel || ''),
+        confetti: String(item.confetti || '')
       };
       var same = null;
       for (var b = 0; b < items.length; b++) {
@@ -118,7 +119,8 @@
         if (String(row.id) === String(bubbleLine.id)
           && String(row.inscription || '') === bubbleLine.inscription
           && String(row.ink || '') === bubbleLine.ink
-          && String(row.fill || '') === bubbleLine.fill) {
+          && String(row.fill || '') === bubbleLine.fill
+          && String(row.confetti || '') === bubbleLine.confetti) {
           same = row;
           break;
         }
@@ -154,6 +156,7 @@
       if (it.inscription) which += ' — «' + it.inscription + '»';
       if (it.ink) which += ', буквы: ' + it.ink;
       if (it.fill) which += ', ' + (it.fillLabel || 'наполнитель') + ': ' + it.fill;
+      if (it.confetti) which += ', конфетти: ' + it.confetti;
       return it.qty + ' ' + unit + ' × ' + it.title + sku + which + ' — ' + money(lineTotal(it));
     });
     var fmap = {
@@ -367,6 +370,7 @@
         var bits = ['«' + it.inscription + '»'];
         if (it.ink) bits.push(it.ink);
         if (it.fill) bits.push(it.fill);
+        if (it.confetti) bits.push(it.confetti);
         which += '<small>' + esc(bits.join(' · ')) + '</small>';
       }
       return '<div class="unit-list-row">' + thumb + '<div><strong>' + esc(it.title) + '</strong>' + which + '<small>' +
@@ -721,6 +725,21 @@
     ['голубые', 'foam-14-golubye.webp'],
     ['ассорти', 'foam-15-assorti.webp']
   ];
+  var BUBBLE_GLASS = [
+    ['синий тёмный', 'glass-01-siniy-temnyy.webp'],
+    ['персиковый макаронс', 'glass-02-persikovyy-makarons.webp'],
+    ['розовый макаронс', 'glass-03-rozovyy-makarons.webp'],
+    ['розовый цикламен', 'glass-04-rozovyy-tsiklamen.webp'],
+    ['розовый светлый', 'glass-05-rozovyy-svetlyy.webp'],
+    ['малиновый ретро', 'glass-06-malinovyy-retro.webp'],
+    ['хром миндаль', 'glass-07-hrom-mindal.webp'],
+    ['кофе', 'glass-08-kofe.webp'],
+    ['зелёный крем', 'glass-09-zelenyy-krem.webp'],
+    ['кристалл зелёный', 'glass-10-kristall-zelenyy.webp'],
+    ['хром голубой', 'glass-11-hrom-goluboy.webp'],
+    ['хром сиреневый', 'glass-12-hrom-sirenevyy.webp'],
+    ['кристалл фиолетовый', 'glass-13-kristall-fioletovyy.webp']
+  ];
   var BUBBLE_CRUSH = [
     ['золото', 'crush-01-zoloto.webp'],
     ['серебро', 'crush-02-serebro.webp'],
@@ -839,6 +858,7 @@
     return 'linear-gradient(180deg,' + stops[0] + ' 0%,' + stops[1] + ' 46%,' + stops[2] + ' 100%)';
   }
   function bubbleFillTitle(kind) {
+    if (kind === 'glass') return 'Цвет шара';
     if (kind === 'foam') return 'Цвет пенопласта';
     if (kind === 'crush' || kind === 'confetti') return 'Цвет конфетти';
     if (kind === 'feathers') return 'Цвет перьев';
@@ -846,6 +866,7 @@
     return '';
   }
   function bubbleFillWord(kind) {
+    if (kind === 'glass' || kind === 'glassconf') return 'цвет шара';
     if (kind === 'foam') return 'пенопласт';
     if (kind === 'crush') return 'дроблёное конфетти';
     if (kind === 'confetti') return 'конфетти';
@@ -993,6 +1014,7 @@
     var names = [];
     var ink = '';
     var fill = '';
+    var confetti = '';
     var text = '';
     var pop = document.createElement('div');
     pop.className = 'unit-digit-pop';
@@ -1005,12 +1027,16 @@
         return '<button type="button" data-' + attr + '="' + esc(name) + '"' + (on ? ' class="selected"' : '') + ' aria-label="' + esc(name) + '">' + sw + '</button>';
       }).join('');
     }
-    function photoGrid(pairs, folder) {
+    function photoGrid(pairs, folder, selectedName, attr) {
+      var ver = folder === 'glass-bubbles' ? '20261013glass' : '20261013crush';
       return '<div class="bubble-feather-grid">' + pairs.map(function (pair) {
         var name = pair[0];
-        var on = fill === name;
-        return '<button type="button" data-fill="' + esc(name) + '"' + (on ? ' class="selected"' : '') + ' aria-label="' + esc(name) + '">' +
-          '<img src="images/balloons/' + folder + '/' + pair[1] + '?v=20261013crush" alt="" loading="lazy" decoding="async"/>' +
+        var on = selectedName === name;
+        var src = folder
+          ? ('images/balloons/' + folder + '/' + pair[1] + '?v=' + ver)
+          : pair[1];
+        return '<button type="button" data-' + attr + '="' + esc(name) + '"' + (on ? ' class="selected"' : '') + ' aria-label="' + esc(name) + '">' +
+          '<img src="' + src + '" alt="" loading="lazy" decoding="async"/>' +
           '<span>' + esc(name) + '</span></button>';
       }).join('') + '</div>';
     }
@@ -1019,18 +1045,37 @@
       var keep = sheet ? sheet.scrollTop : 0;
       var pageY = window.scrollY || window.pageYOffset || 0;
       var fillTitle = bubbleFillTitle(kind);
-      var missing = !text.trim() ? 'Напишите надпись' : (!ink ? 'Выберите цвет надписи' : (kind && !fill ? fillTitle : ''));
+      var glassConf = kind === 'glassconf';
+      var missing = !text.trim() ? 'Напишите надпись' : (!ink ? 'Выберите цвет надписи' : (glassConf ? (!fill ? 'Цвет шара' : (!confetti ? 'Цвет конфетти' : '')) : (kind && !fill ? fillTitle : '')));
       var gloss = ink ? inkFilm(ink) : '';
       var pale = inkIsPale(ink);
       var mid = gloss ? gloss.split(',')[2].trim().split(' ')[0] : '';
       var inkStyle = mid ? ' style="color:' + mid + '"' : '';
       var glossStyle = gloss ? ' style="--ink-gloss:' + gloss + '"' : '';
       var shown = text.trim() || 'С Днём рождения!';
-      var fillPhotos = kind === 'feathers' ? BUBBLE_FEATHERS : kind === 'balls' ? BUBBLE_BALLS : kind === 'foam' ? BUBBLE_FOAM : kind === 'crush' ? BUBBLE_CRUSH : kind === 'confetti' ? BUBBLE_CONFETTI : null;
-      var fillFolder = kind === 'feathers' ? 'feather-bubbles' : kind === 'balls' ? 'ball-bubbles' : kind === 'foam' ? 'foam-bubbles' : kind === 'crush' ? 'crush-bubbles' : 'confetti-bubbles';
-      var fillHtml = fillPhotos
-        ? '<fieldset class="bubble-colors"><legend>' + esc(fillTitle) + '</legend>' + photoGrid(fillPhotos, fillFolder) + '</fieldset>'
-        : (fillTitle ? '<fieldset class="bubble-colors"><legend>' + esc(fillTitle) + '</legend><div class="bubble-color-row">' + dots(names, fill, 'fill') + '</div></fieldset>' : '');
+      var fillPhotos = kind === 'glass' ? BUBBLE_GLASS : kind === 'feathers' ? BUBBLE_FEATHERS : kind === 'balls' ? BUBBLE_BALLS : kind === 'foam' ? BUBBLE_FOAM : kind === 'crush' ? BUBBLE_CRUSH : kind === 'confetti' ? BUBBLE_CONFETTI : null;
+      var fillFolder = kind === 'glass' ? 'glass-bubbles' : kind === 'feathers' ? 'feather-bubbles' : kind === 'balls' ? 'ball-bubbles' : kind === 'foam' ? 'foam-bubbles' : kind === 'crush' ? 'crush-bubbles' : 'confetti-bubbles';
+      var fillHtml = '';
+      if (glassConf) {
+        var balloonFile = 'glass-05-rozovyy-svetlyy.webp';
+        BUBBLE_GLASS.forEach(function (pair) { if (pair[0] === fill) balloonFile = pair[1]; });
+        var confGrid = '<div class="bubble-feather-grid">' + BUBBLE_CONFETTI.map(function (pair) {
+          var name = pair[0];
+          var on = confetti === name;
+          return '<button type="button" data-confetti="' + esc(name) + '"' + (on ? ' class="selected"' : '') + ' aria-label="' + esc(name) + '">' +
+            '<span class="glass-confetti-stack">' +
+            '<img src="images/balloons/glass-bubbles/' + balloonFile + '?v=20261013glass" alt="" decoding="async"/>' +
+            '<img src="images/balloons/glass-confetti/' + pair[1] + '?v=20261013gconf3" alt="" decoding="async"/>' +
+            '</span><span>' + esc(name) + '</span></button>';
+        }).join('') + '</div>';
+        fillPhotos = BUBBLE_GLASS;
+        fillHtml = '<fieldset class="bubble-colors"><legend>Цвет шара</legend>' + photoGrid(BUBBLE_GLASS, 'glass-bubbles', fill, 'fill') + '</fieldset>' +
+          '<fieldset class="bubble-colors"><legend>Цвет конфетти</legend>' + confGrid + '</fieldset>';
+      } else {
+        fillHtml = fillPhotos
+          ? '<fieldset class="bubble-colors"><legend>' + esc(fillTitle) + '</legend>' + photoGrid(fillPhotos, fillFolder, fill, 'fill') + '</fieldset>'
+          : (fillTitle ? '<fieldset class="bubble-colors"><legend>' + esc(fillTitle) + '</legend><div class="bubble-color-row">' + dots(names, fill, 'fill') + '</div></fieldset>' : '');
+      }
       pop.innerHTML = '<div class="unit-digit-sheet unit-bubble-sheet' + (fillPhotos ? ' has-feathers' : '') + '" role="dialog" aria-label="Надпись на шаре">' +
         '<p>' + esc(item.title || 'Шар') + '</p>' +
         fillHtml +
@@ -1052,7 +1097,7 @@
           prev.classList.toggle('is-empty', !text.trim());
         }
         var go = pop.querySelector('[data-ok]');
-        if (go) go.disabled = !text.trim() || !ink || !!(kind && !fill);
+        if (go) go.disabled = !text.trim() || !ink || (glassConf ? (!fill || !confetti) : !!(kind && !fill));
       });
       if (focusIns && input) {
         input.focus();
@@ -1071,7 +1116,7 @@
     }
     pop.addEventListener('mousedown', function (e) {
       var t = e.target && e.target.closest ? e.target.closest('button') : null;
-      if (t && (t.getAttribute('data-ink') || t.getAttribute('data-fill'))) e.preventDefault();
+      if (t && (t.getAttribute('data-ink') || t.getAttribute('data-fill') || t.getAttribute('data-confetti'))) e.preventDefault();
     });
     pop.addEventListener('click', function (e) {
       var t = e.target && e.target.closest ? e.target.closest('button') : null;
@@ -1082,15 +1127,17 @@
       if (live) text = live.value;
       if (t.getAttribute('data-ink')) { ink = t.getAttribute('data-ink'); draw(false); return; }
       if (t.getAttribute('data-fill')) { fill = t.getAttribute('data-fill'); draw(false); return; }
+      if (t.getAttribute('data-confetti')) { confetti = t.getAttribute('data-confetti'); draw(false); return; }
       if (t.getAttribute('data-ok') === '1') {
-        if (!text.trim() || !ink || (kind && !fill)) return;
+        if (!text.trim() || !ink || (kind === 'glassconf' ? (!fill || !confetti) : (kind && !fill))) return;
         pop.remove();
         add(Object.assign({}, item, {
           qty: 1,
           inscription: text.trim(),
           ink: ink,
           fill: fill,
-          fillLabel: bubbleFillWord(kind)
+          fillLabel: bubbleFillWord(kind),
+          confetti: kind === 'glassconf' ? confetti : ''
         }));
       }
     });

@@ -635,6 +635,8 @@
     function unitFillKind(product) {
       var t = [product.title, product.short_description, product.composition].join(' ')
         .toLowerCase().replace(/ё/g, 'е');
+      if (/стеклян/.test(t) && /конфетти/.test(t)) return 'glassconf';
+      if (/стеклян/.test(t)) return 'glass';
       if (/пенопласт|крупин/.test(t)) return 'foam';
       if (/дроблен/.test(t)) return 'crush';
       if (/конфетти/.test(t)) return 'confetti';

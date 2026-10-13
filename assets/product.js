@@ -86,6 +86,7 @@
   var inscription = '', orderDate = '', orderTime = '';
   var bubbleInk = '';
   var bubbleFill = '';
+  var bubbleConfetti = '';
   var surpriseColor = '';
   var surpriseBill = 0;
   var fulfillment = '', address = '', qty = 1;
@@ -196,6 +197,8 @@
   function bubbleFillKind() {
     var t = [p && p.title, p && p.short_description, p && p.composition].join(' ')
       .toLowerCase().replace(/ё/g, 'е');
+    if (/стеклян/.test(t) && /конфетти/.test(t)) return 'glassconf';
+    if (/стеклян/.test(t)) return 'glass';
     if (/пенопласт|крупин/.test(t)) return 'foam';
     if (/дроблен/.test(t)) return 'crush';
     if (/конфетти/.test(t)) return 'confetti';
@@ -219,6 +222,21 @@
     ['чёрные', 'foam-13-chernye.webp'],
     ['голубые', 'foam-14-golubye.webp'],
     ['ассорти', 'foam-15-assorti.webp']
+  ];
+  var BUBBLE_GLASS = [
+    ['синий тёмный', 'glass-01-siniy-temnyy.webp'],
+    ['персиковый макаронс', 'glass-02-persikovyy-makarons.webp'],
+    ['розовый макаронс', 'glass-03-rozovyy-makarons.webp'],
+    ['розовый цикламен', 'glass-04-rozovyy-tsiklamen.webp'],
+    ['розовый светлый', 'glass-05-rozovyy-svetlyy.webp'],
+    ['малиновый ретро', 'glass-06-malinovyy-retro.webp'],
+    ['хром миндаль', 'glass-07-hrom-mindal.webp'],
+    ['кофе', 'glass-08-kofe.webp'],
+    ['зелёный крем', 'glass-09-zelenyy-krem.webp'],
+    ['кристалл зелёный', 'glass-10-kristall-zelenyy.webp'],
+    ['хром голубой', 'glass-11-hrom-goluboy.webp'],
+    ['хром сиреневый', 'glass-12-hrom-sirenevyy.webp'],
+    ['кристалл фиолетовый', 'glass-13-kristall-fioletovyy.webp']
   ];
   var BUBBLE_CRUSH = [
     ['золото', 'crush-01-zoloto.webp'],
@@ -354,8 +372,10 @@
       pairs.map(function (pair) {
         var name = pair[0];
         var on = selected === name;
+        var ver = folder === 'glass-bubbles' ? '20261013glass' : '20261013crush';
+        var src = folder ? ('images/balloons/' + folder + '/' + pair[1] + '?v=' + ver) : pair[1];
         return '<button type="button" class="' + (on ? 'selected' : '') + '" data-act="' + act + '" data-v="' + esc(name) + '" aria-label="' + esc(name) + '" aria-pressed="' + on + '">' +
-          '<img src="images/balloons/' + folder + '/' + pair[1] + '?v=20261013crush" alt="" loading="lazy" decoding="async"/>' +
+          '<img src="' + src + '" alt="" loading="lazy" decoding="async"/>' +
           '<span>' + esc(name) + '</span></button>';
       }).join('') + '</div></fieldset>';
   }
@@ -384,8 +404,26 @@
   function bubbleOptionsHtml() {
     if (!isBubbleUnit()) return '';
     var kind = bubbleFillKind();
-    var fillTitle = kind === 'foam' ? 'Цвет пенопласта' : kind === 'crush' || kind === 'confetti' ? 'Цвет конфетти' : kind === 'feathers' ? 'Цвет перьев' : kind === 'balls' ? 'Цвет шариков' : '';
-    var fillBlock = kind === 'feathers'
+    var fillTitle = kind === 'glass' || kind === 'glassconf' ? 'Цвет шара' : kind === 'foam' ? 'Цвет пенопласта' : kind === 'crush' || kind === 'confetti' ? 'Цвет конфетти' : kind === 'feathers' ? 'Цвет перьев' : kind === 'balls' ? 'Цвет шариков' : '';
+    function glassConfettiGrid() {
+      var balloon = 'glass-05-rozovyy-svetlyy.webp';
+      BUBBLE_GLASS.forEach(function (pair) { if (pair[0] === bubbleFill) balloon = pair[1]; });
+      return '<fieldset class="bubble-colors"><legend>Цвет конфетти' + (bubbleConfetti ? ' · ' + esc(bubbleConfetti) : '') + '</legend><div class="bubble-feather-grid">' +
+        BUBBLE_CONFETTI.map(function (pair) {
+          var name = pair[0];
+          var on = bubbleConfetti === name;
+          return '<button type="button" class="' + (on ? 'selected' : '') + '" data-act="bubble-confetti" data-v="' + esc(name) + '" aria-label="' + esc(name) + '" aria-pressed="' + on + '">' +
+            '<span class="glass-confetti-stack">' +
+            '<img src="images/balloons/glass-bubbles/' + balloon + '?v=20261013glass" alt="" decoding="async"/>' +
+            '<img src="images/balloons/glass-confetti/' + pair[1] + '?v=20261013gconf3" alt="" decoding="async"/>' +
+            '</span><span>' + esc(name) + '</span></button>';
+        }).join('') + '</div></fieldset>';
+    }
+    var fillBlock = kind === 'glassconf'
+      ? bubblePhotoGrid('Цвет шара', BUBBLE_GLASS, 'glass-bubbles', bubbleFill, 'bubble-fill') + glassConfettiGrid()
+      : kind === 'glass'
+      ? bubblePhotoGrid('Цвет шара', BUBBLE_GLASS, 'glass-bubbles', bubbleFill, 'bubble-fill')
+      : kind === 'feathers'
       ? bubblePhotoGrid('Цвет перьев', BUBBLE_FEATHERS, 'feather-bubbles', bubbleFill, 'bubble-fill')
       : kind === 'balls'
         ? bubblePhotoGrid('Цвет шариков', BUBBLE_BALLS, 'ball-bubbles', bubbleFill, 'bubble-fill')
@@ -454,7 +492,9 @@
     if (!isBubbleUnit()) return true;
     if (!String(inscription || '').trim()) return false;
     if (!bubbleInk) return false;
-    if (bubbleFillKind() && !bubbleFill) return false;
+    if (bubbleFillKind() === 'glassconf') {
+      if (!bubbleFill || !bubbleConfetti) return false;
+    } else if (bubbleFillKind() && !bubbleFill) return false;
     return true;
   }
   function flowerBaseQty() {
@@ -1171,7 +1211,7 @@
         inscription: inscription, orderDate: orderDate, orderTime: orderTime,
         fulfillment: fulfillment, address: address, quantity: qty,
         customerPhone: customerPhone, customerName: customerName, orderNote: orderNote,
-        bubbleInk: bubbleInk, bubbleFill: bubbleFill,
+        bubbleInk: bubbleInk, bubbleFill: bubbleFill, bubbleConfetti: bubbleConfetti,
         surpriseColor: surpriseColor, surpriseBill: surpriseBill
       }));
     } catch (e) {}
@@ -1198,6 +1238,7 @@
       if (typeof d.orderNote === 'string') orderNote = d.orderNote.slice(0, 200);
       if (typeof d.bubbleInk === 'string') bubbleInk = d.bubbleInk;
       if (typeof d.bubbleFill === 'string') bubbleFill = d.bubbleFill;
+      if (typeof d.bubbleConfetti === 'string') bubbleConfetti = d.bubbleConfetti;
       if (typeof d.surpriseColor === 'string') surpriseColor = d.surpriseColor;
       if (SURPRISE_BILLS.indexOf(Number(d.surpriseBill)) >= 0) surpriseBill = Number(d.surpriseBill);
       draftRestored = true;
@@ -1705,12 +1746,13 @@
           saveDraft();
           render();
         });
-      } else if (act === 'bubble-ink' || act === 'bubble-fill') {
+      } else if (act === 'bubble-ink' || act === 'bubble-fill' || act === 'bubble-confetti') {
         el.addEventListener('mousedown', function (e) { e.preventDefault(); });
         el.addEventListener('click', function () {
           var y = window.scrollY || window.pageYOffset || 0;
           var v = el.getAttribute('data-v') || '';
           if (act === 'bubble-ink') bubbleInk = isNamedUnit() ? v : (bubbleInk === v ? '' : v);
+          else if (act === 'bubble-confetti') bubbleConfetti = bubbleConfetti === v ? '' : v;
           else bubbleFill = bubbleFill === v ? '' : v;
           saveDraft();
           render();
@@ -1997,7 +2039,7 @@
             return;
           }
           var fillKind = bubbleFillKind();
-          var fillLabel = fillKind === 'foam' ? 'пенопласт' : fillKind === 'crush' ? 'дроблёное конфетти' : fillKind === 'confetti' ? 'конфетти' : fillKind === 'feathers' ? 'перья' : fillKind === 'balls' ? 'шарики' : '';
+          var fillLabel = fillKind === 'glass' || fillKind === 'glassconf' ? 'цвет шара' : fillKind === 'foam' ? 'пенопласт' : fillKind === 'crush' ? 'дроблёное конфетти' : fillKind === 'confetti' ? 'конфетти' : fillKind === 'feathers' ? 'перья' : fillKind === 'balls' ? 'шарики' : '';
           window.vigUnitList.add({
             id: p.id, slug: p.slug || slug, title: p.title, sku: p.sku,
             price: p.price,
@@ -2009,6 +2051,7 @@
             ink: (isBubbleUnit() || isNamedUnit()) ? bubbleInk : '',
             fill: isBubbleUnit() ? bubbleFill : '',
             fillLabel: isBubbleUnit() ? fillLabel : '',
+            confetti: fillKind === 'glassconf' ? bubbleConfetti : '',
             thumb: (function () {
               var grid = window.vigGridPhoto ? window.vigGridPhoto(p) : photoKey;
               return grid && window.vigImage ? window.vigImage(grid, 160) : '';

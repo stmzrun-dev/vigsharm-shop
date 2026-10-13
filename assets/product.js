@@ -185,21 +185,122 @@
   function namedOverlayHtml() {
     if (!isNamedUnit()) return '';
     var t = String(inscription || '').trim();
-    var tone = namedInkTone() === 'dark' ? 'is-dark' : 'is-light';
-    return '<span class="named-letter ' + tone + namedSizeClass(t) + '"' + (t ? '' : ' hidden') + '>' + esc(t) + '</span>';
+    var gloss = bubbleInk ? inkFilm(bubbleInk) : '';
+    var tone = gloss
+      ? ('is-vinyl' + (inkIsPale(bubbleInk) ? ' is-pale' : ''))
+      : (namedInkTone() === 'dark' ? 'is-dark' : 'is-light');
+    return '<span class="named-letter ' + tone + namedSizeClass(t) + '"' +
+      (gloss ? ' style="--ink-gloss:' + gloss + '"' : '') +
+      (t ? '' : ' hidden') + '>' + esc(t) + '</span>';
   }
   function bubbleFillKind() {
     var t = [p && p.title, p && p.short_description, p && p.composition].join(' ')
       .toLowerCase().replace(/ё/g, 'е');
     if (/пенопласт|крупин/.test(t)) return 'foam';
+    if (/дроблен/.test(t)) return 'crush';
     if (/конфетти/.test(t)) return 'confetti';
     if (/перь/.test(t)) return 'feathers';
     if (/шарик/.test(t)) return 'balls';
     return '';
   }
-  var BUBBLE_FOAM = ['мятный', 'розовый', 'белый', 'золотой', 'голубой', 'оранжевый', 'ассорти', 'красный', 'жёлтый'];
+  var BUBBLE_FOAM = [
+    ['серебро металлик', 'foam-01-serebro.webp'],
+    ['золото металлик', 'foam-02-zoloto.webp'],
+    ['ассорти макарунс', 'foam-03-makaruns.webp'],
+    ['розово-сиреневое ассорти', 'foam-04-rozovo-sirenevoe.webp'],
+    ['жёлто-зелёное ассорти', 'foam-05-zhelto-zelenoe.webp'],
+    ['голубое ассорти', 'foam-06-goluboe-assorti.webp'],
+    ['тиффани', 'foam-07-tiffani.webp'],
+    ['сиреневые', 'foam-08-sirenevye.webp'],
+    ['красные', 'foam-09-krasnye.webp'],
+    ['розовые', 'foam-10-rozovye.webp'],
+    ['малиновые', 'foam-11-malinovye.webp'],
+    ['белые', 'foam-12-belye.webp'],
+    ['чёрные', 'foam-13-chernye.webp'],
+    ['голубые', 'foam-14-golubye.webp'],
+    ['ассорти', 'foam-15-assorti.webp']
+  ];
+  var BUBBLE_CRUSH = [
+    ['золото', 'crush-01-zoloto.webp'],
+    ['серебро', 'crush-02-serebro.webp'],
+    ['малиновые', 'crush-03-malinovye.webp'],
+    ['голубые', 'crush-04-golubye.webp'],
+    ['розовые', 'crush-05-rozovye.webp'],
+    ['сиреневые', 'crush-06-sirenevye.webp'],
+    ['белые', 'crush-07-belye.webp']
+  ];
   var BUBBLE_INK = ['жёлтый', 'серебро', 'красный', 'зелёный', 'розовый', 'голубой', 'малиновый', 'фиолетовый', 'синий', 'оранжевый', 'белый', 'чёрный', 'золото'];
-  var BUBBLE_BITS = ['золото', 'серебро', 'синий', 'красный', 'розовый', 'голубой', 'зелёный', 'фиолетовый', 'малиновый', 'чёрный', 'ассорти'];
+  var BUBBLE_CONFETTI = [
+    ['круги малиновые', 'confetti-01-malinovye.webp'],
+    ['круги золотые тёмные', 'confetti-02-zoloto-temnoe.webp'],
+    ['круги серебро хром', 'confetti-03-serebro.webp'],
+    ['круги золотые яркие', 'confetti-04-zoloto-yarkoe.webp'],
+    ['круги розовые', 'confetti-05-rozovye.webp'],
+    ['круги синие', 'confetti-06-sinie.webp'],
+    ['круги розовое золото', 'confetti-07-rozovoe-zoloto.webp'],
+    ['круги золотые светлые', 'confetti-08-zoloto-svetloe.webp'],
+    ['квадраты чёрные', 'confetti-09-kv-chernye.webp'],
+    ['квадраты розовое золото', 'confetti-10-kv-rozovoe-zoloto.webp'],
+    ['квадраты розовый микс', 'confetti-11-kv-rozovyy-miks.webp'],
+    ['квадраты голубой микс', 'confetti-12-kv-goluboy-miks.webp'],
+    ['квадраты ассорти делюкс', 'confetti-13-kv-assorti.webp'],
+    ['круги ассорти праздничное', 'confetti-14-prazdnik.webp'],
+    ['круги розовые металлик', 'confetti-15-rozovye-metallik.webp'],
+    ['квадраты малиновые', 'confetti-16-kv-malinovye.webp'],
+    ['квадраты голубые', 'confetti-17-kv-golubye.webp'],
+    ['круги фиолетовые', 'confetti-18-fioletovye.webp'],
+    ['круги бирюзовые', 'confetti-19-biryuzovye.webp'],
+    ['круги красные', 'confetti-20-krasnye.webp'],
+    ['круги чёрные', 'confetti-21-chernye.webp'],
+    ['круги малиновые металлик', 'confetti-22-malinovye-metallik.webp'],
+    ['круги голубые металлик', 'confetti-23-golubye-metallik.webp'],
+    ['круги зелёные металлик', 'confetti-24-zelenye.webp']
+  ];
+  var BUBBLE_FEATHERS = [
+    ['фуксия', 'bubble-01-fuksiya.webp'],
+    ['фиолетовые', 'bubble-02-fioletovye.webp'],
+    ['сиреневые нежные', 'bubble-03-sirenevye-nezhnye.webp'],
+    ['сиреневые', 'bubble-04-sirenevye.webp'],
+    ['розовые яркие', 'bubble-05-rozovye-yarkie.webp'],
+    ['персиковые', 'bubble-06-persikovye.webp'],
+    ['оранжевые', 'bubble-07-oranzhevye.webp'],
+    ['красные', 'bubble-08-krasnye.webp'],
+    ['коричневые', 'bubble-09-korichnevye.webp'],
+    ['зелёные', 'bubble-10-zelenye.webp'],
+    ['жёлтые', 'bubble-11-zheltye.webp'],
+    ['голубые', 'bubble-12-golubye.webp'],
+    ['бордовые', 'bubble-13-bordovye.webp'],
+    ['бирюзовые', 'bubble-14-biryuzovye.webp'],
+    ['белые', 'bubble-15-belye.webp'],
+    ['бежевые', 'bubble-16-bezhevye.webp'],
+    ['ассорти яркое', 'bubble-17-assorti-yarkoe.webp'],
+    ['ассорти макарунс', 'bubble-18-assorti-makaruns.webp']
+  ];
+  var BUBBLE_BALLS = [
+    ['белый', 'ball-01-belyy.webp'],
+    ['розовый', 'ball-02-rozovyy.webp'],
+    ['розовый фламинго', 'ball-03-flamingo.webp'],
+    ['фуше', 'ball-04-fushe.webp'],
+    ['красный', 'ball-05-krasnyy.webp'],
+    ['бургундия', 'ball-06-burgundiya.webp'],
+    ['оранжевый', 'ball-07-oranzhevyy.webp'],
+    ['бежевый', 'ball-08-bezhevyy.webp'],
+    ['кофе', 'ball-09-kofe.webp'],
+    ['жёлтый', 'ball-10-zheltyy.webp'],
+    ['лимонный', 'ball-11-limonnyy.webp'],
+    ['весенне-зелёный', 'ball-12-vesenne.webp'],
+    ['лайм', 'ball-13-laym.webp'],
+    ['зелёный', 'ball-14-zelenyy.webp'],
+    ['карибский голубой', 'ball-15-karibskiy.webp'],
+    ['голубой', 'ball-16-goluboy.webp'],
+    ['синий светлый', 'ball-17-siniy-svetlyy.webp'],
+    ['тёмно-синий', 'ball-18-temno-siniy.webp'],
+    ['лаванда', 'ball-19-lavanda.webp'],
+    ['фиолетовый', 'ball-20-fioletovyy.webp'],
+    ['чёрный', 'ball-21-chernyy.webp'],
+    ['серый', 'ball-22-seryy.webp'],
+    ['ассорти', 'ball-23-assorti.webp']
+  ];
   function bubbleSwatchColor(name) {
     var map = {
       'мятный': '#7dcea0', 'розовый': '#f4a4c0', 'белый': '#f4f4f4', 'золотой': '#d4af37', 'золото': '#d4af37',
@@ -208,6 +309,64 @@
       'фиолетовый': '#8e5bd6', 'синий': '#2f6fed', 'чёрный': '#222', 'черный': '#222'
     };
     return map[String(name || '').toLowerCase()] || '#ddd';
+  }
+  function inkIsPale(name) {
+    var n = String(name || '').toLowerCase();
+    return n === 'белый' || n === 'жёлтый' || n === 'желтый' || n === 'золото' || n === 'серебро';
+  }
+  function inkFilm(name) {
+    var films = {
+      'жёлтый': ['#fff6b0', '#ffe14a', '#d4a800'],
+      'желтый': ['#fff6b0', '#ffe14a', '#d4a800'],
+      'зелёный': ['#8dffb8', '#00b85c', '#007a38'],
+      'зеленый': ['#8dffb8', '#00b85c', '#007a38'],
+      'красный': ['#ff9a9a', '#ef1c24', '#a80012'],
+      'серебро': ['#ffffff', '#d7d8dc', '#8c9096'],
+      'розовый': ['#ffe0ee', '#f4a4c0', '#d06a90'],
+      'голубой': ['#eef9ff', '#7ec8e3', '#3a96b8'],
+      'малиновый': ['#ff9ec4', '#d0125c', '#8a0836'],
+      'фиолетовый': ['#ddc6ff', '#8e5bd6', '#582c9c'],
+      'синий': ['#a8c6ff', '#2f6fed', '#163a96'],
+      'оранжевый': ['#ffd7ad', '#f5a142', '#c66a10'],
+      'белый': ['#ffffff', '#f7f7f7', '#d2d2d2'],
+      'чёрный': ['#6a6a6a', '#2a2a2a', '#0a0a0a'],
+      'черный': ['#6a6a6a', '#2a2a2a', '#0a0a0a'],
+      'золото': ['#fff3c0', '#e2bc4a', '#a07810']
+    };
+    var stops = films[String(name || '').toLowerCase()];
+    if (!stops) return '';
+    return 'linear-gradient(180deg,' + stops[0] + ' 0%,' + stops[1] + ' 46%,' + stops[2] + ' 100%)';
+  }
+  function bubbleInkPreviewHtml() {
+    var shown = String(inscription || '').trim();
+    var gloss = bubbleInk ? inkFilm(bubbleInk) : '';
+    var pale = inkIsPale(bubbleInk);
+    return '<span class="bubble-ink-preview' + (shown ? '' : ' is-empty') + (gloss ? ' is-vinyl' : '') + (pale ? ' is-pale' : '') + '"' +
+      (gloss ? ' style="--ink-gloss:' + gloss + '"' : '') + '>' + esc(shown || 'С Днём рождения!') + '</span>';
+  }
+  function bubbleInkInputAttr() {
+    var gloss = bubbleInk ? inkFilm(bubbleInk) : '';
+    var mid = gloss ? gloss.split(',')[2].trim().split(' ')[0] : '';
+    return (inkIsPale(bubbleInk) ? ' class="is-pale"' : '') + (mid ? ' style="color:' + mid + '"' : '');
+  }
+  function bubblePhotoGrid(title, pairs, folder, selected, act) {
+    return '<fieldset class="bubble-colors"><legend>' + esc(title) + (selected ? ' · ' + esc(selected) : '') + '</legend><div class="bubble-feather-grid">' +
+      pairs.map(function (pair) {
+        var name = pair[0];
+        var on = selected === name;
+        return '<button type="button" class="' + (on ? 'selected' : '') + '" data-act="' + act + '" data-v="' + esc(name) + '" aria-label="' + esc(name) + '" aria-pressed="' + on + '">' +
+          '<img src="images/balloons/' + folder + '/' + pair[1] + '?v=20261013crush" alt="" loading="lazy" decoding="async"/>' +
+          '<span>' + esc(name) + '</span></button>';
+      }).join('') + '</div></fieldset>';
+  }
+  function bubbleVinylRow(title, names, selected, act) {
+    var legend = title + ' · ' + (selected || 'выберите');
+    return '<fieldset class="bubble-colors"><legend>' + esc(legend) + '</legend><div class="bubble-vinyl-row">' +
+      names.map(function (name) {
+        var on = selected === name;
+        return '<button type="button" class="' + (on ? 'selected' : '') + '" data-act="' + act + '" data-v="' + esc(name) + '" aria-label="' + esc(name) + '" aria-pressed="' + on + '">' +
+          '<i class="bubble-vinyl" style="background:' + inkFilm(name) + '" aria-hidden="true"></i></button>';
+      }).join('') + '</div></fieldset>';
   }
   function bubbleColorRow(title, names, selected, act) {
     var legend = title + ' · ' + (selected || 'выберите');
@@ -225,11 +384,21 @@
   function bubbleOptionsHtml() {
     if (!isBubbleUnit()) return '';
     var kind = bubbleFillKind();
-    var fillTitle = kind === 'foam' ? 'Цвет пенопласта' : kind === 'confetti' ? 'Цвет конфетти' : kind === 'feathers' ? 'Цвет перьев' : kind === 'balls' ? 'Цвет шариков' : '';
-    var fillNames = kind === 'foam' ? BUBBLE_FOAM : (kind ? BUBBLE_BITS : []);
+    var fillTitle = kind === 'foam' ? 'Цвет пенопласта' : kind === 'crush' || kind === 'confetti' ? 'Цвет конфетти' : kind === 'feathers' ? 'Цвет перьев' : kind === 'balls' ? 'Цвет шариков' : '';
+    var fillBlock = kind === 'feathers'
+      ? bubblePhotoGrid('Цвет перьев', BUBBLE_FEATHERS, 'feather-bubbles', bubbleFill, 'bubble-fill')
+      : kind === 'balls'
+        ? bubblePhotoGrid('Цвет шариков', BUBBLE_BALLS, 'ball-bubbles', bubbleFill, 'bubble-fill')
+        : kind === 'foam'
+          ? bubblePhotoGrid('Цвет пенопласта', BUBBLE_FOAM, 'foam-bubbles', bubbleFill, 'bubble-fill')
+          : kind === 'crush'
+            ? bubblePhotoGrid('Цвет конфетти', BUBBLE_CRUSH, 'crush-bubbles', bubbleFill, 'bubble-fill')
+            : kind === 'confetti'
+              ? bubblePhotoGrid('Цвет конфетти', BUBBLE_CONFETTI, 'confetti-bubbles', bubbleFill, 'bubble-fill')
+              : '';
     return '<div class="bubble-options">' +
-      (fillTitle ? bubbleColorRow(fillTitle, fillNames, bubbleFill, 'bubble-fill') : '') +
-      bubbleColorRow('Цвет надписи', BUBBLE_INK, bubbleInk, 'bubble-ink') +
+      fillBlock +
+      bubbleVinylRow('Цвет надписи', BUBBLE_INK, bubbleInk, 'bubble-ink') +
       '</div>';
   }
   var SURPRISE_COLORS = ['розовый', 'золотой', 'красный', 'синий', 'белый', 'чёрный', 'фиолетовый', 'голубой'];
@@ -832,9 +1001,10 @@
     if (clientStepVisible('client-ins')) {
       if (isNamedUnit()) {
         html += '<section class="client-block" id="client-ins">' +
+          bubbleVinylRow('Цвет надписи', BUBBLE_INK, bubbleInk, 'bubble-ink') +
           '<label class="client-ins' + (inscriptionOk() ? ' is-filled' : '') + '">' +
           '<span class="client-digit-label">Ваша надпись</span>' +
-          '<input value="' + esc(inscription) + '" maxlength="60" data-act="inscription" placeholder="Ваш текст" inputmode="text" autocomplete="off"/>' +
+          '<input value="' + esc(inscription) + '" maxlength="60" data-act="inscription" placeholder="Ваш текст" inputmode="text" autocomplete="off"' + bubbleInkInputAttr() + '/>' +
           '</label>' +
           '<button type="button" class="button product-unit-add" data-act="unit-add">В набор</button></section>';
       } else if (isBubbleUnit()) {
@@ -842,7 +1012,8 @@
           bubbleOptionsHtml() +
           '<label class="client-ins bubble-ins' + (inscriptionOk() ? ' is-filled' : '') + '">' +
           '<span class="client-digit-label">Надпись</span>' +
-          '<input value="' + esc(inscription) + '" maxlength="60" data-act="inscription" placeholder="С Днём рождения!" inputmode="text" autocomplete="off"/>' +
+          bubbleInkPreviewHtml() +
+          '<input value="' + esc(inscription) + '" maxlength="60" data-act="inscription" placeholder="С Днём рождения!" inputmode="text" autocomplete="off"' + bubbleInkInputAttr() + '/>' +
           '</label></section>';
       } else {
         html += '<section class="client-block' + (next === 'client-ins' ? ' is-next' : inscriptionOk() ? ' is-done' : '') + '" id="client-ins">' +
@@ -1142,6 +1313,7 @@
 
   function render() {
     if (!p) return;
+    if (isNamedUnit() && !bubbleInk) bubbleInk = namedInkTone() === 'dark' ? 'чёрный' : 'белый';
     if (!allowsPickup() && fulfillment === 'pickup') fulfillment = '';
     saveDraft();
     var keys = p.image_keys || [];
@@ -1305,9 +1477,9 @@
       '<button type="button" class="button button-primary product-order-button" data-act="order"' + (orderSending ? ' disabled' : '') + '>' + esc(orderSending ? 'Отправляем…' : orderBtn) + '</button>')) +
       (isUnit()
         ? (isBubbleUnit()
-          ? '<label class="config-input inscription-field"><span>Надпись на шаре</span><input value="' + esc(inscription) + '" maxlength="60" data-act="inscription" placeholder="Например: Мамочка"/></label>' + bubbleOptionsHtml()
+          ? '<label class="config-input inscription-field"><span>Надпись на шаре</span>' + bubbleInkPreviewHtml() + '<input value="' + esc(inscription) + '" maxlength="60" data-act="inscription" placeholder="Например: Мамочка"' + bubbleInkInputAttr() + '/></label>' + bubbleOptionsHtml()
           : (isNamedUnit()
-            ? '<label class="config-input inscription-field"><span>Ваша надпись</span><input value="' + esc(inscription) + '" maxlength="60" data-act="inscription" placeholder="Ваш текст"/></label>'
+            ? '<div class="inscription-field">' + bubbleVinylRow('Цвет надписи', BUBBLE_INK, bubbleInk, 'bubble-ink') + '<label class="config-input"><span>Ваша надпись</span><input value="' + esc(inscription) + '" maxlength="60" data-act="inscription" placeholder="Ваш текст"' + bubbleInkInputAttr() + '/></label></div>'
             : '')) +
           '<button type="button" class="button product-unit-add" data-act="unit-add">В набор</button>'
         : '') +
@@ -1534,12 +1706,16 @@
           render();
         });
       } else if (act === 'bubble-ink' || act === 'bubble-fill') {
+        el.addEventListener('mousedown', function (e) { e.preventDefault(); });
         el.addEventListener('click', function () {
+          var y = window.scrollY || window.pageYOffset || 0;
           var v = el.getAttribute('data-v') || '';
-          if (act === 'bubble-ink') bubbleInk = bubbleInk === v ? '' : v;
+          if (act === 'bubble-ink') bubbleInk = isNamedUnit() ? v : (bubbleInk === v ? '' : v);
           else bubbleFill = bubbleFill === v ? '' : v;
           saveDraft();
           render();
+          window.scrollTo(0, y);
+          requestAnimationFrame(function () { window.scrollTo(0, y); });
         });
       } else if (act === 'inscription') {
         el.addEventListener('input', function () {
@@ -1553,6 +1729,10 @@
           if (insBlock) insBlock.classList.toggle('is-done', hasText);
           var preview = insBlock && insBlock.querySelector('.ins-balloon-text');
           var balloon = insBlock && insBlock.querySelector('.ins-balloon');
+          root.querySelectorAll('.bubble-ink-preview').forEach(function (inkPrev) {
+            inkPrev.textContent = hasText ? inscription.trim() : 'С Днём рождения!';
+            inkPrev.classList.toggle('is-empty', !hasText);
+          });
           if (preview) {
             var shown = hasText ? inscription.trim() : 'С Днём рождения!';
             preview.textContent = shown;
@@ -1561,8 +1741,12 @@
           if (balloon) balloon.classList.toggle('is-filled', hasText);
           var letter = root.querySelector('.product-page-main-image .named-letter');
           if (letter) {
-            var tone = letter.classList.contains('is-dark') ? 'is-dark' : 'is-light';
+            var gloss = bubbleInk ? inkFilm(bubbleInk) : '';
+            var tone = gloss
+              ? ('is-vinyl' + (inkIsPale(bubbleInk) ? ' is-pale' : ''))
+              : (letter.classList.contains('is-dark') ? 'is-dark' : 'is-light');
             letter.className = 'named-letter ' + tone + namedSizeClass(inscription);
+            if (gloss) letter.style.setProperty('--ink-gloss', gloss);
             letter.textContent = hasText ? inscription.trim() : '';
             letter.hidden = !hasText;
           }
@@ -1808,12 +1992,12 @@
             if (window.vigToast) window.vigToast(!String(inscription || '').trim() ? 'Напишите надпись' : 'Выберите цвет');
             return;
           }
-          if (isNamedUnit() && !String(inscription || '').trim()) {
-            if (window.vigToast) window.vigToast('Напишите надпись');
+          if (isNamedUnit() && (!String(inscription || '').trim() || !bubbleInk)) {
+            if (window.vigToast) window.vigToast(!String(inscription || '').trim() ? 'Напишите надпись' : 'Выберите цвет');
             return;
           }
           var fillKind = bubbleFillKind();
-          var fillLabel = fillKind === 'foam' ? 'пенопласт' : fillKind === 'confetti' ? 'конфетти' : fillKind === 'feathers' ? 'перья' : fillKind === 'balls' ? 'шарики' : '';
+          var fillLabel = fillKind === 'foam' ? 'пенопласт' : fillKind === 'crush' ? 'дроблёное конфетти' : fillKind === 'confetti' ? 'конфетти' : fillKind === 'feathers' ? 'перья' : fillKind === 'balls' ? 'шарики' : '';
           window.vigUnitList.add({
             id: p.id, slug: p.slug || slug, title: p.title, sku: p.sku,
             price: p.price,
@@ -1822,7 +2006,7 @@
             digit: isDigitUnit() ? digit : '',
             digit2: isDigitUnit() && effDigits() >= 2 ? digit2 : '',
             inscription: (isBubbleUnit() || isNamedUnit()) ? String(inscription || '').trim() : '',
-            ink: isBubbleUnit() ? bubbleInk : (isNamedUnit() ? namedInkWord() : ''),
+            ink: (isBubbleUnit() || isNamedUnit()) ? bubbleInk : '',
             fill: isBubbleUnit() ? bubbleFill : '',
             fillLabel: isBubbleUnit() ? fillLabel : '',
             thumb: (function () {

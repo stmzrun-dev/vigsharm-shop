@@ -636,6 +636,7 @@
       var t = [product.title, product.short_description, product.composition].join(' ')
         .toLowerCase().replace(/ё/g, 'е');
       if (/пенопласт|крупин/.test(t)) return 'foam';
+      if (/дроблен/.test(t)) return 'crush';
       if (/конфетти/.test(t)) return 'confetti';
       if (/перь/.test(t)) return 'feathers';
       if (/шарик/.test(t)) return 'balls';

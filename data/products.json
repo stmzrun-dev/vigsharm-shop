@@ -2,9 +2,1084 @@
   "ok": true,
   "products": [
     {
+      "id": "3bc815ab-9e7f-4d51-b296-103eb5e21313",
+      "title": "Круги Малиновые, Металлик",
+      "article": "UNT-706",
+      "price": 180,
+      "short_description": "Круги Малиновые, Металлик",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "pastel-kakao-16-2-2-22-4",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Шары с конфетти"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/3a4d9c51-92e1-40b2-a233-11a8f3577985.jpg",
+        "photo_dhash": "f0e0f4e4f8e070b0",
+        "unit_type": "confetti"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/48d691b9-9ca5-4137-9c41-8e48001c2898.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/48d691b9-9ca5-4137-9c41-8e48001c2898.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-13T21:11:03.771Z",
+      "updated_at": "2026-10-13T21:11:03.771Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/cd4b770c-2fc3-4f43-b59a-ca8625543bf3.webp"
+    },
+    {
+      "id": "794482f9-7893-4596-b5c6-32813a4ec3b7",
+      "title": "Круги Черные",
+      "article": "UNT-705",
+      "price": 180,
+      "short_description": "Круги Черные",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "pastel-kakao-16-2-2-22-3",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Шары с конфетти"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/76d44147-abff-4f2f-a7ef-4a094f356da6.jpg",
+        "photo_dhash": "f0f0f4f4f0f070b0",
+        "unit_type": "confetti"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/bb3b26b8-7352-45d4-8ee6-32c8159d6649.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/bb3b26b8-7352-45d4-8ee6-32c8159d6649.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-13T21:09:49.067Z",
+      "updated_at": "2026-10-13T21:09:49.067Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/3ce6a082-8b06-46eb-9341-f1b134a0d128.webp"
+    },
+    {
+      "id": "4fdadc27-5bee-40ef-a2f1-0a295baae5bd",
+      "title": "Звезды Голубой Микс",
+      "article": "UNT-704",
+      "price": 180,
+      "short_description": "Звезды Голубой Микс",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "pastel-kakao-16-2-2-22-2",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Шары с конфетти"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/cf90123f-67ce-40e1-ac8e-0f5c264c3592.jpg",
+        "photo_dhash": "f0f0f0f4fcf870b0",
+        "unit_type": "confetti"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/eb22f493-84d6-46c0-b5c6-9f19141943e4.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/eb22f493-84d6-46c0-b5c6-9f19141943e4.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-13T21:08:12.534Z",
+      "updated_at": "2026-10-13T21:08:12.534Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/166377dc-1301-461b-b263-0b68ffb2cc91.webp"
+    },
+    {
+      "id": "c634dcdc-cb42-4efb-b724-18cc69ade0fe",
+      "title": "Круги Красные",
+      "article": "UNT-703",
+      "price": 180,
+      "short_description": "Круги Красные",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "pastel-kakao-16-2-2-22",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Шары с конфетти"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/c92862fc-8265-4d48-a6c3-20ba847df033.jpg",
+        "photo_dhash": "f0f0f4f0f8f070b0",
+        "unit_type": "confetti"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/770c1600-2e6c-44ee-9ec8-e2eae5f64676.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/770c1600-2e6c-44ee-9ec8-e2eae5f64676.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-13T21:05:48.275Z",
+      "updated_at": "2026-10-13T21:07:10.171Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/90abdbe1-e33d-4062-9c5b-5144e27016b2.webp"
+    },
+    {
+      "id": "4965635f-6d99-45c1-a0ab-844e99d9f729",
+      "title": "Круги Бирюзовые",
+      "article": "UNT-702",
+      "price": 180,
+      "short_description": "Круги Бирюзовые",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": "Миньон",
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": "Миньоны",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "pastel-kakao-16-2-2-21",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Шары с конфетти"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/2b4f75ce-a87d-4a55-9fc6-6b1801d2e3da.jpg",
+        "photo_dhash": "f0e0e4f4f8f07030",
+        "unit_type": "confetti"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/bb8d717b-d750-4da1-b409-72a70049446c.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/bb8d717b-d750-4da1-b409-72a70049446c.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-13T21:05:35.891Z",
+      "updated_at": "2026-10-13T21:05:35.891Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/ab6e7234-eb9d-43a0-bd5d-73ee0ba2ed39.webp"
+    },
+    {
+      "id": "d4da46ca-1ed2-4d25-ba35-606e5c8395b4",
+      "title": "Круги Розовые, Металлик",
+      "article": "UNT-701",
+      "price": 180,
+      "short_description": "Круги Розовые, Металлик",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "pastel-kakao-16-2-2-20",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Шары с конфетти"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/e27dcd18-d6c4-4efd-a010-5f45aaf66ccc.jpg",
+        "photo_dhash": "f0f0e4e8e8e870b0",
+        "unit_type": "confetti"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/b787e39e-ad29-4372-bf6a-931bbdaa2e94.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/b787e39e-ad29-4372-bf6a-931bbdaa2e94.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-13T21:03:54.385Z",
+      "updated_at": "2026-10-13T21:03:54.385Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/4ad2cd6c-cafc-492e-9fd3-345ac188048e.webp"
+    },
+    {
+      "id": "3930ee0d-b708-4289-83e5-40f0a1734aa4",
+      "title": "Круги Ассорти Делюкс",
+      "article": "UNT-700",
+      "price": 180,
+      "short_description": "Круги Ассорти Делюкс",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "pastel-kakao-16-2-2-19",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Шары с конфетти"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/271b7676-e0b5-4b9d-a7fe-a32cf6f25c87.jpg",
+        "photo_dhash": "f0e8e0f0f8e870b0",
+        "unit_type": "confetti"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/96ae6acc-c43d-469b-aabc-207d968d3017.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/96ae6acc-c43d-469b-aabc-207d968d3017.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-13T21:02:09.157Z",
+      "updated_at": "2026-10-13T21:02:09.157Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/b6703453-1991-4add-9213-2b92328e01f6.webp"
+    },
+    {
+      "id": "01994438-85d2-4a2a-90c2-300d27407f3b",
+      "title": "Круги Голубой Микс",
+      "article": "UNT-699",
+      "price": 180,
+      "short_description": "Круги Голубой Микс",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": "Блюи",
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": "Голубой Микс",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "pastel-kakao-16-2-2-18",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Шары с конфетти"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/c04a4d96-cb94-4401-8d8d-d5d245df9fde.jpg",
+        "photo_dhash": "f0f8f4f0d8f070b0",
+        "unit_type": "confetti"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/8d35fbb8-4265-4718-99c1-8120e036a055.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/8d35fbb8-4265-4718-99c1-8120e036a055.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-13T21:01:01.841Z",
+      "updated_at": "2026-10-13T21:01:01.841Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/8a2eb78a-0b6c-4631-ad39-29e423d4a2fb.webp"
+    },
+    {
+      "id": "6bd8cb98-695c-42bc-8506-75f52eb5831a",
+      "title": "Круги Ассорти Праздничное",
+      "article": "UNT-698",
+      "price": 180,
+      "short_description": "Круги Ассорти Праздничное",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "pastel-kakao-16-2-2-17",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Шары с конфетти"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/5f0f4da6-76f9-466f-a466-d2bc7b40c134.jpg",
+        "photo_dhash": "f0f0e4d8d8f070b0",
+        "unit_type": "confetti"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/5457c073-1334-45d4-8b40-e3089c5a8556.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/5457c073-1334-45d4-8b40-e3089c5a8556.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-13T20:59:01.594Z",
+      "updated_at": "2026-10-13T20:59:01.594Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/36129653-174c-4079-811f-80dd4356caf1.webp"
+    },
+    {
+      "id": "b2da214d-c4cc-4636-8c87-adfde4e79ff4",
+      "title": "Квадраты Ассорти Делюкс",
+      "article": "UNT-697",
+      "price": 180,
+      "short_description": "Квадраты Ассорти Делюкс",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "pastel-kakao-16-2-2-16",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Шары с конфетти"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/82a46b6b-132c-4b03-9a80-a274102b92f1.jpg",
+        "photo_dhash": "f0f0e4f0f0e070b0",
+        "unit_type": "confetti"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/8ca082f9-3d45-4096-b057-38bf8898d22f.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/8ca082f9-3d45-4096-b057-38bf8898d22f.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-13T20:57:18.609Z",
+      "updated_at": "2026-10-13T20:57:18.609Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/1b6acf2e-ef3e-47bc-8592-1f96311d4f85.webp"
+    },
+    {
+      "id": "72889aa9-6a9f-4c87-8468-b8c9c8e43d68",
+      "title": "Квадраты Голубой Микс",
+      "article": "UNT-696",
+      "price": 180,
+      "short_description": "Квадраты Голубой Микс",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": "Квадратик",
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": "Розовый Микс",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "pastel-kakao-16-2-2-15",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Шары с конфетти"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/05c20c44-8ed9-4888-b2b4-a7961776abfc.jpg",
+        "photo_dhash": "f0e8e4f8f8f070b0",
+        "unit_type": "confetti"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/53088891-1c8b-408f-a687-5df21c28d679.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/53088891-1c8b-408f-a687-5df21c28d679.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-13T20:56:07.090Z",
+      "updated_at": "2026-10-13T20:56:07.090Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/e35af27d-692c-4aa6-a5f9-4a2519ad439e.webp"
+    },
+    {
+      "id": "d71f0eb9-b17a-4339-9aa9-b9567af97e5a",
+      "title": "Квадраты Розовый Микс",
+      "article": "UNT-695",
+      "price": 180,
+      "short_description": "Квадраты Розовый Микс",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "pastel-kakao-16-2-2-14",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Шары с конфетти"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/4eb7ea7d-3d49-4dc4-90bc-f84d7ffc2325.jpg",
+        "photo_dhash": "f0f0f4f0f0f070b0",
+        "unit_type": "confetti"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/d90440ae-e17c-4bda-bc59-837e1f7c0bec.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/d90440ae-e17c-4bda-bc59-837e1f7c0bec.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-13T20:54:39.339Z",
+      "updated_at": "2026-10-13T20:54:39.339Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/5108bc1c-87d6-43b6-9520-4dda0a4c4f90.webp"
+    },
+    {
+      "id": "65b43c85-c4ff-48e5-9411-153e94380ce4",
+      "title": "Квадраты Розовое Золото",
+      "article": "UNT-694",
+      "price": 180,
+      "short_description": "Квадраты Розовое Золото",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "pastel-kakao-16-2-2-13",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Шары с конфетти"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/cec36ee1-b725-4270-b12a-3f8f8e3967d1.jpg",
+        "photo_dhash": "f0e0f4f0f8f870b0",
+        "unit_type": "confetti"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/84d5640d-2dab-459d-a47e-a13c0f2b85ed.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/84d5640d-2dab-459d-a47e-a13c0f2b85ed.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-13T20:53:30.392Z",
+      "updated_at": "2026-10-13T20:53:30.392Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/e94a662a-e9b4-4b20-906d-f262742171d7.webp"
+    },
+    {
+      "id": "4fb10acc-940a-4d6d-9176-bbff61c1da2f",
+      "title": "Круги Золотые Светлые",
+      "article": "UNT-693",
+      "price": 180,
+      "short_description": "Круги Золотые Светлые",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "pastel-kakao-16-2-2-12",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Шары с конфетти"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/af3954ec-386b-4763-a349-7e9ad2894750.jpg",
+        "photo_dhash": "f0f0e4f4f8f870b0",
+        "unit_type": "confetti"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/3ceeef8a-2fee-40d6-8dbf-fe897542520c.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/3ceeef8a-2fee-40d6-8dbf-fe897542520c.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-13T20:52:14.522Z",
+      "updated_at": "2026-10-13T20:52:14.522Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/515a7a98-0f6c-482d-ba25-33574d0561d7.webp"
+    },
+    {
+      "id": "0a81cc61-841d-4882-b4f0-4e1f7f9cd031",
+      "title": "Круги Розовое Золото",
+      "article": "UNT-692",
+      "price": 180,
+      "short_description": "Круги Розовое Золото",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "pastel-kakao-16-2-2-11",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Шары с конфетти"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/220f8b40-6b06-499a-8a9c-dd816895fff8.jpg",
+        "photo_dhash": "f0f0e4f4f8f870b0",
+        "unit_type": "confetti"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/e2dbc9ab-86cb-4e58-b91d-e8f237b5add7.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/e2dbc9ab-86cb-4e58-b91d-e8f237b5add7.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-13T20:51:05.805Z",
+      "updated_at": "2026-10-13T20:51:05.805Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/6f727414-a3d8-471c-ace1-61023472240b.webp"
+    },
+    {
+      "id": "cb9ac5b9-a586-4926-909f-6c8c5b6eacaa",
+      "title": "Круги Синие",
+      "article": "UNT-691",
+      "price": 180,
+      "short_description": "Круги Синие",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": "Губка Боб",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "pastel-kakao-16-2-2-10",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Шары с конфетти"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/013a06a8-7f47-4512-ae0f-806ab16373bf.jpg",
+        "photo_dhash": "f0f0f4f4e8e870b0",
+        "unit_type": "confetti"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/c1e01c8e-edf8-42b3-80b5-1f6ced84655f.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/c1e01c8e-edf8-42b3-80b5-1f6ced84655f.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-13T20:49:24.528Z",
+      "updated_at": "2026-10-13T20:49:24.528Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/5af79382-b0e6-4766-b9b3-d12938958562.webp"
+    },
+    {
+      "id": "8c98960a-c4ce-44b8-9e4c-98d89157dfc9",
+      "title": "Круги Розовые",
+      "article": "UNT-690",
+      "price": 180,
+      "short_description": "Круги Розовые",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "pastel-kakao-16-2-2-9",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Шары с конфетти"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/98bd16e7-a978-4e1e-bc25-e1542c6704bb.jpg",
+        "photo_dhash": "f0f0e4f4f8f870b0",
+        "unit_type": "confetti"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/7ad15b67-935b-41f6-a0a0-502c418d92bb.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/7ad15b67-935b-41f6-a0a0-502c418d92bb.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-13T20:47:23.708Z",
+      "updated_at": "2026-10-13T20:47:23.708Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/7f78785f-97d0-4de5-ac57-88f1d6b45914.webp"
+    },
+    {
+      "id": "c8640051-102c-4fb1-88fb-d72daf520772",
+      "title": "Круги Золотые Яркие",
+      "article": "UNT-689",
+      "price": 180,
+      "short_description": "Круги Золотые Яркие",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "pastel-kakao-16-2-2-8",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Шары с конфетти"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/81b9aa42-b710-441e-a1d8-22225dd1c6b9.jpg",
+        "photo_dhash": "f0f0f4f4d8f87070",
+        "unit_type": "confetti"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/b8c96f3a-07cd-4cfb-b2d0-3c52c452bc67.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/b8c96f3a-07cd-4cfb-b2d0-3c52c452bc67.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-13T20:45:08.439Z",
+      "updated_at": "2026-10-13T20:45:08.439Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/69f0b8b4-93ab-495b-9df8-ef89c700fdb1.webp"
+    },
+    {
+      "id": "212a69b5-eb76-4164-80dc-6192241cc00d",
+      "title": "Круги Серебро Хром",
+      "article": "UNT-688",
+      "price": 180,
+      "short_description": "Круги Серебро Хром",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "pastel-kakao-16-2-2-7",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Шары с конфетти"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/8b256ce7-3072-410e-8e27-ce829569ca1f.jpg",
+        "photo_dhash": "f0f0e4f4f8f870b0",
+        "unit_type": "confetti"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/a1300946-0c1d-4ec0-a4be-20a1bae992ef.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/a1300946-0c1d-4ec0-a4be-20a1bae992ef.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-13T20:43:18.545Z",
+      "updated_at": "2026-10-13T20:43:18.545Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/d1ecb49d-0fae-4cea-af8f-a122413c5825.webp"
+    },
+    {
+      "id": "136d5937-1dc4-4c87-8847-b8f867d6f42d",
+      "title": "Круги Золотые Темные",
+      "article": "UNT-687",
+      "price": 180,
+      "short_description": "Круги Золотые Темные",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "pastel-kakao-16-2-2-6",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Шары с конфетти"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/2b97041b-2b31-42ca-82a5-1d02eeb82309.jpg",
+        "photo_dhash": "f0f8f4f4f8f070b0",
+        "unit_type": "confetti"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/78f721b5-796b-4120-afa7-8339ee8dac5b.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/78f721b5-796b-4120-afa7-8339ee8dac5b.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-13T20:41:03.881Z",
+      "updated_at": "2026-10-13T20:41:03.881Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/7aa0a683-2ca8-47a0-86c1-66a08d6e80bc.webp"
+    },
+    {
+      "id": "7fb2f9f9-4253-43e0-81ab-0f0d7cbed3da",
+      "title": "Круги Малиновые",
+      "article": "UNT-686",
+      "price": 180,
+      "short_description": "Круги Малиновые",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": "Малиновый Круг",
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": "Малиновый Круг",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "pastel-kakao-16-2-2-5",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Шары с конфетти"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/0fbfd73e-5f55-4d06-83b9-9c23fed949b1.jpg",
+        "photo_dhash": "f0f0f4f4f8e870b0",
+        "unit_type": "confetti"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/e7fd5eb9-3bb7-4c2d-bd85-bf7a544c7bfc.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/e7fd5eb9-3bb7-4c2d-bd85-bf7a544c7bfc.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-13T20:39:35.165Z",
+      "updated_at": "2026-10-13T20:39:35.165Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/450d3a89-4b7c-4439-b152-484c2b420c6e.webp"
+    },
+    {
+      "id": "f027dc16-6110-4f5c-9cba-70e8ba961c61",
+      "title": "Круги Голубые, Металлик",
+      "article": "UNT-685",
+      "price": 180,
+      "short_description": "Круги Голубые, Металлик",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "pastel-kakao-16-2-2-4",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Шары с конфетти"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/45bab3ca-45a2-4ad1-9296-ed310bd886cf.jpg",
+        "photo_dhash": "f0e0e4f4f8f07030",
+        "unit_type": "confetti"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/d1571021-93f8-4f8f-bdcb-1f5b4f02ecd7.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/d1571021-93f8-4f8f-bdcb-1f5b4f02ecd7.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-13T20:38:15.342Z",
+      "updated_at": "2026-10-13T20:38:15.342Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/f59828ac-983a-4658-a3fd-1a9019882547.webp"
+    },
+    {
+      "id": "24627fe0-e88a-452e-8bc3-c86760f7bfd5",
+      "title": "Круги Голубые, Хром",
+      "article": "UNT-684",
+      "price": 180,
+      "short_description": "Круги Голубые, Хром",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "pastel-kakao-16-2-2-3",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Шары с конфетти"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/873cce02-5300-47ac-8729-339e645d24f1.jpg",
+        "photo_dhash": "f0f0f4f0d4f070b0",
+        "unit_type": "confetti"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/63b01874-9b3c-418e-8250-d155c45dfc1d.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/63b01874-9b3c-418e-8250-d155c45dfc1d.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-13T20:36:31.282Z",
+      "updated_at": "2026-10-13T20:36:31.282Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/af62e1bd-cf03-4a62-8137-5cf10dee8644.webp"
+    },
+    {
+      "id": "6e535f8d-a947-4c93-8828-9922e593c65a",
+      "title": "Сердца Серебро",
+      "article": "UNT-683",
+      "price": 180,
+      "short_description": "Сердца Серебро",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "pastel-kakao-16-2-2-2",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Шары с конфетти"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/247fa8f4-04f4-4ff4-a563-1c7ee857dc37.jpg",
+        "photo_dhash": "f0f0f4e4f8f070b0",
+        "unit_type": "confetti"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/2b3abf15-2994-4ab5-8cc0-eadea003cb8d.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/2b3abf15-2994-4ab5-8cc0-eadea003cb8d.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-13T20:34:31.488Z",
+      "updated_at": "2026-10-13T20:34:31.488Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/d48de1ac-5bfc-42fa-8965-8f5ef269855f.webp"
+    },
+    {
+      "id": "97e0094a-ad47-43b8-8bf4-e43108566c5a",
+      "title": "Сердца Золотые",
+      "article": "UNT-682",
+      "price": 180,
+      "short_description": "Сердца Золотые",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "pastel-kakao-16-2-2",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Шары с конфетти"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/34004c75-3840-499f-bebf-2f7993081832.jpg",
+        "photo_dhash": "f0f0f4e4e8e070b0",
+        "unit_type": "confetti"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/3bb47a32-ceb5-4233-b707-c306074d8651.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/3bb47a32-ceb5-4233-b707-c306074d8651.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-13T20:26:09.693Z",
+      "updated_at": "2026-10-13T20:33:22.788Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/8317341f-25d7-4799-9039-cf4a6f1f478f.webp"
+    },
+    {
       "id": "01efbe45-0675-442c-88f8-b644814e3eb6",
       "title": "Стеклянный баблс с надписью",
-      "article": null,
+      "article": "UNT-681",
       "price": 2500,
       "short_description": "Стеклянный баблс с надписью",
       "full_description": "",
@@ -30,6 +1105,8 @@
         "number_choice": false,
         "personal_inscription": false,
         "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/1530e65a-efe3-479d-8fb0-04ad358b564c.jpg",
+        "photo_dhash": "6f67e2d8647d331f",
         "unit_type": "bubble"
       },
       "photos": [
@@ -39,7 +1116,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-10-13T19:45:43.340Z",
-      "updated_at": "2026-10-13T19:45:54.585Z",
+      "updated_at": "2026-10-13T20:00:09.208Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/5fb7a4f6-53ae-41f5-a020-da93a492544e.webp"
     },
     {
@@ -208,10 +1285,10 @@
         "https://storage.yandexcloud.net/vigsharm-photos/products/430c7324-b3e6-473b-ae78-6eb6c82f3f21.jpg"
       ],
       "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/430c7324-b3e6-473b-ae78-6eb6c82f3f21.jpg",
-      "status": "published",
+      "status": "draft",
       "show_on_site": true,
       "created_at": "2026-10-12T19:37:33.215Z",
-      "updated_at": "2026-10-13T06:35:05.508Z",
+      "updated_at": "2026-10-13T20:00:31.085Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/fe695f3e-991f-4f78-a363-b1bb8e020540.webp"
     },
     {
@@ -43693,10 +44770,10 @@
         "https://storage.yandexcloud.net/vigsharm-photos/products/59eaff0a-4276-48c4-8ad7-e05b41aa325d.jpg"
       ],
       "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/59eaff0a-4276-48c4-8ad7-e05b41aa325d.jpg",
-      "status": "published",
+      "status": "draft",
       "show_on_site": true,
       "created_at": "2026-09-26T12:40:24.819Z",
-      "updated_at": "2026-09-26T13:56:27.958Z",
+      "updated_at": "2026-10-13T21:11:51.914Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/30b89088-539b-448e-aa56-ee47dd7de721.webp"
     },
     {
@@ -43736,10 +44813,10 @@
         "https://storage.yandexcloud.net/vigsharm-photos/products/a9b93a49-b0f2-426e-9387-b613ac5acabe.jpg"
       ],
       "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/a9b93a49-b0f2-426e-9387-b613ac5acabe.jpg",
-      "status": "published",
+      "status": "draft",
       "show_on_site": true,
       "created_at": "2026-09-26T12:39:40.177Z",
-      "updated_at": "2026-09-26T13:56:29.378Z",
+      "updated_at": "2026-10-13T21:11:52.703Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/f775acd4-5483-4559-8305-388f0dc51475.webp"
     },
     {
@@ -43832,10 +44909,10 @@
         "https://storage.yandexcloud.net/vigsharm-photos/products/41937287-0fa1-4722-99cb-c880ab5ba0df.jpg"
       ],
       "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/41937287-0fa1-4722-99cb-c880ab5ba0df.jpg",
-      "status": "published",
+      "status": "draft",
       "show_on_site": true,
       "created_at": "2026-09-26T11:34:08.844Z",
-      "updated_at": "2026-09-26T11:34:31.365Z",
+      "updated_at": "2026-10-13T21:11:50.042Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/1d189726-6020-4c4e-8801-00d5e9e517ab.webp"
     },
     {
@@ -43918,10 +44995,10 @@
         "https://storage.yandexcloud.net/vigsharm-photos/products/35ad7a5c-80b0-440b-8f4e-94ce626991d9.jpg"
       ],
       "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/35ad7a5c-80b0-440b-8f4e-94ce626991d9.jpg",
-      "status": "published",
+      "status": "draft",
       "show_on_site": true,
       "created_at": "2026-09-26T11:32:49.686Z",
-      "updated_at": "2026-09-26T12:11:54.873Z",
+      "updated_at": "2026-10-13T21:11:26.864Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/7e9091f9-a786-4dad-839d-9f48a2900e8e.webp"
     },
     {
@@ -43964,7 +45041,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-09-26T11:29:40.829Z",
-      "updated_at": "2026-09-26T12:11:56.326Z",
+      "updated_at": "2026-10-13T21:11:45.223Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/bef29e58-6efc-4154-97fe-67c673eb2347.webp"
     },
     {
@@ -44004,10 +45081,10 @@
         "https://storage.yandexcloud.net/vigsharm-photos/products/dabe8f8c-f006-4a6f-8132-c1b28d71f72d.jpg"
       ],
       "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/dabe8f8c-f006-4a6f-8132-c1b28d71f72d.jpg",
-      "status": "published",
+      "status": "draft",
       "show_on_site": true,
       "created_at": "2026-09-26T11:28:45.528Z",
-      "updated_at": "2026-09-26T12:11:57.932Z",
+      "updated_at": "2026-10-13T21:11:22.160Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/3e5469cc-024f-4b4a-8225-f1778c2383e4.webp"
     },
     {
@@ -44047,10 +45124,10 @@
         "https://storage.yandexcloud.net/vigsharm-photos/products/b3e62a5c-50f7-4cdf-8cff-fb18d9f973ac.jpg"
       ],
       "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/b3e62a5c-50f7-4cdf-8cff-fb18d9f973ac.jpg",
-      "status": "published",
+      "status": "draft",
       "show_on_site": true,
       "created_at": "2026-09-26T11:02:14.926Z",
-      "updated_at": "2026-09-26T12:11:59.510Z",
+      "updated_at": "2026-10-13T21:11:21.491Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/b9d283f8-8010-4fbd-8e44-5af18030ae22.webp"
     },
     {
@@ -44090,10 +45167,10 @@
         "https://storage.yandexcloud.net/vigsharm-photos/products/b380ba42-9305-4919-9bac-705b41c3ecc8.jpg"
       ],
       "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/b380ba42-9305-4919-9bac-705b41c3ecc8.jpg",
-      "status": "published",
+      "status": "draft",
       "show_on_site": true,
       "created_at": "2026-09-26T10:59:10.808Z",
-      "updated_at": "2026-09-26T12:12:01.087Z",
+      "updated_at": "2026-10-13T21:11:20.909Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/9868ec9f-53a8-420d-a2ca-5223719faebe.webp"
     },
     {
@@ -44133,10 +45210,10 @@
         "https://storage.yandexcloud.net/vigsharm-photos/products/b9d90647-68f7-46f9-a647-9d6e2d759922.jpg"
       ],
       "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/b9d90647-68f7-46f9-a647-9d6e2d759922.jpg",
-      "status": "published",
+      "status": "draft",
       "show_on_site": true,
       "created_at": "2026-09-26T10:58:22.554Z",
-      "updated_at": "2026-09-26T12:12:02.728Z",
+      "updated_at": "2026-10-13T21:11:20.278Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/349fe894-ac58-4f5d-91ef-b9b4c529cee9.webp"
     },
     {
@@ -44176,10 +45253,10 @@
         "https://storage.yandexcloud.net/vigsharm-photos/products/cd43190a-b0e3-4867-8d17-acd4ef20fcfc.jpg"
       ],
       "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/cd43190a-b0e3-4867-8d17-acd4ef20fcfc.jpg",
-      "status": "published",
+      "status": "draft",
       "show_on_site": true,
       "created_at": "2026-09-26T10:56:50.004Z",
-      "updated_at": "2026-09-26T12:12:04.138Z",
+      "updated_at": "2026-10-13T21:11:19.482Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/1a194760-dc2f-4359-9eb2-3508a12441c7.webp"
     },
     {
@@ -44219,10 +45296,10 @@
         "https://storage.yandexcloud.net/vigsharm-photos/products/0d8c30f3-d657-46a9-a983-082a1fed5293.jpg"
       ],
       "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/0d8c30f3-d657-46a9-a983-082a1fed5293.jpg",
-      "status": "published",
+      "status": "draft",
       "show_on_site": true,
       "created_at": "2026-09-26T10:55:59.983Z",
-      "updated_at": "2026-09-26T12:12:05.706Z",
+      "updated_at": "2026-10-13T21:11:18.793Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/29330f06-b06a-4824-9abf-7070d5aa7f63.webp"
     },
     {
@@ -44262,10 +45339,10 @@
         "https://storage.yandexcloud.net/vigsharm-photos/products/9dc51bcd-4544-4af3-8ea6-af8dc7a3c800.jpg"
       ],
       "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/9dc51bcd-4544-4af3-8ea6-af8dc7a3c800.jpg",
-      "status": "published",
+      "status": "draft",
       "show_on_site": true,
       "created_at": "2026-09-26T10:55:04.792Z",
-      "updated_at": "2026-09-26T12:12:07.244Z",
+      "updated_at": "2026-10-13T21:11:17.381Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/14583835-f7a1-46da-a5a8-4e10486e5cc0.webp"
     },
     {

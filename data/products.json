@@ -2,6 +2,488 @@
   "ok": true,
   "products": [
     {
+      "id": "e974cd1f-9aaa-4a44-ad4e-bb06886efc71",
+      "title": "Золотой секрет",
+      "article": "GRL-153",
+      "price": 1980,
+      "short_description": "Золотая цифра с синими шарами и конфетти.",
+      "full_description": "Композиция с крупной золотой цифрой, синими латексными шарами и прозрачными шарами с золотым конфетти.",
+      "composition": [
+        "цифра",
+        "3 шара",
+        "2 шара с конфетти"
+      ],
+      "category": "Для девочки",
+      "character": null,
+      "age_group": "Для детей",
+      "budget": "1 000–2 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Синие шары с золотой цифрой 6 — Армавир | VigSharm",
+      "seo_description": "Композиция с золотой цифрой 6, синими шарами и конфетти. Доставка воздушных шаров по Армавиру.",
+      "slug": "zolotoj-sekret",
+      "scene": "wall_only",
+      "tags": [
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/c26eacba-b3fc-4fab-94df-0a539fe75df3.jpg",
+        "photo_dhash": "1b33666757713117",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/1b03a8e6-f6ae-4b76-89c0-ae71dd1717e8.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/1b03a8e6-f6ae-4b76-89c0-ae71dd1717e8.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-14T09:04:54.064Z",
+      "updated_at": "2026-10-14T09:04:54.064Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/af79d2e2-dc4b-4ba6-83b5-25452447329d.webp"
+    },
+    {
+      "id": "04a1bed4-f30e-40c2-bb17-dc6eb34c54fb",
+      "title": "Усатый романтик",
+      "article": "GRL-060",
+      "price": 2300,
+      "short_description": "Фонтан красных сердец с чёрным котом.",
+      "full_description": "Композиция из красных латексных сердец и фольгированной фигуры чёрного кота с жёлтыми глазами.",
+      "composition": [
+        "10 латексных сердец",
+        "фигура"
+      ],
+      "category": "Для девочки",
+      "character": "Кот",
+      "age_group": "Для детей",
+      "budget": "2 000–3 500 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары с чёрным котом и красными сердцами в Армавире",
+      "seo_description": "Композиция из красных сердец и фольгированной фигуры чёрного кота. Универсальный подарок в VigSharm, Армавир.",
+      "slug": "chernyj-kot",
+      "scene": "wall_only",
+      "tags": [
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/a94534f1-14a9-4bf3-be95-5e87a1d2b338.jpg",
+        "photo_dhash": "149c96b898958d8d"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/c79c6e98-fc32-400d-a8c2-7e2c644f347c.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/c79c6e98-fc32-400d-a8c2-7e2c644f347c.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-14T09:00:59.517Z",
+      "updated_at": "2026-10-14T09:00:59.517Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/44a5350f-9469-44ab-a8cf-e057ebe30625.webp"
+    },
+    {
+      "id": "fd3ef721-cfda-48ae-baf2-915f1d04215f",
+      "title": "Признания в сердцах",
+      "article": "BQT-036",
+      "price": 2000,
+      "short_description": "Букет из красных сердец с тёплыми надписями в нежной розовой упаковке с конфетти.",
+      "full_description": "Букет из красных фольгированных сердец с надписями в розовой упаковке с конфетти. Белая атласная лента завершает композицию.",
+      "composition": [
+        "букет с надписями"
+      ],
+      "category": "Букет из шаров",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": "2 000–3 500 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Букет из красных сердец с надписями в Армавире — VigSharm",
+      "seo_description": "Букет из фольгированных сердец с тёплыми надписями в розовой упаковке. Доставка воздушных шаров по Армавиру.",
+      "slug": "priznaniya-v-serdtsah",
+      "scene": "handheld_bouquet",
+      "tags": [
+        "Букет из шаров"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/9a725e99-6abe-41ba-9c0f-8c37e4c3b922.jpg",
+        "photo_dhash": "cbc56971138f2667",
+        "bouquet_type": "foil"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/01890fb1-5fb7-41ed-8bf9-9faebb18f094.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/01890fb1-5fb7-41ed-8bf9-9faebb18f094.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-14T08:57:34.306Z",
+      "updated_at": "2026-10-14T08:57:34.306Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/41ba71b5-7719-421a-8604-b18aeaa229dc.webp"
+    },
+    {
+      "id": "1391cc53-ac97-43a6-835e-c9d43772c202",
+      "title": "Нежный букет",
+      "article": "BQT-035",
+      "price": 1440,
+      "short_description": "Букет из розовых тюльпанов и белых ромашек с зелёными стеблями и бантом.",
+      "full_description": "Букет из шаров в виде розовых тюльпанов и белых ромашек с жёлтой серединкой. Зелёные стебли перевязаны розовым бантом.",
+      "composition": [
+        "Букет из шаров"
+      ],
+      "category": "Букет из шаров",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": "1 000–2 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Букет из шаров с тюльпанами и ромашками в Армавире",
+      "seo_description": "Весенний букет из воздушных шаров: розовые тюльпаны и белые ромашки с зелёными стеблями и нежным розовым бантом.",
+      "slug": "vesenniy-sad",
+      "scene": "handheld_bouquet",
+      "tags": [
+        "Букет из шаров"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/ca6fef1c-b0f0-4de6-88b8-a200843d1283.jpg",
+        "photo_dhash": "0303ab133327c100",
+        "bouquet_type": "foil"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/f14cf7bd-0475-41b1-8ba1-f944a76dcfb7.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/f14cf7bd-0475-41b1-8ba1-f944a76dcfb7.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-14T08:36:17.556Z",
+      "updated_at": "2026-10-14T08:36:17.556Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/84e565ad-d4d0-4d81-8d13-6f32fa1935c9.webp"
+    },
+    {
+      "id": "9defb73a-1ec3-477c-a359-dd005346c37b",
+      "title": "Дабл стафф Синий",
+      "article": "UNT-713",
+      "price": 220,
+      "short_description": "Дабл стафф Синий",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "dabl-staff-grafit-7",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Дабл стафф"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/cb907249-b88c-4123-8f45-bc60750c7907.jpg",
+        "photo_dhash": "70f8d8d8f8f8f173",
+        "unit_type": "double"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/758ecc05-e903-407c-9b3e-62a09361c94d.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/758ecc05-e903-407c-9b3e-62a09361c94d.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-14T08:06:50.584Z",
+      "updated_at": "2026-10-14T08:06:50.584Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/5e9b2959-8410-4a2b-8569-7c49818bf07d.webp"
+    },
+    {
+      "id": "51af840d-bbd6-4612-929f-b88661cc1d51",
+      "title": "Дабл стафф Синий Тёмный",
+      "article": "UNT-712",
+      "price": 220,
+      "short_description": "Дабл стафф Синий Тёмный",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "dabl-staff-grafit-6",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Дабл стафф"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/630de7cb-80f1-4cd9-bd63-03f3f4329050.jpg",
+        "photo_dhash": "f0f0f0f0f0f0f1f1",
+        "unit_type": "double"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/42602b4b-0543-41d7-8b3e-a6feb64f56b6.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/42602b4b-0543-41d7-8b3e-a6feb64f56b6.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-14T08:04:40.112Z",
+      "updated_at": "2026-10-14T08:04:40.112Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/9c4b4468-11b7-45bd-83e3-9d5fe705fc27.webp"
+    },
+    {
+      "id": "3c9c15a6-f1ed-42d2-915e-720cc0aabbd9",
+      "title": "Дабл стафф Сиреневый",
+      "article": "UNT-711",
+      "price": 220,
+      "short_description": "Дабл стафф Сиреневый",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "dabl-staff-grafit-5",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Дабл стафф"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/dbb18eaf-4130-4c67-9e17-637f8046b70e.jpg",
+        "photo_dhash": "f1f8d8d8f8f8f0f2",
+        "unit_type": "double"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/925fcac2-abb1-4996-a4e0-01e0e81eaa8f.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/925fcac2-abb1-4996-a4e0-01e0e81eaa8f.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-14T08:00:24.922Z",
+      "updated_at": "2026-10-14T08:00:24.922Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/97d4d3c7-e6fa-44e8-b0de-f0fa9fb2c74c.webp"
+    },
+    {
+      "id": "4c06c7ae-7758-44f4-94a9-31441eb41d74",
+      "title": "Дабл стафф Фиолетовый",
+      "article": "UNT-710",
+      "price": 220,
+      "short_description": "Дабл стафф Фиолетовый",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "dabl-staff-grafit-4",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Дабл стафф"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/75bde8f8-a7dc-4a5d-bff7-ed9abb0bb45d.jpg",
+        "photo_dhash": "f0f8f8f0f8f8f0f1",
+        "unit_type": "double"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/07c292f0-5097-4c99-8f64-2c39353ef6ac.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/07c292f0-5097-4c99-8f64-2c39353ef6ac.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-14T07:58:38.949Z",
+      "updated_at": "2026-10-14T07:58:38.949Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/ad8a00dd-b40d-4479-bb0b-514e639635d4.webp"
+    },
+    {
+      "id": "68ffdb73-e7f7-4dbf-8285-a6f414d4f57a",
+      "title": "Дабл стафф Красный",
+      "article": "UNT-709",
+      "price": 220,
+      "short_description": "Дабл стафф Красный",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "dabl-staff-grafit-3",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Дабл стафф"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/ba45b67e-8235-4dac-a257-fdc925729d31.jpg",
+        "photo_dhash": "f1f8f8f8f8f8f0f1",
+        "unit_type": "double"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/64fcc5c7-519c-4ddf-92a1-58b6c2240284.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/64fcc5c7-519c-4ddf-92a1-58b6c2240284.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-14T07:56:50.462Z",
+      "updated_at": "2026-10-14T07:56:50.462Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/fc3b87a2-d1d3-45c8-aea6-e461791d1fac.webp"
+    },
+    {
+      "id": "6c098531-57b7-410a-ac11-cf8164d411a8",
+      "title": "Дабл стафф Черный",
+      "article": "UNT-708",
+      "price": 220,
+      "short_description": "Дабл стафф Черный",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "dabl-staff-grafit-2",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Дабл стафф"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/8faaee00-8d22-4daa-973b-6166b5035038.jpg",
+        "photo_dhash": "f0f8f8f8f8f0f0f0",
+        "unit_type": "double"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/7c0c3196-2baa-40a9-85bf-ef28abfc62ea.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/7c0c3196-2baa-40a9-85bf-ef28abfc62ea.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-14T07:55:43.435Z",
+      "updated_at": "2026-10-14T07:55:43.435Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/e8363711-621b-423e-bd9b-31b1f6dea761.webp"
+    },
+    {
+      "id": "64778b19-f9ba-4dcb-a0c3-8980be916526",
+      "title": "Дабл стафф Графит",
+      "article": "UNT-707",
+      "price": 220,
+      "short_description": "Дабл стафф Графит",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "dabl-staff-grafit",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Дабл стафф"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/2c995c0f-bdcb-49e7-852c-12977fb89cc0.jpg",
+        "photo_dhash": "f1f8f8d8d8f8f1f1",
+        "unit_type": "double"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/ba8654b6-3ef1-42f8-80b0-3de6a7867f6e.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/ba8654b6-3ef1-42f8-80b0-3de6a7867f6e.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-14T07:53:58.716Z",
+      "updated_at": "2026-10-14T07:53:58.716Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/c019480b-d466-4e9c-ad20-b7e72ae2bda9.webp"
+    },
+    {
       "id": "3bc815ab-9e7f-4d51-b296-103eb5e21313",
       "title": "Круги Малиновые, Металлик",
       "article": "UNT-706",
@@ -1441,8 +1923,7 @@
       "scene": "unit_balloon",
       "tags": [
         "Шары поштучно",
-        "Латексные шары",
-        "Пастель Ассорти"
+        "Латексные шары"
       ],
       "client_options": {
         "available_on_request": false,
@@ -1485,8 +1966,7 @@
       "scene": "unit_balloon",
       "tags": [
         "Шары поштучно",
-        "Латексные шары",
-        "Пастель Ассорти"
+        "Латексные шары"
       ],
       "client_options": {
         "available_on_request": false,
@@ -1529,8 +2009,7 @@
       "scene": "unit_balloon",
       "tags": [
         "Шары поштучно",
-        "Латексные шары",
-        "Пастель Ассорти"
+        "Латексные шары"
       ],
       "client_options": {
         "available_on_request": false,
@@ -1573,8 +2052,7 @@
       "scene": "unit_balloon",
       "tags": [
         "Шары поштучно",
-        "Латексные шары",
-        "Пастель Ассорти"
+        "Латексные шары"
       ],
       "client_options": {
         "available_on_request": false,
@@ -1617,8 +2095,7 @@
       "scene": "unit_balloon",
       "tags": [
         "Шары поштучно",
-        "Латексные шары",
-        "Пастель Ассорти"
+        "Латексные шары"
       ],
       "client_options": {
         "available_on_request": false,
@@ -1661,8 +2138,7 @@
       "scene": "unit_balloon",
       "tags": [
         "Шары поштучно",
-        "Латексные шары",
-        "Пастель Ассорти"
+        "Латексные шары"
       ],
       "client_options": {
         "available_on_request": false,
@@ -1705,8 +2181,7 @@
       "scene": "unit_balloon",
       "tags": [
         "Шары поштучно",
-        "Латексные шары",
-        "Пастель Ассорти"
+        "Латексные шары"
       ],
       "client_options": {
         "available_on_request": false,
@@ -1749,8 +2224,7 @@
       "scene": "unit_balloon",
       "tags": [
         "Шары поштучно",
-        "Латексные шары",
-        "Пастель Ассорти"
+        "Латексные шары"
       ],
       "client_options": {
         "available_on_request": false,
@@ -1793,8 +2267,7 @@
       "scene": "unit_balloon",
       "tags": [
         "Шары поштучно",
-        "Латексные шары",
-        "Пастель Ассорти"
+        "Латексные шары"
       ],
       "client_options": {
         "available_on_request": false,
@@ -1837,8 +2310,7 @@
       "scene": "unit_balloon",
       "tags": [
         "Шары поштучно",
-        "Латексные шары",
-        "Пастель Ассорти"
+        "Латексные шары"
       ],
       "client_options": {
         "available_on_request": false,
@@ -1881,8 +2353,7 @@
       "scene": "unit_balloon",
       "tags": [
         "Шары поштучно",
-        "Латексные шары",
-        "Пастель Ассорти"
+        "Латексные шары"
       ],
       "client_options": {
         "available_on_request": false,
@@ -1925,8 +2396,7 @@
       "scene": "unit_balloon",
       "tags": [
         "Шары поштучно",
-        "Латексные шары",
-        "Пастель Ассорти"
+        "Латексные шары"
       ],
       "client_options": {
         "available_on_request": false,
@@ -1969,8 +2439,7 @@
       "scene": "unit_balloon",
       "tags": [
         "Шары поштучно",
-        "Латексные шары",
-        "Пастель Ассорти"
+        "Латексные шары"
       ],
       "client_options": {
         "available_on_request": false,
@@ -2013,8 +2482,7 @@
       "scene": "unit_balloon",
       "tags": [
         "Шары поштучно",
-        "Латексные шары",
-        "Пастель Ассорти"
+        "Латексные шары"
       ],
       "client_options": {
         "available_on_request": false,
@@ -2057,8 +2525,7 @@
       "scene": "unit_balloon",
       "tags": [
         "Шары поштучно",
-        "Латексные шары",
-        "Пастель Ассорти"
+        "Латексные шары"
       ],
       "client_options": {
         "available_on_request": false,
@@ -2101,8 +2568,7 @@
       "scene": "unit_balloon",
       "tags": [
         "Шары поштучно",
-        "Латексные шары",
-        "Пастель Ассорти"
+        "Латексные шары"
       ],
       "client_options": {
         "available_on_request": false,
@@ -2145,8 +2611,7 @@
       "scene": "unit_balloon",
       "tags": [
         "Шары поштучно",
-        "Латексные шары",
-        "Пастель Ассорти"
+        "Латексные шары"
       ],
       "client_options": {
         "available_on_request": false,
@@ -2189,8 +2654,7 @@
       "scene": "unit_balloon",
       "tags": [
         "Шары поштучно",
-        "Латексные шары",
-        "Пастель Ассорти"
+        "Латексные шары"
       ],
       "client_options": {
         "available_on_request": false,
@@ -2233,8 +2697,7 @@
       "scene": "unit_balloon",
       "tags": [
         "Шары поштучно",
-        "Латексные шары",
-        "Пастель Ассорти"
+        "Латексные шары"
       ],
       "client_options": {
         "available_on_request": false,
@@ -2277,8 +2740,7 @@
       "scene": "unit_balloon",
       "tags": [
         "Шары поштучно",
-        "Латексные шары",
-        "Пастель Ассорти"
+        "Латексные шары"
       ],
       "client_options": {
         "available_on_request": false,
@@ -2321,8 +2783,7 @@
       "scene": "unit_balloon",
       "tags": [
         "Шары поштучно",
-        "Латексные шары",
-        "Пастель Ассорти"
+        "Латексные шары"
       ],
       "client_options": {
         "available_on_request": false,
@@ -2365,8 +2826,7 @@
       "scene": "unit_balloon",
       "tags": [
         "Шары поштучно",
-        "Латексные шары",
-        "Пастель Ассорти"
+        "Латексные шары"
       ],
       "client_options": {
         "available_on_request": false,
@@ -2409,8 +2869,7 @@
       "scene": "unit_balloon",
       "tags": [
         "Шары поштучно",
-        "Латексные шары",
-        "Металлик Ассорти"
+        "Латексные шары"
       ],
       "client_options": {
         "available_on_request": false,
@@ -2453,8 +2912,7 @@
       "scene": "unit_balloon",
       "tags": [
         "Шары поштучно",
-        "Латексные шары",
-        "Металлик Ассорти"
+        "Латексные шары"
       ],
       "client_options": {
         "available_on_request": false,
@@ -2497,8 +2955,7 @@
       "scene": "unit_balloon",
       "tags": [
         "Шары поштучно",
-        "Латексные шары",
-        "Металлик Ассорти"
+        "Латексные шары"
       ],
       "client_options": {
         "available_on_request": false,
@@ -2541,8 +2998,7 @@
       "scene": "unit_balloon",
       "tags": [
         "Шары поштучно",
-        "Латексные шары",
-        "Металлик Ассорти"
+        "Латексные шары"
       ],
       "client_options": {
         "available_on_request": false,
@@ -2585,8 +3041,7 @@
       "scene": "unit_balloon",
       "tags": [
         "Шары поштучно",
-        "Латексные шары",
-        "Металлик Ассорти"
+        "Латексные шары"
       ],
       "client_options": {
         "available_on_request": false,
@@ -2629,8 +3084,7 @@
       "scene": "unit_balloon",
       "tags": [
         "Шары поштучно",
-        "Латексные шары",
-        "Металлик Ассорти"
+        "Латексные шары"
       ],
       "client_options": {
         "available_on_request": false,
@@ -2673,8 +3127,7 @@
       "scene": "unit_balloon",
       "tags": [
         "Шары поштучно",
-        "Латексные шары",
-        "Кристалл Ассорти"
+        "Латексные шары"
       ],
       "client_options": {
         "available_on_request": false,
@@ -2717,8 +3170,7 @@
       "scene": "unit_balloon",
       "tags": [
         "Шары поштучно",
-        "Латексные шары",
-        "Кристалл Ассорти"
+        "Латексные шары"
       ],
       "client_options": {
         "available_on_request": false,
@@ -2761,8 +3213,7 @@
       "scene": "unit_balloon",
       "tags": [
         "Шары поштучно",
-        "Латексные шары",
-        "Кристалл Ассорти"
+        "Латексные шары"
       ],
       "client_options": {
         "available_on_request": false,
@@ -2805,8 +3256,7 @@
       "scene": "unit_balloon",
       "tags": [
         "Шары поштучно",
-        "Латексные шары",
-        "Кристалл Ассорти"
+        "Латексные шары"
       ],
       "client_options": {
         "available_on_request": false,
@@ -2849,8 +3299,7 @@
       "scene": "unit_balloon",
       "tags": [
         "Шары поштучно",
-        "Латексные шары",
-        "Кристалл Ассорти"
+        "Латексные шары"
       ],
       "client_options": {
         "available_on_request": false,
@@ -2893,8 +3342,7 @@
       "scene": "unit_balloon",
       "tags": [
         "Шары поштучно",
-        "Латексные шары",
-        "Кристалл Ассорти"
+        "Латексные шары"
       ],
       "client_options": {
         "available_on_request": false,
@@ -2937,8 +3385,7 @@
       "scene": "unit_balloon",
       "tags": [
         "Шары поштучно",
-        "Латексные шары",
-        "Пастель MACARON Ассорти"
+        "Латексные шары"
       ],
       "client_options": {
         "available_on_request": false,
@@ -2981,8 +3428,7 @@
       "scene": "unit_balloon",
       "tags": [
         "Шары поштучно",
-        "Латексные шары",
-        "Пастель MACARON Ассорти"
+        "Латексные шары"
       ],
       "client_options": {
         "available_on_request": false,
@@ -3025,8 +3471,7 @@
       "scene": "unit_balloon",
       "tags": [
         "Шары поштучно",
-        "Латексные шары",
-        "Пастель MACARON Ассорти"
+        "Латексные шары"
       ],
       "client_options": {
         "available_on_request": false,
@@ -3069,8 +3514,7 @@
       "scene": "unit_balloon",
       "tags": [
         "Шары поштучно",
-        "Латексные шары",
-        "Пастель MACARON Ассорти"
+        "Латексные шары"
       ],
       "client_options": {
         "available_on_request": false,
@@ -3113,8 +3557,7 @@
       "scene": "unit_balloon",
       "tags": [
         "Шары поштучно",
-        "Латексные шары",
-        "Пастель MACARON Ассорти"
+        "Латексные шары"
       ],
       "client_options": {
         "available_on_request": false,
@@ -3157,8 +3600,7 @@
       "scene": "unit_balloon",
       "tags": [
         "Шары поштучно",
-        "Латексные шары",
-        "Пастель MACARON Ассорти"
+        "Латексные шары"
       ],
       "client_options": {
         "available_on_request": false,
@@ -3201,8 +3643,7 @@
       "scene": "unit_balloon",
       "tags": [
         "Шары поштучно",
-        "Латексные шары",
-        "Пастель MACARON Ассорти"
+        "Латексные шары"
       ],
       "client_options": {
         "available_on_request": false,
@@ -3245,8 +3686,7 @@
       "scene": "unit_balloon",
       "tags": [
         "Шары поштучно",
-        "Латексные шары",
-        "Пастель MACARON Ассорти"
+        "Латексные шары"
       ],
       "client_options": {
         "available_on_request": false,
@@ -3289,8 +3729,7 @@
       "scene": "unit_balloon",
       "tags": [
         "Шары поштучно",
-        "Латексные шары",
-        "Пастель MACARON Ассорти"
+        "Латексные шары"
       ],
       "client_options": {
         "available_on_request": false,
@@ -3333,8 +3772,7 @@
       "scene": "unit_balloon",
       "tags": [
         "Шары поштучно",
-        "Латексные шары",
-        "Пастель MACARON Ассорти"
+        "Латексные шары"
       ],
       "client_options": {
         "available_on_request": false,
@@ -3377,8 +3815,7 @@
       "scene": "unit_balloon",
       "tags": [
         "Шары поштучно",
-        "Латексные шары",
-        "Сердце Ассорти"
+        "Латексные шары"
       ],
       "client_options": {
         "available_on_request": false,
@@ -3421,8 +3858,7 @@
       "scene": "unit_balloon",
       "tags": [
         "Шары поштучно",
-        "Латексные шары",
-        "Сердце Ассорти"
+        "Латексные шары"
       ],
       "client_options": {
         "available_on_request": false,
@@ -3465,8 +3901,7 @@
       "scene": "unit_balloon",
       "tags": [
         "Шары поштучно",
-        "Латексные шары",
-        "Сердце Ассорти"
+        "Латексные шары"
       ],
       "client_options": {
         "available_on_request": false,

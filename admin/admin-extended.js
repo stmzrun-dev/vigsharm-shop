@@ -2586,6 +2586,11 @@ Object.assign(app, {
       finalTags = finalTags.filter((t) => !shelfTags.includes(t));
       if (!finalTags.includes('Шары поштучно')) finalTags.push('Шары поштучно');
       if (unitMeta?.tag) finalTags.push(unitMeta.tag);
+      finalTags = finalTags.filter((t) => !(typeof LATEX_ASSORT_TAGS !== 'undefined' && LATEX_ASSORT_TAGS.includes(t)));
+      if (unitType === 'latex' && typeof latexAssortLabel === 'function') {
+        const assort = latexAssortLabel(titleValue);
+        if (assort) finalTags.push(assort);
+      }
       (this.getUnitBalloonWhoList?.() || []).forEach((who) => {
         if (who && !finalTags.includes(who)) finalTags.push(who);
       });

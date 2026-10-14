@@ -84,6 +84,18 @@ function bouquetTypeFromCategory(cat) {
   return hit ? hit.value : '';
 }
 
+/** Полка ассорти латекса по названию. Та же проверка на витрине (latexAssortLabel). */
+const LATEX_ASSORT_TAGS = ['Кристалл Ассорти', 'Металлик Ассорти', 'Пастель MACARON Ассорти', 'Пастель Ассорти', 'Сердце Ассорти'];
+function latexAssortLabel(title) {
+  const name = String(title || '').trim().toLowerCase();
+  if (name.indexOf('сердце ') === 0) return 'Сердце Ассорти';
+  if (name.indexOf('макарон') >= 0) return 'Пастель MACARON Ассорти';
+  if (name.indexOf('кристалл ') === 0) return 'Кристалл Ассорти';
+  if (name.indexOf('металлик ') === 0) return 'Металлик Ассорти';
+  if (name.indexOf('пастель ') === 0) return 'Пастель Ассорти';
+  return '';
+}
+
 /** Подтип «Шары поштучно»: полка каталога + размер у фольги. */
 const UNIT_BALLOON_TYPES = {
   latex: { value: 'latex', title: 'Латекс', tag: 'Латексные шары' },

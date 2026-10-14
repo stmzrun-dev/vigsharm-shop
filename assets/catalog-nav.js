@@ -106,9 +106,23 @@
     }
     return !isUnit && !isHoliday && !hasChar && !isIdea;
   }
+  /* Полка ассорти латекса — по названию. Та же проверка в админке (latexAssortLabel). */
+  function latexAssortLabel(p) {
+    var opts = (p && p.client_options) || {};
+    var tags = (p && p.tags) || [];
+    if (opts.unit_type !== 'latex' && tags.indexOf('Латексные шары') < 0) return '';
+    var title = String((p && p.title) || '').trim().toLowerCase();
+    if (title.indexOf('сердце ') === 0) return 'Сердце Ассорти';
+    if (title.indexOf('макарон') >= 0) return 'Пастель MACARON Ассорти';
+    if (title.indexOf('кристалл ') === 0) return 'Кристалл Ассорти';
+    if (title.indexOf('металлик ') === 0) return 'Металлик Ассорти';
+    if (title.indexOf('пастель ') === 0) return 'Пастель Ассорти';
+    return '';
+  }
   function productHasLabel(p, label) {
     var tags = p.tags || [];
     if (p.category === label || tags.indexOf(label) >= 0) return true;
+    if (latexAssortLabel(p) === label) return true;
     /* Кружок «Арки» на витрине, в карточке категория «Арка из шаров». */
     if (label === 'Арки') return p.category === 'Арка из шаров' || tags.indexOf('Арка из шаров') >= 0;
     if (label === 'Букеты') {

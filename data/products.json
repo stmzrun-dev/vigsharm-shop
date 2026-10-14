@@ -47,54 +47,6 @@
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/820da5ea-c0f4-4dd8-a932-750d44a9b036.webp"
     },
     {
-      "id": "55eb5ddd-4dab-411a-bc6d-907128c632b1",
-      "title": "Выдержка",
-      "article": "HIM-040",
-      "price": 7500,
-      "short_description": "Напольная композиция с цифрами и бутылками виски в сине-золотой гамме.",
-      "full_description": "Стильная напольная композиция с крупными цифрами, декоративными бутылками виски и гирляндой из золотых шаров. Сине-золотая палитра с белыми акцентами.",
-      "composition": [
-        "Напольная композиция"
-      ],
-      "category": "Для него",
-      "character": null,
-      "age_group": "Для взрослых",
-      "budget": "5 000–8 000 ₽",
-      "series_name": null,
-      "occasion": null,
-      "target_audience": null,
-      "seo_title": "Напольная композиция с цифрами и виски — Армавир",
-      "seo_description": "Стильная напольная композиция для мужчины с крупными цифрами, бутылками виски и золотыми шарами в Армавире. Сине-золотая гамма.",
-      "slug": "vyderjka-2",
-      "scene": "floor",
-      "tags": [
-        "Для него"
-      ],
-      "client_options": {
-        "available_on_request": false,
-        "advance_order_1_2_days": true,
-        "number_choice": true,
-        "personal_inscription": false,
-        "photozone_rental": false,
-        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/bd668bcd-e7cb-4735-9df7-2cae1483fc10.jpg",
-        "photo_dhash": "b2b29adad89088d0",
-        "floor_type": "air",
-        "digit_choice": {
-          "enabled": true,
-          "count_on_photo": 2
-        }
-      },
-      "photos": [
-        "https://storage.yandexcloud.net/vigsharm-photos/products/3529be1d-3fa9-43e4-a07b-37bb5a74e17b.jpg"
-      ],
-      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/3529be1d-3fa9-43e4-a07b-37bb5a74e17b.jpg",
-      "status": "published",
-      "show_on_site": true,
-      "created_at": "2026-10-14T16:05:28.773Z",
-      "updated_at": "2026-10-14T16:05:28.773Z",
-      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/8d9f9942-b43e-4994-9669-59c292c1b6fd.webp"
-    },
-    {
       "id": "5989936b-e3d3-42cb-bda5-2c5024d9573f",
       "title": "Выдержка",
       "article": "HIM-039",

@@ -52,8 +52,28 @@ jobs:
 
       # Пуш от GITHUB_TOKEN не запускает Deploy to GitHub Pages.
       # workflow_dispatch от того же токена — запускает.
-      - name: Deploy Pages if snapshot changed
-        if: steps.commit.outputs.changed == 'true'
+      # Повтор, если прошлая выкладка этого коммита упала: без новой карточки
+      # снимок не меняется, и сайт иначе остаётся на старой версии.
+      - name: Deploy Pages unless this commit is already live
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: gh workflow run pages.yml --ref main
+        run: |
+          sha=$(git rev-parse HEAD)
+          line=$(gh run list --workflow=pages.yml --branch main --limit 30 --json headSha,status,conclusion \
+            | jq -r --arg sha "$sha" '
+                ([.[] | select(.headSha == $sha)][0]) as $r
+                | if $r == null then "none none"
+                  else "\($r.status) \($r.conclusion // "none")"
+                  end
+              ')
+          state=${line%% *}
+          conclusion=${line#* }
+          echo "Pages for $sha: $state $conclusion"
+          if [ "$conclusion" = "success" ]; then
+            echo "Already on the site"
+          elif [ "$state" != "none" ] && [ "$state" != "completed" ]; then
+            echo "Deploy already $state — skip"
+          else
+            gh workflow run pages.yml --ref main
+            echo "Dispatched Pages deploy"
+          fi

@@ -2421,6 +2421,13 @@ Object.assign(app, {
       photozone_rental: rentalChecked
     };
 
+    const prevGender = this.currentProduct?.client_options || {};
+    if (prevGender.gender_choice) {
+      clientOptions.gender_choice = true;
+      if (prevGender.gender_girl_photo) clientOptions.gender_girl_photo = prevGender.gender_girl_photo;
+      if (prevGender.gender_boy_photo) clientOptions.gender_boy_photo = prevGender.gender_boy_photo;
+    }
+
     // Исходник Studio Pro — чтобы после закрытия карточки можно было пересоздать Master
     const studioOrig = String(
       this.studioSourceUrl

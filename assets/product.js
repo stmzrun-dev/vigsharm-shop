@@ -69,10 +69,11 @@
   function compIcon(label, i) {
     var key = compIconKey(label);
     // «Цветы»: лилии и прочие «шары» в составе — цветок. Сердце, цифра, коробка остаются своими.
+    if (isGenderProduct()) key = 'gender';
     if (isFlowerBouquet() && (!key || key === 'latex')) key = 'tulip';
     if (isTeddyBouquet() && (key === 'figure' || !key) && !/фольг/.test(String(label || ''))) key = 'teddy';
     if (!key) key = 'latex';
-    var v = key === 'float' ? '1' : ((key === 'butterfly' || key === 'teddy') ? '2' : ((key === 'rose' || key === 'bouquet' || key === 'tulip') ? '19' : ((key === 'rosebear' || key === 'hatbox' || key === 'ribbon') ? '1' : (key === 'arch' ? '1' : (key === 'walker' ? '19' : '18')))));
+    var v = key === 'gender' ? '1' : (key === 'float' ? '1' : ((key === 'butterfly' || key === 'teddy') ? '2' : ((key === 'rose' || key === 'bouquet' || key === 'tulip') ? '19' : ((key === 'rosebear' || key === 'hatbox' || key === 'ribbon') ? '1' : (key === 'arch' ? '1' : (key === 'walker' ? '19' : '18'))))));
     return '<img class="comp-ico" src="icons/comp-' + key + '.webp?v=' + v + '" alt="" width="32" height="32" onerror="this.onerror=null;this.src=\'icons/comp-' + key + '.svg\'"/>';
   }
 
@@ -89,6 +90,7 @@
   var bubbleConfetti = '';
   var surpriseColor = '';
   var surpriseBill = 0;
+  var genderFill = '';
   var fulfillment = '', address = '', qty = 1;
   var customerPhone = '', customerName = '', orderNote = '', honeypot = '';
   var orderSending = false;
@@ -415,7 +417,7 @@
           return '<button type="button" class="' + (on ? 'selected' : '') + '" data-act="bubble-confetti" data-v="' + esc(name) + '" aria-label="' + esc(name) + '" aria-pressed="' + on + '">' +
             '<span class="glass-confetti-stack">' +
             '<img src="images/balloons/glass-bubbles/' + balloon + '?v=20261013glass" alt="" decoding="async"/>' +
-            '<img src="images/balloons/glass-confetti/' + pair[1] + '?v=20261013gconf3" alt="" decoding="async"/>' +
+            '<img src="images/balloons/glass-confetti/' + pair[1] + '?v=20261013gconf5" alt="" decoding="async"/>' +
             '</span><span>' + esc(name) + '</span></button>';
         }).join('') + '</div></fieldset>';
     }
@@ -468,6 +470,43 @@
     if (!String(inscription || '').trim()) return false;
     if (surpriseMoney() && !surpriseBill) return false;
     return true;
+  }
+  function genderChoice() {
+    var opts = (p && p.client_options) || {};
+    if (opts.gender_choice !== true && opts.gender_choice !== 1 && opts.gender_choice !== '1') return null;
+    var girl = String(opts.gender_girl_photo || '');
+    var boy = String(opts.gender_boy_photo || '');
+    if (!girl || !boy) return null;
+    return { girl: girl, boy: boy };
+  }
+  function isGenderProduct() { return !!genderChoice(); }
+  function genderReady() {
+    return !isGenderProduct() || genderFill === 'girl' || genderFill === 'boy';
+  }
+  function genderLabel() {
+    if (genderFill === 'girl') return 'для девочки';
+    if (genderFill === 'boy') return 'для мальчика';
+    return '';
+  }
+  function genderPhoto() {
+    var choice = genderChoice();
+    if (!choice || (genderFill !== 'girl' && genderFill !== 'boy')) return '';
+    return choice[genderFill];
+  }
+  function genderOptionsHtml() {
+    var choice = genderChoice();
+    if (!choice) return '';
+    function btn(id, label) {
+      var on = genderFill === id;
+      var src = window.vigImage ? window.vigImage(choice[id], 640) : choice[id];
+      return '<button type="button" class="' + (on ? 'selected' : '') + '" data-act="gender-fill" data-v="' + id + '" aria-pressed="' + on + '" aria-label="' + label + '">' +
+        '<img src="' + src + '" alt="" width="640" height="640" decoding="async"/>' +
+        '<span>' + label + '</span></button>';
+    }
+    var legend = 'Начинка' + (genderLabel() ? ' · ' + genderLabel() : '');
+    return '<div class="gender-options"><fieldset class="gender-fills"><legend>' + esc(legend) + '</legend><div class="gender-fill-row">' +
+      btn('girl', 'Для девочки') + btn('boy', 'Для мальчика') +
+      '</div></fieldset></div>';
   }
   function surpriseOptionsHtml() {
     if (!surpriseNeedsOptions()) return '';
@@ -590,7 +629,7 @@
     var d = phoneDigits();
     return d.length === 11 && d.charAt(0) === '7';
   }
-  function isOrderReady() { return digitsOk() && inscriptionOk() && surpriseReady() && fulfillmentOk() && whenOk(); }
+  function isOrderReady() { return digitsOk() && genderReady() && inscriptionOk() && surpriseReady() && fulfillmentOk() && whenOk(); }
   function isSubmitReady() { return isOrderReady() && phoneOk(); }
   function apiBase() {
     return (window.VIG_API || 'https://vigsharm-api.vigsharm.workers.dev').replace(/\/$/, '');
@@ -648,6 +687,7 @@
   function orderCta(kind) {
     if (!digitsOk()) return kind === 'short' ? 'Выберите цифру' : ('Выберите ' + (effDigits() === 2 ? 'обе цифры' : 'цифру'));
     if (isUnit()) return 'В набор';
+    if (isGenderProduct() && !genderFill) return kind === 'short' ? 'Выберите начинку' : 'Выберите начинку шара';
     if (surpriseNeedsOptions() && !surpriseColor) return kind === 'short' ? 'Выберите цвет' : 'Выберите цвет шара';
     if (surpriseNeedsOptions() && !String(inscription || '').trim()) return kind === 'short' ? 'Нужна надпись' : 'Напишите надпись на шаре';
     if (surpriseMoney() && !surpriseBill) return kind === 'short' ? 'Выберите купюры' : 'Выберите купюры';
@@ -703,6 +743,8 @@
   }
   /** Resolve gallery key: digit variant if present, else current slide, else main. Never empty when product has photos. */
   function resolveGalleryKey() {
+    var fillPhoto = genderPhoto();
+    if (fillPhoto) return fillPhoto;
     var keys = (p && p.image_keys) || [];
     var main = keys[0] || '';
     var digMap = p && p.digit_images;
@@ -947,6 +989,7 @@
   function clientNextId() {
     if (isDigitUnit()) return (p.has_digit_choice && !digitsOk()) ? 'client-digits' : '';
     if (!digitsOk()) return 'client-digits';
+    if (isGenderProduct() && !genderReady()) return 'client-gender';
     if (surpriseNeedsOptions() && !surpriseReady()) return 'client-surprise';
     if (!inscriptionOk()) return 'client-ins';
     if (isUnit()) return '';
@@ -970,10 +1013,11 @@
 
   /** Progressive mobile form: only current + completed steps are visible. */
   function clientStepVisible(id) {
-    if (id === 'client-qty') return (isUnit() && !isBubbleUnit() && !isNamedUnit() && !isPrintedDigit() && (!isDigitUnit() || !p.has_digit_choice)) || isFlowerBouquet() || (isPerMeter() && !isUnit());
+    if (id === 'client-qty') return (isUnit() && !isBubbleUnit() && !isNamedUnit() && !isPrintedDigit() && (!isDigitUnit() || !p.has_digit_choice)) || (isPerMeter() && !isUnit());
     if (id === 'client-digits') return !!(p && p.has_digit_choice);
     if (id === 'client-ins') return wantsInscription() && digitsOk();
     if (surpriseNeedsOptions() && !surpriseReady() && (id === 'client-ful' || id === 'client-addr' || id === 'client-when' || id === 'client-contact')) return false;
+    if (isGenderProduct() && !genderReady() && (id === 'client-ful' || id === 'client-addr' || id === 'client-when' || id === 'client-contact')) return false;
     if (id === 'client-rental') return !!(p && p.has_rental) && digitsOk();
     if (isUnit() && (id === 'client-ful' || id === 'client-addr' || id === 'client-when' || id === 'client-contact')) return false;
     if (id === 'client-ful') return digitsOk();
@@ -1029,6 +1073,14 @@
           '</div>';
       }
       html += '</section>';
+    }
+
+    if (isGenderProduct()) {
+      html += '<section class="client-block' + (next === 'client-gender' ? ' is-next' : genderReady() ? ' is-done' : '') + '" id="client-gender">' +
+        '<h3 class="client-block-title">Начинка</h3>' +
+        '<p class="client-digit-picked">' + esc(genderLabel() ? ('Выбрано: ' + genderLabel()) : 'Розовая или голубая') + '</p>' +
+        genderOptionsHtml() +
+        '</section>';
     }
 
     if (surpriseNeedsOptions()) {
@@ -1133,15 +1185,9 @@
       if (canAdd()) lines.push('Вторая цифра: ' + (effDelta() === 1 ? 'добавить (+900 ₽)' : 'не добавлять'));
       if (canRemove()) lines.push('Вторая цифра: ' + (effDelta() === -1 ? 'убрать (-900 ₽)' : 'оставить как на фото'));
     }
+    if (isGenderProduct()) lines.push('Начинка: ' + (genderLabel() || 'не выбрана'));
     if (isPerMeter()) lines.push('Длина: ' + qty + ' м');
     else if (isUnit()) lines.push('Количество: ' + qty + ' шт.');
-    else if (isFlowerBouquet()) {
-      var fd = flowerDelta();
-      var flowerNote = !fd
-        ? 'как на фото'
-        : ((fd > 0 ? '+' : '−') + (Math.abs(fd) * FLOWER_UNIT_RUB).toLocaleString('ru-RU') + ' ₽');
-      lines.push('Цветов: ' + qty + ' (' + flowerNote + ')');
-    }
     if (surpriseNeedsOptions()) {
       lines.push('Цвет шара: ' + (surpriseColor || 'не выбран'));
       lines.push('Надпись: ' + (String(inscription || '').trim() || 'не указана'));
@@ -1212,7 +1258,7 @@
         fulfillment: fulfillment, address: address, quantity: qty,
         customerPhone: customerPhone, customerName: customerName, orderNote: orderNote,
         bubbleInk: bubbleInk, bubbleFill: bubbleFill, bubbleConfetti: bubbleConfetti,
-        surpriseColor: surpriseColor, surpriseBill: surpriseBill
+        surpriseColor: surpriseColor, surpriseBill: surpriseBill, genderFill: genderFill
       }));
     } catch (e) {}
   }
@@ -1241,6 +1287,7 @@
       if (typeof d.bubbleConfetti === 'string') bubbleConfetti = d.bubbleConfetti;
       if (typeof d.surpriseColor === 'string') surpriseColor = d.surpriseColor;
       if (SURPRISE_BILLS.indexOf(Number(d.surpriseBill)) >= 0) surpriseBill = Number(d.surpriseBill);
+      if (d.genderFill === 'girl' || d.genderFill === 'boy') genderFill = d.genderFill;
       draftRestored = true;
     } catch (e) {}
     draftReady = true;
@@ -1491,18 +1538,16 @@
       summaryFlowHtml() +
       '<div class="order-classic-flow">' +
       paramsDetails +
-      (isFlowerBouquet() ? (
-      '<section class="product-configurator product-step is-open product-flower-qty"><header class="config-title"><div><strong>Количество</strong><small>' + qty + ' ' + flowerCountWord(qty) + '</small></div>' +
-      qtyStepperHtml() +
-      '</header>' +
-      (flowerSumHtml() ? '<p class="flower-qty-sum">' + flowerSumHtml() + '</p>' : '') +
-      '</section>') : '') +
       (isPerMeter() && !isUnit() && !isFlowerBouquet() ? (
       '<section class="product-configurator product-step is-open product-flower-qty"><header class="config-title"><div><strong>Длина</strong><small>' + qty + ' м</small></div>' +
       qtyStepperHtml() +
       '</header>' +
       '<p class="flower-qty-sum"><strong>' + goodsPrice().toLocaleString('ru-RU') + ' ₽</strong><small>' + qty + ' м</small></p>' +
       '</section>') : '') +
+      (isGenderProduct() ? (
+      '<section class="product-configurator product-step is-open" id="product-step-gender" data-details="gender">' +
+      '<header class="config-title"><div><strong>Начинка</strong><small>' + esc(genderLabel() || 'выберите') + '</small></div></header>' +
+      '<div class="product-step-content">' + genderOptionsHtml() + '</div></section>') : '') +
       (isUnit() ? '' : (
       '<section class="order-details product-step is-open" id="product-step-date" data-details="date">' +
       '<header class="config-title"><div><strong>' + (stepNum ? stepNum + '. ' : '') + 'Дата и получение</strong><small>' + esc(fulfillmentTitle()) + '</small></div></header>' +
@@ -1734,6 +1779,16 @@
           clearFlowEditIf('delta');
           render();
           afterDigitsMaybeScroll();
+        });
+      } else if (act === 'gender-fill') {
+        el.addEventListener('mousedown', function (e) { e.preventDefault(); });
+        el.addEventListener('click', function () {
+          var v = el.getAttribute('data-v') || '';
+          genderFill = genderFill === v ? '' : v;
+          saveDraft();
+          render();
+          var gal = root.querySelector('.product-page-main-image');
+          if (gal && gal.scrollIntoView) gal.scrollIntoView({ block: 'nearest' });
         });
       } else if (act === 'surprise-color' || act === 'surprise-bill') {
         el.addEventListener('click', function () {
@@ -2302,6 +2357,14 @@
       return;
     }
     if (!digitsOk()) { openDetails('params'); return; }
+    if (isGenderProduct() && !genderReady()) {
+      var genderBtn = root.querySelector('[data-act="gender-fill"]');
+      if (genderBtn && genderBtn.focus) {
+        try { genderBtn.focus({ preventScroll: true }); } catch (e) { try { genderBtn.focus(); } catch (_) {} }
+      }
+      if (window.vigToast) window.vigToast('Выберите начинку шара');
+      return;
+    }
     if (surpriseNeedsOptions() && !surpriseReady()) {
       openDetails('date');
       var miss = !surpriseColor
@@ -2513,7 +2576,7 @@
         p = pack.found;
         loadDraft();
         if (isPrintedDigit() || isBubbleUnit() || isNamedUnit()) qty = 1;
-        if (isFlowerBouquet() && !draftRestored) qty = flowerBaseQty();
+        if (isFlowerBouquet()) qty = flowerBaseQty();
         pushRecent();
         render();
       }

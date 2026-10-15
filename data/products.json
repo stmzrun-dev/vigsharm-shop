@@ -2,6 +2,50 @@
   "ok": true,
   "products": [
     {
+      "id": "8c5df0a1-a332-4eed-9e59-45a115261be0",
+      "title": "Гендерный шар",
+      "article": "GND-004",
+      "price": 1600,
+      "short_description": "Чёрный шар с вопросом «Мальчик или девочка?». Внутри конфетти и маленькие шарики — розовые или голубые.",
+      "full_description": "Большой чёрный шар для гендер-пати. Снаружи надпись «Мальчик или девочка?», бант из розовой и голубой ленты. Внутри конфетти и маленькие шарики цвета выбранного пола. Начинку выбирают в карточке.",
+      "composition": [
+        "Гендерный шар"
+      ],
+      "category": "Гендер-пати",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": "1 000–2 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Гендерный шар «Мальчик или девочка?» — Армавир | VigSharm",
+      "seo_description": "Чёрный шар для гендер-пати в Армавире: внутри конфетти и маленькие шарики розового или голубого цвета. Доставка и самовывоз.",
+      "slug": "gendernyy-shar",
+      "scene": "auto",
+      "tags": [
+        "Гендер-пати"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "gender_choice": true,
+        "gender_girl_photo": "/images/balloons/gender/gender-girl.webp?v=20261015",
+        "gender_boy_photo": "/images/balloons/gender/gender-boy.webp?v=20261015"
+      },
+      "photos": [
+        "/images/balloons/gender/gender-out.webp?v=20261015"
+      ],
+      "main_photo": "/images/balloons/gender/gender-out.webp?v=20261015",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-15T08:10:00.000Z",
+      "updated_at": "2026-10-15T08:10:00.000Z",
+      "thumb_photo": "/images/balloons/gender/gender-out.webp?v=20261015"
+    },
+    {
       "id": "dbf63d38-d521-4580-a6da-7aae27ba392f",
       "title": "Звёздный мальчик",
       "article": "BOY-099",

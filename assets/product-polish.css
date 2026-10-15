@@ -761,6 +761,48 @@
   display:grid;
   gap:12px;
 }
+.gender-options{margin:0}
+.gender-fills{border:0;margin:0;padding:0}
+.gender-fills legend{
+  font-size:14px;
+  font-weight:700;
+  margin:0 0 8px;
+}
+.gender-fill-row{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+.gender-fill-row button{
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  width:100%;
+  margin:0;
+  padding:0 0 10px;
+  border:2px solid #ebe6e3;
+  border-radius:16px;
+  background:#fff;
+  cursor:pointer;
+  font:inherit;
+  color:#1c1c1c;
+  text-align:center;
+}
+.gender-fill-row button.selected{border-color:#1c1c1c}
+.gender-fill-row img{
+  width:100%;
+  aspect-ratio:1;
+  object-fit:cover;
+  border-radius:14px 14px 0 0;
+  display:block;
+  background:#f4f1ee;
+}
+.gender-fill-row span{
+  font-size:15px;
+  font-weight:700;
+  line-height:1.2;
+  padding:0 8px;
+}
 .surprise-bill-row{
   display:grid;
   grid-template-columns:1fr 1fr;

@@ -2,6 +2,49 @@
   "ok": true,
   "products": [
     {
+      "id": "92d7f845-4c8f-4d36-9702-1498d4657c77",
+      "title": "Кто же ты",
+      "article": "GND-008",
+      "price": 3600,
+      "short_description": "Гендерный шар с надписью Boy or Girl и прозрачные шары кристалл в розовых и голубых тонах.",
+      "full_description": "Композиция для гендер-пати с большим белым шаром Boy or Girl и десятью прозрачными шарами кристалл в розовых и голубых оттенках.",
+      "composition": [
+        "10 шаров кристалл",
+        "гендерный шар"
+      ],
+      "category": "Гендер-пати",
+      "character": null,
+      "age_group": "Для малышей",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары для гендер-пати Boy or Girl в Армавире",
+      "seo_description": "Композиция для гендер-пати с большим белым шаром Boy or Girl и прозрачными шарами кристалл в розовых и голубых тонах. Доставка в Армавире.",
+      "slug": "rozovyy-ili-goluboy",
+      "scene": "wall_only",
+      "tags": [
+        "Гендер-пати"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "photo_dhash": "66e3c2e2844a8a2a"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/c84deb2d-2146-49c5-808d-111a341c8ef9.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/c84deb2d-2146-49c5-808d-111a341c8ef9.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-15T10:44:07.145Z",
+      "updated_at": "2026-10-15T10:44:07.145Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/47d2fc99-54bd-464d-9441-f140e86a1168.webp"
+    },
+    {
       "id": "c6e2202d-30bb-4f88-b891-71a72dfe3f71",
       "title": "Главная интрига",
       "article": "GND-007",

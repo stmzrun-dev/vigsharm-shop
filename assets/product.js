@@ -15,6 +15,7 @@
   }
   function compIconKey(label) {
     var t = String(label || '').toLowerCase();
+    if (/гендерн/.test(t) && /шар/.test(t)) return 'gender';
     if (/мишк/.test(t) && /роз/.test(t)) return 'rosebear';
     if (/бабоч/.test(t)) return 'butterfly';
     if ((/плюшев/.test(t) || /мягк/.test(t)) && /мишк|игруш/.test(t)) return 'teddy';

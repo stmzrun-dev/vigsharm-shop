@@ -16,6 +16,7 @@
   function compIconKey(label) {
     var t = String(label || '').toLowerCase();
     if (/гендерн/.test(t) && /шар/.test(t)) return 'gender';
+    if (/кристалл/.test(t)) return 'crystal';
     if (/мишк/.test(t) && /роз/.test(t)) return 'rosebear';
     if (/бабоч/.test(t)) return 'butterfly';
     if ((/плюшев/.test(t) || /мягк/.test(t)) && /мишк|игруш/.test(t)) return 'teddy';
@@ -74,7 +75,7 @@
     if (isFlowerBouquet() && (!key || key === 'latex')) key = 'tulip';
     if (isTeddyBouquet() && (key === 'figure' || !key) && !/фольг/.test(String(label || ''))) key = 'teddy';
     if (!key) key = 'latex';
-    var v = key === 'gender' ? '1' : (key === 'float' ? '1' : ((key === 'butterfly' || key === 'teddy') ? '2' : ((key === 'rose' || key === 'bouquet' || key === 'tulip') ? '19' : ((key === 'rosebear' || key === 'hatbox' || key === 'ribbon') ? '1' : (key === 'arch' ? '1' : (key === 'walker' ? '19' : '18'))))));
+    var v = (key === 'gender' || key === 'crystal') ? '1' : (key === 'float' ? '1' : ((key === 'butterfly' || key === 'teddy') ? '2' : ((key === 'rose' || key === 'bouquet' || key === 'tulip') ? '19' : ((key === 'rosebear' || key === 'hatbox' || key === 'ribbon') ? '1' : (key === 'arch' ? '1' : (key === 'walker' ? '19' : '18'))))));
     return '<img class="comp-ico" src="icons/comp-' + key + '.webp?v=' + v + '" alt="" width="32" height="32" onerror="this.onerror=null;this.src=\'icons/comp-' + key + '.svg\'"/>';
   }
 

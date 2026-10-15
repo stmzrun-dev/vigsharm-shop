@@ -2,6 +2,96 @@
   "ok": true,
   "products": [
     {
+      "id": "e07dd9f0-d80c-43b5-87b6-0268434a7ecd",
+      "title": "Плюшевый привет",
+      "article": "BAB-048",
+      "price": 4220,
+      "short_description": "Композиция с медвежонком в шоколадно-кремовых тонах и баблсом с надписью.",
+      "full_description": "Нежный набор с фольгированным мишкой, баблсом с персональной надписью, шоколадными и кремовыми шарами. Тёплая палитра и милый характер композиции.",
+      "composition": [
+        "фигура",
+        "баблс с надписью",
+        "2 звезды",
+        "8 шаров"
+      ],
+      "category": "На выписку",
+      "character": "Мишка",
+      "age_group": "Для малышей",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Композиция с мишкой в шоколадных тонах — Армавир",
+      "seo_description": "Милая композиция с фольгированным мишкой, баблсом с надписью и шоколадно-кремовыми шарами. Доставка шаров в Армавире.",
+      "slug": "plyushevyy-privet",
+      "scene": "wall_only",
+      "tags": [
+        "На выписку"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/1c4d56aa-66d7-42d0-8514-b25e55b8bc1e.jpg",
+        "photo_dhash": "1f8f8f048c8c86b7"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/16be9e7e-fd62-4021-827f-f39fa535f8b0.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/16be9e7e-fd62-4021-827f-f39fa535f8b0.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-15T07:04:51.114Z",
+      "updated_at": "2026-10-15T07:04:51.114Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/4794b94a-6fc3-4b6a-84af-70bf2bd5231e.webp"
+    },
+    {
+      "id": "7492b713-d124-4d80-a783-e6dfb4ba1dc9",
+      "title": "Благородный жест",
+      "article": "HIM-040",
+      "price": 3120,
+      "short_description": "Чёрное сердце с надписью и шесть изумрудных хромированных шаров на стене.",
+      "full_description": "Композиция из крупного чёрного сердца с белой каллиграфической надписью и шести тёмно-зелёных хромированных шаров. Строгая палитра для сдержанного признания.",
+      "composition": [
+        "6 стеклянных шаров",
+        "сердце с надписью"
+      ],
+      "category": "Для него",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "2 000–3 500 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Благородный жест — воздушные шары для мужчины, Армавир",
+      "seo_description": "Сдержанная композиция из чёрного сердца с надписью и изумрудных хромированных шаров. Доставка в Армавире.",
+      "slug": "blagorodnyy-zhest",
+      "scene": "wall_only",
+      "tags": [
+        "Для него"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/5de5af64-e37a-45e6-9eac-c440f3bfe459.jpg",
+        "photo_dhash": "8696c1c8c8c8cd1f"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/24bae2a8-6a5f-4146-afb7-4dc13aa35a31.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/24bae2a8-6a5f-4146-afb7-4dc13aa35a31.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-15T07:01:42.881Z",
+      "updated_at": "2026-10-15T07:01:42.881Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/f49cc89d-b2b5-46b5-8d76-bb782139682b.webp"
+    },
+    {
       "id": "dbf63d38-d521-4580-a6da-7aae27ba392f",
       "title": "Звёздный мальчик",
       "article": "BOY-099",

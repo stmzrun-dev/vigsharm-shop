@@ -2,10 +2,281 @@
   "ok": true,
   "products": [
     {
+      "id": "c6e2202d-30bb-4f88-b891-71a72dfe3f71",
+      "title": "Главная интрига",
+      "article": "GND-007",
+      "price": 4000,
+      "short_description": "Гендерный шар на витой стойке из шаров с розово-голубым декором.",
+      "full_description": "Чёрный шар с надписью на высокой витой стойке из розовых и голубых шаров. Идеально для раскрытия пола малыша.",
+      "composition": [
+        "гендерный шар на стойке"
+      ],
+      "category": "Гендер-пати",
+      "character": null,
+      "age_group": "Для детей",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Гендерный шар на стойке — Армавир | VigSharm",
+      "seo_description": "Чёрный гендерный шар на витой стойке из розовых и голубых шаров. Раскрытие пола малыша в Армавире. Заказать в VigSharm.",
+      "slug": "glavnaya-intriga",
+      "scene": "floor",
+      "tags": [
+        "Гендер-пати"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/c9bd9783-cf97-40e7-bea0-7e65f4555441.jpg",
+        "photo_dhash": "3978702830313038",
+        "floor_type": "air"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/17a48d0f-bf20-4e90-b8f5-492fe232202c.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/17a48d0f-bf20-4e90-b8f5-492fe232202c.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-15T08:56:13.660Z",
+      "updated_at": "2026-10-15T08:56:13.660Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/a79b21c3-f95f-4337-aff3-32a7aa32538c.webp"
+    },
+    {
+      "id": "8cbe9c1d-d28f-4ae7-a5f8-8d6dffe49e17",
+      "title": "Большой вопрос",
+      "article": "GND-006",
+      "price": 4500,
+      "short_description": "Чёрный шар с надписью «Девочка или мальчик» на серебряной стойке из хромированных шаров.",
+      "full_description": "Гендерный шар на высокой стойке из серебряных хромированных латексных шаров. Чёрный шар с каллиграфической надписью и короной создаёт интригу перед главным моментом.",
+      "composition": [
+        "гендерный шар на стойке"
+      ],
+      "category": "Гендер-пати",
+      "character": null,
+      "age_group": "Для детей",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Гендерный шар на стойке для раскрытия пола ребёнка в Армавире",
+      "seo_description": "Гендерный шар с надписью «Девочка или мальчик» на высокой серебряной стойке. Эффектное решение для гендер-пати и раскрытия пола малыша.",
+      "slug": "bolshoy-vopros",
+      "scene": "floor",
+      "tags": [
+        "Гендер-пати"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/2660b04c-7bd7-4421-8c14-92c3b99ed710.jpg",
+        "photo_dhash": "1068607070307078",
+        "floor_type": "air"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/583105d9-4131-4fd7-adc9-f9527fb6c198.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/583105d9-4131-4fd7-adc9-f9527fb6c198.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-15T08:53:27.755Z",
+      "updated_at": "2026-10-15T08:53:27.755Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/f21c316e-84c5-4cb6-853e-95012e5d3434.webp"
+    },
+    {
+      "id": "587861f9-cdd9-4d61-b130-60c29d2f6870",
+      "title": "Сладкие сны",
+      "article": "BAB-049",
+      "price": 3280,
+      "short_description": "Две композиции с фигурами спящих малышей в розовом и голубом цвете.",
+      "full_description": "Комплект из двух фонтанов с латексными шарами и фигурами новорождённых. Подходит для гендерной вечеринки или украшения для двойни.",
+      "composition": [
+        "12 шаров",
+        "2 фигуры"
+      ],
+      "category": "На выписку",
+      "character": "Малыш",
+      "age_group": "Для малышей",
+      "budget": "2 000–3 500 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары для гендерной вечеринки с малышами | Армавир",
+      "seo_description": "Композиции с фигурами новорождённых в розовом и голубом. Идеальны для гендер-пати и украшения праздника двойни в Армавире.",
+      "slug": "dvoynaya-radost-2",
+      "scene": "wall_only",
+      "tags": [
+        "На выписку"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/3c38494c-3aaf-4819-8db9-11ea682967c6.jpg",
+        "photo_dhash": "ff6f6672f77563f2"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/928a9935-5af7-4b10-b79e-884e024f22b1.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/928a9935-5af7-4b10-b79e-884e024f22b1.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-15T08:51:16.795Z",
+      "updated_at": "2026-10-15T08:51:16.795Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/8503e39d-b7eb-4bcc-903f-3fd2b09b1838.webp"
+    },
+    {
+      "id": "cfc4a4a7-9c5e-47f7-987f-16338b77f8b0",
+      "title": "Момент истины",
+      "article": "GND-005",
+      "price": 6000,
+      "short_description": "Напольная композиция с большим чёрным баблсом в розово-голубом обрамлении.",
+      "full_description": "Высокая напольная композиция из розовых и голубых шаров с чёрным баблсом с вопросами наверху.",
+      "composition": [
+        "Напольная композиция",
+        "Гендерный шар"
+      ],
+      "category": "Гендер-пати",
+      "character": null,
+      "age_group": "Для детей",
+      "budget": "5 000–8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Напольная композиция для гендер-пати в Армавире",
+      "seo_description": "Высокая напольная композиция в розово-голубых тонах с большим гендерным шаром. Закажите оформление для раскрытия пола ребёнка.",
+      "slug": "intriga-raskryta",
+      "scene": "floor",
+      "tags": [
+        "Гендер-пати"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/4ad4566b-0795-404c-a78e-735b3c5e4310.jpg",
+        "photo_dhash": "3db6f6e4cd8cccd8",
+        "floor_type": "air"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/fcd7c55c-8b43-4fe8-ac19-94f92ad610f2.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/fcd7c55c-8b43-4fe8-ac19-94f92ad610f2.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-15T08:46:47.041Z",
+      "updated_at": "2026-10-15T08:46:47.041Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/523b336b-a86d-443c-a5c2-355439e75225.webp"
+    },
+    {
+      "id": "472bb544-da56-400b-9a74-040c1a769ebe",
+      "title": "Секрет в конверте",
+      "article": "GND-002",
+      "price": 6500,
+      "short_description": "Фотозона с круглой табличкой и гирляндой из розовых и голубых шаров на деревянном мольберте.",
+      "full_description": "Фотозона на деревянном мольберте с круглой табличкой и воздушными шарами в розово-голубой гамме. Подойдёт для раскрытия пола будущего малыша.",
+      "composition": [
+        "Фотозона"
+      ],
+      "category": "Гендер-пати",
+      "character": null,
+      "age_group": "Для малышей",
+      "budget": "5 000–8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Фотозона для гендер-пати с шарами — Армавир | VigSharm",
+      "seo_description": "Фотозона на мольберте с розовыми и голубыми шарами для раскрытия пола ребёнка. Заказать оформление гендер-пати в Армавире.",
+      "slug": "sekret-v-konverte",
+      "scene": "photozone",
+      "tags": [
+        "Гендер-пати"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": true,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/9707afca-8175-4d20-ac59-a4c12984db62.jpg",
+        "photo_dhash": "9e9e8e2e2b272771",
+        "photozone_type": "easel",
+        "rental": {
+          "enabled": true,
+          "item": "Мольберт с кругом из полистирола",
+          "days": 3,
+          "keep_price_delta": 500
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/a417d85d-eccb-46d4-acaa-f81deabe1f2a.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/a417d85d-eccb-46d4-acaa-f81deabe1f2a.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-15T08:33:49.285Z",
+      "updated_at": "2026-10-15T08:33:49.285Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/8c922d8f-ebc4-45ec-bedf-caed35009377.webp"
+    },
+    {
+      "id": "0b53d5b2-c1bd-41f0-af59-88af0cd8410d",
+      "title": "Русалочья грёза",
+      "article": "Y1-056",
+      "price": 3000,
+      "short_description": "Напольная композиция с фольгированным хвостом русалки, ракушками и морскими водорослями из шаров.",
+      "full_description": "Напольная композиция в морской тематике с крупным фольгированным хвостом русалки, золотыми ракушками и зелёными водорослями из шаров. Нежные розовые, сиреневые и бирюзовые оттенки создают атмосферу подводного мира.",
+      "composition": [
+        "напольная композиция"
+      ],
+      "category": "1 годик",
+      "character": null,
+      "age_group": "Для малышей",
+      "budget": "2 000–3 500 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Напольная композиция Русалочья грёза — купить в Армавире",
+      "seo_description": "Напольная композиция с хвостом русалки, ракушками и водорослями из шаров. Морская тематика для девочки. Доставка по Армавиру.",
+      "slug": "rusalochya-greza",
+      "scene": "floor",
+      "tags": [
+        "1 годик"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/78c4bb53-a928-48f4-aaae-18710833671e.jpg",
+        "photo_dhash": "33317070f0a4b0c8",
+        "floor_type": "air"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/7ab07c58-eb24-48b5-9da5-da8200fcdb05.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/7ab07c58-eb24-48b5-9da5-da8200fcdb05.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-15T08:25:26.515Z",
+      "updated_at": "2026-10-15T08:25:26.515Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/084edad5-e2aa-44c8-91ed-be10f5e5aa4e.webp"
+    },
+    {
       "id": "8c5df0a1-a332-4eed-9e59-45a115261be0",
       "title": "Гендерный шар",
       "article": "GND-004",
-      "price": 1600,
+      "price": 2000,
       "short_description": "Чёрный шар с вопросом «Мальчик или девочка?». Внутри конфетти и маленькие шарики — розовые или голубые.",
       "full_description": "Большой чёрный шар для гендер-пати. Снаружи надпись «Мальчик или девочка?», бант из розовой и голубой ленты. Внутри конфетти и маленькие шарики цвета выбранного пола. Начинку выбирают в карточке.",
       "composition": [
@@ -14,7 +285,7 @@
       "category": "Гендер-пати",
       "character": null,
       "age_group": "Для любого возраста",
-      "budget": "1 000–2 000 ₽",
+      "budget": "2 000–3 500 ₽",
       "series_name": null,
       "occasion": null,
       "target_audience": null,
@@ -42,8 +313,246 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-10-15T08:10:00.000Z",
-      "updated_at": "2026-10-15T08:10:00.000Z",
+      "updated_at": "2026-10-15T08:47:20.200Z",
       "thumb_photo": "/images/balloons/gender/gender-out.webp?v=20261015"
+    },
+    {
+      "id": "584df92d-f648-44c4-95a0-a4407ff539bc",
+      "title": "Серебряный контраст",
+      "article": "HIM-042",
+      "price": 4660,
+      "short_description": "Стеклянный баблс с конфетти и хромированные шары в чёрно-серебристой гамме.",
+      "full_description": "Композиция из прозрачного баблса с чёрным конфетти, хромированных и латексных шаров в графитовых тонах. Завершают образ ленты тассел.",
+      "composition": [
+        "стеклянный баблс с конфетти и надписью",
+        "4 шара хром",
+        "6 шаров",
+        "лента тассел"
+      ],
+      "category": "Для него",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Графитовый шик — шары на день рождения в Армавире",
+      "seo_description": "Стильная композиция из стеклянного баблса с конфетти и хромированных шаров в чёрно-серебристых тонах. Доставка воздушных шаров в Армавире.",
+      "slug": "grafitovyy-shik-2",
+      "scene": "wall_only",
+      "tags": [
+        "Для него"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/ffbfa5bc-343e-4966-9e64-4bc99305ac8a.jpg",
+        "photo_dhash": "ff1ce6e2e8666c2d"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/50321964-29fa-48a0-a3d8-c2d6c4068956.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/50321964-29fa-48a0-a3d8-c2d6c4068956.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-15T07:41:18.253Z",
+      "updated_at": "2026-10-15T07:41:18.253Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/db9f1001-efb3-48a4-a19d-135cb7bac892.webp"
+    },
+    {
+      "id": "08b10715-14fc-4dc6-a462-0caf5dbdc6b0",
+      "title": "Радужный переливчик",
+      "article": "GRL-160",
+      "price": 4900,
+      "short_description": "Крупная розовая цифра в окружении хромированных шаров с лентой тассел.",
+      "full_description": "Композиция с фольгированной цифрой и двадцатью хромированными шарами в розово-золотых и сиреневых оттенках. Завершает образ лента тассел.",
+      "composition": [
+        "цифра",
+        "20 шаров хром",
+        "лента тассел"
+      ],
+      "category": "Для девочки",
+      "character": null,
+      "age_group": "Для детей",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Композиция с хромированными шарами для девочки в Армавире",
+      "seo_description": "Композиция с фольгированной цифрой и 20 хромированными шарами. Розово-золотая и сиреневая палитра с лентой тассел. Доставка по Армавиру.",
+      "slug": "raduzhniy-perelivchik",
+      "scene": "floor",
+      "tags": [
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/c6aa156e-e890-47f5-812d-a45740014a89.jpg",
+        "photo_dhash": "1b97f4e8a08b0b03",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/5bda9e1c-13b7-4929-ac5d-966d3069feb3.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/5bda9e1c-13b7-4929-ac5d-966d3069feb3.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-15T07:36:02.330Z",
+      "updated_at": "2026-10-15T07:36:02.330Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/b9f3c4c4-adc3-4957-8b2a-2fe9f868a279.webp"
+    },
+    {
+      "id": "568efca9-55fd-45fd-b1b4-056e56455daa",
+      "title": "Пиксельный мир",
+      "article": "GMR-007",
+      "price": 10300,
+      "short_description": "Напольная композиция с фигурами персонажей из шаров в стиле Minecraft.",
+      "full_description": "Три напольные композиции с фигурами героев из шаров, фонтаны с тематическими шарами, звёзды и крупная цифра. Узнаваемые персонажи и блоки в пиксельной стилистике.",
+      "composition": [
+        "3 напольные композиции",
+        "2 звезды",
+        "16 шаров с рисунком"
+      ],
+      "category": "Геймерам",
+      "character": "Стив",
+      "age_group": "Для детей",
+      "budget": "от 8 000 ₽",
+      "series_name": "Minecraft",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары Майнкрафт на день рождения в Армавире — VigSharm",
+      "seo_description": "Напольная композиция с фигурами персонажей Minecraft из шаров. Тематические шары, звёзды и цифра. Доставка в Армавире.",
+      "slug": "pikselnyy-mir",
+      "scene": "floor",
+      "tags": [
+        "Геймерам"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/4aa4ffd4-cfae-4418-bd0c-844a6381d52f.jpg",
+        "photo_dhash": "8cdc4cdadcba9993",
+        "floor_type": "air",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/7912b0b2-0358-4cc9-a4ae-e45a56c4b0cf.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/7912b0b2-0358-4cc9-a4ae-e45a56c4b0cf.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-15T07:23:58.932Z",
+      "updated_at": "2026-10-15T07:23:58.932Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/1073fbaf-b32b-41cc-8629-c392045cfc4a.webp"
+    },
+    {
+      "id": "177715f5-ccdc-44ea-a319-e7623af5ecd9",
+      "title": "Пернатая нежность",
+      "article": "GRL-159",
+      "price": 4120,
+      "short_description": "Баблс с перьями, бордовые сердца и латексные шары в элегантной винной гамме.",
+      "full_description": "Композиция в насыщенных бордово-белых тонах с прозрачным баблсом, украшенным перьями и надписью. Фольгированные сердца и латексные шары создают праздничное настроение.",
+      "composition": [
+        "баблс с перьями и надписью",
+        "2 сердца",
+        "8 шаров"
+      ],
+      "category": "Для девочки",
+      "character": null,
+      "age_group": "Для подростков",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Баблс с перьями и сердца — композиция в Армавире",
+      "seo_description": "Композиция с баблсом, бордовыми сердцами и шарами. Элегантное оформление с перьями для подростков в Армавире. Доставка VigSharm.",
+      "slug": "pernataya-nezhnost",
+      "scene": "wall_only",
+      "tags": [
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/3658b4c9-f9d9-40a0-bdd9-cbf93fa26afc.jpg",
+        "photo_dhash": "8fa7850d95941d4d"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/2ed91830-461e-4173-a625-b5173e5e769e.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/2ed91830-461e-4173-a625-b5173e5e769e.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-15T07:15:11.863Z",
+      "updated_at": "2026-10-15T07:15:11.863Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/de0322c5-fe6d-468b-800f-71d409c0abf4.webp"
+    },
+    {
+      "id": "f13fec77-7578-4c05-ac17-0f77f173d71b",
+      "title": "Элегантный шик",
+      "article": "HIM-041",
+      "price": 5710,
+      "short_description": "Чёрно-золотая композиция с баблсом, звёздами с надписями и белой кошкой.",
+      "full_description": "Стильная композиция в чёрно-золотой гамме с баблсом, украшенным перьями, тремя звёздами с надписями и фигурой белой кошки.",
+      "composition": [
+        "фигура",
+        "баблс с перьями",
+        "3 звезды с надписью",
+        "3 шара с конфетти",
+        "3 шара хром",
+        "2 шара"
+      ],
+      "category": "Для него",
+      "character": "Кошка",
+      "age_group": "Для взрослых",
+      "budget": "5 000–8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Элегантная композиция из шаров в Армавире — VigSharm",
+      "seo_description": "Чёрно-золотая композиция с баблсом, звёздами с надписями и фигурой белой кошки. Стильное оформление праздника в Армавире.",
+      "slug": "elegantnyy-shik",
+      "scene": "wall_only",
+      "tags": [
+        "Для него"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/2748b10a-8b67-4690-9c14-8d29fe005c02.jpg",
+        "photo_dhash": "8f8fc78dc9979717"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/90084136-f4e8-4af8-89d5-1b3a7acfc158.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/90084136-f4e8-4af8-89d5-1b3a7acfc158.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-15T07:07:29.313Z",
+      "updated_at": "2026-10-15T07:07:29.313Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/7a3f9f81-c41a-47f3-8b4f-34ffd1644dd3.webp"
     },
     {
       "id": "e07dd9f0-d80c-43b5-87b6-0268434a7ecd",

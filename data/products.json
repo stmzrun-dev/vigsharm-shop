@@ -2,6 +2,49 @@
   "ok": true,
   "products": [
     {
+      "id": "71fa3342-a8d0-42b9-a509-4864245c5937",
+      "title": "Неугомонная",
+      "article": "FIG-033",
+      "price": 6200,
+      "short_description": "Фигура девушки из шаров с белыми волосами и чашкой кофе на красно-белой основе.",
+      "full_description": "Напольная композиция со скрученной фигурой блондинки в белом, держащей стаканчик кофе. Чёрная звезда с надписью наверху и красные шары в основании.",
+      "composition": [
+        "фигура из шаров"
+      ],
+      "category": "Фигуры из шаров",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": "5 000–8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Фигура из шаров Восстановилась — Армавир, VigSharm",
+      "seo_description": "Напольная фигура девушки из шаров с кофе, белыми волосами и чёрной звездой. Скрутка на красно-белой основе. Армавир.",
+      "slug": "vosstanovilas-2",
+      "scene": "balloon_figures",
+      "tags": [
+        "Фигуры из шаров"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/25d46ba5-21b8-4127-9ad1-4d9112f0fdfe.jpg",
+        "photo_dhash": "7373737173617171"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/6654ff9a-3ba8-4138-abe2-7866bc086de4.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/6654ff9a-3ba8-4138-abe2-7866bc086de4.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-15T14:55:07.831Z",
+      "updated_at": "2026-10-15T14:55:07.831Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/b8983003-ae2c-4777-ba22-57f058308b45.webp"
+    },
+    {
       "id": "92d7f845-4c8f-4d36-9702-1498d4657c77",
       "title": "Кто же ты",
       "article": "GND-008",
@@ -64601,54 +64644,6 @@
       "created_at": "2026-09-18T21:09:21.236Z",
       "updated_at": "2026-09-30T08:25:32.587Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/2f6d7a91-a125-405a-bd84-1576e6af26b0.webp"
-    },
-    {
-      "id": "3e25ebe1-0614-4f4b-8ba9-43f0d9d5e502",
-      "title": "Дива в короне",
-      "article": "GRL-012",
-      "price": 3000,
-      "short_description": "Две напольные композиции с куклой LOL, короной и розово-белыми шарами.",
-      "full_description": "На фото две напольные композиции: крупная цифра с короной Princess и фигура куклы LOL на подставке из шаров в розово-бело-серебристой гамме.",
-      "composition": [
-        "2 напольные композиции"
-      ],
-      "category": "Для девочки",
-      "character": "LOL",
-      "age_group": "Для детей",
-      "budget": "2 000–3 500 ₽",
-      "series_name": "LOL Surprise",
-      "occasion": null,
-      "target_audience": null,
-      "seo_title": "Напольные композиции с куклой LOL и короной — Армавир",
-      "seo_description": "Две напольные композиции для девочки: цифра с короной Princess и кукла LOL на подставке из розово-серебристых шаров. Закажите в VigSharm, Армавир.",
-      "slug": "diva-v-korone",
-      "scene": "floor",
-      "tags": [
-        "Для девочки"
-      ],
-      "client_options": {
-        "available_on_request": false,
-        "advance_order_1_2_days": true,
-        "number_choice": true,
-        "personal_inscription": false,
-        "photozone_rental": false,
-        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/c5d7afdd-6149-43d8-9071-e8489c47412e.png",
-        "floor_type": "air",
-        "digit_choice": {
-          "enabled": true,
-          "count_on_photo": 1
-        },
-        "photo_dhash": "f3dbd68ae49c9acc"
-      },
-      "photos": [
-        "https://storage.yandexcloud.net/vigsharm-photos/products/c5d7afdd-6149-43d8-9071-e8489c47412e.png"
-      ],
-      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/c5d7afdd-6149-43d8-9071-e8489c47412e.png",
-      "status": "published",
-      "show_on_site": true,
-      "created_at": "2026-09-18T20:45:28.271Z",
-      "updated_at": "2026-09-28T18:30:46.150Z",
-      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/5b0a744a-5ce7-4d42-aab4-dd8dd8111e27.webp"
     },
     {
       "id": "73fad62f-21ba-48ca-bde8-e9fa5625f5a8",

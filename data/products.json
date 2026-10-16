@@ -2,6 +2,242 @@
   "ok": true,
   "products": [
     {
+      "id": "12450392-a5b8-4065-a6cf-36bf8558560a",
+      "title": "Розовый металлик",
+      "article": "GRL-162",
+      "price": 5860,
+      "short_description": "Композиция в розово-серых тонах с яркими звёздами и нежным конфетти.",
+      "full_description": "Настенная композиция с крупными цифрами, двумя розовыми звёздами и фонтанами из хромированных и прозрачных шаров с конфетти. Элегантное сочетание розовых и серых оттенков.",
+      "composition": [
+        "2 цифры",
+        "2 звезды",
+        "6 шаров",
+        "12 шаров хром"
+      ],
+      "category": "Для девочки",
+      "character": null,
+      "age_group": "Для подростков",
+      "budget": "5 000–8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Воздушные шары на день рождения девочке, Армавир",
+      "seo_description": "Композиция с цифрами, звёздами и хромированными шарами в розово-серой гамме. Доставка в Армавире.",
+      "slug": "rozovyy-metallik",
+      "scene": "wall_only",
+      "tags": [
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/96c4af86-2c89-4adf-8dac-c77a520d9dc7.jpg",
+        "photo_dhash": "868e8e0e8e8e9e8e",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 2
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/01b45f4b-c386-4568-ad79-98e2e327ca61.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/01b45f4b-c386-4568-ad79-98e2e327ca61.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-16T05:55:22.149Z",
+      "updated_at": "2026-10-16T05:55:22.149Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/5c260048-bced-4a48-b5f5-c242fce05df7.webp"
+    },
+    {
+      "id": "87503e62-fc34-473c-a15e-1dcf84b7631f",
+      "title": "Сладкая волна",
+      "article": "GRL-161",
+      "price": 2720,
+      "short_description": "Розовая фольгированная цифра и букет из хромированных и матовых шаров в нежных тонах.",
+      "full_description": "Композиция с крупной розовой цифрой и букетом из хромированных и матовых шаров. Розовые, белые и перламутровые оттенки создают нежный праздничный образ.",
+      "composition": [
+        "цифра",
+        "3 шара хром",
+        "7 шаров"
+      ],
+      "category": "Для девочки",
+      "character": null,
+      "age_group": "Для детей",
+      "budget": "2 000–3 500 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Розовая нежность — воздушные шары для девочки, Армавир",
+      "seo_description": "Композиция с розовой цифрой и букетом из хромированных и матовых шаров. Нежные розовые и белые оттенки для праздника девочки.",
+      "slug": "rozovaya-nezhnost",
+      "scene": "wall_only",
+      "tags": [
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/03ee1bf7-8d20-4f63-8165-b6e14b415042.jpg",
+        "photo_dhash": "3c6a4353c1e97c0d",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/fda912fd-1ec7-4a54-b8a4-f722668ed538.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/fda912fd-1ec7-4a54-b8a4-f722668ed538.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-16T05:52:20.009Z",
+      "updated_at": "2026-10-16T05:53:10.726Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/6dc5376d-2d56-4d0b-8b70-95e8124b3444.webp"
+    },
+    {
+      "id": "73546305-5068-4042-8655-7eb14281a2e4",
+      "title": "Полосатый бунтарь",
+      "article": "BOY-100",
+      "price": 7440,
+      "short_description": "Композиция с золотым котом в галстуке, серебряными цифрами и хромированными шарами",
+      "full_description": "Композиция включает фольгированную фигуру стильного кота в галстуке и солнцезащитных очках, серебряные цифры, баблс с конфетти и надписью, а также связку хромированных шаров в бирюзово-серебряных оттенках.",
+      "composition": [
+        "фигура",
+        "2 цифры",
+        "баблс с конфетти и надписью",
+        "13 шаров хром"
+      ],
+      "category": "Для мальчика",
+      "character": "Кот",
+      "age_group": "Для подростков",
+      "budget": "5 000–8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары с котом на день рождения мальчика — Армавир",
+      "seo_description": "Стильная композиция с фольгированным котом в галстуке, цифрами, баблс с надписью и хромированными шарами для подростка в Армавире",
+      "slug": "polosatyj-buntar",
+      "scene": "wall_only",
+      "tags": [
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": true,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/152c72d9-9aac-4e7d-a117-3e41b6bd074a.jpg",
+        "photo_dhash": "4181d6c694921083",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 2
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/778f2664-8825-4b7e-aaee-e590c9f6c226.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/778f2664-8825-4b7e-aaee-e590c9f6c226.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-16T05:50:13.561Z",
+      "updated_at": "2026-10-16T05:50:13.561Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/1c73ae92-11c9-4db1-8dbd-77371866df12.webp"
+    },
+    {
+      "id": "bcb63bb6-ea69-487c-a639-52f6c426e1f8",
+      "title": "Черновик",
+      "article": null,
+      "price": 0,
+      "short_description": "",
+      "full_description": "",
+      "composition": [],
+      "category": "",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "krylya-mechty-2",
+      "scene": "wall_only",
+      "tags": [],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/d86f94bc-3cd4-433a-887c-f7ea9e159394.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/d86f94bc-3cd4-433a-887c-f7ea9e159394.jpg",
+      "status": "draft",
+      "show_on_site": false,
+      "created_at": "2026-10-16T05:48:30.644Z",
+      "updated_at": "2026-10-16T05:48:30.644Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/56c33c4e-9c5d-48e2-991f-5901b4a27f75.webp"
+    },
+    {
+      "id": "50c40793-d6d6-4af7-a1ac-3c773a8468f3",
+      "title": "Крылья мечты",
+      "article": "GRL-012",
+      "price": 3840,
+      "short_description": "Две напольные композиции с фольгированной цифрой и фигурой бабочки в розовой гамме.",
+      "full_description": "Композиция включает крупную фольгированную цифру и яркую фигуру бабочки на напольных основаниях из розовых шаров. Дополнена связкой из латексных шаров с конфетти.",
+      "composition": [
+        "2 напольные композиции",
+        "2 шара с конфетти",
+        "7 шаров"
+      ],
+      "category": "Для девочки",
+      "character": null,
+      "age_group": "Для детей",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Композиция с цифрой и бабочкой для девочки — Армавир",
+      "seo_description": "Напольная композиция с фольгированной цифрой и фигурой бабочки в розовых тонах. Доставка воздушных шаров в Армавире от VigSharm.",
+      "slug": "krylya-mechty",
+      "scene": "floor",
+      "tags": [
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/b427548d-4d68-4cdd-9ac7-e56a45c00804.jpg",
+        "photo_dhash": "efede4c7f5f5fb21",
+        "floor_type": "air",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/228c0e92-ece5-4ac8-ab52-30a3cb83a2b2.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/228c0e92-ece5-4ac8-ab52-30a3cb83a2b2.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-16T05:47:35.233Z",
+      "updated_at": "2026-10-16T05:47:35.233Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/6e017e61-fbeb-4bb0-81cc-11480b9ae81e.webp"
+    },
+    {
       "id": "71fa3342-a8d0-42b9-a509-4864245c5937",
       "title": "Неугомонная",
       "article": "FIG-033",

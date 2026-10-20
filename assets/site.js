@@ -766,42 +766,59 @@
     if (motion) document.body.appendChild(motion);
   }
 
-  function loadSeason() {
-    function read(url) {
-      return fetch(url, { cache: 'no-store' }).then(function (r) {
-        if (!r.ok) throw new Error('HTTP ' + r.status);
-        return r.json();
-      }).then(function (data) {
-        if (!data || data.ok === false || !data.season) throw new Error('empty');
-        return data.season;
-      });
+  function readSeason(url, signal) {
+    return fetch(url, { cache: 'no-store', signal: signal }).then(function (r) {
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      return r.json();
+    }).then(function (data) {
+      if (!data || data.ok === false || !data.season) throw new Error('empty');
+      return data.season;
+    });
+  }
+  var seasonFileUrl = window.vigSameOrigin ? window.vigSameOrigin('data/season.json') : 'data/season.json';
+  var seasonApiUrl = (window.VIG_API || 'https://api.vigsharm.ru') + '/api/season';
+  function readSeasonApi() {
+    var ms = 1200;
+    var ctrl = typeof AbortController !== 'undefined' ? new AbortController() : null;
+    var timer = null;
+    if (ctrl) {
+      timer = setTimeout(function () {
+        try { ctrl.abort(); } catch (e) { /* ignore */ }
+      }, ms);
     }
-    var fileUrl = window.vigSameOrigin ? window.vigSameOrigin('data/season.json') : 'data/season.json';
-    var api = (window.VIG_API || 'https://api.vigsharm.ru') + '/api/season';
-    function readApi() {
-      var ms = 1200;
-      var ctrl = typeof AbortController !== 'undefined' ? new AbortController() : null;
-      var timer = null;
-      if (ctrl) {
-        timer = setTimeout(function () {
-          try { ctrl.abort(); } catch (e) { /* ignore */ }
-        }, ms);
-      }
-      return fetch(api, { cache: 'no-store', signal: ctrl ? ctrl.signal : undefined }).then(function (r) {
-        if (!r.ok) throw new Error('HTTP ' + r.status);
-        return r.json();
-      }).then(function (data) {
-        if (!data || data.ok === false || !data.season) throw new Error('empty');
-        return data.season;
-      }).finally(function () {
-        if (timer) clearTimeout(timer);
-      });
-    }
-    readApi().catch(function () { return read(fileUrl); }).then(applySeason).catch(function () {});
+    return readSeason(seasonApiUrl, ctrl ? ctrl.signal : undefined).finally(function () {
+      if (timer) clearTimeout(timer);
+    });
+  }
+  // Телефон часто открывает уже нарисованную вкладку. Полоска праздника
+  // остаётся с прошлого раза, пока страницу не спросят заново.
+  var seasonTicket = 0;
+  var seasonStartedAt = 0;
+  function loadSeason(dropStale) {
+    seasonStartedAt = Date.now();
+    var ticket = ++seasonTicket;
+    if (dropStale) clearSeason();
+    readSeasonApi().catch(function () { return readSeason(seasonFileUrl); }).then(function (season) {
+      if (ticket !== seasonTicket) return;
+      applySeason(season);
+    }).catch(function () {
+      if (ticket !== seasonTicket) return;
+      if (dropStale) clearSeason();
+    });
+  }
+  function recheckSeason() {
+    if (Date.now() - seasonStartedAt < 1500) return;
+    loadSeason(true);
   }
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', loadSeason);
+    document.addEventListener('DOMContentLoaded', function () { loadSeason(false); });
   } else {
-    loadSeason();
+    loadSeason(false);
   }
+  window.addEventListener('pageshow', function (e) {
+    if (e.persisted) loadSeason(true);
+  });
+  document.addEventListener('visibilitychange', function () {
+    if (document.visibilityState === 'visible') recheckSeason();
+  });
 })();

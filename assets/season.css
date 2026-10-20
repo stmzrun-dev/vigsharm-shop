@@ -195,3 +195,32 @@ html[data-season="teacher"] .season-mark svg{
   html[data-season="school"] .season-mark svg,
   html[data-season="teacher"] .season-mark svg{animation:none!important;}
 }
+
+/* Телефон: карточка не должна уезжать из-под пальца, иначе первое касание не открывает страницу. */
+html body a,
+html body button{
+  touch-action:manipulation;
+}
+@media (hover: none), (pointer: coarse){
+  html body .catalog-page .catalog-card:hover,
+  html body .catalog-page .catalog-card:active,
+  html body main#main-content .live-product-card:hover,
+  html body main#main-content .live-product-card:active,
+  html body main#main-content a.live-product-card:hover,
+  html body main#main-content a.live-product-card:active,
+  html body main#main-content .quick-recipient-card:hover,
+  html body main#main-content .quick-recipient-card:active,
+  html body main#main-content #catalog a.category:hover,
+  html body main#main-content #catalog .category:hover,
+  html body main#main-content .budget-card:hover,
+  html body main#main-content .character-card:hover,
+  html body main#main-content .step-card:hover,
+  html body main#main-content .service-info article:hover,
+  html body main#main-content .service-info .delivery-card:hover,
+  html body main#main-content .service-info .price-card:hover,
+  html body main#main-content .hero .hero-actions .button-primary:hover,
+  html body main#main-content .hero .hero-actions a.button-primary:hover,
+  html body .header-phone:hover{
+    transform:none!important;
+  }
+}

@@ -2,6 +2,54 @@
   "ok": true,
   "products": [
     {
+      "id": "03a08779-9507-4202-b7fd-edc64ffc1d29",
+      "title": "Ягодный торт",
+      "article": "GRL-163",
+      "price": 5500,
+      "short_description": "Напольная композиция с розовой цифрой, фигурой тортика и улыбающимися смайликами из шаров.",
+      "full_description": "Композиция в розово-белой палитре с крупной цифрой, фигурой праздничного тортика с вишенками и тремя улыбающимися фигурами из шаров. Дополнена круглым шаром с поздравительной надписью и цветами из латексных шаров.",
+      "composition": [
+        "Напольная композиция"
+      ],
+      "category": "Для девочки",
+      "character": null,
+      "age_group": "Для детей",
+      "budget": "5 000–8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Композиция с тортиком и смайликами из шаров в Армавире",
+      "seo_description": "Напольная композиция из шаров в розово-белой гамме с фигурой тортика и улыбающимися смайликами. Подарок для девочки на день рождения.",
+      "slug": "yagodnyy-tort",
+      "scene": "floor",
+      "tags": [
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/2e3a5d2c-0836-4ce4-b60d-d8d39b25b05c.webp",
+        "photo_dhash": "c3e9aaaccc25819d",
+        "floor_type": "air",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/25be2826-42fd-4ed5-bd56-4f39d70df6f7.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/25be2826-42fd-4ed5-bd56-4f39d70df6f7.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-21T15:54:47.219Z",
+      "updated_at": "2026-10-21T15:54:47.219Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/4323d704-b579-450d-a6be-44b556b90c03.webp"
+    },
+    {
       "id": "12450392-a5b8-4065-a6cf-36bf8558560a",
       "title": "Розовый металлик",
       "article": "GRL-162",

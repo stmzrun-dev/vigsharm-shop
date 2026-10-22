@@ -2,6 +2,52 @@
   "ok": true,
   "products": [
     {
+      "id": "7984846b-55c7-4af7-90c7-cd175cc5af90",
+      "title": "Маленькая проказница",
+      "article": "Y1-057",
+      "price": 3040,
+      "short_description": "Розовая цифра, звезда, фигура девочки и связка шаров в малиново-розовых тонах.",
+      "full_description": "Композиция с большой фольгированной фигурой девочки, розовой цифрой, малиновой звездой и фонтаном из латексных шаров. Насыщенная розово-малиновая гамма.",
+      "composition": [
+        "фигура",
+        "цифра",
+        "звезда",
+        "6 шаров"
+      ],
+      "category": "1 годик",
+      "character": "Маша",
+      "age_group": "Для малышей",
+      "budget": "2 000–3 500 ₽",
+      "series_name": "Маша и Медведь",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары на 1 годик девочке с Машей — Армавир",
+      "seo_description": "Композиция на первый день рождения девочки с фигурой Маши, цифрой, звездой и связкой розово-малиновых шаров. Доставка в Армавире.",
+      "slug": "malenkaya-prokaznica",
+      "scene": "wall_only",
+      "tags": [
+        "1 годик"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/b19ed186-8eb7-4d3d-82f6-25e9f0c030a6.jpg",
+        "photo_dhash": "8f9f8d96968e8f4f"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/e69be65c-5c98-4bfc-bdac-430072431db1.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/e69be65c-5c98-4bfc-bdac-430072431db1.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-22T06:39:42.833Z",
+      "updated_at": "2026-10-22T06:39:42.833Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/20c1f93a-d28c-44b0-bd83-a518b87a3383.webp"
+    },
+    {
       "id": "03a08779-9507-4202-b7fd-edc64ffc1d29",
       "title": "Ягодный торт",
       "article": "GRL-163",

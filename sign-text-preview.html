@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Пример · надписи на букете</title>
+<style>
+  body {
+    margin: 0;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: #f3efe8;
+    color: #2a2622;
+  }
+  main { max-width: 1100px; margin: 0 auto; padding: 24px 16px 48px; }
+  h1 { font-size: 26px; font-weight: 600; margin: 0 0 8px; }
+  p { margin: 0 0 16px; line-height: 1.45; max-width: 70ch; }
+  .row { display: flex; flex-wrap: wrap; gap: 16px; align-items: flex-start; }
+  figure { margin: 0; flex: 1 1 320px; }
+  figcaption { font-size: 14px; margin-bottom: 8px; }
+  canvas, img {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    display: block;
+    background: #e7e1d8;
+  }
+  .fields { display: grid; gap: 10px; margin-top: 16px; max-width: 420px; }
+  label { display: grid; gap: 4px; font-size: 13px; }
+  input {
+    font: 16px/1.3 "Segoe UI", system-ui, sans-serif;
+    padding: 8px 10px;
+    border: 1px solid #d9d0c4;
+    border-radius: 8px;
+  }
+  .note { margin-top: 14px; font-size: 14px; color: #5c564e; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Пример на этом букете</h1>
+  <p>Новые надписи уже на <strong>правом фото</strong>. Кнопки нет: поменяли текст в поле — правое фото само перерисовалось. Если видите только низ букета и поля, прокрутите страницу вверх.</p>
+  <div class="row">
+    <figure>
+      <figcaption>Как на фото</figcaption>
+      <img src="preview/bouquet-sign-example.jpg" alt="Букет с надписями на сердцах"/>
+    </figure>
+    <figure>
+      <figcaption>Пример: стёрли и написали шрифтом</figcaption>
+      <canvas id="out"></canvas>
+    </figure>
+  </div>
+  <div class="fields" id="fields"></div>
+  <p class="note">Пятна под буквами поставлены вручную на этот кадр. В админке область сердца должна находиться сама, а шрифт вклеиваться только в неё.</p>
+</main>
+<script>
+(function () {
+  var spots = [
+    { key: 'top', label: 'Верхнее серебро', x: 0.52, y: 0.11, rx: 0.11, ry: 0.065, rot: -0.05, foil: '#d8d9e0', ink: '#6d3c86', text: 'Верь\nв себя', size: 0.028 },
+    { key: 'left', label: 'Левое серебро', x: 0.32, y: 0.23, rx: 0.09, ry: 0.08, rot: -0.7, foil: '#d0d1d8', ink: '#5c3478', text: 'Мечтай и\nдобивайся!', size: 0.018 },
+    { key: 'center', label: 'Центр', x: 0.40, y: 0.33, rx: 0.12, ry: 0.1, rot: 0, foil: '#5a1d78', ink: '#f3d48a', text: 'Моей Бусе\n13', size: 0.03 },
+    { key: 'right', label: 'Правое серебро', x: 0.74, y: 0.40, rx: 0.09, ry: 0.08, rot: 0.55, foil: '#d0d1d8', ink: '#5c3478', text: 'Радуйся\nкаждому\nдню!', size: 0.016 },
+    { key: 'll', label: 'Малое слева', x: 0.18, y: 0.50, rx: 0.08, ry: 0.07, rot: -0.35, foil: '#c8c9d2', ink: '#5c3478', text: 'Люблю тебя,\nсолнышко!', size: 0.015 },
+    { key: 'bl', label: 'Нижнее слева', x: 0.36, y: 0.47, rx: 0.11, ry: 0.08, rot: -0.45, foil: '#6a2388', ink: '#fff', text: 'Лучшей\nдоченьке\nна свете!', size: 0.018 },
+    { key: 'br', label: 'Нижнее справа', x: 0.60, y: 0.48, rx: 0.11, ry: 0.085, rot: 0.45, foil: '#641f82', ink: '#fff', text: 'Всегда\nв моём сердце\n№ 1', size: 0.016 }
+  ];
+
+  var img = new Image();
+  var canvas = document.getElementById('out');
+  var fields = document.getElementById('fields');
+
+  spots.forEach(function (spot) {
+    var label = document.createElement('label');
+    label.textContent = spot.label;
+    var input = document.createElement('input');
+    input.value = spot.text.replace(/\n/g, ' / ');
+    input.addEventListener('input', function () {
+      spot.text = input.value.replace(/\s*\/\s*/g, '\n');
+      paint();
+    });
+    label.appendChild(input);
+    fields.appendChild(label);
+  });
+
+  function paint() {
+    if (!img.naturalWidth) return;
+    var w = img.naturalWidth;
+    var h = img.naturalHeight;
+    canvas.width = w;
+    canvas.height = h;
+    var ctx = canvas.getContext('2d');
+    ctx.drawImage(img, 0, 0);
+    spots.forEach(function (spot) {
+      var cx = spot.x * w;
+      var cy = spot.y * h;
+      var rx = spot.rx * w;
+      var ry = spot.ry * h;
+      ctx.save();
+      ctx.translate(cx, cy);
+      ctx.rotate(spot.rot);
+      var size = Math.round(spot.size * w);
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.font = '600 ' + size + 'px "Segoe UI", system-ui, sans-serif';
+      var maxW = Math.max(rx * 1.7, size * 4);
+      var words = spot.text.replace(/\n/g, ' ').split(/\s+/).filter(Boolean);
+      var lines = [];
+      var cur = '';
+      words.forEach(function (word) {
+        var next = cur ? cur + ' ' + word : word;
+        if (cur && ctx.measureText(next).width > maxW) {
+          lines.push(cur);
+          cur = word;
+        } else {
+          cur = next;
+        }
+      });
+      if (cur) lines.push(cur);
+      lines = lines.slice(0, 4);
+      var gap = size * 1.15;
+      var blockW = lines.reduce(function (m, line) { return Math.max(m, ctx.measureText(line).width); }, 0);
+      var blockH = lines.length * gap;
+      ctx.beginPath();
+      ctx.ellipse(0, 0, blockW / 2 + size * 0.45, blockH / 2 + size * 0.35, 0, 0, Math.PI * 2);
+      ctx.fillStyle = spot.foil;
+      ctx.fill();
+      ctx.fillStyle = spot.ink;
+      var start = -((lines.length - 1) * gap) / 2;
+      lines.forEach(function (line, i) {
+        ctx.fillText(line, 0, start + i * gap);
+      });
+      ctx.restore();
+    });
+  }
+
+  img.onload = paint;
+  img.src = 'preview/bouquet-sign-example.jpg';
+})();
+</script>
+</body>
+</html>

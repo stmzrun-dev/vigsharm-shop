@@ -2427,6 +2427,13 @@ Object.assign(app, {
       if (prevGender.gender_girl_photo) clientOptions.gender_girl_photo = prevGender.gender_girl_photo;
       if (prevGender.gender_boy_photo) clientOptions.gender_boy_photo = prevGender.gender_boy_photo;
     }
+    if (!unit && document.getElementById('opt-hen')?.checked) {
+      clientOptions.hen_party = true;
+      clientOptions.personal_inscription = false;
+      clientOptions.hen_main_phrase = String(prevGender.hen_main_phrase || 'Bye-bye,').trim() || 'Bye-bye,';
+      clientOptions.hen_heart_phrase = String(prevGender.hen_heart_phrase || 'Hello,').trim() || 'Hello,';
+      if (prevGender.hen_inside_photo) clientOptions.hen_inside_photo = prevGender.hen_inside_photo;
+    }
 
     // Исходник Studio Pro — чтобы после закрытия карточки можно было пересоздать Master
     const studioOrig = String(
@@ -3053,6 +3060,8 @@ app.loadProductToForm = function(product) {
     || product.category === 'Напольные композиции'));
   opt('opt-number', flagOn('number_choice', nestedOn(opts.digit_choice)));
   opt('opt-inscription', flagOn('personal_inscription', nestedOn(opts.inscription)));
+  opt('opt-hen', !!opts.hen_party);
+  if (opts.hen_party) opt('opt-inscription', false);
   opt('opt-rental', flagOn('photozone_rental', nestedOn(opts.rental)));
   opt('show-on-site', product.show_on_site);
   const savedDigitCount = Number(opts.digit_choice && opts.digit_choice.count_on_photo) || 0;

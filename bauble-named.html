@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Макет · именной шар</title>
+<link rel="stylesheet" href="assets/fonts.css"/>
+<link rel="stylesheet" href="assets/bauble-mock.css?v=6"/>
+<style>
+  .stage.is-motif { background: #fff; }
+  .stage.is-motif img.hero { object-fit: contain; }
+</style>
+</head>
+<body data-kind="named">
+<div class="page">
+  <p class="eyebrow">Макет · в каталог не входит</p>
+  <div class="layout">
+  <div class="stage-col">
+    <div class="stage">
+      <span class="stage-badge">Превью</span>
+      <img class="hero" id="hero" src="preview/bauble-gloss-pink.webp?v=1" alt="Чистый шар с бантом" width="1000" height="1000"/>
+      <img class="plate" id="plate-back" alt="" hidden/>
+      <div class="photo-slot" id="photo-slot" hidden>
+        <img id="slot-img" alt=""/>
+        <div class="slot-card" id="slot-card" hidden></div>
+      </div>
+      <img class="plate" id="plate-front" alt="" hidden/>
+      <div class="name-overlay" id="name-overlay" aria-hidden="true"></div>
+    </div>
+    <p class="hint photo-note" id="photo-note">Ваш текст появится на шаре. Это предпросмотр, не точный рендер.</p>
+  </div>
+
+  <div class="choice">
+  <div class="choice-scroll">
+  <h1>Ёлочный шар <span>с именем</span></h1>
+  <nav class="switch" aria-label="Вид шара">
+    <a href="bauble-photo.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h3l2-2h6l2 2h3v11H4z"/><circle cx="12" cy="13" r="3.2"/></svg>Шар с фото</a>
+    <a href="bauble-named.html" class="is-on" aria-current="page"><svg class="star" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.8l2.4 5 5.5.8-4 3.9.9 5.4L12 15.4 7.2 17.9l.9-5.4-4-3.9 5.5-.8z"/></svg>Именной шар</a>
+  </nav>
+
+  <div id="named-controls">
+    <div class="side-mode face-mode" id="finish-mode">
+      <button type="button" data-finish="mirror" class="is-on"><span class="ico ico-mirror" aria-hidden="true"></span>Зеркальный</button>
+      <button type="button" data-finish="matte"><span class="ico ico-matte" aria-hidden="true"></span>Матовый</button>
+    </div>
+    <h2 id="color-label">Цвет</h2>
+    <div class="orbs colors" id="colors"></div>
+    <h2 id="face-label">Оформление · Надпись</h2>
+    <div class="side-mode face-mode" id="face-mode">
+      <button type="button" data-face="text" class="is-on"><span class="ico ico-text" aria-hidden="true">Аа</span>Надпись</button>
+      <button type="button" data-face="photo"><span class="ico ico-logo" aria-hidden="true"></span>Логотип</button>
+    </div>
+    <div id="text-choice">
+      <label class="field" id="name-field">
+        <span>Текст на шаре</span>
+        <input id="name-text" type="text" maxlength="80" placeholder="Алина или Любимой учительнице"/>
+        <span class="field-foot"><span class="warn">Впишите имя или пожелание</span><span class="char-count" id="name-count">0/80</span></span>
+      </label>
+    </div>
+    <div id="photo-choice" class="hidden">
+      <label class="drop" id="mark-file">
+        <img id="mark-thumb" alt="" hidden/>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="7.2"/><path d="M9.2 15.2V8.8h3.1a2.2 2.2 0 010 4.4H9.2"/></svg>
+        <b id="mark-label">Загрузите логотип</b>
+        <small id="mark-note">Простой знак, лучше в один цвет</small>
+        <input id="mark-pick" type="file" accept="image/jpeg,image/png,image/webp,image/svg+xml" hidden/>
+      </label>
+      <p class="hint hidden" id="mark-hint">Логотип уйдёт вместе с заявкой.</p>
+      <span class="warn">Загрузите логотип</span>
+    </div>
+    <h2 id="motif-label">Рисунок</h2>
+    <button type="button" class="motif-none is-on" id="motif-none" data-motif="">Без рисунка</button>
+    <div class="orbs motifs" id="motifs"></div>
+    <div id="bow-block">
+      <h2 id="bow-label">Бант</h2>
+      <div class="orbs bows" id="bows"></div>
+    </div>
+    <p class="hint hidden" id="matte-bow-note">У матового шара белый бант.</p>
+  </div>
+
+  <h2>Набор</h2>
+  <div class="balls" id="balls"></div>
+  <button type="button" class="add" id="add">Ещё шар</button>
+  <h2>Коробки</h2>
+  <p class="hint" id="pack-hint"></p>
+  <div id="pack"></div>
+  </div>
+  <div class="bar">
+    <div><small id="bar-note">490&nbsp;₽ за&nbsp;штуку · 1&nbsp;шар</small><strong id="bar-sum">490&nbsp;₽</strong></div>
+    <button type="button" class="go" id="send">Заявка</button>
+  </div>
+  </div>
+  </div>
+</div>
+
+<div class="sheet" id="sheet">
+  <div class="card">
+    <h2 style="margin-top:0">Так уйдёт в WhatsApp</h2>
+    <pre id="msg"></pre>
+    <div class="attach" id="attach" hidden></div>
+    <p class="hint hidden" id="attach-note"></p>
+    <button type="button" id="share" class="hidden">Отправить с логотипом</button>
+    <button type="button" id="close">Понятно</button>
+  </div>
+</div>
+<script>
+(function () {
+  var s = document.createElement('script');
+  s.src = 'assets/' + 'bauble-mock-2.' + 'js?v=14';
+  document.body.appendChild(s);
+})();
+</script>
+</body>
+</html>

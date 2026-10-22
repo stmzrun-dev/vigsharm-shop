@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Макет · шар с фото</title>
+<link rel="stylesheet" href="assets/fonts.css"/>
+<link rel="stylesheet" href="assets/bauble-mock.css?v=6"/>
+</head>
+<body data-kind="photo">
+<div class="page">
+  <p class="eyebrow">Макет · в каталог не входит</p>
+  <div class="layout">
+  <div class="stage-col">
+    <div class="stage">
+      <img class="hero" id="hero" src="preview/bauble-white.webp?v=3" alt="Фото-шар на ёлке" width="1000" height="1000"/>
+      <img class="plate" id="plate-back" alt="" hidden/>
+      <div class="photo-slot" id="photo-slot" hidden>
+        <img id="slot-img" alt=""/>
+        <div class="slot-card" id="slot-card" hidden></div>
+      </div>
+      <img class="plate" id="plate-front" alt="" hidden/>
+    </div>
+    <p class="hint photo-note" id="photo-note">Ваше фото встаёт в шар. Файл остаётся только в этом браузере.</p>
+  </div>
+
+  <div class="choice">
+  <div class="choice-scroll">
+  <h1>Ёлочный шар <span>с фото</span></h1>
+  <nav class="switch" aria-label="Вид шара">
+    <a href="bauble-photo.html" class="is-on" aria-current="page"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h3l2-2h6l2 2h3v11H4z"/><circle cx="12" cy="13" r="3.2"/></svg>Шар с фото</a>
+    <a href="bauble-named.html"><svg class="star" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.8l2.4 5 5.5.8-4 3.9.9 5.4L12 15.4 7.2 17.9l.9-5.4-4-3.9 5.5-.8z"/></svg>Именной шар</a>
+  </nav>
+
+  <div id="photo-controls">
+    <h2>Дизайн</h2>
+    <div class="chips" id="designs"></div>
+    <h2>Лицевая сторона</h2>
+    <label class="file" id="pick-label">Выбрать фото<input id="pick" type="file" accept="image/*" hidden/></label>
+    <h2>Оборот</h2>
+    <div class="side-mode" id="back-mode">
+      <button type="button" data-back="photo" class="is-on">Второе фото</button>
+      <button type="button" data-back="card">Открытка</button>
+    </div>
+    <label class="file" id="pick-back-label">Второе фото<input id="pick-back" type="file" accept="image/*" hidden/></label>
+    <label class="field hidden" id="card-field">
+      <span>Текст открытки</span>
+      <input id="card-text" type="text" maxlength="42" placeholder="С Новым годом, Майя!"/>
+    </label>
+  </div>
+
+  <h2>Набор</h2>
+  <div class="balls" id="balls"></div>
+  <button type="button" class="add" id="add">Ещё шар</button>
+  <h2>Коробки</h2>
+  <p class="hint" id="pack-hint"></p>
+  <div id="pack"></div>
+  </div>
+  <div class="bar">
+    <div><small id="bar-note">590&nbsp;₽ за&nbsp;штуку · 2&nbsp;шара</small><strong id="bar-sum">1&nbsp;180&nbsp;₽</strong></div>
+    <button type="button" class="go" id="send">Заявка</button>
+  </div>
+  </div>
+  </div>
+</div>
+
+<div class="sheet" id="sheet">
+  <div class="card">
+    <h2 style="margin-top:0">Так уйдёт в WhatsApp</h2>
+    <pre id="msg"></pre>
+    <div class="attach" id="attach" hidden></div>
+    <p class="hint hidden" id="attach-note"></p>
+    <button type="button" id="share" class="hidden">Отправить с фото</button>
+    <button type="button" id="close">Понятно</button>
+  </div>
+</div>
+<script>
+(function () {
+  var s = document.createElement('script');
+  s.src = 'assets/' + 'bauble-mock-2.' + 'js?v=14';
+  document.body.appendChild(s);
+})();
+</script>
+</body>
+</html>

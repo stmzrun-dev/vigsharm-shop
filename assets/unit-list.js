@@ -1065,7 +1065,7 @@
           return '<button type="button" data-confetti="' + esc(name) + '"' + (on ? ' class="selected"' : '') + ' aria-label="' + esc(name) + '">' +
             '<span class="glass-confetti-stack">' +
             '<img src="images/balloons/glass-bubbles/' + balloonFile + '?v=20261013glass" alt="" decoding="async"/>' +
-            '<img src="images/balloons/glass-confetti/' + pair[1] + '?v=20261013gconf3" alt="" decoding="async"/>' +
+            '<img src="images/balloons/glass-confetti/' + pair[1] + '?v=20261013gconf5" alt="" decoding="async"/>' +
             '</span><span>' + esc(name) + '</span></button>';
         }).join('') + '</div>';
         fillPhotos = BUBBLE_GLASS;

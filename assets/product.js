@@ -86,13 +86,15 @@
   var p = null, allProducts = [];
   var imgIdx = 0;
   var digit = '', digit2 = '', digitDelta = 0;
-  var inscription = '', orderDate = '', orderTime = '';
+  var inscription = '', surnameMain = '', surnameHeart = '', orderDate = '', orderTime = '';
   var bubbleInk = '';
   var bubbleFill = '';
   var bubbleConfetti = '';
   var surpriseColor = '';
   var surpriseBill = 0;
   var genderFill = '';
+  var henReveal = '';
+  var henInsidePreloaded = false;
   var fulfillment = '', address = '', qty = 1;
   var customerPhone = '', customerName = '', orderNote = '', honeypot = '';
   var orderSending = false;
@@ -593,8 +595,25 @@
     var a = String(address || '').trim();
     return a.length >= 5;
   }
+  function isHenParty() {
+    var opts = (p && p.client_options) || {};
+    return opts.hen_party === true || opts.hen_party === 1 || opts.hen_party === '1';
+  }
+  function henPhrase(which) {
+    var opts = (p && p.client_options) || {};
+    var raw = which === 'heart' ? opts.hen_heart_phrase : opts.hen_main_phrase;
+    var s = String(raw || '').trim();
+    return s || (which === 'heart' ? 'Hello,' : 'Bye-bye,');
+  }
+  function henMainText() { return String(surnameMain || '').trim(); }
+  function henHeartText() { return String(surnameHeart || '').trim(); }
+  function henReady() { return !isHenParty() || (!!henMainText() && !!henHeartText()); }
+  function henInsidePhoto() {
+    if (!isHenParty()) return '';
+    return String(((p && p.client_options) || {}).hen_inside_photo || '').trim();
+  }
   function wantsInscription() {
-    if (!p || isFlowerBouquet()) return false;
+    if (!p || isFlowerBouquet() || isHenParty()) return false;
     return !!(p.has_inscription || isBubbleUnit() || isNamedUnit());
   }
   function inscriptionOk() { return !wantsInscription() || !!String(inscription || '').trim(); }
@@ -631,7 +650,7 @@
     var d = phoneDigits();
     return d.length === 11 && d.charAt(0) === '7';
   }
-  function isOrderReady() { return digitsOk() && genderReady() && inscriptionOk() && surpriseReady() && fulfillmentOk() && whenOk(); }
+  function isOrderReady() { return digitsOk() && genderReady() && henReady() && inscriptionOk() && surpriseReady() && fulfillmentOk() && whenOk(); }
   function isSubmitReady() { return isOrderReady() && phoneOk(); }
   function apiBase() {
     return (window.VIG_API || 'https://vigsharm-api.vigsharm.workers.dev').replace(/\/$/, '');
@@ -693,6 +712,8 @@
     if (surpriseNeedsOptions() && !surpriseColor) return kind === 'short' ? 'Выберите цвет' : 'Выберите цвет шара';
     if (surpriseNeedsOptions() && !String(inscription || '').trim()) return kind === 'short' ? 'Нужна надпись' : 'Напишите надпись на шаре';
     if (surpriseMoney() && !surpriseBill) return kind === 'short' ? 'Выберите купюры' : 'Выберите купюры';
+    if (isHenParty() && !henMainText()) return kind === 'short' ? 'Фамилия на шаре' : 'Напишите фамилию на большом шаре';
+    if (isHenParty() && !henHeartText()) return kind === 'short' ? 'Фамилия на сердце' : 'Напишите фамилию на сердце';
     if (!inscriptionOk()) return kind === 'short' ? 'Нужна надпись' : 'Напишите надпись на шаре';
     if (!fulfillment) return kind === 'short' ? 'Выберите получение' : 'Выберите способ получения';
     if (!fulfillmentOk()) return kind === 'short' ? 'Укажите адрес' : 'Укажите адрес доставки';
@@ -745,6 +766,10 @@
   }
   /** Resolve gallery key: digit variant if present, else current slide, else main. Never empty when product has photos. */
   function resolveGalleryKey() {
+    if (henReveal === 'inside') {
+      var inside = henInsidePhoto();
+      if (inside) return inside;
+    }
     var fillPhoto = genderPhoto();
     if (fillPhoto) return fillPhoto;
     var keys = (p && p.image_keys) || [];
@@ -993,6 +1018,8 @@
     if (!digitsOk()) return 'client-digits';
     if (isGenderProduct() && !genderReady()) return 'client-gender';
     if (surpriseNeedsOptions() && !surpriseReady()) return 'client-surprise';
+    if (isHenParty() && !henMainText()) return 'client-hen-main';
+    if (isHenParty() && !henHeartText()) return 'client-hen-heart';
     if (!inscriptionOk()) return 'client-ins';
     if (isUnit()) return '';
     if (!fulfillment) return 'client-ful';
@@ -1018,8 +1045,11 @@
     if (id === 'client-qty') return (isUnit() && !isBubbleUnit() && !isNamedUnit() && !isPrintedDigit() && (!isDigitUnit() || !p.has_digit_choice)) || (isPerMeter() && !isUnit());
     if (id === 'client-digits') return !!(p && p.has_digit_choice);
     if (id === 'client-ins') return wantsInscription() && digitsOk();
+    if (id === 'client-hen-main') return isHenParty() && digitsOk();
+    if (id === 'client-hen-heart') return isHenParty() && digitsOk() && !!henMainText();
     if (surpriseNeedsOptions() && !surpriseReady() && (id === 'client-ful' || id === 'client-addr' || id === 'client-when' || id === 'client-contact')) return false;
     if (isGenderProduct() && !genderReady() && (id === 'client-ful' || id === 'client-addr' || id === 'client-when' || id === 'client-contact')) return false;
+    if (isHenParty() && !henReady() && (id === 'client-ful' || id === 'client-addr' || id === 'client-when' || id === 'client-contact')) return false;
     if (id === 'client-rental') return !!(p && p.has_rental) && digitsOk();
     if (isUnit() && (id === 'client-ful' || id === 'client-addr' || id === 'client-when' || id === 'client-contact')) return false;
     if (id === 'client-ful') return digitsOk();
@@ -1029,6 +1059,35 @@
     return false;
   }
 
+  function henPreviewHtml(which) {
+    var name = which === 'heart' ? henHeartText() : henMainText();
+    return '<div class="hen-preview' + (name ? ' is-filled' : '') + (name.length > 11 ? ' is-long' : '') + '">' +
+      '<b>' + esc(henPhrase(which)) + '</b><span>' + esc(name || 'Фамилия') + '</span></div>';
+  }
+  function henSurnameBlock(which, client) {
+    var heart = which === 'heart';
+    var value = heart ? surnameHeart : surnameMain;
+    var filled = heart ? !!henHeartText() : !!henMainText();
+    var label = heart ? 'Фамилия на сердце' : 'Фамилия на большом шаре';
+    var hint = heart ? 'Новая — после свадьбы' : 'Девичья — с ней прощаемся';
+    var act = heart ? 'hen-heart' : 'hen-main';
+    var wait = heart && !henMainText();
+    var field = '<input value="' + esc(value) + '" maxlength="24" data-act="' + act + '" placeholder="' + (heart ? 'Например, Петрова' : 'Например, Иванова') + '" inputmode="text" autocomplete="off" aria-label="' + label + '. ' + hint + '"' + (wait ? ' disabled' : '') + '/>';
+    if (!client) {
+      return '<label class="config-input hen-field' + (filled ? ' is-filled' : '') + '"><span>' + label + '</span>' +
+        '<small class="hen-hint">' + hint + '</small>' +
+        henPreviewHtml(which) +
+        (wait ? '<small class="hen-wait">Сначала фамилия на большом шаре</small>' : '') +
+        field + '</label>';
+    }
+    var id = heart ? 'client-hen-heart' : 'client-hen-main';
+    var nid = clientNextId();
+    return '<section class="client-block' + (nid === id ? ' is-next' : filled ? ' is-done' : '') + '" id="' + id + '">' +
+      '<h3 class="client-block-title">' + label + '</h3>' +
+      '<small class="hen-hint">' + hint + '</small>' +
+      henPreviewHtml(which) +
+      '<label class="client-ins' + (filled ? ' is-filled' : '') + '">' + field + '</label></section>';
+  }
   function clientOrderHtml() {
     if (!useMobileFlow() && !isBubbleUnit() && !isNamedUnit()) return '';
     var H = effDelta();
@@ -1091,6 +1150,9 @@
         surpriseOptionsHtml() +
         '</section>';
     }
+
+    if (clientStepVisible('client-hen-main')) html += henSurnameBlock('main', true);
+    if (clientStepVisible('client-hen-heart')) html += henSurnameBlock('heart', true);
 
     if (clientStepVisible('client-ins')) {
       if (isNamedUnit()) {
@@ -1198,6 +1260,9 @@
           ? ('Купюры: 10 × ' + surpriseBill + ' ₽ = ' + surpriseBillSum().toLocaleString('ru-RU') + ' ₽')
           : 'Купюры: не выбраны');
       }
+    } else if (isHenParty()) {
+      lines.push('Большой шар: ' + henPhrase('main') + ' / ' + (henMainText() || 'не указана'));
+      lines.push('Сердце: ' + henPhrase('heart') + ' / ' + (henHeartText() || 'не указана'));
     } else if (wantsInscription()) {
       var t = (p.inscription_price || 0) > 0 ? ' (+' + p.inscription_price + ' ₽)' : ' (входит в стоимость)';
       lines.push('Надпись: ' + (inscription.trim() ? inscription.trim() + t : 'не указана'));
@@ -1256,11 +1321,11 @@
     try {
       localStorage.setItem('vigsharm_order_draft_' + slug, JSON.stringify({
         digit: digit, additionalDigit: digit2, digitCountChange: digitDelta,
-        inscription: inscription, orderDate: orderDate, orderTime: orderTime,
+        inscription: inscription, surnameMain: surnameMain, surnameHeart: surnameHeart, orderDate: orderDate, orderTime: orderTime,
         fulfillment: fulfillment, address: address, quantity: qty,
         customerPhone: customerPhone, customerName: customerName, orderNote: orderNote,
         bubbleInk: bubbleInk, bubbleFill: bubbleFill, bubbleConfetti: bubbleConfetti,
-        surpriseColor: surpriseColor, surpriseBill: surpriseBill, genderFill: genderFill
+        surpriseColor: surpriseColor, surpriseBill: surpriseBill, genderFill: genderFill, henReveal: henReveal
       }));
     } catch (e) {}
   }
@@ -1276,6 +1341,8 @@
       }
       if (typeof d.digit === 'string' && d.digit) deltaAck = true;
       if (typeof d.inscription === 'string') inscription = d.inscription;
+      if (typeof d.surnameMain === 'string') surnameMain = d.surnameMain;
+      if (typeof d.surnameHeart === 'string') surnameHeart = d.surnameHeart;
       if (typeof d.orderDate === 'string' && d.orderDate >= todayMin) orderDate = d.orderDate;
       if (typeof d.orderTime === 'string') orderTime = d.orderTime;
       if (['', 'pickup', 'armavir', 'nearby'].indexOf(d.fulfillment || '') >= 0) fulfillment = d.fulfillment || '';
@@ -1290,6 +1357,7 @@
       if (typeof d.surpriseColor === 'string') surpriseColor = d.surpriseColor;
       if (SURPRISE_BILLS.indexOf(Number(d.surpriseBill)) >= 0) surpriseBill = Number(d.surpriseBill);
       if (d.genderFill === 'girl' || d.genderFill === 'boy') genderFill = d.genderFill;
+      if (d.henReveal === 'inside') henReveal = 'inside';
       draftRestored = true;
     } catch (e) {}
     draftReady = true;
@@ -1401,9 +1469,73 @@
 
   /* ---------------- render ---------------- */
 
+  var HEN_CONFETTI = ['#f4a7bd', '#e57f9f', '#d8ac5c', '#f1d58e', '#ffffff', '#c7a3d9', '#fbd3dd'];
+  /** Шар надувается и лопается поверх уже показанного сердца; сцена удаляется сама. */
+  function playHenPop(gal) {
+    if (!gal) return;
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var old = gal.querySelector('.hen-scene');
+    if (old) old.remove();
+    var size = gal.clientWidth || 360;
+    var scene = document.createElement('div');
+    scene.className = 'hen-scene';
+    scene.setAttribute('aria-hidden', 'true');
+    var ball = document.createElement('img');
+    ball.className = 'hen-scene-ball is-ready';
+    ball.alt = '';
+    ball.src = window.vigImage ? window.vigImage(mainImageKey(), 1200) : mainImageKey();
+    scene.appendChild(ball);
+    var flash = document.createElement('i');
+    flash.className = 'hen-flash';
+    scene.appendChild(flash);
+    var scale = Math.max(0.8, size / 420);
+    for (var i = 0; i < 60; i++) {
+      var c = document.createElement('i');
+      var ang = Math.random() * Math.PI * 2;
+      var dist = size * (0.18 + Math.random() * 0.36);
+      var w = (7 + Math.random() * 8) * scale;
+      c.className = 'hen-confetti' + (i % 3 === 0 ? ' is-dot' : '');
+      c.style.setProperty('--x', (Math.cos(ang) * dist).toFixed(1) + 'px');
+      c.style.setProperty('--y', (Math.sin(ang) * dist * 0.8 - size * 0.08).toFixed(1) + 'px');
+      c.style.setProperty('--fall', (size * (0.25 + Math.random() * 0.35)).toFixed(1) + 'px');
+      c.style.setProperty('--r', ((Math.random() - 0.5) * 900).toFixed(0) + 'deg');
+      c.style.setProperty('--d', (Math.random() * 0.12).toFixed(2) + 's');
+      c.style.width = w.toFixed(1) + 'px';
+      c.style.height = (i % 3 === 0 ? w : w * (1.6 + Math.random())).toFixed(1) + 'px';
+      c.style.background = HEN_CONFETTI[i % HEN_CONFETTI.length];
+      scene.appendChild(c);
+    }
+    gal.classList.remove('is-hen-pop');
+    void gal.offsetWidth;
+    gal.classList.add('is-hen-pop');
+    gal.appendChild(scene);
+    setTimeout(function () {
+      if (scene.parentNode) scene.remove();
+      gal.classList.remove('is-hen-pop');
+    }, 2200);
+  }
+  function henRevealRowHtml() {
+    var insideKey = henInsidePhoto();
+    if (!insideKey) return '';
+    var main = mainImageKey();
+    function btn(value, label, key) {
+      var on = value === 'inside' ? henReveal === 'inside' : henReveal !== 'inside';
+      var src = window.vigImage ? window.vigImage(key, 320) : key;
+      return '<button type="button" class="' + (on ? 'selected' : '') + '" data-act="hen-reveal" data-v="' + value + '" aria-pressed="' + on + '">' +
+        '<img src="' + esc(src) + '" alt="" width="320" height="320" decoding="async"/>' +
+        '<span>' + label + '</span></button>';
+    }
+    return '<div class="hen-reveal-row" role="group" aria-label="Шар и то, что внутри">' +
+      btn('', 'Шар', main) + btn('inside', 'Внутри', insideKey) + '</div>';
+  }
   function render() {
     if (!p) return;
     if (isNamedUnit() && !bubbleInk) bubbleInk = namedInkTone() === 'dark' ? 'чёрный' : 'белый';
+    if (!henInsidePreloaded && henInsidePhoto() && window.vigImage) {
+      henInsidePreloaded = true;
+      var henPre = new Image();
+      henPre.src = window.vigImage(henInsidePhoto(), 1200);
+    }
     if (!allowsPickup() && fulfillment === 'pickup') fulfillment = '';
     saveDraft();
     var keys = p.image_keys || [];
@@ -1447,6 +1579,8 @@
     var extraOrderFields = '';
     if (surpriseNeedsOptions()) {
       extraOrderFields += surpriseOptionsHtml();
+    } else if (isHenParty()) {
+      extraOrderFields += henSurnameBlock('main', false) + henSurnameBlock('heart', false);
     } else if (wantsInscription()) {
       extraOrderFields += '<label class="config-input inscription-field"><span>Надпись на шаре</span>' +
         '<input value="' + esc(inscription) + '" maxlength="60" required aria-required="true" data-act="inscription" placeholder="Например: С Днём рождения!"/></label>';
@@ -1512,6 +1646,7 @@
       galleryImgHtml(galleryKey || mainKey, p.title, 'fetchpriority="high" width="1200" height="1200"') +
       namedOverlayHtml() +
       '</div>' +
+      henRevealRowHtml() +
       (keys.length > 1
         ? '<div class="product-gallery-controls"><button type="button" data-act="prev" aria-label="Предыдущая фотография">←</button><span role="status" aria-live="polite">Фото ' + (imgIdx + 1) + ' из ' + keys.length + '</span><button type="button" data-act="next" aria-label="Следующая фотография">→</button></div>' +
           '<div class="product-thumbnails" aria-label="Все фотографии товара">' +
@@ -1782,6 +1917,23 @@
           render();
           afterDigitsMaybeScroll();
         });
+      } else if (act === 'hen-reveal') {
+        el.addEventListener('click', function (e) {
+          e.preventDefault();
+          e.stopPropagation();
+          var v = el.getAttribute('data-v') === 'inside' ? 'inside' : '';
+          if (henReveal === v) return;
+          henReveal = v;
+          saveDraft();
+          render();
+          if (v === 'inside') {
+            var gal = root.querySelector('.product-page-main-image');
+            if (gal) {
+              if (gal.scrollIntoView) gal.scrollIntoView({ block: 'nearest' });
+              playHenPop(gal);
+            }
+          }
+        });
       } else if (act === 'gender-fill') {
         el.addEventListener('mousedown', function (e) { e.preventDefault(); });
         el.addEventListener('click', function () {
@@ -1862,6 +2014,45 @@
         el.addEventListener('blur', function () {
           clearFlowEditIf('inscription');
           if (useMobileFlow() && inscriptionOk()) softScrollTo(clientNextId());
+        });
+      } else if (act === 'hen-main' || act === 'hen-heart') {
+        el.addEventListener('input', function () {
+          if (act === 'hen-main') surnameMain = el.value;
+          else surnameHeart = el.value;
+          var name = String(el.value || '').trim();
+          var block = el.closest('.client-block') || el.closest('.hen-field');
+          var preview = block && block.querySelector('.hen-preview');
+          if (preview) {
+            var span = preview.querySelector('span');
+            if (span) span.textContent = name || 'Фамилия';
+            preview.classList.toggle('is-filled', !!name);
+            preview.classList.toggle('is-long', name.length > 11);
+          }
+          var wrap = el.closest('.client-ins') || el.closest('.hen-field');
+          if (wrap) wrap.classList.toggle('is-filled', !!name);
+          if (act === 'hen-main') {
+            var heartInput = root.querySelector('[data-act="hen-heart"]');
+            var heartWait = root.querySelector('.hen-wait');
+            if (heartInput) heartInput.disabled = !name;
+            if (heartWait) heartWait.hidden = !!name;
+          }
+          saveDraft();
+          refreshTotals();
+          markClientNext();
+        });
+        el.addEventListener('blur', function () {
+          if (!isHenParty() || !useMobileFlow()) return;
+          var heartShown = !!root.querySelector('#client-hen-heart');
+          var fulShown = !!root.querySelector('#client-ful');
+          var rebuild = (henMainText() && !heartShown) || (!henMainText() && heartShown) || (henReady() && !fulShown) || (!henReady() && fulShown);
+          if (!rebuild) return;
+          var focusId = clientNextId();
+          render();
+          var focus = focusId && root.querySelector('#' + focusId + ' input');
+          if (focus && focus.focus) {
+            try { focus.focus({ preventScroll: true }); } catch (e) { try { focus.focus(); } catch (_) {} }
+          }
+          softScrollTo(focusId);
         });
       } else if (act === 'address') {
         el.addEventListener('input', function () {
@@ -2375,6 +2566,15 @@
       var missEl = root.querySelector(miss);
       if (missEl && missEl.focus) {
         try { missEl.focus({ preventScroll: true }); } catch (e) { try { missEl.focus(); } catch (_) {} }
+      }
+      if (window.vigToast) window.vigToast(orderCta('full'));
+      return;
+    }
+    if (isHenParty() && !henReady()) {
+      openDetails('date');
+      var henEl = root.querySelector(!henMainText() ? '[data-act="hen-main"]' : '[data-act="hen-heart"]');
+      if (henEl && henEl.focus) {
+        try { henEl.focus({ preventScroll: true }); } catch (e) { try { henEl.focus(); } catch (_) {} }
       }
       if (window.vigToast) window.vigToast(orderCta('full'));
       return;

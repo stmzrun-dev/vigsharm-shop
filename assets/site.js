@@ -111,16 +111,14 @@
     if (photo) return photo;
     return p.thumb_photo || '';
   };
-  /** Сетка каталога: готовое WebP 480px, если оно есть. Полный кадр — только без превью. */
+  /** Сетка каталога показывает тот же кадр, что страница товара. Старое превью — только если главного фото нет. */
   window.vigGridPhoto = function (p) {
     if (!p) return '';
-    var thumb = p.thumb_photo;
-    if (thumb && /^https?:\/\//i.test(String(thumb))) return thumb;
     if (window.vigProductPhoto) {
       var photo = window.vigProductPhoto(p);
       if (photo) return photo;
     }
-    return thumb || '';
+    return p.thumb_photo || '';
   };
   window.vigNormalizeProduct = function (p) {
     if (!p) return p;

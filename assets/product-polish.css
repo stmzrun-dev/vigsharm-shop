@@ -1202,6 +1202,152 @@
   .order-sum-max{background:#ff6b5a}
 }
 
+.hen-preview{
+  display:block;
+  width:min(320px, 100%);
+  margin:0 auto 12px;
+  text-align:center;
+  line-height:1.05;
+}
+.hen-preview b{
+  display:block;
+  font-size:15px;
+  font-weight:600;
+  letter-spacing:.14em;
+  color:#2a2a32;
+}
+.hen-preview span{
+  display:block;
+  margin-top:6px;
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:22px;
+  letter-spacing:.04em;
+  text-transform:uppercase;
+  color:#b9a8a2;
+  white-space:nowrap;
+}
+.hen-preview.is-long span{font-size:15px}
+.hen-preview.is-filled span{color:#2a2a32}
+.hen-hint{
+  display:block;
+  margin:-2px 0 10px;
+  color:#8a7c76;
+  font-size:13px;
+  font-weight:500;
+}
+.hen-field{margin-bottom:14px}
+.hen-field input:disabled{opacity:.45}
+.hen-wait{
+  display:block;
+  margin:0 0 8px;
+  text-align:center;
+  color:#8a7c76;
+  font-size:13px;
+}
+.hen-reveal-row{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin-top:10px;
+}
+.hen-reveal-row button{
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  width:100%;
+  margin:0;
+  padding:0 0 10px;
+  border:2px solid #ebe6e3;
+  border-radius:16px;
+  background:#fff;
+  cursor:pointer;
+  font:inherit;
+  color:#1c1c1c;
+  text-align:center;
+}
+.hen-reveal-row button.selected{border-color:#1c1c1c}
+.hen-reveal-row img{
+  width:100%;
+  aspect-ratio:1;
+  object-fit:cover;
+  border-radius:14px 14px 0 0;
+  display:block;
+  background:#f4f1ee;
+}
+.hen-reveal-row span{
+  font-size:15px;
+  font-weight:700;
+  line-height:1.2;
+}
+/* Лопанье: шар сверху, под ним уже сердце. Центр шара на фото — 51% / 34%. */
+.product-page .product-page-main-image.is-hen-pop > img{
+  transform-origin:51% 34%;
+  animation:hen-heart-in .9s ease-out .4s both;
+}
+.hen-scene{
+  position:absolute;
+  inset:0;
+  z-index:3;
+  pointer-events:none;
+  overflow:hidden;
+}
+.product-page .product-page-main-image .hen-scene-ball{
+  position:absolute;
+  inset:0;
+  background:#f7f6f4;
+  transform-origin:51% 34%;
+  animation:hen-ball-burst .58s ease-in forwards;
+}
+.hen-flash{
+  position:absolute;
+  left:51%;
+  top:34%;
+  width:60%;
+  aspect-ratio:1;
+  border-radius:50%;
+  background:radial-gradient(circle,#fff 0,rgba(255,255,255,.85) 35%,rgba(255,255,255,0) 70%);
+  opacity:0;
+  transform:translate(-50%,-50%) scale(.2);
+  animation:hen-flash .45s ease-out .38s forwards;
+}
+.hen-confetti{
+  position:absolute;
+  left:51%;
+  top:34%;
+  border-radius:2px;
+  opacity:0;
+  box-shadow:0 0 0 .5px rgba(120,80,90,.18);
+  animation:hen-confetti 1.5s cubic-bezier(.15,.75,.35,1) calc(.4s + var(--d,0s)) forwards;
+}
+.hen-confetti.is-dot{border-radius:50%}
+@keyframes hen-ball-burst{
+  0%{transform:scale(1) rotate(0)}
+  35%{transform:scale(1.05) rotate(-1.5deg)}
+  55%{transform:scale(1.04) rotate(1.5deg)}
+  68%{transform:scale(1.1) rotate(0);opacity:1;filter:blur(0)}
+  100%{transform:scale(1.45);opacity:0;filter:blur(6px)}
+}
+@keyframes hen-flash{
+  0%{opacity:.95;transform:translate(-50%,-50%) scale(.2)}
+  100%{opacity:0;transform:translate(-50%,-50%) scale(2.2)}
+}
+@keyframes hen-confetti{
+  0%{opacity:0;transform:translate(-50%,-50%) scale(.3)}
+  6%{opacity:1}
+  35%{opacity:1;transform:translate(calc(-50% + var(--x)),calc(-50% + var(--y))) rotate(calc(var(--r) * .35)) scale(1)}
+  85%{opacity:1}
+  100%{opacity:0;transform:translate(calc(-50% + var(--x) * 1.25),calc(-50% + var(--y) + var(--fall))) rotate(var(--r)) scale(.9)}
+}
+@keyframes hen-heart-in{
+  0%{opacity:0;transform:scale(1.22)}
+  40%{opacity:1;transform:scale(1.05)}
+  100%{opacity:1;transform:scale(1)}
+}
+@media (prefers-reduced-motion:reduce){
+  .product-page .product-page-main-image.is-hen-pop > img{animation:none}
+  .hen-scene{display:none}
+}
+
 .order-hp{
   position:absolute!important;
   left:-9999px!important;

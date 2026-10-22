@@ -2,6 +2,239 @@
   "ok": true,
   "products": [
     {
+      "id": "517d2d66-e0e3-4a0f-9245-76f8d1316448",
+      "title": "Леди в красном",
+      "article": "GRL-167",
+      "price": 4000,
+      "short_description": "Напольная композиция с фигурой Леди Баг, красной цифрой, латексными и фольгированными шарами.",
+      "full_description": "Яркая композиция на полу со стоящей фигурой супергероини Леди Баг в красном костюме, крупной красной цифрой, круглыми латексными шарами красного и чёрного цвета, светло-голубыми шарами и фольгированным баблом с персонажем. В наборе чёрные декоративные кольца.",
+      "composition": [
+        "Напольная композиция"
+      ],
+      "category": "Для девочки",
+      "character": "Леди Баг",
+      "age_group": "Для детей",
+      "budget": "3 500–5 000 ₽",
+      "series_name": "Чудо: Истории Леди Баг и Супер-Кота",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Композиция Леди Баг на день рождения в Армавире",
+      "seo_description": "Напольная композиция с фигурой Леди Баг и цифрой для детского праздника. Красные и чёрные шары, фольгированный баблс, кольца.",
+      "slug": "lady-bug-composition-7",
+      "scene": "floor",
+      "tags": [
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/8bbbecb2-6c11-4333-8086-b277af0b3f9e.jpg",
+        "photo_dhash": "c6b8e0b0aca4eaec",
+        "floor_type": "air",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/442de106-5a5d-4f6e-b428-3622969ea13d.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/442de106-5a5d-4f6e-b428-3622969ea13d.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-22T20:02:03.204Z",
+      "updated_at": "2026-10-22T20:03:36.449Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/6869cdc2-6bc8-422b-9142-46ad5176b827.webp"
+    },
+    {
+      "id": "63d6bf76-1134-4387-877b-0a13c6445713",
+      "title": "Буба на празднике",
+      "article": "BOY-107",
+      "price": 4000,
+      "short_description": "Напольная композиция с цифрой 3 и фигурой Бубы в сине-бежевой гамме.",
+      "full_description": "Напольная композиция с крупной синей цифрой 3, фигурой Бубы и декоративными элементами в сине-бежевых тонах.",
+      "composition": [
+        "Напольная композиция"
+      ],
+      "category": "Для мальчика",
+      "character": "Буба",
+      "age_group": "Для малышей",
+      "budget": "3 500–5 000 ₽",
+      "series_name": "Буба",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Буба на празднике — композиция с цифрой 3, Армавир",
+      "seo_description": "Напольная композиция с цифрой 3 и фигурой Бубы в сине-бежевой гамме. Доставка воздушных шаров в Армавире.",
+      "slug": "buba-na-prazdnike",
+      "scene": "floor",
+      "tags": [
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/6087fee7-e876-4316-8313-bd5995c1f6e0.jpg",
+        "photo_dhash": "0b196743556a95dc",
+        "floor_type": "air",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/98328755-92ed-4417-8bcc-b0d7ac90ae52.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/98328755-92ed-4417-8bcc-b0d7ac90ae52.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-22T18:57:02.207Z",
+      "updated_at": "2026-10-22T18:57:02.207Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/ffad3fcc-9547-46fa-b488-80c05a0d1194.webp"
+    },
+    {
+      "id": "feac9c64-a3ff-463a-9210-56a206cea4cd",
+      "title": "Лёгкий старт",
+      "article": "BOY-106",
+      "price": 3000,
+      "short_description": "Напольная композиция из 7 шаров для создания праздничного настроения.",
+      "full_description": "На фото представлена напольная композиция из 7 шаров. Подходит для оформления помещения и создания яркого праздничного фона.",
+      "composition": [
+        "Напольная композиция",
+        "7 шаров"
+      ],
+      "category": "Для мальчика",
+      "character": null,
+      "age_group": "Для малышей",
+      "budget": "2 000–3 500 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Напольная композиция из 7 шаров в Армавире",
+      "seo_description": "Напольная композиция из 7 шаров для праздничного оформления в Армавире.",
+      "slug": "napolnaya-kompoziciya-7-sharov",
+      "scene": "floor",
+      "tags": [
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/23edc4d0-f2c5-472b-ad0d-bc8b2c808da9.jpg",
+        "photo_dhash": "33533c91d3339393",
+        "floor_type": "air"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/b2248e73-0aac-49d9-a5d1-c7937434cfb0.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/b2248e73-0aac-49d9-a5d1-c7937434cfb0.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-22T18:51:36.937Z",
+      "updated_at": "2026-10-22T18:51:36.937Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/be8c3180-b0ff-440a-b5de-1be6c9291058.webp"
+    },
+    {
+      "id": "e56c51a1-4b63-4f08-aee3-c8de3b6c27e3",
+      "title": "Огонь праздника",
+      "article": "FIG-028",
+      "price": 4000,
+      "short_description": "Фигура из шаров в виде яркого пламени на чёрном основании.",
+      "full_description": "Напольная фигура из шаров, выполненная в форме костра с языками пламени жёлто-оранжево-красной гаммы. Устойчивое чёрное основание с мраморным акцентом.",
+      "composition": [
+        "Фигура из шаров"
+      ],
+      "category": "Фигуры из шаров",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Огонь праздника — фигура из шаров в Армавире",
+      "seo_description": "Напольная фигура из шаров в виде яркого пламени. Эффектное оформление праздника в Армавире. Доставка.",
+      "slug": "ogon-prazdnika",
+      "scene": "floor",
+      "tags": [
+        "Фигуры из шаров"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/fc2bdeb0-f62b-404a-8256-b1e73f5bd4be.jpg",
+        "photo_dhash": "b3b0f0f1e8f1f1f1",
+        "floor_type": "air"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/adcbe946-5ed8-403a-bf3f-6fff7f222b73.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/adcbe946-5ed8-403a-bf3f-6fff7f222b73.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-22T18:49:03.992Z",
+      "updated_at": "2026-10-22T18:49:03.992Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/2990027d-9090-49ec-a493-41df53a788cf.webp"
+    },
+    {
+      "id": "7441f377-700a-4abe-8d35-2413220c0636",
+      "title": "Парк Юрского периода",
+      "article": "BOY-105",
+      "price": 2600,
+      "short_description": "Напольная композиция с цифрой 5 и фигурами динозавров в жёлто-зелёной палитре.",
+      "full_description": "Композиция с крупной цифрой 5 в обрамлении жёлтых шаров-солнца и фольгированными динозаврами в основании.",
+      "composition": [
+        "Напольная композиция"
+      ],
+      "category": "Для мальчика",
+      "character": "Динозавр",
+      "age_group": "Для детей",
+      "budget": "2 000–3 500 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Композиция с цифрой 5 и динозаврами — Армавир",
+      "seo_description": "Напольная композиция с цифрой 5, фигурами динозавров и жёлто-зелёными шарами. Доставка воздушных шаров в Армавире от VigSharm.",
+      "slug": "park-yurskogo-perioda",
+      "scene": "floor",
+      "tags": [
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/a5a19c2d-9e4f-47ae-959f-6fbd47cd4031.jpg",
+        "photo_dhash": "82f0e0b2b8e0e878",
+        "floor_type": "air",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/021bfee0-f416-42c4-8362-727cef859481.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/021bfee0-f416-42c4-8362-727cef859481.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-22T18:44:16.001Z",
+      "updated_at": "2026-10-22T18:44:16.001Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/88e19e20-e6e5-480b-9667-64e4c323ca78.webp"
+    },
+    {
       "id": "be1f47d8-e805-4502-91c7-615c70c1e9b2",
       "title": "Стальной конь",
       "article": "BOY-104",

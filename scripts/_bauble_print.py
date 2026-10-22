@@ -45,65 +45,14 @@ def sphere_of(path):
     return im0, float(cx), float(cy), float(rad)
 
 
-def _label(ink):
-    h, w = ink.shape
-    lab = np.zeros((h, w), np.int32)
-    n = 0
-    ys, xs = np.where(ink)
-    for y, x in zip(ys.tolist(), xs.tolist()):
-        if lab[y, x]:
-            continue
-        n += 1
-        stack = [(int(y), int(x))]
-        lab[y, x] = n
-        while stack:
-            cy, cx = stack.pop()
-            for ny, nx in ((cy - 1, cx), (cy + 1, cx), (cy, cx - 1), (cy, cx + 1)):
-                if 0 <= ny < h and 0 <= nx < w and ink[ny, nx] and lab[ny, nx] == 0:
-                    lab[ny, nx] = n
-                    stack.append((ny, nx))
-    return lab
-
-
 def motif_geom(path):
     g = np.array(Image.open(path).convert("L"))
-    ink = g < 140
-    h, w = ink.shape
-    lab = _label(ink)
-    ring = None
-    cap = None
-    for k in range(1, int(lab.max()) + 1):
-        ys, xs = np.where(lab == k)
-        bw = int(xs.max() - xs.min())
-        bh = int(ys.max() - ys.min())
-        if bw > 190 and bh > 180 and (ring is None or ys.size > ring[0]):
-            ring = (int(ys.size), k, int(xs.min()), int(ys.min()), int(xs.max()), int(ys.max()))
-        if int(ys.max()) < 68 and bw < 100 and (cap is None or ys.size > cap[0]):
-            cap = (int(ys.size), k)
-    _, rid, x0, y0, x1, y1 = ring
-    cx = (x0 + x1) / 2.0
-    cy = (y0 + y1) / 2.0
-    rad = ((x1 - x0) + (y1 - y0)) / 4.0
-    yy, xx = np.ogrid[0:h, 0:w]
-    dist = np.hypot(xx - cx, yy - cy) / max(rad, 1.0)
-    ang = np.arctan2(yy - cy, xx - cx)
-    keep = ink.copy()
-    ring_px = lab == rid
-    bins = 180
-    band_i = np.clip(((ang + np.pi) / (2 * np.pi) * bins).astype(np.int32), 0, bins - 1)
-    for b in range(bins):
-        sel = ring_px & (band_i == b)
-        if not np.any(sel):
-            continue
-        radii = dist[sel]
-        thickness = float(radii.max() - radii.min())
-        if thickness < 0.11:
-            keep[sel] = False
-        else:
-            keep[sel & (dist > float(radii.max()) - 0.07)] = False
-    if cap is not None:
-        keep[lab == cap[1]] = False
-    return keep.astype(np.float32), cx, cy, rad
+    ink = g < 128
+    ys, xs = np.where(ink)
+    cx = (xs.min() + xs.max()) / 2.0
+    cy = (ys.min() + ys.max()) / 2.0
+    rad = float(np.hypot(xs - cx, ys - cy).max()) * 1.02
+    return ink.astype(np.float32), cx, cy, rad
 
 
 def sample_soft(mask, xs, ys):
@@ -167,7 +116,7 @@ def main():
     for color in COLORS:
         im, cx, cy, rad = sphere_of(ROOT / ("bauble-gloss-%s.webp" % color))
         spheres[color] = (im, cx, cy, rad)
-    ids = ["%02d" % i for i in range(1, 31)]
+    ids = ["%02d" % i for i in range(1, 21)]
     if only:
         pairs = []
         for item in only:
@@ -178,7 +127,7 @@ def main():
     motifs = {}
     for _, mid in pairs:
         if mid not in motifs:
-            motifs[mid] = motif_geom(ROOT / ("bauble-motif-%s.webp" % mid))
+            motifs[mid] = motif_geom(ROOT / "bauble-cut" / ("bauble-cut-%s.png" % mid))
     for color, mid in pairs:
         im, cx, cy, rad = spheres[color]
         g, mcx, mcy, mrad = motifs[mid]

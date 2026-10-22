@@ -127,27 +127,6 @@
     text-transform: uppercase;
     backdrop-filter: blur(2px);
   }
-  .name-overlay {
-    position: absolute;
-    z-index: 1;
-    left: 56.6%;
-    top: 56.6%;
-    width: max-content;
-    max-width: 31%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-    font-family: 'Caveat', Georgia, serif;
-    font-weight: 600;
-    line-height: 1.05;
-    color: #fff;
-    text-shadow: 0 1px 0 rgba(0,0,0,.18), 0 2px 6px rgba(0,0,0,.22);
-    overflow-wrap: anywhere;
-    text-wrap: balance;
-    pointer-events: none;
-  }
-  .name-overlay.is-matte { left: 50%; top: 59%; max-width: 32%; }
-  .name-overlay.is-placeholder { opacity: .55; font-style: italic; }
-  .name-overlay[hidden] { display: none; }
   .photo-slot {
     position: absolute;
     aspect-ratio: 1;

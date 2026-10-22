@@ -1046,7 +1046,7 @@
     if (id === 'client-digits') return !!(p && p.has_digit_choice);
     if (id === 'client-ins') return wantsInscription() && digitsOk();
     if (id === 'client-hen-main') return isHenParty() && digitsOk();
-    if (id === 'client-hen-heart') return isHenParty() && digitsOk() && !!henMainText();
+    if (id === 'client-hen-heart') return isHenParty() && digitsOk();
     if (surpriseNeedsOptions() && !surpriseReady() && (id === 'client-ful' || id === 'client-addr' || id === 'client-when' || id === 'client-contact')) return false;
     if (isGenderProduct() && !genderReady() && (id === 'client-ful' || id === 'client-addr' || id === 'client-when' || id === 'client-contact')) return false;
     if (isHenParty() && !henReady() && (id === 'client-ful' || id === 'client-addr' || id === 'client-when' || id === 'client-contact')) return false;
@@ -1077,7 +1077,7 @@
       return '<label class="config-input hen-field' + (filled ? ' is-filled' : '') + '"><span>' + label + '</span>' +
         '<small class="hen-hint">' + hint + '</small>' +
         henPreviewHtml(which) +
-        (wait ? '<small class="hen-wait">Сначала фамилия на большом шаре</small>' : '') +
+        (heart ? '<small class="hen-wait"' + (wait ? '' : ' hidden') + '>Сначала фамилия на большом шаре</small>' : '') +
         field + '</label>';
     }
     var id = heart ? 'client-hen-heart' : 'client-hen-main';
@@ -1086,6 +1086,7 @@
       '<h3 class="client-block-title">' + label + '</h3>' +
       '<small class="hen-hint">' + hint + '</small>' +
       henPreviewHtml(which) +
+      (heart ? '<small class="hen-wait"' + (wait ? '' : ' hidden') + '>Сначала фамилия на большом шаре</small>' : '') +
       '<label class="client-ins' + (filled ? ' is-filled' : '') + '">' + field + '</label></section>';
   }
   function clientOrderHtml() {
@@ -1918,20 +1919,25 @@
           afterDigitsMaybeScroll();
         });
       } else if (act === 'hen-reveal') {
+        el.addEventListener('mousedown', function (e) { e.preventDefault(); });
         el.addEventListener('click', function (e) {
           e.preventDefault();
           e.stopPropagation();
           var v = el.getAttribute('data-v') === 'inside' ? 'inside' : '';
-          if (henReveal === v) return;
-          henReveal = v;
-          saveDraft();
-          render();
+          var changed = henReveal !== v;
+          if (!changed && v !== 'inside') return;
+          if (changed) {
+            henReveal = v;
+            saveDraft();
+            render();
+          }
           if (v === 'inside') {
-            var gal = root.querySelector('.product-page-main-image');
-            if (gal) {
-              if (gal.scrollIntoView) gal.scrollIntoView({ block: 'nearest' });
-              playHenPop(gal);
-            }
+            requestAnimationFrame(function () {
+              var gal = root.querySelector('.product-page-main-image');
+              if (!gal) return;
+              scrollToOrderEl(gal, { block: 'start', instant: true });
+              if (changed) playHenPop(gal);
+            });
           }
         });
       } else if (act === 'gender-fill') {
@@ -2042,9 +2048,8 @@
         });
         el.addEventListener('blur', function () {
           if (!isHenParty() || !useMobileFlow()) return;
-          var heartShown = !!root.querySelector('#client-hen-heart');
           var fulShown = !!root.querySelector('#client-ful');
-          var rebuild = (henMainText() && !heartShown) || (!henMainText() && heartShown) || (henReady() && !fulShown) || (!henReady() && fulShown);
+          var rebuild = (henReady() && !fulShown) || (!henReady() && fulShown);
           if (!rebuild) return;
           var focusId = clientNextId();
           render();

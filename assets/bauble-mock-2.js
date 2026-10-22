@@ -29,36 +29,26 @@
     return { design: 'white', back: 'photo', card: '', frontUrl: '', backUrl: '' };
   }
   var MOTIFS = [
-    { id: '01', name: 'Колокольчики, снежинка и остролист' },
-    { id: '02', name: 'Олень между снежинками' },
-    { id: '03', name: 'Снеговик и снежинки' },
-    { id: '04', name: 'Ёлка и два подарка' },
-    { id: '05', name: 'Подарок, снежинка и звезда' },
-    { id: '06', name: 'Колокольчики и снежинка' },
-    { id: '07', name: 'Сани и две ёлки' },
-    { id: '08', name: 'Снежинка и ветки' },
-    { id: '09', name: 'Снеговик и две ёлки' },
-    { id: '10', name: 'Бант и носок' },
-    { id: '11', name: 'Колокольчики и остролист' },
-    { id: '12', name: 'Колокольчики и ёлка' },
-    { id: '13', name: 'Олень и подарки' },
-    { id: '14', name: 'Снежинка и домик' },
-    { id: '15', name: 'Снежинка и остролист' },
-    { id: '16', name: 'Бант и снежинка' },
-    { id: '17', name: 'Сани и домик' },
-    { id: '18', name: 'Крупная снежинка и остролист' },
-    { id: '19', name: 'Бант и снеговик' },
-    { id: '20', name: 'Звезда, ёлка и олени' },
-    { id: '21', name: 'Две снежинки' },
-    { id: '22', name: 'Ёлка и три звезды' },
-    { id: '23', name: 'Олень и остролист' },
-    { id: '24', name: 'Бант и три подарка' },
-    { id: '25', name: 'Снежинки и звёздочка' },
-    { id: '26', name: 'Снежинка и ветка' },
-    { id: '27', name: 'Олень и три ёлки' },
-    { id: '28', name: 'Бант и ветки' },
-    { id: '29', name: 'Снеговик и ёлки' },
-    { id: '30', name: 'Звезда и три подарка' }
+    { id: '01', name: 'Снежинка и остролист', sample: 'Анна' },
+    { id: '02', name: 'Олень и три ёлки', sample: 'Максим' },
+    { id: '03', name: 'Снеговик и бусы', sample: 'София' },
+    { id: '04', name: 'Ёлка и подарки', sample: 'Даниил' },
+    { id: '05', name: 'Бант и сердце', sample: 'Валерия' },
+    { id: '06', name: 'Пингвин и снежинка', sample: 'Иван' },
+    { id: '07', name: 'Звезда и веточки', sample: 'Мария' },
+    { id: '08', name: 'Дед Мороз и бантик', sample: 'Виктория' },
+    { id: '09', name: 'Пряник и три сердца', sample: 'Станислав' },
+    { id: '10', name: 'Домик и ёлочные шары', sample: 'Наталья' },
+    { id: '11', name: 'Леденец и конфеты', sample: 'Артём' },
+    { id: '12', name: 'Колокольчики и веточки', sample: 'Екатерина' },
+    { id: '13', name: 'Варежки и сердце', sample: 'Алина' },
+    { id: '14', name: 'Сани и три звезды', sample: 'Дмитрий' },
+    { id: '15', name: 'Ангел и звёзды', sample: 'Полина' },
+    { id: '16', name: 'Мишка и падающая звезда', sample: 'Никита' },
+    { id: '17', name: 'Свеча и веточки', sample: 'Елена' },
+    { id: '18', name: 'Шишка и звёзды', sample: 'Кирилл' },
+    { id: '19', name: 'Сова и жёлуди', sample: 'Ксения' },
+    { id: '20', name: 'Луна и три ёлки', sample: 'Михаил' }
   ];
   function motifOf(id) {
     return MOTIFS.filter(function (m) { return m.id === id; })[0] || null;
@@ -143,15 +133,12 @@
     var plateBack = document.getElementById('plate-back');
     var plateFront = document.getElementById('plate-front');
     var d = photo ? designOf(ball()) : null;
-    var matte = !photo && ball().finish === 'matte';
     var pickedMotif = !photo && motifOf(ball().motif);
     document.getElementById('photo-note').textContent = photo
       ? 'Ваше фото встаёт в шар. Файл остаётся только в этом браузере.'
       : (pickedMotif
-        ? 'Рисунок уже на шаре. Имя на картинке — пример, в заявку уйдёт ваш текст.'
-        : (String(ball().text || '').trim()
-          ? 'Надпись на шаре — ваш текст. Это предпросмотр, не точный рендер.'
-          : 'Чистый шар с бантом. Надпись появится, когда впишете текст.'));
+        ? 'Пример. Вместо «' + pickedMotif.sample + '» будет ваш текст.'
+        : 'Чистый шар с бантом. На него наклеим ваш текст.');
     var show = '';
     if (photo) {
       var b = ball();
@@ -164,7 +151,7 @@
       img.parentElement.classList.remove('is-motif');
       if (pickedMotif) {
         var tone = colorOf(ball());
-        img.src = 'preview/bauble-on-' + tone.id + '-' + pickedMotif.id + '.webp?v=5';
+        img.src = 'preview/bauble-on-' + tone.id + '-' + pickedMotif.id + '.webp?v=7';
         img.alt = tone.name + ' шар, рисунок ' + pickedMotif.id + '. ' + pickedMotif.name;
       } else {
         img.src = photo ? d.photo : colorOf(ball()).gloss;
@@ -175,9 +162,6 @@
       plateBack.hidden = true;
       plateFront.hidden = true;
       slot.hidden = true;
-      var overlayEl = document.getElementById('name-overlay');
-      if (!photo) renderNameOverlay(matte);
-      else if (overlayEl) overlayEl.hidden = true;
       return;
     }
     img.hidden = true;
@@ -199,52 +183,6 @@
       slotImg.src = show;
     }
   }
-
-  var NAME_SPHERE = {
-    mirror: { x: 56.6, y: 56.6, d: 40 },
-    matte: { x: 50, y: 59, d: 44 }
-  };
-
-  function renderNameOverlay(matte) {
-    var el = document.getElementById('name-overlay');
-    var n = ball();
-    var text = String(n.text || '').trim();
-    if (n.face === 'photo' || n.motif || !text) {
-      el.hidden = true;
-      return;
-    }
-    el.hidden = false;
-    el.textContent = text;
-    el.classList.toggle('is-matte', matte);
-    el.classList.toggle('is-placeholder', !text);
-    var sphere = matte ? NAME_SPHERE.matte : NAME_SPHERE.mirror;
-    var stageWidth = el.parentElement.getBoundingClientRect().width || 430;
-    el.style.left = sphere.x + '%';
-    el.style.top = sphere.y + '%';
-    el.style.maxWidth = (sphere.d * 0.78) + '%';
-    var limit = (sphere.d / 200) * stageWidth * 0.9;
-    var lo = Math.max(12, stageWidth * 0.032);
-    var hi = stageWidth * 0.16;
-    var best = lo;
-    var i;
-    for (i = 0; i < 10; i++) {
-      var mid = (lo + hi) / 2;
-      el.style.fontSize = mid + 'px';
-      var w = el.offsetWidth;
-      var h = el.offsetHeight;
-      if ((w * w + h * h) / 4 <= limit * limit) {
-        best = mid;
-        lo = mid;
-      } else {
-        hi = mid;
-      }
-    }
-    el.style.fontSize = Math.round(best) + 'px';
-  }
-  window.addEventListener('resize', function () {
-    var el = document.getElementById('name-overlay');
-    if (kind === 'named' && el && !el.hidden) renderBall();
-  });
 
   function renderControls() {
     var photo = kind === 'photo';
@@ -311,7 +249,7 @@
         if (motifNone) motifNone.classList.toggle('is-on', !picked);
         motifBox.innerHTML = MOTIFS.map(function (m) {
           var on = n.motif === m.id ? ' is-on' : '';
-          return '<button type="button" class="' + on + '" data-motif="' + m.id + '" aria-label="Рисунок ' + m.id + '. ' + escapeHtml(m.name) + '"><span class="face" style="background-image:url(\'preview/bauble-motif-' + m.id + '.webp?v=4\')"></span></button>';
+          return '<button type="button" class="' + on + '" data-motif="' + m.id + '" aria-label="Рисунок ' + m.id + '. ' + escapeHtml(m.name) + '"><span class="face" style="background-image:url(\'preview/bauble-motif-' + m.id + '.webp?v=6\')"></span></button>';
         }).join('');
       }
     }

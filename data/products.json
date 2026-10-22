@@ -2,6 +2,432 @@
   "ok": true,
   "products": [
     {
+      "id": "134cfc85-80a7-4b09-ad5f-53827405012d",
+      "title": "стеклянный баблс с конфетти и надписью,  · 20",
+      "article": null,
+      "price": 0,
+      "short_description": "",
+      "full_description": "",
+      "composition": [
+        "стеклянный баблс с конфетти и надписью, 2 сердца,"
+      ],
+      "category": "",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "vechnaya-pogonya-2",
+      "scene": "ceiling",
+      "tags": [],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/4d3d397e-d913-434c-afd5-6dcd91e84556.jpg",
+        "photo_dhash": "9dfcffdedec65f57"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/e4deca3d-2980-4322-af61-c4ace5f83b22.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/e4deca3d-2980-4322-af61-c4ace5f83b22.jpg",
+      "status": "draft",
+      "show_on_site": false,
+      "created_at": "2026-10-22T08:32:59.102Z",
+      "updated_at": "2026-10-22T08:32:59.102Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/604b6700-a839-4847-aefd-3a3151c5f653.webp"
+    },
+    {
+      "id": "b8aa3901-c76d-42a9-9baa-461f71213ef6",
+      "title": "Вечная погоня",
+      "article": "BOY-103",
+      "price": 6800,
+      "short_description": "Том и Джерри на фоне ярких шаров с жёлтым баблсом и оранжевыми акцентами.",
+      "full_description": "Композиция с культовыми героями мультсериала. Два персонажа, стеклянный баблс с надписью, латексные шары и лента тассел создают атмосферу праздника.",
+      "composition": [
+        "цифра",
+        "2 фигуры",
+        "стеклянный баблс с надписью",
+        "10 шаров",
+        "лента тассел"
+      ],
+      "category": "Для мальчика",
+      "character": "Том и Джерри",
+      "age_group": "Для детей",
+      "budget": "5 000–8 000 ₽",
+      "series_name": "Том и Джерри",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары Том и Джерри на день рождения — Армавир",
+      "seo_description": "Композиция с персонажами Том и Джерри: две фигуры, баблс с надписью, цифра и яркие шары. Доставка по Армавиру.",
+      "slug": "vechnaya-pogonya",
+      "scene": "wall_only",
+      "tags": [
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": true,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/56b6c13f-df0d-42a3-9a69-d98afa4488fa.jpg",
+        "photo_dhash": "f7dc94deced6b7bf",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/ddb92348-89b4-4c59-93c3-7f2fa23f5fb0.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/ddb92348-89b4-4c59-93c3-7f2fa23f5fb0.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-22T08:29:59.835Z",
+      "updated_at": "2026-10-22T08:29:59.835Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/f53a7c3a-7bd7-4b3e-9474-f7698b0744f8.webp"
+    },
+    {
+      "id": "ac400d53-fc69-4c70-b277-34bb7deb751d",
+      "title": "Игра началась",
+      "article": "BOY-102",
+      "price": 5500,
+      "short_description": "Композиция из серебряных шаров с футбольными мячами и звездой с надписью.",
+      "full_description": "Композиция из десяти серебряных кругов с принтом футбольных мячей и большой серебряной звезды с изображением футболиста и надписью «С днём рождения».",
+      "composition": [
+        "10 кругов с рисунком",
+        "большая звезда с надписью"
+      ],
+      "category": "Для мальчика",
+      "character": null,
+      "age_group": "Для детей",
+      "budget": "5 000–8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Воздушные шары с футбольными мячами в Армавире",
+      "seo_description": "Композиция из серебряных шаров с принтом футбольных мячей и большой звездой с надписью. Доставка по Армавиру.",
+      "slug": "igra-nachalas",
+      "scene": "wall_only",
+      "tags": [
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/6c4e7f40-de18-491e-b00a-59cad137beec.webp",
+        "photo_dhash": "c9334767a1524525"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/fb1e7ba3-aef4-4e58-bf28-cc6f943e0118.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/fb1e7ba3-aef4-4e58-bf28-cc6f943e0118.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-22T08:10:08.416Z",
+      "updated_at": "2026-10-22T08:10:08.416Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/01c78fc4-cae4-4b3d-8433-2a5ec68d8404.webp"
+    },
+    {
+      "id": "f79f5433-44d5-4c1f-948a-e4bc2005a69f",
+      "title": "Розовый слонёнок",
+      "article": "BAB-051",
+      "price": 5400,
+      "short_description": "Нежная композиция с розовым слонёнком, баблсом с надписью и бантом.",
+      "full_description": "Композиция включает фигуру слонёнка в колпачке, баблс с именной надписью и внутренними шариками, розовый бант и букет латексных шаров.",
+      "composition": [
+        "2 фигуры",
+        "баблс с шариками и надписью",
+        "10 шаров"
+      ],
+      "category": "На выписку",
+      "character": "Слонёнок",
+      "age_group": "Для малышей",
+      "budget": "5 000–8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Розовый слонёнок — композиция с баблсом и фигурами в Армавире",
+      "seo_description": "Нежная композиция с розовым слонёнком, баблсом с надписью и бантом. Доставка воздушных шаров в Армавире от VigSharm.",
+      "slug": "rozovyj-slonenok",
+      "scene": "floor",
+      "tags": [
+        "На выписку"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/086113d7-2281-49bb-9959-0dc45e643903.jpg",
+        "photo_dhash": "794953c989717137"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/754e71e6-cc75-4073-92e6-a443debf27fc.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/754e71e6-cc75-4073-92e6-a443debf27fc.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-22T07:54:13.878Z",
+      "updated_at": "2026-10-22T07:54:13.878Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/4e9ea70b-348d-45c6-8ec9-fcf06516d5c6.webp"
+    },
+    {
+      "id": "d5b6fb91-baec-4713-8790-78ce0a230536",
+      "title": "Голубой слонёнок",
+      "article": "BAB-050",
+      "price": 5400,
+      "short_description": "Слонёнок в колпаке, баблс с надписью и бант на связке голубых и белых шаров.",
+      "full_description": "Композиция со слонёнком в праздничном колпаке, прозрачным баблсом с персональной надписью и нарядным бантом. Голубая и белая гамма создаёт лёгкое праздничное настроение.",
+      "composition": [
+        "2 фигуры",
+        "баблс с шариками и надписью",
+        "10 шаров"
+      ],
+      "category": "На выписку",
+      "character": "Слонёнок",
+      "age_group": "Для малышей",
+      "budget": "5 000–8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары со слонёнком для мальчика — Армавир | VigSharm",
+      "seo_description": "Композиция со слонёнком в колпаке, баблсом с надписью и голубыми шарами. Доставка воздушных шаров в Армавире.",
+      "slug": "khobotok-s-bantom",
+      "scene": "floor",
+      "tags": [
+        "На выписку"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/29d1117c-a987-4103-ac42-8642a6c8ce09.jpg",
+        "photo_dhash": "794952d8997a7337"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/b38e34cc-c250-4de2-a016-a1f055436ba7.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/b38e34cc-c250-4de2-a016-a1f055436ba7.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-22T07:47:59.559Z",
+      "updated_at": "2026-10-22T07:47:59.559Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/ee90c38f-1f5c-4555-a620-fbb43e06d7c8.webp"
+    },
+    {
+      "id": "505f3285-a6e3-46fb-80e8-07b3bac1d65c",
+      "title": "Отважные щенки",
+      "article": "GRL-165",
+      "price": 5200,
+      "short_description": "Композиция с героями мультфильма, цифрой и розовой лапкой.",
+      "full_description": "Яркая композиция с тремя фольгированными фигурами щенков-спасателей, цифрой и фольгированной лапкой. Латексные шары с конфетти дополняют праздничное настроение.",
+      "composition": [
+        "4 фигуры",
+        "цифра",
+        "3 шара с конфетти",
+        "6 шаров"
+      ],
+      "category": "Для девочки",
+      "character": "Щенячий патруль",
+      "age_group": "Для детей",
+      "budget": "5 000–8 000 ₽",
+      "series_name": "Щенячий патруль",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары Щенячий патруль на день рождения в Армавире",
+      "seo_description": "Композиция с героями Щенячьего патруля: три фигуры щенков, цифра, розовая лапка и шары с конфетти. Доставка по Армавиру.",
+      "slug": "shchenyachiy-patrul-7",
+      "scene": "wall_only",
+      "tags": [
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/1b0e6ffa-a7d2-451e-85a0-d9dc88a0f8b4.jpg",
+        "photo_dhash": "638b48acd8622327",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/56c46453-6c38-4934-924c-62e9278960cc.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/56c46453-6c38-4934-924c-62e9278960cc.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-22T07:43:33.031Z",
+      "updated_at": "2026-10-22T07:43:33.031Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/d99901d4-ba08-42e2-81d4-e60041ec5964.webp"
+    },
+    {
+      "id": "2139ce13-1e9d-491b-b10a-fd00b52e999e",
+      "title": "Малиновый полёт",
+      "article": "GRL-164",
+      "price": 3360,
+      "short_description": "Фольгированные цифры 18 в малиновом цвете и букет шаров с бабочками в розово-белой палитре.",
+      "full_description": "Крупные фольгированные цифры 18 цвета фуксия и семь латексных шаров в оттенках малинового, розового и белого с декором в виде бабочек.",
+      "composition": [
+        "7 шаров с декором",
+        "2 цифры"
+      ],
+      "category": "Для девочки",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "2 000–3 500 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары на 18 лет для девушки — малиновые цифры и бабочки, Армавир",
+      "seo_description": "Фольгированные цифры 18 цвета фуксия и латексные шары с бабочками в розово-малиновой палитре. Оформление дня рождения в Армавире.",
+      "slug": "malinoviy-polyot-18",
+      "scene": "wall_only",
+      "tags": [
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/1ec4c07d-9789-44b5-8a5d-2b6601717f4f.jpg",
+        "photo_dhash": "0cb6c3c3d3c19d9f",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 2
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/f73a2bc4-7cce-4682-96e2-21ab12749ab7.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/f73a2bc4-7cce-4682-96e2-21ab12749ab7.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-22T07:40:12.949Z",
+      "updated_at": "2026-10-22T07:40:12.949Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/4d2fd213-fa78-4251-96ec-46fa81171f5e.webp"
+    },
+    {
+      "id": "25189b7c-fc33-41ac-a57b-e8bd35556a00",
+      "title": "Гонщик спешит на помощь",
+      "article": "BOY-101",
+      "price": 3930,
+      "short_description": "Две напольные композиции со щенком-полицейским и красной цифрой шесть.",
+      "full_description": "На фото две напольные композиции в красно-синих тонах с цифрой шесть и фигурой щенка-полицейского. Букет из шаров с круглым шаром «С Днём рождения» и щенками дополняет композицию.",
+      "composition": [
+        "2 напольные композиции",
+        "круг с рисунком",
+        "2 шара с рисунком",
+        "2 шара"
+      ],
+      "category": "Для мальчика",
+      "character": "Гонщик",
+      "age_group": "Для детей",
+      "budget": "3 500–5 000 ₽",
+      "series_name": "Щенячий патруль",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары Щенячий патруль на 6 лет Армавир",
+      "seo_description": "Напольные композиции с героями Щенячьего патруля и цифрой. Яркое оформление дня рождения для мальчика в Армавире.",
+      "slug": "shchenyachiy-patrul-6",
+      "scene": "floor",
+      "tags": [
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/22b9ab96-54e9-4c03-a65c-d9585c4547d7.jpg",
+        "photo_dhash": "33333171c9c9c8cc",
+        "floor_type": "air",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/b99f8d0f-051f-4fb8-ae06-1a7916dfa213.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/b99f8d0f-051f-4fb8-ae06-1a7916dfa213.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-22T07:38:13.008Z",
+      "updated_at": "2026-10-22T07:38:13.008Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/0914f95a-c3b0-4895-b1f8-85bba812445c.webp"
+    },
+    {
+      "id": "3cd167ca-e319-4436-a758-d133bcd651e2",
+      "title": "Блоки и кирка",
+      "article": "GMR-008",
+      "price": 4020,
+      "short_description": "Две фигуры героев игры, цифра, шары с конфетти и хромовым блеском в голубых и зелёных тонах.",
+      "full_description": "Композиция с двумя фольгированными фигурами персонажей Minecraft, цифрой, шарами с конфетти и хромовым шаром. Палитра включает голубые, зелёные и серебристые оттенки.",
+      "composition": [
+        "2 фигуры",
+        "цифра",
+        "2 шара с конфетти",
+        "шар хром",
+        "7 шаров"
+      ],
+      "category": "Геймерам",
+      "character": "Стив",
+      "age_group": "Для детей",
+      "budget": "3 500–5 000 ₽",
+      "series_name": "Minecraft",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары Minecraft на день рождения мальчика, Армавир",
+      "seo_description": "Композиция с фигурами героев Minecraft, цифрой и шарами с конфетти. Для мальчика. Доставка по Армавиру.",
+      "slug": "bloki-i-kirka",
+      "scene": "wall_only",
+      "tags": [
+        "Геймерам"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/044705b0-a8b6-4f07-a5a6-861a2656046c.jpg",
+        "photo_dhash": "1cd4c68a9892f294",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/5364cf39-f9f1-42fb-9916-2096519dd9e3.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/5364cf39-f9f1-42fb-9916-2096519dd9e3.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-22T07:35:15.012Z",
+      "updated_at": "2026-10-22T07:35:15.012Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/04e4f3e8-5b8c-44e7-b933-8898f6ee1063.webp"
+    },
+    {
       "id": "7984846b-55c7-4af7-90c7-cd175cc5af90",
       "title": "Маленькая проказница",
       "article": "Y1-057",
@@ -66346,53 +66772,6 @@
       "created_at": "2026-09-15T20:20:21.324Z",
       "updated_at": "2026-10-01 06:53:46",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/5db5ff9c-93f2-41b1-b35d-313c6aa0cf78.webp"
-    },
-    {
-      "id": "6f2c8a14-9b37-4e1d-a5c0-8e1d4b7c2a90",
-      "title": "Девичник с фамилией",
-      "article": "WED-007",
-      "price": 2500,
-      "short_description": "Большой белый шар «Bye-bye,» лопается: внутри сиреневое сердце «Hello,». На каждом — своя фамилия.",
-      "full_description": "На большом белом шаре сверху «Bye-bye,», снизу фамилия, белые ленты. Шар лопается, внутри фольгированное сердце «Hello,» с другой фамилией. Клиент пишет обе фамилии по очереди: сначала шар, потом сердце.",
-      "composition": [
-        "большой белый шар",
-        "фольгированное сердце",
-        "белые ленты"
-      ],
-      "category": "Свадьба и девичник",
-      "character": null,
-      "age_group": "Для любого возраста",
-      "budget": "2 000–3 500 ₽",
-      "series_name": null,
-      "occasion": null,
-      "target_audience": null,
-      "seo_title": "Шар на девичник с фамилией — Армавир | VigSharm",
-      "seo_description": "Большой белый шар «Bye-bye,» и сиреневое сердце «Hello,» с фамилиями. Для девичника в Армавире.",
-      "slug": "devichnik-s-familiej",
-      "scene": "wedding",
-      "tags": [
-        "Свадьба и девичник"
-      ],
-      "client_options": {
-        "available_on_request": false,
-        "advance_order_1_2_days": true,
-        "number_choice": false,
-        "personal_inscription": false,
-        "photozone_rental": false,
-        "hen_party": true,
-        "hen_main_phrase": "Bye-bye,",
-        "hen_heart_phrase": "Hello,",
-        "hen_inside_photo": "images/wedding/hen-party-inside.webp?v=20261022f"
-      },
-      "photos": [
-        "images/wedding/hen-party.webp?v=20261022f"
-      ],
-      "main_photo": "images/wedding/hen-party.webp?v=20261022f",
-      "status": "published",
-      "show_on_site": true,
-      "created_at": "2026-10-22T08:40:00.000Z",
-      "updated_at": "2026-10-22T08:40:00.000Z",
-      "thumb_photo": "images/wedding/hen-party.webp?v=20261022f"
     }
   ]
 }

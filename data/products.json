@@ -2,6 +2,102 @@
   "ok": true,
   "products": [
     {
+      "id": "be1f47d8-e805-4502-91c7-615c70c1e9b2",
+      "title": "Стальной конь",
+      "article": "BOY-104",
+      "price": 4740,
+      "short_description": "Композиция с мотоциклом и звёздами в чёрно-оранжевых тонах.",
+      "full_description": "Композиция с фольгированным мотоциклом, чёрной звездой с надписью и оранжевыми акцентами. Латексные шары и звёзды дополняют байкерскую тематику.",
+      "composition": [
+        "звезда с надписью",
+        "фигура",
+        "2 звезды",
+        "2 шара дабл стафф",
+        "6 шаров"
+      ],
+      "category": "Для мальчика",
+      "character": null,
+      "age_group": "Для детей",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Композиция с мотоциклом в Армавире — Стальной конь",
+      "seo_description": "Композиция из шаров с фольгированным мотоциклом, чёрной звездой с надписью и оранжевыми акцентами. Доставка по Армавиру.",
+      "slug": "stalnoy-kon",
+      "scene": "wall_only",
+      "tags": [
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/96df3f77-9165-4832-bc9b-d3a219678478.jpg",
+        "photo_dhash": "3c3c98dcb2aa5347"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/9ef51d41-5f82-471e-9cc5-9e9395e3bdd1.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/9ef51d41-5f82-471e-9cc5-9e9395e3bdd1.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-22T15:32:52.418Z",
+      "updated_at": "2026-10-22T15:32:52.418Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/ed57c367-f889-413e-8d65-1d56589dabf8.webp"
+    },
+    {
+      "id": "b90955fd-043f-4631-ab28-32c7f7801cb6",
+      "title": "Пастельное облако",
+      "article": "GRL-166",
+      "price": 6000,
+      "short_description": "Напольная композиция с розово-голубыми цифрами, единорогом, радугой и облаком.",
+      "full_description": "Напольная композиция с градиентными цифрами, фигурой единорога, радугой с облаком и букетом шаров пастельных оттенков.",
+      "composition": [
+        "Напольная композиция"
+      ],
+      "category": "Для девочки",
+      "character": "Единорог",
+      "age_group": "Для детей",
+      "budget": "5 000–8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Напольная композиция с единорогом на юбилей — Армавир",
+      "seo_description": "Яркая напольная композиция с единорогом, радугой и градиентными цифрами. Идеальна для детского юбилея. Доставка по Армавиру.",
+      "slug": "raduzhnaya-skazka-2",
+      "scene": "floor",
+      "tags": [
+        "Для девочки",
+        "Юбилей"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/ff368e3b-b53f-4067-a779-7f2fe1fe5945.jpg",
+        "photo_dhash": "9f8fb6f2eeb97272",
+        "floor_type": "air",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 2
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/26852830-cecd-4ad9-8558-da384fe1a2cd.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/26852830-cecd-4ad9-8558-da384fe1a2cd.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-22T13:44:00.354Z",
+      "updated_at": "2026-10-22T15:30:54.269Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/e823476b-1c12-4b9a-be79-61b21a1120d8.webp"
+    },
+    {
       "id": "134cfc85-80a7-4b09-ad5f-53827405012d",
       "title": "стеклянный баблс с конфетти и надписью,  · 20",
       "article": null,

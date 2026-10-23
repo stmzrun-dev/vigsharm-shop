@@ -557,9 +557,11 @@ Object.assign(app, {
       nextA.textContent = this.isUnitBalloonMode?.() ? 'Далее: цена →' : 'Далее: состав →';
     }
     const keepPhoto = document.getElementById('step1-keep-photo');
-    if (keepPhoto) {
+    const cropSource = document.getElementById('step1-crop-source');
+    if (keepPhoto || cropSource) {
       const busy = form.classList.contains('is-studio-busy');
-      keepPhoto.disabled = !hasPhotos || busy;
+      if (keepPhoto) keepPhoto.disabled = !hasPhotos || busy;
+      if (cropSource) cropSource.disabled = !hasPhotos || busy;
     }
 
     const backC = document.getElementById('step1-c-back');

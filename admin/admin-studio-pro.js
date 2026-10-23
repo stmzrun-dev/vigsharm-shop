@@ -1854,6 +1854,261 @@ Object.assign(app, {
     throw new Error('Таймаут обработки');
   },
 
+  // === Обрезка исходного фото до генерации ===
+  // Отражение в зеркале или в глянцевом полу модель считает отдельными шарами.
+  // Надёжнее не описывать это промптом, а не показывать модели вовсе.
+
+  /** Цвет стены студии — им закрывается всё замазанное. */
+  SOURCE_PAINT_FILL: '#E9DFD4',
+
+  openSourceCrop() {
+    const photo = this.currentProduct?.photos?.[0];
+    if (!photo?.url) {
+      this.toast('Сначала загрузите фото', 'info');
+      return;
+    }
+    const overlay = document.getElementById('source-crop-overlay');
+    const img = document.getElementById('source-crop-img');
+    if (!overlay || !img) return;
+    // Выносим из формы: внутри модалки position:fixed ломается трансформом родителя.
+    if (overlay.parentElement !== document.body) document.body.appendChild(overlay);
+
+    img.onload = () => {
+      this.resetSourceCropBox();
+      this.clearSourcePaint();
+      this.setSourceCropTool('brush');
+      this.bindSourceCropDrag();
+    };
+    img.crossOrigin = 'anonymous';
+    img.src = photo.url;
+    overlay.classList.remove('hidden');
+  },
+
+  closeSourceCrop() {
+    document.getElementById('source-crop-overlay')?.classList.add('hidden');
+  },
+
+  setSourceCropTool(tool) {
+    this._sourceCropTool = tool === 'frame' ? 'frame' : 'brush';
+    const frame = this._sourceCropTool === 'frame';
+    document.querySelectorAll('.source-crop-tool').forEach((btn) => {
+      btn.classList.toggle('is-on', btn.dataset.cropTool === this._sourceCropTool);
+    });
+    document.getElementById('source-crop-box')?.classList.toggle('hidden', frame === false);
+    document.getElementById('source-crop-size-row')?.classList.toggle('hidden', frame);
+    // Рамка во весь кадр прячет углы за краем сцены — вводим её чуть внутрь.
+    if (frame && this._sourceCrop?.w > 0.99) {
+      this._sourceCrop = { x: 0.04, y: 0.04, w: 0.92, h: 0.92 };
+      this.renderSourceCropBox();
+    }
+    const hint = document.getElementById('source-crop-hint');
+    if (hint) {
+      hint.textContent = frame
+        ? 'Утяните края рамки: всё за ней отрежется. Годится, когда зеркало или пол стоят сбоку от букета.'
+        : 'Проведите по отражению — область закроется ровным фоном студии. Дорисовывать там модели нечего.';
+    }
+  },
+
+  resetSourceCropBox() {
+    this._sourceCrop = { x: 0, y: 0, w: 1, h: 1 };
+    this.renderSourceCropBox();
+    if (this._sourceCropTool === 'frame') this.setSourceCropTool('frame');
+  },
+
+  clearSourcePaint() {
+    this._sourcePaint = [];
+    this.renderSourcePaint();
+  },
+
+  /** Мазки храним долями кадра — не зависят от размера окна. */
+  renderSourcePaint() {
+    const canvas = document.getElementById('source-crop-paint');
+    const stage = document.getElementById('source-crop-stage');
+    if (!canvas || !stage) return;
+    const rect = stage.getBoundingClientRect();
+    if (!rect.width) return;
+    canvas.width = Math.round(rect.width);
+    canvas.height = Math.round(rect.height);
+    const ctx = canvas.getContext('2d');
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = this.SOURCE_PAINT_FILL;
+    (this._sourcePaint || []).forEach((dab) => {
+      ctx.beginPath();
+      ctx.arc(dab.x * canvas.width, dab.y * canvas.height, dab.r * canvas.width, 0, Math.PI * 2);
+      ctx.fill();
+    });
+  },
+
+  sourceBrushRadius() {
+    const el = document.getElementById('source-crop-brush');
+    return (Number(el?.value) || 7) / 100;
+  },
+
+  renderSourceCropBox() {
+    const box = document.getElementById('source-crop-box');
+    const c = this._sourceCrop;
+    if (!box || !c) return;
+    box.style.left = `${c.x * 100}%`;
+    box.style.top = `${c.y * 100}%`;
+    box.style.width = `${c.w * 100}%`;
+    box.style.height = `${c.h * 100}%`;
+  },
+
+  bindSourceCropDrag() {
+    const stage = document.getElementById('source-crop-stage');
+    const box = document.getElementById('source-crop-box');
+    if (!stage || !box || this._sourceCropBound) return;
+    this._sourceCropBound = true;
+
+    const MIN = 0.15;
+    let drag = null;
+
+    const point = (e) => {
+      const r = stage.getBoundingClientRect();
+      return { x: (e.clientX - r.left) / r.width, y: (e.clientY - r.top) / r.height };
+    };
+
+    const paintAt = (e) => {
+      const p = point(e);
+      this._sourcePaint = this._sourcePaint || [];
+      this._sourcePaint.push({ x: p.x, y: p.y, r: this.sourceBrushRadius() });
+      this.renderSourcePaint();
+    };
+
+    stage.addEventListener('pointerdown', (e) => {
+      stage.setPointerCapture(e.pointerId);
+      e.preventDefault();
+      if (this._sourceCropTool !== 'frame') {
+        drag = { paint: true };
+        paintAt(e);
+        return;
+      }
+      const handle = e.target.getAttribute?.('data-crop-handle');
+      if (!handle && e.target !== box) return;
+      drag = { handle, start: point(e), from: { ...this._sourceCrop } };
+    });
+
+    stage.addEventListener('pointermove', (e) => {
+      if (!drag) return;
+      if (drag.paint) {
+        paintAt(e);
+        return;
+      }
+      const p = point(e);
+      const dx = p.x - drag.start.x;
+      const dy = p.y - drag.start.y;
+      const f = drag.from;
+      let next;
+
+      if (!drag.handle) {
+        next = {
+          x: Math.min(Math.max(f.x + dx, 0), 1 - f.w),
+          y: Math.min(Math.max(f.y + dy, 0), 1 - f.h),
+          w: f.w,
+          h: f.h
+        };
+      } else {
+        const left = drag.handle.includes('w');
+        const top = drag.handle.includes('n');
+        let x1 = left ? f.x + dx : f.x;
+        let y1 = top ? f.y + dy : f.y;
+        let x2 = left ? f.x + f.w : f.x + f.w + dx;
+        let y2 = top ? f.y + f.h : f.y + f.h + dy;
+        x1 = Math.min(Math.max(x1, 0), 1);
+        y1 = Math.min(Math.max(y1, 0), 1);
+        x2 = Math.min(Math.max(x2, 0), 1);
+        y2 = Math.min(Math.max(y2, 0), 1);
+        if (x2 - x1 < MIN || y2 - y1 < MIN) return;
+        next = { x: x1, y: y1, w: x2 - x1, h: y2 - y1 };
+      }
+
+      this._sourceCrop = next;
+      this.renderSourceCropBox();
+    });
+
+    const end = () => { drag = null; };
+    stage.addEventListener('pointerup', end);
+    stage.addEventListener('pointercancel', end);
+  },
+
+  async applySourceCrop() {
+    const photo = this.currentProduct?.photos?.[0];
+    const c = this._sourceCrop;
+    if (!photo?.url || !c) return;
+
+    try {
+      const img = await this.loadImageForCrop(photo.url);
+      const sx = Math.round(c.x * img.naturalWidth);
+      const sy = Math.round(c.y * img.naturalHeight);
+      const sw = Math.round(c.w * img.naturalWidth);
+      const sh = Math.round(c.h * img.naturalHeight);
+
+      const canvas = document.createElement('canvas');
+      canvas.width = sw;
+      canvas.height = sh;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(img, sx, sy, sw, sh, 0, 0, sw, sh);
+      this.paintOverSource(ctx, img, { sx, sy, sw, sh });
+      const dataUrl = canvas.toDataURL('image/webp', 0.92);
+      const blob = await (await fetch(dataUrl)).blob();
+
+      this.currentProduct.photos[0] = {
+        id: Date.now() + Math.random(),
+        url: dataUrl,
+        file: new File([blob], 'source-cropped.webp', { type: 'image/webp' }),
+        uploaded: false
+      };
+
+      // Обрезали — прежний Master снят не с этого кадра.
+      this.studioMasterDataUrl = null;
+      this.studioMasterBackupUrl = null;
+      this.studioMasterBaseUrl = null;
+      this.studioSourceUrl = null;
+      this.studioCompare = { original: null, master: null };
+      this.renderStudioCompare?.();
+      this.renderPhotos?.();
+
+      this.closeSourceCrop();
+      this.toast('Готово — в модель уйдёт этот кадр', 'success');
+    } catch (error) {
+      console.error('[SourceCrop]', error);
+      this.toast('Не удалось обрезать фото: ' + error.message, 'error');
+    }
+  },
+
+  /** Замазанное закрываем фоном студии; край размываем, чтобы не было резкой заплатки. */
+  paintOverSource(ctx, img, { sx, sy, sw, sh }) {
+    const dabs = this._sourcePaint || [];
+    if (!dabs.length) return;
+
+    const patch = document.createElement('canvas');
+    patch.width = sw;
+    patch.height = sh;
+    const pctx = patch.getContext('2d');
+    pctx.fillStyle = this.SOURCE_PAINT_FILL;
+    dabs.forEach((dab) => {
+      const x = dab.x * img.naturalWidth - sx;
+      const y = dab.y * img.naturalHeight - sy;
+      pctx.beginPath();
+      pctx.arc(x, y, dab.r * img.naturalWidth, 0, Math.PI * 2);
+      pctx.fill();
+    });
+
+    ctx.filter = `blur(${Math.max(2, Math.round(sw * 0.004))}px)`;
+    ctx.drawImage(patch, 0, 0);
+    ctx.filter = 'none';
+  },
+
+  loadImageForCrop(url) {
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      img.crossOrigin = 'anonymous';
+      img.onload = () => resolve(img);
+      img.onerror = () => reject(new Error('фото не читается для обрезки'));
+      img.src = url;
+    });
+  },
+
   hideCropEditor(clearMaster = true) {
     if (clearMaster) this.studioMasterDataUrl = null;
     if (clearMaster) this.hideSignTextEditor();

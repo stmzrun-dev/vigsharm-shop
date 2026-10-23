@@ -1307,7 +1307,13 @@ const app = {
   loadSettings() {
     try {
       const settings = this.readAdminSettings();
-      const savedWorker = String(settings.workerUrl || '').replace(/\/$/, '');
+      let savedWorker = String(settings.workerUrl || '').replace(/\/$/, '');
+      // *.workers.dev в РФ режется без VPN — старый сохранённый адрес переводим на свой домен.
+      if (/^https:\/\/vigsharm-api\.vigsharm\.workers\.dev$/i.test(savedWorker)) {
+        savedWorker = 'https://api.vigsharm.ru';
+        settings.workerUrl = savedWorker;
+        localStorage.setItem('vigsharm_admin_settings', JSON.stringify(settings));
+      }
       this.workerUrl = savedWorker || this.workerUrl || 'https://api.vigsharm.ru';
       this.adminApiKey = settings.adminApiKey || '';
       this.cloudinaryCloudName = settings.cloudinaryCloudName || '';

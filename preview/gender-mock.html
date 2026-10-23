@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Макет гендерного шара</title>
+  <style>
+    body { margin: 0; background: #f6f4f1; color: #1c1c1c; font: 16px/1.4 Georgia, serif; }
+    h1 { font-weight: normal; font-size: 28px; margin: 28px 24px 8px; }
+    p { margin: 0 24px 24px; max-width: 42rem; }
+    .row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; padding: 0 24px 40px; }
+    figure { margin: 0; background: #fff; }
+    img { width: 100%; height: auto; display: block; }
+    figcaption { padding: 12px 14px 16px; font-size: 18px; }
+    @media (max-width: 800px) { .row { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <h1>Гендерный шар</h1>
+  <p>Слева шар как его видит гость. Дальше тот же шар с прозрачной передней стенкой: розовая начинка и голубая.</p>
+  <div class="row">
+    <figure>
+      <img src="gender-out-v5.jpg" alt="Чёрный шар с надписью Мальчик или девочка">
+      <figcaption>Как выглядит снаружи</figcaption>
+    </figure>
+    <figure>
+      <img src="gender-girl-v5.jpg" alt="Шар с прозрачной стенкой и розовой начинкой">
+      <figcaption>Для девочки</figcaption>
+    </figure>
+    <figure>
+      <img src="gender-boy-v5.jpg" alt="Шар с прозрачной стенкой и голубой начинкой">
+      <figcaption>Для мальчика</figcaption>
+    </figure>
+  </div>
+</body>
+</html>

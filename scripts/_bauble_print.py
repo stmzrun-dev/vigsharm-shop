@@ -110,29 +110,56 @@ def paint(base, cx, cy, rad, motif, mcx, mcy, mrad):
     return Image.fromarray(np.clip(out, 0, 255).astype(np.uint8), "RGB")
 
 
+# White-bow gloss keeps the existing file name. Gold and match bows sit on the
+# same framing, so they reuse that sphere: a bow the colour of the ball would
+# otherwise flood-fill into the ornament.
+VARIANTS = {
+    "white": ("bauble-gloss-%s.webp", ""),
+    "gold": ("bauble-gloss-%s-bow-gold.webp", "-gold"),
+    "match": ("bauble-gloss-%s-bow-match.webp", "-match"),
+    "matte": ("bauble-matte-%s.webp", "-matte"),
+}
+
+
+def bases():
+    found = {}
+    for color in COLORS:
+        gloss = sphere_of(ROOT / ("bauble-gloss-%s.webp" % color))
+        for variant, (pattern, _suffix) in VARIANTS.items():
+            name = pattern % color
+            if variant == "match" and color == "gold":
+                name = "bauble-gloss-gold-bow-gold.webp"
+            path = ROOT / name
+            im = np.array(Image.open(path).convert("RGB"))
+            if variant in ("gold", "match"):
+                _im, cx, cy, rad = gloss
+            else:
+                _im, cx, cy, rad = sphere_of(path)
+            found[(color, variant)] = (im, cx, cy, rad)
+    return found
+
+
 def main():
     only = sys.argv[1:]
-    spheres = {}
-    for color in COLORS:
-        im, cx, cy, rad = sphere_of(ROOT / ("bauble-gloss-%s.webp" % color))
-        spheres[color] = (im, cx, cy, rad)
+    ready = bases()
     ids = ["%02d" % i for i in range(1, 21)]
+    variants = list(VARIANTS)
     if only:
-        pairs = []
+        jobs = []
         for item in only:
-            color, mid = item.split("-")
-            pairs.append((color, mid))
+            color, mid, *rest = item.split("-")
+            jobs.append((color, mid, rest[0] if rest else "white"))
     else:
-        pairs = [(c, i) for c in COLORS for i in ids]
+        jobs = [(c, i, v) for c in COLORS for i in ids for v in variants]
     motifs = {}
-    for _, mid in pairs:
+    for _color, mid, _variant in jobs:
         if mid not in motifs:
             motifs[mid] = motif_geom(ROOT / "bauble-cut" / ("bauble-cut-%s.png" % mid))
-    for color, mid in pairs:
-        im, cx, cy, rad = spheres[color]
+    for color, mid, variant in jobs:
+        im, cx, cy, rad = ready[(color, variant)]
         g, mcx, mcy, mrad = motifs[mid]
         pic = paint(im, cx, cy, rad, g, mcx, mcy, mrad)
-        dest = ROOT / ("bauble-on-%s-%s.webp" % (color, mid))
+        dest = ROOT / ("bauble-on-%s-%s%s.webp" % (color, mid, VARIANTS[variant][1]))
         pic.save(dest, "WEBP", quality=80, method=4)
         print("wrote", dest.name, dest.stat().st_size)
 

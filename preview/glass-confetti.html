@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <title>Стеклянный баблс с конфетти</title>
+  <style>
+    body { margin: 0; padding: 24px; font: 16px/1.3 Georgia, serif; background: #f3efe9; color: #2b2622; }
+    h1 { font-size: 22px; margin: 0 0 8px; }
+    p { margin: 0 0 20px; max-width: 46rem; }
+    h2 { font-size: 18px; margin: 28px 0 12px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px; }
+    figure { margin: 0; background: #fff; border-radius: 14px; overflow: hidden; }
+    .stack { position: relative; aspect-ratio: 1; }
+    .stack img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    figcaption { padding: 8px 10px 10px; font-size: 14px; font-weight: 700; }
+  </style>
+</head>
+<body>
+  <h1>Стеклянный баблс с конфетти и надписью</h1>
+  <p>Один прозрачный слой конфетти кладётся на любой из 13 цветов шара. Ниже каждый цвет со всеми 24 видами конфетти.</p>
+  <div id="colors"></div>
+  <script>
+    var confetti = [
+      ['круги малиновые', 'confetti-01-malinovye.webp'],
+      ['круги золотые тёмные', 'confetti-02-zoloto-temnoe.webp'],
+      ['круги серебро хром', 'confetti-03-serebro.webp'],
+      ['круги золотые яркие', 'confetti-04-zoloto-yarkoe.webp'],
+      ['круги розовые', 'confetti-05-rozovye.webp'],
+      ['круги синие', 'confetti-06-sinie.webp'],
+      ['круги розовое золото', 'confetti-07-rozovoe-zoloto.webp'],
+      ['круги золотые светлые', 'confetti-08-zoloto-svetloe.webp'],
+      ['квадраты чёрные', 'confetti-09-kv-chernye.webp'],
+      ['квадраты розовое золото', 'confetti-10-kv-rozovoe-zoloto.webp'],
+      ['квадраты розовый микс', 'confetti-11-kv-rozovyy-miks.webp'],
+      ['квадраты голубой микс', 'confetti-12-kv-goluboy-miks.webp'],
+      ['квадраты ассорти делюкс', 'confetti-13-kv-assorti.webp'],
+      ['круги ассорти праздничное', 'confetti-14-prazdnik.webp'],
+      ['круги розовые металлик', 'confetti-15-rozovye-metallik.webp'],
+      ['квадраты малиновые', 'confetti-16-kv-malinovye.webp'],
+      ['квадраты голубые', 'confetti-17-kv-golubye.webp'],
+      ['круги фиолетовые', 'confetti-18-fioletovye.webp'],
+      ['круги бирюзовые', 'confetti-19-biryuzovye.webp'],
+      ['круги красные', 'confetti-20-krasnye.webp'],
+      ['круги чёрные', 'confetti-21-chernye.webp'],
+      ['круги малиновые металлик', 'confetti-22-malinovye-metallik.webp'],
+      ['круги голубые металлик', 'confetti-23-golubye-metallik.webp'],
+      ['круги зелёные металлик', 'confetti-24-zelenye.webp']
+    ];
+    var glass = [
+      ['Синий тёмный', 'glass-01-siniy-temnyy.webp'],
+      ['Персиковый макаронс', 'glass-02-persikovyy-makarons.webp'],
+      ['Розовый макаронс', 'glass-03-rozovyy-makarons.webp'],
+      ['Розовый цикламен', 'glass-04-rozovyy-tsiklamen.webp'],
+      ['Розовый светлый', 'glass-05-rozovyy-svetlyy.webp'],
+      ['Малиновый ретро', 'glass-06-malinovyy-retro.webp'],
+      ['Хром миндаль', 'glass-07-hrom-mindal.webp'],
+      ['Кофе', 'glass-08-kofe.webp'],
+      ['Зелёный крем', 'glass-09-zelenyy-krem.webp'],
+      ['Кристалл зелёный', 'glass-10-kristall-zelenyy.webp'],
+      ['Хром голубой', 'glass-11-hrom-goluboy.webp'],
+      ['Хром сиреневый', 'glass-12-hrom-sirenevyy.webp'],
+      ['Кристалл фиолетовый', 'glass-13-kristall-fioletovyy.webp']
+    ];
+    document.getElementById('colors').innerHTML = glass.map(function (g) {
+      var cells = confetti.map(function (c) {
+        return '<figure><div class="stack">' +
+          '<img src="../images/balloons/glass-bubbles/' + g[1] + '?v=5" alt="">' +
+          '<img src="../images/balloons/glass-confetti/' + c[1] + '?v=5" alt="">' +
+          '</div><figcaption>' + c[0] + '</figcaption></figure>';
+      }).join('');
+      return '<h2>' + g[0] + '</h2><div class="grid">' + cells + '</div>';
+    }).join('');
+  </script>
+</body>
+</html>

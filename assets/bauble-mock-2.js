@@ -60,6 +60,25 @@
   function ball() { return list()[active]; }
   function designOf(b) { return DESIGNS.filter(function (d) { return d.id === b.design; })[0]; }
   function colorOf(b) { return COLORS.filter(function (c) { return c.id === b.color; })[0]; }
+  var MOTIF_TEXT_MAX = 14;
+  var FREE_TEXT_MAX = 80;
+  function pickedMotifOf(b) { return b.face === 'photo' ? null : motifOf(b.motif); }
+  function textMax(b) { return pickedMotifOf(b) ? MOTIF_TEXT_MAX : FREE_TEXT_MAX; }
+  function textOver(b) { return b.face !== 'photo' && String(b.text || '').trim().length > textMax(b); }
+  function variantOf(b) {
+    if (b.finish === 'matte') return 'matte';
+    return b.bow;
+  }
+  function heroSrc(b) {
+    var c = colorOf(b);
+    var v = variantOf(b);
+    var motif = pickedMotifOf(b);
+    if (motif) return 'preview/bauble-on-' + c.id + '-' + motif.id + (v === 'white' ? '' : '-' + v) + '.webp?v=8';
+    if (v === 'matte') return c.matte;
+    if (v === 'white') return c.gloss;
+    var bow = v === 'match' && c.id === 'gold' ? 'gold' : v;
+    return 'preview/bauble-gloss-' + c.id + '-bow-' + bow + '.webp?v=1';
+  }
   var NAMED_EXAMPLE = 'preview/bauble-named-base.webp?v=1';
   var PACKS = [
     { id: 'none', name: 'Без коробки', size: 0, price: 0 },
@@ -113,14 +132,15 @@
     var matte = b.finish === 'matte';
     var text = String(b.text || '').trim();
     var logo = b.face === 'photo';
-    var motif = motifOf(b.motif);
+    var motif = pickedMotifOf(b);
+    var over = textOver(b);
     return {
-      swatch: matte ? colorOf(b).matte : colorOf(b).orb,
-      scene: false,
+      swatch: heroSrc(b),
+      scene: !matte,
       matte: matte,
       meta: (matte ? 'матовый' : 'зеркальный') + ' · ' + bowPhrase(b.bow) + (motif ? ' · рис. ' + motif.id : ''),
-      status: logo ? (b.markFile ? 'логотип' : 'нужен логотип') : (text || 'нужна надпись'),
-      miss: logo ? !b.markFile : !text
+      status: logo ? (b.markFile ? 'логотип' : 'нужен логотип') : (over ? 'длинный текст для рисунка' : (text || 'нужна надпись')),
+      miss: namedGap(b)
     };
   }
 
@@ -133,12 +153,15 @@
     var plateBack = document.getElementById('plate-back');
     var plateFront = document.getElementById('plate-front');
     var d = photo ? designOf(ball()) : null;
-    var pickedMotif = !photo && motifOf(ball().motif);
+    var pickedMotif = !photo && pickedMotifOf(ball());
+    var logoFace = !photo && ball().face === 'photo';
     document.getElementById('photo-note').textContent = photo
       ? 'Ваше фото встаёт в шар. Файл остаётся только в этом браузере.'
-      : (pickedMotif
-        ? 'Пример. Вместо «' + pickedMotif.sample + '» будет ваш текст.'
-        : 'Чистый шар с бантом. На него наклеим ваш текст.');
+      : (logoFace
+        ? 'Логотип вырежем из плёнки и наклеим на шар.'
+        : (pickedMotif
+          ? 'Пример. Вместо «' + pickedMotif.sample + '» будет ваш текст.'
+          : 'Чистый шар с бантом. На него наклеим ваш текст.'));
     var show = '';
     if (photo) {
       var b = ball();
@@ -149,15 +172,15 @@
     if (!show) {
       img.hidden = false;
       img.parentElement.classList.remove('is-motif');
-      if (pickedMotif) {
-        var tone = colorOf(ball());
-        img.src = 'preview/bauble-on-' + tone.id + '-' + pickedMotif.id + '.webp?v=7';
-        img.alt = tone.name + ' шар, рисунок ' + pickedMotif.id + '. ' + pickedMotif.name;
+      if (photo) {
+        img.src = d.photo;
+        img.alt = 'Фото-шар на ёлке';
       } else {
-        img.src = photo ? d.photo : colorOf(ball()).gloss;
-        img.alt = photo
-          ? 'Фото-шар на ёлке'
-          : 'Чистый ' + colorOf(ball()).name.toLowerCase() + ' шар с бантом';
+        var tone = colorOf(ball());
+        img.src = heroSrc(ball());
+        img.alt = pickedMotif
+          ? tone.name + ' шар, рисунок ' + pickedMotif.id + '. ' + pickedMotif.name
+          : 'Чистый ' + tone.name.toLowerCase() + ' шар, ' + bowPhrase(ball().bow).replace(/\u00A0/g, ' ');
       }
       plateBack.hidden = true;
       plateFront.hidden = true;
@@ -229,8 +252,13 @@
         btn.classList.toggle('is-on', btn.getAttribute('data-face') === (photoFace ? 'photo' : 'text'));
       });
       document.getElementById('name-text').value = n.text;
-      document.getElementById('name-field').classList.toggle('is-empty', !photoFace && !String(n.text || '').trim());
-      document.getElementById('name-count').textContent = String(n.text || '').length + '/80';
+      document.getElementById('motif-block').classList.toggle('hidden', photoFace);
+      var withMotif = !!pickedMotifOf(n);
+      document.getElementById('name-hint').textContent = withMotif
+        ? 'С рисунком — одно имя, до ' + MOTIF_TEXT_MAX + ' знаков. Длинное пожелание — без рисунка.'
+        : '';
+      document.getElementById('name-text').placeholder = withMotif ? 'Например, ' + pickedMotifOf(n).sample : 'Алина или Любимой учительнице';
+      updateNameField(n);
       var ready = !!n.markUrl;
       document.getElementById('photo-choice').classList.toggle('is-empty', photoFace && !ready);
       document.getElementById('mark-file').classList.toggle('is-ready', ready);
@@ -283,11 +311,22 @@
     var missing = kind === 'named' && items.some(namedGap);
     var go = document.getElementById('send');
     go.disabled = missing;
-    go.title = missing ? 'На каждом шаре нужна надпись или логотип' : '';
+    go.title = missing ? 'На каждом шаре нужна надпись или логотип. С рисунком — до ' + MOTIF_TEXT_MAX + ' знаков.' : '';
   }
 
   function namedGap(b) {
-    return b.face === 'photo' ? !b.markFile : !String(b.text || '').trim();
+    return b.face === 'photo' ? !b.markFile : (!String(b.text || '').trim() || textOver(b));
+  }
+  function updateNameField(n) {
+    var empty = n.face !== 'photo' && !String(n.text || '').trim();
+    var over = textOver(n);
+    var field = document.getElementById('name-field');
+    field.classList.toggle('is-empty', empty);
+    field.classList.toggle('is-over', over);
+    document.getElementById('name-warn').textContent = over
+      ? 'Для рисунка слишком длинно. Сократите или выберите «Без рисунка».'
+      : 'Впишите имя или пожелание';
+    document.getElementById('name-count').textContent = String(n.text || '').trim().length + '/' + textMax(n);
   }
   function render() { renderBall(); renderControls(); renderList(); }
 
@@ -309,7 +348,7 @@
         var detail = b.face === 'photo'
           ? 'Логотип на шаре приложен.'
           : ('Надпись: «' + String(b.text || '').trim() + '».');
-        var motif = motifOf(b.motif);
+        var motif = pickedMotifOf(b);
         var motifBit = motif ? (' Рисунок ' + motif.id + ' «' + motif.name + '».') : '';
         lines.push((i + 1) + '. ' + colorOf(b).name + ', ' + (b.finish === 'matte' ? 'матовый' : 'зеркальный') + ', бант ' + bowName(b.bow).toLowerCase() + '. ' + detail + motifBit);
       }
@@ -319,14 +358,25 @@
     return lines.join('\n');
   }
 
+  function copyNamed(from) {
+    var b = blankNamed();
+    ['color', 'finish', 'bow', 'face', 'motif', 'markUrl', 'markName', 'markFile'].forEach(function (key) {
+      b[key] = from[key];
+    });
+    return b;
+  }
   document.getElementById('add').onclick = function () {
-    list().push(kind === 'photo' ? blankPhoto() : blankNamed());
+    list().push(kind === 'photo' ? blankPhoto() : copyNamed(ball()));
     active = list().length - 1;
     render();
   };
   function attachedFiles() {
     if (kind !== 'named') return [];
-    return list().filter(function (b) { return b.face === 'photo' && b.markFile; }).map(function (b) { return b.markFile; });
+    var files = [];
+    list().forEach(function (b) {
+      if (b.face === 'photo' && b.markFile && files.indexOf(b.markFile) < 0) files.push(b.markFile);
+    });
+    return files;
   }
   function openSheet(text, files) {
     document.getElementById('msg').textContent = text;
@@ -378,7 +428,10 @@
     }
     if (t.hasAttribute('data-color')) b.color = t.getAttribute('data-color');
     if (t.hasAttribute('data-bow')) b.bow = t.getAttribute('data-bow');
-    if (t.hasAttribute('data-face')) b.face = t.getAttribute('data-face');
+    if (t.hasAttribute('data-face')) {
+      b.face = t.getAttribute('data-face');
+      if (b.face === 'photo') b.motif = '';
+    }
     if (t.hasAttribute('data-motif')) b.motif = t.getAttribute('data-motif');
     if (t.hasAttribute('data-back')) {
       b.back = t.getAttribute('data-back');
@@ -406,8 +459,7 @@
   var nameText = document.getElementById('name-text');
   if (nameText) nameText.oninput = function (e) {
     ball().text = e.target.value;
-    document.getElementById('name-field').classList.toggle('is-empty', !String(e.target.value || '').trim());
-    document.getElementById('name-count').textContent = e.target.value.length + '/80';
+    updateNameField(ball());
     renderBall();
     renderList();
   };
@@ -430,7 +482,9 @@
   if (markPick) markPick.onchange = function (e) {
     var file = e.target.files && e.target.files[0];
     if (!file || kind !== 'named') return;
-    if (ball().markUrl) URL.revokeObjectURL(ball().markUrl);
+    var old = ball().markUrl;
+    var shared = list().some(function (b) { return b !== ball() && b.markUrl === old; });
+    if (old && !shared) URL.revokeObjectURL(old);
     ball().markUrl = URL.createObjectURL(file);
     ball().markName = file.name;
     ball().markFile = file;

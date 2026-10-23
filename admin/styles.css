@@ -415,6 +415,30 @@ body.admin-editor-open{overflow:hidden}
 .studio-compare-empty{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:14px;font-weight:600;background:#1a1a1a}
 .studio-compare-empty.hidden{display:none}
 
+/* Обрезка исходного фото до генерации */
+.source-crop-overlay{position:fixed;inset:0;z-index:2200;display:flex;align-items:center;justify-content:center;padding:16px;background:rgba(0,0,0,.72)}
+.source-crop-overlay.hidden{display:none}
+.source-crop-dialog{width:100%;max-width:560px;max-height:92vh;overflow:auto;padding:18px;border-radius:14px;background:#fff;box-shadow:0 18px 48px rgba(0,0,0,.35)}
+.source-crop-dialog h3{margin:0 0 6px;font-size:17px}
+.source-crop-dialog p{margin:0 0 14px;font-size:13px;color:#607D8B}
+.source-crop-tools{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:10px}
+.source-crop-tool{padding:7px 12px;border:1px solid #CFD8DC;border-radius:999px;background:#fff;font-size:13px;font-weight:600;cursor:pointer}
+.source-crop-tool.is-on{border-color:#FFC107;background:#FFF8E1;color:#8D6E00}
+.source-crop-size{display:flex;gap:6px;align-items:center;font-size:12px;color:#607D8B}
+.source-crop-size input{width:96px}
+.source-crop-size.hidden{display:none}
+.source-crop-stage{position:relative;width:100%;background:#111;border-radius:10px;overflow:hidden;touch-action:none;user-select:none}
+.source-crop-stage img{display:block;width:100%;height:auto;pointer-events:none}
+.source-crop-paint{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.source-crop-box{position:absolute;box-sizing:border-box;border:2px solid #FFC107;background:rgba(255,193,7,.10);cursor:move;box-shadow:0 0 0 9999px rgba(0,0,0,.45)}
+.source-crop-box.hidden{display:none}
+.source-crop-box span{position:absolute;width:22px;height:22px;border-radius:50%;background:#FFC107;border:2px solid #fff;touch-action:none}
+.source-crop-box span[data-crop-handle="nw"]{left:-11px;top:-11px;cursor:nwse-resize}
+.source-crop-box span[data-crop-handle="ne"]{right:-11px;top:-11px;cursor:nesw-resize}
+.source-crop-box span[data-crop-handle="sw"]{left:-11px;bottom:-11px;cursor:nesw-resize}
+.source-crop-box span[data-crop-handle="se"]{right:-11px;bottom:-11px;cursor:nwse-resize}
+.source-crop-actions{display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap;margin-top:14px}
+
 /* Crop editor */
 .crop-editor{margin-top:20px;padding:16px;border:1px solid #90CAF9;border-radius:12px;background:#F5FBFF}
 .crop-editor h3{margin:0 0 8px;font-size:16px;color:#1565C0}

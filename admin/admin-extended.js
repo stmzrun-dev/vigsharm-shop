@@ -2422,6 +2422,7 @@ Object.assign(app, {
     };
 
     const prevGender = this.currentProduct?.client_options || {};
+    if (prevGender.catalog_pin === true || prevGender.catalog_pin === 1) clientOptions.catalog_pin = true;
     if (prevGender.gender_choice) {
       clientOptions.gender_choice = true;
       if (prevGender.gender_girl_photo) clientOptions.gender_girl_photo = prevGender.gender_girl_photo;

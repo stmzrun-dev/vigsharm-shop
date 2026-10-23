@@ -517,6 +517,16 @@
         return (isUnitProduct(a) ? 1 : 0) - (isUnitProduct(b) ? 1 : 0);
       });
     }
+    /* Закреплённые карточки остаются первыми. Сортировка по цене это снимает. */
+    if (sortMode !== 'price-asc' && sortMode !== 'price-desc') {
+      var pinned = [];
+      var rest = [];
+      list.forEach(function (p) {
+        var pin = p && p.client_options && (p.client_options.catalog_pin === true || p.client_options.catalog_pin === 1);
+        (pin ? pinned : rest).push(p);
+      });
+      if (pinned.length) list = pinned.concat(rest);
+    }
     return list;
   }
 

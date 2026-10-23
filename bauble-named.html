@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>Макет · именной шар</title>
 <link rel="stylesheet" href="assets/fonts.css"/>
-<link rel="stylesheet" href="assets/bauble-mock.css?v=7"/>
+<link rel="stylesheet" href="assets/bauble-mock.css?v=8"/>
 <style>
   .stage.is-motif { background: #fff; }
   .stage.is-motif img.hero { object-fit: contain; }
@@ -38,22 +38,22 @@
   </nav>
 
   <div id="named-controls">
-    <div class="side-mode face-mode" id="finish-mode">
-      <button type="button" data-finish="mirror" class="is-on"><span class="ico ico-mirror" aria-hidden="true"></span>Зеркальный</button>
-      <button type="button" data-finish="matte"><span class="ico ico-matte" aria-hidden="true"></span>Матовый</button>
-    </div>
-    <h2 id="color-label">Цвет</h2>
-    <div class="orbs colors" id="colors"></div>
     <h2 id="face-label">Оформление · Надпись</h2>
     <div class="side-mode face-mode" id="face-mode">
       <button type="button" data-face="text" class="is-on"><span class="ico ico-text" aria-hidden="true">Аа</span>Надпись</button>
       <button type="button" data-face="photo"><span class="ico ico-logo" aria-hidden="true"></span>Логотип</button>
     </div>
+    <div id="motif-block">
+      <h2 id="motif-label">Рисунок</h2>
+      <button type="button" class="motif-none is-on" id="motif-none" data-motif="">Без рисунка</button>
+      <div class="orbs motifs" id="motifs"></div>
+    </div>
     <div id="text-choice">
       <label class="field" id="name-field">
         <span>Текст на шаре</span>
+        <span class="hint field-hint" id="name-hint"></span>
         <input id="name-text" type="text" maxlength="80" placeholder="Алина или Любимой учительнице"/>
-        <span class="field-foot"><span class="warn">Впишите имя или пожелание</span><span class="char-count" id="name-count">0/80</span></span>
+        <span class="field-foot"><span class="warn" id="name-warn">Впишите имя или пожелание</span><span class="char-count" id="name-count">0/80</span></span>
       </label>
     </div>
     <div id="photo-choice" class="hidden">
@@ -67,9 +67,13 @@
       <p class="hint hidden" id="mark-hint">Логотип уйдёт вместе с заявкой.</p>
       <span class="warn">Загрузите логотип</span>
     </div>
-    <h2 id="motif-label">Рисунок</h2>
-    <button type="button" class="motif-none is-on" id="motif-none" data-motif="">Без рисунка</button>
-    <div class="orbs motifs" id="motifs"></div>
+    <h2>Покрытие</h2>
+    <div class="side-mode face-mode" id="finish-mode">
+      <button type="button" data-finish="mirror" class="is-on"><span class="ico ico-mirror" aria-hidden="true"></span>Зеркальный</button>
+      <button type="button" data-finish="matte"><span class="ico ico-matte" aria-hidden="true"></span>Матовый</button>
+    </div>
+    <h2 id="color-label">Цвет</h2>
+    <div class="orbs colors" id="colors"></div>
     <div id="bow-block">
       <h2 id="bow-label">Бант</h2>
       <div class="orbs bows" id="bows"></div>
@@ -105,7 +109,7 @@
 <script>
 (function () {
   var s = document.createElement('script');
-  s.src = 'assets/' + 'bauble-mock-2.' + 'js?v=16';
+  s.src = 'assets/' + 'bauble-mock-2.' + 'js?v=17';
   document.body.appendChild(s);
 })();
 </script>

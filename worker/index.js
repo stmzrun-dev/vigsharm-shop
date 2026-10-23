@@ -3,12 +3,19 @@
 
 import { AwsClient } from 'aws4fetch';
 
-/** Текущий request для CORS (file:// → Origin: null) */
-let _corsRequest = null;
-
 export default {
   async fetch(request, env) {
-    _corsRequest = request;
+    let response;
+    try {
+      response = await handleRequest(request, env);
+    } catch (e) {
+      response = errorResponse(e);
+    }
+    return withCors(response, request);
+  }
+};
+
+async function handleRequest(request, env) {
     const url = new URL(request.url);
     const path = url.pathname;
     const method = request.method;
@@ -128,18 +135,30 @@ export default {
 
       return json({ ok: false, error: 'Not found' }, 404);
     } catch (e) {
-      console.error(e);
-      const msg = e?.name === 'TimeoutError' || e?.name === 'AbortError'
-        ? 'ИИ не ответил вовремя (таймаут). Нажмите ещё раз через несколько секунд.'
-        : (e.message || String(e));
-      return json({ ok: false, error: msg }, 500);
+      return errorResponse(e);
     }
-  }
-};
+}
+
+function errorResponse(e) {
+  console.error(e);
+  const msg = e?.name === 'TimeoutError' || e?.name === 'AbortError'
+    ? 'ИИ не ответил вовремя (таймаут). Нажмите ещё раз через несколько секунд.'
+    : (e?.message || String(e));
+  return json({ ok: false, error: msg }, 500);
+}
 
 // ─── CORS ────────────────────────────────────────────────
 
-function corsHeaders(request = _corsRequest) {
+/** CORS ставится на выходе по Origin этого запроса: воркер обслуживает запросы параллельно. */
+function withCors(response, request) {
+  if (!new URL(request.url).pathname.startsWith('/api/')) return response;
+  if (response.headers.has('Access-Control-Allow-Origin')) return response;
+  const out = new Response(response.body, response);
+  for (const [k, v] of Object.entries(corsHeaders(request))) out.headers.set(k, v);
+  return out;
+}
+
+function corsHeaders(request) {
   const origin = request?.headers?.get('Origin');
   // Chrome: для file:// Origin === "null", нельзя отвечать "*"
   let allowOrigin = '*';
@@ -158,7 +177,7 @@ function corsHeaders(request = _corsRequest) {
 function json(data, status = 200) {
   return new Response(JSON.stringify(data), {
     status,
-    headers: { 'Content-Type': 'application/json', ...corsHeaders() }
+    headers: { 'Content-Type': 'application/json' }
   });
 }
 

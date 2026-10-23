@@ -507,8 +507,38 @@
               <button type="button" class="btn secondary hidden" id="process-studio-btn" onclick="app.processStudioProNew()">✨ Создать Master</button>
               <div class="step1-compose-cta" id="step1-compose-cta" hidden>
                 <button type="button" class="btn primary" id="step1-a-next" onclick="app.startMasterFromWizard()">Далее: состав →</button>
+                <button type="button" class="step1-keep-photo" id="step1-crop-source" onclick="app.openSourceCrop()">✂️ Обрезать фото</button>
                 <button type="button" class="step1-keep-photo" id="step1-keep-photo" onclick="app.useUploadedPhotoAsIs()">Оставить загруженное фото</button>
                 <button type="button" class="btn outline hidden" id="studio-retry-btn" data-studio-retry onclick="app.retryStudioMaster()">↻ Пересоздать</button>
+              </div>
+              <div class="source-crop-overlay hidden" id="source-crop-overlay">
+                <div class="source-crop-dialog">
+                  <h3>Уберите отражение перед генерацией</h3>
+                  <p id="source-crop-hint">Проведите по отражению — область закроется ровным фоном студии. Дорисовывать там модели нечего.</p>
+                  <div class="source-crop-tools">
+                    <button type="button" class="source-crop-tool is-on" data-crop-tool="brush" onclick="app.setSourceCropTool('brush')">🖌 Замазать</button>
+                    <button type="button" class="source-crop-tool" data-crop-tool="frame" onclick="app.setSourceCropTool('frame')">✂️ Обрезать края</button>
+                    <label class="source-crop-size" id="source-crop-size-row">Кисть
+                      <input type="range" id="source-crop-brush" min="2" max="18" value="7" oninput="app.renderSourcePaint()"/>
+                    </label>
+                    <button type="button" class="btn outline btn-sm" onclick="app.clearSourcePaint()">Стереть мазки</button>
+                  </div>
+                  <div class="source-crop-stage" id="source-crop-stage">
+                    <img id="source-crop-img" alt="Фото до обрезки"/>
+                    <canvas id="source-crop-paint" class="source-crop-paint"></canvas>
+                    <div class="source-crop-box hidden" id="source-crop-box">
+                      <span data-crop-handle="nw"></span>
+                      <span data-crop-handle="ne"></span>
+                      <span data-crop-handle="sw"></span>
+                      <span data-crop-handle="se"></span>
+                    </div>
+                  </div>
+                  <div class="source-crop-actions">
+                    <button type="button" class="btn outline btn-sm" onclick="app.resetSourceCropBox()">Вся фотография</button>
+                    <button type="button" class="btn secondary btn-sm" onclick="app.closeSourceCrop()">Отмена</button>
+                    <button type="button" class="btn primary btn-sm" onclick="app.applySourceCrop()">Применить</button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -1100,8 +1130,8 @@
   </div>
 </div>
 
-<script src="admin.js?v=20261014-latex"></script>
-<script src="admin-extended.js?v=20261022-hen5"></script>
+<script src="admin.js?v=20261023-apidomain"></script>
+<script src="admin-extended.js?v=20261022-pin"></script>
 <script src="cloudinary-upload.js?v=cloud-fix-2"></script>
 <script src="imgbb-upload.js?v=1"></script>
 <script src="cloudinary-patch.js?v=yandex-1"></script>

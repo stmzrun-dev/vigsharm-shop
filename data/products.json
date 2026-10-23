@@ -2,6 +2,54 @@
   "ok": true,
   "products": [
     {
+      "id": "6f2c8a14-9b37-4e1d-a5c0-8e1d4b7c2a90",
+      "title": "Девичник с фамилией",
+      "article": "WED-007",
+      "price": 2500,
+      "short_description": "Большой белый шар «Bye-bye,» лопается: внутри сиреневое сердце «Hello,». На каждом — своя фамилия.",
+      "full_description": "На большом белом шаре сверху «Bye-bye,», снизу фамилия, белые ленты. Шар лопается, внутри фольгированное сердце «Hello,» с другой фамилией. Клиент пишет обе фамилии по очереди: сначала шар, потом сердце.",
+      "composition": [
+        "большой белый шар",
+        "фольгированное сердце",
+        "белые ленты"
+      ],
+      "category": "Свадьба и девичник",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": "2 000–3 500 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шар на девичник с фамилией — Армавир | VigSharm",
+      "seo_description": "Большой белый шар «Bye-bye,» и сиреневое сердце «Hello,» с фамилиями. Для девичника в Армавире.",
+      "slug": "devichnik-s-familiej",
+      "scene": "wedding",
+      "tags": [
+        "Свадьба и девичник"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "hen_party": true,
+        "hen_main_phrase": "Bye-bye,",
+        "hen_heart_phrase": "Hello,",
+        "hen_inside_photo": "images/wedding/hen-party-inside.webp?v=20261022f",
+        "catalog_pin": true
+      },
+      "photos": [
+        "images/wedding/hen-party.webp?v=20261022f"
+      ],
+      "main_photo": "images/wedding/hen-party.webp?v=20261022f",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-22T08:40:00.000Z",
+      "updated_at": "2026-10-22T08:40:00.000Z",
+      "thumb_photo": "images/wedding/hen-party.webp?v=20261022f"
+    },
+    {
       "id": "e7d2db50-643c-4fab-9678-539069edd1d1",
       "title": "Танковая принцесса",
       "article": "F23-002",

@@ -2,6 +2,55 @@
   "ok": true,
   "products": [
     {
+      "id": "83242519-5ba0-4828-a1ec-4e6dd95b2549",
+      "title": "Чебурашка в ромашках",
+      "article": "GRL-172",
+      "price": 6500,
+      "short_description": "Напольная композиция с оранжевой цифрой, фигурами Чебурашки и ромашками из шаров.",
+      "full_description": "Яркая напольная композиция с крупной оранжевой цифрой, украшенной ромашкой. В основании — зелёные и оранжевые шары с цветами из шаров, две фольгированные фигуры Чебурашки.",
+      "composition": [
+        "Напольная композиция"
+      ],
+      "category": "Для девочки",
+      "character": "Чебурашка",
+      "age_group": "Для детей",
+      "budget": "5 000–8 000 ₽",
+      "series_name": "Чебурашка",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Композиция с Чебурашкой и ромашками — Армавир",
+      "seo_description": "Напольная композиция с цифрой, фигурами Чебурашки и цветами из шаров. Яркое оформление детского праздника в Армавире. Заказать воздушные шары.",
+      "slug": "cheburashka-v-romashkah",
+      "scene": "floor",
+      "tags": [
+        "Для девочки",
+        "Цветы из шаров"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/20a1c8e1-427a-4d65-892c-9d9acd90a1e3.jpg",
+        "floor_type": "air",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        },
+        "photo_dhash": "0b2965e89b60628a"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/5e232652-8b89-4602-b890-b65b4e544f75.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/5e232652-8b89-4602-b890-b65b4e544f75.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-23T18:11:49.809Z",
+      "updated_at": "2026-10-23T18:14:44.952Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/e8a3fdcc-2ebb-4db0-852c-b225992c5cf2.webp"
+    },
+    {
       "id": "c3a52b22-53d7-4833-bdc4-c20b835b5a7b",
       "title": "Игровой триумф",
       "article": "GMR-010",

@@ -345,15 +345,33 @@ Object.assign(app, {
       }
 
       const titleHint = (document.getElementById('product-title')?.value || '').trim();
-      const res = await fetch(`${this.workerUrl}/api/ai/detect-character`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', ...this.authHeaders() },
-        body: JSON.stringify({ image_url: imageUrl, title_hint: titleHint })
-      });
-      const result = await res.json().catch(() => ({}));
-      if (!res.ok || !result.ok || !result.data) {
-        throw new Error(result.error || `Ошибка ИИ (${res.status})`);
+      // Тот же NordRouter, что и у «Перезаполнить» — таймаут/502 тоже лечим тихим повтором.
+      const isTransientAiError = (msg) => /таймаут|Failed to fetch|NetworkError|Load failed|network|NordRouter API ошибка|Ошибка ИИ/i.test(String(msg || ''));
+      const maxAttempts = 3;
+      let result = null;
+      let lastErr = null;
+      for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+        try {
+          const res = await fetch(`${this.workerUrl}/api/ai/detect-character`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', ...this.authHeaders() },
+            body: JSON.stringify({ image_url: imageUrl, title_hint: titleHint })
+          });
+          const json = await res.json().catch(() => ({}));
+          if (!res.ok || !json.ok || !json.data) {
+            throw new Error(json.error || `Ошибка ИИ (${res.status})`);
+          }
+          result = json;
+          lastErr = null;
+          break;
+        } catch (err) {
+          lastErr = err;
+          if (attempt === maxAttempts || !isTransientAiError(err?.message)) break;
+          if (statusEl) statusEl.textContent = `⏳ ИИ не ответил вовремя — повтор ${attempt + 1}/${maxAttempts}...`;
+          await new Promise((r) => setTimeout(r, 4000));
+        }
       }
+      if (lastErr) throw lastErr;
 
       const data = result.data;
       const charEl = document.getElementById('product-character');

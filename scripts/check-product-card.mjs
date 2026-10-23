@@ -214,6 +214,11 @@ function openCard(slug) {
         addListener: function () {},
         removeListener: function () {}
       };
+    },
+    // Карточки могут подгружать фото через `new Image()` (напр. превью «Внутри»
+    // у девичника). В браузере Image всегда есть — песочнице нужен такой же стаб.
+    Image: function () {
+      return { decoding: '', onload: null, onerror: null, src: '' };
     }
   };
   sandbox.window = sandbox;

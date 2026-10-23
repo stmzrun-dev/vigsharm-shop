@@ -812,7 +812,7 @@
     var img = root.querySelector('.product-page-main-image img[data-full-src]');
     if (!img) return;
     var full = img.getAttribute('data-full-src');
-    if (!full) return;
+    if (!full || typeof Image === 'undefined') return;
     var pre = new Image();
     pre.decoding = 'async';
     pre.onload = function () {
@@ -1532,7 +1532,7 @@
   function render() {
     if (!p) return;
     if (isNamedUnit() && !bubbleInk) bubbleInk = namedInkTone() === 'dark' ? 'чёрный' : 'белый';
-    if (!henInsidePreloaded && henInsidePhoto() && window.vigImage) {
+    if (!henInsidePreloaded && henInsidePhoto() && window.vigImage && typeof Image !== 'undefined') {
       henInsidePreloaded = true;
       var henPre = new Image();
       henPre.src = window.vigImage(henInsidePhoto(), 1200);

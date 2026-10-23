@@ -301,8 +301,8 @@ Object.assign(app, {
     const force = !!opts.force;
     const hasPhoto = (this.currentProduct?.photos || []).length > 0 || this.hasStudioMasterReady?.();
     if (force) {
-      if (!this.isUnitBalloonMode?.() || !hasPhoto) {
-        this.toast('Нужны режим поштучно и фото', 'info');
+      if (!hasPhoto) {
+        this.toast('Нужно фото', 'info');
         return;
       }
     } else if (!this.canDetectUnitCharacter()) {
@@ -366,6 +366,9 @@ Object.assign(app, {
       }
       this.renderCharacterAlts?.(data.character, data.character_alts || [], data.character_confidence || '');
       this.renderSeriesAlts?.(data.series_name, data.series_alts || [], data.series_confidence || '');
+      if (!document.getElementById('ai-review-overlay')?.hidden) {
+        this.syncAiReviewFromForm?.(data);
+      }
       this._unitCharFailedSig = '';
 
       if (data.character) {
@@ -1154,18 +1157,24 @@ Object.assign(app, {
       // На столике нет фольгированных цифр — не ждём отдельный запрос к ИИ.
       if (imageUrl && sceneHint !== 'table') {
         statusEl.textContent = '🔢 ИИ читает цифры на фото...';
-        try {
-          const digitRes = await fetch(`${this.workerUrl}/api/ai/read-foil-digits`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json', ...this.authHeaders() },
-            body: JSON.stringify({ image_url: imageUrl })
-          });
-          const digitJson = await digitRes.json().catch(() => ({}));
-          if (digitRes.ok && digitJson.ok) {
-            foilDigits = String(digitJson.foil_digits || '').replace(/\D/g, '').slice(0, 4);
+        // NordRouter иногда виснет/таймаутит под нагрузкой — 1 тихий повтор
+        // без паузы: чтение цифр необязательное, но лучше не терять его из-за одного сбоя.
+        for (let digitAttempt = 1; digitAttempt <= 2; digitAttempt++) {
+          try {
+            const digitRes = await fetch(`${this.workerUrl}/api/ai/read-foil-digits`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json', ...this.authHeaders() },
+              body: JSON.stringify({ image_url: imageUrl })
+            });
+            const digitJson = await digitRes.json().catch(() => ({}));
+            if (digitRes.ok && digitJson.ok) {
+              foilDigits = String(digitJson.foil_digits || '').replace(/\D/g, '').slice(0, 4);
+            }
+            break;
+          } catch (digitErr) {
+            console.warn('[AI] foil digits', digitErr);
+            if (digitAttempt === 2) break;
           }
-        } catch (digitErr) {
-          console.warn('[AI] foil digits', digitErr);
         }
       }
       if (!(Number(this.currentProduct.digit_from_marker) > 0) && foilDigits) {
@@ -1177,31 +1186,50 @@ Object.assign(app, {
         ? `✨ ИИ заполняет карточку... цифры ${foilDigits}`
         : '✨ ИИ заполняет карточку...';
 
-      const res = await fetch(`${this.workerUrl}/api/ai/generate-card`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', ...this.authHeaders() },
-        body: JSON.stringify({
-          image_url: imageUrl,
-          title_hint: titleHint,
-          price: priceHint,
-          composition_raw: userComposition,
-          composition_hints: compositionHints,
-          description: userComposition,
-          scene: sceneHint,
-          existing_titles: existingTitles,
-          holiday_only: holidayFlag || '',
-          foil_digits: foilDigits,
-          floor_type: this.getFloorType?.() || '',
-          rose_type: sceneHint === 'table' ? (this.getRoseType?.() || '') : '',
-          bouquet_type: sceneHint === 'handheld_bouquet' ? (this.getBouquetType?.() || 'foil') : ''
-        })
-      });
+      const generateCardBody = {
+        image_url: imageUrl,
+        title_hint: titleHint,
+        price: priceHint,
+        composition_raw: userComposition,
+        composition_hints: compositionHints,
+        description: userComposition,
+        scene: sceneHint,
+        existing_titles: existingTitles,
+        holiday_only: holidayFlag || '',
+        foil_digits: foilDigits,
+        floor_type: this.getFloorType?.() || '',
+        rose_type: sceneHint === 'table' ? (this.getRoseType?.() || '') : '',
+        bouquet_type: sceneHint === 'handheld_bouquet' ? (this.getBouquetType?.() || 'foil') : ''
+      };
 
-      const result = await res.json().catch(() => ({}));
-
-      if (!res.ok || !result.ok || !result.data) {
-        throw new Error(result.error || `Не удалось сгенерировать метаданные (${res.status})`);
+      // NordRouter под нагрузкой то таймаутит, то отвечает 502 — вместо того чтобы
+      // заставлять оператора тыкать кнопку заново, тихо повторяем сами (до 3 попыток).
+      const isTransientAiError = (msg) => /таймаут|Failed to fetch|NetworkError|Load failed|network|NordRouter API ошибка|AI не вернул ответ|Не удалось сгенерировать метаданные/i.test(String(msg || ''));
+      const maxAttempts = 3;
+      let result = null;
+      let lastErr = null;
+      for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+        try {
+          const res = await fetch(`${this.workerUrl}/api/ai/generate-card`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', ...this.authHeaders() },
+            body: JSON.stringify(generateCardBody)
+          });
+          const json = await res.json().catch(() => ({}));
+          if (!res.ok || !json.ok || !json.data) {
+            throw new Error(json.error || `Не удалось сгенерировать метаданные (${res.status})`);
+          }
+          result = json;
+          lastErr = null;
+          break;
+        } catch (err) {
+          lastErr = err;
+          if (attempt === maxAttempts || !isTransientAiError(err?.message)) break;
+          statusEl.textContent = `⏳ ИИ не ответил вовремя — повтор ${attempt + 1}/${maxAttempts}...`;
+          await new Promise((r) => setTimeout(r, 4000));
+        }
       }
+      if (lastErr) throw lastErr;
 
       const data = result.data;
       const filtered = this.filterTitlesAgainstCatalog?.(data.title, data.title_alts || []) || {

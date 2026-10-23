@@ -1307,13 +1307,7 @@ const app = {
   loadSettings() {
     try {
       const settings = this.readAdminSettings();
-      let savedWorker = String(settings.workerUrl || '').replace(/\/$/, '');
-      // *.workers.dev в РФ режется без VPN — старый сохранённый адрес переводим на свой домен.
-      if (/^https:\/\/vigsharm-api\.vigsharm\.workers\.dev$/i.test(savedWorker)) {
-        savedWorker = 'https://api.vigsharm.ru';
-        settings.workerUrl = savedWorker;
-        localStorage.setItem('vigsharm_admin_settings', JSON.stringify(settings));
-      }
+      const savedWorker = String(settings.workerUrl || '').replace(/\/$/, '');
       this.workerUrl = savedWorker || this.workerUrl || 'https://api.vigsharm.ru';
       this.adminApiKey = settings.adminApiKey || '';
       this.cloudinaryCloudName = settings.cloudinaryCloudName || '';
@@ -1381,8 +1375,28 @@ const app = {
     this._authGateInstalled = true;
     const orig = window.fetch.bind(window);
     const self = this;
+    // У разных провайдеров и VPN режется то один, то другой адрес воркера.
+    // Сетевой обрыв — повторяем запрос на втором адресе и запоминаем рабочий.
+    const WORKER_HOSTS = ['https://api.vigsharm.ru', 'https://vigsharm-api.vigsharm.workers.dev'];
+    const hostOf = (url) => WORKER_HOSTS.find((h) => String(url).indexOf(h + '/') === 0);
     window.fetch = async function (input, init) {
-      const res = await orig(input, init);
+      let res;
+      try {
+        res = await orig(input, init);
+      } catch (err) {
+        const url = typeof input === 'string' ? input : (input instanceof URL ? input.href : '');
+        const host = url && hostOf(url);
+        if (!host || err?.name === 'AbortError' || init?.signal?.aborted) throw err;
+        const other = WORKER_HOSTS.find((h) => h !== host);
+        console.warn('[worker] ' + host + ' недоступен, пробую ' + other);
+        res = await orig(other + url.slice(host.length), init);
+        if (self.workerUrl === host) {
+          self.workerUrl = other;
+          try { self.writeAdminSettings({ workerUrl: other }); } catch (e) { /* ignore */ }
+          const field = document.getElementById('worker-url');
+          if (field) field.value = other;
+        }
+      }
       try {
         const url = typeof input === 'string' ? input : (input && input.url) || '';
         if (res.status === 401 && self.workerUrl && String(url).indexOf(self.workerUrl) === 0) {

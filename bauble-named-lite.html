@@ -19,7 +19,7 @@
 <link rel="stylesheet" href="assets/style.css?v=20260926-release"/>
 <link rel="stylesheet" href="assets/emoji-icons.css?v=20260926-release"/>
 <link rel="stylesheet" href="assets/site-marshmallow.css?v=20260926-qty-step"/>
-<link rel="stylesheet" href="assets/product-polish.css?v=20261022-hen8"/>
+<link rel="stylesheet" href="assets/product-polish.css?v=20261024-map"/>
 <link rel="stylesheet" href="assets/menu-marshmallow.css?v=20260926-release"/>
 <link rel="stylesheet" href="assets/season.css?v=20261020-tap"/>
 <!-- Yandex.Metrika counter -->
@@ -268,9 +268,21 @@ ym(113074033,'init',{ssr:true,webvisor:true,clickmap:true,ecommerce:"dataLayer",
     font-weight: 700;
   }
   .file span {
-    display: inline;
+    display: block;
     margin: 0;
+    min-width: 0;
+    overflow: hidden;
     font-size: 15px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .file img {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+    border-radius: 8px;
+    object-fit: cover;
+    flex: none;
   }
   .ask input[type="text"],
   .ask input[type="date"],
@@ -406,7 +418,8 @@ ym(113074033,'init',{ssr:true,webvisor:true,clickmap:true,ecommerce:"dataLayer",
     font-size: 13px;
     font-weight: 650;
   }
-  .ask.is-bad .warn { display: block; }
+  .ask.is-bad .warn, .sheet .warn { display: block; }
+  .sheet .warn[hidden] { display: none; }
   .file {
     display: flex;
     align-items: center;
@@ -732,7 +745,7 @@ ym(113074033,'init',{ssr:true,webvisor:true,clickmap:true,ecommerce:"dataLayer",
   .send-to b { display: block; font-size: 15px; }
   .send-to small { display: block; color: var(--muted); font-size: 13px; }
   .sheet-note { margin: 8px 0 0; color: #2f8f5b; font-size: 13px; font-weight: 650; text-align: center; }
-  .sheet button {
+  .sheet button#close {
     width: 100%;
     height: 48px;
     margin-top: 12px;
@@ -743,6 +756,25 @@ ym(113074033,'init',{ssr:true,webvisor:true,clickmap:true,ecommerce:"dataLayer",
     font-weight: 700;
     cursor: pointer;
   }
+  .sheet .order-choice-btn { width: 100%; height: auto; margin-top: 0; }
+  .sheet .site-phone { display: block; margin-top: 14px; }
+  .sheet .site-phone span { display: block; margin-bottom: 6px; font-weight: 750; }
+  .sheet .site-phone input {
+    width: 100%;
+    height: 48px;
+    border: 1.5px solid var(--line);
+    border-radius: 14px;
+    padding: 0 14px;
+    font: inherit;
+  }
+  .sheet #site-send {
+    border: 0;
+    border-radius: 999px;
+    background: var(--grad);
+    color: #fff;
+    box-shadow: 0 8px 16px rgba(255, 107, 107, .28);
+  }
+  .order-hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
   @media (min-width: 760px) {
     .card { overflow: visible; }
     .photo {
@@ -998,6 +1030,13 @@ ym(113074033,'init',{ssr:true,webvisor:true,clickmap:true,ecommerce:"dataLayer",
     mask-image: linear-gradient(90deg, #000 0, #000 calc(100% - 36px), transparent);
   }
 
+  @media (max-width: 1020px) {
+    .ask, #file-label, #send, .client-block {
+      scroll-margin-top: 88px;
+      scroll-margin-bottom: calc(96px + env(safe-area-inset-bottom, 0px));
+    }
+    .order-scroll-pad { height: min(560px, 72vh); }
+  }
   .more {
     margin-top: 16px;
     border-top: 1px solid var(--line);
@@ -1109,6 +1148,7 @@ ym(113074033,'init',{ssr:true,webvisor:true,clickmap:true,ecommerce:"dataLayer",
 
       <div class="ask" id="panel-custom" hidden>
         <label class="file" id="file-label">
+          <img id="file-thumb" alt="" hidden width="40" height="40"/>
           <span id="file-name">Приложить рисунок или логотип</span>
           <input id="file-pick" type="file" accept="image/jpeg,image/png,image/webp,image/svg+xml" hidden/>
         </label>
@@ -1154,6 +1194,7 @@ ym(113074033,'init',{ssr:true,webvisor:true,clickmap:true,ecommerce:"dataLayer",
         <p><b>Когда платить?</b> При получении, после того как согласуем макет.</p>
         <p><b>Сроки</b> Готовим 2–3 дня. Новогодние заказы принимаем до 29 декабря включительно.</p>
       </details>
+      <div class="order-scroll-pad" aria-hidden="true"></div>
     </div>
   </article>
 
@@ -1169,16 +1210,31 @@ ym(113074033,'init',{ssr:true,webvisor:true,clickmap:true,ecommerce:"dataLayer",
 
 <div class="sheet" id="sheet">
   <div class="panel">
-    <h2>Куда отправить заявку?</h2>
-    <p class="sheet-sub" id="sheet-sub">Текст уже готов. Ответим и пришлём макет надписи.</p>
-    <pre id="msg"></pre>
-    <div class="send-to">
-      <a id="to-wa" target="_blank" rel="noreferrer"><img src="icons/brand-whatsapp.webp?v=9" alt="" width="40" height="40"/><span><b>WhatsApp</b><small>Сообщение подставится само</small></span></a>
-      <a id="to-tg" target="_blank" rel="noreferrer"><img src="icons/brand-telegram.webp?v=9" alt="" width="40" height="40"/><span><b>Telegram</b><small>Текст скопируем — вставьте в чат</small></span></a>
-      <a id="to-call"><img src="icons/phone-smartphone.webp?v=1" alt="" width="40" height="40"/><span><b>Позвонить</b><small id="call-label"></small></span></a>
+    <h2 id="sheet-title">Как удобнее оформить?</h2>
+    <p class="sheet-sub" id="sheet-sub">Оплата не списывается: сначала подтвердим текст и время.</p>
+    <div id="choice">
+      <div class="order-choice-stack">
+        <button type="button" class="order-choice-btn is-primary" id="choice-msg"><img class="order-choice-ico" src="icons/footer-chat.webp?v=1" alt="" width="44" height="44"/><span><strong>Написать в мессенджер</strong><small>WhatsApp, Telegram или MAX</small></span></button>
+        <button type="button" class="order-choice-btn" id="choice-site"><img class="order-choice-ico" src="icons/phone-smartphone.webp?v=1" alt="" width="44" height="44"/><span><strong>Оставить заявку на сайте</strong><small>Перезвоним по телефону · вы никуда не уходите</small></span></button>
+      </div>
     </div>
-    <p class="sheet-note" id="copied" hidden>Текст скопирован</p>
+    <div id="site-box" hidden>
+      <label class="site-phone"><span>Телефон</span><input id="buyer-phone" type="tel" inputmode="tel" autocomplete="tel" maxlength="18" placeholder="+7 928 000-00-00"/></label>
+      <p class="warn" id="site-err" hidden>Укажите телефон в формате +7 …</p>
+      <button type="button" class="go" id="site-send">Отправить заявку</button>
+    </div>
+    <div id="msg-box" hidden>
+      <pre id="msg"></pre>
+      <div class="send-to">
+        <a id="to-wa" target="_blank" rel="noreferrer"><img src="icons/brand-whatsapp.webp?v=9" alt="" width="40" height="40"/><span><b>WhatsApp</b><small>Сообщение подставится само</small></span></a>
+        <a id="to-tg" target="_blank" rel="noreferrer"><img src="icons/brand-telegram.webp?v=9" alt="" width="40" height="40"/><span><b>Telegram</b><small>Текст скопируем — вставьте в чат</small></span></a>
+        <a id="to-max" target="_blank" rel="noreferrer"><img src="icons/brand-max.webp?v=9" alt="" width="40" height="40"/><span><b>MAX</b><small>Текст скопируем — вставьте в чат</small></span></a>
+        <a id="to-call"><img src="icons/phone-smartphone.webp?v=1" alt="" width="40" height="40"/><span><b>Позвонить</b><small id="call-label"></small></span></a>
+      </div>
+      <p class="sheet-note" id="copied" hidden>Текст скопирован</p>
+    </div>
     <button type="button" id="close">Вернуться к шару</button>
+    <input class="order-hp" id="hp" tabindex="-1" autocomplete="off" aria-hidden="true"/>
   </div>
 </div>
 
@@ -1190,12 +1246,13 @@ ym(113074033,'init',{ssr:true,webvisor:true,clickmap:true,ecommerce:"dataLayer",
   var SEASON = {
     lastMonth: 11,
     lastDay: 29,
-    text: 'Готовим 2–3 дня · заказы до 29 декабря',
+    text: 'Срок изготовления 2–3 дня · заказы до 29 декабря',
     closed: 'Новогодние заказы закрыты',
     closedText: 'Пишите — уточним, успеем ли'
   };
   var PHONE = '79284440142', PHONE_LABEL = '+7 928 444-01-42';
   var TG_URL = 'https://t.me/Olgamzz';
+  var MAX_URL = 'https://max.ru/u/f9LHodD0cOJwY09H6Zj63nYK_X8tPZGb3CODIvTT7FWkRzrgbh5F582AiB8';
   var COLORS = [
     { id: 'violet', name: 'фиолетовый', hex: '#7d4fb3', photo: 'preview/bauble-ex-gift.webp?v=4' },
     { id: 'red', name: 'красный', hex: '#c8202f', photo: 'preview/bauble-ex-family.webp?v=3', mini: '115% 50% 60%' },
@@ -1260,6 +1317,7 @@ ym(113074033,'init',{ssr:true,webvisor:true,clickmap:true,ecommerce:"dataLayer",
   var QTY_MAX = 99;
   var qty = 1;
   var file = null;
+  var fileUrl = '';
   var asked = false;
   var addAsked = false;
   var color = COLORS[0];
@@ -1505,6 +1563,31 @@ ym(113074033,'init',{ssr:true,webvisor:true,clickmap:true,ecommerce:"dataLayer",
     paintIdeas();
   }
 
+  function nextStepId() {
+    if (job === 'name' && !saved.length && !val('name-text')) return 'panel-name';
+    if (job === 'class' && jobProblem()) return 'panel-class';
+    if (job === 'custom' && !file) return 'file-label';
+    if (!fulfillment) return 'client-ful';
+    if (fulfillment !== 'pickup' && !String(address).trim()) return 'client-addr';
+    if (!orderDate || !orderTime) return 'client-when';
+    return 'send';
+  }
+
+  function scrollToStep(el) {
+    if (window.innerWidth > 1020) return;
+    if (typeof el === 'string') el = document.getElementById(el);
+    if (!el) return;
+    setTimeout(function () {
+      var header = document.querySelector('.site-header, .header');
+      var topPad = (header ? header.getBoundingClientRect().height : 76) + 12;
+      var y = el.getBoundingClientRect().top + window.scrollY - topPad;
+      var maxY = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+      y = Math.max(0, Math.min(maxY, Math.round(y)));
+      try { window.scrollTo({ top: y, behavior: 'smooth' }); }
+      catch (e) { window.scrollTo(0, y); }
+    }, 60);
+  }
+
   function paintReceive() {
     var live = document.querySelector('#receive [data-act="address"]');
     if (live && fulfillment !== 'pickup') address = live.value;
@@ -1541,6 +1624,7 @@ ym(113074033,'init',{ssr:true,webvisor:true,clickmap:true,ecommerce:"dataLayer",
       slots += '<button type="button" class="time-slot' + (orderTime === a ? ' is-selected' : '') + '" data-act="time-slot" data-v="' + a + '">' + a + '</button>';
       if (b) slots += '<button type="button" class="time-slot' + (orderTime === b ? ' is-selected' : '') + '" data-act="time-slot" data-v="' + b + '">' + b + '</button>';
     }
+    var nextId = nextStepId();
     var status = fulfillment === 'pickup' ? 'Выбрано: самовывоз' : fulfillment === 'armavir' ? 'Выбрано: по городу' : fulfillment === 'nearby' ? 'Выбрано: за город' : 'Выберите, как получить';
     var whenBits = [];
     if (orderDate) whenBits.push(dTitle);
@@ -1548,21 +1632,23 @@ ym(113074033,'init',{ssr:true,webvisor:true,clickmap:true,ecommerce:"dataLayer",
     var whenStatus = whenBits.length ? 'Выбрано: ' + whenBits.join(', ') : 'Выберите дату и время';
     var addrPh = fulfillment === 'nearby' ? 'Населённый пункт и адрес' : 'Улица, дом, квартира';
     var html = '';
-    html += '<section class="client-block' + (fulfillment ? ' is-done' : ' is-next') + '" id="client-ful">';
+    html += '<section class="client-block' + (nextId === 'client-ful' ? ' is-next' : fulfillment ? ' is-done' : '') + '" id="client-ful">';
     html += '<h3 class="client-block-title">Как получить</h3>';
     html += '<p class="client-digit-picked">' + status + '</p>';
     html += '<div class="client-ful fulfillment-options' + (fulfillment ? '' : ' is-pick') + '">';
     html += '<button type="button" class="' + (fulfillment === 'pickup' ? 'selected' : '') + '" data-act="ful" data-v="pickup" aria-pressed="' + (fulfillment === 'pickup') + '"><span class="ful-icon"><img src="icons/ful-pickup.webp?v=4" alt="" width="48" height="48"/></span><strong>Самовывоз</strong><small>Бесплатно</small></button>';
     html += '<button type="button" class="' + (fulfillment === 'armavir' ? 'selected' : '') + '" data-act="ful" data-v="armavir" aria-pressed="' + (fulfillment === 'armavir') + '"><span class="ful-icon"><img src="icons/ful-city.webp?v=4" alt="" width="48" height="48"/></span><strong>По городу</strong><small>+' + rub(CITY_DELIVERY) + '</small></button>';
     html += '<button type="button" class="' + (fulfillment === 'nearby' ? 'selected' : '') + '" data-act="ful" data-v="nearby" aria-pressed="' + (fulfillment === 'nearby') + '"><span class="ful-icon"><img src="icons/ful-far.webp?v=4" alt="" width="48" height="48"/></span><strong>За город</strong><small>Рассчитаем</small></button>';
-    html += '</div></section>';
+    html += '</div>';
+    if (fulfillment === 'pickup') html += '<a class="pickup-studio" href="https://yandex.ru/maps/?text=%D0%90%D1%80%D0%BC%D0%B0%D0%B2%D0%B8%D1%80%20%D0%A1%D1%82%D0%B0%D1%80%D0%B0%D1%8F%20%D1%81%D1%82%D0%B0%D0%BD%D0%B8%D1%86%D0%B0%20%D0%97%D0%B0%D1%80%D0%B5%D1%87%D0%BD%D0%B0%D1%8F%20193" target="_blank" rel="noreferrer">Студия, Заречная, 193 · Старая станица</a>';
+    html += '</section>';
     if (fulfillment && fulfillment !== 'pickup') {
-      html += '<section class="client-block' + (String(address).trim() ? ' is-done' : ' is-next') + '" id="client-addr">';
+      html += '<section class="client-block' + (nextId === 'client-addr' ? ' is-next' : String(address).trim() ? ' is-done' : '') + '" id="client-addr">';
       html += '<h3 class="client-block-title">Адрес</h3>';
       html += '<label class="client-ins' + (String(address).trim() ? ' is-filled' : '') + '"><input data-act="address" maxlength="140" placeholder="' + addrPh + '" value="' + esc(address) + '"/></label>';
       html += '</section>';
     }
-    html += '<section class="client-block client-when' + (orderDate && orderTime ? ' is-done' : ' is-next') + '" id="client-when">';
+    html += '<section class="client-block client-when' + (nextId === 'client-when' ? ' is-next' : (orderDate && orderTime) ? ' is-done' : '') + '" id="client-when">';
     html += '<h3 class="client-block-title">Дата и время</h3>';
     html += '<p class="client-digit-picked">' + whenStatus + '</p>';
     html += '<div class="order-date-row" role="group" aria-label="Дата и время">';
@@ -1594,6 +1680,7 @@ ym(113074033,'init',{ssr:true,webvisor:true,clickmap:true,ecommerce:"dataLayer",
     addAsked = false;
     paintPhotos();
     paint();
+    scrollToStep(next === 'custom' ? 'file-label' : ('panel-' + next));
   }
 
   function colorLine(c) {
@@ -1645,7 +1732,7 @@ ym(113074033,'init',{ssr:true,webvisor:true,clickmap:true,ecommerce:"dataLayer",
     }
     if (job === 'custom' && file) lines.push(fileShareable() ? 'Рисунок: во вложении.' : 'Рисунок пришлю следующим сообщением.');
     var how = {
-      pickup: 'самовывоз из студии',
+      pickup: 'самовывоз из студии, Заречная, 193 (Старая станица)',
       armavir: 'доставка по Армавиру (+' + rub(CITY_DELIVERY) + ')',
       nearby: 'доставка за пределы Армавира (стоимость уточним при подтверждении заказа)'
     };
@@ -1747,6 +1834,18 @@ ym(113074033,'init',{ssr:true,webvisor:true,clickmap:true,ecommerce:"dataLayer",
     asked = false;
     paint();
     store();
+    if ((act === 'date-toggle' && datePickerOpen) || (act === 'time-toggle' && timePickerOpen)) {
+      scrollToStep(document.querySelector('#receive .order-date-picker.is-open .order-cal'));
+    } else if (act === 'ful' && fulfillment === 'pickup') {
+      scrollToStep('client-ful');
+    } else if (act === 'ful' || act === 'date-day' || act === 'time-slot') {
+      scrollToStep(nextStepId());
+    }
+  });
+  $('receive').addEventListener('focusout', function (e) {
+    if (e.target.getAttribute('data-act') !== 'address') return;
+    address = e.target.value;
+    if (String(address).trim()) scrollToStep(nextStepId());
   });
   $('receive').addEventListener('input', function (e) {
     if (e.target.getAttribute('data-act') !== 'address') return;
@@ -1786,6 +1885,17 @@ ym(113074033,'init',{ssr:true,webvisor:true,clickmap:true,ecommerce:"dataLayer",
 
   $('file-pick').addEventListener('change', function () {
     file = this.files && this.files[0] ? this.files[0] : null;
+    if (fileUrl) URL.revokeObjectURL(fileUrl);
+    fileUrl = '';
+    var thumb = $('file-thumb');
+    if (file && /^image\//.test(file.type)) {
+      fileUrl = URL.createObjectURL(file);
+      thumb.src = fileUrl;
+      thumb.hidden = false;
+    } else {
+      thumb.removeAttribute('src');
+      thumb.hidden = true;
+    }
     $('file-name').textContent = file ? file.name : 'Приложить рисунок или логотип';
     $('file-hint').textContent = file && !fileShareable()
       ? 'Одноцветный знак. Цветной вырежем по контуру и согласуем. Этот браузер не вкладывает файл сам — после заявки отправьте рисунок в тот же чат.'
@@ -1859,14 +1969,86 @@ ym(113074033,'init',{ssr:true,webvisor:true,clickmap:true,ecommerce:"dataLayer",
     $('msg').textContent = text;
     $('to-wa').href = 'https://wa.me/' + PHONE + '?text=' + encodeURIComponent(text);
     $('to-tg').href = TG_URL;
-    $('sheet-sub').textContent = job === 'custom' && file && fileShareable()
-      ? 'Рисунок прикрепится к сообщению. Выберите WhatsApp или Telegram.'
-      : 'Текст уже готов. Ответим и пришлём макет надписи.';
+    $('to-max').href = MAX_URL;
     $('copied').hidden = true;
+    $('choice').hidden = false;
+    $('site-box').hidden = true;
+    $('msg-box').hidden = true;
+    $('sheet-title').textContent = 'Как удобнее оформить?';
+    $('sheet-sub').textContent = 'Оплата не списывается: сначала подтвердим текст и время.';
+    $('site-err').hidden = true;
+    $('site-send').disabled = false;
+    $('site-send').textContent = 'Отправить заявку';
     $('sheet').classList.add('is-on');
     document.body.classList.add('is-sheet');
-    $('to-wa').focus({ preventScroll: true });
+    $('choice-msg').focus({ preventScroll: true });
     goal('bauble_request');
+  }
+
+  function buyerDigits() {
+    var d = String($('buyer-phone').value || '').replace(/\D/g, '');
+    if (d.length === 11 && d.charAt(0) === '8') d = '7' + d.slice(1);
+    if (d.length === 10) d = '7' + d;
+    return (d.length === 11 && d.charAt(0) === '7') ? d : '';
+  }
+
+  function submitSite() {
+    var phone = buyerDigits();
+    if (!phone) {
+      $('site-err').hidden = false;
+      $('buyer-phone').focus();
+      return;
+    }
+    if ($('hp').value) return;
+    $('site-err').hidden = true;
+    $('site-send').disabled = true;
+    $('site-send').textContent = 'Отправляем…';
+    var n = count();
+    var extra = fulfillment === 'armavir' ? CITY_DELIVERY : 0;
+    var api = (window.VIG_API || 'https://api.vigsharm.ru').replace(/\/$/, '');
+    fetch(api + '/api/orders', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        product_id: '136e5181-f581-41c7-9c7a-c5df00d4968b',
+        product_slug: 'imennoj-elochnyj-shar',
+        product_title: 'Именной ёлочный шар',
+        product_sku: 'NY-002',
+        quantity: n,
+        fulfillment: fulfillment,
+        address: fulfillment === 'pickup' ? '' : address,
+        order_date: orderDate,
+        order_time: orderTime,
+        customer_phone: phone,
+        total: n * PRICE + extra,
+        price_from: fulfillment === 'nearby' ? 1 : 0,
+        message: message(),
+        website: $('hp').value
+      })
+    }).then(function (r) {
+      return r.text().then(function (raw) {
+        var data = null;
+        try { data = raw ? JSON.parse(raw) : null; } catch (e) { data = null; }
+        return data;
+      });
+    }).then(function (data) {
+      $('site-send').disabled = false;
+      $('site-send').textContent = 'Отправить заявку';
+      if (!data || !data.ok) {
+        $('site-err').hidden = false;
+        $('site-err').textContent = (data && data.error) || 'Не получилось отправить. Позвоните нам или напишите в мессенджер.';
+        return;
+      }
+      $('site-box').hidden = true;
+      $('sheet-title').textContent = 'Мы получили заказ' + (data.code ? ' #' + data.code : '');
+      $('sheet-sub').textContent = 'Перезвоним или напишем, чтобы подтвердить текст и время. Оплата не списывается.';
+      goal('bauble_site');
+    }).catch(function () {
+      $('site-send').disabled = false;
+      $('site-send').textContent = 'Отправить заявку';
+      $('site-err').hidden = false;
+      $('site-err').textContent = 'Нет связи. Позвоните нам или напишите в мессенджер.';
+    });
   }
 
   function closeSheet() {
@@ -1895,6 +2077,36 @@ ym(113074033,'init',{ssr:true,webvisor:true,clickmap:true,ecommerce:"dataLayer",
     });
   });
   $('to-call').addEventListener('click', function () { goal('bauble_call'); });
+  $('to-max').addEventListener('click', function (e) {
+    goal('bauble_max');
+    var text = $('msg').textContent;
+    if (fileShareable()) {
+      e.preventDefault();
+      navigator.share({ files: [file], text: text, title: 'Именной ёлочный шар' }).catch(function (err) {
+        if (err && err.name === 'AbortError') return;
+        if (navigator.clipboard) navigator.clipboard.writeText(text).then(function () { $('copied').hidden = false; }, function () {});
+        window.open(MAX_URL, '_blank', 'noopener');
+      });
+      return;
+    }
+    if (navigator.clipboard) navigator.clipboard.writeText(text).then(function () { $('copied').hidden = false; }, function () {});
+  });
+  $('choice-site').addEventListener('click', function () {
+    $('choice').hidden = true;
+    $('site-box').hidden = false;
+    $('sheet-title').textContent = 'Оставить заявку на сайте';
+    $('sheet-sub').textContent = 'Перезвоним по этому номеру. Вы никуда не уходите.';
+    $('buyer-phone').focus();
+  });
+  $('choice-msg').addEventListener('click', function () {
+    $('choice').hidden = true;
+    $('msg-box').hidden = false;
+    $('sheet-title').textContent = 'Куда отправить заявку?';
+    $('sheet-sub').textContent = job === 'custom' && file && fileShareable()
+      ? 'Рисунок прикрепится к сообщению. Выберите WhatsApp, Telegram или MAX.'
+      : 'Текст уже готов. Ответим и пришлём макет надписи.';
+  });
+  $('site-send').addEventListener('click', submitSite);
 
   if ('IntersectionObserver' in window) {
     var sendSeen = true;

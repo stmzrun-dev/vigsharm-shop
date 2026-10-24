@@ -160,7 +160,7 @@
       return it.qty + ' ' + unit + ' × ' + it.title + sku + which + ' — ' + money(lineTotal(it));
     });
     var fmap = {
-      pickup: 'самовывоз из студии',
+      pickup: 'самовывоз из студии, Заречная, 193 (Старая станица)',
       armavir: 'доставка по Армавиру (+' + money(cityDelivery) + ')',
       nearby: 'доставка за пределы Армавира (стоимость уточним при подтверждении)'
     };
@@ -481,6 +481,7 @@
           fulBtn('armavir', 'По городу', '+' + money(cityDelivery), 'icons/ful-city.webp?v=4') +
           fulBtn('nearby', 'За город', 'Рассчитаем', 'icons/ful-far.webp?v=4') +
           '</div>' +
+          (draft.fulfillment === 'pickup' ? '<a class="pickup-studio" href="https://yandex.ru/maps/?text=%D0%90%D1%80%D0%BC%D0%B0%D0%B2%D0%B8%D1%80%20%D0%A1%D1%82%D0%B0%D1%80%D0%B0%D1%8F%20%D1%81%D1%82%D0%B0%D0%BD%D0%B8%D1%86%D0%B0%20%D0%97%D0%B0%D1%80%D0%B5%D1%87%D0%BD%D0%B0%D1%8F%20193" target="_blank" rel="noreferrer">Студия, Заречная, 193 · Старая станица</a>' : '') +
           (draft.fulfillment && draft.fulfillment !== 'pickup'
             ? '<input data-u="address" maxlength="140" placeholder="' + (draft.fulfillment === 'armavir' ? 'Улица, дом, квартира' : 'Населённый пункт и адрес') + '" value="' + esc(draft.address) + '"/>'
             : '') +

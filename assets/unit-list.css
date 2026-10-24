@@ -30,6 +30,7 @@
 }
 .unit-list-ful button.is-on{border-color:#C45C4A;box-shadow:0 0 0 1px #C45C4A}
 .unit-list-ful small{color:#6b6258}
+a.pickup-studio{display:inline-block;margin:10px 0 0;color:#ff6b5a;font-size:14px;font-weight:650;line-height:1.35;text-decoration:underline;text-underline-offset:2px}
 .unit-list-when{display:flex;flex-direction:column;gap:8px;align-items:stretch}
 .unit-dt{
   width:100%;display:flex;align-items:center;gap:8px;text-align:left;

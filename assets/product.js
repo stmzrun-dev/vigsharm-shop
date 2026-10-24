@@ -1203,7 +1203,9 @@
           : '') +
         '<button type="button" class="' + (fulfillment === 'armavir' ? 'selected' : '') + '" data-act="ful" data-v="armavir" aria-label="По городу" aria-pressed="' + (fulfillment === 'armavir') + '"><span class="ful-icon"><img src="icons/ful-city.webp?v=4" alt="" width="48" height="48"/></span><strong>По городу</strong><small>+' + cityRub() + '</small></button>' +
         '<button type="button" class="' + (fulfillment === 'nearby' ? 'selected' : '') + '" data-act="ful" data-v="nearby" aria-label="За город" aria-pressed="' + (fulfillment === 'nearby') + '"><span class="ful-icon"><img src="icons/ful-far.webp?v=4" alt="" width="48" height="48"/></span><strong>За город</strong><small>Рассчитаем</small></button>' +
-        '</div></section>';
+        '</div>' +
+        (fulfillment === 'pickup' ? '<a class="pickup-studio" href="https://yandex.ru/maps/?text=%D0%90%D1%80%D0%BC%D0%B0%D0%B2%D0%B8%D1%80%20%D0%A1%D1%82%D0%B0%D1%80%D0%B0%D1%8F%20%D1%81%D1%82%D0%B0%D0%BD%D0%B8%D1%86%D0%B0%20%D0%97%D0%B0%D1%80%D0%B5%D1%87%D0%BD%D0%B0%D1%8F%20193" target="_blank" rel="noreferrer">Студия, Заречная, 193 · Старая станица</a>' : '') +
+        '</section>';
     }
 
     if (clientStepVisible('client-addr')) {
@@ -1275,7 +1277,7 @@
     if (p.has_rental) lines.push('Аренда: ' + (p.rental_item || 'арендный элемент уточнить') + ' — бесплатно до ' + (p.rental_days || 3) + ' суток, далее ' + (p.keep_price_delta || 500) + ' ₽/сутки');
     lines.push('Дата: ' + dateLabel());
     lines.push('Желаемое время: ' + (orderTime || 'уточнить'));
-    var fmap = { pickup: 'самовывоз из студии', armavir: 'доставка по Армавиру (+' + cityRub() + ')', nearby: 'доставка за пределы Армавира (стоимость уточним при подтверждении заказа)' };
+    var fmap = { pickup: 'самовывоз из студии, Заречная, 193 (Старая станица)', armavir: 'доставка по Армавиру (+' + cityRub() + ')', nearby: 'доставка за пределы Армавира (стоимость уточним при подтверждении заказа)' };
     lines.push('Получение: ' + (fulfillment ? fmap[fulfillment] : 'уточнить'));
     if (fulfillment && fulfillment !== 'pickup' && address.trim()) lines.push('Адрес: ' + address.trim());
     var note = String(orderNote || '').trim();
@@ -1604,7 +1606,9 @@
         : '') +
       '<button type="button" class="' + (fulfilled === 'armavir' ? 'selected' : '') + '" data-act="ful" data-v="armavir" aria-label="Выбрать доставку по Армавиру, ' + cityRub() + '" aria-pressed="' + (fulfilled === 'armavir') + '"><span class="ful-icon ful-city" aria-hidden="true"><img src="icons/ful-city.webp?v=4" alt="" width="40" height="40"/></span><strong>По городу</strong><small>+' + cityRub() + '</small></button>' +
       '<button type="button" class="' + (fulfilled === 'nearby' ? 'selected' : '') + '" data-act="ful" data-v="nearby" aria-label="Выбрать доставку за город, стоимость рассчитывается отдельно" aria-pressed="' + (fulfilled === 'nearby') + '"><span class="ful-icon ful-far" aria-hidden="true"><img src="icons/ful-far.webp?v=4" alt="" width="40" height="40"/></span><strong>За город</strong><small>Рассчитаем</small></button>' +
-      '</div></fieldset>' +
+      '</div>' +
+      (fulfilled === 'pickup' ? '<a class="pickup-studio" href="https://yandex.ru/maps/?text=%D0%90%D1%80%D0%BC%D0%B0%D0%B2%D0%B8%D1%80%20%D0%A1%D1%82%D0%B0%D1%80%D0%B0%D1%8F%20%D1%81%D1%82%D0%B0%D0%BD%D0%B8%D1%86%D0%B0%20%D0%97%D0%B0%D1%80%D0%B5%D1%87%D0%BD%D0%B0%D1%8F%20193" target="_blank" rel="noreferrer">Студия, Заречная, 193 · Старая станица</a>' : '') +
+      '</fieldset>' +
       (fulfilled && fulfilled !== 'pickup'
         ? '<label class="config-input' + (!addressOk() ? ' needs-pick' : '') + '"><span>Адрес доставки</span><input value="' + esc(address) + '" maxlength="140" data-act="address" placeholder="' + (fulfilled === 'armavir' ? 'Улица, дом, квартира' : 'Населённый пункт и адрес') + '"/></label>'
         : '') +

@@ -296,6 +296,16 @@
 .product-page .fulfillment-options.is-delivery-only{
   grid-template-columns:repeat(2,minmax(0,1fr))!important;
 }
+a.pickup-studio{
+  display:inline-block;
+  margin:10px 0 0;
+  color:#ff6b5a;
+  font-size:14px;
+  font-weight:650;
+  line-height:1.35;
+  text-decoration:underline;
+  text-underline-offset:2px;
+}
 .product-page .fulfillment-options > button{
   display:flex!important;
   flex-direction:column;

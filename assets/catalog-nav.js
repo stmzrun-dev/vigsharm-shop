@@ -517,8 +517,8 @@
         return (isUnitProduct(a) ? 1 : 0) - (isUnitProduct(b) ? 1 : 0);
       });
     }
-    /* Закреплённые карточки остаются первыми. Сортировка по цене это снимает. */
-    if (sortMode !== 'price-asc' && sortMode !== 'price-desc') {
+    /* Закрепление — только внутри выбранной полки. В «Популярном» карточка идёт своим местом. Сортировка по цене закрепление снимает. */
+    if (sortMode !== 'price-asc' && sortMode !== 'price-desc' && category !== 'Все товары') {
       var pinned = [];
       var rest = [];
       list.forEach(function (p) {

@@ -62,9 +62,36 @@
   function colorOf(b) { return COLORS.filter(function (c) { return c.id === b.color; })[0]; }
   var MOTIF_TEXT_MAX = 14;
   var FREE_TEXT_MAX = 80;
-  function pickedMotifOf(b) { return b.face === 'photo' ? null : motifOf(b.motif); }
-  function textMax(b) { return pickedMotifOf(b) ? MOTIF_TEXT_MAX : FREE_TEXT_MAX; }
-  function textOver(b) { return b.face !== 'photo' && String(b.text || '').trim().length > textMax(b); }
+  var CLASS_MAX = 12;
+  var CLASS_NAME_MAX = 24;
+  function job() {
+    if (kind !== 'named') return 'name';
+    return list().job || 'name';
+  }
+  function glyphBad(value) {
+    return /[^\sA-Za-z\u0400-\u04FF0-9.,!?\-—–«»"'():;\/&+№]/.test(String(value || ''));
+  }
+  function pickedMotifOf(b) {
+    if (job() !== 'name' || b.face === 'photo') return null;
+    return motifOf(b.motif);
+  }
+  function textMax(b) {
+    if (job() === 'class') return CLASS_NAME_MAX;
+    return pickedMotifOf(b) ? MOTIF_TEXT_MAX : FREE_TEXT_MAX;
+  }
+  function textOver(b) {
+    if (job() === 'name' && b.face === 'photo') return false;
+    if (job() === 'custom' && !String(b.text || '').trim()) return false;
+    return String(b.text || '').trim().length > textMax(b);
+  }
+  function textBad(b) {
+    if (job() === 'name' && b.face === 'photo') return false;
+    if (job() === 'custom' && !String(b.text || '').trim()) return false;
+    return glyphBad(b.text);
+  }
+  function classValue() { return String(list().classText || '').trim(); }
+  function classOver() { return classValue().length > CLASS_MAX; }
+  function classBad() { return job() === 'class' && (glyphBad(list().classText) || classOver()); }
   function variantOf(b) {
     if (b.finish === 'matte') return 'matte';
     return b.bow;
@@ -81,12 +108,7 @@
   }
   var NAMED_EXAMPLE = 'preview/bauble-named-base.webp?v=1';
   var PACKS = [
-    { id: 'none', name: 'Без коробки', size: 0, price: 0 },
-    { id: '1', name: 'Своя коробка', size: 1, price: 90, photo: 'preview/bauble-box-one.webp?v=1' },
-    { id: '2', name: 'На 2 шара', size: 2, price: 150 },
-    { id: '3', name: 'На 3 шара', size: 3, price: 190 },
-    { id: '4', name: 'На 4 шара', size: 4, price: 220, photo: 'preview/bauble-box-four.webp?v=1' },
-    { id: '6', name: 'На 6 шаров', size: 6, price: 280, photo: 'preview/bauble-box-six.webp?v=1' }
+    { id: '1', name: 'Своя коробка', size: 1, price: 0, photo: 'preview/bauble-box-one.webp?v=4' }
   ];
   function packOf(id) { return PACKS.filter(function (p) { return p.id === id; })[0] || PACKS[0]; }
   function packFits(id, n) {
@@ -105,7 +127,7 @@
     if (!p.size) return 'без' + NB + 'коробки';
     var boxes = n / p.size;
     var count = boxes + NB + boxWord(boxes);
-    if (p.size === 1) return count + (boxes === 1 ? '' : ' · каждому' + NB + 'шару');
+    if (p.size === 1) return 'каждый в' + NB + 'индивидуальной коробке';
     if (boxes === 1) return 'коробка на' + NB + p.size;
     return count + ' по' + NB + p.size;
   }
@@ -131,16 +153,26 @@
     }
     var matte = b.finish === 'matte';
     var text = String(b.text || '').trim();
-    var logo = b.face === 'photo';
+    var logo = job() === 'name' && b.face === 'photo';
+    var custom = job() === 'custom';
     var motif = pickedMotifOf(b);
     var over = textOver(b);
+    var status = textBad(b)
+      ? 'есть значок, который не вырежем'
+      : (over
+        ? 'слишком длинный текст'
+        : (custom
+          ? (b.markFile ? (text || 'макет готов') : 'нужен макет')
+          : (logo
+            ? (b.markFile ? 'логотип' : 'нужен логотип')
+            : (text || (job() === 'class' ? 'нужно имя' : 'нужна надпись')))));
     return {
       swatch: heroSrc(b),
       scene: !matte,
       matte: matte,
       meta: (matte ? 'матовый' : 'зеркальный') + ' · ' + bowPhrase(b.bow) + (motif ? ' · рис. ' + motif.id : ''),
-      status: logo ? (b.markFile ? 'логотип' : 'нужен логотип') : (over ? 'длинный текст для рисунка' : (text || 'нужна надпись')),
-      miss: namedGap(b)
+      status: job() === 'class' && text && classValue() && !textBad(b) && !over ? (text + ' · ' + classValue()) : status,
+      miss: namedGap(b) && !!(list().asked || b.touched)
     };
   }
 
@@ -154,14 +186,30 @@
     var plateFront = document.getElementById('plate-front');
     var d = photo ? designOf(ball()) : null;
     var pickedMotif = !photo && pickedMotifOf(ball());
-    var logoFace = !photo && ball().face === 'photo';
-    document.getElementById('photo-note').textContent = photo
-      ? 'Ваше фото встаёт в шар. Файл остаётся только в этом браузере.'
-      : (logoFace
-        ? 'Логотип вырежем из плёнки и наклеим на шар.'
-        : (pickedMotif
-          ? 'Пример. Вместо «' + pickedMotif.sample + '» будет ваш текст.'
-          : 'Чистый шар с бантом. На него наклеим ваш текст.'));
+    var logoFace = !photo && job() === 'name' && ball().face === 'photo';
+    var orderJob = photo ? '' : job();
+    var written = photo ? '' : String(ball().text || '').trim();
+    var note = 'Ваше фото встаёт в шар. Файл остаётся только в этом браузере.';
+    if (!photo && orderJob === 'class') {
+      note = written && classValue()
+        ? 'Наклеим «' + written + '» и класс ' + classValue() + '.'
+        : 'На шар наклеим имя и класс. На фото — цвет и бант.';
+    } else if (!photo && orderJob === 'custom') {
+      note = ball().markFile
+        ? (written ? 'Наклеим ваш макет и надпись «' + written + '».' : 'Наклеим ваш макет на этот шар.')
+        : 'Загрузите макет — вырежем его и наклеим на шар этого цвета.';
+    } else if (!photo && logoFace) {
+      note = 'Логотип вырежем из плёнки и наклеим на шар.';
+    } else if (!photo && pickedMotif) {
+      note = written
+        ? 'Пример с именем «' + pickedMotif.sample + '». У вас будет «' + written + '».'
+        : 'Пример. Вместо «' + pickedMotif.sample + '» будет ваш текст.';
+    } else if (!photo) {
+      note = written
+        ? 'Наклеим «' + written + '».'
+        : 'Чистый шар с бантом. На него наклеим ваш текст.';
+    }
+    document.getElementById('photo-note').textContent = note;
     var show = '';
     if (photo) {
       var b = ball();
@@ -244,30 +292,65 @@
         var orb = colorOf(n)[bw.src];
         return '<button type="button" class="' + (n.bow === bw.id ? 'is-on' : '') + '" data-bow="' + bw.id + '" aria-label="' + bw.name + '"><span class="face" style="background-image:url(\'' + orb + '\')"></span><span class="cap">' + bw.name + '</span></button>';
       }).join('');
-      var photoFace = n.face === 'photo';
+      var orderJob = job();
+      var photoFace = orderJob === 'name' && n.face === 'photo';
+      var custom = orderJob === 'custom';
+      var titles = { name: 'с именем', class: 'для класса', custom: 'со своим макетом' };
+      var jobNames = { name: 'С именем', class: 'Для класса', custom: 'Свой макет' };
+      document.getElementById('title-kind').textContent = titles[orderJob];
+      document.getElementById('job-label').textContent = 'Заказ · ' + jobNames[orderJob];
+      var jobNotes = {
+        name: 'Имя или пожелание. Рисунок по желанию.',
+        class: 'Один класс на весь набор. У каждого шара своё имя.',
+        custom: 'Ваш рисунок или логотип. Надпись — если её нет на макете.'
+      };
+      var jobNote = document.getElementById('job-note');
+      if (jobNote) jobNote.textContent = jobNotes[orderJob];
+      document.querySelectorAll('#job-mode button').forEach(function (btn) {
+        btn.classList.toggle('is-on', btn.getAttribute('data-job') === orderJob);
+      });
+      document.getElementById('class-choice').classList.toggle('hidden', orderJob !== 'class');
+      document.getElementById('class-text').value = list().classText || '';
+      updateClassField();
+      document.getElementById('face-label').classList.toggle('hidden', orderJob !== 'name');
+      document.getElementById('face-mode').classList.toggle('hidden', orderJob !== 'name');
       document.getElementById('face-label').textContent = 'Оформление · ' + (photoFace ? 'Логотип' : 'Надпись');
       document.getElementById('text-choice').classList.toggle('hidden', photoFace);
-      document.getElementById('photo-choice').classList.toggle('hidden', !photoFace);
+      document.getElementById('photo-choice').classList.toggle('hidden', !(photoFace || custom));
       document.querySelectorAll('#face-mode button').forEach(function (btn) {
         btn.classList.toggle('is-on', btn.getAttribute('data-face') === (photoFace ? 'photo' : 'text'));
       });
+      document.getElementById('name-label').textContent = orderJob === 'class' ? 'Имя' : (custom ? 'Надпись' : 'Текст на шаре');
       document.getElementById('name-text').value = n.text;
-      document.getElementById('motif-block').classList.toggle('hidden', photoFace);
+      document.getElementById('motif-block').classList.toggle('hidden', orderJob !== 'name' || photoFace);
       var withMotif = !!pickedMotifOf(n);
-      document.getElementById('name-hint').textContent = withMotif
-        ? 'С рисунком — одно имя, до ' + MOTIF_TEXT_MAX + ' знаков. Длинное пожелание — без рисунка.'
-        : '';
-      document.getElementById('name-text').placeholder = withMotif ? 'Например, ' + pickedMotifOf(n).sample : 'Алина или Любимой учительнице';
+      document.getElementById('name-hint').textContent = custom
+        ? 'Если текст уже на макете, поле можно оставить пустым.'
+        : (withMotif
+          ? 'С рисунком — одно имя, до ' + MOTIF_TEXT_MAX + ' знаков. Длинное пожелание — без рисунка.'
+          : '');
+      document.getElementById('name-text').placeholder = withMotif
+        ? 'Например, ' + pickedMotifOf(n).sample
+        : (orderJob === 'class' ? 'Алина' : (custom ? 'Лучшему ветеринару' : 'Алина или Любимой учительнице'));
+      document.getElementById('name-text').maxLength = textMax(n);
       updateNameField(n);
       var ready = !!n.markUrl;
-      document.getElementById('photo-choice').classList.toggle('is-empty', photoFace && !ready);
+      var needsFile = photoFace || custom;
+      document.getElementById('photo-choice').classList.toggle('is-empty', needsFile && !ready && !!list().asked);
       document.getElementById('mark-file').classList.toggle('is-ready', ready);
       document.getElementById('mark-hint').classList.toggle('hidden', !ready);
       var thumb = document.getElementById('mark-thumb');
       thumb.hidden = !ready;
       if (ready) thumb.src = n.markUrl;
-      document.getElementById('mark-label').textContent = ready ? 'Заменить логотип' : 'Загрузите логотип';
-      document.getElementById('mark-note').textContent = ready ? (n.markName || 'Файл выбран') : 'Простой знак, лучше в один цвет';
+      document.getElementById('mark-label').textContent = ready
+        ? (custom ? 'Заменить макет' : 'Заменить логотип')
+        : (custom ? 'Загрузите макет' : 'Загрузите логотип');
+      document.getElementById('mark-note').textContent = ready ? (n.markName || 'Файл выбран') : (custom ? 'Эскиз или логотип' : 'Одноцветный знак');
+      document.getElementById('mark-rule').textContent = custom
+        ? 'Рисунок вырежем по контуру. Если цветов несколько, согласуем в WhatsApp.'
+        : 'Нужен одноцветный знак. Если логотип цветной, вырежем по контуру и согласуем в WhatsApp.';
+      document.querySelector('#photo-choice .warn').textContent = custom ? 'Загрузите макет' : 'Загрузите логотип';
+      document.getElementById('add').textContent = orderJob === 'class' ? 'Ещё ученик' : 'Ещё шар';
       var picked = motifOf(n.motif);
       var motifLabel = document.getElementById('motif-label');
       var motifBox = document.getElementById('motifs');
@@ -293,39 +376,70 @@
       return '<div class="ball-line"><button type="button" class="ball-row' + (i === active ? ' is-on' : '') + '" data-ball="' + i + '"><span class="' + swatchClass + '" style="background-image:url(\'' + bit.swatch + '\')"></span><span class="ball-copy"><b>Шар ' + (i + 1) + '</b><small>' + escapeHtml(bit.meta) + '</small><small class="' + statusClass + '">' + escapeHtml(bit.status) + '</small></span></button>' + x + '</div>';
     }).join('');
     var n = items.length;
-    if (!packFits(items.pack, n)) items.pack = 'none';
-    var noneOn = items.pack === 'none' ? ' is-on' : '';
-    var cards = PACKS.filter(function (p) { return p.size && packFits(p.id, n); }).map(function (p) {
-      var boxes = n / p.size;
-      var on = items.pack === p.id ? ' is-on' : '';
-      var face = p.photo ? '<img src="' + p.photo + '" alt=""/>' : '<span class="mark">' + p.size + '</span>';
-      var detail = boxes + NB + boxWord(boxes) + ' · ' + (boxes * p.price).toLocaleString('ru-RU') + NB + '₽';
-      return '<button type="button" class="' + on + '" data-pack="' + p.id + '">' + face + '<b>' + p.name + '</b><small>' + detail + '</small></button>';
-    }).join('');
-    document.getElementById('pack').innerHTML = '<button type="button" class="pack-none' + noneOn + '" data-pack="none">Без коробки</button><div class="pack-grid">' + cards + '</div>';
-    document.getElementById('pack-hint').textContent = 'Своя коробка — каждому' + NB + 'шару. На 2, 3, 4 или 6 — когда шары делятся на размер: четыре' + NB + 'шара это две' + NB + 'коробки по' + NB + 'два.';
+    items.pack = '1';
+    document.getElementById('pack').innerHTML = '<figure class="pack-card"><img src="' + PACKS[0].photo + '" alt="Индивидуальная коробка для шара"/><figcaption>Каждый шар упаковывается в индивидуальную коробочку.</figcaption></figure>';
+    document.getElementById('pack-hint').hidden = true;
     var unit = kind === 'photo' ? PHOTO_PRICE : NAMED_PRICE;
-    var sum = n * unit + packCost(items.pack, n);
-    document.getElementById('bar-note').textContent = unit.toLocaleString('ru-RU') + NB + '₽ за' + NB + 'штуку · ' + n + NB + word(n) + (items.pack && items.pack !== 'none' ? ' · ' + packPhrase(items.pack, n) : '');
+    var sum = n * unit;
+    var jobBit = '';
+    if (kind === 'named' && job() === 'class' && classValue()) jobBit = ' · класс ' + classValue();
+    else if (kind === 'named' && job() === 'custom') jobBit = ' · свой макет';
+    document.getElementById('bar-note').textContent = unit.toLocaleString('ru-RU') + NB + '₽ за' + NB + 'штуку · ' + n + NB + word(n) + jobBit;
     document.getElementById('bar-sum').textContent = sum.toLocaleString('ru-RU') + NB + '₽';
-    var missing = kind === 'named' && items.some(namedGap);
+    var missing = orderMissing();
     var go = document.getElementById('send');
-    go.disabled = missing;
-    go.title = missing ? 'На каждом шаре нужна надпись или логотип. С рисунком — до ' + MOTIF_TEXT_MAX + ' знаков.' : '';
+    go.disabled = false;
+    go.classList.toggle('is-wait', missing);
+    go.setAttribute('aria-disabled', missing ? 'true' : 'false');
+    go.title = missing ? (job() === 'class'
+      ? 'Нужны класс и имя на каждом шаре.'
+      : (job() === 'custom'
+        ? 'На каждом шаре нужен макет. Редкие значки не вырежем.'
+        : 'На каждом шаре нужна надпись или логотип. С рисунком — до ' + MOTIF_TEXT_MAX + ' знаков. Редкие значки не вырежем.')) : '';
   }
 
+  function orderMissing() {
+    if (kind !== 'named') return false;
+    return (job() === 'class' && (!classValue() || classBad())) || list().some(namedGap);
+  }
   function namedGap(b) {
-    return b.face === 'photo' ? !b.markFile : (!String(b.text || '').trim() || textOver(b));
+    var orderJob = job();
+    if (orderJob === 'custom') return !b.markFile || textOver(b) || textBad(b);
+    if (orderJob === 'class') return !String(b.text || '').trim() || textOver(b) || textBad(b);
+    return b.face === 'photo' ? !b.markFile : (!String(b.text || '').trim() || textOver(b) || textBad(b));
+  }
+  function updateClassField() {
+    var field = document.getElementById('class-field');
+    if (!field) return;
+    var on = job() === 'class';
+    var bad = on && glyphBad(list().classText);
+    var over = on && classOver() && !bad;
+    var empty = on && !classValue();
+    field.classList.toggle('is-empty', empty && !bad && !!(list().asked || list().classTouched));
+    field.classList.toggle('is-over', over);
+    field.classList.toggle('is-bad', bad);
+    document.getElementById('class-warn').textContent = bad
+      ? 'Этот значок не вырежем. Оставьте буквы, цифры и кавычки.'
+      : (over ? 'Для класса слишком длинно.' : 'Впишите класс, например 5 «Г»');
+    document.getElementById('class-count').textContent = classValue().length + '/' + CLASS_MAX;
   }
   function updateNameField(n) {
-    var empty = n.face !== 'photo' && !String(n.text || '').trim();
+    var orderJob = job();
+    var optional = orderJob === 'custom' || (orderJob === 'name' && n.face === 'photo');
+    var empty = !optional && !String(n.text || '').trim();
     var over = textOver(n);
+    var bad = textBad(n);
     var field = document.getElementById('name-field');
-    field.classList.toggle('is-empty', empty);
-    field.classList.toggle('is-over', over);
-    document.getElementById('name-warn').textContent = over
-      ? 'Для рисунка слишком длинно. Сократите или выберите «Без рисунка».'
-      : 'Впишите имя или пожелание';
+    field.classList.toggle('is-empty', empty && !bad && !!(list().asked || n.touched));
+    field.classList.toggle('is-over', over && !bad);
+    field.classList.toggle('is-bad', bad);
+    document.getElementById('name-warn').textContent = bad
+      ? 'Этот значок не вырежем. Оставьте буквы, цифры и знаки препинания.'
+      : (over
+        ? (orderJob === 'class'
+          ? 'Для имени слишком длинно.'
+          : 'Для рисунка слишком длинно. Сократите или выберите «Без рисунка».')
+        : (orderJob === 'class' ? 'Впишите имя' : 'Впишите имя или пожелание'));
     document.getElementById('name-count').textContent = String(n.text || '').trim().length + '/' + textMax(n);
   }
   function render() { renderBall(); renderControls(); renderList(); }
@@ -339,15 +453,22 @@
 
   function message() {
     var items = list();
-    var lines = [kind === 'photo' ? 'Фото-шары' : 'Именные шары', items.length + NB + 'шт., ' + packPhrase(items.pack, items.length)];
+    var head = kind === 'photo' ? 'Фото-шары' : (job() === 'class' ? 'Шары для класса' : (job() === 'custom' ? 'Шары со своим макетом' : 'Именные шары'));
+    var classBit = kind === 'named' && job() === 'class' ? (' Класс: ' + classValue() + '.') : '';
+    var lines = [head, items.length + NB + 'шт., ' + packPhrase(items.pack, items.length) + '.' + classBit];
     items.forEach(function (b, i) {
       if (kind === 'photo') {
         var back = b.back === 'card' ? ('открытка «' + (b.card || '…') + '»') : 'второе фото';
         lines.push((i + 1) + '. ' + designOf(b).name + '. Лицевая: фото. Оборот: ' + back);
       } else {
-        var detail = b.face === 'photo'
-          ? 'Логотип на шаре приложен.'
-          : ('Надпись: «' + String(b.text || '').trim() + '».');
+        var written = String(b.text || '').trim();
+        var detail = job() === 'class'
+          ? ('Имя: «' + written + '».')
+          : (job() === 'custom'
+            ? ('Макет приложен.' + (written ? ' Надпись: «' + written + '».' : ' Текст на рисунке.'))
+            : (b.face === 'photo'
+              ? 'Логотип на шаре приложен.'
+              : ('Надпись: «' + written + '».')));
         var motif = pickedMotifOf(b);
         var motifBit = motif ? (' Рисунок ' + motif.id + ' «' + motif.name + '».') : '';
         lines.push((i + 1) + '. ' + colorOf(b).name + ', ' + (b.finish === 'matte' ? 'матовый' : 'зеркальный') + ', бант ' + bowName(b.bow).toLowerCase() + '. ' + detail + motifBit);
@@ -369,12 +490,18 @@
     list().push(kind === 'photo' ? blankPhoto() : copyNamed(ball()));
     active = list().length - 1;
     render();
+    if (kind === 'named' && job() === 'class') {
+      var nextName = document.getElementById('name-text');
+      nextName.focus();
+      nextName.scrollIntoView({ block: 'nearest' });
+    }
   };
   function attachedFiles() {
     if (kind !== 'named') return [];
     var files = [];
     list().forEach(function (b) {
-      if (b.face === 'photo' && b.markFile && files.indexOf(b.markFile) < 0) files.push(b.markFile);
+      var withFile = job() === 'custom' || (job() === 'name' && b.face === 'photo');
+      if (withFile && b.markFile && files.indexOf(b.markFile) < 0) files.push(b.markFile);
     });
     return files;
   }
@@ -389,10 +516,12 @@
     var note = document.getElementById('attach-note');
     var shareBtn = document.getElementById('share');
     var canShare = files.length && navigator.canShare && navigator.canShare({ files: files });
+    var fileWord = job() === 'custom' ? 'Макет' : 'Логотип';
     note.textContent = canShare
-      ? 'Текст и логотип уйдут одним сообщением.'
-      : 'Логотип приложен к заявке. С телефона он уйдёт в WhatsApp вместе с текстом.';
+      ? 'Текст и файл уйдут одним сообщением.'
+      : fileWord + ' приложен к заявке. С телефона он уйдёт в WhatsApp вместе с текстом.';
     note.classList.toggle('hidden', !files.length);
+    shareBtn.textContent = job() === 'custom' ? 'Отправить с макетом' : 'Отправить с логотипом';
     shareBtn.classList.toggle('hidden', !canShare);
     document.getElementById('sheet').classList.add('is-on');
   }
@@ -402,7 +531,16 @@
     navigator.share({ text: message(), files: files }).catch(function () {});
   };
   document.getElementById('send').onclick = function () {
-    if (this.disabled) return;
+    if (orderMissing()) {
+      list().asked = true;
+      render();
+      var target = document.querySelector('#class-field.is-empty input, #class-field.is-bad input, #class-field.is-over input, #name-field.is-empty input, #name-field.is-bad input, #name-field.is-over input, #photo-choice.is-empty');
+      if (target) {
+        target.scrollIntoView({ block: 'center', behavior: 'smooth' });
+        if (target.focus) target.focus();
+      }
+      return;
+    }
     var files = attachedFiles();
     var text = message();
     if (files.length && navigator.canShare && navigator.canShare({ files: files })) {
@@ -418,9 +556,10 @@
     document.getElementById('sheet').classList.remove('is-on');
   };
   document.body.addEventListener('click', function (e) {
-    var t = e.target.closest('[data-design],[data-finish],[data-color],[data-bow],[data-face],[data-motif],[data-back],[data-ball],[data-remove],[data-pack]');
+    var t = e.target.closest('[data-job],[data-design],[data-finish],[data-color],[data-bow],[data-face],[data-motif],[data-back],[data-ball],[data-remove],[data-pack]');
     if (!t) return;
     var b = ball();
+    if (t.hasAttribute('data-job')) list().job = t.getAttribute('data-job');
     if (t.hasAttribute('data-design')) b.design = t.getAttribute('data-design');
     if (t.hasAttribute('data-finish')) {
       b.finish = t.getAttribute('data-finish');
@@ -456,7 +595,22 @@
     renderBall();
     renderList();
   };
+  var classText = document.getElementById('class-text');
+  if (classText) classText.onblur = function () {
+    list().classTouched = true;
+    updateClassField();
+  };
+  if (classText) classText.oninput = function (e) {
+    list().classText = e.target.value;
+    updateClassField();
+    renderBall();
+    renderList();
+  };
   var nameText = document.getElementById('name-text');
+  if (nameText) nameText.onblur = function () {
+    ball().touched = true;
+    updateNameField(ball());
+  };
   if (nameText) nameText.oninput = function (e) {
     ball().text = e.target.value;
     updateNameField(ball());
@@ -497,7 +651,9 @@
       return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c];
     });
   }
-  photoBalls.pack = 'none';
-  namedBalls.pack = 'none';
+  photoBalls.pack = '1';
+  namedBalls.pack = '1';
+  namedBalls.job = 'name';
+  namedBalls.classText = '';
   render();
 })();

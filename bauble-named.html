@@ -3,114 +3,1629 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Макет · именной шар</title>
-<link rel="stylesheet" href="assets/fonts.css"/>
-<link rel="stylesheet" href="assets/bauble-mock.css?v=8"/>
+<title>Ёлочный шар с именем — VigSharm, Армавир</title>
+<meta name="description" content="Ёлочный шар с именем или пожеланием в подарочной коробочке. 550 ₽ за шар, готовим за 2–3 дня. Самовывоз и доставка по Армавиру."/>
+<meta property="og:type" content="website"/>
+<meta property="og:locale" content="ru_RU"/>
+<meta property="og:site_name" content="VigSharm"/>
+<meta property="og:title" content="Ёлочный шар с именем — VigSharm"/>
+<meta property="og:description" content="Имя или тёплые слова на ёлочном шаре, в своей коробочке с окошком. Армавир."/>
+<meta property="og:image" content="https://vigsharm.ru/preview/bauble-ex-gift.webp?v=4"/>
+<meta property="og:image:type" content="image/webp"/>
+<meta property="og:image:width" content="1000"/>
+<meta property="og:image:height" content="1000"/>
+<link rel="icon" href="favicon.svg" type="image/svg+xml"/>
+<link rel="stylesheet" href="assets/fonts.css?v=20260926-release"/>
+<link rel="stylesheet" href="assets/style.css?v=20260926-release"/>
+<link rel="stylesheet" href="assets/emoji-icons.css?v=20260926-release"/>
+<link rel="stylesheet" href="assets/site-marshmallow.css?v=20260926-qty-step"/>
+<link rel="stylesheet" href="assets/menu-marshmallow.css?v=20260926-release"/>
+<link rel="stylesheet" href="assets/season.css?v=20261020-tap"/>
+<!-- Yandex.Metrika counter -->
+<script>
+(function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};m[i].l=1*new Date();for(var j=0;j<document.scripts.length;j++){if(document.scripts[j].src===r){return;}}k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})(window,document,'script','https://mc.yandex.ru/metrika/tag.js?id=113074033','ym');
+ym(113074033,'init',{ssr:true,webvisor:true,clickmap:true,ecommerce:"dataLayer",accurateTrackBounce:true,trackLinks:true});
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/113074033" style="position:absolute;left:-9999px;" alt=""/></div></noscript>
+<!-- /Yandex.Metrika counter -->
 <style>
-  .stage.is-motif { background: #fff; }
-  .stage.is-motif img.hero { object-fit: contain; }
+  .bauble-page {
+    --ink: #1e293b;
+    --muted: #475569;
+    --line: #ebebeb;
+    --coral: #ff6b5a;
+    --grad: linear-gradient(135deg, #ff6b6b, #ff8e53);
+    color: var(--ink);
+    letter-spacing: -0.02em;
+  }
+  .bauble-page *, .bn-bar, .bn-bar *, .sheet, .sheet * { box-sizing: border-box; }
+  .bn-bar, .sheet {
+    --ink: #1e293b;
+    --muted: #475569;
+    --line: #ebebeb;
+    --coral: #ff6b5a;
+    --grad: linear-gradient(135deg, #ff6b6b, #ff8e53);
+    color: var(--ink);
+  }
+  .wrap {
+    width: min(960px, calc(100% - 32px));
+    margin: 8px auto 48px;
+  }
+  .back {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    min-height: 40px;
+    margin: 0 0 12px;
+    padding: 0 14px;
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, .05), 0 2px 8px rgba(0, 0, 0, .02);
+    color: var(--ink);
+    font-size: 13px;
+    font-weight: 750;
+  }
+  .back:hover { color: var(--coral); }
+  .mock-note {
+    margin: 32px 0 0;
+    color: var(--muted);
+    font-size: 11px;
+    font-weight: 650;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .mock-note a { color: var(--muted); }
+  .card {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(300px, 1fr);
+    background: #fff;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, .05), 0 2px 8px rgba(0, 0, 0, .02);
+  }
+  .photo {
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+  }
+  .photo .bn-hero {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1;
+    object-fit: cover;
+    background: #efe9e2;
+  }
+  .ex-cap {
+    margin: 0;
+    padding: 10px 12px 0;
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.35;
+  }
+  .examples {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    padding: 10px 12px 12px;
+  }
+  .examples[hidden] { display: none; }
+  .examples button {
+    padding: 0;
+    border: 1.5px solid var(--line);
+    border-radius: 12px;
+    overflow: hidden;
+    background: #f7f6f4;
+    cursor: pointer;
+  }
+  .examples button.is-on {
+    border-color: var(--coral);
+    box-shadow: 0 0 0 3px rgba(255, 107, 90, .14);
+  }
+  .examples img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1;
+    object-fit: cover;
+  }
+  .info { padding: 28px 32px 32px; }
+  .tag {
+    display: inline-block;
+    margin: 0;
+    padding: 4px 10px;
+    border: 1.5px solid #f3d7df;
+    border-radius: 999px;
+    background: #fff1f4;
+    font-size: 12px;
+    font-weight: 650;
+  }
+  .info h1 {
+    margin: 14px 0 0;
+    font-size: 30px;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.12;
+  }
+  .lead {
+    margin: 10px 0 0;
+    max-width: 38ch;
+    color: var(--muted);
+    font-size: 16px;
+    line-height: 1.45;
+  }
+  .spec {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px 16px;
+    margin: 16px 0 0;
+    padding: 14px 0 0;
+    border-top: 1px solid var(--line);
+    list-style: none;
+    line-height: 1.3;
+  }
+  .spec li {
+    padding-left: 10px;
+    border-left: 2.5px solid #ffd2c6;
+  }
+  .spec span { display: block; color: var(--muted); font-size: 12px; }
+  .spec b { display: block; font-size: 14px; font-weight: 650; }
+  .price-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px 14px;
+    margin-top: 18px;
+  }
+  .bn-price { margin: 0; }
+  .bn-price small {
+    display: block;
+    color: var(--muted);
+    font-size: 12px;
+  }
+  .bn-price strong {
+    display: block;
+    margin-top: 2px;
+    font-size: 30px;
+    font-weight: 750;
+    letter-spacing: -0.04em;
+    line-height: 1.1;
+  }
+  .season {
+    margin: 0;
+    padding: 6px 10px;
+    border: 1.5px solid #efe0c4;
+    border-radius: 12px;
+    background: #fff7e8;
+    font-size: 12px;
+    line-height: 1.35;
+    white-space: nowrap;
+  }
+  .spec-side { display: none; }
+  .season b { display: block; font-weight: 750; }
+  .tiles {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-top: 22px;
+  }
+  .tiles button {
+    display: flex;
+    flex-direction: column;
+    padding: 0 0 8px;
+    border: 1.5px solid var(--line);
+    border-radius: 16px;
+    overflow: hidden;
+    background: #fff;
+    color: var(--ink);
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+    transition: border-color .15s, box-shadow .15s;
+  }
+  .tiles img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+  }
+  .tiles b {
+    display: block;
+    padding: 6px 10px 0;
+    font-size: 15px;
+    font-weight: 750;
+  }
+  .tiles small {
+    display: block;
+    padding: 2px 10px 0;
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.3;
+  }
+  .tiles button.is-on {
+    border-color: var(--coral);
+    box-shadow: 0 0 0 3px rgba(255, 107, 90, .14);
+  }
+  .tiles button.is-flash { animation: flash .9s ease; }
+  @keyframes flash {
+    0%, 100% { box-shadow: 0 0 0 3px rgba(255, 107, 90, .14); }
+    40% { box-shadow: 0 0 0 7px rgba(255, 107, 90, .28); }
+  }
+  .ask { margin-top: 16px; }
+  .ask[hidden] { display: none; }
+  .ask label {
+    display: block;
+    margin-top: 12px;
+  }
+  .ask label:first-child { margin-top: 0; }
+  .ask label > span {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 14px;
+    font-weight: 700;
+  }
+  .file span {
+    display: inline;
+    margin: 0;
+    font-size: 15px;
+  }
+  .ask input[type="text"],
+  .ask textarea {
+    width: 100%;
+    min-height: 48px;
+    padding: 10px 14px;
+    border: 1.5px solid var(--line);
+    border-radius: 14px;
+    background: #fff;
+    color: var(--ink);
+    font: inherit;
+    font-size: 16px;
+  }
+  .ask textarea {
+    display: block;
+    min-height: 112px;
+    max-height: 260px;
+    line-height: 1.4;
+    resize: vertical;
+  }
+  .ask input[type="text"]:focus,
+  .ask textarea:focus {
+    outline: none;
+    border-color: var(--coral);
+    box-shadow: 0 0 0 4px rgba(255, 107, 107, .16);
+  }
+  .ask input.is-bad,
+  .ask textarea.is-bad,
+  .file.is-bad {
+    border-color: var(--coral);
+    background: #fff7f6;
+  }
+  .saved {
+    display: grid;
+    gap: 6px;
+    margin: 0 0 14px;
+    padding: 0;
+    list-style: none;
+  }
+  .saved[hidden] { display: none; }
+  .saved li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 6px 6px 12px;
+    border: 1.5px solid var(--line);
+    border-radius: 14px;
+    background: #fff;
+  }
+  .saved .dot {
+    flex: none;
+    width: 20px;
+    height: 20px;
+    border: 1px solid rgba(0, 0, 0, .12);
+    border-radius: 50%;
+    background: radial-gradient(circle at 32% 28%, rgba(255, 255, 255, .7), rgba(255, 255, 255, 0) 40%), var(--c, #e9e4ee);
+  }
+  .saved .txt { flex: 1; min-width: 0; line-height: 1.25; }
+  .saved .txt b {
+    display: block;
+    overflow: hidden;
+    font-size: 14px;
+    font-weight: 750;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .saved .txt small { color: var(--muted); font-size: 12px; }
+  .saved button {
+    flex: none;
+    min-height: 0;
+    height: 34px;
+    padding: 0 10px;
+    border: 0;
+    border-radius: 999px;
+    background: #f5f5f4;
+    color: var(--ink);
+    font: inherit;
+    font-size: 13px;
+    font-weight: 650;
+    cursor: pointer;
+  }
+  .saved button[data-del] { width: 34px; padding: 0; font-size: 18px; }
+  .add-ball {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    width: 100%;
+    min-height: 46px;
+    margin-top: 14px;
+    border: 1.5px dashed #f0b9ad;
+    border-radius: 14px;
+    background: #fff7f5;
+    color: var(--ink);
+    font: inherit;
+    font-size: 15px;
+    font-weight: 750;
+    cursor: pointer;
+  }
+  .add-ball span { color: var(--coral); font-size: 20px; line-height: 1; }
+  .add-ball:hover { border-color: var(--coral); }
+  .add-ball[hidden], .stepper[hidden] { display: none; }
+  .ideas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 10px;
+  }
+  .ideas button {
+    padding: 6px 12px;
+    border: 1.5px solid #f3d7df;
+    border-radius: 999px;
+    background: #fff1f4;
+    color: var(--ink);
+    font: inherit;
+    font-size: 13px;
+    font-weight: 650;
+    cursor: pointer;
+  }
+  .ideas button:hover { border-color: var(--coral); }
+  .hint {
+    margin: 8px 0 0;
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.4;
+  }
+  .warn {
+    display: none;
+    margin: 8px 0 0;
+    color: #c45c4a;
+    font-size: 13px;
+    font-weight: 650;
+  }
+  .ask.is-bad .warn { display: block; }
+  .file {
+    display: flex;
+    align-items: center;
+    min-height: 48px;
+    padding: 10px 14px;
+    border: 1.5px dashed #e3d6cc;
+    border-radius: 14px;
+    background: #fffaf6;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  .qty-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 18px;
+    padding-top: 16px;
+    border-top: 1px solid var(--line);
+  }
+  .stepper {
+    display: inline-flex;
+    align-items: center;
+    border: 1.5px solid var(--line);
+    border-radius: 999px;
+  }
+  .stepper button {
+    width: 44px;
+    height: 44px;
+    border: 0;
+    border-radius: 999px;
+    background: transparent;
+    color: var(--ink);
+    font: inherit;
+    font-size: 20px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  .stepper button:disabled { opacity: .3; cursor: default; }
+  .stepper output {
+    min-width: 36px;
+    text-align: center;
+    font-size: 17px;
+    font-weight: 750;
+  }
+  .total { margin: 0 0 0 auto; text-align: right; }
+  .total small {
+    display: block;
+    color: var(--muted);
+    font-size: 12px;
+  }
+  .total strong {
+    display: block;
+    font-size: 22px;
+    font-weight: 750;
+    letter-spacing: -0.03em;
+  }
+  .go {
+    width: 100%;
+    height: 52px;
+    margin-top: 16px;
+    border: 0;
+    border-radius: 999px;
+    background: var(--grad);
+    color: #fff;
+    font: inherit;
+    font-size: 16px;
+    font-weight: 750;
+    cursor: pointer;
+    box-shadow: 0 8px 16px rgba(255, 107, 107, .28);
+  }
+  .fine {
+    margin: 10px 0 0;
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.4;
+  }
+  .bn-steps { margin-top: 40px; }
+  .bn-steps h2 {
+    margin: 0;
+    font-size: 26px;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+  }
+  .step-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin: 18px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+  .step-grid li {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 18px;
+    border: 1.5px solid var(--line);
+    border-radius: 20px;
+    background: #fff;
+  }
+  .step-grid img {
+    flex: none;
+    width: 56px;
+    height: 56px;
+    object-fit: contain;
+  }
+  .step-copy i {
+    display: inline-grid;
+    place-items: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--grad);
+    color: #fff;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 750;
+  }
+  .step-copy b {
+    display: block;
+    margin-top: 6px;
+    font-size: 16px;
+    font-weight: 750;
+  }
+  .step-copy small {
+    display: block;
+    margin-top: 4px;
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.4;
+  }
+  .colors { margin-top: 16px; }
+  .colors-head { margin: 0; font-size: 14px; font-weight: 650; }
+  .colors-head b { font-weight: 750; }
+  .color-mini { display: none; }
+  .swatches { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+  .swatches button {
+    width: 34px;
+    height: 34px;
+    min-height: 0;
+    padding: 0;
+    border: 1.5px solid rgba(0, 0, 0, .12);
+    border-radius: 50%;
+    background: radial-gradient(circle at 32% 28%, rgba(255, 255, 255, .75), rgba(255, 255, 255, 0) 38%), var(--c);
+    box-shadow: 0 0 0 2px #fff, 0 0 0 3.5px transparent;
+    cursor: pointer;
+    transition: box-shadow .15s;
+  }
+  .swatches button.is-on { box-shadow: 0 0 0 2px #fff, 0 0 0 3.5px var(--coral); }
+  .swatches .other {
+    width: auto;
+    padding: 0 12px;
+    border-radius: 999px;
+    background: #fff;
+    border-color: var(--line);
+    color: var(--ink);
+    font: inherit;
+    font-size: 13px;
+    font-weight: 650;
+  }
+  .pickup {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 12px 0 0;
+    font-size: 14px;
+    font-weight: 650;
+  }
+  .pickup img { width: 28px; height: 28px; object-fit: contain; }
+  .faq { margin-top: 40px; }
+  .faq h2 {
+    margin: 0 0 14px;
+    font-size: 26px;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+  }
+  .faq details {
+    border: 1.5px solid var(--line);
+    border-radius: 16px;
+    background: #fff;
+  }
+  .faq details + details { margin-top: 8px; }
+  .faq summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 14px 18px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    list-style: none;
+  }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary::after {
+    content: "+";
+    flex: none;
+    color: var(--coral);
+    font-size: 22px;
+    font-weight: 500;
+    line-height: 1;
+    transition: transform .15s;
+  }
+  .faq details[open] summary::after { transform: rotate(45deg); }
+  .faq details p {
+    margin: 0;
+    padding: 0 18px 16px;
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.45;
+  }
+  .sets { margin-top: 40px; }
+  .sets h2 {
+    margin: 0;
+    font-size: 26px;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+  }
+  .sets > p {
+    margin: 6px 0 0;
+    color: var(--muted);
+    font-size: 15px;
+  }
+  .set-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-top: 18px;
+  }
+  .set-grid button {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    border: 1.5px solid var(--line);
+    border-radius: 20px;
+    overflow: hidden;
+    background: #fff;
+    color: var(--ink);
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+    box-shadow: 0 10px 28px rgba(40, 36, 60, .05);
+    transition: transform .15s, box-shadow .15s;
+  }
+  .set-grid button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 16px 40px rgba(40, 36, 60, .08);
+  }
+  .set-grid img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+  }
+  .set-copy { padding: 14px 16px 16px; }
+  .set-copy b {
+    display: block;
+    font-size: 17px;
+    font-weight: 750;
+  }
+  .set-copy small {
+    display: block;
+    margin-top: 4px;
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.4;
+  }
+  .set-copy em {
+    display: inline-block;
+    margin-top: 10px;
+    color: var(--coral);
+    font-style: normal;
+    font-size: 14px;
+    font-weight: 750;
+  }
+  .sheet {
+    position: fixed;
+    inset: 0;
+    z-index: 120;
+    display: none;
+    place-items: center;
+    padding: 16px;
+    background: rgba(30, 30, 40, .28);
+  }
+  .sheet.is-on { display: grid; }
+  .sheet .panel {
+    width: min(440px, 100%);
+    padding: 22px 22px 18px;
+    border-radius: 22px;
+    background: #fff;
+    box-shadow: 0 16px 40px rgba(30, 41, 59, .12);
+  }
+  .sheet h2 { margin: 0; font-size: 22px; font-weight: 800; letter-spacing: -0.03em; }
+  .sheet-sub { margin: 4px 0 0; color: var(--muted); font-size: 14px; }
+  .sheet pre {
+    max-height: 30vh;
+    overflow: auto;
+    margin: 14px 0 0;
+    padding: 12px 14px;
+    border-radius: 14px;
+    background: #f6f6f4;
+    white-space: pre-wrap;
+    font: inherit;
+    font-size: 14px;
+    line-height: 1.45;
+  }
+  .send-to { display: grid; gap: 8px; margin-top: 14px; }
+  .send-to a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 12px;
+    border: 1.5px solid var(--line);
+    border-radius: 16px;
+    color: var(--ink);
+    text-decoration: none;
+    transition: border-color .15s;
+  }
+  .send-to a:hover { border-color: var(--coral); }
+  .send-to img { width: 40px; height: 40px; object-fit: contain; }
+  .send-to b { display: block; font-size: 15px; }
+  .send-to small { display: block; color: var(--muted); font-size: 13px; }
+  .sheet-note { margin: 8px 0 0; color: #2f8f5b; font-size: 13px; font-weight: 650; text-align: center; }
+  .sheet button {
+    width: 100%;
+    height: 48px;
+    margin-top: 12px;
+    border: 1.5px solid var(--line);
+    border-radius: 999px;
+    background: #fff;
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  @media (min-width: 760px) {
+    .card { overflow: visible; }
+    .photo {
+      position: sticky;
+      top: 16px;
+      align-self: start;
+      border-radius: 20px 0 0 20px;
+    }
+    .photo .bn-hero { border-radius: 20px 0 0 0; }
+    .spec-side { display: grid; margin: 4px 12px 0; padding: 14px 4px 18px; }
+    .info .spec { display: none; }
+    .info { padding-top: 24px; }
+    .lead { max-width: none; font-size: 15px; }
+    .info h1 { margin-top: 12px; }
+    .price-row { margin-top: 14px; }
+    .tiles { margin-top: 14px; }
+    .ask { margin-top: 12px; }
+    .qty-row { margin-top: 14px; padding-top: 12px; }
+    .go { margin-top: 12px; }
+  }
+  @media (max-width: 759px) {
+    .wrap { width: min(430px, 100%); margin: 4px auto 32px; }
+    .back { margin: 0 16px 10px; }
+    .mock-note { padding: 0 16px; }
+    .card {
+      grid-template-columns: 1fr;
+      margin: 0 12px;
+      border-radius: 22px;
+    }
+    .photo { padding: 8px 8px 0; }
+    .photo .bn-hero { border-radius: 16px; }
+    .ex-cap { display: none; }
+    .examples { padding: 8px 0 0; gap: 6px; }
+    .info { padding: 16px 12px 22px; }
+    .lead { font-size: 15px; }
+    .tiles small { display: none; }
+    .info h1 { margin-top: 10px; font-size: 24px; }
+    .bn-price strong { font-size: 26px; }
+    .tiles img { aspect-ratio: 4 / 3; }
+    .tiles b { font-size: 14px; padding: 6px 8px 0; }
+    .bn-steps { margin-top: 28px; padding: 0 16px; }
+    .bn-steps h2 { font-size: 22px; }
+    .faq { margin-top: 28px; padding: 0 16px; }
+    .faq h2 { font-size: 22px; }
+    .faq summary { padding: 13px 14px; }
+    .faq details p { padding: 0 14px 14px; }
+    .swatches { gap: 6px; }
+    .swatches button { width: 32px; height: 32px; }
+    .swatches .other { padding: 0 9px; font-size: 12px; }
+    .step-grid { grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 12px; }
+    .step-grid li {
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      padding: 12px 6px;
+      text-align: center;
+    }
+    .step-grid img { width: 44px; height: 44px; }
+    .step-copy i { display: none; }
+    .step-copy b { margin-top: 0; font-size: 13px; line-height: 1.25; }
+    .step-copy small { display: none; }
+    .sets { margin-top: 28px; padding: 0 16px; }
+    .sets h2 { font-size: 22px; }
+    .set-grid {
+      display: flex;
+      gap: 12px;
+      margin: 14px -16px 0;
+      padding: 0 16px 8px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+    }
+    .set-grid button {
+      flex: 0 0 72%;
+      scroll-snap-align: start;
+    }
+    body { padding-bottom: calc(76px + env(safe-area-inset-bottom)); }
+    .colors-head { display: flex; align-items: center; gap: 10px; }
+    .color-mini {
+      display: block;
+      width: 48px;
+      height: 48px;
+      flex: none;
+      border-radius: 12px;
+      border: 1.5px solid var(--line);
+      background-repeat: no-repeat;
+    }
+    .color-mini[hidden] { display: none; }
+    .bn-bar {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 5;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 10px 16px calc(10px + env(safe-area-inset-bottom));
+      border-top: 1.5px solid var(--line);
+      background: rgba(255, 255, 255, .96);
+      box-shadow: 0 -8px 24px rgba(30, 41, 59, .08);
+      transform: translateY(110%);
+      transition: transform .2s ease;
+    }
+    body.has-bar .bn-bar { transform: none; }
+    body.is-sheet .bn-bar { transform: translateY(110%); }
+    .bar-sum { font-size: 15px; font-weight: 750; white-space: nowrap; }
+    .bn-bar button {
+      flex: none;
+      height: 46px;
+      padding: 0 20px;
+      border: 0;
+      border-radius: 999px;
+      background: var(--grad);
+      color: #fff;
+      font: inherit;
+      font-size: 15px;
+      font-weight: 750;
+      cursor: pointer;
+    }
+  }
+  @media (min-width: 760px) {
+    .bn-bar { display: none; }
+  }
 </style>
 </head>
-<body data-kind="named">
-<div class="page">
-  <p class="eyebrow">Макет · в каталог не входит</p>
-  <div class="layout">
-  <div class="stage-col">
-    <div class="stage">
-      <span class="stage-badge">Превью</span>
-      <img class="hero" id="hero" src="preview/bauble-gloss-pink.webp?v=1" alt="Чистый шар с бантом" width="1000" height="1000"/>
-      <img class="plate" id="plate-back" alt="" hidden/>
-      <div class="photo-slot" id="photo-slot" hidden>
-        <img id="slot-img" alt=""/>
-        <div class="slot-card" id="slot-card" hidden></div>
+<body class="antialiased notranslate" translate="no">
+<a class="skip-link" href="#main-content">Перейти к содержанию</a>
+<header id="top" class="header site-header  "><a href="index.html" class="brand-logo" aria-label="Вигшарм — на главную"><picture><source srcset="images/vigsharm-logo@2x.webp" type="image/webp"/><img src="images/vigsharm-logo.png" alt="Вигшарм — студия аэродизайна" width="160" height="40" decoding="async"/></picture></a><nav class="nav" aria-label="Основная навигация"><div class="mobile-menu-head"><div><small>Вигшарм</small><strong>Меню</strong></div><button type="button" aria-label="Закрыть меню">×</button></div><a href="catalog.html"><span class="nav-icon icon-balloons"><img class="" src="icons/menu-catalog.webp?v=6" alt="" aria-hidden="true"/></span><span>Каталог</span><b aria-hidden="true">→</b></a><a href="price.html"><span class="nav-icon icon-price"><img class="" src="icons/menu-price.webp?v=6" alt="" aria-hidden="true"/></span><span>Прайс</span><b aria-hidden="true">→</b></a><a href="delivery.html"><span class="nav-icon icon-delivery"><img class="" src="icons/menu-delivery.webp?v=6" alt="" aria-hidden="true"/></span><span>Доставка и оплата</span><b aria-hidden="true">→</b></a><a href="index.html#delivery"><span class="nav-icon icon-checklist"><img class="" src="icons/menu-checklist.webp?v=6" alt="" aria-hidden="true"/></span><span>Как заказать</span><b aria-hidden="true">→</b></a><a href="index.html#about"><span class="nav-icon icon-sparkles"><img class="" src="icons/menu-about.webp?v=6" alt="" aria-hidden="true"/></span><span>О нас</span><b aria-hidden="true">→</b></a><div class="mobile-menu-footer"><a class="mobile-phone" href="tel:+79284440142"><img class="vig-emoji" src="icons/phone-smartphone.webp?v=1" alt="" width="24" height="24" decoding="async" aria-hidden="true"/><span><small>Позвонить</small><strong>+7 928 444-01-42</strong></span></a><small class="mobile-contact-title">Написать в мессенджер</small><div class="mobile-contact-options"><a href="https://wa.me/79284440142?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%A5%D0%BE%D1%87%D1%83%20%D1%81%D0%B4%D0%B5%D0%BB%D0%B0%D1%82%D1%8C%20%D0%B7%D0%B0%D0%BA%D0%B0%D0%B7%20%D0%B2%20%D0%92%D0%B8%D0%B3%D1%88%D0%B0%D1%80%D0%BC." target="_blank" rel="noreferrer" aria-label="Написать в WhatsApp"><img src="icons/brand-whatsapp.webp?v=9" alt="" width="24" height="24" decoding="async"/><span>WhatsApp</span></a><a href="https://t.me/Olgamzz?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%A5%D0%BE%D1%87%D1%83%20%D1%81%D0%B4%D0%B5%D0%BB%D0%B0%D1%82%D1%8C%20%D0%B7%D0%B0%D0%BA%D0%B0%D0%B7%20%D0%B2%20%D0%92%D0%B8%D0%B3%D1%88%D0%B0%D1%80%D0%BC." target="_blank" rel="noreferrer" aria-label="Написать в Telegram"><img src="icons/brand-telegram.webp?v=9" alt="" width="24" height="24" decoding="async"/><span>Telegram</span></a><a href="https://max.ru/u/f9LHodD0cOJwY09H6Zj63nYK_X8tPZGb3CODIvTT7FWkRzrgbh5F582AiB8" target="_blank" rel="noreferrer" aria-label="Написать в MAX"><img src="icons/brand-max.webp?v=9" alt="" width="24" height="24" decoding="async"/><span>MAX</span></a></div><span><img class="vig-emoji" data-emoji="pin" src="icons/clay-pin.webp?v=1" alt="" width="20" height="20" decoding="async" aria-hidden="true"/> Армавир · доставка по городу и за его пределы</span></div></nav><div class="header-side"><span class="location">Армавир</span><a class="header-phone" href="tel:+79284440142" aria-label="Позвонить в Вигшарм: +7 928 444-01-42"><img class="vig-emoji" data-emoji="phone" src="icons/phone-smartphone.webp?v=1" alt="" width="20" height="20" decoding="async" aria-hidden="true"/><strong>+7 928 444-01-42</strong></a><button class="menu-button" type="button" aria-label="Открыть меню" aria-expanded="false"><span></span><span></span></button></div></header>
+<button class="menu-backdrop" type="button" aria-label="Закрыть меню" tabindex="-1"></button>
+<main id="main-content" class="bauble-page" tabindex="-1">
+<div class="wrap">
+  <a class="back" href="catalog.html"><span aria-hidden="true">←</span> Вернуться в каталог</a>
+  <article class="card" id="card">
+    <div class="photo">
+      <img class="bn-hero" id="hero" src="preview/bauble-ex-gift.webp?v=4" alt="Шар с именем Даша и подарочные коробочки" width="1000" height="1000"/>
+      <p class="ex-cap" id="ex-cap">Каждый шар — в своей коробочке с окошком</p>
+      <div class="examples" id="examples" role="group" aria-label="Примеры готовых шаров"></div>
+      <ul class="spec spec-side" id="spec-side" aria-label="Какой шар"></ul>
+    </div>
+    <div class="info">
+      <p class="tag">Ёлочные шары</p>
+      <h1 id="title">Ёлочный шар с именем</h1>
+      <p class="lead" id="lead">Имя или тёплые слова на шаре — подарок, который достают каждый Новый год.</p>
+      <div class="price-row">
+        <p class="bn-price"><small>Цена за штуку</small><strong>550 ₽</strong></p>
+        <p class="season" id="season"></p>
       </div>
-      <img class="plate" id="plate-front" alt="" hidden/>
-    </div>
-    <p class="hint photo-note" id="photo-note">Чистый шар с бантом. На него наклеим ваш текст.</p>
-  </div>
 
-  <div class="choice">
-  <div class="choice-scroll">
-  <h1>Ёлочный шар <span>с именем</span></h1>
-  <nav class="switch" aria-label="Вид шара">
-    <a href="bauble-photo.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h3l2-2h6l2 2h3v11H4z"/><circle cx="12" cy="13" r="3.2"/></svg>Шар с фото</a>
-    <a href="bauble-named.html" class="is-on" aria-current="page"><svg class="star" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.8l2.4 5 5.5.8-4 3.9.9 5.4L12 15.4 7.2 17.9l.9-5.4-4-3.9 5.5-.8z"/></svg>Именной шар</a>
-  </nav>
+      <div class="tiles" role="group" aria-label="Что наклеить">
+        <button type="button" data-job="name" class="is-on" aria-pressed="true"><img src="preview/bauble-ex-mama.webp?v=4" alt="" width="200" height="150"/><b>Имя</b><small>Подарок близким</small></button>
+        <button type="button" data-job="class" aria-pressed="false"><img src="preview/bauble-ex-classset.webp?v=1" alt="" width="200" height="150"/><b>Класс</b><small>Имя и класс ученику</small></button>
+        <button type="button" data-job="custom" aria-pressed="false"><img src="preview/bauble-ex-logo.webp?v=1" alt="" width="200" height="150"/><b>Свой файл</b><small>Логотип для команды</small></button>
+      </div>
 
-  <div id="named-controls">
-    <h2 id="face-label">Оформление · Надпись</h2>
-    <div class="side-mode face-mode" id="face-mode">
-      <button type="button" data-face="text" class="is-on"><span class="ico ico-text" aria-hidden="true">Аа</span>Надпись</button>
-      <button type="button" data-face="photo"><span class="ico ico-logo" aria-hidden="true"></span>Логотип</button>
-    </div>
-    <div id="motif-block">
-      <h2 id="motif-label">Рисунок</h2>
-      <button type="button" class="motif-none is-on" id="motif-none" data-motif="">Без рисунка</button>
-      <div class="orbs motifs" id="motifs"></div>
-    </div>
-    <div id="text-choice">
-      <label class="field" id="name-field">
-        <span>Текст на шаре</span>
-        <span class="hint field-hint" id="name-hint"></span>
-        <input id="name-text" type="text" maxlength="80" placeholder="Алина или Любимой учительнице"/>
-        <span class="field-foot"><span class="warn" id="name-warn">Впишите имя или пожелание</span><span class="char-count" id="name-count">0/80</span></span>
-      </label>
-    </div>
-    <div id="photo-choice" class="hidden">
-      <label class="drop" id="mark-file">
-        <img id="mark-thumb" alt="" hidden/>
-        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="7.2"/><path d="M9.2 15.2V8.8h3.1a2.2 2.2 0 010 4.4H9.2"/></svg>
-        <b id="mark-label">Загрузите логотип</b>
-        <small id="mark-note">Простой знак, лучше в один цвет</small>
-        <input id="mark-pick" type="file" accept="image/jpeg,image/png,image/webp,image/svg+xml" hidden/>
-      </label>
-      <p class="hint hidden" id="mark-hint">Логотип уйдёт вместе с заявкой.</p>
-      <span class="warn">Загрузите логотип</span>
-    </div>
-    <h2>Покрытие</h2>
-    <div class="side-mode face-mode" id="finish-mode">
-      <button type="button" data-finish="mirror" class="is-on"><span class="ico ico-mirror" aria-hidden="true"></span>Зеркальный</button>
-      <button type="button" data-finish="matte"><span class="ico ico-matte" aria-hidden="true"></span>Матовый</button>
-    </div>
-    <h2 id="color-label">Цвет</h2>
-    <div class="orbs colors" id="colors"></div>
-    <div id="bow-block">
-      <h2 id="bow-label">Бант</h2>
-      <div class="orbs bows" id="bows"></div>
-    </div>
-    <p class="hint hidden" id="matte-bow-note">У матового шара белый бант.</p>
-  </div>
+      <div class="ask" id="panel-name">
+        <ol class="saved" id="saved" aria-label="Уже добавленные шары" hidden></ol>
+        <label>
+          <span id="name-label">Имя или пожелание</span>
+          <input id="name-text" type="text" maxlength="80" placeholder="Алина" autocomplete="off"/>
+        </label>
+        <div class="ideas" role="group" aria-label="Идеи надписей">
+          <button type="button" data-idea="Любимой маме">Любимой маме</button>
+          <button type="button" data-idea="Семья Ивановых" data-pick="Ивановых">Семья Ивановых</button>
+          <button type="button" data-idea="Мой первый Новый год!">Мой первый Новый год</button>
+          <button type="button" data-idea="Лучшему учителю">Лучшему учителю</button>
+        </div>
+        <p class="warn" id="name-warn">Напишите имя или пожелание</p>
+      </div>
 
-  <h2>Набор</h2>
-  <div class="balls" id="balls"></div>
-  <button type="button" class="add" id="add">Ещё шар</button>
-  <h2>Коробки</h2>
-  <p class="hint" id="pack-hint"></p>
-  <div id="pack"></div>
-  </div>
-  <div class="bar">
-    <div><small id="bar-note">490&nbsp;₽ за&nbsp;штуку · 1&nbsp;шар</small><strong id="bar-sum">490&nbsp;₽</strong></div>
-    <button type="button" class="go" id="send">Заявка</button>
-  </div>
-  </div>
-  </div>
+      <div class="ask" id="panel-class" hidden>
+        <label>
+          <span>Класс</span>
+          <input id="class-text" type="text" maxlength="12" placeholder="5 «Г»" autocomplete="off"/>
+        </label>
+        <label>
+          <span>Имена учеников — по одному в строке</span>
+          <textarea id="pupil-list" rows="4" maxlength="3000" placeholder="Алина Петрова&#10;Максим Иванов&#10;Соня Ким" autocomplete="off"></textarea>
+        </label>
+        <p class="hint" id="pupil-count">Можно вставить список из чата класса — посчитаем шары сами.</p>
+        <p class="warn" id="class-warn">Нужны класс и имена</p>
+      </div>
+
+      <div class="ask" id="panel-custom" hidden>
+        <label class="file" id="file-label">
+          <span id="file-name">Приложить рисунок или логотип</span>
+          <input id="file-pick" type="file" accept="image/jpeg,image/png,image/webp,image/svg+xml" hidden/>
+        </label>
+        <p class="hint">Одноцветный знак. Цветной вырежем по контуру и согласуем.</p>
+        <label>
+          <span>Надпись, если её нет на рисунке</span>
+          <input id="custom-text" type="text" maxlength="80" placeholder="С Новым годом!" autocomplete="off"/>
+        </label>
+        <p class="warn" id="custom-warn">Приложите рисунок</p>
+      </div>
+
+      <div class="colors">
+        <p class="colors-head"><span class="color-mini" id="color-mini" aria-hidden="true"></span><span><span id="color-label">Цвет шара</span>: <b id="color-name"></b></span></p>
+        <div class="swatches" id="swatches" role="radiogroup" aria-label="Цвет шара"></div>
+      </div>
+      <button type="button" class="add-ball" id="add-ball"><span aria-hidden="true">+</span> Добавить ещё шар</button>
+
+      <div class="qty-row">
+        <div class="stepper" role="group" aria-label="Количество шаров">
+          <button type="button" id="qty-minus" aria-label="Меньше">−</button>
+          <output id="qty" aria-live="polite">1</output>
+          <button type="button" id="qty-plus" aria-label="Больше">+</button>
+        </div>
+        <p class="total"><small id="total-note">1 шар</small><strong id="total">550 ₽</strong></p>
+      </div>
+      <p class="hint" id="qty-hint" hidden></p>
+
+      <button type="button" class="go" id="send">Оставить заявку</button>
+      <p class="pickup"><img src="icons/ful-pickup.webp?v=4" alt="" width="28" height="28"/><span id="pickup-text"></span></p>
+      <p class="fine">Оплата позже. Сначала согласуем текст.</p>
+      <ul class="spec" id="spec" aria-label="Какой шар"></ul>
+    </div>
+  </article>
+
+  <section class="bn-steps" aria-labelledby="steps-title">
+    <h2 id="steps-title">Как мы делаем</h2>
+    <ol class="step-grid">
+      <li>
+        <img src="icons/menu-checklist.webp" alt="" width="56" height="56" loading="lazy"/>
+        <span class="step-copy"><i>1</i><b>Вы пишете текст</b><small>Имя, пожелание или свой файл — прямо здесь.</small></span>
+      </li>
+      <li>
+        <img src="icons/footer-chat.webp" alt="" width="56" height="56" loading="lazy"/>
+        <span class="step-copy"><i>2</i><b>Присылаем макет</b><small>В WhatsApp покажем, как ляжет надпись, и поправим.</small></span>
+      </li>
+      <li>
+        <img src="icons/comp-box.webp" alt="" width="56" height="56" loading="lazy"/>
+        <span class="step-copy"><i>3</i><b>Забираете подарок</b><small>Готовый шар в своей коробочке с окошком.</small></span>
+      </li>
+    </ol>
+  </section>
+
+  <section class="faq" aria-labelledby="faq-title">
+    <h2 id="faq-title">Частые вопросы</h2>
+    <details>
+      <summary>А если я ошибусь в имени?</summary>
+      <p>Перед работой пришлём макет надписи в WhatsApp. Исправим бесплатно, пока вы не скажете «да».</p>
+    </details>
+    <details>
+      <summary>Можно на каждом шаре своё имя?</summary>
+      <p>Да. Впишите имя, выберите цвет и нажмите «Добавить ещё шар» — у каждого шара своя надпись и свой цвет. Для класса просто вставьте список имён.</p>
+    </details>
+    <details>
+      <summary>Когда платить?</summary>
+      <p>После того как согласуем макет. Оплата при получении.</p>
+    </details>
+    <details>
+      <summary>Можно свой цвет или шрифт?</summary>
+      <p>Буквы делаем белыми или золотыми — подберём под цвет шара. Нужен другой цвет шара — выберите «Другой» и напишите пожелания в заявке.</p>
+    </details>
+  </section>
+
+  <section class="sets" aria-labelledby="sets-title">
+    <h2 id="sets-title">Готовые идеи наборов</h2>
+    <p>Нажмите — откроем нужный вариант, останется вписать имена.</p>
+    <div class="set-grid">
+      <button type="button" data-set="family">
+        <img src="preview/bauble-ex-family3.webp?v=2" alt="Три шара: Мама, Папа, Соня" width="400" height="300" loading="lazy"/>
+        <span class="set-copy"><b>Для семьи · 3 шара</b><small>Каждому своё имя. Повесите на ёлку всей семьёй.</small><em>1 650 ₽ · выбрать</em></span>
+      </button>
+      <button type="button" data-set="class">
+        <img src="preview/bauble-ex-classset.webp?v=1" alt="Шесть синих шаров с именами и классом 5 «Г»" width="400" height="300" loading="lazy"/>
+        <span class="set-copy"><b>На весь класс · от 10 шаров</b><small>Имя и класс каждому ученику. Вставьте список — посчитаем сами.</small><em>от 5 500 ₽ · выбрать</em></span>
+      </button>
+      <button type="button" data-set="team">
+        <img src="preview/bauble-ex-logo.webp?v=1" alt="Белый шар с логотипом и надписью С Новым годом" width="400" height="300" loading="lazy"/>
+        <span class="set-copy"><b>Для коллег · от 5 шаров</b><small>Ваш логотип и поздравление. Подарок клиентам и команде.</small><em>от 2 750 ₽ · выбрать</em></span>
+      </button>
+    </div>
+  </section>
+
+  <p class="mock-note">Макет · в каталог не входит · <a href="bauble-photo.html">Шар с фото</a></p>
+</div>
+<footer><div class="footer-cta"><div><small>Есть повод для праздника?</small><h2>Давайте соберём вашу композицию</h2><p>Расскажите о получателе и бюджете — предложим несколько подходящих идей.</p></div><button type="button">Подобрать композицию <span aria-hidden="true">→</span></button></div><div class="footer-content"><div class="footer-main"><a class="brand-logo footer-logo" href="#top"><picture><source srcset="images/vigsharm-logo@2x.webp" type="image/webp"/><img src="images/vigsharm-logo.png" alt="Вигшарм — студия аэродизайна" width="160" height="40" loading="lazy" decoding="async"/></picture></a><p>Студия аэродизайна в Армавире<br/>с доставкой по городу и за его пределы</p><span>Создаём праздник в деталях с 2020 года</span><small class="footer-social-label">Новые работы и идеи</small><div class="footer-socials" aria-label="Публикации Вигшарм в социальных сетях"><a class="social-vk" href="https://vk.com/vigsharm" target="_blank" rel="noreferrer" aria-label="Вигшарм во ВКонтакте"><img src="icons/brand-vk.webp?v=9" alt="" loading="lazy" decoding="async"/><span>VK</span></a><a class="social-instagram" href="https://www.instagram.com/vigsharm" target="_blank" rel="noreferrer" aria-label="Вигшарм в Instagram"><img src="icons/brand-instagram.webp?v=9" alt="" loading="lazy" decoding="async"/><span>Instagram</span></a><a class="social-telegram" href="https://t.me/Olgamzz" target="_blank" rel="noreferrer" aria-label="Вигшарм в Telegram"><img src="icons/brand-telegram.webp?v=9" alt="" loading="lazy" decoding="async"/><span>Telegram</span></a></div></div><nav class="footer-nav" aria-label="Навигация в подвале"><strong>Навигация</strong><a href="catalog.html">Каталог</a><a href="index.html#characters">Персонажи</a><a href="price.html">Прайс</a><a href="delivery.html">Доставка и оплата</a><a href="index.html#about">О студии</a></nav><div class="footer-contacts"><strong>Мы на связи</strong><a class="footer-phone" href="tel:+79284440142"><img class="vig-emoji" data-emoji="phone" src="images/contact-phone.png?v=6" alt="" width="24" height="24" decoding="async" aria-hidden="true"/><span><small>Позвонить</small>+7 928 444-01-42</span></a><button type="button" class="footer-chat"><img class="vig-emoji" data-emoji="chat" src="images/contact-chat.png?v=6" alt="" width="24" height="24" decoding="async" aria-hidden="true"/><span><small>Написать</small>В мессенджер</span></button><small>Ответим, уточним детали и рассчитаем стоимость</small></div></div><div class="footer-bottom"><span>© 2026 Вигшарм</span><span>Делаем из шаров всё! <img class="vig-emoji" data-emoji="balloon" src="icons/line-balloon.svg" alt="" width="24" height="24" decoding="async" aria-hidden="true"/></span><a href="#top">Наверх ↑</a></div></footer>
+</main>
+
+<div class="bn-bar" id="bar">
+  <span class="bar-sum" id="bar-sum"></span>
+  <button type="button" id="bar-send">Оставить заявку</button>
 </div>
 
 <div class="sheet" id="sheet">
-  <div class="card">
-    <h2 style="margin-top:0">Так уйдёт в WhatsApp</h2>
+  <div class="panel">
+    <h2>Куда отправить заявку?</h2>
+    <p class="sheet-sub">Текст уже готов. Ответим и пришлём макет надписи.</p>
     <pre id="msg"></pre>
-    <div class="attach" id="attach" hidden></div>
-    <p class="hint hidden" id="attach-note"></p>
-    <button type="button" id="share" class="hidden">Отправить с логотипом</button>
-    <button type="button" id="close">Понятно</button>
+    <div class="send-to">
+      <a id="to-wa" target="_blank" rel="noreferrer"><img src="icons/brand-whatsapp.webp?v=9" alt="" width="40" height="40"/><span><b>WhatsApp</b><small>Сообщение подставится само</small></span></a>
+      <a id="to-tg" target="_blank" rel="noreferrer"><img src="icons/brand-telegram.webp?v=9" alt="" width="40" height="40"/><span><b>Telegram</b><small>Текст скопируем — вставьте в чат</small></span></a>
+      <a id="to-call"><img src="icons/phone-smartphone.webp?v=1" alt="" width="40" height="40"/><span><b>Позвонить</b><small id="call-label"></small></span></a>
+    </div>
+    <p class="sheet-note" id="copied" hidden>Текст скопирован</p>
+    <button type="button" id="close">Вернуться к шару</button>
   </div>
 </div>
+
+<script src="assets/site.js?v=20261022-grid-photo"></script>
 <script>
 (function () {
-  var s = document.createElement('script');
-  s.src = 'assets/' + 'bauble-mock-2.' + 'js?v=17';
-  document.body.appendChild(s);
+  var PRICE = 550;
+  var SEASON = {
+    lastMonth: 11,
+    lastDay: 29,
+    text: 'Делаем 2–3 дня · заказы до 29.12',
+    closed: 'Новогодние заказы закрыты',
+    closedText: 'Пишите — уточним, успеем ли'
+  };
+  var PICKUP = 'Самовывоз бесплатно · доставка по Армавиру 200 ₽';
+  // TODO подтвердить: размер, материал и способ нанесения
+  var SPEC = [
+    { k: 'Диаметр', v: '8 см' },
+    { k: 'Шар', v: 'пластик, не бьётся' },
+    { k: 'Надпись', v: 'плёнка, не стирается' },
+    { k: 'В комплекте', v: 'бант и коробочка' }
+  ];
+  var QTY_MAX = 99;
+  var PHONE = '79284440142', PHONE_LABEL = '+7 928 444-01-42';
+  var TG_URL = 'https://t.me/Olgamzz';
+  var COLORS = [
+    { id: 'violet', name: 'фиолетовый', hex: '#7d4fb3', photo: 'preview/bauble-ex-gift.webp?v=4' },
+    { id: 'red', name: 'красный', hex: '#c8202f', photo: 'preview/bauble-ex-family.webp?v=3', mini: '115% 50% 60%' },
+    { id: 'wine', name: 'бордовый', hex: '#7a1e2c', photo: 'preview/bauble-color-wine.webp?v=1', mini: '250% 45% 72%' },
+    { id: 'blue', name: 'синий', hex: '#1f3f9a', photo: 'preview/bauble-ex-class.webp?v=3', mini: '125% 50% 62%' },
+    { id: 'green', name: 'изумрудный', hex: '#1f7a5a', photo: 'preview/bauble-color-green.webp?v=1' },
+    { id: 'pink', name: 'розовый', hex: '#f2a7bd', photo: 'preview/bauble-color-pink.webp?v=1' },
+    { id: 'white', name: 'белый', hex: '#f4f4f2', photo: 'preview/bauble-color-white.webp?v=1' },
+    { id: 'gold', name: 'золотой', hex: '#c9a24a', photo: 'preview/bauble-color-gold.webp?v=1' }
+  ];
+  var COLOR_OTHER = { id: 'other', name: 'другой — обсудим' };
+  var BAD = /[^\s0-9A-Za-z\u0400-\u04FF.,!?\-—–«»"'():;\/&+№]/;
+
+  var PHOTOS = {
+    gift: { src: 'preview/bauble-ex-gift.webp?v=4', alt: 'Шар с именем Даша и подарочные коробочки', cap: 'Каждый шар — в своей коробочке с окошком' },
+    mama: { src: 'preview/bauble-ex-mama.webp?v=4', alt: 'Матовый шар «Любимой маме»', cap: 'Пожелание · «Любимой маме»' },
+    family: { src: 'preview/bauble-ex-family.webp?v=3', alt: 'Красный шар «Семья Ивановых»', cap: 'Для всей семьи · «Семья Ивановых»' },
+    family3: { src: 'preview/bauble-ex-family3.webp?v=2', alt: 'Три шара: Мама, Папа, Соня', cap: 'Набор для семьи · у каждого своё имя' },
+    classset: { src: 'preview/bauble-ex-classset.webp?v=1', alt: 'Шесть синих шаров с именами и классом 5 «Г»', cap: 'На весь класс · имя и класс каждому' },
+    pupil: { src: 'preview/bauble-ex-class.webp?v=3', alt: 'Синий шар «Максим, 5 «Г»»', cap: 'Один шар · имя и класс' },
+    logo: { src: 'preview/bauble-ex-logo.webp?v=1', alt: 'Белый шар с логотипом и надписью С Новым годом', cap: 'Логотип и поздравление · одним цветом' }
+  };
+
+  var MODES = {
+    name: {
+      title: 'Ёлочный шар с именем',
+      lead: 'Имя или тёплые слова на шаре — подарок, который достают каждый Новый год.',
+      photos: ['gift', 'mama', 'family', 'family3']
+    },
+    class: {
+      title: 'Ёлочный шар для класса',
+      lead: 'Каждому ученику — шар с именем и классом. Подарок от родительского комитета.',
+      photos: ['classset', 'pupil', 'gift']
+    },
+    custom: {
+      title: 'Ёлочный шар со своим макетом',
+      lead: 'Ваш рисунок или логотип — подарок коллегам, клиентам и команде.',
+      photos: ['logo', 'gift']
+    }
+  };
+
+  var SETS = {
+    family: { job: 'name', qty: 3 },
+    class: { job: 'class', qty: 10 },
+    team: { job: 'custom', qty: 5 }
+  };
+
+  var STORE_KEY = 'vigsharm-bauble-named';
+
+  var job = 'name';
+  var qty = 1;
+  var file = null;
+  var asked = false;
+  var addAsked = false;
+  var color = COLORS[0];
+  var saved = [];
+  var editAt = null;
+
+  function $(id) { return document.getElementById(id); }
+  function val(id) { return $(id).value.trim(); }
+  function glyph(s) { return BAD.test(s); }
+  function esc(s) {
+    return s.replace(/[&<>"]/g, function (ch) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[ch];
+    });
+  }
+  function colorById(id) {
+    if (id === COLOR_OTHER.id) return COLOR_OTHER;
+    return COLORS.filter(function (c) { return c.id === id; })[0] || COLORS[0];
+  }
+  function pupils() {
+    return $('pupil-list').value.split('\n').map(function (s) { return s.trim(); }).filter(Boolean);
+  }
+  function nameBalls() {
+    var list = saved.slice();
+    if (val('name-text')) {
+      var at = editAt === null ? list.length : Math.min(editAt, list.length);
+      list.splice(at, 0, { t: val('name-text'), c: color.id });
+    }
+    return list;
+  }
+  function count() {
+    if (job === 'name') return Math.max(1, nameBalls().length);
+    if (job === 'class') return Math.max(1, pupils().length);
+    return qty;
+  }
+  function names(n) {
+    var a = n % 10, b = n % 100;
+    if (a === 1 && b !== 11) return n + ' имя';
+    if (a >= 2 && a <= 4 && (b < 12 || b > 14)) return n + ' имени';
+    return n + ' имён';
+  }
+
+  function store() {
+    try {
+      localStorage.setItem(STORE_KEY, JSON.stringify({
+        saved: saved,
+        cur: $('name-text').value,
+        col: color.id,
+        at: editAt,
+        cls: $('class-text').value,
+        list: $('pupil-list').value
+      }));
+    } catch (e) {}
+  }
+
+  function restore() {
+    try {
+      var data = JSON.parse(localStorage.getItem(STORE_KEY) || 'null');
+      if (!data) return;
+      saved = (data.saved || []).filter(function (b) { return b && typeof b.t === 'string' && b.t; });
+      $('name-text').value = data.cur || '';
+      if (data.col) color = colorById(data.col);
+      editAt = typeof data.at === 'number' ? data.at : null;
+      $('class-text').value = data.cls || '';
+      $('pupil-list').value = data.list || '';
+    } catch (e) {}
+  }
+  function rub(n) { return n.toLocaleString('ru-RU') + '\u00a0₽'; }
+  function balls(n) {
+    var a = n % 10, b = n % 100;
+    if (a === 1 && b !== 11) return n + ' шар';
+    if (a >= 2 && a <= 4 && (b < 12 || b > 14)) return n + ' шара';
+    return n + ' шаров';
+  }
+
+  function nameProblem(strict) {
+    var name = val('name-text');
+    if (!name) return strict || !saved.length ? 'Напишите имя или пожелание' : '';
+    if (glyph(name)) return 'Этот значок не вырежем. Оставьте буквы, цифры и знаки препинания.';
+    return '';
+  }
+
+  function problem() {
+    if (job === 'class') {
+      var c = val('class-text');
+      var list = pupils();
+      if (!c && !list.length) return 'Нужны класс и имена';
+      if (!c) return 'Напишите класс';
+      if (!list.length) return 'Впишите имена учеников';
+      if (glyph(c) || list.some(glyph)) return 'Этот значок не вырежем. Оставьте буквы, цифры и кавычки.';
+      return '';
+    }
+    if (job === 'custom') {
+      var t = val('custom-text');
+      if (!file) return 'Приложите рисунок';
+      if (t && glyph(t)) return 'Этот значок не вырежем. Оставьте буквы, цифры и знаки препинания.';
+      return '';
+    }
+    return nameProblem(false);
+  }
+
+  function showPhoto(key) {
+    var item = PHOTOS[key];
+    var hero = $('hero');
+    hero.src = item.src;
+    hero.alt = item.alt;
+    $('ex-cap').textContent = item.cap;
+    document.querySelectorAll('#examples button').forEach(function (el) {
+      var on = el.getAttribute('data-ex') === key;
+      el.classList.toggle('is-on', on);
+      el.setAttribute('aria-pressed', on ? 'true' : 'false');
+    });
+  }
+
+  function showColorPhoto() {
+    if (!color.photo) return;
+    var hero = $('hero');
+    hero.src = color.photo;
+    hero.alt = 'Ёлочный шар, цвет: ' + color.name;
+    $('ex-cap').textContent = 'Так выглядит ' + color.name + ' шар';
+    document.querySelectorAll('#examples button').forEach(function (el) {
+      el.classList.remove('is-on');
+      el.setAttribute('aria-pressed', 'false');
+    });
+  }
+
+  function paintPhotos() {
+    var keys = MODES[job].photos;
+    $('examples').innerHTML = keys.map(function (key) {
+      var item = PHOTOS[key];
+      return '<button type="button" data-ex="' + key + '" aria-label="' + item.cap.replace(/"/g, '&quot;') + '"><img src="' + item.src + '" alt="" width="160" height="160"/></button>';
+    }).join('');
+    showPhoto(keys[0]);
+  }
+
+  function paintColors() {
+    $('swatches').innerHTML = COLORS.map(function (c) {
+      return '<button type="button" role="radio" data-color="' + c.id + '" style="--c:' + c.hex + '" aria-label="' + c.name + '" title="' + c.name + '"></button>';
+    }).join('') + '<button type="button" role="radio" class="other" data-color="other">Другой</button>';
+  }
+
+  function paintColor() {
+    $('color-name').textContent = color.name;
+    var mini = $('color-mini');
+    mini.hidden = !color.photo;
+    if (color.photo) {
+      var crop = (color.mini || '250% 52% 78%').split(' ');
+      mini.style.backgroundImage = 'url("' + color.photo + '")';
+      mini.style.backgroundSize = crop[0];
+      mini.style.backgroundPosition = crop[1] + ' ' + crop[2];
+    }
+    document.querySelectorAll('#swatches button').forEach(function (btn) {
+      var on = btn.getAttribute('data-color') === color.id;
+      btn.classList.toggle('is-on', on);
+      btn.setAttribute('aria-checked', on ? 'true' : 'false');
+    });
+  }
+
+  function paintSaved() {
+    var list = $('saved');
+    list.hidden = !saved.length;
+    list.innerHTML = saved.map(function (b, i) {
+      var c = colorById(b.c);
+      var dot = c.hex ? ' style="--c:' + c.hex + '"' : '';
+      return '<li><span class="dot"' + dot + ' aria-hidden="true"></span>' +
+        '<span class="txt"><b>' + (i + 1) + '. «' + esc(b.t) + '»</b><small>' + c.name + '</small></span>' +
+        '<button type="button" data-edit="' + i + '">Изменить</button>' +
+        '<button type="button" data-del="' + i + '" aria-label="Убрать шар «' + esc(b.t) + '»">×</button></li>';
+    }).join('');
+    var n = saved.length + 1;
+    $('name-label').textContent = saved.length ? 'Шар ' + n + ' — имя или пожелание' : 'Имя или пожелание';
+    $('color-label').textContent = saved.length ? 'Цвет шара ' + n : 'Цвет шара';
+  }
+
+  function paintQty() {
+    var n = count();
+    $('qty').textContent = qty;
+    $('qty-minus').disabled = qty <= 1;
+    $('qty-plus').disabled = qty >= QTY_MAX;
+    document.querySelector('.stepper').hidden = job !== 'custom';
+    $('add-ball').hidden = job !== 'name';
+    $('total-note').textContent = balls(n);
+    $('total').textContent = rub(n * PRICE);
+    $('bar-sum').textContent = balls(n) + ' · ' + rub(n * PRICE);
+    var hint = '';
+    if (qty > 1 && job === 'custom') hint = 'Один макет на все шары. Если нужны разные — пришлёте в WhatsApp.';
+    $('qty-hint').textContent = hint;
+    $('qty-hint').hidden = !hint;
+    var p = pupils().length;
+    $('pupil-count').textContent = p
+      ? 'Посчитали ' + names(p) + ' — ' + balls(p) + '.'
+      : 'Можно вставить список из чата класса — посчитаем шары сами.';
+  }
+
+  function paint() {
+    $('title').textContent = MODES[job].title;
+    $('lead').textContent = MODES[job].lead;
+    $('panel-name').hidden = job !== 'name';
+    $('panel-class').hidden = job !== 'class';
+    $('panel-custom').hidden = job !== 'custom';
+    document.querySelectorAll('.tiles button').forEach(function (btn) {
+      var on = btn.getAttribute('data-job') === job;
+      btn.classList.toggle('is-on', on);
+      btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+    });
+    var msg = asked ? problem() : '';
+    if (!msg && addAsked && job === 'name') msg = nameProblem(true);
+    ['name', 'class', 'custom'].forEach(function (key) {
+      $('panel-' + key).classList.toggle('is-bad', job === key && !!msg);
+      $(key + '-warn').textContent = msg;
+    });
+    $('file-label').classList.toggle('is-bad', job === 'custom' && !!msg && !file);
+    $('name-text').classList.toggle('is-bad', job === 'name' && !!msg);
+    $('class-text').classList.toggle('is-bad', job === 'class' && !!msg && (!val('class-text') || glyph(val('class-text'))));
+    $('pupil-list').classList.toggle('is-bad', job === 'class' && !!msg && (!pupils().length || pupils().some(glyph)));
+    $('custom-text').classList.toggle('is-bad', job === 'custom' && !!msg && !!val('custom-text') && glyph(val('custom-text')));
+    paintQty();
+  }
+
+  function setJob(next) {
+    if (next === job) return;
+    job = next;
+    asked = false;
+    addAsked = false;
+    paintPhotos();
+    paint();
+  }
+
+  function colorLine(c) {
+    return c.id === 'other' ? 'другой, обсудим' : c.name;
+  }
+
+  function message() {
+    var n = count();
+    var lines = [
+      'Здравствуйте! Хочу заказать:',
+      MODES[job].title,
+      balls(n) + ' · ' + rub(n * PRICE)
+    ];
+    var list = job === 'name' ? nameBalls() : [];
+    if (list.length < 2) lines.push('Цвет шара: ' + colorLine(color) + '.');
+    lines.push('Каждый шар в своей коробочке.');
+    if (job === 'class') {
+      lines.push('Класс: ' + val('class-text') + '.');
+      var p = pupils();
+      if (p.length === 1) lines.push('Имя: «' + p[0] + '».');
+      else {
+        lines.push('', 'Имена:');
+        p.forEach(function (name, i) { lines.push((i + 1) + '. ' + name); });
+      }
+    } else if (job === 'custom') {
+      lines.push('Макет: ' + (file ? file.name : 'не приложен') + '.');
+      if (val('custom-text')) lines.push('Надпись: «' + val('custom-text') + '».');
+    } else if (list.length === 1) {
+      lines.push('Надпись: «' + list[0].t + '».');
+    } else {
+      lines.push('');
+      list.forEach(function (b, i) {
+        lines.push((i + 1) + '. «' + b.t + '» — ' + colorLine(colorById(b.c)));
+      });
+    }
+    if (job === 'custom') lines.push('Рисунок пришлю следующим сообщением.');
+    return lines.join('\n');
+  }
+
+  function addBall() {
+    if (nameProblem(true)) {
+      addAsked = true;
+      paint();
+      $('name-text').scrollIntoView({ behavior: 'smooth', block: 'center' });
+      $('name-text').focus({ preventScroll: true });
+      return;
+    }
+    var at = editAt === null ? saved.length : Math.min(editAt, saved.length);
+    saved.splice(at, 0, { t: val('name-text'), c: color.id });
+    editAt = null;
+    $('name-text').value = '';
+    addAsked = false;
+    asked = false;
+    paintSaved();
+    paint();
+    store();
+    $('name-text').focus({ preventScroll: true });
+  }
+
+  function editBall(i) {
+    var item = saved[i];
+    if (!item) return;
+    saved.splice(i, 1);
+    if (val('name-text') && !nameProblem(true)) {
+      saved.splice(editAt === null ? saved.length : Math.min(editAt, saved.length), 0, { t: val('name-text'), c: color.id });
+      if (editAt !== null && editAt <= i) i += 1;
+    }
+    editAt = i;
+    $('name-text').value = item.t;
+    color = colorById(item.c);
+    paintColor();
+    showColorPhoto();
+    paintSaved();
+    paint();
+    store();
+    $('name-text').focus({ preventScroll: true });
+  }
+
+  function days(n) {
+    var a = n % 10, b = n % 100;
+    if (a === 1 && b !== 11) return n + ' день';
+    if (a >= 2 && a <= 4 && (b < 12 || b > 14)) return n + ' дня';
+    return n + ' дней';
+  }
+
+  function paintSeason() {
+    var now = new Date();
+    var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    var last = new Date(now.getFullYear(), SEASON.lastMonth, SEASON.lastDay);
+    var newYear = new Date(now.getFullYear() + 1, 0, 1);
+    var left = Math.round((newYear - today) / 86400000);
+    $('season').innerHTML = today > last
+      ? '<b>' + SEASON.closed + '</b>' + SEASON.closedText
+      : '<b>До Нового года ' + days(left) + '</b>' + SEASON.text;
+  }
+
+  paintSeason();
+  $('pickup-text').textContent = PICKUP;
+  var specHtml = SPEC.map(function (s) {
+    return '<li><span>' + s.k + '</span><b>' + s.v + '</b></li>';
+  }).join('');
+  $('spec').innerHTML = specHtml;
+  $('spec-side').innerHTML = specHtml;
+  $('to-call').href = 'tel:+' + PHONE;
+  $('call-label').textContent = PHONE_LABEL;
+
+  document.querySelector('.tiles').addEventListener('click', function (e) {
+    var btn = e.target.closest('[data-job]');
+    if (btn) setJob(btn.getAttribute('data-job'));
+  });
+
+  $('examples').addEventListener('click', function (e) {
+    var btn = e.target.closest('[data-ex]');
+    if (btn) showPhoto(btn.getAttribute('data-ex'));
+  });
+
+  document.querySelector('.ideas').addEventListener('click', function (e) {
+    var btn = e.target.closest('[data-idea]');
+    if (!btn) return;
+    var input = $('name-text');
+    input.value = btn.getAttribute('data-idea');
+    input.focus();
+    var pick = btn.getAttribute('data-pick');
+    var from = pick ? input.value.indexOf(pick) : input.value.length;
+    input.setSelectionRange(from, input.value.length);
+    paint();
+  });
+
+  $('qty-minus').addEventListener('click', function () { if (qty > 1) { qty -= 1; paintQty(); } });
+  $('qty-plus').addEventListener('click', function () { if (qty < QTY_MAX) { qty += 1; paintQty(); } });
+
+  document.querySelector('.set-grid').addEventListener('click', function (e) {
+    var btn = e.target.closest('[data-set]');
+    if (!btn) return;
+    var set = SETS[btn.getAttribute('data-set')];
+    if (set.job === 'custom') qty = set.qty;
+    if (set.job === job) paint();
+    else setJob(set.job);
+    if (btn.getAttribute('data-set') === 'family' && job === 'name') showPhoto('family3');
+    $('card').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    var tile = document.querySelector('.tiles [data-job="' + job + '"]');
+    tile.classList.remove('is-flash');
+    void tile.offsetWidth;
+    tile.classList.add('is-flash');
+  });
+
+  $('file-pick').addEventListener('change', function () {
+    file = this.files && this.files[0] ? this.files[0] : null;
+    $('file-name').textContent = file ? file.name : 'Приложить рисунок или логотип';
+    paint();
+  });
+
+  ['name-text', 'class-text', 'pupil-list', 'custom-text'].forEach(function (id) {
+    $(id).addEventListener('input', function () {
+      paint();
+      store();
+    });
+  });
+
+  $('add-ball').addEventListener('click', addBall);
+  $('name-text').addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      addBall();
+    }
+  });
+  $('saved').addEventListener('click', function (e) {
+    var edit = e.target.closest('[data-edit]');
+    var del = e.target.closest('[data-del]');
+    if (edit) editBall(+edit.getAttribute('data-edit'));
+    if (del) {
+      var d = +del.getAttribute('data-del');
+      saved.splice(d, 1);
+      if (editAt !== null && d < editAt) editAt -= 1;
+      paintSaved();
+      paint();
+      store();
+    }
+  });
+
+  var METRIKA_ID = 113074033;
+  function goal(name) {
+    if (typeof window.ym !== 'function') return;
+    var list = job === 'name' ? nameBalls() : [];
+    var colors = list.length > 1
+      ? list.map(function (b) { return b.c; }).filter(function (c, i, all) { return all.indexOf(c) === i; }).join(',')
+      : color.id;
+    window.ym(METRIKA_ID, 'reachGoal', name, {
+      product: 'bauble-named',
+      job: job,
+      color: colors,
+      qty: count(),
+      sum: count() * PRICE
+    });
+  }
+
+  function trySend() {
+    if (problem()) {
+      asked = true;
+      paint();
+      var field = document.querySelector('#panel-' + job + ' input:not([type="file"])');
+      if (job === 'custom' && !file) field = $('file-label');
+      if (job === 'class' && !val('class-text')) field = $('class-text');
+      else if (job === 'class') field = $('pupil-list');
+      if (field) {
+        field.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        if (field.tagName === 'INPUT' || field.tagName === 'TEXTAREA') field.focus({ preventScroll: true });
+      }
+      return;
+    }
+    var text = message();
+    $('msg').textContent = text;
+    $('to-wa').href = 'https://wa.me/' + PHONE + '?text=' + encodeURIComponent(text);
+    $('to-tg').href = TG_URL;
+    $('copied').hidden = true;
+    $('sheet').classList.add('is-on');
+    document.body.classList.add('is-sheet');
+    $('to-wa').focus({ preventScroll: true });
+    goal('bauble_request');
+  }
+
+  function closeSheet() {
+    $('sheet').classList.remove('is-on');
+    document.body.classList.remove('is-sheet');
+  }
+
+  $('send').addEventListener('click', trySend);
+  $('bar-send').addEventListener('click', trySend);
+  $('to-wa').addEventListener('click', function () { goal('bauble_whatsapp'); });
+  $('to-tg').addEventListener('click', function () { goal('bauble_telegram'); });
+  $('to-call').addEventListener('click', function () { goal('bauble_call'); });
+
+  if ('IntersectionObserver' in window) {
+    var sendSeen = true;
+    var tilesReached = false;
+    var paintBar = function () {
+      document.body.classList.toggle('has-bar', !sendSeen && tilesReached);
+    };
+    new IntersectionObserver(function (entries) {
+      sendSeen = entries[0].isIntersecting;
+      paintBar();
+    }).observe($('send'));
+    var tiles = document.querySelector('.tiles');
+    var checkTiles = function () {
+      var reached = tiles.getBoundingClientRect().top < window.innerHeight * 0.75;
+      if (reached !== tilesReached) {
+        tilesReached = reached;
+        paintBar();
+      }
+    };
+    window.addEventListener('scroll', checkTiles, { passive: true });
+    window.addEventListener('resize', checkTiles);
+    checkTiles();
+  }
+
+  $('to-tg').addEventListener('click', function () {
+    if (!navigator.clipboard) return;
+    navigator.clipboard.writeText($('msg').textContent).then(function () {
+      $('copied').hidden = false;
+    }, function () {});
+  });
+
+  $('swatches').addEventListener('click', function (e) {
+    var btn = e.target.closest('[data-color]');
+    if (!btn) return;
+    var id = btn.getAttribute('data-color');
+    color = colorById(id);
+    paintColor();
+    showColorPhoto();
+    store();
+  });
+
+  $('close').addEventListener('click', closeSheet);
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && $('sheet').classList.contains('is-on')) closeSheet();
+  });
+  $('sheet').addEventListener('click', function (e) {
+    if (e.target === this) closeSheet();
+  });
+
+  restore();
+  paintPhotos();
+  paintColors();
+  paintColor();
+  if (color !== COLORS[0]) showColorPhoto();
+  paintSaved();
+  paint();
 })();
 </script>
 </body>

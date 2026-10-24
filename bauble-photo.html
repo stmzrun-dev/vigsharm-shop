@@ -5,13 +5,25 @@
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>Макет · шар с фото</title>
 <link rel="stylesheet" href="assets/fonts.css"/>
-<link rel="stylesheet" href="assets/bauble-mock.css?v=8"/>
+<link rel="stylesheet" href="assets/bauble-mock.css?v=10"/>
+<style>
+  .pack-grid { grid-template-columns: 1fr; }
+  .pack-card { margin: 8px 0 0; overflow: hidden; border-radius: 16px; border: 1px solid #eadfd6; background: #fff; }
+  .pack-card img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+  .pack-card figcaption { padding: 10px 12px 12px; font-size: 14px; font-weight: 650; line-height: 1.35; }
+  .go.is-wait { opacity: .45; box-shadow: none; cursor: pointer; }
+  @media (min-width: 760px) {
+    .stage-col { display: flex; flex-direction: column; justify-content: center; }
+    .stage-sticky { position: sticky; top: 8px; width: 100%; }
+  }
+</style>
 </head>
 <body data-kind="photo">
 <div class="page">
   <p class="eyebrow">Макет · в каталог не входит</p>
   <div class="layout">
   <div class="stage-col">
+    <div class="stage-sticky">
     <div class="stage">
       <img class="hero" id="hero" src="preview/bauble-white.webp?v=3" alt="Фото-шар на ёлке" width="1000" height="1000"/>
       <img class="plate" id="plate-back" alt="" hidden/>
@@ -22,6 +34,7 @@
       <img class="plate" id="plate-front" alt="" hidden/>
     </div>
     <p class="hint photo-note" id="photo-note">Ваше фото встаёт в шар. Файл остаётся только в этом браузере.</p>
+    </div>
   </div>
 
   <div class="choice">
@@ -52,7 +65,7 @@
   <h2>Набор</h2>
   <div class="balls" id="balls"></div>
   <button type="button" class="add" id="add">Ещё шар</button>
-  <h2>Коробки</h2>
+  <h2>Упаковка</h2>
   <p class="hint" id="pack-hint"></p>
   <div id="pack"></div>
   </div>
@@ -77,7 +90,7 @@
 <script>
 (function () {
   var s = document.createElement('script');
-  s.src = 'assets/' + 'bauble-mock-2.' + 'js?v=17';
+  s.src = 'assets/' + 'bauble-mock-2.' + 'js?v=29';
   document.body.appendChild(s);
 })();
 </script>

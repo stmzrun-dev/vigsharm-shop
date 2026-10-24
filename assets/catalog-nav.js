@@ -639,6 +639,7 @@
     var img = key
       ? '<img src="' + window.vigImage(key, 480) + '" data-key="' + esc(key) + '" alt="' + esc(p.title) + '" loading="' + (i < 4 ? 'eager' : 'lazy') + '" decoding="async"' + (i === 0 ? ' fetchpriority="high"' : '') + ' width="480" height="480" onload="this.classList.add(\'is-ready\')"/>'
       : '';
+    var optsEarly = p.client_options || {};
     var from = (p.tags || []).indexOf('Цена от') >= 0 ? 'от ' : '';
     var catLabel = String(p.category || '').trim();
     var unitShelf = ['Шары с конфетти', 'Шары хром', 'Шары Super Agate', 'Шары Brush', 'Дабл стафф', 'Шары Bubble', 'Парящие шары', 'Латексные шары', 'Шары с рисунком', 'Фольгированные фигуры', 'Ходячие фигуры', 'Круги, звёзды и сердца', 'Фольгированные цифры', 'Именные шары']
@@ -647,6 +648,7 @@
     var priceNote = isArchCard
       ? 'Цена за метр'
       : ((catLabel === 'Шары поштучно' || unitShelf || (p.tags || []).indexOf('Шары поштучно') >= 0) ? 'Цена за штуку' : 'Цена за композицию');
+    if (optsEarly.price_caption) priceNote = String(optsEarly.price_caption);
     var cat = unitShelf || catLabel;
     var requestBadge = p.available_on_request ? '<em class="product-request-badge">Под заказ</em>' : '';
     /* Advance badge only when category is missing — avoid noisy repeat on every card */
@@ -690,9 +692,12 @@
       })() +
       '<span class="catalog-card-price"><small>' + priceNote + '</small><b>' + from + Number(p.price).toLocaleString('ru-RU') + ' ₽</b></span>' +
       '</span>';
+    var orderPage = String((p.client_options || {}).order_page || '');
+    if (!/^[a-z0-9-]+\.html$/.test(orderPage)) orderPage = '';
+    var cardHref = orderPage || ('product.html?slug=' + encodeURIComponent(p.slug || p.id));
     var card = isPiece
       ? '<div class="catalog-card color-' + (i % 5) + '">' + cardInner + '</div>'
-      : '<a class="catalog-card color-' + (i % 5) + '" href="product.html?slug=' + encodeURIComponent(p.slug || p.id) + '" aria-label="Подробнее: ' + esc(p.title) + '">' + cardInner + '</a>';
+      : '<a class="catalog-card color-' + (i % 5) + '" href="' + esc(cardHref) + '" aria-label="Подробнее: ' + esc(p.title) + '">' + cardInner + '</a>';
     if (!isPiece) return card;
     return '<div class="catalog-card-wrap">' + card +
       '<div class="catalog-unit-step" data-unit-step data-id="' + esc(p.id) + '" data-slug="' + esc(p.slug || p.id) + '" data-title="' + esc(p.title) + '" data-sku="' + esc(p.sku || p.article || '') + '" data-price="' + (Number(p.price) || 0) + '" data-meter="' + (perMeter ? '1' : '0') + '" data-digit="' + (digitPick ? '1' : '0') + '" data-bubble="' + (bubbleCard ? '1' : '0') + '" data-named="' + (namedCard ? '1' : '0') + '" data-ink="' + esc(namedCard ? letterInk : '') + '" data-photo="' + esc(photo) + '" data-fill="' + esc(bubbleCard ? unitFillKind(p) : '') + '" data-thumb="' + esc(thumb) + '"></div></div>';
@@ -1742,7 +1747,10 @@
       '<div class="recent-products-list">' + items.map(function (p) {
         var key = (window.vigGridPhoto ? window.vigGridPhoto(p) : '') || p.thumb_photo || (p.image_keys && p.image_keys[0]) || '';
         var img = key ? '<img src="' + window.vigImage(key, 480) + '" data-key="' + esc(key) + '" alt="' + esc(p.title) + '" loading="lazy" decoding="async" width="480" height="480"/>' : '';
-        return '<a href="product.html?slug=' + encodeURIComponent(p.slug || p.id) + '"><span>' + img + '</span><span><strong>' + esc(p.title) + '</strong><small>' + Number(p.price).toLocaleString('ru-RU') + ' ₽</small></span></a>';
+        var recentPage = String((p.client_options || {}).order_page || '');
+        if (!/^[a-z0-9-]+\.html$/.test(recentPage)) recentPage = '';
+        var recentHref = recentPage || ('product.html?slug=' + encodeURIComponent(p.slug || p.id));
+        return '<a href="' + esc(recentHref) + '"><span>' + img + '</span><span><strong>' + esc(p.title) + '</strong><small>' + Number(p.price).toLocaleString('ru-RU') + ' ₽</small></span></a>';
       }).join('') + '</div>';
     sec.querySelector('button').addEventListener('click', function () {
       try { localStorage.removeItem('vigsharm_recent_products'); } catch (e) {}

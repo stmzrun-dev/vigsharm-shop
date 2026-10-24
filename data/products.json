@@ -1514,6 +1514,53 @@
       "updated_at": "2026-10-23T12:58:47.543Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/ad20537e-2597-4862-b30f-a95c6734dbe3.webp"
     },
+        {
+      "id": "136e5181-f581-41c7-9c7a-c5df00d4968b",
+      "title": "Именной ёлочный шар",
+      "article": "NY-002",
+      "price": 550,
+      "short_description": "Пластиковый шар 8 см с именем, классом или логотипом, в коробочке с бантом.",
+      "full_description": "Имя, класс или свой рисунок на пластиковом шаре диаметром 8 см. Каждый шар в коробочке с окошком и бантом. Цвет шара выбирается при заказе.",
+      "composition": [
+        "пластиковый шар 8 см",
+        "бант",
+        "коробочка с окошком"
+      ],
+      "category": "Новый год",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": "до 1 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Именной ёлочный шар — Армавир | VigSharm",
+      "seo_description": "Пластиковый ёлочный шар 8 см с именем, классом или логотипом. В коробочке с бантом. Армавир.",
+      "slug": "imennoj-elochnyj-shar",
+      "scene": "auto",
+      "tags": [
+        "Новый год"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "catalog_pin": true,
+        "balloon_size": "8 см",
+        "price_caption": "Цена за шар",
+        "order_page": "bauble-named-lite.html"
+      },
+      "photos": [
+        "preview/bauble-mode-name.webp?v=3"
+      ],
+      "main_photo": "preview/bauble-mode-name.webp?v=3",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-24T15:20:00.000Z",
+      "updated_at": "2026-10-24T15:20:00.000Z",
+      "thumb_photo": "preview/bauble-mode-name.webp?v=3"
+    },
     {
       "id": "bb6e6290-be8c-4cd8-8af4-ba1a4f5a9a1c",
       "title": "Воздушный кураж",

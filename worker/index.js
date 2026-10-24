@@ -2600,8 +2600,33 @@ function buildRephotographAttempts(imageUrl, referenceUrl, prompt, resolution = 
     return attempts;
   }
 
-  // Job-level fallback path: only proven banana (after gpt/pro failed mid-run)
+  // Last chance after Pro and chat. nano-banana-2 and Flux reject this studio text
+  // over 5000 characters. Sunburst and GPT Image 2 still take it whole — same request as the first shot.
   if (prefer === 'banana' || prefer === 'fast') {
+    const bananaExtra = keepBg ? '' : (scene === 'surprise' ? surpriseHint : (ceiling ? ceilingHint : (table ? tableHint : (wallOnly ? '' : floorHint))));
+    const full = prompt + bananaExtra;
+    if (full.length > 5000) {
+      console.log('[Studio Rephotograph] banana prompt chars=', full.length, 'full text → sunburst/gpt');
+      attempts.push({
+        model: 'image/gpt-image-2.5-sunburst-edit',
+        input: withRef({
+          prompt: prompt + roomHint,
+          image: imageUrl,
+          aspect_ratio: aspect,
+          resolution: res
+        })
+      });
+      attempts.push({
+        model: 'image/gpt-image-2-edit',
+        input: withRef({
+          prompt: prompt + roomHint,
+          image: imageUrl,
+          aspect_ratio: aspect,
+          resolution: res
+        })
+      });
+      return attempts;
+    }
     pushBanana();
     return attempts;
   }
@@ -2688,22 +2713,36 @@ async function handleStudioRephotograph(request, env) {
       return json({ ok: false, error: 'Ошибка rephotograph: для чата нужны фото товара и эталон' }, 400);
     }
     const chatPrompt = `${prompt}\n\nThe FIRST image is the product photo. Keep that product. The SECOND image is the VigSharm studio reference. Copy the room from the second image only.`;
-    let aiResp;
-    try {
-      aiResp = await nordRequest('/v1/chat/completions', 'POST', {
-        model: 'google/gemini-3-pro-image',
-        modalities: ['image', 'text'],
-        messages: [{
-          role: 'user',
-          content: [
-            { type: 'text', text: chatPrompt },
-            { type: 'image_url', image_url: { url: image_url } },
-            { type: 'image_url', image_url: { url: reference_url } }
-          ]
-        }]
-      }, env, 26000);
-    } catch (err) {
-      return json({ ok: false, error: 'Ошибка rephotograph: ' + (err.message || String(err)) }, 500);
+    const chatModels = ['google/gemini-3-pro-image', 'google/gemini-3.1-flash-image-preview'];
+    let aiResp = null;
+    let usedChat = '';
+    let lastChatErr = null;
+    for (const model of chatModels) {
+      try {
+        aiResp = await nordRequest('/v1/chat/completions', 'POST', {
+          model,
+          modalities: ['image', 'text'],
+          messages: [{
+            role: 'user',
+            content: [
+              { type: 'text', text: chatPrompt },
+              { type: 'image_url', image_url: { url: image_url } },
+              { type: 'image_url', image_url: { url: reference_url } }
+            ]
+          }]
+        }, env, 26000);
+        usedChat = model;
+        lastChatErr = null;
+        break;
+      } catch (err) {
+        lastChatErr = err;
+        const em = String(err?.message || err);
+        console.warn('[Studio Rephotograph] chat model failed', model, em.slice(0, 300));
+        if (/таймаут|timeout/i.test(em)) break;
+      }
+    }
+    if (!usedChat) {
+      return json({ ok: false, error: 'Ошибка rephotograph: ' + (lastChatErr?.message || String(lastChatErr)) }, 500);
     }
     const resultUrl = extractChatImageDataUrl(aiResp);
     if (!resultUrl) {
@@ -2713,7 +2752,7 @@ async function handleStudioRephotograph(request, env) {
       ok: true,
       sync: true,
       result_url: resultUrl,
-      model: 'google/gemini-3-pro-image',
+      model: usedChat,
       prefer,
       scene,
       pipeline: 'rephotograph'
@@ -2728,21 +2767,28 @@ async function handleStudioRephotograph(request, env) {
 
   for (const attempt of attempts) {
     console.log('[Studio Rephotograph] scene=', scene, 'photozone_type=', photozone_type, 'prefer=', prefer, 'try model=', attempt.model);
-    try {
-      generateResp = await nordRequest('/media/generate', 'POST', {
-        model: attempt.model,
-        input: attempt.input
-      }, env);
-    } catch (err) {
-      generateResp = { error: { message: err.message || String(err) } };
-    }
+    for (let shot = 1; shot <= 2; shot++) {
+      try {
+        generateResp = await nordRequest('/media/generate', 'POST', {
+          model: attempt.model,
+          input: attempt.input
+        }, env);
+      } catch (err) {
+        generateResp = { error: { message: err.message || String(err) } };
+      }
 
-    if (!generateResp.error && generateResp.id) {
-      usedModel = attempt.model;
-      console.log('[Studio Rephotograph] using model=', usedModel, 'job_id=', generateResp.id);
-      break;
+      if (!generateResp.error && generateResp.id) {
+        usedModel = attempt.model;
+        console.log('[Studio Rephotograph] using model=', usedModel, 'job_id=', generateResp.id);
+        break;
+      }
+      const errText = String(generateResp?.error?.message || generateResp?.error || '');
+      console.warn('[Studio Rephotograph] model failed:', attempt.model, generateResp.error || generateResp);
+      const resubmit = shot === 1 && /generation_failed|не поняла запрос|перезалейте параметры/i.test(errText);
+      if (!resubmit) break;
+      console.warn('[Studio Rephotograph] same model again:', attempt.model);
     }
-    console.warn('[Studio Rephotograph] model failed:', attempt.model, generateResp.error || generateResp);
+    if (usedModel) break;
   }
 
   if (generateResp?.error) {

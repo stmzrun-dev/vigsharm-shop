@@ -81,6 +81,10 @@
 
   var root = document.getElementById('product-root');
   var slug = new URLSearchParams(window.location.search).get('slug') || '';
+  if (slug === 'imennoj-elochnyj-shar') {
+    location.replace('bauble-named-lite.html');
+    return;
+  }
 
   // state
   var p = null, allProducts = [];

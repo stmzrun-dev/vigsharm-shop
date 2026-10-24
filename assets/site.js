@@ -332,6 +332,7 @@
       key.indexOf('images/') === 0 ||
       key.indexOf('icons/') === 0 ||
       key.indexOf('assets/') === 0 ||
+      key.indexOf('preview/') === 0 ||
       key.indexOf('api/images/') === 0
     ) {
       return key;

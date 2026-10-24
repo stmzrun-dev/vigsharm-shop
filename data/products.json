@@ -2,6 +2,674 @@
   "ok": true,
   "products": [
     {
+      "id": "6e2f6e25-3ddf-44ab-9747-698855a93ea0",
+      "title": "Двойное любопытство",
+      "article": "GND-009",
+      "price": 7000,
+      "short_description": "Напольная композиция с двумя белыми мишками из шаров и чёрным шаром с вопросом о поле малыша.",
+      "full_description": "Композиция на стойке с аркой из розовых и голубых шаров, двумя белыми мишками и чёрным шаром с розовой надписью. Золотые звёзды расставляют акценты по всей конструкции.",
+      "composition": [
+        "Напольная композиция"
+      ],
+      "category": "Гендер-пати",
+      "character": "Мишка",
+      "age_group": "Для малышей",
+      "budget": "5 000–8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Напольная композиция для гендер-пати с мишками, Армавир",
+      "seo_description": "Композиция на стойке с белыми мишками из шаров, розово-голубой аркой и чёрным шаром с вопросом о поле малыша. Доставка по Армавиру.",
+      "slug": "mishki-v-ozhidanii",
+      "scene": "floor",
+      "tags": [
+        "Гендер-пати"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/d057d6f8-4362-4e04-a168-9173cf2d3417.jpg",
+        "photo_dhash": "3c3cf0f0dcd49494",
+        "floor_type": "air"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/6bd477de-298b-4729-9ab3-d6d5009d53f7.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/6bd477de-298b-4729-9ab3-d6d5009d53f7.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-24T09:52:54.870Z",
+      "updated_at": "2026-10-24T09:52:54.870Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/75ce53d0-65e5-4c9c-ada5-23277cd2d3f6.webp"
+    },
+    {
+      "id": "476dc9fd-a976-49a8-aca3-e078bc2f427a",
+      "title": "Черновик 24.10, 12:47",
+      "article": null,
+      "price": 0,
+      "short_description": "",
+      "full_description": "",
+      "composition": [],
+      "category": "Фигуры из шаров",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "zelyonyy-ugryumets-2",
+      "scene": "balloon_figures",
+      "tags": [
+        "Фигуры из шаров"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/5328ad3e-5e90-4a78-9237-d13d0aa2ef0b.jpg",
+        "photo_dhash": "0165a3a2aeadaad2"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/fcde35e5-3d5d-414f-b48c-194284515743.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/fcde35e5-3d5d-414f-b48c-194284515743.jpg",
+      "status": "draft",
+      "show_on_site": false,
+      "created_at": "2026-10-24T09:47:12.770Z",
+      "updated_at": "2026-10-24T09:47:12.770Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/366c5f8c-5aa0-49c3-a777-d3d19ae930f7.webp"
+    },
+    {
+      "id": "82b6880b-d9e3-4a96-aa25-c30ac9956f3c",
+      "title": "Зелёный угрюмец",
+      "article": "NY-004",
+      "price": 7000,
+      "short_description": "Фигура из шаров с недовольным выражением лица и красной деталью через плечо.",
+      "full_description": "Высокая фигура из шаров грушевидной формы с характерным хмурым взглядом. Украшена красной деталью через плечо и установлена на золотой подставке.",
+      "composition": [
+        "Фигура из шаров"
+      ],
+      "category": "Новый год",
+      "character": "Гринч",
+      "age_group": "Для любого возраста",
+      "budget": "5 000–8 000 ₽",
+      "series_name": "Гринч",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Фигура из шаров Гринч | Армавир | VigSharm",
+      "seo_description": "Фигура из шаров с хмурым зелёным персонажем и красной деталью. Высокая скрутка на подставке для любого праздника в Армавире.",
+      "slug": "zelyonyy-ugryumets",
+      "scene": "balloon_figures",
+      "tags": [
+        "Новый год"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/99158ce1-d9a3-4c1b-a59f-24e5cb6b755b.webp",
+        "photo_dhash": "012121713139392b"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/a04fa9bb-0a88-4986-a1d0-acf3ea7c1c91.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/a04fa9bb-0a88-4986-a1d0-acf3ea7c1c91.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-24T09:43:31.508Z",
+      "updated_at": "2026-10-24T09:43:31.508Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/542db1e4-637b-468f-9692-59cb75455496.webp"
+    },
+    {
+      "id": "e062d6de-b64f-4f31-b135-16862cc58339",
+      "title": "Космическая ракета",
+      "article": "FIG-042",
+      "price": 5500,
+      "short_description": "Высокая башня из шаров с крыльями и огненным хвостом в основании.",
+      "full_description": "Вертикальная композиция из синих и серебристых шаров с фольгированными крыльями и ярким основанием из красных, оранжевых и жёлтых шаров, имитирующих огонь.",
+      "composition": [
+        "Фигура из шаров"
+      ],
+      "category": "Фигуры из шаров",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": "5 000–8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Космическая ракета из шаров — фигура в Армавире",
+      "seo_description": "Фигура из шаров в виде ракеты с крыльями и огненным хвостом. Эффектная композиция для любого праздника в Армавире.",
+      "slug": "kosmicheskaya-raketa",
+      "scene": "balloon_figures",
+      "tags": [
+        "Фигуры из шаров"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/30539721-2ff0-4c2a-b5b5-7eeb7493f4f8.jpg",
+        "photo_dhash": "b7b3b3a2abe8e8e0"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/bb8354db-c8a4-43f6-9b6e-60315e05e642.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/bb8354db-c8a4-43f6-9b6e-60315e05e642.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-24T09:36:28.449Z",
+      "updated_at": "2026-10-24T09:36:28.449Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/b918e3ac-b42a-41a3-92bc-7c052c1b8e8d.webp"
+    },
+    {
+      "id": "fc9b7266-6188-4771-8767-1049a8e5c574",
+      "title": "Цирковое настроение",
+      "article": "FIG-041",
+      "price": 8000,
+      "short_description": "Яркая фигура клоуна из воздушных шаров с оранжевыми кудряшками и фиолетовыми рукавами.",
+      "full_description": "Фигура клоуна из воздушных шаров в голубом колпаке со звёздами, с оранжевыми кудрями, красным носом и розовым бантом. Яркий костюм выполнен из салатовых, бирюзовых и розовых шаров, руки — из фиолетовых шаров с белыми ладонями.",
+      "composition": [
+        "Фигура из шаров"
+      ],
+      "category": "Фигуры из шаров",
+      "character": "Клоун",
+      "age_group": "Для детей",
+      "budget": "от 8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Цирковое настроение — фигура клоуна из шаров в Армавире",
+      "seo_description": "Яркая фигура клоуна из воздушных шаров с оранжевыми кудряшками и фиолетовыми рукавами. Салатовый, бирюзовый и розовый костюм создают праздничное настроение.",
+      "slug": "tsirkovoe-nastroenie",
+      "scene": "balloon_figures",
+      "tags": [
+        "Фигуры из шаров"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/59076add-9eea-466a-98fd-33872446a570.webp",
+        "photo_dhash": "014020c021616061"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/84bac8af-86e0-40a2-9faa-3aec895cec8a.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/84bac8af-86e0-40a2-9faa-3aec895cec8a.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-24T09:31:51.341Z",
+      "updated_at": "2026-10-24T09:31:51.341Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/3eee2d7e-b708-4128-b1ef-0941687710a7.webp"
+    },
+    {
+      "id": "de3460a0-78a6-4386-8732-181ebacb910c",
+      "title": "Защитник границы",
+      "article": "F23-004",
+      "price": 7000,
+      "short_description": "Фигура военного в зелёной форме с фуражкой и усами.",
+      "full_description": "Фигура из шаров изображает военного в зелёной форме с золотыми пуговицами, фуражкой и усами. Правая рука поднята в приветствии.",
+      "composition": [
+        "Фигура из шаров"
+      ],
+      "category": "23 февраля",
+      "character": "Солдат",
+      "age_group": "Для любого возраста",
+      "budget": "5 000–8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Фигура военного из шаров — Армавир | VigSharm",
+      "seo_description": "Фигура военного в зелёной форме из шаров. Ручная работа, отличное качество. Доставка по Армавиру.",
+      "slug": "zashchitnik-granitsy",
+      "scene": "balloon_figures",
+      "tags": [
+        "23 февраля"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/1c1badd7-485e-410a-888c-6bba898f9458.jpg",
+        "photo_dhash": "31c088b8b4b110b1"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/ecc6952f-a69e-4154-abf7-ecb23d7edafd.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/ecc6952f-a69e-4154-abf7-ecb23d7edafd.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-24T09:28:04.047Z",
+      "updated_at": "2026-10-24T09:28:04.047Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/f50dd212-6a87-4b1d-89bf-d4d5e8fb66a5.webp"
+    },
+    {
+      "id": "9f08c73f-c5d7-49ff-97f1-0a5ecbd77ce6",
+      "title": "Зелёная красавица",
+      "article": "F23-003",
+      "price": 7000,
+      "short_description": "Фигура девушки из шаров в зелёном платье с жёлтыми косами и цветами.",
+      "full_description": "Фигура из шаров в виде девушки с длинными жёлтыми косами, в изумрудном платье с красной звёздочкой на корсете. Дополнена жёлтыми цветами и зелёной сумочкой.",
+      "composition": [
+        "Фигура из шаров"
+      ],
+      "category": "23 февраля",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": "5 000–8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Фигура девушки из шаров Армавир — Зелёная красавица",
+      "seo_description": "Фигура из шаров в виде девушки с жёлтыми косами в зелёном платье. Ручная скрутка с цветами и сумочкой. Доставка по Армавиру.",
+      "slug": "zelenaya-krasavitsa",
+      "scene": "balloon_figures",
+      "tags": [
+        "23 февраля"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/fd962ebd-17c3-465c-9173-777a6fa6b2a2.jpg",
+        "photo_dhash": "174b533333d73333"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/5a5456a0-f1b1-4cff-b52e-230233b738e5.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/5a5456a0-f1b1-4cff-b52e-230233b738e5.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-24T09:26:09.700Z",
+      "updated_at": "2026-10-24T09:26:09.700Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/080e203c-b880-4548-9a9c-ee988df87c32.webp"
+    },
+    {
+      "id": "98a7dd89-9453-41f3-862f-885e57c511d4",
+      "title": "Морской разбойник",
+      "article": "FIG-040",
+      "price": 6000,
+      "short_description": "Пират из шаров с мечом и осьминогом держит связку ярких латексных шаров с рисунком.",
+      "full_description": "Фигура пирата из шаров в чёрной шляпе с черепом, с мечом в руке и голубым осьминогом. Композиция дополнена тремя латексными шарами с принтом осьминогов.",
+      "composition": [
+        "Фигура из шаров",
+        "3 шара с рисунком"
+      ],
+      "category": "Фигуры из шаров",
+      "character": null,
+      "age_group": "Для детей",
+      "budget": "5 000–8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Морской разбойник — фигура из шаров | Армавир",
+      "seo_description": "Пират из шаров с мечом и осьминогом. Фигура ручной работы с тремя яркими латексными шарами. Доставка в Армавире.",
+      "slug": "morskoy-razboynik",
+      "scene": "balloon_figures",
+      "tags": [
+        "Фигуры из шаров"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/55e7de75-fd32-42d0-8350-43ad6ea35509.jpg",
+        "photo_dhash": "b3a1a1c6acecccca"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/54b348b3-3cc1-4278-ac34-01143d1eb442.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/54b348b3-3cc1-4278-ac34-01143d1eb442.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-24T09:21:34.812Z",
+      "updated_at": "2026-10-24T09:21:34.812Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/9b06b65d-c553-416f-ad7e-7b9140c93f33.webp"
+    },
+    {
+      "id": "79c79862-9e76-4e60-b360-85922ebc76a8",
+      "title": "Пивная пятница",
+      "article": "HIM-043",
+      "price": 6000,
+      "short_description": "Напольная композиция с цифрами 23, пивной кружкой и красными акцентами.",
+      "full_description": "Композиция включает серебряные цифры 23, фольгированную кружку пива с надписью Happy Beer-Day, красные звёзды и шары на основании из чёрных, красных и серебряных латексных шаров.",
+      "composition": [
+        "Напольная композиция"
+      ],
+      "category": "Для него",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "5 000–8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Композиция с кружкой пива на 23 года — Армавир",
+      "seo_description": "Напольная композиция с цифрами 23, фольгированной кружкой Happy Beer-Day и красными звёздами. Доставка воздушных шаров в Армавире.",
+      "slug": "pivnaya-pyatnitsa",
+      "scene": "floor",
+      "tags": [
+        "Для него"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/070a38d2-3c02-4461-b60d-ed069afae9f0.jpg",
+        "photo_dhash": "67e1e1d1797cfc64",
+        "floor_type": "air",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 2
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/4cefde14-ad6f-46a2-8632-08ee50a8f040.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/4cefde14-ad6f-46a2-8632-08ee50a8f040.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-24T09:18:32.045Z",
+      "updated_at": "2026-10-24T09:18:32.045Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/b17b1028-d90e-4c40-a29f-18ed8ff254ae.webp"
+    },
+    {
+      "id": "059e6423-f588-409c-a508-40932bbcf850",
+      "title": "Гонщик на старте",
+      "article": "BAB-055",
+      "price": 5500,
+      "short_description": "Малыш в синей машине с логотипом BMW готов к гонке.",
+      "full_description": "Фигура из шаров изображает малыша за рулём синего автомобиля с жёлтыми фарами и эмблемой BMW. Машина стоит на чёрных колёсах, готовая к весёлому старту.",
+      "composition": [
+        "Фигура из шаров"
+      ],
+      "category": "На выписку",
+      "character": null,
+      "age_group": "Для малышей",
+      "budget": "5 000–8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Гонщик на старте — фигура из шаров, Армавир",
+      "seo_description": "Фигура из шаров: малыш в синей машине BMW. Яркая скрутка для детского праздника. Заказ в Армавире.",
+      "slug": "gonshchik-na-starte",
+      "scene": "balloon_figures",
+      "tags": [
+        "На выписку"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/38dffe9f-ccb0-4ff9-82f2-48c7378e32ff.jpg",
+        "photo_dhash": "97b3bbbb39b9f5f9"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/b0552d1f-83fc-465e-8537-4155ce3448fc.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/b0552d1f-83fc-465e-8537-4155ce3448fc.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-24T09:16:33.019Z",
+      "updated_at": "2026-10-24T09:16:33.019Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/a558f511-4313-48d9-876e-fe038a4f508b.webp"
+    },
+    {
+      "id": "d3644cbf-d511-4085-b00f-202cba47e819",
+      "title": "Мастер с палочкой",
+      "article": "FIG-039",
+      "price": 6500,
+      "short_description": "Фигура из шаров в виде персонажа в азиатской шляпе с длинной бородой и посохом.",
+      "full_description": "Скрутка из шаров изображает персонажа в широкой конической шляпе и белой одежде, с длинной бородой и посохом в руке. Фигура выполнена в бело-жёлтых тонах с чёрным поясом.",
+      "composition": [
+        "Фигура из шаров"
+      ],
+      "category": "Фигуры из шаров",
+      "character": "Мастер Ву",
+      "age_group": "Для любого возраста",
+      "budget": "5 000–8 000 ₽",
+      "series_name": "LEGO Ninjago",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Фигура из шаров Мастер с палочкой — Армавир",
+      "seo_description": "Фигура из шаров в виде персонажа в азиатской шляпе с длинной бородой и посохом. Скрутка для праздника в Армавире.",
+      "slug": "master-s-palochkoy",
+      "scene": "balloon_figures",
+      "tags": [
+        "Фигуры из шаров"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/b0e6edec-0ce7-4856-9e41-ca9f37e71ca9.jpg",
+        "photo_dhash": "f1f8662798b82c3c"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/e5b169be-42d4-4a49-a664-8ee2893efe20.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/e5b169be-42d4-4a49-a664-8ee2893efe20.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-24T09:07:22.027Z",
+      "updated_at": "2026-10-24T09:07:22.027Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/47df046e-2835-4f55-ac77-2bf3cfabc51e.webp"
+    },
+    {
+      "id": "0d3f3bd0-6383-4b95-9fcd-b89c6a37abf7",
+      "title": "Пёрышки интриги",
+      "article": "BAB-054",
+      "price": 5300,
+      "short_description": "Декоративная композиция с баблсом, перьями, надписью, фигурой, сердцами и шарами.",
+      "full_description": "На фото представлена композиция с баблсом с перьями и надписью, фигурой, двумя сердцами и десятью шарами.",
+      "composition": [
+        "баблс с перьями и надписью",
+        "фигура",
+        "2 сердца",
+        "5 шаров хром",
+        "5 шаров"
+      ],
+      "category": "На выписку",
+      "character": null,
+      "age_group": "Для малышей",
+      "budget": "5 000–8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Воздушная композиция с баблсом и перьями в Армавире",
+      "seo_description": "Композиция с баблсом с перьями и надписью, фигурой, сердцами, хромовыми и обычными шарами.",
+      "slug": "vozdushnaya-kompoziciya-babl-s-peryami",
+      "scene": "wall_only",
+      "tags": [
+        "На выписку"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/1bcdb640-7c9e-461a-a47c-55acc9534138.jpg",
+        "photo_dhash": "1c3cb9b3e3b37969"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/83c4b1d8-6e25-462b-a016-7c80efe58d3a.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/83c4b1d8-6e25-462b-a016-7c80efe58d3a.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-24T08:53:46.254Z",
+      "updated_at": "2026-10-24T08:53:46.254Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/500dc754-56d8-4f19-9e75-b6f76f20a113.webp"
+    },
+    {
+      "id": "e7e800ca-f004-4798-b2d1-50fe1a64f9ce",
+      "title": "Сказочный трофей",
+      "article": "FIG-038",
+      "price": 7500,
+      "short_description": "Цифра из шаров с джинном, обезьянкой и золотой лампой на подставке.",
+      "full_description": "Цифра 6 из синих шаров украшена фигурами джинна, обезьянки с виноградом и белой короны. У основания — золотая лампа Аладдина.",
+      "composition": [
+        "Фигура из шаров"
+      ],
+      "category": "Фигуры из шаров",
+      "character": "Джинн",
+      "age_group": "Для детей",
+      "budget": "5 000–8 000 ₽",
+      "series_name": "Аладдин",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Цифра 6 из шаров с джинном и лампой Аладдина в Армавире",
+      "seo_description": "Цифра 6 из синих шаров с фигурами джинна, обезьянки и золотой лампы Аладдина. Яркая композиция для детского праздника в Армавире.",
+      "slug": "skazochnyj-trofej",
+      "scene": "balloon_figures",
+      "tags": [
+        "Фигуры из шаров"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/62dcca9e-a18d-47d1-ae9b-26650046389b.jpg",
+        "photo_dhash": "f1c8c9c9c9617373"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/62dcca9e-a18d-47d1-ae9b-26650046389b.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/62dcca9e-a18d-47d1-ae9b-26650046389b.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-24T07:55:25.714Z",
+      "updated_at": "2026-10-24T07:55:25.714Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/8a2a5ee2-b6b7-408b-a405-df2dbf1d1018.webp"
+    },
+    {
+      "id": "67410033-5bac-48a5-8c4a-69988a33d081",
+      "title": "Клетчатый финиш",
+      "article": "GRL-173",
+      "price": 5360,
+      "short_description": "Композиция с красными цифрами 16, фигурой слона и клетчатыми шарами на стене.",
+      "full_description": "Яркая композиция с крупными красными цифрами 16, серебристой фигурой слона, синим и красными сердцами, круглыми шарами с гоночными клетчатыми принтами и латексными шарами.",
+      "composition": [
+        "2 цифры",
+        "фигура",
+        "2 круга с рисунком",
+        "2 сердца",
+        "9 шаров"
+      ],
+      "category": "Для девочки",
+      "character": "Слон",
+      "age_group": "Для подростков",
+      "budget": "5 000–8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Композиция с цифрами 16 и слоном в Армавире — VigSharm",
+      "seo_description": "Яркая композиция на стене с красными цифрами 16, серебристой фигурой слона, сердцами и клетчатыми шарами. Доставка воздушных шаров в Армавире.",
+      "slug": "kletchatyy-finish",
+      "scene": "wall_only",
+      "tags": [
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/ae6d1330-9964-42f8-ba3e-d98d7bbe2c4d.jpg",
+        "photo_dhash": "2c1c91e0ca328a03",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 2
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/e04dca8b-aca2-4688-ac39-bb247f1a707f.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/e04dca8b-aca2-4688-ac39-bb247f1a707f.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-24T07:50:35.415Z",
+      "updated_at": "2026-10-24T07:50:35.415Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/8b49bb86-382a-44ad-a300-739cf10dc828.webp"
+    },
+    {
+      "id": "f1b3c94b-2365-4cbe-8a0a-b8233b7ac025",
+      "title": "Банановая команда",
+      "article": "BOY-111",
+      "price": 5500,
+      "short_description": "Напольная композиция с цифрой и двумя фигурами миньонов на шарах.",
+      "full_description": "Напольная композиция с голубой цифрой 7, двумя фигурами миньонов и облаком из жёлто-голубых шаров.",
+      "composition": [
+        "Напольная композиция",
+        "Фигура"
+      ],
+      "category": "Для мальчика",
+      "character": "Миньоны",
+      "age_group": "Для детей",
+      "budget": "5 000–8 000 ₽",
+      "series_name": "Гадкий я",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Композиция с миньонами на день рождения мальчика — Армавир",
+      "seo_description": "Напольная композиция с голубой цифрой и двумя фигурами миньонов. Яркий подарок для мальчика на день рождения. Доставка в Армавире.",
+      "slug": "bananovaya-komanda",
+      "scene": "floor",
+      "tags": [
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/bb69f5c7-44a5-43bd-afe8-a4acfd901d13.jpg",
+        "photo_dhash": "b99bb9c9bdd9a9f8",
+        "floor_type": "air",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/bafc8954-d0af-45b6-aadb-134ebfd94edb.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/bafc8954-d0af-45b6-aadb-134ebfd94edb.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-24T07:42:15.965Z",
+      "updated_at": "2026-10-24T07:42:15.965Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/b71250da-1912-4b3a-8021-a20acfd86e12.webp"
+    },
+    {
       "id": "83242519-5ba0-4828-a1ec-4e6dd95b2549",
       "title": "Чебурашка в ромашках",
       "article": "GRL-172",
@@ -31162,50 +31830,6 @@
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/1e05ea8c-e252-445b-aa1c-f8a87da9e817.webp"
     },
     {
-      "id": "b57c182d-0379-4100-9f86-c0cfeaf38723",
-      "title": "Чёрная королева",
-      "article": "GRL-111",
-      "price": 2300,
-      "short_description": "Чёрная кошка с золотой короной и фонтан из чёрных шаров.",
-      "full_description": "Композиция из чёрных латексных шаров и фольгированной фигуры кошки с золотой короной. Элегантное сочетание чёрного и золотого.",
-      "composition": [
-        "10 шаров",
-        "фигура"
-      ],
-      "category": "Для девочки",
-      "character": "Кошка",
-      "age_group": "Для детей",
-      "budget": "2 000–3 500 ₽",
-      "series_name": null,
-      "occasion": null,
-      "target_audience": null,
-      "seo_title": "Чёрная королева — композиция из шаров с кошкой в Армавире",
-      "seo_description": "Композиция из чёрных шаров с фольгированной фигурой кошки в золотой короне. Элегантное оформление праздника. Доставка по Армавиру.",
-      "slug": "chernaya-koroleva",
-      "scene": "wall_only",
-      "tags": [
-        "Для девочки"
-      ],
-      "client_options": {
-        "available_on_request": false,
-        "advance_order_1_2_days": false,
-        "number_choice": false,
-        "personal_inscription": false,
-        "photozone_rental": false,
-        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/15fc5590-34e3-4834-ba70-ce449cdcc7ff.jpg",
-        "photo_dhash": "f8f8fcf8f8ccc8dc"
-      },
-      "photos": [
-        "https://storage.yandexcloud.net/vigsharm-photos/products/0f24b0a1-9c12-4b8d-af50-17db536269a0.jpg"
-      ],
-      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/0f24b0a1-9c12-4b8d-af50-17db536269a0.jpg",
-      "status": "draft",
-      "show_on_site": true,
-      "created_at": "2026-10-04T16:58:22.980Z",
-      "updated_at": "2026-10-06T08:42:56.289Z",
-      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/9eaba857-42d3-4cc1-8115-b396e1e2cf03.webp"
-    },
-    {
       "id": "3601651e-b252-4acc-a737-ca8e41a27a7f",
       "title": "Мрачная элегантность",
       "article": "GRL-110",
@@ -49112,92 +49736,6 @@
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/3f06bdb0-2d51-4078-b23e-a1682a97a879.webp"
     },
     {
-      "id": "b972cfd1-d462-4496-ba4b-2cb4dc09bc3c",
-      "title": "Черные круги",
-      "article": "UNT-124",
-      "price": 180,
-      "short_description": "Черные круги",
-      "full_description": "",
-      "composition": [],
-      "category": "Шары поштучно",
-      "character": null,
-      "age_group": "Для любого возраста",
-      "budget": null,
-      "series_name": null,
-      "occasion": null,
-      "target_audience": null,
-      "seo_title": "",
-      "seo_description": "",
-      "slug": "zolotaya-i-rozovaya-struzhka-2",
-      "scene": "unit_balloon",
-      "tags": [
-        "Шары поштучно",
-        "Шары с конфетти"
-      ],
-      "client_options": {
-        "available_on_request": false,
-        "advance_order_1_2_days": false,
-        "number_choice": false,
-        "personal_inscription": false,
-        "photozone_rental": false,
-        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/6d276e3c-99b4-4161-b2c8-fc6c689cfe4a.jpg",
-        "unit_type": "confetti",
-        "photo_dhash": "383c78c8b8d4e8b9"
-      },
-      "photos": [
-        "https://storage.yandexcloud.net/vigsharm-photos/products/59eaff0a-4276-48c4-8ad7-e05b41aa325d.jpg"
-      ],
-      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/59eaff0a-4276-48c4-8ad7-e05b41aa325d.jpg",
-      "status": "draft",
-      "show_on_site": true,
-      "created_at": "2026-09-26T12:40:24.819Z",
-      "updated_at": "2026-10-13T21:11:51.914Z",
-      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/30b89088-539b-448e-aa56-ee47dd7de721.webp"
-    },
-    {
-      "id": "e37b2d3d-5fcd-44ef-8768-45a6f1b19ad1",
-      "title": "Круги ассорти",
-      "article": "UNT-123",
-      "price": 180,
-      "short_description": "Круги ассорти",
-      "full_description": "",
-      "composition": [],
-      "category": "Шары поштучно",
-      "character": null,
-      "age_group": "Для любого возраста",
-      "budget": null,
-      "series_name": null,
-      "occasion": null,
-      "target_audience": null,
-      "seo_title": "",
-      "seo_description": "",
-      "slug": "zolotaya-i-rozovaya-struzhka",
-      "scene": "unit_balloon",
-      "tags": [
-        "Шары поштучно",
-        "Шары с конфетти"
-      ],
-      "client_options": {
-        "available_on_request": false,
-        "advance_order_1_2_days": false,
-        "number_choice": false,
-        "personal_inscription": false,
-        "photozone_rental": false,
-        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/1908c205-8fde-4646-8047-576812bb414b.jpg",
-        "unit_type": "confetti",
-        "photo_dhash": "98b8f8d8e4e87c38"
-      },
-      "photos": [
-        "https://storage.yandexcloud.net/vigsharm-photos/products/a9b93a49-b0f2-426e-9387-b613ac5acabe.jpg"
-      ],
-      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/a9b93a49-b0f2-426e-9387-b613ac5acabe.jpg",
-      "status": "draft",
-      "show_on_site": true,
-      "created_at": "2026-09-26T12:39:40.177Z",
-      "updated_at": "2026-10-13T21:11:52.703Z",
-      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/f775acd4-5483-4559-8305-388f0dc51475.webp"
-    },
-    {
       "id": "a79a0d64-9606-45d4-9301-14d6a0dd23dc",
       "title": "Небесный старт",
       "article": "Y1-011",
@@ -49251,49 +49789,6 @@
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/b690bbf4-edb0-469b-ab7a-d9f9dc02c8eb.webp"
     },
     {
-      "id": "30e09de9-ce34-4668-831a-9f09979398fa",
-      "title": "Золотые круги",
-      "article": "UNT-121",
-      "price": 180,
-      "short_description": "Золотые круги",
-      "full_description": "",
-      "composition": [],
-      "category": "Шары поштучно",
-      "character": null,
-      "age_group": "Для любого возраста",
-      "budget": null,
-      "series_name": null,
-      "occasion": null,
-      "target_audience": null,
-      "seo_title": "",
-      "seo_description": "",
-      "slug": "http-127-0-0-1-5500-admin-5",
-      "scene": "unit_balloon",
-      "tags": [
-        "Шары поштучно",
-        "Шары с конфетти"
-      ],
-      "client_options": {
-        "available_on_request": false,
-        "advance_order_1_2_days": false,
-        "number_choice": false,
-        "personal_inscription": false,
-        "photozone_rental": false,
-        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/d67b8b89-2a34-404f-9a8a-7dccfe6e83fb.jpg",
-        "unit_type": "confetti",
-        "photo_dhash": "f878b8f4d4f4687c"
-      },
-      "photos": [
-        "https://storage.yandexcloud.net/vigsharm-photos/products/41937287-0fa1-4722-99cb-c880ab5ba0df.jpg"
-      ],
-      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/41937287-0fa1-4722-99cb-c880ab5ba0df.jpg",
-      "status": "draft",
-      "show_on_site": true,
-      "created_at": "2026-09-26T11:34:08.844Z",
-      "updated_at": "2026-10-13T21:11:50.042Z",
-      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/1d189726-6020-4c4e-8801-00d5e9e517ab.webp"
-    },
-    {
       "id": "d8b26432-674a-4efb-8feb-58ac48fc49bc",
       "title": "Золотая и розовая стружка",
       "article": "UNT-120",
@@ -49337,49 +49832,6 @@
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/cda09011-0119-44ec-882d-4a08e1462ea2.webp"
     },
     {
-      "id": "70be2894-9b86-4b5f-827f-70214decd597",
-      "title": "Синие и серебряные круги",
-      "article": "UNT-119",
-      "price": 180,
-      "short_description": "Синие и серебряные круги",
-      "full_description": "",
-      "composition": [],
-      "category": "Шары поштучно",
-      "character": null,
-      "age_group": "Для любого возраста",
-      "budget": null,
-      "series_name": null,
-      "occasion": null,
-      "target_audience": null,
-      "seo_title": "",
-      "seo_description": "",
-      "slug": "http-127-0-0-1-5500-admin-3",
-      "scene": "unit_balloon",
-      "tags": [
-        "Шары поштучно",
-        "Шары с конфетти"
-      ],
-      "client_options": {
-        "available_on_request": false,
-        "advance_order_1_2_days": false,
-        "number_choice": false,
-        "personal_inscription": false,
-        "photozone_rental": false,
-        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/96c6c45d-a9a5-4f19-92ce-8920c411d84c.jpg",
-        "unit_type": "confetti",
-        "photo_dhash": "42c5e5d6d2ecd3d1"
-      },
-      "photos": [
-        "https://storage.yandexcloud.net/vigsharm-photos/products/35ad7a5c-80b0-440b-8f4e-94ce626991d9.jpg"
-      ],
-      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/35ad7a5c-80b0-440b-8f4e-94ce626991d9.jpg",
-      "status": "draft",
-      "show_on_site": true,
-      "created_at": "2026-09-26T11:32:49.686Z",
-      "updated_at": "2026-10-13T21:11:26.864Z",
-      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/7e9091f9-a786-4dad-839d-9f48a2900e8e.webp"
-    },
-    {
       "id": "9f71dd4f-d7e1-4b6b-b216-e972532351c3",
       "title": "Золотая и зеленая стружка",
       "article": "UNT-118",
@@ -49421,307 +49873,6 @@
       "created_at": "2026-09-26T11:29:40.829Z",
       "updated_at": "2026-10-13T21:11:45.223Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/bef29e58-6efc-4154-97fe-67c673eb2347.webp"
-    },
-    {
-      "id": "af92d20c-6c2b-4f7c-a5d2-e4dc427a0e41",
-      "title": "Фиолетовые круги",
-      "article": "UNT-117",
-      "price": 180,
-      "short_description": "Фиолетовые круги",
-      "full_description": "",
-      "composition": [],
-      "category": "Шары поштучно",
-      "character": null,
-      "age_group": "Для любого возраста",
-      "budget": null,
-      "series_name": null,
-      "occasion": null,
-      "target_audience": null,
-      "seo_title": "",
-      "seo_description": "",
-      "slug": "http-127-0-0-1-5500-admin",
-      "scene": "unit_balloon",
-      "tags": [
-        "Шары поштучно",
-        "Шары с конфетти"
-      ],
-      "client_options": {
-        "available_on_request": false,
-        "advance_order_1_2_days": false,
-        "number_choice": false,
-        "personal_inscription": false,
-        "photozone_rental": false,
-        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/f5b4bef6-a96b-4f68-968d-c4b5541dfa1f.jpg",
-        "unit_type": "confetti",
-        "photo_dhash": "38acf8d0d8d0eca8"
-      },
-      "photos": [
-        "https://storage.yandexcloud.net/vigsharm-photos/products/dabe8f8c-f006-4a6f-8132-c1b28d71f72d.jpg"
-      ],
-      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/dabe8f8c-f006-4a6f-8132-c1b28d71f72d.jpg",
-      "status": "draft",
-      "show_on_site": true,
-      "created_at": "2026-09-26T11:28:45.528Z",
-      "updated_at": "2026-10-13T21:11:22.160Z",
-      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/3e5469cc-024f-4b4a-8225-f1778c2383e4.webp"
-    },
-    {
-      "id": "bb8a0ec1-b78a-45e5-8014-b6c70060b053",
-      "title": "Синие круги",
-      "article": "UNT-116",
-      "price": 180,
-      "short_description": "Синие круги",
-      "full_description": "",
-      "composition": [],
-      "category": "Шары поштучно",
-      "character": null,
-      "age_group": "Для любого возраста",
-      "budget": null,
-      "series_name": null,
-      "occasion": null,
-      "target_audience": null,
-      "seo_title": "",
-      "seo_description": "",
-      "slug": "fioletovyy-17",
-      "scene": "unit_balloon",
-      "tags": [
-        "Шары поштучно",
-        "Шары с конфетти"
-      ],
-      "client_options": {
-        "available_on_request": false,
-        "advance_order_1_2_days": false,
-        "number_choice": false,
-        "personal_inscription": false,
-        "photozone_rental": false,
-        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/673647d7-fbd0-4d9a-840f-9bd648590841.jpg",
-        "unit_type": "confetti",
-        "photo_dhash": "3028b8e0d0d8b0a8"
-      },
-      "photos": [
-        "https://storage.yandexcloud.net/vigsharm-photos/products/b3e62a5c-50f7-4cdf-8cff-fb18d9f973ac.jpg"
-      ],
-      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/b3e62a5c-50f7-4cdf-8cff-fb18d9f973ac.jpg",
-      "status": "draft",
-      "show_on_site": true,
-      "created_at": "2026-09-26T11:02:14.926Z",
-      "updated_at": "2026-10-13T21:11:21.491Z",
-      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/b9d283f8-8010-4fbd-8e44-5af18030ae22.webp"
-    },
-    {
-      "id": "44c981f9-eaed-41e2-bd16-12e22f13dcb2",
-      "title": "Розовые круги",
-      "article": "UNT-115",
-      "price": 180,
-      "short_description": "Розовые круги",
-      "full_description": "",
-      "composition": [],
-      "category": "Шары поштучно",
-      "character": null,
-      "age_group": "Для любого возраста",
-      "budget": null,
-      "series_name": null,
-      "occasion": null,
-      "target_audience": null,
-      "seo_title": "",
-      "seo_description": "",
-      "slug": "fioletovyy-16",
-      "scene": "unit_balloon",
-      "tags": [
-        "Шары поштучно",
-        "Шары с конфетти"
-      ],
-      "client_options": {
-        "available_on_request": false,
-        "advance_order_1_2_days": false,
-        "number_choice": false,
-        "personal_inscription": false,
-        "photozone_rental": false,
-        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/25f21362-14b3-4109-b756-7a3805ef6fe4.jpg",
-        "unit_type": "confetti",
-        "photo_dhash": "1535b1d0d9ec5c29"
-      },
-      "photos": [
-        "https://storage.yandexcloud.net/vigsharm-photos/products/b380ba42-9305-4919-9bac-705b41c3ecc8.jpg"
-      ],
-      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/b380ba42-9305-4919-9bac-705b41c3ecc8.jpg",
-      "status": "draft",
-      "show_on_site": true,
-      "created_at": "2026-09-26T10:59:10.808Z",
-      "updated_at": "2026-10-13T21:11:20.909Z",
-      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/9868ec9f-53a8-420d-a2ca-5223719faebe.webp"
-    },
-    {
-      "id": "eac4ec61-ce20-4c9e-b011-f7d592030d1b",
-      "title": "Голубые круги",
-      "article": "UNT-114",
-      "price": 180,
-      "short_description": "Голубые круги",
-      "full_description": "",
-      "composition": [],
-      "category": "Шары поштучно",
-      "character": null,
-      "age_group": "Для любого возраста",
-      "budget": null,
-      "series_name": null,
-      "occasion": null,
-      "target_audience": null,
-      "seo_title": "",
-      "seo_description": "",
-      "slug": "fioletovyy-15",
-      "scene": "unit_balloon",
-      "tags": [
-        "Шары поштучно",
-        "Шары с конфетти"
-      ],
-      "client_options": {
-        "available_on_request": false,
-        "advance_order_1_2_days": false,
-        "number_choice": false,
-        "personal_inscription": false,
-        "photozone_rental": false,
-        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/0dd8671d-59e3-430f-8c85-4fcd271c1508.jpg",
-        "unit_type": "confetti",
-        "photo_dhash": "3b7571d061ccc82d"
-      },
-      "photos": [
-        "https://storage.yandexcloud.net/vigsharm-photos/products/b9d90647-68f7-46f9-a647-9d6e2d759922.jpg"
-      ],
-      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/b9d90647-68f7-46f9-a647-9d6e2d759922.jpg",
-      "status": "draft",
-      "show_on_site": true,
-      "created_at": "2026-09-26T10:58:22.554Z",
-      "updated_at": "2026-10-13T21:11:20.278Z",
-      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/349fe894-ac58-4f5d-91ef-b9b4c529cee9.webp"
-    },
-    {
-      "id": "99728695-79e2-464a-b991-50dde0a3b4f4",
-      "title": "Зеленые круги",
-      "article": "UNT-113",
-      "price": 180,
-      "short_description": "Зеленые круги",
-      "full_description": "",
-      "composition": [],
-      "category": "Шары поштучно",
-      "character": null,
-      "age_group": "Для любого возраста",
-      "budget": null,
-      "series_name": null,
-      "occasion": null,
-      "target_audience": null,
-      "seo_title": "",
-      "seo_description": "",
-      "slug": "fioletovyy-14",
-      "scene": "unit_balloon",
-      "tags": [
-        "Шары поштучно",
-        "Шары с конфетти"
-      ],
-      "client_options": {
-        "available_on_request": false,
-        "advance_order_1_2_days": false,
-        "number_choice": false,
-        "personal_inscription": false,
-        "photozone_rental": false,
-        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/9f61cb13-d11b-49ce-be2c-57d4da11c6d3.jpg",
-        "unit_type": "confetti",
-        "photo_dhash": "3038e8e4f4fc2cb2"
-      },
-      "photos": [
-        "https://storage.yandexcloud.net/vigsharm-photos/products/cd43190a-b0e3-4867-8d17-acd4ef20fcfc.jpg"
-      ],
-      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/cd43190a-b0e3-4867-8d17-acd4ef20fcfc.jpg",
-      "status": "draft",
-      "show_on_site": true,
-      "created_at": "2026-09-26T10:56:50.004Z",
-      "updated_at": "2026-10-13T21:11:19.482Z",
-      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/1a194760-dc2f-4359-9eb2-3508a12441c7.webp"
-    },
-    {
-      "id": "3519bf7d-1a36-4f26-95ae-c2ca562be60d",
-      "title": "Черные и желтые круги",
-      "article": "UNT-112",
-      "price": 180,
-      "short_description": "Черные и желтые круги",
-      "full_description": "",
-      "composition": [],
-      "category": "Шары поштучно",
-      "character": null,
-      "age_group": "Для любого возраста",
-      "budget": null,
-      "series_name": null,
-      "occasion": null,
-      "target_audience": null,
-      "seo_title": "",
-      "seo_description": "",
-      "slug": "fioletovyy-13",
-      "scene": "unit_balloon",
-      "tags": [
-        "Шары поштучно",
-        "Шары с конфетти"
-      ],
-      "client_options": {
-        "available_on_request": false,
-        "advance_order_1_2_days": false,
-        "number_choice": false,
-        "personal_inscription": false,
-        "photozone_rental": false,
-        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/9a159779-c6f5-4d5c-b461-d746f96b10a5.jpg",
-        "unit_type": "confetti",
-        "photo_dhash": "b93071b044d0e4e9"
-      },
-      "photos": [
-        "https://storage.yandexcloud.net/vigsharm-photos/products/0d8c30f3-d657-46a9-a983-082a1fed5293.jpg"
-      ],
-      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/0d8c30f3-d657-46a9-a983-082a1fed5293.jpg",
-      "status": "draft",
-      "show_on_site": true,
-      "created_at": "2026-09-26T10:55:59.983Z",
-      "updated_at": "2026-10-13T21:11:18.793Z",
-      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/29330f06-b06a-4824-9abf-7070d5aa7f63.webp"
-    },
-    {
-      "id": "98a522e0-8047-4613-bae1-671fb77e0981",
-      "title": "Красные круги",
-      "article": "UNT-111",
-      "price": 180,
-      "short_description": "Красные круги",
-      "full_description": "",
-      "composition": [],
-      "category": "Шары поштучно",
-      "character": null,
-      "age_group": "Для любого возраста",
-      "budget": null,
-      "series_name": null,
-      "occasion": null,
-      "target_audience": null,
-      "seo_title": "",
-      "seo_description": "",
-      "slug": "fioletovyy-12",
-      "scene": "unit_balloon",
-      "tags": [
-        "Шары поштучно",
-        "Шары с конфетти"
-      ],
-      "client_options": {
-        "available_on_request": false,
-        "advance_order_1_2_days": false,
-        "number_choice": false,
-        "personal_inscription": false,
-        "photozone_rental": false,
-        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/7af7770b-1ad6-4673-a08b-119333535fc3.jpg",
-        "unit_type": "confetti",
-        "photo_dhash": "f0d0e0687ce4f070"
-      },
-      "photos": [
-        "https://storage.yandexcloud.net/vigsharm-photos/products/9dc51bcd-4544-4af3-8ea6-af8dc7a3c800.jpg"
-      ],
-      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/9dc51bcd-4544-4af3-8ea6-af8dc7a3c800.jpg",
-      "status": "draft",
-      "show_on_site": true,
-      "created_at": "2026-09-26T10:55:04.792Z",
-      "updated_at": "2026-10-13T21:11:17.381Z",
-      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/14583835-f7a1-46da-a5a8-4e10486e5cc0.webp"
     },
     {
       "id": "458457c6-ede3-4af2-a095-35accfec74d8",

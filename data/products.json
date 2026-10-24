@@ -2,6 +2,100 @@
   "ok": true,
   "products": [
     {
+      "id": "b7f26714-3bc9-42be-b33b-c39b5a5f83cc",
+      "title": "Красное золото",
+      "article": "HER-006",
+      "price": 3700,
+      "short_description": "Красные фольгированные цифры с букетом красных и золотых хромированных шаров.",
+      "full_description": "Композиция из крупных красных цифр и воздушного букета в красно-золотой гамме. Хромированные шары создают праздничный акцент.",
+      "composition": [
+        "2 цифры",
+        "5 хромированных шаров",
+        "5 шаров"
+      ],
+      "category": "Для неё",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Воздушные шары на день рождения с цифрами — Армавир",
+      "seo_description": "Композиция из красных цифр и золотых хромированных шаров. Яркое оформление праздника в красно-золотой палитре. Доставка по Армавиру.",
+      "slug": "krasnoe-zoloto",
+      "scene": "wall_only",
+      "tags": [
+        "Для неё",
+        "Юбилей"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/daaaf339-9c4b-44e2-bd44-1ac3a1455230.jpg",
+        "photo_dhash": "87c656c8ca460301",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 2
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/e0bb974c-ac13-4a37-bbc5-396dd1e96e24.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/e0bb974c-ac13-4a37-bbc5-396dd1e96e24.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-24T13:23:07.983Z",
+      "updated_at": "2026-10-24T13:23:07.983Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/def12eff-3e29-4c1c-941b-6c5344865bc3.webp"
+    },
+    {
+      "id": "3887d310-0f0f-4bfa-80aa-79c773c45c98",
+      "title": "Звёздный превью",
+      "article": "BAB-056",
+      "price": 3200,
+      "short_description": "Напольная композиция из пяти звезд для эффектного оформления пространства.",
+      "full_description": "На фото представлена напольная композиция из пяти звезд. Подходит для тематического оформления праздника, фотозоны или декора.",
+      "composition": [
+        "5 звезд, напольная композиция"
+      ],
+      "category": "На выписку",
+      "character": null,
+      "age_group": "Для детей",
+      "budget": "2 000–3 500 ₽",
+      "series_name": "Малыш на луне",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Напольная композиция из 5 звезд в Армавире",
+      "seo_description": "Напольная композиция из пяти звезд для праздничного оформления и фотозоны. Доступна в Армавире.",
+      "slug": "napolnaya-kompozitsiya-5-zvezd",
+      "scene": "floor",
+      "tags": [
+        "На выписку"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/c7677dce-6fe1-40b9-b7d0-d36d3977f4f6.jpg",
+        "photo_dhash": "37b37377bf7b3139",
+        "floor_type": "air"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/a5707294-8079-4a89-803e-c57a51ab7a04.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/a5707294-8079-4a89-803e-c57a51ab7a04.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-24T11:48:28.567Z",
+      "updated_at": "2026-10-24T11:48:28.567Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/48f03fe3-4094-4ae1-b7b8-143344c61ea4.webp"
+    },
+    {
       "id": "6e2f6e25-3ddf-44ab-9747-698855a93ea0",
       "title": "Двойное любопытство",
       "article": "GND-009",
@@ -9,7 +103,7 @@
       "short_description": "Напольная композиция с двумя белыми мишками из шаров и чёрным шаром с вопросом о поле малыша.",
       "full_description": "Композиция на стойке с аркой из розовых и голубых шаров, двумя белыми мишками и чёрным шаром с розовой надписью. Золотые звёзды расставляют акценты по всей конструкции.",
       "composition": [
-        "Напольная композиция"
+        "Гендерный шар на стойке"
       ],
       "category": "Гендер-пати",
       "character": "Мишка",
@@ -42,7 +136,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-10-24T09:52:54.870Z",
-      "updated_at": "2026-10-24T09:52:54.870Z",
+      "updated_at": "2026-10-24T10:43:44.683Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/75ce53d0-65e5-4c9c-ada5-23277cd2d3f6.webp"
     },
     {
@@ -3260,7 +3354,7 @@
     {
       "id": "587861f9-cdd9-4d61-b130-60c29d2f6870",
       "title": "Сладкие сны",
-      "article": "BAB-049",
+      "article": "GND-010",
       "price": 3280,
       "short_description": "Две композиции с фигурами спящих малышей в розовом и голубом цвете.",
       "full_description": "Комплект из двух фонтанов с латексными шарами и фигурами новорождённых. Подходит для гендерной вечеринки или украшения для двойни.",
@@ -3268,7 +3362,7 @@
         "12 шаров",
         "2 фигуры"
       ],
-      "category": "На выписку",
+      "category": "Гендер-пати",
       "character": "Малыш",
       "age_group": "Для малышей",
       "budget": "2 000–3 500 ₽",
@@ -3280,7 +3374,7 @@
       "slug": "dvoynaya-radost-2",
       "scene": "wall_only",
       "tags": [
-        "На выписку"
+        "Гендер-пати"
       ],
       "client_options": {
         "available_on_request": false,
@@ -3298,7 +3392,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-10-15T08:51:16.795Z",
-      "updated_at": "2026-10-15T08:51:16.795Z",
+      "updated_at": "2026-10-24T13:23:47.873Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/8503e39d-b7eb-4bcc-903f-3fd2b09b1838.webp"
     },
     {

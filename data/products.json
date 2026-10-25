@@ -2,6 +2,53 @@
   "ok": true,
   "products": [
     {
+      "id": "136e5181-f581-41c7-9c7a-c5df00d4968b",
+      "title": "Именной ёлочный шар",
+      "article": "NY-005",
+      "price": 550,
+      "short_description": "Пластиковый шар 8 см с именем, классом или логотипом, в коробочке с бантом.",
+      "full_description": "Имя, класс или свой рисунок на пластиковом шаре диаметром 8 см. Каждый шар в коробочке с окошком и бантом. Цвет шара выбирается при заказе.",
+      "composition": [
+        "пластиковый шар 8 см",
+        "бант",
+        "коробочка с окошком"
+      ],
+      "category": "Новый год",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": "до 1 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Именной ёлочный шар — Армавир | VigSharm",
+      "seo_description": "Пластиковый ёлочный шар 8 см с именем или пожеланием, в коробочке с бантом. Армавир.",
+      "slug": "imennoj-elochnyj-shar",
+      "scene": "auto",
+      "tags": [
+        "Новый год"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "catalog_pin": true,
+        "balloon_size": "8 см",
+        "price_caption": "Цена за шар",
+        "order_page": "bauble-named-lite.html"
+      },
+      "photos": [
+        "preview/bauble-ex-gift.webp?v=4"
+      ],
+      "main_photo": "preview/bauble-ex-gift.webp?v=4",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-24T18:22:00.000Z",
+      "updated_at": "2026-10-25T04:00:00.000Z",
+      "thumb_photo": "preview/bauble-ex-gift.webp?v=4"
+    },
+    {
       "id": "45d8080a-3bc1-415f-8d41-c7e454b795b3",
       "title": "Вспышка чувств",
       "article": "HER-013",
@@ -268,53 +315,6 @@
       "created_at": "2026-10-24T09:47:12.770Z",
       "updated_at": "2026-10-24T09:47:12.770Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/366c5f8c-5aa0-49c3-a777-d3d19ae930f7.webp"
-    },
-    {
-      "id": "136e5181-f581-41c7-9c7a-c5df00d4968b",
-      "title": "Именной ёлочный шар",
-      "article": "NY-005",
-      "price": 550,
-      "short_description": "Пластиковый шар 8 см с именем, классом или логотипом, в коробочке с бантом.",
-      "full_description": "Имя, класс или свой рисунок на пластиковом шаре диаметром 8 см. Каждый шар в коробочке с окошком и бантом. Цвет шара выбирается при заказе.",
-      "composition": [
-        "пластиковый шар 8 см",
-        "бант",
-        "коробочка с окошком"
-      ],
-      "category": "Новый год",
-      "character": null,
-      "age_group": "Для любого возраста",
-      "budget": "до 1 000 ₽",
-      "series_name": null,
-      "occasion": null,
-      "target_audience": null,
-      "seo_title": "Именной ёлочный шар — Армавир | VigSharm",
-      "seo_description": "Пластиковый ёлочный шар 8 см с именем или пожеланием, в коробочке с бантом. Армавир.",
-      "slug": "imennoj-elochnyj-shar",
-      "scene": "auto",
-      "tags": [
-        "Новый год"
-      ],
-      "client_options": {
-        "available_on_request": false,
-        "advance_order_1_2_days": true,
-        "number_choice": false,
-        "personal_inscription": true,
-        "photozone_rental": false,
-        "catalog_pin": true,
-        "balloon_size": "8 см",
-        "price_caption": "Цена за шар",
-        "order_page": "bauble-named-lite.html"
-      },
-      "photos": [
-        "preview/bauble-ex-gift.webp?v=4"
-      ],
-      "main_photo": "preview/bauble-ex-gift.webp?v=4",
-      "status": "published",
-      "show_on_site": true,
-      "created_at": "2026-10-24T18:22:00.000Z",
-      "updated_at": "2026-10-25T04:00:00.000Z",
-      "thumb_photo": "preview/bauble-ex-gift.webp?v=4"
     },
     {
       "id": "82b6880b-d9e3-4a96-aa25-c30ac9956f3c",
@@ -3712,7 +3712,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-10-15T08:10:00.000Z",
-      "updated_at": "2026-10-15T08:47:20.200Z",
+      "updated_at": "2026-10-25T04:00:00.000Z",
       "thumb_photo": "/images/balloons/gender/gender-out.webp?v=20261015"
     },
     {

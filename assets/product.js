@@ -1234,11 +1234,6 @@
         '</section>';
     }
 
-    /* Spacer so sticky header + bottom CTA leave room to park any step. Unit balloons stop at «В набор». */
-    if (!isUnit()) {
-      html += '<div class="client-order-scroll-pad" aria-hidden="true" style="height:min(560px,72vh);pointer-events:none"></div>';
-    }
-
     html += '</div>';
     return html;
   }

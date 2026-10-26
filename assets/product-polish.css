@@ -863,8 +863,12 @@ a.pickup-studio{
     display:grid!important;
     gap:14px;
     margin-top:14px;
-    /* Bottom bar (~88) + room so the last step can sit below the sticky header */
+    /* Room so «Дата и время» can park under the sticky header while the calendar opens */
     padding-bottom:calc(70vh - 76px);
+  }
+  /* Contact appears only after date/time — shrink the empty tail to the sticky bar */
+  .product-page.is-client-order .client-order:has(#client-contact){
+    padding-bottom:calc(108px + env(safe-area-inset-bottom,0px));
   }
   .product-page.is-client-order .product-lead{
     display:none!important;

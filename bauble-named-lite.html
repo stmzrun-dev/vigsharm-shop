@@ -19,7 +19,7 @@
 <link rel="stylesheet" href="assets/style.css?v=20260926-release"/>
 <link rel="stylesheet" href="assets/emoji-icons.css?v=20260926-release"/>
 <link rel="stylesheet" href="assets/site-marshmallow.css?v=20260926-qty-step"/>
-<link rel="stylesheet" href="assets/product-polish.css?v=20261024-map"/>
+<link rel="stylesheet" href="assets/product-polish.css?v=20261026-pad"/>
 <link rel="stylesheet" href="assets/menu-marshmallow.css?v=20260926-release"/>
 <link rel="stylesheet" href="assets/season.css?v=20261020-tap"/>
 <!-- Yandex.Metrika counter -->
@@ -896,6 +896,7 @@ ym(113074033,'init',{ssr:true,webvisor:true,clickmap:true,ecommerce:"dataLayer",
   .lite-price { margin: 14px 0 0; }
   .lite-price strong { font-size: 28px; font-weight: 800; letter-spacing: -0.03em; }
   .lite-price span { color: var(--muted); font-size: 14px; }
+  .lite-spec { margin: 6px 0 0; color: var(--muted); font-size: 13px; line-height: 1.35; }
   .lite-season { margin: 2px 0 0; color: var(--muted); font-size: 13px; }
   .tiles.seg {
     display: flex;
@@ -1030,52 +1031,18 @@ ym(113074033,'init',{ssr:true,webvisor:true,clickmap:true,ecommerce:"dataLayer",
     mask-image: linear-gradient(90deg, #000 0, #000 calc(100% - 36px), transparent);
   }
 
+  /* #receive носит класс product-page ради полей заказа, но это не вся страница */
+  html body .bauble-page #receive.product-page {
+    min-height: 0 !important;
+    padding-bottom: 0 !important;
+  }
   @media (max-width: 1020px) {
     .ask, #file-label, #send, .client-block {
       scroll-margin-top: 88px;
       scroll-margin-bottom: calc(96px + env(safe-area-inset-bottom, 0px));
     }
-    .order-scroll-pad { height: min(560px, 72vh); }
+    .order-scroll-pad { height: calc(96px + env(safe-area-inset-bottom, 0px)); }
   }
-  .more {
-    margin-top: 16px;
-    border-top: 1px solid var(--line);
-  }
-  .more summary {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    min-height: 48px;
-    font-size: 15px;
-    font-weight: 750;
-    list-style: none;
-    cursor: pointer;
-  }
-  .more summary::-webkit-details-marker { display: none; }
-  .more summary::after {
-    content: "+";
-    color: var(--coral);
-    font-size: 22px;
-    font-weight: 700;
-    transition: transform .2s;
-  }
-  .more[open] summary::after { transform: rotate(45deg); }
-  .more-spec {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px 16px;
-    margin: 0 0 12px;
-  }
-  .more-spec dt { color: var(--muted); font-size: 12px; }
-  .more-spec dd { margin: 0; font-size: 14px; font-weight: 650; }
-  .more p {
-    margin: 0 0 10px;
-    color: var(--muted);
-    font-size: 14px;
-    line-height: 1.45;
-  }
-  .more p b { color: var(--ink); }
-
   @media (min-width: 760px) {
     .gallery { overflow: hidden; border-radius: 24px 0 0 24px; }
   }
@@ -1110,6 +1077,7 @@ ym(113074033,'init',{ssr:true,webvisor:true,clickmap:true,ecommerce:"dataLayer",
       <h1 id="title">Именной ёлочный шар</h1>
       <p class="lead" id="lead">Имя или тёплые слова на шаре — подарок, который достают каждый Новый год.</p>
       <p class="lite-price"><strong>550 ₽</strong> <span>за шар в коробочке</span></p>
+      <p class="lite-spec">Диаметр шара 8 см · пластик · бант и коробочка с окошком</p>
       <p class="lite-season" id="season"></p>
 
       <div class="tiles seg" role="group" aria-label="Что наносим">
@@ -1180,20 +1148,7 @@ ym(113074033,'init',{ssr:true,webvisor:true,clickmap:true,ecommerce:"dataLayer",
       <div class="product-page" id="receive"></div>
 
       <button type="button" class="go" id="send">Оставить заявку</button>
-      <p class="fine">Перед работой пришлём макет надписи в WhatsApp. Оплата при получении.</p>
-
-      <details class="more">
-        <summary>Подробнее о шаре</summary>
-        <dl class="more-spec">
-          <div><dt>Диаметр</dt><dd>8 см</dd></div>
-          <div><dt>Материал</dt><dd>пластик</dd></div>
-          <div><dt>В комплекте</dt><dd>бант и коробочка с окошком</dd></div>
-        </dl>
-        <p><b>Если ошибусь в имени?</b> Пришлём макет в WhatsApp и исправим бесплатно, пока вы не скажете «да».</p>
-        <p><b>Какого цвета буквы?</b> Белые или золотые — подберём под цвет шара. Другой цвет шара — выберите «Другой».</p>
-        <p><b>Когда платить?</b> При получении, после того как согласуем макет.</p>
-        <p><b>Сроки</b> Готовим 2–3 дня. Новогодние заказы принимаем до 29 декабря включительно.</p>
-      </details>
+      <p class="fine">Перед работой пришлём макет надписи. Оплата при получении.</p>
       <div class="order-scroll-pad" aria-hidden="true"></div>
     </div>
   </article>
@@ -1525,7 +1480,7 @@ ym(113074033,'init',{ssr:true,webvisor:true,clickmap:true,ecommerce:"dataLayer",
     $('total').textContent = rub(sum);
     $('bar-sum').textContent = balls(n) + ' · ' + rub(sum);
     var hint = '';
-    if (qty > 1 && job === 'custom') hint = 'Один макет на все шары. Если нужны разные — пришлёте в WhatsApp.';
+    if (qty > 1 && job === 'custom') hint = 'Один макет на все шары. Если нужны разные — пришлёте вместе с заявкой.';
     $('qty-hint').textContent = hint;
     $('qty-hint').hidden = !hint;
     var p = pupils().length;
@@ -1586,6 +1541,17 @@ ym(113074033,'init',{ssr:true,webvisor:true,clickmap:true,ecommerce:"dataLayer",
       try { window.scrollTo({ top: y, behavior: 'smooth' }); }
       catch (e) { window.scrollTo(0, y); }
     }, 60);
+  }
+
+  function scrollToPhoto() {
+    if (window.innerWidth > 759) return;
+    var photo = document.querySelector('.gallery');
+    if (!photo) return;
+    var header = document.querySelector('.site-header, .header');
+    var topPad = (header ? header.getBoundingClientRect().height : 64) + 8;
+    var top = photo.getBoundingClientRect().top;
+    if (top >= topPad - 12 && top <= topPad + 28) return;
+    scrollToStep(photo);
   }
 
   function paintReceive() {
@@ -1680,7 +1646,7 @@ ym(113074033,'init',{ssr:true,webvisor:true,clickmap:true,ecommerce:"dataLayer",
     addAsked = false;
     paintPhotos();
     paint();
-    scrollToStep(next === 'custom' ? 'file-label' : ('panel-' + next));
+    scrollToPhoto();
   }
 
   function colorLine(c) {

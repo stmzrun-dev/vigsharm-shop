@@ -2,6 +2,103 @@
   "ok": true,
   "products": [
     {
+      "id": "8e91ee9a-53f9-46f6-94f2-7b65141d451d",
+      "title": "Крошки, Винни-Пух",
+      "article": "UNT-112",
+      "price": 750,
+      "short_description": "Крошки, Винни-Пух",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": "Винни-Пух",
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": "Винни-Пух",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "lyubimaya-mama-2",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Для девочки",
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/63883cd0-7a1f-4845-ab81-6e65cd34d60d.jpg",
+        "photo_dhash": "9c8e8ed4d4f0f8f8",
+        "unit_type": "foil",
+        "balloon_size": "89 см",
+        "unit_who": [
+          "Для девочки",
+          "Для мальчика"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/cb639d67-066a-4ebb-83a5-bfd2b39166d1.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/cb639d67-066a-4ebb-83a5-bfd2b39166d1.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-26T07:04:15.214Z",
+      "updated_at": "2026-10-26T07:04:15.214Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/7f2ecd9a-9f6d-4bfc-b23e-eb8749c751d1.webp"
+    },
+    {
+      "id": "db3bdb79-946c-4e06-9638-b955f62de82e",
+      "title": "Любимая Мама",
+      "article": "UNT-111",
+      "price": 350,
+      "short_description": "Любимая Мама",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "lyubimaya-mama",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Круги, звёзды и сердца",
+        "Для неё"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/37a5b69d-88bf-451d-9d19-d32d2586d629.jpg",
+        "photo_dhash": "ccde1f9e96c8f0f0",
+        "unit_type": "shapes",
+        "unit_who": [
+          "Для неё"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/7198d134-2bc2-4188-9567-89bc06789194.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/7198d134-2bc2-4188-9567-89bc06789194.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-26T07:02:33.441Z",
+      "updated_at": "2026-10-26T07:02:33.441Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/f1c08810-19da-45c2-a6a6-b58cfb68b9c2.webp"
+    },
+    {
       "id": "136e5181-f581-41c7-9c7a-c5df00d4968b",
       "title": "Именной ёлочный шар",
       "article": "NY-005",

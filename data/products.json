@@ -2,6 +2,52 @@
   "ok": true,
   "products": [
     {
+      "id": "7cbc855c-3bf3-4c02-b8ff-f5dacb5eb178",
+      "title": "Домой с мишкой",
+      "article": "BAB-049",
+      "price": 5900,
+      "short_description": "Композиция на выписку с мишкой, баблсом с надписью и шарами с крупинками пенопласта.",
+      "full_description": "Нежная композиция на выписку из роддома с фольгированным мишкой, стеклянным баблсом с надписью и датой, шарами с крупинками пенопласта.",
+      "composition": [
+        "4 шара с крупинками пенопласта",
+        "стеклянный баблс с крупинками пенопласта и надписью",
+        "12 шаров",
+        "фигура"
+      ],
+      "category": "На выписку",
+      "character": "Мишка",
+      "age_group": "Для малышей",
+      "budget": "5 000–8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары на выписку с мишкой в Армавире",
+      "seo_description": "Композиция на выписку из роддома с фольгированным мишкой, стеклянным баблсом с надписью и нежными шарами с крупинками пенопласта.",
+      "slug": "domoy-s-mishkoy",
+      "scene": "wall_only",
+      "tags": [
+        "На выписку"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/444de9be-97c2-4fc6-89b4-09fe222c54d3.jpg",
+        "photo_dhash": "734a5c3de167670f"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/66ddd3b2-3c8a-41bf-8ff5-3acd48a7b7ae.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/66ddd3b2-3c8a-41bf-8ff5-3acd48a7b7ae.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-27T15:45:44.868Z",
+      "updated_at": "2026-10-27T15:45:44.868Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/536cfb40-609e-4bc1-bd8d-ff3db00b1ed4.webp"
+    },
+    {
       "id": "8e91ee9a-53f9-46f6-94f2-7b65141d451d",
       "title": "Крошки, Винни-Пух",
       "article": "UNT-112",

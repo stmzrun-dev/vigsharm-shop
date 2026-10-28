@@ -192,6 +192,56 @@
       "thumb_photo": "preview/bauble-ex-gift.webp?v=4"
     },
     {
+      "id": "c2f4a7d9-5b1e-4e86-9a3c-7d0e6b1f8a42",
+      "title": "Ёлочный шар с фото",
+      "article": "NY-006",
+      "price": 600,
+      "short_description": "Прозрачный шар 8 см со снежком и вашим фото, атласный бант на выбор, в коробочке с окошком.",
+      "full_description": "Ваше фото внутри прозрачного ёлочного шара 8 см со снежком. На обороте второе фото или надпись. Бант любого цвета. Каждый шар в коробочке с окошком.",
+      "composition": [
+        "прозрачный шар 8 см со снежком",
+        "фото с двух сторон или фото и надпись",
+        "атласный бант",
+        "коробочка с окошком"
+      ],
+      "category": "Новый год",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": "до 1 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Ёлочный шар с фото — Армавир | VigSharm",
+      "seo_description": "Прозрачный ёлочный шар с вашим фото и снежком внутри, в коробочке с окошком. 600 ₽. Армавир.",
+      "slug": "elochnyj-shar-s-foto",
+      "scene": "auto",
+      "tags": [
+        "Новый год"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "catalog_pin": true,
+        "price_caption": "Цена за шар",
+        "order_page": "bauble-photo-lite.html"
+      },
+      "photos": [
+        "preview/bauble-photo-in-hand.webp?v=1",
+        "preview/bauble-photo-side.webp?v=1",
+        "preview/bauble-photo-gift-box.webp?v=2",
+        "preview/bauble-photo-set.webp?v=1"
+      ],
+      "main_photo": "preview/bauble-photo-in-hand.webp?v=1",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-26T08:00:00.000Z",
+      "updated_at": "2026-10-26T08:00:00.000Z",
+      "thumb_photo": "preview/bauble-photo-in-hand.webp?v=1"
+    },
+    {
       "id": "45d8080a-3bc1-415f-8d41-c7e454b795b3",
       "title": "Вспышка чувств",
       "article": "HER-013",

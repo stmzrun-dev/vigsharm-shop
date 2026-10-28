@@ -85,6 +85,10 @@
     location.replace('bauble-named-lite.html');
     return;
   }
+  if (slug === 'elochnyj-shar-s-foto') {
+    location.replace('bauble-photo-lite.html');
+    return;
+  }
 
   // state
   var p = null, allProducts = [];

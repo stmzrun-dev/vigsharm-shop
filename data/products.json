@@ -83,7 +83,8 @@
         "catalog_pin": true,
         "balloon_size": "8 см",
         "price_caption": "Цена за шар",
-        "order_page": "bauble-photo-lite.html"
+        "order_page": "bauble-photo-lite.html",
+        "photo_dhash": "197975d6c5c4ac28"
       },
       "photos": [
         "https://vigsharm.ru/preview/bauble-photo-in-hand.webp?v=1",
@@ -230,7 +231,8 @@
         "catalog_pin": true,
         "balloon_size": "8 см",
         "price_caption": "Цена за шар",
-        "order_page": "bauble-named-lite.html"
+        "order_page": "bauble-named-lite.html",
+        "photo_dhash": "7efdff84d6d93b9e"
       },
       "photos": [
         "https://vigsharm.ru/preview/bauble-ex-gift.webp?v=4"
@@ -239,7 +241,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-10-24T18:22:00.000Z",
-      "updated_at": "2026-10-25T04:00:00.000Z",
+      "updated_at": "2026-10-29T05:45:00.000Z",
       "thumb_photo": "https://vigsharm.ru/preview/bauble-ex-gift.webp?v=4"
     },
     {

@@ -182,18 +182,18 @@
         "order_page": "bauble-named-lite.html"
       },
       "photos": [
-        "preview/bauble-ex-gift.webp?v=4"
+        "https://vigsharm.ru/preview/bauble-ex-gift.webp?v=4"
       ],
-      "main_photo": "preview/bauble-ex-gift.webp?v=4",
+      "main_photo": "https://vigsharm.ru/preview/bauble-ex-gift.webp?v=4",
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-10-24T18:22:00.000Z",
       "updated_at": "2026-10-25T04:00:00.000Z",
-      "thumb_photo": "preview/bauble-ex-gift.webp?v=4"
+      "thumb_photo": "https://vigsharm.ru/preview/bauble-ex-gift.webp?v=4"
     },
     {
       "id": "c2f4a7d9-5b1e-4e86-9a3c-7d0e6b1f8a42",
-      "title": "Ёлочный шар с фото",
+      "title": "Ёлочный фотошар",
       "article": "NY-006",
       "price": 600,
       "short_description": "Прозрачный шар 8 см со снежком и вашим фото, атласный бант на выбор, в коробочке с окошком.",
@@ -211,8 +211,8 @@
       "series_name": null,
       "occasion": null,
       "target_audience": null,
-      "seo_title": "Ёлочный шар с фото — Армавир | VigSharm",
-      "seo_description": "Прозрачный ёлочный шар с вашим фото и снежком внутри, в коробочке с окошком. 600 ₽. Армавир.",
+      "seo_title": "Ёлочный фотошар — Армавир | VigSharm",
+      "seo_description": "Прозрачный ёлочный фотошар 8 см с вашим фото и снежком внутри, в коробочке с окошком. 600 ₽. Армавир.",
       "slug": "elochnyj-shar-s-foto",
       "scene": "auto",
       "tags": [
@@ -225,21 +225,22 @@
         "personal_inscription": true,
         "photozone_rental": false,
         "catalog_pin": true,
+        "balloon_size": "8 см",
         "price_caption": "Цена за шар",
         "order_page": "bauble-photo-lite.html"
       },
       "photos": [
-        "preview/bauble-photo-in-hand.webp?v=1",
-        "preview/bauble-photo-side.webp?v=1",
-        "preview/bauble-photo-gift-box.webp?v=2",
-        "preview/bauble-photo-set.webp?v=1"
+        "https://vigsharm.ru/preview/bauble-photo-in-hand.webp?v=1",
+        "https://vigsharm.ru/preview/bauble-photo-side.webp?v=1",
+        "https://vigsharm.ru/preview/bauble-photo-gift-box.webp?v=2",
+        "https://vigsharm.ru/preview/bauble-photo-set.webp?v=1"
       ],
-      "main_photo": "preview/bauble-photo-in-hand.webp?v=1",
+      "main_photo": "https://vigsharm.ru/preview/bauble-photo-in-hand.webp?v=1",
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-10-26T08:00:00.000Z",
       "updated_at": "2026-10-26T08:00:00.000Z",
-      "thumb_photo": "preview/bauble-photo-in-hand.webp?v=1"
+      "thumb_photo": "https://vigsharm.ru/preview/bauble-photo-in-hand.webp?v=1"
     },
     {
       "id": "45d8080a-3bc1-415f-8d41-c7e454b795b3",

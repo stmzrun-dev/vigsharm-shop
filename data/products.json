@@ -2,6 +2,194 @@
   "ok": true,
   "products": [
     {
+      "id": "4d729af8-d996-467d-ade9-0bad4a260e84",
+      "title": "Пастельный взлёт",
+      "article": "GRL-111",
+      "price": 4800,
+      "short_description": "Стеклянный баблс с надписью и три фигуры бабочек в пастельных тонах.",
+      "full_description": "Композиция из прозрачного баблса с надписью Happy Birthday и декором из розовых бабочек, дополненная тремя крупными фольгированными бабочками нежных голубых, розовых и жёлтых оттенков.",
+      "composition": [
+        "Стеклянный баблс с надписью",
+        "3 фигуры"
+      ],
+      "category": "Для девочки",
+      "character": "Бабочка",
+      "age_group": "Для детей",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Пастельный взлёт — шары с бабочками, Армавир",
+      "seo_description": "Композиция из стеклянного баблса с надписью Happy Birthday и трёх фольгированных бабочек в нежных пастельных тонах. Заказать в VigSharm, Армавир.",
+      "slug": "pastelnyj-vzlyot",
+      "scene": "wall_only",
+      "tags": [
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/9eabb4ab-292a-46ce-a4f9-18ee1dd70e20.jpg",
+        "photo_dhash": "7cf5f9f9f1e9aba7"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/2c903bb7-aaa6-472e-9970-c66d6c4ea366.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/2c903bb7-aaa6-472e-9970-c66d6c4ea366.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-30T15:22:09.105Z",
+      "updated_at": "2026-10-30T15:22:09.105Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/88890dfb-1a1c-4378-a3a8-35edbea70727.webp"
+    },
+    {
+      "id": "903877dd-dec5-4486-828b-8adee791e526",
+      "title": "Полный бак",
+      "article": "HIM-044",
+      "price": 6700,
+      "short_description": "Фонтан из шаров, красные цифры, баблс с надписью и фигура канистры АИ-95.",
+      "full_description": "Напольная композиция с фонтаном из чёрных, розовых и серебряных шаров, крупными красными цифрами, прозрачным баблсом с надписью и серебряной фигурой канистры.",
+      "composition": [
+        "10 шаров",
+        "2 цифры",
+        "фигура",
+        "баблс с надписью"
+      ],
+      "category": "Для него",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "5 000–8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары с канистрой и цифрами — доставка в Армавире",
+      "seo_description": "Напольная композиция с фонтаном из шаров, красными цифрами, баблсом с надписью и фигурой канистры АИ-95. Оригинальное оформление праздника.",
+      "slug": "polnyj-bak",
+      "scene": "floor",
+      "tags": [
+        "Для него"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": true,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/cf70d30d-82ae-47e7-bcbd-c2d17611da76.jpg",
+        "photo_dhash": "8a0e9693a9a9a9a9",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 2
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/ba0bdab0-4a7c-4138-ada9-df67fd41a8c4.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/ba0bdab0-4a7c-4138-ada9-df67fd41a8c4.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-30T15:15:27.905Z",
+      "updated_at": "2026-10-30T15:15:27.905Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/b8e3ca0a-c3ab-41e4-920b-958055b0105a.webp"
+    },
+    {
+      "id": "2caa5b6b-2139-48b0-ac63-7bf79decb660",
+      "title": "Мишка-обнимашка",
+      "article": "BOY-112",
+      "price": 2570,
+      "short_description": "Композиция с фольгированным мишкой и шарами в нежных тонах.",
+      "full_description": "Милый мультяшный медвежонок в окружении золотых, голубых и белых шаров. Подойдёт для малышей и детей.",
+      "composition": [
+        "фигура",
+        "3 шара хром",
+        "7 шаров"
+      ],
+      "category": "Для мальчика",
+      "character": "Винни-Пух",
+      "age_group": "Для малышей",
+      "budget": "2 000–3 500 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Композиция с мишкой из шаров — Армавир",
+      "seo_description": "Мультяшный медвежонок с золотыми и голубыми шарами. Универсальное оформление праздника для детей. Доставка по Армавиру.",
+      "slug": "mishka-obniemashka",
+      "scene": "wall_only",
+      "tags": [
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/f287eda4-48a2-4f7b-bc3c-0646ce3c3fca.jpg",
+        "photo_dhash": "1818726070301800"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/0134842c-93ab-4ec3-85c9-36e1f8f0e305.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/0134842c-93ab-4ec3-85c9-36e1f8f0e305.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-30T15:05:14.852Z",
+      "updated_at": "2026-10-30T15:26:04.975Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/1fd91219-8603-4ae1-b7f4-79cd1d1010b5.webp"
+    },
+    {
+      "id": "a6d26304-b218-4e28-aa16-4be7216873c7",
+      "title": "Розовое сияние",
+      "article": "HER-050",
+      "price": 3000,
+      "short_description": "Серебряные цифры с розовыми хромированными шарами и конфетти.",
+      "full_description": "Крупные серебряные цифры в центре композиции окружены розовыми хромированными шарами и прозрачными шарами с конфетти.",
+      "composition": [
+        "2 цифры",
+        "2 шара с конфетти",
+        "3 шара хром"
+      ],
+      "category": "Для неё",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "2 000–3 500 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Серебряные цифры с розовыми шарами — Армавир",
+      "seo_description": "Композиция с серебряными цифрами, розовыми хромированными шарами и конфетти. Доставка воздушных шаров в Армавире.",
+      "slug": "serebryanyy-blesk-2",
+      "scene": "wall_only",
+      "tags": [
+        "Для неё"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/0c7b74c6-d613-4528-8c26-072416670aab.jpg",
+        "photo_dhash": "8f92b2198bcb9307",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 2
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/3d64aaff-e12d-4802-9147-348482119f06.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/3d64aaff-e12d-4802-9147-348482119f06.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-30T14:54:37.751Z",
+      "updated_at": "2026-10-30T14:54:37.751Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/74afc7f2-da0a-42b4-b44f-c88d8591fbff.webp"
+    },
+    {
       "id": "7cbc855c-3bf3-4c02-b8ff-f5dacb5eb178",
       "title": "Домой с мишкой",
       "article": "BAB-049",

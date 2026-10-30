@@ -2,6 +2,52 @@
   "ok": true,
   "products": [
     {
+      "id": "cb29af3a-9fcd-436b-9640-52a795274c6d",
+      "title": "Облачный малыш",
+      "article": "BAB-057",
+      "price": 5100,
+      "short_description": "Слонёнок и облако на фоне синих и серебристых шаров, баблс с метриками малыша.",
+      "full_description": "Фигуры слонёнка и облака дополнены баблсом с именем и данными новорождённого, синими и хромированными шарами.",
+      "composition": [
+        "2 фигуры",
+        "баблс с шариками и надписью",
+        "5 шаров хром",
+        "5 шаров"
+      ],
+      "category": "На выписку",
+      "character": "Слонёнок",
+      "age_group": "Для малышей",
+      "budget": "5 000–8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары на выписку со слонёнком и облаком — Армавир",
+      "seo_description": "Композиция на выписку: фигуры слонёнка и облака, баблс с метриками малыша, синие и хромированные шары. Доставка в Армавире.",
+      "slug": "obuachny-malysh-vypiska",
+      "scene": "wall_only",
+      "tags": [
+        "На выписку"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/e2d3fd82-cd77-4677-838e-6ff951409abf.jpg",
+        "photo_dhash": "3c7c6edd0d5e5d75"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/619df61b-1108-44e7-818e-c363f8654d70.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/619df61b-1108-44e7-818e-c363f8654d70.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-30T15:58:57.108Z",
+      "updated_at": "2026-10-30T15:58:57.108Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/4ecd3793-1b86-4bca-9bbe-67bf2116ac49.webp"
+    },
+    {
       "id": "4d729af8-d996-467d-ade9-0bad4a260e84",
       "title": "Пастельный взлёт",
       "article": "GRL-111",

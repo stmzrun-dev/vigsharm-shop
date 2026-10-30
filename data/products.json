@@ -2,6 +2,56 @@
   "ok": true,
   "products": [
     {
+      "id": "4f124470-2f07-4c39-b478-860200be5480",
+      "title": "Розовый восторг",
+      "article": "GRL-174",
+      "price": 4090,
+      "short_description": "Праздничный сет в розовых тонах с цифрами, кошечкой и большим бантом с надписью.",
+      "full_description": "Нежная композиция с крупными фольгированными цифрами, фигурой кошечки и бантом. Дополнена связкой пастельных латексных шаров.",
+      "composition": [
+        "2 фигуры",
+        "2 цифры",
+        "6 шаров"
+      ],
+      "category": "Для девочки",
+      "character": "Хелло Китти",
+      "age_group": "Для детей",
+      "budget": "3 500–5 000 ₽",
+      "series_name": "Hello Kitty",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары на 10 лет девочке с Китти в Армавире",
+      "seo_description": "Воздушные шары на первый юбилей девочке с фольгированными цифрами 10, кошечкой Китти и бантом. Доставка в Армавире от VigSharm.",
+      "slug": "zefirnyj-bant-hello-kitty-10",
+      "scene": "wall_only",
+      "tags": [
+        "Для девочки",
+        "Юбилей"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/86aec570-3acf-49f6-a603-ee0c374978fe.jpg",
+        "photo_dhash": "8fc4c4ecdafce8d2",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 2
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/2b903f1f-92b8-4fe4-87dd-18cfe110ac2a.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/2b903f1f-92b8-4fe4-87dd-18cfe110ac2a.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-30T18:33:33.535Z",
+      "updated_at": "2026-10-30T18:33:33.535Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/af39e3b2-cd44-45cb-be67-4837e299d461.webp"
+    },
+    {
       "id": "a5086234-01cd-4312-8b08-560fb21d84d3",
       "title": "Удачный улов",
       "article": "HIM-045",
@@ -573,45 +623,6 @@
       "created_at": "2026-10-24T18:21:52.293Z",
       "updated_at": "2026-10-24T18:21:52.293Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/d6b8a244-1fe1-44f3-9976-e5f1d0b0d7e9.webp"
-    },
-    {
-      "id": "15a5777a-fa7d-4735-a012-40151431184e",
-      "title": "Черновик",
-      "article": null,
-      "price": 0,
-      "short_description": "",
-      "full_description": "",
-      "composition": [],
-      "category": "",
-      "character": null,
-      "age_group": "Для любого возраста",
-      "budget": null,
-      "series_name": null,
-      "occasion": null,
-      "target_audience": null,
-      "seo_title": "",
-      "seo_description": "",
-      "slug": "chernovik-3",
-      "scene": "wall_only",
-      "tags": [],
-      "client_options": {
-        "available_on_request": false,
-        "advance_order_1_2_days": false,
-        "number_choice": false,
-        "personal_inscription": false,
-        "photozone_rental": false,
-        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/2e3d2f03-e30c-43b4-a88d-3784f360fd92.avif",
-        "photo_dhash": "1e9ab4dcc8ca4a4a"
-      },
-      "photos": [
-        "https://storage.yandexcloud.net/vigsharm-photos/products/2e3d2f03-e30c-43b4-a88d-3784f360fd92.avif"
-      ],
-      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/2e3d2f03-e30c-43b4-a88d-3784f360fd92.avif",
-      "status": "draft",
-      "show_on_site": false,
-      "created_at": "2026-10-24T15:27:33.579Z",
-      "updated_at": "2026-10-24T15:27:33.579Z",
-      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/7f633f0e-414c-4d65-a4ff-4456ae7942a0.webp"
     },
     {
       "id": "b7f26714-3bc9-42be-b33b-c39b5a5f83cc",

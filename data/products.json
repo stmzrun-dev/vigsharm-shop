@@ -2,6 +2,52 @@
   "ok": true,
   "products": [
     {
+      "id": "a5086234-01cd-4312-8b08-560fb21d84d3",
+      "title": "Удачный улов",
+      "article": "HIM-045",
+      "price": 6180,
+      "short_description": "Стеклянный баблс с надписью, фигуры рыб, кружка пива и шары в золотисто-бежевых тонах.",
+      "full_description": "Композиция для любителя рыбалки и пенных посиделок. Стеклянный баблс с надписью дополнен фигурами рыб, кружкой пива и шарами в тёплой палитре.",
+      "composition": [
+        "стеклянный баблс с надписью",
+        "3 фигуры",
+        "3 шара хром",
+        "6 шаров"
+      ],
+      "category": "Для него",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "5 000–8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары для рыбака с баблсом и кружкой пива – Армавир",
+      "seo_description": "Композиция из шаров для любителя рыбалки: стеклянный баблс с надписью, фигуры рыб, кружка пива и шары в золотисто-бежевых тонах. Армавир.",
+      "slug": "udachnyy-ulov",
+      "scene": "wall_only",
+      "tags": [
+        "Для него"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/b9729ac5-be86-4c1a-818c-3df59b0c919d.jpg",
+        "photo_dhash": "1e9a94dc8ac64a4a"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/58b777f1-219b-4c1a-8757-0d9ad692e202.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/58b777f1-219b-4c1a-8757-0d9ad692e202.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-30T16:11:48.954Z",
+      "updated_at": "2026-10-30T16:11:48.954Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/a5bff850-6a3a-4d75-ada0-838fa5d24163.webp"
+    },
+    {
       "id": "cb29af3a-9fcd-436b-9640-52a795274c6d",
       "title": "Облачный малыш",
       "article": "BAB-057",

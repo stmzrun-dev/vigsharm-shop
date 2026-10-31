@@ -2,6 +2,378 @@
   "ok": true,
   "products": [
     {
+      "id": "5556893b-4983-4e40-9a83-dc0d86ce50c8",
+      "title": "Зайка Люба",
+      "article": "BAB-058",
+      "price": 4070,
+      "short_description": "Нежная композиция с зайчиком и метрикой на выписку из роддома.",
+      "full_description": "Композиция с фольгированным зайчиком и большим баблсом с метрикой новорождённой. Дополнена шарами с конфетти в пастельных тонах.",
+      "composition": [
+        "баблс с надписью",
+        "фигура",
+        "шар с конфетти",
+        "6 шаров"
+      ],
+      "category": "На выписку",
+      "character": "Зайчик",
+      "age_group": "Для малышей",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары на выписку для девочки с зайчиком и метрикой в Армавире",
+      "seo_description": "Нежная композиция с фольгированным зайчиком и баблсом с именем и датой рождения. Доставка воздушных шаров на выписку из роддома в Армавире.",
+      "slug": "zayka-lyuba",
+      "scene": "wall_only",
+      "tags": [
+        "На выписку"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/7900e87e-39c9-4acd-a136-4a0e924bd787.jpg",
+        "photo_dhash": "3b3b594da189b8f8"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/c4b3aa19-5eb1-4830-91b0-6063ff3c4706.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/c4b3aa19-5eb1-4830-91b0-6063ff3c4706.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-31T08:06:44.503Z",
+      "updated_at": "2026-10-31T08:06:44.503Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/2b934ad1-57b9-4733-bf23-3ffa6742776c.webp"
+    },
+    {
+      "id": "fb6ab07c-f73d-4cea-bf84-2bf3f58bc296",
+      "title": "Ёжик в зелени",
+      "article": "Y1-060",
+      "price": 2630,
+      "short_description": "Композиция с цифрой, фигурой ёжика и шарами в зелёно-бежевой гамме.",
+      "full_description": "Композиция для первого дня рождения с зелёной цифрой, фольгированной фигурой ёжика и букетом из зелёных и бежевых шаров.",
+      "composition": [
+        "цифра",
+        "фигура",
+        "7 шаров"
+      ],
+      "category": "1 годик",
+      "character": "Ёжик",
+      "age_group": "Для малышей",
+      "budget": "2 000–3 500 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Композиция с ёжиком на годик — Армавир",
+      "seo_description": "Композиция для первого дня рождения с зелёной цифрой, фигурой ёжика и шарами. Доставка воздушных шаров в Армавире.",
+      "slug": "lesnoi-kolyuchii-drug",
+      "scene": "wall_only",
+      "tags": [
+        "1 годик"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/c07f29e7-eeb1-49cf-af89-3ed78365d5ee.jpg",
+        "photo_dhash": "9cbca5a5ecccc4fc"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/e51bb5e5-5f35-4732-902a-b8c37b3a8529.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/e51bb5e5-5f35-4732-902a-b8c37b3a8529.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-31T08:03:48.936Z",
+      "updated_at": "2026-10-31T08:03:48.936Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/b27668f5-abdb-4577-b33a-a71dd7ff3580.webp"
+    },
+    {
+      "id": "516775d7-7706-442f-86ab-a032d0521df4",
+      "title": "Волшебный полёт",
+      "article": "GRL-176",
+      "price": 3100,
+      "short_description": "Нежная композиция с единорогом и золотой цифрой в пастельных тонах.",
+      "full_description": "Композиция с фольгированным единорогом, золотой цифрой, розовыми и сиреневыми сердцами, шарами с конфетти и латексными шарами.",
+      "composition": [
+        "цифра",
+        "фигура",
+        "2 сердца",
+        "2 шара с конфетти",
+        "6 шаров"
+      ],
+      "category": "Для девочки",
+      "character": "Единорог",
+      "age_group": "Для взрослых",
+      "budget": "2 000–3 500 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары с единорогом на день рождения — Армавир",
+      "seo_description": "Композиция из шаров с единорогом и цифрой. Розовые и сиреневые сердца, шары с конфетти. Доставка в Армавире.",
+      "slug": "edinorog-mechty",
+      "scene": "floor",
+      "tags": [
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/5f9fd097-73a7-4105-9f68-15ad6aef62c5.jpg",
+        "photo_dhash": "f23b561b98b2d8d1",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/4ca61eb8-f38f-40bf-b4da-0cf067c1b528.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/4ca61eb8-f38f-40bf-b4da-0cf067c1b528.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-31T08:00:11.250Z",
+      "updated_at": "2026-10-31T08:00:11.250Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/05cde1ad-9000-483d-a47b-b7531f2eaa7d.webp"
+    },
+    {
+      "id": "fa7bc158-b89e-4d38-931e-1b8cd2de9297",
+      "title": "Звёздочка растёт",
+      "article": "GRL-175",
+      "price": 3040,
+      "short_description": "Яркая композиция с фуксией и сиреневым для маленькой именинницы.",
+      "full_description": "Композиция с крупной фольгированной цифрой, двумя звёздами, латексными шарами с конфетти и без. Розово-сиреневая гамма.",
+      "composition": [
+        "цифра",
+        "2 звезды",
+        "3 шара с конфетти",
+        "5 шаров"
+      ],
+      "category": "Для девочки",
+      "character": null,
+      "age_group": "Для малышей",
+      "budget": "2 000–3 500 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары для девочки с цифрой и звёздами — Армавир",
+      "seo_description": "Яркая композиция с фольгированной цифрой, звёздами и шарами с конфетти. Розово-сиреневая гамма для маленькой именинницы.",
+      "slug": "zvyozdochka-rastyot",
+      "scene": "wall_only",
+      "tags": [
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/16c4f570-8673-4df8-80ec-01c1262c4e20.jpg",
+        "photo_dhash": "f3bac9a6c6ecfce4",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/818dc41a-1b14-4cb6-b958-e73ef82a4e12.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/818dc41a-1b14-4cb6-b958-e73ef82a4e12.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-31T07:52:23.331Z",
+      "updated_at": "2026-10-31T07:52:23.331Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/f0b12374-68e8-4034-8696-4ba68a6aa3b1.webp"
+    },
+    {
+      "id": "788da21e-83d8-4875-a296-a896b532a32f",
+      "title": "Тёплые объятия",
+      "article": "MOM-006",
+      "price": 2740,
+      "short_description": "Золотые сердца, бант с надписью и хромированные шары в нежной композиции.",
+      "full_description": "Композиция из золотых сердец, крупного банта с надписью и хромированных шаров. Создаёт атмосферу тепла и заботы.",
+      "composition": [
+        "3 сердца",
+        "2 шара",
+        "2 шара хром",
+        "фигура с надписью"
+      ],
+      "category": "Для мамы",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "2 000–3 500 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Золотая нежность — шары для мамы в Армавире",
+      "seo_description": "Золотые сердца, бант с надписью и хромированные шары. Композиция для мамы с доставкой по Армавиру.",
+      "slug": "zolotaya-nezhnost-2",
+      "scene": "wall_only",
+      "tags": [
+        "Для мамы"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/a9ba78dd-4ffe-4fa7-9923-251858a5b696.jpg",
+        "photo_dhash": "beae2e24b4969e7e"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/bb8ffc70-fc01-457a-af8e-5c819384bcdd.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/bb8ffc70-fc01-457a-af8e-5c819384bcdd.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-31T07:35:46.755Z",
+      "updated_at": "2026-10-31T07:35:46.755Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/265f4e8e-f564-47c0-9fde-897dbc0be67a.webp"
+    },
+    {
+      "id": "77bd8b24-accc-4779-8d0f-99f96cfdbfe5",
+      "title": "Нежный мотылёк",
+      "article": null,
+      "price": 3400,
+      "short_description": "Стеклянный баблс с тёплыми словами и фигура бабочки в пастельно-розовых тонах.",
+      "full_description": "Композиция из стеклянного баблса с надписью и розовой фигуры бабочки. Нежные оттенки и золотые акценты создают воздушное настроение.",
+      "composition": [
+        "стеклянный баблс с конфетти и надписью",
+        "фигура"
+      ],
+      "category": "Букет с бабочками",
+      "character": "Бабочка",
+      "age_group": "Для взрослых",
+      "budget": "2 000–3 500 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Нежный мотылёк — воздушные шары для мамы в Армавире",
+      "seo_description": "Стеклянный баблс с тёплыми словами и розовая фигура бабочки. Нежная композиция для мамы в пастельных тонах с золотыми акцентами от VigSharm.",
+      "slug": "nezhnyy-motylek",
+      "scene": "wall_only",
+      "tags": [
+        "Букет с бабочками"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/e1e3dd19-c91f-42ff-abb9-2b91962c433f.jpg",
+        "photo_dhash": "068e8e8c9c7a3e7e",
+        "bouquet_type": "butterfly"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/e3a33c5b-4a27-4fda-841e-f46acd6c3901.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/e3a33c5b-4a27-4fda-841e-f46acd6c3901.jpg",
+      "status": "draft",
+      "show_on_site": false,
+      "created_at": "2026-10-31T07:33:00.577Z",
+      "updated_at": "2026-10-31T07:33:00.577Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/77ae1776-aeed-4cf0-b4b6-ff59dca5126d.webp"
+    },
+    {
+      "id": "00eece58-0b63-4102-a810-c9678b36feb3",
+      "title": "Острая компания",
+      "article": "HIM-047",
+      "price": 5650,
+      "short_description": "Баблс с надписью и семь фигур красного перца с улыбками.",
+      "full_description": "Чёрный баблс с поздравительной надписью и семь ярких фольгированных фигур перца создают оригинальную настенную композицию.",
+      "composition": [
+        "баблс с надписью",
+        "7 фигур"
+      ],
+      "category": "Для него",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "5 000–8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Острая компания — шары с перцами, Армавир",
+      "seo_description": "Баблс с надписью и семь фольгированных фигур красного перца. Оригинальный подарок мужчине на день рождения в Армавире.",
+      "slug": "ostraya-kompaniya",
+      "scene": "wall_only",
+      "tags": [
+        "Для него"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/3e55ae85-1164-47bd-b60e-5c9086b9e027.jpg",
+        "photo_dhash": "2ce4f4e22c2e2c2d"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/e453c7fe-bc0c-4a2d-8a9c-dfa4a04e8607.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/e453c7fe-bc0c-4a2d-8a9c-dfa4a04e8607.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-31T07:27:07.852Z",
+      "updated_at": "2026-10-31T07:27:07.852Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/70cb5393-b788-4038-9c33-8983d8139ffb.webp"
+    },
+    {
+      "id": "fb398fef-e401-4b8d-be11-da3ac148d246",
+      "title": "Золотая звезда богатства",
+      "article": "HIM-046",
+      "price": 3700,
+      "short_description": "",
+      "full_description": "",
+      "composition": [
+        "5 латексных шаров дабл стафф",
+        "1 фольгированная звезда",
+        "1 большой прозрачный шар баблс с декором из долларов и надписью"
+      ],
+      "category": "Для него",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "zolotaya-zvezda-bogatstva",
+      "scene": "wall_only",
+      "tags": [
+        "Для него"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/4adb4542-1247-4d8e-ad66-8e82ee1e9720.jpg",
+        "photo_dhash": "8c8cceeecece8685"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/789f6346-7f67-492d-ac36-b896aace6dcf.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/789f6346-7f67-492d-ac36-b896aace6dcf.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-31T07:11:52.429Z",
+      "updated_at": "2026-10-31T07:11:52.429Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/764f8194-f0a1-457c-9567-41370cf4fa8a.webp"
+    },
+    {
       "id": "4f124470-2f07-4c39-b478-860200be5480",
       "title": "Розовый восторг",
       "article": "GRL-174",

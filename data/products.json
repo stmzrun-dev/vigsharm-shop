@@ -2,6 +2,391 @@
   "ok": true,
   "products": [
     {
+      "id": "c457881c-9966-4e06-9996-178290c7d4d1",
+      "title": "Золотые пожелания",
+      "article": "BQT-038",
+      "price": 2000,
+      "short_description": "Букет из золотых шаров с надписями в нежной розовой упаковке.",
+      "full_description": "Золотое сердце и две звезды с персональными надписями, собранные в букет с кремовым наполнителем и розовой лентой.",
+      "composition": [
+        "сердце с надписью",
+        "2 звезды с надписями"
+      ],
+      "category": "Букет из шаров",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": "2 000–3 500 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Букет из шаров с надписями — Армавир | VigSharm",
+      "seo_description": "Золотые шары с персональными надписями в нежной упаковке. Сердце и две звезды для особенного поздравления. Доставка по Армавиру.",
+      "slug": "zolotye-pozhelaniya",
+      "scene": "handheld_bouquet",
+      "tags": [
+        "Букет из шаров"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/4d742284-7f27-41d0-a2b8-de388a8b53c4.jpg",
+        "photo_dhash": "a896987696969c9c",
+        "bouquet_type": "foil"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/8a607d6a-003e-4f67-9051-721aa7de4539.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/8a607d6a-003e-4f67-9051-721aa7de4539.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-31T13:58:40.690Z",
+      "updated_at": "2026-10-31T13:58:40.690Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/4c6d3b89-58d6-4ab9-804d-4462f04f9d45.webp"
+    },
+    {
+      "id": "1d03196d-09d1-4397-9df6-59e6c5e8befb",
+      "title": "Кошачья компания",
+      "article": "BOX-067",
+      "price": 6070,
+      "short_description": "Розовая коробка с тремя фигурами котят, фонтаном шаров и кругом с героями мультфильма.",
+      "full_description": "Коробка-сюрприз с надписью «Любимой Доченьке!», три фольгированные фигуры котят из мультсериала и фонтан из ярких шаров с круглым шаром «С днём рождения».",
+      "composition": [
+        "коробка с надписью",
+        "3 фигуры",
+        "круг с рисунком",
+        "3 шара",
+        "6 шаров с рисунком"
+      ],
+      "category": "Коробка-сюрприз",
+      "character": "Три кота",
+      "age_group": "Для детей",
+      "budget": "5 000–8 000 ₽",
+      "series_name": "Три кота",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Коробка-сюрприз с героями Три кота — Армавир",
+      "seo_description": "Коробка-сюрприз с тремя фольгированными фигурами котят из мультсериала, фонтаном шаров и надписью. Яркий подарок для детского праздника.",
+      "slug": "tri-kota-v-sbore",
+      "scene": "floor",
+      "tags": [
+        "Коробка-сюрприз"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/7b41408f-161b-4806-ac3e-fbbf415295b6.jpg",
+        "photo_dhash": "3c95e4cd65e14f69"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/8682f6b8-b95d-4b05-af09-f4a2e2ab4266.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/8682f6b8-b95d-4b05-af09-f4a2e2ab4266.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-31T13:53:08.422Z",
+      "updated_at": "2026-10-31T13:53:08.422Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/42ef5924-f920-4243-9471-011b06a757bc.webp"
+    },
+    {
+      "id": "1186b2a3-fbb1-43d0-b21d-e243cb7bfca3",
+      "title": "Принцесса леса",
+      "article": "GRL-179",
+      "price": 4380,
+      "short_description": "Композиция с принцессой Диснея в голубых и жёлтых тонах.",
+      "full_description": "Настенная композиция с фигурой Белоснежки, стеклянным баблсом с надписью и семью латексными шарами.",
+      "composition": [
+        "7 шаров",
+        "фигура",
+        "стеклянный баблс с надписью"
+      ],
+      "category": "Для девочки",
+      "character": "Белоснежка",
+      "age_group": "Для детей",
+      "budget": "3 500–5 000 ₽",
+      "series_name": "Белоснежка и семь гномов",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Белоснежный день — шары с принцессой Диснея, Армавир",
+      "seo_description": "Композиция с Белоснежкой: фигура принцессы, стеклянный баблс с надписью и воздушные шары в голубых и жёлтых тонах. VigSharm, Армавир.",
+      "slug": "belosnezhnyy-den",
+      "scene": "wall_only",
+      "tags": [
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/680175d2-aa95-4c26-a09b-633a0c66c369.jpg",
+        "photo_dhash": "332763c773331b7b"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/11afc4e0-214c-4dc1-b725-83529fcb6c4d.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/11afc4e0-214c-4dc1-b725-83529fcb6c4d.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-31T13:50:42.715Z",
+      "updated_at": "2026-10-31T13:50:42.715Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/26d5e2a1-8365-4052-a0fa-8284addbdf62.webp"
+    },
+    {
+      "id": "61137c3a-38be-4908-8613-e1a88fa79159",
+      "title": "Русалочья сказка",
+      "article": "GRL-178",
+      "price": 6450,
+      "short_description": "Напольная композиция с русалочкой, цифрой и воздушными шарами в мятно-сиреневой гамме.",
+      "full_description": "Напольная композиция с фольгированной фигурой русалочки, крупной бирюзовой цифрой, баблсом с надписью и парящими шарами. Нежные мятные, сиреневые и голубые оттенки создают атмосферу подводного мира.",
+      "composition": [
+        "3 парящих шара",
+        "фигура",
+        "напольная композиция",
+        "баблс с надписью",
+        "лента тассел"
+      ],
+      "category": "Для девочки",
+      "character": "Ариэль",
+      "age_group": "Для детей",
+      "budget": "5 000–8 000 ₽",
+      "series_name": "Русалочка",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Напольная композиция с русалочкой на день рождения в Армавире",
+      "seo_description": "Напольная композиция с фигурой русалочки, цифрой и шарами в мятно-сиреневых тонах. Яркое оформление для дня рождения девочки. Доставка в Армавире.",
+      "slug": "podvodnoe-tsarstvo-3",
+      "scene": "floor",
+      "tags": [
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/b5ff6a3d-e5d7-4b1b-8126-27470b91ef12.jpg",
+        "photo_dhash": "c3c346e4b2bcb887",
+        "floor_type": "air",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/3cad10c6-dd73-4821-99eb-e103944bc632.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/3cad10c6-dd73-4821-99eb-e103944bc632.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-31T13:44:37.700Z",
+      "updated_at": "2026-10-31T13:44:37.700Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/da61c61f-2f5e-4b5a-b9db-e00ce8ac215a.webp"
+    },
+    {
+      "id": "8b63f794-629e-4bbe-aadc-c78499388c1f",
+      "title": "Роботы атакуют",
+      "article": "GMR-011",
+      "price": 3580,
+      "short_description": "Серебряная цифра с крылатым роботом и футболистом в чёрно-серебряной гамме.",
+      "full_description": "Композиция включает серебряную фольгированную цифру, две фигуры (робот с крыльями и футболист) и связку из хромированных и чёрных шаров.",
+      "composition": [
+        "цифра",
+        "2 фигуры",
+        "4 шара хром",
+        "4 шара"
+      ],
+      "category": "Геймерам",
+      "character": "Роблокс",
+      "age_group": "Для детей",
+      "budget": "3 500–5 000 ₽",
+      "series_name": "Роблокс",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары с роботом и футболистом для мальчика — Армавир",
+      "seo_description": "Яркая композиция с серебряной цифрой, роботом с крыльями и футболистом. Чёрно-серебряная палитра для детского праздника в Армавире.",
+      "slug": "roboty-atakuyut",
+      "scene": "wall_only",
+      "tags": [
+        "Геймерам"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/64ccacbd-9e0b-4c1e-9ab6-4bef3b64de52.webp",
+        "photo_dhash": "1a1eccb69dd4bcec",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/54fcbded-1fdd-4954-96ed-84205ba5ac1f.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/54fcbded-1fdd-4954-96ed-84205ba5ac1f.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-31T13:40:03.199Z",
+      "updated_at": "2026-10-31T13:40:03.199Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/fca18a5e-44ec-4183-880f-b05c87f30b13.webp"
+    },
+    {
+      "id": "e0c2fbb9-4e16-49d1-a56a-c04727b653be",
+      "title": "Праздник маленькой леди",
+      "article": "GRL-177",
+      "price": 2880,
+      "short_description": "Милый медведь в розово-белой гамме с короной и сердцем с именной надписью.",
+      "full_description": "Фольгированная фигура медведя с короной, розовое сердце с надписью и декором, шары с конфетти и однотонные латексные.",
+      "composition": [
+        "фигура",
+        "сердце с надписью и декором",
+        "3 шара с конфетти",
+        "6 шаров"
+      ],
+      "category": "Для девочки",
+      "character": "Медведь",
+      "age_group": "Для малышей",
+      "budget": "2 000–3 500 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Воздушные шары с мишкой и короной для девочки — Армавир",
+      "seo_description": "Нежная композиция с фольгированным медведем в короне, розовым сердцем с надписью, шарами с конфетти. Доставка в Армавире.",
+      "slug": "mishka-s-koronoy",
+      "scene": "wall_only",
+      "tags": [
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/8fd21ae0-4a32-41ac-a072-cc0dca713925.jpg",
+        "photo_dhash": "2b2941c9cd8fcf1f"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/7b670c4f-d4d3-4067-97a6-56f5edb25dcf.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/7b670c4f-d4d3-4067-97a6-56f5edb25dcf.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-31T13:35:34.992Z",
+      "updated_at": "2026-10-31T13:35:34.992Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/6da080ab-d916-4833-88e6-28983220c12f.webp"
+    },
+    {
+      "id": "dbf4f591-7791-41c1-b3c7-a7b3bf0edcb3",
+      "title": "Осенний мишутка",
+      "article": "BOY-113",
+      "price": 6710,
+      "short_description": "Осенняя композиция с мишкой, жёлудем, кленовым листом и тёплыми шарами.",
+      "full_description": "Композиция с фольгированным медвежонком, жёлудем и кленовым листом в осенней палитре. Стеклянный баблс с надписью и букет латексных шаров дополняют праздник.",
+      "composition": [
+        "цифра",
+        "3 фигуры",
+        "9 шаров",
+        "стеклянный баблс с надписью"
+      ],
+      "category": "Для мальчика",
+      "character": "Мишка",
+      "age_group": "Для малышей",
+      "budget": "5 000–8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Осенняя композиция с мишкой и цифрой 2 — Армавир",
+      "seo_description": "Композиция с фольгированным медвежонком, жёлудем, кленовым листом и тёплыми шарами. Стеклянный баблс с надписью. Доставка в Армавире.",
+      "slug": "osenniy-mishutka",
+      "scene": "floor",
+      "tags": [
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": true,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/c44e5d47-3184-4fad-a2a1-aa62619557c5.jpg",
+        "photo_dhash": "039e96c4e0e29282",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/3fd4cf1c-b0bf-473a-8165-fa409834c3eb.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/3fd4cf1c-b0bf-473a-8165-fa409834c3eb.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-31T13:31:38.045Z",
+      "updated_at": "2026-10-31T13:31:38.045Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/e3fffdac-bbab-411b-a804-f7c22ab3fc42.webp"
+    },
+    {
+      "id": "6903c17d-d4a9-4a3c-9445-84f61cf21b4b",
+      "title": "Шоколадный мишка",
+      "article": "Y1-061",
+      "price": 3300,
+      "short_description": "Большая фигура мишки с золотым бантиком, шоколадная цифра и фонтан бежевых шаров.",
+      "full_description": "Напольная композиция с крупной фигурой мишки, шоколадной цифрой и фонтаном из бежевых латексных шаров. Нейтральная палитра подходит для любого интерьера.",
+      "composition": [
+        "цифра",
+        "фигура",
+        "10 шаров"
+      ],
+      "category": "1 годик",
+      "character": "Мишка",
+      "age_group": "Для малышей",
+      "budget": "2 000–3 500 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары на годик с мишкой в Армавире | VigSharm",
+      "seo_description": "Напольная композиция на первый день рождения: большая фигура мишки, шоколадная цифра 1 и фонтан бежевых шаров. Доставка в Армавире.",
+      "slug": "shokoladnyy-mishka",
+      "scene": "floor",
+      "tags": [
+        "1 годик"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/00ee9a6b-2f08-4520-9dad-dc89fa6e3f17.jpg",
+        "photo_dhash": "471b1b1b03634365",
+        "floor_type": "air",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/53af8b0e-ac83-4ab3-8d6d-354e3e90bbd1.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/53af8b0e-ac83-4ab3-8d6d-354e3e90bbd1.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-10-31T13:24:16.931Z",
+      "updated_at": "2026-10-31T13:24:16.931Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/7ccfeae0-4b06-4bef-a930-307155e6950f.webp"
+    },
+    {
       "id": "3d6a8b56-f7ae-4e86-b17d-39c828a96b71",
       "title": "Оливковая гармония",
       "article": "HER-051",

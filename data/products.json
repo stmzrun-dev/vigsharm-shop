@@ -2213,8 +2213,7 @@
       "slug": "cheburashka-v-romashkah",
       "scene": "floor",
       "tags": [
-        "Для девочки",
-        "Цветы из шаров"
+        "Для девочки"
       ],
       "client_options": {
         "available_on_request": false,
@@ -2223,12 +2222,12 @@
         "personal_inscription": false,
         "photozone_rental": false,
         "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/20a1c8e1-427a-4d65-892c-9d9acd90a1e3.jpg",
+        "photo_dhash": "0b2965e89b60628a",
         "floor_type": "air",
         "digit_choice": {
           "enabled": true,
           "count_on_photo": 1
-        },
-        "photo_dhash": "0b2965e89b60628a"
+        }
       },
       "photos": [
         "https://storage.yandexcloud.net/vigsharm-photos/products/5e232652-8b89-4602-b890-b65b4e544f75.jpg"
@@ -2237,7 +2236,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-10-23T18:11:49.809Z",
-      "updated_at": "2026-10-23T18:14:44.952Z",
+      "updated_at": "2026-10-31T14:00:12.278Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/e8a3fdcc-2ebb-4db0-852c-b225992c5cf2.webp"
     },
     {

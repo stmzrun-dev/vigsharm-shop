@@ -2,6 +2,102 @@
   "ok": true,
   "products": [
     {
+      "id": "45595e5c-074c-4c06-8165-c0691e8f12e5",
+      "title": "Главная звезда вечера",
+      "article": "BAB-059",
+      "price": 3800,
+      "short_description": "Напольная фигура с большой звездой и надписью в окружении десяти шаров.",
+      "full_description": "Напольная фигура завершена большой звездой с персональной надписью и десятью шарами.",
+      "composition": [
+        "напольная фигура",
+        "большая звезда с надписью",
+        "10 шаров"
+      ],
+      "category": "На выписку",
+      "character": null,
+      "age_group": "Для малышей",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Напольная фигура со звездой и шарами в Армавире",
+      "seo_description": "Напольная фигура с большой звездой, персональной надписью и десятью воздушными шарами.",
+      "slug": "napolnaya-figura-zvezda-sharov",
+      "scene": "floor",
+      "tags": [
+        "На выписку"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/8f6ba4d3-7521-40cd-bf9c-e72b12f7692f.jpg",
+        "photo_dhash": "0212121613147171"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/e0f443fd-286f-48e6-9c63-0926880dcdfe.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/e0f443fd-286f-48e6-9c63-0926880dcdfe.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-11-01T15:48:11.866Z",
+      "updated_at": "2026-11-01T15:48:11.866Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/86a058bb-81d5-4e5a-a9c5-80713897bb4f.webp"
+    },
+    {
+      "id": "01a8c31d-3864-4989-b5f7-b5a961f3942d",
+      "title": "Сладкая компания",
+      "article": "GRL-182",
+      "price": 4030,
+      "short_description": "Композиция с Машей и Медведем, клубникой и яркими звёздами.",
+      "full_description": "Композиция с героями любимого мультфильма, фольгированной клубникой и звёздами. Яркие латексные шары и конфетти дополняют праздничное настроение.",
+      "composition": [
+        "цифра",
+        "2 фигуры",
+        "шар с конфетти",
+        "2 звезды",
+        "5 шаров"
+      ],
+      "category": "Для девочки",
+      "character": "Маша и Медведь",
+      "age_group": "Для детей",
+      "budget": "3 500–5 000 ₽",
+      "series_name": "Маша и Медведь",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары Маша и Медведь на день рождения — Армавир",
+      "seo_description": "Композиция с героями мультфильма Маша и Медведь, клубникой и звёздами. Яркое оформление праздника для девочки в Армавире.",
+      "slug": "sladkaya-kompaniya",
+      "scene": "wall_only",
+      "tags": [
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": true,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/629984dc-097a-41e5-8d93-e7c67fefe03c.jpg",
+        "photo_dhash": "7e7e4f936d6e7677",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/1d6f809c-8089-4b80-a6c2-4a9beb3c04fc.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/1d6f809c-8089-4b80-a6c2-4a9beb3c04fc.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-11-01T15:45:36.386Z",
+      "updated_at": "2026-11-01T15:45:36.386Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/082fffb4-0666-4d75-b3d4-da862ffddf23.webp"
+    },
+    {
       "id": "9a375d0f-fd1b-47de-90e6-9bb4b5f85ff6",
       "title": "Плюшевый праздник",
       "article": "GRL-181",

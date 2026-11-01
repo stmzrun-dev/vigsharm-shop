@@ -2,6 +2,191 @@
   "ok": true,
   "products": [
     {
+      "id": "92e71027-695e-4199-a9d3-79c301f12f80",
+      "title": "Сладкая проказница",
+      "article": "GRL-184",
+      "price": 1950,
+      "short_description": "Композиция с фигурой Маши, розово-белым леденцом и хромированными шарами.",
+      "full_description": "Яркая настенная композиция с героиней любимого мультфильма и конфетным акцентом. Розовая и серебристая гамма создают праздничное настроение.",
+      "composition": [
+        "фигура",
+        "круг с рисунком",
+        "хромированный шар",
+        "3 шара"
+      ],
+      "category": "Для девочки",
+      "character": "Маша",
+      "age_group": "Для малышей",
+      "budget": "1 000–2 000 ₽",
+      "series_name": "Маша и Медведь",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары с Машей и леденцом в Армавире | VigSharm",
+      "seo_description": "Композиция с фигурой Маши, розово-белым леденцом и хромированными шарами. Яркое оформление для девочки. Доставка по Армавиру.",
+      "slug": "sladkaya-prokaznica",
+      "scene": "wall_only",
+      "tags": [
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/ad82abea-7f29-4714-9f09-78e03a2e1973.jpg",
+        "photo_dhash": "ccccccfce8ccc080"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/2037a325-ae8f-4f48-8911-cb6c3a454d37.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/2037a325-ae8f-4f48-8911-cb6c3a454d37.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-11-01T15:58:06.405Z",
+      "updated_at": "2026-11-01T15:58:06.405Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/cd3e597b-1cbc-43aa-aaa2-e7ee54d73686.webp"
+    },
+    {
+      "id": "1c8e1da4-7369-4ce3-89d6-2003276bc93f",
+      "title": "Бантик принцессы",
+      "article": "GRL-183",
+      "price": 2800,
+      "short_description": "Композиция с фигурами бантика и бабочки в нежных розово-белых тонах.",
+      "full_description": "Настенная композиция с двумя фольгированными фигурами — розовым бантиком и бело-розовой бабочкой — в окружении пастельных латексных шаров.",
+      "composition": [
+        "10 шаров",
+        "2 фигуры"
+      ],
+      "category": "Для девочки",
+      "character": null,
+      "age_group": "Для детей",
+      "budget": "2 000–3 500 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Бантик принцессы — шары для девочки в Армавире",
+      "seo_description": "Нежная композиция с фигурами бантика и бабочки в розово-белой гамме. Готовое решение для украшения детского праздника.",
+      "slug": "bantik-princessy",
+      "scene": "wall_only",
+      "tags": [
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/2053ba6b-f2b6-4189-bafb-a0faeb93da0e.webp",
+        "photo_dhash": "895952516d295d0c"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/dec77a3c-22d3-4a81-bcea-46bc6ce724cc.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/dec77a3c-22d3-4a81-bcea-46bc6ce724cc.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-11-01T15:56:18.441Z",
+      "updated_at": "2026-11-01T15:56:18.441Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/8b253e59-ba65-4430-a0ba-3d219c40caf8.webp"
+    },
+    {
+      "id": "eef589df-160a-4832-9ba3-5f33f7e824cc",
+      "title": "Весёлый дебют",
+      "article": "BOY-114",
+      "price": 3320,
+      "short_description": "Напольная композиция с фольгированной цифрой, шарами с конфетти и дополнительными шарами.",
+      "full_description": "Яркая напольная композиция с фольгированной цифрой, тремя шарами с конфетти и двумя обычными шарами.",
+      "composition": [
+        "напольная композиция",
+        "3 шара с конфетти",
+        "2 шара"
+      ],
+      "category": "Для мальчика",
+      "character": "Маршал",
+      "age_group": "Для детей",
+      "budget": "2 000–3 500 ₽",
+      "series_name": "Щенячий патруль",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Напольная композиция с цифрой в Армавире",
+      "seo_description": "Напольная композиция с фольгированной цифрой, шарами с конфетти и ярким праздничным оформлением в Армавире.",
+      "slug": "napolnaya-kompozitsiya-s-cifroy-armavir",
+      "scene": "floor",
+      "tags": [
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/eaaf2f2e-1ccd-45c8-a3b7-3fe8af1ecf37.jpg",
+        "photo_dhash": "3f3774457454646a",
+        "floor_type": "air",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/5e2f6fac-868c-45ed-b332-ee0b1fb561bb.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/5e2f6fac-868c-45ed-b332-ee0b1fb561bb.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-11-01T15:54:21.329Z",
+      "updated_at": "2026-11-01T15:54:21.329Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/ddf943f1-66cd-48c1-9e52-6d0ed267ba43.webp"
+    },
+    {
+      "id": "840a375c-5a94-4584-b417-44f42146e305",
+      "title": "Маленький дебют",
+      "article": "Y1-062",
+      "price": 3700,
+      "short_description": "Фольгированная цифра, фигура и десять шаров с бантами для первого дня рождения.",
+      "full_description": "Воздушная композиция с фольгированной цифрой, фигурой и десятью шарами с бантами. Подходит для оформления первого дня рождения малыша.",
+      "composition": [
+        "цифра",
+        "фигура",
+        "10 шаров с бантами"
+      ],
+      "category": "1 годик",
+      "character": null,
+      "age_group": "Для малышей",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Воздушная композиция на первый день рождения малыша",
+      "seo_description": "Фольгированная цифра, фигура и 10 шаров с бантами для первого дня рождения. Оформление для малыша в Армавире.",
+      "slug": "vozduhnaya-kompoziciya-1-godik",
+      "scene": "floor",
+      "tags": [
+        "1 годик"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/83716258-1bef-4ec6-8421-09f9201a810d.jpg",
+        "photo_dhash": "002c2c22231c1c13"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/c81c0abe-c665-41dd-a25e-780738e271cc.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/c81c0abe-c665-41dd-a25e-780738e271cc.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-11-01T15:51:48.480Z",
+      "updated_at": "2026-11-01T15:51:48.480Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/2bd132c7-f98b-44b8-873c-76afbcaad625.webp"
+    },
+    {
       "id": "45595e5c-074c-4c06-8165-c0691e8f12e5",
       "title": "Главная звезда вечера",
       "article": "BAB-059",

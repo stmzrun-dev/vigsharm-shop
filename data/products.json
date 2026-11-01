@@ -2,6 +2,156 @@
   "ok": true,
   "products": [
     {
+      "id": "9a375d0f-fd1b-47de-90e6-9bb4b5f85ff6",
+      "title": "Плюшевый праздник",
+      "article": "GRL-181",
+      "price": 4000,
+      "short_description": "Две напольные композиции с фигурой мишки из шаров и цифрой в розово-фуксиевой гамме.",
+      "full_description": "Композиция включает фигуру мишки из шаров с сердцем и крупную цифру на подставке из шаров. Выполнена в розовых и фуксиевых оттенках.",
+      "composition": [
+        "2 напольные композиции"
+      ],
+      "category": "Для девочки",
+      "character": "Мишка",
+      "age_group": "Для детей",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Напольные композиции с мишкой из шаров в розовом — Армавир",
+      "seo_description": "Две напольные композиции с фигурой мишки из шаров и цифрой. Розово-фуксиевое оформление для праздника в Армавире.",
+      "slug": "rozovaya-nezhnost-2",
+      "scene": "floor",
+      "tags": [
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/b5383867-3163-442c-b0b6-601e8d4a2167.jpg",
+        "photo_dhash": "8d89ad1d0d4d0171",
+        "floor_type": "air",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 2
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/0226bee6-a335-4746-ad1f-60e93757338d.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/0226bee6-a335-4746-ad1f-60e93757338d.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-11-01T07:35:44.153Z",
+      "updated_at": "2026-11-01T07:35:44.153Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/c9eb5e0c-e72a-4d69-a764-0e4530974991.webp"
+    },
+    {
+      "id": "2443d80a-ae7c-4053-968f-3230edc19c15",
+      "title": "Роза юбилея",
+      "article": "HER-052",
+      "price": 4180,
+      "short_description": "Композиция с крупными цифрами 55, фигурой розы и связкой шаров с конфетти.",
+      "full_description": "Композиция с фольгированными цифрами 55, объёмной фигурой розы и шарами с конфетти в розовых оттенках.",
+      "composition": [
+        "2 цифры",
+        "фигура",
+        "3 шара с конфетти",
+        "6 шаров"
+      ],
+      "category": "Для неё",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Композиция с цифрами 55 и розой — Армавир",
+      "seo_description": "Композиция с фольгированными цифрами 55, объёмной фигурой розы и шарами с конфетти. Доставка воздушных шаров в Армавире.",
+      "slug": "cvetushchaya-pyatyorka",
+      "scene": "wall_only",
+      "tags": [
+        "Для неё",
+        "Юбилей"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/211fa178-c4dc-4f51-a4f9-9bdce847b8ac.jpg",
+        "photo_dhash": "0363c7faba42c2c2",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 2
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/a6fa5796-52f9-4019-9fac-16f567ff893a.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/a6fa5796-52f9-4019-9fac-16f567ff893a.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-11-01T07:33:57.341Z",
+      "updated_at": "2026-11-01T07:33:57.341Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/12a7bbfc-5c16-4b6b-888a-360c1b5d5667.webp"
+    },
+    {
+      "id": "056a5bdd-cb57-4801-bf3b-19cec496b313",
+      "title": "Принцесса семёрка",
+      "article": "GRL-180",
+      "price": 2890,
+      "short_description": "Розовая цифра 7, фигура кошки с короной и яркие шары с золотым конфетти.",
+      "full_description": "Композиция с крупной розовой цифрой 7, фигурой кошки с золотой короной, розовыми и золотыми хромированными шарами и прозрачными шарами с золотым конфетти.",
+      "composition": [
+        "цифра",
+        "фигура",
+        "2 шара с конфетти",
+        "2 шара хром",
+        "3 шара"
+      ],
+      "category": "Для девочки",
+      "character": "Кошка",
+      "age_group": "Для детей",
+      "budget": "2 000–3 500 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары на 7 лет девочке с кошкой — Армавир",
+      "seo_description": "Композиция с розовой цифрой 7, фигурой кошки с короной, золотыми и розовыми шарами. Доставка воздушных шаров в Армавире.",
+      "slug": "princessa-semerka",
+      "scene": "wall_only",
+      "tags": [
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/bb913854-79b8-4913-a87d-34494f7a8d6f.jpg",
+        "photo_dhash": "c792b0a6e4d0c1f3",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/6ab1bb60-392b-4f19-8f45-74f8f1ac88c9.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/6ab1bb60-392b-4f19-8f45-74f8f1ac88c9.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-11-01T07:31:57.220Z",
+      "updated_at": "2026-11-01T07:31:57.220Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/f1daca96-2057-47e4-b4bc-ecb9b91f9324.webp"
+    },
+    {
       "id": "c457881c-9966-4e06-9996-178290c7d4d1",
       "title": "Золотые пожелания",
       "article": "BQT-038",

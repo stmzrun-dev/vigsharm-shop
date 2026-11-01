@@ -2,6 +2,58 @@
   "ok": true,
   "products": [
     {
+      "id": "9b67432a-9d30-4d05-ac21-1a828aa62c36",
+      "title": "Электрический друг",
+      "article": "BOY-115",
+      "price": 2760,
+      "short_description": "Красная цифра, Пикачу и яркие шары с конфетти.",
+      "full_description": "Композиция с фольгированной цифрой, фигурой Пикачу, хромированными и латексными шарами с конфетти.",
+      "composition": [
+        "фигура",
+        "цифра",
+        "шар хром",
+        "шар с конфетти",
+        "шар дабл стафф",
+        "2 шара"
+      ],
+      "category": "Для мальчика",
+      "character": "Пикачу",
+      "age_group": "Для детей",
+      "budget": "2 000–3 500 ₽",
+      "series_name": "Покемон",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары с Пикачу на 4 года — заказать в Армавире | VigSharm",
+      "seo_description": "Композиция с фигурой Пикачу, цифрой и яркими шарами. Доставка воздушных шаров в Армавире. Закажите оформление детского праздника в VigSharm.",
+      "slug": "elektricheskiy-drug",
+      "scene": "wall_only",
+      "tags": [
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/f7c0a782-2f92-410b-801f-6d713ffeee86.jpg",
+        "photo_dhash": "f0d29a98c8d4d415",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/b11e1db3-a60e-4521-b175-e82ef7000877.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/b11e1db3-a60e-4521-b175-e82ef7000877.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-11-01T19:06:36.523Z",
+      "updated_at": "2026-11-01T19:06:36.523Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/ea647839-bf3d-4210-9cb5-ca508c0d301d.webp"
+    },
+    {
       "id": "92e71027-695e-4199-a9d3-79c301f12f80",
       "title": "Сладкая проказница",
       "article": "GRL-184",

@@ -487,6 +487,7 @@
             : '') +
           '<div class="unit-list-when">' + calendarHtml() + timeHtml() + '</div>' +
           '<input data-u="phone" type="tel" inputmode="tel" maxlength="17" placeholder="+7 928 000-00-00" value="' + esc(draft.phone) + '" aria-label="Телефон"/>' +
+          '<p class="modal-note order-privacy">Имя и телефон — только чтобы подтвердить заказ. <a href="privacy.html">Как храним</a></p>' +
           '<input data-u="name" type="text" maxlength="80" placeholder="Имя, если удобно" value="' + esc(draft.name) + '" aria-label="Имя"/>' +
           '<textarea data-u="note" maxlength="200" rows="2" placeholder="Комментарий: домофон, этаж, сюрприз" aria-label="Комментарий к заказу">' + esc(draft.note) + '</textarea>' +
           '<input class="order-hp" data-u="hp" tabindex="-1" autocomplete="off" value="' + esc(draft.hp) + '" aria-hidden="true"/>' +
@@ -648,6 +649,10 @@
         choice.querySelectorAll('a[data-c]').forEach(function (a) {
           a.addEventListener('click', function () {
             var kind = a.getAttribute('data-c');
+            var goals = { wa: 'order_whatsapp', tg: 'order_telegram', max: 'order_max' };
+            try {
+              if (goals[kind] && typeof window.ym === 'function') window.ym(113074033, 'reachGoal', goals[kind]);
+            } catch (err) {}
             var hint = kind === 'max'
               ? 'Текст заказа скопирован. Зажмите поле ввода в MAX и нажмите «Вставить».'
               : 'Текст заказа скопирован. Если он не подставился — вставьте его в чат.';
@@ -688,6 +693,7 @@
         })
       }).then(function (r) { return r.json(); }).then(function (data) {
         if (!data || !data.ok) throw new Error((data && data.error) || 'Не получилось отправить');
+        try { if (typeof window.ym === 'function') window.ym(113074033, 'reachGoal', 'order_site'); } catch (err) {}
         save([]);
         close();
         if (window.vigToast) window.vigToast('Заявка принята' + (data.code ? ' #' + data.code : '') + '. Перезвоним.');

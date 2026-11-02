@@ -23,6 +23,7 @@ static = [
     ('/catalog.html', '0.9', 'weekly'),
     ('/delivery.html', '0.7', 'monthly'),
     ('/price.html', '0.7', 'monthly'),
+    ('/privacy.html', '0.3', 'yearly'),
 ]
 for path, pri, freq in static:
     lines.append('  <url>')

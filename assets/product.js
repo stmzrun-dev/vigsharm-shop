@@ -13,6 +13,22 @@
   function esc(s) {
     return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
   }
+  function reachOrder(name) {
+    try {
+      if (typeof window.ym !== 'function') return;
+      window.ym(113074033, 'reachGoal', name, {
+        product: (p && (p.slug || p.sku)) || slug || '',
+        sum: total()
+      });
+    } catch (e) {}
+  }
+  function reachMsg(kind) {
+    var map = { wa: 'order_whatsapp', tg: 'order_telegram', max: 'order_max', call: 'order_call' };
+    if (map[kind]) reachOrder(map[kind]);
+  }
+  function privacyNoteHtml() {
+    return '<p class="modal-note order-privacy">Имя и телефон — только чтобы подтвердить заказ. <a href="privacy.html">Как храним</a></p>';
+  }
   function compIconKey(label) {
     var t = String(label || '').toLowerCase();
     if (/гендерн/.test(t) && /шар/.test(t)) return 'gender';
@@ -1309,7 +1325,8 @@
       '<span class="client-digit-label">Комментарий <small style="font-weight:600;color:#9a9aa3">(необязательно)</small></span>' +
       '<textarea data-act="note" maxlength="200" rows="2" placeholder="Домофон, этаж, сюрприз, не звонить получателю">' + esc(orderNote) + '</textarea>' +
       '</label>' +
-      '<input class="order-hp" tabindex="-1" autocomplete="off" data-act="hp" value="' + esc(honeypot) + '" aria-hidden="true"/>';
+      '<input class="order-hp" tabindex="-1" autocomplete="off" data-act="hp" value="' + esc(honeypot) + '" aria-hidden="true"/>' +
+      privacyNoteHtml();
   }
 
   function orderAltHtml() {
@@ -1619,6 +1636,7 @@
       '<label class="config-input"><span>Комментарий (необязательно)</span>' +
       '<textarea data-act="note" maxlength="200" rows="2" placeholder="Домофон, этаж, сюрприз, не звонить получателю">' + esc(orderNote) + '</textarea></label>' +
       '<input class="order-hp" tabindex="-1" autocomplete="off" data-act="hp" value="' + esc(honeypot) + '" aria-hidden="true"/>' +
+      privacyNoteHtml() +
       '</div>';
 
     var dp = digitDeltaPrice(), ip = inscriptionPrice(), yp = deliveryPrice(), billSum = surpriseBillSum(), T = total();
@@ -2269,6 +2287,7 @@
       } else if (act === 'flow-msg') {
         el.addEventListener('click', function () {
           var kind = el.getAttribute('data-msg');
+          reachMsg(kind);
           if (kind === 'max') copyOrderText(orderMessage(), null, MAX_COPY_HINT);
           else copyOrderText(orderMessage());
         });
@@ -2662,6 +2681,7 @@
           window.vigToast((res.data && res.data.error) || 'Не получилось отправить. Позвоните нам или напишите в WhatsApp.');
           return;
         }
+        reachOrder('order_site');
         showOrderSuccess(res.data.code || '');
       })
       .catch(function () {
@@ -2705,7 +2725,7 @@
       '<a class="contact-option telegram" target="_blank" rel="noreferrer" href="' + TG_URL + '?text=' + msg + '" data-msg="tg"><span>' + TG_ICON + '</span><div><strong>Telegram</strong><small>Текст скопируется · личный чат</small></div></a>' +
       '<a class="contact-option max" target="_blank" rel="noreferrer" href="' + MAX_URL + '" data-msg="max"><span>' + MAX_ICON + '</span><div><strong>MAX</strong><small>Текст скопируется · вставьте в чат</small></div></a>' +
       '</div>' +
-      '<p class="order-alt-contacts">Или <a href="tel:+' + PHONE + '">позвонить ' + PHONE_LABEL + '</a></p>';
+      '<p class="order-alt-contacts">Или <a href="tel:+' + PHONE + '" data-msg="call">позвонить ' + PHONE_LABEL + '</a></p>';
   }
 
   function openChoiceModal() {
@@ -2739,9 +2759,11 @@
       box.hidden = false;
       btn.hidden = true;
     });
-    wrap.querySelectorAll('.contact-option[data-msg]').forEach(function (el) {
+    wrap.querySelectorAll('a[data-msg]').forEach(function (el) {
       el.addEventListener('click', function () {
         var kind = el.getAttribute('data-msg');
+        reachMsg(kind);
+        if (kind === 'call') return;
         if (kind === 'max') copyOrderText(orderMessage(), null, MAX_COPY_HINT);
         else copyOrderText(orderMessage());
       });

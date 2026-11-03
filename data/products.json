@@ -2,6 +2,319 @@
   "ok": true,
   "products": [
     {
+      "id": "c730948e-67fa-493d-b3ad-fc9119f87a82",
+      "title": "Шоколадные признания",
+      "article": "HER-054",
+      "price": 5140,
+      "short_description": "Стеклянный баблс с надписью, фонтан из хромовых и конфетти шаров, два сердца с тёплыми словами.",
+      "full_description": "Композиция в шоколадно-золотой гамме с крупным баблсом и фонтаном. Два сердца с романтичными надписями создают атмосферу признания.",
+      "composition": [
+        "стеклянный баблс",
+        "3 шара с конфетти",
+        "2 сердца с надписью",
+        "5 шаров хром"
+      ],
+      "category": "Для неё",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "5 000–8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шоколадные признания — шары для девушки в Армавире",
+      "seo_description": "Композиция с большим баблсом, двумя сердцами с надписями и фонтаном из золотых и конфетти шаров. Романтичный подарок для неё.",
+      "slug": "shokoladnye-priznaniya",
+      "scene": "wall_only",
+      "tags": [
+        "Для неё"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/c2edbd6b-7557-4f4e-b31d-88bd827f655f.webp",
+        "photo_dhash": "e3c3a7c29c9ce4a4"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/1127b3c0-4a37-45ea-9813-217dde30b516.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/1127b3c0-4a37-45ea-9813-217dde30b516.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-11-03T13:04:48.089Z",
+      "updated_at": "2026-11-03T13:04:48.089Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/1931dfa2-6461-431a-8297-058b134f101d.webp"
+    },
+    {
+      "id": "4b907dd1-3dd1-485e-8d7b-bfb60fba97a9",
+      "title": "Маленький босс",
+      "article": "Y1-063",
+      "price": 4000,
+      "short_description": "Композиция с малышом в костюме и надписью на год мальчику.",
+      "full_description": "Композиция включает крупную фигуру малыша в деловом костюме, сердце с надписью и именем, шары с конфетти и голубые акценты.",
+      "composition": [
+        "большое сердце с надписью",
+        "фигура",
+        "сердце",
+        "2 шара с конфетти",
+        "6 шаров"
+      ],
+      "category": "1 годик",
+      "character": "Босс-молокосос",
+      "age_group": "Для малышей",
+      "budget": "3 500–5 000 ₽",
+      "series_name": "Босс-молокосос",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары на год мальчику с Босс-молокососом, Армавир",
+      "seo_description": "Композиция на годик мальчику с фигурой Босс-молокососа, сердцем с надписью и голубыми шарами. Доставка по Армавиру.",
+      "slug": "malenkiy-boss",
+      "scene": "wall_only",
+      "tags": [
+        "1 годик"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/8ebde9b5-585d-406a-9f21-4492212102d6.jpg",
+        "photo_dhash": "f10d4c1412393a18"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/713ebd53-7733-4912-9fcc-07e5ac4275cc.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/713ebd53-7733-4912-9fcc-07e5ac4275cc.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-11-03T12:55:14.984Z",
+      "updated_at": "2026-11-03T12:55:14.984Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/bb4f3b68-78c6-4797-88ba-becc8863aa81.webp"
+    },
+    {
+      "id": "847f23ad-f0c7-457f-aaf7-8a8620a8771a",
+      "title": "Медовый сбор",
+      "article": "GRL-189",
+      "price": 3350,
+      "short_description": "Белая цифра с пчёлками, яркая фигура пчелы и жёлто-белые шары с ромашками.",
+      "full_description": "Композиция включает белую цифру с принтом пчёл и ромашек, крупную фольгированную фигуру пчелы и гроздь жёлтых и белых шаров с ромашками.",
+      "composition": [
+        "цифра",
+        "фигура",
+        "10 шаров"
+      ],
+      "category": "Для девочки",
+      "character": "Пчела",
+      "age_group": "Для малышей",
+      "budget": "2 000–3 500 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Пчелиный урожай — шары на день рождения малыша в Армавире",
+      "seo_description": "Композиция с белой цифрой, фигурой пчелы и жёлто-белыми шарами с ромашками. Яркое оформление праздника для малыша в VigSharm, Армавир.",
+      "slug": "pchelinyj-urozhaj",
+      "scene": "wall_only",
+      "tags": [
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/4165323c-6df2-4ccf-9b17-6f5ff3ac1ad2.jpg",
+        "photo_dhash": "013b531339a8c8f3",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/24926cc5-d595-4e75-9e75-d86407659b4f.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/24926cc5-d595-4e75-9e75-d86407659b4f.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-11-03T12:51:11.260Z",
+      "updated_at": "2026-11-03T12:51:11.260Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/30b38c65-e4e4-41da-b4f0-673cc7e648a0.webp"
+    },
+    {
+      "id": "65f0f657-1278-4b5f-a3b4-b0911c14ba8b",
+      "title": "Непрочитанный ответ",
+      "article": "GRL-188",
+      "price": 7000,
+      "short_description": "Большое сердце с надписью и восемь фигур украшают стену.",
+      "full_description": "На стену закреплены большое сердце с надписью и восемь фигур.",
+      "composition": [
+        "большое сердце с надписью",
+        "8 фигур"
+      ],
+      "category": "Для девочки",
+      "character": null,
+      "age_group": "Для детей",
+      "budget": "5 000–8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Оформление стены с сердцем и фигурами в Армавире",
+      "seo_description": "Большое сердце с надписью и восемь фигур для настенного оформления в Армавире.",
+      "slug": "serdce-i-figury-dlya-steny",
+      "scene": "wall_only",
+      "tags": [
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/cfe6255d-eb2c-49e1-973f-22335b905049.webp",
+        "photo_dhash": "0e1ea4c515d38203"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/223bb3ce-f1df-4d94-abfa-20077b8b45de.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/223bb3ce-f1df-4d94-abfa-20077b8b45de.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-11-03T12:48:30.752Z",
+      "updated_at": "2026-11-03T12:48:30.752Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/fed9f712-d070-4c22-b1e9-77a1ff694500.webp"
+    },
+    {
+      "id": "18774941-0bcb-48fb-9399-9bf5ece8ae0d",
+      "title": "Любовный сюрприз",
+      "article": "BOX-069",
+      "price": 5400,
+      "short_description": "Розовая коробка с красной надписью Love и фонтаном из нежно-розовых сердец.",
+      "full_description": "Розовая коробка-сюрприз с красной лентой и объёмной надписью Love на фасаде. Из коробки вылетает фонтан из 10 нежно-розовых фольгированных сердец.",
+      "composition": [
+        "10 сердец",
+        "коробка"
+      ],
+      "category": "Коробка-сюрприз",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "5 000–8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Коробка-сюрприз с сердцами Love в Армавире | VigSharm",
+      "seo_description": "Розовая коробка с красной надписью Love и 10 нежно-розовыми фольгированными сердцами. Романтичный сюрприз для любимых. Доставка в Армавире.",
+      "slug": "lyubovnyy-syurpriz",
+      "scene": "floor",
+      "tags": [
+        "Коробка-сюрприз"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/1da468df-3c14-4aea-90e4-d20323aff752.jpg",
+        "photo_dhash": "10252424298d5c65"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/e95f4e1b-416e-41c8-af8f-58a6da546a0a.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/e95f4e1b-416e-41c8-af8f-58a6da546a0a.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-11-03T12:45:50.303Z",
+      "updated_at": "2026-11-03T12:45:50.303Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/03189999-514e-4b5c-9459-6c18d1a3efe1.webp"
+    },
+    {
+      "id": "c7615d3f-c9ed-49b6-94d6-dab66c84af97",
+      "title": "Черновик",
+      "article": null,
+      "price": 0,
+      "short_description": "",
+      "full_description": "",
+      "composition": [
+        "фигура, цифра, 10 шаров"
+      ],
+      "category": "",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "chernovik-4",
+      "scene": "wall_only",
+      "tags": [],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/e83810bf-b929-4a18-beef-a0365e653ba2.heic",
+        "photo_dhash": "0e0d1a3e9d93c6a5",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/e83810bf-b929-4a18-beef-a0365e653ba2.heic"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/e83810bf-b929-4a18-beef-a0365e653ba2.heic",
+      "status": "draft",
+      "show_on_site": false,
+      "created_at": "2026-11-03T12:42:51.133Z",
+      "updated_at": "2026-11-03T12:42:51.133Z",
+      "thumb_photo": null
+    },
+    {
+      "id": "bc363e4d-e589-4138-8159-516e32773cff",
+      "title": "Черновик",
+      "article": null,
+      "price": 0,
+      "short_description": "",
+      "full_description": "",
+      "composition": [],
+      "category": "",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "chernovik-3",
+      "scene": "floor",
+      "tags": [],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "floor_type": "air"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/eb1e457f-790a-4ba2-bded-92a8ec11be54.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/eb1e457f-790a-4ba2-bded-92a8ec11be54.jpg",
+      "status": "draft",
+      "show_on_site": false,
+      "created_at": "2026-11-03T12:40:22.048Z",
+      "updated_at": "2026-11-03T12:40:22.048Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/3acca10a-8b8b-49b9-9eaf-0bb327429d70.webp"
+    },
+    {
       "id": "a88b3abe-4e04-47b0-b91d-86b27d7f4e52",
       "title": "Роза акварель",
       "article": "UNT-113",

@@ -2,6 +2,100 @@
   "ok": true,
   "products": [
     {
+      "id": "5dc02e22-5040-4c0d-8747-8f8bb6a74a4f",
+      "title": "Воздушный сюрприз",
+      "article": "HER-056",
+      "price": 1910,
+      "short_description": "Настенная композиция с фольгированными цифрами, фигурой, сердцем с надписью и шарами.",
+      "full_description": "Декоративная композиция на стене включает фольгированные цифры, фигуру и сердце с надписью. Композицию дополняют четыре шара.",
+      "composition": [
+        "фигура",
+        "сердце с надписью",
+        "4 шара"
+      ],
+      "category": "Для неё",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "1 000–2 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Композиция с цифрами на день рождения — Армавир",
+      "seo_description": "Настенное украшение с фольгированными цифрами, фигурой, сердцем с надписью и шарами для взрослого праздника.",
+      "slug": "kompozitsiya-s-ciframi-na-den-rozhdeniya",
+      "scene": "wall_only",
+      "tags": [
+        "Для неё"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/560e2508-adc9-4b05-bfbf-94e33c4688f2.jpg",
+        "photo_dhash": "7947d5b4b9d1dcdd"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/b9291e8b-6de8-49da-bda6-7a79e99dd1f9.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/b9291e8b-6de8-49da-bda6-7a79e99dd1f9.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-11-04T06:06:06.492Z",
+      "updated_at": "2026-11-04T08:32:12.686Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/e9f4c692-43b3-496d-ab24-3942a6d48ee0.webp"
+    },
+    {
+      "id": "68458d07-a4e6-454d-b871-06c2f5006b6b",
+      "title": "Момент для восторга",
+      "article": "GRL-190",
+      "price": 3500,
+      "short_description": "Напольная композиция из пяти шаров для яркого праздничного оформления.",
+      "full_description": "Напольная композиция из пяти шаров. Подходит для праздничного оформления помещения или фотозоны.",
+      "composition": [
+        "5 шаров",
+        "напольная композиция"
+      ],
+      "category": "Для девочки",
+      "character": null,
+      "age_group": "Для малышей",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Праздничная напольная композиция из 5 шаров в Армавире",
+      "seo_description": "Напольная композиция из пяти шаров для праздничного оформления помещения или фотозоны в Армавире.",
+      "slug": "prazdnichnaya-napolnaya-kompoziciya-5-sharov",
+      "scene": "floor",
+      "tags": [
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/02e635e3-4945-477e-8738-bf5f54d3556a.jpg",
+        "photo_dhash": "472737cb771b3b5b",
+        "floor_type": "air",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/71d40f6f-28a3-4a23-8660-6a2ce8def5d3.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/71d40f6f-28a3-4a23-8660-6a2ce8def5d3.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-11-04T06:00:00.881Z",
+      "updated_at": "2026-11-04T06:00:00.881Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/e3107b82-9a65-448a-937a-0a09a3fedb22.webp"
+    },
+    {
       "id": "c730948e-67fa-493d-b3ad-fc9119f87a82",
       "title": "Шоколадные признания",
       "article": "HER-054",
@@ -230,51 +324,6 @@
       "created_at": "2026-11-03T12:45:50.303Z",
       "updated_at": "2026-11-03T12:45:50.303Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/03189999-514e-4b5c-9459-6c18d1a3efe1.webp"
-    },
-    {
-      "id": "c7615d3f-c9ed-49b6-94d6-dab66c84af97",
-      "title": "Черновик",
-      "article": null,
-      "price": 0,
-      "short_description": "",
-      "full_description": "",
-      "composition": [
-        "фигура, цифра, 10 шаров"
-      ],
-      "category": "",
-      "character": null,
-      "age_group": "Для любого возраста",
-      "budget": null,
-      "series_name": null,
-      "occasion": null,
-      "target_audience": null,
-      "seo_title": "",
-      "seo_description": "",
-      "slug": "chernovik-4",
-      "scene": "wall_only",
-      "tags": [],
-      "client_options": {
-        "available_on_request": false,
-        "advance_order_1_2_days": false,
-        "number_choice": true,
-        "personal_inscription": false,
-        "photozone_rental": false,
-        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/e83810bf-b929-4a18-beef-a0365e653ba2.heic",
-        "photo_dhash": "0e0d1a3e9d93c6a5",
-        "digit_choice": {
-          "enabled": true,
-          "count_on_photo": 1
-        }
-      },
-      "photos": [
-        "https://storage.yandexcloud.net/vigsharm-photos/products/e83810bf-b929-4a18-beef-a0365e653ba2.heic"
-      ],
-      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/e83810bf-b929-4a18-beef-a0365e653ba2.heic",
-      "status": "draft",
-      "show_on_site": false,
-      "created_at": "2026-11-03T12:42:51.133Z",
-      "updated_at": "2026-11-03T12:42:51.133Z",
-      "thumb_photo": null
     },
     {
       "id": "bc363e4d-e589-4138-8159-516e32773cff",
@@ -552,26 +601,29 @@
     },
     {
       "id": "9c21370a-a636-4314-9741-30a481105819",
-      "title": "Полярный игрок",
-      "article": null,
+      "title": "Пурпурная хулиганка",
+      "article": "GRL-191",
       "price": 4500,
-      "short_description": "Яркая напольная композиция с фольгированными цифрами и пингвиньей.",
-      "full_description": "На фото представлена напольная композиция с фольгированными цифрами и персонажем-пингвиньей.",
+      "short_description": "Напольная композиция с цифрами 11, фигурой Куроми и розово-чёрными шарами.",
+      "full_description": "Напольная композиция с крупными розовыми цифрами 11 в чёрном контуре, фигурой Куроми и облаком из розовых, персиковых и чёрных шаров с цветами.",
       "composition": [
-        "напольная композиция"
+        "напольная композиция",
+        "2 цифры"
       ],
-      "category": "",
-      "character": null,
+      "category": "Для девочки",
+      "character": "куроми",
       "age_group": "Для детей",
       "budget": "3 500–5 000 ₽",
-      "series_name": null,
+      "series_name": "куроми",
       "occasion": null,
       "target_audience": null,
-      "seo_title": "Напольная композиция с пингвиньей и цифрами в Армавире",
-      "seo_description": "Детская напольная композиция с фольгированными цифрами и пингвиньей. Воздушное оформление для праздника в Армавире.",
-      "slug": "pingvin-detskaya-napolnaya-kompoziciya",
+      "seo_title": "Напольная композиция с Куроми на 11 лет — Армавир",
+      "seo_description": "Напольная композиция с цифрами 11, фигурой Куроми и розово-чёрными шарами. Доставка воздушных шаров в Армавире.",
+      "slug": "ozornoy-odinnadtsat",
       "scene": "floor",
-      "tags": [],
+      "tags": [
+        "Для девочки"
+      ],
       "client_options": {
         "available_on_request": false,
         "advance_order_1_2_days": true,
@@ -590,10 +642,10 @@
         "https://storage.yandexcloud.net/vigsharm-photos/products/33e278b5-abf7-4621-a3f8-567a4e195bf7.jpg"
       ],
       "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/33e278b5-abf7-4621-a3f8-567a4e195bf7.jpg",
-      "status": "draft",
-      "show_on_site": false,
+      "status": "published",
+      "show_on_site": true,
       "created_at": "2026-11-02T10:29:00.843Z",
-      "updated_at": "2026-11-02T10:29:00.843Z",
+      "updated_at": "2026-11-04T08:30:49.902Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/a7aedd96-af26-4435-8c35-84df9b5e32bc.webp"
     },
     {

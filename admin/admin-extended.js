@@ -2720,6 +2720,8 @@ Object.assign(app, {
     this._photoDupSig = '';
     this._aiCardFilled = false;
     this._lastAiCardData = null;
+    this._operatorCharacter = '';
+    this._rejectedTitles = [];
     this._articleBasisCategory = '';
     this._articleBasisValue = '';
     this.resetAiAutoFillState?.();

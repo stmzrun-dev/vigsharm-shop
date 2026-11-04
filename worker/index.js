@@ -66,6 +66,8 @@ async function handleRequest(request, env) {
         return handleSameComposition(request, env);
       if (path === '/api/ai/generate-card' && method === 'POST')
         return handleGenerateCard(request, env);
+      if (path === '/api/ai/more-titles' && method === 'POST')
+        return handleMoreTitles(request, env);
       if (path === '/api/ai/suggest-category' && method === 'POST')
         return handleSuggestCategory(request, env);
       if (path === '/api/studio/process' && method === 'POST')
@@ -990,6 +992,33 @@ const BUDGET_OPTIONS = [
 ];
 
 /** Столик: мишка из роз / мыльные розы. Короткий запрос, полка уже выбрана. */
+function cleanOperatorCharacter(value) {
+  return String(value || '').replace(/[\r\n]+/g, ' ').trim().slice(0, 80);
+}
+
+/** Имя, которое оператор вписал сам, не отдаём на откуп узнаванию с фото. */
+function lockOperatorCharacter(data, name) {
+  const character = cleanOperatorCharacter(name);
+  if (!character || !data) return data;
+  data.character = character;
+  data.character_alts = [];
+  data.character_confidence = 'high';
+  const seriesDoubt = data.series_confidence === 'medium' || data.series_confidence === 'low';
+  data.ask_character = seriesDoubt;
+  return data;
+}
+
+function operatorCharacterRule(name) {
+  const character = cleanOperatorCharacter(name);
+  if (!character) return '';
+  return `
+ПЕРСОНАЖ ЗАДАН ОПЕРАТОРОМ — это факт, важнее того, что кажется на фото:
+- character = ровно «${character}». character_alts = [], character_confidence = high. Не оставляй пустым и не подменяй другим героем.
+- series_name — франшиза этого героя, если она известна; иначе пустая строка или то же имя.
+- title, title_alts, short_description, full_description, seo_title, seo_description — в духе «${character}», не про другого персонажа.
+- В title по-прежнему крючок (настроение), не голое имя и не перечень состава. Имя можно не писать в title, но смысл крючка — про этого героя.`;
+}
+
 async function fillRoseTableCard(env, {
   image_url,
   title_hint,
@@ -997,7 +1026,8 @@ async function fillRoseTableCard(env, {
   rawComposition,
   takenTitles,
   roseCategory,
-  scene
+  scene,
+  operator_character
 }) {
   const takenBlock = takenTitles.length
     ? `Занятые названия (не повторяй и не копируй близко):\n${takenTitles.slice(0, 40).map((t) => `• ${t}`).join('\n')}`
@@ -1028,7 +1058,7 @@ async function fillRoseTableCard(env, {
   "tags": ["${roseCategory}"]
 }
 Название — не «мишка из роз», не цвет списком и не состав.
-Состав: только текст пользователя. Исправь орфографию, числа не меняй, с фото ничего не добавляй.`;
+Состав: только текст пользователя. Исправь орфографию, числа не меняй, с фото ничего не добавляй.${operatorCharacterRule(operator_character)}`;
   const userPrompt = `Полка: ${roseCategory}
 Подсказка названия: ${title_hint || 'нет'}
 Цена (₽): ${priceNum > 0 ? priceNum : 'не указана'}
@@ -1065,6 +1095,7 @@ ${takenBlock}`;
     return json({ ok: false, error: 'AI вернул некорректный JSON: ' + text.slice(0, 200) }, 502);
   }
   data = sanitizeCardMetadata(data, scene || 'table', priceNum, rawComposition, takenTitles, 0);
+  lockOperatorCharacter(data, operator_character);
   applyTypeOnlyCard(data, roseCategory);
   data.occasion = '';
   data.target_audience = '';
@@ -1074,7 +1105,92 @@ ${takenBlock}`;
       .map((line) => parseCompositionHolidayMeta(line).cleanText)
       .filter(Boolean);
   }
+  lockOperatorCharacter(data, operator_character);
   return json({ ok: true, data });
+}
+
+async function handleMoreTitles(request, env) {
+  const body = await request.json();
+  const imageUrl = String(body.image_url || '').trim();
+  const character = cleanOperatorCharacter(body.character || body.operator_character);
+  const series = String(body.series_name || '').replace(/[\r\n]+/g, ' ').trim().slice(0, 80);
+  const composition = String(body.composition || '').replace(/\s+/g, ' ').trim().slice(0, 400);
+  const currentTitle = String(body.current_title || '').trim().slice(0, 80);
+  const rejected = normalizeExistingTitlesList(body.reject_titles).slice(0, 24);
+  const taken = normalizeExistingTitlesList([
+    ...(Array.isArray(body.existing_titles) ? body.existing_titles : []),
+    ...rejected,
+    currentTitle
+  ]).slice(0, 80);
+  const avoid = normalizeExistingTitlesList([...rejected, currentTitle]);
+
+  const systemPrompt = `Ты копирайтер каталога VigSharm (воздушные шары, Армавир).
+Придумай РОВНО 3 новых крючковых названия. Верни ТОЛЬКО JSON: {"titles":["крючок 1","крючок 2","крючок 3"]}
+Стиль эталона: «Герой Готэма», «Тёмный рыцарь», «Качок», «Выше облаков».
+Это настроение / шутка / метафора, 1–4 слова. НЕ перечень фото, НЕ «Набор с…», НЕ «Композиция …».
+ЗАПРЕЩЕНО: цифры, возраст, «годик», «на N лет» и числительные.
+Не повторяй занятые и отвергнутые названия и не делай на них похожие (другой порядок слов — тоже нельзя).
+${character ? `Персонаж карточки — факт: «${character}». Крючки в духе этого героя, не про другого. Голое имя героя названием не ставь.` : 'Персонаж не задан — крючок по фото и составу.'}
+${series ? `Серия: «${series}».` : ''}`;
+
+  const userPrompt = `Текущее название (не повторяй): ${currentTitle || 'нет'}
+Состав: ${composition || 'не указан'}
+Уже занято или отвергнуто:
+${taken.length ? taken.map((t) => `• ${t}`).join('\n') : '• нет'}
+Дай 3 других крючка.`;
+
+  const messages = [
+    { role: 'system', content: systemPrompt },
+    {
+      role: 'user',
+      content: imageUrl
+        ? [
+          { type: 'text', text: userPrompt },
+          { type: 'image_url', image_url: { url: imageUrl } }
+        ]
+        : userPrompt
+    }
+  ];
+
+  const aiResp = await nordRequest('/v1/chat/completions', 'POST', {
+    model: 'claude-sonnet-5',
+    messages,
+    temperature: 0.85,
+    response_format: { type: 'json_object' }
+  }, env, AI_HTTP_BUDGET_MS);
+
+  if (aiResp.error) {
+    console.error('NordRouter API error:', aiResp.error);
+    return json({ ok: false, error: 'NordRouter API ошибка: ' + (aiResp.error.message || JSON.stringify(aiResp.error)) }, 502);
+  }
+  const text = aiResp.choices?.[0]?.message?.content || '';
+  if (!text) return json({ ok: false, error: 'AI не вернул ответ' }, 502);
+  let data;
+  try {
+    data = JSON.parse(text);
+  } catch {
+    return json({ ok: false, error: 'AI вернул некорректный JSON: ' + text.slice(0, 200) }, 502);
+  }
+
+  const stripEmoji = (s) => String(s || '')
+    .replace(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\u{FE0F}\u{200D}]/gu, '')
+    .replace(/\s{2,}/g, ' ')
+    .trim();
+  let pool = Array.isArray(data.titles) ? data.titles : [];
+  if (!pool.length) pool = [data.title, ...(Array.isArray(data.title_alts) ? data.title_alts : [])];
+  const titles = [];
+  for (const raw of pool) {
+    const t = stripEmoji(raw).slice(0, 80);
+    if (!t || titleLocksToDigit(t)) continue;
+    if (titleCollidesWithTaken(t, [...taken, ...titles])) continue;
+    if (avoid.some((ex) => titlesTooSimilar(t, ex)) || titles.some((ex) => titlesTooSimilar(t, ex))) continue;
+    titles.push(t);
+    if (titles.length === 3) break;
+  }
+  if (!titles.length) {
+    return json({ ok: false, error: 'ИИ не придумал новых названий — нажмите ещё раз' }, 502);
+  }
+  return json({ ok: true, titles });
 }
 
 async function handleGenerateCard(request, env) {
@@ -1092,8 +1208,10 @@ async function handleGenerateCard(request, env) {
     foil_digits,
     floor_type,
     rose_type,
-    bouquet_type
+    bouquet_type,
+    operator_character
   } = body;
+  const operatorCharacter = cleanOperatorCharacter(operator_character);
   const trustedDigits = String(foil_digits || '').replace(/\D/g, '').slice(0, 4);
   const rawIn = String(composition_raw || description || '').trim();
   const holidayMeta = parseCompositionHolidayMeta(rawIn);
@@ -1141,7 +1259,8 @@ async function handleGenerateCard(request, env) {
       rawComposition,
       takenTitles,
       roseCategory,
-      scene: scene || 'table'
+      scene: scene || 'table',
+      operator_character: operatorCharacter
     });
   }
   const boxOnly = !holidayOnly && !roseOnly && compositionLooksLikeSurpriseBox(rawComposition);
@@ -1337,7 +1456,7 @@ ${BUDGET_OPTIONS.join(' | ')}
   • ОРФОГРАФИЯ: исправь опечатки и ошибки в словах пользователя (падежи, «надписью», «звезда», «сердце», «баблс/бабл»), смысл и числа не меняй
 - Во всех текстовых полях (title, descriptions, composition, seo): грамотный русский, без орфографических ошибок
 - budget: только из BUDGET по цене пользователя
-- НЕ возвращай article и price${holidayRule}${boxRule}${bouquetRule}${figuresRule}${photozoneRule}`;
+- НЕ возвращай article и price${holidayRule}${boxRule}${bouquetRule}${figuresRule}${photozoneRule}${operatorCharacterRule(operatorCharacter)}`;
 
   const takenBlock = takenTitles.length
     ? `Уже занятые названия в каталоге (НЕ предлагай эти и похожие):\n${takenTitles.slice(0, 80).map((t) => `• ${t}`).join('\n')}`
@@ -1386,7 +1505,7 @@ ${image_url
       : (photozoneOnly
         ? 'Фото приложено — category/tags только «Фотозона». ОБЯЗАТЕЛЬНО age_group и character/series по фото. target_audience и occasion пустые. Имена/цифры на круге — пример персонализации, не в title.'
         : 'Фото приложено — ОБЯЗАТЕЛЬНО foil_digits. Имя на надписи учитывай для пола. Детская карточка без повода: розовая палитра → «Для девочки», голубая/синяя → «Для мальчика», смесь или без одного цвета → «Универсальные». Юбилей (10/20/40…) + явный мужской стиль (кубок, мяч…) → tags ["Юбилей","Для него"]; category остаётся «Юбилей». Некруглые цифры → не юбилей. Имя с шара НЕ в title. age_group обязателен. Персонаж/серия по фото. Сомневаешься — medium/low + alts. Логотипы игнорируй.'))
-    : ''}`;
+    : ''}${operatorCharacterRule(operatorCharacter)}`;
 
   const messages = [
     { role: 'system', content: systemPrompt },
@@ -1427,6 +1546,7 @@ ${image_url
   const digitHint = digitCountFromText([rawIn, ...compositionHints].join('\n'));
   const digitFromPhoto = trustedDigits.length >= 2 ? 2 : (trustedDigits.length === 1 ? 1 : 0);
   data = sanitizeCardMetadata(data, scene || 'floor', priceNum, rawComposition, takenTitles, digitHint || digitFromPhoto);
+  lockOperatorCharacter(data, operatorCharacter);
   if (surpriseOnly) {
     applyTypeOnlyCard(data, 'Шар-сюрприз');
   } else if (holidayOnly) {
@@ -1476,6 +1596,7 @@ ${image_url
       .map((line) => parseCompositionHolidayMeta(line).cleanText)
       .filter(Boolean);
   }
+  lockOperatorCharacter(data, operatorCharacter);
   return json({ ok: true, data });
 }
 

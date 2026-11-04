@@ -185,6 +185,28 @@ Object.assign(app, {
     this._aiAutoPendingSig = '';
   },
 
+  /** Персонаж, который оператор вписал или поправил сам — при перезаполнении это факт. */
+  noteOperatorCharacterEdit(value) {
+    this._operatorCharacter = String(value || '').trim().slice(0, 80);
+  },
+
+  operatorCharacterLocked() {
+    const typed = (document.getElementById('product-character')?.value || '').trim();
+    const marked = String(this._operatorCharacter || '').trim();
+    if (!typed || !marked || typed !== marked) return '';
+    return typed.slice(0, 80);
+  },
+
+  wireOperatorCharacterFields() {
+    if (this._operatorCharWired) return;
+    this._operatorCharWired = true;
+    ['product-character', 'ai-review-character'].forEach((id) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.addEventListener('input', () => this.noteOperatorCharacterEdit(el.value));
+    });
+  },
+
   /** Новое Master-фото — разрешить автозаполнение снова. */
   invalidateAiAutoFill(opts = {}) {
     this.resetAiAutoFillState();
@@ -1001,10 +1023,111 @@ Object.assign(app, {
     this.syncRequiredFieldHighlights();
   },
 
-  renderTitleAlts(title, alts = []) {
-    this.renderFieldAlts('title-alts', 'product-title', 'Варианты названия — выберите:', title, alts, (val) => {
+  renderTitleAlts(title, alts = [], opts = {}) {
+    const primary = opts.omitPrimary ? '' : title;
+    const formLabel = opts.label || 'Варианты названия — выберите:';
+    const reviewLabel = opts.reviewLabel || (opts.omitPrimary ? 'Другие варианты — выберите:' : 'Ещё варианты:');
+    this._titleAltsOmitPrimary = !!opts.omitPrimary;
+    const pick = (val) => {
+      const formTitle = document.getElementById('product-title');
+      const reviewTitle = document.getElementById('ai-review-title');
+      if (formTitle) formTitle.value = val;
+      if (reviewTitle) reviewTitle.value = val;
       this.syncEditorTitle?.(val);
+      this._titleAltsOmitPrimary = false;
+      this.renderTitleAlts(val, alts);
+    };
+    this.renderFieldAlts('title-alts', 'product-title', formLabel, primary, alts, pick);
+    this.renderFieldAlts('ai-review-title-alts', 'ai-review-title', reviewLabel, primary, alts, pick);
+  },
+
+  appendMoreTitlesButton(box) {
+    if (!box || box.querySelector('.title-alt-more')) return;
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'title-alt-btn title-alt-more';
+    btn.textContent = 'Другие названия';
+    btn.addEventListener('click', () => this.requestMoreTitles());
+    box.appendChild(btn);
+  },
+
+  async requestMoreTitles() {
+    if (this._moreTitlesBusy || this._aiCardBusy) return;
+    this.wireOperatorCharacterFields?.();
+    const current = (
+      document.getElementById('product-title')?.value
+      || document.getElementById('ai-review-title')?.value
+      || ''
+    ).trim();
+    const photo = this.currentProduct?.photos?.[0];
+    let imageUrl = photo?.url || this.studioMasterDataUrl || this.studioCompare?.master || '';
+    if (!imageUrl) {
+      this.toast('Нужно фото', 'info');
+      return;
+    }
+    const shown = [current];
+    document.querySelectorAll('#title-alts .title-alt-btn[data-val], #ai-review-title-alts .title-alt-btn[data-val]').forEach((btn) => {
+      const val = (btn.getAttribute('data-val') || '').trim();
+      if (val) shown.push(val);
     });
+    this._rejectedTitles = [...new Set([...(this._rejectedTitles || []), ...shown])];
+
+    this._moreTitlesBusy = true;
+    document.querySelectorAll('.title-alt-more').forEach((btn) => {
+      btn.disabled = true;
+      btn.textContent = 'Подбираю…';
+    });
+
+    try {
+      if (String(imageUrl).startsWith('data:') && typeof this.ensureHttpsPhotoUrl === 'function') {
+        imageUrl = await this.ensureHttpsPhotoUrl(imageUrl, 'ai-card.webp');
+        if (photo) {
+          photo.url = imageUrl;
+          photo.uploaded = true;
+        }
+      }
+      const res = await fetch(`${this.workerUrl}/api/ai/more-titles`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', ...this.authHeaders() },
+        body: JSON.stringify({
+          image_url: imageUrl,
+          character: (document.getElementById('product-character')?.value || '').trim(),
+          series_name: (document.getElementById('product-series')?.value || '').trim(),
+          composition: (document.getElementById('product-composition')?.value || '').trim(),
+          current_title: current,
+          reject_titles: this._rejectedTitles,
+          existing_titles: (this.getExistingCatalogTitles?.() || []).slice(0, 80)
+        })
+      });
+      const json = await res.json().catch(() => ({}));
+      if (!res.ok || !json.ok || !Array.isArray(json.titles) || !json.titles.length) {
+        throw new Error(json.error || `Не удалось подобрать названия (${res.status})`);
+      }
+      const filtered = (json.titles || [])
+        .map((t) => String(t || '').trim())
+        .filter((t) => t && t !== current)
+        .filter((t) => !(this._rejectedTitles || []).some((ex) => this.titlesTooSimilar?.(t, ex)))
+        .filter((t, i, arr) => arr.findIndex((x) => this.titlesTooSimilar?.(t, x)) === i);
+      const free = this.filterTitlesAgainstCatalog?.(filtered[0] || '', filtered.slice(1)) || { title: filtered[0] || '', title_alts: filtered.slice(1) };
+      const titles = [free.title, ...(free.title_alts || [])].map((t) => String(t || '').trim()).filter(Boolean);
+      if (!titles.length) throw new Error('Новые названия слишком похожи на уже показанные');
+      if (this._lastAiCardData) this._lastAiCardData.title_alts = titles;
+      this.renderTitleAlts(current, titles, {
+        omitPrimary: true,
+        label: 'Другие варианты — выберите:',
+        reviewLabel: 'Другие варианты — выберите:'
+      });
+      this.toast('Другие варианты названия', 'success');
+    } catch (e) {
+      console.error('[more-titles]', e);
+      this.toast(e.message || 'Не удалось подобрать названия', 'error');
+      document.querySelectorAll('.title-alt-more').forEach((btn) => {
+        btn.disabled = false;
+        btn.textContent = 'Другие названия';
+      });
+    } finally {
+      this._moreTitlesBusy = false;
+    }
   },
 
   renderCharacterAlts(character, alts = [], confidence = '') {
@@ -1024,24 +1147,33 @@ Object.assign(app, {
   renderFieldAlts(boxId, inputId, label, primary, alts = [], onPick) {
     const box = document.getElementById(boxId);
     if (!box) return;
+    const moreTitles = boxId === 'title-alts' || boxId === 'ai-review-title-alts';
+    const doubt = label.includes('уточните') || label.includes('неуверен');
     const options = [primary, ...(alts || [])].map((t) => String(t || '').trim()).filter(Boolean);
     const uniq = [...new Set(options)];
-    if (uniq.length <= 1 && !(label.includes('уточните') || label.includes('неуверен'))) {
-      box.classList.add('hidden');
-      box.innerHTML = '';
-      return;
-    }
     if (!uniq.length) {
+      if (!moreTitles) {
+        box.classList.add('hidden');
+        box.innerHTML = '';
+        return;
+      }
+      box.classList.remove('hidden');
+      box.innerHTML = '';
+      this.appendMoreTitlesButton(box);
+      return;
+    }
+    if (uniq.length <= 1 && !doubt && !moreTitles) {
       box.classList.add('hidden');
       box.innerHTML = '';
       return;
     }
+    const currentVal = (document.getElementById(inputId)?.value || '').trim();
     box.classList.remove('hidden');
     box.innerHTML = `<span class="title-alts-label">${this.escapeHtml(label)}</span>` +
-      uniq.map((t, i) =>
-        `<button type="button" class="title-alt-btn${i === 0 ? ' is-active' : ''}" data-val="${this.escapeAttr(t)}">${this.escapeHtml(t)}</button>`
+      uniq.map((t) =>
+        `<button type="button" class="title-alt-btn${t === currentVal ? ' is-active' : ''}" data-val="${this.escapeAttr(t)}">${this.escapeHtml(t)}</button>`
       ).join('') +
-      ((label.includes('уточните') || label.includes('неуверен'))
+      (doubt
         ? `<button type="button" class="title-alt-btn title-alt-btn-clear" data-val="">Нет / очистить</button>`
         : '');
     box.querySelectorAll('.title-alt-btn').forEach((btn) => {
@@ -1049,10 +1181,16 @@ Object.assign(app, {
         const val = btn.getAttribute('data-val') || '';
         const input = document.getElementById(inputId);
         if (input) input.value = val;
+        if (inputId === 'product-character' || inputId === 'ai-review-character') {
+          this.noteOperatorCharacterEdit(val);
+          const other = document.getElementById(inputId === 'product-character' ? 'ai-review-character' : 'product-character');
+          if (other) other.value = val;
+        }
         if (typeof onPick === 'function') onPick(val);
         box.querySelectorAll('.title-alt-btn').forEach((b) => b.classList.toggle('is-active', b === btn));
       });
     });
+    if (moreTitles) this.appendMoreTitlesButton(box);
   },
 
   escapeHtml(s) {
@@ -1217,7 +1355,8 @@ Object.assign(app, {
         foil_digits: foilDigits,
         floor_type: this.getFloorType?.() || '',
         rose_type: sceneHint === 'table' ? (this.getRoseType?.() || '') : '',
-        bouquet_type: sceneHint === 'handheld_bouquet' ? (this.getBouquetType?.() || 'foil') : ''
+        bouquet_type: sceneHint === 'handheld_bouquet' ? (this.getBouquetType?.() || 'foil') : '',
+        operator_character: this.operatorCharacterLocked?.() || ''
       };
 
       // NordRouter под нагрузкой то таймаутит, то отвечает 502 — вместо того чтобы
@@ -1250,6 +1389,16 @@ Object.assign(app, {
       if (lastErr) throw lastErr;
 
       const data = result.data;
+      const lockedCharacter = this.operatorCharacterLocked?.() || '';
+      if (lockedCharacter) {
+        data.character = lockedCharacter;
+        data.character_alts = [];
+        data.character_confidence = 'high';
+        const seriesDoubt = data.series_confidence === 'medium' || data.series_confidence === 'low';
+        data.ask_character = seriesDoubt;
+        this._operatorCharacter = lockedCharacter;
+      }
+      this._rejectedTitles = [];
       const filtered = this.filterTitlesAgainstCatalog?.(data.title, data.title_alts || []) || {
         title: data.title,
         title_alts: data.title_alts || []
@@ -1622,21 +1771,17 @@ Object.assign(app, {
         : 'Артикул при публикации';
     }
 
-    const title = data?.title || document.getElementById('product-title')?.value || '';
-    const titleAlts = (data?.title_alts || []).slice(0, 2);
-    this.renderFieldAlts?.(
-      'ai-review-title-alts',
-      'ai-review-title',
-      'Ещё варианты:',
-      title,
-      titleAlts,
-      (val) => {
-        const formTitle = document.getElementById('product-title');
-        if (formTitle) formTitle.value = val;
-        this.syncEditorTitle?.(val);
-        this.renderTitleAlts?.(val, data?.title_alts || titleAlts);
-      }
-    );
+    const title = document.getElementById('product-title')?.value || data?.title || '';
+    const storedAlts = this._lastAiCardData?.title_alts || data?.title_alts || [];
+    if (this._titleAltsOmitPrimary) {
+      this.renderTitleAlts(title, storedAlts, {
+        omitPrimary: true,
+        label: 'Другие варианты — выберите:',
+        reviewLabel: 'Другие варианты — выберите:'
+      });
+    } else {
+      this.renderTitleAlts(title, (data?.title_alts || storedAlts).slice(0, 2));
+    }
 
     const conf = String(data?.character_confidence || this._lastAiCardData?.character_confidence || '').toLowerCase();
     const charDoubt = conf === 'low' || conf === 'medium';
@@ -1769,3 +1914,4 @@ Object.assign(app, {
 });
 
 console.log('✓ AI Metadata Generator loaded');
+app.wireOperatorCharacterFields?.();

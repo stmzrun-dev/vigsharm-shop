@@ -2,6 +2,333 @@
   "ok": true,
   "products": [
     {
+      "id": "aacec0ac-9c42-4ce3-acdf-14914222c781",
+      "title": "Солнечный повод",
+      "article": "FLW-005",
+      "price": 1380,
+      "short_description": "Букет из скрученных жёлтых тюльпанов с зелёными стеблями и жёлтым бантом из шаров.",
+      "full_description": "Букет из жёлтых тюльпанов, скрученных из шаров, с зелёными стеблями и объёмным жёлтым бантом — выглядит как живые цветы.",
+      "composition": [
+        "Букет из тюльпанов"
+      ],
+      "category": "Цветы из шаров",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": "1 000–2 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Букет из шаров тюльпаны жёлтые Армавир",
+      "seo_description": "Букет из жёлтых тюльпанов, скрученных из шаров, с зелёными стеблями и жёлтым бантом. Яркий подарок на любой праздник в Армавире.",
+      "slug": "buket-tyulpany-zheltye",
+      "scene": "handheld_bouquet",
+      "tags": [
+        "Цветы из шаров"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/6c703e1a-5d5c-44ae-bcc9-2b18a564e5c8.jpg",
+        "photo_dhash": "ffff17b37adcbe37",
+        "bouquet_type": "flowers"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/d8efd6be-d849-4cfa-94cb-4293622b2f66.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/d8efd6be-d849-4cfa-94cb-4293622b2f66.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-11-05T08:35:42.086Z",
+      "updated_at": "2026-11-05T08:35:42.086Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/a27d58a7-cc21-4161-a85b-25cd4799cc42.webp"
+    },
+    {
+      "id": "a69805fd-c7e5-4f99-bd2a-724cd7f6370f",
+      "title": "Пионовый возраст",
+      "article": "GRL-193",
+      "price": 3330,
+      "short_description": "Розово-фуксийный набор с фольгированной двойкой и пионом для двухлетней именинницы.",
+      "full_description": "Композиция из фольгированной цифры 2 и фигуры пиона в розовых тонах, дополненная шарами с конфетти и латексными шарами фуксии и нежно-розового цвета.",
+      "composition": [
+        "фигура",
+        "цифра",
+        "2 шара с конфетти",
+        "8 шаров"
+      ],
+      "category": "Для девочки",
+      "character": null,
+      "age_group": "Для малышей",
+      "budget": "2 000–3 500 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары на 2 года для девочки с пионом — Армавир",
+      "seo_description": "Набор воздушных шаров на 2 года для девочки: фольгированная цифра 2, фигура пиона, шары с конфетти и латексные в розово-фуксийной палитре. Армавир.",
+      "slug": "pionovy-vozrast",
+      "scene": "wall_only",
+      "tags": [
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/1f7bf0d5-23b6-49c0-b149-fc711ba36fcb.jpg",
+        "photo_dhash": "21640c38304a2c25",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/fd196b94-bd34-417f-a7c6-808168b8d9ba.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/fd196b94-bd34-417f-a7c6-808168b8d9ba.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-11-05T08:27:40.843Z",
+      "updated_at": "2026-11-05T08:27:40.843Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/07d9c979-3ad5-42da-9373-618aae9a9251.webp"
+    },
+    {
+      "id": "20cf9018-36d0-48e5-a3ef-e2d677c3fe5a",
+      "title": "Цветочный дебют",
+      "article": "Y1-064",
+      "price": 3500,
+      "short_description": "Две напольные композиции с зайчиком и цифрой «1» в бежево-золотой палитре с цветочными шарами.",
+      "full_description": "Пара напольных стоек: фольгированный зайчик с цветочным венком и именная цифра «1» на основаниях из бежевых, персиковых и золотых шаров с декоративными цветами.",
+      "composition": [
+        "2 напольные композиции"
+      ],
+      "category": "1 годик",
+      "character": "Зайчик",
+      "age_group": "Для малышей",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Напольные композиции на 1 годик с зайчиком — Армавир",
+      "seo_description": "Две напольные композиции на первый день рождения: фольгированный зайчик и цифра «1» в бежево-золотой палитре с цветочными шарами. Армавир, VigSharm.",
+      "slug": "pushistyy-pervyy-den",
+      "scene": "floor",
+      "tags": [
+        "1 годик"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/d3c12ca1-043e-4777-911e-759a11d46391.jpg",
+        "photo_dhash": "391159693b2361ab",
+        "floor_type": "air"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/bf1087e7-0942-4520-8bcb-50e6d668cb46.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/bf1087e7-0942-4520-8bcb-50e6d668cb46.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-11-05T08:09:19.450Z",
+      "updated_at": "2026-11-05T08:09:19.450Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/16ff71b9-01ff-424a-87a4-521070d4e77c.webp"
+    },
+    {
+      "id": "5a232552-bd1b-429f-8d5f-dadf7fffe008",
+      "title": "Железный курс",
+      "article": "BAB-061",
+      "price": 6800,
+      "short_description": "Голубая связка под потолком с баблсом «Добро пожаловать домой», самолётом и мишкой-лётчиком.",
+      "full_description": "Связка из голубых шаров под потолком с баблсом с метриками новорождённого, фигурами самолёта и мишки-авиатора в шлеме, фигурой облачка.",
+      "composition": [
+        "15 шаров",
+        "стеклянный баблс",
+        "3 фигуры"
+      ],
+      "category": "На выписку",
+      "character": "Мишка-лётчик",
+      "age_group": "Для малышей",
+      "budget": "5 000–8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары на выписку для мальчика — голубая связка с мишкой, Армавир",
+      "seo_description": "Голубые шары под потолком с баблсом «Добро пожаловать домой», метриками новорождённого, фигурами самолёта и мишки-авиатора. Выписка из роддома в Армавире.",
+      "slug": "pervyy-polyot-vyipiska-malchik",
+      "scene": "ceiling",
+      "tags": [
+        "На выписку"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/a11ba5f5-9134-4bc0-8ef0-56184ed23e67.webp",
+        "photo_dhash": "679d9f0cfc69c42d"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/17c8d2a7-e7fe-4801-8300-149023c30ebe.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/17c8d2a7-e7fe-4801-8300-149023c30ebe.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-11-05T07:56:17.460Z",
+      "updated_at": "2026-11-05T07:56:17.460Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/03bdea20-8ada-4e31-91dd-c9faa13e9407.webp"
+    },
+    {
+      "id": "4a4191a7-c0b7-4992-8964-441129f4cb44",
+      "title": "Рог до облаков",
+      "article": "GRL-192",
+      "price": 3290,
+      "short_description": "Напольная композиция с фольгированными цифрами 45, конфетти и яркими шарами.",
+      "full_description": "Напольная праздничная композиция с фольгированными цифрами 45, шаром с рисунком и balloons с конфетти. Дополнена фигурой и воздушными шарами.",
+      "composition": [
+        "шар с рисунком",
+        "2 шара с конфетти",
+        "2 шара",
+        "напольная фигура",
+        "напольная композиция"
+      ],
+      "category": "Для девочки",
+      "character": "Единорог",
+      "age_group": "Для детей",
+      "budget": "2 000–3 500 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Оформление на 45 лет с цифрами и шарами",
+      "seo_description": "Напольная композиция для 45 лет: фольгированные цифры, шар с рисунком, конфетти и яркое оформление.",
+      "slug": "oformlenie-na-45-let",
+      "scene": "floor",
+      "tags": [
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/07ff1248-e363-4bc3-b6f2-10d2efbcadec.jpg",
+        "photo_dhash": "0d63727164869d39",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/7cee1d0c-1bcd-41aa-a17a-c8d3f5122a95.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/7cee1d0c-1bcd-41aa-a17a-c8d3f5122a95.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-11-05T07:44:27.018Z",
+      "updated_at": "2026-11-05T07:44:27.018Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/62233432-4e16-45cf-9ef5-1e1f780e2608.webp"
+    },
+    {
+      "id": "613ecce4-bd87-4f32-a1ed-2fb37400d1b2",
+      "title": "Корона не ржавеет",
+      "article": "HER-055",
+      "price": 2350,
+      "short_description": "Золотая корона, розово-золотая звезда с шуточной надписью и шары хром в розово-золотой палитре.",
+      "full_description": "Композиция из фольгированной короны, звезды с надписью «Как 30? Было же 18!» и шаров хром в розово-золотых оттенках с конфетти.",
+      "composition": [
+        "фигура",
+        "звезда с надписью",
+        "2 шара с конфетти",
+        "2 шара хром",
+        "2 шара"
+      ],
+      "category": "Для неё",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "2 000–3 500 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Набор шаров с короной и звездой — розово-золотой, Армавир",
+      "seo_description": "Фольгированная корона, звезда с шуточной надписью, шары хром и конфетти в розово-золотой палитре. Оформление дня рождения в Армавире.",
+      "slug": "korona-ne-zhaveet",
+      "scene": "wall_only",
+      "tags": [
+        "Для неё"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/82eb48df-8745-4662-82dd-124676a96796.jpg",
+        "photo_dhash": "1d1dccececdd5e06"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/e3cff828-694d-45fb-8567-38585f234517.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/e3cff828-694d-45fb-8567-38585f234517.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-11-05T07:40:31.213Z",
+      "updated_at": "2026-11-05T07:40:31.213Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/a1c5c6e1-7da3-4fd0-944d-7780b0336ef3.webp"
+    },
+    {
+      "id": "4bb27090-e6ff-456c-b53d-c913cd1ac973",
+      "title": "Весёлые соседи",
+      "article": "BOY-116",
+      "price": 3040,
+      "short_description": "Фольгированные фигуры Губки Боба и Патрика с жёлтыми и бирюзовыми шарами.",
+      "full_description": "Композиция из двух фольгированных фигур — Губка Боб и Патрик — на фоне жёлтых, бирюзовых и шаров с конфетти.",
+      "composition": [
+        "2 фигуры",
+        "2 шара с конфетти",
+        "звезда",
+        "7 шаров"
+      ],
+      "category": "Для мальчика",
+      "character": "Губка Боб",
+      "age_group": "Для детей",
+      "budget": "2 000–3 500 ₽",
+      "series_name": "Губка Боб Квадратные Штаны",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары Губка Боб и Патрик — воздушные шары в Армавире",
+      "seo_description": "Фольгированные фигуры Губки Боба и Патрика с жёлтыми и бирюзовыми шарами. Яркая композиция для детского праздника. Оформление в Армавире.",
+      "slug": "vesyolye-sosedi-gubka-bob",
+      "scene": "wall_only",
+      "tags": [
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/cc172cab-6752-4da2-8405-7e43146a3d25.jpg",
+        "photo_dhash": "032b694d544a2101"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/78b758f4-f24d-4525-a2b9-69d59546d25a.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/78b758f4-f24d-4525-a2b9-69d59546d25a.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-11-05T07:37:22.949Z",
+      "updated_at": "2026-11-05T07:37:22.949Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/2f6a0914-2565-4264-98ea-67ed690f8ca3.webp"
+    },
+    {
       "id": "5dc02e22-5040-4c0d-8747-8f8bb6a74a4f",
       "title": "Воздушный сюрприз",
       "article": "HER-056",

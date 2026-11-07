@@ -2,6 +2,154 @@
   "ok": true,
   "products": [
     {
+      "id": "e329ccc3-24f4-473c-9fe3-8dadaf93da03",
+      "title": "Мрачная милашка",
+      "article": "GRL-195",
+      "price": 3860,
+      "short_description": "Напольные композиции с Куроми, фольгированной цифрой и букетом шаров в розово-фиолетовой палитре.",
+      "full_description": "Две напольные композиции из латексных шаров обрамляют фольгированную цифру и фигуру Куроми. Рядом — букет из хромированных и латексных шаров на лентах.",
+      "composition": [
+        "2 шара хром",
+        "5 шаров",
+        "2 напольные композиции"
+      ],
+      "category": "Для девочки",
+      "character": "Куроми",
+      "age_group": "Для детей",
+      "budget": "3 500–5 000 ₽",
+      "series_name": "Sanrio",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары с Куроми для девочки — напольные композиции, Армавир",
+      "seo_description": "Напольные композиции с фигурой Куроми, фольгированной цифрой и розово-фиолетовыми шарами. Заказ в Армавире.",
+      "slug": "temniy-bantik-kuromi",
+      "scene": "floor",
+      "tags": [
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/96d44f26-d79b-4db5-b8a5-1061acd60c85.jpg",
+        "photo_dhash": "b5ecc8a8e8c0e471",
+        "floor_type": "air",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/249c4990-ec12-41df-98e0-0abb1861aa5e.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/249c4990-ec12-41df-98e0-0abb1861aa5e.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-11-07T15:36:28.619Z",
+      "updated_at": "2026-11-07T15:36:28.619Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/4fbc1d32-2c20-4f2c-97a4-8bd1d050e261.webp"
+    },
+    {
+      "id": "67d668f4-2983-4671-992b-58c33279d354",
+      "title": "Серебряный трон",
+      "article": "HER-057",
+      "price": 3500,
+      "short_description": "Напольная композиция из серебряных цифр с чёрной короной на основании из чёрных и серебряных шаров.",
+      "full_description": "Напольная композиция: крупные серебряные фольгированные цифры на основании из чёрных и хромово-серебряных латексных шаров, увенчанные большой чёрно-серебряной фольгированной короной.",
+      "composition": [
+        "напольная композиция"
+      ],
+      "category": "Для неё",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Напольная композиция из шаров с короной — Армавир",
+      "seo_description": "Напольная композиция с серебряными фольгированными цифрами, чёрной короной и латексными шарами. Заказ в Армавире, доставка и оформление.",
+      "slug": "serebryaniy-tron",
+      "scene": "floor",
+      "tags": [
+        "Для неё",
+        "Юбилей"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/8020f6c1-eeba-45ca-9914-502ef6bbbcbb.jpg",
+        "photo_dhash": "f8e8d68e96a5e4a3",
+        "floor_type": "air",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 2
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/d4672998-de37-47f8-8c1a-25f81607c603.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/d4672998-de37-47f8-8c1a-25f81607c603.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-11-07T15:33:44.530Z",
+      "updated_at": "2026-11-07T15:33:44.530Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/68ffc31a-133c-41e1-b864-e224d1a2e079.webp"
+    },
+    {
+      "id": "84c9654c-8bf4-4756-b209-9f1f9e84514c",
+      "title": "Радужный галоп",
+      "article": "GRL-194",
+      "price": 3300,
+      "short_description": "Фольгированный единорог с радужной гривой, цифра и яркие латексные шары в радужной палитре.",
+      "full_description": "Фольгированная фигура единорога с радужной гривой в паре с градиентной цифрой и букетом разноцветных латексных шаров. Яркая радужная палитра подходит для детского праздника.",
+      "composition": [
+        "10 латексных шаров",
+        "фигура",
+        "цифра"
+      ],
+      "category": "Для девочки",
+      "character": "Единорог",
+      "age_group": "Для детей",
+      "budget": "2 000–3 500 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары с единорогом на день рождения девочки — Армавир",
+      "seo_description": "Фольгированный единорог с радужной гривой, градиентная цифра и 10 ярких латексных шаров. Заказ воздушных шаров в Армавире — VigSharm.",
+      "slug": "raduzhnyi-galop",
+      "scene": "wall_only",
+      "tags": [
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/b07198ed-53d7-4c00-9791-d1540206b943.jpg",
+        "photo_dhash": "1f1ccc88ece66414",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/bfb4ea27-92f4-46ee-8fe4-ef983de66ae4.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/bfb4ea27-92f4-46ee-8fe4-ef983de66ae4.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-11-07T15:30:50.567Z",
+      "updated_at": "2026-11-07T15:30:50.567Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/e7a34f02-676b-47d8-8fb7-81b0f3e4119e.webp"
+    },
+    {
       "id": "aacec0ac-9c42-4ce3-acdf-14914222c781",
       "title": "Солнечный повод",
       "article": "FLW-005",

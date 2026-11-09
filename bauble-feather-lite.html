@@ -1115,8 +1115,8 @@ ym(113074033,'init',{ssr:true,webvisor:true,clickmap:true,ecommerce:"dataLayer",
       </div>
 
       <div class="colors">
-        <p class="colors-head"><span class="color-mini" id="color-mini" hidden aria-hidden="true"></span><span><span id="color-label">Цвет шара</span>: <b id="color-name"></b></span></p>
-        <div class="swatches" id="swatches" role="radiogroup" aria-label="Цвет шара"></div>
+        <p class="colors-head"><span class="color-mini" id="color-mini" hidden aria-hidden="true"></span><span><span id="color-label">Цвет перьев</span>: <b id="color-name"></b></span></p>
+        <div class="swatches" id="swatches" role="radiogroup" aria-label="Цвет перьев"></div>
         <p class="hint">На фото пример. Цвет выбираете здесь.</p>
       </div>
       <button type="button" class="add-ball" id="add-ball"><span aria-hidden="true">+</span> Ещё шар с другим именем</button>
@@ -1463,7 +1463,7 @@ ym(113074033,'init',{ssr:true,webvisor:true,clickmap:true,ecommerce:"dataLayer",
     }).join('');
     var n = saved.length + 1;
     $('name-label').textContent = saved.length ? 'Шар ' + n + ' — имя или пожелание' : 'Имя или пожелание';
-    $('color-label').textContent = saved.length ? 'Цвет шара ' + n : 'Цвет шара';
+    $('color-label').textContent = saved.length ? 'Цвет перьев ' + n : 'Цвет перьев';
   }
 
   function paintQty() {
@@ -1667,7 +1667,7 @@ ym(113074033,'init',{ssr:true,webvisor:true,clickmap:true,ecommerce:"dataLayer",
       balls(n) + ' · ' + rub(n * PRICE)
     ];
     var list = job === 'name' ? nameBalls() : [];
-    if (list.length < 2) lines.push('Цвет шара: ' + colorLine(color) + '.');
+    if (list.length < 2) lines.push('Цвет перьев: ' + colorLine(color) + '.');
     lines.push('Каждый шар в своей коробочке.');
     if (job === 'custom') {
       lines.push('Макет: ' + (file ? file.name : 'не приложен') + '.');

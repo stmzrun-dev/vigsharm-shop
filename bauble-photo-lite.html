@@ -1579,6 +1579,7 @@ ym(113074033,'init',{ssr:true,webvisor:true,clickmap:true,ecommerce:"dataLayer",
   var shown = { src: '' };
   var wanted = null;
   var busy = false;
+  var stageGen = 0;
 
   function preload(src) {
     return new Promise(function (done) {
@@ -1589,7 +1590,9 @@ ym(113074033,'init',{ssr:true,webvisor:true,clickmap:true,ecommerce:"dataLayer",
   }
 
   function fadeTo(next) {
+    if (cardSlides) return Promise.resolve();
     var hero = $('hero');
+    if (!hero) return Promise.resolve();
     hero.src = next.src;
     if (REDUCED || !hero.animate || !shown.src) return Promise.resolve();
     return hero.animate([{ opacity: 0.45 }, { opacity: 1 }], { duration: 220, easing: 'ease-out' }).finished;
@@ -1650,6 +1653,7 @@ ym(113074033,'init',{ssr:true,webvisor:true,clickmap:true,ecommerce:"dataLayer",
   function mountCardSlides(urls) {
     var list = (urls || []).filter(Boolean).slice(0, 10);
     if (!list.length) return;
+    stageGen++;
     cardSlides = list.map(function (src, i) {
       return { src: src, alt: 'Ёлочный фотошар, фото ' + (i + 1), cap: i ? capFor(src) : '' };
     });
@@ -1661,7 +1665,7 @@ ym(113074033,'init',{ssr:true,webvisor:true,clickmap:true,ecommerce:"dataLayer",
       return '<button type="button" data-slide="' + i + '" aria-label="Фото ' + (i + 1) + ' из ' + cardSlides.length + '"></button>';
     }).join('');
     $('g-track').scrollLeft = 0;
-    paintDots();
+    paintStage();
   }
 
   function loadCardGallery() {
@@ -1676,15 +1680,24 @@ ym(113074033,'init',{ssr:true,webvisor:true,clickmap:true,ecommerce:"dataLayer",
   }
 
   function show(next) {
+    if (cardSlides) return;
     wanted = next;
     if (busy) return;
     if (next.src === shown.src) return;
     busy = true;
+    var gen = ++stageGen;
     Promise.all([preload(next.src), shown.src ? toStage() : null]).then(function () {
+      if (gen !== stageGen || cardSlides) return;
       return fadeTo(next);
     }).catch(function () {
-      $('hero').src = next.src;
+      if (gen !== stageGen || cardSlides) return;
+      var hero = $('hero');
+      if (hero) hero.src = next.src;
     }).then(function () {
+      if (gen !== stageGen || cardSlides) {
+        busy = false;
+        return;
+      }
       shown = next;
       busy = false;
       if (wanted && wanted.src !== shown.src) show(wanted);

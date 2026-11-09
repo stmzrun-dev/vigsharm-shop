@@ -33,6 +33,13 @@ function tagsOf(p) {
   return Array.isArray(p.tags) ? p.tags : [];
 }
 
+// Эти карточки не рисуют product.html: сразу уходят на свою страницу.
+const LITE_PAGES = {
+  'imennoj-elochnyj-shar': 'bauble-named-lite.html',
+  'elochnyj-shar-s-foto': 'bauble-photo-lite.html',
+  'elochnyj-shar-s-peryami': 'bauble-feather-lite.html'
+};
+
 function pickCards() {
   const list = products.filter(visible);
   if (!list.length) throw new Error('В снимке каталога нет ни одной видимой карточки');
@@ -51,6 +58,9 @@ function pickCards() {
   take(list.find(function (p) {
     return p.category && p.category !== 'Шары поштучно' && tagsOf(p).indexOf('Шары поштучно') < 0;
   }), 'композиция');
+  Object.keys(LITE_PAGES).forEach(function (slug) {
+    take(list.find(function (p) { return p.slug === slug; }), 'отдельная страница шара');
+  });
   return picked;
 }
 
@@ -163,12 +173,32 @@ function installRoot(el) {
   return el;
 }
 
+function pageLocation(pageUrl) {
+  const url = new URL(pageUrl);
+  const loc = {
+    href: url.href,
+    search: url.search,
+    pathname: url.pathname,
+    origin: url.origin,
+    hash: url.hash,
+    host: url.host,
+    hostname: url.hostname,
+    protocol: url.protocol,
+    redirectedTo: '',
+    replace: function (next) { loc.redirectedTo = String(next || ''); },
+    assign: function (next) { loc.redirectedTo = String(next || ''); },
+    toString: function () { return loc.href; }
+  };
+  return loc;
+}
+
 function openCard(slug) {
   const pageUrl = 'https://vigsharm.ru/product.html?slug=' + encodeURIComponent(slug);
   const rootEl = installRoot(makeEl('div'));
   rootEl.id = 'product-root';
   const head = makeEl('head');
   const body = makeEl('body');
+  const loc = pageLocation(pageUrl);
   const sandbox = {
     console: console,
     URL: URL,
@@ -199,7 +229,7 @@ function openCard(slug) {
       removeItem: function () {}
     },
     history: { replaceState: function () {}, pushState: function () {} },
-    location: new URL(pageUrl),
+    location: loc,
     scrollY: 0,
     scrollTo: function () {},
     innerHeight: 800,
@@ -244,7 +274,9 @@ function openCard(slug) {
   vm.runInContext(siteJs, sandbox, { filename: 'assets/site.js' });
   vm.runInContext(productJs, sandbox, { filename: 'assets/product.js' });
   return new Promise(function (resolve) {
-    setTimeout(function () { resolve(rootEl.innerHTML); }, 0);
+    setTimeout(function () {
+      resolve({ html: rootEl.innerHTML, redirect: loc.redirectedTo });
+    }, 0);
   });
 }
 
@@ -252,7 +284,20 @@ const cards = pickCards();
 const failures = [];
 for (const card of cards) {
   try {
-    const html = await openCard(card.slug);
+    const openedCard = await openCard(card.slug);
+    const html = openedCard.html;
+    const litePage = LITE_PAGES[card.slug];
+    if (litePage) {
+      const landed = openedCard.redirect === litePage
+        || openedCard.redirect.endsWith('/' + litePage);
+      if (landed && fs.existsSync(path.join(root, litePage))) {
+        console.log('ok  ' + card.why + ' — ' + card.title + ' → ' + litePage);
+      } else {
+        failures.push(card.title + ' (' + card.why + '): не открылась ' + litePage
+          + (openedCard.redirect ? ', ушло на ' + openedCard.redirect : ''));
+      }
+      continue;
+    }
     const opened = html.indexOf(card.title) >= 0
       && html.indexOf('Не удалось открыть композицию') < 0
       && html.indexOf('Композиция не найдена') < 0

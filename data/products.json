@@ -2,6 +2,268 @@
   "ok": true,
   "products": [
     {
+      "id": "9f985c56-58d2-46ff-b504-768a038af89f",
+      "title": "Ёлочный шар с перьями",
+      "article": "NY-007",
+      "price": 550,
+      "short_description": "Прозрачный шар 8 см с цветными перьями внутри, именем или своим рисунком, в коробочке с бантом.",
+      "full_description": "Цветные перья внутри прозрачного шара диаметром 8 см. Снаружи имя, пожелание или свой рисунок. Каждый шар в коробочке с окошком и бантом. Цвет перьев выбирается при заказе.",
+      "composition": [
+        "прозрачный шар 8 см с перьями",
+        "имя, пожелание или свой рисунок",
+        "бант",
+        "коробочка с окошком"
+      ],
+      "category": "Новый год",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": "до 1 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Ёлочный шар с перьями — Армавир | VigSharm",
+      "seo_description": "Прозрачный ёлочный шар 8 см с цветными перьями внутри и именем или рисунком, в коробочке с бантом. 550 ₽. Армавир.",
+      "slug": "elochnyj-shar-s-peryami",
+      "scene": "auto",
+      "tags": [
+        "Новый год"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "catalog_pin": true,
+        "balloon_size": "8 см",
+        "price_caption": "Цена за шар",
+        "order_page": "bauble-feather-lite.html",
+        "card_gallery": true
+      },
+      "photos": [
+        "https://vigsharm.ru/preview/bauble-feather-box.webp?v=1",
+        "https://vigsharm.ru/preview/bauble-feather-home.webp?v=1",
+        "https://vigsharm.ru/preview/bauble-feather-blue.webp?v=1",
+        "https://vigsharm.ru/preview/bauble-feather-red.webp?v=1",
+        "https://vigsharm.ru/preview/bauble-feather-kristina.webp?v=1",
+        "https://vigsharm.ru/preview/bauble-feather-couple.webp?v=1",
+        "https://vigsharm.ru/preview/bauble-feather-peach.webp?v=1",
+        "https://vigsharm.ru/preview/bauble-feather-family.webp?v=1",
+        "https://vigsharm.ru/preview/bauble-feather-mint.webp?v=1",
+        "https://vigsharm.ru/preview/bauble-feather-clear.webp?v=1"
+      ],
+      "main_photo": "https://vigsharm.ru/preview/bauble-feather-box.webp?v=1",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-11-09T09:30:00.000Z",
+      "updated_at": "2026-11-09T09:30:00.000Z",
+      "thumb_photo": "https://vigsharm.ru/preview/bauble-feather-box.webp?v=1"
+    },
+    {
+      "id": "ec00697b-df61-465a-8b01-5f445b8d88a9",
+      "title": "Выдержан отлично",
+      "article": "HER-059",
+      "price": 6300,
+      "short_description": "Напольная композиция с крупными цифрами, фигурой и разнообразными шарами.",
+      "full_description": "Напольная композиция с крупными фольгированными цифрами, фигурой и сочетанием шаров с рисунком, конфетти и хромовым покрытием.",
+      "composition": [
+        "Напольная композиция",
+        "2 цифры",
+        "фигура",
+        "4 шара с рисунком",
+        "3 шара с конфетти",
+        "2 шара хром"
+      ],
+      "category": "Для неё",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "5 000–8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Юбилейная композиция с цифрами и шарами в Армавире",
+      "seo_description": "Напольная композиция с юбилейными цифрами, фигурой, шарами с рисунком, конфетти и хромовыми шарами.",
+      "slug": "yubileynaya-kompoziciya-s-ciframi-i-sharemi",
+      "scene": "floor",
+      "tags": [
+        "Для неё",
+        "Юбилей"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/ed601135-80e6-44ce-9d9b-585a13526f82.jpg",
+        "photo_dhash": "f7b6b6ee1c73732f",
+        "floor_type": "air",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 2
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/524f171a-df32-49d7-8ea9-ab3e723a2fdf.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/524f171a-df32-49d7-8ea9-ab3e723a2fdf.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-11-09T12:33:27.679Z",
+      "updated_at": "2026-11-09T12:33:27.679Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/55509998-aa76-47e8-81b0-057f8ae55276.webp"
+    },
+    {
+      "id": "6c263867-11a9-4740-958d-b8925b727486",
+      "title": "Магия над радугой",
+      "article": "GRL-201",
+      "price": 5000,
+      "short_description": "Напольная композиция с фольгированным единорогом, серебряной цифрой, радугой и цветами из шаров.",
+      "full_description": "Напольная композиция с крупным фольгированным единорогом, серебряной цифрой с короной, фольгированной радугой и основанием из розовых латексных шаров с цветочками из твистинга.",
+      "composition": [
+        "Напольная композиция"
+      ],
+      "category": "Для девочки",
+      "character": "Единорог",
+      "age_group": "Для детей",
+      "budget": "5 000–8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Напольная композиция с единорогом и цифрой — шары Армавир",
+      "seo_description": "Напольная композиция с фольгированным единорогом, серебряной цифрой, радугой и цветами из шаров. Заказ в Армавире.",
+      "slug": "napolnaya-kompoziciya-edinorog-cifra",
+      "scene": "floor",
+      "tags": [
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/a686bef1-68e7-4bc4-b8e7-14675685cc64.jpg",
+        "photo_dhash": "1b0a8a8ed227e202",
+        "floor_type": "air",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/d7150819-9a2a-444d-acde-c036c92a48ed.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/d7150819-9a2a-444d-acde-c036c92a48ed.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-11-09T12:30:03.423Z",
+      "updated_at": "2026-11-09T12:30:03.423Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/1ccbf613-33c4-464b-887d-b226f0475c84.webp"
+    },
+    {
+      "id": "87945095-6a30-48e2-baf5-ea0595da0e04",
+      "title": "Курс на взлёт",
+      "article": "BOY-120",
+      "price": 5400,
+      "short_description": "Напольная композиция с самолётом в сине-бирюзовой палитре для мальчика.",
+      "full_description": "Фольгированная цифра на подставке из шаров и букет с фигурой самолёта в синих и бирюзовых тонах. Надпись «Любимому сыночку» на баблсе подчёркивает адресат.",
+      "composition": [
+        "Фигура",
+        "3 шара хром",
+        "2 звезды",
+        "4 шара",
+        "Напольная композиция"
+      ],
+      "category": "Для мальчика",
+      "character": "Самолёт",
+      "age_group": "Для детей",
+      "budget": "5 000–8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Напольная композиция с самолётом для мальчика — шары Армавир",
+      "seo_description": "Напольная композиция с фольгированной цифрой и фигурой самолёта в сине-бирюзовой палитре. Заказ воздушных шаров в Армавире.",
+      "slug": "sinyee-nebo-zhdet",
+      "scene": "floor",
+      "tags": [
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/568abdce-a424-4397-ab68-23fb699e0712.jpg",
+        "photo_dhash": "1313302f918529c8",
+        "floor_type": "air",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/6f135ff4-0753-4804-81ec-6a0d1275d4b2.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/6f135ff4-0753-4804-81ec-6a0d1275d4b2.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-11-09T12:22:26.907Z",
+      "updated_at": "2026-11-09T12:22:26.907Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/ac99ef44-50bb-4eec-9ef6-a2169542734c.webp"
+    },
+    {
+      "id": "6b387cda-d617-41de-a41d-8dcc825191df",
+      "title": "Красивые не стареют",
+      "article": "HER-058",
+      "price": 5500,
+      "short_description": "Напольная композиция с цифрами 30, бутылкой шампанского и баблсом в розово-золотой палитре.",
+      "full_description": "Напольная композиция в розово-золотых тонах: крупные фольгированные цифры 30, фигура бутылки шампанского и баблс с надписью «Красивые не стареют» на подушке из латексных шаров.",
+      "composition": [
+        "баблс с надписью",
+        "напольная композиция"
+      ],
+      "category": "Для неё",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "5 000–8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Напольная композиция на 30 лет в розовом золоте — Армавир",
+      "seo_description": "Напольная композиция на юбилей 30 лет: фольгированные цифры, бутылка шампанского, баблс с надписью, розово-бордово-золотые шары. Армавир.",
+      "slug": "yubilej-30-rozovoe-zoloto",
+      "scene": "floor",
+      "tags": [
+        "Для неё",
+        "Юбилей"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/f2000c4f-62aa-4237-bba3-8d5839b14018.jpg",
+        "photo_dhash": "7ede8392dc365ede",
+        "floor_type": "air",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 2
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/b745bcd1-a0a6-466e-a663-09841ea46c96.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/b745bcd1-a0a6-466e-a663-09841ea46c96.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-11-09T12:18:19.158Z",
+      "updated_at": "2026-11-09T12:18:19.158Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/cd4dce0a-1451-4176-88cf-57ded2522551.webp"
+    },
+    {
       "id": "2237ff6c-aa35-4292-a1b2-910c701d7444",
       "title": "Кошачья нежность",
       "article": "TDY-004",
@@ -32,17 +294,18 @@
         "personal_inscription": false,
         "photozone_rental": false,
         "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/1ea448b0-d363-4906-9f2e-b65eabc564b1.jpg",
-        "photo_dhash": "0f1149692f273717",
+        "photo_dhash": "0f3979c8f0742906",
         "bouquet_type": "teddy"
       },
       "photos": [
-        "https://storage.yandexcloud.net/vigsharm-photos/products/e1066aa0-bb7b-4528-a5a7-f00a89800fdc.jpg"
+        "https://storage.yandexcloud.net/vigsharm-photos/products/e1066aa0-bb7b-4528-a5a7-f00a89800fdc.jpg",
+        "https://storage.yandexcloud.net/vigsharm-photos/products/df827fce-c4d7-4618-bd11-c021756e7014.jpg"
       ],
       "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/e1066aa0-bb7b-4528-a5a7-f00a89800fdc.jpg",
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-11-09T09:35:41.139Z",
-      "updated_at": "2026-11-09T09:35:41.139Z",
+      "updated_at": "2026-11-09T12:26:13.289Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/9733c13f-b3c8-41a1-9371-ac2b9cc84e59.webp"
     },
     {
@@ -508,17 +771,18 @@
         "personal_inscription": false,
         "photozone_rental": false,
         "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/90c04a63-e2b0-4dba-9878-9ed450a2d2ec.jpg",
-        "photo_dhash": "072992cd2f273317",
+        "photo_dhash": "f09ab20f2996ccf0",
         "bouquet_type": "teddy"
       },
       "photos": [
-        "https://storage.yandexcloud.net/vigsharm-photos/products/56c8cb7d-ab01-4b91-bc74-5cca9e01497f.jpg"
+        "https://storage.yandexcloud.net/vigsharm-photos/products/56c8cb7d-ab01-4b91-bc74-5cca9e01497f.jpg",
+        "https://storage.yandexcloud.net/vigsharm-photos/products/f013ba21-b219-4e98-92bc-248c7792089c.jpg"
       ],
       "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/56c8cb7d-ab01-4b91-bc74-5cca9e01497f.jpg",
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-11-09T07:17:51.685Z",
-      "updated_at": "2026-11-09T07:17:51.685Z",
+      "updated_at": "2026-11-09T12:26:38.291Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/b3584c6d-b02d-4136-9bc0-4c935873cb94.webp"
     },
     {
@@ -3394,23 +3658,23 @@
         "balloon_size": "8 см",
         "card_gallery": true,
         "studio_original_url": "https://vigsharm.ru/preview/bauble-photo-in-hand.webp?v=1",
-        "photo_dhash": "bfadabb2a8e0a480"
+        "photo_dhash": "ffb3f3e8e0e08c80"
       },
       "photos": [
-        "https://storage.yandexcloud.net/vigsharm-photos/products/34d27e6e-73f3-41c4-bb88-d66664cd96a4.jpg",
-        "https://storage.yandexcloud.net/vigsharm-photos/products/645c4d41-b566-4549-9603-61fbc0432433.jpg",
-        "https://storage.yandexcloud.net/vigsharm-photos/products/dbbc88a2-8ff3-40df-8d93-9457f114c0bc.jpg",
-        "https://storage.yandexcloud.net/vigsharm-photos/products/d9830a8d-74b9-413d-af61-fb9c008e030a.jpg",
-        "https://storage.yandexcloud.net/vigsharm-photos/products/66ddc9bb-8986-4f83-821d-c70c1fcb3f10.jpg",
-        "https://storage.yandexcloud.net/vigsharm-photos/products/9201399a-ddc0-4b80-a872-5728de28d21c.jpg",
-        "https://storage.yandexcloud.net/vigsharm-photos/products/c3bbdb07-725d-4b88-aaef-5e35a32f0cd2.jpg"
+        "https://storage.yandexcloud.net/vigsharm-photos/products/4046253b-fe61-4683-ac46-d42e7ae00e51.jpg",
+        "https://storage.yandexcloud.net/vigsharm-photos/products/9b30a067-050e-4154-b265-ea21ca8ea9a3.jpg",
+        "https://storage.yandexcloud.net/vigsharm-photos/products/a00e3777-7c0c-492d-822f-7757cb0ffd4b.jpg",
+        "https://storage.yandexcloud.net/vigsharm-photos/products/544a341c-b975-4eda-993a-53645523f66c.jpg",
+        "https://storage.yandexcloud.net/vigsharm-photos/products/cbaa27c4-5432-436a-a753-f8eba76b4372.jpg",
+        "https://storage.yandexcloud.net/vigsharm-photos/products/d2a30ddc-f12f-4bbd-80ec-d6f8f8fa5d37.jpg",
+        "https://storage.yandexcloud.net/vigsharm-photos/products/0dbad018-450d-49d8-8f7f-497ac565f310.jpg"
       ],
-      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/34d27e6e-73f3-41c4-bb88-d66664cd96a4.jpg",
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/4046253b-fe61-4683-ac46-d42e7ae00e51.jpg",
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-10-26T08:00:00.000Z",
-      "updated_at": "2026-11-09T11:00:24.035Z",
-      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/39e60be6-26de-4df6-99b0-c58a64e72ea3.webp"
+      "updated_at": "2026-11-09T11:23:59.289Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/6ec93cd9-b6b1-4d29-a89e-28a85b1c54d6.webp"
     },
     {
       "id": "8e91ee9a-53f9-46f6-94f2-7b65141d451d",
@@ -3508,64 +3772,6 @@
       "created_at": "2026-10-26T07:02:33.441Z",
       "updated_at": "2026-10-26T07:02:33.441Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/f1c08810-19da-45c2-a6a6-b58cfb68b9c2.webp"
-    },
-    {
-      "id": "9f985c56-58d2-46ff-b504-768a038af89f",
-      "title": "Ёлочный шар с перьями",
-      "article": "NY-007",
-      "price": 550,
-      "short_description": "Прозрачный шар 8 см с цветными перьями внутри, именем или своим рисунком, в коробочке с бантом.",
-      "full_description": "Цветные перья внутри прозрачного шара диаметром 8 см. Снаружи имя, пожелание или свой рисунок. Каждый шар в коробочке с окошком и бантом. Цвет перьев выбирается при заказе.",
-      "composition": [
-        "прозрачный шар 8 см с перьями",
-        "имя, пожелание или свой рисунок",
-        "бант",
-        "коробочка с окошком"
-      ],
-      "category": "Новый год",
-      "character": null,
-      "age_group": "Для любого возраста",
-      "budget": "до 1 000 ₽",
-      "series_name": null,
-      "occasion": null,
-      "target_audience": null,
-      "seo_title": "Ёлочный шар с перьями — Армавир | VigSharm",
-      "seo_description": "Прозрачный ёлочный шар 8 см с цветными перьями внутри и именем или рисунком, в коробочке с бантом. 550 ₽. Армавир.",
-      "slug": "elochnyj-shar-s-peryami",
-      "scene": "auto",
-      "tags": [
-        "Новый год"
-      ],
-      "client_options": {
-        "available_on_request": false,
-        "advance_order_1_2_days": true,
-        "number_choice": false,
-        "personal_inscription": true,
-        "photozone_rental": false,
-        "catalog_pin": true,
-        "balloon_size": "8 см",
-        "price_caption": "Цена за шар",
-        "order_page": "bauble-feather-lite.html",
-        "card_gallery": true
-      },
-      "photos": [
-        "https://vigsharm.ru/preview/bauble-feather-box.webp?v=1",
-        "https://vigsharm.ru/preview/bauble-feather-home.webp?v=1",
-        "https://vigsharm.ru/preview/bauble-feather-blue.webp?v=1",
-        "https://vigsharm.ru/preview/bauble-feather-red.webp?v=1",
-        "https://vigsharm.ru/preview/bauble-feather-kristina.webp?v=1",
-        "https://vigsharm.ru/preview/bauble-feather-couple.webp?v=1",
-        "https://vigsharm.ru/preview/bauble-feather-peach.webp?v=1",
-        "https://vigsharm.ru/preview/bauble-feather-family.webp?v=1",
-        "https://vigsharm.ru/preview/bauble-feather-mint.webp?v=1",
-        "https://vigsharm.ru/preview/bauble-feather-clear.webp?v=1"
-      ],
-      "main_photo": "https://vigsharm.ru/preview/bauble-feather-box.webp?v=1",
-      "status": "published",
-      "show_on_site": true,
-      "created_at": "2026-11-09T09:30:00.000Z",
-      "updated_at": "2026-11-09T09:30:00.000Z",
-      "thumb_photo": "https://vigsharm.ru/preview/bauble-feather-box.webp?v=1"
     },
     {
       "id": "136e5181-f581-41c7-9c7a-c5df00d4968b",

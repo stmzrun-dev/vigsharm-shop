@@ -1613,14 +1613,82 @@ ym(113074033,'init',{ssr:true,webvisor:true,clickmap:true,ecommerce:"dataLayer",
     track.scrollTo({ left: i * track.clientWidth, behavior: REDUCED ? 'auto' : 'smooth' });
   }
 
+  var cardSlides = null;
+  var KNOWN_CAPS = {
+    'bauble-photo-side': 'Сбоку видна толщина шара и снежок внутри',
+    'bauble-photo-gift-box': 'Коробочка с окошком, крышка открывается',
+    'bauble-photo-set': 'Набор для всей семьи: у каждого свой шар'
+  };
+
+  function photoAttr(s) {
+    return String(s || '').replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
+  }
+
+  function capFor(url) {
+    var name = String(url || '').split('/').pop().split('?')[0].replace(/\.(webp|jpe?g|png)$/i, '');
+    return KNOWN_CAPS[name] || '';
+  }
+
+  function slideCount() {
+    return cardSlides ? cardSlides.length : SLIDE_CAPS.length;
+  }
+
   function paintDots() {
     var at = slideAt();
+    var n = slideCount();
+    if (at >= n) at = n - 1;
+    if (at < 0) at = 0;
     document.querySelectorAll('#g-dots button').forEach(function (dot, i) {
       dot.classList.toggle('is-on', i === at);
       if (i === at) dot.setAttribute('aria-current', 'true');
       else dot.removeAttribute('aria-current');
     });
-    $('g-cap').textContent = at ? SLIDE_CAPS[at] || '' : stageCap;
+    if (cardSlides) $('g-cap').textContent = at ? (cardSlides[at].cap || '') : stageCap;
+    else $('g-cap').textContent = at ? SLIDE_CAPS[at] || '' : stageCap;
+  }
+
+  function mountCardSlides(urls) {
+    var list = (urls || []).filter(Boolean).slice(0, 10);
+    if (!list.length) return;
+    cardSlides = list.map(function (src, i) {
+      return { src: src, alt: 'Ёлочный фотошар, фото ' + (i + 1), cap: i ? capFor(src) : '' };
+    });
+    $('g-track').innerHTML = cardSlides.map(function (item, i) {
+      var img = '<img' + (i ? ' loading="lazy"' : ' class="hero" id="hero"') + ' src="' + photoAttr(item.src) + '" alt="' + photoAttr(item.alt) + '" width="1000" height="1000"/>';
+      return i ? img : '<div class="stage" id="stage">' + img + '</div>';
+    }).join('');
+    $('g-dots').innerHTML = cardSlides.length < 2 ? '' : cardSlides.map(function (_, i) {
+      return '<button type="button" data-slide="' + i + '" aria-label="Фото ' + (i + 1) + ' из ' + cardSlides.length + '"></button>';
+    }).join('');
+    $('g-track').scrollLeft = 0;
+    paintDots();
+  }
+
+  function loadCardGallery() {
+    var slug = 'elochnyj-shar-s-foto';
+    function take(p) {
+      if (!p) return;
+      var opts = p.client_options;
+      if (typeof opts === 'string') {
+        try { opts = JSON.parse(opts); } catch (e) { opts = {}; }
+      }
+      if (!opts || !opts.card_gallery) return;
+      var photos = Array.isArray(p.photos) ? p.photos : [];
+      if (photos.length) mountCardSlides(photos);
+    }
+    var api = (window.VIG_API || 'https://api.vigsharm.ru') + '/api/products/' + slug;
+    var ctrl = typeof AbortController !== 'undefined' ? new AbortController() : null;
+    var timer = ctrl ? setTimeout(function () { try { ctrl.abort(); } catch (e) {} }, 8000) : null;
+    fetch(api, { cache: 'no-store', signal: ctrl ? ctrl.signal : undefined })
+      .then(function (r) { if (!r.ok) throw new Error('x'); return r.json(); })
+      .then(function (data) { take(data && (data.product || data)); })
+      .catch(function () {
+        if (!window.vigFetchProducts) return null;
+        return window.vigFetchProducts().then(function (list) {
+          take((list || []).filter(function (item) { return item && item.slug === slug; })[0]);
+        });
+      })
+      .then(function () { if (timer) clearTimeout(timer); }, function () { if (timer) clearTimeout(timer); });
   }
 
   function toStage() {
@@ -1648,6 +1716,15 @@ ym(113074033,'init',{ssr:true,webvisor:true,clickmap:true,ecommerce:"dataLayer",
   function paintStage() {
     var bow = bowById(cur.bow);
     var look = bowLook(cur.bow);
+    if (cardSlides) {
+      var name = bow.id === 'other' ? 'другой' : bow.name;
+      var stillExample = String(cardSlides[0].src || '').indexOf('bauble-photo-in-hand') >= 0;
+      if (cur.bow === 'other') stageCap = 'Бант другого цвета обсудим в чате';
+      else if (stillExample && look.shots.honest) stageCap = 'Бант «' + name + '» — на шаре будет этот цвет. На фото пример с розовым';
+      else stageCap = 'Пример. Ваше фото встанет в шар так же';
+      paintDots();
+      return;
+    }
     show({ src: look.shots.front });
     var name = bow.id === 'other' ? 'другой' : bow.name;
     if (cur.bow === 'other') {
@@ -2495,6 +2572,7 @@ ym(113074033,'init',{ssr:true,webvisor:true,clickmap:true,ecommerce:"dataLayer",
   });
 
   restore();
+  loadCardGallery();
   paintColors();
   paintColor();
   paintSaved();

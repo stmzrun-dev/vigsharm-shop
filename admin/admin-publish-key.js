@@ -36,6 +36,18 @@ Object.assign(app, {
       if (file) this.loadPublishFile(file);
       input.value = '';
     });
+    document.querySelectorAll('input[name="publish-scene"]').forEach((el) => {
+      el.addEventListener('change', () => this.syncPublishBaublePose?.());
+    });
+    this.syncPublishBaublePose?.();
+  },
+
+  syncPublishBaublePose() {
+    const row = document.getElementById('publish-bauble-pose');
+    if (!row) return;
+    const on = this.getPublishScene?.() === 'bauble';
+    row.classList.toggle('hidden', !on);
+    row.hidden = !on;
   },
 
   async loadPublishFile(file) {

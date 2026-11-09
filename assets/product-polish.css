@@ -1070,8 +1070,7 @@ a.pickup-studio{
   .client-when .order-dt-card .dt-icon{
     position:relative;
   }
-  .client-ful > button.selected .ful-icon::after,
-  .client-when .order-dt-card.is-picked .dt-icon::after{
+  .client-ful > button.selected .ful-icon::after{
     content:'';
     position:absolute;
     inset:-7px;
@@ -1141,6 +1140,26 @@ a.pickup-studio{
   .client-when .order-dt-card .dt-icon img{
     width:40px;
     height:40px;
+  }
+  /* Календарь и список времени — строкой под обеими карточками, не поверх подписи. */
+  .product-page .client-when .order-date-row,
+  .product-page .client-when .order-date-field,
+  .product-page .client-when .order-time-field,
+  .product-page .client-when .order-date-picker{
+    overflow:visible;
+  }
+  .product-page .client-when .order-date-picker.is-open .order-cal,
+  .product-page .client-when .order-time-picker.is-open .order-cal{
+    position:relative;
+    top:auto;
+    left:auto;
+    right:auto;
+    width:calc(200% + 10px);
+    max-width:none;
+    margin-top:10px;
+  }
+  .product-page .client-when .order-time-picker.is-open .order-cal{
+    margin-left:calc(-100% - 10px);
   }
   .client-msg .order-sum-msg{
     margin-top:0;

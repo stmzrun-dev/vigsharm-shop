@@ -253,6 +253,15 @@
               <label class="scene-subchip"><input type="radio" name="publish-scene" value="unit_balloon"/><span>Поштучно</span></label>
               <label class="scene-subchip"><input type="radio" name="publish-scene" value="photozone"/><span>Фотозона</span></label>
               <label class="scene-subchip"><input type="radio" name="publish-scene" value="arch"/><span>Арка</span></label>
+              <label class="scene-subchip"><input type="radio" name="publish-scene" value="bauble"/><span>Ёлочный шар</span></label>
+            </div>
+          </div>
+          <div id="publish-bauble-pose" class="photozone-type-early scene-subchips hidden" hidden>
+            <p class="scene-subchips-label">Положение</p>
+            <div class="scene-subchips-row" role="radiogroup" aria-label="Положение ёлочного шара">
+              <label class="scene-subchip"><input type="radio" name="publish-bauble-pose" value="tree" checked/><span>На ёлке</span></label>
+              <label class="scene-subchip"><input type="radio" name="publish-bauble-pose" value="box"/><span>В коробке</span></label>
+              <label class="scene-subchip"><input type="radio" name="publish-bauble-pose" value="scatter"/><span>Несколько</span></label>
             </div>
           </div>
           <div class="form-group">
@@ -399,6 +408,23 @@
                   <label class="scene-subchip">
                     <input type="checkbox" name="surprise-money-early" id="surprise-money-early" value="1"/>
                     <span>С купюрами</span>
+                  </label>
+                </div>
+              </div>
+              <div id="bauble-pose-early" class="photozone-type-early scene-subchips hidden">
+                <p class="scene-subchips-label">Положение <span class="req">*</span></p>
+                <div class="scene-subchips-row" role="radiogroup" aria-label="Положение ёлочного шара">
+                  <label class="scene-subchip">
+                    <input type="radio" name="bauble-pose-early" id="bauble-pose-tree-early" value="tree" checked/>
+                    <span>На ёлке</span>
+                  </label>
+                  <label class="scene-subchip">
+                    <input type="radio" name="bauble-pose-early" id="bauble-pose-box-early" value="box"/>
+                    <span>В коробке</span>
+                  </label>
+                  <label class="scene-subchip">
+                    <input type="radio" name="bauble-pose-early" id="bauble-pose-scatter-early" value="scatter"/>
+                    <span>Несколько</span>
                   </label>
                 </div>
               </div>
@@ -1130,26 +1156,26 @@
   </div>
 </div>
 
-<script src="admin.js?v=20261023-apifallback"></script>
-<script src="admin-extended.js?v=20261104-char"></script>
+<script src="admin.js?v=20261109-gallery"></script>
+<script src="admin-extended.js?v=20261109-gallery"></script>
 <script src="cloudinary-upload.js?v=cloud-fix-2"></script>
 <script src="imgbb-upload.js?v=1"></script>
 <script src="cloudinary-patch.js?v=yandex-1"></script>
-<script src="admin-studio-pro.js?v=20261004-pro"></script>
+<script src="admin-studio-pro.js?v=20261109-gallery"></script>
 <script src="admin-ai.js?v=20261104-char-titles"></script>
 <script src="admin-reference-background.js"></script>
 <script src="admin-orders.js?v=1"></script>
 <script src="admin-price.js?v=7"></script>
-<script src="admin-publish-key.js?v=5"></script>
+<script src="admin-publish-key.js?v=6"></script>
 <script src="publish-screen.js?v=1"></script>
 <script src="publish-master.js?v=1"></script>
 <script src="publish-frames.js?v=1"></script>
 <script src="publish-pack.js?v=1"></script>
 <script src="publish-flat.js?v=1"></script>
 <script src="publish-bleed.js?v=1"></script>
-<script src="publish-pair.js?v=1"></script>
+<script src="publish-pair.js?v=2"></script>
 <script src="publish-square.js?v=1"></script>
-<script src="publish-reshoot.js?v=3"></script>
-<script src="publish-ratio.js?v=3"></script>
+<script src="publish-reshoot.js?v=4"></script>
+<script src="publish-ratio.js?v=4"></script>
 </body>
 </html>

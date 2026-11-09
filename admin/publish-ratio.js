@@ -79,6 +79,7 @@
               image_url: this.publishMasterUrl,
               ...(keepBg ? {} : { reference_url: referenceUrl }),
               scene,
+              bauble_pose: scene === 'bauble' ? (this.getBaublePose?.() || 'tree') : '',
               resolution: '2K',
               prefer,
               aspect_ratio: aspect,

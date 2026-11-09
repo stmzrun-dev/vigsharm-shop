@@ -27,6 +27,7 @@ const SCENES = [
   { value: 'floor', icon: '🪵', title: 'Напольная композиция', short: 'Пол', desc: 'Стоит на полу: стена + плинтус + ламинат' },
   { value: 'table', icon: '🪑', title: 'На столике', short: 'Столик', desc: 'Подарок сидит на круглом столике в той же студии' },
   { value: 'surprise', icon: '🎁', title: 'Шар-сюрприз', short: 'Сюрприз', desc: 'Та же комната: висит на ленте или стоит на своей подставке' },
+  { value: 'bauble', icon: '🎄', title: 'Ёлочный шар', short: 'Ёлочный', desc: 'На ёлке, в коробке на столе или россыпь на том же столе' },
   { value: 'balloon_figures', icon: '🧸', title: 'Фигуры из шаров', short: 'Фигуры', desc: 'Крупная фигура из шаров на полу' },
   { value: 'photozone', icon: '🎪', title: 'Фотозона', short: 'Фотозона', desc: 'Каркас или мольберт' },
   { value: 'arch', icon: '🌈', title: 'Арка', short: 'Арка', desc: 'Улучшить фото, фон как на снимке' }
@@ -63,6 +64,13 @@ const FLOOR_TYPES = {
 const SURPRISE_POSES = {
   hang: { value: 'hang', title: 'Висит', hint: 'На ленте сверху, на пол не ставить' },
   stand: { value: 'stand', title: 'Стоит', hint: 'На ламинате. Подставка и купюры — часть товара' }
+};
+
+/** Положение ёлочного шара. Стол у «коробки» и «россыпи» один и тот же. */
+const BAUBLE_POSES = {
+  tree: { value: 'tree', title: 'На ёлке', hint: 'Шар висит на ветке' },
+  box: { value: 'box', title: 'В коробке', hint: 'Коробка лежит на новогоднем столе' },
+  scatter: { value: 'scatter', title: 'Несколько', hint: 'Россыпь лежит на том же столе' }
 };
 
 /** Подтип сцены «На столике»: мишка или мыльные розы. */
@@ -1327,6 +1335,10 @@ const app = {
       this.studioReferenceCeilingVersion = settings.studioReferenceCeilingVersion || '';
       this.studioReferenceTableUrl = settings.studioReferenceTableUrl || '';
       this.studioReferenceTableVersion = settings.studioReferenceTableVersion || '';
+      this.studioReferenceBaubleTreeUrl = settings.studioReferenceBaubleTreeUrl || '';
+      this.studioReferenceBaubleTreeVersion = settings.studioReferenceBaubleTreeVersion || '';
+      this.studioReferenceBaubleTableUrl = settings.studioReferenceBaubleTableUrl || '';
+      this.studioReferenceBaubleTableVersion = settings.studioReferenceBaubleTableVersion || '';
       this.studioReferenceHandUrl = settings.studioReferenceHandUrl || '';
       this.studioReferenceHandVersion = settings.studioReferenceHandVersion || '';
 
@@ -1361,6 +1373,10 @@ const app = {
         studioReferenceCeilingVersion: this.studioReferenceCeilingVersion || '',
         studioReferenceTableUrl: this.studioReferenceTableUrl || '',
         studioReferenceTableVersion: this.studioReferenceTableVersion || '',
+        studioReferenceBaubleTreeUrl: this.studioReferenceBaubleTreeUrl || '',
+        studioReferenceBaubleTreeVersion: this.studioReferenceBaubleTreeVersion || '',
+        studioReferenceBaubleTableUrl: this.studioReferenceBaubleTableUrl || '',
+        studioReferenceBaubleTableVersion: this.studioReferenceBaubleTableVersion || '',
         studioReferenceHandUrl: this.studioReferenceHandUrl || '',
         studioReferenceHandVersion: this.studioReferenceHandVersion || ''
       });
@@ -1459,6 +1475,10 @@ const app = {
     this.studioReferenceCeilingVersion = '';
     this.studioReferenceTableUrl = '';
     this.studioReferenceTableVersion = '';
+    this.studioReferenceBaubleTreeUrl = '';
+    this.studioReferenceBaubleTreeVersion = '';
+    this.studioReferenceBaubleTableUrl = '';
+    this.studioReferenceBaubleTableVersion = '';
     this.studioReferenceHandUrl = '';
     this.studioReferenceHandVersion = '';
     this.loadSettings();

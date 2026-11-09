@@ -14,6 +14,12 @@ Object.assign(app, {
   /** Круглый столик в той же студии. Только сцена table. */
   DEFAULT_REFERENCE_TABLE: '../assets/reference/reference-table.jpg',
   REFERENCE_TABLE_VERSION: 'v1',
+  /** Ветка ёлки. Сцена bauble, положение «На ёлке». */
+  DEFAULT_REFERENCE_BAUBLE_TREE: '../assets/reference/reference-bauble-tree.webp',
+  REFERENCE_BAUBLE_TREE_VERSION: 'v1',
+  /** Тот же круглый столик. Сцена bauble: коробка и россыпь. */
+  DEFAULT_REFERENCE_BAUBLE_TABLE: '../assets/reference/reference-bauble-table.jpg',
+  REFERENCE_BAUBLE_TABLE_VERSION: 'v1',
   /** Chroma-green plate: fist gripping bouquet base (composited under ribbons) */
   DEFAULT_REFERENCE_HAND: '../assets/reference/reference-hand-bouquet.png',
   /** Bump when replacing hand PNG — forces Cloudinary re-upload */
@@ -55,7 +61,7 @@ Object.assign(app, {
 
   /** All catalog scenes: AI rephotograph (Manus-style) against studio reference */
   usesRephotographMode(scene) {
-    return ['floor', 'surprise', 'balloon_figures', 'photozone', 'auto', 'handheld_bouquet', 'wall_only', 'ceiling', 'unit_balloon', 'arch', 'table'].includes(scene || 'floor');
+    return ['floor', 'surprise', 'balloon_figures', 'photozone', 'auto', 'handheld_bouquet', 'wall_only', 'ceiling', 'unit_balloon', 'arch', 'table', 'bauble'].includes(scene || 'floor');
   },
 
   syncStudioModeHint() {
@@ -71,6 +77,8 @@ Object.assign(app, {
     if (earlyRose) earlyRose.classList.toggle('hidden', scene !== 'table');
     const earlySurprise = document.getElementById('surprise-pose-early');
     if (earlySurprise) earlySurprise.classList.toggle('hidden', scene !== 'surprise');
+    const earlyBauble = document.getElementById('bauble-pose-early');
+    if (earlyBauble) earlyBauble.classList.toggle('hidden', scene !== 'bauble');
     const earlyUnit = document.getElementById('unit-type-early');
     if (earlyUnit) earlyUnit.classList.toggle('hidden', scene !== 'unit_balloon');
     if (el) {
@@ -153,6 +161,14 @@ Object.assign(app, {
         useFloorAlignment: this.getSurprisePose?.() !== 'hang',
         maxHeight: 0.88,
         description: 'Шар-сюрприз — та же комната, висит или стоит'
+      },
+      bauble: {
+        targetWidth: 0.62,
+        centerX: 0.5,
+        centerY: 0.46,
+        useFloorAlignment: false,
+        maxHeight: 0.78,
+        description: 'Ёлочный шар — на ветке или на новогоднем столе'
       },
       balloon_figures: {
         targetWidth: 0.78,
@@ -730,7 +746,11 @@ Object.assign(app, {
       photozone_type: this.getPhotozoneType?.() || 'frame',
       floor_type: this.getFloorType?.() || '',
       bouquet_type: this.getBouquetType?.() || '',
+      extra_photos: this.bouquetAllowsExtraPhotos?.()
+        ? (this.currentProduct?.photos || []).slice(1).map((p) => p?.url).filter(Boolean)
+        : [],
       surprise_pose: this.getSurprisePose?.() || '',
+      bauble_pose: this.getBaublePose?.() || '',
       surprise_money: this.surpriseMoneyOn?.() ? 1 : 0,
       unit_type: this.getUnitBalloonType?.() || '',
       unit_who: this.getUnitBalloonWho?.() || '',
@@ -842,17 +862,24 @@ Object.assign(app, {
         original: draft.originalUrl || null,
         master: draft.masterUrl
       };
+      const extraPhotos = Array.isArray(draft.extra_photos) ? draft.extra_photos.filter(Boolean) : [];
       this.currentProduct.photos = [{
         id: 'restored_master',
         url: draft.masterUrl,
         uploaded: isRemote,
         type: 'master'
-      }];
+      }].concat(extraPhotos.map((url, index) => ({
+        id: 'restored_extra_' + index,
+        url,
+        uploaded: /^https?:\/\//i.test(url),
+        type: 'extra'
+      })));
 
       if (draft.photozone_type) this.setPhotozoneType?.(draft.photozone_type);
       if (draft.floor_type) this.setFloorType?.(draft.floor_type);
       this.setBouquetType?.(draft.bouquet_type || '');
       this.setSurprisePose?.(draft.surprise_pose || '');
+      this.setBaublePose?.(draft.bauble_pose || 'tree');
       this.setSurpriseMoney?.(!!draft.surprise_money);
       this.setUnitBalloonType?.(draft.unit_type || '');
       this.setUnitBalloonWho?.(draft.unit_who || '');
@@ -970,6 +997,66 @@ Object.assign(app, {
     return uploadResult.url;
   },
 
+  async ensureBaubleTreeReferenceHttpsUrl() {
+    const ver = this.REFERENCE_BAUBLE_TREE_VERSION || 'v1';
+    const cached = this.studioReferenceBaubleTreeUrl || '';
+    if (this.studioReferenceBaubleTreeVersion === ver && /^https?:\/\//i.test(cached)) return cached;
+
+    const blobRes = await fetch(this.DEFAULT_REFERENCE_BAUBLE_TREE);
+    if (!blobRes.ok) throw new Error('Нет эталона ёлки: assets/reference/reference-bauble-tree.webp');
+    const blob = await blobRes.blob();
+    const file = new File([blob], 'vigsharm-reference-bauble-tree.webp', { type: blob.type || 'image/webp' });
+    const uploadResult = await this.uploadPhoto(file);
+    if (!uploadResult.ok) {
+      throw new Error(uploadResult.error || 'Не удалось загрузить эталон ёлки');
+    }
+    this.studioReferenceBaubleTreeUrl = uploadResult.url;
+    this.studioReferenceBaubleTreeVersion = ver;
+    this.saveReferenceBaubleTreeUrl?.();
+    return uploadResult.url;
+  },
+
+  saveReferenceBaubleTreeUrl() {
+    try {
+      this.writeAdminSettings?.({
+        studioReferenceBaubleTreeUrl: this.studioReferenceBaubleTreeUrl || '',
+        studioReferenceBaubleTreeVersion: this.studioReferenceBaubleTreeVersion || ''
+      });
+    } catch (e) {
+      console.error('Ошибка сохранения эталона ёлки:', e);
+    }
+  },
+
+  async ensureBaubleTableReferenceHttpsUrl() {
+    const ver = this.REFERENCE_BAUBLE_TABLE_VERSION || 'v1';
+    const cached = this.studioReferenceBaubleTableUrl || '';
+    if (this.studioReferenceBaubleTableVersion === ver && /^https?:\/\//i.test(cached)) return cached;
+
+    const blobRes = await fetch(this.DEFAULT_REFERENCE_BAUBLE_TABLE);
+    if (!blobRes.ok) throw new Error('Нет эталона новогоднего стола');
+    const blob = await blobRes.blob();
+    const file = new File([blob], 'vigsharm-reference-bauble-table.jpg', { type: blob.type || 'image/jpeg' });
+    const uploadResult = await this.uploadPhoto(file);
+    if (!uploadResult.ok) {
+      throw new Error(uploadResult.error || 'Не удалось загрузить эталон новогоднего стола');
+    }
+    this.studioReferenceBaubleTableUrl = uploadResult.url;
+    this.studioReferenceBaubleTableVersion = ver;
+    this.saveReferenceBaubleTableUrl?.();
+    return uploadResult.url;
+  },
+
+  saveReferenceBaubleTableUrl() {
+    try {
+      this.writeAdminSettings?.({
+        studioReferenceBaubleTableUrl: this.studioReferenceBaubleTableUrl || '',
+        studioReferenceBaubleTableVersion: this.studioReferenceBaubleTableVersion || ''
+      });
+    } catch (e) {
+      console.error('Ошибка сохранения эталона новогоднего стола:', e);
+    }
+  },
+
   saveReferenceTableUrl() {
     try {
       this.writeAdminSettings?.({
@@ -984,6 +1071,11 @@ Object.assign(app, {
   async ensureReferenceHttpsUrl(scene) {
     if (scene === 'ceiling') return this.ensureCeilingReferenceHttpsUrl();
     if (scene === 'table') return this.ensureTableReferenceHttpsUrl();
+    if (scene === 'bauble') {
+      return (this.getBaublePose?.() || 'tree') === 'tree'
+        ? this.ensureBaubleTreeReferenceHttpsUrl()
+        : this.ensureBaubleTableReferenceHttpsUrl();
+    }
     let url = this.getReferenceBackgroundUrl();
     if (!url) throw new Error('Эталонный фон не найден');
     if (url.startsWith('https://') || url.startsWith('http://')) return url;
@@ -1019,6 +1111,7 @@ Object.assign(app, {
               unit_type: scene === 'unit_balloon' ? (this.getUnitBalloonType?.() || '') : '',
               bouquet_type: scene === 'handheld_bouquet' ? (this.getBouquetType?.() || '') : '',
               surprise_pose: scene === 'surprise' ? (this.getSurprisePose?.() || 'stand') : '',
+              bauble_pose: scene === 'bauble' ? (this.getBaublePose?.() || 'tree') : '',
               photozone_type: scene === 'photozone' ? (this.getPhotozoneType?.() || 'frame') : undefined,
               resolution: '2K',
               prefer,
@@ -1053,6 +1146,10 @@ Object.assign(app, {
           ? '☁️ Потолок: связка сверху, линия потолка, без пола...'
           : scene === 'table'
           ? '🪑 Столик: подарок на крышке, стол не убираем...'
+          : scene === 'bauble'
+          ? ((this.getBaublePose?.() || 'tree') === 'tree'
+            ? '🎄 Ёлка: шар вешаем на ветку...'
+            : '🎄 Стол: шары лежат на новогоднем столе...')
           : (scene === 'wall_only' || scene === 'unit_balloon')
           ? '🧱 Manus: sunburst → banana pro → banana...'
           : '📸 AI переснимает в студии (sunburst → banana pro → banana)...';
@@ -1116,6 +1213,14 @@ Object.assign(app, {
     }
   },
 
+  bouquetAllowsExtraPhotos() {
+    if (this.isCardGalleryProduct?.()) return true;
+    const scene = this.currentProduct?.scene || document.getElementById('scene-select')?.value || '';
+    const cat = document.getElementById('product-category')?.value || this.currentProduct?.category || '';
+    const type = this.getBouquetType?.() || '';
+    return scene === 'handheld_bouquet' || !!type || /букет/i.test(String(cat));
+  },
+
   async finishMasterWorkflow(masterImageUrl, statusEl) {
     let url = String(masterImageUrl || '').trim();
     if (!url) throw new Error('Модель не вернула фото');
@@ -1137,9 +1242,20 @@ Object.assign(app, {
     this.hidePlacementEditor(true);
     this.showSignTextEditor();
 
-    this.currentProduct.photos = [
-      { id: Date.now() + '_master', url, uploaded: true, type: 'master' }
-    ];
+    const masterPhoto = { id: Date.now() + '_master', url, uploaded: true, type: 'master' };
+    if (this.bouquetAllowsExtraPhotos?.()) {
+      const sourceBase = String(source || '').split('?')[0];
+      const masterBase = url.split('?')[0];
+      const extras = (this.currentProduct.photos || []).filter((photo) => {
+        const base = String(photo?.url || '').split('?')[0];
+        if (!base || base === masterBase || base === sourceBase) return false;
+        if (photo.type === 'master') return false;
+        return true;
+      });
+      this.currentProduct.photos = [masterPhoto].concat(extras);
+    } else {
+      this.currentProduct.photos = [masterPhoto];
+    }
     this.renderPhotos();
     this.setStudioBusy?.(false);
     this.showSourceWorkPreview?.(masterImageUrl);
@@ -2461,9 +2577,13 @@ Object.assign(app, {
     this.studioMasterBaseUrl = dataUrl;
     this.studioCompare.master = dataUrl;
     this.renderStudioCompare();
-    this.currentProduct.photos = [
-      { id: Date.now() + '_master', url: dataUrl, uploaded: false, type: 'master' }
-    ];
+    const masterPhoto = { id: Date.now() + '_master', url: dataUrl, uploaded: false, type: 'master' };
+    if (this.bouquetAllowsExtraPhotos?.()) {
+      const extras = (this.currentProduct.photos || []).slice(1);
+      this.currentProduct.photos = [masterPhoto].concat(extras);
+    } else {
+      this.currentProduct.photos = [masterPhoto];
+    }
     this.renderPhotos();
     const studioStatus = document.getElementById('studio-status');
     if (studioStatus) studioStatus.textContent = statusMsg;

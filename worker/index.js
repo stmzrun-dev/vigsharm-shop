@@ -1263,7 +1263,7 @@ async function handleGenerateCard(request, env) {
       operator_character: operatorCharacter
     });
   }
-  const boxOnly = !holidayOnly && !roseOnly && compositionLooksLikeSurpriseBox(rawComposition);
+  const boxOnly = (scene || '') !== 'bauble' && !holidayOnly && !roseOnly && compositionLooksLikeSurpriseBox(rawComposition);
   const bouquetOnly = !holidayOnly && !boxOnly && !roseOnly && (
     (scene || '') === 'handheld_bouquet'
     || compositionLooksLikeBouquet(rawComposition)
@@ -1388,6 +1388,7 @@ ${BUDGET_OPTIONS.join(' | ')}
 - «Букет из шаров» в tags — ТОЛЬКО если сцена handheld_bouquet или в составе явно «букет». Сцена wall_only сама по себе НЕ букет
 - Сцена wall_only / ceiling / unit_balloon: ЗАПРЕЩЕНО ставить тег «Напольные композиции» (это не полка «пол»)
 - Сцена ceiling («под потолком»): готовая висящая связка. ЗАПРЕЩЕНО теги «Фотозона», «Напольные композиции», «Фигуры из шаров». Это не аренда каркаса и не скрутка на полу
+- Сцена bauble («ёлочный шар»): это ёлочные шары к Новому году. category «Новый год». ЗАПРЕЩЕНО теги «Коробка-сюрприз», «Шар-сюрприз», «Напольные композиции», «Фотозона», «Фигуры из шаров», «Букет из шаров». Коробка на фото — упаковка шара, не коробка-сюрприз
 - «Шар-сюрприз» — ТОЛЬКО если сцена surprise. На остальных сценах этот тег и категорию не ставь
 - «Фигуры из шаров» — ТОЛЬКО скрутка/лепка из множества шаров, стоящая на полу. НЕ ставь этот тег для фольгированных персонажей (Пикачу, Гонщик, зайчик, жираф), баблов, фонтанов и композиций на стене
 - Мольберт / пенопластовый круг / каркас-обруч (фотозона) → в tags «Фотозона». Если foil_digits = "1", category всё равно «1 годик», тег «Фотозона» рядом
@@ -1491,6 +1492,7 @@ ${hintsBlock}
 Подсказка типа изделия для tags: ${['wall_only', 'unit_balloon', 'ceiling', 'table'].includes(scene) || ((scene || '') === 'floor' && !floorAdvance) ? 'НЕ ставь «Напольные композиции»' : (typeHint || 'по фото')}
 ${scene === 'ceiling' ? 'Сцена «под потолком»: готовая связка у потолка. ЗАПРЕЩЕНО теги «Фотозона», «Напольные композиции», «Фигуры из шаров». Аудиторию и персонажа определяй по фото как обычно.' : ''}
 ${scene === 'table' ? 'Сцена «на столике»: подарок сидит на столе. ЗАПРЕЩЕНО теги «Напольные композиции», «Фотозона», «Фигуры из шаров», «Букет из шаров», «Коробка-сюрприз». Слово «упаковка» — не коробка-сюрприз.' : ''}
+${scene === 'bauble' ? 'Сцена «ёлочный шар»: category «Новый год», тег «Новый год». ЗАПРЕЩЕНО «Коробка-сюрприз», «Шар-сюрприз», «Напольные композиции», «Фотозона», «Фигуры из шаров», «Букет из шаров». Коробка на фото — упаковка ёлочного шара.' : ''}
 ${roseOnly ? `Сцена «на столике», подтип выбран: category и tags РОВНО «${roseCategory}». Не ставь аудиторию вместо этой полки.` : ''}
 ${holidayOnly ? `Праздничная/тематическая категория (обязательно): ${holidayOnly}` : ''}
 ${boxOnly ? 'В составе коробка — category и tags только «Коробка-сюрприз». age_group обязателен.' : ''}
@@ -1564,6 +1566,9 @@ ${image_url
     applyTypeOnlyCard(data, 'Фотозона');
   } else if (roseOnly && roseCategory) {
     applyTypeOnlyCard(data, roseCategory);
+  } else if ((scene || '') === 'bauble') {
+    const bannedBauble = ['Коробка-сюрприз', 'Напольные композиции', 'Фотозона', 'Фигуры из шаров', 'Букет из шаров', 'Шар-сюрприз'];
+    if (!data.category || bannedBauble.includes(data.category)) data.category = 'Новый год';
   } else {
     applyDischargeCategoryPriority(data, rawComposition);
   }
@@ -1952,6 +1957,12 @@ function sanitizeCardMetadata(data, scene = 'floor', price = 0, rawComposition =
       data.category = '';
     }
   }
+  if (scene === 'bauble') {
+    const banned = ['Коробка-сюрприз', 'Шар-сюрприз', 'Напольные композиции', 'Фотозона', 'Фигуры из шаров', 'Букет из шаров'];
+    tags = tags.filter((t) => !banned.includes(t));
+    if (!data.category || banned.includes(data.category)) data.category = 'Новый год';
+    if (!tags.includes('Новый год')) tags.push('Новый год');
+  }
   // Отложенные разделы (пока без карточек)
   tags = tags.filter((t) => !DEFERRED_TYPE_TAGS.includes(t));
   if (DEFERRED_TYPE_TAGS.includes(category)) {
@@ -2135,6 +2146,10 @@ function isWallOnlyScene(scene) {
 /** Ходячая фольга в «поштучно»: каталог тот же, кадр как у напольной — фигура стоит на полу. */
 function isWalkerOnFloor(scene, opts) {
   return scene === 'unit_balloon' && opts?.unit_type === 'walker';
+}
+
+function baublePoseOf(opts) {
+  return opts?.bauble_pose === 'box' || opts?.bauble_pose === 'scatter' ? opts.bauble_pose : 'tree';
 }
 
 /** Сердце у рамы зеркала — один товар. Считать по грузикам на полу, не по стеклу. */
@@ -2422,6 +2437,53 @@ ${forbidden}
 OUTPUT: one square 1:1 professional catalog photo — round Ø3 m photozone frame nearly filling the frame, near the wall, natural catalog light.`;
   }
 
+  if (scene === 'bauble') {
+    const pose = baublePoseOf(opts);
+    const lockBauble = `PRODUCT LOCK:
+- Keep the exact ornament: shape, color, pattern, cap, ribbon, and any text printed on it
+- Do not redraw, recolor, or invent ornaments, people, or a different box`;
+    if (pose === 'tree') {
+      return `Edit this Christmas ornament photo for a square VigSharm catalog card. Change ONLY the setting. Do not redraw the ornament.
+
+${lockBauble}
+- Hang every ornament from the source on the tree. Same count. Do not add ornaments and do not drop any
+- If the source ornament is inside a box, take it out and hang it. Do not keep the box
+
+ROOM — the SECOND reference is a close-up Christmas tree: green needles and warm lights. Copy that tree.
+- Hang the ornament in the open gap among the branches, large and fully visible
+- No floor, no beige studio wall, no table
+
+OUTPUT: one square 1:1 real catalog photo. The same ornament hanging on that tree. Not a 3D render.`;
+    }
+    const tableRoom = `ROOM — copy the SECOND reference, including its round pale-oak table and the New Year decor on the back of the tabletop (pine, small gold baubles, warm lights).
+- Keep THAT table and THAT decor. Do not remove them. Do not swap the table. Do not put the product on the floor
+- The center of the tabletop is for the product`;
+    if (pose === 'box') {
+      return `Edit this boxed Christmas ornament photo for a square VigSharm catalog card. Change ONLY the room. Do not redraw the product.
+
+${lockBauble}
+- The ornament stays in its box. Keep the box, lid, ribbon, and the ornament inside
+- Do not unpack it. Do not hang it on a tree. Do not add ornaments
+
+${tableRoom}
+
+PLACEMENT: the box lies or sits in the center of the tabletop, in front of the decor, fully visible. Soft contact shadow only. Do not crop the box or the table legs.
+
+OUTPUT: one square 1:1 real catalog photo. The same boxed ornament on that decorated table. Not a 3D render.`;
+    }
+    return `Edit this photo of Christmas ornaments for a square VigSharm catalog card. Change ONLY the room. Do not redraw the ornaments.
+
+${lockBauble}
+- Keep EVERY ornament from the source: same count, colors, patterns, caps, and ribbons
+- They lie loose on the table. Do not put them in a box. Do not hang them on a tree. Do not add ornaments
+
+${tableRoom}
+
+PLACEMENT: lay the ornaments together in the center of the tabletop, in front of the decor. Keep their colors and count. Soft shadows. All ornaments fully visible. Do not crop the table legs.
+
+OUTPUT: one square 1:1 real catalog photo. The same ornaments lying on that decorated table. Not a 3D render.`;
+  }
+
   if (scene === 'surprise') {
     const hanging = opts.surprise_pose === 'hang';
     const pose = hanging
@@ -2577,6 +2639,16 @@ OUTPUT: one square 1:1 professional catalog photo — SAME balloon product as so
 
 /** Flux edit limit is 5000 characters. Keep this well under that. */
 function buildFluxPrompt(scene, opts = {}) {
+  if (scene === 'bauble') {
+    const pose = baublePoseOf(opts);
+    if (pose === 'tree') {
+      return `Edit this Christmas ornament photo. Hang the same ornament on the Christmas tree from the SECOND reference. Keep color, pattern, cap, ribbon, and text. Same count. No box, no table, no floor, no extra ornaments. Square 1:1, real photo.`.trim();
+    }
+    if (pose === 'box') {
+      return `Edit this boxed Christmas ornament. Keep the box and the ornament inside. Put the box on the decorated round table from the SECOND reference. Keep that table and its New Year decor. Do not hang the ornament. Do not unpack it. Square 1:1, real photo.`.trim();
+    }
+    return `Edit this photo of several Christmas ornaments. Lay every ornament from the source on the decorated round table from the SECOND reference. Same count and colors. Keep that table and its decor. Do not box them and do not hang them. Square 1:1, real photo.`.trim();
+  }
   if (scene === 'arch') {
     return `Improve this balloon arch photo: brighter, cleaner, sharper, same place and same garland. Do not change any text on the sign, posters, or balloons — copy letters exactly. Do not add balloons. Square 1:1. Real photo, not CGI.`.trim();
   }
@@ -2657,16 +2729,26 @@ function buildRephotographAttempts(imageUrl, referenceUrl, prompt, resolution = 
     : (surpriseHang
       ? '\n\nSURPRISE BALLOON HANGING: same studio wall, baseboard and LIGHT laminate, but the balloon stays suspended from its ribbon at the top. Do NOT set it on the floor. Do NOT add a stand. Soft shadow on the floor only.'
       : '\n\nSURPRISE BALLOON STANDING: same studio wall, baseboard and LIGHT laminate. Keep the product base, pedestal, money tube and banknotes. Do NOT delete them as furniture. Do NOT invent new balloons under the base.');
+  const baublePose = scene === 'bauble' ? baublePoseOf(opts) : '';
+  const baubleHint = baublePose === 'tree'
+    ? '\n\nBAUBLE ON TREE: the SECOND reference is a Christmas tree close-up. Hang the ornament on that tree. Same ornament, same count. No studio floor, no table, no box, no extra ornaments.'
+    : baublePose === 'box'
+      ? '\n\nBAUBLE IN BOX: the SECOND reference is the decorated round table. KEEP that table and its New Year decor. The boxed ornament lies on the tabletop. Do NOT hang it. Do NOT unpack it. Do NOT put it on the floor.'
+      : baublePose === 'scatter'
+        ? '\n\nBAUBLE SCATTER: the SECOND reference is the decorated round table. KEEP that table and its New Year decor. Every ornament from the source lies on the tabletop. Same count. Do NOT hang them. Do NOT put them in a box. Do NOT put them on the floor.'
+        : '';
   const roomHint = keepBg
     ? '\n\nKeep the original background exactly. Do not use a studio wall or floor.'
-    : (scene === 'surprise'
+    : scene === 'bauble'
+      ? baubleHint
+      : (scene === 'surprise'
       ? (wallHint + surpriseHint)
       : (ceiling ? (wallHint + ceilingHint) : (table ? (wallHint + tableHint) : (wallOnly ? wallHint : (wallHint + floorHint)))));
   const withRef = (input) => (keepBg ? input : { ...input, reference_image: referenceUrl });
   const attempts = [];
 
   const pushBanana = () => {
-    const bananaExtra = keepBg ? '' : (scene === 'surprise' ? surpriseHint : (ceiling ? ceilingHint : (table ? tableHint : (wallOnly ? '' : floorHint))));
+    const bananaExtra = scene === 'bauble' ? baubleHint : (keepBg ? '' : (scene === 'surprise' ? surpriseHint : (ceiling ? ceilingHint : (table ? tableHint : (wallOnly ? '' : floorHint)))));
     attempts.push({
       model: 'image/nano-banana-2',
       input: withRef({
@@ -2705,7 +2787,7 @@ function buildRephotographAttempts(imageUrl, referenceUrl, prompt, resolution = 
   // After Sunburst refuses: Pro gets the product and the studio as two images.
   // reference_image is not in this model's schema, so the room goes in `image`.
   if (prefer === 'pro') {
-    const bananaExtra = keepBg ? '' : (scene === 'surprise' ? surpriseHint : (ceiling ? ceilingHint : (table ? tableHint : (wallOnly ? '' : floorHint))));
+    const bananaExtra = scene === 'bauble' ? baubleHint : (keepBg ? '' : (scene === 'surprise' ? surpriseHint : (ceiling ? ceilingHint : (table ? tableHint : (wallOnly ? '' : floorHint)))));
     const pair = !keepBg && referenceUrl;
     attempts.push({
       model: 'image/nano-banana-pro',
@@ -2724,7 +2806,7 @@ function buildRephotographAttempts(imageUrl, referenceUrl, prompt, resolution = 
   // Last chance after Pro and chat. nano-banana-2 and Flux reject this studio text
   // over 5000 characters. Sunburst and GPT Image 2 still take it whole — same request as the first shot.
   if (prefer === 'banana' || prefer === 'fast') {
-    const bananaExtra = keepBg ? '' : (scene === 'surprise' ? surpriseHint : (ceiling ? ceilingHint : (table ? tableHint : (wallOnly ? '' : floorHint))));
+    const bananaExtra = scene === 'bauble' ? baubleHint : (keepBg ? '' : (scene === 'surprise' ? surpriseHint : (ceiling ? ceilingHint : (table ? tableHint : (wallOnly ? '' : floorHint)))));
     const full = prompt + bananaExtra;
     if (full.length > 5000) {
       console.log('[Studio Rephotograph] banana prompt chars=', full.length, 'full text → sunburst/gpt');
@@ -2810,6 +2892,9 @@ async function handleStudioRephotograph(request, env) {
   const unit_type = body.unit_type === 'walker' ? 'walker' : '';
   const bouquet_type = body.bouquet_type === 'flowers' ? 'flowers' : '';
   const surprise_pose = body.surprise_pose === 'hang' ? 'hang' : (scene === 'surprise' ? 'stand' : '');
+  const bauble_pose = body.bauble_pose === 'box' || body.bauble_pose === 'scatter'
+    ? body.bauble_pose
+    : (scene === 'bauble' ? 'tree' : '');
 
   const keepBg = scene === 'arch';
   if (!image_url || (!keepBg && !reference_url)) {
@@ -2823,7 +2908,7 @@ async function handleStudioRephotograph(request, env) {
     }
   }
 
-  let prompt = buildRephotographPrompt(scene, { photozone_type, unit_type, bouquet_type, surprise_pose });
+  let prompt = buildRephotographPrompt(scene, { photozone_type, unit_type, bouquet_type, surprise_pose, bauble_pose });
   if (frame === 'post') {
     prompt += '\n\nOUTPUT 4:5 portrait. Keep the ENTIRE balloon arrangement fully inside the frame: every balloon, digit, character and ribbon tip complete, with studio wall visible around the set. Do not crop, do not zoom in, do not cut off any balloon.';
   } else if (frame === 'story') {
@@ -2880,7 +2965,7 @@ async function handleStudioRephotograph(request, env) {
     });
   }
   const attempts = buildRephotographAttempts(image_url, reference_url, prompt, resolution, prefer, scene, {
-    unit_type, bouquet_type, surprise_pose, aspect_ratio, frame
+    unit_type, bouquet_type, surprise_pose, bauble_pose, aspect_ratio, frame
   });
 
   let generateResp = null;

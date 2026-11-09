@@ -32,9 +32,58 @@ Object.assign(app, {
     });
   },
 
+  photoSlotLimit() {
+    return this.isCardGalleryProduct?.() ? 10 : 6;
+  },
+
+  isCardGalleryProduct(product) {
+    const p = product || this.currentProduct || {};
+    const opts = (p.client_options && typeof p.client_options === 'object')
+      ? p.client_options
+      : (this.currentProduct?.client_options || {});
+    const page = String(opts.order_page || '');
+    const slug = String(p.slug || document.getElementById('product-slug')?.value || '');
+    return page === 'bauble-named-lite.html'
+      || page === 'bauble-photo-lite.html'
+      || slug === 'imennoj-elochnyj-shar'
+      || slug === 'elochnyj-shar-s-foto';
+  },
+
+  cardGallerySeed(product) {
+    const slug = String(product?.slug || document.getElementById('product-slug')?.value || '');
+    const page = String(product?.client_options?.order_page || '');
+    const named = page === 'bauble-named-lite.html' || slug === 'imennoj-elochnyj-shar';
+    if (named) {
+      return [
+        'https://vigsharm.ru/preview/bauble-ex-gift.webp?v=4',
+        'https://vigsharm.ru/preview/bauble-mode-name.webp?v=3',
+        'https://vigsharm.ru/preview/bauble-ex-mama.webp?v=4',
+        'https://vigsharm.ru/preview/bauble-ex-family3.webp?v=2',
+        'https://vigsharm.ru/preview/bauble-mode-class.webp?v=1',
+        'https://vigsharm.ru/preview/bauble-mode-class-2.webp?v=1',
+        'https://vigsharm.ru/preview/bauble-ex-class.webp?v=3',
+        'https://vigsharm.ru/preview/bauble-mode-logo-cup.webp?v=3',
+        'https://vigsharm.ru/preview/bauble-mode-logo-row.webp?v=1',
+        'https://vigsharm.ru/preview/bauble-mode-logo-thanks.webp?v=1'
+      ];
+    }
+    return [
+      'https://vigsharm.ru/preview/bauble-photo-in-hand.webp?v=1',
+      'https://vigsharm.ru/preview/bauble-photo-side.webp?v=1',
+      'https://vigsharm.ru/preview/bauble-photo-gift-box.webp?v=2',
+      'https://vigsharm.ru/preview/bauble-photo-set.webp?v=1'
+    ];
+  },
+
+  syncPhotoLimitUi() {
+    const n = this.photoSlotLimit();
+    const small = document.querySelector('#upload-zone-empty small');
+    if (small) small.textContent = `JPG, PNG, WebP · до 10 МБ · до ${n} шт.`;
+  },
+
   async handlePhotoFiles(files) {
     if (files.length === 0) return;
-    const maxPhotos = 6;
+    const maxPhotos = this.photoSlotLimit();
 
     if (this._replaceMainPhotoOnce) {
       this._replaceMainPhotoOnce = false;
@@ -70,7 +119,7 @@ Object.assign(app, {
     }
 
     const remainingSlots = maxPhotos - this.currentProduct.photos.length;
-    if (remainingSlots === 0) { this.toast('Максимум 6 фото', 'error'); return; }
+    if (remainingSlots === 0) { this.toast(`Максимум ${maxPhotos} фото`, 'error'); return; }
     
     for (const file of files.slice(0, remainingSlots)) {
       if (file.size > 10 * 1024 * 1024) { this.toast('Файл слишком большой (макс. 10 МБ)', 'error'); continue; }
@@ -93,6 +142,7 @@ Object.assign(app, {
     const emptyZone = document.getElementById('upload-zone-empty');
     if (!container) return;
 
+    this.syncPhotoLimitUi?.();
     if (this.currentProduct.photos.length === 0) {
       container.innerHTML = '';
       if (emptyZone) emptyZone.classList.remove('hidden');
@@ -153,6 +203,7 @@ Object.assign(app, {
         this.movePhoto(Number(btn.dataset.idx), Number(btn.dataset.move));
       });
     });
+    this.syncPhotoLimitUi?.();
     this.syncAIFillGate?.();
     this.refreshSourceWorkPreview?.();
     this.syncStep1WizardUi?.();
@@ -694,6 +745,7 @@ Object.assign(app, {
     this.wireBouquetTypeControls?.();
     this.wireRoseTypeControls?.();
     this.wireSurprisePoseControls?.();
+    this.wireBaublePoseControls?.();
     this.wireUnitBalloonTypeControls?.();
     this.wireOccasionShelfControls?.();
     this.syncAdvanceOrderFromScene?.();
@@ -717,6 +769,7 @@ Object.assign(app, {
       this.setSurprisePose?.('stand');
       this.setSurpriseMoney?.(false);
     }
+    if (scene !== 'bauble') this.setBaublePose?.('tree');
     if (scene !== 'photozone') this.setPhotozoneType?.('frame');
   },
 
@@ -1446,6 +1499,36 @@ Object.assign(app, {
     el.checked = !!on;
   },
 
+  publishTabActive() {
+    const tab = document.getElementById('tab-publish');
+    return !!(tab && !tab.hidden && !tab.classList.contains('hidden'));
+  },
+
+  getBaublePose() {
+    const name = this.publishTabActive?.() ? 'publish-bauble-pose' : 'bauble-pose-early';
+    const value = document.querySelector(`input[name="${name}"]:checked`)?.value;
+    return value === 'box' || value === 'scatter' ? value : 'tree';
+  },
+
+  setBaublePose(pose) {
+    const value = pose === 'box' || pose === 'scatter' ? pose : 'tree';
+    document.querySelectorAll('input[name="bauble-pose-early"]').forEach((el) => {
+      el.checked = el.value === value;
+    });
+  },
+
+  wireBaublePoseControls() {
+    if (this._baublePoseWired) return;
+    this._baublePoseWired = true;
+    const sync = () => {
+      this.syncStudioModeHint?.();
+      this.scheduleSaveActiveStudioDraft?.();
+    };
+    document.querySelectorAll('input[name="bauble-pose-early"]').forEach((el) => {
+      el.addEventListener('change', sync);
+    });
+  },
+
   wireSurprisePoseControls() {
     if (this._surprisePoseWired) return;
     this._surprisePoseWired = true;
@@ -2025,7 +2108,18 @@ Object.assign(app, {
       const compText = Array.isArray(card.composition)
         ? card.composition.join('\n')
         : String(card.composition || document.getElementById('product-composition')?.value || '');
-      if (scene === 'surprise') {
+      if (scene === 'bauble') {
+        const banned = new Set(['Коробка-сюрприз', 'Напольные композиции', 'Фотозона', 'Фигуры из шаров', 'Букет из шаров', 'Шар-сюрприз']);
+        if (!card.category || banned.has(card.category)) card.category = 'Новый год';
+        card.tags = (Array.isArray(card.tags) ? card.tags : []).filter((t) => !banned.has(t));
+        if (!card.tags.includes('Новый год')) card.tags.unshift('Новый год');
+        const catEl = document.getElementById('product-category');
+        if (catEl) catEl.value = card.category;
+        if (this.isOccasionShelf?.(card.category)) {
+          if (card.category !== 'Юбилей') this.applyAgeFromCategory?.(card.category);
+          this.syncOccasionShelfFields?.();
+        }
+      } else if (scene === 'surprise') {
         this.applyTypeOnlyMode?.('Шар-сюрприз');
       } else if (
         card.category === 'Коробка-сюрприз'
@@ -2366,7 +2460,7 @@ Object.assign(app, {
 
     const compText = Array.isArray(composition) ? composition.join('\n') : String(composition || '');
     const isSurprise = !unit && scene === 'surprise';
-    const isBox = !unit && !holidayOnly && !isSurprise && scene !== 'table' && (
+    const isBox = !unit && !holidayOnly && !isSurprise && scene !== 'table' && scene !== 'bauble' && (
       category === 'Коробка-сюрприз'
       || this.compositionLooksLikeSurpriseBox?.(compText)
     );
@@ -2423,6 +2517,10 @@ Object.assign(app, {
 
     const prevGender = this.currentProduct?.client_options || {};
     if (prevGender.catalog_pin === true || prevGender.catalog_pin === 1) clientOptions.catalog_pin = true;
+    if (prevGender.order_page) clientOptions.order_page = prevGender.order_page;
+    if (prevGender.price_caption) clientOptions.price_caption = prevGender.price_caption;
+    if (prevGender.balloon_size && !unit) clientOptions.balloon_size = prevGender.balloon_size;
+    if (this.isCardGalleryProduct?.()) clientOptions.card_gallery = true;
     if (prevGender.gender_choice) {
       clientOptions.gender_choice = true;
       if (prevGender.gender_girl_photo) clientOptions.gender_girl_photo = prevGender.gender_girl_photo;
@@ -2462,6 +2560,9 @@ Object.assign(app, {
     if (scene === 'surprise') {
       clientOptions.surprise_pose = this.getSurprisePose?.() === 'hang' ? 'hang' : 'stand';
       if (clientOptions.surprise_pose !== 'hang' && this.surpriseMoneyOn?.()) clientOptions.surprise_money = true;
+    }
+    if (scene === 'bauble') {
+      clientOptions.bauble_pose = this.getBaublePose?.() || 'tree';
     }
     if (unit) {
       const unitType = unitTypeChosen;
@@ -2584,8 +2685,15 @@ Object.assign(app, {
         if (!finalTags.includes('Арка из шаров')) finalTags.push('Арка из шаров');
         if (!finalTags.includes('Цена за метр')) finalTags.push('Цена за метр');
       }
-      if (scene === 'wall_only' || scene === 'unit_balloon' || scene === 'ceiling' || scene === 'floor') {
+      if (scene === 'wall_only' || scene === 'unit_balloon' || scene === 'ceiling' || scene === 'floor' || scene === 'bauble') {
         finalTags = finalTags.filter((t) => t !== 'Напольные композиции');
+      }
+      if (scene === 'bauble') {
+        finalTags = finalTags.filter((t) => t !== 'Коробка-сюрприз' && t !== 'Фотозона' && t !== 'Фигуры из шаров' && t !== 'Шар-сюрприз');
+        if (['Коробка-сюрприз', 'Напольные композиции', 'Фотозона', 'Фигуры из шаров', 'Шар-сюрприз'].includes(category)) {
+          category = 'Новый год';
+        }
+        if (category === 'Новый год' && !finalTags.includes('Новый год')) finalTags.unshift('Новый год');
       }
       if (scene === 'ceiling') {
         finalTags = finalTags.filter((t) => t !== 'Фотозона' && t !== 'Фигуры из шаров');
@@ -2756,6 +2864,7 @@ Object.assign(app, {
     this.wireBouquetTypeControls?.();
     this.wireRoseTypeControls?.();
     this.wireSurprisePoseControls?.();
+    this.wireBaublePoseControls?.();
     this.wireUnitBalloonTypeControls?.();
     this.clearNewCardSceneState?.();
     this.syncRequiredFieldHighlights?.();
@@ -2989,13 +3098,21 @@ app.loadProductToForm = function(product) {
   this.currentProduct.thumb_photo = product.thumb_photo || null;
   this.currentProduct.loaded_main_photo = product.main_photo || (product.photos && product.photos[0]) || '';
 
-  // Фото
-  this.currentProduct.photos = (product.photos || []).map((url, i) => ({
+  // Фото. У именного шара и фотошара, пока галерею не правили,
+  // в карточке те же кадры, что сейчас на странице — их можно убрать и загрузить свои.
+  let photoUrls = Array.isArray(product.photos) ? product.photos.filter(Boolean) : [];
+  const galleryCard = this.isCardGalleryProduct?.(product);
+  const uploaded = photoUrls.some((url) => /storage\.yandexcloud\.net|cloudinary\.com|imgbb\.com/i.test(String(url)));
+  if (galleryCard && !product.client_options?.card_gallery && !uploaded) {
+    photoUrls = this.cardGallerySeed(product);
+  }
+  this.currentProduct.photos = photoUrls.map((url, i) => ({
     id: Date.now() + Math.random(),
     url: url,
     uploaded: true,
     type: i === 0 ? 'master' : undefined
   }));
+  this.syncPhotoLimitUi?.();
   this.renderPhotos();
 
   // Сцена + Studio Pro: восстановить оригинал для «Пересоздать Master»
@@ -3096,6 +3213,8 @@ app.loadProductToForm = function(product) {
   this.setRoseType?.(roseSaved);
   const surprisePoseSaved = opts.surprise_pose === 'hang' ? 'hang' : 'stand';
   this.setSurprisePose?.(surprisePoseSaved);
+  const baublePoseSaved = opts.bauble_pose === 'box' || opts.bauble_pose === 'scatter' ? opts.bauble_pose : 'tree';
+  this.setBaublePose?.(sceneNow === 'bauble' ? baublePoseSaved : 'tree');
   this.setSurpriseMoney?.(!!opts.surprise_money);
   this.setUnitBalloonType?.(this.inferUnitBalloonType?.(product) || '');
   this.setUnitBalloonWho?.(this.inferUnitBalloonWho?.(product) || '');

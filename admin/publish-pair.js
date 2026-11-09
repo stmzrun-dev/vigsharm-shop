@@ -300,6 +300,7 @@
           unit_type: scene === 'unit_balloon' ? (this.getUnitBalloonType?.() || '') : '',
           bouquet_type: scene === 'handheld_bouquet' ? (this.getBouquetType?.() || '') : '',
           surprise_pose: scene === 'surprise' ? (this.getSurprisePose?.() || 'stand') : '',
+          bauble_pose: scene === 'bauble' ? (this.getBaublePose?.() || 'tree') : '',
           photozone_type: scene === 'photozone' ? (this.getPhotozoneType?.() || 'frame') : undefined,
           resolution: '2K',
           prefer: 'banana',

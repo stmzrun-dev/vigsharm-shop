@@ -2,6 +2,52 @@
   "ok": true,
   "products": [
     {
+      "id": "23785896-35b4-424a-80f2-d1d2e1379553",
+      "title": "Почтальон праздника",
+      "article": "BOY-119",
+      "price": 5800,
+      "short_description": "Яркая напольная композиция с фольгированным полосатым котом и именным баблсом.",
+      "full_description": "Фольгированный полосатый кот держит большой жёлтый стеклянный баблс с именной надписью, рядом — пышный букет разноцветных латексных шаров с лентой тассел.",
+      "composition": [
+        "15 латексных шаров",
+        "фигура",
+        "стеклянный баблс с надписью",
+        "лента тассел"
+      ],
+      "category": "Для мальчика",
+      "character": "Кот Матроскин",
+      "age_group": "Для детей",
+      "budget": "5 000–8 000 ₽",
+      "series_name": "Простоквашино",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары с полосатым котом для мальчика — Армавир",
+      "seo_description": "Напольная композиция с фольгированным полосатым котом, именным баблсом и разноцветными латексными шарами. Доставка по Армавиру.",
+      "slug": "polosaty-imeninnik",
+      "scene": "floor",
+      "tags": [
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/564cfa82-f52a-4b7c-8d7e-38ba3cd6c3a4.jpg",
+        "photo_dhash": "efe7b5c8c191d4ec"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/806e4f6c-70e8-4504-b93a-8fe9349fab5c.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/806e4f6c-70e8-4504-b93a-8fe9349fab5c.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-11-09T09:21:25.064Z",
+      "updated_at": "2026-11-09T09:21:25.064Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/f31c7fe7-5900-4a95-a1e4-eafd5f04d656.webp"
+    },
+    {
       "id": "0c251bfa-8c3e-4518-b870-10c928193749",
       "title": "Карусельный мишка",
       "article": "BOY-118",

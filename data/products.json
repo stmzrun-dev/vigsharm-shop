@@ -2,6 +2,50 @@
   "ok": true,
   "products": [
     {
+      "id": "2237ff6c-aa35-4292-a1b2-910c701d7444",
+      "title": "Кошачья нежность",
+      "article": "TDY-004",
+      "price": 1700,
+      "short_description": "Розовый букет с мягкими игрушками Hello Kitty, ромашками и атласными лентами.",
+      "full_description": "Пышный букет в розовом крафте с пятью мягкими игрушками Hello Kitty в бантиках, декорированный искусственными ромашками и тюлевыми вставками.",
+      "composition": [
+        "букет с игрушками"
+      ],
+      "category": "Букет с мишками",
+      "character": "Hello Kitty",
+      "age_group": "Для детей",
+      "budget": "1 000–2 000 ₽",
+      "series_name": "Hello Kitty",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Букет с игрушками Hello Kitty розовый — VigSharm Армавир",
+      "seo_description": "Розовый букет с мягкими игрушками Hello Kitty, ромашками и атласными лентами. Милый подарок для девочки в Армавире.",
+      "slug": "buket-hello-kitty-rozovyj",
+      "scene": "handheld_bouquet",
+      "tags": [
+        "Букет с мишками"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/1ea448b0-d363-4906-9f2e-b65eabc564b1.jpg",
+        "photo_dhash": "0f1149692f273717",
+        "bouquet_type": "teddy"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/e1066aa0-bb7b-4528-a5a7-f00a89800fdc.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/e1066aa0-bb7b-4528-a5a7-f00a89800fdc.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-11-09T09:35:41.139Z",
+      "updated_at": "2026-11-09T09:35:41.139Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/9733c13f-b3c8-41a1-9371-ac2b9cc84e59.webp"
+    },
+    {
       "id": "23785896-35b4-424a-80f2-d1d2e1379553",
       "title": "Почтальон праздника",
       "article": "BOY-119",
@@ -3314,7 +3358,7 @@
     {
       "id": "c2f4a7d9-5b1e-4e86-9a3c-7d0e6b1f8a42",
       "title": "Ёлочный фотошар",
-      "article": "NY-006",
+      "article": "NY-008",
       "price": 600,
       "short_description": "Прозрачный шар 8 см со снежком и вашим фото, атласный бант на выбор, в коробочке с окошком.",
       "full_description": "Ваше фото внутри прозрачного ёлочного шара 8 см со снежком. На обороте второе фото или надпись. Бант любого цвета. Каждый шар в коробочке с окошком.",
@@ -3345,23 +3389,28 @@
         "personal_inscription": true,
         "photozone_rental": false,
         "catalog_pin": true,
-        "balloon_size": "8 см",
-        "price_caption": "Цена за шар",
         "order_page": "bauble-photo-lite.html",
-        "photo_dhash": "197975d6c5c4ac28"
+        "price_caption": "Цена за шар",
+        "balloon_size": "8 см",
+        "card_gallery": true,
+        "studio_original_url": "https://vigsharm.ru/preview/bauble-photo-in-hand.webp?v=1",
+        "photo_dhash": "bfadabb2a8e0a480"
       },
       "photos": [
-        "https://vigsharm.ru/preview/bauble-photo-in-hand.webp?v=1",
-        "https://vigsharm.ru/preview/bauble-photo-side.webp?v=1",
-        "https://vigsharm.ru/preview/bauble-photo-gift-box.webp?v=2",
-        "https://vigsharm.ru/preview/bauble-photo-set.webp?v=1"
+        "https://storage.yandexcloud.net/vigsharm-photos/products/34d27e6e-73f3-41c4-bb88-d66664cd96a4.jpg",
+        "https://storage.yandexcloud.net/vigsharm-photos/products/645c4d41-b566-4549-9603-61fbc0432433.jpg",
+        "https://storage.yandexcloud.net/vigsharm-photos/products/dbbc88a2-8ff3-40df-8d93-9457f114c0bc.jpg",
+        "https://storage.yandexcloud.net/vigsharm-photos/products/d9830a8d-74b9-413d-af61-fb9c008e030a.jpg",
+        "https://storage.yandexcloud.net/vigsharm-photos/products/66ddc9bb-8986-4f83-821d-c70c1fcb3f10.jpg",
+        "https://storage.yandexcloud.net/vigsharm-photos/products/9201399a-ddc0-4b80-a872-5728de28d21c.jpg",
+        "https://storage.yandexcloud.net/vigsharm-photos/products/c3bbdb07-725d-4b88-aaef-5e35a32f0cd2.jpg"
       ],
-      "main_photo": "https://vigsharm.ru/preview/bauble-photo-in-hand.webp?v=1",
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/34d27e6e-73f3-41c4-bb88-d66664cd96a4.jpg",
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-10-26T08:00:00.000Z",
-      "updated_at": "2026-10-28T16:30:00.000Z",
-      "thumb_photo": "https://vigsharm.ru/preview/bauble-photo-in-hand.webp?v=1"
+      "updated_at": "2026-11-09T11:00:24.035Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/39e60be6-26de-4df6-99b0-c58a64e72ea3.webp"
     },
     {
       "id": "8e91ee9a-53f9-46f6-94f2-7b65141d451d",
@@ -3461,64 +3510,6 @@
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/f1c08810-19da-45c2-a6a6-b58cfb68b9c2.webp"
     },
     {
-      "id": "9f985c56-58d2-46ff-b504-768a038af89f",
-      "title": "Ёлочный шар с перьями",
-      "article": "NY-007",
-      "price": 550,
-      "short_description": "Прозрачный шар 8 см с цветными перьями внутри, именем или своим рисунком, в коробочке с бантом.",
-      "full_description": "Цветные перья внутри прозрачного шара диаметром 8 см. Снаружи имя, пожелание или свой рисунок. Каждый шар в коробочке с окошком и бантом. Цвет перьев выбирается при заказе.",
-      "composition": [
-        "прозрачный шар 8 см с перьями",
-        "имя, пожелание или свой рисунок",
-        "бант",
-        "коробочка с окошком"
-      ],
-      "category": "Новый год",
-      "character": null,
-      "age_group": "Для любого возраста",
-      "budget": "до 1 000 ₽",
-      "series_name": null,
-      "occasion": null,
-      "target_audience": null,
-      "seo_title": "Ёлочный шар с перьями — Армавир | VigSharm",
-      "seo_description": "Прозрачный ёлочный шар 8 см с цветными перьями внутри и именем или рисунком, в коробочке с бантом. 550 ₽. Армавир.",
-      "slug": "elochnyj-shar-s-peryami",
-      "scene": "auto",
-      "tags": [
-        "Новый год"
-      ],
-      "client_options": {
-        "available_on_request": false,
-        "advance_order_1_2_days": true,
-        "number_choice": false,
-        "personal_inscription": true,
-        "photozone_rental": false,
-        "catalog_pin": true,
-        "balloon_size": "8 см",
-        "price_caption": "Цена за шар",
-        "order_page": "bauble-feather-lite.html",
-        "card_gallery": true
-      },
-      "photos": [
-        "preview/bauble-feather-box.webp?v=1",
-        "preview/bauble-feather-home.webp?v=1",
-        "preview/bauble-feather-blue.webp?v=1",
-        "preview/bauble-feather-red.webp?v=1",
-        "preview/bauble-feather-kristina.webp?v=1",
-        "preview/bauble-feather-couple.webp?v=1",
-        "preview/bauble-feather-peach.webp?v=1",
-        "preview/bauble-feather-family.webp?v=1",
-        "preview/bauble-feather-mint.webp?v=1",
-        "preview/bauble-feather-clear.webp?v=1"
-      ],
-      "main_photo": "preview/bauble-feather-box.webp?v=1",
-      "status": "published",
-      "show_on_site": true,
-      "created_at": "2026-11-09T09:30:00.000Z",
-      "updated_at": "2026-11-09T09:30:00.000Z",
-      "thumb_photo": "preview/bauble-feather-box.webp?v=1"
-    },
-    {
       "id": "136e5181-f581-41c7-9c7a-c5df00d4968b",
       "title": "Именной ёлочный шар",
       "article": "NY-005",
@@ -3551,20 +3542,31 @@
         "personal_inscription": true,
         "photozone_rental": false,
         "catalog_pin": true,
-        "balloon_size": "8 см",
-        "price_caption": "Цена за шар",
         "order_page": "bauble-named-lite.html",
-        "photo_dhash": "7efdff84d6d93b9e"
+        "price_caption": "Цена за шар",
+        "balloon_size": "8 см",
+        "card_gallery": true,
+        "studio_original_url": "https://vigsharm.ru/preview/bauble-ex-gift.webp?v=4",
+        "photo_dhash": "fdfdddcda5abbe9e"
       },
       "photos": [
-        "https://vigsharm.ru/preview/bauble-ex-gift.webp?v=4"
+        "https://storage.yandexcloud.net/vigsharm-photos/products/b16b609e-33b9-49ba-94b3-16239969b1ea.jpg",
+        "https://vigsharm.ru/preview/bauble-mode-class.webp?v=1",
+        "https://storage.yandexcloud.net/vigsharm-photos/products/b25b89db-925c-433d-8a2e-45c83e4ba85a.jpg",
+        "https://storage.yandexcloud.net/vigsharm-photos/products/14b6fce2-e28c-45b9-9445-f291faaa46e7.jpg",
+        "https://storage.yandexcloud.net/vigsharm-photos/products/0fd601b3-1ab8-4d71-abf2-10848c812820.jpg",
+        "https://storage.yandexcloud.net/vigsharm-photos/products/9bcfaa70-1647-4230-ac34-1e3277eb46ab.jpg",
+        "https://storage.yandexcloud.net/vigsharm-photos/products/57263551-1bd0-40d8-9980-c1b6a54d2d4a.jpg",
+        "https://storage.yandexcloud.net/vigsharm-photos/products/b37728b3-462f-4f5e-b934-c41dd36b2192.jpg",
+        "https://storage.yandexcloud.net/vigsharm-photos/products/aadd9765-9104-4eeb-a322-390f4285a406.jpg",
+        "https://storage.yandexcloud.net/vigsharm-photos/products/b74f0f2b-28fd-44c6-967d-e7c2e981cdd3.jpg"
       ],
-      "main_photo": "https://vigsharm.ru/preview/bauble-ex-gift.webp?v=4",
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/b16b609e-33b9-49ba-94b3-16239969b1ea.jpg",
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-10-24T18:22:00.000Z",
-      "updated_at": "2026-10-29T05:45:00.000Z",
-      "thumb_photo": "https://vigsharm.ru/preview/bauble-ex-gift.webp?v=4"
+      "updated_at": "2026-11-09T11:04:08.175Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/69318b95-8c88-4760-82a4-9b1850a74f48.webp"
     },
     {
       "id": "45d8080a-3bc1-415f-8d41-c7e454b795b3",

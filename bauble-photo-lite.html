@@ -932,9 +932,6 @@ ym(113074033,'init',{ssr:true,webvisor:true,clickmap:true,ecommerce:"dataLayer",
   .photo, .info, .gallery { min-width: 0; }
   .colors-head .color-mini { display: none !important; }
   .gallery { position: relative; }
-  .photo.is-wait .gallery,
-  .photo.is-wait .g-dots,
-  .photo.is-wait .g-cap { visibility: hidden; }
   .g-track {
     display: flex;
     width: 100%;
@@ -1290,15 +1287,18 @@ ym(113074033,'init',{ssr:true,webvisor:true,clickmap:true,ecommerce:"dataLayer",
 <div class="wrap">
   <a class="back" href="catalog.html"><span aria-hidden="true">←</span> Вернуться в каталог</a>
   <article class="card" id="card">
-    <div class="photo is-wait">
+    <div class="photo">
       <div class="gallery">
         <div class="g-track" id="g-track" aria-label="Фото шара — листайте">
           <div class="stage" id="stage">
-            <img class="hero" id="hero" src="preview/bauble-photo-in-hand.webp?v=1" alt="Шар с фото семьи и розовым бантом в руке" width="1000" height="1000"/>
+            <img class="hero" id="hero" src="https://storage.yandexcloud.net/vigsharm-photos/products/4046253b-fe61-4683-ac46-d42e7ae00e51.jpg" alt="Ёлочный фотошар, фото 1" width="1000" height="1000"/>
           </div>
-          <img loading="lazy" src="preview/bauble-photo-side.webp?v=1" alt="Прозрачный шар с фото сбоку: видна толщина и снежок внутри" width="1000" height="1000"/>
-          <img loading="lazy" src="preview/bauble-photo-gift-box.webp?v=2" alt="Шар с фото в белой коробочке с открытой крышкой и окошком" width="1000" height="1000"/>
-          <img loading="lazy" src="preview/bauble-photo-set.webp?v=1" alt="Три шара с фото бабушки, мальчика и пары на ёлке" width="1000" height="1000"/>
+          <img loading="lazy" src="https://storage.yandexcloud.net/vigsharm-photos/products/9b30a067-050e-4154-b265-ea21ca8ea9a3.jpg" alt="Ёлочный фотошар, фото 2" width="1000" height="1000"/>
+          <img loading="lazy" src="https://storage.yandexcloud.net/vigsharm-photos/products/a00e3777-7c0c-492d-822f-7757cb0ffd4b.jpg" alt="Ёлочный фотошар, фото 3" width="1000" height="1000"/>
+          <img loading="lazy" src="https://storage.yandexcloud.net/vigsharm-photos/products/544a341c-b975-4eda-993a-53645523f66c.jpg" alt="Ёлочный фотошар, фото 4" width="1000" height="1000"/>
+          <img loading="lazy" src="https://storage.yandexcloud.net/vigsharm-photos/products/cbaa27c4-5432-436a-a753-f8eba76b4372.jpg" alt="Ёлочный фотошар, фото 5" width="1000" height="1000"/>
+          <img loading="lazy" src="https://storage.yandexcloud.net/vigsharm-photos/products/d2a30ddc-f12f-4bbd-80ec-d6f8f8fa5d37.jpg" alt="Ёлочный фотошар, фото 6" width="1000" height="1000"/>
+          <img loading="lazy" src="https://storage.yandexcloud.net/vigsharm-photos/products/0dbad018-450d-49d8-8f7f-497ac565f310.jpg" alt="Ёлочный фотошар, фото 7" width="1000" height="1000"/>
         </div>
       </div>
       <div class="g-dots" id="g-dots"></div>
@@ -1653,9 +1653,43 @@ ym(113074033,'init',{ssr:true,webvisor:true,clickmap:true,ecommerce:"dataLayer",
     else $('g-cap').textContent = at ? SLIDE_CAPS[at] || '' : stageCap;
   }
 
+  function sameSlideList(list) {
+    if (!cardSlides || cardSlides.length !== list.length) return false;
+    for (var i = 0; i < list.length; i++) if (cardSlides[i].src !== list[i]) return false;
+    return true;
+  }
+
+  function fillDots(n) {
+    var box = $('g-dots');
+    if (!box || box.children.length === n) return;
+    var html = '';
+    var i;
+    for (i = 0; i < n; i++) {
+      html += '<button type="button" data-slide="' + i + '" aria-label="Фото ' + (i + 1) + ' из ' + n + '"></button>';
+    }
+    box.innerHTML = n < 2 ? '' : html;
+  }
+
+  function seedCardSlides() {
+    var urls = [];
+    document.querySelectorAll('#g-track img').forEach(function (img) {
+      var src = img.getAttribute('src');
+      if (src) urls.push(src);
+    });
+    if (!urls.length) return;
+    cardSlides = urls.map(function (src, i) {
+      return { src: src, alt: 'Ёлочный фотошар, фото ' + (i + 1), cap: i ? capFor(src) : '' };
+    });
+    fillDots(cardSlides.length);
+  }
+
   function mountCardSlides(urls) {
     var list = (urls || []).filter(Boolean).slice(0, 10);
     if (!list.length) return;
+    if (sameSlideList(list)) {
+      paintStage();
+      return;
+    }
     stageGen++;
     cardSlides = list.map(function (src, i) {
       return { src: src, alt: 'Ёлочный фотошар, фото ' + (i + 1), cap: i ? capFor(src) : '' };
@@ -1664,24 +1698,15 @@ ym(113074033,'init',{ssr:true,webvisor:true,clickmap:true,ecommerce:"dataLayer",
       var img = '<img' + (i ? ' loading="lazy"' : ' class="hero" id="hero"') + ' src="' + photoAttr(item.src) + '" alt="' + photoAttr(item.alt) + '" width="1000" height="1000"/>';
       return i ? img : '<div class="stage" id="stage">' + img + '</div>';
     }).join('');
-    $('g-dots').innerHTML = cardSlides.length < 2 ? '' : cardSlides.map(function (_, i) {
-      return '<button type="button" data-slide="' + i + '" aria-label="Фото ' + (i + 1) + ' из ' + cardSlides.length + '"></button>';
-    }).join('');
+    fillDots(cardSlides.length);
     $('g-track').scrollLeft = 0;
     paintStage();
   }
 
-  function revealCardPhoto() {
-    var photo = document.querySelector('.photo');
-    if (photo) photo.classList.remove('is-wait');
-  }
-
   function loadCardGallery() {
-    if (!window.vigLoadCardPhotos) {
-      revealCardPhoto();
-      return;
-    }
-    Promise.resolve(window.vigLoadCardPhotos('elochnyj-shar-s-foto', mountCardSlides)).then(revealCardPhoto, revealCardPhoto);
+    seedCardSlides();
+    if (!window.vigLoadCardPhotos) return;
+    window.vigLoadCardPhotos('elochnyj-shar-s-foto', mountCardSlides);
   }
 
   function toStage() {

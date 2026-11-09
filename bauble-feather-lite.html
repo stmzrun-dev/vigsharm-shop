@@ -932,9 +932,6 @@ ym(113074033,'init',{ssr:true,webvisor:true,clickmap:true,ecommerce:"dataLayer",
   .photo, .info, .gallery { min-width: 0; }
   .colors-head .color-mini { display: none !important; }
   .gallery { position: relative; }
-  .photo.is-wait .gallery,
-  .photo.is-wait .g-dots,
-  .photo.is-wait .g-cap { visibility: hidden; }
   .g-track {
     display: flex;
     width: 100%;
@@ -1067,10 +1064,19 @@ ym(113074033,'init',{ssr:true,webvisor:true,clickmap:true,ecommerce:"dataLayer",
 <div class="wrap">
   <a class="back" href="catalog.html"><span aria-hidden="true">←</span> Вернуться в каталог</a>
   <article class="card" id="card">
-    <div class="photo is-wait">
+    <div class="photo">
       <div class="gallery">
         <div class="g-track" id="g-track" aria-label="Фото шара — листайте">
-          <img id="hero" src="preview/bauble-feather-box.webp?v=1" alt="Четыре шара с перьями и надписями в подарочной коробочке" width="1000" height="1000"/>
+          <img id="hero" src="preview/bauble-feather-box.webp?v=1" alt="Ёлочный шар с перьями, фото 1" width="1000" height="1000"/>
+          <img loading="lazy" src="preview/bauble-feather-home.webp?v=1" alt="Ёлочный шар с перьями, фото 2" width="1000" height="1000"/>
+          <img loading="lazy" src="preview/bauble-feather-blue.webp?v=1" alt="Ёлочный шар с перьями, фото 3" width="1000" height="1000"/>
+          <img loading="lazy" src="preview/bauble-feather-red.webp?v=1" alt="Ёлочный шар с перьями, фото 4" width="1000" height="1000"/>
+          <img loading="lazy" src="preview/bauble-feather-kristina.webp?v=1" alt="Ёлочный шар с перьями, фото 5" width="1000" height="1000"/>
+          <img loading="lazy" src="preview/bauble-feather-couple.webp?v=1" alt="Ёлочный шар с перьями, фото 6" width="1000" height="1000"/>
+          <img loading="lazy" src="preview/bauble-feather-peach.webp?v=1" alt="Ёлочный шар с перьями, фото 7" width="1000" height="1000"/>
+          <img loading="lazy" src="preview/bauble-feather-family.webp?v=1" alt="Ёлочный шар с перьями, фото 8" width="1000" height="1000"/>
+          <img loading="lazy" src="preview/bauble-feather-mint.webp?v=1" alt="Ёлочный шар с перьями, фото 9" width="1000" height="1000"/>
+          <img loading="lazy" src="preview/bauble-feather-clear.webp?v=1" alt="Ёлочный шар с перьями, фото 10" width="1000" height="1000"/>
         </div>
         <div class="g-dots" id="g-dots"></div>
       </div>
@@ -1414,6 +1420,28 @@ ym(113074033,'init',{ssr:true,webvisor:true,clickmap:true,ecommerce:"dataLayer",
     paintDots();
   }
 
+  function seedCardPhotos() {
+    var urls = [];
+    document.querySelectorAll('#g-track img').forEach(function (img) {
+      var src = img.getAttribute('src');
+      if (src) urls.push(src);
+    });
+    if (!urls.length) return;
+    cardPhotos = urls.map(function (src, i) {
+      var known = knownPhoto(src);
+      if (known) return { src: src, alt: known.alt, cap: known.cap };
+      return { src: src, alt: 'Ёлочный шар с перьями, фото ' + (i + 1), cap: '' };
+    });
+    paintPhotos.sig = cardPhotos.map(function (item) { return item.src; }).join('|');
+    var box = $('g-dots');
+    if (box && box.children.length !== cardPhotos.length) {
+      var n = cardPhotos.length;
+      box.innerHTML = n < 2 ? '' : cardPhotos.map(function (_, i) {
+        return '<button type="button" data-slide="' + i + '" aria-label="Фото ' + (i + 1) + ' из ' + n + '"></button>';
+      }).join('');
+    }
+  }
+
   function applyCardPhotos(urls) {
     var list = (urls || []).filter(Boolean).slice(0, 10);
     if (!list.length) return;
@@ -1425,17 +1453,9 @@ ym(113074033,'init',{ssr:true,webvisor:true,clickmap:true,ecommerce:"dataLayer",
     paintPhotos();
   }
 
-  function revealCardPhoto() {
-    var photo = document.querySelector('.photo');
-    if (photo) photo.classList.remove('is-wait');
-  }
-
   function loadCardGallery() {
-    if (!window.vigLoadCardPhotos) {
-      revealCardPhoto();
-      return;
-    }
-    Promise.resolve(window.vigLoadCardPhotos('elochnyj-shar-s-peryami', applyCardPhotos)).then(revealCardPhoto, revealCardPhoto);
+    if (!window.vigLoadCardPhotos) return;
+    window.vigLoadCardPhotos('elochnyj-shar-s-peryami', applyCardPhotos);
   }
 
   function paintColors() {
@@ -2115,6 +2135,7 @@ ym(113074033,'init',{ssr:true,webvisor:true,clickmap:true,ecommerce:"dataLayer",
   });
 
   restore();
+  seedCardPhotos();
   paintPhotos();
   loadCardGallery();
   paintColors();

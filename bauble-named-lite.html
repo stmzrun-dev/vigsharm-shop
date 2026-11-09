@@ -932,9 +932,6 @@ ym(113074033,'init',{ssr:true,webvisor:true,clickmap:true,ecommerce:"dataLayer",
   .photo, .info, .gallery { min-width: 0; }
   .colors-head .color-mini { display: none !important; }
   .gallery { position: relative; }
-  .photo.is-wait .gallery,
-  .photo.is-wait .g-dots,
-  .photo.is-wait .g-cap { visibility: hidden; }
   .g-track {
     display: flex;
     width: 100%;
@@ -1067,10 +1064,19 @@ ym(113074033,'init',{ssr:true,webvisor:true,clickmap:true,ecommerce:"dataLayer",
 <div class="wrap">
   <a class="back" href="catalog.html"><span aria-hidden="true">←</span> Вернуться в каталог</a>
   <article class="card" id="card">
-    <div class="photo is-wait">
+    <div class="photo">
       <div class="gallery">
         <div class="g-track" id="g-track" aria-label="Фото шара — листайте">
-          <img id="hero" src="preview/bauble-ex-gift.webp?v=4" alt="Шар с именем Даша и подарочные коробочки" width="1000" height="1000"/>
+          <img id="hero" src="https://storage.yandexcloud.net/vigsharm-photos/products/b16b609e-33b9-49ba-94b3-16239969b1ea.jpg" alt="Именной ёлочный шар, фото 1" width="1000" height="1000"/>
+          <img loading="lazy" src="https://vigsharm.ru/preview/bauble-mode-class.webp?v=1" alt="Именной ёлочный шар, фото 2" width="1000" height="1000"/>
+          <img loading="lazy" src="https://storage.yandexcloud.net/vigsharm-photos/products/b25b89db-925c-433d-8a2e-45c83e4ba85a.jpg" alt="Именной ёлочный шар, фото 3" width="1000" height="1000"/>
+          <img loading="lazy" src="https://storage.yandexcloud.net/vigsharm-photos/products/14b6fce2-e28c-45b9-9445-f291faaa46e7.jpg" alt="Именной ёлочный шар, фото 4" width="1000" height="1000"/>
+          <img loading="lazy" src="https://storage.yandexcloud.net/vigsharm-photos/products/0fd601b3-1ab8-4d71-abf2-10848c812820.jpg" alt="Именной ёлочный шар, фото 5" width="1000" height="1000"/>
+          <img loading="lazy" src="https://storage.yandexcloud.net/vigsharm-photos/products/9bcfaa70-1647-4230-ac34-1e3277eb46ab.jpg" alt="Именной ёлочный шар, фото 6" width="1000" height="1000"/>
+          <img loading="lazy" src="https://storage.yandexcloud.net/vigsharm-photos/products/57263551-1bd0-40d8-9980-c1b6a54d2d4a.jpg" alt="Именной ёлочный шар, фото 7" width="1000" height="1000"/>
+          <img loading="lazy" src="https://storage.yandexcloud.net/vigsharm-photos/products/b37728b3-462f-4f5e-b934-c41dd36b2192.jpg" alt="Именной ёлочный шар, фото 8" width="1000" height="1000"/>
+          <img loading="lazy" src="https://storage.yandexcloud.net/vigsharm-photos/products/aadd9765-9104-4eeb-a322-390f4285a406.jpg" alt="Именной ёлочный шар, фото 9" width="1000" height="1000"/>
+          <img loading="lazy" src="https://storage.yandexcloud.net/vigsharm-photos/products/b74f0f2b-28fd-44c6-967d-e7c2e981cdd3.jpg" alt="Именной ёлочный шар, фото 10" width="1000" height="1000"/>
         </div>
         <div class="g-dots" id="g-dots"></div>
       </div>
@@ -1458,6 +1464,28 @@ ym(113074033,'init',{ssr:true,webvisor:true,clickmap:true,ecommerce:"dataLayer",
     paintDots();
   }
 
+  function seedCardPhotos() {
+    var urls = [];
+    document.querySelectorAll('#g-track img').forEach(function (img) {
+      var src = img.getAttribute('src');
+      if (src) urls.push(src);
+    });
+    if (!urls.length) return;
+    cardPhotos = urls.map(function (src, i) {
+      var known = knownPhoto(src);
+      if (known) return { src: src, alt: known.alt, cap: known.cap };
+      return { src: src, alt: 'Пример шара, фото ' + (i + 1), cap: '' };
+    });
+    paintPhotos.sig = cardPhotos.map(function (item) { return item.src; }).join('|');
+    var box = $('g-dots');
+    if (box && box.children.length !== cardPhotos.length) {
+      var n = cardPhotos.length;
+      box.innerHTML = n < 2 ? '' : cardPhotos.map(function (_, i) {
+        return '<button type="button" data-slide="' + i + '" aria-label="Фото ' + (i + 1) + ' из ' + n + '"></button>';
+      }).join('');
+    }
+  }
+
   function applyCardPhotos(urls) {
     var list = (urls || []).filter(Boolean).slice(0, 10);
     if (!list.length) return;
@@ -1469,17 +1497,9 @@ ym(113074033,'init',{ssr:true,webvisor:true,clickmap:true,ecommerce:"dataLayer",
     paintPhotos();
   }
 
-  function revealCardPhoto() {
-    var photo = document.querySelector('.photo');
-    if (photo) photo.classList.remove('is-wait');
-  }
-
   function loadCardGallery() {
-    if (!window.vigLoadCardPhotos) {
-      revealCardPhoto();
-      return;
-    }
-    Promise.resolve(window.vigLoadCardPhotos('imennoj-elochnyj-shar', applyCardPhotos)).then(revealCardPhoto, revealCardPhoto);
+    if (!window.vigLoadCardPhotos) return;
+    window.vigLoadCardPhotos('imennoj-elochnyj-shar', applyCardPhotos);
   }
 
   function paintColors() {
@@ -2176,6 +2196,7 @@ ym(113074033,'init',{ssr:true,webvisor:true,clickmap:true,ecommerce:"dataLayer",
   });
 
   restore();
+  seedCardPhotos();
   paintPhotos();
   loadCardGallery();
   paintColors();

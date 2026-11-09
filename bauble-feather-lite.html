@@ -1179,7 +1179,7 @@ ym(113074033,'init',{ssr:true,webvisor:true,clickmap:true,ecommerce:"dataLayer",
   </div>
 </div>
 
-<script src="assets/site.js?v=20261022-grid-photo"></script>
+<script src="assets/site.js?v=20261109-feather"></script>
 <script>
 (function () {
   var PRICE = 550;
@@ -1423,30 +1423,8 @@ ym(113074033,'init',{ssr:true,webvisor:true,clickmap:true,ecommerce:"dataLayer",
   }
 
   function loadCardGallery() {
-    var slug = 'elochnyj-shar-s-peryami';
-    function take(p) {
-      if (!p) return;
-      var opts = p.client_options;
-      if (typeof opts === 'string') {
-        try { opts = JSON.parse(opts); } catch (e) { opts = {}; }
-      }
-      if (!opts || !opts.card_gallery) return;
-      var photos = Array.isArray(p.photos) ? p.photos : [];
-      if (photos.length) applyCardPhotos(photos);
-    }
-    var api = (window.VIG_API || 'https://api.vigsharm.ru') + '/api/products/' + slug;
-    var ctrl = typeof AbortController !== 'undefined' ? new AbortController() : null;
-    var timer = ctrl ? setTimeout(function () { try { ctrl.abort(); } catch (e) {} }, 8000) : null;
-    fetch(api, { cache: 'no-store', signal: ctrl ? ctrl.signal : undefined })
-      .then(function (r) { if (!r.ok) throw new Error('x'); return r.json(); })
-      .then(function (data) { take(data && (data.product || data)); })
-      .catch(function () {
-        if (!window.vigFetchProducts) return null;
-        return window.vigFetchProducts().then(function (list) {
-          take((list || []).filter(function (item) { return item && item.slug === slug; })[0]);
-        });
-      })
-      .then(function () { if (timer) clearTimeout(timer); }, function () { if (timer) clearTimeout(timer); });
+    if (!window.vigLoadCardPhotos) return;
+    window.vigLoadCardPhotos('elochnyj-shar-s-peryami', applyCardPhotos);
   }
 
   function paintColors() {

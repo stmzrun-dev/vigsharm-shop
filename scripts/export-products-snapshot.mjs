@@ -7,7 +7,7 @@
  *   node scripts/export-products-snapshot.mjs
  *   VIG_API=https://… node scripts/export-products-snapshot.mjs
  */
-import { writeFileSync, mkdirSync } from 'fs';
+import { writeFileSync, mkdirSync, readFileSync, existsSync } from 'fs';
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
 
@@ -65,6 +65,26 @@ async function main() {
   }
   if (!productsData.products.length) {
     throw new Error('Пустой каталог — снимок не записан (чтобы не затереть рабочий файл).');
+  }
+  const extraFile = join(DATA, 'catalog-extra.json');
+  if (existsSync(extraFile)) {
+    let extra = [];
+    try {
+      const raw = JSON.parse(readFileSync(extraFile, 'utf8'));
+      extra = Array.isArray(raw) ? raw : (raw && raw.products) || [];
+    } catch { extra = []; }
+    const have = new Set(productsData.products.map((p) => String(p && p.slug || '')));
+    let added = 0;
+    extra.forEach((p) => {
+      const slug = String(p && p.slug || '');
+      if (!slug || have.has(slug)) return;
+      if (p.status && p.status !== 'published') return;
+      if (p.show_on_site === false || p.show_on_site === 0) return;
+      productsData.products.unshift(p);
+      have.add(slug);
+      added += 1;
+    });
+    if (added) written.push(`catalog-extra +${added}`);
   }
   const productsFile = join(DATA, 'products.json');
   writeJson(productsFile, { ok: true, products: productsData.products });

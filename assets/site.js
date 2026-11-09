@@ -57,9 +57,81 @@
         if (timer) clearTimeout(timer);
       });
     }
-    return loadWithTimeout(window.VIG_PRODUCTS_FALLBACK).catch(function () {
+    function loadExtra() {
+      return fetch(window.vigSameOrigin('data/catalog-extra.json'), { cache: 'no-store' }).then(function (r) {
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+        return r.json();
+      }).then(listFrom).catch(function () { return []; });
+    }
+    function mergeExtra(list) {
+      return loadExtra().then(function (extra) {
+        var have = {};
+        (list || []).forEach(function (p) {
+          if (p && p.slug) have[String(p.slug)] = 1;
+        });
+        var out = (list || []).slice();
+        (extra || []).forEach(function (p) {
+          if (!p || !p.slug || have[String(p.slug)]) return;
+          if (p.status && p.status !== 'published') return;
+          if (p.show_on_site === false || p.show_on_site === 0 || p.show_on_site === '0') return;
+          out.unshift(p);
+          have[String(p.slug)] = 1;
+        });
+        return out;
+      });
+    }
+    var catalog = loadWithTimeout(window.VIG_PRODUCTS_FALLBACK).catch(function () {
       return loadWithTimeout(window.VIG_PRODUCTS_WORKER);
     });
+    return catalog.then(mergeExtra);
+  };
+
+  /** Галерея именного, фото и перьевого шара: все кадры из карточки, не запасные примеры. */
+  window.vigLoadCardPhotos = function (slug, apply) {
+    function photosOf(p) {
+      if (!p) return [];
+      var list = Array.isArray(p.photos) ? p.photos.filter(Boolean) : [];
+      if (p.main_photo && list.indexOf(p.main_photo) < 0) list.unshift(p.main_photo);
+      return list.slice(0, 10);
+    }
+    function take(p) {
+      var list = photosOf(p);
+      if (!list.length || typeof apply !== 'function') return false;
+      apply(list);
+      return true;
+    }
+    var hosts = [
+      (window.VIG_API || 'https://api.vigsharm.ru') + '/api/products/' + encodeURIComponent(slug),
+      'https://vigsharm-api.vigsharm.workers.dev/api/products/' + encodeURIComponent(slug)
+    ];
+    function pull(i) {
+      if (i >= hosts.length) {
+        return fetch(window.vigSameOrigin('data/catalog-extra.json'), { cache: 'no-store' }).then(function (r) {
+          if (!r.ok) throw new Error('x');
+          return r.json();
+        }).then(function (data) {
+          var extra = Array.isArray(data) ? data : ((data && data.products) || []);
+          var hit = extra.filter(function (item) { return item && item.slug === slug; })[0];
+          if (take(hit)) return;
+          if (!window.vigFetchProducts) return;
+          return window.vigFetchProducts().then(function (list) {
+            take((list || []).filter(function (item) { return item && item.slug === slug; })[0]);
+          });
+        }).catch(function () {
+          if (!window.vigFetchProducts) return;
+          return window.vigFetchProducts().then(function (list) {
+            take((list || []).filter(function (item) { return item && item.slug === slug; })[0]);
+          });
+        });
+      }
+      return fetch(hosts[i], { cache: 'no-store' }).then(function (r) {
+        if (!r.ok) throw new Error('x');
+        return r.json();
+      }).then(function (data) {
+        if (!take(data && (data.product || data))) throw new Error('empty');
+      }).catch(function () { return pull(i + 1); });
+    }
+    return pull(0);
   };
 
   // Приводит товар из Worker API (схема D1) к плоским полям витрины.

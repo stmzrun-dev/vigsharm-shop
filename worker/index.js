@@ -3741,6 +3741,39 @@ function httpUrl(value) {
   return typeof value === 'string' && /^https?:\/\//i.test(value) ? value : '';
 }
 
+/** Относительные кадры витрины тоже должны попасть в список, иначе превью пустое. */
+function absStorePhoto(value) {
+  const raw = typeof value === 'string' ? value : (value && value.url);
+  const s = String(raw || '').trim();
+  if (/^https?:\/\//i.test(s)) return s;
+  if (s.startsWith('preview/')) return 'https://vigsharm.ru/' + s;
+  if (s.startsWith('/preview/')) return 'https://vigsharm.ru' + s;
+  return '';
+}
+
+function clientOptionsOf(product) {
+  let opts = product && product.client_options;
+  if (typeof opts === 'string') {
+    try { opts = JSON.parse(opts || '{}'); } catch { opts = {}; }
+  }
+  return opts && typeof opts === 'object' ? opts : {};
+}
+
+/** Именной, фото и перьевой шар: в списке каталога все кадры, не одно превью. */
+function galleryPhotos(product) {
+  const opts = clientOptionsOf(product);
+  const page = String(opts.order_page || '');
+  const on = opts.card_gallery === true || opts.card_gallery === 1 || page.indexOf('bauble-') === 0;
+  if (!on) return null;
+  const photos = Array.isArray(product.photos) ? product.photos : [];
+  const urls = [];
+  photos.forEach((photo) => {
+    const url = absStorePhoto(photo);
+    if (url && !urls.includes(url)) urls.push(url);
+  });
+  return urls.slice(0, 10);
+}
+
 /** Превью для списка: https-адрес, без data:-фотографий. */
 function listPreviewUrl(product) {
   const main = httpUrl(product.main_photo);
@@ -3754,12 +3787,13 @@ function listPreviewUrl(product) {
 }
 
 function slimProductForList(product) {
-  const preview = listPreviewUrl(product);
+  const gallery = galleryPhotos(product);
+  const preview = (gallery && gallery[0]) || listPreviewUrl(product);
   return {
     ...product,
-    photos: preview ? [preview] : [],
+    photos: gallery && gallery.length ? gallery : (preview ? [preview] : []),
     main_photo: preview || '',
-    thumb_photo: httpUrl(product.thumb_photo)
+    thumb_photo: httpUrl(product.thumb_photo) || preview || ''
   };
 }
 

@@ -2985,6 +2985,64 @@
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/f1c08810-19da-45c2-a6a6-b58cfb68b9c2.webp"
     },
     {
+      "id": "9f985c56-58d2-46ff-b504-768a038af89f",
+      "title": "Ёлочный шар с перьями",
+      "article": "NY-007",
+      "price": 550,
+      "short_description": "Прозрачный шар 8 см с цветными перьями внутри, именем или своим рисунком, в коробочке с бантом.",
+      "full_description": "Цветные перья внутри прозрачного шара диаметром 8 см. Снаружи имя, пожелание или свой рисунок. Каждый шар в коробочке с окошком и бантом. Цвет перьев выбирается при заказе.",
+      "composition": [
+        "прозрачный шар 8 см с перьями",
+        "имя, пожелание или свой рисунок",
+        "бант",
+        "коробочка с окошком"
+      ],
+      "category": "Новый год",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": "до 1 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Ёлочный шар с перьями — Армавир | VigSharm",
+      "seo_description": "Прозрачный ёлочный шар 8 см с цветными перьями внутри и именем или рисунком, в коробочке с бантом. 550 ₽. Армавир.",
+      "slug": "elochnyj-shar-s-peryami",
+      "scene": "auto",
+      "tags": [
+        "Новый год"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "catalog_pin": true,
+        "balloon_size": "8 см",
+        "price_caption": "Цена за шар",
+        "order_page": "bauble-feather-lite.html",
+        "card_gallery": true
+      },
+      "photos": [
+        "preview/bauble-feather-box.webp?v=1",
+        "preview/bauble-feather-home.webp?v=1",
+        "preview/bauble-feather-blue.webp?v=1",
+        "preview/bauble-feather-red.webp?v=1",
+        "preview/bauble-feather-kristina.webp?v=1",
+        "preview/bauble-feather-couple.webp?v=1",
+        "preview/bauble-feather-peach.webp?v=1",
+        "preview/bauble-feather-family.webp?v=1",
+        "preview/bauble-feather-mint.webp?v=1",
+        "preview/bauble-feather-clear.webp?v=1"
+      ],
+      "main_photo": "preview/bauble-feather-box.webp?v=1",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-11-09T09:30:00.000Z",
+      "updated_at": "2026-11-09T09:30:00.000Z",
+      "thumb_photo": "preview/bauble-feather-box.webp?v=1"
+    },
+    {
       "id": "136e5181-f581-41c7-9c7a-c5df00d4968b",
       "title": "Именной ёлочный шар",
       "article": "NY-005",

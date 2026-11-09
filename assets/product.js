@@ -105,6 +105,10 @@
     location.replace('bauble-photo-lite.html');
     return;
   }
+  if (slug === 'elochnyj-shar-s-peryami') {
+    location.replace('bauble-feather-lite.html');
+    return;
+  }
 
   // state
   var p = null, allProducts = [];

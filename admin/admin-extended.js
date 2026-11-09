@@ -45,13 +45,29 @@ Object.assign(app, {
     const slug = String(p.slug || document.getElementById('product-slug')?.value || '');
     return page === 'bauble-named-lite.html'
       || page === 'bauble-photo-lite.html'
+      || page === 'bauble-feather-lite.html'
       || slug === 'imennoj-elochnyj-shar'
-      || slug === 'elochnyj-shar-s-foto';
+      || slug === 'elochnyj-shar-s-foto'
+      || slug === 'elochnyj-shar-s-peryami';
   },
 
   cardGallerySeed(product) {
     const slug = String(product?.slug || document.getElementById('product-slug')?.value || '');
     const page = String(product?.client_options?.order_page || '');
+    if (page === 'bauble-feather-lite.html' || slug === 'elochnyj-shar-s-peryami') {
+      return [
+        'https://vigsharm.ru/preview/bauble-feather-box.webp?v=1',
+        'https://vigsharm.ru/preview/bauble-feather-home.webp?v=1',
+        'https://vigsharm.ru/preview/bauble-feather-blue.webp?v=1',
+        'https://vigsharm.ru/preview/bauble-feather-red.webp?v=1',
+        'https://vigsharm.ru/preview/bauble-feather-kristina.webp?v=1',
+        'https://vigsharm.ru/preview/bauble-feather-couple.webp?v=1',
+        'https://vigsharm.ru/preview/bauble-feather-peach.webp?v=1',
+        'https://vigsharm.ru/preview/bauble-feather-family.webp?v=1',
+        'https://vigsharm.ru/preview/bauble-feather-mint.webp?v=1',
+        'https://vigsharm.ru/preview/bauble-feather-clear.webp?v=1'
+      ];
+    }
     const named = page === 'bauble-named-lite.html' || slug === 'imennoj-elochnyj-shar';
     if (named) {
       return [
@@ -73,6 +89,12 @@ Object.assign(app, {
       'https://vigsharm.ru/preview/bauble-photo-gift-box.webp?v=2',
       'https://vigsharm.ru/preview/bauble-photo-set.webp?v=1'
     ];
+  },
+
+  adminPhotoSrc(url) {
+    const s = String(url || '');
+    if (s.startsWith('preview/')) return '../' + s;
+    return s;
   },
 
   syncPhotoLimitUi() {
@@ -166,7 +188,7 @@ Object.assign(app, {
 
     container.innerHTML = this.currentProduct.photos.map((photo, index) => `
       <div class="photo-item ${index === 0 ? 'main' : ''}">
-        <img src="${photo.url}" alt="Фото ${index + 1}" class="zoomable" data-photo-index="${index}"/>
+        <img src="${this.adminPhotoSrc(photo.url)}" alt="Фото ${index + 1}" class="zoomable" data-photo-index="${index}"/>
         ${index === 0 ? '<span class="badge-main">Главное</span>' : `<span class="badge-main">Фото ${index + 1}</span>`}
         <div class="actions">
           ${index > 0 ? `<button type="button" data-move="-1" data-idx="${index}" title="Влево">←</button>` : ''}
@@ -182,7 +204,7 @@ Object.assign(app, {
         e.stopPropagation();
         const i = Number(img.dataset.photoIndex);
         const url = this.currentProduct.photos[i]?.url;
-        if (url) this.openLightbox(url);
+        if (url) this.openLightbox(this.adminPhotoSrc(url));
       });
     });
     container.querySelectorAll('[data-main]').forEach(btn => {

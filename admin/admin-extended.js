@@ -101,6 +101,8 @@ Object.assign(app, {
     const n = this.photoSlotLimit();
     const small = document.querySelector('#upload-zone-empty small');
     if (small) small.textContent = `JPG, PNG, WebP · до 10 МБ · до ${n} шт.`;
+    const form = document.getElementById('product-form');
+    if (form) form.classList.toggle('is-card-gallery', !!this.isCardGalleryProduct?.());
   },
 
   async handlePhotoFiles(files) {
@@ -2841,7 +2843,7 @@ Object.assign(app, {
     const form = document.getElementById('product-form');
     if (form) {
       form.reset();
-      form.classList.remove('is-studio-busy', 'is-editor-step-2', 'is-step1-b', 'is-step1-c', 'has-ai-card', 'is-ai-review-detail');
+      form.classList.remove('is-studio-busy', 'is-editor-step-2', 'is-step1-b', 'is-step1-c', 'has-ai-card', 'is-ai-review-detail', 'is-card-gallery');
       form.classList.add('is-editor-step-1', 'is-step1-a');
     }
     this._step1Phase = 'a';
@@ -3085,7 +3087,21 @@ app.editProduct = async function(id) {
   this.toast('Загрузка товара...', '');
   try {
     const res = await fetch(`${this.workerUrl}/api/products/${id}`);
-    const data = await res.json();
+    const data = await res.json().catch(() => ({}));
+    const local = (this.products || []).find((p) => String(p.id) === String(id));
+    if ((!res.ok || !data.ok || !data.product) && local && local._snapshotOnly) {
+      this.resetForm();
+      this.loadProductToForm(local);
+      this.currentProduct._snapshotOnly = true;
+      this.switchTab('create');
+      const modeLabel = document.getElementById('editor-mode-label');
+      if (modeLabel) modeLabel.textContent = 'РЕДАКТИРОВАНИЕ';
+      const titleEl = document.getElementById('editor-title');
+      if (titleEl) titleEl.textContent = local.title || 'Товар';
+      this.toast('Шар ещё не в базе админки. «Опубликовать» запишет его', 'info');
+      this.focusAuditField?.();
+      return;
+    }
     if (!data.ok || !data.product) throw new Error('Товар не найден');
 
     this.resetForm();

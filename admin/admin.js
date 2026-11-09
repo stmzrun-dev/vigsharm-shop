@@ -1532,6 +1532,34 @@ const app = {
     return list;
   },
 
+  /** Карточки, которые уже лежат в снимке витрины, но ещё не созданы в базе админки. */
+  async mergeSnapshotOnlyProducts() {
+    let snap = [];
+    try { snap = await this.loadProductsSnapshot(); } catch { return; }
+    const have = new Set((this.products || []).map((p) => String(p.slug || '')));
+    snap.forEach((p) => {
+      const page = String(p?.client_options?.order_page || '');
+      const slug = String(p?.slug || '');
+      if (page !== 'bauble-feather-lite.html' && slug !== 'elochnyj-shar-s-peryami') return;
+      if (!slug || have.has(slug)) return;
+      const abs = (url) => {
+        const s = String(url || '');
+        if (s.startsWith('preview/')) return 'https://vigsharm.ru/' + s;
+        if (s.startsWith('/preview/')) return 'https://vigsharm.ru' + s;
+        return s;
+      };
+      const photos = (Array.isArray(p.photos) ? p.photos : []).map(abs).filter(Boolean);
+      this.products.push({
+        ...p,
+        photos,
+        main_photo: abs(p.main_photo) || photos[0] || '',
+        thumb_photo: abs(p.thumb_photo) || photos[0] || '',
+        _snapshotOnly: true
+      });
+      have.add(slug);
+    });
+  },
+
   async loadProducts() {
     const container = document.getElementById('products-list');
     const showSnapshot = async () => {
@@ -1562,6 +1590,7 @@ const app = {
       if (!data.ok) throw new Error(data.error || 'Ответ API без ok');
       this.catalogFromSnapshot = false;
       this.products = data.products || [];
+      await this.mergeSnapshotOnlyProducts?.();
       this.hydratePhotoDhashesFromCache?.();
       this.startPhotoDhashBackfill?.();
       if (this._pendingPhotoDhash) this.showPhotoDuplicateMatches?.(this._pendingPhotoDhash);
@@ -1702,7 +1731,8 @@ const app = {
     const storedThumb = typeof p.thumb_photo === 'string' && /^https?:\/\//i.test(p.thumb_photo)
       ? p.thumb_photo
       : '';
-    const photo = this.thumbUrl(storedThumb || fullPhoto);
+    const rawPhoto = storedThumb || fullPhoto;
+    const photo = this.thumbUrl(this.adminPhotoSrc?.(rawPhoto) || rawPhoto);
     const thumb = photo
       ? `<img src="${this.escapeHtml(photo)}" data-full="${this.escapeHtml(fullPhoto)}" alt="" loading="lazy" decoding="async"/>`
       : '<span class="thumb-fallback" aria-hidden="true">🎈</span>';
@@ -2520,7 +2550,8 @@ const app = {
       data.article = document.getElementById('product-article')?.value.trim() || this.nextArticle(articleCat);
     }
 
-    const isEdit = !!this.currentProduct.id;
+    const snapshotOnly = !!this.currentProduct._snapshotOnly;
+    const isEdit = !!this.currentProduct.id && !snapshotOnly;
     const wasPublished = isEdit && (
       this.currentProduct.status === 'published' ||
       this.products.find((p) => String(p.id) === String(this.currentProduct.id))?.status === 'published'

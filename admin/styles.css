@@ -636,6 +636,18 @@ body.admin-editor-open{overflow:hidden}
   top:8px;left:8px;font-size:11px;padding:4px 8px
 }
 #product-form.is-editor-step-2 .photo-item .actions{display:none!important}
+#product-form.is-editor-step-2.is-card-gallery #photos-grid.photo-grid{
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:10px
+}
+#product-form.is-editor-step-2.is-card-gallery .step1-photo-col .photo-item:not(.main){display:block}
+#product-form.is-editor-step-2.is-card-gallery .photo-item .actions{display:flex!important}
+#tab-create #product-form.is-editor-step-2.is-card-gallery #photos-grid .photo-item{
+  min-height:0
+}
+#tab-create #product-form.is-editor-step-2.is-card-gallery #photos-grid .photo-item img{
+  height:150px;max-height:150px;object-fit:cover
+}
 #product-form.is-editor-step-2 #studio-compare-fold{
   grid-column:1;grid-row:2;
   margin:0;padding:0;border:none;background:transparent;font-size:12px

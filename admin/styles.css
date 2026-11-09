@@ -636,16 +636,16 @@ body.admin-editor-open{overflow:hidden}
   top:8px;left:8px;font-size:11px;padding:4px 8px
 }
 #product-form.is-editor-step-2 .photo-item .actions{display:none!important}
-#product-form.is-editor-step-2.is-card-gallery #photos-grid.photo-grid{
+#product-form.is-editor-step-2.is-multi-photo #photos-grid.photo-grid{
   grid-template-columns:repeat(2,minmax(0,1fr));
   gap:10px
 }
-#product-form.is-editor-step-2.is-card-gallery .step1-photo-col .photo-item:not(.main){display:block}
-#product-form.is-editor-step-2.is-card-gallery .photo-item .actions{display:flex!important}
-#tab-create #product-form.is-editor-step-2.is-card-gallery #photos-grid .photo-item{
+#product-form.is-editor-step-2.is-multi-photo .step1-photo-col .photo-item:not(.main){display:block}
+#product-form.is-editor-step-2.is-multi-photo .photo-item .actions{display:flex!important}
+#tab-create #product-form.is-editor-step-2.is-multi-photo #photos-grid .photo-item{
   min-height:0
 }
-#tab-create #product-form.is-editor-step-2.is-card-gallery #photos-grid .photo-item img{
+#tab-create #product-form.is-editor-step-2.is-multi-photo #photos-grid .photo-item img{
   height:150px;max-height:150px;object-fit:cover
 }
 #product-form.is-editor-step-2 #studio-compare-fold{

@@ -97,12 +97,32 @@ Object.assign(app, {
     return s;
   },
 
+  isTeddyBouquet() {
+    const opts = this.currentProduct?.client_options || {};
+    const type = this.getBouquetType?.() || opts.bouquet_type || '';
+    const cat = document.getElementById('product-category')?.value
+      || document.getElementById('ai-review-category')?.value
+      || '';
+    const tags = Array.isArray(this.currentProduct?.tags) ? this.currentProduct.tags : [];
+    return type === 'teddy' || cat === 'Букет с мишками' || tags.includes('Букет с мишками');
+  },
+
   syncPhotoLimitUi() {
     const n = this.photoSlotLimit();
     const small = document.querySelector('#upload-zone-empty small');
     if (small) small.textContent = `JPG, PNG, WebP · до 10 МБ · до ${n} шт.`;
     const form = document.getElementById('product-form');
-    if (form) form.classList.toggle('is-card-gallery', !!this.isCardGalleryProduct?.());
+    const gallery = !!this.isCardGalleryProduct?.();
+    const multi = gallery || !!this.isTeddyBouquet?.();
+    if (form) {
+      form.classList.toggle('is-card-gallery', gallery);
+      form.classList.toggle('is-multi-photo', multi);
+    }
+    if (!this._photoLimitCatWired) {
+      this._photoLimitCatWired = true;
+      document.getElementById('product-category')?.addEventListener('change', () => this.syncPhotoLimitUi());
+      document.getElementById('ai-review-category')?.addEventListener('change', () => this.syncPhotoLimitUi());
+    }
   },
 
   async handlePhotoFiles(files) {
@@ -1695,6 +1715,7 @@ Object.assign(app, {
       if (e?.target && !e.target.checked) return;
       if (!(typeof BOUQUET_TYPES !== 'undefined' && BOUQUET_TYPES[val])) return;
       this.setBouquetType(val);
+      this.syncPhotoLimitUi?.();
       const meta = BOUQUET_TYPES[val];
       if (meta?.category) this.applyTypeOnlyMode?.(meta.category);
       this.syncAdvanceOrderFromScene?.();
@@ -3273,6 +3294,7 @@ app.loadProductToForm = function(product) {
   this.syncAdvanceOrderFromScene?.();
   this.syncOccasionShelfFields?.();
   this.syncArchPriceLabel?.();
+  this.syncPhotoLimitUi?.();
   this._publishGapsAck = false;
   this._aiCardFilled = true;
   this.syncEditorSteps?.();

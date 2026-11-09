@@ -3763,7 +3763,11 @@ function clientOptionsOf(product) {
 function galleryPhotos(product) {
   const opts = clientOptionsOf(product);
   const page = String(opts.order_page || '');
-  const on = opts.card_gallery === true || opts.card_gallery === 1 || page.indexOf('bauble-') === 0;
+  const tags = Array.isArray(product.tags) ? product.tags : [];
+  const teddy = product.category === 'Букет с мишками'
+    || tags.includes('Букет с мишками')
+    || opts.bouquet_type === 'teddy';
+  const on = teddy || opts.card_gallery === true || opts.card_gallery === 1 || page.indexOf('bauble-') === 0;
   if (!on) return null;
   const photos = Array.isArray(product.photos) ? product.photos : [];
   const urls = [];

@@ -60,27 +60,122 @@
       "thumb_photo": "https://vigsharm.ru/preview/bauble-feather-box.webp?v=1"
     },
     {
-      "id": "2ce8060d-88a2-4633-a6ab-32db22c47dbe",
-      "title": "стеклянный баблс с надписью, круг с рису · 20",
-      "article": null,
-      "price": 4110,
-      "short_description": "",
-      "full_description": "",
+      "id": "182921ae-29cc-48f4-bc9b-f1c2e4239466",
+      "title": "Блеск в деталях",
+      "article": "HER-060",
+      "price": 5140,
+      "short_description": "Стеновая композиция из стеклянного баблса, шаров с конфетти, хрома и сердец с надписью.",
+      "full_description": "На стене собраны стеклянный баблс, 3 шара с конфетти, 2 сердца с надписью и 5 хромовых шаров.",
       "composition": [
-        "стеклянный баблс с надписью, круг с рисунком, 3 шара хром, 3 шара"
+        "стеклянный баблс",
+        "3 шара с конфетти",
+        "2 сердца с надписью",
+        "5 шаров хром"
+      ],
+      "category": "Для неё",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "5 000–8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Стеновая композиция из шаров с сердцами в Армавире",
+      "seo_description": "Стеновая композиция из стеклянного баблса, 3 шаров с конфетти, 2 сердец с надписью и 5 хромовых шаров.",
+      "slug": "starkovaya-kompozitsiya-s-baklom-s-serdtsami",
+      "scene": "wall_only",
+      "tags": [
+        "Для неё"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "photo_dhash": "c3cbd4e8e880e0e0"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/9e18b5b0-d3d1-4f5b-b7a9-091552b9419a.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/9e18b5b0-d3d1-4f5b-b7a9-091552b9419a.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-11-10T14:48:35.252Z",
+      "updated_at": "2026-11-10T14:48:35.252Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/888c1772-2d46-4c97-a874-dbc9f56bc28b.webp"
+    },
+    {
+      "id": "609e3f61-6fa7-4b81-a140-ada719731984",
+      "title": "Безупречный выход",
+      "article": null,
+      "price": 5140,
+      "short_description": "Напольная композиция с Минни Маус для торжественного и нарядного оформления праздника.",
+      "full_description": "На фото представлена напольная композиция с Минни Маус. Героиня задаёт узнаваемый образ праздничного оформления.",
+      "composition": [
+        "стеклянный баблс",
+        "3 шара с конфетти",
+        "2 сердца с надписью",
+        "5 шаров хром"
       ],
       "category": "",
+      "character": "Минни Маус",
+      "age_group": "Для детей",
+      "budget": "5 000–8 000 ₽",
+      "series_name": "Disney",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Напольная композиция с Минни Маус в Армавире",
+      "seo_description": "Напольная композиция с Минни Маус для праздника. Оригинальное оформление с героиней Disney в Армавире.",
+      "slug": "napolnaya-kompozitsiya-minni-mays-armavir",
+      "scene": "wall_only",
+      "tags": [],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/be9053f4-bd73-4b71-90ad-5842dae59d40.jpg",
+        "photo_dhash": "cfcf86eeeae0e1e5"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/7ed97ab5-08c7-4bff-96f8-b2b01ec1b6f6.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/7ed97ab5-08c7-4bff-96f8-b2b01ec1b6f6.jpg",
+      "status": "draft",
+      "show_on_site": false,
+      "created_at": "2026-11-10T14:45:19.176Z",
+      "updated_at": "2026-11-10T14:45:19.176Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/cafe24ad-a771-4679-9dc8-6bc77b3f4d87.webp"
+    },
+    {
+      "id": "2ce8060d-88a2-4633-a6ab-32db22c47dbe",
+      "title": "Выход на поле",
+      "article": "BOY-124",
+      "price": 4110,
+      "short_description": "Стеклянный баблс с футбольным принтом и надписью, круг-мяч и синие шары хром.",
+      "full_description": "Композиция из прозрачного баблса с печатью футбольного мяча и именной надписью, фольгированного круга в виде мяча и связки синих и серебряных шаров хром.",
+      "composition": [
+        "стеклянный баблс с надписью",
+        "круг с рисунком",
+        "3 шара хром",
+        "3 шара"
+      ],
+      "category": "Для мальчика",
       "character": null,
-      "age_group": "Для любого возраста",
+      "age_group": "Для детей",
       "budget": "3 500–5 000 ₽",
       "series_name": null,
       "occasion": null,
       "target_audience": null,
-      "seo_title": "",
-      "seo_description": "",
-      "slug": "traktor-i-ryzhiy-drug-2",
+      "seo_title": "Шары на день рождения мальчика с футбольным мячом — Армавир",
+      "seo_description": "Баблс с именной надписью и футбольным принтом, фольгированный мяч и синие шары хром. Оформление дня рождения мальчика в Армавире.",
+      "slug": "vykhod-na-pole",
       "scene": "wall_only",
-      "tags": [],
+      "tags": [
+        "Для мальчика",
+        "Юбилей"
+      ],
       "client_options": {
         "available_on_request": false,
         "advance_order_1_2_days": false,
@@ -94,11 +189,11 @@
         "https://storage.yandexcloud.net/vigsharm-photos/products/e7662730-2648-4d4e-9dcd-6f76dbe6c6b8.jpg"
       ],
       "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/e7662730-2648-4d4e-9dcd-6f76dbe6c6b8.jpg",
-      "status": "draft",
-      "show_on_site": false,
+      "status": "published",
+      "show_on_site": true,
       "created_at": "2026-11-10T11:05:21.903Z",
-      "updated_at": "2026-11-10T11:05:21.903Z",
-      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/a68399ae-fc55-431b-b0e5-508274044e7b.webp"
+      "updated_at": "2026-11-10T12:44:10.015Z",
+      "thumb_photo": null
     },
     {
       "id": "51bf42af-2eb5-4cf7-8df4-0d025055bc57",
@@ -6203,22 +6298,24 @@
     },
     {
       "id": "7f698a8f-61ad-4465-af36-c58565714b85",
-      "title": "Черновик",
+      "title": "Тихая торжественность",
       "article": null,
-      "price": 0,
-      "short_description": "",
-      "full_description": "",
-      "composition": [],
+      "price": 4500,
+      "short_description": "Напольная композиция из воздушных шаров для торжественного оформления пространства.",
+      "full_description": "Напольная композиция из воздушных шаров. Подходит для оформления праздничного пространства и создания выразительного фона.",
+      "composition": [
+        "Напольная композиция"
+      ],
       "category": "",
-      "character": null,
-      "age_group": "Для любого возраста",
-      "budget": null,
-      "series_name": null,
+      "character": "Минни Маус",
+      "age_group": "Для детей",
+      "budget": "3 500–5 000 ₽",
+      "series_name": "Микки Маус",
       "occasion": null,
       "target_audience": null,
-      "seo_title": "",
-      "seo_description": "",
-      "slug": "chernovik-2",
+      "seo_title": "Напольная композиция из шаров в Армавире",
+      "seo_description": "Напольная композиция из воздушных шаров для торжественного оформления пространства в Армавире.",
+      "slug": "napolnaya-kompozitsiya-sharov",
       "scene": "floor",
       "tags": [],
       "client_options": {
@@ -6232,14 +6329,14 @@
         "floor_type": "air"
       },
       "photos": [
-        "https://storage.yandexcloud.net/vigsharm-photos/products/093f1987-96c4-4fd0-a648-b14d3dfc5ff0.jpg"
+        "https://storage.yandexcloud.net/vigsharm-photos/products/064b4b25-1faf-4c52-b0bf-a3641396a887.jpg"
       ],
-      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/093f1987-96c4-4fd0-a648-b14d3dfc5ff0.jpg",
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/064b4b25-1faf-4c52-b0bf-a3641396a887.jpg",
       "status": "draft",
       "show_on_site": false,
       "created_at": "2026-10-23T07:30:31.037Z",
-      "updated_at": "2026-10-23T07:30:31.037Z",
-      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/137c3d95-c086-4a48-8c29-35ac0aaf6a18.webp"
+      "updated_at": "2026-11-10T12:58:59.656Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/575cb45a-91cb-414f-a7da-347f8b19e108.webp"
     },
     {
       "id": "5bb9effe-5cd9-4ccb-b63d-c3393203274e",

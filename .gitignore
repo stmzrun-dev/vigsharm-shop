@@ -17,6 +17,10 @@ npm-debug.log*
 *.temp
 fix-admin.js
 
+# Кэш Python: создаётся при запуске скриптов, в репозиторий не нужен
+__pycache__/
+*.pyc
+
 # Environment
 .env
 .env.local

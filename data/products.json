@@ -60,6 +60,459 @@
       "thumb_photo": "https://vigsharm.ru/preview/bauble-feather-box.webp?v=1"
     },
     {
+      "id": "2ce8060d-88a2-4633-a6ab-32db22c47dbe",
+      "title": "стеклянный баблс с надписью, круг с рису · 20",
+      "article": null,
+      "price": 4110,
+      "short_description": "",
+      "full_description": "",
+      "composition": [
+        "стеклянный баблс с надписью, круг с рисунком, 3 шара хром, 3 шара"
+      ],
+      "category": "",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "traktor-i-ryzhiy-drug-2",
+      "scene": "wall_only",
+      "tags": [],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/bd598002-41fe-44c3-8680-8f8b1ae047d6.jpg",
+        "photo_dhash": "068e2e392f2f2c2e"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/e7662730-2648-4d4e-9dcd-6f76dbe6c6b8.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/e7662730-2648-4d4e-9dcd-6f76dbe6c6b8.jpg",
+      "status": "draft",
+      "show_on_site": false,
+      "created_at": "2026-11-10T11:05:21.903Z",
+      "updated_at": "2026-11-10T11:05:21.903Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/a68399ae-fc55-431b-b0e5-508274044e7b.webp"
+    },
+    {
+      "id": "51bf42af-2eb5-4cf7-8df4-0d025055bc57",
+      "title": "Трактор и рыжий друг",
+      "article": "BOY-123",
+      "price": 3100,
+      "short_description": "Фольгированные фигуры Синего трактора и кота Компота на фоне пастельных латексных шаров.",
+      "full_description": "Настенная композиция из десяти латексных шаров пастельных тонов и двух фольгированных фигур — Синего трактора и кота Компота из мультсериала «Синий трактор».",
+      "composition": [
+        "10 латексных шаров",
+        "2 фигуры"
+      ],
+      "category": "Для мальчика",
+      "character": "Синий трактор",
+      "age_group": "Для малышей",
+      "budget": "2 000–3 500 ₽",
+      "series_name": "Синий трактор",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары с Синим трактором и котом Армавир — купить",
+      "seo_description": "Настенная композиция из 10 латексных шаров и фольгированных фигур Синего трактора и кота Компота. Заказ в Армавире.",
+      "slug": "traktor-i-ryzhiy-drug",
+      "scene": "wall_only",
+      "tags": [
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/99ee4cf4-707e-433b-8722-2aca9e87ce2d.jpg",
+        "photo_dhash": "37889cd8eae8e050"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/c4e1da91-3659-4655-958d-05235110771e.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/c4e1da91-3659-4655-958d-05235110771e.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-11-10T11:01:11.080Z",
+      "updated_at": "2026-11-10T11:02:00.782Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/8da193a3-5cbf-421c-b7f4-7f59e83b904c.webp"
+    },
+    {
+      "id": "28a526d5-22cb-4326-b27e-e54ec0a6cff3",
+      "title": "Принёс малыша",
+      "article": "BAB-062",
+      "price": 1700,
+      "short_description": "Фольгированный аист с узелком и пять белых латексных шаров на нейтральном фоне.",
+      "full_description": "Серебряно-золотой фольгированный аист держит узелок в клюве — классический символ выписки. Рядом букет из пяти белых латексных шаров.",
+      "composition": [
+        "фигура",
+        "5 латексных шаров"
+      ],
+      "category": "На выписку",
+      "character": "Аист",
+      "age_group": "Для малышей",
+      "budget": "1 000–2 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Аист с узелком и белые шары на выписку — Армавир",
+      "seo_description": "Фольгированный аист с узелком и 5 белых латексных шаров на выписку из роддома. Заказ в Армавире.",
+      "slug": "serebryanyy-aist-na-vypisku",
+      "scene": "wall_only",
+      "tags": [
+        "На выписку"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/256e7d8a-f989-4a81-b5b8-9e928eb851bb.jpg",
+        "photo_dhash": "0703274af3e8e444"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/3bdada99-5ef4-4be1-88b1-13a4f496bc04.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/3bdada99-5ef4-4be1-88b1-13a4f496bc04.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-11-10T10:57:07.355Z",
+      "updated_at": "2026-11-10T10:58:04.271Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/7ed792cc-fcac-4364-82e3-fd16cbc90897.webp"
+    },
+    {
+      "id": "d3c6a6b9-85dc-44cf-915a-64279a93cc2c",
+      "title": "Лётный экипаж",
+      "article": "BOY-122",
+      "price": 2870,
+      "short_description": "Мишка-лётчик в шлеме и очках с самолётом на голубых и хромовых шарах.",
+      "full_description": "Фольгированный мишка-пилот в шлеме и лётных очках, самолёт с медвежонком за штурвалом и звезда «С Днём Рождения» на голубых хромовых и белых шарах.",
+      "composition": [
+        "2 фигуры",
+        "звезда с рисунком",
+        "3 шара хром",
+        "2 шара"
+      ],
+      "category": "Для мальчика",
+      "character": "Мишка-пилот",
+      "age_group": "Для малышей",
+      "budget": "2 000–3 500 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары мишка-пилот и самолёт на день рождения мальчика — Армавир",
+      "seo_description": "Фольгированный мишка в лётном шлеме, самолёт с медвежонком и звезда «С Днём Рождения» на голубых хромовых и белых шарах. Оформление в Армавире.",
+      "slug": "lyotnyy-ekipazh",
+      "scene": "wall_only",
+      "tags": [
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/9cc4d8af-d61e-4d81-a69c-0045bcbc8ced.jpg",
+        "photo_dhash": "17f3e0f0e0c4e466"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/ad410a58-0ec0-47c0-8d65-800bbd7245ed.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/ad410a58-0ec0-47c0-8d65-800bbd7245ed.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-11-10T10:41:51.798Z",
+      "updated_at": "2026-11-10T10:41:51.798Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/02fdcd6c-1b79-452a-90ee-cd3b0a1ea503.webp"
+    },
+    {
+      "id": "f912a474-0f9b-4849-b0cf-bca6a850f3ca",
+      "title": "Недостатков нет",
+      "article": "HIM-049",
+      "price": 3300,
+      "short_description": "Рыжий кот в очках и три чёрные звезды с дерзкими надписями для именинника.",
+      "full_description": "Фольгированная фигура рыжего кота в солнцезащитных очках и три чёрные звёзды с надписями «Теперь можно всё, но с умом!», «Недостатков нет, одни спецэффекты» и «Красавчик».",
+      "composition": [
+        "фигура",
+        "большая звезда с надписью",
+        "2 звезды с надписью"
+      ],
+      "category": "Для него",
+      "character": "Кот",
+      "age_group": "Для взрослых",
+      "budget": "2 000–3 500 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары на день рождения с котом и чёрными звёздами — Армавир",
+      "seo_description": "Фольгированный рыжий кот в очках и три чёрные звезды с надписями. Набор шаров для именинника в Армавире. Доставка и оформление.",
+      "slug": "cool-cat-zvezdy-dlya-nego",
+      "scene": "wall_only",
+      "tags": [
+        "Для него"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/9d68501b-f918-4557-baf3-b79a783e1b3b.jpg",
+        "photo_dhash": "2e64e0d0f4f2e062"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/deef8e63-9068-4368-8b2b-0d34868b4ebd.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/deef8e63-9068-4368-8b2b-0d34868b4ebd.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-11-10T10:38:50.736Z",
+      "updated_at": "2026-11-10T10:38:50.736Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/4dd14cae-8662-4d9b-baf4-e880e820a7ee.webp"
+    },
+    {
+      "id": "48f140d5-867b-4b2b-914f-96a1c32edf93",
+      "title": "Полосатый дружище",
+      "article": "GRL-202",
+      "price": 4060,
+      "short_description": "Напольная композиция с фольгированным котом в полоску, цифрой и цветами из шаров.",
+      "full_description": "Напольная композиция с крупной фигурой полосатого кота, фольгированной цифрой на основании из шаров, цветами из твистинга и букетом латексных шаров над ними.",
+      "composition": [
+        "2 шара с конфетти",
+        "5 шаров",
+        "напольная композиция"
+      ],
+      "category": "Для девочки",
+      "character": "Кот Матроскин",
+      "age_group": "Для малышей",
+      "budget": "3 500–5 000 ₽",
+      "series_name": "Простоквашино",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Напольная композиция с котом на день рождения 2 года — Армавир",
+      "seo_description": "Напольная композиция с фольгированным полосатым котом, цифрой 2 и цветами из шаров. Заказ воздушных шаров в Армавире.",
+      "slug": "polosatyi-druzhishche",
+      "scene": "floor",
+      "tags": [
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/fb6071f4-dd40-41b7-a719-8e57a0a14201.jpg",
+        "photo_dhash": "2733332787273eea",
+        "floor_type": "air",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/4c06cb23-190b-495f-bbc1-61f34e81d163.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/4c06cb23-190b-495f-bbc1-61f34e81d163.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-11-10T10:36:54.950Z",
+      "updated_at": "2026-11-10T10:36:54.950Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/1e5db266-93c6-4687-9b92-a2bbe930ae3c.webp"
+    },
+    {
+      "id": "9a56cbc8-d2c8-463c-b481-73cf9b93cab6",
+      "title": "Пчелиный праздник",
+      "article": "Y1-066",
+      "price": 4060,
+      "short_description": "Напольная композиция с фольгированной цифрой 1, пчёлками, ромашками и воздушными шарами жёлто-белой гаммы.",
+      "full_description": "Яркая композиция на полу со стилизованной цифрой, фольгированными пчёлками среди ромашек. Дополнена жёлтыми, белыми и золотыми шарами с конфетти, создаёт весёлую атмосферу.",
+      "composition": [
+        "2 шара с конфетти",
+        "5 шаров",
+        "фигура пчелы",
+        "цветы из шаров"
+      ],
+      "category": "1 годик",
+      "character": "Пчелка",
+      "age_group": "Для малышей",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Композиция из шаров на 1 годик в Армавире",
+      "seo_description": "Напольная композиция с цифрой 1, пчёлками и ромашками для первого дня рождения. Жёлто-белые шары с конфетти.",
+      "slug": "pchelinyj-prazdnik",
+      "scene": "floor",
+      "tags": [
+        "1 годик"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/7b11ed26-decb-4511-8fa1-f76a2c5f2ec1.jpg",
+        "photo_dhash": "c3c3c7b3d943573f",
+        "floor_type": "air"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/7beb8d66-bb0d-49b5-87a9-f81d1be5e1b0.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/7beb8d66-bb0d-49b5-87a9-f81d1be5e1b0.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-11-10T10:35:06.837Z",
+      "updated_at": "2026-11-10T10:35:06.837Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/2e52b8ee-2ce8-4af6-a98e-e2d474916850.webp"
+    },
+    {
+      "id": "b6713c41-2a2d-490b-ba45-f5e9c2ebb479",
+      "title": "Кормилец семьи",
+      "article": "HIM-048",
+      "price": 2500,
+      "short_description": "Голографическая звезда с надписью «Добытчик» и фольгированная фигура рыбы — подарок для рыбака.",
+      "full_description": "Серебряная голографическая звезда с надписью «С днём рождения, Добытчик» и реалистичная фольгированная фигура карпа на палочке.",
+      "composition": [
+        "Большая звезда с надписью",
+        "Фигура"
+      ],
+      "category": "Для него",
+      "character": "Карп",
+      "age_group": "Для взрослых",
+      "budget": "2 000–3 500 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары для рыбака «Добытчик» — звезда и рыба, Армавир",
+      "seo_description": "Голографическая звезда с надписью и фольгированная фигура рыбы — оригинальный подарок рыбаку на день рождения. Доставка по Армавиру.",
+      "slug": "kormilec-semi-zvezda-ryba",
+      "scene": "wall_only",
+      "tags": [
+        "Для него"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/ccc17f23-4d4e-4b80-aa51-40c46a515312.jpg",
+        "photo_dhash": "20c00d8c93b36b6f"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/b34fe44d-2dcd-493f-9832-02d3b6e1d5c3.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/b34fe44d-2dcd-493f-9832-02d3b6e1d5c3.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-11-10T10:32:04.468Z",
+      "updated_at": "2026-11-10T10:32:04.468Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/b88fe0e3-2b94-4396-b4fe-4e675a28e14e.webp"
+    },
+    {
+      "id": "3a85a359-096d-4024-af93-083a8c860408",
+      "title": "Счёт в пользу победителя",
+      "article": "BOY-121",
+      "price": 2610,
+      "short_description": "Футбольная композиция с бутсой, мячами и кругом с надписью в чёрно-белой палитре.",
+      "full_description": "Настенная композиция из фольгированных футбольных мячей, фигуры бутсы и круглого шара с персональной надписью на фоне белых латексных шаров.",
+      "composition": [
+        "фигура",
+        "2 круга с рисунком",
+        "круг с надписью",
+        "4 шара"
+      ],
+      "category": "Для мальчика",
+      "character": null,
+      "age_group": "Для детей",
+      "budget": "2 000–3 500 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Футбольный юбилей — шары с бутсой и мячом, Армавир",
+      "seo_description": "Воздушные шары на юбилей в футбольном стиле: фигура бутсы, два круга с мячом, именной круг с надписью и латексные шары. Оформление в Армавире.",
+      "slug": "futbolnyy-yubiley",
+      "scene": "wall_only",
+      "tags": [
+        "Для мальчика",
+        "Юбилей"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/f3df2694-a4d8-40cb-aa43-73059be099ce.jpg",
+        "photo_dhash": "0d141c9e92b89fee"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/b9dcd4d8-6b21-4fc1-9238-9ddaa9f6eb51.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/b9dcd4d8-6b21-4fc1-9238-9ddaa9f6eb51.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-11-10T10:30:12.149Z",
+      "updated_at": "2026-11-10T10:30:12.149Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/bf0a86fe-e690-46bf-ab5e-1eebf6af09f7.webp"
+    },
+    {
+      "id": "2f911952-87a8-44be-b903-b02e334801d9",
+      "title": "Жемчужина глубин",
+      "article": "Y1-065",
+      "price": 3300,
+      "short_description": "Розовый морской конёк с золотой короной, ракушка и латексные шары с бантиками на нежном пастельном фоне.",
+      "full_description": "Композиция из фольгированного морского конька в розово-золотой палитре, ракушки и пяти латексных шаров с атласными бантиками. Всё выдержано в нежных розово-кремовых тонах.",
+      "composition": [
+        "цифра",
+        "2 фигуры",
+        "5 шаров с бантиками"
+      ],
+      "category": "1 годик",
+      "character": "Морской конёк",
+      "age_group": "Для малышей",
+      "budget": "2 000–3 500 ₽",
+      "series_name": "Под водой",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары на 1 годик для девочки с морским коньком — Армавир",
+      "seo_description": "Нежная композиция из шаров на первый день рождения девочки: фольгированный морской конёк с короной, ракушка и розовые латексные шары с бантиками. Доставка по Армавиру.",
+      "slug": "morskaya-princessa-1-god-k",
+      "scene": "wall_only",
+      "tags": [
+        "1 годик"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/f501588b-5427-4ab5-8d0e-32e345fa4b5b.jpg",
+        "photo_dhash": "000d4f5959591355"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/5f867d5a-1dcb-4d65-a1ae-5381d90dba7f.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/5f867d5a-1dcb-4d65-a1ae-5381d90dba7f.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-11-10T10:25:39.074Z",
+      "updated_at": "2026-11-10T10:25:39.074Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/64690f21-3e37-441f-841e-a7d15baaa224.webp"
+    },
+    {
       "id": "ec00697b-df61-465a-8b01-5f445b8d88a9",
       "title": "Выдержан отлично",
       "article": "HER-059",

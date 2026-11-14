@@ -60,6 +60,51 @@
       "thumb_photo": "https://vigsharm.ru/preview/bauble-feather-box.webp?v=1"
     },
     {
+      "id": "783529ae-69fe-4991-85ff-fed096ac259b",
+      "title": "Погоня продолжается",
+      "article": "BOY-125",
+      "price": 5180,
+      "short_description": "Фольгированные головы Тома и Джерри со стеклянным баблсом с надписью и латексными шарами.",
+      "full_description": "Композиция на стене: две крупные фольгированные головы Тома и Джерри, стеклянный баблс с именем и цифрой, семь латексных шаров в красном, синем и жёлтом цветах.",
+      "composition": [
+        "Стеклянный баблс с надписью",
+        "2 фигуры",
+        "7 шаров"
+      ],
+      "category": "Для мальчика",
+      "character": "Том и Джерри",
+      "age_group": "Для детей",
+      "budget": "5 000–8 000 ₽",
+      "series_name": "Том и Джерри",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары Том и Джерри на день рождения — Армавир",
+      "seo_description": "Воздушные шары с Томом и Джерри: фольгированные фигуры, стеклянный баблс с надписью и латексные шары. Оформление детского праздника в Армавире.",
+      "slug": "tom-i-dzherri-den-rozhdeniya",
+      "scene": "wall_only",
+      "tags": [
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/50ff791f-99e1-470a-bb51-0a506b76c038.jpg",
+        "photo_dhash": "28080c4691f43c49"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/a791c768-1d33-4f75-b8d0-0b2f7c2cde34.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/a791c768-1d33-4f75-b8d0-0b2f7c2cde34.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-11-14T06:55:43.298Z",
+      "updated_at": "2026-11-14T06:55:43.298Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/1797a18c-5e38-45de-9d66-4b67388ee838.webp"
+    },
+    {
       "id": "275f603e-0f8c-479e-9974-794a7c7ee34f",
       "title": "Суперсила папы",
       "article": "HIM-050",

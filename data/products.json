@@ -60,6 +60,329 @@
       "thumb_photo": "https://vigsharm.ru/preview/bauble-feather-box.webp?v=1"
     },
     {
+      "id": "9b7a39ba-49b0-425a-9ed3-5686ea7b8b2a",
+      "title": "Луговой сюрприз",
+      "article": "MOM-007",
+      "price": 4000,
+      "short_description": "Напольная композиция из цветов-ромашек и фиолетового сердца с надписью «Любимой мамочке и бабушке».",
+      "full_description": "Объёмная напольная фигура в форме цифры 8, собранная из латексных цветов-ромашек розового, белого и зелёного цвета. Завершает композицию крупное фиолетовое фольгированное сердце с надписью.",
+      "composition": [
+        "напольная композиция"
+      ],
+      "category": "Для мамы",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Напольная композиция из шаров для мамы и бабушки в Армавире",
+      "seo_description": "Напольная цветочная композиция из латексных ромашек с фиолетовым сердцем. Оригинальный подарок маме и бабушке. Доставка по Армавиру.",
+      "slug": "tsvetochnyy-privet-napol-mama",
+      "scene": "floor",
+      "tags": [
+        "Для мамы"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/b0382dbd-d4f8-48cc-a8d2-48a00cd608b4.jpg",
+        "photo_dhash": "1f392d1b0b9be2e8",
+        "floor_type": "air"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/e35a1ca5-99b9-441a-9325-a154b701c8ab.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/e35a1ca5-99b9-441a-9325-a154b701c8ab.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-11-14T11:57:24.889Z",
+      "updated_at": "2026-11-14T11:57:24.889Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/7a869e84-a40a-4e05-b522-12f561f7d83d.webp"
+    },
+    {
+      "id": "d3e23b7f-62c8-4f64-b720-d1c676d3487e",
+      "title": "Черновик",
+      "article": null,
+      "price": 0,
+      "short_description": "",
+      "full_description": "",
+      "composition": [],
+      "category": "",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "shary-gruzovichok-lyova-malchik-2",
+      "scene": "floor",
+      "tags": [],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "floor_type": "air"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/2981b999-7935-4be3-8439-e68117aac1ea.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/2981b999-7935-4be3-8439-e68117aac1ea.jpg",
+      "status": "draft",
+      "show_on_site": false,
+      "created_at": "2026-11-14T11:55:00.964Z",
+      "updated_at": "2026-11-14T11:55:00.964Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/6a4f15d6-c3b4-4e28-b45f-2a87727c083a.webp"
+    },
+    {
+      "id": "c14abc9f-7d28-45d4-9fcf-1b6a5019dcdf",
+      "title": "Маленький принц дороги",
+      "article": "BOY-127",
+      "price": 3150,
+      "short_description": "Яркий набор с грузовичком Лёвой, цифрой и шарами с машинками для мальчика.",
+      "full_description": "Оранжевая цифра, фольгированный грузовичок Лёва, голубое сердце с надписью и латексные шары с машинками и поздравительными принтами.",
+      "composition": [
+        "6 шаров с рисунком",
+        "сердце с надписью",
+        "фигура",
+        "цифра"
+      ],
+      "category": "Для мальчика",
+      "character": "Лёва",
+      "age_group": "Для детей",
+      "budget": "2 000–3 500 ₽",
+      "series_name": "Грузовичок Лёва",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары с грузовичком Лёвой на день рождения мальчика — Армавир",
+      "seo_description": "Набор воздушных шаров с фигурой грузовичка Лёвы, оранжевой цифрой и латексными шарами с машинками. Доставка по Армавиру.",
+      "slug": "shary-gruzovichok-lyova-malchik",
+      "scene": "wall_only",
+      "tags": [
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": true,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/03e3a6c6-0283-4dbd-b816-8761f66f2f80.jpg",
+        "photo_dhash": "1ec4c4c4e0c86163",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/c3f0aa2d-5d9d-468a-8254-fb0687548a06.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/c3f0aa2d-5d9d-468a-8254-fb0687548a06.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-11-14T11:54:30.499Z",
+      "updated_at": "2026-11-14T11:54:30.499Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/1f99289e-4592-4fb9-a009-5e3c4740237c.webp"
+    },
+    {
+      "id": "89ca9bc8-2d71-4d56-bc51-e2c7c641c7d6",
+      "title": "Мишка с тортиком",
+      "article": "GRL-203",
+      "price": 3190,
+      "short_description": "Фольгированный мишка с праздничным тортом и цифрой 2 в бежево-голубой палитре.",
+      "full_description": "На фото крупная фольгированная фигура медвежонка с тортиком и цифрой 2, рядом букет из латексных шаров и круглый шар с надписью «С днём рождения».",
+      "composition": [
+        "фигура",
+        "цифра",
+        "круг с надписью",
+        "5 шаров"
+      ],
+      "category": "Для девочки",
+      "character": "Мишка",
+      "age_group": "Для детей",
+      "budget": "2 000–3 500 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары на 2 года с мишкой — оформление в Армавире",
+      "seo_description": "Фольгированный мишка с тортиком, цифра 2, круг с надписью и 5 латексных шаров. Нежное оформление дня рождения малыша в Армавире.",
+      "slug": "mishka-s-tortikom-2-goda",
+      "scene": "wall_only",
+      "tags": [
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": true,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/90a46d4d-20da-4992-976d-bcebc9311389.jpg",
+        "photo_dhash": "0f5cbac6caec0818",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/40891be0-3a0f-4b8a-a003-66161b1ce84b.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/40891be0-3a0f-4b8a-a003-66161b1ce84b.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-11-14T11:51:52.018Z",
+      "updated_at": "2026-11-14T11:51:52.018Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/38c8755a-9460-4465-b078-27682cc52f7f.webp"
+    },
+    {
+      "id": "6433af02-ea00-497f-be44-7c3f14238dd0",
+      "title": "Ты — мой дом",
+      "article": "HER-061",
+      "price": 5380,
+      "short_description": "Розово-зелёная композиция с фольгированной розой, сердцами и баблсом «Ты — мой дом».",
+      "full_description": "Нежная настенная композиция из латексных шаров пыльно-розового и зелёного оттенков, трёх фольгированных сердец, крупной фигуры розы и баблса с романтичной надписью.",
+      "composition": [
+        "7 шаров",
+        "3 сердца",
+        "фигура",
+        "стеклянный баблс с надписью"
+      ],
+      "category": "Для неё",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "5 000–8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Воздушные шары с розой и сердцами — Армавир",
+      "seo_description": "Нежная композиция из шаров с фольгированной розой, сердцами и баблсом с надписью. Оформление для неё в Армавире — VigSharm.",
+      "slug": "ty-moy-dom",
+      "scene": "wall_only",
+      "tags": [
+        "Для неё",
+        "Для мамы"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/3c9ab8f6-645b-429b-9ba9-91751fd0a521.jpg",
+        "photo_dhash": "824dd8d8e8bac905"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/0ce55794-a423-4447-9b30-94c3fd3528f0.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/0ce55794-a423-4447-9b30-94c3fd3528f0.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-11-14T11:50:21.548Z",
+      "updated_at": "2026-11-14T11:50:21.548Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/e62c7a7a-f4ea-4511-9341-53bdc41b780c.webp"
+    },
+    {
+      "id": "a0dfc2a9-056e-4e37-bf59-44ed7d27e91b",
+      "title": "Привет из Бикини Боттом",
+      "article": "BOY-126",
+      "price": 6000,
+      "short_description": "Напольная композиция с Губкой Бобом, Патриком и цифрой 8 в голубой морской палитре.",
+      "full_description": "Напольная композиция в тематике «Губка Боб»: фольгированные фигуры Губки Боба и Патрика, голубая цифра 8 с принтом медузы, шары с рисунками персонажей, ананас и скрутка морских водорослей.",
+      "composition": [
+        "8 шаров с рисунком",
+        "шар с конфетти",
+        "круг с рисунком",
+        "парящий шар",
+        "напольная композиция"
+      ],
+      "category": "Для мальчика",
+      "character": "Губка Боб",
+      "age_group": "Для детей",
+      "budget": "5 000–8 000 ₽",
+      "series_name": "Губка Боб Квадратные Штаны",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Напольная композиция Губка Боб на день рождения — Армавир",
+      "seo_description": "Напольная композиция с Губкой Бобом и Патриком, голубая цифра, шары с морскими персонажами. Заказ в Армавире.",
+      "slug": "privet-iz-bikini-bottoma",
+      "scene": "floor",
+      "tags": [
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/b7b0cc22-fea3-4042-9757-95c814e29221.webp",
+        "photo_dhash": "1f1edfc793969ece",
+        "floor_type": "air",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/0b5c4432-acb6-4728-ade0-4cef9333b7d3.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/0b5c4432-acb6-4728-ade0-4cef9333b7d3.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-11-14T11:47:36.097Z",
+      "updated_at": "2026-11-14T11:47:36.097Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/2e1861c5-fc10-46b0-8489-849884638448.webp"
+    },
+    {
+      "id": "8fe7f411-3d0e-488b-b608-fe6af5083cdb",
+      "title": "Черновик",
+      "article": null,
+      "price": 0,
+      "short_description": "",
+      "full_description": "",
+      "composition": [
+        "8 шаров с рисунком, шар с конфетти, круг с рисунком, парящий шар, напольная композиция"
+      ],
+      "category": "",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "chernovik-2",
+      "scene": "floor",
+      "tags": [],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/8d74edfc-68fe-41f8-b6c2-0019d5d1076e.jpg",
+        "photo_dhash": "c21e1e8f84ae93cc",
+        "floor_type": "air"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/68d5f8bf-3a78-43df-9479-10102c9cde8e.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/68d5f8bf-3a78-43df-9479-10102c9cde8e.jpg",
+      "status": "draft",
+      "show_on_site": false,
+      "created_at": "2026-11-14T11:43:18.664Z",
+      "updated_at": "2026-11-14T11:43:18.664Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/b2acc65b-a658-44d5-8bdb-07ea238d3652.webp"
+    },
+    {
       "id": "783529ae-69fe-4991-85ff-fed096ac259b",
       "title": "Погоня продолжается",
       "article": "BOY-125",

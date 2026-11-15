@@ -2152,11 +2152,6 @@ function baublePoseOf(opts) {
   return opts?.bauble_pose === 'box' || opts?.bauble_pose === 'scatter' ? opts.bauble_pose : 'tree';
 }
 
-/** Квадрат 1:1 нельзя получать растяжением. Штамп поставщика — не надпись на шаре. */
-const squareFitLock = `The SECOND image is the VigSharm studio. Replace the entire background with that room. The original wall, floor, and furniture must not remain.
-Do NOT stretch, squash, or scale the product to fill the frame. Circles stay circles. Do NOT return a resized copy of the first photo.
-Erase translucent supplier watermarks (SHARIKI, SHARIKIVK, .ru, VK) even across ribbons. Keep words printed on the balloons.`;
-
 /** Сердце у рамы зеркала — один товар. Считать по грузикам на полу, не по стеклу. */
 const mirrorHeartLock = `HEART AGAINST A MIRROR FRAME — still ONE heart:
 - A foil heart standing against or overlapping a vanity/mirror frame is ONE product, even when the glass or the white bulb frame makes a second heart seem to sit behind it
@@ -2199,7 +2194,7 @@ GENDER / AUDIENCE PALETTE LOCK (critical — common failure):
   const logoClean = `ALLOWED EXCEPTION — REMOVE supplier / marketplace packaging overlays and watermarks (critical for catalog photos, especially «шары поштучно» / unit balloons from Sima-land and similar):
 REMOVE completely (inpaint as if never there):
 - Corner and floating badges/boxes: brand logos (MARVEL, Disney, etc. as separate rectangular stickers on the photo), size labels («12" / 30 CM», «18"», diameter), usage labels («ДЛЯ ГЕЛИЯ И ВОЗДУХА», «для гелия», «воздух», helium/air icons)
-- Marketplace / shop watermarks and URLs anywhere on the image: sima-land.ru, wildberries, ozon, sharomem.ru, sharomen.ru, shariki, SHARIKI, SHARIKIVK, Instagram/VK handles, translucent stamps, shop names, banners
+- Marketplace / shop watermarks and URLs anywhere on the image: sima-land.ru, wildberries, ozon, sharomem.ru, sharomen.ru, Instagram/VK handles, translucent stamps, shop names, banners
 - Small © copyright stamps and supplier URL text overlaid on or near balloons that are NOT part of the balloon's own printed design
 - Any colored pill/rectangle with white text glued onto the catalog photo (packaging chrome), not printed into the latex/foil artwork
 - Circular / round hang tags and brand discs on ribbons or wrap (shop logos like «МАИК», heart+name discs, cardboard circle tags, plastic logo badges dangling from the bouquet)
@@ -2749,12 +2744,7 @@ function buildRephotographAttempts(imageUrl, referenceUrl, prompt, resolution = 
       : (scene === 'surprise'
       ? (wallHint + surpriseHint)
       : (ceiling ? (wallHint + ceilingHint) : (table ? (wallHint + tableHint) : (wallOnly ? wallHint : (wallHint + floorHint)))));
-  const withRef = (input) => {
-    if (keepBg || !referenceUrl) return input;
-    const image = input.image;
-    const urls = Array.isArray(image) ? image : [image, referenceUrl];
-    return { ...input, reference_image: referenceUrl, image_urls: urls };
-  };
+  const withRef = (input) => (keepBg ? input : { ...input, reference_image: referenceUrl });
   const attempts = [];
 
   const pushBanana = () => {
@@ -2780,7 +2770,7 @@ function buildRephotographAttempts(imageUrl, referenceUrl, prompt, resolution = 
 
   // Mid-run fallback: Flux only. This model rejects prompts over 5000 characters.
   if (prefer === 'flux') {
-    const fluxPrompt = squareFitLock + '\n\n' + buildFluxPrompt(scene, opts);
+    const fluxPrompt = buildFluxPrompt(scene, opts);
     console.log('[Studio Rephotograph] flux prompt chars=', fluxPrompt.length);
     attempts.push({
       model: 'image/flux2-pro-edit',
@@ -2797,13 +2787,13 @@ function buildRephotographAttempts(imageUrl, referenceUrl, prompt, resolution = 
   // After Sunburst refuses: Pro gets the product and the studio as two images.
   // reference_image is not in this model's schema, so the room goes in `image`.
   if (prefer === 'pro') {
+    const bananaExtra = scene === 'bauble' ? baubleHint : (keepBg ? '' : (scene === 'surprise' ? surpriseHint : (ceiling ? ceilingHint : (table ? tableHint : (wallOnly ? '' : floorHint)))));
     const pair = !keepBg && referenceUrl;
-    const short = squareFitLock + '\n\n' + buildFluxPrompt(scene, opts);
     attempts.push({
       model: 'image/nano-banana-pro',
       input: {
-        prompt: short + (pair
-          ? '\n\nTWO IMAGES in order: image 1 is the product photo to keep. image 2 is the VigSharm studio. Copy the room from image 2 only. Do not keep the original background and do not stretch image 1 to fill the square.'
+        prompt: prompt + bananaExtra + (pair
+          ? '\n\nTWO IMAGES in order: image 1 is the product photo to keep. image 2 is the VigSharm studio reference. Copy the room from image 2 only (wall, baseboard, floor or ceiling as that photo shows). Do not invent a different room.'
           : ''),
         image: pair ? [imageUrl, referenceUrl] : imageUrl,
         aspect_ratio: aspect,
@@ -2918,7 +2908,7 @@ async function handleStudioRephotograph(request, env) {
     }
   }
 
-  let prompt = squareFitLock + '\n\n' + buildRephotographPrompt(scene, { photozone_type, unit_type, bouquet_type, surprise_pose, bauble_pose });
+  let prompt = buildRephotographPrompt(scene, { photozone_type, unit_type, bouquet_type, surprise_pose, bauble_pose });
   if (frame === 'post') {
     prompt += '\n\nOUTPUT 4:5 portrait. Keep the ENTIRE balloon arrangement fully inside the frame: every balloon, digit, character and ribbon tip complete, with studio wall visible around the set. Do not crop, do not zoom in, do not cut off any balloon.';
   } else if (frame === 'story') {
@@ -2988,7 +2978,7 @@ async function handleStudioRephotograph(request, env) {
         generateResp = await nordRequest('/media/generate', 'POST', {
           model: attempt.model,
           input: attempt.input
-        }, env, 12000);
+        }, env);
       } catch (err) {
         generateResp = { error: { message: err.message || String(err) } };
       }

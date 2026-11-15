@@ -1249,8 +1249,6 @@ Object.assign(app, {
 
   async callRephotographMaster(imageUrl, scene, statusEl, format) {
     // Без restore: лишний шаг (часто content-policy на персонажах) и +1–3 мин.
-    // Исходник не вписываем в квадрат заранее: модель принимала поля за фон и не ставила студию.
-    const sourceUrl = imageUrl;
     const keepBg = scene === 'arch';
     const shotLabel = format?.frame === 'story' ? 'Сторис 9:16' : 'Master';
     const referenceUrl = keepBg ? '' : await this.ensureReferenceHttpsUrl(scene);
@@ -1308,8 +1306,8 @@ Object.assign(app, {
             ? '🎄 Ёлка: шар вешаем на ветку...'
             : '🎄 Стол: шары лежат на новогоднем столе...')
           : (scene === 'wall_only' || scene === 'unit_balloon')
-          ? '🧱 Ставим фон студии…'
-          : '📸 Ставим фон студии…';
+          ? '🧱 Manus: sunburst → banana pro → banana...'
+          : '📸 AI переснимает в студии (sunburst → banana pro → banana)...';
     }
 
     const takeResult = async (data, maxAttempts) => {
@@ -1321,21 +1319,11 @@ Object.assign(app, {
       });
     };
 
-    // Sunburst отвечает быстро. Фон студии кладём в image_urls рядом с товаром.
-    // Отдельный первый запрос к banana pro сервер обрывал: в браузере это Failed to fetch.
+    // quality (sunburst/gpt) ждём дольше.
+    // При сбое: Nano Banana Pro с товаром и эталоном.
+    // Чат — только если Pro не принял два фото. Banana 2 — последний шанс.
     const genFailRe = /не удалось сгенерировать|возвращены на баланс|обработка не удалась|модель отклонила|таймаут обработки|failed to fetch|networkerror|load failed|rephotograph http|ошибка rephotograph|не вернул job_id|abort|content.?policy|copyright|авторск|safety|nsfw|moderation|rejected|violat/i;
     const jobRanRe = /обработка не удалась|таймаут обработки|модель отклонила/;
-    const needsRoom = !keepBg && format?.frame !== 'story';
-    if (needsRoom) {
-      const data = await startJob('quality');
-      if (statusEl) statusEl.textContent = `⏳ ${shotLabel}: фон студии (${data.model || 'quality'})...`;
-      let url = await takeResult(data, 90);
-      if (await this.masterIgnoredBackground(sourceUrl, url)) {
-        if (statusEl) statusEl.textContent = 'Модель оставила исходник — ставлю фон эталона...';
-        url = await this.callCompositeMaster(sourceUrl, scene, statusEl);
-      }
-      return url;
-    }
     let data;
     try {
       data = await startJob('quality');
@@ -1400,7 +1388,6 @@ Object.assign(app, {
     if (source && url.split('?')[0] === String(source).split('?')[0]) {
       throw new Error('Модель вернула то же фото — кадр не изменился');
     }
-    if (source) await this.assertMasterIsNewShot(source, url);
 
     this.studioMasterBackupUrl = url;
     this.studioMasterBaseUrl = url;
@@ -1577,7 +1564,7 @@ Object.assign(app, {
         this.studioCompare.master = keptMaster;
         this.renderStudioCompare();
         if (statusEl) statusEl.textContent = '❌ Новый Master не вышел — оставлен предыдущий';
-        this.toast('Предыдущий Master сохранён. ' + (err.message || 'Новый кадр не вышел'), 'error');
+        this.toast('Ошибка — предыдущий Master сохранён', 'error');
       } else {
         if (statusEl) statusEl.textContent = '❌ ' + err.message;
         this.toast(err.message, 'error');
@@ -1861,156 +1848,6 @@ Object.assign(app, {
       throw new Error((uploadResult && uploadResult.error) || 'Cloudinary upload failed');
     }
     return uploadResult.url;
-  },
-
-  /** Цвет полей квадрата — верх стены эталона, чтобы модель дорисовала студию, а не плющила шар. */
-  async studioWallFill() {
-    try {
-      const bg = await this.loadImage(this.getReferenceBackgroundUrl());
-      const c = document.createElement('canvas');
-      c.width = 8;
-      c.height = 8;
-      const ctx = c.getContext('2d', { willReadFrequently: true });
-      const sx = Math.max(0, bg.width * 0.45);
-      const sy = Math.max(0, bg.height * 0.18);
-      ctx.drawImage(bg, sx, sy, 24, 24, 0, 0, 8, 8);
-      const p = ctx.getImageData(4, 4, 1, 1).data;
-      if (!p[0] && !p[1] && !p[2]) return '#d4cdc4';
-      return `rgb(${p[0]},${p[1]},${p[2]})`;
-    } catch (e) {
-      return '#d4cdc4';
-    }
-  },
-
-  /**
-   * Вписывает исходник в квадрат без растяжения. Уже квадратное фото не трогает.
-   * При ошибке (чужой хост без CORS) отдаёт исходный адрес.
-   */
-  async fitSourceToSquare(imageUrl, statusEl) {
-    let img;
-    try {
-      img = await this.loadImage(imageUrl);
-    } catch (e) {
-      console.warn('[Studio Pro] square fit skipped, image', e);
-      return imageUrl;
-    }
-    const w = img.naturalWidth || img.width;
-    const h = img.naturalHeight || img.height;
-    if (!w || !h) return imageUrl;
-    const ratio = w / h;
-    if (ratio > 0.98 && ratio < 1.02) return imageUrl;
-    if (statusEl) statusEl.textContent = 'Квадрат без растяжения…';
-    const side = Math.min(1600, Math.max(w, h));
-    const canvas = document.createElement('canvas');
-    canvas.width = side;
-    canvas.height = side;
-    const ctx = canvas.getContext('2d');
-    ctx.fillStyle = await this.studioWallFill();
-    ctx.fillRect(0, 0, side, side);
-    const scale = side / Math.max(w, h);
-    const dw = Math.round(w * scale);
-    const dh = Math.round(h * scale);
-    ctx.drawImage(img, Math.round((side - dw) / 2), Math.round((side - dh) / 2), dw, dh);
-    try {
-      const dataUrl = canvas.toDataURL('image/jpeg', 0.9);
-      return await this.ensureHttpsPhotoUrl(dataUrl, 'studio-square.jpg');
-    } catch (e) {
-      console.warn('[Studio Pro] square fit upload skipped', e);
-      return imageUrl;
-    }
-  },
-
-  sampleImage(img, sx, sy, sw, sh, dw, dh) {
-    const c = document.createElement('canvas');
-    c.width = dw;
-    c.height = dh;
-    const ctx = c.getContext('2d', { willReadFrequently: true });
-    ctx.drawImage(img, sx, sy, sw, sh, 0, 0, dw, dh);
-    return ctx.getImageData(0, 0, dw, dh).data;
-  },
-
-  meanAbsDiff(a, b) {
-    const n = Math.min(a.length, b.length);
-    const pixels = n / 4;
-    if (!pixels) return 255;
-    let sum = 0;
-    for (let i = 0; i < n; i += 4) {
-      sum += Math.abs(a[i] - b[i]) + Math.abs(a[i + 1] - b[i + 1]) + Math.abs(a[i + 2] - b[i + 2]);
-    }
-    return sum / (pixels * 3);
-  },
-
-  /** true, если кадр — тот же исходник, возможно растянутый в квадрат, без фона студии. */
-  async masterIgnoredBackground(sourceUrl, resultUrl) {
-    try {
-      await this.assertMasterIsNewShot(sourceUrl, resultUrl);
-      return false;
-    } catch (e) {
-      if (/растянула|тот же кадр|не переснят/.test(String(e?.message || e))) return true;
-      console.warn('[Studio Pro] background check skipped', e);
-      return false;
-    }
-  },
-
-  /**
-   * Отклоняет эхо исходника и кадр, который получен растяжением фото в квадрат.
-   * Настоящая пересъёмка (другая стена, стёртый штамп) проходит.
-   */
-  async loadImageForCheck(url) {
-    if (!url || url.startsWith('data:') || url.startsWith('blob:')) return this.loadImage(url);
-    const res = await fetch(`${this.workerUrl}/api/admin/proxy-image`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', ...this.authHeaders() },
-      body: JSON.stringify({ url })
-    });
-    if (!res.ok) throw new Error(`proxy-image HTTP ${res.status}`);
-    const blob = await res.blob();
-    return this.loadImage(URL.createObjectURL(blob));
-  },
-
-  async assertMasterIsNewShot(sourceUrl, resultUrl) {
-    let source;
-    let result;
-    try {
-      [source, result] = await Promise.all([
-        this.loadImageForCheck(sourceUrl),
-        this.loadImageForCheck(resultUrl)
-      ]);
-    } catch (e) {
-      console.warn('[Studio Pro] frame check skipped', e);
-      return;
-    }
-    const sw = source.naturalWidth || source.width;
-    const sh = source.naturalHeight || source.height;
-    const rw = result.naturalWidth || result.width;
-    const rh = result.naturalHeight || result.height;
-    if (!sw || !sh || !rw || !rh) return;
-    const tw = 64;
-    const th = Math.max(16, Math.round(tw * sh / sw));
-    let sourceThumb;
-    let windowThumb;
-    let stretchedThumb;
-    try {
-      sourceThumb = this.sampleImage(source, 0, 0, sw, sh, tw, th);
-      const side = Math.max(sw, sh);
-      const ox = (side - sw) / 2 / side;
-      const oy = (side - sh) / 2 / side;
-      windowThumb = this.sampleImage(result, ox * rw, oy * rh, (sw / side) * rw, (sh / side) * rh, tw, th);
-      stretchedThumb = this.sampleImage(result, 0, 0, rw, rh, tw, th);
-    } catch (e) {
-      console.warn('[Studio Pro] frame check skipped', e);
-      return;
-    }
-    const sameWindow = this.meanAbsDiff(sourceThumb, windowThumb);
-    const sameStretch = this.meanAbsDiff(sourceThumb, stretchedThumb);
-    console.log('[Studio Pro] frame diff', { sameWindow: Math.round(sameWindow), sameStretch: Math.round(sameStretch) });
-    const squareSource = sw / sh > 0.98 && sw / sh < 1.02;
-    if (squareSource && sameStretch < 8 && sameWindow < 8) {
-      throw new Error('Модель вернула тот же кадр — шар не переснят');
-    }
-    if (!squareSource && sameStretch < 20 && sameWindow > sameStretch + 8) {
-      throw new Error('Модель растянула фото в квадрат — кадр не принят');
-    }
   },
 
   async ensureHttpsPhotoUrl(url, filename = 'photo.webp') {

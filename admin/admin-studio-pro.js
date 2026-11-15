@@ -1249,10 +1249,8 @@ Object.assign(app, {
 
   async callRephotographMaster(imageUrl, scene, statusEl, format) {
     // Без restore: лишний шаг (часто content-policy на персонажах) и +1–3 мин.
-    const wantSquare = !format?.aspect_ratio || format.aspect_ratio === '1:1';
-    if (wantSquare) {
-      imageUrl = await this.fitSourceToSquare(imageUrl, statusEl);
-    }
+    // Исходник не вписываем в квадрат заранее: модель принимала поля за фон и не ставила студию.
+    const sourceUrl = imageUrl;
     const keepBg = scene === 'arch';
     const shotLabel = format?.frame === 'story' ? 'Сторис 9:16' : 'Master';
     const referenceUrl = keepBg ? '' : await this.ensureReferenceHttpsUrl(scene);
@@ -1310,8 +1308,8 @@ Object.assign(app, {
             ? '🎄 Ёлка: шар вешаем на ветку...'
             : '🎄 Стол: шары лежат на новогоднем столе...')
           : (scene === 'wall_only' || scene === 'unit_balloon')
-          ? '🧱 Manus: sunburst → banana pro → banana...'
-          : '📸 AI переснимает в студии (sunburst → banana pro → banana)...';
+          ? '🧱 Ставим фон студии…'
+          : '📸 Ставим фон студии…';
     }
 
     const takeResult = async (data, maxAttempts) => {
@@ -1323,12 +1321,33 @@ Object.assign(app, {
       });
     };
 
-    // quality (sunburst/gpt) ждём дольше.
-    // При сбое: Nano Banana Pro с товаром и эталоном.
-    // Чат — только если Pro не принял два фото. Banana 2 — последний шанс.
+    // Фон студии видит только запрос с двумя фото. Sunburst эталон часто
+    // игнорирует и за деньги отдаёт растянутый исходник — его не запускаем первым.
     const genFailRe = /не удалось сгенерировать|возвращены на баланс|обработка не удалась|модель отклонила|таймаут обработки|failed to fetch|networkerror|load failed|rephotograph http|ошибка rephotograph|не вернул job_id|abort|content.?policy|copyright|авторск|safety|nsfw|moderation|rejected|violat/i;
     const jobRanRe = /обработка не удалась|таймаут обработки|модель отклонила/;
+    const needsRoom = !keepBg && format?.frame !== 'story';
+    const acceptRoom = async (url) => {
+      if (needsRoom && await this.masterIgnoredBackground(sourceUrl, url)) {
+        throw new Error('Модель не заменила фон студии');
+      }
+      return url;
+    };
     let data;
+    if (needsRoom) {
+      try {
+        data = await startJob('pro');
+        if (statusEl) statusEl.textContent = `⏳ ${shotLabel}: фон студии (${data.model || 'banana pro'})...`;
+        return await acceptRoom(await takeResult(data, 100));
+      } catch (err) {
+        const msg = String(err?.message || err);
+        if (/не заменила фон/.test(msg) || !genFailRe.test(msg)) throw err;
+        console.warn('[Studio Pro] pro failed, one chat try:', msg);
+        if (statusEl) statusEl.textContent = '↻ Модель без фона — ещё одна попытка с эталоном...';
+        data = await startJob('pro-chat');
+        if (statusEl) statusEl.textContent = `⏳ ${shotLabel}: фон студии (${data.model || 'чат'})...`;
+        return await acceptRoom(await takeResult(data, 40));
+      }
+    }
     try {
       data = await startJob('quality');
       if (statusEl) statusEl.textContent = `⏳ ${shotLabel} (${data.model || 'quality'}, до ~4.5 мин)...`;
@@ -1930,6 +1949,18 @@ Object.assign(app, {
       sum += Math.abs(a[i] - b[i]) + Math.abs(a[i + 1] - b[i + 1]) + Math.abs(a[i + 2] - b[i + 2]);
     }
     return sum / (pixels * 3);
+  },
+
+  /** true, если кадр — тот же исходник, возможно растянутый в квадрат, без фона студии. */
+  async masterIgnoredBackground(sourceUrl, resultUrl) {
+    try {
+      await this.assertMasterIsNewShot(sourceUrl, resultUrl);
+      return false;
+    } catch (e) {
+      if (/растянула|тот же кадр|не переснят/.test(String(e?.message || e))) return true;
+      console.warn('[Studio Pro] background check skipped', e);
+      return false;
+    }
   },
 
   /**

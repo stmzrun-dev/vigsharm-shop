@@ -2153,11 +2153,9 @@ function baublePoseOf(opts) {
 }
 
 /** Квадрат 1:1 нельзя получать растяжением. Штамп поставщика — не надпись на шаре. */
-const squareFitLock = `SQUARE FIT — do this before anything else:
-- Do NOT stretch, squash, or non-uniformly scale the photo to fill the square. Circles stay circles. A round balloon must not become an oval.
-- If the photo does not fill the frame, OUTPAINT the empty margins with the studio wall from the reference. Never distort the product to cover those margins.
-- ERASE translucent supplier watermarks and URLs even when they cross ribbons or the wall: SHARIKI, shariki, SHARIKIVK, shariki.vk, .ru, VK, vk.com. Inpaint the wall or ribbon that was under the stamp.
-- KEEP text printed ON a balloon (names, greetings, character art). A watermark across the photo is not balloon print.`;
+const squareFitLock = `The SECOND image is the VigSharm studio. Replace the entire background with that room. The original wall, floor, and furniture must not remain.
+Do NOT stretch, squash, or scale the product to fill the frame. Circles stay circles. Do NOT return a resized copy of the first photo.
+Erase translucent supplier watermarks (SHARIKI, SHARIKIVK, .ru, VK) even across ribbons. Keep words printed on the balloons.`;
 
 /** Сердце у рамы зеркала — один товар. Считать по грузикам на полу, не по стеклу. */
 const mirrorHeartLock = `HEART AGAINST A MIRROR FRAME — still ONE heart:
@@ -2794,13 +2792,13 @@ function buildRephotographAttempts(imageUrl, referenceUrl, prompt, resolution = 
   // After Sunburst refuses: Pro gets the product and the studio as two images.
   // reference_image is not in this model's schema, so the room goes in `image`.
   if (prefer === 'pro') {
-    const bananaExtra = scene === 'bauble' ? baubleHint : (keepBg ? '' : (scene === 'surprise' ? surpriseHint : (ceiling ? ceilingHint : (table ? tableHint : (wallOnly ? '' : floorHint)))));
     const pair = !keepBg && referenceUrl;
+    const short = squareFitLock + '\n\n' + buildFluxPrompt(scene, opts);
     attempts.push({
       model: 'image/nano-banana-pro',
       input: {
-        prompt: prompt + bananaExtra + (pair
-          ? '\n\nTWO IMAGES in order: image 1 is the product photo to keep. image 2 is the VigSharm studio reference. Copy the room from image 2 only (wall, baseboard, floor or ceiling as that photo shows). Do not invent a different room.'
+        prompt: short + (pair
+          ? '\n\nTWO IMAGES in order: image 1 is the product photo to keep. image 2 is the VigSharm studio. Copy the room from image 2 only. Do not keep the original background and do not stretch image 1 to fill the square.'
           : ''),
         image: pair ? [imageUrl, referenceUrl] : imageUrl,
         aspect_ratio: aspect,

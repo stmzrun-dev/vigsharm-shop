@@ -1173,7 +1173,23 @@ Object.assign(app, {
     try {
       data = await startJob('quality');
       if (statusEl) statusEl.textContent = `⏳ Master (${data.model || 'quality'}, до ~4.5 мин)...`;
-      return await takeResult(data, 90);
+      const firstUrl = await takeResult(data, 90);
+      const needsRoom = !keepBg && format?.frame !== 'story';
+      if (!needsRoom || !(await this.looksLikeStretchedSource(imageUrl, firstUrl))) {
+        return firstUrl;
+      }
+      if (statusEl) statusEl.textContent = 'Исходник растянут — вторая попытка с фоном студии...';
+      try {
+        const second = await startJob('pro');
+        if (statusEl) statusEl.textContent = `⏳ Вторая попытка (${second.model || 'banana pro'})...`;
+        const secondUrl = await takeResult(second, 100);
+        if (await this.looksLikeStretchedSource(imageUrl, secondUrl)) return firstUrl;
+        return secondUrl;
+      } catch (secondErr) {
+        console.warn('[Studio Pro] second shot failed, keeping first', secondErr);
+        if (statusEl) statusEl.textContent = 'Вторая попытка не вышла — оставляю первый кадр';
+        return firstUrl;
+      }
     } catch (err) {
       const msg = String(err?.message || err);
       // Do NOT match bare "failed" — that catches "Failed to fetch" (503/CORS) incorrectly
@@ -2607,6 +2623,75 @@ Object.assign(app, {
     sw = Math.max(1, Math.min(sw, iw - sx));
     sh = Math.max(1, Math.min(sh, ih - sy));
     return { sx, sy, sw, sh };
+  },
+
+  async loadImageForCheck(url) {
+    if (!url || /^data:|^blob:/i.test(url)) return this.loadImage(url);
+    const res = await fetch(`${this.workerUrl}/api/admin/proxy-image`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', ...this.authHeaders() },
+      body: JSON.stringify({ url })
+    });
+    if (!res.ok) throw new Error(`proxy-image HTTP ${res.status}`);
+    const blob = await res.blob();
+    return this.loadImage(URL.createObjectURL(blob));
+  },
+
+  sampleImage(img, sx, sy, sw, sh, dw, dh) {
+    const canvas = document.createElement('canvas');
+    canvas.width = dw;
+    canvas.height = dh;
+    const ctx = canvas.getContext('2d', { willReadFrequently: true });
+    ctx.drawImage(img, sx, sy, sw, sh, 0, 0, dw, dh);
+    return ctx.getImageData(0, 0, dw, dh).data;
+  },
+
+  meanAbsDiff(a, b) {
+    const n = Math.min(a.length, b.length);
+    const pixels = n / 4;
+    if (!pixels) return 255;
+    let sum = 0;
+    for (let i = 0; i < n; i += 4) {
+      sum += Math.abs(a[i] - b[i]) + Math.abs(a[i + 1] - b[i + 1]) + Math.abs(a[i + 2] - b[i + 2]);
+    }
+    return sum / (pixels * 3);
+  },
+
+  /** Исходник, который только растянули в квадрат. Настоящая смена комнаты сюда не попадает. */
+  async looksLikeStretchedSource(sourceUrl, resultUrl) {
+    try {
+      const source = await this.loadImageForCheck(sourceUrl);
+      const result = await this.loadImageForCheck(resultUrl);
+      const sw = source.naturalWidth || source.width;
+      const sh = source.naturalHeight || source.height;
+      const rw = result.naturalWidth || result.width;
+      const rh = result.naturalHeight || result.height;
+      if (!sw || !sh || !rw || !rh) return false;
+      const tw = 64;
+      const th = Math.max(16, Math.round(tw * sh / sw));
+      const sourceThumb = this.sampleImage(source, 0, 0, sw, sh, tw, th);
+      const stretchedThumb = this.sampleImage(result, 0, 0, rw, rh, tw, th);
+      const side = Math.max(sw, sh);
+      const windowThumb = this.sampleImage(
+        result,
+        ((side - sw) / 2 / side) * rw,
+        ((side - sh) / 2 / side) * rh,
+        (sw / side) * rw,
+        (sh / side) * rh,
+        tw,
+        th
+      );
+      const sameStretch = this.meanAbsDiff(sourceThumb, stretchedThumb);
+      const sameWindow = this.meanAbsDiff(sourceThumb, windowThumb);
+      console.log('[Studio Pro] frame diff', {
+        sameStretch: Math.round(sameStretch),
+        sameWindow: Math.round(sameWindow)
+      });
+      return sameStretch < 12 || (sameWindow < 12 && sameStretch < 18);
+    } catch (e) {
+      console.warn('[Studio Pro] stretch check skipped', e);
+      return false;
+    }
   },
 
   loadImage(src) {

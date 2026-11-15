@@ -1321,37 +1321,20 @@ Object.assign(app, {
       });
     };
 
-    // Фон студии видит только запрос с двумя фото. Sunburst эталон часто
-    // игнорирует и за деньги отдаёт растянутый исходник — его не запускаем первым.
+    // Sunburst отвечает быстро. Фон студии кладём в image_urls рядом с товаром.
+    // Отдельный первый запрос к banana pro сервер обрывал: в браузере это Failed to fetch.
     const genFailRe = /не удалось сгенерировать|возвращены на баланс|обработка не удалась|модель отклонила|таймаут обработки|failed to fetch|networkerror|load failed|rephotograph http|ошибка rephotograph|не вернул job_id|abort|content.?policy|copyright|авторск|safety|nsfw|moderation|rejected|violat/i;
     const jobRanRe = /обработка не удалась|таймаут обработки|модель отклонила/;
     const needsRoom = !keepBg && format?.frame !== 'story';
-    const acceptRoom = async (url) => {
-      if (needsRoom && await this.masterIgnoredBackground(sourceUrl, url)) {
-        throw new Error('Модель не заменила фон студии');
-      }
-      return url;
-    };
     let data;
-    if (needsRoom) {
-      try {
-        data = await startJob('pro');
-        if (statusEl) statusEl.textContent = `⏳ ${shotLabel}: фон студии (${data.model || 'banana pro'})...`;
-        return await acceptRoom(await takeResult(data, 100));
-      } catch (err) {
-        const msg = String(err?.message || err);
-        if (/не заменила фон/.test(msg) || !genFailRe.test(msg)) throw err;
-        console.warn('[Studio Pro] pro failed, one chat try:', msg);
-        if (statusEl) statusEl.textContent = '↻ Модель без фона — ещё одна попытка с эталоном...';
-        data = await startJob('pro-chat');
-        if (statusEl) statusEl.textContent = `⏳ ${shotLabel}: фон студии (${data.model || 'чат'})...`;
-        return await acceptRoom(await takeResult(data, 40));
-      }
-    }
     try {
       data = await startJob('quality');
-      if (statusEl) statusEl.textContent = `⏳ ${shotLabel} (${data.model || 'quality'}, до ~4.5 мин)...`;
-      return await takeResult(data, 90);
+      if (statusEl) statusEl.textContent = `⏳ ${shotLabel}: фон студии (${data.model || 'quality'})...`;
+      const firstUrl = await takeResult(data, 90);
+      if (needsRoom && await this.masterIgnoredBackground(sourceUrl, firstUrl)) {
+        throw new Error('Модель не заменила фон студии');
+      }
+      return firstUrl;
     } catch (err) {
       const msg = String(err?.message || err);
       // Do NOT match bare "failed" — that catches "Failed to fetch" (503/CORS) incorrectly

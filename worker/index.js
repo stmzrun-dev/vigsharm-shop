@@ -2749,7 +2749,12 @@ function buildRephotographAttempts(imageUrl, referenceUrl, prompt, resolution = 
       : (scene === 'surprise'
       ? (wallHint + surpriseHint)
       : (ceiling ? (wallHint + ceilingHint) : (table ? (wallHint + tableHint) : (wallOnly ? wallHint : (wallHint + floorHint)))));
-  const withRef = (input) => (keepBg ? input : { ...input, reference_image: referenceUrl });
+  const withRef = (input) => {
+    if (keepBg || !referenceUrl) return input;
+    const image = input.image;
+    const urls = Array.isArray(image) ? image : [image, referenceUrl];
+    return { ...input, reference_image: referenceUrl, image_urls: urls };
+  };
   const attempts = [];
 
   const pushBanana = () => {

@@ -2152,6 +2152,13 @@ function baublePoseOf(opts) {
   return opts?.bauble_pose === 'box' || opts?.bauble_pose === 'scatter' ? opts.bauble_pose : 'tree';
 }
 
+/** Квадрат 1:1 нельзя получать растяжением. Штамп поставщика — не надпись на шаре. */
+const squareFitLock = `SQUARE FIT — do this before anything else:
+- Do NOT stretch, squash, or non-uniformly scale the photo to fill the square. Circles stay circles. A round balloon must not become an oval.
+- If the photo does not fill the frame, OUTPAINT the empty margins with the studio wall from the reference. Never distort the product to cover those margins.
+- ERASE translucent supplier watermarks and URLs even when they cross ribbons or the wall: SHARIKI, shariki, SHARIKIVK, shariki.vk, .ru, VK, vk.com. Inpaint the wall or ribbon that was under the stamp.
+- KEEP text printed ON a balloon (names, greetings, character art). A watermark across the photo is not balloon print.`;
+
 /** Сердце у рамы зеркала — один товар. Считать по грузикам на полу, не по стеклу. */
 const mirrorHeartLock = `HEART AGAINST A MIRROR FRAME — still ONE heart:
 - A foil heart standing against or overlapping a vanity/mirror frame is ONE product, even when the glass or the white bulb frame makes a second heart seem to sit behind it
@@ -2194,7 +2201,7 @@ GENDER / AUDIENCE PALETTE LOCK (critical — common failure):
   const logoClean = `ALLOWED EXCEPTION — REMOVE supplier / marketplace packaging overlays and watermarks (critical for catalog photos, especially «шары поштучно» / unit balloons from Sima-land and similar):
 REMOVE completely (inpaint as if never there):
 - Corner and floating badges/boxes: brand logos (MARVEL, Disney, etc. as separate rectangular stickers on the photo), size labels («12" / 30 CM», «18"», diameter), usage labels («ДЛЯ ГЕЛИЯ И ВОЗДУХА», «для гелия», «воздух», helium/air icons)
-- Marketplace / shop watermarks and URLs anywhere on the image: sima-land.ru, wildberries, ozon, sharomem.ru, sharomen.ru, Instagram/VK handles, translucent stamps, shop names, banners
+- Marketplace / shop watermarks and URLs anywhere on the image: sima-land.ru, wildberries, ozon, sharomem.ru, sharomen.ru, shariki, SHARIKI, SHARIKIVK, Instagram/VK handles, translucent stamps, shop names, banners
 - Small © copyright stamps and supplier URL text overlaid on or near balloons that are NOT part of the balloon's own printed design
 - Any colored pill/rectangle with white text glued onto the catalog photo (packaging chrome), not printed into the latex/foil artwork
 - Circular / round hang tags and brand discs on ribbons or wrap (shop logos like «МАИК», heart+name discs, cardboard circle tags, plastic logo badges dangling from the bouquet)
@@ -2770,7 +2777,7 @@ function buildRephotographAttempts(imageUrl, referenceUrl, prompt, resolution = 
 
   // Mid-run fallback: Flux only. This model rejects prompts over 5000 characters.
   if (prefer === 'flux') {
-    const fluxPrompt = buildFluxPrompt(scene, opts);
+    const fluxPrompt = squareFitLock + '\n\n' + buildFluxPrompt(scene, opts);
     console.log('[Studio Rephotograph] flux prompt chars=', fluxPrompt.length);
     attempts.push({
       model: 'image/flux2-pro-edit',
@@ -2908,7 +2915,7 @@ async function handleStudioRephotograph(request, env) {
     }
   }
 
-  let prompt = buildRephotographPrompt(scene, { photozone_type, unit_type, bouquet_type, surprise_pose, bauble_pose });
+  let prompt = squareFitLock + '\n\n' + buildRephotographPrompt(scene, { photozone_type, unit_type, bouquet_type, surprise_pose, bauble_pose });
   if (frame === 'post') {
     prompt += '\n\nOUTPUT 4:5 portrait. Keep the ENTIRE balloon arrangement fully inside the frame: every balloon, digit, character and ribbon tip complete, with studio wall visible around the set. Do not crop, do not zoom in, do not cut off any balloon.';
   } else if (frame === 'story') {

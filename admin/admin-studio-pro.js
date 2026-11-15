@@ -1249,6 +1249,10 @@ Object.assign(app, {
 
   async callRephotographMaster(imageUrl, scene, statusEl, format) {
     // Без restore: лишний шаг (часто content-policy на персонажах) и +1–3 мин.
+    const wantSquare = !format?.aspect_ratio || format.aspect_ratio === '1:1';
+    if (wantSquare) {
+      imageUrl = await this.fitSourceToSquare(imageUrl, statusEl);
+    }
     const keepBg = scene === 'arch';
     const shotLabel = format?.frame === 'story' ? 'Сторис 9:16' : 'Master';
     const referenceUrl = keepBg ? '' : await this.ensureReferenceHttpsUrl(scene);
@@ -1388,6 +1392,7 @@ Object.assign(app, {
     if (source && url.split('?')[0] === String(source).split('?')[0]) {
       throw new Error('Модель вернула то же фото — кадр не изменился');
     }
+    if (source) await this.assertMasterIsNewShot(source, url);
 
     this.studioMasterBackupUrl = url;
     this.studioMasterBaseUrl = url;
@@ -1848,6 +1853,132 @@ Object.assign(app, {
       throw new Error((uploadResult && uploadResult.error) || 'Cloudinary upload failed');
     }
     return uploadResult.url;
+  },
+
+  /** Цвет полей квадрата — верх стены эталона, чтобы модель дорисовала студию, а не плющила шар. */
+  async studioWallFill() {
+    try {
+      const bg = await this.loadImage(this.getReferenceBackgroundUrl());
+      const c = document.createElement('canvas');
+      c.width = 8;
+      c.height = 8;
+      const ctx = c.getContext('2d', { willReadFrequently: true });
+      const sx = Math.max(0, bg.width * 0.45);
+      const sy = Math.max(0, bg.height * 0.18);
+      ctx.drawImage(bg, sx, sy, 24, 24, 0, 0, 8, 8);
+      const p = ctx.getImageData(4, 4, 1, 1).data;
+      if (!p[0] && !p[1] && !p[2]) return '#d4cdc4';
+      return `rgb(${p[0]},${p[1]},${p[2]})`;
+    } catch (e) {
+      return '#d4cdc4';
+    }
+  },
+
+  /**
+   * Вписывает исходник в квадрат без растяжения. Уже квадратное фото не трогает.
+   * При ошибке (чужой хост без CORS) отдаёт исходный адрес.
+   */
+  async fitSourceToSquare(imageUrl, statusEl) {
+    let img;
+    try {
+      img = await this.loadImage(imageUrl);
+    } catch (e) {
+      console.warn('[Studio Pro] square fit skipped, image', e);
+      return imageUrl;
+    }
+    const w = img.naturalWidth || img.width;
+    const h = img.naturalHeight || img.height;
+    if (!w || !h) return imageUrl;
+    const ratio = w / h;
+    if (ratio > 0.98 && ratio < 1.02) return imageUrl;
+    if (statusEl) statusEl.textContent = 'Квадрат без растяжения…';
+    const side = Math.min(1600, Math.max(w, h));
+    const canvas = document.createElement('canvas');
+    canvas.width = side;
+    canvas.height = side;
+    const ctx = canvas.getContext('2d');
+    ctx.fillStyle = await this.studioWallFill();
+    ctx.fillRect(0, 0, side, side);
+    const scale = side / Math.max(w, h);
+    const dw = Math.round(w * scale);
+    const dh = Math.round(h * scale);
+    ctx.drawImage(img, Math.round((side - dw) / 2), Math.round((side - dh) / 2), dw, dh);
+    try {
+      const dataUrl = canvas.toDataURL('image/jpeg', 0.9);
+      return await this.ensureHttpsPhotoUrl(dataUrl, 'studio-square.jpg');
+    } catch (e) {
+      console.warn('[Studio Pro] square fit upload skipped', e);
+      return imageUrl;
+    }
+  },
+
+  sampleImage(img, sx, sy, sw, sh, dw, dh) {
+    const c = document.createElement('canvas');
+    c.width = dw;
+    c.height = dh;
+    const ctx = c.getContext('2d', { willReadFrequently: true });
+    ctx.drawImage(img, sx, sy, sw, sh, 0, 0, dw, dh);
+    return ctx.getImageData(0, 0, dw, dh).data;
+  },
+
+  meanAbsDiff(a, b) {
+    const n = Math.min(a.length, b.length);
+    const pixels = n / 4;
+    if (!pixels) return 255;
+    let sum = 0;
+    for (let i = 0; i < n; i += 4) {
+      sum += Math.abs(a[i] - b[i]) + Math.abs(a[i + 1] - b[i + 1]) + Math.abs(a[i + 2] - b[i + 2]);
+    }
+    return sum / (pixels * 3);
+  },
+
+  /**
+   * Отклоняет эхо исходника и кадр, который получен растяжением фото в квадрат.
+   * Настоящая пересъёмка (другая стена, стёртый штамп) проходит.
+   */
+  async assertMasterIsNewShot(sourceUrl, resultUrl) {
+    let source;
+    let result;
+    try {
+      [source, result] = await Promise.all([
+        this.loadImage(sourceUrl),
+        this.loadImage(resultUrl)
+      ]);
+    } catch (e) {
+      console.warn('[Studio Pro] frame check skipped', e);
+      return;
+    }
+    const sw = source.naturalWidth || source.width;
+    const sh = source.naturalHeight || source.height;
+    const rw = result.naturalWidth || result.width;
+    const rh = result.naturalHeight || result.height;
+    if (!sw || !sh || !rw || !rh) return;
+    const tw = 64;
+    const th = Math.max(16, Math.round(tw * sh / sw));
+    let sourceThumb;
+    let windowThumb;
+    let stretchedThumb;
+    try {
+      sourceThumb = this.sampleImage(source, 0, 0, sw, sh, tw, th);
+      const side = Math.max(sw, sh);
+      const ox = (side - sw) / 2 / side;
+      const oy = (side - sh) / 2 / side;
+      windowThumb = this.sampleImage(result, ox * rw, oy * rh, (sw / side) * rw, (sh / side) * rh, tw, th);
+      stretchedThumb = this.sampleImage(result, 0, 0, rw, rh, tw, th);
+    } catch (e) {
+      console.warn('[Studio Pro] frame check skipped', e);
+      return;
+    }
+    const sameWindow = this.meanAbsDiff(sourceThumb, windowThumb);
+    const sameStretch = this.meanAbsDiff(sourceThumb, stretchedThumb);
+    console.log('[Studio Pro] frame diff', { sameWindow: Math.round(sameWindow), sameStretch: Math.round(sameStretch) });
+    const squareSource = sw / sh > 0.98 && sw / sh < 1.02;
+    if (squareSource && sameStretch < 8 && sameWindow < 8) {
+      throw new Error('Модель вернула тот же кадр — шар не переснят');
+    }
+    if (!squareSource && sameStretch < 20 && sameWindow > sameStretch + 8) {
+      throw new Error('Модель растянула фото в квадрат — кадр не принят');
+    }
   },
 
   async ensureHttpsPhotoUrl(url, filename = 'photo.webp') {

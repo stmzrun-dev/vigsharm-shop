@@ -1326,15 +1326,20 @@ Object.assign(app, {
     const genFailRe = /не удалось сгенерировать|возвращены на баланс|обработка не удалась|модель отклонила|таймаут обработки|failed to fetch|networkerror|load failed|rephotograph http|ошибка rephotograph|не вернул job_id|abort|content.?policy|copyright|авторск|safety|nsfw|moderation|rejected|violat/i;
     const jobRanRe = /обработка не удалась|таймаут обработки|модель отклонила/;
     const needsRoom = !keepBg && format?.frame !== 'story';
+    if (needsRoom) {
+      const data = await startJob('pro');
+      if (statusEl) statusEl.textContent = `⏳ ${shotLabel}: фон студии (${data.model || 'два фото'})...`;
+      const url = await takeResult(data, 100);
+      if (await this.masterIgnoredBackground(sourceUrl, url)) {
+        throw new Error('Модель не заменила фон студии — кадр не сохранён');
+      }
+      return url;
+    }
     let data;
     try {
       data = await startJob('quality');
-      if (statusEl) statusEl.textContent = `⏳ ${shotLabel}: фон студии (${data.model || 'quality'})...`;
-      const firstUrl = await takeResult(data, 90);
-      if (needsRoom && await this.masterIgnoredBackground(sourceUrl, firstUrl)) {
-        throw new Error('Модель не заменила фон студии');
-      }
-      return firstUrl;
+      if (statusEl) statusEl.textContent = `⏳ ${shotLabel} (${data.model || 'quality'}, до ~4.5 мин)...`;
+      return await takeResult(data, 90);
     } catch (err) {
       const msg = String(err?.message || err);
       // Do NOT match bare "failed" — that catches "Failed to fetch" (503/CORS) incorrectly
@@ -1950,13 +1955,25 @@ Object.assign(app, {
    * Отклоняет эхо исходника и кадр, который получен растяжением фото в квадрат.
    * Настоящая пересъёмка (другая стена, стёртый штамп) проходит.
    */
+  async loadImageForCheck(url) {
+    if (!url || url.startsWith('data:') || url.startsWith('blob:')) return this.loadImage(url);
+    const res = await fetch(`${this.workerUrl}/api/admin/proxy-image`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', ...this.authHeaders() },
+      body: JSON.stringify({ url })
+    });
+    if (!res.ok) throw new Error(`proxy-image HTTP ${res.status}`);
+    const blob = await res.blob();
+    return this.loadImage(URL.createObjectURL(blob));
+  },
+
   async assertMasterIsNewShot(sourceUrl, resultUrl) {
     let source;
     let result;
     try {
       [source, result] = await Promise.all([
-        this.loadImage(sourceUrl),
-        this.loadImage(resultUrl)
+        this.loadImageForCheck(sourceUrl),
+        this.loadImageForCheck(resultUrl)
       ]);
     } catch (e) {
       console.warn('[Studio Pro] frame check skipped', e);

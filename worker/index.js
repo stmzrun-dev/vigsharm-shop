@@ -2988,7 +2988,7 @@ async function handleStudioRephotograph(request, env) {
         generateResp = await nordRequest('/media/generate', 'POST', {
           model: attempt.model,
           input: attempt.input
-        }, env);
+        }, env, 12000);
       } catch (err) {
         generateResp = { error: { message: err.message || String(err) } };
       }

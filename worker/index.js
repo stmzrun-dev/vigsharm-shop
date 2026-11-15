@@ -2745,6 +2745,10 @@ function buildRephotographAttempts(imageUrl, referenceUrl, prompt, resolution = 
       ? (wallHint + surpriseHint)
       : (ceiling ? (wallHint + ceilingHint) : (table ? (wallHint + tableHint) : (wallOnly ? wallHint : (wallHint + floorHint)))));
   const withRef = (input) => (keepBg ? input : { ...input, reference_image: referenceUrl });
+  const squareFit = keepBg
+    ? 'SQUARE FIT: Do not stretch or squash the photo to fill 1:1. Circles stay circles. Do not rebuild the product, digits, lettering, or balloon count.\n\n'
+    : 'SQUARE FIT: Do not stretch or squash the source to fill 1:1. Circles stay circles. Replace empty margins and the original room with the studio from the SECOND reference. Do not rebuild the product, digits, lettering, or balloon count.\n\n';
+  const sunburstPrompt = squareFit + prompt + roomHint;
   const attempts = [];
 
   const pushBanana = () => {
@@ -2813,7 +2817,7 @@ function buildRephotographAttempts(imageUrl, referenceUrl, prompt, resolution = 
       attempts.push({
         model: 'image/gpt-image-2.5-sunburst-edit',
         input: withRef({
-          prompt: prompt + roomHint,
+          prompt: sunburstPrompt,
           image: imageUrl,
           aspect_ratio: aspect,
           resolution: res
@@ -2822,7 +2826,7 @@ function buildRephotographAttempts(imageUrl, referenceUrl, prompt, resolution = 
       attempts.push({
         model: 'image/gpt-image-2-edit',
         input: withRef({
-          prompt: prompt + roomHint,
+          prompt: sunburstPrompt,
           image: imageUrl,
           aspect_ratio: aspect,
           resolution: res
@@ -2839,7 +2843,7 @@ function buildRephotographAttempts(imageUrl, referenceUrl, prompt, resolution = 
   attempts.push({
     model: 'image/gpt-image-2.5-sunburst-edit',
     input: withRef({
-      prompt: prompt + roomHint,
+      prompt: sunburstPrompt,
       image: imageUrl,
       aspect_ratio: aspect,
       resolution: res
@@ -2848,7 +2852,7 @@ function buildRephotographAttempts(imageUrl, referenceUrl, prompt, resolution = 
   attempts.push({
     model: 'image/gpt-image-2-edit',
     input: withRef({
-      prompt: prompt + roomHint,
+      prompt: sunburstPrompt,
       image: imageUrl,
       aspect_ratio: aspect,
       resolution: res

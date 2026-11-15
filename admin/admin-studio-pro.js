@@ -1175,21 +1175,11 @@ Object.assign(app, {
       if (statusEl) statusEl.textContent = `⏳ Master (${data.model || 'quality'}, до ~4.5 мин)...`;
       const firstUrl = await takeResult(data, 90);
       const needsRoom = !keepBg && format?.frame !== 'story';
-      if (!needsRoom || !(await this.looksLikeStretchedSource(imageUrl, firstUrl))) {
-        return firstUrl;
+      if (needsRoom && await this.looksLikeStretchedSource(imageUrl, firstUrl)) {
+        if (statusEl) statusEl.textContent = 'Кадр не изменился — повтор не запускаю';
+        throw new Error('Модель вернула то же фото — кадр не изменился');
       }
-      if (statusEl) statusEl.textContent = 'Исходник растянут — вторая попытка с фоном студии...';
-      try {
-        const second = await startJob('pro');
-        if (statusEl) statusEl.textContent = `⏳ Вторая попытка (${second.model || 'banana pro'})...`;
-        const secondUrl = await takeResult(second, 100);
-        if (await this.looksLikeStretchedSource(imageUrl, secondUrl)) return firstUrl;
-        return secondUrl;
-      } catch (secondErr) {
-        console.warn('[Studio Pro] second shot failed, keeping first', secondErr);
-        if (statusEl) statusEl.textContent = 'Вторая попытка не вышла — оставляю первый кадр';
-        return firstUrl;
-      }
+      return firstUrl;
     } catch (err) {
       const msg = String(err?.message || err);
       // Do NOT match bare "failed" — that catches "Failed to fetch" (503/CORS) incorrectly

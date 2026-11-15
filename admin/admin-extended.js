@@ -735,6 +735,7 @@ Object.assign(app, {
       return;
     }
     this._replaceMainPhotoOnce = true;
+    this.clearStudioStory?.();
     this.invalidateAiAutoFill?.({ clearFilled: true });
     const input = document.getElementById('photo-input');
     if (input) {
@@ -2853,6 +2854,7 @@ Object.assign(app, {
     this.studioPlacement = null;
     this.studioCompare = { original: null, master: null };
     this.studioSourceUrl = null;
+    this.clearStudioStory?.();
     this.studioMasterDataUrl = null;
     this.studioMasterBaseUrl = null;
     this.studioMasterBackupUrl = null;
@@ -3145,6 +3147,7 @@ app.loadProductToForm = function(product) {
   this.studioPlacement = null;
   this.studioCompare = { original: null, master: null };
   this.studioSourceUrl = null;
+  this.clearStudioStory?.();
   if (typeof this.hidePlacementEditor === 'function') this.hidePlacementEditor(true);
   if (typeof this.hideCropEditor === 'function') this.hideCropEditor();
   if (typeof this.renderStudioCompare === 'function') this.renderStudioCompare();

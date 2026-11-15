@@ -829,6 +829,7 @@ Object.assign(app, {
       retryBtns.forEach((btn) => { btn.disabled = false; });
       this.syncEditorSteps?.();
     }
+    this.renderStudioStory?.();
   },
 
   tickStudioBusyTimer() {

@@ -1327,11 +1327,12 @@ Object.assign(app, {
     const jobRanRe = /обработка не удалась|таймаут обработки|модель отклонила/;
     const needsRoom = !keepBg && format?.frame !== 'story';
     if (needsRoom) {
-      const data = await startJob('pro');
-      if (statusEl) statusEl.textContent = `⏳ ${shotLabel}: фон студии (${data.model || 'два фото'})...`;
-      const url = await takeResult(data, 100);
+      const data = await startJob('quality');
+      if (statusEl) statusEl.textContent = `⏳ ${shotLabel}: фон студии (${data.model || 'quality'})...`;
+      let url = await takeResult(data, 90);
       if (await this.masterIgnoredBackground(sourceUrl, url)) {
-        throw new Error('Модель не заменила фон студии — кадр не сохранён');
+        if (statusEl) statusEl.textContent = 'Модель оставила исходник — ставлю фон эталона...';
+        url = await this.callCompositeMaster(sourceUrl, scene, statusEl);
       }
       return url;
     }
@@ -1576,7 +1577,7 @@ Object.assign(app, {
         this.studioCompare.master = keptMaster;
         this.renderStudioCompare();
         if (statusEl) statusEl.textContent = '❌ Новый Master не вышел — оставлен предыдущий';
-        this.toast('Ошибка — предыдущий Master сохранён', 'error');
+        this.toast('Предыдущий Master сохранён. ' + (err.message || 'Новый кадр не вышел'), 'error');
       } else {
         if (statusEl) statusEl.textContent = '❌ ' + err.message;
         this.toast(err.message, 'error');

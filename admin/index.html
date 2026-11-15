@@ -7,7 +7,7 @@
 <meta name="robots" content="noindex, nofollow"/>
 <link rel="icon" href="../favicon.svg"/>
 <link rel="stylesheet" href="../assets/fonts.css"/>
-<link rel="stylesheet" href="styles.css?v=20261115-story"/>
+<link rel="stylesheet" href="styles.css?v=20261109-teddy-photos"/>
 <link rel="stylesheet" href="publish-screen.css?v=1"/>
 <link rel="stylesheet" href="publish-fit.css?v=1"/>
 <link rel="stylesheet" href="publish-master.css?v=1"/>
@@ -365,7 +365,6 @@
                 <button type="button" class="btn outline" id="photo-upload-btn" onclick="document.getElementById('photo-input').click()">+ Ещё фото</button>
                 <button type="button" class="btn outline" id="photo-replace-btn" onclick="app.replaceMainPhoto()">Изменить фото</button>
                 <button type="button" class="btn outline hidden" data-studio-retry onclick="app.retryStudioMaster()">↻ Пересоздать</button>
-                <button type="button" class="btn outline hidden" data-studio-story onclick="app.generateStudioStory()">Сторис 9:16</button>
               </div>
             </div>
 
@@ -578,7 +577,6 @@
             <div class="step1-phase-nav-right">
               <span class="step1-phase-scene-chip" id="step1-phase-c-scene"></span>
               <button type="button" class="btn outline btn-sm hidden" data-studio-retry onclick="app.retryStudioMaster()">↻ Пересоздать</button>
-              <button type="button" class="btn outline btn-sm hidden" data-studio-story onclick="app.generateStudioStory()">Сторис 9:16</button>
               <button type="button" class="btn outline btn-sm" id="step1-c-replace" onclick="app.replaceMainPhoto()">Изменить фото</button>
               <button type="button" id="unit-step1-publish-btn" class="btn primary btn-sm" onclick="app.publishProduct()" hidden>Опубликовать</button>
             </div>
@@ -589,13 +587,6 @@
               <strong>Master генерируется · <span id="studio-busy-timer" class="studio-busy-timer-inline">0:00</span></strong>
               <span id="studio-busy-stage" class="studio-busy-stage">Подготовка…</span>
               <span id="studio-busy-detail">Состав и цену можно заполнять сейчас — не ждите конца.</span>
-            </div>
-          </div>
-          <div id="studio-story-panel" class="studio-story-panel hidden" hidden>
-            <img id="studio-story-preview" alt="Сторис 9:16" hidden/>
-            <div class="studio-story-panel-body">
-              <p id="studio-story-status" class="studio-story-status">В карточку не попадает — только скачать.</p>
-              <button type="button" class="btn outline btn-sm" id="studio-story-download" onclick="app.downloadStudioStory()" hidden>Скачать</button>
             </div>
           </div>
           <p class="step-1-hint hidden" id="step-1-hint" hidden>Шаг 1</p>
@@ -1166,12 +1157,12 @@
 </div>
 
 <script src="admin.js?v=20261109-bauble-gallery"></script>
-<script src="admin-extended.js?v=20261115-story"></script>
+<script src="admin-extended.js?v=20261109-teddy-photos"></script>
 <script src="cloudinary-upload.js?v=cloud-fix-2"></script>
 <script src="imgbb-upload.js?v=1"></script>
 <script src="cloudinary-patch.js?v=yandex-1"></script>
-<script src="admin-studio-pro.js?v=20261115-story"></script>
-<script src="admin-ai.js?v=20261115-story"></script>
+<script src="admin-studio-pro.js?v=20261109-gallery"></script>
+<script src="admin-ai.js?v=20261104-char-titles"></script>
 <script src="admin-reference-background.js"></script>
 <script src="admin-orders.js?v=1"></script>
 <script src="admin-price.js?v=7"></script>

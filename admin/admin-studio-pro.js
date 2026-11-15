@@ -37,10 +37,6 @@ Object.assign(app, {
   studioCanvasMasterDataUrl: null,
   studioCompare: { original: null, master: null },
   studioSourceUrl: null,
-  studioStoryUrl: null,
-  studioStoryBusy: false,
-  studioStoryNote: '',
-  _studioStoryGen: 0,
   studioMasterBackupUrl: null,
   studioMasterBaseUrl: null,
   signTextFrame: null,
@@ -716,7 +712,6 @@ Object.assign(app, {
     this.signTextFrame = null;
     this.studioCompare = { original: null, master: null };
     this.studioSourceUrl = null;
-    this.clearStudioStory?.();
     this.hidePlacementEditor(true);
     this.hideCropEditor?.();
     this.hideSignTextEditor?.();
@@ -842,7 +837,6 @@ Object.assign(app, {
     if (!draft?.masterUrl) return false;
 
     this._restoringStudioDraft = true;
-    this.clearStudioStory?.();
     try {
       this.currentProduct = this.currentProduct || {
         photos: [], scene: 'floor', tags: [], client_options: {}
@@ -952,154 +946,6 @@ Object.assign(app, {
   async refreshStudioCheckpointUi() {
     const src = this.getStudioRemasterSourceUrl?.();
     this.studioRetryButtons?.().forEach((btn) => btn.classList.toggle('hidden', !src));
-    this.renderStudioStory?.();
-  },
-
-  hasStudioMaster() {
-    return !!(
-      this.studioMasterDataUrl
-      || this.studioCompare?.master
-      || this.currentProduct?.photos?.some((p) => p?.type === 'master')
-    );
-  },
-
-  getStudioStorySourceUrl() {
-    return this.studioSourceUrl
-      || this.studioCompare?.original
-      || this.currentProduct?.client_options?.studio_original_url
-      || '';
-  },
-
-  clearStudioStory() {
-    this._studioStoryGen = (this._studioStoryGen || 0) + 1;
-    this.studioStoryUrl = null;
-    this.studioStoryBusy = false;
-    this.studioStoryNote = '';
-    this.renderStudioStory?.();
-  },
-
-  renderStudioStory() {
-    const ready = !!this.hasStudioMaster?.();
-    const masterBusy = !!document.getElementById('product-form')?.classList.contains('is-studio-busy');
-    const busy = !!this.studioStoryBusy || masterBusy;
-    document.querySelectorAll('[data-studio-story]').forEach((btn) => {
-      btn.classList.toggle('hidden', !ready);
-      btn.disabled = busy;
-      btn.textContent = this.studioStoryBusy ? 'Сторис…' : 'Сторис 9:16';
-    });
-    if (this.studioStoryBusy) {
-      this.studioRetryButtons?.().forEach((btn) => { btn.disabled = true; });
-    }
-    const panel = document.getElementById('studio-story-panel');
-    const img = document.getElementById('studio-story-preview');
-    const status = document.getElementById('studio-story-status');
-    const download = document.getElementById('studio-story-download');
-    const show = !!(this.studioStoryUrl || this.studioStoryBusy || this.studioStoryNote);
-    if (panel) {
-      panel.classList.toggle('hidden', !show);
-      panel.hidden = !show;
-    }
-    if (img) {
-      if (this.studioStoryUrl) {
-        img.src = this.studioStoryUrl;
-        img.hidden = false;
-      } else {
-        img.removeAttribute('src');
-        img.hidden = true;
-      }
-    }
-    if (status) {
-      status.textContent = this.studioStoryNote
-        || (this.studioStoryUrl ? 'Готово. В карточку не попадает — скачайте, пока эта карточка открыта.' : 'Снимаем сторис с оригинала…');
-    }
-    if (download) download.hidden = !this.studioStoryUrl;
-  },
-
-  async generateStudioStory() {
-    if (document.getElementById('product-form')?.classList.contains('is-studio-busy')) {
-      this.toast('Дождитесь окончания Master', 'info');
-      return;
-    }
-    if (this.studioStoryBusy) return;
-    if (!this.hasStudioMaster?.()) {
-      this.toast('Сначала дождитесь Master', 'error');
-      return;
-    }
-    const src = String(this.getStudioStorySourceUrl?.() || '').trim();
-    if (!src) {
-      this.toast('Нет оригинала — сторис снимается с загруженного фото', 'error');
-      return;
-    }
-    const gen = (this._studioStoryGen || 0) + 1;
-    this._studioStoryGen = gen;
-    this.studioStoryBusy = true;
-    this.studioStoryNote = '';
-    this.studioStoryUrl = null;
-    this.renderStudioStory();
-    const statusEl = document.getElementById('studio-story-status');
-    try {
-      let scene = this.currentProduct?.scene || 'floor';
-      if (!scene || scene === 'auto') scene = 'floor';
-      let imageUrl = src;
-      if (!/^https?:\/\//i.test(imageUrl)) {
-        imageUrl = await this.ensureHttpsPhotoUrl(imageUrl, 'studio-original.webp');
-        if (gen !== this._studioStoryGen) return;
-        this.studioSourceUrl = imageUrl;
-        if (this.studioCompare) this.studioCompare.original = imageUrl;
-      }
-      const resultUrl = await this.callRephotographMaster(imageUrl, scene, statusEl, {
-        aspect_ratio: '9:16',
-        frame: 'story'
-      });
-      if (gen !== this._studioStoryGen) return;
-      let url = String(resultUrl || '').trim();
-      if (url.startsWith('data:') || url.startsWith('blob:')) {
-        if (statusEl) statusEl.textContent = 'Сохраняю сторис для скачивания…';
-        url = await this.ensureHttpsPhotoUrl(url, 'studio-story.webp');
-      }
-      if (gen !== this._studioStoryGen) return;
-      if (!/^https?:\/\//i.test(url)) throw new Error('Сторис не сохранился');
-      this.studioStoryUrl = url;
-      this.studioStoryNote = 'Готово. В карточку не попадает — скачайте, пока эта карточка открыта.';
-      this.toast('Сторис 9:16 готов — можно скачать', 'success');
-    } catch (err) {
-      if (gen !== this._studioStoryGen) return;
-      console.error('[Studio Pro] story 9:16', err);
-      this.studioStoryUrl = null;
-      this.studioStoryNote = err?.message || 'Сторис не получился';
-      this.toast(this.studioStoryNote, 'error');
-    } finally {
-      if (gen === this._studioStoryGen) {
-        this.studioStoryBusy = false;
-        this.renderStudioStory();
-        this.studioRetryButtons?.().forEach((btn) => { btn.disabled = false; });
-      }
-    }
-  },
-
-  async downloadStudioStory() {
-    const url = this.studioStoryUrl;
-    if (!url) {
-      this.toast('Сначала снимите сторис 9:16', 'info');
-      return;
-    }
-    try {
-      const res = await fetch(url);
-      if (!res.ok) throw new Error('Файл не скачался');
-      const blob = await res.blob();
-      const objectUrl = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = objectUrl;
-      a.download = 'vigsharm-story-9x16.jpg';
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-      setTimeout(() => URL.revokeObjectURL(objectUrl), 2000);
-    } catch (err) {
-      console.warn('[Studio Pro] story download', err);
-      window.open(url, '_blank', 'noopener');
-      this.toast('Файл открыт в новой вкладке — сохраните его оттуда', 'info');
-    }
   },
 
   async ensureCeilingReferenceHttpsUrl() {
@@ -1250,7 +1096,6 @@ Object.assign(app, {
   async callRephotographMaster(imageUrl, scene, statusEl, format) {
     // Без restore: лишний шаг (часто content-policy на персонажах) и +1–3 мин.
     const keepBg = scene === 'arch';
-    const shotLabel = format?.frame === 'story' ? 'Сторис 9:16' : 'Master';
     const referenceUrl = keepBg ? '' : await this.ensureReferenceHttpsUrl(scene);
     const startJob = async (prefer) => {
       let lastErr = null;
@@ -1315,7 +1160,7 @@ Object.assign(app, {
       return this.pollStudioStatusSimple(data.job_id, {
         maxAttempts,
         statusEl,
-        label: data.model || shotLabel
+        label: data.model || 'Master'
       });
     };
 
@@ -1327,7 +1172,7 @@ Object.assign(app, {
     let data;
     try {
       data = await startJob('quality');
-      if (statusEl) statusEl.textContent = `⏳ ${shotLabel} (${data.model || 'quality'}, до ~4.5 мин)...`;
+      if (statusEl) statusEl.textContent = `⏳ Master (${data.model || 'quality'}, до ~4.5 мин)...`;
       return await takeResult(data, 90);
     } catch (err) {
       const msg = String(err?.message || err);
@@ -1338,7 +1183,7 @@ Object.assign(app, {
       this.toast('Дорогая модель не выдала кадр — пробуем banana pro', 'info');
       try {
         data = await startJob('pro');
-        if (statusEl) statusEl.textContent = `⏳ ${shotLabel} (${data.model || 'banana pro'})...`;
+        if (statusEl) statusEl.textContent = `⏳ Master (${data.model || 'banana pro'})...`;
         return await takeResult(data, 100);
       } catch (proErr) {
         const proMsg = String(proErr?.message || proErr);
@@ -1349,7 +1194,7 @@ Object.assign(app, {
           this.toast('Banana Pro не принял эталон — пробуем чат', 'info');
           try {
             data = await startJob('pro-chat');
-            if (statusEl) statusEl.textContent = `⏳ ${shotLabel} (${data.model || 'чат'})...`;
+            if (statusEl) statusEl.textContent = `⏳ Master (${data.model || 'чат'})...`;
             return await takeResult(data, 40);
           } catch (chatErr) {
             const chatMsg = String(chatErr?.message || chatErr);
@@ -1362,7 +1207,7 @@ Object.assign(app, {
         if (statusEl) statusEl.textContent = '↻ Последний шанс — nano-banana...';
         this.toast('Пробуем banana', 'info');
         data = await startJob('banana');
-        if (statusEl) statusEl.textContent = `⏳ ${shotLabel} (${data.model || 'banana'})...`;
+        if (statusEl) statusEl.textContent = `⏳ Master fallback (${data.model || 'banana'})...`;
         return await takeResult(data, 100);
       }
     }
@@ -1660,7 +1505,6 @@ Object.assign(app, {
     this.signTextFrame = null;
     this.studioMasterBaseUrl = null;
     this.studioCompare = { original: null, master: null };
-    this.clearStudioStory?.();
     this.renderStudioCompare();
 
     try {
@@ -2337,7 +2181,6 @@ Object.assign(app, {
       this.studioMasterBaseUrl = null;
       this.studioSourceUrl = null;
       this.studioCompare = { original: null, master: null };
-      this.clearStudioStory?.();
       this.renderStudioCompare?.();
       this.renderPhotos?.();
 

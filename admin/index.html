@@ -7,7 +7,7 @@
 <meta name="robots" content="noindex, nofollow"/>
 <link rel="icon" href="../favicon.svg"/>
 <link rel="stylesheet" href="../assets/fonts.css"/>
-<link rel="stylesheet" href="styles.css?v=20261116-story"/>
+<link rel="stylesheet" href="styles.css?v=20261116-social"/>
 <link rel="stylesheet" href="publish-screen.css?v=1"/>
 <link rel="stylesheet" href="publish-fit.css?v=1"/>
 <link rel="stylesheet" href="publish-master.css?v=1"/>
@@ -595,7 +595,28 @@
             <img id="studio-story-preview" alt="Сторис 9:16" hidden/>
             <div class="studio-story-panel-body">
               <p id="studio-story-status" class="studio-story-status">В карточку не попадает — только скачать.</p>
-              <button type="button" class="btn outline btn-sm" id="studio-story-download" onclick="app.downloadStudioStory()" hidden>Скачать</button>
+              <div class="studio-social-actions">
+                <button type="button" class="btn outline btn-sm" id="studio-story-download" onclick="app.downloadStudioStory()" hidden>Скачать сторис</button>
+                <button type="button" class="btn outline btn-sm" id="studio-social-crop" onclick="app.openSocialCrop()">Кроп</button>
+                <button type="button" class="btn outline btn-sm" id="studio-social-post" onclick="app.generateSocialPost()">Пост и музыка</button>
+              </div>
+              <p id="studio-social-status" class="studio-story-status"></p>
+              <div id="studio-social-crops" class="studio-social-crops"></div>
+              <div id="studio-social-draft" class="studio-social-draft hidden" hidden>
+                <label class="studio-social-label" for="studio-social-caption">Пост</label>
+                <textarea id="studio-social-caption" rows="5"></textarea>
+                <label class="studio-social-label" for="studio-social-tags">Хэштеги</label>
+                <textarea id="studio-social-tags" rows="2"></textarea>
+                <p id="studio-social-ig" class="studio-social-track"></p>
+                <p id="studio-social-vk" class="studio-social-track"></p>
+                <p class="studio-social-note">Трек — название для поиска в Instagram или ВКонтакте. В файл песня не попадает.</p>
+                <div class="studio-social-actions">
+                  <button type="button" class="btn outline btn-sm" onclick="app.copySocialText('post')">Копировать пост</button>
+                  <button type="button" class="btn outline btn-sm" onclick="app.copySocialText('tags')">Хэштеги</button>
+                  <button type="button" class="btn outline btn-sm" onclick="app.copySocialText('ig')">Трек Instagram</button>
+                  <button type="button" class="btn outline btn-sm" onclick="app.copySocialText('vk')">Трек ВКонтакте</button>
+                </div>
+              </div>
             </div>
           </div>
           <p class="step-1-hint hidden" id="step-1-hint" hidden>Шаг 1</p>
@@ -1165,12 +1186,36 @@
   </div>
 </div>
 
+<div class="studio-social-overlay hidden" id="studio-social-overlay" hidden>
+  <div class="studio-social-dialog" role="dialog" aria-labelledby="studio-social-crop-title">
+    <h3 id="studio-social-crop-title">Кроп для публикации</h3>
+    <p>Рамка держит выбранный размер. Фото карточки не меняется — кадр только скачивается.</p>
+    <div class="studio-social-chips" id="studio-social-sources" role="radiogroup" aria-label="Откуда кроп">
+      <button type="button" class="studio-social-chip is-on" data-social-source="card" onclick="app.setSocialCropSource('card')">Фото карточки</button>
+      <button type="button" class="studio-social-chip" data-social-source="story" onclick="app.setSocialCropSource('story')">Сторис</button>
+    </div>
+    <div class="studio-social-chips" id="studio-social-slots" role="radiogroup" aria-label="Размер кадра"></div>
+    <label class="studio-social-scale">Крупность
+      <input type="range" id="studio-social-scale" min="28" max="100" value="100" oninput="app.setSocialCropScale(this.value)"/>
+    </label>
+    <div class="studio-social-stage" id="studio-social-stage">
+      <img id="studio-social-crop-img" alt="Кадр для кропа"/>
+      <div class="studio-social-box" id="studio-social-box"></div>
+    </div>
+    <div class="studio-social-actions studio-social-dialog-actions">
+      <button type="button" class="btn outline btn-sm" onclick="app.closeSocialCrop()">Закрыть</button>
+      <button type="button" class="btn primary btn-sm" onclick="app.downloadSocialCrop()">Скачать</button>
+    </div>
+  </div>
+</div>
+
 <script src="admin.js?v=20261109-bauble-gallery"></script>
 <script src="admin-extended.js?v=20261116-story"></script>
 <script src="cloudinary-upload.js?v=cloud-fix-2"></script>
 <script src="imgbb-upload.js?v=1"></script>
 <script src="cloudinary-patch.js?v=yandex-1"></script>
-<script src="admin-studio-pro.js?v=20261116-story-card"></script>
+<script src="admin-studio-pro.js?v=20261116-social"></script>
+<script src="admin-social.js?v=20261116-social"></script>
 <script src="admin-ai.js?v=20261116-story"></script>
 <script src="admin-reference-background.js"></script>
 <script src="admin-orders.js?v=1"></script>

@@ -978,6 +978,7 @@ Object.assign(app, {
     this.studioStoryUrl = null;
     this.studioStoryBusy = false;
     this.studioStoryNote = '';
+    this.clearSocialExport?.();
     this.renderStudioStory?.();
   },
 
@@ -997,7 +998,7 @@ Object.assign(app, {
     const img = document.getElementById('studio-story-preview');
     const status = document.getElementById('studio-story-status');
     const download = document.getElementById('studio-story-download');
-    const show = !!(this.studioStoryUrl || this.studioStoryBusy || this.studioStoryNote);
+    const show = !!(ready || this.studioStoryUrl || this.studioStoryBusy || this.studioStoryNote);
     if (panel) {
       panel.classList.toggle('hidden', !show);
       panel.hidden = !show;
@@ -1013,9 +1014,13 @@ Object.assign(app, {
     }
     if (status) {
       status.textContent = this.studioStoryNote
-        || (this.studioStoryUrl ? 'Готово. В карточку не попадает — скачайте, пока эта карточка открыта.' : 'Снимаем сторис с фото карточки…');
+        || (this.studioStoryBusy ? 'Снимаем сторис с фото карточки…' : '')
+        || (this.studioStoryUrl
+          ? 'Готово. В карточку не попадает — скачайте, пока эта карточка открыта.'
+          : 'Кропы и пост скачиваются отсюда. В карточку они не записываются.');
     }
     if (download) download.hidden = !this.studioStoryUrl;
+    this.renderSocialTools?.();
   },
 
   async generateStudioStory() {
@@ -1060,6 +1065,7 @@ Object.assign(app, {
       }
       if (gen !== this._studioStoryGen) return;
       if (!/^https?:\/\//i.test(url)) throw new Error('Сторис не сохранился');
+      this.clearSocialStoryCrops?.();
       this.studioStoryUrl = url;
       this.studioStoryNote = 'Готово. В карточку не попадает — скачайте, пока эта карточка открыта.';
       this.toast('Сторис 9:16 готов — можно скачать', 'success');

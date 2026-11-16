@@ -68,6 +68,8 @@ async function handleRequest(request, env) {
         return handleGenerateCard(request, env);
       if (path === '/api/ai/more-titles' && method === 'POST')
         return handleMoreTitles(request, env);
+      if (path === '/api/ai/social-post' && method === 'POST')
+        return handleSocialPost(request, env);
       if (path === '/api/ai/suggest-category' && method === 'POST')
         return handleSuggestCategory(request, env);
       if (path === '/api/studio/process' && method === 'POST')
@@ -1191,6 +1193,137 @@ ${taken.length ? taken.map((t) => `• ${t}`).join('\n') : '• нет'}
     return json({ ok: false, error: 'ИИ не придумал новых названий — нажмите ещё раз' }, 502);
   }
   return json({ ok: true, titles });
+}
+
+function socialTag(raw) {
+  return String(raw || '')
+    .replace(/^#+/g, '')
+    .replace(/[\s#]+/g, '')
+    .replace(/[^0-9A-Za-zА-Яа-яЁё_]/g, '')
+    .toLowerCase()
+    .slice(0, 40);
+}
+
+function socialTrack(raw) {
+  if (!raw || typeof raw !== 'object') return null;
+  const title = String(raw.title || '').replace(/\s+/g, ' ').trim().slice(0, 80);
+  const artist = String(raw.artist || '').replace(/\s+/g, ' ').trim().slice(0, 80);
+  const why = String(raw.why || '').replace(/\s+/g, ' ').trim().slice(0, 160);
+  if (!title || !artist) return null;
+  return { title, artist, why };
+}
+
+function socialCaption(raw) {
+  const lines = String(raw || '')
+    .replace(/\r/g, '')
+    .split('\n')
+    .map((line) => line.replace(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\u{FE0F}\u{200D}]/gu, '').trimEnd())
+    .filter((line) => line.trim() && !/^\s*#/.test(line));
+  return lines.slice(0, 6).join('\n').replace(/\n{3,}/g, '\n\n').trim().slice(0, 700);
+}
+
+async function handleSocialPost(request, env) {
+  const body = await request.json().catch(() => ({}));
+  const imageUrl = String(body.image_url || '').trim();
+  if (!/^https?:\/\//i.test(imageUrl)) {
+    return json({ ok: false, error: 'Нужен адрес фото карточки' }, 400);
+  }
+  const title = String(body.title || '').replace(/[\r\n]+/g, ' ').trim().slice(0, 120);
+  const priceDigits = String(body.price || '').replace(/[^\d]/g, '').slice(0, 8);
+  const avoid = [];
+  const seenAvoid = new Set(['вигшарм', 'армавир']);
+  const avoidRaw = Array.isArray(body.avoid_hashtags) ? body.avoid_hashtags : [];
+  for (const item of avoidRaw) {
+    const tag = socialTag(item);
+    if (!tag || seenAvoid.has(tag) || avoid.length >= 40) continue;
+    seenAvoid.add(tag);
+    avoid.push(tag);
+  }
+
+  const facts = [];
+  if (title) facts.push(`Название в карточке: ${title}`);
+  if (priceDigits) facts.push(`Цена: ${priceDigits} ₽ — можно упомянуть в посте`);
+  if (!facts.length) facts.push('Название и цена не переданы. В посте их не придумывай.');
+
+  const systemPrompt = `Ты пишешь короткий пост для Instagram студии воздушных шаров VigSharm в Армавире.
+Смотри на приложенное фото. Верни ТОЛЬКО JSON:
+{"caption":"...","hashtags":["тег"],"ig_track":{"title":"...","artist":"...","why":"..."},"vk_track":{"title":"...","artist":"...","why":"..."}}
+caption: 2–4 короткие строки на русском, тон живой и спокойный. Без хэштегов, без названия песни, без эмодзи. Последняя строка приглашает написать в директ или оставить заявку на vigsharm.ru, город Армавир.
+Персонаж, надпись, повод и цифры бери только если они видны на фото.
+hashtags: ровно 8 тематических тегов без решётки, одним словом, строчными буквами, про эту работу. Теги «вигшарм» и «армавир» не ставь. Запрещённые теги не повторяй.
+ig_track — песня для поиска в музыке Instagram. vk_track — песня для поиска во ВКонтакте. Обе реальные, по настроению фото. title и artist пиши точно. why — одна короткая фраза по-русски, почему трек подходит. Без ссылок.`;
+
+  const userPrompt = `${facts.join('\n')}
+Запрещённые тематические хэштеги (их недавно уже ставили):
+${avoid.length ? avoid.join(', ') : 'нет'}
+Опиши то, что видно на фото, и подбери другие теги и два трека.`;
+
+  const aiResp = await nordRequest('/v1/chat/completions', 'POST', {
+    model: 'claude-sonnet-5',
+    messages: [
+      { role: 'system', content: systemPrompt },
+      {
+        role: 'user',
+        content: [
+          { type: 'text', text: userPrompt },
+          { type: 'image_url', image_url: { url: imageUrl } }
+        ]
+      }
+    ],
+    temperature: 0.7,
+    response_format: { type: 'json_object' }
+  }, env, AI_HTTP_BUDGET_MS);
+
+  if (aiResp.error) {
+    console.error('NordRouter social-post:', aiResp.error);
+    return json({ ok: false, error: 'NordRouter API ошибка: ' + (aiResp.error.message || JSON.stringify(aiResp.error)) }, 502);
+  }
+  const text = aiResp.choices?.[0]?.message?.content || '';
+  if (!text) return json({ ok: false, error: 'AI не вернул ответ' }, 502);
+  let data;
+  try {
+    data = JSON.parse(text);
+  } catch {
+    const fenced = String(text).match(/\{[\s\S]*\}/);
+    try {
+      data = fenced ? JSON.parse(fenced[0]) : null;
+    } catch {
+      data = null;
+    }
+  }
+  if (!data || typeof data !== 'object') {
+    return json({ ok: false, error: 'AI вернул некорректный JSON' }, 502);
+  }
+
+  const caption = socialCaption(data.caption);
+  if (!caption) return json({ ok: false, error: 'ИИ не написал пост — нажмите ещё раз' }, 502);
+
+  const hashtags = [];
+  const used = new Set(seenAvoid);
+  const pool = Array.isArray(data.hashtags) ? data.hashtags : [];
+  for (const item of pool) {
+    const tag = socialTag(item);
+    if (!tag || used.has(tag) || /^\d+$/.test(tag)) continue;
+    used.add(tag);
+    hashtags.push(tag);
+    if (hashtags.length === 10) break;
+  }
+  const fallback = ['воздушныешары', 'аэродизайн', 'фольгированныешары', 'гелиевыешары', 'шарыназаказ', 'шарынапраздник', 'доставкашаров', 'букетизшаров', 'фотозона', 'шарынаденьрождения', 'шарынавыписку', 'латексныешары'];
+  for (const tag of fallback) {
+    if (hashtags.length >= 6) break;
+    if (used.has(tag)) continue;
+    used.add(tag);
+    hashtags.push(tag);
+  }
+  if (hashtags.length < 4) {
+    return json({ ok: false, error: 'ИИ не собрал хэштеги — нажмите ещё раз' }, 502);
+  }
+
+  const ig = socialTrack(data.ig_track);
+  const vk = socialTrack(data.vk_track);
+  if (!ig || !vk) return json({ ok: false, error: 'ИИ не назвал трек — нажмите ещё раз' }, 502);
+
+  return json({ ok: true, caption, hashtags: hashtags.slice(0, 10), ig_track: ig, vk_track: vk });
 }
 
 async function handleGenerateCard(request, env) {

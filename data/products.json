@@ -60,6 +60,143 @@
       "thumb_photo": "https://vigsharm.ru/preview/bauble-feather-box.webp?v=1"
     },
     {
+      "id": "d7bc2b23-38bf-47a0-9c47-8a9f8f4c11ab",
+      "title": "Мамин букет",
+      "article": "MOM-008",
+      "price": 5520,
+      "short_description": "Два фольгированных пиона, шар с надписью «Мамочка» и золотые хромовые шары с конфетти.",
+      "full_description": "Композиция из двух крупных фольгированных роз в розово-зелёных тонах, баблса с надписью «Мамочка, я тебя очень люблю», хромовых шаров цвета шампанского и шаров с золотым конфетти.",
+      "composition": [
+        "стеклянный баблс с конфетти и надписью",
+        "2 фигуры",
+        "2 шара хром",
+        "2 шара с конфетти",
+        "5 шаров"
+      ],
+      "category": "Для мамы",
+      "character": null,
+      "age_group": "Для взрослых",
+      "budget": "5 000–8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Букет шаров для мамы с розами и надписью — Армавир",
+      "seo_description": "Воздушные шары для мамы: два фольгированных пиона, баблс с надписью, хромовые шары и конфетти. Оформление на День рождения или 8 марта в Армавире.",
+      "slug": "mamin-buket",
+      "scene": "wall_only",
+      "tags": [
+        "Для мамы"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/5c86cb14-6e8e-4bd1-a2fd-a999e52d7bfc.jpg",
+        "photo_dhash": "37f6e6f0ccc6ee7d"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/cca45e75-14ac-452b-94dd-47d8dca4a890.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/cca45e75-14ac-452b-94dd-47d8dca4a890.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-11-16T07:36:41.405Z",
+      "updated_at": "2026-11-16T07:36:41.405Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/a0cd2b21-d437-4114-9995-6d2871fc5ad9.webp"
+    },
+    {
+      "id": "54c01cdc-72b0-4a39-a97b-888bec396a37",
+      "title": "Нежный подарок",
+      "article": "Y1-067",
+      "price": 3400,
+      "short_description": "Композиция из кристальных шаров пастельных оттенков с прозрачным бабълом с надписью и фиолетовыми бантами.",
+      "full_description": "Воздушная композиция для стены из десяти кристальных шаров в нежных пастельных тонах. Центральный элемент — прозрачный баблс с изящной надписью и фиолетовыми декоративными бантами.",
+      "composition": [
+        "10 латексных шаров кристалл",
+        "Баблс с надписью"
+      ],
+      "category": "1 годик",
+      "character": null,
+      "age_group": "Для детей",
+      "budget": "2 000–3 500 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Композиция из кристальных шаров с бабблом в Армавире",
+      "seo_description": "Нежная композиция для девочки из прозрачных латексных шаров и баблса с надписью. Украшение для праздника в Армавире.",
+      "slug": "nezhnyy-podarok",
+      "scene": "wall_only",
+      "tags": [
+        "1 годик"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/a2ee2e40-bffe-453a-a1ac-e1254773477d.jpg",
+        "photo_dhash": "23230402070f8e49"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/ca208467-c33c-44eb-a220-6d91d0df8fe7.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/ca208467-c33c-44eb-a220-6d91d0df8fe7.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-11-16T06:16:50.573Z",
+      "updated_at": "2026-11-16T06:16:50.573Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/23c544a1-c27a-4574-b8b4-f55ed17a991d.webp"
+    },
+    {
+      "id": "847a45a3-fc89-4000-9033-33bf156d2896",
+      "title": "Чемпионский старт",
+      "article": "BOY-128",
+      "price": 3780,
+      "short_description": "Серебряный баблс с надписью и два фольгированных футбольных мяча на фоне хромовых и белых шаров.",
+      "full_description": "Крупный серебряный баблс с надписью «Happy Birthday, champion» и футбольным мячом соседствует с двумя фольгированными мячами и связкой хромовых шаров.",
+      "composition": [
+        "баблс с надписью",
+        "2 круга с рисунком",
+        "4 шара хром",
+        "4 шара"
+      ],
+      "category": "Для мальчика",
+      "character": null,
+      "age_group": "Для подростков",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Букет шаров с футбольными мячами и баблсом — Армавир",
+      "seo_description": "Серебряный баблс с надписью, два фольгированных футбольных мяча и хромовые шары. Стильный подарок футболисту на день рождения. Армавир, VigSharm.",
+      "slug": "chempionskiy-start",
+      "scene": "wall_only",
+      "tags": [
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/5452e19e-c187-42cb-9029-513b5921505f.jpg",
+        "photo_dhash": "c64ccc8ccc4444b0"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/33aaa3d1-d3e6-4911-a19f-17957e546d00.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/33aaa3d1-d3e6-4911-a19f-17957e546d00.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-11-16T06:13:38.729Z",
+      "updated_at": "2026-11-16T06:13:38.729Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/092375ca-e4b6-4052-882c-38a9e69607b1.webp"
+    },
+    {
       "id": "565f5f48-49c2-4621-be52-5a6bac0faf35",
       "title": "Черновик",
       "article": null,

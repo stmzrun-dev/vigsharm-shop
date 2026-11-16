@@ -2746,12 +2746,15 @@ function buildRephotographAttempts(imageUrl, referenceUrl, prompt, resolution = 
       : (ceiling ? (wallHint + ceilingHint) : (table ? (wallHint + tableHint) : (wallOnly ? wallHint : (wallHint + floorHint)))));
   const withRef = (input) => (keepBg ? input : { ...input, reference_image: referenceUrl });
   const storyFrame = opts.frame === 'story' || aspect === '9:16';
+  const storyPlace = storyFrame
+    ? '\n\nSTORY PLACEMENT: Ignore any note above about extending the floor or keeping only a short floor strip. Do not invent extra floor or wall below the product. Move the whole arrangement down so its full height, with every ribbon kept at the source length, fills this 9:16 frame. Do not shorten ribbons so they float. Leave only a small margin under the lowest tip.'
+    : '';
   const squareFit = storyFrame
-    ? 'VERTICAL FIT: The frame is 9:16, not a square. Keep the arrangement large. Extend the studio below it; do not zoom and do not crop the photo. Every hanging ribbon stays complete, from the foil digit or balloon down to its tip, the same length as in the source. Do not cut a ribbon short so it floats above the floor. Circles stay circles. Do not rebuild the product, digits, lettering, or balloon count.\n\n'
+    ? 'VERTICAL FIT: The frame is 9:16, not a square. Do not extend the picture downward and do not invent floor under the set. Slide the whole arrangement down so balloons and full-length ribbons fill the height. Keep every ribbon the same length as the source. Only a small margin under the lowest tip. Circles stay circles. Do not rebuild the product, digits, lettering, or balloon count.\n\n'
     : (keepBg
     ? 'SQUARE FIT: Do not stretch or squash the photo to fill 1:1. Circles stay circles. Do not rebuild the product, digits, lettering, or balloon count.\n\n'
     : 'SQUARE FIT: Do not stretch or squash the source to fill 1:1. Circles stay circles. Replace empty margins and the original room with the studio from the SECOND reference. Do not rebuild the product, digits, lettering, or balloon count.\n\n');
-  const sunburstPrompt = squareFit + prompt + roomHint;
+  const sunburstPrompt = squareFit + prompt + roomHint + storyPlace;
   const attempts = [];
 
   const pushBanana = () => {
@@ -2759,7 +2762,7 @@ function buildRephotographAttempts(imageUrl, referenceUrl, prompt, resolution = 
     attempts.push({
       model: 'image/nano-banana-2',
       input: withRef({
-        prompt: prompt + bananaExtra,
+        prompt: prompt + bananaExtra + storyPlace,
         image: imageUrl,
         aspect_ratio: aspect
       })
@@ -2801,7 +2804,7 @@ function buildRephotographAttempts(imageUrl, referenceUrl, prompt, resolution = 
       input: {
         prompt: prompt + bananaExtra + (pair
           ? '\n\nTWO IMAGES in order: image 1 is the product photo to keep. image 2 is the VigSharm studio reference. Copy the room from image 2 only (wall, baseboard, floor or ceiling as that photo shows). Do not invent a different room.'
-          : ''),
+          : '') + storyPlace,
         image: pair ? [imageUrl, referenceUrl] : imageUrl,
         aspect_ratio: aspect,
         resolution: res
@@ -2919,7 +2922,7 @@ async function handleStudioRephotograph(request, env) {
   if (frame === 'post') {
     prompt += '\n\nOUTPUT 4:5 portrait. Keep the ENTIRE balloon arrangement fully inside the frame: every balloon, digit, character and ribbon tip complete, with studio wall visible around the set. Do not crop, do not zoom in, do not cut off any balloon.';
   } else if (frame === 'story') {
-    prompt += '\n\nOUTPUT 9:16 vertical, not a square. Ignore any 1:1 line above. Keep the set large. Extend the studio under the product instead of cropping it. Ribbon tails from digits, bottles, and the cluster must hang complete to their tips, the same length as the source. Do not shorten them and do not leave them floating. Empty floor or wall is only the space under the lowest tip.';
+    prompt += '\n\nOUTPUT 9:16 vertical, not a square. Ignore any 1:1 line above. Do not draw extra floor or wall below the product. Move the arrangement down so it fills the frame height. Ribbons from digits, bottles, and the cluster stay complete and the same length as the source. Only a small margin under the lowest tip.';
   }
   if (prefer === 'pro-chat') {
     if (keepBg || !reference_url) {

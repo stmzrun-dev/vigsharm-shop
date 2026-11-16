@@ -964,9 +964,12 @@ Object.assign(app, {
   },
 
   getStudioStorySourceUrl() {
-    return this.studioSourceUrl
-      || this.studioCompare?.original
-      || this.currentProduct?.client_options?.studio_original_url
+    const master = this.currentProduct?.photos?.find((p) => p?.type === 'master')?.url
+      || this.currentProduct?.photos?.[0]?.url
+      || '';
+    return this.studioMasterDataUrl
+      || this.studioCompare?.master
+      || master
       || '';
   },
 
@@ -1010,7 +1013,7 @@ Object.assign(app, {
     }
     if (status) {
       status.textContent = this.studioStoryNote
-        || (this.studioStoryUrl ? 'Готово. В карточку не попадает — скачайте, пока эта карточка открыта.' : 'Снимаем сторис с оригинала…');
+        || (this.studioStoryUrl ? 'Готово. В карточку не попадает — скачайте, пока эта карточка открыта.' : 'Снимаем сторис с фото карточки…');
     }
     if (download) download.hidden = !this.studioStoryUrl;
   },
@@ -1027,7 +1030,7 @@ Object.assign(app, {
     }
     const src = String(this.getStudioStorySourceUrl?.() || '').trim();
     if (!src) {
-      this.toast('Нет оригинала — сторис снимается с загруженного фото', 'error');
+      this.toast('Нет фото карточки — сначала дождитесь Master', 'error');
       return;
     }
     const gen = (this._studioStoryGen || 0) + 1;
@@ -1042,10 +1045,8 @@ Object.assign(app, {
       if (!scene || scene === 'auto') scene = 'floor';
       let imageUrl = src;
       if (!/^https?:\/\//i.test(imageUrl)) {
-        imageUrl = await this.ensureHttpsPhotoUrl(imageUrl, 'studio-original.webp');
+        imageUrl = await this.ensureHttpsPhotoUrl(imageUrl, 'studio-card.webp');
         if (gen !== this._studioStoryGen) return;
-        this.studioSourceUrl = imageUrl;
-        if (this.studioCompare) this.studioCompare.original = imageUrl;
       }
       const resultUrl = await this.callRephotographMaster(imageUrl, scene, statusEl, {
         aspect_ratio: '9:16',

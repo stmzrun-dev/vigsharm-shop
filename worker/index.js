@@ -2745,6 +2745,7 @@ function buildRephotographAttempts(imageUrl, referenceUrl, prompt, resolution = 
       ? (wallHint + surpriseHint)
       : (ceiling ? (wallHint + ceilingHint) : (table ? (wallHint + tableHint) : (wallOnly ? wallHint : (wallHint + floorHint)))));
   const withRef = (input) => (keepBg ? input : { ...input, reference_image: referenceUrl });
+  const asInput = (input) => (storyFrame ? input : withRef(input));
   const storyFrame = opts.frame === 'story' || aspect === '9:16';
   const wallStory = storyFrame && scene === 'wall_only';
   const storyPlace = wallStory
@@ -2759,15 +2760,15 @@ function buildRephotographAttempts(imageUrl, referenceUrl, prompt, resolution = 
     : (keepBg
     ? 'SQUARE FIT: Do not stretch or squash the photo to fill 1:1. Circles stay circles. Do not rebuild the product, digits, lettering, or balloon count.\n\n'
     : 'SQUARE FIT: Do not stretch or squash the source to fill 1:1. Circles stay circles. Replace empty margins and the original room with the studio from the SECOND reference. Do not rebuild the product, digits, lettering, or balloon count.\n\n'));
-  const sunburstPrompt = squareFit + prompt + roomHint + storyPlace;
+  const sunburstPrompt = storyFrame ? prompt : (squareFit + prompt + roomHint);
   const attempts = [];
 
   const pushBanana = () => {
     const bananaExtra = scene === 'bauble' ? baubleHint : (keepBg ? '' : (scene === 'surprise' ? surpriseHint : (ceiling ? ceilingHint : (table ? tableHint : (wallOnly ? '' : floorHint)))));
     attempts.push({
       model: 'image/nano-banana-2',
-      input: withRef({
-        prompt: prompt + bananaExtra + storyPlace,
+      input: asInput({
+        prompt: storyFrame ? prompt : (prompt + bananaExtra + storyPlace),
         image: imageUrl,
         aspect_ratio: aspect
       })
@@ -2775,7 +2776,7 @@ function buildRephotographAttempts(imageUrl, referenceUrl, prompt, resolution = 
     if (!opts.frame) {
       attempts.push({
         model: 'image/nano-banana-edit',
-        input: withRef({
+        input: asInput({
           prompt: prompt + bananaExtra,
           image: imageUrl
         })
@@ -2789,7 +2790,7 @@ function buildRephotographAttempts(imageUrl, referenceUrl, prompt, resolution = 
     console.log('[Studio Rephotograph] flux prompt chars=', fluxPrompt.length);
     attempts.push({
       model: 'image/flux2-pro-edit',
-      input: withRef({
+      input: asInput({
         prompt: fluxPrompt,
         image: imageUrl,
         aspect_ratio: aspect,
@@ -2802,6 +2803,18 @@ function buildRephotographAttempts(imageUrl, referenceUrl, prompt, resolution = 
   // After Sunburst refuses: Pro gets the product and the studio as two images.
   // reference_image is not in this model's schema, so the room goes in `image`.
   if (prefer === 'pro') {
+    if (storyFrame) {
+      attempts.push({
+        model: 'image/nano-banana-pro',
+        input: {
+          prompt,
+          image: imageUrl,
+          aspect_ratio: aspect,
+          resolution: res
+        }
+      });
+      return attempts;
+    }
     const bananaExtra = scene === 'bauble' ? baubleHint : (keepBg ? '' : (scene === 'surprise' ? surpriseHint : (ceiling ? ceilingHint : (table ? tableHint : (wallOnly ? '' : floorHint)))));
     const pair = !keepBg && referenceUrl;
     attempts.push({
@@ -2809,7 +2822,7 @@ function buildRephotographAttempts(imageUrl, referenceUrl, prompt, resolution = 
       input: {
         prompt: prompt + bananaExtra + (pair
           ? '\n\nTWO IMAGES in order: image 1 is the product photo to keep. image 2 is the VigSharm studio reference. Copy the room from image 2 only (wall, baseboard, floor or ceiling as that photo shows). Do not invent a different room.'
-          : '') + storyPlace,
+          : '') + (storyFrame ? '' : storyPlace),
         image: pair ? [imageUrl, referenceUrl] : imageUrl,
         aspect_ratio: aspect,
         resolution: res
@@ -2827,7 +2840,7 @@ function buildRephotographAttempts(imageUrl, referenceUrl, prompt, resolution = 
       console.log('[Studio Rephotograph] banana prompt chars=', full.length, 'full text → sunburst/gpt');
       attempts.push({
         model: 'image/gpt-image-2.5-sunburst-edit',
-        input: withRef({
+        input: asInput({
           prompt: sunburstPrompt,
           image: imageUrl,
           aspect_ratio: aspect,
@@ -2836,7 +2849,7 @@ function buildRephotographAttempts(imageUrl, referenceUrl, prompt, resolution = 
       });
       attempts.push({
         model: 'image/gpt-image-2-edit',
-        input: withRef({
+        input: asInput({
           prompt: sunburstPrompt,
           image: imageUrl,
           aspect_ratio: aspect,
@@ -2927,9 +2940,9 @@ async function handleStudioRephotograph(request, env) {
   if (frame === 'post') {
     prompt += '\n\nOUTPUT 4:5 portrait. Keep the ENTIRE balloon arrangement fully inside the frame: every balloon, digit, character and ribbon tip complete, with studio wall visible around the set. Do not crop, do not zoom in, do not cut off any balloon.';
   } else if (frame === 'story' && scene === 'wall_only') {
-    prompt += '\n\nOUTPUT 9:16, wall scene only. Ignore any 1:1 line above. Keep ribbon length exactly as in the source. Do not draw longer ribbons. Leave the bottom of the arrangement as in the original. Fill the extra height with studio wall ABOVE the balloons. Do not lift the set and do not stretch the tails downward.';
+    prompt = 'This photo is already the finished VigSharm studio card. Output 9:16. Do not rebuild the balloons, digits, lettering, or ribbons. Keep ribbon length exactly as in this photo. Do not draw longer ribbons. Fill the extra height with the same studio wall ABOVE the balloons only. Do not lift the set. Do not bring back the old room, flowers, or furniture.';
   } else if (frame === 'story') {
-    prompt += '\n\nOUTPUT 9:16 vertical, not a square. Ignore any 1:1 line above. Same framing for every product: do not slide the arrangement up or down. Every balloon and every ribbon tip stays inside the frame, uncropped and not stretched. Do not add a large empty floor. Do not crop the bottom.';
+    prompt = 'This photo is already the finished VigSharm studio card. Output 9:16. Do not rebuild the balloons, digits, lettering, or ribbons. Keep the product and the studio already in this photo. Do not restore flowers, furniture, or colors from an older room, including the view through a digit hole. Do not add a large empty floor. Do not crop the product.';
   }
   if (prefer === 'pro-chat') {
     if (keepBg || !reference_url) {

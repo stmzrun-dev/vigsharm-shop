@@ -1023,6 +1023,102 @@ Object.assign(app, {
     this.renderSocialTools?.();
   },
 
+  /**
+   * У сторис бока ближе к шарам, низ композиции не режется.
+   * Лишняя высота 9:16 остаётся сверху: набор шире, чем кадр высок.
+   */
+  async fitStudioStoryEdges(url) {
+    const img = await this.loadImageForCheck(url);
+    const blobSrc = String(img.src || '');
+    try {
+      const iw = img.naturalWidth || img.width;
+      const ih = img.naturalHeight || img.height;
+      if (!iw || !ih) return url;
+      const dw = 180;
+      const dh = Math.max(1, Math.round(dw * ih / iw));
+      const data = this.sampleImage(img, 0, 0, iw, ih, dw, dh);
+      const at = (x, y) => {
+        const i = (y * dw + x) * 4;
+        return [data[i], data[i + 1], data[i + 2]];
+      };
+      const topLeft = at(2, 2);
+      const topRight = at(Math.max(0, dw - 3), 2);
+      const wall = [0, 1, 2].map((channel) => Math.round((topLeft[channel] + topRight[channel]) / 2));
+      const row = new Array(dh).fill(0);
+      const col = new Array(dw).fill(0);
+      for (let y = 0; y < dh; y++) {
+        for (let x = 0; x < dw; x++) {
+          const pixel = at(x, y);
+          const dist = Math.abs(pixel[0] - wall[0]) + Math.abs(pixel[1] - wall[1]) + Math.abs(pixel[2] - wall[2]);
+          if (dist < 72) continue;
+          row[y] += 1;
+          col[x] += 1;
+        }
+      }
+      const rowMin = Math.max(4, Math.round(dw * 0.04));
+      const colMin = Math.max(4, Math.round(dh * 0.04));
+      let x0 = -1;
+      let x1 = -1;
+      let y0 = -1;
+      let y1 = -1;
+      for (let y = 0; y < dh; y++) {
+        if (row[y] < rowMin) continue;
+        if (y0 < 0) y0 = y;
+        y1 = y;
+      }
+      for (let x = 0; x < dw; x++) {
+        if (col[x] < colMin) continue;
+        if (x0 < 0) x0 = x;
+        x1 = x;
+      }
+      if (x0 < 0 || y0 < 0 || x1 <= x0 || y1 <= y0) return url;
+      const boxW = x1 - x0 + 1;
+      const boxH = y1 - y0 + 1;
+      const padX = Math.max(4, Math.round(boxW * 0.06));
+      const padTop = Math.max(2, Math.round(boxH * 0.03));
+      const padBot = Math.max(3, Math.round(boxH * 0.05));
+      const px0 = Math.max(0, x0 - padX);
+      const py0 = Math.max(0, y0 - padTop);
+      const px1 = Math.min(dw - 1, x1 + padX);
+      const py1 = Math.min(dh - 1, y1 + padBot);
+      const bw = px1 - px0 + 1;
+      const bh = py1 - py0 + 1;
+      const aspect = 9 / 16;
+      let winW;
+      let winH;
+      if (bw / bh > aspect) {
+        winW = bw;
+        winH = bw / aspect;
+      } else {
+        winH = bh;
+        winW = bh * aspect;
+      }
+      if (winW > dw || winH > dh) {
+        const fit = Math.min(dw / winW, dh / winH);
+        winW *= fit;
+        winH *= fit;
+      }
+      if (winW > dw * 0.96 && winH > dh * 0.96) return url;
+      let wx = px0 + (bw - winW) / 2;
+      let wy = py1 - winH + 1;
+      wx = Math.max(0, Math.min(wx, dw - winW));
+      wy = Math.max(0, Math.min(wy, dh - winH));
+      if (x0 < wx || x1 > wx + winW || y0 < wy || y1 > wy + winH) return url;
+      if ((y0 - wy) / winH > y0 / dh - 0.04) return url;
+      const sx = Math.max(0, Math.round(wx / dw * iw));
+      const sy = Math.max(0, Math.round(wy / dh * ih));
+      const sw = Math.max(1, Math.min(iw - sx, Math.round(winW / dw * iw)));
+      const sh = Math.max(1, Math.min(ih - sy, Math.round(winH / dh * ih)));
+      const canvas = document.createElement('canvas');
+      canvas.width = 1080;
+      canvas.height = 1920;
+      canvas.getContext('2d').drawImage(img, sx, sy, sw, sh, 0, 0, 1080, 1920);
+      return await this.ensureHttpsPhotoUrl(canvas.toDataURL('image/jpeg', 0.92), 'studio-story.webp');
+    } finally {
+      if (blobSrc.startsWith('blob:')) URL.revokeObjectURL(blobSrc);
+    }
+  },
+
   async generateStudioStory() {
     if (document.getElementById('product-form')?.classList.contains('is-studio-busy')) {
       this.toast('Дождитесь окончания Master', 'info');
@@ -1065,6 +1161,15 @@ Object.assign(app, {
       }
       if (gen !== this._studioStoryGen) return;
       if (!/^https?:\/\//i.test(url)) throw new Error('Сторис не сохранился');
+      if (statusEl) statusEl.textContent = 'Поджимаю края кадра…';
+      try {
+        const fitted = await this.fitStudioStoryEdges(url);
+        if (gen !== this._studioStoryGen) return;
+        if (fitted) url = fitted;
+      } catch (err) {
+        console.warn('[Studio Pro] story edges', err);
+      }
+      if (gen !== this._studioStoryGen) return;
       this.clearSocialStoryCrops?.();
       this.studioStoryUrl = url;
       this.studioStoryNote = 'Готово. В карточку не попадает — скачайте, пока эта карточка открыта.';

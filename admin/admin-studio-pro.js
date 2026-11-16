@@ -1023,92 +1023,6 @@ Object.assign(app, {
     this.renderSocialTools?.();
   },
 
-  /**
-   * Готовый 9:16 иногда оставляет стену над набором. Приближаем кадр сами:
-   * модель заново не снимает, ленты и надпись не перерисовываются.
-   * Если набор и так заполняет кадр, фото остаётся как есть.
-   */
-  async tightenStudioStory(url) {
-    const img = await this.loadImageForCheck(url);
-    const blobSrc = String(img.src || '');
-    try {
-      const iw = img.naturalWidth || img.width;
-      const ih = img.naturalHeight || img.height;
-      if (!iw || !ih) return url;
-      const dw = 180;
-      const dh = Math.max(1, Math.round(dw * ih / iw));
-      const data = this.sampleImage(img, 0, 0, iw, ih, dw, dh);
-      const at = (x, y) => {
-        const i = (Math.max(0, Math.min(dh - 1, y)) * dw + Math.max(0, Math.min(dw - 1, x))) * 4;
-        return [data[i], data[i + 1], data[i + 2]];
-      };
-      const corners = [at(2, 2), at(dw - 3, 2), at(2, dh - 3), at(dw - 3, dh - 3)];
-      const wall = [0, 1, 2].map((channel) => Math.round(corners.reduce((sum, pixel) => sum + pixel[channel], 0) / corners.length));
-      const far = (pixel) => Math.abs(pixel[0] - wall[0]) + Math.abs(pixel[1] - wall[1]) + Math.abs(pixel[2] - wall[2]);
-      let x0 = dw;
-      let y0 = dh;
-      let x1 = 0;
-      let y1 = 0;
-      let count = 0;
-      for (let y = 0; y < dh; y++) {
-        for (let x = 0; x < dw; x++) {
-          if (far(at(x, y)) < 42) continue;
-          count += 1;
-          if (x < x0) x0 = x;
-          if (y < y0) y0 = y;
-          if (x > x1) x1 = x;
-          if (y > y1) y1 = y;
-        }
-      }
-      if (count < dw * dh * 0.04 || x1 <= x0 || y1 <= y0) return url;
-      const boxW = x1 - x0 + 1;
-      const boxH = y1 - y0 + 1;
-      if (y0 / dh < 0.12 && boxH / dh > 0.78) return url;
-      const padX = Math.max(4, Math.round(boxW * 0.14));
-      const padTop = Math.max(3, Math.round(boxH * 0.08));
-      const padBot = Math.max(3, Math.round(boxH * 0.06));
-      const px0 = Math.max(0, x0 - padX);
-      const py0 = Math.max(0, y0 - padTop);
-      const px1 = Math.min(dw - 1, x1 + padX);
-      const py1 = Math.min(dh - 1, y1 + padBot);
-      const bw = px1 - px0 + 1;
-      const bh = py1 - py0 + 1;
-      const aspect = 9 / 16;
-      let winW;
-      let winH;
-      if (bw / bh > aspect) {
-        winW = bw;
-        winH = bw / aspect;
-      } else {
-        winH = bh;
-        winW = bh * aspect;
-      }
-      if (winW >= dw * 0.96 || winH >= dh * 0.96) return url;
-      let topInWin = winH * 0.09;
-      const maxTop = winH - bh - winH * 0.12;
-      if (maxTop < topInWin) topInWin = Math.max(0, maxTop);
-      let wx = px0 - (winW - bw) / 2;
-      let wy = py0 - topInWin;
-      if (wx < 0) wx = 0;
-      if (wy < 0) wy = 0;
-      if (wx + winW > dw) wx = Math.max(0, dw - winW);
-      if (wy + winH > dh) wy = Math.max(0, dh - winH);
-      if (wx + winW > dw + 0.5 || wy + winH > dh + 0.5) return url;
-      const sx = Math.max(0, Math.round(wx / dw * iw));
-      const sy = Math.max(0, Math.round(wy / dh * ih));
-      const sw = Math.max(1, Math.min(iw - sx, Math.round(winW / dw * iw)));
-      const sh = Math.max(1, Math.min(ih - sy, Math.round(winH / dh * ih)));
-      if (sw > iw * 0.94 && sh > ih * 0.94) return url;
-      const canvas = document.createElement('canvas');
-      canvas.width = 1080;
-      canvas.height = 1920;
-      canvas.getContext('2d').drawImage(img, sx, sy, sw, sh, 0, 0, 1080, 1920);
-      return await this.ensureHttpsPhotoUrl(canvas.toDataURL('image/jpeg', 0.92), 'studio-story.webp');
-    } finally {
-      if (blobSrc.startsWith('blob:')) URL.revokeObjectURL(blobSrc);
-    }
-  },
-
   async generateStudioStory() {
     if (document.getElementById('product-form')?.classList.contains('is-studio-busy')) {
       this.toast('Дождитесь окончания Master', 'info');
@@ -1151,15 +1065,6 @@ Object.assign(app, {
       }
       if (gen !== this._studioStoryGen) return;
       if (!/^https?:\/\//i.test(url)) throw new Error('Сторис не сохранился');
-      if (statusEl) statusEl.textContent = 'Приближаю набор в кадре…';
-      try {
-        const tight = await this.tightenStudioStory(url);
-        if (gen !== this._studioStoryGen) return;
-        if (tight) url = tight;
-      } catch (err) {
-        console.warn('[Studio Pro] story tighten', err);
-      }
-      if (gen !== this._studioStoryGen) return;
       this.clearSocialStoryCrops?.();
       this.studioStoryUrl = url;
       this.studioStoryNote = 'Готово. В карточку не попадает — скачайте, пока эта карточка открыта.';

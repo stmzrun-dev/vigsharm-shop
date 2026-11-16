@@ -2746,14 +2746,19 @@ function buildRephotographAttempts(imageUrl, referenceUrl, prompt, resolution = 
       : (ceiling ? (wallHint + ceilingHint) : (table ? (wallHint + tableHint) : (wallOnly ? wallHint : (wallHint + floorHint)))));
   const withRef = (input) => (keepBg ? input : { ...input, reference_image: referenceUrl });
   const storyFrame = opts.frame === 'story' || aspect === '9:16';
-  const storyPlace = storyFrame
+  const wallStory = storyFrame && scene === 'wall_only';
+  const storyPlace = wallStory
+    ? '\n\nWALL STORY: Keep the ribbon length from the source. Do not draw longer ribbons. The bottom of the arrangement stays as in the original photo. Fill the extra 9:16 height with studio wall ABOVE the balloons only. Do not lift the balloons and stretch the tails down.'
+    : (storyFrame
     ? '\n\nSTORY, SAME FOR EVERY PRODUCT: Do not slide the arrangement up or down and do not treat this photo as a special case. 9:16 studio frame. Keep the set as it is: every balloon and every ribbon tip inside the frame, uncropped and not stretched. Do not add a large empty floor under it. Do not crop the bottom.'
-    : '';
-  const squareFit = storyFrame
+    : '');
+  const squareFit = wallStory
+    ? 'VERTICAL FIT: Wall scene, 9:16. Ribbon length stays exactly as in the source. Do not lengthen ribbons. Keep the bottom of the set as in the original. Add studio wall ABOVE the balloons to fill the taller frame. Do not lift the product and do not stretch tails to the bottom edge. Circles stay circles. Do not rebuild the product.\n\n'
+    : (storyFrame
     ? 'VERTICAL FIT: 9:16 story, the same rule for every product. Do not slide the arrangement up or down. Keep every balloon and every ribbon tip inside the frame, uncropped and not stretched. Do not add a large empty floor. Do not crop the bottom. Circles stay circles. Do not rebuild the product, digits, lettering, or balloon count.\n\n'
     : (keepBg
     ? 'SQUARE FIT: Do not stretch or squash the photo to fill 1:1. Circles stay circles. Do not rebuild the product, digits, lettering, or balloon count.\n\n'
-    : 'SQUARE FIT: Do not stretch or squash the source to fill 1:1. Circles stay circles. Replace empty margins and the original room with the studio from the SECOND reference. Do not rebuild the product, digits, lettering, or balloon count.\n\n');
+    : 'SQUARE FIT: Do not stretch or squash the source to fill 1:1. Circles stay circles. Replace empty margins and the original room with the studio from the SECOND reference. Do not rebuild the product, digits, lettering, or balloon count.\n\n'));
   const sunburstPrompt = squareFit + prompt + roomHint + storyPlace;
   const attempts = [];
 
@@ -2921,6 +2926,8 @@ async function handleStudioRephotograph(request, env) {
   let prompt = buildRephotographPrompt(scene, { photozone_type, unit_type, bouquet_type, surprise_pose, bauble_pose });
   if (frame === 'post') {
     prompt += '\n\nOUTPUT 4:5 portrait. Keep the ENTIRE balloon arrangement fully inside the frame: every balloon, digit, character and ribbon tip complete, with studio wall visible around the set. Do not crop, do not zoom in, do not cut off any balloon.';
+  } else if (frame === 'story' && scene === 'wall_only') {
+    prompt += '\n\nOUTPUT 9:16, wall scene only. Ignore any 1:1 line above. Keep ribbon length exactly as in the source. Do not draw longer ribbons. Leave the bottom of the arrangement as in the original. Fill the extra height with studio wall ABOVE the balloons. Do not lift the set and do not stretch the tails downward.';
   } else if (frame === 'story') {
     prompt += '\n\nOUTPUT 9:16 vertical, not a square. Ignore any 1:1 line above. Same framing for every product: do not slide the arrangement up or down. Every balloon and every ribbon tip stays inside the frame, uncropped and not stretched. Do not add a large empty floor. Do not crop the bottom.';
   }

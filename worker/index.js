@@ -1214,12 +1214,31 @@ function socialTrack(raw) {
 }
 
 function socialCaption(raw) {
-  const lines = String(raw || '')
-    .replace(/\r/g, '')
-    .split('\n')
-    .map((line) => line.replace(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\u{FE0F}\u{200D}]/gu, '').trimEnd())
-    .filter((line) => line.trim() && !/^\s*#/.test(line));
-  return lines.slice(0, 6).join('\n').replace(/\n{3,}/g, '\n\n').trim().slice(0, 700);
+  const kept = [];
+  String(raw || '').replace(/\r/g, '').split('\n').forEach((line) => {
+    const clean = line.replace(/[ \t]+$/g, '');
+    if (/^\s*#/.test(clean)) return;
+    kept.push(clean);
+  });
+  while (kept.length && !kept[0].trim()) kept.shift();
+  while (kept.length && !kept[kept.length - 1].trim()) kept.pop();
+  const out = [];
+  let blank = 0;
+  let content = 0;
+  for (const line of kept) {
+    if (!line.trim()) {
+      blank += 1;
+      if (blank === 1 && out.length) out.push('');
+      continue;
+    }
+    blank = 0;
+    content += 1;
+    if (content > 8) break;
+    out.push(line.trim());
+  }
+  const body = out.join('\n').replace(/\n*VigSharm\s*[•·\-]\s*Армавир\s*$/i, '').trim().slice(0, 820);
+  if (!body) return '';
+  return body + '\n\nVigSharm • Армавир';
 }
 
 async function handleSocialPost(request, env) {
@@ -1241,15 +1260,22 @@ async function handleSocialPost(request, env) {
   }
 
   const facts = [];
-  if (title) facts.push(`Название в карточке: ${title}`);
-  if (priceDigits) facts.push(`Цена: ${priceDigits} ₽ — можно упомянуть в посте`);
-  if (!facts.length) facts.push('Название и цена не переданы. В посте их не придумывай.');
+  if (title) facts.push(`Название в карточке — только подсказка, в пост копируй, если звучит естественно: ${title}`);
+  if (priceDigits) facts.push(`Цена ${priceDigits} ₽ оператору известна. В пост её не ставь.`);
+  if (!facts.length) facts.push('Название не передано. Имя набора не выдумывай.');
 
-  const systemPrompt = `Ты пишешь короткий пост для Instagram студии воздушных шаров VigSharm в Армавире.
-Смотри на приложенное фото. Верни ТОЛЬКО JSON:
+  const systemPrompt = `Ты пишешь пост для Instagram студии воздушных шаров VigSharm. Смотри на приложенное фото. Верни ТОЛЬКО JSON:
 {"caption":"...","hashtags":["тег"],"ig_track":{"title":"...","artist":"...","why":"..."},"vk_track":{"title":"...","artist":"...","why":"..."}}
-caption: 2–4 короткие строки на русском, тон живой и спокойный. Без хэштегов, без названия песни, без эмодзи. Последняя строка приглашает написать в директ или оставить заявку на vigsharm.ru, город Армавир.
+caption — короткий пост про этот кадр.
+Форма: первая строка про то, что видно на фото, смайлик в конце строки. Пустая строка. Одна или две фразы: палитра и что получилось, смайлик в конце. Подпись «VigSharm • Армавир» не пиши — её добавит система.
+Вместе с пустыми строками выходит 4–6 строк. По-русски, тепло и конкретно. На весь текст 2–4 смайлика, только в конце строк.
+Не ставь цену, сайт, телефон, «пишите в директ», WhatsApp, город отдельной строкой и хэштеги.
+Не используй заготовки: «нежность в каждой детали», «искренние эмоции», «запомнится надолго», «идеальный вариант», «памятные фотографии», «подберём под ваш праздник».
 Персонаж, надпись, повод и цифры бери только если они видны на фото.
+Пример только про форму, сюжет придумай по фото:
+День рождения в стиле LOL — с золотой семёркой, любимыми героинями и большой коробкой-сюрпризом 💖
+
+Розовый, золото и немного блеска — получилось ярко, празднично и очень по-девичьи 💕
 hashtags: ровно 8 тематических тегов без решётки, одним словом, строчными буквами, про эту работу. Теги «вигшарм» и «армавир» не ставь. Запрещённые теги не повторяй.
 ig_track — песня для поиска в музыке Instagram. vk_track — песня для поиска во ВКонтакте. Обе реальные, по настроению фото. title и artist пиши точно. why — одна короткая фраза по-русски, почему трек подходит. Без ссылок.`;
 

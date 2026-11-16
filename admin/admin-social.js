@@ -91,6 +91,10 @@
       this._socialCropImg = null;
       this._socialCropPx = null;
       this._socialCropLoad = (this._socialCropLoad || 0) + 1;
+      if (this._socialCropBlob) {
+        URL.revokeObjectURL(this._socialCropBlob);
+        this._socialCropBlob = '';
+      }
       this.closeSocialCrop();
     },
 
@@ -195,7 +199,7 @@
       if (slider && frame) slider.value = String(Math.round(frame.scale * 100));
     },
 
-    loadSocialCropImage() {
+    async loadSocialCropImage() {
       const url = this.socialSourceUrl();
       const imgEl = document.getElementById('studio-social-crop-img');
       if (!imgEl) return;
@@ -210,20 +214,41 @@
         this._socialCropImg = imgEl;
         this.layoutSocialCrop();
       };
-      imgEl.onload = finish;
-      imgEl.onerror = () => {
+      const fail = () => {
         if (token !== this._socialCropLoad) return;
         this._socialCropImg = null;
         this.toast('Фото не открылось для кропа', 'error');
       };
-      if (/^https?:/i.test(url)) imgEl.crossOrigin = 'anonymous';
-      else imgEl.removeAttribute('crossorigin');
-      const current = imgEl.getAttribute('src') || '';
-      if (current === url && imgEl.complete && imgEl.naturalWidth) {
+      imgEl.onload = finish;
+      imgEl.onerror = fail;
+      imgEl.removeAttribute('crossorigin');
+      if (imgEl.dataset.socialSrc === url && imgEl.complete && imgEl.naturalWidth) {
         finish();
         return;
       }
-      imgEl.src = url;
+      let src = url;
+      if (/^https?:/i.test(url)) {
+        try {
+          const res = await fetch(`${this.workerUrl}/api/admin/proxy-image`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', ...this.authHeaders() },
+            body: JSON.stringify({ url })
+          });
+          if (token !== this._socialCropLoad) return;
+          if (!res.ok) throw new Error('proxy ' + res.status);
+          const blob = await res.blob();
+          if (token !== this._socialCropLoad) return;
+          src = URL.createObjectURL(blob);
+          if (this._socialCropBlob && this._socialCropBlob !== src) URL.revokeObjectURL(this._socialCropBlob);
+          this._socialCropBlob = src;
+        } catch (err) {
+          console.error('[social crop]', err);
+          fail();
+          return;
+        }
+      }
+      imgEl.dataset.socialSrc = url;
+      imgEl.src = src;
     },
 
     layoutSocialCrop() {

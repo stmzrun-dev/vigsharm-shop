@@ -1161,13 +1161,15 @@ Object.assign(app, {
       }
       if (gen !== this._studioStoryGen) return;
       if (!/^https?:\/\//i.test(url)) throw new Error('Сторис не сохранился');
-      if (statusEl) statusEl.textContent = 'Поджимаю края кадра…';
-      try {
-        const fitted = await this.fitStudioStoryEdges(url);
-        if (gen !== this._studioStoryGen) return;
-        if (fitted) url = fitted;
-      } catch (err) {
-        console.warn('[Studio Pro] story edges', err);
+      if (scene !== 'wall_only') {
+        if (statusEl) statusEl.textContent = 'Поджимаю края кадра…';
+        try {
+          const fitted = await this.fitStudioStoryEdges(url);
+          if (gen !== this._studioStoryGen) return;
+          if (fitted) url = fitted;
+        } catch (err) {
+          console.warn('[Studio Pro] story edges', err);
+        }
       }
       if (gen !== this._studioStoryGen) return;
       this.clearSocialStoryCrops?.();

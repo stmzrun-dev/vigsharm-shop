@@ -766,13 +766,21 @@ body.admin-editor-open{overflow:hidden}
     grid-template-columns:1fr;max-width:none
   }
   #product-form.is-editor-step-2 #block-photos{grid-column:1;grid-row:1}
+  #product-form.is-editor-step-2 #studio-story-panel{grid-column:1;grid-row:2}
   #product-form.is-editor-step-2 #block-essentials,
   #product-form.is-editor-step-2 .essentials-layout-compose{
     grid-column:1;grid-row:2;max-width:none
   }
+  #product-form.is-editor-step-2:has(#studio-story-panel:not(.hidden)) #block-essentials,
+  #product-form.is-editor-step-2:has(#studio-story-panel:not(.hidden)) .essentials-layout-compose{
+    grid-column:1;grid-row:3;max-width:none
+  }
   #product-form.is-editor-step-2 #studio-compare-fold{grid-column:1;grid-row:3}
   #product-form.is-editor-step-2 #sign-text-editor{grid-column:1;grid-row:4}
   #product-form.is-editor-step-2 #block-main{grid-column:1;grid-row:5}
+  #product-form.is-editor-step-2:has(#studio-story-panel:not(.hidden)) #studio-compare-fold{grid-column:1;grid-row:4}
+  #product-form.is-editor-step-2:has(#studio-story-panel:not(.hidden)) #sign-text-editor{grid-column:1;grid-row:5}
+  #product-form.is-editor-step-2:has(#studio-story-panel:not(.hidden)) #block-main{grid-column:1;grid-row:6}
   #product-form.is-editor-step-2 .step1-photo-col .photo-item img{max-height:min(42vh,360px)}
   #product-form.is-editor-step-2 #ai-fill-block{order:0}
   #product-form.is-editor-step-2 #product-price{max-width:none}

@@ -2912,12 +2912,12 @@ function buildRephotographAttempts(imageUrl, referenceUrl, prompt, resolution = 
   const storyFrame = opts.frame === 'story' || aspect === '9:16';
   const wallStory = storyFrame && scene === 'wall_only';
   const storyPlace = wallStory
-    ? '\n\nWALL STORY: Keep the ribbon length from the source. Do not draw longer ribbons. The bottom of the arrangement stays as in the original photo. Fill the extra 9:16 height with studio wall ABOVE the balloons only. Do not lift the balloons and stretch the tails down.'
+    ? '\n\nWALL STORY: Keep a narrow strip of the same studio wall on BOTH the left and the right, similar on both sides. Do not crop any balloon, including the leftmost one. Do not draw longer ribbons. If a ribbon hangs below the balloons, shift the whole set slightly DOWN so that ribbon leaves the bottom edge. Do not leave the ribbon tip floating on the wall. Put the spare wall above the set.'
     : (storyFrame
     ? '\n\nSTORY, SAME FOR EVERY PRODUCT: Do not slide the arrangement up or down and do not treat this photo as a special case. 9:16 studio frame. Keep the set as it is: every balloon and every ribbon tip inside the frame, uncropped and not stretched. Do not add a large empty floor under it. Do not crop the bottom.'
     : '');
   const squareFit = wallStory
-    ? 'VERTICAL FIT: Wall scene, 9:16. Ribbon length stays exactly as in the source. Do not lengthen ribbons. Keep the bottom of the set as in the original. Add studio wall ABOVE the balloons to fill the taller frame. Do not lift the product and do not stretch tails to the bottom edge. Circles stay circles. Do not rebuild the product.\n\n'
+    ? 'VERTICAL FIT: Wall scene, 9:16. Narrow studio wall on BOTH sides, similar gaps, do not crop the side balloons. Do not lengthen ribbons. If a ribbon hangs below the balloons, shift the whole set slightly DOWN so that ribbon leaves the bottom edge. Spare wall goes above. Circles stay circles. Do not rebuild the product.\n\n'
     : (storyFrame
     ? 'VERTICAL FIT: 9:16 story, the same rule for every product. Do not slide the arrangement up or down. Keep every balloon and every ribbon tip inside the frame, uncropped and not stretched. Do not add a large empty floor. Do not crop the bottom. Circles stay circles. Do not rebuild the product, digits, lettering, or balloon count.\n\n'
     : (keepBg
@@ -3103,7 +3103,7 @@ async function handleStudioRephotograph(request, env) {
   if (frame === 'post') {
     prompt += '\n\nOUTPUT 4:5 portrait. Keep the ENTIRE balloon arrangement fully inside the frame: every balloon, digit, character and ribbon tip complete, with studio wall visible around the set. Do not crop, do not zoom in, do not cut off any balloon.';
   } else if (frame === 'story' && scene === 'wall_only') {
-    prompt = 'This photo is already the finished VigSharm studio card. Output 9:16. Do not rebuild the balloons, digits, lettering, or ribbons. Keep ribbon length exactly as in this photo. Do not draw longer ribbons. Fill the extra height with the same studio wall ABOVE the balloons only. Do not lift the set. Do not bring back the old room, flowers, or furniture.';
+    prompt = 'This photo is already the finished VigSharm studio card. Output 9:16. Do not rebuild the balloons, digits, lettering, or ribbons. Do not draw longer ribbons. Keep a narrow strip of the same studio wall on BOTH the left and the right, similar on both sides. Do not crop any balloon, including the leftmost one. If a ribbon hangs below the balloons, shift the whole set slightly DOWN so that ribbon leaves the bottom edge. Do not leave the ribbon tip floating on the wall. Put the spare wall above the set. Do not bring back the old room, flowers, or furniture.';
   } else if (frame === 'story') {
     prompt = 'This photo is already the finished VigSharm studio card. Output 9:16. Do not rebuild the balloons, digits, lettering, or ribbons. Keep the product and the studio already in this photo. Do not restore flowers, furniture, or colors from an older room, including the view through a digit hole. Do not add a large empty floor. Do not crop the product.';
   }

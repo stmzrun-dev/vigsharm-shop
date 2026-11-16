@@ -1238,9 +1238,13 @@ function socialCaption(raw) {
     if (content > 12) break;
     out.push(line.trim());
   }
-  const body = out.join('\n').replace(/\n*VigSharm\s*[•·\-]\s*Армавир\s*$/i, '').trim().slice(0, 1200);
+  const body = out.join('\n')
+    .replace(/\n*VigSharm\s*[•·\-]\s*Армавир\s*$/i, '')
+    .replace(/\n*https?:\/\/(?:www\.)?vigsharm\.ru\/?\s*$/i, '')
+    .trim()
+    .slice(0, 1200);
   if (!body) return '';
-  return body + '\n\nVigSharm • Армавир';
+  return body + '\n\nVigSharm • Армавир\nhttps://vigsharm.ru';
 }
 
 async function handleSocialPost(request, env) {
@@ -1285,7 +1289,7 @@ async function handleSocialPost(request, env) {
 
 💌 Для заказа и консультации пишите в личные сообщения.
 Имя и цифру пиши, только если они читаются на фото. Не выдумывай героя и надпись, которых нет. Не ставь цену, телефон, сайт и хэштеги в текст поста.
-hashtags: ровно 8 тематических тегов без решётки, одним словом, строчными русскими буквами, только про то, что видно: герой, цвета, повод. Латиницу в русское слово не вмешивай. Не ставь тег про дату, если на шаре возраст, а не число дня. Теги «вигшарм» и «армавир» не ставь. Запрещённые теги не повторяй.
+hashtags: ровно 5 тегов без решётки, одним словом, строчными русскими буквами, только про ЭТОТ кадр: герой, цвет или повод. Общие теги вроде «воздушныешары» не пиши — их добавит система. Латиницу в русское слово не вмешивай. Не ставь тег про дату, если на шаре возраст, а не число дня. Теги «вигшарм» и «армавир» не ставь. Запрещённые теги не повторяй.
 ig_track — песня для поиска в музыке Instagram. vk_track — песня для поиска во ВКонтакте. Обе реальные, по настроению фото. title и artist пиши точно. why — одна короткая фраза по-русски, почему трек подходит. Без ссылок.`;
 
   const userPrompt = `${facts.join('\n')}
@@ -1333,8 +1337,13 @@ ${avoid.length ? avoid.join(', ') : 'нет'}
   const caption = socialCaption(data.caption);
   if (!caption) return json({ ok: false, error: 'ИИ не написал пост — нажмите ещё раз' }, 502);
 
+  const reach = ['воздушныешары', 'шарыназаказ', 'гелиевыешары', 'шарыармавир', 'доставкашаров'];
   const hashtags = [];
   const used = new Set(seenAvoid);
+  for (const tag of reach) {
+    used.add(tag);
+    hashtags.push(tag);
+  }
   const pool = Array.isArray(data.hashtags) ? data.hashtags : [];
   for (const item of pool) {
     const tag = socialTag(item);

@@ -5,6 +5,7 @@
 
   const TAG_KEY = 'vigsharm-social-tags';
   const BRAND_TAGS = ['вигшарм', 'армавир'];
+  const REACH_TAGS = ['воздушныешары', 'шарыназаказ', 'гелиевыешары', 'шарыармавир', 'доставкашаров'];
   const SOCIAL_SLOTS = [
     { id: 'card-45', source: 'card', label: 'Пост 4:5', file: 'vigsharm-post-4x5.jpg', outW: 1080, outH: 1350, scale: 1, cx: 0.5, cy: 0.5 },
     { id: 'card-11', source: 'card', label: 'Квадрат 1:1', file: 'vigsharm-post-1x1.jpg', outW: 1080, outH: 1080, scale: 1, cx: 0.5, cy: 0.5 },
@@ -44,7 +45,7 @@
     const next = [];
     readTagMemory().concat(tags).forEach((item) => {
       const tag = normTag(item);
-      if (!tag || seen.has(tag) || BRAND_TAGS.includes(tag)) return;
+      if (!tag || seen.has(tag) || BRAND_TAGS.includes(tag) || REACH_TAGS.includes(tag)) return;
       seen.add(tag);
       next.push(tag);
     });

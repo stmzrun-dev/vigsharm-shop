@@ -395,6 +395,16 @@ body.admin-editor-open{overflow:hidden}
 .studio-ai-toggle.is-disabled{opacity:.55;cursor:not-allowed}
 
 /* Studio compare: original | canvas | AI */
+.studio-story-panel{
+  display:flex;gap:12px;align-items:flex-start;
+  margin:0 0 12px;padding:10px;border:1px solid #E0E0E0;border-radius:12px;background:#FAFAFA
+}
+.studio-story-panel.hidden{display:none!important}
+.studio-story-panel img{
+  width:72px;height:128px;object-fit:cover;border-radius:8px;background:#fff;flex:0 0 auto
+}
+.studio-story-panel-body{display:flex;flex-direction:column;align-items:flex-start;gap:8px;min-width:0}
+.studio-story-status{margin:0;font-size:13px;color:#616161;line-height:1.4}
 .studio-compare-fold{margin-top:12px}
 .studio-compare-fold.hidden{display:none!important}
 .studio-compare-fold > summary{
@@ -648,6 +658,11 @@ body.admin-editor-open{overflow:hidden}
 #tab-create #product-form.is-editor-step-2.is-multi-photo #photos-grid .photo-item img{
   height:150px;max-height:150px;object-fit:cover
 }
+#product-form.is-editor-step-2 #studio-story-panel{
+  grid-column:1;grid-row:2;margin:8px 0 0
+}
+#product-form.is-editor-step-2:has(#studio-story-panel:not(.hidden)) #studio-compare-fold{grid-row:3}
+#product-form.is-editor-step-2:has(#studio-story-panel:not(.hidden)) #sign-text-editor{grid-row:4}
 #product-form.is-editor-step-2 #studio-compare-fold{
   grid-column:1;grid-row:2;
   margin:0;padding:0;border:none;background:transparent;font-size:12px

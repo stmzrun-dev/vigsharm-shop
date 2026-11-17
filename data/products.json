@@ -712,8 +712,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-11-10T11:05:21.903Z",
-      "updated_at": "2026-11-10T12:44:10.015Z",
-      "thumb_photo": null
+      "updated_at": "2026-11-16T17:26:13.093Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/39082852-11d7-49d0-9aea-dfddbccbc170.webp"
     },
     {
       "id": "51bf42af-2eb5-4cf7-8df4-0d025055bc57",
@@ -1606,7 +1606,7 @@
         "floor_type": "air",
         "digit_choice": {
           "enabled": true,
-          "count_on_photo": 2
+          "count_on_photo": 1
         }
       },
       "photos": [
@@ -1616,8 +1616,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-11-09T08:51:45.604Z",
-      "updated_at": "2026-11-09T08:51:45.604Z",
-      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/c7c533ca-0078-4b34-b0ac-ccfb2a2f3718.webp"
+      "updated_at": "2026-11-16T20:04:15.336Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/d5f5397b-9679-42a6-8898-6dd911f81c27.webp"
     },
     {
       "id": "9ee4e724-4d4b-49b3-bc73-0014c11442f3",
@@ -2287,8 +2287,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-11-05T07:37:22.949Z",
-      "updated_at": "2026-11-05T07:37:22.949Z",
-      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/2f6a0914-2565-4264-98ea-67ed690f8ca3.webp"
+      "updated_at": "2026-11-16T15:12:44.086Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/c4f04c36-02db-452b-a32a-6b2017545b6a.webp"
     },
     {
       "id": "5dc02e22-5040-4c0d-8747-8f8bb6a74a4f",
@@ -3376,8 +3376,8 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-11-01T07:33:57.341Z",
-      "updated_at": "2026-11-01T07:33:57.341Z",
-      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/12a7bbfc-5c16-4b6b-888a-360c1b5d5667.webp"
+      "updated_at": "2026-11-16T19:08:01.369Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/f67b47e7-4966-4bb5-b9ab-3279aaab5537.webp"
     },
     {
       "id": "056a5bdd-cb57-4801-bf3b-19cec496b313",

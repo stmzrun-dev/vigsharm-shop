@@ -60,6 +60,143 @@
       "thumb_photo": "https://vigsharm.ru/preview/bauble-feather-box.webp?v=1"
     },
     {
+      "id": "b7bf2ade-3a32-47a4-9337-40888c70d350",
+      "title": "Черновик",
+      "article": null,
+      "price": 4500,
+      "short_description": "",
+      "full_description": "",
+      "composition": [
+        "фигура, 2 звезды, 2 шара хром, 6 шаров, 2 напольные композиции"
+      ],
+      "category": "",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "babochka-rozovaya-3",
+      "scene": "floor",
+      "tags": [],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/1f8bc337-e1a2-4520-9b7c-ed61c850d7be.jpg",
+        "photo_dhash": "9c989c8cc67accac"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/c8f81af3-5bd9-44cc-ad1b-cbdf2c289eb3.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/c8f81af3-5bd9-44cc-ad1b-cbdf2c289eb3.jpg",
+      "status": "draft",
+      "show_on_site": false,
+      "created_at": "2026-11-17T18:54:37.755Z",
+      "updated_at": "2026-11-17T18:54:37.755Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/ddd90211-1f5e-4c9d-91e6-2a431e7d9d1e.webp"
+    },
+    {
+      "id": "00087bdc-9c3e-44c1-864d-39d1f200cd46",
+      "title": "Единорог большой",
+      "article": "UNT-115",
+      "price": 700,
+      "short_description": "Единорог большой",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": "Единорог",
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": "Единорог",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "babochka-rozovaya-2",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/eb1b660a-1f00-4ff6-a09a-e37d5a5a3a6c.webp",
+        "photo_dhash": "0c00695ac41e1d1f",
+        "unit_type": "foil",
+        "balloon_size": "114 см",
+        "unit_who": [
+          "Для девочки"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/b1979f58-661c-4fd7-918b-0bad147ade5e.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/b1979f58-661c-4fd7-918b-0bad147ade5e.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-11-17T18:40:13.212Z",
+      "updated_at": "2026-11-17T18:40:13.212Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/e60cdc90-9969-4f31-99a5-6d344c36a3ee.webp"
+    },
+    {
+      "id": "fd3b3997-1b67-4f6f-8d17-8abc72b7e5c6",
+      "title": "Бабочка Розовая",
+      "article": "UNT-114",
+      "price": 550,
+      "short_description": "Бабочка Розовая",
+      "full_description": "",
+      "composition": [],
+      "category": "Шары поштучно",
+      "character": "Бабочка",
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": "Бабочка",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "babochka-rozovaya",
+      "scene": "unit_balloon",
+      "tags": [
+        "Шары поштучно",
+        "Фольгированные фигуры",
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/a620f2ad-7b43-4e6c-98a8-c3a4b6dd77f2.webp",
+        "photo_dhash": "6f1fd45050280000",
+        "unit_type": "foil",
+        "balloon_size": "87 см",
+        "unit_who": [
+          "Для девочки"
+        ]
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/efee0736-5c5a-42d7-9a9a-63a20216fa9b.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/efee0736-5c5a-42d7-9a9a-63a20216fa9b.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-11-17T18:37:48.036Z",
+      "updated_at": "2026-11-17T18:37:48.036Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/b86c050e-23b6-4771-86d3-012de3bf7eb9.webp"
+    },
+    {
       "id": "953ee0a2-d526-4847-89a2-b2f5e15692bb",
       "title": "С перчинкой",
       "article": "HER-062",

@@ -60,6 +60,48 @@
       "thumb_photo": "https://vigsharm.ru/preview/bauble-feather-box.webp?v=1"
     },
     {
+      "id": "72436d49-07f8-4ae1-bebf-082b3fbe0885",
+      "title": "Черновик",
+      "article": null,
+      "price": 0,
+      "short_description": "",
+      "full_description": "",
+      "composition": [],
+      "category": "Букет из шаров",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "chernovik-2",
+      "scene": "handheld_bouquet",
+      "tags": [
+        "Букет из шаров"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/ef16c20d-818a-4e2f-aeea-3515f5dc5313.jpg",
+        "photo_dhash": "1f13331e1f1f1f1f",
+        "bouquet_type": "foil"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/21ae28d5-b8af-41c5-9b15-0ee468119934.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/21ae28d5-b8af-41c5-9b15-0ee468119934.jpg",
+      "status": "draft",
+      "show_on_site": false,
+      "created_at": "2026-11-18T08:04:39.920Z",
+      "updated_at": "2026-11-18T08:04:39.920Z",
+      "thumb_photo": null
+    },
+    {
       "id": "b7bf2ade-3a32-47a4-9337-40888c70d350",
       "title": "Черновик",
       "article": null,

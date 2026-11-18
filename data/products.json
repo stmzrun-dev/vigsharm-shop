@@ -60,6 +60,246 @@
       "thumb_photo": "https://vigsharm.ru/preview/bauble-feather-box.webp?v=1"
     },
     {
+      "id": "5bae36e1-3d92-4f7a-8d8e-57433dece789",
+      "title": "Рубеж геймера",
+      "article": "GMR-012",
+      "price": 5540,
+      "short_description": "Зелёно-чёрная композиция с игровым джойстиком и звездой с именем.",
+      "full_description": "Зелёно-чёрная композиция с фольгированной звездой с именинной надписью и фигурой игрового джойстика. В комплекте шары с конфетти, хромированные и латексные шары.",
+      "composition": [
+        "большая звезда с надписью",
+        "фигура",
+        "4 шара с конфетти",
+        "2 шара хром",
+        "14 шаров"
+      ],
+      "category": "Геймерам",
+      "character": null,
+      "age_group": "Для детей",
+      "budget": "5 000–8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Воздушные шары для геймера на 5 лет в Армавире",
+      "seo_description": "Зелёно-чёрная композиция с игровым джойстиком и звездой с надписью. Доставка воздушных шаров для мальчика-геймера в Армавире.",
+      "slug": "igrovaya-pyaterka",
+      "scene": "wall_only",
+      "tags": [
+        "Геймерам"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/15571a49-58f0-43db-b22b-723975169df6.jpg",
+        "photo_dhash": "8697adb8e8f0d89a"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/ac4317d3-9548-4838-8d3e-da667c3197bf.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/ac4317d3-9548-4838-8d3e-da667c3197bf.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-11-18T10:39:01.255Z",
+      "updated_at": "2026-11-18T10:39:01.255Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/823a9b1a-4465-408a-b4b7-b6508a23ea51.webp"
+    },
+    {
+      "id": "cf0c806c-c3ae-4c1a-8130-73267e63c00b",
+      "title": "Блеск и фуксия",
+      "article": "GRL-206",
+      "price": 4860,
+      "short_description": "Напольная композиция с серебряной цифрой, фонтанами из розовых и серебряных шаров с конфетти",
+      "full_description": "Напольная композиция с крупной серебряной цифрой в центре. Два фонтана из розовых, фуксия, серебряных шаров и шаров с конфетти, фольгированные серебряные сердца.",
+      "composition": [
+        "2 сердца",
+        "4 шара хром",
+        "2 шара с конфетти",
+        "12 шаров",
+        "напольная композиция"
+      ],
+      "category": "Для девочки",
+      "character": null,
+      "age_group": "Для детей",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Розовый вихрь — напольная композиция с шарами, Армавир",
+      "seo_description": "Напольная композиция с серебряной цифрой, розовыми и фуксия шарами, серебряными сердцами и конфетти. Доставка воздушных шаров в Армавире.",
+      "slug": "rozovyj-vihr",
+      "scene": "floor",
+      "tags": [
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": true,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/84847d83-a671-40f8-87d8-b31800cfe0fa.jpg",
+        "photo_dhash": "c2ccccfc73306385",
+        "floor_type": "air",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/2e025f2e-61c2-4628-8c06-4519e1cbe81d.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/2e025f2e-61c2-4628-8c06-4519e1cbe81d.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-11-18T10:34:15.349Z",
+      "updated_at": "2026-11-18T10:34:15.349Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/379b0ba7-3d37-4f8d-9852-b1a78993da73.webp"
+    },
+    {
+      "id": "dcf6a54e-fb7a-4cfc-8f93-7ee14d7bdc0c",
+      "title": "Ночной дракон",
+      "article": "BOY-130",
+      "price": 2470,
+      "short_description": "Чёрный дракон с зелёными глазами, звезда с надписью и чёрно-зелёные шары.",
+      "full_description": "Композиция с фигурой Беззубика из «Как приручить дракона», чёрной звездой с надписью и латексными шарами.",
+      "composition": [
+        "8 латексных шаров",
+        "фигура",
+        "звезда с надписью"
+      ],
+      "category": "Для мальчика",
+      "character": "Беззубик",
+      "age_group": "Для детей",
+      "budget": "2 000–3 500 ₽",
+      "series_name": "Как приручить дракона",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары с драконом Беззубиком для мальчика — Армавир",
+      "seo_description": "Композиция с фигурой дракона Беззубика, чёрной звездой с надписью и чёрно-зелёными шарами. Доставка воздушных шаров в Армавире.",
+      "slug": "nochnoj-drakon",
+      "scene": "wall_only",
+      "tags": [
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/cb6df532-1c1f-4a0b-9d29-13c2ccf74d10.jpg",
+        "photo_dhash": "cede8cc4f498d8cd"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/93232897-065e-49a9-8d66-869e31a221e1.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/93232897-065e-49a9-8d66-869e31a221e1.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-11-18T10:25:23.410Z",
+      "updated_at": "2026-11-18T10:25:23.410Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/e0604334-f9cb-4a03-8371-cc0810b86cfe.webp"
+    },
+    {
+      "id": "aff4d044-bc3d-45fc-bc81-6747d75b16cc",
+      "title": "Семейная поездка",
+      "article": "GRL-205",
+      "price": 4900,
+      "short_description": "Красная машина с тремя котами, стеклянный баблс с надписью и яркие шары.",
+      "full_description": "Композиция с фольгированной фигурой красной машины, в которой едут три кота. Дополнена стеклянным баблсом с золотой надписью и 10 латексными шарами.",
+      "composition": [
+        "стеклянный баблс с надписью",
+        "фигура",
+        "10 шаров"
+      ],
+      "category": "Для девочки",
+      "character": "Три кота",
+      "age_group": "Для детей",
+      "budget": "3 500–5 000 ₽",
+      "series_name": "Три кота",
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары Три кота в машине для мальчика — Армавир",
+      "seo_description": "Композиция с фольгированной машиной и героями мультсериала Три кота, стеклянным баблсом с надписью и яркими шарами. Доставка в Армавире.",
+      "slug": "tri-kota-za-rulyom",
+      "scene": "wall_only",
+      "tags": [
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/97704540-51e9-4a1f-949d-80ad4b5f518d.jpg",
+        "photo_dhash": "c4cccee8a8b0c444"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/32b09244-54d5-4b02-bd40-4c6527034edc.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/32b09244-54d5-4b02-bd40-4c6527034edc.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-11-18T10:23:13.764Z",
+      "updated_at": "2026-11-18T10:23:13.764Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/112d83b0-48f3-4bfe-a136-eb6ad6321a89.webp"
+    },
+    {
+      "id": "02d753e5-a4ef-419a-a453-9e9ec47cf507",
+      "title": "Служба порядка",
+      "article": "BOY-129",
+      "price": 4700,
+      "short_description": "Полицейская машина и вертолёт с яркими шарами для маленького защитника.",
+      "full_description": "Композиция с полицейской машиной и вертолётом на фоне синих и серебряных шаров.",
+      "composition": [
+        "фигура",
+        "2 звезды",
+        "2 шара хром",
+        "6 шаров",
+        "2 напольные композиции"
+      ],
+      "category": "Для мальчика",
+      "character": null,
+      "age_group": "Для малышей",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Полицейский патруль — шары с машиной и вертолётом в Армавире",
+      "seo_description": "Композиция с полицейской машиной и вертолётом для малыша. Синие и серебряные шары с фигурами техники. Доставка в Армавире.",
+      "slug": "politseyskiy-patrul",
+      "scene": "floor",
+      "tags": [
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/fbb0b483-41c5-4189-874a-3b40f8178f6b.jpg",
+        "photo_dhash": "9c989c8cc67accac",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/d856ca99-d6ec-4d6d-962f-07b9345dd103.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/d856ca99-d6ec-4d6d-962f-07b9345dd103.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-11-18T10:15:40.363Z",
+      "updated_at": "2026-11-18T10:15:40.363Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/61e49d2e-ca7a-4e7b-bdff-e7503c5fe1f9.webp"
+    },
+    {
       "id": "72436d49-07f8-4ae1-bebf-082b3fbe0885",
       "title": "Черновик",
       "article": null,

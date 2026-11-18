@@ -60,6 +60,53 @@
       "thumb_photo": "https://vigsharm.ru/preview/bauble-feather-box.webp?v=1"
     },
     {
+      "id": "e19802ad-6960-4df4-9994-8c5d42e30f4b",
+      "title": "Бензин в крови",
+      "article": "BOY-131",
+      "price": 3230,
+      "short_description": "Композиция с мотоциклом, канистрой бензина и оранжевым акцентом",
+      "full_description": "Настенная композиция в чёрно-серебристой гамме с фигурой мотоцикла, канистрой АИ-95 и оранжевым кругом. Брутальный стиль для любителей мототехники и скорости.",
+      "composition": [
+        "2 фигуры",
+        "2 шара хром",
+        "круг",
+        "круг с надписью",
+        "3 шара"
+      ],
+      "category": "Для мальчика",
+      "character": null,
+      "age_group": "Для подростков",
+      "budget": "2 000–3 500 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Композиция с мотоциклом из шаров — Армавир | VigSharm",
+      "seo_description": "Брутальная настенная композиция с мотоциклом и канистрой бензина в чёрно-серебристых тонах. Для мальчика-подростка. Доставка в Армавире.",
+      "slug": "benzin-v-krovi",
+      "scene": "wall_only",
+      "tags": [
+        "Для мальчика"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/765d1b2e-0572-495c-b1b5-c23a2a2eec00.jpg",
+        "photo_dhash": "460338392ec7e7d0"
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/6dd57f78-c114-4579-9cc8-d4e9b5d57a43.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/6dd57f78-c114-4579-9cc8-d4e9b5d57a43.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-11-18T15:29:01.467Z",
+      "updated_at": "2026-11-18T15:29:01.467Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/9410ab5b-5059-4f47-99a6-c3e5b95de59d.webp"
+    },
+    {
       "id": "5bae36e1-3d92-4f7a-8d8e-57433dece789",
       "title": "Рубеж геймера",
       "article": "GMR-012",

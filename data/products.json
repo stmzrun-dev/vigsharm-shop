@@ -60,6 +60,56 @@
       "thumb_photo": "https://vigsharm.ru/preview/bauble-feather-box.webp?v=1"
     },
     {
+      "id": "27cd0a73-4391-49a5-a305-a751abaa5a57",
+      "title": "Крылья и копыта",
+      "article": "GRL-208",
+      "price": 4270,
+      "short_description": "Розово-мятная композиция с единорогом, бабочкой, цифрой и золотыми сердцами для девочки.",
+      "full_description": "Фольгированный единорог в мятно-лавандовых тонах и розовая бабочка с золотым декором окружают пастельную цифру. Розовые шары и золотые сердца дополняют нежный образ.",
+      "composition": [
+        "2 фигуры",
+        "цифра",
+        "2 сердца",
+        "8 шаров"
+      ],
+      "category": "Для девочки",
+      "character": "Единорог",
+      "age_group": "Для малышей",
+      "budget": "3 500–5 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Шары для девочки с единорогом и бабочкой — Армавир",
+      "seo_description": "Нежная фольгированная композиция с единорогом, бабочкой, цифрой, золотыми сердцами и розовыми шарами. Оформление дня рождения девочки в Армавире.",
+      "slug": "lunnyj-galop",
+      "scene": "wall_only",
+      "tags": [
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": true,
+        "personal_inscription": false,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/f1a46f6f-5764-454b-b1b2-e99c6b85a005.jpg",
+        "photo_dhash": "8f0c3c34868e9d19",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 1
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/ae14a6f3-20d8-4946-b117-5a397465d766.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/ae14a6f3-20d8-4946-b117-5a397465d766.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-11-19T17:48:15.068Z",
+      "updated_at": "2026-11-19T17:48:15.068Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/ebdd16d8-be5d-4d09-8a6a-5f2047fadd5f.webp"
+    },
+    {
       "id": "845d3dfe-6493-4668-b5e3-6724869ec52b",
       "title": "Бантик и бабочка",
       "article": "GRL-207",
@@ -520,14 +570,14 @@
       "id": "00087bdc-9c3e-44c1-864d-39d1f200cd46",
       "title": "Единорог большой",
       "article": "UNT-115",
-      "price": 700,
+      "price": 800,
       "short_description": "Единорог большой",
       "full_description": "",
       "composition": [],
       "category": "Шары поштучно",
       "character": "Единорог",
       "age_group": "Для любого возраста",
-      "budget": null,
+      "budget": "до 1 000 ₽",
       "series_name": "Единорог",
       "occasion": null,
       "target_audience": null,
@@ -561,7 +611,7 @@
       "status": "published",
       "show_on_site": true,
       "created_at": "2026-11-17T18:40:13.212Z",
-      "updated_at": "2026-11-17T18:40:13.212Z",
+      "updated_at": "2026-11-19T13:15:45.742Z",
       "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/e60cdc90-9969-4f31-99a5-6d344c36a3ee.webp"
     },
     {

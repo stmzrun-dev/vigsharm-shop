@@ -60,6 +60,93 @@
       "thumb_photo": "https://vigsharm.ru/preview/bauble-feather-box.webp?v=1"
     },
     {
+      "id": "845d3dfe-6493-4668-b5e3-6724869ec52b",
+      "title": "Бантик и бабочка",
+      "article": "GRL-207",
+      "price": 5060,
+      "short_description": "Композиция с розовым бантом, бабочкой, цифрами и сердцем с надписью на фоне воздушных шаров.",
+      "full_description": "Фольгированные фигуры бантика и бабочки, розовые и белые латексные шары, сердце с индивидуальной надписью. Идеальный подарок для взрослой женщины на день рождения или особый случай.",
+      "composition": [
+        "2 фигуры",
+        "2 цифры",
+        "сердце с надписью",
+        "9 латексных шаров"
+      ],
+      "category": "Для девочки",
+      "character": null,
+      "age_group": "Для подростков",
+      "budget": "5 000–8 000 ₽",
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "Композиция с бантом и бабочкой на день рождения | VigSharm Армавир",
+      "seo_description": "Фольгированные бант и бабочка, латексные шары, сердце с надписью. Изысканный подарок для взрослой женщины. Доставка в Армавире.",
+      "slug": "bantik-i-babochka",
+      "scene": "floor",
+      "tags": [
+        "Для девочки"
+      ],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": true,
+        "personal_inscription": true,
+        "photozone_rental": false,
+        "studio_original_url": "https://storage.yandexcloud.net/vigsharm-photos/products/c76745b8-4080-4edc-81d8-f7033a5af072.jpg",
+        "photo_dhash": "bc2fd39ac1dcd651",
+        "digit_choice": {
+          "enabled": true,
+          "count_on_photo": 2
+        }
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/cabb7707-13e2-4d8c-9ce7-0bc3397ae994.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/cabb7707-13e2-4d8c-9ce7-0bc3397ae994.jpg",
+      "status": "published",
+      "show_on_site": true,
+      "created_at": "2026-11-19T06:09:57.183Z",
+      "updated_at": "2026-11-19T06:09:57.183Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/cd601f48-b97e-41ea-aa61-c28d0f5c571e.webp"
+    },
+    {
+      "id": "7ee89821-d3ff-42db-b2a4-5926583d02d3",
+      "title": "Черновик",
+      "article": null,
+      "price": 0,
+      "short_description": "",
+      "full_description": "",
+      "composition": [],
+      "category": "",
+      "character": null,
+      "age_group": "Для любого возраста",
+      "budget": null,
+      "series_name": null,
+      "occasion": null,
+      "target_audience": null,
+      "seo_title": "",
+      "seo_description": "",
+      "slug": "chernovik-3",
+      "scene": "arch",
+      "tags": [],
+      "client_options": {
+        "available_on_request": false,
+        "advance_order_1_2_days": false,
+        "number_choice": false,
+        "personal_inscription": false,
+        "photozone_rental": false
+      },
+      "photos": [
+        "https://storage.yandexcloud.net/vigsharm-photos/products/6e530aed-d3d4-4f8e-bf92-be85087051e1.jpg"
+      ],
+      "main_photo": "https://storage.yandexcloud.net/vigsharm-photos/products/6e530aed-d3d4-4f8e-bf92-be85087051e1.jpg",
+      "status": "draft",
+      "show_on_site": false,
+      "created_at": "2026-11-19T05:46:04.579Z",
+      "updated_at": "2026-11-19T05:46:04.579Z",
+      "thumb_photo": "https://storage.yandexcloud.net/vigsharm-photos/products-thumb/bb7937ef-372b-4f0f-a303-27847437a6e6.webp"
+    },
+    {
       "id": "e19802ad-6960-4df4-9994-8c5d42e30f4b",
       "title": "Бензин в крови",
       "article": "BOY-131",
